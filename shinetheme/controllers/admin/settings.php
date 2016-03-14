@@ -25,8 +25,33 @@ if(!class_exists('Traveler_Admin_Setting'))
         }
 
         function register_traveler_booking_sub_menu_page() {
-            add_submenu_page( 'tools.php', 'Settings', 'Settings', 'manage_options', 'traveler_booking_page_settings', array($this,'callback_traveler_booking_sub_menu') );
+
+			$menu_page=$this->get_menu_page();
+            add_submenu_page(
+				$menu_page['parent_slug'],
+				$menu_page['page_title'],
+				$menu_page['menu_title'],
+				$menu_page['capability'],
+				$menu_page['menu_slug'],
+				$menu_page['function']
+			);
         }
+		function get_menu_page()
+		{
+
+			$menu_page=Traveler()->get_menu_page();
+			$page=array(
+				'parent_slug'=>$menu_page['menu_slug'],
+				'page_title'=>__('Settings','traveler-booking'),
+				'menu_title'=>__('Settings','traveler-booking'),
+				'capability'=>'manage_options',
+				'menu_slug'=>'traveler_booking_page_settings',
+				'function'=> array($this,'callback_traveler_booking_sub_menu')
+			);
+
+			return apply_filters('traveler_setting_menu_args',$page);
+
+		}
         function callback_traveler_booking_sub_menu() {
             echo traveler_admin_load_view('admin/settings');
         }

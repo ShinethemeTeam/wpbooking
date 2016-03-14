@@ -7,7 +7,7 @@ $custom_settings = Traveler_Admin_Setting::inst()->_init_settings();
 var_dump($custom_settings);
 ?>
 <div class="wrap">
-    <?php $is_tab = Traveler_Input_Class::request('tab'); ?>
+    <?php $is_tab = Traveler_Input::request('tab'); ?>
     <h2 class="nav-tab-wrapper">
         <?php if(!empty($custom_settings)){
             $i=0;
@@ -26,7 +26,7 @@ var_dump($custom_settings);
 <div class="wrap">
     <ul class="subsubsub">
         <?php
-        $is_section = Traveler_Input_Class::request('section');
+        $is_section = Traveler_Input::request('section');
         if(!empty($custom_settings[$is_tab]) and !empty($custom_settings[$is_tab]['sections'])){
             $i=0;
             $sections=apply_filters('st_settings_'.$is_tab.'_sections',$custom_settings[$is_tab]['sections']);

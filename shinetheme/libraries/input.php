@@ -9,9 +9,9 @@
  * Created by ShineTheme
  *
  */
-if(!class_exists('Traveler_Input_Class'))
+if(!class_exists('Traveler_Input'))
 {
-    class Traveler_Input_Class
+    class Traveler_Input
     {
         static function ip_address()
         {
