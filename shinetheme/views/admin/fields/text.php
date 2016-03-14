@@ -2,8 +2,8 @@
     <label for="" class="form-label"><?php echo esc_html($v['label']) ?></label>
     <div class="controls">
         <?php
-        $value = st_membership()->get_option($v['id'],$v['std'])
+        $value = Traveler_Admin_Setting::inst()->get_option($data['id'],$data['std'])
         ?>
-        <input type="text" class="form-control form-control-admin" value="<?php echo esc_html($value) ?>" name="st_settings_membership[<?php echo esc_html($v['id']) ?>]" placeholder="<?php echo esc_html($v['label']) ?>">
+        <input type="text" class="form-control form-control-admin" value="<?php echo esc_html($value) ?>" name="st_traveler_booking_settings[<?php echo esc_html($data['id']) ?>]" placeholder="<?php echo esc_html($data['label']) ?>">
     </div>
 </div>

@@ -9,6 +9,19 @@ if(!class_exists('Traveler_Admin_Setting'))
         {
             //add_action('init',array($this,'_add_post_type'));
             add_action( 'admin_menu', array($this,"register_traveler_booking_sub_menu_page") );
+
+            add_action( 'admin_init', array($this,"_save_settings") );
+        }
+
+        /*---------Begin Helper Functions----------------*/
+        function get_option($option_id,$default=false){
+            /* get the saved options */
+            $options = get_option( 'st_traveler_booking_settings' );
+            /* look for the saved value */
+            if ( isset( $options[$option_id] ) && '' != $options[$option_id] ) {
+                return $options[$option_id];
+            }
+            return $default;
         }
 
         function register_traveler_booking_sub_menu_page() {
@@ -16,16 +29,17 @@ if(!class_exists('Traveler_Admin_Setting'))
         }
         function callback_traveler_booking_sub_menu() {
             echo traveler_admin_load_view('admin/settings');
-            echo 'xxxx';
         }
         function _save_settings(){
-            if(!empty($_POST['save_settings']) and wp_verify_nonce($_REQUEST[ 'shb_save_field' ],"shb_action")){
+            if(!empty($_POST['traveler_booking_save_settings']) and wp_verify_nonce($_REQUEST[ 'shb_save_field' ],"shb_action")){
                 $data = $_REQUEST['st_traveler_booking_settings'];
                 $option = get_option('st_traveler_booking_settings');
                 foreach($data as $k=>$v){
                     $option[$k] = $v;
                 }
+                var_dump($option);
                 update_option('st_traveler_booking_settings',$option);
+                die();
             }
         }
         function _init_settings(){

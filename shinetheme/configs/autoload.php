@@ -20,6 +20,7 @@ $autoload['helper']=array(
 
 $autoload['library']=array(
 
+    'input'
 );
 
 $autoload['controller']=array(
