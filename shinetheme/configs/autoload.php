@@ -20,9 +20,11 @@ $autoload['helper']=array(
 
 $autoload['library']=array(
 
+    'input'
 );
 
 $autoload['controller']=array(
 	'service',
-	'admin/service'
+	'admin/service',
+    'admin/settings'
 );

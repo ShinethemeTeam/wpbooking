@@ -25,7 +25,7 @@ if(!class_exists('Traveler_Admin_Service'))
 				'name_admin_bar'     => _x( 'Book', 'add new on admin bar', 'your-plugin-textdomain' ),
 				'add_new'            => _x( 'Add New', 'book', 'your-plugin-textdomain' ),
 				'add_new_item'       => __( 'Add New Book', 'your-plugin-textdomain' ),
-				'new_item'           => __( 'New Book', 'your-plugin-textdomain' ),
+				'new_item'           => __( 'New Book', 'your-pluQgin-textdomain' ),
 				'edit_item'          => __( 'Edit Book', 'your-plugin-textdomain' ),
 				'view_item'          => __( 'View Book', 'your-plugin-textdomain' ),
 				'all_items'          => __( 'All Books', 'your-plugin-textdomain' ),
