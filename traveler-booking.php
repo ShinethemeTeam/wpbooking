@@ -16,20 +16,19 @@
  * @author Bravotheme
  * @since 1.0
  */
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
-if(!class_exists('Traveler_Booking_System') and !function_exists('Traveler'))
-{
+if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 	class Traveler_Booking_System
 	{
 		static $_inst;
 
-		private $_version=1.0;
+		private $_version = 1.0;
 
-		private $_dir=FALSE;
+		private $_dir = FALSE;
 
-		private $_url=FALSE;
+		private $_url = FALSE;
 
 		/**
 		 * @since 1.0
@@ -38,11 +37,11 @@ if(!class_exists('Traveler_Booking_System') and !function_exists('Traveler'))
 		{
 			do_action('traveler_before_plugin_init');
 
-			$this->_dir=plugin_dir_path(__FILE__);
-			$this->_url=plugin_dir_url(__FILE__);
+			$this->_dir = plugin_dir_path(__FILE__);
+			$this->_url = plugin_dir_url(__FILE__);
 
-			add_action('init',array($this,'_init'));
-			add_action('admin_init',array($this,'_admin_init'));
+			add_action('init', array($this, '_init'));
+			add_action('admin_init', array($this, '_admin_init'));
 
 			$this->_load_cores();
 
@@ -51,7 +50,7 @@ if(!class_exists('Traveler_Booking_System') and !function_exists('Traveler'))
 
 		function _load_cores()
 		{
-			$files=array(
+			$files = array(
 				'cores/config',
 				'cores/model',
 				'cores/loader',
@@ -65,7 +64,7 @@ if(!class_exists('Traveler_Booking_System') and !function_exists('Traveler'))
 
 		function _init()
 		{
-			load_plugin_textdomain('traveler_booking',false,plugin_basename( dirname( __FILE__ ) ) .'/languages');
+			load_plugin_textdomain('traveler_booking', FALSE, plugin_basename(dirname(__FILE__)) . '/languages');
 		}
 
 		/**
@@ -73,8 +72,19 @@ if(!class_exists('Traveler_Booking_System') and !function_exists('Traveler'))
 		 */
 		function _admin_init()
 		{
-			$plugin=get_plugin_data(__FILE__);
-			$this->_version=$plugin['Version'];
+			$plugin = get_plugin_data(__FILE__);
+			$this->_version = $plugin['Version'];
+
+			$menu_page=$this->get_menu_page();
+			add_menu_page(
+				$menu_page['page_title'],
+				$menu_page['menu_title'],
+				$menu_page['capability'],
+				$menu_page['menu_slug'],
+				$menu_page['function'],
+				$menu_page['icon_url'],
+				$menu_page['position']
+			);
 		}
 
 		/**
@@ -82,26 +92,22 @@ if(!class_exists('Traveler_Booking_System') and !function_exists('Traveler'))
 		 * @param $file
 		 * @param bool|FALSE $include_once
 		 */
-		function load($file,$include_once=FALSE)
+		function load($file, $include_once = FALSE)
 		{
-			if(is_array($file))
-			{
-				if(!empty($file))
-				{
-					foreach($file as $value)
-					{
-						$this->load($value,$include_once);
+			if (is_array($file)) {
+				if (!empty($file)) {
+					foreach ($file as $value) {
+						$this->load($value, $include_once);
 					}
 				}
-			}else{
-				$file=$this->_dir.'shinetheme/'.$file.'.php';
-				if(!$file){
+			} else {
+				$file = $this->_dir . 'shinetheme/' . $file . '.php';
+				if (!$file) {
 
 				}
-				if(file_exists($file))
-				{
-					if($include_once) include_once($file);
-					include ($file);
+				if (file_exists($file)) {
+					if ($include_once) include_once($file);
+					include($file);
 				}
 			}
 
@@ -112,18 +118,39 @@ if(!class_exists('Traveler_Booking_System') and !function_exists('Traveler'))
 		 * @param bool|FALSE $file
 		 * @return string
 		 */
-		function get_dir($file=FALSE)
+		function get_dir($file = FALSE)
 		{
-			return $this->_dir.$file;
+			return $this->_dir . $file;
 		}
+
 		/**
 		 * @since 1.0
 		 * @param bool|FALSE $file
 		 * @return string
 		 */
-		function get_url($file=FALSE)
+		function get_url($file = FALSE)
 		{
-			return $this->_url.$file;
+			return $this->_url . $file;
+		}
+
+		function get_menu_page()
+		{
+			$page = apply_filters('traveler_menu_page_arg', array(
+				'page_title' => __("Traveler", 'traveler-booking'),
+				'menu_title' => __("Traveler", 'traveler-booking'),
+				'capability' => 'manage_option',
+				'menu_slug'  => 'traveler',
+				'function'   => array($this, '_show_default_page'),
+				'icon_url'   => FALSE,
+				'position'   => '50'
+			));
+
+			return $page;
+
+		}
+		function _show_default_page()
+		{
+			echo 1;
 		}
 
 		/**
@@ -131,10 +158,10 @@ if(!class_exists('Traveler_Booking_System') and !function_exists('Traveler'))
 		 */
 		static function inst()
 		{
-			if(!self::$_inst)
-			{
-				self::$_inst=new self();
+			if (!self::$_inst) {
+				self::$_inst = new self();
 			}
+
 			return self::$_inst;
 		}
 	}
@@ -142,7 +169,8 @@ if(!class_exists('Traveler_Booking_System') and !function_exists('Traveler'))
 	/**
 	 * @since 1.0
 	 */
-	function Traveler(){
+	function Traveler()
+	{
 		return Traveler_Booking_System::inst();
 	}
 
