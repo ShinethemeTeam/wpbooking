@@ -8,7 +8,7 @@
 if(!function_exists('traveler_admin_load_view')) {
 	function traveler_admin_load_view($view, $data = array())
 	{
-		$file=Traveler()->get_dir($view.'.php');
+		$file=Traveler()->get_dir('shinetheme/views/'.$view.'.php');
 		if(is_file($file)){
 
 			extract($data);
