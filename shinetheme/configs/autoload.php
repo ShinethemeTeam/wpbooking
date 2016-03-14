@@ -24,5 +24,6 @@ $autoload['library']=array(
 
 $autoload['controller']=array(
 	'service',
-	'admin/service'
+	'admin/service',
+    'admin/settings'
 );
