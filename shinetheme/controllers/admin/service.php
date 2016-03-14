@@ -47,7 +47,7 @@ if(!class_exists('Traveler_Admin_Service'))
 				'capability_type'    => 'post',
 				'has_archive'        => true,
 				'hierarchical'       => false,
-				'menu_position'      => null,
+				'menu_position'      => '59.9',
 				'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
 			);
 

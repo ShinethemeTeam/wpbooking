@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 	class Traveler_Booking_System
 	{
-		static $_inst;
+		static $_inst=FALSE;
 
 		private $_version = 1.0;
 
@@ -41,9 +41,9 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 			$this->_url = plugin_dir_url(__FILE__);
 
 			add_action('init', array($this, '_init'));
-			add_action('admin_init', array($this, '_admin_init'));
-
-			$this->_load_cores();
+			add_action('admin_menu', array($this, '_admin_init_menu_page'));
+			add_action('plugins_loaded',array($this,'_load_cores'));
+			//$this->_load_cores();
 
 			do_action('traveler_after_plugin_init');
 		}
@@ -74,6 +74,11 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		{
 			$plugin = get_plugin_data(__FILE__);
 			$this->_version = $plugin['Version'];
+
+		}
+
+		function _admin_init_menu_page()
+		{
 
 			$menu_page=$this->get_menu_page();
 			add_menu_page(
@@ -135,14 +140,14 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 
 		function get_menu_page()
 		{
-			$page = apply_filters('traveler_menu_page_arg', array(
+			$page = apply_filters('traveler_menu_page_args', array(
 				'page_title' => __("Traveler", 'traveler-booking'),
 				'menu_title' => __("Traveler", 'traveler-booking'),
-				'capability' => 'manage_option',
-				'menu_slug'  => 'traveler',
+				'capability' => 'manage_options',
+				'menu_slug'  => 'traveler_booking',
 				'function'   => array($this, '_show_default_page'),
 				'icon_url'   => FALSE,
-				'position'   => '50'
+				'position'   =>55
 			));
 
 			return $page;
@@ -150,7 +155,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		}
 		function _show_default_page()
 		{
-			echo 1;
+			do_action('traveler_default_menu_page');
 		}
 
 		/**
@@ -158,6 +163,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		 */
 		static function inst()
 		{
+
 			if (!self::$_inst) {
 				self::$_inst = new self();
 			}
