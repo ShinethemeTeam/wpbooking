@@ -14,7 +14,7 @@ $autoload['config']=array(
 );
 
 $autoload['helper']=array(
-
+	'application'
 );
 
 
