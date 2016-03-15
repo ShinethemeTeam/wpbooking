@@ -9,7 +9,7 @@ if(!function_exists('traveler_admin_load_view')) {
 	function traveler_admin_load_view($view, $data = array())
 	{
 		$file=Traveler()->get_dir('shinetheme/views/admin/'.$view.'.php');
-		if(is_file($file)){
+		if(file_exists($file)){
 
 			extract($data);
 			ob_start();
@@ -21,8 +21,17 @@ if(!function_exists('traveler_admin_load_view')) {
 if(!function_exists('traveler_load_view')) {
 	function traveler_load_view($view, $data = array())
 	{
-		$file=Traveler()->get_dir('shinetheme/views/'.$view.'.php');
-		if(is_file($file)){
+		// Try to find overided file in theme_name/traveler-booking/file-name.php
+		$file=locate_template(array(
+			'traveler-booking/'.$view.'.php'
+		),FALSE);
+
+		if(!file_exists($file)){
+
+			$file=Traveler()->get_dir('shinetheme/views/frontend/'.$view.'.php');
+		}
+
+		if(file_exists($file)){
 
 			extract($data);
 			ob_start();

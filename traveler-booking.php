@@ -26,10 +26,6 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 
 		private $_version = 1.0;
 
-		private $_dir = FALSE;
-
-		private $_url = FALSE;
-
 		/**
 		 * @since 1.0
 		 */
@@ -37,17 +33,36 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		{
 			do_action('traveler_before_plugin_init');
 
-			$this->_dir = plugin_dir_path(__FILE__);
-			$this->_url = plugin_dir_url(__FILE__);
+			if(!defined('TRAVELER_PLUGIN_PATH')){
+				define('TRAVELER_PLUGIN_PATH',plugin_dir_path(__FILE__));
+			}
+			if(!defined('TRAVELER_PLUGIN_URL')){
+				define('TRAVELER_PLUGIN_URL',plugin_dir_url(__FILE__));
+			}
 
 			add_action('init', array($this, '_init'));
 			add_action('admin_menu', array($this, '_admin_init_menu_page'));
 			add_action('plugins_loaded',array($this,'_load_cores'));
-			//$this->_load_cores();
+
+			add_action('admin_enqueue_scripts',array($this,'_admin_default_scripts'));
 
 			do_action('traveler_after_plugin_init');
 		}
 
+		/**
+		 * Load default CSS and Javascript for admin
+		 * @since 1.0
+		 */
+		function _admin_default_scripts()
+		{
+			wp_enqueue_script('traveler-admin',traveler_admin_assets_url('js/traveler-admin.js'),array('jquery'),null,true);
+
+			wp_enqueue_style('traveler-admin',traveler_admin_assets_url('css/admin.css'));
+
+			wp_localize_script('jquery','traveler_params',array(
+				'ajax_url'=>admin_url('admin-ajax.php')
+			));
+		}
 		function _load_cores()
 		{
 			$files = array(
@@ -66,6 +81,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		function _init()
 		{
 			load_plugin_textdomain('traveler_booking', FALSE, plugin_basename(dirname(__FILE__)) . '/languages');
+
 		}
 
 		/**
@@ -107,7 +123,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 					}
 				}
 			} else {
-				$file = $this->_dir . 'shinetheme/' . $file . '.php';
+				$file = $this->get_dir( 'shinetheme/' . $file . '.php');
 				if (!$file) {
 
 				}
@@ -126,7 +142,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		 */
 		function get_dir($file = FALSE)
 		{
-			return $this->_dir . $file;
+			return TRAVELER_PLUGIN_PATH . $file;
 		}
 
 		/**
@@ -136,7 +152,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		 */
 		function get_url($file = FALSE)
 		{
-			return $this->_url . $file;
+			return TRAVELER_PLUGIN_URL . $file;
 		}
 
 		function get_menu_page()

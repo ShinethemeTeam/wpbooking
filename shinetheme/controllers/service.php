@@ -14,6 +14,21 @@ if(!class_exists('Traveler_Service'))
 
 		private static $_inst;
 
+		function get_service_types()
+		{
+			$default= array(
+				'room'=>array(
+					'label'=>__("Room",'traveler-booking')
+				),
+				'tour'=>array(
+					'label'=>__("Tour",'traveler-booking')
+				),
+
+			);
+
+			return apply_filters('traveler_service_types',$default);
+		}
+
 		static function inst()
 		{
 			if(!self::$_inst){
@@ -22,6 +37,8 @@ if(!class_exists('Traveler_Service'))
 
 			return self::$_inst;
 		}
+
+
 	}
 
 	Traveler_Service::inst();

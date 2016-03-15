@@ -13,31 +13,35 @@ if(!class_exists('Traveler_Admin_Service'))
 
 		function __construct()
 		{
-			add_action('init',array($this,'_add_post_type'));
+			add_action('init',array($this,'_add_taxonomy'));
+			add_action('init',array($this,'_add_post_type'),13);
 		}
 
+		function _add_taxonomy(){
+
+		}
 		function _add_post_type()
 		{
 			$labels = array(
-				'name'               => _x( 'Books', 'post type general name', 'your-plugin-textdomain' ),
-				'singular_name'      => _x( 'Book', 'post type singular name', 'your-plugin-textdomain' ),
-				'menu_name'          => _x( 'Books', 'admin menu', 'your-plugin-textdomain' ),
-				'name_admin_bar'     => _x( 'Book', 'add new on admin bar', 'your-plugin-textdomain' ),
-				'add_new'            => _x( 'Add New', 'book', 'your-plugin-textdomain' ),
-				'add_new_item'       => __( 'Add New Book', 'your-plugin-textdomain' ),
-				'new_item'           => __( 'New Book', 'your-pluQgin-textdomain' ),
-				'edit_item'          => __( 'Edit Book', 'your-plugin-textdomain' ),
-				'view_item'          => __( 'View Book', 'your-plugin-textdomain' ),
-				'all_items'          => __( 'All Books', 'your-plugin-textdomain' ),
-				'search_items'       => __( 'Search Books', 'your-plugin-textdomain' ),
-				'parent_item_colon'  => __( 'Parent Books:', 'your-plugin-textdomain' ),
-				'not_found'          => __( 'No books found.', 'your-plugin-textdomain' ),
-				'not_found_in_trash' => __( 'No books found in Trash.', 'your-plugin-textdomain' )
+				'name'               => _x( 'Service', 'post type general name', 'traveler-booking' ),
+				'singular_name'      => _x( 'Service', 'post type singular name', 'traveler-booking' ),
+				'menu_name'          => _x( 'Services', 'admin menu', 'traveler-booking' ),
+				'name_admin_bar'     => _x( 'Service', 'add new on admin bar', 'traveler-booking' ),
+				'add_new'            => _x( 'Add New', 'service', 'traveler-booking' ),
+				'add_new_item'       => __( 'Add New Service', 'traveler-booking' ),
+				'new_item'           => __( 'New Service', 'your-pluQgin-textdomain' ),
+				'edit_item'          => __( 'Edit Service', 'traveler-booking' ),
+				'view_item'          => __( 'View Service', 'traveler-booking' ),
+				'all_items'          => __( 'All Services', 'traveler-booking' ),
+				'search_items'       => __( 'Search Services', 'traveler-booking' ),
+				'parent_item_colon'  => __( 'Parent Services:', 'traveler-booking' ),
+				'not_found'          => __( 'No services found.', 'traveler-booking' ),
+				'not_found_in_trash' => __( 'No services found in Trash.', 'traveler-booking' )
 			);
 
 			$args = array(
 				'labels'             => $labels,
-				'description'        => __( 'Description.', 'your-plugin-textdomain' ),
+				'description'        => __( 'Description.', 'traveler-booking' ),
 				'public'             => true,
 				'publicly_queryable' => true,
 				'show_ui'            => true,
@@ -47,11 +51,11 @@ if(!class_exists('Traveler_Admin_Service'))
 				'capability_type'    => 'post',
 				'has_archive'        => true,
 				'hierarchical'       => false,
-				'menu_position'      => '59.9',
+				//'menu_position'      => '59.9',
 				'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
 			);
 
-			register_post_type( 'book', $args );
+			register_post_type( 'traveler_service', $args );
 		}
 
 
