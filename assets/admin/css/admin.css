@@ -1,0 +1,66 @@
+.subsubsub {
+    color: #666;
+    font-size: 13px;
+    list-style: outside none none;
+    margin: 10px 0 5px;
+    padding: 0;
+}
+i.traveler-desc{
+    color: #aaa;
+    display: block;
+    padding-top: 3px;
+}
+ul.padding-0{
+    margin: 0px;
+}
+ul.padding-0 li{
+    margin: 0px;
+}
+.width-800{
+    width: 800px;
+}
+.min-width-500{
+    min-width: 500px;
+}
+.max-width-500{
+    max-width: 500px;
+}
+.none{
+    display: none;
+}
+img.settings-demo-image{
+    max-height: 200px;
+    max-width: 300px;
+    background: white none repeat scroll 0 0;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    margin: 0 10px 10px 0;
+    padding: 4px;
+}
+img.settings-demo-gallery{
+    height: 70px;
+    width: 70px;
+
+    background: white none repeat scroll 0 0;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+
+    margin: 0 10px 10px 0;
+    padding: 4px;
+}
+.demo-url-image.min-width-500{
+    min-width: 420px;
+}
+.traveler-settings .button-secondary {
+    background: #b73b27 none repeat scroll 0 0;
+    border-color: #7f291b;
+    box-shadow: 0 1px 0 rgba(229, 134, 119, 0.5) inset, 0 1px 0 rgba(0, 0, 0, 0.15);
+    color: #fff;
+    text-shadow: none;
+}
+.traveler-settings .button-secondary.hover, .traveler-settings .button-secondary:hover, .traveler-settings .button-secondary.focus, .traveler-settings .button-secondary:focus {
+    background: #9b3221 none repeat scroll 0 0;
+    border-color: #7f291b;
+    box-shadow: 0 1px 0 rgba(229, 134, 119, 0.6) inset;
+    color: #fff;
+}

@@ -1,13 +1,14 @@
 <div class="wrap">
     <div id="icon-tools" class="icon32"></div>
-    <h2><?php _e("Settings",'st_membership') ?></h2>
+    <h2><?php _e("Settings",'traveler-booking') ?></h2>
 </div>
 <?php
-$custom_settings = Traveler_Admin_Setting::inst()->_init_settings();
-var_dump($custom_settings);
+$custom_settings = Traveler_Admin_Setting::inst()->_get_settings();
+$menu_page=Traveler_Admin_Setting::inst()->get_menu_page();
+$slug_page_menu = $menu_page['menu_slug'];
 ?>
 <div class="wrap">
-    <?php $is_tab = Traveler_Input::request('tab'); ?>
+    <?php $is_tab = Traveler_Input::request('st_tab'); ?>
     <h2 class="nav-tab-wrapper">
         <?php if(!empty($custom_settings)){
             $i=0;
@@ -16,7 +17,7 @@ var_dump($custom_settings);
                     $is_tab = $k;
                 }
                 ?>
-                <a class="nav-tab <?php if($is_tab == $k) echo "nav-tab-active"; ?>" href="<?php echo add_query_arg(array("page"=>"st_membership_page_settings","tab"=>$k),admin_url("admin.php")) ?>"><?php echo esc_html($v['name']) ?></a>
+                <a class="nav-tab <?php if($is_tab == $k) echo "nav-tab-active"; ?>" href="<?php echo add_query_arg(array("page"=>$slug_page_menu,"st_tab"=>$k),admin_url("admin.php")) ?>"><?php echo esc_html($v['name']) ?></a>
                 <?php
                 $i++;
             }
@@ -26,7 +27,8 @@ var_dump($custom_settings);
 <div class="wrap">
     <ul class="subsubsub">
         <?php
-        $is_section = Traveler_Input::request('section');
+        $is_section = Traveler_Input::request('st_section');
+        $title_page_active = "";
         if(!empty($custom_settings[$is_tab]) and !empty($custom_settings[$is_tab]['sections'])){
             $i=0;
             $sections=apply_filters('st_settings_'.$is_tab.'_sections',$custom_settings[$is_tab]['sections']);
@@ -34,39 +36,45 @@ var_dump($custom_settings);
                 if(empty($is_section) and $i == 0){
                     $is_section = $v['id'];
                 }
-                $url = add_query_arg(array("page"=>"st_membership_page_settings","tab"=>$is_tab,'section'=>$v['id']),admin_url("admin.php"));
+                $url = add_query_arg(array("page"=>$slug_page_menu,"st_tab"=>$is_tab,'st_section'=>$v['id']),admin_url("admin.php"));
                 $is_class = "";
-                if($is_section == $v['id']) $is_class = "current";
-                echo '<li><a class="'.$is_class.'" href="'.$url.'">'.$v['label'].'</a> | </li>';
+                if($is_section == $v['id']) {
+                    $is_class = "current";
+                    $title_page_active = $v['label'];
+                }
+                echo '<li><a class="'.$is_class.'" href="'.$url.'">'.$v['label'].'</a>  </li>';
+                if( ( $i+ 1) < count($sections)) echo "|";
+                echo '</li>';
                 $i++;
             }
         }
         ?>
     </ul>
     <br class="clear">
+    <h3><?php echo esc_html($title_page_active) ?></h3>
     <div class="content-field">
         <form method="post" action="" id="form-settings-admin">
-            <?php wp_nonce_field('shb_action','shb_save_field') ?>
+            <?php wp_nonce_field('traveler_booking_action','traveler_booking_save_settings_field') ?>
             <input type="hidden" name="traveler_booking_save_settings" value="true" >
-            <?php
-            if(!empty($custom_settings[$is_tab]) and !empty($custom_settings[$is_tab]['sections'][$is_section]['fields'])){
-                $fields=apply_filters('st_settings_'.$is_tab.'_'.$is_section.'_fields',$custom_settings[$is_tab]['sections'][$is_section]['fields']);
-                foreach($fields as $k=>$v){
-                    $default = array(
-                        'id'      => '' ,
-                        'label'   => '' ,
-                        'desc'    => '' ,
-                        'type'    => '' ,
-                        'std'     =>''
-                    );
-                    $v = wp_parse_args( $v , $default );
-                    $path='admin/fields/'.$v['type'];
-                    $field_file=apply_filters('st_setting_field_type_'.$v['type'].'_path',$path);
-                    echo traveler_admin_load_view($field_file,array('data'=>$v));
-                }
-            }
-            ?>
-            <input type="submit" class="btn button" value="<?php _e("Save") ?>">
+            <table class="form-table traveler-settings">
+                <tbody>
+                    <?php
+                    if(!empty($custom_settings[$is_tab]) and !empty($custom_settings[$is_tab]['sections'][$is_section]['fields'])){
+                        $fields=apply_filters('traveler_booking_settings_'.$is_tab.'_'.$is_section.'_fields',$custom_settings[$is_tab]['sections'][$is_section]['fields']);
+                        foreach($fields as $k=>$v){
+                            $default = array( 'id' => '' , 'label' => '' , 'desc' => '' , 'type' => '' , 'std' => '', 'taxonomy' => '' );
+                            $v = wp_parse_args( $v , $default );
+                            $path='fields/'.$v['type'];
+                            $field_file=apply_filters('traveler_booking_field_type_'.$v['type'].'_path',$path);
+                            $html =  traveler_admin_load_view($field_file,array('data'=>$v,'slug_page_menu'=>$slug_page_menu));
+                            echo apply_filters('traveler_booking_field_type_'.$v['type'].'_html',$html);
+                        }
+                    }
+                    ?>
+
+                </tbody>
+            </table>
+            <input type="submit" class="btn button button-primary" value="<?php _e("Save Settings",'traveler-booking') ?>">
         </form>
     </div>
 </div>
