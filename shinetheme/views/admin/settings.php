@@ -4,7 +4,8 @@
 </div>
 <?php
 $custom_settings = Traveler_Admin_Setting::inst()->_init_settings();
-var_dump($custom_settings);
+$menu_page=Traveler_Admin_Setting::inst()->get_menu_page();
+$slug_page_menu = $menu_page['menu_slug'];
 ?>
 <div class="wrap">
     <?php $is_tab = Traveler_Input::request('tab'); ?>
@@ -16,7 +17,7 @@ var_dump($custom_settings);
                     $is_tab = $k;
                 }
                 ?>
-                <a class="nav-tab <?php if($is_tab == $k) echo "nav-tab-active"; ?>" href="<?php echo add_query_arg(array("page"=>"st_membership_page_settings","tab"=>$k),admin_url("admin.php")) ?>"><?php echo esc_html($v['name']) ?></a>
+                <a class="nav-tab <?php if($is_tab == $k) echo "nav-tab-active"; ?>" href="<?php echo add_query_arg(array("page"=>$slug_page_menu,"tab"=>$k),admin_url("admin.php")) ?>"><?php echo esc_html($v['name']) ?></a>
                 <?php
                 $i++;
             }
@@ -34,12 +35,13 @@ var_dump($custom_settings);
                 if(empty($is_section) and $i == 0){
                     $is_section = $v['id'];
                 }
-                $url = add_query_arg(array("page"=>"st_membership_page_settings","tab"=>$is_tab,'section'=>$v['id']),admin_url("admin.php"));
+                $url = add_query_arg(array("page"=>$slug_page_menu,"tab"=>$is_tab,'section'=>$v['id']),admin_url("admin.php"));
                 $is_class = "";
                 if($is_section == $v['id']) $is_class = "current";
                 echo '<li><a class="'.$is_class.'" href="'.$url.'">'.$v['label'].'</a> | </li>';
                 $i++;
             }
+
         }
         ?>
     </ul>
@@ -48,24 +50,32 @@ var_dump($custom_settings);
         <form method="post" action="" id="form-settings-admin">
             <?php wp_nonce_field('shb_action','shb_save_field') ?>
             <input type="hidden" name="traveler_booking_save_settings" value="true" >
-            <?php
-            if(!empty($custom_settings[$is_tab]) and !empty($custom_settings[$is_tab]['sections'][$is_section]['fields'])){
-                $fields=apply_filters('st_settings_'.$is_tab.'_'.$is_section.'_fields',$custom_settings[$is_tab]['sections'][$is_section]['fields']);
-                foreach($fields as $k=>$v){
-                    $default = array(
-                        'id'      => '' ,
-                        'label'   => '' ,
-                        'desc'    => '' ,
-                        'type'    => '' ,
-                        'std'     =>''
-                    );
-                    $v = wp_parse_args( $v , $default );
-                    $path='admin/fields/'.$v['type'];
-                    $field_file=apply_filters('st_setting_field_type_'.$v['type'].'_path',$path);
-                    echo traveler_admin_load_view($field_file,array('data'=>$v));
-                }
-            }
-            ?>
+
+            <table class="form-table">
+                <tbody>
+                    <?php
+                    if(!empty($custom_settings[$is_tab]) and !empty($custom_settings[$is_tab]['sections'][$is_section]['fields'])){
+                        $fields=apply_filters('st_settings_'.$is_tab.'_'.$is_section.'_fields',$custom_settings[$is_tab]['sections'][$is_section]['fields']);
+                        foreach($fields as $k=>$v){
+                            $default = array(
+                                'id'      => '' ,
+                                'label'   => '' ,
+                                'desc'    => '' ,
+                                'type'    => '' ,
+                                'std'     =>''
+                            );
+                            $v = wp_parse_args( $v , $default );
+                            $path='admin/fields/'.$v['type'];
+                            $field_file=apply_filters('st_setting_field_type_'.$v['type'].'_path',$path);
+                            echo traveler_admin_load_view($field_file,array('data'=>$v,'slug_page_menu'=>$slug_page_menu));
+                        }
+                    }
+                    ?>
+
+                </tbody>
+            </table>
+
+
             <input type="submit" class="btn button" value="<?php _e("Save") ?>">
         </form>
     </div>
