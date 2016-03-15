@@ -15,13 +15,12 @@ $autoload['config']=array(
 
 $autoload['helper']=array(
 	'application',
-    'settings',
-	'assets'
+	'assets',
+    'settings'
 );
 
 
 $autoload['library']=array(
-
     'input'
 );
 
