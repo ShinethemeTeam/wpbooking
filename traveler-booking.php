@@ -53,6 +53,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 			$files = array(
 				'cores/config',
 				'cores/model',
+				'cores/controllers',
 				'cores/loader',
 			);
 			$this->load($files);

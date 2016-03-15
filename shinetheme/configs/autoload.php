@@ -15,7 +15,8 @@ $autoload['config']=array(
 
 $autoload['helper']=array(
 	'application',
-    'settings'
+    'settings',
+	'assets'
 );
 
 
