@@ -6,7 +6,6 @@
 $custom_settings = Traveler_Admin_Setting::inst()->_get_settings();
 $menu_page=Traveler_Admin_Setting::inst()->get_menu_page();
 $slug_page_menu = $menu_page['menu_slug'];
-
 ?>
 <div class="wrap">
     <?php $is_tab = Traveler_Input::request('st_tab'); ?>
@@ -48,7 +47,6 @@ $slug_page_menu = $menu_page['menu_slug'];
                 echo '</li>';
                 $i++;
             }
-
         }
         ?>
     </ul>
@@ -58,21 +56,13 @@ $slug_page_menu = $menu_page['menu_slug'];
         <form method="post" action="" id="form-settings-admin">
             <?php wp_nonce_field('traveler_booking_action','traveler_booking_save_settings_field') ?>
             <input type="hidden" name="traveler_booking_save_settings" value="true" >
-
             <table class="form-table traveler-settings">
                 <tbody>
                     <?php
                     if(!empty($custom_settings[$is_tab]) and !empty($custom_settings[$is_tab]['sections'][$is_section]['fields'])){
                         $fields=apply_filters('traveler_booking_settings_'.$is_tab.'_'.$is_section.'_fields',$custom_settings[$is_tab]['sections'][$is_section]['fields']);
                         foreach($fields as $k=>$v){
-                            $default = array(
-                                'id'      => '' ,
-                                'label'   => '' ,
-                                'desc'    => '' ,
-                                'type'    => '' ,
-                                'std'     =>'',
-                                'taxonomy'     =>'',
-                            );
+                            $default = array( 'id' => '' , 'label' => '' , 'desc' => '' , 'type' => '' , 'std' => '', 'taxonomy' => '' );
                             $v = wp_parse_args( $v , $default );
                             $path='fields/'.$v['type'];
                             $field_file=apply_filters('traveler_booking_field_type_'.$v['type'].'_path',$path);
@@ -84,9 +74,7 @@ $slug_page_menu = $menu_page['menu_slug'];
 
                 </tbody>
             </table>
-
-
-            <input type="submit" class="btn button button-primary" value="<?php _e("Save Settings") ?>">
+            <input type="submit" class="btn button button-primary" value="<?php _e("Save Settings",'traveler-booking') ?>">
         </form>
     </div>
 </div>
