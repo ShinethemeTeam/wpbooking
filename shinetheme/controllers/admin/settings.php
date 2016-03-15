@@ -1,7 +1,7 @@
 <?php
 if(!class_exists('Traveler_Admin_Setting'))
 {
-    class Traveler_Admin_Setting
+    class Traveler_Admin_Setting extends Traveler_Controller
     {
         private static $_inst;
 
@@ -53,7 +53,7 @@ if(!class_exists('Traveler_Admin_Setting'))
 
 		}
         function callback_traveler_booking_sub_menu() {
-            echo traveler_admin_load_view('admin/settings');
+			echo $this->admin_load_view('settings');
         }
         function _save_settings(){
             if(!empty($_POST['traveler_booking_save_settings']) and wp_verify_nonce($_REQUEST[ 'shb_save_field' ],"shb_action")){

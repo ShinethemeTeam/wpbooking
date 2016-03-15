@@ -7,7 +7,7 @@
  */
 if(!class_exists('Traveler_Admin_Service'))
 {
-	class Traveler_Admin_Service
+	class Traveler_Admin_Service extends Traveler_Controller
 	{
 		private static $_inst;
 
