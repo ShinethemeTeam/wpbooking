@@ -7,9 +7,9 @@
         <input type="text" id="fg_metadata" class="fg_metadata none" value="<?php echo esc_html($value) ?>" name="traveler_booking_<?php echo esc_html($data['id']) ?>">
         <br>
         <div class="featuredgallerydiv max-width-500">
-
                 <?php
-                if(count($tmp = explode(',',$value) ) > 0){ ?>
+                $tmp = explode(',',$value);
+                if(count( $tmp ) > 0 and !empty($tmp[0])){ ?>
                     <?php foreach($tmp as $k=>$v){ ?>
                         <?php
                         $url = wp_get_attachment_image_url($v);
