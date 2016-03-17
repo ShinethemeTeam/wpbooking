@@ -28,26 +28,27 @@
 						foreach ($rows as $tax=>$value) :
 							?><tr>
 							
-							<td><a href="edit-tags.php?taxonomy=<?php echo esc_html($tax); ?>"><?php echo esc_html( $value['label'] ); ?></a>
+							<td><a href="<?php echo esc_url(add_query_arg(array(
+									'taxonomy'=>$tax,
+									'post_type'=>'traveler_service'
+								),admin_url('edit-tags.php'))) ?>"><?php echo esc_html( $value['label'] ); ?></a>
 								
 								<div class="row-actions">
 									<span class="edit">
-										<a href="<?php echo esc_url( add_query_arg('edit', $tax) ); ?>"><?php _e( 'Edit', 'traveler-booking' ); ?></a>
+										<a href="<?php echo esc_url( add_query_arg(array('taxonomy_name'=> $tax,'action'=>'traveler_edit_taxonomy'),$page_url) ); ?>"><?php _e( 'Edit', 'traveler-booking' ); ?></a>
 										| </span>
 									<span class="delete">
-										<a class="delete" href="<?php echo esc_url( wp_nonce_url( add_query_arg(array('action'=>'traveler_delete_taxonomy','tax_name'=>$tax,)) ) ); ?>"><?php _e( 'Delete', 'traveler-booking' ); ?>
+										<a class="delete" href="<?php echo  wp_nonce_url( add_query_arg(array('action'=>'traveler_delete_taxonomy','tax_name'=>$tax),$page_url) ) ; ?>"><?php _e( 'Delete', 'traveler-booking' ); ?>
 										</a>
 									</span>
 								</div>
 							</td>
-							<td><?php echo esc_html( $tax ); ?></td>
+							<td><?php echo esc_html( $value['slug'] ); ?></td>
 
 							<td class="attribute-terms"><?php
 								if(!empty($value['service_type']) and is_array($value['service_type']))
 								{
-									foreach($value['service_type'] as $k=>$v){
-										echo $v;
-									}
+									echo implode(',',$value['service_type']);
 								}
 								?></td>
 							<?php
@@ -79,7 +80,7 @@
 						</div>
 
 						<div class="form-field">
-							<label for="attribute_type"><?php _e( 'Service Type', 'traveler-booking' ); ?></label>
+							<label ><?php _e( 'Service Type', 'traveler-booking' ); ?></label>
 							<?php
 							$types=Traveler_Service::inst()->get_service_types();
 							if(!empty($types))

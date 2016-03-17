@@ -22,12 +22,14 @@ $autoload['helper']=array(
 
 $autoload['library']=array(
     'input',
+    'assets',
 	'validator'
 );
 
 $autoload['controller']=array(
 	'service',
+	'admin/location',
+	'admin/taxonomy',
 	'admin/service',
     'admin/settings',
-	'admin/taxonomy'
 );
