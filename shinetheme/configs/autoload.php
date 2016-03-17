@@ -21,7 +21,8 @@ $autoload['helper']=array(
 
 
 $autoload['library']=array(
-    'input'
+    'input',
+	'validator'
 );
 
 $autoload['controller']=array(

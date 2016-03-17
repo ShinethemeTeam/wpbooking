@@ -41,3 +41,55 @@ if(!function_exists('traveler_load_view')) {
 	}
 }
 
+if(!function_exists('traveler_get_admin_message'))
+{
+	function traveler_get_admin_message($clear_message=true){
+		$message=Traveler()->get_admin_message($clear_message);
+
+		if($message){
+			$type=$message['type'];
+			switch($type){
+				case "error":
+					$type='error';
+					break;
+
+				case "success":
+					$type='updated';
+					break;
+				default:
+					$type='notice-warning';
+					break;
+			}
+			return sprintf('<div class="notice %s" ><p>%s</p></div>',$type,$message['content']);
+		}
+	}
+}
+if(!function_exists('traveler_get_message'))
+{
+	function traveler_get_message($clear_message=true){
+		$message=Traveler()->get_message($clear_message);
+
+		if($message){
+			$type=$message['type'];
+			switch($type){
+				case "error":
+					$type='danger';
+					break;
+
+			}
+			return sprintf('<div class="alert alert-%s" >%s</div>',$type,$message['content']);
+		}
+	}
+}
+if(!function_exists('traveler_set_admin_message'))
+{
+	function traveler_set_admin_message($message,$type='information'){
+		Traveler()->set_admin_message($message,$type);
+	}
+}
+if(!function_exists('traveler_set_message'))
+{
+	function traveler_set_message($message,$type='information'){
+		Traveler()->set_message($message,$type);
+	}
+}

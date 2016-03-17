@@ -75,7 +75,7 @@ if(!class_exists('Traveler_Config'))
 	{
 		function TravelerConfig()
 		{
-			Traveler_Config::inst();
+			return Traveler_Config::inst();
 		}
 	}
 

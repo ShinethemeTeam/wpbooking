@@ -26,6 +26,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 
 		private $_version = 1.0;
 
+
 		/**
 		 * @since 1.0
 		 */
@@ -175,6 +176,39 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 			do_action('traveler_default_menu_page');
 		}
 
+		function set_admin_message($message,$type='information')
+		{
+			if(isset($_SESSION['message']['admin'])){
+				$_SESSION['message']['admin']=array(
+					'content'=>$message,
+					'type'=>$type
+				);
+			}
+		}
+		function set_message($message,$type='information'){
+			if(isset($_SESSION['message']['frontend'])){
+				$_SESSION['message']['frontend']=array(
+					'content'=>$message,
+					'type'=>$type
+				);
+			}
+		}
+
+		function get_message($clear_message=TRUE)
+		{
+			$message= isset($_SESSION['message']['frontend'])?$_SESSION['message']['frontend']:FALSE;
+			if($clear_message) $_SESSION['message']['frontend']=array();
+
+			return $message;
+		}
+		function get_admin_message($clear_message=TRUE)
+		{
+			$message= isset($_SESSION['message']['admin'])?$_SESSION['message']['admin']:FALSE;
+			if($clear_message) $_SESSION['message']['admin']=array();
+
+			return $message;
+		}
+
 		/**
 		 * @return Traveler_Booking_System
 		 */
@@ -187,6 +221,8 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 
 			return self::$_inst;
 		}
+
+
 	}
 
 	/**
