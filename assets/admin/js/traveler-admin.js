@@ -1,7 +1,7 @@
 /**
  * Created by Dungdt on 3/15/2016.
  */
-jQuery(document).ready(function(){
+jQuery(document).ready(function($){
     /**
      * Condition tags
      * @type {string}
@@ -103,4 +103,146 @@ jQuery(document).ready(function(){
         return conditions;
     }
     // Please do not edit condition section if you don't understand what it is
+
+
+
+    ///////////////////////////////////
+    /////// MEDIA GALLERY /////////////
+    ///////////////////////////////////
+    jQuery(document).ready(function($){
+        $(".btn_remove_demo_gallery").click(function(){
+            var container = $(this).parent();
+            container.find('.fg_metadata').val('');
+            container.find('.demo-image-gallery').hide();
+        });
+        $('.btn_upload_gallery').each(function(event) {
+            var file_frame;
+            $(this).click(function (event) {
+                var container = $(this).parent();
+                event.preventDefault();
+                // If the media frame already exists, reopen it.
+                if ( file_frame ) {
+                    file_frame.open();
+                    return;
+                }
+                // Create the media frame.
+                file_frame = wp.media.frame = wp.media({
+                    frame: "post",
+                    state: "gallery",
+                    library : { type : 'image'},
+                    // button: {text: "Edit Image Order"},
+                    multiple: true
+                });
+                file_frame.on('open', function() {
+                    var selection = file_frame.state().get('selection');
+                    var ids = container.find('#fg_metadata').val();
+                    if (ids) {
+                        idsArray = ids.split(',');
+                        idsArray.forEach(function(id) {
+                            attachment = wp.media.attachment(id);
+                            attachment.fetch();
+                            selection.add( attachment ? [ attachment ] : [] );
+                        });
+                    }
+                });
+                // When an image is selected, run a callback.
+                file_frame.on('update', function() {
+                    var imageIDArray = [];
+                    var imageHTML = '';
+                    var metadataString = '';
+                    images = file_frame.state().get('library');
+                    images.each(function(attachment) {
+                        imageIDArray.push(attachment.attributes.id);
+                        imageHTML += '<img id="'+attachment.attributes.id+'" class="demo-image-gallery settings-demo-gallery" src="'+attachment.attributes.url+'">';
+                    });
+                    metadataString = imageIDArray.join(",");
+                    if (metadataString) {
+                        container.find('#fg_metadata').val(metadataString);
+                        container.find('.featuredgallerydiv').html(imageHTML);
+                    }
+                });
+                file_frame.open();
+            })
+        });
+    });
+    ///////////////////////////////////
+    /////// MEDIA IMAGE ///////////////
+    ///////////////////////////////////
+    jQuery(document).ready(function($){
+        $(".btn_remove_demo_image").click(function(){
+            var container = $(this).parent();
+            container.find('.demo-url-image').val('');
+            container.find('.demo-image').hide();
+        });
+        $('.btn_upload_media').each(function(){
+            $(this).click(function(e){
+                var container = $(this).parent();
+                var insertImage = wp.media.controller.Library.extend({
+                    defaults :  _.defaults({
+                        id:        'insert-image',
+                        title:      'Insert Image Url',
+                        allowLocalEdits: true,
+                        displaySettings: true,
+                        displayUserSettings: true,
+                        type : 'image'
+                    }, wp.media.controller.Library.prototype.defaults )
+                });
+                var frame = wp.media({
+                    button : { text : 'Select' },
+                    state : 'insert-image',
+                    states : [
+                        new insertImage()
+                    ]
+                });
+                frame.on( 'select',function() {
+                    var state = frame.state('insert-image');
+                    var selection = state.get('selection');
+                    if ( ! selection ) return;
+                    selection.each(function(attachment) {
+                        console.log(attachment);
+                        container.find('#st_url_media').val(attachment.attributes.url);
+                        container.find('#demo_img').attr("src",attachment.attributes.url).show();
+
+                    });
+                });
+                frame.on('open',function() {
+                    var selection = frame.state('insert-image').get('selection');
+                    selection.each(function(image) {
+                        var attachment = wp.media.attachment( image.attributes.id );
+                        attachment.fetch();
+                        selection.remove( attachment ? [ attachment ] : [] );
+                    });
+                });
+                frame.open();
+            });
+        })
+    });
+    ///////////////////////////////////
+    /////// IMAGE THUMB ///////////////
+    ///////////////////////////////////
+    $(document).on('keyup', '.traveler_booking_image_thumb_width', function(event) {
+        var container = $(this).parent();
+        _save_data_image_thumb(container);
+    });
+    $(document).on('keyup', '.traveler_booking_image_thumb_height', function(event) {
+        var container = $(this).parent();
+        _save_data_image_thumb(container);
+    });
+    $(document).on('change', '.traveler_booking_image_thumb_crop', function(event) {
+        var container = $(this).parent();
+        _save_data_image_thumb(container);
+    });
+    function _save_data_image_thumb(container){
+        var height = container.find('.traveler_booking_image_thumb_height').val();
+        var width = container.find('.traveler_booking_image_thumb_width').val();
+        if ( container.find('.traveler_booking_image_thumb_crop').is(":checked"))
+        {
+            var crop = 'on';
+        }else{
+            var crop = 'off';
+        }
+        var value = width+","+height+","+crop
+        container.find('.data_value').val(value);
+    }
+
 });

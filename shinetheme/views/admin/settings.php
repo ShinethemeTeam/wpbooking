@@ -56,7 +56,7 @@ $slug_page_menu = $menu_page['menu_slug'];
         <form method="post" action="" id="form-settings-admin">
             <?php wp_nonce_field('traveler_booking_action','traveler_booking_save_settings_field') ?>
             <input type="hidden" name="traveler_booking_save_settings" value="true" >
-            <table class="form-table traveler-settings">
+            <table class="form-table traveler-settings ">
                 <tbody>
                     <?php
                     if(!empty($custom_settings[$is_tab]) and !empty($custom_settings[$is_tab]['sections'][$is_section]['fields'])){
