@@ -19,6 +19,16 @@ ul.padding-0 li{
 .width-800{
     width: 800px;
 }
+.width-70{
+     width: 70px;
+}
+
+.min-width-800{
+    min-width: 800px;
+}
+.max-width-800{
+    max-width: 800px;
+}
 .min-width-500{
     min-width: 500px;
 }
@@ -63,4 +73,34 @@ img.settings-demo-gallery{
     border-color: #7f291b;
     box-shadow: 0 1px 0 rgba(229, 134, 119, 0.6) inset;
     color: #fff;
+}
+.traveler-setting-list-item .list-content{
+    background-color: #fff;
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.traveler-setting-list-item .list-content .list-title{
+    padding: 10px;
+    min-height: 18px;
+}
+.traveler-setting-list-item .button-section {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+.traveler-setting-list-item .traveler-setting-setting-body {
+    background: #fff none repeat scroll 0 0;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-top: 1px solid #eee;
+    display: none;
+    padding: 10px;
+}
+.traveler-setting-list-item .traveler-setting-setting-body .traveler-settings{
+    margin-left: 20px;
+}
+.traveler-setting-list-item .content_list_item_hide{
+    display: none;
 }

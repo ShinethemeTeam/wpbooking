@@ -1,34 +1,24 @@
-<?php $data_value = traveler_get_option($data['id'],array($data['std']));?>
-<tr class="traveler-setting-<?php echo esc_html($data['id']) ?>">
+<?php
+$data_value = traveler_get_option($data['id'],$data['std']);
+$name = 'traveler_booking_'.$data['id'];
+if(!empty($data['element_list_item'])){
+    $name = $data['custom_name'];
+}
+if(!empty($data['element_list_item'])){
+    $data_value = $data['custom_value'];
+}
+$is_check="";
+if($data_value == 'on'){
+    $is_check = "checked";
+}
+?>
+<tr class="<?php echo esc_html($name) ?> traveler-form-group">
     <th scope="row">
         <label for="<?php echo esc_html($data['id']) ?>"><?php echo esc_html($data['label']) ?>:</label>
     </th>
     <td>
-        <fieldset>
-            <ul class="padding-0">
-                <?php if(!empty($data['value'])){ ?>
-                    <?php foreach($data['value'] as $key=>$value){
-                        $is_check = "";
-                        if(!empty($data_value) and is_array($data_value)){
-                            foreach($data_value as $key2=>$value2){
-                                if($value2 == $key){
-                                    $is_check = "checked";
-                                }
-                            }
-                        }
-
-                        ?>
-                        <li>
-                            <label>
-                                <input type="checkbox" class="form-control min-width-500" <?php echo esc_html($is_check) ?>   name="traveler_booking_<?php echo esc_html($data['id']) ?>[]" value="<?php echo esc_attr($key) ?>">
-                                <?php echo esc_html($value) ?>
-                            </label>
-                        </li>
-
-                    <?php } ?>
-                <?php } ?>
-            </ul>
-        </fieldset>
+        <input type="checkbox" id="<?php echo esc_attr($name) ?>" class="form-control min-width-500" <?php echo esc_html($is_check) ?>   name="<?php echo esc_html($name) ?>">
+        <?php echo esc_html($data['label']) ?>
         <i class="traveler-desc"><?php echo balanceTags($data['desc']) ?></i>
     </td>
 </tr>

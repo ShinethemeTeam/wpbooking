@@ -14,6 +14,9 @@ if(!class_exists('Traveler_Admin_Setting'))
 
             // add script and style
             add_action('admin_enqueue_scripts',array($this,"_add_scripts"));
+
+            add_action( 'wp_ajax__get_content_editor' , array( $this , '_get_content_editor' ) );
+            add_action( 'wp_ajax_nopriv__get_content_editor' , array( $this , '_get_content_editor' ) );
         }
 
         function _add_scripts()
@@ -23,6 +26,18 @@ if(!class_exists('Traveler_Admin_Setting'))
             wp_enqueue_style('traveler_admin.css', traveler_admin_assets_url('css/admin.css'));
         }
 
+        function _get_content_editor(){
+            $content = Traveler_Input::request('content');
+            $name = Traveler_Input::request('name');
+            $id = Traveler_Input::request('id');
+            $editor_id = 'tmp_traveler_booking_'.strtotime('now');
+            $settings = array('media_buttons' => false, 'textarea_name' => $name);
+            wp_editor($content, $id, $settings);
+            /*\_WP_Editors::enqueue_scripts();
+            print_footer_scripts();
+            \_WP_Editors::editor_js();*/
+            die();
+        }
 
         /*---------Begin Helper Functions----------------*/
         function get_option($option_id,$default=false){
@@ -72,16 +87,44 @@ if(!class_exists('Traveler_Admin_Setting'))
                 if(!empty($full_settings)){
                     $is_tab = Traveler_Input::request('st_tab');
                     $is_section = Traveler_Input::request('st_section');
+                    if(empty($is_tab) and !empty($full_settings)){
+                        $tmp_tab = $full_settings;
+                        $is_tab = array_shift(array_keys($tmp_tab));
+                    }
                     if(empty($is_section) and !empty($full_settings[$is_tab]['sections'])){
-                        $tmp = $full_settings[$is_tab]['sections'];
-                        $is_section = array_shift($tmp);
-                        $is_section = $is_section['id'];
+                        $tmp_section = $full_settings[$is_tab]['sections'];
+                        $is_section = array_shift(array_keys($tmp_section));
                     }
                     $custom_settings = $full_settings[$is_tab]['sections'][$is_section]['fields'];
+
                     foreach($custom_settings as $key=>$value){
-                        $key = 'traveler_booking_'.$value['id'];
-                        $value = Traveler_Input::request($key);
-                        update_option($key,$value);
+                        switch($value['type']){
+                            case "muti-checkbox":
+                                $custom_muti_checkbox = $value['value'];
+                                foreach($custom_muti_checkbox as $key_muti=>$value_muti){
+                                    $key = 'traveler_booking_'.$value_muti['id'];
+                                    $value = Traveler_Input::request($key);
+                                    update_option($key,$value);
+                                }
+                                break;
+                            case "list-item":
+                                $id_list_item = $value['id'];
+                                $data = array();
+                                $key = 'traveler_booking_list_item';
+                                $value = Traveler_Input::request($key);
+                                if(!empty($value[$id_list_item])){
+                                    $data = $value[$id_list_item];
+                                }
+                                unset($data['__number_list__']);
+                                update_option($key,$data);
+
+                                break;
+                            default:
+                                $key = 'traveler_booking_'.$value['id'];
+                                $value = Traveler_Input::request($key);
+                                update_option($key,$value);
+                        }
+
                     }
                 }
             }
@@ -96,21 +139,163 @@ if(!class_exists('Traveler_Admin_Setting'))
                             'label'   => __( 'Page Option' , 'traveler-booking' ) ,
                             'fields'     => array(
                                 array(
+                                    'id'      => 'list_item' ,
+                                    'label'   => __( 'List Item' , 'traveler-booking' ) ,
+                                    'desc'    => __( 'List Item' , 'traveler-booking' )  ,
+                                    'type'    => 'list-item' ,
+                                    'std'     => '',
+                                    'value'   => array(
+                                        array(
+                                            'id'      => 'text_box' ,
+                                            'label'   => __( 'Text Box' , 'traveler-booking' ) ,
+                                            'desc'    => __( 'Text Box' , 'traveler-booking' )  ,
+                                            'type'    => 'text' ,
+                                            'std'     => ''
+                                        ),
+                                        array(
+                                            'id'      => 'text_box_2' ,
+                                            'label'   => __( 'Text Box 2' , 'traveler-booking' ) ,
+                                            'desc'    => __( 'Text Box 2' , 'traveler-booking' )  ,
+                                            'type'    => 'text' ,
+                                            'std'     => ''
+                                        ),
+                                        array(
+                                            'id'      => 'checkbox' ,
+                                            'label'   => __( 'Yes' , 'traveler-booking' ) ,
+                                            'desc'    => __( 'Chọn là có !' , 'traveler-booking' )  ,
+                                            'type'    => 'checkbox' ,
+                                            'std'     => ''
+                                        ),
+                                        array(
+                                            'id'      => 'radio' ,
+                                            'label'   => __( 'Radio' , 'traveler-booking' ) ,
+                                            'desc'    => __( 'Radio' , 'traveler-booking' )  ,
+                                            'type'    => 'radio' ,
+                                            'std'     => 'no',
+                                            'value' => array(
+                                                'no'  => __( 'No' , "traveler-booking" ) ,
+                                                'yes' => __( 'Yes' , "traveler-booking" ) ,
+                                            ) ,
+                                        ),
+                                        array(
+                                            'id'      => 'dropdown' ,
+                                            'label'   => __( 'Dropdown' , 'traveler-booking' ) ,
+                                            'desc'    => __( 'Dropdown' , 'traveler-booking' )  ,
+                                            'type'    => 'dropdown' ,
+                                            'std'     => 'no',
+                                            'value' => array(
+                                                'no'  => __( 'No' , "traveler-booking" ) ,
+                                                'yes' => __( 'Yes' , "traveler-booking" ) ,
+                                            ) ,
+                                        ),
+                                        array(
+                                            'id'      => 'textarea' ,
+                                            'label'   => __( 'Text Area' , 'traveler-booking' ) ,
+                                            'desc'    => __( 'Text Area' , 'traveler-booking' )  ,
+                                            'type'    => 'textarea' ,
+                                            'std'     => '',
+                                        ),
+                                        array(
+                                            'id'      => 'texteditor' ,
+                                            'label'   => __( 'Text Editor' , 'traveler-booking' ) ,
+                                            'desc'    => __( 'Text Editor' , 'traveler-booking' )  ,
+                                            'type'    => 'texteditor' ,
+                                            'std'     => '',
+                                        ),
+                                        array(
+                                            'id'      => 'texteditor2' ,
+                                            'label'   => __( 'Text Editor 2' , 'traveler-booking' ) ,
+                                            'desc'    => __( 'Text Editor 2' , 'traveler-booking' )  ,
+                                            'type'    => 'texteditor' ,
+                                            'std'     => '',
+                                        ),
+                                        array(
+                                            'id'      => 'upload' ,
+                                            'label'   => __( 'Upload' , 'traveler-booking' ) ,
+                                            'desc'    => __( 'Upload' , 'traveler-booking' )  ,
+                                            'type'    => 'upload' ,
+                                            'std'     => '',
+                                        ),
+                                        array(
+                                            'id'      => 'gallery' ,
+                                            'label'   => __( 'Gallery' , 'traveler-booking' ) ,
+                                            'desc'    => __( 'Gallery' , 'traveler-booking' )  ,
+                                            'type'    => 'gallery' ,
+                                            'std'     => '',
+                                            'taxonomy'=> ''
+                                        ),
+                                        array(
+                                            'id'      => 'page-select' ,
+                                            'label'   => __( 'Page select' , 'traveler-booking' ) ,
+                                            'desc'    => __( 'Page select' , 'traveler-booking' )  ,
+                                            'type'    => 'page-select' ,
+                                            'std'     => '',
+                                        ),
+                                        array(
+                                            'id'      => 'post-select' ,
+                                            'label'   => __( 'Post select' , 'traveler-booking' ) ,
+                                            'desc'    => __( 'Post select' , 'traveler-booking' )  ,
+                                            'type'    => 'post-select' ,
+                                            'std'     => '',
+                                        ),
+                                        array(
+                                            'id'      => 'taxonomy-select' ,
+                                            'label'   => __( 'Taxonomy select' , 'traveler-booking' ) ,
+                                            'desc'    => __( 'Taxonomy select' , 'traveler-booking' )  ,
+                                            'type'    => 'taxonomy-select' ,
+                                            'std'     => '',
+                                            'taxonomy'=> 'category'
+                                        ),
+                                        array(
+                                            'id'      => 'image-thumb' ,
+                                            'label'   => __( 'Image Thumb' , 'traveler-booking' ) ,
+                                            'desc'    => __( 'Image Thumb' , 'traveler-booking' )  ,
+                                            'type'    => 'image-thumb' ,
+                                            'std'     => '',
+                                        ),
+                                    )
+                                ),
+                                array(
                                     'id'      => 'text_box' ,
                                     'label'   => __( 'Text Box' , 'traveler-booking' ) ,
                                     'desc'    => __( 'Text Box' , 'traveler-booking' )  ,
                                     'type'    => 'text' ,
-                                    'std'     => ''
+                                    'std'     => '',
+                                    'condition'=>''
                                 ),
                                 array(
                                     'id'      => 'check_box' ,
                                     'label'   => __( 'Check Box' , 'traveler-booking' ) ,
                                     'desc'    => __( 'Check Box' , 'traveler-booking' )  ,
                                     'type'    => 'checkbox' ,
-                                    'std'     => 'check_2',
+                                    'std'     => '',
+                                    'value' =>  '',
+                                ),
+                                array(
+                                    'id'      => 'text_box_3' ,
+                                    'label'   => __( 'Text Box 3' , 'traveler-booking' ) ,
+                                    'desc'    => __( 'Text Box 3' , 'traveler-booking' )  ,
+                                    'type'    => 'text' ,
+                                    'std'     => '',
+                                    'condition'=>'check_box:is(on)'
+                                ),
+                                array(
+                                    'id'      => 'muti_check_box' ,
+                                    'label'   => __( 'Check Box Array' , 'traveler-booking' ) ,
+                                    'desc'    => __( 'Check Box Array' , 'traveler-booking' )  ,
+                                    'type'    => 'muti-checkbox' ,
+                                    'std'     => '',
                                     'value' => array(
-                                        'check_1'  => __( 'Check Box 1' , "traveler-booking" ) ,
-                                        'check_2' => __( 'Check Box 2' , "traveler-booking" ) ,
+                                        array(
+                                            'id' => 'check_muti_1',
+                                            'label' => 'Check Muti 1',
+                                            'std'     => '',
+                                        ),
+                                        array(
+                                            'id' => 'check_muti_2',
+                                            'label' => 'Check Muti 2',
+                                            'std'     => '',
+                                        ),
                                     ) ,
                                 ),
                                 array(
@@ -120,8 +305,8 @@ if(!class_exists('Traveler_Admin_Setting'))
                                     'type'    => 'radio' ,
                                     'std'     => 'no',
                                     'value' => array(
-                                        'no'  => __( 'No' , "traveler-booking" ) ,
-                                        'yes' => __( 'Yes' , "traveler-booking" ) ,
+                                        'off'  => __( 'No' , "traveler-booking" ) ,
+                                        'on' => __( 'Yes' , "traveler-booking" ) ,
                                     ) ,
                                 ),
                                 array(
@@ -157,6 +342,13 @@ if(!class_exists('Traveler_Admin_Setting'))
                                     'std'     => '',
                                 ),
                                 array(
+                                    'id'      => 'upload2' ,
+                                    'label'   => __( 'Upload2' , 'traveler-booking' ) ,
+                                    'desc'    => __( 'Upload2' , 'traveler-booking' )  ,
+                                    'type'    => 'upload' ,
+                                    'std'     => '',
+                                ),
+                                array(
                                     'id'      => 'page-select' ,
                                     'label'   => __( 'Page select' , 'traveler-booking' ) ,
                                     'desc'    => __( 'Page select' , 'traveler-booking' )  ,
@@ -185,7 +377,29 @@ if(!class_exists('Traveler_Admin_Setting'))
                                     'type'    => 'gallery' ,
                                     'std'     => '',
                                     'taxonomy'=> ''
-                                )
+                                ),
+                                array(
+                                    'id'      => 'gallery2' ,
+                                    'label'   => __( 'Gallery2' , 'traveler-booking' ) ,
+                                    'desc'    => __( 'Gallery2' , 'traveler-booking' )  ,
+                                    'type'    => 'gallery' ,
+                                    'std'     => '',
+                                    'taxonomy'=> ''
+                                ),
+                                array(
+                                    'id'      => 'image-thumb' ,
+                                    'label'   => __( 'Image Thumb' , 'traveler-booking' ) ,
+                                    'desc'    => __( 'Image Thumb' , 'traveler-booking' )  ,
+                                    'type'    => 'image-thumb' ,
+                                    'std'     => '',
+                                ),
+                                array(
+                                    'id'      => 'gallery-thumb' ,
+                                    'label'   => __( 'Gallery Thumb' , 'traveler-booking' ) ,
+                                    'desc'    => __( 'Gallery Thumb' , 'traveler-booking' )  ,
+                                    'type'    => 'image-thumb' ,
+                                    'std'     => '',
+                                ),
                             )
                         ),
                         "pages2_setting_section" => array(

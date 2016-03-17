@@ -1,5 +1,18 @@
-<?php $data_value = traveler_get_option($data['id'],array($data['std'])) ?>
-<tr class="traveler-setting-<?php echo esc_html($data['id']) ?>">
+<?php
+
+$data_value = traveler_get_option($data['id'],array($data['std']));
+$name = 'traveler_booking_'.$data['id'];
+
+if(!empty($data['element_list_item'])){
+    $name = $data['custom_name'];
+}
+if(!empty($data['element_list_item'])){
+    $data_value = $data['custom_value'];
+}
+
+
+?>
+<tr class="<?php echo esc_html($name) ?>">
     <th scope="row">
         <label for="<?php echo esc_html($data['id']) ?>"><?php echo esc_html($data['label']) ?>:</label>
     </th>
@@ -18,7 +31,7 @@
                         ?>
                         <li>
                             <label>
-                                <input type="radio" class="form-control min-width-500" <?php echo esc_html($is_check) ?>   name="traveler_booking_<?php echo esc_html($data['id']) ?>" value="<?php echo esc_attr($key) ?>">
+                                <input type="radio" class="form-control min-width-500" <?php echo esc_html($is_check) ?>   name="<?php echo esc_html($name) ?>" value="<?php echo esc_attr($key) ?>">
                                 <?php echo esc_html($value) ?>
                             </label>
                         </li>
