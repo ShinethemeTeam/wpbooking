@@ -5,6 +5,10 @@
  * Date: 3/11/2016
  * Time: 12:44 PM
  */
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 if(!class_exists('Traveler_Admin_Service'))
 {
 	class Traveler_Admin_Service extends Traveler_Controller

@@ -5,6 +5,10 @@
  * Date: 3/17/2016
  * Time: 3:52 PM
  */
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 if(!class_exists('Traveler_Assets'))
 {
 	class Traveler_Assets

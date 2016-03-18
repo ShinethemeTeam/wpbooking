@@ -245,4 +245,22 @@ jQuery(document).ready(function( $ ){
         container.find('.data_value').val(value);
     }
 
+    ///////////////////////////////////
+    /////// Meta Box ///////////////
+    ///////////////////////////////////
+    var resize;
+    $(window).resize(function(event) {
+        clearTimeout( resize );
+
+        resize = setTimeout(function(){
+            if( $(window).width() < 1024 ){
+                $( ".st-metabox-tabs" ).tabs({active: 0}).removeClass( "ui-tabs-vertical ui-helper-clearfix" );
+                $( ".st-metabox-tabs li" ).addClass( "ui-corner-top" ).removeClass( "ui-corner-left" );
+            }else{
+                $( ".st-metabox-tabs" ).tabs({active: 0}).addClass( "ui-tabs-vertical ui-helper-clearfix" );
+                $( ".st-metabox-tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+            }
+        }, 500);
+    }).resize();;
+
 });

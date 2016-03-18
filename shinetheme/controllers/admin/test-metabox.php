@@ -8,7 +8,7 @@ class Test_Metabox extends Traveler_Controller{
 	public function __construct(){
 		parent::__construct();
 
-		$metabox = new Traveler_Admin_Metabox();
+		$metabox = new Traveler_Metabox();
 
 		$settings = array(
 			'id'       => 'st_post_metabox',

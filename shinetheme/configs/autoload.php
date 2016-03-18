@@ -23,7 +23,8 @@ $autoload['helper']=array(
 $autoload['library']=array(
     'input',
     'assets',
-	'validator'
+	'validator',
+	'metabox'
 );
 
 $autoload['controller']=array(
@@ -33,6 +34,5 @@ $autoload['controller']=array(
 	'admin/service',
     'admin/settings',
 	'admin/taxonomy',
-	'admin/metabox',
 	'admin/test-metabox',
 );

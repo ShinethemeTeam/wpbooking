@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 if(!class_exists('Traveler_Admin_Setting'))
 {
     class Traveler_Admin_Setting extends Traveler_Controller

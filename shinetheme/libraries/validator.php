@@ -6,6 +6,10 @@
  * Created by ShineTheme
  *
  */
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 if(!class_exists('Traveler_Validator'))
 {
 
