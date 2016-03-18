@@ -14,7 +14,7 @@ if(!class_exists('Traveler_Admin_Service'))
 		function __construct()
 		{
 			add_action('init',array($this,'_add_taxonomy'));
-			add_action('init',array($this,'_add_post_type'),13);
+			add_action('init',array($this,'_add_post_type'),5);
 		}
 
 		function _add_taxonomy(){

@@ -10,6 +10,7 @@
 	<div class="icon32 icon32-attributes" id="icon-woocommerce"><br/></div>
 	<h2><?php _e( 'Taxonomies', 'traveler-booking' ) ?></h2>
 	<br class="clear" />
+	<?php echo traveler_get_admin_message() ?>
 	<div id="col-container">
 		<div id="col-right">
 			<div class="col-wrap">
@@ -18,7 +19,6 @@
 					<tr>
 						<th scope="col"><?php _e( 'Name', 'traveler-booking' ) ?></th>
 						<th scope="col"><?php _e( 'Slug', 'traveler-booking' ) ?></th>
-						<th scope="col"><?php _e( 'Hierarchical', 'traveler-booking' ) ?></th>
 						<th scope="col"><?php _e( 'Service Type(s)', 'traveler-booking' ) ?></th>
 					</tr>
 					</thead>
@@ -28,26 +28,27 @@
 						foreach ($rows as $tax=>$value) :
 							?><tr>
 							
-							<td><a href="edit-tags.php?taxonomy=<?php echo esc_html($tax); ?>"><?php echo esc_html( $value['name'] ); ?></a>
+							<td><a href="<?php echo esc_url(add_query_arg(array(
+									'taxonomy'=>$tax,
+									'post_type'=>'traveler_service'
+								),admin_url('edit-tags.php'))) ?>"><?php echo esc_html( $value['label'] ); ?></a>
 								
-								<div class="row-actions"><span class="edit"><a href="<?php echo esc_url( add_query_arg('edit', $tax) ); ?>"><?php _e( 'Edit', 'traveler-booking' ); ?></a> | </span><span class="delete"><a class="delete" href="<?php echo esc_url( wp_nonce_url( add_query_arg('delete', $tax), 'st_delete_attribute' ) ); ?>"><?php _e( 'Delete', 'traveler-booking' ); ?></a></span></div>
+								<div class="row-actions">
+									<span class="edit">
+										<a href="<?php echo esc_url( add_query_arg(array('taxonomy_name'=> $tax,'action'=>'traveler_edit_taxonomy'),$page_url) ); ?>"><?php _e( 'Edit', 'traveler-booking' ); ?></a>
+										| </span>
+									<span class="delete">
+										<a class="delete" href="<?php echo  wp_nonce_url( add_query_arg(array('action'=>'traveler_delete_taxonomy','tax_name'=>$tax),$page_url) ) ; ?>"><?php _e( 'Delete', 'traveler-booking' ); ?>
+										</a>
+									</span>
+								</div>
 							</td>
-							<td><?php echo esc_html( $tax ); ?></td>
-							<td><?php if($value['hierarchical']) echo __('Yes','traveler-booking'); else echo __('No','traveler-booking'); ?></td>
-							
+							<td><?php echo esc_html( $value['slug'] ); ?></td>
+
 							<td class="attribute-terms"><?php
-								if(!empty($value['post_type']) and is_array($value['post_type']))
+								if(!empty($value['service_type']) and is_array($value['service_type']))
 								{
-									foreach($value['post_type'] as $k=>$v){
-										$obj=get_post_type_object($v);
-										if($obj){
-											if($k)
-											{
-												echo ', ';
-											}
-											echo ($obj->labels->name);
-										}
-									}
+									echo implode(',',$value['service_type']);
 								}
 								?></td>
 							<?php
@@ -67,8 +68,8 @@
 					<p><?php _e( 'Taxonomies let you define unlimited extra information for Hotel, Car ..etc', 'traveler-booking' ) ?></p>
 					<form action="" method="post">
 						<div class="form-field">
-							<label for="taxonomy_name"><?php _e( 'Name', 'traveler-booking' ); ?></label>
-							<input name="taxonomy_name" id="taxonomy_name" required type="text" value="" />
+							<label for="taxonomy_label"><?php _e( 'Name', 'traveler-booking' ); ?></label>
+							<input name="taxonomy_label" id="taxonomy_label" required type="text" value="" />
 							<p class="description"><?php _e( 'Name for the attribute (shown on the front-end).', 'traveler-booking' ); ?></p>
 						</div>
 						
@@ -77,13 +78,20 @@
 							<input name="taxonomy_slug" id="taxonomy_slug" type="text" value="" maxlength="28" />
 							<p class="description"><?php _e( 'Unique slug/reference for the attribute; must be shorter than 28 characters.', 'traveler-booking' ); ?></p>
 						</div>
-						
+
 						<div class="form-field">
-							<label for="attribute_type"><?php _e( 'Hierarchy', 'traveler-booking' ); ?></label>
-							<select name="attribute_type" id="attribute_type">
-								<option value="1"><?php _e( 'Yes', 'traveler-booking' ) ?></option>
-								<option value="0"><?php _e( 'No', 'traveler-booking' ) ?></option>
-							</select>
+							<label ><?php _e( 'Service Type', 'traveler-booking' ); ?></label>
+							<?php
+							$types=Traveler_Service::inst()->get_service_types();
+							if(!empty($types))
+							{
+								foreach($types as $key=>$value){
+									printf('<label><input type="checkbox" name="%s" value="%s">%s</label>','taxonomy_service_type[]',$key,$value['label']);
+								}
+							}
+							?>
+							<p class="description"><?php _e( 'Choose which Service type that the Taxonomy supported', 'traveler-booking' ); ?></p>
+
 						</div>
 
 						<p class="submit"><input type="submit" name="traveler_create_taxonomy" id="submit" class="button" value="<?php _e( 'Add Taxonomy', 'traveler-booking' ); ?>"></p>
