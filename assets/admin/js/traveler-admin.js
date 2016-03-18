@@ -1,7 +1,7 @@
 /**
  * Created by Dungdt on 3/15/2016.
  */
-jQuery(document).ready(function(){
+jQuery(document).ready(function( $ ){
     /**
      * Condition tags
      * @type {string}

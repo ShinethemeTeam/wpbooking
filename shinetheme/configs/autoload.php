@@ -28,5 +28,7 @@ $autoload['controller']=array(
 	'service',
 	'admin/service',
     'admin/settings',
-	'admin/taxonomy'
+	'admin/taxonomy',
+	'admin/metabox',
+	'admin/test-metabox',
 );
