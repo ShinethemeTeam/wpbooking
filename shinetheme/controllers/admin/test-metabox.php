@@ -12,17 +12,23 @@ class Test_Metabox extends Traveler_Controller{
 
 		$settings = array(
 			'id'       => 'st_post_metabox',
-            'title'    => __('Information', 'traveler_booking'),
+            'title'    => __('Information', 'traveler-booking'),
             'desc'     => '',
             'pages'    => array('post'),
             'context'  => 'normal',
             'priority' => 'high',
             'fields'   => array(
             	array(
-                    'label' => __('Location', 'traveler_booking'),
+                    'label' => __('Location', 'traveler-booking'),
                     'id'    => 'location_tab',
                     'type'  => 'tab'
                 ),
+				array(
+					'id'=>'service_type',
+					'label'=>__("Service Type",'traveler-booking'),
+					'location'=>'hndle-tag',
+					'type'=>'service-type-select',
+				),
                 array(
                     'id'      => 'check_box' ,
                     'label'   => __( 'Check Box' , 'traveler-booking' ) ,

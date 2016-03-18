@@ -14,7 +14,7 @@ $field = '<div class="form-group">';
 if( !empty( $data['label'] ) )
 	echo '<div class="form-label"><label for="'.esc_html( $data['id'] ).'">'. esc_html( $data['label'] ) .'</label></div>';
 
-$field .= '<div style="margin-bottom: 7px;"><textarea id="'. esc_html( $data['id'] ).'" name="'. esc_html( $data['id'] ).'" class=" form-control widefat '. esc_html( $data['class'] ).'">'. esc_html( $old_data ).'</textarea></div>';
+$field .= '<div style="margin-bottom: 7px;"><textarea rows="10" id="'. esc_html( $data['id'] ).'" name="'. esc_html( $data['id'] ).'" class=" form-control widefat '. esc_html( $data['class'] ).'">'. esc_html( $old_data ).'</textarea></div>';
 
 $field .= '</div>';
 if( !empty( $data['desc'] ) ): ?>
