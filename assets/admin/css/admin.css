@@ -5,6 +5,9 @@
   margin: 10px 0 5px;
   padding: 0;
 }
+.hidden {
+  display: none;
+}
 i.traveler-desc {
   color: #aaa;
   display: block;
@@ -140,8 +143,7 @@ img.settings-demo-gallery {
   padding-bottom: 10px;
   font-weight: bold;
   font-size: 15px;
-  border-bottom: 1px solid dotted #ccc;
-  border-bottom: 1px dotted #cccccc;
+  border-bottom: none;
   margin-bottom: 10px;
 }
 .st-metabox-tabs-content .form-control {
@@ -153,7 +155,10 @@ img.settings-demo-gallery {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 0px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 .st-metabox-tabs-content .form-control[type=text],
@@ -174,7 +179,10 @@ img.settings-demo-gallery {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 0px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 .st-metabox-tabs-content .form-control .form-group .form-control[type=text],
@@ -183,26 +191,15 @@ img.settings-demo-gallery {
 .st-metabox-tabs-content .form-control .form-group .form-controlselect {
   width: 320px;
 }
+.st-metabox-tabs-content .st-metabox-content-wrapper .st-metabox-content-right {
+  font-style: italic;
+}
 .postbox .hndle > span {
   display: block;
   line-height: 24px;
 }
 .postbox .hndle > span label {
   margin-left: 15px;
-}
-.st-metabox-content-left {
-  width: 70%;
-  float: left;
-  padding-right: 15px;
-}
-.st-metabox-content-right {
-  margin-left: 70%;
-}
-.st-metabox-content-left .form-control {
-  width: 100% !important;
-}
-.ui-tabs-vertical {
-  width: 100%;
 }
 .ui-tabs-vertical .ui-tabs-nav {
   padding: .2em .1em .2em .2em;
@@ -230,6 +227,7 @@ img.settings-demo-gallery {
   width: 40em;
 }
 .ui-tabs-vertical .ui-tabs-nav li a:focus {
+  -webkit-box-shadow: none;
   box-shadow: none;
 }
 @media (max-width: 1023px) {
@@ -267,5 +265,3 @@ img.settings-demo-gallery {
   content: " ";
   clear: both;
 }
-
-/*# sourceMappingURL=admin.css.map */
