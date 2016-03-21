@@ -5,10 +5,19 @@
 
 $old_data = esc_html( $data['std'] );
 
-$value = get_post_meta( get_the_ID(), esc_html( $data['id'] ) );
+$value = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
 if( !empty( $value ) ){
 	$old_data = $value;
 }
+
+$class = $data['id'];
+$data_class = '';
+if(!empty($data['condition'])){
+    $class .= ' traveler-condition traveler-form-group ';
+    $data_class .= ' data-condition='.$data['condition'].' ' ;
+}
+
+echo '<div class="'.esc_html($class).'" '.esc_attr($data_class).'>';
 
 $field = '<div class="form-group traveler-settings">';
 
@@ -23,9 +32,9 @@ $tmp = explode( ',', $old_data );
 
 if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
  	foreach( $tmp as $k => $v ){
-        $url = wp_get_attachment_image_url( $v );
+        $url = wp_get_attachment_image_src( $v );
         if( !empty( $url ) ){
-            $field .= '<img src="<?php echo esc_url($url) ?>" class="demo-image-gallery settings-demo-gallery" >';
+            $field .= '<img src="'.esc_url($url[0]).'" class="demo-image-gallery settings-demo-gallery" >';
         } 
     }
 }
@@ -46,9 +55,10 @@ if( !empty( $data['desc'] ) ): ?>
 	<div class="st-metabox-content-right">
 		<div class="description"><?php echo esc_html( $data['desc'] ); ?></div>
 	</div>
-</div>	
-<?php else: 
-echo '<div class="st-metabox-content-wrapper">';
-	echo $field; 
-echo '</div>';	
-endif; ?>
+</div>
+<?php else: ?>
+	<div class="st-metabox-content-wrapper">;
+		<?php echo $field; ?> 
+	</div>;	
+<?php endif; ?>
+</div>
