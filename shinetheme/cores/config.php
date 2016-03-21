@@ -31,7 +31,7 @@ if(!class_exists('Traveler_Config'))
 			}
 
 			if(is_string($file)){
-				$real_file=Traveler()->get_dir('configs/'.$file.'.php');
+				$real_file=Traveler()->get_dir('shinetheme/configs/'.$file.'.php');
 				if(file_exists($real_file))
 				{
 					include $real_file;

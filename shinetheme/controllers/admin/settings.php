@@ -72,7 +72,7 @@ if(!class_exists('Traveler_Admin_Setting'))
         }
         function _save_settings(){
             if(!empty($_POST['traveler_booking_save_settings']) and wp_verify_nonce($_REQUEST[ 'traveler_booking_save_settings_field' ],"traveler_booking_action")){
-                $full_settings = Traveler_Admin_Setting::inst()->_get_settings();
+                $full_settings =$this->_get_settings();
                 if(!empty($full_settings)){
                     $is_tab = Traveler_Input::request('st_tab');
                     $is_section = Traveler_Input::request('st_section');
