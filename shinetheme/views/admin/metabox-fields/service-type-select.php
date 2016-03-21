@@ -25,7 +25,7 @@ if( $service_type && !empty( $service_type ) ){
 	$select .= '</select>';
 }
 ?>
-<div class="traveler-hndle-tag-input">
+<div class="traveler-hndle-tag-input hidden">
 	<label ><?php echo esc_html($data['label']) ?>
 		<?php echo $select?>
 	</label>

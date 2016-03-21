@@ -5,6 +5,9 @@
   margin: 10px 0 5px;
   padding: 0;
 }
+.hidden {
+  display: none;
+}
 i.traveler-desc {
   color: #aaa;
   display: block;
@@ -140,8 +143,7 @@ img.settings-demo-gallery {
   padding-bottom: 10px;
   font-weight: bold;
   font-size: 15px;
-  border-bottom: 1px solid #ccc;
-  border-bottom: 1px dotted #cccccc;
+  border-bottom: none;
   margin-bottom: 10px;
 }
 .st-metabox-tabs-content .form-control {
@@ -189,26 +191,15 @@ img.settings-demo-gallery {
 .st-metabox-tabs-content .form-control .form-group .form-controlselect {
   width: 320px;
 }
+.st-metabox-tabs-content .st-metabox-content-wrapper .st-metabox-content-right {
+  font-style: italic;
+}
 .postbox .hndle > span {
   display: block;
   line-height: 24px;
 }
 .postbox .hndle > span label {
   margin-left: 15px;
-}
-.st-metabox-content-left {
-  width: 70%;
-  float: left;
-  padding-right: 15px;
-}
-.st-metabox-content-right {
-  margin-left: 70%;
-}
-.st-metabox-content-left .form-control {
-  width: 100% !important;
-}
-.ui-tabs-vertical {
-  width: 100%;
 }
 .ui-tabs-vertical .ui-tabs-nav {
   padding: .2em .1em .2em .2em;

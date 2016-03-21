@@ -172,7 +172,8 @@ if (!class_exists('Traveler_Admin_Taxonomy_Controller')) {
 				'w',
 				'withcomments',
 				'withoutcomments',
-				'year'
+				'year',
+				'traveler_service_type'
 			);
 
 
