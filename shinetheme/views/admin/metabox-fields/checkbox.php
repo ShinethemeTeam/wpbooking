@@ -4,8 +4,16 @@
 **/
 
 $old_data = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
+$class = $data['id'];
+$data_class = '';
+if(!empty($data['condition'])){
+    $class .= ' traveler-condition traveler-form-group ';
+    $data_class .= ' data-condition='.$data['condition'].' ' ;
+}
 
 $field = '<div class="form-group">';
+
+echo '<div class="'.esc_html($class).'" '.esc_attr($data_class).'>';
 
 if( !empty( $data['label'] ) )
 	echo '<div class="form-label"><label for="'.esc_html( $data['id'] ).'">'. esc_html( $data['label'] ) .'</label></div>';
@@ -38,9 +46,10 @@ if( !empty( $data['desc'] ) ): ?>
 	<div class="st-metabox-content-right">
 		<div class="description"><?php echo esc_html( $data['desc'] ); ?></div>
 	</div>
-</div>	
-<?php else: 
-echo '<div class="st-metabox-content-wrapper">';
-	echo $field; 
-echo '</div>';	
-endif; ?>
+</div>
+<?php else: ?>
+	<div class="st-metabox-content-wrapper">;
+		<?php echo $field; ?> 
+	</div>;	
+<?php endif; ?>
+</div>

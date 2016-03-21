@@ -14,6 +14,8 @@ if( ! class_exists('Traveler_Metabox') ){
 			}
 
 			add_action( 'admin_enqueue_scripts', array( $this, '_add_scripts' ) );
+
+			add_action( 'save_post', array( $this, 'save_meta_box'), 1, 2 );
 		}
 
 		public function _add_scripts(){
@@ -111,6 +113,59 @@ if( ! class_exists('Traveler_Metabox') ){
 			<?php
 		}
 
+		function save_meta_box( $post_id, $post_object ) {
+	      global $pagenow;
+
+	      /* don't save if $_POST is empty */
+	      if ( empty( $_POST ) )
+	        return $post_id;
+	      
+	      /* don't save during quick edi
+	      t */
+	      if ( $pagenow == 'admin-ajax.php' )
+	        return $post_id;
+	        
+	      /* don't save during autosave */
+	      if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+	        return $post_id;
+
+	      /* don't save if viewing a revision */
+	      if ( $post_object->post_type == 'revision' || $pagenow == 'revision.php' )
+	        return $post_id;
+	  	
+	      /* verify nonce */
+	      if ( isset( $_POST[ $this->metabox['id'] . '_nonce'] ) && ! wp_verify_nonce( $_POST[ $this->metabox['id'] . '_nonce'], $this->metabox['id'] ) )
+	        return $post_id;
+
+	      /* check permissions */
+	      if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
+	        if ( ! current_user_can( 'edit_page', $post_id ) )
+	          return $post_id;
+	      } else {
+	        if ( ! current_user_can( 'edit_post', $post_id ) )
+	          return $post_id;
+	      }
+
+	      foreach ( $this->metabox['fields'] as $field ) {
+	        $old = get_post_meta( $post_id, $field['id'], true );
+	        $new = '';
+	        
+	        /* there is data to validate */
+	        if ( isset( $_POST[$field['id']] ) ) {
+	            
+	            /* set up new data with validated data */
+	            $new = $_POST[$field['id']];
+	        
+	        }
+	        
+	        if ( isset( $new ) && $new !== $old ) {
+	          update_post_meta( $post_id, $field['id'], $new );
+	        } else if ( '' == $new && $old ) {
+	          delete_post_meta( $post_id, $field['id'], $old );
+	        }
+	      }
+	  
+	    }
 
 	}
 }
