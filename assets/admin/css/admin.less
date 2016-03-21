@@ -123,35 +123,38 @@ img.settings-demo-gallery{
 .st-metabox-tabs-content{
     width: auto !important; min-height: 200px; margin-left: 158px; float: none !important; border: 1px solid #ccc;
 
-    .form-group{
-        .form-label{
-            padding-bottom: 10px;
-        }
-        .form-control{
-            height: 30px;
-            padding: 4px 8px;
-            font-size: 14px;
-            color: #555;
-            background-color: #fff;
-            background-image: none;
-            border: 1px solid #ccc;
-            border-radius: 0px;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-            -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
-            -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-            transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    .form-label{
+        padding-bottom: 10px;
+        font-weight: bold;
+        font-size: 15px;
+        border-bottom: 1px solid dotted #ccc;
+        border-bottom: 1px dotted rgb(204, 204, 204);
+        margin-bottom: 10px;
+    }
+    .form-control{
+        height: 30px;
+        padding: 4px 8px;
+        font-size: 14px;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 0px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+        -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 
-            &[type=text],&[type=password],&[type=number]
-            {
-                width: 320px;
-            }
+        &[type=text],&[type=password],&[type=number]
+        {
+            width: 320px;
         }
     }
 }
 .st-metabox-content-left{ width: 70%; float: left; padding-right: 15px;}
 .st-metabox-content-right{ margin-left: 70% }
-
+.st-metabox-content-left .form-control{ width: 100% !important;}
 .ui-tabs-vertical { width: 100%; }
 .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
 .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
@@ -164,7 +167,8 @@ img.settings-demo-gallery{
     box-shadow: none;
 }
 @media( max-width: 1023px){
-    .st-metabox-nav .ui-tabs-active a{ border-color: #CCC; border-bottom: 1px solid #FFF;}
+    .st-metabox-nav .ui-tabs-active a{ border-color: #CCC !important;
+    border-bottom: 1px solid #FFF !important;}
     .st-metabox-tabs-content{ margin-top: 2px; padding: 15px; width: auto !important; margin-left: 0; float: none !important; padding-top: 10px; padding-bottom: 10px;}
 }
 

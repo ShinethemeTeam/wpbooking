@@ -78,6 +78,13 @@ class Test_Metabox extends Traveler_Controller{
                     ) ,
                 ),
                 array(
+                    'id'      => 'gallery' ,
+                    'label'   => __( 'Gallery' , 'traveler-booking' ) ,
+                    'desc'    => __( 'Gallery' , 'traveler-booking' )  ,
+                    'type'    => 'gallery' ,
+                    'std'     => '',
+                ),
+                array(
                     'label' => __('Location 1', 'traveler_booking'),
                     'id'    => 'location_tab1',
                     'type'  => 'tab'

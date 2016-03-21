@@ -130,10 +130,15 @@ img.settings-demo-gallery {
   float: none !important;
   border: 1px solid #ccc;
 }
-.st-metabox-tabs-content .form-group .form-label {
+.st-metabox-tabs-content .form-label {
   padding-bottom: 10px;
+  font-weight: bold;
+  font-size: 15px;
+  border-bottom: 1px solid dotted #ccc;
+  border-bottom: 1px dotted #cccccc;
+  margin-bottom: 10px;
 }
-.st-metabox-tabs-content .form-group .form-control {
+.st-metabox-tabs-content .form-control {
   height: 30px;
   padding: 4px 8px;
   font-size: 14px;
@@ -142,15 +147,12 @@ img.settings-demo-gallery {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 0px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
-  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
-.st-metabox-tabs-content .form-group .form-control[type=text],
-.st-metabox-tabs-content .form-group .form-control[type=password],
-.st-metabox-tabs-content .form-group .form-control[type=number] {
+.st-metabox-tabs-content .form-control[type=text],
+.st-metabox-tabs-content .form-control[type=password],
+.st-metabox-tabs-content .form-control[type=number] {
   width: 320px;
 }
 .st-metabox-content-left {
@@ -160,6 +162,9 @@ img.settings-demo-gallery {
 }
 .st-metabox-content-right {
   margin-left: 70%;
+}
+.st-metabox-content-left .form-control {
+  width: 100% !important;
 }
 .ui-tabs-vertical {
   width: 100%;
@@ -190,13 +195,12 @@ img.settings-demo-gallery {
   width: 40em;
 }
 .ui-tabs-vertical .ui-tabs-nav li a:focus {
-  -webkit-box-shadow: none;
   box-shadow: none;
 }
 @media (max-width: 1023px) {
   .st-metabox-nav .ui-tabs-active a {
-    border-color: #CCC;
-    border-bottom: 1px solid #FFF;
+    border-color: #CCC !important;
+    border-bottom: 1px solid #FFF !important;
   }
   .st-metabox-tabs-content {
     margin-top: 2px;
@@ -228,3 +232,5 @@ img.settings-demo-gallery {
   content: " ";
   clear: both;
 }
+
+/*# sourceMappingURL=admin.css.map */
