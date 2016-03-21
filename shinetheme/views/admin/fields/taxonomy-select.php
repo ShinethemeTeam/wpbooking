@@ -8,8 +8,14 @@ if(!empty($data['element_list_item'])){
     $data_value = $data['custom_value'];
 }
 $terms = get_terms( $data['taxonomy'] ,array('hide_empty' => false));
+$class = $name;
+$data_class = '';
+if(!empty($data['condition'])){
+    $class .= ' traveler-condition traveler-form-group ';
+    $data_class .= ' data-condition=traveler_booking_'.$data['condition'].' ' ;
+}
 ?>
-<tr class="<?php echo esc_html($name) ?> traveler-condition" data-condition="enable_load_more:is(1)">
+<tr class="<?php echo esc_html($class) ?>" <?php echo esc_attr($data_class) ?>>
     <th scope="row">
         <label for="<?php echo esc_html($data['id']) ?>"><?php echo esc_html($data['label']) ?>:</label>
     </th>

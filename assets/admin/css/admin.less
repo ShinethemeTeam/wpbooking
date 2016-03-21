@@ -135,7 +135,7 @@ img.settings-demo-gallery{
         padding-bottom: 10px;
         font-weight: bold;
         font-size: 15px;
-        border-bottom: 1px solid dotted #ccc;
+        border-bottom: 1px solid #ccc;
         border-bottom: 1px dotted rgb(204, 204, 204);
         margin-bottom: 10px;
     }
@@ -176,6 +176,8 @@ img.settings-demo-gallery{
                 -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
                 -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
                 transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+
+
                 &[type=text],&[type=password],
                 &[type=number],
                 &select
@@ -223,4 +225,45 @@ img.settings-demo-gallery{
     display: table;
     content: " ";
     clear: both;
+}
+.form-build {
+
+  content: " ";
+  display: table;
+  clear: both;
+    td{
+      padding: 0px;
+    }
+  .head-control-left{
+    float: left;
+    font-size: 18px;
+    font-weight: bold;
+    width: 60%;
+  }
+  .head-control-right{
+    float: left;
+    margin-left: 20px;
+    width: 35%;
+    padding-bottom: 10px;
+  }
+
+  .control-left{
+    float: left;
+    width: 60%;
+    textarea{
+      min-height: 200px;
+      width: 100%;
+    }
+  }
+  .control-right{
+    background: #ddd none repeat scroll 0 0;
+    margin-left: 20px;
+    padding: 20px 5px 20px 15px;
+    width: 35%;
+    float: left;
+  }
+  .form-field{
+    padding-bottom: 15px;
+  }
+
 }

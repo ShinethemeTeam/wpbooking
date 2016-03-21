@@ -11,8 +11,14 @@ $is_check="";
 if($data_value == 'on'){
     $is_check = "checked";
 }
+$class = $name;
+$data_class = '';
+if(!empty($data['condition'])){
+    $class .= ' traveler-condition traveler-form-group ';
+    $data_class .= ' data-condition=traveler_booking_'.$data['condition'].' ' ;
+}
 ?>
-<tr class="<?php echo esc_html($name) ?> traveler-form-group">
+<tr class="<?php echo esc_html($class) ?> " <?php echo esc_attr($data_class) ?>>
     <th scope="row">
         <label for="<?php echo esc_html($data['id']) ?>"><?php echo esc_html($data['label']) ?>:</label>
     </th>

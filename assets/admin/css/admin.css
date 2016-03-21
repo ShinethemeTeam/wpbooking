@@ -140,7 +140,7 @@ img.settings-demo-gallery {
   padding-bottom: 10px;
   font-weight: bold;
   font-size: 15px;
-  border-bottom: 1px solid dotted #ccc;
+  border-bottom: 1px solid #ccc;
   border-bottom: 1px dotted #cccccc;
   margin-bottom: 10px;
 }
@@ -153,7 +153,10 @@ img.settings-demo-gallery {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 0px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 .st-metabox-tabs-content .form-control[type=text],
@@ -174,7 +177,10 @@ img.settings-demo-gallery {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 0px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 .st-metabox-tabs-content .form-control .form-group .form-control[type=text],
@@ -230,6 +236,7 @@ img.settings-demo-gallery {
   width: 40em;
 }
 .ui-tabs-vertical .ui-tabs-nav li a:focus {
+  -webkit-box-shadow: none;
   box-shadow: none;
 }
 @media (max-width: 1023px) {
@@ -267,5 +274,41 @@ img.settings-demo-gallery {
   content: " ";
   clear: both;
 }
-
-/*# sourceMappingURL=admin.css.map */
+.form-build {
+  content: " ";
+  display: table;
+  clear: both;
+}
+.form-build td {
+  padding: 0px;
+}
+.form-build .head-control-left {
+  float: left;
+  font-size: 18px;
+  font-weight: bold;
+  width: 60%;
+}
+.form-build .head-control-right {
+  float: left;
+  margin-left: 20px;
+  width: 35%;
+  padding-bottom: 10px;
+}
+.form-build .control-left {
+  float: left;
+  width: 60%;
+}
+.form-build .control-left textarea {
+  min-height: 200px;
+  width: 100%;
+}
+.form-build .control-right {
+  background: #ddd none repeat scroll 0 0;
+  margin-left: 20px;
+  padding: 20px 5px 20px 15px;
+  width: 35%;
+  float: left;
+}
+.form-build .form-field {
+  padding-bottom: 15px;
+}

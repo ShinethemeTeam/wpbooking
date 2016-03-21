@@ -8,13 +8,19 @@ if(!empty($data['element_list_item'])){
 if(!empty($data['element_list_item'])){
     $data_value = $data['custom_value'];
 }
+$class = $name;
+$data_class = '';
+if(!empty($data['condition'])){
+    $class .= ' traveler-condition traveler-form-group ';
+    $data_class .= ' data-condition=traveler_booking_'.$data['condition'].' ' ;
+}
 ?>
-<tr class="<?php echo esc_html($name) ?>">
+<tr class="<?php echo esc_html($class) ?>" <?php echo esc_attr($data_class) ?>>
     <th scope="row">
         <label for="<?php echo esc_html($name) ?>"><?php echo esc_html($data['label']) ?>:</label>
     </th>
     <td>
-        <textarea id="<?php echo esc_html($data['id']) ?>" name="<?php echo esc_html($name) ?>" class="form-control form-control-admin min-width-500"><?php echo esc_html($data_value) ?></textarea>
+        <textarea id="<?php echo esc_attr($name) ?>" name="<?php echo esc_html($name) ?>" class="form-control form-control-admin min-width-500"><?php echo esc_html($data_value) ?></textarea>
         <i class="traveler-desc"><?php echo balanceTags($data['desc']) ?></i>
     </td>
 

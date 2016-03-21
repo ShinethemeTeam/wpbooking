@@ -21,7 +21,7 @@ if(!empty($data['condition'])){
         <label for="<?php echo esc_html($data['id']) ?>"><?php echo esc_html($data['label']) ?>:</label>
     </th>
     <td>
-        <input type="text" class="form-control form-control-admin min-width-500" value="<?php echo esc_html($data_value) ?>" name="<?php echo esc_html($name) ?>" placeholder="<?php echo esc_html($data['label']) ?>">
+        <input type="text" id="<?php echo esc_attr($name) ?>" class="form-control form-control-admin min-width-500" value="<?php echo esc_html($data_value) ?>" name="<?php echo esc_html($name) ?>" placeholder="<?php echo esc_html($data['label']) ?>">
         <i class="traveler-desc"><?php echo balanceTags($data['desc']) ?></i>
     </td>
 </tr>
