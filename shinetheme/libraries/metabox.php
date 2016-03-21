@@ -54,7 +54,7 @@ if( ! class_exists('Traveler_Metabox') ){
 					<ul class="st-metabox-nav">
 						<?php
 						foreach( (array) $fields as $key => $field ):
-							if( $fields[ $key ]['type'] === 'tab' ):
+							if( $field['type'] === 'tab' ):
 								?>
 								<li><a href="#<?php echo 'st-metabox-tab-item-'.esc_html( $field['id'] ); ?>"><?php echo esc_html( $field['label'] ); ?></a></li>
 							<?php endif; endforeach; ?>
@@ -63,8 +63,9 @@ if( ! class_exists('Traveler_Metabox') ){
 					foreach( (array) $fields as $key => $field ):
 
 						if( isset( $fields[ $key ]['type'] ) && $fields[ $key ]['type'] === 'tab' ):
+
 							?>
-							<div id="<?php echo 'st-metabox-tab-item-'.esc_html( $field['id'] ); ?>" class="st-metabox-tabs-content">
+							<div id="<?php echo 'st-metabox-tab-item-'.esc_html( $field['id'] ); ?>" class="st-metabox-tabs-content ">
 								<?php
 								$current_tab = (int) $key;
 								foreach( (array) $fields as $key_sub => $field_sub ):
@@ -83,14 +84,22 @@ if( ! class_exists('Traveler_Metabox') ){
 											'type'  => '',
 											'desc'  => '',
 											'std'   => '',
-											'class' => ''
+											'class' => '',
+											'location'=>FALSE
 										);
 
 										$field_sub = wp_parse_args( $field_sub , $default );
 
+										$class_extra=FALSE;
+										if($field_sub['location']=='hndle-tag'){
+											$class_extra='traveler-hndle-tag-input';
+										}
 										$file = 'metabox-fields/' . $field_sub['type'];
 
-										echo traveler_admin_load_view( $file, array( 'data' => $field_sub ) );
+										$field_html=apply_filters('traveler_metabox_field_html_'.$field_sub['type'],FALSE,$field_sub);
+										if($field_html) echo $field_html;
+										else
+										echo traveler_admin_load_view( $file, array( 'data' => $field_sub,'class_extra'=>$class_extra ) );
 
 										unset( $fields[ $key_sub ] );
 										?>

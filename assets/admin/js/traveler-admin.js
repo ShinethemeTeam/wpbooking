@@ -261,6 +261,21 @@ jQuery(document).ready(function( $ ){
                 $( ".st-metabox-tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
             }
         }, 500);
-    }).resize();;
+    }).resize();
+
+    // move field to hndle tags
+    $( '.traveler-hndle-tag-input').each(function(){
+        var me=$(this);
+        var hndle=me.closest('.postbox').find('.hndle');
+        hndle.find('span').append(me.html());
+        hndle.unbind( 'click.postboxes' );
+        hndle.click( function( event ) {
+            if ( $( event.target ).filter( 'input, option, label, select' ).length ) {
+                return;
+            }
+            me.closest('.postbox').toggleClass( 'closed' );
+        });
+        me.detach();
+    });
 
 });
