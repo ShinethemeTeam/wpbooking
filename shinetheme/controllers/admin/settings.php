@@ -27,7 +27,7 @@ if(!class_exists('Traveler_Admin_Setting'))
             wp_enqueue_script( 'traveler_admin.js' , traveler_admin_assets_url('js/admin.js') , array( 'jquery', ) , null , true );
             wp_enqueue_style('traveler_admin.css', traveler_admin_assets_url('css/admin.css'));
         }
-        
+
         /*---------Begin Helper Functions----------------*/
         function get_option($option_id,$default=false){
             /* get the saved options */
