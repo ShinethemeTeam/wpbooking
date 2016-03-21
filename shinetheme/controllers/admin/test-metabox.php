@@ -64,6 +64,7 @@ class Test_Metabox extends Traveler_Controller{
                     'desc'    => __( 'Text Area' , 'traveler-booking' )  ,
                     'type'    => 'textarea' ,
                     'std'     => 'textarea',
+                    'condition'=>'radio:is(yes)'
                 ),
                 array(
                     'id'      => 'texteditor' ,
