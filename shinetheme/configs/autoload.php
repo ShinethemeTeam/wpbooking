@@ -37,4 +37,5 @@ $autoload['controller']=array(
     'admin/settings',
 	'admin/taxonomy',
 	'admin/test-metabox',
+	'admin/form-builder',
 );

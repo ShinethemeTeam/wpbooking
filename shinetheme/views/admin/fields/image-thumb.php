@@ -23,10 +23,10 @@ if(!empty($data_value)){
     </th>
     <td>
 
-        <input type="text" class="form-control form-control-admin width-70 traveler_booking_image_thumb_width" value="<?php echo esc_html($width) ?>" placeholder="<?php _e("Width",'traveler-booking') ?>">
+        <input type="text" class="form-control  width-70 traveler_booking_image_thumb_width" value="<?php echo esc_html($width) ?>" placeholder="<?php _e("Width",'traveler-booking') ?>">
         X
-        <input type="text" class="form-control form-control-admin width-70 traveler_booking_image_thumb_height" value="<?php echo esc_html($height) ?>" placeholder="<?php _e("Height",'traveler-booking') ?>">
-        <input type="checkbox" class="form-control form-control-admin width-70 traveler_booking_image_thumb_crop" <?php if($crop == "on") echo "checked" ?>  >
+        <input type="text" class="form-control  width-70 traveler_booking_image_thumb_height" value="<?php echo esc_html($height) ?>" placeholder="<?php _e("Height",'traveler-booking') ?>">
+        <input type="checkbox" class="form-control  width-70 traveler_booking_image_thumb_crop" <?php if($crop == "on") echo "checked" ?>  >
         <?php _e("Crop the image ?",'traveler-booking') ?>
         <input type="hidden" class="data_value" value="<?php echo esc_html($data_value) ?>" name="<?php echo $name ?>">
         <i class="traveler-desc"><?php echo balanceTags($data['desc']) ?></i>

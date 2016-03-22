@@ -20,7 +20,7 @@ if(!empty($data['condition'])){
         <label for="<?php echo esc_html($name) ?>"><?php echo esc_html($data['label']) ?>:</label>
     </th>
     <td>
-        <textarea id="<?php echo esc_attr($name) ?>" name="<?php echo esc_html($name) ?>" class="form-control form-control-admin min-width-500"><?php echo esc_html($data_value) ?></textarea>
+        <textarea id="<?php echo esc_attr($name) ?>" name="<?php echo esc_html($name) ?>" class="form-control  min-width-500"><?php echo esc_html($data_value) ?></textarea>
         <i class="traveler-desc"><?php echo balanceTags($data['desc']) ?></i>
     </td>
 
