@@ -14,7 +14,7 @@ class Test_Metabox extends Traveler_Controller{
 			'id'       => 'st_post_metabox',
             'title'    => __('Information', 'traveler-booking'),
             'desc'     => '',
-            'pages'    => array('post'),
+            'pages'    => array('post','traveler_service'),
             'context'  => 'normal',
             'priority' => 'high',
             'fields'   => array(
@@ -64,7 +64,7 @@ class Test_Metabox extends Traveler_Controller{
                     'desc'    => __( 'Text Area' , 'traveler-booking' )  ,
                     'type'    => 'textarea' ,
                     'std'     => 'textarea',
-                    'condition'=>'radio:is(yes)'
+                    'condition'=>'check_box:is(check_1)'
                 ),
                 array(
                     'id'      => 'texteditor' ,
