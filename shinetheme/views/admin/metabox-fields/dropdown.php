@@ -5,19 +5,14 @@
 
 $old_data = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
 
-$class = $data['id'];
+$class = ' traveler-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){
-    $class .= ' traveler-condition traveler-form-group ';
+    $class .= ' traveler-condition ';
     $data_class .= ' data-condition='.$data['condition'].' ' ;
 }
 
-$field = '<div class="form-group">';
-
-echo '<div class="'.esc_html($class).'" '.esc_attr($data_class).'>';
-
-if( !empty( $data['label'] ) )
-	echo '<div class="form-label"><label for="'.esc_html( $data['id'] ).'">'. esc_html( $data['label'] ) .'</label></div>';
+$field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
 if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 	$field .= '<div style="margin-bottom: 7px;"><select name="'. esc_html( $data['id'] ).'" id="'. esc_html( $data['id'] ) .'" class="widefat form-control '. esc_html( $data['class'] ).'">';
@@ -39,19 +34,16 @@ if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 	$field .= '</select></div>';
 }
 
-$field .= '</div>';
-if( !empty( $data['desc'] ) ): ?>
-<div class="st-metabox-content-wrapper">
-	<div class="st-metabox-content-left">
-		<?php echo $field;  ?>
-	</div>
-	<div class="st-metabox-content-right">
-		<div class="description"><?php echo esc_html( $data['desc'] ); ?></div>
-	</div>
-</div>
-<?php else: ?>
-	<div class="st-metabox-content-wrapper">;
-		<?php echo $field; ?> 
-	</div>;	
-<?php endif; ?>
-</div>
+$field .= '</div></div>';
+
+?>
+
+<tr class="<?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+	<th scope="row">
+		<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
+	</th>
+	<td>
+		<?php echo $field; ?>
+		<i class="traveler-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+	</td>
+</tr>

@@ -61,7 +61,9 @@ if( ! class_exists('Traveler_Metabox') ){
 
 							?>
 							<div id="<?php echo 'st-metabox-tab-item-'.esc_html( $field['id'] ); ?>" class="st-metabox-tabs-content ">
+								<table class="form-table traveler-settings ">
 								<?php
+
 								$current_tab = (int) $key;
 								foreach( (array) $fields as $key_sub => $field_sub ):
 									if( $fields[ $key_sub ]['type'] === 'tab' ){
@@ -74,13 +76,13 @@ if( ! class_exists('Traveler_Metabox') ){
 									if( $fields[ $key_sub ]['type'] !== 'tab' ):
 
 										$default = array(
-											'id'    => '',
-											'label' => '',
-											'type'  => '',
-											'desc'  => '',
-											'std'   => '',
-											'class' => '',
-											'location'=>FALSE
+											'id'       => '',
+											'label'    => '',
+											'type'     => '',
+											'desc'     => '',
+											'std'      => '',
+											'class'    => '',
+											'location' => FALSE
 										);
 
 										$field_sub = wp_parse_args( $field_sub , $default );
@@ -99,6 +101,7 @@ if( ! class_exists('Traveler_Metabox') ){
 										unset( $fields[ $key_sub ] );
 										?>
 									<?php endif; endforeach; ?>
+								</table>
 							</div>
 						<?php endif; unset( $fields[ $key ] ); endforeach; ?>
 				</div>

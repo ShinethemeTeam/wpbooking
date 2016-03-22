@@ -10,35 +10,27 @@ if( !empty( $value ) ){
 	$old_data = $value;
 }
 
-$class = $data['id'];
+$class = ' traveler-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){
-    $class .= ' traveler-condition traveler-form-group ';
+    $class .= ' traveler-condition ';
     $data_class .= ' data-condition='.$data['condition'].' ' ;
 }
 
-$field = '<div class="form-group">';
+$field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
-echo '<div class="'.esc_html($class).'" '.esc_attr($data_class).'>';
+$field .= '<div style="margin-bottom: 7px;"><input id="'. esc_html( $data['id'] ).'" type="text" name="'. esc_html( $data['id'] ).'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'"></div>';
 
-if( !empty( $data['label'] ) )
-	echo '<div class="form-label"><label for="'.esc_html( $data['id'] ).'">'. esc_html( $data['label'] ) .'</label></div>';
+$field .= '</div></div>';
 
-$field .= '<div style="margin-bottom: 7px;"><input type="text" name="'. esc_html( $data['id'] ).'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'"></div>';
+?>
 
-$field .= '</div>';
-if( !empty( $data['desc'] ) ): ?>
-<div class="st-metabox-content-wrapper">
-	<div class="st-metabox-content-left">
-		<?php echo $field;  ?>
-	</div>
-	<div class="st-metabox-content-right">
-		<div class="description"><?php echo esc_html( $data['desc'] ); ?></div>
-	</div>
-</div>
-<?php else: ?>
-	<div class="st-metabox-content-wrapper">;
-		<?php echo $field; ?> 
-	</div>;	
-<?php endif; ?>
-</div>
+<tr class="<?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+	<th scope="row">
+		<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
+	</th>
+	<td>
+		<?php echo $field; ?>
+		<i class="traveler-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+	</td>
+</tr>

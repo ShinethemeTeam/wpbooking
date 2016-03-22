@@ -18,10 +18,10 @@ jQuery(document).ready(function( $ ){
             var passed;
             var conditions = get_match_condition( $( this ).data( 'condition' ) );
             var operator = ( $( this ).data( 'operator' ) || 'and' ).toLowerCase();
-            console.log(conditions);
             $.each( conditions, function( index, condition ) {
 
                 var target   = $(  '#'+ condition.check );
+
                 var targetEl = !! target.length && target.first();
 
                 if ( ! target.length || ( ! targetEl.length && condition.value.toString() != '' ) ) {
