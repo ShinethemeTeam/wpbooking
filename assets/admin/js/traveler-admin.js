@@ -282,12 +282,16 @@ jQuery(document).ready(function( $ ){
         me.detach();
     });
 
-    $( ".data_content_list_item" ).each(function(){
-        $(this).sortable();
-    });
+
     ///////////////////////////////////
     /////// LIST ITEM /////////////////
     ///////////////////////////////////
+    $( ".data_content_list_item" ).each(function(){
+        $(this).sortable({
+            handle: ".dashicons"
+        });
+        //dashicons
+    });
     $(".btn_add_new_list_item").click(function () {
         var container = $(this).parent();
         var content_html = container.find(".content_list_item_hide").html();

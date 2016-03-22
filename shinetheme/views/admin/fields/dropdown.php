@@ -22,7 +22,7 @@ if(!empty($data['condition'])){
     <td>
         <?php if(!empty($data['value'])){ ?>
 
-            <select id="<?php echo esc_attr($name) ?>" class="form-control form-control-admin min-width-500" name="<?php echo esc_html($name) ?>">
+            <select id="<?php echo esc_attr($name) ?>" class="form-control  min-width-500" name="<?php echo esc_html($name) ?>">
                 <?php foreach($data['value'] as $key=>$value){ ?>
                     <option <?php if($data_value == $key) echo "selected"; ?> value="<?php echo esc_attr($key) ?>"><?php echo esc_html($value) ?></option>
                 <?php } ?>
