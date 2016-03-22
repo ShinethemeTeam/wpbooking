@@ -25,10 +25,6 @@ if( ! class_exists('Traveler_Metabox') ){
 			$styles  = $wp_styles->queue;
 			$scripts = $wp_scripts->queue;
 
-			if( !in_array( 'traveler_admin.css', $styles ) ){
-				wp_enqueue_style( 'traveler_admin.css ', traveler_admin_assets_url( 'css/admin.css' ) );
-			}
-
 			if( !in_array( 'traveler_admin.js', $scripts ) ){
 				wp_enqueue_script( 'traveler_admin.js ' , traveler_admin_assets_url( 'js/traveler-admin.js' ) , array( 'jquery', 'jquery-ui-core', 'jquery-ui-tabs') , null , true );
 			}

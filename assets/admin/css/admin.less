@@ -77,36 +77,70 @@ img.settings-demo-gallery{
     box-shadow: 0 1px 0 rgba(229, 134, 119, 0.6) inset;
     color: #fff;
 }
-.traveler-setting-list-item .list-content{
-    background-color: #fff;
-    position: relative;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    overflow: hidden;
+.traveler-setting-list-item{
+    .list-content{
+        background-color: #fff;
+        position: relative;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        overflow: hidden;
+    }
+    .list-title{
+        padding: 10px;
+        min-height: 18px;
+    }
+    .traveler-setting-setting-body {
+        background: #fff none repeat scroll 0 0;
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
+        border-top: 1px solid #eee;
+        display: none;
+        padding: 10px;
+        .traveler-settings{
+            margin-left: 20px;
+        }
+    }
+    .content_list_item_hide
+    {
+        display: none;
+    }
+    .traveler-list-item-wrap{
+        width: 800px;
+        border: 1px solid #e5e5e5;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+        background: white;
+        margin-bottom: 10px;
+
+        .td{
+            padding: 8px 10px;
+            line-height: 1.4em;
+            vertical-align: top;
+            &.td-small{
+                width: 80px;
+            }
+        }
+        thead{
+            .td{
+
+                color: #32373c;
+                text-align: left;
+                vertical-align: top;
+                font-weight: 600;
+                border-bottom: 1px solid #e1e1e1;
+            }
+        }
+
+        tbody{
+            .td{
+                &:nth-child(odd){
+                    background: #EBEEF0;
+                }
+            }
+        }
+    }
 }
-.traveler-setting-list-item .list-content .list-title{
-    padding: 10px;
-    min-height: 18px;
-}
-.traveler-setting-list-item .button-section {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-}
-.traveler-setting-list-item .traveler-setting-setting-body {
-    background: #fff none repeat scroll 0 0;
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
-    border-top: 1px solid #eee;
-    display: none;
-    padding: 10px;
-}
-.traveler-setting-list-item .traveler-setting-setting-body .traveler-settings{
-    margin-left: 20px;
-}
-.traveler-setting-list-item .content_list_item_hide{
-    display: none;
-}
+
 .st-metabox-nav{
     width: 160px;
     li{

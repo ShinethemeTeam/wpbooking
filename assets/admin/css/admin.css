@@ -84,15 +84,10 @@ img.settings-demo-gallery {
   border-radius: 2px;
   overflow: hidden;
 }
-.traveler-setting-list-item .list-content .list-title {
+.traveler-setting-list-item .list-title {
   padding: 10px;
   min-height: 18px;
     cursor: pointer;
-}
-.traveler-setting-list-item .button-section {
-  position: absolute;
-  right: 5px;
-  top: 5px;
 }
 .traveler-setting-list-item .traveler-setting-setting-body {
   background: #fff none repeat scroll 0 0;
@@ -107,6 +102,32 @@ img.settings-demo-gallery {
 }
 .traveler-setting-list-item .content_list_item_hide {
   display: none;
+}
+.traveler-setting-list-item .traveler-list-item-wrap {
+  width: 800px;
+  border: 1px solid #e5e5e5;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  background: white;
+  margin-bottom: 10px;
+}
+.traveler-setting-list-item .traveler-list-item-wrap .td {
+  padding: 8px 10px;
+  line-height: 1.4em;
+  vertical-align: top;
+}
+.traveler-setting-list-item .traveler-list-item-wrap .td.td-small {
+  width: 80px;
+}
+.traveler-setting-list-item .traveler-list-item-wrap thead .td {
+  color: #32373c;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 600;
+  border-bottom: 1px solid #e1e1e1;
+}
+.traveler-setting-list-item .traveler-list-item-wrap tbody .td:nth-child(odd) {
+  background: #EBEEF0;
 }
 .st-metabox-nav {
   width: 160px;
