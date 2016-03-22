@@ -113,6 +113,7 @@ if(!class_exists('Traveler_Admin_Setting'))
                                 $value_request = Traveler_Input::request($key_request);
                                 update_option($key_request,$value_request);
                         }
+
                     }
                 }
             }
