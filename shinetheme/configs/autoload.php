@@ -23,6 +23,8 @@ $autoload['helper']=array(
 $autoload['library']=array(
     'input',
     'assets',
+	'session',
+	'currency',
 	'validator',
 	'metabox'
 );
