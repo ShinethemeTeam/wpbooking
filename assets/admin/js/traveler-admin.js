@@ -282,4 +282,45 @@ jQuery(document).ready(function( $ ){
         me.detach();
     });
 
+    $( ".data_content_list_item" ).each(function(){
+        $(this).sortable();
+    });
+    ///////////////////////////////////
+    /////// LIST ITEM /////////////////
+    ///////////////////////////////////
+    $(".btn_add_new_list_item").click(function () {
+        var container = $(this).parent();
+        var content_html = container.find(".content_list_item_hide").html();
+        var number_list = container.find('.traveler_booking_number_last_list_item').val();
+        content_html = content_html.replace(/__number_list__/g, number_list);
+        container.find('.data_content_list_item').append(content_html);
+        container.find('.traveler-setting-setting-body').slideUp(500);
+        container.find('.number_list_' + number_list + ' .traveler-setting-setting-body').slideDown(500);
+        number_list = Number(number_list) + 1;
+        container.find('.traveler_booking_number_last_list_item').val(number_list);
+    });
+    $(document).on('click', '.btn_list_item_del', function (event) {
+        var container = $(this).parent().parent().parent();
+        container.remove();
+    });
+    $(document).on('click', '.btn_list_item_edit', function (event) {
+        var container_full = $(this).parent().parent().parent().parent();
+        var container = $(this).parent().parent().parent();
+        container_full.find('.traveler-setting-setting-body').slideUp(500);
+        $check = container.find('.traveler-setting-setting-body').css('display');
+        if ($check == "none") {
+            container.find('.traveler-setting-setting-body').slideDown(500);
+        } else {
+            container.find('.traveler-setting-setting-body').slideUp(500);
+        }
+    });
+    $(document).on('click', '.list_item_title', function (event) {
+        $(this).keyup(function () {
+            var $value = $(this).val();
+            var container = $(this).parent().parent().parent().parent().parent().parent().parent();
+            console.log(container);
+            container.find('.list-title').html($value);
+        });
+    });
+
 });

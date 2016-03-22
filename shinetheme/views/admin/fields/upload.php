@@ -20,10 +20,10 @@ if(!empty($data['condition'])){
         <label for="<?php echo esc_html($data['id']) ?>"><?php echo esc_html($data['label']) ?>:</label>
     </th>
     <td>
-        <input type="text" id="st_url_media" class="demo-url-image form-control form-control-admin min-width-500" value="<?php echo esc_html($data_value) ?>" name="<?php echo esc_html($name) ?>" placeholder="<?php echo esc_html($data['label']) ?>">
+        <input type="text" id="st_url_media" class="demo-url-image form-control min-width-500" value="<?php echo esc_html($data_value) ?>" name="<?php echo esc_html($name) ?>" placeholder="<?php echo esc_html($data['label']) ?>">
         <button class="btn button btn_remove_demo_image button-secondary" type="button" name=""><?php _e("Remove","traveler-booking") ?></button>
         <br>
-        <img src="<?php echo esc_url($data_value) ?>" id="demo_img" class="demo-image form-control settings-demo-image form-control-admin <?php if(empty($data_value)) echo "none"; ?>" >
+        <img src="<?php echo esc_url($data_value) ?>" id="demo_img" class="demo-image form-control settings-demo-image  <?php if(empty($data_value)) echo "none"; ?>" >
         <br>
         <button id="btn_upload_media" class="btn button button-primary btn_upload_media" type="button" name=""><?php _e("Upload","traveler-booking") ?></button>
         <i class="traveler-desc"><?php echo balanceTags($data['desc']) ?></i>

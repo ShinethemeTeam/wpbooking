@@ -87,6 +87,7 @@ img.settings-demo-gallery {
 .traveler-setting-list-item .list-content .list-title {
   padding: 10px;
   min-height: 18px;
+    cursor: pointer;
 }
 .traveler-setting-list-item .button-section {
   position: absolute;
