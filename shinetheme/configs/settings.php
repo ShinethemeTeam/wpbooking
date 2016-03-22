@@ -1,16 +1,16 @@
 <?php
 $config['settings']= array(
-    "setting_1"=>array(
-        "name"=>"Settings One",
+    "general"=>array(
+        "name"=>__('General','traveler-booking'),
         "sections"=>array(
-            "pages_setting_section" => array(
-                'id'      => 'pages_setting_section' ,
-                'label'   => __( 'Page Option' , 'traveler-booking' ) ,
+            "general_option" => array(
+                'id'      => 'general_option' ,
+                'label'   => __( 'General Options' , 'traveler-booking' ) ,
                 'fields'     => array(
                     array(
-                        'id'      => 'list_item' ,
-                        'label'   => __( 'List Item' , 'traveler-booking' ) ,
-                        'desc'    => __( 'List Item' , 'traveler-booking' )  ,
+                        'id'      => 'currency' ,
+                        'label'   => __( 'Currency' , 'traveler-booking' ) ,
+                        'desc'    => __( 'Currency' , 'traveler-booking' )  ,
                         'type'    => 'list-item' ,
                         'std'     => '',
                         'value'   => array(
@@ -31,7 +31,7 @@ $config['settings']= array(
                             array(
                                 'id'      => 'checkbox' ,
                                 'label'   => __( 'Yes' , 'traveler-booking' ) ,
-                                'desc'    => __( 'Chọn là có !' , 'traveler-booking' )  ,
+                                'desc'    => __( 'this is desc' , 'traveler-booking' )  ,
                                 'type'    => 'checkbox' ,
                                 'std'     => ''
                             ),

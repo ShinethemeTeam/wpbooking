@@ -24,8 +24,6 @@ if(!class_exists('Traveler_Admin_Setting'))
         function _add_scripts()
         {
             wp_enqueue_media();
-            wp_enqueue_script( 'traveler_admin.js' , traveler_admin_assets_url('js/admin.js') , array( 'jquery', ) , null , true );
-            wp_enqueue_style('traveler_admin.css', traveler_admin_assets_url('css/admin.css'));
         }
 
         /*---------Begin Helper Functions----------------*/
