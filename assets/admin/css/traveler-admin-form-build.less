@@ -1,0 +1,223 @@
+.content-form-build {
+    min-height: 500px;
+    position: relative;
+    .content-form-control-right {
+        /*position: absolute;
+        right: 0px;
+        width: 150px;*/
+        background-color: #f6f6f8;
+
+        background-color: #f6f6f8;
+        border-top: 1px solid #dadada;
+        bottom: 0;
+        box-shadow: -2px 2px 3px -2px rgba(0, 0, 0, 0.4);
+        display: block;
+        padding-top: 0px;
+        position: absolute;
+        right: 0;
+        top: 0px;
+        transition: transform 0.4s ease 0s;
+        width: 130px;
+        z-index: 998;
+
+        .button {
+            border-radius: 0;
+            padding-left: 15px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            width: 100%;
+
+            height: auto;
+            color: #777;
+            font-weight: 600;
+            border-left-width: 0;
+            border-radius: 0;
+            box-shadow: none;
+            display: block;
+            font-size: 11px;
+            margin: 0;
+            width: 100%;
+            text-transform: uppercase;
+            border-bottom: 0px;
+        }
+        .button:last-child {
+            border-bottom: 1px solid #dadada;
+        }
+        .button:hover {
+            background-color: #eee;
+            border-top: 1px solid #dadada;
+            border-right: 1px solid #dadada;
+        }
+    }
+
+    .container-form-build {
+
+        width: 1024px;
+        margin: auto;
+        min-height: 200px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.4);
+        background-color: #ffffff;
+        padding: 10px;
+    }
+    .content-form-item {
+        border: 1px dotted #ddd;
+        width: 100%;
+        position: relative;
+        margin-bottom: 2px;
+        display: inline-block;
+        .form-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .form-control-item {
+            background-color: #afd23e;
+            border-radius: 4px;
+            position: absolute;
+            right: 0;
+            top: 4px;
+            text-align: right;
+            padding-right: 10px;
+            padding-left: 10px;
+            display: none;
+        }
+        .form-control-item a {
+            color: #fff;
+            span {
+                font-size: 15px;
+                line-height: 30px;
+                padding-left: 8px;
+                padding-right: 8px;
+                cursor: pointer;
+                i {
+                    font-size: 13px;
+                }
+            }
+        }
+        .form-control-item a:hover span {
+            background: #669c22;
+        }
+        .form-control-option {
+            position: absolute;
+            width: 300px;
+            left: -320px;
+            top: 0px;
+            min-height: 100px;
+            background: white none repeat scroll 0 0;
+            border-radius: 2px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+            color: #666;
+            display: block;
+            font-family: "Open Sans","Helvetica",Arial;
+            .head-option{
+                background-color: #f6f6f8;
+                border-bottom: 1px solid #ddd;
+                border-radius: 2px 2px 0 0;
+                font-size: 15px;
+                padding: 10px;
+                text-align: left;
+                .delete,.duplicate{
+                    background: red none repeat scroll 0 0;
+                    border-radius: 100px;
+                    color: white;
+                    font-size: 15px;
+                    height: 21px;
+                    line-height: 21px;
+                    opacity: 0.4;
+                    padding: 0;
+                    position: absolute;
+                    right: 8px;
+                    text-align: center;
+                    top: 10px;
+                    width: 21px;
+                    cursor: pointer;
+                }
+                .duplicate{
+                    background-color: #088f08;
+                    font-size: 13px;
+                    right: 32px;
+                }
+                .delete:hover,.duplicate:hover{
+                    opacity: 1;
+                }
+            }
+            .head-option > div {
+                color: #888;
+                cursor: auto;
+                display: inline-block;
+                font-size: 14px;
+                font-weight: bold;
+                letter-spacing: 0.5px;
+                /*padding: 7px 3px;*/
+                text-transform: uppercase;
+            }
+            .options-main{
+                padding: 10px 0 2px 15px;
+                text-align: left;
+                .option-item{
+                    font-size: 90%;
+                    letter-spacing: 0;
+                    margin-bottom: 12px;
+                    padding-right: 15px;
+                    position: relative;
+                    white-space: nowrap;
+                    width: 100%;
+                    box-sizing: border-box;
+                    display: block;
+                    float: left;
+                    span {
+                        background: white none repeat scroll 0 0;
+                        color: #777;
+                        font-size: 13px;
+                        font-weight: bold;
+                        left: 10px;
+                        line-height: 10px;
+                        position: absolute;
+                        top: 3px;
+                    }
+                    input{
+                        margin: 8px 0 0;
+                        padding: 8px 10px 6px;
+                        width: 100%;
+                        background-color: #fafafa;
+                        box-shadow: none;
+                        font-family: inherit;
+                        height: auto;
+                        line-height: 1.4em;
+                        border-radius: 3px;
+
+                    }
+                }
+                .options-row::before{
+                    display: table;
+                    content: " ";
+                    clear: both;
+                }
+                .options-row::after{
+                    display: table;
+                    content: " ";
+                    clear: both;
+                }
+                .option-col-1{
+                    width: 100%;
+                }
+                .option-col-2{
+                    width: 50%
+                }
+                .option-col-3{
+                    width: 33.3%
+                }
+                .option-col-4{
+                    width: 25%
+                }
+            }
+        }
+
+    }
+    .content-form-item:hover {
+        border: 1px dotted #ccc;
+        .form-control-item {
+            display: block;
+        }
+    }
+}

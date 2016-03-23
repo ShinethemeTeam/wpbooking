@@ -13,7 +13,14 @@ if(!class_exists('Traveler_Admin_Form_Build'))
         {
             add_action( 'admin_menu', array($this,"register_traveler_booking_sub_menu_page") );
 
-            add_action('init',array($this,'_add_post_type'),5);
+            //add_action('init',array($this,'_add_post_type'),5);
+            // add script and style
+            add_action('admin_enqueue_scripts',array($this,"_add_scripts"));
+        }
+
+        function _add_scripts()
+        {
+
         }
 
         function register_traveler_booking_sub_menu_page() {
@@ -25,6 +32,7 @@ if(!class_exists('Traveler_Admin_Form_Build'))
                 $menu_page['page_title'],
                 $menu_page['menu_title'],
                 $menu_page['capability'],
+                $menu_page['menu_slug'],
                 $menu_page['function']
             );
         }
@@ -37,7 +45,8 @@ if(!class_exists('Traveler_Admin_Form_Build'))
                 'page_title'=>__('Form Builder','traveler-booking'),
                 'menu_title'=>__('Form Builder','traveler-booking'),
                 'capability'=>'manage_options',
-                'function'=> 'edit.php?post_type=traveler_form_build'
+                'menu_slug'=>'traveler_booking_page_form_builder',
+                'function'=> array($this,'callback_traveler_booking_sub_menu_form_builder')
             );
 
             return apply_filters('traveler_setting_menu_args',$page);
@@ -45,6 +54,18 @@ if(!class_exists('Traveler_Admin_Form_Build'))
         }
         function callback_traveler_booking_sub_menu_form_builder() {
             echo $this->admin_load_view('form-builder');
+        }
+
+        function _get_all_shortcode_in_content($content=false){
+            $shortcode  = array();
+            if(!empty($content)){
+                $pattern = get_shortcode_regex();
+                preg_match_all('/'.$pattern.'/s', $content , $matches2);
+                if(!empty($matches2[0])){
+                    $shortcode = $matches2[0];
+                }
+            }
+            return $shortcode;
         }
 
         function _add_post_type()
