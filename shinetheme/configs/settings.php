@@ -195,6 +195,7 @@ $config['settings']= array(
                         'desc'    => __( 'Text Area' , 'traveler-booking' )  ,
                         'type'    => 'textarea' ,
                         'std'     => '',
+                        'attr' => array()
                     ),
                     array(
                         'id'      => 'texteditor' ,

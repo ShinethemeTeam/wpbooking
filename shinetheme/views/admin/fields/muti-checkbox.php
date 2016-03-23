@@ -10,6 +10,8 @@ $custom_value = $data['value'];
             <ul class="padding-0">
                 <?php if(!empty($custom_value)){ ?>
                     <?php foreach($custom_value as $key=>$value){
+                        $default = array( 'id' => '' , 'label' => '' , 'std' => '' );
+                        $value = wp_parse_args( $value , $default );
                         $data_value = traveler_get_option($value['id'],$value['std']);
                         $is_check = "";
                         if($data_value == 'on') {
