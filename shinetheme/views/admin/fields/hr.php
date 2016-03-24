@@ -17,7 +17,7 @@ if(!empty($data['condition'])){
 }
 ?>
 <tr class="<?php echo esc_html($class) ?>" <?php echo esc_attr($data_class) ?>>
-    <th scope="row" colspan="2">
-        <h3 class="margin_0"><?php echo esc_html($data['label']) ?></h3>
+    <th scope="row" colspan="2" class="margin_0 padding_0">
+        <hr class="control-hr margin_0">
     </th>
 </tr>

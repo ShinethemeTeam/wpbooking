@@ -7,6 +7,22 @@ $config['settings'] = array(
 				'id'     => 'general_option',
 				'label'  => __('General Options', 'traveler-booking'),
 				'fields' => array(
+                    array(
+                        'id'        => 'title',
+                        'label'     => __('Title Tab', 'traveler-booking'),
+                        'desc'      => '',
+                        'type'      => 'title',
+                        'std'       => '',
+                        'condition' => ''
+                    ),
+                    array(
+                        'id'        => 'hr',
+                        'label'     => '',
+                        'desc'      => '',
+                        'type'      => 'hr',
+                        'std'       => '',
+                        'condition' => ''
+                    ),
 					array(
 						'id'    => 'currency',
 						'label' => __('Currency', 'traveler-booking'),
