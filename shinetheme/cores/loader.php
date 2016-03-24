@@ -33,6 +33,10 @@ if(!class_exists('Traveler_Loader')){
 				Traveler_Config::inst()->load($autoload['config']);
 			}
 
+			// Composer Vendor
+			if (!version_compare(phpversion(), '5.3', '<')) {
+				$this->load_library('vendor/autoload');
+			}
 
 			if(!empty($autoload['helper']))
 			{
