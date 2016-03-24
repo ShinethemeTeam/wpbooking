@@ -4,100 +4,87 @@
 </div>
 <div class="wrap">
     <br class="clear">
-
-    <div class="content-form-build">
-        <div class="content-form-html">
-            <div class="container-form-build">
-
-                <div class="content-row">
-                    <div class="text-right head-control-row">
-                        <div class="traveler-control-row">
-                            <i class="fa fa-arrows"></i>
-                            <i class="fa fa-pencil-square-o"></i>
-                            <i class="fa fa-trash"></i>
-                        </div>
-                    </div>
-                    <div class="traveler-row">
-                        <div class="traveler-col-md-6">
-                            <div class="traveler-control">
-                                <i class="fa fa-pencil-square-o"></i>
-                                <i class="fa fa-trash"></i>
-                            </div>
-                            <div class="traveler-content">
-                                <div class="content-form-item"><div class="empty-element"> + Add Element </div></div>
-                            </div>
-                            <div class="traveler-control"></div>
-                        </div>
-                        <div class="traveler-col-md-6">
-                            <div class="traveler-control">
-                                <i class="fa fa-pencil-square-o"></i>
-                                <i class="fa fa-trash"></i>
-                            </div>
-                            <div class="traveler-content">
-                                <div class="content-form-item">
-                                    <div class="form-item">
-                                        Text Block
-                                    </div>
-                                    <div class="form-control-item">
-                                        <a class="" title="<?php _e( "Move" , 'traveler-booking' ) ?>"><span class="fa fa-arrows"></span> </a>
-                                        <a class="" title="<?php _e( "Edit" , 'traveler-booking' ) ?>"><span class="fa fa-pencil"></span></a>
-                                        <a class="" title="<?php _e( "Remove" , 'traveler-booking' ) ?>"><span class="fa fa-trash-o"></span></span></a>
-                                    </div>
-                                    <div class="form-control-option">
-                                        <div class="head-option">
-                                            <div title="<?php _e( "Field ID" , 'traveler-booking' ) ?>">Option</div>
-                                            <span class="delete" title="Delete Field"><i class="fa fa-trash-o"></i></span>
-                                            <span class="duplicate" title="Duplicate Field"><i class="fa fa-files-o"></i></span>
-                                        </div>
-                                        <div class="options-main">
-                                            <div class="options-row">
-                                                <label class="option-item option-col-1">
-                                                    <span>Label</span>
-                                                    <input type="text" class="">
-                                                </label>
-                                                <label class="option-item option-col-2">
-                                                    <span>Label 2</span>
-                                                    <input type="text" class="">
-                                                </label>
-                                                <label class="option-item option-col-2">
-                                                    <span>Label 3</span>
-                                                    <input type="text" class="">
-                                                </label>
-                                                <label class="option-item option-col-4">
-                                                    <span>Label 2</span>
-                                                    <input type="text" class="">
-                                                </label>
-                                                <label class="option-item option-col-4">
-                                                    <span>Label 3</span>
-                                                    <input type="text" class="">
-                                                </label>
-                                                <label class="option-item option-col-4">
-                                                    <span>Label 2</span>
-                                                    <input type="text" class="">
-                                                </label>
-                                                <label class="option-item option-col-4">
-                                                    <span>Label 3</span>
-                                                    <input type="text" class="">
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="traveler-control"></div>
-                        </div>
-
-                    </div>
-                </div>
-
-
-
+    <div class="traveler-row form-build-v2">
+        <div class="traveler-col-md-12 head-form">
+            <h3 class=""><span>Form fields</span></h3>
+        </div>
+        <div class="traveler-col-md-12">
+           <table class="traveler-select-layout">
+               <tr class="traveler_booking_dropdown">
+                   <th scope="row">
+                       <label for="dropdown">Layout:</label>
+                   </th>
+                   <td>
+                       <select name="traveler_booking_dropdown" class="form-control  min-width-200" id="traveler_booking_dropdown">
+                           <option value=""><?php _e("-- Select Layout --",'traveler-booking') ?></option>
+                           <optgroup label="Single Car">
+                               <option value="volvo">Volvo</option>
+                               <option value="saab">Saab</option>
+                           </optgroup>
+                       </select>
+                   </td>
+                   <td>
+                       <a hidden="#" class="button" >Select</a>
+                   </td>
+               </tr>
+           </table>
+        </div>
+        <div class="traveler-col-md-7">
+            <div class="form-content">
+                <?php
+                wp_editor(stripslashes(''),'traveler-build'); ?>
             </div>
         </div>
-        <div class="content-form-control-right">
-            <div class="button" data>Heading</div>
-            <div class="button">Text</div>
-            <div class="button">Check Box</div>
+        <div class="traveler-col-md-5">
+
+            <div class="select-control">
+                <label for="select_form_help_shortcode" class="control-label">Generate Tag:</label>
+                <select name="traveler_booking_dropdown" class="form-control  min-width-200" id="traveler_booking_dropdown">
+                    <option value=""><?php _e("-- Select Flied --",'traveler-booking') ?></option>
+                    <optgroup label="Single Car">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                    </optgroup>
+                </select>
+                <i class="desc">Select option to configure or show help info about tags</i>
+            </div>
+            <div class="select-control">
+                <div class="head"> Contact </div>
+                <hr>
+                <div class="content-control">
+                    <div class="traveler-row">
+                        <div class="traveler-col-md-6">
+                            <div class="traveler-build-group ">
+                                <label class="control-label"><strong>Name</strong> (required):</label>
+                                <input type="text"  name="" id="">
+                            </div>
+                        </div>
+                        <div class="traveler-col-md-6">
+                            <div class="traveler-build-group ">
+                                <label class="control-label"><strong>Default value</strong> (optional):</label>
+                                <input type="text"  name="" id="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div>
+                    <div class="traveler-row">
+                        <div class="traveler-col-md-12">
+                            <div class="traveler-build-group ">
+                                <label class="control-label"><?php _e("Copy and paste this shortcode into the form at left side",'traveler-booking') ?></label>
+                                <input type="text"  name="" id="" readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="traveler-col-md-12">
+            <div class="save-control">
+                <button type="button" class="button-primary button"><?php _e("Save Layout",'traveler-booking') ?></button>
+            </div>
         </div>
     </div>
+
 </div>
