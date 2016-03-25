@@ -13,16 +13,102 @@ if(!class_exists('Traveler_Admin_Form_Build'))
         {
             add_action( 'admin_menu', array($this,"register_traveler_booking_sub_menu_page") );
 
-            //add_action('init',array($this,'_add_post_type'),5);
+            add_action('init',array($this,'_add_post_type'),5);
             // add script and style
             add_action('admin_enqueue_scripts',array($this,"_add_scripts"));
+
+            add_action( 'admin_init', array($this,"_save_layout") );
+            add_action( 'admin_init', array($this,"_del_layout") );
         }
 
         function _add_scripts()
         {
 
         }
+        function _get_list_type_layout(){
+            return apply_filters('traveler_build_form_list_type_layout',array('Single Hotel','Single Room' ,'Booking'));
+        }
+        function _get_list_layout(){
+            $query   = array(
+                'post_type'      => 'traveler_form_build' ,
+                'posts_per_page' => -1 ,
+            );
+            query_posts( $query );
+            $list_layout = array();
+            while( have_posts() ) {
+                the_post();
+                $type_layout   = get_post_meta( get_the_ID() , 'type_layout' , true );
+                if(empty($type_layout)){
+                    $type_layout = 'Other';
+                }
+                $list_layout[$type_layout][] = array(
+                    'id'=> get_the_ID(),
+                    'name'=> get_the_title()
+                );
+            }
+            wp_reset_query();
+            return $list_layout;
+        }
+        function _del_layout(){
+            if(Traveler_Input::request('del_layout')){
+                wp_delete_post( Traveler_Input::request('del_layout') , true );
+            }
+        }
+        function _save_layout(){
+            if(!empty($_POST['traveler_booking_btn_save_layout']) and wp_verify_nonce($_REQUEST[ 'traveler_booking_save_layout' ],"traveler_booking_action")){
+                $current_user = wp_get_current_user();
+                $layout_id = Traveler_Input::request("traveler-layout-id");
+                $title = Traveler_Input::request("traveler-title");
+                $type = 'update';
+                if(empty($layout_id)){
+                    $type = 'create';
+                }
+                if(!empty($title)){
+                    if(empty($layout_id)){
+                        $my_layout = array(
+                            'post_title'   => Traveler_Input::request("traveler-title") ,
+                            'post_content' => stripslashes(Traveler_Input::request("traveler-content-build")) ,
+                            'post_status'  => 'publish' ,
+                            'post_author'  => $current_user->ID ,
+                            'post_type'    => 'traveler_form_build' ,
+                            'post_excerpt' => ''
+                        );
+                        $layout_id = wp_insert_post( $my_layout );
+                    }else{
+                        $my_layout = array(
+                            'ID'           => $layout_id,
+                            'post_title'   => Traveler_Input::request("traveler-title") ,
+                            'post_content' => stripslashes(Traveler_Input::request("traveler-content-build")) ,
+                        );
+                        wp_update_post( $my_layout );
+                    }
+                    if(!empty( $layout_id )) {
+                        $type_layout = Traveler_Input::request("traveler-layout-type") ;
+                        update_post_meta( $layout_id , 'type_layout' , $type_layout );
+                        if($type == 'update'){
+                            traveler_set_admin_message('Update layout successfully !','success');
+                        }else{
+                            traveler_set_admin_message('Create layout successfully !','success');
+                        }
 
+                    }else{
+                        if($type == 'update'){
+                            traveler_set_admin_message('Error : Update layout not successfully !','error');
+                        }else{
+                            traveler_set_admin_message('Error : Create layout not successfully !','error');
+                        }
+                    }
+                }else{
+                    if($type == 'update'){
+                        traveler_set_admin_message('Error : Update layout not successfully !','error');
+                    }else{
+                        traveler_set_admin_message('Error : Create layout not successfully !','error');
+                    }
+                }
+
+
+            }
+        }
         function register_traveler_booking_sub_menu_page() {
 
             $menu_page=$this->get_menu_page();

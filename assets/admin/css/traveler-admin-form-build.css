@@ -1086,6 +1086,7 @@
   min-width: 200px;
 }
 .form-build-v2 .traveler-select-layout {
+  padding-bottom: 20px;
   padding-top: 20px;
 }
 .form-build-v2 .traveler-select-layout select {
@@ -1097,8 +1098,6 @@
 }
 .form-build-v2 .select-control {
   background: #f4f4f4 none repeat scroll 0 0;
-  border: 2px solid #cccccc;
-  border-radius: 10px;
   box-shadow: 1px 1px 8px #ccc;
   margin: 20px auto 1px;
   padding: 10px;
@@ -1128,4 +1127,31 @@
 .form-build-v2 .select-control .traveler-build-group textarea {
   border-radius: 5px;
   width: 100%;
+}
+.form-build-v2 .traveler-title-layout {
+  text-align: left;
+  width: 100%;
+}
+.form-build-v2 .traveler-title-layout label {
+  display: block;
+  padding-bottom: 10px;
+  text-align: left;
+}
+.form-build-v2 .traveler-title-layout input {
+  font-weight: normal;
+  width: 100%;
+  border-radius: 3px;
+}
+.form-build-v2 .traveler-title-layout select {
+  font-weight: normal;
+  border-radius: 3px;
+}
+.form-build-v2 .traveler-title-layout th:nth-child(2) {
+  padding-left: 20px;
+}
+.form-build-v2 .w100_ {
+  width: 100%;
+}
+.form-build-v2 .bg-red {
+  background: red;
 }
