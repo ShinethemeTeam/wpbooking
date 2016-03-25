@@ -72,6 +72,7 @@ if(!class_exists('Traveler_Admin_Setting'))
         function _save_settings(){
             if(!empty($_POST['traveler_booking_save_settings']) and wp_verify_nonce($_REQUEST[ 'traveler_booking_save_settings_field' ],"traveler_booking_action")){
                 $full_settings =$this->_get_settings();
+
                 if(!empty($full_settings)){
                     $is_tab = Traveler_Input::request('st_tab');
                     $is_section = Traveler_Input::request('st_section');
@@ -90,27 +91,27 @@ if(!class_exists('Traveler_Admin_Setting'))
                             case "muti-checkbox":
                                 $custom_muti_checkbox = $value['value'];
                                 foreach($custom_muti_checkbox as $key_muti=>$value_muti){
-                                    $key = 'traveler_booking_'.$value_muti['id'];
-                                    $value = Traveler_Input::request($key);
-                                    update_option($key,$value);
+                                    $key_request = 'traveler_booking_'.$value_muti['id'];
+                                    $value_request = Traveler_Input::request($key_request);
+                                    update_option($key_request,$value_request);
                                 }
                                 break;
                             case "list-item":
                                 $id_list_item = $value['id'];
                                 $data = array();
-                                $key = 'traveler_booking_list_item';
-                                $value = Traveler_Input::request($key);
-                                if(!empty($value[$id_list_item])){
-                                    $data = $value[$id_list_item];
+                                $key_request = 'traveler_booking_list_item';
+                                $value_request = Traveler_Input::request($key_request);
+                                if(!empty($value_request[$id_list_item])){
+                                    $data = $value_request[$id_list_item];
                                 }
                                 unset($data['__number_list__']);
-                                update_option($key,$data);
-
+                                $id_save = 'traveler_booking_'.$value['id'];
+                                update_option($id_save,$data);
                                 break;
                             default:
-                                $key = 'traveler_booking_'.$value['id'];
-                                $value = Traveler_Input::request($key);
-                                update_option($key,$value);
+                                $key_request = 'traveler_booking_'.$value['id'];
+                                $value_request = Traveler_Input::request($key_request);
+                                update_option($key_request,$value_request);
                         }
 
                     }

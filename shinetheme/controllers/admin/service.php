@@ -33,7 +33,7 @@ if(!class_exists('Traveler_Admin_Service'))
 				'name_admin_bar'     => _x( 'Service', 'add new on admin bar', 'traveler-booking' ),
 				'add_new'            => _x( 'Add New', 'service', 'traveler-booking' ),
 				'add_new_item'       => __( 'Add New Service', 'traveler-booking' ),
-				'new_item'           => __( 'New Service', 'your-pluQgin-textdomain' ),
+				'new_item'           => __( 'New Service', 'your-plugin-textdomain' ),
 				'edit_item'          => __( 'Edit Service', 'traveler-booking' ),
 				'view_item'          => __( 'View Service', 'traveler-booking' ),
 				'all_items'          => __( 'All Services', 'traveler-booking' ),

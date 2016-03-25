@@ -22,7 +22,6 @@ if(!empty($data['condition'])){
         <label for="<?php echo esc_html($data['id']) ?>"><?php echo esc_html($data['label']) ?>:</label>
     </th>
     <td>
-        <div class="min-width-500 width-800 content_editor">
             <?php
             if(!empty($data['element_list_item'])){
                 /*$content = $data_value;
@@ -30,13 +29,14 @@ if(!empty($data['condition'])){
                 $settings = array('media_buttons' => false, 'textarea_name' => $name);
                 wp_editor($content, $editor_id, $settings);*/
                 ?>
-                <textarea id="<?php echo esc_attr($name) ?>" name="<?php echo esc_html($name) ?>" class="form-control form-control-admin min-width-500"><?php echo esc_html($data_value) ?></textarea>
+                <textarea id="<?php echo esc_attr($name) ?>" name="<?php echo esc_html($name) ?>" class="form-control  min-width-500"><?php echo esc_html($data_value) ?></textarea>
             <?php
             }else{
+                echo '<div class="min-width-500 width-800 content_editor">';
                 wp_editor(stripslashes($data_value),$name);
+                echo '</div>';
             }
             ?>
-        </div>
         <i class="traveler-desc"><?php echo balanceTags($data['desc']) ?></i>
     </td>
 </tr>

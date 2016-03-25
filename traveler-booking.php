@@ -60,6 +60,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 
 			wp_enqueue_style('font-awesome',traveler_assets_url('fa4.5/css/font-awesome.min.css'),FALSE,'4.5.0');
 			wp_enqueue_style('traveler-admin',traveler_admin_assets_url('css/admin.css'));
+			wp_enqueue_style('traveler-admin-form-build',traveler_admin_assets_url('css/traveler-admin-form-build.css'));
 
 			wp_localize_script('jquery','traveler_params',array(
 				'ajax_url'=>admin_url('admin-ajax.php'),

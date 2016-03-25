@@ -23,6 +23,8 @@ $autoload['helper']=array(
 $autoload['library']=array(
     'input',
     'assets',
+	'session',
+	'currency',
 	'validator',
 	'metabox'
 );
@@ -32,9 +34,11 @@ $autoload['controller']=array(
 	'admin/location',
 	'admin/taxonomy',
 	'admin/service',
+	'admin/form-builder',
     'admin/settings',
 	'admin/taxonomy',
 	'admin/test-metabox',
+	'gateways'
 );
 
 $autoload['encrypr_key'] = 'traveler';
