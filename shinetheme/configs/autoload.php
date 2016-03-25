@@ -36,3 +36,5 @@ $autoload['controller']=array(
 	'admin/taxonomy',
 	'admin/test-metabox',
 );
+
+$autoload['encrypr_key'] = 'traveler';
