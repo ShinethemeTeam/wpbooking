@@ -19,8 +19,25 @@ if(!class_exists('Traveler_Admin_Service'))
 		{
 			add_action('init',array($this,'_add_taxonomy'));
 			add_action('init',array($this,'_add_post_type'),5);
+			add_action('save_post',array($this,'_save_extra_field'));
 		}
 
+		function _save_extra_field($post_id=FALSE)
+		{
+			if(get_post_type($post_id)!='traveler_service') return false;
+
+			$service_model=Traveler_Service_Model::inst();
+
+			$data=array(
+				'map_lat'=>get_post_meta($post_id,'map_lat',true)
+			);
+
+			if(!$service_model->find_by('post_id',$post_id)){
+				$service_model->insert($data);
+			}else{
+				$service_model->where('post_id',$post_id)->update($data);
+			}
+		}
 		function _add_taxonomy(){
 
 		}

@@ -117,6 +117,7 @@ if(!class_exists('Traveler_Model') ){
 
 			return $this;
 		}
+
 		function row()
 		{
 			return isset($this->_last_result[0])?$this->_last_result[0]:FALSE;
@@ -124,6 +125,62 @@ if(!class_exists('Traveler_Model') ){
 		function result()
 		{
 			return $this->_last_result;
+		}
+
+		function update($data=array())
+		{
+			if(!empty($data))
+			{
+				return FALSE;
+			}
+			global $wpdb;
+			$table_name = $wpdb->prefix . $this->table_name;
+
+			$where=FALSE;
+			if(!empty($this->_where_query)){
+				$where='WHERE 1=1 ';
+
+				foreach($this->_where_query as $key=>$value){
+					$where.=$wpdb->prepare(' AND %s=%s',array($key,$value));
+				}
+			}
+
+			$set=FALSE;
+			foreach($data as $key=>$value){
+				$set.="$key='$value',";
+			}
+			$set=substr($set,0,-1);
+
+			$query="UPDATE %s SET %s";
+
+			$query=$wpdb->prepare($query,array($table_name,$set));
+			$query.=$where;
+
+			return $wpdb->query($query);
+
+		}
+
+		function insert($data=array())
+		{
+			if(!empty($data))
+			{
+				return FALSE;
+			}
+			global $wpdb;
+			$table_name = $wpdb->prefix . $this->table_name;
+
+			$set=FALSE;
+			foreach($data as $key=>$value){
+				$set.="$key='$value',";
+			}
+			$set=substr($set,0,-1);
+
+			$query="INSERT INTO %s VALUES (%s)";
+
+			$query=$wpdb->prepare($query,array($table_name,$set));
+
+			return $wpdb->query($query);
+
 		}
 
 		/**
@@ -162,7 +219,7 @@ if(!class_exists('Traveler_Model') ){
 		 * @return array
 		 */
 		function get_columns(){
-			return $this->columns;
+			return apply_filters('traveler_model_table_'.$this->table_name.'_columns',$this->columns);
 		}
 
 		/**

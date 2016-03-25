@@ -21,7 +21,8 @@ class Test_Metabox extends Traveler_Controller{
             	array(
                     'label' => __('Location', 'traveler-booking'),
                     'id'    => 'location_tab',
-                    'type'  => 'tab'
+                    'type'  => 'tab',
+					'condition'=>'service_type:is(room)'
                 ),
 				array(
 					'id'=>'service_type',
