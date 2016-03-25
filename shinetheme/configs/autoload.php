@@ -19,7 +19,6 @@ $autoload['helper']=array(
     'settings'
 );
 
-
 $autoload['library']=array(
     'input',
     'assets',
@@ -38,5 +37,10 @@ $autoload['controller']=array(
     'admin/settings',
 	'admin/taxonomy',
 	'admin/test-metabox',
-	'gateways'
+	'gateways',
+	'booking'
+);
+
+$autoload['model']=array(
+	'service_model',
 );
