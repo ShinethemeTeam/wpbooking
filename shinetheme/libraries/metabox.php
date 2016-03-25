@@ -25,6 +25,16 @@ if( ! class_exists('Traveler_Metabox') ){
 			$styles  = $wp_styles->queue;
 			$scripts = $wp_scripts->queue;
 
+			if( !in_array( 'traveler_admin.js', $scripts ) ){
+				wp_enqueue_script( 'traveler_admin.js ' , traveler_admin_assets_url( 'js/traveler-admin.js' ) , array( 'jquery', 'jquery-ui-core', 'jquery-ui-tabs') , null , true );
+			}
+
+			if( !in_array( 'gmap3.js', $scripts ) ){
+
+				wp_enqueue_script( 'maps.googleapis.js ' , 'http://maps.googleapis.com/maps/api/js?sensor=false', array( 'jquery') , null , true );
+
+				wp_enqueue_script( 'gmap3.js ' , traveler_admin_assets_url( 'js/gmap3.min.js' ) , array( 'jquery') , null , true );
+			}
 		}
 
 		public function register_meta_box( $metabox = array() ){
@@ -82,7 +92,10 @@ if( ! class_exists('Traveler_Metabox') ){
 											'desc'     => '',
 											'std'      => '',
 											'class'    => '',
-											'location' => FALSE
+											'location' => FALSE,
+											'map_lat' => '',
+											'map_long' => '',
+											'map_zoom' => 13
 										);
 
 										$field_sub = wp_parse_args( $field_sub , $default );

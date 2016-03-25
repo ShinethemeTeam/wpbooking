@@ -327,4 +327,42 @@ jQuery(document).ready(function( $ ){
         });
     });
 
+    ///////////////////////////
+    //////  Gmap    //////////
+    ///////////////////////////
+    jQuery(document).ready(function($) {
+        if( $(".gmap-content").length ){
+            $(".gmap-content").each(function(index, el) {
+                var t = $(this);
+                var map_lat = parseFloat( $('input[name="map_lat"]', t).val() );
+                var map_long = parseFloat( $('input[name="map_long"]', t).val() );
+
+                var map_zoom = parseInt( $('input[name="map_zoom"]', t).val() );
+                console.log(map_lat);
+
+                t.gmap3({
+                    getgeoloc:{
+                        callback : function(latLng){
+                            if (latLng){
+                                $(this).gmap3({
+                                    marker:{ 
+                                        latLng:latLng
+                                    }
+                                });
+                            } else {
+                                
+                            }
+                        }
+                    },
+                    map:{
+                        options:{
+                            zoom: map_zoom
+                        }
+                    }
+                });
+            });
+        }
+        
+    });
+
 });

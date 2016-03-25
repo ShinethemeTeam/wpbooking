@@ -48,6 +48,14 @@ class Test_Metabox extends Traveler_Controller{
                     'std' => 'textbox',
                 ),
                 array(
+                    'id' => 'gmap',
+                    'label' => 'Gmap',
+                    'desc' => 'Gmap',
+                    'type' => 'gmap',
+                    'std' => 'Gmap',
+                    'map_zoom' => 13
+                ),
+                array(
                     'id'      => 'radio' ,
                     'label'   => __( 'Radio' , 'traveler-booking' ) ,
                     'desc'    => __( 'Radio' , 'traveler-booking' )  ,

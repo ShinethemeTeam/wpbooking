@@ -312,7 +312,29 @@ img.settings-demo-gallery{
         margin-top: -10px;
     }
 }
-.st-metabox-content-wrapper{padding-bottom: 20px;}
+.st-metabox-content-wrapper{
+    padding-bottom: 20px;
+    .gmap-container{
+        position: relative;
+        z-index: 1;
+        .gmap-content{
+            border: 1px dashed #C0C0C0;
+            width: 100%;
+            min-height: 300px;
+
+            input.gmap-search{
+                position: absolute;
+                top: 15px;
+                left: 15px;
+                width: 200px;
+                height: 25px;
+                border: 1px solid #CCC;
+                padding: 5px;
+            }
+        }
+    }
+    
+}
 .st-metabox-content-wrapper:after{
     display: table;
     content: " ";
