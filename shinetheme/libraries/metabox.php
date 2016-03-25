@@ -25,6 +25,16 @@ if( ! class_exists('Traveler_Metabox') ){
 			$styles  = $wp_styles->queue;
 			$scripts = $wp_scripts->queue;
 
+			if( !in_array( 'traveler_admin.js', $scripts ) ){
+				wp_enqueue_script( 'traveler_admin.js ' , traveler_admin_assets_url( 'js/traveler-admin.js' ) , array( 'jquery', 'jquery-ui-core', 'jquery-ui-tabs') , null , true );
+			}
+
+			if( !in_array( 'gmap3.js', $scripts ) ){
+
+				wp_enqueue_script( 'maps.googleapis.js ' , 'http://maps.googleapis.com/maps/api/js?sensor=false', array( 'jquery') , null , true );
+
+				wp_enqueue_script( 'gmap3.js ' , traveler_admin_assets_url( 'js/gmap3.min.js' ) , array( 'jquery') , null , true );
+			}
 		}
 
 		public function register_meta_box( $metabox = array() ){
@@ -50,18 +60,31 @@ if( ! class_exists('Traveler_Metabox') ){
 						<?php
 						foreach( (array) $fields as $key => $field ):
 							if( $field['type'] === 'tab' ):
+
+								$class = '';
+								$data_class = '';
+								if(!empty($field['condition'])){
+									$class .= ' traveler-condition ';
+									$data_class .= ' data-condition='.$field['condition'].' ' ;
+								}
 								?>
-								<li><a href="#<?php echo 'st-metabox-tab-item-'.esc_html( $field['id'] ); ?>"><?php echo esc_html( $field['label'] ); ?></a></li>
+								<li class=""><a class="<?php echo esc_attr($class)?>" <?php echo esc_attr($data_class) ?> href="#<?php echo 'st-metabox-tab-item-'.esc_html( $field['id'] ); ?>"><?php echo esc_html( $field['label'] ); ?></a></li>
 							<?php endif; endforeach; ?>
 					</ul>
 					<?php
 					foreach( (array) $fields as $key => $field ):
 
 						if( isset( $fields[ $key ]['type'] ) && $fields[ $key ]['type'] === 'tab' ):
-
+							$class = '';
+							$data_class = '';
+							if(!empty($field['condition'])){
+								$class .= ' traveler-condition ';
+								$data_class .= ' data-condition='.$field['condition'].' ' ;
+							}
 							?>
 							<div id="<?php echo 'st-metabox-tab-item-'.esc_html( $field['id'] ); ?>" class="st-metabox-tabs-content ">
-								<table class="form-table traveler-settings ">
+								<div class="st-metabox-tab-content-wrap<?php echo esc_attr($class)?>" <?php echo esc_attr($data_class) ?>>
+									<table class="form-table traveler-settings ">
 								<?php
 
 								$current_tab = (int) $key;
@@ -82,7 +105,10 @@ if( ! class_exists('Traveler_Metabox') ){
 											'desc'     => '',
 											'std'      => '',
 											'class'    => '',
-											'location' => FALSE
+											'location' => FALSE,
+											'map_lat' => '',
+											'map_long' => '',
+											'map_zoom' => 13
 										);
 
 										$field_sub = wp_parse_args( $field_sub , $default );
@@ -102,6 +128,7 @@ if( ! class_exists('Traveler_Metabox') ){
 										?>
 									<?php endif; endforeach; ?>
 								</table>
+								</div>
 							</div>
 						<?php endif; unset( $fields[ $key ] ); endforeach; ?>
 				</div>

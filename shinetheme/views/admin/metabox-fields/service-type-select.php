@@ -20,13 +20,13 @@ if( $service_type && !empty( $service_type ) ){
 			}
 		}
 		
-		$select.= '<option value="'. esc_html( $key ).'" '. $checked .'>'. esc_html( $value['label'] ).'</option>';
+		$select.= '<option data-key-encrypt="'. traveler_encrypt( esc_html( $key ) ).'" value="'. esc_html( $key ).'" '. $checked .'>'. esc_html( $value['label'] ).'</option>';
 	}
 	$select .= '</select>';
 }
 ?>
 <div class="traveler-hndle-tag-input hidden">
-	<label ><?php echo esc_html($data['label']) ?>
+	<label class="traveler-form-group" ><?php echo esc_html($data['label']) ?>
 		<?php echo $select?>
 	</label>
 </div>

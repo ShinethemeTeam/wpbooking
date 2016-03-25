@@ -14,7 +14,6 @@ jQuery(document).ready(function( $ ){
     run_condition_engine();
     function run_condition_engine(){
         $('.traveler-condition[data-condition]').each(function() {
-            
             var passed;
             var conditions = get_match_condition( $( this ).data( 'condition' ) );
             var operator = ( $( this ).data( 'operator' ) || 'and' ).toLowerCase();
@@ -75,7 +74,6 @@ jQuery(document).ready(function( $ ){
                 }
 
             });
-
             if ( passed ) {
                 $(this).show();
             } else {
@@ -271,7 +269,7 @@ jQuery(document).ready(function( $ ){
     $( '.traveler-hndle-tag-input').each(function(){
         var me=$(this);
         var hndle=me.closest('.postbox').find('.hndle');
-        hndle.find('span').append(me.html());
+        hndle.find('span').append(me.find('label'));
         hndle.unbind( 'click.postboxes' );
         hndle.click( function( event ) {
             if ( $( event.target ).filter( 'input, option, label, select' ).length ) {
@@ -279,7 +277,7 @@ jQuery(document).ready(function( $ ){
             }
             me.closest('.postbox').toggleClass( 'closed' );
         });
-        me.detach();
+        //me.detach();
     });
 
 
@@ -325,6 +323,44 @@ jQuery(document).ready(function( $ ){
             console.log(container);
             container.find('.list-title').html($value);
         });
+    });
+
+    ///////////////////////////
+    //////  Gmap    //////////
+    ///////////////////////////
+    jQuery(document).ready(function($) {
+        if( $(".gmap-content").length ){
+            $(".gmap-content").each(function(index, el) {
+                var t = $(this);
+                var map_lat = parseFloat( $('input[name="map_lat"]', t).val() );
+                var map_long = parseFloat( $('input[name="map_long"]', t).val() );
+
+                var map_zoom = parseInt( $('input[name="map_zoom"]', t).val() );
+                console.log(map_lat);
+
+                t.gmap3({
+                    getgeoloc:{
+                        callback : function(latLng){
+                            if (latLng){
+                                $(this).gmap3({
+                                    marker:{ 
+                                        latLng:latLng
+                                    }
+                                });
+                            } else {
+                                
+                            }
+                        }
+                    },
+                    map:{
+                        options:{
+                            zoom: map_zoom
+                        }
+                    }
+                });
+            });
+        }
+        
     });
 
 });

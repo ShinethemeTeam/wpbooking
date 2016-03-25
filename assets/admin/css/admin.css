@@ -105,7 +105,6 @@ img.settings-demo-gallery {
 .traveler-setting-list-item .traveler-list-item-wrap {
   width: 800px;
   border: 1px solid #e5e5e5;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
   background: white;
   margin-bottom: 10px;
@@ -201,10 +200,7 @@ img.settings-demo-gallery {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 0px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
-  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 .st-metabox-tabs-content .form-control[type=text],
@@ -225,10 +221,7 @@ img.settings-demo-gallery {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 0px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
-  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 .st-metabox-tabs-content .form-control .form-group .form-control[type=text],
@@ -273,7 +266,6 @@ img.settings-demo-gallery {
   width: 40em;
 }
 .ui-tabs-vertical .ui-tabs-nav li a:focus {
-  -webkit-box-shadow: none;
   box-shadow: none;
 }
 @media (max-width: 1023px) {
@@ -303,8 +295,45 @@ img.settings-demo-gallery {
     padding-right: 0;
   }
 }
+.st-metabox-wrapper {
+  position: relative;
+  min-height: 100px;
+}
+.st-metabox-wrapper .overlay-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #FFF;
+}
+.st-metabox-wrapper .spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+}
 .st-metabox-content-wrapper {
   padding-bottom: 20px;
+}
+.st-metabox-content-wrapper .gmap-container {
+  position: relative;
+  z-index: 1;
+}
+.st-metabox-content-wrapper .gmap-container .gmap-content {
+  border: 1px dashed #C0C0C0;
+  width: 100%;
+  min-height: 300px;
+}
+.st-metabox-content-wrapper .gmap-container .gmap-content input.gmap-search {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 200px;
+  height: 25px;
+  border: 1px solid #CCC;
+  padding: 5px;
 }
 .st-metabox-content-wrapper:after {
   display: table;
@@ -349,3 +378,5 @@ img.settings-demo-gallery {
 .form-build .form-field {
   padding-bottom: 15px;
 }
+
+/*# sourceMappingURL=admin.css.map */

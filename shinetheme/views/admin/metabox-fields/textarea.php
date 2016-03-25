@@ -17,7 +17,7 @@ if(!empty($data['condition'])){
 }
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
-$field .= '<div style="margin-bottom: 7px;"><textarea rows="10" id="'. esc_html( $data['id'] ).'" name="'. esc_html( $data['id'] ).'" class=" form-control widefat '. esc_html( $data['class'] ).'">'. esc_html( $old_data ).'</textarea></div>';
+$field .= '<div style="margin-bottom: 7px;"><textarea  cols="30" rows="10"  id="'. esc_html( $data['id'] ).'" name="'. esc_html( $data['id'] ).'" class=" form-control widefat '. esc_html( $data['class'] ).'">'. esc_html( $old_data ).'</textarea></div>';
 
 $field .= '</div></div>';
 
