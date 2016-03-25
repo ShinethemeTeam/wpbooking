@@ -20,7 +20,7 @@ if( $service_type && !empty( $service_type ) ){
 			}
 		}
 		
-		$select.= '<option value="'. esc_html( $key ).'" '. $checked .'>'. esc_html( $value['label'] ).'</option>';
+		$select.= '<option data-key-encrypt="'. traveler_encrypt( esc_html( $key ) ).'" value="'. esc_html( $key ).'" '. $checked .'>'. esc_html( $value['label'] ).'</option>';
 	}
 	$select .= '</select>';
 }

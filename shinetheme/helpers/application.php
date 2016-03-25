@@ -93,3 +93,19 @@ if(!function_exists('traveler_set_message'))
 		Traveler()->set_message($message,$type);
 	}
 }
+
+if( !function_exists('traveler_encrypt') ){
+	function traveler_encrypt( $string = '' ){
+		return md5( md5( Traveler_Config::inst()->item('encrypr_key') ) . md5( $string ) );
+	}
+}
+if( !function_exists('traveler_encrypt_compare') ){
+	function traveler_encrypt_compare( $string = '', $encrypt = ''){
+		$string = md5( md5( Traveler_Config::inst()->item('encrypr_key') ) . md5( $string ) );
+
+		if( $string == $encrypt ){
+			return true;
+		}
+		return false;
+	}
+}
