@@ -26,7 +26,7 @@ if( $service_type && !empty( $service_type ) ){
 }
 ?>
 <div class="traveler-hndle-tag-input hidden">
-	<label ><?php echo esc_html($data['label']) ?>
+	<label class="traveler-form-group" ><?php echo esc_html($data['label']) ?>
 		<?php echo $select?>
 	</label>
 </div>

@@ -25,7 +25,7 @@ if(!class_exists('Traveler_Admin_Service'))
 		function _save_extra_field($post_id=FALSE)
 		{
 			if(get_post_type($post_id)!='traveler_service') return false;
-			
+
 			$service_model=Traveler_Service_Model::inst();
 
 			$data=array(
