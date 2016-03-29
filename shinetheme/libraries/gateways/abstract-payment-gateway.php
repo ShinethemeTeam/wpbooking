@@ -27,10 +27,16 @@ if(!class_exists('Traveler_Abstract_Payment_Gateway'))
 
 		function _add_setting_section($sections=array())
 		{
+			$settings=$this->get_settings_fields();
+			if(!empty($settings)){
+				foreach($settings as $key=>$value){
+					$settings[$key]['id']='gateway_'.$this->gateway_id.'_'.$value['id'];
+				}
+			}
 			$sections['payment_'.$this->gateway_id]=array(
 				'id'     => 'payment_'.$this->gateway_id,
 				'label'  => $this->get_info('label'),
-				'fields' => $this->get_settings_fields()
+				'fields' =>$settings
 			);
 			return $sections;
 		}
@@ -54,6 +60,11 @@ if(!class_exists('Traveler_Abstract_Payment_Gateway'))
 			}
 
 			return $info;
+		}
+
+		function get_option($key,$default)
+		{
+			return traveler_get_option('gateway_'.$this->gateway_id.'_'.$key,$default);
 		}
 
 		function _register_gateway($gateways=array())

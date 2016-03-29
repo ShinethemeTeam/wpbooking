@@ -14,12 +14,20 @@ if(!class_exists('Traveler_Service'))
 
 		private static $_inst;
 
+		function __construct()
+		{
+			// Load Abstract Service Type class and Default Service Types
+
+			$loader=Traveler_Loader::inst();
+			$loader->load_library(array(
+				'service-types/abstract-service-type',
+				'service-types/room',
+			));
+		}
+
 		function get_service_types()
 		{
 			$default= array(
-				'room'=>array(
-					'label'=>__("Room",'traveler-booking')
-				),
 				'tour'=>array(
 					'label'=>__("Tour",'traveler-booking')
 				),
