@@ -16,7 +16,8 @@ $autoload['config']=array(
 $autoload['helper']=array(
 	'application',
 	'assets',
-    'settings'
+    'settings',
+    'form-build',
 );
 
 $autoload['library']=array(

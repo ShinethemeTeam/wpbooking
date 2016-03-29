@@ -60,8 +60,8 @@ $layout_id = Traveler_Input::request('layout_id');
 
                             </td>
                             <td class="text-right w100_">
-                                <a href="<?php echo  add_query_arg(array("page"=>$slug_page_menu),admin_url("admin.php")) ?>"  class="button button-primary" ><?php _e("Add New","traveler-booking") ?></a>
                                 <?php if(!empty($layout_id)) {?>
+                                    <a href="<?php echo  add_query_arg(array("page"=>$slug_page_menu),admin_url("admin.php")) ?>"  class="button button-primary" ><?php _e("Add New","traveler-booking") ?></a>
                                     <a href="<?php echo  add_query_arg(array("page"=>$slug_page_menu,'del_layout'=>$layout_id),admin_url("admin.php")) ?>" data-msg="<?php _e("Press OK to delete layout, Cancel to leave",'traveler-booking') ?>"  class="button btn_del_layout" ><?php _e("Delete","traveler-booking") ?></a>
                                 <?php }?>
                             </td>
@@ -114,34 +114,52 @@ $layout_id = Traveler_Input::request('layout_id');
                 </div>
                 <div class="traveler-col-md-5">
                     <div class="select-control">
-                        <label for="select_form_help_shortcode" class="control-label">Generate Tag:</label>
-                        <select name="traveler_booking_dropdown" class="form-control  min-width-200" id="traveler_booking_dropdown">
-                            <option value=""><?php _e("-- Select Flied --",'traveler-booking') ?></option>
-                            <optgroup label="Single Car">
-                                <option value="volvo">Volvo</option>
-                                <option value="saab">Saab</option>
-                            </optgroup>
+                        <?php $list_flied = Traveler_Admin_Form_Build::inst()->traveler_get_all_field(); ?>
+                        <label for="traveler_field_form_build" class="control-label"><?php _e("Element Shortcode",'traveler-booking') ?>:</label>
+                        <select name="traveler_field_form_build" class="form-control" id="traveler_field_form_build">
+                            <option selected value=""><?php _e("-- Select Flied --",'traveler-booking') ?></option>
+                            <?php
+                            if(!empty($list_flied)){
+                                foreach($list_flied as $k=>$v){
+                                    echo '<option value="'.$v['name'].'">'.$v['title'].'</option>';
+                                }
+                            }
+                            ?>
                         </select>
-                        <i class="desc">Select option to configure or show help info about tags</i>
+                        <i class="desc">Select shortcode and configs</i>
                     </div>
-                    <div class="select-control">
-                        <div class="head"> Contact </div>
+                    <div class="control-hidden hidden" >
+                        <?php
+                        if(!empty($list_flied)){
+                            foreach($list_flied as $k=>$v){
+                                ?>
+                                <div class="hidden-item" data-name-shortcode="<?php echo esc_attr($v['name']) ?>" data-title="<?php echo esc_attr($v['title']) ?>" id="item-<?php echo esc_attr($v['name']) ?>">
+                                    <?php if(!empty($v['options'])){
+                                        foreach($v['options'] as $key => $value){
+                                            $default = array( "type"             => "" ,
+                                                              "title"            => "" ,
+                                                              "name"             => "" ,
+                                                              "desc"      => "" ,
+                                                              'edit_field_class' => '' ,
+                                                              'options' => '' ,
+                                                              'value'            => '' );
+                                            $value = wp_parse_args( $value , $default );
+
+                                            $path='fields/form-build/input-'.$value['type'];
+                                            echo traveler_admin_load_view($path,array('data'=>$value,'parent'=>$v['name']));
+                                        }
+                                    } ?>
+                                </div>
+                        <?php
+                            }
+                        }
+                        ?>
+                    </div>
+                    <div class="select-control div-content-control">
+                        <div class="head"></div>
                         <hr>
                         <div class="content-control">
-                            <div class="traveler-row">
-                                <div class="traveler-col-md-6">
-                                    <div class="traveler-build-group ">
-                                        <label class="control-label"><strong>Name</strong> (required):</label>
-                                        <input type="text"  name="" id="">
-                                    </div>
-                                </div>
-                                <div class="traveler-col-md-6">
-                                    <div class="traveler-build-group ">
-                                        <label class="control-label"><strong>Default value</strong> (optional):</label>
-                                        <input type="text"  name="" id="">
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="traveler-row content-flied-control"></div>
                         </div>
                         <hr>
                         <div>
@@ -149,7 +167,7 @@ $layout_id = Traveler_Input::request('layout_id');
                                 <div class="traveler-col-md-12">
                                     <div class="traveler-build-group ">
                                         <label class="control-label"><?php _e("Copy and paste this shortcode into the form at left side",'traveler-booking') ?></label>
-                                        <input type="text"  name="" id="" readonly="readonly">
+                                        <input type="text"   name="" id="traveler-shortcode-flied" readonly="readonly" onclick="this.focus();this.select()">
                                     </div>
                                 </div>
                             </div>
