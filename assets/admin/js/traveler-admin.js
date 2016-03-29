@@ -14,6 +14,7 @@ jQuery(document).ready(function( $ ){
     run_condition_engine();
     function run_condition_engine(){
         $('.traveler-condition[data-condition]').each(function() {
+            
             var passed;
             var conditions = get_match_condition( $( this ).data( 'condition' ) );
             var operator = ( $( this ).data( 'operator' ) || 'and' ).toLowerCase();
@@ -74,6 +75,7 @@ jQuery(document).ready(function( $ ){
                 }
 
             });
+
             if ( passed ) {
                 $(this).show();
             } else {
@@ -269,7 +271,7 @@ jQuery(document).ready(function( $ ){
     $( '.traveler-hndle-tag-input').each(function(){
         var me=$(this);
         var hndle=me.closest('.postbox').find('.hndle');
-        hndle.find('span').append(me.find('label'));
+        hndle.find('span').append(me.html());
         hndle.unbind( 'click.postboxes' );
         hndle.click( function( event ) {
             if ( $( event.target ).filter( 'input, option, label, select' ).length ) {
@@ -277,7 +279,7 @@ jQuery(document).ready(function( $ ){
             }
             me.closest('.postbox').toggleClass( 'closed' );
         });
-        //me.detach();
+        me.detach();
     });
 
 
@@ -329,34 +331,86 @@ jQuery(document).ready(function( $ ){
     //////  Gmap    //////////
     ///////////////////////////
     jQuery(document).ready(function($) {
-        if( $(".gmap-content").length ){
-            $(".gmap-content").each(function(index, el) {
+        if( $('.st-metabox-content-wrapper').length ){
+            $('.st-metabox-content-wrapper').each(function(index, el) {
                 var t = $(this);
+                var gmap = $('.gmap-content', t);
                 var map_lat = parseFloat( $('input[name="map_lat"]', t).val() );
                 var map_long = parseFloat( $('input[name="map_long"]', t).val() );
 
                 var map_zoom = parseInt( $('input[name="map_zoom"]', t).val() );
-                console.log(map_lat);
 
-                t.gmap3({
-                    getgeoloc:{
-                        callback : function(latLng){
-                            if (latLng){
-                                $(this).gmap3({
-                                    marker:{ 
-                                        latLng:latLng
-                                    }
-                                });
-                            } else {
-                                
-                            }
-                        }
-                    },
+                var bt_ot_searchbox = $('input.gmap-search', t);
+
+                var current_marker;
+
+                gmap.gmap3({
                     map:{
                         options:{
-                            zoom: map_zoom
+                            center:[map_lat, map_long],
+                            zoom:map_zoom,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP,
+                            mapTypeControl: true,
+                            mapTypeControlOptions: {
+                                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+                            },
+                            navigationControl: true,
+                            scrollwheel: true,
+                            streetViewControl: true
+                        },
+                        events:{
+                            click: function(map){
+                            }
                         }
                     }
+
+                });
+
+
+
+                var gmap_obj = gmap.gmap3('get');
+                var geocoder = new google.maps.Geocoder;
+                var map_type = "roadmap";
+
+                current_marker = new google.maps.Marker({
+                    position : new google.maps.LatLng( map_lat, map_long ),
+                    map : gmap_obj
+                });
+
+                if( bt_ot_searchbox.length ){
+
+                    var searchBox = new google.maps.places.SearchBox( bt_ot_searchbox[0] );
+
+                    google.maps.event.addListener(searchBox, 'places_changed', function() {
+                        var places = searchBox.getPlaces();
+                        if (places.length == 0) {
+                            return;
+                        }
+
+                        // For each place, get the icon, place name, and location.
+                        var bounds = new google.maps.LatLngBounds();
+                        for (var i = 0, place; place = places[i]; i++) {
+
+                            bounds.extend(place.geometry.location);
+
+                            if(i==0){
+                                current_marker.setPosition(place.geometry.location);
+
+                                $('input[name="map_lat"]', t).val( place.geometry.location.lat() );
+                                $('input[name="map_long"]', t).val( place.geometry.location.lng() );
+                                $('input[name="map_zoom"]', t).val( gmap_obj.getZoom() );
+
+                            }
+                        }
+
+                        gmap_obj.fitBounds(bounds);
+
+                    });
+
+                }
+
+                google.maps.event.addListener(gmap_obj, "zoom_changed", function(event) {
+                    $('input[name="map_zoom"]', t).val( gmap_obj.getZoom() );
                 });
             });
         }

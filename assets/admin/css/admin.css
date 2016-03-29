@@ -176,6 +176,7 @@ img.settings-demo-gallery {
 }
 .st-metabox-tabs-content > table {
   display: table-cell !important;
+  vertical-align: top;
 }
 .st-metabox-tabs-content {
   width: auto !important;
@@ -326,14 +327,15 @@ img.settings-demo-gallery {
   width: 100%;
   min-height: 300px;
 }
-.st-metabox-content-wrapper .gmap-container .gmap-content input.gmap-search {
+input.gmap-search {
+  display: block;
   position: absolute;
-  top: 15px;
-  left: 15px;
   width: 200px;
-  height: 25px;
+  top: 10px;
+  left: 100px;
+  height: 31px;
+  z-index: 9;
   border: 1px solid #CCC;
-  padding: 5px;
 }
 .st-metabox-content-wrapper:after {
   display: table;

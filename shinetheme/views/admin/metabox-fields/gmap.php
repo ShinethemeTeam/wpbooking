@@ -21,7 +21,9 @@ if(!empty($data['condition'])){
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
 
-$field .= '<div style="margin-bottom: 7px;"><div class="gmap-container"><div id="'.esc_html( $data['id'] ).'" class="gmap-content"></div><input type="text" name="gmap-search" value="" placeholder="'.__('Enter a address...', 'traveler-booking').'" class="gmap-search"></div></div>
+$field .= '<div style="margin-bottom: 7px;"><div class="gmap-container"><div id="'.esc_html( $data['id'] ).'" class="gmap-content"></div>
+<input type="text" name="gmap-search" value="" placeholder="'.__('Enter a address...', 'traveler-booking').'" class="gmap-search">
+</div></div>
 <input type="hidden" name="map_lat" value="'.esc_html( $map_lat ).'">
 <input type="hidden" name="map_long" value="'.esc_html( $map_long ).'">
 <input type="hidden" name="map_zoom" value="'.esc_html( $map_zoom ).'">
