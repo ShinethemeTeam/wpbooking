@@ -15,7 +15,9 @@ if( ! class_exists('Traveler_Metabox') ){
 
 			add_action( 'admin_enqueue_scripts', array( $this, '_add_scripts' ) );
 
-			add_action( 'save_post', array( $this, 'save_meta_box'), 1, 2 );
+			add_action( 'save_post', array( $this, 'save_meta_box'), 10, 2 );
+
+			add_action( 'traveler_save_metabox', array( $this, 'traveler_save_gmap'), 20, 2);
 		}
 
 		public function _add_scripts(){
@@ -31,7 +33,7 @@ if( ! class_exists('Traveler_Metabox') ){
 
 			if( !in_array( 'gmap3.js', $scripts ) ){
 
-				wp_enqueue_script( 'maps.googleapis.js ' , 'http://maps.googleapis.com/maps/api/js?sensor=false', array( 'jquery') , null , true );
+				wp_enqueue_script( 'maps.googleapis.js ' , 'http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places', array( 'jquery') , null , true );
 
 				wp_enqueue_script( 'gmap3.js ' , traveler_admin_assets_url( 'js/gmap3.min.js' ) , array( 'jquery') , null , true );
 			}
@@ -83,7 +85,7 @@ if( ! class_exists('Traveler_Metabox') ){
 							}
 							?>
 							<div id="<?php echo 'st-metabox-tab-item-'.esc_html( $field['id'] ); ?>" class="st-metabox-tabs-content ">
-								<div class="st-metabox-tab-content-wrap<?php echo esc_attr($class)?>" <?php echo esc_attr($data_class) ?>>
+								<div class="st-metabox-tab-content-wrap <?php echo esc_attr($class)?>" <?php echo esc_attr($data_class) ?>>
 									<table class="form-table traveler-settings ">
 								<?php
 
@@ -183,11 +185,29 @@ if( ! class_exists('Traveler_Metabox') ){
 	        
 	        if ( isset( $new ) && $new !== $old ) {
 	          update_post_meta( $post_id, $field['id'], $new );
+	          
 	        } else if ( '' == $new && $old ) {
 	          delete_post_meta( $post_id, $field['id'], $old );
 	        }
 	      }
+
+	      do_action('traveler_save_metabox', $post_id, $post_object);
 	  
+	    }
+
+	    public function traveler_save_gmap( $post_id, $post_object ){
+	    	if( isset( $_POST['map_lat'] ) && isset( $_POST['map_long'] ) && isset($_POST['map_zoom'] ) ){
+	    		$map_lat = (float)Traveler_Input::post('map_lat', 0);
+		    	$map_long = (float)Traveler_Input::post('map_long', 0);
+		    	$map_zoom = (int)Traveler_Input::post('map_zoom', 0);
+
+		    	update_post_meta( $post_id, 'map_lat', $map_lat );
+		    	update_post_meta( $post_id, 'map_long', $map_long );
+		    	update_post_meta( $post_id, 'map_zoom', $map_zoom );
+	    	}
+
+	    	return $post_id;
+	    	
 	    }
 
 	}

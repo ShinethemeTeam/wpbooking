@@ -197,6 +197,7 @@ img.settings-demo-gallery{
 }
 .st-metabox-tabs-content>table{
     display: table-cell !important;
+    vertical-align: top;
 }
 .st-metabox-tabs-content{
     width: auto !important; min-height: 200px; margin-left: 158px; float: none !important; border: 1px solid #ccc;
@@ -321,19 +322,18 @@ img.settings-demo-gallery{
             border: 1px dashed #C0C0C0;
             width: 100%;
             min-height: 300px;
-
-            input.gmap-search{
-                position: absolute;
-                top: 15px;
-                left: 15px;
-                width: 200px;
-                height: 25px;
-                border: 1px solid #CCC;
-                padding: 5px;
-            }
         }
     }
-    
+}
+input.gmap-search{
+    display: block;
+    position: absolute;
+    width: 200px;
+    top: 10px;
+    left: 100px;
+    height: 31px;
+    z-index: 9;
+    border: 1px solid #CCC;
 }
 .st-metabox-content-wrapper:after{
     display: table;

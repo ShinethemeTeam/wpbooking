@@ -1086,6 +1086,7 @@
   min-width: 200px;
 }
 .form-build-v2 .traveler-select-layout {
+  padding-bottom: 20px;
   padding-top: 20px;
 }
 .form-build-v2 .traveler-select-layout select {
@@ -1097,8 +1098,6 @@
 }
 .form-build-v2 .select-control {
   background: #f4f4f4 none repeat scroll 0 0;
-  border: 2px solid #cccccc;
-  border-radius: 10px;
   box-shadow: 1px 1px 8px #ccc;
   margin: 20px auto 1px;
   padding: 10px;
@@ -1123,9 +1122,56 @@
   display: block;
   padding-bottom: 5px;
 }
-.form-build-v2 .select-control .traveler-build-group input,
+.form-build-v2 .select-control .traveler-build-group input[type="text"],
+.form-build-v2 .select-control .traveler-build-group input[type="password"],
+.form-build-v2 .select-control .traveler-build-group input[type="color"],
+.form-build-v2 .select-control .traveler-build-group input[type="date"],
+.form-build-v2 .select-control .traveler-build-group input[type="datetime"],
+.form-build-v2 .select-control .traveler-build-group input[type="datetime-local"],
+.form-build-v2 .select-control .traveler-build-group input[type="email"],
+.form-build-v2 .select-control .traveler-build-group input[type="month"],
+.form-build-v2 .select-control .traveler-build-group input[type="number"],
+.form-build-v2 .select-control .traveler-build-group input[type="radio"],
+.form-build-v2 .select-control .traveler-build-group input[type="tel"],
+.form-build-v2 .select-control .traveler-build-group input[type="time"],
+.form-build-v2 .select-control .traveler-build-group input[type="url"],
+.form-build-v2 .select-control .traveler-build-group input[type="week"],
+.form-build-v2 .select-control .traveler-build-group input[type="search"],
 .form-build-v2 .select-control .traveler-build-group select,
 .form-build-v2 .select-control .traveler-build-group textarea {
   border-radius: 5px;
   width: 100%;
+}
+.form-build-v2 .traveler-title-layout {
+  text-align: left;
+  width: 100%;
+}
+.form-build-v2 .traveler-title-layout label {
+  display: block;
+  padding-bottom: 10px;
+  text-align: left;
+}
+.form-build-v2 .traveler-title-layout input {
+  font-weight: normal;
+  width: 100%;
+  border-radius: 3px;
+}
+.form-build-v2 .traveler-title-layout select {
+  font-weight: normal;
+  border-radius: 3px;
+}
+.form-build-v2 .traveler-title-layout th:nth-child(2) {
+  padding-left: 20px;
+}
+.form-build-v2 .w100_ {
+  width: 100%;
+}
+.form-build-v2 .bg-red {
+  background: red;
+}
+.form-build-v2 .div-content-control {
+  display: none;
+}
+.form-build-v2 #traveler-shortcode-flied {
+  cursor: pointer;
 }
