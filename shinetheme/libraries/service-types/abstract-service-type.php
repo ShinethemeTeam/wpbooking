@@ -30,6 +30,7 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 			$settings=$this->get_settings_fields();
 			if(!empty($settings)){
 				foreach($settings as $key=>$value){
+					if(!empty($value['id']))
 					$settings[$key]['id']='service_type_'.$this->type_id.'_'.$value['id'];
 				}
 			}
