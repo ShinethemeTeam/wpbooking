@@ -59,20 +59,15 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 				array(
 					'id'    => 'review_stats',
 					'label' => __("Review Stats", 'traveler-booking'),
-					'value' => array(
-						array(
-							'id'    => 'title',
-							'label' => __("Stat Name", 'traveler-booking'),
-							'type'	=>'text'
-						),
-						array(
-							'id'    => 'title',
-							'label' => __("Stat Name", 'traveler-booking'),
-							'type'	=>'text'
-						)
-					),
-					'type'  => 'list-item'
-				)
+					'type'  => 'list-item',
+					'value' => array()
+				),
+				array(
+					'id'    => 'maximum_review',
+					'label' => __("Maximum review per user", 'traveler-booking'),
+					'type'  => 'number',
+					'std'   => 1
+				),
 
 			);
 

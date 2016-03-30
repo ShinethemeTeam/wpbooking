@@ -16,10 +16,11 @@ if(!empty($data['condition'])){
     $class .= ' traveler-condition ';
     $data_class .= ' data-condition='.$data['condition'].' ' ;
 }
+$name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] ). '[]';
 
 $field = '<div class="st-metabox-content-wrapper traveler-settings"><div class="form-group">';
 
-$field .= '<input type="text" id="fg_metadata" class="fg_metadata none" value="'. esc_html( $old_data ) .'" name="'. esc_html( $data['id'] ) .'">
+$field .= '<input type="text" id="fg_metadata" class="fg_metadata none" value="'. esc_html( $old_data ) .'" name="'. $name .'">
 			<br>
         <div class="featuredgallerydiv max-width-500">';
 
