@@ -20,7 +20,9 @@ if(!class_exists('Traveler_Admin_Service'))
 			add_action('init',array($this,'_add_taxonomy'));
 			add_action('init',array($this,'_add_post_type'),5);
 			add_action('save_post',array($this,'_save_extra_field'));
+			add_filter('traveler_booking_settings',array($this,'_add_settings'));
 		}
+
 
 		function _save_extra_field($post_id=FALSE)
 		{
@@ -38,6 +40,16 @@ if(!class_exists('Traveler_Admin_Service'))
 				$service_model->where('post_id',$post_id)->update($data);
 			}
 		}
+
+		function _add_settings($settings)
+		{
+			$settings['services']=array(
+				'name'=>__("Services",'traveler-booking'),
+				'sections'=>apply_filters('traveler_service_setting_sections',array())
+			);
+			return $settings;
+		}
+
 		function _add_taxonomy(){
 
 		}
