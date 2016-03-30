@@ -150,6 +150,9 @@ img.settings-demo-gallery {
 .traveler-setting-list-item .traveler-list-item-wrap tbody > tr:nth-child(odd) {
   background: #EBEEF0;
 }
+.traveler-setting-list-item .traveler-list-item-wrap .list-item tbody > tr:nth-child(odd) {
+  background: none;
+}
 .st-metabox-nav {
   width: 160px;
 }

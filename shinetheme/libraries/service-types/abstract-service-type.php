@@ -44,7 +44,7 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 		function get_settings_fields()
 		{
 
-			return apply_filters('traveler_service_type_'.$this->type_id.'_settings_fields',$settings);
+			return apply_filters('traveler_service_type_'.$this->type_id.'_settings_fields',$this->settings);
 		}
 
 		function get_info($key=FALSE)
