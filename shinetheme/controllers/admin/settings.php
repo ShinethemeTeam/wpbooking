@@ -109,9 +109,11 @@ if(!class_exists('Traveler_Admin_Setting'))
                                 update_option($id_save,$data);
                                 break;
                             default:
-                                $key_request = 'traveler_booking_'.$value['id'];
-                                $value_request = Traveler_Input::request($key_request);
-                                update_option($key_request,$value_request);
+								if($value['id']){
+									$key_request = 'traveler_booking_'.$value['id'];
+									$value_request = Traveler_Input::request($key_request);
+									update_option($key_request,$value_request);
+								}
                         }
 
                     }

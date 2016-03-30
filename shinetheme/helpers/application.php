@@ -40,6 +40,25 @@ if(!function_exists('traveler_load_view')) {
 		}
 	}
 }
+if(!function_exists('traveler_view_path')) {
+	function traveler_view_path($view)
+	{
+		// Try to find overided file in theme_name/traveler-booking/file-name.php
+		$file=locate_template(array(
+			'traveler-booking/'.$view.'.php'
+		),FALSE);
+
+		if(!file_exists($file)){
+
+			$file=Traveler()->get_dir('shinetheme/views/frontend/'.$view.'.php');
+		}
+
+		if(file_exists($file)){
+
+			return $file;
+		}
+	}
+}
 
 if(!function_exists('traveler_get_admin_message'))
 {
