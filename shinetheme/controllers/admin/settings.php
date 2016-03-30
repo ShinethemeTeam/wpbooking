@@ -78,17 +78,13 @@ if(!class_exists('Traveler_Admin_Setting'))
                     $is_section = Traveler_Input::request('st_section');
                     if(empty($is_tab) and !empty($full_settings)){
                         $tmp_tab = $full_settings;
-                        if(!empty($tmp_tab)){
-                            $tmp_key = array_keys($tmp_tab);
-                            $is_tab = array_shift($tmp_key);
-                        }
+                        $tmp_key = array_keys($tmp_tab);
+                        $is_tab = array_shift($tmp_key);
                     }
                     if(empty($is_section) and !empty($full_settings[$is_tab]['sections'])){
                         $tmp_section = $full_settings[$is_tab]['sections'];
-                        if(!empty($tmp_section)){
-                            $tmp_key = array_keys($tmp_section);
-                            $is_section = array_shift($tmp_key);
-                        }
+                        $tmp_key = array_keys($tmp_section);
+                        $is_section = array_shift($tmp_key);
                     }
                     $custom_settings = $full_settings[$is_tab]['sections'][$is_section]['fields'];
 
