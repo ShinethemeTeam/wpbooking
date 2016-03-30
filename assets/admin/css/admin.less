@@ -195,7 +195,7 @@ img.settings-demo-gallery{
     }
 
 }
-.st-metabox-tabs-content>table{
+.st-metabox-tabs-content table{
     display: table-cell !important;
     vertical-align: top;
 }
@@ -255,6 +255,9 @@ img.settings-demo-gallery{
                 }
             }
         }
+    }
+    textarea.form-control{
+        min-height: 300px !important;
     }
 
     .st-metabox-content-wrapper{
@@ -380,4 +383,56 @@ input.gmap-search{
     padding-bottom: 15px;
   }
 
+}
+.traveler-list-item-wrapper{
+    *{
+        box-sizing: border-box;
+    }
+    .list-item-head{
+        width: 100%;
+        position: relative;
+        clear: both;
+        background: rgb(204, 204, 204) none repeat scroll 0% 0%;
+        display: table-caption;
+        padding: 5px;
+        margin-bottom: -2px;
+        min-height: 30px;
+        .dashicons{
+            float: left;
+            margin-top: 6px;
+        }
+        .item-title{
+            height: 100%;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            line-height: 40px;
+            padding-left: 35px;
+            z-index: 8;
+            font-weight: bold;
+            color: #000;
+        }
+        .button-control{
+            position: relative;
+            z-index: 9;
+            float: right;
+            margin-top: 2px;
+        }
+    }
+    .hidden{
+        display: none !important;
+    }
+    .traveler-list-item{
+        box-shadow: 0px 0px 0px 1px rgb(174, 170, 170);
+        margin-bottom: 5px;
+        .td-left{
+            .title{
+                width: 200px;
+            }
+        }
+    }
+    .traveler-add-item{
+        margin-top: 20px;
+    }
 }

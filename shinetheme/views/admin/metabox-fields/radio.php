@@ -12,6 +12,8 @@ if(!empty($data['condition'])){
 }
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
+$name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] ). '[]';
+
 if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 
 	foreach( $data['value'] as $key => $value ){
@@ -27,7 +29,7 @@ if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 			}
 		}
 		
-		$field .= '<div style="margin-bottom: 7px;"><label><input type="radio" name="'. esc_html( $data['id'] ) .'" id="'. esc_html( $data['id'] ).'" class="'. esc_html( $data['class'] ) . '" value="'. esc_html( $key ) .'" ' . $checked .'> <span>'. esc_html( $value ) .'</span></label></div>';
+		$field .= '<div style="margin-bottom: 7px;"><label><input type="radio" name="'. $name .'" id="'. esc_html( $data['id'] ).'" class="'. esc_html( $data['class'] ) . '" value="'. esc_html( $key ) .'" ' . $checked .'> <span>'. esc_html( $value ) .'</span></label></div>';
 	}
 }
 

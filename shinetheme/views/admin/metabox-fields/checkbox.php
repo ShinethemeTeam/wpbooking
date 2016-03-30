@@ -10,6 +10,8 @@ if(!empty($data['condition'])){
     $class .= ' traveler-condition';
     $data_class .= ' data-condition='.$data['condition'].' ' ;
 }
+$name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] ). '[]';
+
 
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
@@ -28,7 +30,7 @@ if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 			}
 		}
 		
-		$field .= '<div style="margin-bottom: 7px;"><label><input type="checkbox" name="'. esc_html( $data['id'] ) .'[]" id="'. esc_html( $data['id'] ).'" class="'. esc_html( $data['class'] ) . '" value="'. esc_html( $key ) .'" ' . $checked .'> <span>'. esc_html( $value ) .'</span></label></div>';
+		$field .= '<div style="margin-bottom: 7px;"><label><input type="checkbox" name="'. $name .'" id="'. esc_html( $data['id'] ).'" class="'. esc_html( $data['class'] ) . '" value="'. esc_html( $key ) .'" ' . $checked .'> <span>'. esc_html( $value ) .'</span></label></div>';
 	}
 }
 
