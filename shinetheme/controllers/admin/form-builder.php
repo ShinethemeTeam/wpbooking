@@ -72,6 +72,14 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                             'value' => "xxx"
                         ) ,
                         array(
+                            "type"             => "content" ,
+                            "title"            => __( "Content" , 'traveler-booking' ) ,
+                            "name"             => "content" ,
+                            "description"      => "" ,
+                            'edit_field_class' => 'traveler-col-md-12' ,
+                            'value' => ""
+                        ) ,
+                        array(
                             "type"             => "textarea" ,
                             "title"            => __( "Text area" , 'traveler-booking' ) ,
                             "name"             => "text_area" ,
@@ -117,7 +125,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
         function _get_list_layout()
         {
             $query = array(
-                'post_type'      => 'traveler_form_builder' ,
+                'post_type'      => 'traveler_form' ,
                 'posts_per_page' => -1 ,
             );
             query_posts( $query );
@@ -161,7 +169,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                             'post_content' => stripslashes( Traveler_Input::request( "traveler-content-build" ) ) ,
                             'post_status'  => 'publish' ,
                             'post_author'  => $current_user->ID ,
-                            'post_type'    => 'traveler_form_builder' ,
+                            'post_type'    => 'traveler_form' ,
                             'post_excerpt' => ''
                         );
                         $layout_id = wp_insert_post( $my_layout );

@@ -63,16 +63,25 @@ jQuery(document).ready(function( $ ){
         var container  = $(this).parent().parent().parent();
         var name_shortcode = $(this).data('name-shortcode');
         var shortcode = "["+name_shortcode;
+        var content = "";
         container.find('.item').each(function(){
 
             var item_name =$(this).attr('name');
             var item_value = $(this).val();
+            var item_type = $(this).data('type');
 
-            if(item_value != ""){
-                shortcode += " "+item_name+"="+item_value
+            if(item_type == "content"){
+                content = item_value;
+            }else{
+                if(item_value != ""){
+                    shortcode += " "+item_name+"="+item_value
+                }
             }
         });
         shortcode += " ]";
+        if(content){
+            shortcode += content+"[/"+name_shortcode+"]";
+        }
         $("#traveler-shortcode-flied").val(shortcode);
     });
     $(document).on('change','.content-flied-control .group-checkbox .item_check_box',function(){
