@@ -80,7 +80,7 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 					'id'        => 'order_form',
 					'label'     => __('Order Form', 'traveler-booking'),
 					'type'      => 'post-select',
-					'post_type' => array('traveler_form_builder')
+					'post_type' => array('traveler_form')
 				),
 				array(
 					'id'        => 'confirm-settings',

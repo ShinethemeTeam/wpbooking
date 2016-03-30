@@ -286,7 +286,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                 'supports'           => array( 'title' , 'editor' )
             );
 
-            register_post_type( 'traveler_form_builder' , $args );
+            register_post_type( 'traveler_form' , $args );
         }
 
         static function inst()
