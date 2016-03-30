@@ -27,10 +27,6 @@ if( ! class_exists('Traveler_Metabox') ){
 			$styles  = $wp_styles->queue;
 			$scripts = $wp_scripts->queue;
 
-			if( !in_array( 'traveler_admin.js', $scripts ) ){
-				wp_enqueue_script( 'traveler_admin.js ' , traveler_admin_assets_url( 'js/traveler-admin.js' ) , array( 'jquery', 'jquery-ui-core', 'jquery-ui-tabs') , null , true );
-			}
-
 			if( !in_array( 'gmap3.js', $scripts ) ){
 
 				wp_enqueue_script( 'maps.googleapis.js ' , 'http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places', array( 'jquery') , null , true );
@@ -87,49 +83,49 @@ if( ! class_exists('Traveler_Metabox') ){
 							<div id="<?php echo 'st-metabox-tab-item-'.esc_html( $field['id'] ); ?>" class="st-metabox-tabs-content ">
 								<div class="st-metabox-tab-content-wrap <?php echo esc_attr($class)?>" <?php echo esc_attr($data_class) ?>>
 									<table class="form-table traveler-settings ">
-								<?php
+									<?php
 
-								$current_tab = (int) $key;
-								foreach( (array) $fields as $key_sub => $field_sub ):
-									if( $fields[ $key_sub ]['type'] === 'tab' ){
+									$current_tab = (int) $key;
+									foreach( (array) $fields as $key_sub => $field_sub ):
+										if( $fields[ $key_sub ]['type'] === 'tab' ){
 
-										if( (int) $current_tab != (int) $key_sub ){
-											break;
+											if( (int) $current_tab != (int) $key_sub ){
+												break;
+											}
 										}
-									}
 
-									if( $fields[ $key_sub ]['type'] !== 'tab' ):
+										if( $fields[ $key_sub ]['type'] !== 'tab' ):
 
-										$default = array(
-											'id'       => '',
-											'label'    => '',
-											'type'     => '',
-											'desc'     => '',
-											'std'      => '',
-											'class'    => '',
-											'location' => FALSE,
-											'map_lat' => '',
-											'map_long' => '',
-											'map_zoom' => 13
-										);
+											$default = array(
+												'id'       => '',
+												'label'    => '',
+												'type'     => '',
+												'desc'     => '',
+												'std'      => '',
+												'class'    => '',
+												'location' => FALSE,
+												'map_lat' => '',
+												'map_long' => '',
+												'map_zoom' => 13
+											);
 
-										$field_sub = wp_parse_args( $field_sub , $default );
+											$field_sub = wp_parse_args( $field_sub , $default );
 
-										$class_extra=FALSE;
-										if($field_sub['location']=='hndle-tag'){
-											$class_extra='traveler-hndle-tag-input';
-										}
-										$file = 'metabox-fields/' . $field_sub['type'];
+											$class_extra=FALSE;
+											if($field_sub['location']=='hndle-tag'){
+												$class_extra='traveler-hndle-tag-input';
+											}
+											$file = 'metabox-fields/' . $field_sub['type'];
 
-										$field_html=apply_filters('traveler_metabox_field_html_'.$field_sub['type'],FALSE,$field_sub);
-										if($field_html) echo $field_html;
-										else
-										echo traveler_admin_load_view( $file, array( 'data' => $field_sub,'class_extra'=>$class_extra ) );
+											$field_html=apply_filters('traveler_metabox_field_html_'.$field_sub['type'],FALSE,$field_sub);
+											if($field_html) echo $field_html;
+											else
+											echo traveler_admin_load_view( $file, array( 'data' => $field_sub,'class_extra'=>$class_extra ) );
 
-										unset( $fields[ $key_sub ] );
-										?>
-									<?php endif; endforeach; ?>
-								</table>
+											unset( $fields[ $key_sub ] );
+											?>
+										<?php endif; endforeach; ?>
+									</table>
 								</div>
 							</div>
 						<?php endif; unset( $fields[ $key ] ); endforeach; ?>

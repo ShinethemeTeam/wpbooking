@@ -417,4 +417,44 @@ jQuery(document).ready(function( $ ){
         
     });
 
+    /////////////////////////////////
+    /////// List item //////////////
+    ///////////////////////////////
+    $('.traveler-add-item').click(function(event) {
+        /* Act on the event */
+        if( $('#traveler-list-item-draft').length ){
+            var content = $('#traveler-list-item-draft td').html();
+
+            var parent = $(this).closest('.traveler-list-item-wrapper');
+
+            $('.traveler-list', parent).append( content );
+        }
+        return false;
+    });
+
+    $('.traveler-list-item-wrapper').on('click', '.btn_list_item_edit', function(event) {
+        var parent = $(this).closest('.list-item-head');
+        parent.next().stop(true, true).toggleClass('hidden');
+
+        event.preventDefault();
+        /* Act on the event */
+    });
+
+    $('.traveler-list-item-wrapper').on('click', '.btn_list_item_del', function(event) {
+        var parent = $(this).closest('.traveler-list-item');
+        parent.remove();
+
+        event.preventDefault();
+        /* Act on the event */
+    });
+
+    $('.traveler-list-item-wrapper').on('keyup', '.input-title', function(event) {
+        var parent = $(this).closest('.traveler-list-item');
+        var val = $(this).val();
+        $('.item-title', parent).text( val );
+
+        event.preventDefault();
+        /* Act on the event */
+    });
+
 });

@@ -20,13 +20,16 @@ if(!empty($data['condition'])){
 }
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
+$name_lat = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ).'[map_lat][]' : 'map_lat';
+$name_long = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ).'[map_long][]' : 'map_long';
+$name_zoom = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ).'[map_zoom][]' : 'map_zoom';
 
 $field .= '<div style="margin-bottom: 7px;"><div class="gmap-container"><div id="'.esc_html( $data['id'] ).'" class="gmap-content"></div>
 <input type="text" name="gmap-search" value="" placeholder="'.__('Enter a address...', 'traveler-booking').'" class="gmap-search">
 </div></div>
-<input type="hidden" name="map_lat" value="'.esc_html( $map_lat ).'">
-<input type="hidden" name="map_long" value="'.esc_html( $map_long ).'">
-<input type="hidden" name="map_zoom" value="'.esc_html( $map_zoom ).'">
+<input type="hidden" name="'. $name_lat .'" value="'.esc_html( $map_lat ).'">
+<input type="hidden" name="'. $name_long .'" value="'.esc_html( $map_long ).'">
+<input type="hidden" name="'. $name_zoom .'" value="'.esc_html( $map_zoom ).'">
 ';
 
 $field .= '</div></div>';
