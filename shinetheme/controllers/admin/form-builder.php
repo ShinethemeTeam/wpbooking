@@ -117,7 +117,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
         function _get_list_layout()
         {
             $query = array(
-                'post_type'      => 'traveler_form_build' ,
+                'post_type'      => 'traveler_form_builder' ,
                 'posts_per_page' => -1 ,
             );
             query_posts( $query );
@@ -161,7 +161,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                             'post_content' => stripslashes( Traveler_Input::request( "traveler-content-build" ) ) ,
                             'post_status'  => 'publish' ,
                             'post_author'  => $current_user->ID ,
-                            'post_type'    => 'traveler_form_build' ,
+                            'post_type'    => 'traveler_form_builder' ,
                             'post_excerpt' => ''
                         );
                         $layout_id = wp_insert_post( $my_layout );
@@ -286,7 +286,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                 'supports'           => array( 'title' , 'editor' )
             );
 
-            register_post_type( 'traveler_form_build' , $args );
+            register_post_type( 'traveler_form_builder' , $args );
         }
 
         static function inst()
