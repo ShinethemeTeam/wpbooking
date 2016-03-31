@@ -29,7 +29,90 @@ if(!empty($data['condition'])){
 		?>
 		<div class="traveler-list-item-wrapper">
 			<div class="traveler-list">
+			<?php 
+				$custom_data = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
 
+				$convert_data = array();
+				if( !empty( $custom_data ) && is_array( $custom_data ) ){
+					if( isset( $custom_data['title'] ) && count( $custom_data['title'] ) - 1 > 0){
+						
+						for( $i = 0; $i < count( $custom_data['title'] ) - 1; $i ++){
+							foreach( $custom_data as $key => $item ){
+								$convert_data[ $i ][ $key ] = $item[ $i ] ;
+							}
+						}
+					}
+				}
+				
+				if( !empty( $convert_data ) && is_array( $convert_data) ):
+					foreach( $convert_data as $convert_key => $convert_val ):
+				?>
+				<div class="traveler-list-item">
+					<div class="list-item-head">
+						
+						<span class="dashicons dashicons-menu"></span>
+					
+						<div class="item-title"><?php echo esc_html( $convert_val['title'] ); ?></div>
+							
+						<div class="button-control">
+							<a title="Edit" class="button button-primary btn_list_item_edit" href="#">
+				                <span class="fa fa-pencil"></span>
+				            </a>
+				            <a title="Delete" class="button button-secondary light right-item btn_list_item_del" href="#">
+				                <span class="fa fa-trash-o"></span>
+				            </a>
+						</div>
+					</div>
+					<table class="hidden">	
+						<tr>
+							<td class="td-left" colspan="3">
+								<table>
+									<tr>
+										<th class="title  traveler-form-group"><?php echo __('Title', 'traveler-booking'); ?></th>
+										<td>
+											<input type="text" class="widefat form-control input-title" name="<?php echo esc_html( $data['id'] ); ?>[title][]" value="<?php echo esc_html( $convert_val['title'] ); ?>">
+										</td>
+									</tr>
+									<?php foreach( $data['value'] as $key => $item ):
+										if( $item['type'] == 'tab' ){
+											continue;
+										}
+
+										$custom_name = esc_html( $data['id'] ) . '[' . esc_html( $item['id'] ) . '][]';
+
+										$custom_data = ( isset( $convert_val[ $item['id'] ] ) ) ? esc_html( $convert_val[ $item['id'] ] ) : false;
+
+										$default = array(
+											'id'          => '',
+											'label'       => '',
+											'type'        => '',
+											'desc'        => '',
+											'std'         => '',
+											'class'       => '',
+											'location'    => FALSE,
+											'map_lat'     => '',
+											'map_long'    => '',
+											'map_zoom'    => 13,
+											'custom_name' => $custom_name,
+											'custom_data' => $custom_data
+										);
+
+										$item['id'] = esc_html( $data['id'] ) . '_' . esc_html( $item['id'] );
+
+										$item = wp_parse_args( $item , $default );
+
+										$file = 'metabox-fields/' . $item['type'];
+
+										echo traveler_admin_load_view( $file, array( 'data' => $item ) );
+									?>
+										
+									<?php endforeach; ?>	
+								</table>
+							</td>
+						</tr>
+					</table>	
+				</div>
+			<?php endforeach; endif; ?>
 			</div>
 			<button class="traveler-add-item btn button button-primary" type="button"><?php echo __('Add item', 'traveler-booking'); ?></button>
 		</div>
@@ -65,7 +148,7 @@ if(!empty($data['condition'])){
 							<tr>
 								<th class="title  traveler-form-group"><?php echo __('Title', 'traveler-booking'); ?></th>
 								<td>
-									<input type="text" class="widefat form-control input-title" name="<?php echo esc_html( $data['id'] ); ?>[][title][]" value="">
+									<input type="text" class="widefat form-control input-title" name="<?php echo esc_html( $data['id'] ); ?>[title][]" value="">
 								</td>
 							</tr>
 							<?php foreach( $data['value'] as $key => $item ):
@@ -73,19 +156,20 @@ if(!empty($data['condition'])){
 									unset( $data['value'][ $key ] );
 									continue;
 								}
-								$custom_name = esc_html( $data['id'] ). '[]' . '[' . esc_html( $item['id'] ) . '][]';
+								$custom_name = esc_html( $data['id'] ) . '[' . esc_html( $item['id'] ) . '][]';
+
 								$default = array(
-									'id'       => '',
-									'label'    => '',
-									'type'     => '',
-									'desc'     => '',
-									'std'      => '',
-									'class'    => '',
-									'location' => FALSE,
-									'map_lat' => '',
-									'map_long' => '',
-									'map_zoom' => 13,
-									'custom_name' => $custom_name
+									'id'          => '',
+									'label'       => '',
+									'type'        => '',
+									'desc'        => '',
+									'std'         => '',
+									'class'       => '',
+									'location'    => FALSE,
+									'map_lat'     => '',
+									'map_long'    => '',
+									'map_zoom'    => 13,
+									'custom_name' => $custom_name,
 								);
 
 								$item = wp_parse_args( $item , $default );
