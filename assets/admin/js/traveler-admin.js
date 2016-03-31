@@ -422,6 +422,10 @@ jQuery(document).ready(function( $ ){
     /////////////////////////////////
     /////// List item //////////////
     ///////////////////////////////
+    $( ".traveler-list-item-wrapper .traveler-list" ).sortable({
+        cursor: "move"
+    });
+
     $('.traveler-add-item').click(function(event) {
         /* Act on the event */
         if( $('#traveler-list-item-draft').length ){
@@ -430,6 +434,9 @@ jQuery(document).ready(function( $ ){
             var parent = $(this).closest('.traveler-list-item-wrapper');
 
             $('.traveler-list', parent).append( content );
+            $( ".traveler-list-item-wrapper .traveler-list" ).sortable({
+                cursor: "move"
+            });
         }
         return false;
     });
@@ -449,6 +456,8 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         /* Act on the event */
     });
+
+    
 
     $('.traveler-list-item-wrapper').on('keyup', '.input-title', function(event) {
         var parent = $(this).closest('.traveler-list-item');
