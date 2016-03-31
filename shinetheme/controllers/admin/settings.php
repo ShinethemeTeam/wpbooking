@@ -78,20 +78,23 @@ if(!class_exists('Traveler_Admin_Setting'))
                     $is_section = Traveler_Input::request('st_section');
                     if(empty($is_tab) and !empty($full_settings)){
                         $tmp_tab = $full_settings;
-                        $is_tab = array_shift(array_keys($tmp_tab));
+                        $tmp_key = array_keys($tmp_tab);
+                        $is_tab = array_shift($tmp_key);
                     }
                     if(empty($is_section) and !empty($full_settings[$is_tab]['sections'])){
                         $tmp_section = $full_settings[$is_tab]['sections'];
-                        $is_section = array_shift(array_keys($tmp_section));
+                        $tmp_key = array_keys($tmp_section);
+                        $is_section = array_shift($tmp_key);
                     }
                     $custom_settings = $full_settings[$is_tab]['sections'][$is_section]['fields'];
 
+
                     foreach($custom_settings as $key=>$value){
                         switch($value['type']){
-                            case "muti-checkbox":
-                                $custom_muti_checkbox = $value['value'];
-                                foreach($custom_muti_checkbox as $key_muti=>$value_muti){
-                                    $key_request = 'traveler_booking_'.$value_muti['id'];
+                            case "multi-checkbox":
+                                $custom_multi_checkbox = $value['value'];
+                                foreach($custom_multi_checkbox as $key_multi=>$value_multi){
+                                    $key_request = 'traveler_booking_'.$value_multi['id'];
                                     $value_request = Traveler_Input::request($key_request);
                                     update_option($key_request,$value_request);
                                 }
@@ -109,9 +112,11 @@ if(!class_exists('Traveler_Admin_Setting'))
                                 update_option($id_save,$data);
                                 break;
                             default:
-                                $key_request = 'traveler_booking_'.$value['id'];
-                                $value_request = Traveler_Input::request($key_request);
-                                update_option($key_request,$value_request);
+								if(isset($value['id'])){
+									$key_request = 'traveler_booking_'.$value['id'];
+									$value_request = Traveler_Input::request($key_request);
+									update_option($key_request,$value_request);
+								}
                         }
 
                     }

@@ -300,8 +300,8 @@ jQuery(document).ready(function( $ ){
         var number_list = container.find('.traveler_booking_number_last_list_item').val();
         content_html = content_html.replace(/__number_list__/g, number_list);
         container.find('.data_content_list_item').append(content_html);
-        container.find('.traveler-setting-setting-body').slideUp(500);
-        container.find('.number_list_' + number_list + ' .traveler-setting-setting-body').slideDown(500);
+        container.find('.traveler-setting-setting-body').slideUp('fast');
+        container.find('.number_list_' + number_list + ' .traveler-setting-setting-body').slideDown('fast');
         number_list = Number(number_list) + 1;
         container.find('.traveler_booking_number_last_list_item').val(number_list);
     });
@@ -312,12 +312,12 @@ jQuery(document).ready(function( $ ){
     $(document).on('click', '.btn_list_item_edit', function (event) {
         var container_full = $(this).parent().parent().parent().parent();
         var container = $(this).parent().parent().parent();
-        container_full.find('.traveler-setting-setting-body').slideUp(500);
+        container_full.find('.traveler-setting-setting-body').slideUp('fast');
         $check = container.find('.traveler-setting-setting-body').css('display');
         if ($check == "none") {
-            container.find('.traveler-setting-setting-body').slideDown(500);
+            container.find('.traveler-setting-setting-body').slideDown('fast');
         } else {
-            container.find('.traveler-setting-setting-body').slideUp(500);
+            container.find('.traveler-setting-setting-body').slideUp('fast');
         }
     });
     $(document).on('click', '.list_item_title', function (event) {

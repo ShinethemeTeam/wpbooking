@@ -9,20 +9,38 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 {
 	class Traveler_Abstract_Service_Type
 	{
-		protected $type_id=FALSE;
-		protected $type_info=array();
-		protected $settings=array();
+		protected $type_id = FALSE;
+		protected $type_info = array();
+		protected $settings = array();
 
 		function __construct()
 		{
-			if(!$this->type_id) return FALSE;
-			$this->type_info=wp_parse_args($this->type_info,array(
-				'label'=>'',
-				'description'=>''
+			if (!$this->type_id) return FALSE;
+			$this->type_info = wp_parse_args($this->type_info, array(
+				'label'       => '',
+				'description' => ''
 			));
 
-			add_filter('traveler_service_types',array($this,'_register_type'));
-			add_filter('traveler_service_setting_sections',array($this,'_add_setting_section'));
+			add_filter('traveler_service_types', array($this, '_register_type'));
+			add_filter('traveler_service_setting_sections', array($this, '_add_setting_section'));
+			add_filter('traveler_review_stats', array($this, '_filter_get_review_stats'));
+		}
+
+		function _filter_get_review_stats($stats)
+		{
+			$post_id = get_the_ID();
+
+			if (get_post_meta($post_id, 'service_type', TRUE) != $this->type_id) return $stats;
+
+			$stats = $this->get_review_stats();
+			if (!empty($stats)) return $stats;
+
+			return $stats;
+		}
+
+		function get_review_stats()
+		{
+			return $this->get_option('review_stats', array());
 		}
 
 		function _add_setting_section($sections=array())
@@ -30,6 +48,7 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 			$settings=$this->get_settings_fields();
 			if(!empty($settings)){
 				foreach($settings as $key=>$value){
+					if(!empty($value['id']))
 					$settings[$key]['id']='service_type_'.$this->type_id.'_'.$value['id'];
 				}
 			}

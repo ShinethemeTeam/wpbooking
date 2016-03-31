@@ -14,7 +14,7 @@ if(!empty($data['edit_field_class'])){
                 }
             } ?>
         </div>
-        <input type="hidden" class="item" data-name-shortcode="<?php echo esc_attr($parent) ?>" name="<?php echo balanceTags($data['name']) ?>" id="<?php echo balanceTags($data['name']) ?>">
+        <input type="hidden" data-type="checkbox"  class="item" data-name-shortcode="<?php echo esc_attr($parent) ?>" name="<?php echo balanceTags($data['name']) ?>" id="<?php echo balanceTags($data['name']) ?>">
         <i class="desc"><?php echo esc_html($data['desc'])  ?></i>
     </div>
 </div>
