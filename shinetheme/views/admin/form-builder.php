@@ -1,12 +1,12 @@
 <?php
 $menu_page=Traveler_Admin_Form_Build::inst()->get_menu_page();
 $slug_page_menu = $menu_page['menu_slug'];
-$layout_id = Traveler_Input::request('layout_id');
+$form_id = Traveler_Input::request('form_builder_id');
 ?>
 <div class="wrap">
     <div id="icon-tools" class="icon32"></div>
     <h2><?php _e( "Form Builder" , 'traveler-booking' ) ?></h2>
-    <div class="traveler-col-md-12">
+    <div class="msg">
         <?php echo traveler_get_admin_message(); ?>
     </div>
 </div>
@@ -17,20 +17,20 @@ $layout_id = Traveler_Input::request('layout_id');
         <div class="traveler-container-fluid">
             <div class="traveler-row form-build-v2">
                 <div class="traveler-col-md-12 head-form">
-                    <h3 class=""><span><?php _e("Form fields",'traveler-booking') ?></span></h3>
+                    <h3 class=""><span><?php _e("Form Content",'traveler-booking') ?></span></h3>
                 </div>
                 <div class="traveler-col-md-12">
                     <table class="traveler-select-layout">
                         <tr class="">
                             <th scope="row">
-                                <label><?php _e("Layout:",'traveler-booking') ?></label>
+                                <label><?php _e("Select Form:",'traveler-booking') ?></label>
                             </th>
                             <td>
                                 <?php
                                 $list_layout = Traveler_Admin_Form_Build::inst()->_get_list_layout();
                                 ?>
                                 <select name="traveler-layout-id" class="form-control min-width-200" id="traveler-layout-id">
-                                    <option value=""><?php _e("-- Select Layout --",'traveler-booking') ?></option>
+                                    <option value=""><?php _e("-- Select Form --",'traveler-booking') ?></option>
                                     <?php
                                     if(!empty($list_layout)){
                                         $group = '';
@@ -40,7 +40,7 @@ $layout_id = Traveler_Input::request('layout_id');
                                             if(!empty( $value )) {
                                                 foreach( $value as $k => $v ) {
                                                     $check = "";
-                                                    if(Traveler_Input::request('layout_id') == $v[ 'id' ] ){
+                                                    if($form_id == $v[ 'id' ] ){
                                                         $check = 'selected';
                                                     }
                                                     echo '<option '.$check.' value="' . $v[ 'id' ] . '">' . $v[ 'name' ] . '</option>';
@@ -56,13 +56,13 @@ $layout_id = Traveler_Input::request('layout_id');
                                 </select>
                             </td>
                             <td>
-                                <a hidden="#" data-url="<?php echo  add_query_arg(array("page"=>$slug_page_menu,"layout_id"=>'__layout__id'),admin_url("admin.php")) ?>"  class="button url_layout" ><?php _e("Select","traveler-booking") ?></a>
+                                <a hidden="#" data-url="<?php echo  add_query_arg(array("page"=>$slug_page_menu,"form_builder_id"=>'__form__id'),admin_url("admin.php")) ?>"  class="button url_layout" ><?php _e("Select","traveler-booking") ?></a>
 
                             </td>
                             <td class="text-right w100_">
-                                <?php if(!empty($layout_id)) {?>
+                                <?php if(!empty($form_id)) {?>
                                     <a href="<?php echo  add_query_arg(array("page"=>$slug_page_menu),admin_url("admin.php")) ?>"  class="button button-primary" ><?php _e("Add New","traveler-booking") ?></a>
-                                    <a href="<?php echo  add_query_arg(array("page"=>$slug_page_menu,'del_layout'=>$layout_id),admin_url("admin.php")) ?>" data-msg="<?php _e("Press OK to delete layout, Cancel to leave",'traveler-booking') ?>"  class="button btn_del_layout" ><?php _e("Delete","traveler-booking") ?></a>
+                                    <a href="<?php echo  add_query_arg(array("page"=>$slug_page_menu,'del_layout'=>$form_id),admin_url("admin.php")) ?>" data-msg="<?php _e("Press OK to delete layout, Cancel to leave",'traveler-booking') ?>"  class="button btn_del_layout" ><?php _e("Delete","traveler-booking") ?></a>
                                 <?php }?>
                             </td>
                         </tr>
@@ -74,18 +74,18 @@ $layout_id = Traveler_Input::request('layout_id');
                     <table class="traveler-title-layout">
                         <tr class="">
                             <th scope="row">
-                                <label for="dropdown"><?php _e("Title Layout:",'traveler-booking') ?></label>
-                                <input class="" type="text" name="traveler-title" value="<?php if(!empty($layout_id)) echo get_the_title($layout_id) ?>">
+                                <label for="dropdown"><?php _e("Form Title:",'traveler-booking') ?></label>
+                                <input class="" type="text" name="traveler-title" value="<?php if(!empty($form_id)) echo get_the_title($form_id) ?>">
                             </th>
                             <th>
                                 <?php
                                 $type_layout = "";
-                                if(!empty($layout_id)){
-                                    $type_layout = get_post_meta($layout_id,'type_layout',true);
+                                if(!empty($form_id)){
+                                    $type_layout = get_post_meta($form_id,'type_layout',true);
                                 }
                                 $list_type = Traveler_Admin_Form_Build::inst()->_get_list_type_layout();
                                 ?>
-                                <label for="dropdown"><?php _e("Type Layout:",'traveler-booking') ?></label>
+                                <label for="dropdown"><?php _e("Form Type:",'traveler-booking') ?></label>
                                 <select name="traveler-layout-type" class="form-control min-width-200">
                                     <?php if(!empty($list_type)){
                                         foreach($list_type as $k=>$v){
@@ -105,8 +105,8 @@ $layout_id = Traveler_Input::request('layout_id');
                     <div class="form-content">
                         <?php
                         $content = '';
-                        if(!empty($layout_id)){
-                            $content_post = get_post($layout_id);
+                        if(!empty($form_id)){
+                            $content_post = get_post($form_id);
                             $content = $content_post->post_content;
                         }
                         wp_editor(stripslashes($content),'traveler-content-build'); ?>
@@ -115,7 +115,7 @@ $layout_id = Traveler_Input::request('layout_id');
                 <div class="traveler-col-md-5">
                     <div class="select-control">
                         <?php $list_flied = Traveler_Admin_Form_Build::inst()->traveler_get_all_field(); ?>
-                        <label for="traveler_field_form_build" class="control-label"><?php _e("Element Shortcode",'traveler-booking') ?>:</label>
+                        <label for="traveler_field_form_build" class="control-label"><?php _e("Add Field",'traveler-booking') ?>:</label>
                         <select name="traveler_field_form_build" class="form-control" id="traveler_field_form_build">
                             <option selected value=""><?php _e("-- Select Flied --",'traveler-booking') ?></option>
                             <?php
@@ -126,7 +126,7 @@ $layout_id = Traveler_Input::request('layout_id');
                             }
                             ?>
                         </select>
-                        <i class="desc">Select shortcode and configs</i>
+                        <i class="desc"><?php _e("Select shortcode and configs",'traveler-booking') ?></i>
                     </div>
                     <div class="control-hidden hidden" >
                         <?php
@@ -176,7 +176,7 @@ $layout_id = Traveler_Input::request('layout_id');
                 </div>
                 <div class="traveler-col-md-12">
                     <div class="save-control">
-                        <input type="submit" name="traveler_booking_btn_save_layout" class="btn button button-primary" value="<?php _e("Save Layout",'traveler-booking') ?>">
+                        <input type="submit" name="traveler_booking_btn_save_layout" class="btn button button-primary" value="<?php _e("Save Form",'traveler-booking') ?>">
                     </div>
                 </div>
             </div>

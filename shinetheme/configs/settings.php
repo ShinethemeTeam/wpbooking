@@ -1,37 +1,37 @@
 <?php
 $config['settings'] = array(
-	"general"   => array(
+	"general"      => array(
 		"name"     => __('General', 'traveler-booking'),
 		"sections" => array(
-			"general_option"         => array(
+			"general_option" => array(
 				'id'     => 'general_option',
 				'label'  => __('General Options', 'traveler-booking'),
 				'fields' => array(
-                    array(
-                        'id'        => 'title',
-                        'label'     => __('Title Tab', 'traveler-booking'),
-                        'desc'      => '',
-                        'type'      => 'title',
-                        'std'       => '',
-                        'condition' => ''
-                    ),
-                    array(
-                        'id'        => 'hr',
-                        'label'     => '',
-                        'desc'      => '',
-                        'type'      => 'hr',
-                        'std'       => '',
-                        'condition' => ''
-                    ),
 					array(
-						'id'=>'cart_page',
-						'label'=>__('Cart Page','traveler-booking'),
-						'type'=>'page-select'
+						'id'        => 'title',
+						'label'     => __('Title Tab', 'traveler-booking'),
+						'desc'      => '',
+						'type'      => 'title',
+						'std'       => '',
+						'condition' => ''
 					),
 					array(
-						'id'=>'checkout_page',
-						'label'=>__('Checkout Page','traveler-booking'),
-						'type'=>'page-select'
+						'id'        => 'hr',
+						'label'     => '',
+						'desc'      => '',
+						'type'      => 'hr',
+						'std'       => '',
+						'condition' => ''
+					),
+					array(
+						'id'    => 'cart_page',
+						'label' => __('Cart Page', 'traveler-booking'),
+						'type'  => 'page-select'
+					),
+					array(
+						'id'    => 'checkout_page',
+						'label' => __('Checkout Page', 'traveler-booking'),
+						'type'  => 'page-select'
 					),
 					array(
 						'id'    => 'currency',
@@ -60,9 +60,9 @@ $config['settings'] = array(
 								'type'  => 'dropdown',
 								'std'   => 'left',
 								'value' => array(
-									'left'  => __('$99', "traveler-booking"),
-									'right' => __('99$', "traveler-booking"),
-									'left_with_space' => __('$ 99', "traveler-booking"),
+									'left'             => __('$99', "traveler-booking"),
+									'right'            => __('99$', "traveler-booking"),
+									'left_with_space'  => __('$ 99', "traveler-booking"),
 									'right_with_space' => __('99 $', "traveler-booking"),
 								)
 							),
@@ -86,9 +86,9 @@ $config['settings'] = array(
 								'desc'  => __('Decimal', 'traveler-booking'),
 								'type'  => 'number',
 								'std'   => 2,
-								'attr'=>array(
-									'min'=>0,
-									'max'=>3
+								'attr'  => array(
+									'min' => 0,
+									'max' => 3
 								)
 							),
 							array(
@@ -162,22 +162,56 @@ $config['settings'] = array(
 			),
 		),
 	),
-	"test_options"   => array(
+	'booking'      => array(
+		'name'     => __("Booking", 'traveler-booking'),
+		'sections' => array(
+			'general_booking' => array(
+				'id'     => 'general_option',
+				'label'  => __("General Options", 'traveler-booking'),
+				'fields' => array(
+
+					array(
+						'id'        => 'cart_page',
+						'label'     => __("Cart Page", 'traveler-booking'),
+						'type'      => 'page-select',
+					),
+					array(
+						'id'        => 'checkout_page',
+						'label'     => __("Checkout Page", 'traveler-booking'),
+						'type'      => 'page-select',
+					),
+					array(
+						'id'        => 'checkout_form',
+						'label'     => __("Checkout Form", 'traveler-booking'),
+						'type'      => 'post-select',
+						'post_type' => array('traveler_form')
+					),
+					array(
+						'id'        => 'allow_guest_checkout',
+						'label'     => __("Allow Guest Checkout?", 'traveler-booking'),
+						'type'      => 'checkbox',
+					),
+				)
+			)
+
+		)
+	),
+	"test_options" => array(
 		"name"     => __('Test Options', 'traveler-booking'),
 		"sections" => array(
-			"test_options"         => array(
+			"test_options"           => array(
 				'id'     => 'test_options',
 				'label'  => __('Test Options', 'traveler-booking'),
 				'fields' => array(
 					array(
-						'id'=>'cart_page',
-						'label'=>__('Cart Page','traveler-booking'),
-						'type'=>'page-select'
+						'id'    => 'cart_page',
+						'label' => __('Cart Page', 'traveler-booking'),
+						'type'  => 'page-select'
 					),
 					array(
-						'id'=>'checkout_page',
-						'label'=>__('Checkout Page','traveler-booking'),
-						'type'=>'page-select'
+						'id'    => 'checkout_page',
+						'label' => __('Checkout Page', 'traveler-booking'),
+						'type'  => 'page-select'
 					),
 					array(
 						'id'    => 'currency',
@@ -206,9 +240,9 @@ $config['settings'] = array(
 								'type'  => 'dropdown',
 								'std'   => 'left',
 								'value' => array(
-									'left'  => __('$99', "traveler-booking"),
-									'right' => __('99$', "traveler-booking"),
-									'left_with_space' => __('$ 99', "traveler-booking"),
+									'left'             => __('$99', "traveler-booking"),
+									'right'            => __('99$', "traveler-booking"),
+									'left_with_space'  => __('$ 99', "traveler-booking"),
 									'right_with_space' => __('99 $', "traveler-booking"),
 								)
 							),
@@ -232,9 +266,9 @@ $config['settings'] = array(
 								'desc'  => __('Decimal', 'traveler-booking'),
 								'type'  => 'number',
 								'std'   => 2,
-								'attr'=>array(
-									'min'=>0,
-									'max'=>3
+								'attr'  => array(
+									'min' => 0,
+									'max' => 3
 								)
 							),
 							array(
@@ -497,7 +531,7 @@ $config['settings'] = array(
 			),
 		),
 	),
-	"setting_2" => array(
+	"setting_2"    => array(
 		"name"     => "Settings two",
 		"sections" => array(
 			"blog_setting_section" => array(

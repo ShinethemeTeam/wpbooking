@@ -19,3 +19,10 @@ if(!function_exists('traveler_admin_assets_url'))
 		return Traveler()->get_url('assets/admin/'.$url);
 	}
 }
+if(!function_exists('traveler_get_image_size'))
+{
+	function traveler_get_image_size($url)
+	{
+
+	}
+}

@@ -44,6 +44,11 @@ $autoload['controller']=array(
 
 $autoload['model']=array(
 	'service_model',
+	'order_model'
+);
+
+$autoload['widget']=array(
+
 );
 
 $autoload['encrypr_key'] = 'traveler';
