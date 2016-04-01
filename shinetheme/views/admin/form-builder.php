@@ -6,7 +6,7 @@ $form_id = Traveler_Input::request('form_builder_id');
 <div class="wrap">
     <div id="icon-tools" class="icon32"></div>
     <h2><?php _e( "Form Builder" , 'traveler-booking' ) ?></h2>
-    <div class="traveler-col-md-12">
+    <div class="msg">
         <?php echo traveler_get_admin_message(); ?>
     </div>
 </div>

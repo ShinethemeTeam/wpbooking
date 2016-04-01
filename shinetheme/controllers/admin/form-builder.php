@@ -124,7 +124,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                             "desc"             => "Title" ,
                             'edit_field_class' => 'traveler-col-md-6' ,
                             'value' => ""
-                        ) 
+                        )
                     )
                 )
             );
