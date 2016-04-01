@@ -332,7 +332,8 @@ jQuery(document).ready(function( $ ){
     ///////////////////////////
     //////  Gmap    //////////
     ///////////////////////////
-    jQuery(document).ready(function($) {
+    
+    function load_gmap(){
         if( $('.st-metabox-content-wrapper').length ){
             $('.st-metabox-content-wrapper').each(function(index, el) {
                 var t = $(this);
@@ -416,8 +417,17 @@ jQuery(document).ready(function( $ ){
                 });
             });
         }
-        
-    });
+    }
+
+    load_gmap();
+
+     $( ".st-metabox-tabs" ).tabs({
+        activate: function( event, ui ) {
+            setTimeout(function(){
+                load_gmap();
+            }, 500);
+        }
+     });
 
     /////////////////////////////////
     /////// List item //////////////

@@ -26,12 +26,12 @@ $field .= '</div></div>';
 
 ?>
 
-<tr class="<?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
-	<th scope="row">
-		<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
-	</th>
-	<td>
-		<?php echo $field; ?>
-		<i class="traveler-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
-	</td>
-</tr>
+<div class="form-table traveler-settings ">
+<div class="st-metabox-left <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
+</div>
+<div class="st-metabox-right">
+	<?php echo $field; ?>
+	<i class="traveler-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+</div>
+</div>

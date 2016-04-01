@@ -18,6 +18,17 @@ class Test_Metabox extends Traveler_Controller{
             'context'  => 'normal',
             'priority' => 'high',
             'fields'   => array(
+                array(
+                    'label' => __('Calendar', 'traveler-booking'),
+                    'id'    => 'calendar_tab',
+                    'type'  => 'tab',
+                ),
+                array(
+                    'label' => __('Availability', 'traveler-booking'),
+                    'id'    => 'availability',
+                    'type'  => 'calendar',
+                    'service_type' => 'room'
+                ),
             	array(
                     'label' => __('Location', 'traveler-booking'),
                     'id'    => 'location_tab',

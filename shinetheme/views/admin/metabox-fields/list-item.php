@@ -18,112 +18,112 @@ if(!empty($data['condition'])){
 }
 
 ?>
-
-<tr id="traveler-list-item_<?php echo esc_html( $data['id'] ); ?>" class="<?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
-	<th scope="row">
-		<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
-	</th>
-	<td>
+<div class="form-table traveler-settings ">
+<div id="traveler-list-item_<?php echo esc_html( $data['id'] ); ?>"  class="st-metabox-left <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
+</div>
+<div class="st-metabox-right">
+	<?php 
+		if( !empty( $data['value'] ) && is_array( $data['value'] ) ):
+	?>
+	<div class="traveler-list-item-wrapper">
+		<div class="traveler-list">
 		<?php 
-			if( !empty( $data['value'] ) && is_array( $data['value'] ) ):
-		?>
-		<div class="traveler-list-item-wrapper">
-			<div class="traveler-list">
-			<?php 
-				$custom_data = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
+			$custom_data = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
 
-				$convert_data = array();
-				if( !empty( $custom_data ) && is_array( $custom_data ) ){
-					if( isset( $custom_data['title'] ) && count( $custom_data['title'] ) - 1 > 0){
-						
-						for( $i = 0; $i < count( $custom_data['title'] ) - 1; $i ++){
-							foreach( $custom_data as $key => $item ){
-								$convert_data[ $i ][ $key ] = $item[ $i ] ;
-							}
+			$convert_data = array();
+			if( !empty( $custom_data ) && is_array( $custom_data ) ){
+				if( isset( $custom_data['title'] ) && count( $custom_data['title'] ) - 1 > 0){
+					
+					for( $i = 0; $i < count( $custom_data['title'] ) - 1; $i ++){
+						foreach( $custom_data as $key => $item ){
+							$convert_data[ $i ][ $key ] = $item[ $i ] ;
 						}
 					}
 				}
-				
-				if( !empty( $convert_data ) && is_array( $convert_data) ):
-					foreach( $convert_data as $convert_key => $convert_val ):
-				?>
-				<div class="traveler-list-item">
-					<div class="list-item-head">
-						
-						<span class="dashicons dashicons-menu"></span>
+			}
+			
+			if( !empty( $convert_data ) && is_array( $convert_data) ):
+				foreach( $convert_data as $convert_key => $convert_val ):
+			?>
+			<div class="traveler-list-item">
+				<div class="list-item-head">
 					
-						<div class="item-title"><?php echo esc_html( $convert_val['title'] ); ?></div>
-							
-						<div class="button-control">
-							<a title="Edit" class="button button-primary btn_list_item_edit" href="#">
-				                <span class="fa fa-pencil"></span>
-				            </a>
-				            <a title="Delete" class="button button-secondary light right-item btn_list_item_del" href="#">
-				                <span class="fa fa-trash-o"></span>
-				            </a>
-						</div>
+					<span class="dashicons dashicons-menu"></span>
+				
+					<div class="item-title"><?php echo esc_html( $convert_val['title'] ); ?></div>
+						
+					<div class="button-control">
+						<a title="Edit" class="button button-primary btn_list_item_edit" href="#">
+			                <span class="fa fa-pencil"></span>
+			            </a>
+			            <a title="Delete" class="button button-secondary light right-item btn_list_item_del" href="#">
+			                <span class="fa fa-trash-o"></span>
+			            </a>
 					</div>
-					<table class="hidden">	
-						<tr>
-							<td class="td-left" colspan="3">
-								<table>
-									<tr>
-										<th class="title  traveler-form-group"><?php echo __('Title', 'traveler-booking'); ?></th>
-										<td>
-											<input type="text" class="widefat form-control input-title" name="<?php echo esc_html( $data['id'] ); ?>[title][]" value="<?php echo esc_html( $convert_val['title'] ); ?>">
-										</td>
-									</tr>
-									<?php foreach( $data['value'] as $key => $item ):
-										if( $item['type'] == 'tab' ){
-											continue;
-										}
-
-										$custom_name = esc_html( $data['id'] ) . '[' . esc_html( $item['id'] ) . '][]';
-
-										$custom_data = ( isset( $convert_val[ $item['id'] ] ) ) ? esc_html( $convert_val[ $item['id'] ] ) : false;
-
-										$default = array(
-											'id'          => '',
-											'label'       => '',
-											'type'        => '',
-											'desc'        => '',
-											'std'         => '',
-											'class'       => '',
-											'location'    => FALSE,
-											'map_lat'     => '',
-											'map_long'    => '',
-											'map_zoom'    => 13,
-											'custom_name' => $custom_name,
-											'custom_data' => $custom_data
-										);
-
-										$item['id'] = esc_html( $data['id'] ) . '_' . esc_html( $item['id'] );
-
-										$item = wp_parse_args( $item , $default );
-
-										$file = 'metabox-fields/' . $item['type'];
-
-										echo traveler_admin_load_view( $file, array( 'data' => $item ) );
-									?>
-										
-									<?php endforeach; ?>	
-								</table>
-							</td>
-						</tr>
-					</table>	
 				</div>
-			<?php endforeach; endif; ?>
+				<table class="hidden">	
+					<tr>
+						<td class="td-left" colspan="3">
+							<div class="form-table traveler-settings ">
+								<div class="st-metabox-left  traveler-form-group  title  traveler-form-group">
+									<?php echo __('Title', 'traveler-booking'); ?>
+								</div>
+								<div class="st-metabox-right">
+									<input type="text" class="widefat form-control input-title" name="<?php echo esc_html( $data['id'] ); ?>[title][]" value="<?php echo esc_html( $convert_val['title'] ); ?>">
+								</div>
+							</div>
+								<?php foreach( $data['value'] as $key => $item ):
+									if( $item['type'] == 'tab' ){
+										continue;
+									}
+
+									$custom_name = esc_html( $data['id'] ) . '[' . esc_html( $item['id'] ) . '][]';
+
+									$custom_data = ( isset( $convert_val[ $item['id'] ] ) ) ? esc_html( $convert_val[ $item['id'] ] ) : false;
+
+									$default = array(
+										'id'          => '',
+										'label'       => '',
+										'type'        => '',
+										'desc'        => '',
+										'std'         => '',
+										'class'       => '',
+										'location'    => FALSE,
+										'map_lat'     => '',
+										'map_long'    => '',
+										'map_zoom'    => 13,
+										'custom_name' => $custom_name,
+										'custom_data' => $custom_data
+									);
+
+									$item['id'] = esc_html( $data['id'] ) . '_' . esc_html( $item['id'] );
+
+									$item = wp_parse_args( $item , $default );
+
+									$file = 'metabox-fields/' . $item['type'];
+
+									echo traveler_admin_load_view( $file, array( 'data' => $item ) );
+								?>
+									
+								<?php endforeach; ?>	
+							</table>
+						</td>
+					</tr>
+				</table>	
 			</div>
-			<button class="traveler-add-item btn button button-primary" type="button"><?php echo __('Add item', 'traveler-booking'); ?></button>
+		<?php endforeach; endif; ?>
 		</div>
-		<?php endif; ?>
-		<i class="traveler-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
-	</td>
-</tr>
+		<button class="traveler-add-item btn button button-primary" type="button"><?php echo __('Add item', 'traveler-booking'); ?></button>
+	</div>
+	<?php endif; ?>
+	<i class="traveler-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+</div>
+</div>
 <?php 
 	if( !empty( $data['value'] ) && is_array( $data['value'] ) ):
 ?>
-<tr id="traveler-list-item-draft" style="display: none !important;">
+<div id="traveler-list-item-draft" style="display: none !important;">
 	<td>
 		<div class="traveler-list-item">
 			<div class="list-item-head">
@@ -188,5 +188,5 @@ if(!empty($data['condition'])){
 			</table>	
 		</div>	
 	</td>	
-</tr>
+</div>
 <?php endif; ?>
