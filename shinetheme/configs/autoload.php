@@ -46,4 +46,8 @@ $autoload['model']=array(
 	'service_model',
 );
 
+$autoload['widget']=array(
+
+);
+
 $autoload['encrypr_key'] = 'traveler';

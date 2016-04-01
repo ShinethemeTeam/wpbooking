@@ -39,7 +39,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
             ) );
         }
 
-        function traveler_add_field( $option = array() )
+        function traveler_add_field_form_builder( $option = array() )
         {
             self::$traveler_param[ ] = $option;
         }
@@ -51,17 +51,17 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
 
         function _test()
         {
-            traveler_add_field( array(
-                    "title"   => __( "Option Text" , 'traveler-booking' ) ,
+            traveler_add_field_form_builder( array(
+                    "title"   => __( "Shortcode Test 1" , 'traveler-booking' ) ,
                     "name"    => 'option_text' ,
                     "options" => array(
                         array(
                             "type"             => "text" ,
                             "title"            => __( "Title" , 'traveler-booking' ) ,
                             "name"             => "title" ,
-                            "desc"             => " Điền Title" ,
+                            "desc"             => "Title" ,
                             'edit_field_class' => 'traveler-col-md-6' ,
-                            'value' => "xxx"
+                            'value' => ""
                         ) ,
                         array(
                             "type"             => "text" ,
@@ -69,7 +69,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                             "name"             => "name" ,
                             "description"      => "" ,
                             'edit_field_class' => 'traveler-col-md-6' ,
-                            'value' => "xxx"
+                            'value' => ""
                         ) ,
                         array(
                             "type"             => "content" ,
@@ -85,7 +85,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                             "name"             => "text_area" ,
                             "desc"             => "" ,
                             'edit_field_class' => 'traveler-col-md-12' ,
-                            'value' => "xxx"
+                            'value' => ""
                         ) ,
                         array(
                             "type"             => "dropdown" ,
@@ -113,8 +113,8 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                     )
                 )
             );
-            traveler_add_field( array(
-                    "title"   => __( "Option Text 2" , 'traveler-booking' ) ,
+            traveler_add_field_form_builder( array(
+                    "title"   => __( "Shortcode Test 2" , 'traveler-booking' ) ,
                     "name"    => 'option_text_2' ,
                     "options" => array(
                     )
@@ -156,14 +156,14 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
         {
             if(!empty( $_POST[ 'traveler_booking_btn_save_layout' ] ) and wp_verify_nonce( $_REQUEST[ 'traveler_booking_save_layout' ] , "traveler_booking_action" )) {
                 $current_user = wp_get_current_user();
-                $layout_id    = Traveler_Input::request( "traveler-layout-id" );
+                $form_id    = Traveler_Input::request( "traveler-form-id" );
                 $title        = Traveler_Input::request( "traveler-title" );
                 $type         = 'update';
-                if(empty( $layout_id )) {
+                if(empty( $form_id )) {
                     $type = 'create';
                 }
                 if(!empty( $title )) {
-                    if(empty( $layout_id )) {
+                    if(empty( $form_id )) {
                         $my_layout = array(
                             'post_title'   => Traveler_Input::request( "traveler-title" ) ,
                             'post_content' => stripslashes( Traveler_Input::request( "traveler-content-build" ) ) ,
@@ -172,22 +172,25 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                             'post_type'    => 'traveler_form' ,
                             'post_excerpt' => ''
                         );
-                        $layout_id = wp_insert_post( $my_layout );
+                        $form_id = wp_insert_post( $my_layout );
                     } else {
                         $my_layout = array(
-                            'ID'           => $layout_id ,
+                            'ID'           => $form_id ,
                             'post_title'   => Traveler_Input::request( "traveler-title" ) ,
                             'post_content' => stripslashes( Traveler_Input::request( "traveler-content-build" ) ) ,
                         );
                         wp_update_post( $my_layout );
                     }
-                    if(!empty( $layout_id )) {
+                    if(!empty( $form_id )) {
                         $type_layout = Traveler_Input::request( "traveler-layout-type" );
-                        update_post_meta( $layout_id , 'type_layout' , $type_layout );
+                        update_post_meta( $form_id , 'type_layout' , $type_layout );
                         if($type == 'update') {
                             traveler_set_admin_message( 'Update layout successfully !' , 'success' );
+
                         } else {
                             traveler_set_admin_message( 'Create layout successfully !' , 'success' );
+                            wp_redirect( add_query_arg(array('page'=>Traveler_Input::request('page'),'form_builder_id'=>$form_id),admin_url('admin.php')) );
+                            exit();
                         }
 
                     } else {
