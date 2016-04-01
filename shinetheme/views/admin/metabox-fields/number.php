@@ -24,7 +24,7 @@ if(!empty($data['attr']) and is_array($data['attr'])){
 
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
-$name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] ). '[]';
+$name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
 
 $field .= '<div style="margin-bottom: 7px;"><input '.$attr.' id="'. esc_html( $data['id'] ).'" type="number" name="'. $name .'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'"></div>';
 

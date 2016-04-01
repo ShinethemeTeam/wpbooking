@@ -4,6 +4,7 @@
 **/
 
 $old_data = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
+
 $class = ' traveler-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){

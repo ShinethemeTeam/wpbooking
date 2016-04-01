@@ -23,8 +23,47 @@ if(!class_exists('Traveler_Service'))
 				'service-types/abstract-service-type',
 				'service-types/room',
 			));
+
+			add_filter('comment_form_field_comment',array($this,'add_review_field'));
+			add_action('comment_post',array($this,'_save_review_stats'));
+			add_filter('get_comment_text',array($this,'_show_review_stats'),100);
 		}
 
+		function _show_review_stats($content)
+		{
+			$comnent_id=get_comment_ID();
+			$comemntObj = get_comment($comnent_id);
+			$post_id = $comemntObj->comment_post_ID;
+			if(get_post_type($post_id)!='traveler_service') return $content;
+
+			$content=traveler_load_view('review-item-stats').$content;
+			return $content;
+		}
+		/**
+		 * Save Comment Stats Data
+		 * @param $comment_id
+		 * @return bool
+		 */
+		function _save_review_stats($comment_id)
+		{
+			$comemntObj = get_comment($comment_id);
+			$post_id = $comemntObj->comment_post_ID;
+
+			if(get_post_type($post_id)!='traveler_service') return FALSE;
+
+			update_comment_meta($comment_id,'traveler_review',Traveler_Input::post('traveler_review'));
+			update_comment_meta($comment_id,'traveler_review_detail',Traveler_Input::post('traveler_review_detail'));
+
+			do_action('after_traveler_update_review_stats');
+		}
+
+		function add_review_field($fields)
+		{
+			if(get_post_type()!='traveler_service') return $fields;
+
+			$field_review=apply_filters('traveler_review_field',traveler_load_view('review-field'));
+			return $field_review.$fields;
+		}
 		function get_service_types()
 		{
 			$default= array(
@@ -35,6 +74,15 @@ if(!class_exists('Traveler_Service'))
 			);
 
 			return apply_filters('traveler_service_types',$default);
+		}
+
+		function comments_template($template)
+		{
+			if(get_post_type()!='traveler_service') return $template;
+
+			$template=traveler_view_path('reviews');
+
+			return $template;
 		}
 
 		static function inst()

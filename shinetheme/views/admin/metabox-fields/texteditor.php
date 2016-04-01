@@ -9,6 +9,7 @@ $value = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
 if( !empty( $value ) ){
 	$old_data = $value;
 }
+
 $class = ' traveler-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){

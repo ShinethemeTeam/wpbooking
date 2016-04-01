@@ -1,0 +1,9 @@
+/*
+// Rating Review
+*/
+.traveler-rating-result-wrap br {
+  display: none;
+}
+.traveler-rating-result-wrap .rating-stars a.active .icon-star:before {
+  content: "\f005";
+}

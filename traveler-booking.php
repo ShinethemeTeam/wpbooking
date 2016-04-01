@@ -46,17 +46,35 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 			add_action('plugins_loaded',array($this,'_load_cores'));
 
 			add_action('admin_enqueue_scripts',array($this,'_admin_default_scripts'));
+			add_action('wp_enqueue_scripts',array($this,'_frontend_scripts'));
 
 			do_action('traveler_after_plugin_init');
 		}
 
+		function _frontend_scripts()
+		{
+			/**
+			 * Css
+			 */			\
+			wp_enqueue_style('font-awesome',traveler_assets_url('fa4.5/css/font-awesome.min.css'),FALSE,'4.5.0');
+			wp_enqueue_style('traveler-booking',traveler_assets_url('css/traveler-booking.css'));
+
+			/**
+			 * Javascripts
+			 */
+			wp_enqueue_script('traveler-booking',traveler_assets_url('js/traveler-booking.js'),array('jquery'),null,true);
+			wp_localize_script('jquery','traveler_params',array(
+				'ajax_url'=>admin_url('admin-ajax.php'),
+				'traveler_security' => wp_create_nonce( 'traveler-nonce-field' )
+			));
+		}
 		/**
 		 * Load default CSS and Javascript for admin
 		 * @since 1.0
 		 */
 		function _admin_default_scripts()
 		{
-			wp_enqueue_script('traveler-admin',traveler_admin_assets_url('js/traveler-admin.js'),array('jquery'),null,true);
+			wp_enqueue_script('traveler-admin',traveler_admin_assets_url('js/traveler-admin.js'),array('jquery', 'jquery-ui-core'),null,true);
 			wp_enqueue_script('traveler-admin-form-build',traveler_admin_assets_url('js/traveler-admin-form-build.js'),array('jquery'),null,true);
 
 			wp_enqueue_style('font-awesome',traveler_assets_url('fa4.5/css/font-awesome.min.css'),FALSE,'4.5.0');

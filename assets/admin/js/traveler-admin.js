@@ -110,59 +110,61 @@ jQuery(document).ready(function( $ ){
     /////// MEDIA GALLERY /////////////
     ///////////////////////////////////
     jQuery(document).ready(function($){
-        $(".btn_remove_demo_gallery").click(function(){
+        $("body").on('click','.btn_remove_demo_gallery',function(){
             var container = $(this).parent();
             container.find('.fg_metadata').val('');
             container.find('.demo-image-gallery').hide();
         });
-        $('.btn_upload_gallery').each(function(event) {
-            var file_frame;
-            $(this).click(function (event) {
-                var container = $(this).parent();
-                event.preventDefault();
-                // If the media frame already exists, reopen it.
-                if ( file_frame ) {
-                    file_frame.open();
-                    return;
-                }
-                // Create the media frame.
-                file_frame = wp.media.frame = wp.media({
-                    frame: "post",
-                    state: "gallery",
-                    library : { type : 'image'},
-                    // button: {text: "Edit Image Order"},
-                    multiple: true
-                });
-                file_frame.on('open', function() {
-                    var selection = file_frame.state().get('selection');
-                    var ids = container.find('#fg_metadata').val();
-                    if (ids) {
-                        idsArray = ids.split(',');
-                        idsArray.forEach(function(id) {
-                            attachment = wp.media.attachment(id);
-                            attachment.fetch();
-                            selection.add( attachment ? [ attachment ] : [] );
-                        });
-                    }
-                });
-                // When an image is selected, run a callback.
-                file_frame.on('update', function() {
-                    var imageIDArray = [];
-                    var imageHTML = '';
-                    var metadataString = '';
-                    images = file_frame.state().get('library');
-                    images.each(function(attachment) {
-                        imageIDArray.push(attachment.attributes.id);
-                        imageHTML += '<img id="'+attachment.attributes.id+'" class="demo-image-gallery settings-demo-gallery" src="'+attachment.attributes.url+'">';
-                    });
-                    metadataString = imageIDArray.join(",");
-                    if (metadataString) {
-                        container.find('#fg_metadata').val(metadataString);
-                        container.find('.featuredgallerydiv').html(imageHTML);
-                    }
-                });
+
+        var file_frame;
+        $('body').on('click','.btn_upload_gallery',function (event) {
+            var container = $(this).parent();
+            console.log(container);
+            event.preventDefault();
+            // If the media frame already exists, reopen it.
+            if ( file_frame ) {
                 file_frame.open();
-            })
+                return;
+            }
+            // Create the media frame.
+            file_frame = wp.media.frame = wp.media({
+                frame: "post",
+                state: "gallery",
+                library : { type : 'image'},
+                // button: {text: "Edit Image Order"},
+                multiple: true
+            });
+            file_frame.on('open', function() {
+                var selection = file_frame.state().get('selection');
+                var ids = container.find('.fg_metadata').val();
+                if (ids) {
+                    idsArray = ids.split(',');
+                    idsArray.forEach(function(id) {
+                        attachment = wp.media.attachment(id);
+                        attachment.fetch();
+                        selection.add( attachment ? [ attachment ] : [] );
+                    });
+                }
+            });
+            // When an image is selected, run a callback.
+            file_frame.on('update', function() {
+                var imageIDArray = [];
+                var imageHTML = '';
+                var metadataString = '';
+                images = file_frame.state().get('library');
+                images.each(function(attachment) {
+                    imageIDArray.push(attachment.attributes.id);
+                    imageHTML += '<img class="demo-image-gallery settings-demo-gallery" src="'+attachment.attributes.url+'">';
+                });
+
+                metadataString = imageIDArray.join(",");
+                if (metadataString) {
+                    $('.fg_metadata',container).val(metadataString);
+                    $('.featuredgallerydiv',container).html(imageHTML).show();
+                    console.log($('.featuredgallerydiv',container).html());
+                }
+            });
+            file_frame.open();
         });
     });
     ///////////////////////////////////
@@ -420,6 +422,10 @@ jQuery(document).ready(function( $ ){
     /////////////////////////////////
     /////// List item //////////////
     ///////////////////////////////
+    $( ".traveler-list-item-wrapper .traveler-list" ).sortable({
+        cursor: "move"
+    });
+
     $('.traveler-add-item').click(function(event) {
         /* Act on the event */
         if( $('#traveler-list-item-draft').length ){
@@ -428,6 +434,9 @@ jQuery(document).ready(function( $ ){
             var parent = $(this).closest('.traveler-list-item-wrapper');
 
             $('.traveler-list', parent).append( content );
+            $( ".traveler-list-item-wrapper .traveler-list" ).sortable({
+                cursor: "move"
+            });
         }
         return false;
     });
@@ -447,6 +456,8 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         /* Act on the event */
     });
+
+    
 
     $('.traveler-list-item-wrapper').on('keyup', '.input-title', function(event) {
         var parent = $(this).closest('.traveler-list-item');
