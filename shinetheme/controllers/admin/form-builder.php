@@ -117,6 +117,14 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                     "title"   => __( "Shortcode Test 2" , 'traveler-booking' ) ,
                     "name"    => 'option_text_2' ,
                     "options" => array(
+                        array(
+                            "type"             => "text" ,
+                            "title"            => __( "Title" , 'traveler-booking' ) ,
+                            "name"             => "title" ,
+                            "desc"             => "Title" ,
+                            'edit_field_class' => 'traveler-col-md-6' ,
+                            'value' => ""
+                        ) 
                     )
                 )
             );
