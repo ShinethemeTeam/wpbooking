@@ -3,7 +3,9 @@
 *@since 1.0.0
 **/
 
-$old_data = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
+$old_data = (isset( $data['custom_data'] ) ) ? esc_html( $data['custom_data'] ) : get_post_meta( get_the_ID(), esc_html( $data['id'] ), true);
+
+
 $class = ' traveler-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){
@@ -12,7 +14,8 @@ if(!empty($data['condition'])){
 }
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
-$name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] ). '[]';
+$name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
+
 
 if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 
@@ -28,8 +31,7 @@ if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 				$checked = '';
 			}
 		}
-		
-		$field .= '<div style="margin-bottom: 7px;"><label><input type="radio" name="'. $name .'" id="'. esc_html( $data['id'] ).'" class="'. esc_html( $data['class'] ) . '" value="'. esc_html( $key ) .'" ' . $checked .'> <span>'. esc_html( $value ) .'</span></label></div>';
+		$field .= '<div style="margin-bottom: 7px;"><label><input type="radio" name="'. $name .'" class="'. esc_html( $data['class'] ) . '" value="'. esc_html( $key ) .'" ' . $checked .'> <span>'. esc_html( $value ) .'</span></label></div>';
 	}
 }
 

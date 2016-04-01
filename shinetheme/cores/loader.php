@@ -56,6 +56,10 @@ if(!class_exists('Traveler_Loader')){
 			{
 				$this->load_controller($autoload['controller']);
 			}
+			if(!empty($autoload['widget']))
+			{
+				$this->load_widget($autoload['widget']);
+			}
 
 			return TRUE;
 		}
@@ -126,6 +130,23 @@ if(!class_exists('Traveler_Loader')){
 
 			if(is_string($file)){
 				$real_file=Traveler()->get_dir('shinetheme/models/'.$file.'.php');
+				if(file_exists($real_file))
+				{
+					include_once $real_file;
+
+				}
+			}
+		}
+		function load_widget($file)
+		{
+			if(is_array($file) and !empty($file)){
+				foreach($file as $f){
+					$this->load_widget($f);
+				}
+			}
+
+			if(is_string($file)){
+				$real_file=Traveler()->get_dir('shinetheme/widgets/'.$file.'.php');
 				if(file_exists($real_file))
 				{
 					include_once $real_file;

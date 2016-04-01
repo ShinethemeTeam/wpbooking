@@ -74,7 +74,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		 */
 		function _admin_default_scripts()
 		{
-			wp_enqueue_script('traveler-admin',traveler_admin_assets_url('js/traveler-admin.js'),array('jquery'),null,true);
+			wp_enqueue_script('traveler-admin',traveler_admin_assets_url('js/traveler-admin.js'),array('jquery', 'jquery-ui-core'),null,true);
 			wp_enqueue_script('traveler-admin-form-build',traveler_admin_assets_url('js/traveler-admin-form-build.js'),array('jquery'),null,true);
 
 			wp_enqueue_style('font-awesome',traveler_assets_url('fa4.5/css/font-awesome.min.css'),FALSE,'4.5.0');

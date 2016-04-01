@@ -3,7 +3,7 @@
 *@since 1.0.0
 **/
 
-$old_data = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
+$old_data = (isset( $data['custom_data'] ) ) ? esc_html( $data['custom_data'] ) : get_post_meta( get_the_ID(), esc_html( $data['id'] ), true);
 
 $class = ' traveler-form-group ';
 $data_class = '';
@@ -11,7 +11,8 @@ if(!empty($data['condition'])){
     $class .= ' traveler-condition ';
     $data_class .= ' data-condition='.$data['condition'].' ' ;
 }
-$name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] ). '[]';
+$name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
+
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
 if( is_array( $data['value'] ) && !empty( $data['value'] ) ){

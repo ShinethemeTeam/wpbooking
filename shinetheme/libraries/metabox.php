@@ -18,6 +18,7 @@ if( ! class_exists('Traveler_Metabox') ){
 			add_action( 'save_post', array( $this, 'save_meta_box'), 10, 2 );
 
 			add_action( 'traveler_save_metabox', array( $this, 'traveler_save_gmap'), 20, 2);
+			
 		}
 
 		public function _add_scripts(){
@@ -120,7 +121,7 @@ if( ! class_exists('Traveler_Metabox') ){
 											$field_html=apply_filters('traveler_metabox_field_html_'.$field_sub['type'],FALSE,$field_sub);
 											if($field_html) echo $field_html;
 											else
-											echo traveler_admin_load_view( $file, array( 'data' => $field_sub,'class_extra'=>$class_extra ) );
+											echo traveler_admin_load_view( $file, array( 'data' => $field_sub,'class_extra' => $class_extra ) );
 
 											unset( $fields[ $key_sub ] );
 											?>
