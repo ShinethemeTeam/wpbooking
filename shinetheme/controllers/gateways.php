@@ -5,6 +5,9 @@
  * Date: 3/23/2016
  * Time: 2:34 PM
  */
+if (!defined('ABSPATH')) {
+	exit; // Exit if accessed directly
+}
 if(!class_exists('Traveler_Payment_Gateways'))
 {
 	class Traveler_Payment_Gateways{
@@ -65,6 +68,23 @@ if(!class_exists('Traveler_Payment_Gateways'))
 				<button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php _e('Dismiss this notice.','travel-booking')?></span></button>
 			</div>
 			<?php
+		}
+
+		function do_checkout($gateway,$order_id)
+		{
+			$data=array();
+			$all_gateways=$this->get_gateways();
+			if(isset($all_gateways[$gateway]))
+			{
+				$selected_gateway=$all_gateways[$gateway];
+
+				if(method_exists($selected_gateway,'do_checkout'))
+				{
+					$data=$selected_gateway->do_checkout($order_id);
+				}
+			}
+
+			return $data;
 		}
 
 		static function inst()

@@ -24,6 +24,12 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 			add_filter('traveler_service_types', array($this, '_register_type'));
 			add_filter('traveler_service_setting_sections', array($this, '_add_setting_section'));
 			add_filter('traveler_review_stats', array($this, '_filter_get_review_stats'));
+			add_filter('traveler_get_order_form_'.$this->type_id, array($this, '_get_order_form'));
+		}
+
+		function _get_order_form()
+		{
+			return $this->get_option('order_form');
 		}
 
 		function _filter_get_review_stats($stats)
