@@ -27,9 +27,17 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 			add_filter('traveler_get_order_form_'.$this->type_id, array($this, '_get_order_form'));
 		}
 
+		/**
+		 * Filter the Order Form HTML
+		 */
 		function _get_order_form()
 		{
-			return $this->get_option('order_form');
+			$form_id= $this->get_option('order_form');
+			$post=get_post($form_id);
+			if($post){
+				return apply_filters('the_content',$post->content);
+			}
+
 		}
 
 		function _filter_get_review_stats($stats)

@@ -27,8 +27,28 @@ if(!class_exists('Traveler_Service'))
 			add_filter('comment_form_field_comment',array($this,'add_review_field'));
 			add_action('comment_post',array($this,'_save_review_stats'));
 			add_filter('get_comment_text',array($this,'_show_review_stats'),100);
+
+			add_filter('template_include',array($this,'_show_single_service'));
 		}
 
+		/**
+		 *
+		 */
+		function _show_single_service($template)
+		{
+
+			if(get_post_type()=='traveler_service' and is_single())
+			{
+				$template=traveler_view_path('single-service');
+			}
+			return $template;
+		}
+
+		/**
+		 * Add Review Stats in End of the Content Text
+		 * @param $content
+		 * @return string
+		 */
 		function _show_review_stats($content)
 		{
 			$comnent_id=get_comment_ID();

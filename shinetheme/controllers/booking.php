@@ -22,6 +22,7 @@ if (!class_exists('Traveler_Booking')) {
 			add_action('wp_ajax_nopriv_traveler_add_to_cart', array($this, 'add_to_cart'));
 
 			add_action('init',array($this,'_register_shortcode'));
+
 		}
 
 
@@ -152,7 +153,7 @@ if (!class_exists('Traveler_Booking')) {
 		}
 
 		/**
-		 * Get Order Form based on Service Type ID
+		 * Get Order Form HTML based on Service Type ID
 		 * @param $service_type
 		 * @return mixed|void
 		 */
@@ -161,6 +162,18 @@ if (!class_exists('Traveler_Booking')) {
 			$form = apply_filters('traveler_get_order_form', FALSE, $service_type);
 
 			return $form = apply_filters('traveler_get_order_form_' . $service_type, $form);
+		}
+
+		/**
+		 * Get Order Form HTML based on Post ID
+		 * @param $post_id
+		 * @return mixed|void
+		 */
+		function get_order_form_by_post_id($post_id=FALSE)
+		{
+			if(!$post_id) $post_id=get_the_ID();
+			$service_type=get_post_meta($post_id,'service_type',true);
+			return $this->get_order_form($service_type);
 		}
 
 
