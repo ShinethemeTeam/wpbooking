@@ -49,7 +49,7 @@ jQuery(document).ready(function( $ ){
                 var item_value = $(this).val();
 
                 if(item_value != ""){
-                    shortcode += " "+item_name+"="+item_value
+                    shortcode += ' '+item_name+'="'+item_value+'"';
                 }
             });
             shortcode += " ]";
@@ -60,21 +60,24 @@ jQuery(document).ready(function( $ ){
 
     // add shortcode
     $(document).on('keyup change','.content-flied-control .item',function(){
-        var container  = $(this).parent().parent().parent();
+        var container  = $(this).parent().parent().parent().parent();
         var name_shortcode = $(this).data('name-shortcode');
+        console.log(name_shortcode);
         var shortcode = "["+name_shortcode;
         var content = "";
         container.find('.item').each(function(){
-
             var item_name =$(this).attr('name');
             var item_value = $(this).val();
             var item_type = $(this).data('type');
-
             if(item_type == "content"){
                 content = item_value;
+            }else if(item_type == "is_required"){
+                if($(this).attr('checked')) {
+                    shortcode += ' '+item_name+'="'+item_value+'"';
+                }
             }else{
                 if(item_value != ""){
-                    shortcode += " "+item_name+"="+item_value
+                    shortcode += ' '+item_name+'="'+item_value+'"';
                 }
             }
         });

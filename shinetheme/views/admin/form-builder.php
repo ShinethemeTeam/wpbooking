@@ -70,7 +70,7 @@ $form_id = Traveler_Input::request('form_builder_id');
                 </div>
 
 
-                <div class="traveler-col-md-7">
+                <div class="traveler-col-md-8">
                     <table class="traveler-title-layout">
                         <tr class="">
                             <th scope="row">
@@ -101,27 +101,28 @@ $form_id = Traveler_Input::request('form_builder_id');
                         </tr>
                     </table>
                 </div>
-                <div class="traveler-col-md-7">
-                    <div class="form-content">
-                        <?php
-                        $content = '';
-                        if(!empty($form_id)){
-                            $content_post = get_post($form_id);
-                            $content = $content_post->post_content;
-                        }
-                        wp_editor(stripslashes($content),'traveler-content-build'); ?>
-                    </div>
-                </div>
+
                 <div class="traveler-col-md-5">
                     <div class="select-control">
                         <?php $list_flied = Traveler_Admin_Form_Build::inst()->traveler_get_all_field(); ?>
-                        <label for="traveler_field_form_build" class="control-label"><?php _e("Element Shortcode",'traveler-booking') ?>:</label>
+                        <label for="traveler_field_form_build" class="control-label"><?php _e("Shortcode",'traveler-booking') ?>:</label>
                         <select name="traveler_field_form_build" class="form-control" id="traveler_field_form_build">
                             <option selected value=""><?php _e("-- Select Flied --",'traveler-booking') ?></option>
                             <?php
                             if(!empty($list_flied)){
-                                foreach($list_flied as $k=>$v){
-                                    echo '<option value="'.$v['name'].'">'.$v['title'].'</option>';
+                                $group = "";
+                                foreach($list_flied as $key=>$value){
+                                    if($group != $key)
+                                        echo '<optgroup label=" ' . $key . ' ">';
+                                    if(!empty( $value )) {
+                                        foreach( $value as $k => $v ) {
+                                            echo '<option value="'.$v['name'].'">'.$v['title'].'</option>';
+                                        }
+                                    }
+                                    if($group != $key) {
+                                        echo '</optgroup>';
+                                        $group = $key;
+                                    }
                                 }
                             }
                             ?>
@@ -131,26 +132,30 @@ $form_id = Traveler_Input::request('form_builder_id');
                     <div class="control-hidden hidden" >
                         <?php
                         if(!empty($list_flied)){
-                            foreach($list_flied as $k=>$v){
-                                ?>
-                                <div class="hidden-item" data-name-shortcode="<?php echo esc_attr($v['name']) ?>" data-title="<?php echo esc_attr($v['title']) ?>" id="item-<?php echo esc_attr($v['name']) ?>">
-                                    <?php if(!empty($v['options'])){
-                                        foreach($v['options'] as $key => $value){
-                                            $default = array( "type"             => "" ,
-                                                              "title"            => "" ,
-                                                              "name"             => "" ,
-                                                              "desc"      => "" ,
-                                                              'edit_field_class' => '' ,
-                                                              'options' => '' ,
-                                                              'value'            => '' );
-                                            $value = wp_parse_args( $value , $default );
+                            foreach($list_flied as $key=>$value){
+                                if(!empty( $value )) {
+                                    foreach( $value as $k => $v ) {
+                                        ?>
+                                        <div class="hidden-item" data-name-shortcode="<?php echo esc_attr($v['name']) ?>" data-title="<?php echo esc_attr($v['title']) ?>" id="item-<?php echo esc_attr($v['name']) ?>">
+                                            <?php if(!empty($v['options'])){
+                                                foreach($v['options'] as $key => $value){
+                                                    $default = array( "type"             => "" ,
+                                                                      "title"            => "" ,
+                                                                      "name"             => "" ,
+                                                                      "desc"      => "" ,
+                                                                      'edit_field_class' => '' ,
+                                                                      'options' => '' ,
+                                                                      'value'            => '' );
+                                                    $value = wp_parse_args( $value , $default );
 
-                                            $path='fields/form-build/input-'.$value['type'];
-                                            echo traveler_admin_load_view($path,array('data'=>$value,'parent'=>$v['name']));
-                                        }
-                                    } ?>
-                                </div>
-                        <?php
+                                                    $path='fields/form-build/input-'.$value['type'];
+                                                    echo traveler_admin_load_view($path,array('data'=>$value,'parent'=>$v['name']));
+                                                }
+                                            } ?>
+                                        </div>
+                                    <?php
+                                    }
+                                }
                             }
                         }
                         ?>
@@ -166,12 +171,23 @@ $form_id = Traveler_Input::request('form_builder_id');
                             <div class="traveler-row">
                                 <div class="traveler-col-md-12">
                                     <div class="traveler-build-group ">
-                                        <label class="control-label"><?php _e("Copy and paste this shortcode into the form at left side",'traveler-booking') ?></label>
+                                        <label class="control-label"><?php _e("Copy and paste this shortcode into the form at right side",'traveler-booking') ?></label>
                                         <input type="text"   name="" id="traveler-shortcode-flied" readonly="readonly" onclick="this.focus();this.select()">
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="traveler-col-md-7">
+                    <div class="form-content">
+                        <?php
+                        $content = '';
+                        if(!empty($form_id)){
+                            $content_post = get_post($form_id);
+                            $content = $content_post->post_content;
+                        }
+                        wp_editor(stripslashes($content),'traveler-content-build'); ?>
                     </div>
                 </div>
                 <div class="traveler-col-md-12">

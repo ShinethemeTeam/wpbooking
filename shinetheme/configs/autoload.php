@@ -26,7 +26,7 @@ $autoload['library']=array(
 	'session',
 	'currency',
 	'validator',
-	'metabox'
+	'metabox',
 );
 
 $autoload['controller']=array(

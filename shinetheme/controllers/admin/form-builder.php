@@ -10,11 +10,15 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
 
         public static $traveler_param = array();
 
+        public static $traveler_list_field_form_build = array();
+
         function __construct()
         {
             add_action( 'admin_menu' , array( $this , "register_traveler_booking_sub_menu_page" ) );
 
             add_action( 'init' , array( $this , '_add_post_type' ) , 5 );
+            add_action( 'init' , array( $this , '_load_default_shortcodes' ) );
+
             // add script and style
             add_action( 'admin_enqueue_scripts' , array( $this , "_add_scripts" ) );
 
@@ -25,6 +29,27 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
             add_action( 'admin_init' , array( $this , "_test" ) , 1 );
         }
 
+        function traveler_add_item_field_shortcode($title , $name , $data){
+            if(!empty($name)){
+                $data['title'] = $title;
+                self::$traveler_list_field_form_build[$name] = $data;
+            }
+        }
+        function traveler_get_all_item_field_shortcode(){
+            return self::$traveler_list_field_form_build;
+        }
+
+        function _load_default_shortcodes()
+        {
+            Traveler_Loader::inst()->load_library(array(
+               'shortcodes/form-build-default/text',
+               'shortcodes/form-build-default/textarea',
+               'shortcodes/form-build-default/dropdown',
+               'shortcodes/form-build-default/checkbox',
+               'shortcodes/form-build-default/radio',
+               'shortcodes/form-build-default/submit-button',
+            ));
+        }
         function _add_scripts()
         {
 
@@ -46,88 +71,26 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
 
         function traveler_get_all_field()
         {
-            return self::$traveler_param;
+
+            $list_field  =array();
+            if(!empty(self::$traveler_param)){
+                foreach(self::$traveler_param as $k=>$v){
+                    $list_field [$v['category']][] = $v;
+                }
+            }
+            return $list_field;
         }
 
         function _test()
         {
-            traveler_add_field_form_builder( array(
-                    "title"   => __( "Shortcode Test 1" , 'traveler-booking' ) ,
-                    "name"    => 'option_text' ,
-                    "options" => array(
-                        array(
-                            "type"             => "text" ,
-                            "title"            => __( "Title" , 'traveler-booking' ) ,
-                            "name"             => "title" ,
-                            "desc"             => "Title" ,
-                            'edit_field_class' => 'traveler-col-md-6' ,
-                            'value' => ""
-                        ) ,
-                        array(
-                            "type"             => "text" ,
-                            "title"            => __( "Name" , 'traveler-booking' ) ,
-                            "name"             => "name" ,
-                            "description"      => "" ,
-                            'edit_field_class' => 'traveler-col-md-6' ,
-                            'value' => ""
-                        ) ,
-                        array(
-                            "type"             => "content" ,
-                            "title"            => __( "Content" , 'traveler-booking' ) ,
-                            "name"             => "content" ,
-                            "description"      => "" ,
-                            'edit_field_class' => 'traveler-col-md-12' ,
-                            'value' => ""
-                        ) ,
-                        array(
-                            "type"             => "textarea" ,
-                            "title"            => __( "Text area" , 'traveler-booking' ) ,
-                            "name"             => "text_area" ,
-                            "desc"             => "" ,
-                            'edit_field_class' => 'traveler-col-md-12' ,
-                            'value' => ""
-                        ) ,
-                        array(
-                            "type"             => "dropdown" ,
-                            "title"            => __( "Dropdown" , 'traveler-booking' ) ,
-                            "name"             => "dropdown" ,
-                            "desc"             => "" ,
-                            'edit_field_class' => 'traveler-col-md-3' ,
-                            'options'            => array(
-                                __( 'No' , 'traveler-booking' )  => 'no' ,
-                                __( 'Yes' , 'traveler-booking' ) => 'yes' ,
-                            )
-                        ),
-                        array(
-                            "type"             => "checkbox" ,
-                            "title"            => __( "Check Box" , 'traveler-booking' ) ,
-                            "name"             => "checkbox" ,
-                            "desc"             => "" ,
-                            'edit_field_class' => 'traveler-col-md-12' ,
-                            'options'            => array(
-                                __( 'Check 1' , 'traveler-booking' )  => 'check_1' ,
-                                __( 'Check 2' , 'traveler-booking' ) => 'check_2' ,
-                                __( 'Check 3' , 'traveler-booking' ) => 'check_3' ,
-                            )
-                        )
-                    )
-                )
-            );
-            traveler_add_field_form_builder( array(
-                    "title"   => __( "Shortcode Test 2" , 'traveler-booking' ) ,
-                    "name"    => 'option_text_2' ,
-                    "options" => array(
-                        array(
-                            "type"             => "text" ,
-                            "title"            => __( "Title" , 'traveler-booking' ) ,
-                            "name"             => "title" ,
-                            "desc"             => "Title" ,
-                            'edit_field_class' => 'traveler-col-md-6' ,
-                            'value' => ""
-                        )
-                    )
-                )
-            );
+           /* $x  = get_post('11331');
+
+            $list =$x->post_content;
+
+            do_shortcode($list);
+
+            var_dump(self::traveler_get_all_item_field_shortcode());
+            //var_dump();*/
         }
 
         function _get_list_layout()
@@ -164,7 +127,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
         {
             if(!empty( $_POST[ 'traveler_booking_btn_save_layout' ] ) and wp_verify_nonce( $_REQUEST[ 'traveler_booking_save_layout' ] , "traveler_booking_action" )) {
                 $current_user = wp_get_current_user();
-                $form_id    = Traveler_Input::request( "traveler-form-id" );
+                $form_id    = Traveler_Input::request( "form_builder_id" );
                 $title        = Traveler_Input::request( "traveler-title" );
                 $type         = 'update';
                 if(empty( $form_id )) {
@@ -193,26 +156,26 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                         $type_layout = Traveler_Input::request( "traveler-layout-type" );
                         update_post_meta( $form_id , 'type_layout' , $type_layout );
                         if($type == 'update') {
-                            traveler_set_admin_message( 'Update layout successfully !' , 'success' );
+                            traveler_set_admin_message( __("Update layout successfully !","traveler-booking") , 'success' );
 
                         } else {
-                            traveler_set_admin_message( 'Create layout successfully !' , 'success' );
+                            traveler_set_admin_message( __("Create layout successfully !","traveler-booking"), 'success' );
                             wp_redirect( add_query_arg(array('page'=>Traveler_Input::request('page'),'form_builder_id'=>$form_id),admin_url('admin.php')) );
                             exit();
                         }
 
                     } else {
                         if($type == 'update') {
-                            traveler_set_admin_message( 'Error : Update layout not successfully !' , 'error' );
+                            traveler_set_admin_message( __("Error : Update layout not successfully !","traveler-booking") , 'error' );
                         } else {
-                            traveler_set_admin_message( 'Error : Create layout not successfully !' , 'error' );
+                            traveler_set_admin_message( __('Error : Create layout not successfully !',"traveler-booking") , 'error' );
                         }
                     }
                 } else {
                     if($type == 'update') {
-                        traveler_set_admin_message( 'Error : Update layout not successfully !' , 'error' );
+                        traveler_set_admin_message( __('Error : Update layout not successfully !','traveler-booking') , 'error' );
                     } else {
-                        traveler_set_admin_message( 'Error : Create layout not successfully !' , 'error' );
+                        traveler_set_admin_message( __('Error : Create layout not successfully !',"traveler-booking") , 'error' );
                     }
                 }
 
@@ -279,7 +242,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                 'name_admin_bar'     => _x( 'Form Builder' , 'add new on admin bar' , 'traveler-booking' ) ,
                 'add_new'            => _x( 'Add New' , 'service' , 'traveler-booking' ) ,
                 'add_new_item'       => __( 'Add New Form Builder' , 'traveler-booking' ) ,
-                'new_item'           => __( 'New Form Builder' , 'your-plugin-textdomain' ) ,
+                'new_item'           => __( 'New Form Builder' , 'traveler-booking' ) ,
                 'edit_item'          => __( 'Edit Form Builder' , 'traveler-booking' ) ,
                 'view_item'          => __( 'View Form Builder' , 'traveler-booking' ) ,
                 'all_items'          => __( 'All Form Builders' , 'traveler-booking' ) ,
@@ -295,7 +258,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                 'public'             => true ,
                 'publicly_queryable' => true ,
                 'show_ui'            => true ,
-                'show_in_menu'       => false ,
+                'show_in_menu'       => true ,
                 'query_var'          => true ,
                 'rewrite'            => array( 'slug' => 'form_builder' ) ,
                 'capability_type'    => 'post' ,

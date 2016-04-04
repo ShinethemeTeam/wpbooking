@@ -1098,8 +1098,8 @@
 }
 .form-build-v2 .select-control {
   background: #f4f4f4 none repeat scroll 0 0;
-  box-shadow: 1px 1px 8px #ccc;
-  margin: 20px auto 1px;
+  border: 1px solid #ddd;
+  margin: 16px auto 1px;
   padding: 10px;
 }
 .form-build-v2 .select-control .desc {
@@ -1107,7 +1107,7 @@
   color: #bbb;
 }
 .form-build-v2 .select-control .head {
-  color: #777777;
+  color: #000;
   font-family: Times New Roman;
   font-size: 24px;
   font-weight: normal;
