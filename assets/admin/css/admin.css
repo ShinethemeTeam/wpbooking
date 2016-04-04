@@ -105,7 +105,6 @@ img.settings-demo-gallery {
 .traveler-setting-list-item .traveler-list-item-wrap {
   width: 800px;
   border: 1px solid #e5e5e5;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
   background: white;
   margin-bottom: 10px;
@@ -178,10 +177,6 @@ img.settings-demo-gallery {
   background-color: #fff;
   opacity: 1;
 }
-.st-metabox-tabs-content table {
-  display: table-cell !important;
-  vertical-align: top;
-}
 .st-metabox-tabs-content {
   width: auto !important;
   min-height: 200px;
@@ -205,10 +200,7 @@ img.settings-demo-gallery {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 0px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
-  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 .st-metabox-tabs-content .form-control[type=text],
@@ -229,10 +221,7 @@ img.settings-demo-gallery {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 0px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
-  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 .st-metabox-tabs-content .form-control .form-group .form-control[type=text],
@@ -280,7 +269,6 @@ img.settings-demo-gallery {
   width: 40em;
 }
 .ui-tabs-vertical .ui-tabs-nav li a:focus {
-  -webkit-box-shadow: none;
   box-shadow: none;
 }
 @media (max-width: 1023px) {
@@ -310,6 +298,10 @@ img.settings-demo-gallery {
     padding-right: 0;
   }
 }
+.st-metabox-tab-content-wrap {
+  display: table;
+  width: 100%;
+}
 .st-metabox-wrapper {
   position: relative;
   min-height: 100px;
@@ -328,6 +320,35 @@ img.settings-demo-gallery {
   left: 50%;
   margin-left: -10px;
   margin-top: -10px;
+}
+.st-metabox-tab-content-wrap * {
+  box-sizing: border-box;
+}
+.st-metabox-tab-content-wrap .form-table {
+  margin-bottom: 20px;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.st-metabox-tab-content-wrap .form-table .st-metabox-left {
+  font-weight: bold;
+  width: 200px;
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.st-metabox-tab-content-wrap .form-table .st-metabox-right {
+  padding-left: 15px;
+  padding-right: 15px;
+  width: auto;
+  margin-left: 200px;
+}
+.st-metabox-tab-content-wrap .form-table:after,
+.st-metabox-tab-content-wrap .form-table:before {
+  content: " ";
+  display: table;
+}
+.st-metabox-tab-content-wrap .form-table:after {
+  clear: both;
 }
 .st-metabox-content-wrapper {
   padding-bottom: 20px;
@@ -394,9 +415,6 @@ input.gmap-search {
 .form-build .form-field {
   padding-bottom: 15px;
 }
-.traveler-list-item-wrapper * {
-  box-sizing: border-box;
-}
 .traveler-list-item-wrapper .list-item-head {
   width: 100%;
   position: relative;
@@ -442,3 +460,49 @@ input.gmap-search {
 .traveler-list-item-wrapper .traveler-add-item {
   margin-top: 20px;
 }
+.traveler-calendar-wrapper {
+  margin-top: 20px;
+}
+.traveler-calendar-wrapper .traveler-calendar-content {
+  width: 100%;
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.traveler-calendar-wrapper .traveler-calendar-sidebar {
+  width: 100%;
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.traveler-calendar-wrapper .traveler-calendar-sidebar .form-container {
+  padding: 7px;
+  border: 1px solid #CCC;
+}
+.traveler-calendar-wrapper .traveler-calendar-sidebar .form-container .calendar-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+.traveler-calendar-wrapper .traveler-calendar-sidebar .form-container .calendar-input {
+  width: 100%;
+}
+.traveler-calendar-wrapper:after,
+.traveler-calendar-wrapper:before {
+  content: " ";
+  display: table;
+}
+.traveler-calendar-wrapper:after {
+  clear: both;
+}
+@media (min-width: 1400px) {
+  .traveler-calendar-wrapper .traveler-calendar-content {
+    width: 70%;
+  }
+  .traveler-calendar-wrapper .traveler-calendar-sidebar {
+    width: 30%;
+  }
+}
+
+/*# sourceMappingURL=admin.css.map */

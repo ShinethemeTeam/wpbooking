@@ -83,7 +83,7 @@ if( ! class_exists('Traveler_Metabox') ){
 							?>
 							<div id="<?php echo 'st-metabox-tab-item-'.esc_html( $field['id'] ); ?>" class="st-metabox-tabs-content ">
 								<div class="st-metabox-tab-content-wrap <?php echo esc_attr($class)?>" <?php echo esc_attr($data_class) ?>>
-									<table class="form-table traveler-settings ">
+									
 									<?php
 
 									$current_tab = (int) $key;
@@ -107,7 +107,8 @@ if( ! class_exists('Traveler_Metabox') ){
 												'location' => FALSE,
 												'map_lat' => '',
 												'map_long' => '',
-												'map_zoom' => 13
+												'map_zoom' => 13,
+												'server_type' => ''
 											);
 
 											$field_sub = wp_parse_args( $field_sub , $default );
@@ -126,7 +127,6 @@ if( ! class_exists('Traveler_Metabox') ){
 											unset( $fields[ $key_sub ] );
 											?>
 										<?php endif; endforeach; ?>
-									</table>
 								</div>
 							</div>
 						<?php endif; unset( $fields[ $key ] ); endforeach; ?>
