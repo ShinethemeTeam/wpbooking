@@ -26,4 +26,109 @@ jQuery(document).ready(function($){
 
     });
 
+    // Single Services
+    // Helper functions
+    function getFormData(form){
+        var data=array();
+        var data1 = form.serializeArray();
+        for(var i = 0; i < data1.length; i++){
+            data.push({
+                name : data1[i].name,
+                value : data1[i].value
+            });
+        }
+        data.push({
+            name : 'action',
+            value : 'st_add_to_cart'
+        });
+
+        var dataobj = {};
+        for (var i = 0; i < data.length; ++i){
+            dataobj[data[i].name] = data[i].value;
+        }
+
+        return dataobj;
+    };
+
+
+    // Order Form
+    $('.traveler_order_form.submit-button').click(function(){
+        var form=$(this).closest('.traveler_order_form');
+        var me=$(this);
+        var data=getFormData(form);
+        me.addClass('loading').removeClass('error');
+        me.find('.traveler-message').remove();
+
+        data.action='traveler_add_to_cart';
+
+        $.ajax({
+            url:traveler_params.ajax_url,
+            data:data,
+            dataType:'json',
+            type:'post',
+            success:function(res){
+                if(res.status){
+                    me.addClass('success');
+                }else{
+                    me.addClass('error');
+                }
+
+                if(res.message){
+                    var message=$('</div>');
+                    message.addClass('traveler-message');
+                    message.html(res.message);
+                    me.next(message);
+                }
+                if(me.data.redirect){
+                    window.location=me.data.redirect;
+                }
+
+                me.removeClass('loading');
+            },
+            error:function(e){
+                me.removeClass('loading').addClass('error');
+            }
+        })
+    });
+
+    // Checkout Form
+    $('.traveler_checkout_form.submit-button').click(function(){
+        var form=$(this).closest('.traveler_order_form');
+        var me=$(this);
+        var data=getFormData(form);
+        me.addClass('loading').removeClass('error');
+        me.find('.traveler-message').remove();
+
+        data.action='traveler_do_checkout';
+
+        $.ajax({
+            url:traveler_params.ajax_url,
+            data:data,
+            dataType:'json',
+            type:'post',
+            success:function(res){
+                if(res.status){
+                    me.addClass('success');
+                }else{
+                    me.addClass('error');
+                }
+
+                if(res.message){
+                    var message=$('</div>');
+                    message.addClass('traveler-message');
+                    message.html(res.message);
+                    me.next(message);
+                }
+                if(me.data.redirect){
+                    window.location=me.data.redirect;
+                }
+
+                me.removeClass('loading');
+            },
+            error:function(e){
+                me.removeClass('loading').addClass('error');
+            }
+        })
+    });
+
 });

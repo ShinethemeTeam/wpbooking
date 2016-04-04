@@ -18,18 +18,17 @@ if(!empty($data['condition'])){
 }
 
 ?>
-
-<tr class="<?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
-	<th scope="row">
-		<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
-	</th>
-	<td>
-		<div class="st-metabox-content-wrapper"><div class="form-group">
-			<div style="margin-bottom: 7px;">
-			<?php
-			wp_editor( stripslashes( $old_data ), esc_html( $data['id'] ) ); ?>
-			<i class="traveler-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
-			</div>
-		</div></div>
-	</td>
-</tr>
+<div class="form-table traveler-settings ">
+<div class="st-metabox-left <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
+</div>
+<div class="st-metabox-right">
+	<div class="st-metabox-content-wrapper"><div class="form-group">
+		<div style="margin-bottom: 7px;">
+		<?php
+		wp_editor( stripslashes( $old_data ), esc_html( $data['id'] ) ); ?>
+		<i class="traveler-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+		</div>
+	</div></div>
+</div>
+</div>

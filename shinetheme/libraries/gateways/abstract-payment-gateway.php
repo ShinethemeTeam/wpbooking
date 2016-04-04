@@ -5,6 +5,9 @@
  * Date: 3/23/2016
  * Time: 2:35 PM
  */
+if (!defined('ABSPATH')) {
+	exit; // Exit if accessed directly
+}
 if(!class_exists('Traveler_Abstract_Payment_Gateway'))
 {
 	class Traveler_Abstract_Payment_Gateway

@@ -55,7 +55,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		{
 			/**
 			 * Css
-			 */			\
+			 */
 			wp_enqueue_style('font-awesome',traveler_assets_url('fa4.5/css/font-awesome.min.css'),FALSE,'4.5.0');
 			wp_enqueue_style('traveler-booking',traveler_assets_url('css/traveler-booking.css'));
 
@@ -76,6 +76,14 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		{
 			wp_enqueue_script('traveler-admin',traveler_admin_assets_url('js/traveler-admin.js'),array('jquery', 'jquery-ui-core'),null,true);
 			wp_enqueue_script('traveler-admin-form-build',traveler_admin_assets_url('js/traveler-admin-form-build.js'),array('jquery'),null,true);
+			
+			wp_enqueue_script('moment-js',traveler_admin_assets_url('js/moment.min.js'),array('jquery'),null,true);
+
+			wp_enqueue_script('full-calendar',traveler_admin_assets_url('js/fullcalendar.min.js'),array('jquery', 'moment-js'),null,true);
+			wp_enqueue_script('traveler-calendar',traveler_admin_assets_url('js/traveler-calendar.js'),array('jquery'),null,true);
+
+			wp_enqueue_style('full-calendar',traveler_admin_assets_url('/css/fullcalendar.min.css'),FALSE,'1.1.6');
+			//wp_enqueue_style('full-calendar-print',traveler_admin_assets_url('/css/fullcalendar.print.css'),FALSE,'1.1.6');
 
 			wp_enqueue_style('font-awesome',traveler_assets_url('fa4.5/css/font-awesome.min.css'),FALSE,'4.5.0');
 			wp_enqueue_style('traveler-admin',traveler_admin_assets_url('css/admin.css'));
