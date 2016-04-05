@@ -10,7 +10,7 @@
  * @see Traveler_Loader::_autoload();
  */
 $autoload['config']=array(
-	'settings'
+	//'settings'
 );
 
 $autoload['helper']=array(

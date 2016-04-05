@@ -65,9 +65,14 @@ if(!class_exists('Traveler_Abstract_Payment_Gateway'))
 			return $info;
 		}
 
-		function get_option($key,$default)
+		function get_option($key,$default=FALSE)
 		{
+
 			return traveler_get_option('gateway_'.$this->gateway_id.'_'.$key,$default);
+		}
+		function is_available()
+		{
+			return $this->get_option('enable')?true:FALSE;
 		}
 
 		function _register_gateway($gateways=array())

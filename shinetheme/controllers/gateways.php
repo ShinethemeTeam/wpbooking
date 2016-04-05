@@ -42,9 +42,35 @@ if(!class_exists('Traveler_Payment_Gateways'))
 		}
 
 
+		/**
+		 * Get all registered gateways
+		 * @return mixed|void
+		 */
 		function get_gateways()
 		{
 			return apply_filters('traveler_payment_gateways',$this->gateways);
+		}
+
+		/**
+		 * Return only enabled gateway in the Dashboard
+		 * @return array
+		 */
+		function get_available_gateways()
+		{
+			$all=$this->get_gateways();
+			$news=array();
+			if(!empty($all))
+			{
+				foreach($all as $key=>$value)
+				{
+					if($value->is_available())
+					{
+						$news[$key]=$value;
+					}
+				}
+			}
+
+			return $news;
 		}
 
 		function _add_settings($settings)

@@ -25,6 +25,7 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 			add_filter('traveler_service_setting_sections', array($this, '_add_setting_section'));
 			add_filter('traveler_review_stats', array($this, '_filter_get_review_stats'));
 			add_filter('traveler_get_order_form_'.$this->type_id, array($this, '_get_order_form'));
+			add_filter('traveler_get_order_form_id_'.$this->type_id, array($this, 'get_order_form_id'));
 		}
 
 		/**
@@ -35,9 +36,13 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 			$form_id= $this->get_option('order_form');
 			$post=get_post($form_id);
 			if($post){
-				return apply_filters('the_content',$post->content);
+				return apply_filters('the_content',$post->post_content);
 			}
 
+		}
+		function get_order_form_id()
+		{
+			return $form_id= $this->get_option('order_form');
 		}
 
 		function _filter_get_review_stats($stats)

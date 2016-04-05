@@ -10,7 +10,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
 
         public static $traveler_param = array();
 
-        public static $traveler_list_field_form_build = array();
+        protected  $traveler_list_field_form_build = array();
 
         function __construct()
         {
@@ -29,15 +29,28 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
             add_action( 'admin_init' , array( $this , "_test" ) , 1 );
         }
 
-        function traveler_add_item_field_shortcode($title , $name , $data){
+        function add_form_field($title , $name , $data){
             if(!empty($name)){
                 $data['title'] = $title;
-                self::$traveler_list_field_form_build[$name] = $data;
+                $this->traveler_list_field_form_build[$name] = $data;
             }
         }
-        function traveler_get_all_item_field_shortcode(){
-            return self::$traveler_list_field_form_build;
+        function get_form_fields($form_id){
+
+			$this->_clear_fields();
+			$post=get_post($form_id);
+
+			if($post)
+			{
+				do_shortcode($post->post_content);
+				return $this->traveler_list_field_form_build;
+			}
+
         }
+		function _clear_fields()
+		{
+			$this->traveler_list_field_form_build=array();
+		}
 
         function _load_default_shortcodes()
         {

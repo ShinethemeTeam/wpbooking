@@ -24,31 +24,26 @@ if(!class_exists('Traveler_BankTransfer_Gateway') and class_exists('Traveler_Abs
 			);
 			$this->settings=array(
 				array(
-					'id'    => 'bank_transfer_enable_div',
+					'id'    => 'enable',
 					'label' => __('Enable', 'traveler-booking'),
-					'type'  => 'muti-checkbox',
+					'type'  => 'checkbox',
 					'std'   => '',
-					'value' => array(
-						array(
-							'id'    => 'bank_transfer_enable',
-							'label' =>__('Yes, I want to enable Bank Transfer','travel-booking'),
-						),
-					),
+					'checkbox_label'=>__("Yes, I want to enable Bank Transfer",'traveler-booking')
 				),
 				array(
-					'id'    => 'bank_transfer_display_title',
+					'id'    => 'title',
 					'label' => __('Title', 'traveler-booking'),
 					'type'  => 'text',
 					'std'   => 'Bank Transfer',
 				),
 
 				array(
-					'id'    => 'bank_transfer_display_desc',
+					'id'    => 'desc',
 					'label' => __('Descriptions', 'traveler-booking'),
 					'type'  => 'textarea',
 				),
 				array(
-					'id'    => 'bank_transfer_bank_account',
+					'id'    => 'bank_account',
 					'label' => __('Bank Account', 'traveler-booking'),
 					'type'  => 'textarea',
 					'description'=>__("Write down your back account here",'traveler-booking')
@@ -56,7 +51,15 @@ if(!class_exists('Traveler_BankTransfer_Gateway') and class_exists('Traveler_Abs
 
 			);
 
+			add_action('traveler_gateway_desc_'.$this->gateway_id,array($this,'_show_bank_account'));
+
 			parent::__construct();
+		}
+		function _show_bank_account()
+		{
+			$bank_account=$this->get_option('bank_account');
+			echo "<br>";
+			echo nl2br($bank_account);
 		}
 
 		static function inst()

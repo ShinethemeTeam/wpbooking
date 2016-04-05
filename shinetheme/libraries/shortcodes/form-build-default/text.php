@@ -105,7 +105,7 @@ if(!function_exists( 'traveler_sc_booking_text' )) {
             $rule .= "max_length[100]";
         }
 
-        Traveler_Admin_Form_Build::inst()->traveler_add_item_field_shortcode($title , $name,array('data'=>$data,'rule'=>$rule));
+        Traveler_Admin_Form_Build::inst()->add_form_field($title , $name,array('data'=>$data,'rule'=>$rule));
 
         return '<input type="text" name="' . $name . '" id="' . $id . '" class="' . $class . '" value="' . $value . '" placeholder="' . $placeholder . '"  maxlength="' . $maxlength . '" size="' . $size . '"  ' . $required . ' />';
     }

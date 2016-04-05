@@ -1,3 +1,37 @@
+// Alert
+.alert{
+    padding:10px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    &.alert-information,
+    &.alert-info{
+        background-color: rgba(52, 211, 235, 0.2);
+        border-color: rgba(52, 211, 235, 0.3);
+        color: #35b8e0;
+    }
+    &.alert-success
+    {
+        background-color: rgba(95, 190, 170, 0.3);
+        border-color: rgba(95, 190, 170, 0.4);
+        color: #5fbeaa;
+    }
+    &.alert-danger,
+    &.alert-error{
+        background-color: rgba(240, 80, 80, 0.2);
+        border-color: rgba(240, 80, 80, 0.3);
+        color: #ff5b5b;
+    }
+}
+.hidden{
+    display: none;
+}
+// Default Button
+.button{
+
+}
+
+
 /*
 // Rating Review
 */
@@ -14,6 +48,46 @@
                         content: "\f005";
                     }
                 }
+            }
+        }
+    }
+}
+
+/// Submit Button Loading Icons
+.submit-button{
+    &.loading{
+        &:after{
+            content: "loading";
+
+        }
+    }
+}
+
+
+// Cart Page
+.traveler-cart-wrap
+{
+    .traveler-cart-table{
+        tr{
+            .small-col{
+                width: 6%;
+            }
+        }
+    }
+}
+.traveler-all-gateways{
+    list-style: none;
+    margin: 0px;
+    padding:0px;
+
+    .traveler-gateway-item
+    {
+        .gateway-desc{
+            display: none;
+        }
+        &.active{
+            .gateway-desc{
+                display: block;
             }
         }
     }
