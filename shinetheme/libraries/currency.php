@@ -208,9 +208,9 @@ if(!class_exists('Traveler_Currency'))
 		/**
 		 * return Default Currency
 		 *
-		 *
+		 * @since 1.0
 		 * */
-		static function get_default_currency($need=false)
+		static function get_default_currency($need=false,$default=FALSE)
 		{
 			$primary=false;
 
@@ -220,9 +220,9 @@ if(!class_exists('Traveler_Currency'))
 				// first item is default currency
 				$primary=$add_currencies[0];
 			}
-
+			$all=self::get_all_currency();
 			// Check currency exists and available in the system
-			if($primary and isset(self::$all_currency[$primary]))
+			if($primary and array_key_exists($primary['currency'],$all))
 			{
 				// Default Currency Object Format
 //            array(
@@ -234,8 +234,9 @@ if(!class_exists('Traveler_Currency'))
 //                'position'=>'left'
 //            ),
 
+
 				if($need){
-					return  isset($primary[$need])?$primary[$need]:false;
+					return  isset($primary[$need])?$primary[$need]:$default;
 				}else{
 					return $primary;
 				}
@@ -390,23 +391,98 @@ if(!class_exists('Traveler_Currency'))
 		 *
 		 *
 		 * */
-		static function get_current_currency($need=false)
+		static function get_current_currency($need=false,$default=FALSE)
 		{
+			//var_dump($need);
 			$current=Traveler_Session::get('traveler_currency');
 			//Check session of user first
-			if($need and isset($current))
+			if($need and $current)
 			{
-				return @$current[$need];
+				if(isset($current[$need])) return $current[$need];
+				return $default;
 			}else
-
-				return self::get_default_currency($need);
+				return self::get_default_currency($need,$default);
 		}
 
 
 		static function get_added_currencies()
 		{
 
-			return traveler_get_option('list_currencies',array());
+			return traveler_get_option('currency',array());
+		}
+
+		/**
+		 *
+		 * Conver money from default currency to current currency
+		 *
+		 *
+		 * @since 1.0
+		 * */
+		static function convert_money($money = false, $rate = false)
+		{
+			if(!$money) $money=0;
+			if(!$rate){
+				$current_rate = self::get_current_currency('rate',1);
+				$current      = self::get_current_currency('title');
+
+				$default      = self::get_default_currency('title');
+
+				if($current != $default)
+					$money= $money * $current_rate;
+			}else{
+				$current_rate = $rate;
+				$money= $money * $current_rate;
+			}
+
+			return round((float)$money,2);
+		}
+		static function format_money($money,$need_convert=true)
+		{
+			$money=(float)$money;
+			$symbol                 =   self::get_current_currency('symbol');
+			$precision              =   self::get_current_currency('decimal',0);
+			$thousand_separator     =   self::get_current_currency('thousand_sep',' ');
+			$decimal_separator      =   self::get_current_currency('decimal_sep',' ');
+
+			if($need_convert){
+				$money=self::convert_money($money);
+			}
+
+			if($precision){
+				$money = round($money,2);
+			}
+
+			$template = self::get_current_currency('position');
+
+			if(!$template)
+			{
+				$template='left';
+			}
+
+			$money = number_format((float)$money,$precision,$decimal_separator,$thousand_separator);
+
+			switch($template)
+			{
+
+				case "right":
+					$money_string= $money.$symbol;
+					break;
+				case "left_with_space":
+					$money_string=$symbol." ".$money;
+					break;
+
+				case "right_with_space":
+					$money_string=$money." ".$symbol;
+					break;
+				case "left":
+				default:
+					$money_string= $symbol.$money;
+					break;
+
+
+			}
+
+			return $money_string;
 		}
 
 	}

@@ -24,26 +24,21 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 			);
 			$this->settings=array(
 				array(
-					'id'    => 'paypal_enable_div',
+					'id'    => 'enable',
 					'label' => __('Enable', 'traveler-booking'),
-					'type'  => 'muti-checkbox',
+					'type'  => 'checkbox',
 					'std'   => '',
-					'value' => array(
-						array(
-							'id'    => 'paypal_enable',
-							'label' =>__('Yes, I want to enable PayPal','travel-booking'),
-						),
-					),
+					'checkbox_label'=>__("Yes, I want to enable PayPal",'traveler-booking')
 				),
 				array(
-					'id'    => 'paypal_display_title',
+					'id'    => 'title',
 					'label' => __('Title', 'traveler-booking'),
 					'type'  => 'text',
 					'std'   => 'PayPal',
 				),
 
 				array(
-					'id'    => 'paypal_display_desc',
+					'id'    => 'desc',
 					'label' => __('Descriptions', 'traveler-booking'),
 					'type'  => 'textarea',
 					'std'   => 'You will be redirect to paypal website to finish the payment process',
@@ -52,6 +47,11 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 			);
 
 			parent::__construct();
+		}
+
+		function do_checkout()
+		{
+
 		}
 
 		static function inst()

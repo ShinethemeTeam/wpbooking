@@ -10,7 +10,7 @@
  * @see Traveler_Loader::_autoload();
  */
 $autoload['config']=array(
-	'settings'
+	//'settings'
 );
 
 $autoload['helper']=array(
@@ -26,7 +26,7 @@ $autoload['library']=array(
 	'session',
 	'currency',
 	'validator',
-	'metabox'
+	'metabox',
 );
 
 $autoload['controller']=array(

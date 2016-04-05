@@ -55,7 +55,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		{
 			/**
 			 * Css
-			 */			\
+			 */
 			wp_enqueue_style('font-awesome',traveler_assets_url('fa4.5/css/font-awesome.min.css'),FALSE,'4.5.0');
 			wp_enqueue_style('traveler-booking',traveler_assets_url('css/traveler-booking.css'));
 
