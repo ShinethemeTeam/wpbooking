@@ -105,6 +105,7 @@ img.settings-demo-gallery {
 .traveler-setting-list-item .traveler-list-item-wrap {
   width: 800px;
   border: 1px solid #e5e5e5;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
   background: white;
   margin-bottom: 10px;
@@ -200,7 +201,10 @@ img.settings-demo-gallery {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 0px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 .st-metabox-tabs-content .form-control[type=text],
@@ -221,7 +225,10 @@ img.settings-demo-gallery {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 0px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 .st-metabox-tabs-content .form-control .form-group .form-control[type=text],
@@ -269,6 +276,7 @@ img.settings-demo-gallery {
   width: 40em;
 }
 .ui-tabs-vertical .ui-tabs-nav li a:focus {
+  -webkit-box-shadow: none;
   box-shadow: none;
 }
 @media (max-width: 1023px) {
@@ -464,10 +472,33 @@ input.gmap-search {
   margin-top: 20px;
 }
 .traveler-calendar-wrapper .traveler-calendar-content {
+  position: relative;
   width: 100%;
   float: left;
   padding-left: 15px;
   padding-right: 15px;
+  z-index: 1;
+}
+.traveler-calendar-wrapper .traveler-calendar-content .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  background: rgba(255, 255, 255, 0.6);
+  display: none;
+}
+.traveler-calendar-wrapper .traveler-calendar-content .overlay .spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-right: -10px;
+  z-index: 10;
+}
+.traveler-calendar-wrapper .traveler-calendar-content .overlay.open {
+  display: block !important;
 }
 .traveler-calendar-wrapper .traveler-calendar-sidebar {
   width: 100%;
@@ -504,5 +535,12 @@ input.gmap-search {
     width: 30%;
   }
 }
-
-/*# sourceMappingURL=admin.css.map */
+.form-message {
+  font-style: italic;
+}
+.form-message.error {
+  color: #A81212;
+}
+.form-message.success {
+  color: #1E59DF;
+}

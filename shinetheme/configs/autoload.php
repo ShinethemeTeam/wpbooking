@@ -38,13 +38,15 @@ $autoload['controller']=array(
     'admin/settings',
 	'admin/taxonomy',
 	'admin/test-metabox',
+	'admin/calendar.metabox',
 	'gateways',
 	'booking'
 );
 
 $autoload['model']=array(
 	'service_model',
-	'order_model'
+	'order_model',
+	'calendar_model'
 );
 
 $autoload['widget']=array(

@@ -487,10 +487,34 @@ input.gmap-search{
 .traveler-calendar-wrapper{
     margin-top: 20px;
     .traveler-calendar-content{
+        position: relative;
         width: 100%;
         float: left;
         padding-left: 15px;
         padding-right: 15px;
+        z-index: 1;
+
+        .overlay{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9;
+            background: rgba(255, 255, 255, 0.6);
+            display: none;
+            .spinner{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-left: -10px;
+                margin-right: -10px;
+                z-index: 10;
+            }
+            &.open{
+                display: block !important;
+            }
+        }
     }
     .traveler-calendar-sidebar{
         width: 100%;
@@ -530,5 +554,14 @@ input.gmap-search{
             width: 30%
         }
 
+    }
+}
+.form-message{
+    font-style: italic;
+    &.error{
+        color: #A81212;
+    }
+    &.success{
+        color: #1E59DF;
     }
 }
