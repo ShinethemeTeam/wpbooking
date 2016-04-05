@@ -115,19 +115,36 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 			global $wpdb;
 
 			$table = $wpdb->prefix. 'traveler_availability';
-
-			$wpdb->insert(
-				$table,
-				array(
-					'post_id'     => $post_id,
-					'base_id'     => $base_id,
-					'start'    => $check_in,
-					'end'   => $check_out,
-					'price'       => $price,
-					'status' => $status,
-					'group_day'   => $group_day
-				)
-			);
+			if( $group_day == 'group' ){
+				$wpdb->insert(
+					$table,
+					array(
+						'post_id'   => $post_id,
+						'base_id'   => $base_id,
+						'start'     => $check_in,
+						'end'       => $check_out,
+						'price'     => $price,
+						'status'    => $status,
+						'group_day' => $group_day
+					)
+				);
+			}else{
+				for( $i = $check_in; $i <= $check_out; $i = strtotime('+1 day', $i) ){
+					$wpdb->insert(
+						$table,
+						array(
+							'post_id'   => $post_id,
+							'base_id'   => $base_id,
+							'start'     => $i,
+							'end'       => $i,
+							'price'     => $price,
+							'status'    => $status,
+							'group_day' => $group_day
+						)
+					);
+				}
+			}
+			
 
 			return (int) $wpdb->insert_id;
 		}
