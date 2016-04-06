@@ -83,7 +83,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 
 			wp_enqueue_script('fullcalendar-lang', traveler_admin_assets_url('/js/lang-all.js'), array('jquery'), null, true);
 
-			wp_enqueue_script('traveler-calendar-room',traveler_admin_assets_url('js/traveler-calendar-room.js'),array('jquery'),null,true);
+			wp_enqueue_script('traveler-calendar-room',traveler_admin_assets_url('js/traveler-calendar-room.js'),array('jquery','jquery-ui-datepicker'),null,true);
 
 			wp_enqueue_style('full-calendar',traveler_admin_assets_url('/css/fullcalendar.min.css'),FALSE,'1.1.6');
 			//wp_enqueue_style('full-calendar-print',traveler_admin_assets_url('/css/fullcalendar.print.css'),FALSE,'1.1.6');
