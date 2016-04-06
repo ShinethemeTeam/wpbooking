@@ -20,7 +20,9 @@ echo traveler_get_message();
 					<th class="col-cart-item-price"><?php _e('Price')?></th>
 					<th class="col-cart-item-actions"><?php _e('Actions')?></th>
 				</tr>
-				<tbody>
+
+			</thead>
+			<tbody>
 					<?php
 					$carts=$booking->get_cart();
 					if(!empty($carts)){
@@ -57,7 +59,6 @@ echo traveler_get_message();
 					}
 					?>
 				</tbody>
-			</thead>
 		</table>
 	</div>
 	<div class="traveler-cart-summary-col">

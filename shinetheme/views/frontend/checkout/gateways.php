@@ -9,6 +9,7 @@ $booking=Traveler_Booking::inst();
 $gateway=Traveler_Payment_Gateways::inst();
 $all=$gateway->get_available_gateways();
 $pay_amount=$booking->get_cart_pay_amount();
+if(!$pay_amount) return;
 ?>
 <ul class="traveler-all-gateways">
 	<?php if(!empty($all))

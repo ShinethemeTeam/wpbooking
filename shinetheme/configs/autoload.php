@@ -39,6 +39,7 @@ $autoload['controller']=array(
 	'admin/taxonomy',
 	'admin/test-metabox',
 	'gateways',
+	'email',
 	'booking'
 );
 

@@ -188,6 +188,7 @@ if (!class_exists('Traveler_Booking')) {
 			return $item_price;
 		}
 
+
 		/**
 		 * Get Order Form HTML based on Service Type ID
 		 * @param $service_type
@@ -307,6 +308,9 @@ if (!class_exists('Traveler_Booking')) {
 							'data'     => $data,
 							'redirect' => ''
 						);
+
+						do_action('traveler_after_checkout_success',$order_id);
+
 					} else {
 						$res = array(
 							'status'  => 0,
@@ -358,17 +362,27 @@ if (!class_exists('Traveler_Booking')) {
 
 			if (!empty($order_id)) {
 				foreach ($order_items as $key => $value) {
-					$item_price = $value['base_price'];
-					$item_price = apply_filters('traveler_order_item_total', $item_price, $value, $value['service_type']);
-					$item_price = apply_filters('traveler_order_item_total_' . $value['service_type'], $item_price, $value);
-
-					$total += $item_price;
+					$total+=$this->get_order_item_total($value);
 				}
 			}
 
 			$total = apply_filters('traveler_get_order_total', $total);
 
 			return $total;
+		}
+
+		/**
+		 * Get total order item price by the given item object
+		 * @param $item mixed
+		 * @return int|mixed|void
+		 */
+		function get_order_item_total($item)
+		{
+			$item_price = $item['base_price'];
+			$item_price = apply_filters('traveler_order_item_total', $item_price, $item, $item['service_type']);
+			$item_price = apply_filters('traveler_order_item_total_' . $item['service_type'], $item_price, $item);
+
+			return $item_price;
 		}
 
 		/**
@@ -386,11 +400,16 @@ if (!class_exists('Traveler_Booking')) {
 
 			if (!empty($order_id)) {
 				foreach ($order_items as $key => $value) {
-					$item_price = $value['base_price'];
-					$item_price = apply_filters('traveler_order_item_total', $item_price, $value, $value['service_type']);
-					$item_price = apply_filters('traveler_order_item_total_' . $value['service_type'], $item_price, $value);
 
-					$total += $item_price;
+					// Payment Completed -> Ignore
+					if($value['payment_status']=='completed') continue;
+
+					// Payment On-Paying -> Ignore
+					if($value['payment_status']=='on-paying') continue;
+
+					if ($value['need_customer_confirm']===1 or $value['need_partner_confirm']===1) continue;
+
+					$total += $this->get_order_item_total($value);
 				}
 			}
 

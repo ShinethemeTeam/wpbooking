@@ -107,6 +107,48 @@ $config['settings'] = array(
 
 		)
 	),
+	'email'      => array(
+		'name'     => __("Email", 'traveler-booking'),
+		'sections' => array(
+			'general_booking' => array(
+				'id'     => 'general_booking',
+				'label'  => __("General Options", 'traveler-booking'),
+				'fields' => array(
+
+					array(
+						'id'        => 'email_from',
+						'label'     => __("Email From Name", 'traveler-booking'),
+						'type'      => 'text',
+						'std'		=>__("Traveler Booking Plugin",'traveler-booking')
+					),
+					array(
+						'id'        => 'email_from_address',
+						'label'     => __("Email From Address", 'traveler-booking'),
+						'type'      => 'text',
+						'placeholder'=>'contact@domain.com'
+					),
+				)
+			),
+			'confirm_email' => array(
+				'id'     => 'confirm_email',
+				'label'  => __("Confirmation Email", 'traveler-booking'),
+				'fields' => array(
+
+					array(
+						'id'        => 'confirm_to_customer',
+						'label'     => __("For Customer", 'traveler-booking'),
+						'type'      => 'texteditor',
+					),
+					array(
+						'id'        => 'confirm_to_partner',
+						'label'     => __("For Partner", 'traveler-booking'),
+						'type'      => 'texteditor',
+					),
+				)
+			)
+
+		)
+	),
 	"test_options" => array(
 		"name"     => __('Test Options', 'traveler-booking'),
 		"sections" => array(

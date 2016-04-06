@@ -98,10 +98,16 @@ if(!class_exists('Traveler_Payment_Gateways'))
 
 		function do_checkout($gateway,$order_id)
 		{
+			$order_model=Traveler_Order_Model::inst();
+
 			$data=array();
 			$all_gateways=$this->get_gateways();
 			if(isset($all_gateways[$gateway]))
 			{
+
+				// Get payable order item ids
+				$order_model->prepare_paying($order_id);
+
 				$selected_gateway=$all_gateways[$gateway];
 
 				if(method_exists($selected_gateway,'do_checkout'))
