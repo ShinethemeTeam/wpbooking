@@ -472,10 +472,12 @@ input.gmap-search {
   margin-top: 20px;
 }
 .traveler-calendar-wrapper .traveler-calendar-content {
+  position: relative;
   width: 100%;
   float: left;
   padding-left: 15px;
   padding-right: 15px;
+  z-index: 1;
 }
 .traveler-calendar-wrapper .traveler-calendar-sidebar {
   width: 100%;
@@ -496,6 +498,69 @@ input.gmap-search {
 .traveler-calendar-wrapper .traveler-calendar-sidebar .form-container .calendar-input {
   width: 100%;
 }
+.traveler-calendar-wrapper .traveler-calendar-sidebar #form-bulk-edit {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.7) none repeat scroll 0% 0%;
+  display: none;
+}
+.traveler-calendar-wrapper .traveler-calendar-sidebar #form-bulk-edit .form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  background: #ffffff none repeat scroll 0% 0%;
+  transform: translateX(-50%) translateY(-50%);
+  border: 1px solid #242323;
+  padding: 15px;
+  max-width: 90%;
+  width: 950px;
+}
+.traveler-calendar-wrapper .traveler-calendar-sidebar #form-bulk-edit .form-container h4,
+.traveler-calendar-wrapper .traveler-calendar-sidebar #form-bulk-edit .form-container h3 {
+  margin: 0;
+  padding: 0;
+}
+.traveler-calendar-wrapper .traveler-calendar-sidebar #form-bulk-edit .form-container .form-title {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #CCC;
+}
+.traveler-calendar-wrapper .traveler-calendar-sidebar #form-bulk-edit .form-container .form-footer {
+  padding-top: 15px;
+  border-top: 1px solid #CCC;
+}
+.traveler-calendar-wrapper .traveler-calendar-sidebar #form-bulk-edit .form-container .form-content {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.traveler-calendar-wrapper .traveler-calendar-sidebar #form-bulk-edit .form-container .form-content .form-group {
+  margin-left: 5px;
+  margin-right: 5px;
+  float: left;
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid #CCC;
+  margin-bottom: 10px;
+}
+.traveler-calendar-wrapper .traveler-calendar-sidebar #form-bulk-edit .form-container .form-content .form-group label {
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+.traveler-calendar-wrapper .traveler-calendar-sidebar #form-bulk-edit .form-container .form-content .form-group label.block {
+  display: block;
+  margin-bottom: 5px;
+}
+@media (max-width: 1040px) {
+  #form-bulk-edit .form-container {
+    max-height: 480px;
+    overflow-y: scroll;
+  }
+}
 .traveler-calendar-wrapper:after,
 .traveler-calendar-wrapper:before {
   content: " ";
@@ -511,4 +576,42 @@ input.gmap-search {
   .traveler-calendar-wrapper .traveler-calendar-sidebar {
     width: 30%;
   }
+}
+.form-message {
+  font-style: italic;
+}
+.form-message.error {
+  color: #A81212;
+}
+.form-message.success {
+  color: #1E59DF;
+}
+.clearfix:after,
+.clearfix:before {
+  content: " ";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  background: rgba(255, 255, 255, 0.6);
+  display: none;
+}
+.overlay .spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-right: -10px;
+  z-index: 10;
+}
+.overlay.open {
+  display: block !important;
 }

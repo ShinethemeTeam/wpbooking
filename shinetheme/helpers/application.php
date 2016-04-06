@@ -128,3 +128,19 @@ if( !function_exists('traveler_encrypt_compare') ){
 		return false;
 	}
 }
+if( !function_exists('traveler_origin_id') ){
+	function traveler_origin_id( $post_id , $post_type = 'post', $return_origin ){
+		if(function_exists('icl_object_id')) {
+		    return icl_object_id( $post_id, $post_type, true );
+		} else {
+		    return $post_id;
+		}
+	}
+}
+if( !function_exists('dateDiff') ){
+	function dateDiff( $start, $end ){
+        $start = strtotime( $start );
+        $end = strtotime( $end );
+        return ($end - $start) / (60 * 60 * 24);
+    }
+}    
