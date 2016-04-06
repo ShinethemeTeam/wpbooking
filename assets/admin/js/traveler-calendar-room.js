@@ -172,4 +172,120 @@ jQuery(document).ready(function($) {
     		return false;
     	});
     }
+
+
+
+    /////////////////////////////////
+    /////// Select all checkbox /////
+    /////////////////////////////////
+    $('.check-all').change(function(event) {
+        var name = $(this).data('name');
+        $("input[name='"+ name +"[]']").prop('checked', $(this).prop("checked"));
+    });
+
+    if( $('#form-bulk-edit').length ){
+        $('#calendar-bulk-close').click(function(event) {
+            $(this).closest('#form-bulk-edit').fadeOut();
+            $(this).closest('.traveler-calendar-wrapper').find('.calendar-room').fullCalendar('refetchEvents');
+        });
+    }
+
+    $('#calendar-bulk-edit').click(function(event) {
+        if( $('#form-bulk-edit').length ){
+            $('#form-bulk-edit').fadeIn();
+        }
+    });
+
+    var flag_save_bulk = false;
+    if( $('#form-bulk-edit').length ){
+        $('#calendar-bulk-save').click(function(event) {
+            var parent = $(this).closest('#form-bulk-edit');
+            var container = $(this).closest('.traveler-calendar-wrapper');
+
+            if( flag_save_bulk ) return false; flag_save_bulk = true;
+
+            /*  Get values */
+            var day_of_week = [];
+            $('input[name="day-of-week[]"]:checked', parent).each(function(i){
+                day_of_week[i] = $(this).val();
+            });
+
+            var day_of_month = [];
+            $('input[name="day-of-month[]"]:checked', parent).each(function(i){
+                day_of_month[i] = $(this).val();
+            });
+
+            var months = [];
+            $('input[name="months[]"]:checked', parent).each(function(i){
+                months[i] = $(this).val();
+            });
+
+            var years = [];
+            $('input[name="years[]"]:checked', parent).each(function(i){
+                years[i] = $(this).val();
+            });
+
+            var data = {
+                'day-of-week' : day_of_week,
+                'day-of-month' : day_of_month,
+                'months' : months,
+                'years' : years,
+                'price_bulk' : $('input[name="price-bulk"]').val(),
+                'post_id' : $('input[name="post-id"]', parent).val(),
+                'post_encrypt' : $('input[name="post-encrypt"]', parent).val(),
+                'action' : 'traveler_calendar_bulk_edit',
+                'security': traveler_params.traveler_security
+            };
+
+            $('.form-message', parent).html('').removeClass('error success');
+            $('.overlay', parent).addClass('open');
+
+            step_add_bulk( '', '', '', '', '', '', '', container, data);
+            
+            return false;
+        });
+    }
+
+    function step_add_bulk( data1, posts_per_page, total, current_page, all_days, post_id, post_encrypt, container, data_first ){
+        var data;
+        if( typeof( data_first) == 'object' ){
+            data = data_first;
+        }else{
+            data = {
+                'data' : data1,
+                'posts_per_page' : posts_per_page,
+                'total' : total,
+                'current_page' : current_page,
+                'all_days' : all_days,
+                'post_id' : post_id,
+                'post_encrypt' : post_encrypt,
+                'action' : 'traveler_calendar_bulk_edit',
+                'security': traveler_params.traveler_security
+            }
+        }
+        
+        $.ajax({
+            url: traveler_params.ajax_url,
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+        })
+        .done(function( respon ) {
+            if( typeof( respon ) == 'object' ){
+                if( respon.status == 2 ){
+                    step_add_bulk( respon.data, respon.posts_per_page, respon.total, respon.current_page, respon.all_days, respon.post_id, respon.post_encrypt, container, '');
+                }else{
+                    $('#form-bulk-edit .form-message', container).html( respon.message ).addClass( 'success' );
+                    $('#form-bulk-edit .overlay', container).removeClass('open');
+                }
+            }
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            flag_save_bulk = false;
+        });
+        
+    }
 });

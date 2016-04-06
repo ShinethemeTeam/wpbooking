@@ -45,14 +45,15 @@ if(!empty($data['condition'])){
 								<option value="not_available"><?php echo __('Not Available','traveler-booking'); ?></option>
 							</select>
 						</div>
-						<div class="" style="margin-bottom: 10px;">
+						<div class="clearfix" style="margin-bottom: 10px;">
 							<input type="hidden" id="calendar-action" name="action" value="traveler_add_availability">
 							<input type="hidden" id="calendar-post-id" name="post-id" value="<?php echo get_the_ID(); ?>">
 							<input type="hidden" id="calendar-post-encrypt" name="calendar-post-encrypt" value="<?php echo traveler_encrypt( get_the_ID() ); ?>">
 							<button type="button" id="calendar-save" class="button button-primary button-large"><?php echo __('Save','traveler-booking'); ?></button>
+							<button type="button" id="calendar-bulk-edit" class="button button-primary button-large" style="float: right;"><?php echo __('Bulk Edit','traveler-booking'); ?></button>
 						</div>
 						<div class="" style="margin-bottom: 10px;">
-							<button type="button" id="calendar-bulk-edit" class="button button-primary button-large"><?php echo __('Bulk Edit','traveler-booking'); ?></button>
+							
 						</div>
 						<div class="form-message" style="margin-bottom: 10px;">
 							
@@ -75,13 +76,13 @@ if(!empty($data['condition'])){
 										<h4 class=""><input type="checkbox" class="check-all" data-name="day-of-week"> <?php echo __('Days Of Week', 'traveler-booking'); ?></h4>
 									</div>
 									<div class="form-content">
-										<label class="block"><input type="checkbox" name="day-of-week" value="Sunday" style="margin-right: 5px;"><?php echo __('Sunnday', 'traveler-booking'); ?></label>
-										<label class="block"><input type="checkbox" name="day-of-week" value="Monday" style="margin-right: 5px;"><?php echo __('Monday', 'traveler-booking'); ?></label>
-										<label class="block"><input type="checkbox" name="day-of-week" value="Tuesday" style="margin-right: 5px;"><?php echo __('Tuesday', 'traveler-booking'); ?></label>
-										<label class="block"><input type="checkbox" name="day-of-week" value="Wednesday" style="margin-right: 5px;"><?php echo __('Wednesday', 'traveler-booking'); ?></label>
-										<label class="block"><input type="checkbox" name="day-of-week" value="Thursday" style="margin-right: 5px;"><?php echo __('Thursday', 'traveler-booking'); ?></label>
-										<label class="block"><input type="checkbox" name="day-of-week" value="Friday" style="margin-right: 5px;"><?php echo __('Friday', 'traveler-booking'); ?></label>
-										<label class="block"><input type="checkbox" name="day-of-week" value="Saturday" style="margin-right: 5px;"><?php echo __('Saturday', 'traveler-booking'); ?></label>
+										<label class="block"><input type="checkbox" name="day-of-week[]" value="Sunday" style="margin-right: 5px;"><?php echo __('Sunnday', 'traveler-booking'); ?></label>
+										<label class="block"><input type="checkbox" name="day-of-week[]" value="Monday" style="margin-right: 5px;"><?php echo __('Monday', 'traveler-booking'); ?></label>
+										<label class="block"><input type="checkbox" name="day-of-week[]" value="Tuesday" style="margin-right: 5px;"><?php echo __('Tuesday', 'traveler-booking'); ?></label>
+										<label class="block"><input type="checkbox" name="day-of-week[]" value="Wednesday" style="margin-right: 5px;"><?php echo __('Wednesday', 'traveler-booking'); ?></label>
+										<label class="block"><input type="checkbox" name="day-of-week[]" value="Thursday" style="margin-right: 5px;"><?php echo __('Thursday', 'traveler-booking'); ?></label>
+										<label class="block"><input type="checkbox" name="day-of-week[]" value="Friday" style="margin-right: 5px;"><?php echo __('Friday', 'traveler-booking'); ?></label>
+										<label class="block"><input type="checkbox" name="day-of-week[]" value="Saturday" style="margin-right: 5px;"><?php echo __('Saturday', 'traveler-booking'); ?></label>
 									</div>
 								</div>
 								<div class="form-group">
@@ -94,7 +95,7 @@ if(!empty($data['condition'])){
 											echo '<div>';
 										}
 									?>
-										<label style="width: 40px;"><input type="checkbox" name="day-of-month" value="<?php echo $i; ?>" style="margin-right: 5px;"><?php echo $i; ?></label>
+										<label style="width: 40px;"><input type="checkbox" name="day-of-month[]" value="<?php echo $i; ?>" style="margin-right: 5px;"><?php echo $i; ?></label>
 
 									<?php 
 										if( $i != 1 && $i % 5 == 0 ) echo '</div><div>';
@@ -118,7 +119,7 @@ if(!empty($data['condition'])){
 											echo '<div>';
 										}
 									?>
-										<label style="width: 100px;"><input type="checkbox" name="months" value="<?php echo $month; ?>" style="margin-right: 5px;"><?php echo $month; ?></label>
+										<label style="width: 100px;"><input type="checkbox" name="months[]" value="<?php echo $month; ?>" style="margin-right: 5px;"><?php echo $month; ?></label>
 
 									<?php 
 										if( $key != 0 && ($key + 1) % 2 == 0 ) echo '</div><div>';
@@ -141,7 +142,7 @@ if(!empty($data['condition'])){
 											echo '<div>';
 										}
 									?>
-										<label style="width: 100px;"><input type="checkbox" name="years" value="<?php echo $i; ?>" style="margin-right: 5px;"><?php echo $i; ?></label>
+										<label style="width: 100px;"><input type="checkbox" name="years[]" value="<?php echo $i; ?>" style="margin-right: 5px;"><?php echo $i; ?></label>
 
 									<?php 
 										if( $i != $year && ($i == $j + 2 ) ) { echo '</div><div>'; $j = $i; }
@@ -154,10 +155,13 @@ if(!empty($data['condition'])){
 							</div>
 							<div class="form-content clearfix">
 								<label class="block"><span><strong><?php echo __('Price', 'traveler-booking'); ?>: </strong></span><input type="text" value="" name="price-bulk" id="price-bulk" placeholder="<?php echo __('Price', 'traveler-booking'); ?>"></label>
+								<input type="hidden" name="post-id" value="<?php echo get_the_ID(); ?>">
+								<input type="hidden" name="post-encrypt" value="<?php echo traveler_encrypt( get_the_ID() ); ?>">
+								<div class="form-message" style="margin-top: 20px;"></div>
 							</div>
 							<div class="form-footer">
 								<button type="button" id="calendar-bulk-save" class="button button-primary button-large"><?php echo __('Save','traveler-booking'); ?></button>
-								<button type="button" id="calendar-bulk-cancel" class="button button-large"><?php echo __('Cancel','traveler-booking'); ?></button>
+								<!-- <button type="button" id="calendar-bulk-cancel" class="button button-large"><?php echo __('Cancel','traveler-booking'); ?></button> -->
 							</div>
 						</div>
 					</div>

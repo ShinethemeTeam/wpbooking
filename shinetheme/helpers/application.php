@@ -137,3 +137,10 @@ if( !function_exists('traveler_origin_id') ){
 		}
 	}
 }
+if( !function_exists('dateDiff') ){
+	function dateDiff( $start, $end ){
+        $start = strtotime( $start );
+        $end = strtotime( $end );
+        return ($end - $start) / (60 * 60 * 24);
+    }
+}    

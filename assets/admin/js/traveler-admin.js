@@ -478,24 +478,4 @@ jQuery(document).ready(function( $ ){
         /* Act on the event */
     });
 
-    /////////////////////////////////
-    /////// Select all checkbox /////
-    /////////////////////////////////
-    $('.check-all').change(function(event) {
-        var name = $(this).data('name');
-        $("input[name='"+ name +"']").prop('checked', $(this).prop("checked"));
-    });
-
-    if( $('#form-bulk-edit').length ){
-        $('#calendar-bulk-close').click(function(event) {
-            $(this).closest('#form-bulk-edit').fadeOut();
-        });
-    }
-
-    $('#calendar-bulk-edit').click(function(event) {
-        if( $('#form-bulk-edit').length ){
-            $('#form-bulk-edit').fadeIn();
-        }
-    });
-
 });
