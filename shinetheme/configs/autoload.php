@@ -40,6 +40,7 @@ $autoload['controller']=array(
 	'admin/test-metabox',
 	'admin/calendar.metabox',
 	'gateways',
+	'email',
 	'booking'
 );
 
