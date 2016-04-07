@@ -52,8 +52,7 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
             <div class="col-md-5 space-top-5">
                 <?php
                 $taxonomy = Traveler_Admin_Taxonomy_Controller::inst()->get_taxonomies();
-                $gallery = explode(",",$gallery);
-                if(!empty($gallery)) {
+                if(!empty($taxonomy)) {
                     foreach( $taxonomy as $k => $v ) {
                         if(in_array($service_type,$v['service_type'])){
                             echo "<h4>".$v['label']."</h4>";
