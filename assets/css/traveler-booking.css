@@ -72,7 +72,15 @@
   height: 500px;
 }
 .submit-button.loading:after {
-  content: "loading";
+  -webkit-animation: fa-spin 1s infinite steps(8);
+  animation: fa-spin 1s infinite steps(8);
+  content: "\f110";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .traveler-cart-wrap .traveler-cart-table tr .small-col {
   width: 6%;
