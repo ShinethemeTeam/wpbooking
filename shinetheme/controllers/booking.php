@@ -24,7 +24,7 @@ if (!class_exists('Traveler_Booking')) {
 			add_action('init', array($this, '_register_shortcode'));
 			add_action('template_redirect', array($this, '_delete_cart_item'));
 
-			add_action('template_redirect','_complete_purchase_validate');
+			add_action('template_redirect',array($this,'_complete_purchase_validate'));
 
 		}
 
