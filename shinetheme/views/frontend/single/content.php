@@ -14,7 +14,7 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
 <div  itemscope itemtype="http://schema.org/Product" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<meta itemprop="url" content="<?php the_permalink(); ?>" />
-    <div class="container traveler-single-content">
+    <div class="container-fluid traveler-single-content">
         <div class="row">
             <div class="col-md-2">
                 <?php if(has_post_thumbnail() and get_the_post_thumbnail()){
@@ -52,8 +52,7 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
             <div class="col-md-5 space-top-5">
                 <?php
                 $taxonomy = Traveler_Admin_Taxonomy_Controller::inst()->get_taxonomies();
-                $gallery = explode(",",$gallery);
-                if(!empty($gallery)) {
+                if(!empty($taxonomy)) {
                     foreach( $taxonomy as $k => $v ) {
                         if(in_array($service_type,$v['service_type'])){
                             echo "<h4>".$v['label']."</h4>";
@@ -85,8 +84,9 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
                     $map_lat = get_post_meta( get_the_ID() , 'map_lat', true );
                     $map_lng = get_post_meta( get_the_ID() , 'map_long', true );
                     $map_zoom = get_post_meta( get_the_ID() , 'map_zoom', true );
-                    ?>
-                    <div class="traveler_google_map" data-lat="<?php echo esc_attr($map_lat) ?>" data-lng="<?php echo esc_attr($map_lng) ?>" data-zoom="<?php echo esc_attr($map_zoom) ?>"></div>
+                    if(!empty($map_lat) and !empty($map_lng)){ ?>
+                        <div class="traveler_google_map" data-lat="<?php echo esc_attr($map_lat) ?>" data-lng="<?php echo esc_attr($map_lng) ?>" data-zoom="<?php echo esc_attr($map_zoom) ?>"></div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
