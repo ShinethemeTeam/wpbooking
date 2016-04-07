@@ -48,7 +48,7 @@ $autoload['model']=array(
 );
 
 $autoload['widget']=array(
-
+    'search-form'
 );
 
 $autoload['encrypr_key'] = 'traveler';

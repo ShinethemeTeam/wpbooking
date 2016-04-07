@@ -25,6 +25,14 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 			add_filter('traveler_service_setting_sections', array($this, '_add_setting_section'));
 			add_filter('traveler_review_stats', array($this, '_filter_get_review_stats'));
 			add_filter('traveler_get_order_form_'.$this->type_id, array($this, '_get_order_form'));
+
+
+            /*Change Search*/
+			add_filter('traveler_add_page_archive_search', array($this, '_add_page_archive_search'));
+			add_filter('traveler_service_query_args_'.$this->type_id, array($this, '_service_query_args'));
+
+			add_action('traveler_before_service_query_'.$this->type_id, array($this, '_get_where_query'));
+
 		}
 
 		/**
@@ -35,7 +43,7 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 			$form_id= $this->get_option('order_form');
 			$post=get_post($form_id);
 			if($post){
-				return apply_filters('the_content',$post->content);
+				return apply_filters('the_content',$post->post_content);
 			}
 
 		}
@@ -110,5 +118,15 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 
 			return $service_types;
 		}
+        function _add_page_archive_search($args)
+        {
+            return $args;
+        }
+        function _service_query_args($args){
+            return $args;
+        }
+        function _get_where_query($where){
+            return $where;
+        }
 	}
 }
