@@ -179,7 +179,9 @@ if(!class_exists('Traveler_Model') ){
 
 			$query=$wpdb->prepare($query,array($table_name,$set));
 
-			return $wpdb->query($query);
+			$wpdb->query($query);
+
+			return $wpdb->insert_id;
 
 		}
 
