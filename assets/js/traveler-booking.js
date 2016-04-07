@@ -29,7 +29,7 @@ jQuery(document).ready(function($){
     // Single Services
     // Helper functions
     function getFormData(form){
-        var data=array();
+        var data=[];
         var data1 = form.serializeArray();
         for(var i = 0; i < data1.length; i++){
             data.push({
@@ -52,12 +52,12 @@ jQuery(document).ready(function($){
 
 
     // Order Form
-    $('.traveler_order_form.submit-button').click(function(){
+    $('.traveler_order_form .submit-button').click(function(){
         var form=$(this).closest('.traveler_order_form');
         var me=$(this);
         var data=getFormData(form);
         me.addClass('loading').removeClass('error');
-        me.find('.traveler-message').remove();
+        form.find('.traveler-message').remove();
 
         data.action='traveler_add_to_cart';
 
@@ -72,12 +72,12 @@ jQuery(document).ready(function($){
                 }else{
                     me.addClass('error');
                 }
-
+                console.log(res.message);
                 if(res.message){
-                    var message=$('</div>');
+                    var message=$('<div/>');
                     message.addClass('traveler-message');
                     message.html(res.message);
-                    me.next(message);
+                    me.after(message);
                 }
                 if(me.data.redirect){
                     window.location=me.data.redirect;
@@ -92,12 +92,12 @@ jQuery(document).ready(function($){
     });
 
     // Checkout Form
-    $('.traveler_checkout_form.submit-button').click(function(){
+    $('.traveler_checkout_form .submit-button').click(function(){
         var form=$(this).closest('.traveler_order_form');
         var me=$(this);
         var data=getFormData(form);
         me.addClass('loading').removeClass('error');
-        me.find('.traveler-message').remove();
+        form.find('.traveler-message').remove();
 
         data.action='traveler_do_checkout';
 
@@ -114,13 +114,16 @@ jQuery(document).ready(function($){
                 }
 
                 if(res.message){
-                    var message=$('</div>');
+                    var message=$('<div/>');
                     message.addClass('traveler-message');
                     message.html(res.message);
-                    me.next(message);
+                    me.after(message);
                 }
                 if(me.data.redirect){
                     window.location=me.data.redirect;
+                }
+                if(me.redirect){
+                    window.location=me.redirect;
                 }
 
                 me.removeClass('loading');
@@ -130,6 +133,7 @@ jQuery(document).ready(function($){
             }
         })
     });
+
 
 
     //////////////////////////////////
@@ -159,4 +163,15 @@ jQuery(document).ready(function($){
         });
     });
 
+    // Gateway Items
+    $('.traveler-gateway-item [name=payment_gateway]').change(function(){
+       var parent=$(this).closest('.traveler-gateway-item');
+        if(!parent.hasClass('active'))
+        {
+            parent.siblings().removeClass('active');
+            parent.addClass('active');
+        }
+    });
+
 });
+

@@ -1,4 +1,7 @@
 <?php
+$data=wp_parse_args($data,array(
+	'placeholder'=>''
+));
 $data_value = traveler_get_option($data['id'],$data['std']);
 $name = 'traveler_booking_'.$data['id'];
 
@@ -21,7 +24,7 @@ if(!empty($data['condition'])){
         <label for="<?php echo esc_html($data['id']) ?>"><?php echo esc_html($data['label']) ?>:</label>
     </th>
     <td>
-        <input type="text" id="<?php echo esc_attr($name) ?>" class="form-control  min-width-500" value="<?php echo esc_html($data_value) ?>" name="<?php echo esc_html($name) ?>" placeholder="<?php echo esc_html($data['label']) ?>">
+        <input type="text" id="<?php echo esc_attr($name) ?>" class="form-control  min-width-500" value="<?php echo esc_html($data_value) ?>" name="<?php echo esc_html($name) ?>" placeholder="<?php echo esc_html($data['placeholder']) ?>">
         <i class="traveler-desc"><?php echo balanceTags($data['desc']) ?></i>
     </td>
 </tr>

@@ -1,3 +1,37 @@
+// Alert
+.alert{
+    padding:10px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    &.alert-information,
+    &.alert-info{
+        background-color: rgba(52, 211, 235, 0.2);
+        border-color: rgba(52, 211, 235, 0.3);
+        color: #35b8e0;
+    }
+    &.alert-success
+    {
+        background-color: rgba(95, 190, 170, 0.3);
+        border-color: rgba(95, 190, 170, 0.4);
+        color: #5fbeaa;
+    }
+    &.alert-danger,
+    &.alert-error{
+        background-color: rgba(240, 80, 80, 0.2);
+        border-color: rgba(240, 80, 80, 0.3);
+        color: #ff5b5b;
+    }
+}
+.hidden{
+    display: none;
+}
+// Default Button
+.button{
+
+}
+
+
 /*
 // Rating Review
 */
@@ -35,24 +69,64 @@
         margin: 0px;
     }
 }
-.traveler-single-content{
-    margin:0px;
-    .space-top-1{
-        margin-top:10px;
+.traveler-single-content {
+    margin: 0px;
+    .space-top-1 {
+        margin-top: 10px;
     }
-    .space-top-2{
-        margin-top:20px;
+    .space-top-2 {
+        margin-top: 20px;
     }
-    .space-top-3{
-        margin-top:30px;
+    .space-top-3 {
+        margin-top: 30px;
     }
-    .space-top-4{
-        margin-top:40px;
+    .space-top-4 {
+        margin-top: 40px;
     }
-    .space-top-5{
-        margin-top:50px;
+    .space-top-5 {
+        margin-top: 50px;
     }
-    .traveler_google_map{
+    .traveler_google_map {
         height: 500px;
+    }
+}
+
+/// Submit Button Loading Icons
+.submit-button{
+    &.loading{
+        &:after{
+            content: "loading";
+
+        }
+    }
+}
+
+
+// Cart Page
+.traveler-cart-wrap
+{
+    .traveler-cart-table{
+        tr{
+            .small-col{
+                width: 6%;
+            }
+        }
+    }
+}
+.traveler-all-gateways{
+    list-style: none;
+    margin: 0px;
+    padding:0px;
+
+    .traveler-gateway-item
+    {
+        .gateway-desc{
+            display: none;
+        }
+        &.active{
+            .gateway-desc{
+                display: block;
+            }
+        }
     }
 }

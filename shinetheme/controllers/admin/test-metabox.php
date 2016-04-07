@@ -41,6 +41,12 @@ class Test_Metabox extends Traveler_Controller{
 					'type'=>'service-type-select',
 				),
                 array(
+                    'id'      => 'location' ,
+                    'label'   => __( 'Location' , 'traveler-booking' ) ,
+                    'desc'    => __( 'Location' , 'traveler-booking' )  ,
+                    'type'    => 'location' ,
+                ),
+                array(
                     'id'      => 'check_box' ,
                     'label'   => __( 'Check Box' , 'traveler-booking' ) ,
                     'desc'    => __( 'Check Box' , 'traveler-booking' )  ,
@@ -90,6 +96,7 @@ class Test_Metabox extends Traveler_Controller{
                     'desc' => 'Text Box',
                     'type' => 'text',
                     'std' => 'textbox',
+                    'condition' => 'check_box:is(check_1)'
                 ),
                 array(
                     'id' => 'gmap',

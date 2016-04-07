@@ -1,4 +1,7 @@
 <?php
+$data=wp_parse_args($data,array(
+	'checkbox_label'=>''
+));
 $data_value = traveler_get_option($data['id'],$data['std']);
 $name = 'traveler_booking_'.$data['id'];
 if(!empty($data['element_list_item'])){
@@ -23,8 +26,10 @@ if(!empty($data['condition'])){
         <label for="<?php echo esc_html($data['id']) ?>"><?php echo esc_html($data['label']) ?>:</label>
     </th>
     <td>
+		<label >
         <input type="checkbox" id="<?php echo esc_attr($name) ?>" class="form-control min-width-500" <?php echo esc_html($is_check) ?>   name="<?php echo esc_html($name) ?>">
-        <?php echo esc_html($data['label']) ?>
+        <?php echo esc_html($data['checkbox_label']?$data['checkbox_label']:$data['label']) ?>
+		</label>
         <i class="traveler-desc"><?php echo balanceTags($data['desc']) ?></i>
     </td>
 </tr>

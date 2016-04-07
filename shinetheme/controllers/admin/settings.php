@@ -11,6 +11,8 @@ if(!class_exists('Traveler_Admin_Setting'))
 
         function __construct()
         {
+			TravelerConfig()->load('settings');
+
             //add_action('init',array($this,'_add_post_type'));
             add_action( 'admin_menu', array($this,"register_traveler_booking_sub_menu_page") );
 

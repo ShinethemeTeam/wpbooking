@@ -1,3 +1,29 @@
+.alert {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert.alert-information,
+.alert.alert-info {
+  background-color: rgba(52, 211, 235, 0.2);
+  border-color: rgba(52, 211, 235, 0.3);
+  color: #35b8e0;
+}
+.alert.alert-success {
+  background-color: rgba(95, 190, 170, 0.3);
+  border-color: rgba(95, 190, 170, 0.4);
+  color: #5fbeaa;
+}
+.alert.alert-danger,
+.alert.alert-error {
+  background-color: rgba(240, 80, 80, 0.2);
+  border-color: rgba(240, 80, 80, 0.3);
+  color: #ff5b5b;
+}
+.hidden {
+  display: none;
+}
 /*
 // Rating Review
 */
@@ -42,4 +68,21 @@
 }
 .traveler-single-content .traveler_google_map {
   height: 500px;
+}
+.submit-button.loading:after {
+  content: "loading";
+}
+.traveler-cart-wrap .traveler-cart-table tr .small-col {
+  width: 6%;
+}
+.traveler-all-gateways {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+.traveler-all-gateways .traveler-gateway-item .gateway-desc {
+  display: none;
+}
+.traveler-all-gateways .traveler-gateway-item.active .gateway-desc {
+  display: block;
 }

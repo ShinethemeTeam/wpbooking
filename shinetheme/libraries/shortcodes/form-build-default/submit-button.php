@@ -49,9 +49,10 @@ if(!function_exists( 'traveler_sc_booking_submit_buttom' )) {
                 'label' => '' ,
                 'name'  => '' ,
                 'id'    => '' ,
-                'class' => '' ,
+                'class' => ' ' ,
             ) , $attr , 'traveler_booking_submit_buttom' );
         extract( $data );
+		$class.=' submit-button';
         return '<button type="submit" name="' . $name . '" id="' . $id . '" class="' . $class . '" >' . $label . '</button>';
     }
 }

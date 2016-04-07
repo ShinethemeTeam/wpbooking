@@ -7,32 +7,7 @@ $config['settings'] = array(
 				'id'     => 'general_option',
 				'label'  => __('General Options', 'traveler-booking'),
 				'fields' => array(
-					array(
-						'id'        => 'title',
-						'label'     => __('Title Tab', 'traveler-booking'),
-						'desc'      => '',
-						'type'      => 'title',
-						'std'       => '',
-						'condition' => ''
-					),
-					array(
-						'id'        => 'hr',
-						'label'     => '',
-						'desc'      => '',
-						'type'      => 'hr',
-						'std'       => '',
-						'condition' => ''
-					),
-					array(
-						'id'    => 'cart_page',
-						'label' => __('Cart Page', 'traveler-booking'),
-						'type'  => 'page-select'
-					),
-					array(
-						'id'    => 'checkout_page',
-						'label' => __('Checkout Page', 'traveler-booking'),
-						'type'  => 'page-select'
-					),
+
 					array(
 						'id'    => 'currency',
 						'label' => __('Currency', 'traveler-booking'),
@@ -44,7 +19,7 @@ $config['settings'] = array(
 								'id'    => 'currency',
 								'label' => __('Currency', 'traveler-booking'),
 								'type'  => 'dropdown',
-								'std'   => apply_filters('traveler_get_all_currency', array()),
+								'value'   => apply_filters('traveler_get_all_currency', array()),
 							),
 							array(
 								'id'    => 'symbol',
@@ -91,71 +66,7 @@ $config['settings'] = array(
 									'max' => 3
 								)
 							),
-							array(
-								'id'    => 'textarea',
-								'label' => __('Text Area', 'traveler-booking'),
-								'desc'  => __('Text Area', 'traveler-booking'),
-								'type'  => 'textarea',
-								'std'   => '',
-							),
-							array(
-								'id'    => 'texteditor',
-								'label' => __('Text Editor', 'traveler-booking'),
-								'desc'  => __('Text Editor', 'traveler-booking'),
-								'type'  => 'texteditor',
-								'std'   => '',
-							),
-							array(
-								'id'    => 'texteditor2',
-								'label' => __('Text Editor 2', 'traveler-booking'),
-								'desc'  => __('Text Editor 2', 'traveler-booking'),
-								'type'  => 'texteditor',
-								'std'   => '',
-							),
-							array(
-								'id'    => 'upload',
-								'label' => __('Upload', 'traveler-booking'),
-								'desc'  => __('Upload', 'traveler-booking'),
-								'type'  => 'upload',
-								'std'   => '',
-							),
-							array(
-								'id'       => 'gallery',
-								'label'    => __('Gallery', 'traveler-booking'),
-								'desc'     => __('Gallery', 'traveler-booking'),
-								'type'     => 'gallery',
-								'std'      => '',
-								'taxonomy' => ''
-							),
-							array(
-								'id'    => 'page-select',
-								'label' => __('Page select', 'traveler-booking'),
-								'desc'  => __('Page select', 'traveler-booking'),
-								'type'  => 'page-select',
-								'std'   => '',
-							),
-							array(
-								'id'    => 'post-select',
-								'label' => __('Post select', 'traveler-booking'),
-								'desc'  => __('Post select', 'traveler-booking'),
-								'type'  => 'post-select',
-								'std'   => '',
-							),
-							array(
-								'id'       => 'taxonomy-select',
-								'label'    => __('Taxonomy select', 'traveler-booking'),
-								'desc'     => __('Taxonomy select', 'traveler-booking'),
-								'type'     => 'taxonomy-select',
-								'std'      => '',
-								'taxonomy' => 'category'
-							),
-							array(
-								'id'    => 'image-thumb',
-								'label' => __('Image Thumb', 'traveler-booking'),
-								'desc'  => __('Image Thumb', 'traveler-booking'),
-								'type'  => 'image-thumb',
-								'std'   => '',
-							),
+
 						)
 					),
 				)
@@ -166,7 +77,7 @@ $config['settings'] = array(
 		'name'     => __("Booking", 'traveler-booking'),
 		'sections' => array(
 			'general_booking' => array(
-				'id'     => 'general_option',
+				'id'     => 'general_booking',
 				'label'  => __("General Options", 'traveler-booking'),
 				'fields' => array(
 
@@ -190,6 +101,48 @@ $config['settings'] = array(
 						'id'        => 'allow_guest_checkout',
 						'label'     => __("Allow Guest Checkout?", 'traveler-booking'),
 						'type'      => 'checkbox',
+					),
+				)
+			)
+
+		)
+	),
+	'email'      => array(
+		'name'     => __("Email", 'traveler-booking'),
+		'sections' => array(
+			'general_booking' => array(
+				'id'     => 'general_booking',
+				'label'  => __("General Options", 'traveler-booking'),
+				'fields' => array(
+
+					array(
+						'id'        => 'email_from',
+						'label'     => __("Email From Name", 'traveler-booking'),
+						'type'      => 'text',
+						'std'		=>__("Traveler Booking Plugin",'traveler-booking')
+					),
+					array(
+						'id'        => 'email_from_address',
+						'label'     => __("Email From Address", 'traveler-booking'),
+						'type'      => 'text',
+						'placeholder'=>'contact@domain.com'
+					),
+				)
+			),
+			'confirm_email' => array(
+				'id'     => 'confirm_email',
+				'label'  => __("Confirmation Email", 'traveler-booking'),
+				'fields' => array(
+
+					array(
+						'id'        => 'confirm_to_customer',
+						'label'     => __("For Customer", 'traveler-booking'),
+						'type'      => 'texteditor',
+					),
+					array(
+						'id'        => 'confirm_to_partner',
+						'label'     => __("For Partner", 'traveler-booking'),
+						'type'      => 'texteditor',
 					),
 				)
 			)

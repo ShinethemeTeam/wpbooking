@@ -10,7 +10,7 @@
  * @see Traveler_Loader::_autoload();
  */
 $autoload['config']=array(
-	'settings'
+	//'settings'
 );
 
 $autoload['helper']=array(
@@ -38,13 +38,16 @@ $autoload['controller']=array(
     'admin/settings',
 	'admin/taxonomy',
 	'admin/test-metabox',
+	'admin/calendar.metabox',
 	'gateways',
+	'email',
 	'booking'
 );
 
 $autoload['model']=array(
 	'service_model',
-	'order_model'
+	'order_model',
+	'calendar_model'
 );
 
 $autoload['widget']=array(

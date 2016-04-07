@@ -80,7 +80,7 @@ if(!class_exists('Traveler_Admin_Service'))
 				'show_ui'            => true,
 				'show_in_menu'       => true,
 				'query_var'          => true,
-				'rewrite'            => array( 'slug' => 'book' ),
+				'rewrite'            => array( 'slug' => 'service' ),
 				'capability_type'    => 'post',
 				'has_archive'        => true,
 				'hierarchical'       => false,
