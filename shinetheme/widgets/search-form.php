@@ -21,7 +21,8 @@ if(!class_exists('traveler_widget_form_search')){
             }
 
             ?>
-            <form class="traveler-search-form" action="<?php echo esc_url($page_search) ?>">
+            <form class="traveler-search-form" action="<?php echo esc_url( $page_search ) ?>"
+                  xmlns="http://www.w3.org/1999/html">
                 <aside class="widget widget_calendar" id="calendar-2">
                     <div class="calendar_wrap" id="calendar_wrap">
                         <h3><?php echo esc_html( $title ) ?></h3>
@@ -33,17 +34,44 @@ if(!class_exists('traveler_widget_form_search')){
                                     $required = 'required';
                                 }
                                 $value = Traveler_Input::request($v['field_type'],'');
-                                ?>
-                                <div class="item-search">
-                                    <label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-                                    <input type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
-                                </div>
-                            <?php
+                                switch($v['field_type']){
+                                    case "location_id":
+                                        ?>
+                                        <div class="item-search">
+                                            <label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+                                            <?php
+                                            $args = array(
+                                                'show_option_none' => __( '-- Select --' , ST_TEXTDOMAIN ),
+                                                'option_none_value' => "",
+                                                'hierarchical'      => 1 ,
+                                                'name'              => $v['field_type'] ,
+                                                'class'             => '' ,
+                                                'id'             => $v['field_type'] ,
+                                                'taxonomy'          => 'traveler_location' ,
+                                                'hide_empty' => 0,
+                                            );
+                                            $is_taxonomy = Traveler_Input::request($v['field_type']);
+                                            if(!empty($is_taxonomy)){
+                                                $args['selected'] =$is_taxonomy;
+                                            }
+                                            wp_dropdown_categories( $args );
+                                            ?>
+                                        </div>
+                                        <?php
+                                        break;
+                                    default:
+                                        ?>
+                                        <div class="item-search">
+                                            <label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+                                            <input type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+                                        </div>
+                                    <?php
+                                }
                             }
                         } ?>
 
                         <div class="item-search">
-                            <input class="" type="submit" value="Search">
+                            <button class="" type="submit"><?php _e("Search",'traveler-booking') ?></button
                         </div>
                     </div>
                 </aside>

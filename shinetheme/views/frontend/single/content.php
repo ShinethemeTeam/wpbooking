@@ -23,18 +23,21 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
             </div>
             <div class="col-md-10">
                 <h3><?php the_title(); ?></h3>
-                <div> <i class="fa fa-map-marker"></i>
-                    <?php echo get_post_meta(get_the_ID(),'address',true); ?>
-                </div>
+                <?php $adress  = get_post_meta(get_the_ID(),'address',true); ?>
+                <?php if(!empty($adress)){ ?>
+                    <div> <i class="fa fa-map-marker"></i>
+                        <?php echo get_post_meta(get_the_ID(),'address',true); ?>
+                    </div>
+                <?php } ?>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2 space-top-5">
+            <div class="col-md-12">
                 <?php echo traveler_load_view('single/order-form')?>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 space-top-5">
+            <div class="col-md-12">
                 <div class="content-single">
                     <?php
                     if(have_posts()){
@@ -49,7 +52,7 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
             </div>
         </div>
         <div class="row">
-            <div class="col-md-5 space-top-5">
+            <div class="col-md-5">
                 <?php
                 $taxonomy = Traveler_Admin_Taxonomy_Controller::inst()->get_taxonomies();
                 if(!empty($taxonomy)) {
@@ -78,7 +81,7 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 space-top-5">
+            <div class="col-md-12">
                 <div class="content-single">
                     <?php
                     $map_lat = get_post_meta( get_the_ID() , 'map_lat', true );
@@ -91,7 +94,7 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
             </div>
         </div>
         <div class="row">
-            <div class="col-md-5 space-top-5">
+            <div class="col-md-5">
                 <?php
                 $gallery = get_post_meta(get_the_ID(),'gallery',true);
                 $gallery = explode(",",$gallery);
