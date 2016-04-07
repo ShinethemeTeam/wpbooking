@@ -25,8 +25,6 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
             add_action( 'admin_init' , array( $this , "_save_layout" ) );
             add_action( 'admin_init' , array( $this , "_del_layout" ) );
 
-
-            add_action( 'admin_init' , array( $this , "_test" ) , 1 );
         }
 
         function add_form_field($title , $name , $data){
@@ -92,18 +90,6 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                 }
             }
             return $list_field;
-        }
-
-        function _test()
-        {
-           /* $x  = get_post('11331');
-
-            $list =$x->post_content;
-
-            do_shortcode($list);
-
-            var_dump(self::traveler_get_all_item_field_shortcode());
-            //var_dump();*/
         }
 
         function _get_list_layout()
@@ -271,7 +257,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                 'public'             => true ,
                 'publicly_queryable' => true ,
                 'show_ui'            => true ,
-                'show_in_menu'       => true ,
+                'show_in_menu'       => false ,
                 'query_var'          => true ,
                 'rewrite'            => array( 'slug' => 'form_builder' ) ,
                 'capability_type'    => 'post' ,

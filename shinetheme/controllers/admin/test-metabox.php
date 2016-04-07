@@ -143,13 +143,7 @@ class Test_Metabox extends Traveler_Controller{
                         'yes' => __( 'Yes' , "traveler-booking" ) ,
                     ) ,
                 ),
-                array(
-                    'id'      => 'gallery' ,
-                    'label'   => __( 'Gallery' , 'traveler-booking' ) ,
-                    'desc'    => __( 'Gallery' , 'traveler-booking' )  ,
-                    'type'    => 'gallery' ,
-                    'std'     => '',
-                ),
+
                 array(
                     'label' => __('Location 1', 'traveler_booking'),
                     'id'    => 'location_tab1',
@@ -165,6 +159,38 @@ class Test_Metabox extends Traveler_Controller{
                         'check_1'  => __( 'Check Box 1.1' , "traveler-booking" ) ,
                         'check_2' => __( 'Check Box 2.1' , "traveler-booking" ) ,
                     ) ,
+                ),
+                array(
+                    'label' => __('Location', 'traveler-booking'),
+                    'id'    => 'location_tab_2',
+                    'type'  => 'tab',
+                ),
+                array(
+                    'id' => 'address',
+                    'label' => __("Address",'traveler-booking'),
+                    'desc' => __("Address",'traveler-booking'),
+                    'type' => 'text',
+                    'std' => '',
+                ),
+                array(
+                    'id' => 'google_map',
+                    'label' => __("Google map",'traveler-booking'),
+                    'desc' => __("Google map",'traveler-booking'),
+                    'type' => 'gmap',
+                    'std' => '',
+                    'map_zoom' => 13
+                ),
+                array(
+                    'label' => __('Info Service', 'traveler-booking'),
+                    'id'    => 'info_service_tab',
+                    'type'  => 'tab',
+                ),
+                array(
+                    'id'      => 'gallery' ,
+                    'label'   => __( 'Gallery' , 'traveler-booking' ) ,
+                    'desc'    => __( 'Gallery' , 'traveler-booking' )  ,
+                    'type'    => 'gallery' ,
+                    'std'     => '',
                 ),
             )
 		);

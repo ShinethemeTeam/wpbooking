@@ -33,6 +33,42 @@
 .traveler-rating-result-wrap .rating-stars a.active .icon-star:before {
   content: "\f005";
 }
+.traveler-search-form .item-search {
+  margin-bottom: 10px;
+}
+.traveler-container {
+  padding: 20px;
+}
+.traveler-container li.content-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.traveler-container ul {
+  list-style: none;
+  margin: 0px;
+}
+.traveler-single-content {
+  margin: 0px;
+}
+.traveler-single-content .space-top-1 {
+  margin-top: 10px;
+}
+.traveler-single-content .space-top-2 {
+  margin-top: 20px;
+}
+.traveler-single-content .space-top-3 {
+  margin-top: 30px;
+}
+.traveler-single-content .space-top-4 {
+  margin-top: 40px;
+}
+.traveler-single-content .space-top-5 {
+  margin-top: 50px;
+}
+.traveler-single-content .traveler_google_map {
+  height: 500px;
+}
 .submit-button.loading:after {
   content: "loading";
 }
