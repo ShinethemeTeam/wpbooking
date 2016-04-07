@@ -24,6 +24,8 @@ if (!class_exists('Traveler_Booking')) {
 			add_action('init', array($this, '_register_shortcode'));
 			add_action('template_redirect', array($this, '_delete_cart_item'));
 
+			add_action('template_redirect','_complete_purchase_validate');
+
 		}
 
 
@@ -125,6 +127,14 @@ if (!class_exists('Traveler_Booking')) {
 				traveler_set_message(__("Delete cart item successfully", 'traveler-booking'), 'success');
 			}
 
+		}
+
+		function _complete_purchase_validate()
+		{
+			if(is_singular('traveler_order'))
+			{
+
+			}
 		}
 
 
@@ -308,6 +318,11 @@ if (!class_exists('Traveler_Booking')) {
 							'data'     => $data,
 							'redirect' => ''
 						);
+
+						if(empty($data['redirect']))
+						{
+							$res['redirect']=get_permalink($order_id);
+						}
 
 						do_action('traveler_after_checkout_success',$order_id);
 

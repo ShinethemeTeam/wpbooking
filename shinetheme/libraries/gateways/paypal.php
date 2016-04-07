@@ -97,9 +97,10 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 			parent::__construct();
 		}
 
-		function do_checkout($order_id)
+		function do_checkout($order_id,$payment_id)
 		{
-			$booking=Traveler_Booking::inst();
+
+			$payment=Traveler_Payment_Model::inst();
 
 			$gateway=$this->gatewayObject;
 			if ($this->get_option('test_mode', 'on') == 'on') {
@@ -114,19 +115,32 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 				$gateway->setSignature($this->get_option('api_signature'));
 			}
 
-			$total=$booking->get_order_pay_amount($order_id);
+			$total=$payment->get_payment_amount($payment_id);
 
 			$purchase = array(
 				'amount'      => (float)$total,
 				'currency'    => TravelHelper::get_current_currency('name'),
 				'description' => __('Traveler Booking',ST_TEXTDOMAIN),
-				'returnUrl'   => $this->get_return_url($order_id),
-				'cancelUrl'   => $this->get_cancel_url($order_id),
+				'returnUrl'   => $this->get_return_url($order_id,$payment_id),
+				'cancelUrl'   => $this->get_cancel_url($order_id,$payment_id),
 			);
 
 			$response = $gateway->purchase(
 				$purchase
 			)->send();
+
+			if ($response->isSuccessful()) {
+
+				return array('status' => true);
+
+			} elseif ($response->isRedirect()) {
+
+				return array('status' => false, 'redirect' => $response->getRedirectUrl());
+			} else {
+
+				return array('status' => false, 'message' => $response->getMessage(), 'data' => $purchase);
+
+			}
 		}
 
 		static function inst()

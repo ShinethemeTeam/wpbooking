@@ -104,15 +104,17 @@ if(!class_exists('Traveler_Payment_Gateways'))
 			$all_gateways=$this->get_gateways();
 			if(isset($all_gateways[$gateway]))
 			{
-
+				// Create Payment
+				$payment=Traveler_Payment_Model::inst();
+				$payment_id=$payment->create_payment($order_id,$gateway);
 				// Get payable order item ids
-				$order_model->prepare_paying($order_id);
+				$order_model->prepare_paying($order_id,$payment_id);
 
 				$selected_gateway=$all_gateways[$gateway];
 
 				if(method_exists($selected_gateway,'do_checkout'))
 				{
-					$data=$selected_gateway->do_checkout($order_id);
+					$data=$selected_gateway->do_checkout($order_id,$payment_id);
 				}
 			}
 
