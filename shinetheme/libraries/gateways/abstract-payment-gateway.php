@@ -32,6 +32,7 @@ if (!class_exists('Traveler_Abstract_Payment_Gateway')) {
 			$settings = $this->get_settings_fields();
 			if (!empty($settings)) {
 				foreach ($settings as $key => $value) {
+					if(!empty($value['id']))
 					$settings[$key]['id'] = 'gateway_' . $this->gateway_id . '_' . $value['id'];
 				}
 			}
@@ -119,6 +120,18 @@ if (!class_exists('Traveler_Abstract_Payment_Gateway')) {
     						<script>document.getElementById(\'traveler_payment_redirect_form\').submit();</script>
 							%s
 						</form>', $url, $hiddenFields);
+		}
+
+		/**
+		 * Do Complete Purchase Action
+		 *
+		 * @param $payment_id
+		 * @return bool
+		 * @since 1.0
+		 */
+		function complete_purchase($payment_id)
+		{
+			return true;
 		}
 
 		function _register_gateway($gateways = array())

@@ -119,8 +119,8 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 
 			$purchase = array(
 				'amount'      => (float)$total,
-				'currency'    => TravelHelper::get_current_currency('name'),
-				'description' => __('Traveler Booking',ST_TEXTDOMAIN),
+				'currency'    => Traveler_Currency::get_current_currency('name'),
+				'description' => __('Traveler Booking','traveler-booking'),
 				'returnUrl'   => $this->get_return_url($order_id,$payment_id),
 				'cancelUrl'   => $this->get_cancel_url($order_id,$payment_id),
 			);

@@ -16,6 +16,7 @@ if (!class_exists('Traveler_Order_Model')) {
 		function __construct()
 		{
 			$this->table_name = 'traveler_order_item';
+			$this->table_version='1.1';
 			$this->columns = array(
 				'id'                    => array(
 					'type'           => "int",
@@ -49,7 +50,6 @@ if (!class_exists('Traveler_Order_Model')) {
 
 		function create($cart)
 		{
-
 			$order_data = array(
 				'post_title'  => sprintf(__('New Order In %s', 'traveler-booking'), date(get_option('date_format') . ' @' . get_option('time_format'))),
 				'post_type'   => 'traveler_order',
@@ -78,7 +78,9 @@ if (!class_exists('Traveler_Order_Model')) {
 				'adult_number'        => 0,
 				'child_number'        => 0,
 				'infant_number'       => 0,
-				'customer_id'         => 0
+				'customer_id'         => 0,
+				'need_customer_confirm'=>0,
+				'need_partner_confirm'=>0
 			));
 			$insert = array(
 				'order_id'              => $order_id,
@@ -95,13 +97,13 @@ if (!class_exists('Traveler_Order_Model')) {
 				'infant_number'         => $cart_item['infant_number'],
 				'customer_id'           => $cart_item['customer_id'],
 				'partner_id'            => get_post_field('post_author', $cart_item['post_id']),
-				'need_customer_confirm' => array('type' => 'INT'),
-				'need_partner_confirm'  => array('type' => 'INT'),
+				'need_customer_confirm' => $cart_item['need_customer_confirm'],
+				'need_partner_confirm'  => $cart_item['need_partner_confirm'],
 				'payment_status'        => 0,
 				'status'                => 'on-hold'
 			);
 
-			$this->insert($insert);
+			return $this->insert($insert);
 		}
 
 		/**
@@ -111,7 +113,7 @@ if (!class_exists('Traveler_Order_Model')) {
 		 */
 		function get_order_items($order_id)
 		{
-			return $this->where('order_id', $order_id)->get();
+			return $this->where('order_id', $order_id)->get()->result();
 		}
 
 
@@ -144,6 +146,18 @@ if (!class_exists('Traveler_Order_Model')) {
 
 				return $on_paying;
 			}
+		}
+
+		/**
+		 * Update Payment Status of Items by Payment ID
+		 *
+		 * @param $payment_id
+		 * @since 1.0
+		 */
+		function complete_purchase($payment_id)
+		{
+
+			$this->where('payment_id', $payment_id)->update(array('payment_status' => 'completed','payment_id'=>$payment_id));
 		}
 
 		static function inst()

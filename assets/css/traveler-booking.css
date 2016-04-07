@@ -1,6 +1,6 @@
 .alert {
   padding: 10px;
-  margin-bottom: 20px;
+  margin: 20px 0px;
   border: 1px solid transparent;
   border-radius: 4px;
 }
@@ -27,10 +27,12 @@
 /*
 // Rating Review
 */
-.traveler-rating-result-wrap br {
+.traveler-rating-result-wrap br,
+.traveler-rating-review br {
   display: none;
 }
-.traveler-rating-result-wrap .rating-stars a.active .icon-star:before {
+.traveler-rating-result-wrap .rating-stars a.active .icon-star:before,
+.traveler-rating-review .rating-stars a.active .icon-star:before {
   content: "\f005";
 }
 .traveler-search-form .item-search {
@@ -79,7 +81,15 @@
   list-style: none;
 }
 .submit-button.loading:after {
-  content: "loading";
+  -webkit-animation: fa-spin 1s infinite steps(8);
+  animation: fa-spin 1s infinite steps(8);
+  content: "\f110";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .traveler-cart-wrap .traveler-cart-table tr .small-col {
   width: 6%;
