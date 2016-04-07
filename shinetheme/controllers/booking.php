@@ -94,8 +94,8 @@ if (!class_exists('Traveler_Booking')) {
 					'order_form'            => $order_form,
 					'base_price'            => get_post_meta($post_id, 'price', TRUE),
 					'customer_id'           => is_user_logged_in() ? get_current_user_id() : FALSE,
-					'need_customer_confirm' => apply_filters('traveler_service_need_customer_confirm', FALSE, $post_id, $service_type),
-					'need_partner_confirm'  => apply_filters('traveler_service_need_partner_confirm', FALSE, $post_id, $service_type)
+					'need_customer_confirm' => apply_filters('traveler_service_need_customer_confirm', 0, $post_id, $service_type),
+					'need_partner_confirm'  => apply_filters('traveler_service_need_partner_confirm', 0, $post_id, $service_type)
 				);
 				$cart_params = apply_filters('traveler_cart_item_params', $cart_params, $post_id, $service_type);
 				$cart_params = apply_filters('traveler_cart_item_params_' . $service_type, $cart_params, $post_id);
@@ -117,9 +117,133 @@ if (!class_exists('Traveler_Booking')) {
 			die;
 		}
 
+		/**
+		 * Ajax Checkout Handler
+		 * @since 1.0
+		 */
+		function do_checkout()
+		{
+
+			$cart = Traveler_Session::get('traveler_cart');
+
+			$res = array();
+			$form_id = $this->get_checkout_form_id();
+			$fields = traveler_get_form_fields($form_id);
+
+			// Validate Order Form
+			$is_validate = TRUE;
+
+			if (empty($cart)) {
+				$is_validate = FALSE;
+				traveler_set_message(__("Sorry! Your cart is currently empty", 'traveler-booking'), 'error');
+			}
+
+			if ($is_validate and !traveler_get_option('allow_guest_checkout') and !is_user_logged_in()) {
+				$is_validate=FALSE;
+				$res['redirect'] = wp_login_url(get_permalink(traveler_get_option('checkout_page')));
+				traveler_set_message(__("You need login to do this!", 'traveler-booking'), 'error');
+			}
+
+			// Require Payment Gateways
+			$gateway_manage = Traveler_Payment_Gateways::inst();
+			$selected_gateway = Traveler_Input::post('payment_gateway');
+			$pay_amount = $this->get_cart_pay_amount();
+			$available_gateways = $gateway_manage->get_available_gateways();
+
+			if ($is_validate and $pay_amount) {
+				if (!empty($available_gateways) and !$selected_gateway) {
+					$is_validate = FALSE;
+					traveler_set_message(__("Please select at least one Payment Gateway", 'traveler-booking'), 'error');
+				} elseif (empty($available_gateways) or !array_key_exists($selected_gateway, $available_gateways)) {
+					$is_validate = FALSE;
+					traveler_set_message(sprintf(__("Gateway: %s is not ready to use, please choose other gateway", 'traveler-booking'), $selected_gateway), 'error');
+				}
+
+			}
+
+
+			// Validate Form
+			$validator = new Traveler_Validator();
+			if (!empty($fields) and $is_validate) {
+				foreach ($fields as $key => $value) {
+					$validator->set_rules($key, $value['title'], $value['rule']);
+				}
+				if ($is_validate and !$validator->run()) {
+					$is_validate = FALSE;
+					traveler_set_message($validator->error_string());
+				}
+			}
+
+
+
+			if ($is_validate) {
+				$is_validate = apply_filters('traveler_do_checkout_validate', $is_validate, $cart);
+			}
+
+
+			if (!$is_validate) {
+				$res = array(
+					'status'  => 0,
+					'message' => traveler_get_message(TRUE)
+				);
+			} else {
+
+				$order_model = Traveler_Order_Model::inst();
+				$order_id = $order_model->create($cart);
+				if ($order_id) {
+					$data = array();
+
+					try{
+						if ($selected_gateway) {
+							$data = Traveler_Payment_Gateways::inst()->do_checkout($selected_gateway, $order_id);
+						}
+						//do checkout
+
+						$res = array(
+							'status'   => 1,
+							'message'  => __('Booking Success', 'traveler-booking'),
+							'data'     => $data,
+							'redirect' => ''
+						);
+
+					}catch(Exception $e)
+					{
+						traveler_set_message($e->getMessage(),'error');
+						//do checkout
+						$res = array(
+							'status'   => 1,
+							'message'  => traveler_get_message(true),
+						);
+					}
+
+					if(empty($data['redirect']) and empty($data['status']))
+					{
+						$res['redirect']=get_permalink($order_id);
+					}
+
+					do_action('traveler_after_checkout_success',$order_id);
+
+				} else {
+					$res = array(
+						'status'  => 0,
+						'message' => __('Can not create the order. Please contact the Admin', 'traveler-booking')
+					);
+				}
+
+
+			}
+
+
+			$res = apply_filters('traveler_ajax_do_checkout', $res, $cart);
+
+			echo json_encode($res);
+			die;
+		}
+
 		function _delete_cart_item()
 		{
-			if ($index = Traveler_Input::get('delete_cart_item')) {
+			if (isset($_GET['delete_cart_item'])) {
+				$index=Traveler_Input::get('delete_cart_item');
 				$all = Traveler_Session::get('traveler_cart');
 				unset($all[$index]);
 				$all = array_values($all);
@@ -133,7 +257,17 @@ if (!class_exists('Traveler_Booking')) {
 		{
 			if(is_singular('traveler_order'))
 			{
+				$action= Traveler_Input::get('action');
+				$payment_id=Traveler_Input::get('payment_id');
+				switch($action)
+				{
+					case "cancel_purchase":
 
+						break;
+					case "complete_purchase":
+						Traveler_Payment_Gateways::inst()->complete_purchase($payment_id);
+						break;
+				}
 			}
 		}
 
@@ -232,117 +366,7 @@ if (!class_exists('Traveler_Booking')) {
 		}
 
 
-		/**
-		 * Ajax Checkout Handler
-		 * @since 1.0
-		 */
-		function do_checkout()
-		{
 
-			$cart = Traveler_Session::get('traveler_cart');
-
-			if (!traveler_get_option('allow_guest_checkout')) {
-				$res = array(
-					'status'   => 0,
-					'message'  => __("You need login to do this!", 'traveler-booking'),
-					'redirect' => wp_login_url(get_permalink(traveler_get_option('checkout_page')))
-				);
-			} else {
-				$res = array();
-				$form_id = $this->get_checkout_form_id();
-				$fields = array();
-
-				// Validate Order Form
-				$is_validate = TRUE;
-
-				if (!empty($cart)) {
-					$is_validate = FALSE;
-					traveler_set_message(__("Sorry! Your cart is currently empty", 'traveler-booking'), 'error');
-				}
-
-				// Require Payment Gateways
-				$gateway_manage = Traveler_Payment_Gateways::inst();
-				$selected_gateway = Traveler_Input::post('payment_gateway');
-				$pay_amount = $this->get_cart_pay_amount();
-				$available_gateways = $gateway_manage->get_available_gateways();
-
-				if ($is_validate and $pay_amount) {
-					if (!empty($available_gateways) and !$selected_gateway) {
-						$is_validate = FALSE;
-						traveler_set_message(__("Please select at least one Payment Gateway", 'traveler-booking'), 'error');
-					} elseif (!empty($available_gateways) and array_key_exists($selected_gateway, $available_gateways)) {
-						$is_validate = FALSE;
-						traveler_set_message(sprintf(__("Gateway: %s is not ready to use, please choose other gateway", 'traveler-booking'), $selected_gateway), 'error');
-					}
-
-				}
-
-
-				// Validate Form
-				$validator = new Traveler_Validator();
-				if (!empty($fields) and $is_validate) {
-					foreach ($fields as $key => $value) {
-						$validator->set_rules($key, $value['title'], $value['rule']);
-					}
-				}
-
-				if ($is_validate and !$validator->run()) {
-					$is_validate = FALSE;
-					traveler_set_message($validator->error_string());
-				}
-
-				if ($is_validate) {
-					$is_validate = apply_filters('traveler_do_checkout_validate', $is_validate, $cart);
-				}
-
-
-				if (!$is_validate) {
-					$res = array(
-						'status'  => 0,
-						'message' => traveler_get_message(TRUE)
-					);
-				} else {
-
-					$order_model = Traveler_Order_Model::inst();
-					$order_id = $order_model->create($cart);
-					if ($order_id) {
-						$data = array();
-						if ($selected_gateway) {
-							$data = Traveler_Payment_Gateways::inst()->do_checkout($selected_gateway, $order_id);
-						}
-						//do checkout
-
-						$res = array(
-							'status'   => 1,
-							'message'  => __('Booking Success', 'traveler-booking'),
-							'data'     => $data,
-							'redirect' => ''
-						);
-
-						if(empty($data['redirect']))
-						{
-							$res['redirect']=get_permalink($order_id);
-						}
-
-						do_action('traveler_after_checkout_success',$order_id);
-
-					} else {
-						$res = array(
-							'status'  => 0,
-							'message' => __('Can not create the order. Please contact the Admin', 'traveler-booking')
-						);
-					}
-
-
-				}
-			}
-
-
-			$res = apply_filters('traveler_ajax_do_checkout', $res, $cart);
-
-			echo json_encode($res);
-			die;
-		}
 
 		/**
 		 * Get checkout form HTML from Settings page
@@ -413,7 +437,7 @@ if (!class_exists('Traveler_Booking')) {
 
 			$order_items = $order_model->find_by('order_id', $order_id);
 
-			if (!empty($order_id)) {
+			if (!empty($order_items)) {
 				foreach ($order_items as $key => $value) {
 
 					// Payment Completed -> Ignore

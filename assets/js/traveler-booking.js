@@ -93,7 +93,7 @@ jQuery(document).ready(function($){
 
     // Checkout Form
     $('.traveler_checkout_form .submit-button').click(function(){
-        var form=$(this).closest('.traveler_order_form');
+        var form=$(this).closest('.traveler_checkout_form');
         var me=$(this);
         var data=getFormData(form);
         me.addClass('loading').removeClass('error');

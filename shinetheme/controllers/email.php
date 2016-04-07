@@ -54,6 +54,11 @@ if(!class_exists('Traveler_Email'))
 
 		}
 
+		function _send_order_email_confirm()
+		{
+
+		}
+
 		function send($to, $subject, $message, $attachment=false){
 
 			if(!$message) return array(

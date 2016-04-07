@@ -91,12 +91,11 @@ class Test_Metabox extends Traveler_Controller{
                     )
                 ),
                 array(
-                    'id' => 'text_box',
+                    'id' => 'price',
                     'label' => 'Text Box',
                     'desc' => 'Text Box',
                     'type' => 'text',
                     'std' => 'textbox',
-                    'condition' => 'check_box:is(check_1)'
                 ),
                 array(
                     'id' => 'gmap',

@@ -50,7 +50,8 @@ if (!class_exists('Traveler_Payment_Model')) {
 
 		function get_payment_amount($payment_id)
 		{
-			return $this->find($payment_id)->amount;
+			$payment= $this->find($payment_id);
+			if($payment) return $payment->amount;
 		}
 
 		static function inst()
