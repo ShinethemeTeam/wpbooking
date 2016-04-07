@@ -27,10 +27,12 @@
 /*
 // Rating Review
 */
-.traveler-rating-result-wrap br {
+.traveler-rating-result-wrap br,
+.traveler-rating-review br {
   display: none;
 }
-.traveler-rating-result-wrap .rating-stars a.active .icon-star:before {
+.traveler-rating-result-wrap .rating-stars a.active .icon-star:before,
+.traveler-rating-review .rating-stars a.active .icon-star:before {
   content: "\f005";
 }
 .traveler-search-form .item-search {
