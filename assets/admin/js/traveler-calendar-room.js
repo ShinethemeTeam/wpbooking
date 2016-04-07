@@ -134,7 +134,7 @@ jQuery(document).ready(function($) {
     			'status' : $('#calendar-status', parent).val(),
     			'post-id' : $('#calendar-post-id', parent).val(),
     			'post-encrypt' : $('#calendar-post-encrypt', parent).val(),
-    			'action' : $('#calendar-action', parent).val(),
+    			'action' : 'traveler_add_availability',
     			'security': traveler_params.traveler_security
     		}
     		if( flag_add ) return false; flag_add = true;

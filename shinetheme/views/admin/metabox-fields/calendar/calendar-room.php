@@ -46,7 +46,6 @@ if(!empty($data['condition'])){
 							</select>
 						</div>
 						<div class="clearfix" style="margin-bottom: 10px;">
-							<input type="hidden" id="calendar-action" name="action" value="traveler_add_availability">
 							<input type="hidden" id="calendar-post-id" name="post-id" value="<?php echo get_the_ID(); ?>">
 							<input type="hidden" id="calendar-post-encrypt" name="calendar-post-encrypt" value="<?php echo traveler_encrypt( get_the_ID() ); ?>">
 							<button type="button" id="calendar-save" class="button button-primary button-large"><?php echo __('Save','traveler-booking'); ?></button>
@@ -96,12 +95,12 @@ if(!empty($data['condition'])){
 										}
 									?>
 										<label style="width: 40px;"><input type="checkbox" name="day-of-month[]" value="<?php echo $i; ?>" style="margin-right: 5px;"><?php echo $i; ?></label>
-
+					
 									<?php 
 										if( $i != 1 && $i % 5 == 0 ) echo '</div><div>';
 										if( $i == 31 ) echo '</div>';
 									?>
-	
+						
 									<?php endfor; ?>
 									</div>
 								</div>
@@ -120,12 +119,12 @@ if(!empty($data['condition'])){
 										}
 									?>
 										<label style="width: 100px;"><input type="checkbox" name="months[]" value="<?php echo $month; ?>" style="margin-right: 5px;"><?php echo $month; ?></label>
-
+					
 									<?php 
 										if( $key != 0 && ($key + 1) % 2 == 0 ) echo '</div><div>';
 										if( $key + 1 == count( $months ) ) echo '</div>';
 									?>
-	
+						
 									<?php endforeach; ?>
 									</div>
 								</div>
@@ -143,12 +142,12 @@ if(!empty($data['condition'])){
 										}
 									?>
 										<label style="width: 100px;"><input type="checkbox" name="years[]" value="<?php echo $i; ?>" style="margin-right: 5px;"><?php echo $i; ?></label>
-
+					
 									<?php 
 										if( $i != $year && ($i == $j + 2 ) ) { echo '</div><div>'; $j = $i; }
 										if( $i == $year + 13 ) echo '</div>';
 									?>
-	
+						
 									<?php endfor; ?>
 									</div>
 								</div>
@@ -161,7 +160,7 @@ if(!empty($data['condition'])){
 							</div>
 							<div class="form-footer">
 								<button type="button" id="calendar-bulk-save" class="button button-primary button-large"><?php echo __('Save','traveler-booking'); ?></button>
-								<!-- <button type="button" id="calendar-bulk-cancel" class="button button-large"><?php echo __('Cancel','traveler-booking'); ?></button> -->
+								<button type="button" id="calendar-bulk-cancel" class="button button-large"><?php echo __('Cancel','traveler-booking'); ?></button>
 							</div>
 						</div>
 					</div>
