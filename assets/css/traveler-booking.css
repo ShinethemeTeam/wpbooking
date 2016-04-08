@@ -43,9 +43,12 @@
 }
 .traveler-search-form .item-search input,
 .traveler-search-form .item-search select {
-  width: 100%;
   border-radius: 3px;
   border: 1px solid rgba(51, 51, 51, 0.1);
+}
+.traveler-search-form .item-search input[text],
+.traveler-search-form .item-search select {
+  width: 100%;
 }
 .traveler-container {
   padding: 20px;
@@ -59,8 +62,15 @@
   list-style: none;
   margin: 0px;
 }
+.traveler-container .info-item {
+  font-size: 13px;
+}
 .traveler-single-content {
   margin: 0px;
+  padding: 15px;
+}
+.traveler-single-content .single-thumbnai {
+  margin-bottom: 10px;
 }
 .traveler-single-content .space-top-1 {
   margin-top: 10px;

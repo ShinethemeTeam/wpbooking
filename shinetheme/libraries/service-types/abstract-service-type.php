@@ -29,7 +29,8 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
             /*Change Search*/
 			add_filter('traveler_add_page_archive_search', array($this, '_add_page_archive_search'));
 			add_filter('traveler_service_query_args_'.$this->type_id, array($this, '_service_query_args'));
-			add_action('traveler_before_service_query_'.$this->type_id, array($this, '_get_where_query'));
+			add_action('traveler_before_service_query_'.$this->type_id, array($this, '_before_service_query'));
+			add_action('traveler_after_service_query_'.$this->type_id, array($this, '_after_service_query_'));
 
 
 			add_filter('traveler_get_order_form_id_'.$this->type_id, array($this, 'get_order_form_id'));
@@ -128,6 +129,14 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
             return $args;
         }
         function _service_query_args($args){
+            return $args;
+        }
+        function _before_service_query($args){
+            add_filter('posts_where', array($this, '_get_where_query'));
+            return $args;
+        }
+        function _after_service_query_($args){
+            remove_filter('posts_where', array($this, '_get_where_query'));
             return $args;
         }
         function _get_where_query($where){

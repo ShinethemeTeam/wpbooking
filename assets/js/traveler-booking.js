@@ -177,5 +177,17 @@ jQuery(document).ready(function($){
         }
     });
 
+
+    $(document).on('click','.item-search .item_taxonomy',function(){
+        var container  = $(this).parent().parent();
+        var list = "";
+        container.find(".item_taxonomy").each(function(){
+            if($(this).attr('checked')) {
+                list +=  $(this).val()+',';
+            }
+        })
+        container.find('.data_taxonomy').val(list.substring(0,list.length - 1));
+    })
+
 });
 

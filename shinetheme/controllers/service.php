@@ -72,6 +72,13 @@ if(!class_exists('Traveler_Service'))
          * @return array|mixed|void
          */
         function _get_list_field_search(){
+            $taxonomy = Traveler_Admin_Taxonomy_Controller::inst()->get_taxonomies();
+            $list_taxonomy = array();
+            if(!empty($taxonomy)) {
+                foreach( $taxonomy as $k => $v ) {
+                    $list_taxonomy[$k]=$v['label'];
+                }
+            }
             $list_filed = array(
                 'room' => array(
                     array(
@@ -95,6 +102,34 @@ if(!class_exists('Traveler_Service'))
                             "check_in"  => __( "Check In" , "traveler-booking" ) ,
                             "check_out" => __( "Check Out" , "traveler-booking" ) ,
                             "taxonomy" => __( "Taxonomy" , "traveler-booking" ) ,
+                            "review_rate" => __( "Review Rate" , "traveler-booking" ) ,
+                        )
+                    ) ,
+                    array(
+                        'name'      => 'taxonomy' ,
+                        'label'   => __( '- Taxonomy' , "traveler-booking" ) ,
+                        'type'    => "dropdown" ,
+                        'class'    => "hide" ,
+                        'options' => $list_taxonomy
+                    ) ,
+                    array(
+                        'name'      => 'taxonomy_show' ,
+                        'label'   => __( '- Type Show' , "traveler-booking" ) ,
+                        'type'    => "dropdown" ,
+                        'class'    => "hide" ,
+                        'options' => array(
+                            "dropdown"  => __( "Dropdown" , "traveler-booking" ) ,
+                            "check_box"  => __( "Check Box" , "traveler-booking" ) ,
+                        )
+                    ) ,
+                    array(
+                        'name'      => 'taxonomy_operator' ,
+                        'label'   => __( '- Operator' , "traveler-booking" ) ,
+                        'type'    => "dropdown" ,
+                        'class'    => "hide" ,
+                        'options' => array(
+                            "AND"  => __( "And" , "traveler-booking" ) ,
+                            "OR"  => __( "Or" , "traveler-booking" ) ,
                         )
                     ) ,
                     array(

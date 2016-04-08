@@ -21,8 +21,7 @@ if(!class_exists('traveler_widget_form_search')){
             }
 
             ?>
-            <form class="traveler-search-form" action="<?php echo esc_url( $page_search ) ?>"
-                  xmlns="http://www.w3.org/1999/html">
+            <form class="traveler-search-form" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
                 <aside class="widget widget_calendar" id="calendar-2">
                     <div class="calendar_wrap" id="calendar_wrap">
                         <h3><?php echo esc_html( $title ) ?></h3>
@@ -41,7 +40,7 @@ if(!class_exists('traveler_widget_form_search')){
                                             <label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
                                             <?php
                                             $args = array(
-                                                'show_option_none' => __( '-- Select --' , ST_TEXTDOMAIN ),
+                                                'show_option_none' => __( '-- Select --' , "traveler-booking"  ),
                                                 'option_none_value' => "",
                                                 'hierarchical'      => 1 ,
                                                 'name'              => $v['field_type'] ,
@@ -56,6 +55,87 @@ if(!class_exists('traveler_widget_form_search')){
                                             }
                                             wp_dropdown_categories( $args );
                                             ?>
+                                        </div>
+                                        <?php
+                                        break;
+                                    case "taxonomy":
+                                        ?>
+                                        <div class="item-search">
+                                            <label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+                                            <?php
+                                            if($v['taxonomy_show'] =='dropdown'){
+                                                $args = array(
+                                                    'show_option_none' => __( '-- Select --' , "traveler-booking" ),
+                                                    'option_none_value' => "",
+                                                    'hierarchical'      => 1 ,
+                                                    'name'              => $v['field_type'].'['.$v['taxonomy'].']' ,
+                                                    'class'             => '' ,
+                                                    'id'             => $v['field_type'].'['.$v['taxonomy'].']' ,
+                                                    'taxonomy'          => $v['taxonomy'] ,
+                                                    'hide_empty' => 0,
+                                                );
+                                                $is_taxonomy = Traveler_Input::request($v['field_type']);
+                                                if(!empty($is_taxonomy[$v['taxonomy']])){
+                                                    $args['selected'] = $is_taxonomy[$v['taxonomy']];
+                                                }
+                                                wp_dropdown_categories( $args );
+                                            }else{ ?>
+                                                <div class="row">
+                                                    <?php
+                                                    $terms = get_terms(  $v['taxonomy'] , array('hide_empty' => false,) );
+                                                    $value_item = $value[$v['taxonomy']];
+                                                    if(!empty( $terms )) {
+                                                        foreach( $terms as $key2 => $value2 ) {
+                                                            $check ="";
+                                                            if(in_array($value2->term_id,explode(',',$value_item))){
+                                                                $check = "checked";
+                                                            }
+                                                            ?>
+                                                            <div class="col-md-6">
+                                                                <input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$value2->term_id ?>" value="<?php echo esc_html( $value2->term_id ) ?>">
+                                                                <label for="<?php echo "item_".$value2->term_id ?>"><?php echo esc_html( $value2->name ) ?></label>
+                                                            </div>
+                                                        <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <input type="hidden" value="<?php echo esc_attr($value_item) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v[ 'field_type' ] . '[' . $v[ 'taxonomy' ] . ']' ) ?>">
+                                                    <input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>"name="<?php echo esc_attr( "taxonomy_operator" . '[' . $v[ 'taxonomy' ] . ']' ) ?>">
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                                        <?php
+                                        break;
+                                    case "review_rate":
+                                        ?>
+                                        <div class="item-search">
+                                            <label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+                                            <div class="row">
+                                                <?php
+                                                $data = array(
+                                                    "1" => __( "1 Start" , 'traveler-booking' ) ,
+                                                    "2" => __( "2 Start" , 'traveler-booking' ) ,
+                                                    "3" => __( "3 Start" , 'traveler-booking' ) ,
+                                                    "4" => __( "4 Start" , 'traveler-booking' ) ,
+                                                    "5" => __( "5 Start" , 'traveler-booking' )
+                                                );
+                                                if(!empty( $data )) {
+                                                    foreach( $data as $key2 => $value2 ) {
+                                                        $check ="";
+                                                        if(in_array($key2,explode(',',$value))){
+                                                            $check = "checked";
+                                                        }
+                                                        ?>
+                                                        <div class="col-md-6">
+                                                            <input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
+                                                            <label for="<?php echo "item_".$key2 ?>"><?php echo esc_html( $value2 ) ?></label>
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                }
+                                                ?>
+                                                <input type="hidden" value="<?php echo esc_attr($value) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v['field_type'] ) ?>">
+                                            </div>
                                         </div>
                                         <?php
                                         break;
@@ -130,9 +210,9 @@ if(!class_exists('traveler_widget_form_search')){
                         <div class="list-group content_list_search_form_widget">
 
                             <?php
-                            $list = $field_search[$key];
                             $number = 0 ;
-                            if(!empty($list)){
+                            if(!empty($field_search[$key])){
+                                $list = $field_search[$key];
                                 foreach($list as $k=>$v){
                                     ?>
                                     <div class="list-group-item">
@@ -145,27 +225,29 @@ if(!class_exists('traveler_widget_form_search')){
                                             <table class="form-table traveler-settings">
                                                 <?php
                                                 $hteml_title_form = "";
-                                                foreach($value as $k1=>$v1){?>
-                                                    <?php
+                                                foreach($value as $k1=>$v1){
+                                                    $default = array( 'name' => '' , 'label' => '' , 'type' => '' , 'options' => '' , 'class' => '', 'value' => '' );
+                                                    $v1 = wp_parse_args( $v1 , $default );
+
                                                     $data_value = $v[$v1['name']];
                                                     if($v1['name'] == 'title'){
                                                         $hteml_title_form = $data_value;
                                                     }
                                                     if($v1['type'] == 'text'){
                                                         ?>
-                                                        <tr>
+                                                        <tr class="<?php echo esc_attr($v1['class']) ?> div_<?php echo esc_attr($v1['name']) ?>">
                                                             <th> <?php echo esc_html($v1['label']) ?>:  </th>
-                                                            <td> <input type="text" name="<?php echo $this->get_field_name('field_search'); ?>[<?php echo esc_attr($key) ?>][<?php echo esc_attr($number) ?>][<?php echo esc_attr($v1['name']) ?>]" class="form-control <?php echo esc_attr($v1['name']) ?>" value="<?php echo esc_html($data_value) ?>"> </td>
+                                                            <td> <input type="text"  name="<?php echo $this->get_field_name('field_search'); ?>[<?php echo esc_attr($key) ?>][<?php echo esc_attr($number) ?>][<?php echo esc_attr($v1['name']) ?>]" class="form-control <?php echo esc_attr($v1['name']) ?>" value="<?php echo esc_html($data_value) ?>"> </td>
                                                         </tr>
                                                     <?php
                                                     }
                                                     if($v1['type'] == 'dropdown'){
                                                         $options = $v1['options'];
                                                         ?>
-                                                        <tr>
+                                                        <tr class="<?php echo esc_attr($v1['class']) ?> div_<?php echo esc_attr($v1['name']) ?>">
                                                             <th> <?php echo esc_html($v1['label']) ?>:  </th>
                                                             <td>
-                                                                <select class="form-control" name="<?php echo $this->get_field_name('field_search'); ?>[<?php echo esc_attr($key) ?>][<?php echo esc_attr($number) ?>][<?php echo esc_attr($v1['name']) ?>]" >
+                                                                <select class="form-control <?php echo esc_attr($v1['name']) ?>" name="<?php echo $this->get_field_name('field_search'); ?>[<?php echo esc_attr($key) ?>][<?php echo esc_attr($number) ?>][<?php echo esc_attr($v1['name']) ?>]" >
                                                                     <?php
                                                                     if(!empty($options)){
                                                                         foreach($options as $k2=>$v2){
@@ -219,9 +301,11 @@ if(!class_exists('traveler_widget_form_search')){
                                 <table class="form-table traveler-settings">
                                     <?php foreach($value as $k=>$v){?>
                                         <?php
+                                        $default = array( 'name' => '' , 'label' => '' , 'type' => '' , 'options' => '' , 'class' => '', 'value' => '' );
+                                        $v = wp_parse_args( $v , $default );
                                         if($v['type'] == 'text'){
                                             ?>
-                                            <tr>
+                                            <tr class="<?php echo esc_attr($v['class']) ?> div_<?php echo esc_attr($v['name']) ?>">
                                                 <th> <?php echo esc_html($v['label']) ?>:  </th>
                                                 <td> <input type="text" placeholder=""  name="__name_field_search__[<?php echo esc_attr($key) ?>][__number__][<?php echo esc_attr($v['name']) ?>]" class="form-control <?php echo esc_attr($v['name']) ?>"> </td>
                                             </tr>
@@ -230,10 +314,10 @@ if(!class_exists('traveler_widget_form_search')){
                                         if($v['type'] == 'dropdown'){
                                             $options = $v['options'];
                                             ?>
-                                            <tr>
+                                            <tr class="<?php echo esc_attr($v['class']) ?> div_<?php echo esc_attr($v['name']) ?>">
                                                 <th> <?php echo esc_html($v['label']) ?>:  </th>
                                                 <td>
-                                                    <select class="form-control" name="__name_field_search__[<?php echo esc_attr($key) ?>][__number__][<?php echo esc_attr($v['name']) ?>]" >
+                                                    <select class="form-control <?php echo esc_attr($v['name']) ?>" name="__name_field_search__[<?php echo esc_attr($key) ?>][__number__][<?php echo esc_attr($v['name']) ?>]" >
                                                         <?php
                                                         if(!empty($options)){
                                                             foreach($options as $k1=>$v1){
