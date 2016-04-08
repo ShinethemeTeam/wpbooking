@@ -7,12 +7,6 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 		public function __construct(){
 			parent::__construct();	
 
-			/*for( $i = strtotime('first Monday of January 2016'); $i <= strtotime('last Monday of January 2016'); $i = strtotime('+1 week', $i) ){
-				echo '<pre>';
-				var_dump(date('Y-m-d', $i) );
-				echo '</pre>';
-			}
-			die;*/
 			add_action('wp_ajax_traveler_load_availability', array( $this, 'traveler_load_availability') );
 
 			add_action('wp_ajax_traveler_add_availability', array( $this, 'traveler_add_availability') );
@@ -156,8 +150,17 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 
 					$years = Traveler_Input::post('years', '');
 
-					$price = (float) Traveler_Input::post('price_bulk', '');
+					$price = Traveler_Input::post('price_bulk', '');
 
+					if( !is_numeric( $price) ){
+						echo json_encode( array(
+							'status' => 0,
+							'message' => __('The price field is not a number.', 'traveler-booking')
+						) );
+						die;
+					}
+					$price = (float) $price;
+					
 					$status = Traveler_Input::post('status', 'available');
 
 					$group_day = Traveler_Input::post('group_day', '');

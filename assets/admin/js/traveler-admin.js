@@ -439,7 +439,7 @@ jQuery(document).ready(function( $ ){
     $('.traveler-add-item').click(function(event) {
         /* Act on the event */
         if( $('#traveler-list-item-draft').length ){
-            var content = $('#traveler-list-item-draft td').html();
+            var content = $('#traveler-list-item-draft').html();
 
             var parent = $(this).closest('.traveler-list-item-wrapper');
 
@@ -477,5 +477,32 @@ jQuery(document).ready(function( $ ){
         event.preventDefault();
         /* Act on the event */
     });
+
+    /////////////////////////////
+    ////////// Location ////////
+    ////////////////////////////
+
+    if( $('.traveler-select-loction').length ){
+        $('.traveler-select-loction').each(function(index, el) {
+            var parent = $(this);
+            var input = $('input[name="search"]', parent);
+            var list = $('.list-location-wrapper', parent);
+            var timeout;
+            input.keyup(function(event) {
+                clearTimeout( timeout );
+                var t = $(this);
+                timeout = setTimeout(function(){
+                    var text = t.val();
+                    if( text == ''){
+                        $('.item', list).show();
+                    }else{
+                        $('.item', list).hide();
+                        $(".item[data-name*='"+text+"']", list).show();
+                    }
+                    
+                }, 500);
+            });
+        });
+    }
 
 });

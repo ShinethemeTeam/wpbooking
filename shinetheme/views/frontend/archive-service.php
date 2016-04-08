@@ -58,6 +58,8 @@ $my_query = Traveler_Service::inst()->query($args,$service_type);
                             break;
                     }
                 }
+            }else{
+                _e("<h3>No Content</h3>",'traveler-booking');
             }
             ?>
         </ul>

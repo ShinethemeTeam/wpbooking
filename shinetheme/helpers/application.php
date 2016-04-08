@@ -143,4 +143,41 @@ if( !function_exists('dateDiff') ){
         $end = strtotime( $end );
         return ($end - $start) / (60 * 60 * 24);
     }
-}    
+}
+
+if( !function_exists('traveler_show_tree_terms') ){
+	function traveler_show_tree_terms( array &$terms, array &$returns, $parent = 0 , $deep = 0){
+		if( count( $terms ) == 0 ){
+			return $returns;
+		}
+		$list_tmp = array();
+		foreach ( $terms as $i => $term ) {
+	        if ( $term->parent == $parent ) {
+	            $returns[] = array(
+	            	'id' => $term->term_id,
+	            	'name' => $term->name,
+	            	'deep' => $deep,
+	            	'parent_name' => traveler_get_term( 'term_id', $parent, 'traveler_location', 'name', $term->name)
+	            );
+	            $list_tmp[] = $term;
+	            unset( $terms[ $i ] );
+	        }
+	    }
+	    if( $list_tmp ){
+		    foreach ( $list_tmp as $child ) {
+		    	$deep += 15;
+		        traveler_show_tree_terms( $terms, $returns, $child->term_id, $deep );
+		    }
+		}
+	}
+}
+if( !function_exists('traveler_get_term') ){
+	function traveler_get_term( $field, $value, $term, $field_return, $default ){
+		$term = get_term_by( $field, $value, $term );
+
+		if( !empty( $term ) ){
+			return $term->$field_return;
+		}
+		return $default;
+	}
+}

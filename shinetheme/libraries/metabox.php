@@ -18,6 +18,8 @@ if( ! class_exists('Traveler_Metabox') ){
 			add_action( 'save_post', array( $this, 'save_meta_box'), 10, 2 );
 
 			add_action( 'traveler_save_metabox', array( $this, 'traveler_save_gmap'), 20, 2);
+			add_action( 'traveler_save_metabox', array( $this, 'traveler_save_location'), 20, 2);
+			add_action( 'traveler_save_metabox', array( $this, 'traveler_save_taxonomies'), 20, 2);
 			
 		}
 
@@ -205,6 +207,59 @@ if( ! class_exists('Traveler_Metabox') ){
 
 	    	return $post_id;
 	    	
+	    }
+
+	    public function traveler_save_location( $post_id, $post_object ){
+	    	foreach ( $this->metabox[ 'fields' ] as $field ) {
+	    		if ( $field[ 'type' ] == 'location' ) {
+	    			$new = Traveler_Input::post( $field[ 'id' ] , '');
+
+	    			if( !empty( $new ) && is_array( $new ) ){
+	    				wp_set_post_terms( $post_id, $new, 'traveler_location' );
+	    			}else{
+
+	    				wp_set_post_terms( $post_id, array(0), 'traveler_location' );
+	    			}
+
+	    		}
+	    	}
+
+	    	return $post_id;
+	    }
+
+	    public function traveler_save_taxonomies( $post_id, $post_object ){
+	    	foreach ( $this->metabox[ 'fields' ] as $field ) {
+	    		if ( $field[ 'type' ] == 'taxonomies' ) {
+	    			
+	    			$terms = Traveler_Input::post( $field[ 'id' ] , '');
+
+
+	    			$service = get_post_meta( $post_id, 'service_type', true );
+	    			if( !$service ) $service = 'room';
+
+	    			$term_service = get_option('traveler_taxonomies', array() );
+	    			if( !empty( $term_service ) && is_array( $term_service ) ){
+	    				foreach( $term_service as $key => $term ){
+	    					if( in_array( $service, $term['service_type'] ) ){
+	    						wp_set_post_terms( $post_id, array(0), $key );
+	    					}
+	    				}
+	    			}
+
+	    			if( !empty( $terms ) && is_array( $terms ) ){
+	    				foreach( $terms as $key => $val ){
+
+	    					if( !empty( $val ) && is_array( $val ) ){
+			    				wp_set_post_terms( $post_id, $val, $key );
+			    			}
+	    				}
+	    			}else{
+	    				wp_set_post_terms( $post_id, array(0) , $key );
+	    			}
+	    		}
+	    	}
+
+	    	return $post_id;
 	    }
 
 	}
