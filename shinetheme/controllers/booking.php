@@ -191,28 +191,40 @@ if (!class_exists('Traveler_Booking')) {
 				$order_model = Traveler_Order_Model::inst();
 				$order_id = $order_model->create($cart);
 				if ($order_id) {
-					$data = array();
+					$data = array(
+						'status'=>1
+					);
 
 					try{
 						if ($selected_gateway) {
 							$data = Traveler_Payment_Gateways::inst()->do_checkout($selected_gateway, $order_id);
-						}
-						//do checkout
+							if(!$data['status']){
+								$res = array(
+									'status'   => 0,
+									'message'  => isset($data['message'])?$data['message']:FALSE,
+								);
+							}
 
-						$res = array(
-							'status'   => 1,
-							'message'  => __('Booking Success', 'traveler-booking'),
-							'data'     => $data,
-							'redirect' => ''
-						);
+						}
+
+						if($res['status']){
+							//do checkout
+							$res = array(
+								'message'  => __('Booking Success', 'traveler-booking'),
+								'data'     => $data,
+							);
+						}
+
+
 
 					}catch(Exception $e)
 					{
 						traveler_set_message($e->getMessage(),'error');
 						//do checkout
 						$res = array(
-							'status'   => 1,
+							'status'   => 0,
 							'message'  => traveler_get_message(true),
+
 						);
 					}
 
@@ -435,7 +447,7 @@ if (!class_exists('Traveler_Booking')) {
 
 			$order_model = Traveler_Order_Model::inst();
 
-			$order_items = $order_model->find_by('order_id', $order_id);
+			$order_items = $order_model->get_order_items($order_id);
 
 			if (!empty($order_items)) {
 				foreach ($order_items as $key => $value) {
@@ -452,7 +464,7 @@ if (!class_exists('Traveler_Booking')) {
 				}
 			}
 
-			$total = apply_filters('traveler_get_order_total', $total);
+			$total = apply_filters('traveler_get_order_pay_amount', $total);
 
 			return $total;
 		}

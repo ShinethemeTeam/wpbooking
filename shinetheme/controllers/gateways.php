@@ -117,6 +117,9 @@ if(!class_exists('Traveler_Payment_Gateways'))
 					$data=$selected_gateway->do_checkout($order_id,$payment_id);
 				}
 			}
+			if(!$data['status']){
+				$data['error_step']='payment_checkout';
+			}
 
 			return $data;
 		}

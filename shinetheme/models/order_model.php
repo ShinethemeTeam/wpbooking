@@ -113,7 +113,8 @@ if (!class_exists('Traveler_Order_Model')) {
 		 */
 		function get_order_items($order_id)
 		{
-			return $this->where('order_id', $order_id)->get()->result();
+			$a= $this->where('order_id', $order_id)->get();
+			return $a->result();
 		}
 
 

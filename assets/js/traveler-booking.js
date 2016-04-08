@@ -119,17 +119,21 @@ jQuery(document).ready(function($){
                     message.html(res.message);
                     me.after(message);
                 }
-                if(me.data.redirect){
-                    window.location=me.data.redirect;
+                if(res.data.redirect){
+                    //window.location=me.data.redirect;
                 }
-                if(me.redirect){
-                    window.location=me.redirect;
+                if(res.redirect){
+                    //window.location=me.redirect;
                 }
 
                 me.removeClass('loading');
             },
             error:function(e){
                 me.removeClass('loading').addClass('error');
+                var message=$('<div/>');
+                message.addClass('traveler-message');
+                message.html(e.message);
+                me.after(message);
             }
         })
     });

@@ -97,9 +97,34 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 			parent::__construct();
 		}
 
+		function validate()
+		{
+			if ($this->get_option('test_mode', 'on') == 'on') {
+				if($this->get_option('test_api_username') or $this->get_option('test_api_password') or $this->get_option('test_api_signature') )
+				{
+					traveler_set_message(__('PayPal API is not correctly! Please check with the Admin','traveler-booking'),'error');
+					return FALSE;
+				}
+			}else{
+
+				if($this->get_option('api_username') or $this->get_option('api_password') or $this->get_option('api_signature') )
+				{
+					traveler_set_message(__('PayPal API is not correctly! Please check with the Admin','traveler-booking'),'error');
+					return FALSE;
+				}
+			}
+
+			return true;
+		}
 		function do_checkout($order_id,$payment_id)
 		{
 
+			if(!$this->validate())
+			{
+				return array(
+					'status'=>0
+				);
+			}
 			$payment=Traveler_Payment_Model::inst();
 
 			$gateway=$this->gatewayObject;
