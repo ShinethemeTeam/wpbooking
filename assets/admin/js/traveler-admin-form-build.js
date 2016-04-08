@@ -152,6 +152,73 @@ jQuery(document).ready(function( $ ){
          console.log(check);
     });
 
+    /////////////////////////////////
+    /////// Widget Cusotm ///////////
+    /////////////////////////////////
+
+    $(document).on('change click','.list_item_widget .field_type',function(){
+        var container  = $(this).parent().parent().parent().parent().parent().parent();
+        var value = $(this).val();
+
+        if(value == "taxonomy"){
+            container.find(".div_taxonomy").show(500);;
+            container.find(".div_taxonomy_show").show(500);;
+            container.find(".div_taxonomy_operator").show(500);;
+        }else{
+            container.find(".div_taxonomy").hide(500);;
+            container.find(".div_taxonomy_show").hide(500);;
+            container.find(".div_taxonomy_operator").hide(500);;
+        }
+
+        if(value == "review_rate"){
+            container.find(".div_review_operator").show(500);;
+        }else{
+            container.find(".div_review_operator").hide(500);;
+        }
+    })
+    $(document).on('click','.btn_edit_field_search_form',function(){
+        $(this).parent().parent().find(".field_type").each(function(){
+            var container  = $(this).parent().parent().parent().parent().parent().parent();
+            var value = $(this).val();
+
+            if(value == "taxonomy"){
+                container.find(".div_taxonomy").show();;
+                container.find(".div_taxonomy_show").show();;
+                container.find(".div_taxonomy_operator").show();;
+            }else{
+                container.find(".div_taxonomy").hide();;
+                container.find(".div_taxonomy_show").hide();;
+                container.find(".div_taxonomy_operator").hide();;
+            }
+
+            if(value == "review_rate"){
+                container.find(".div_review_operator").show(500);;
+            }else{
+                container.find(".div_review_operator").hide(500);;
+            }
+        });
+    })
+    $(".list_item_widget .field_type").each(function(){
+        var container  = $(this).parent().parent().parent().parent().parent().parent();
+        var value = $(this).val();
+
+        if(value == "taxonomy"){
+            container.find(".div_taxonomy").show(500);;
+            container.find(".div_taxonomy_show").show(500);;
+            container.find(".div_taxonomy_operator").show(500);;
+        }else{
+            container.find(".div_taxonomy").hide(500);;
+            container.find(".div_taxonomy_show").hide(500);;
+            container.find(".div_taxonomy_operator").hide(500);;
+        }
+
+        if(value == "review_rate"){
+            container.find(".div_review_operator").show(500);;
+        }else{
+            container.find(".div_review_operator").hide(500);;
+        }
+    });
+
 
 
 

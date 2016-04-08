@@ -58,9 +58,9 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
                 if(!empty($taxonomy)) {
                     foreach( $taxonomy as $k => $v ) {
                         if(in_array($service_type,$v['service_type'])){
-                            echo "<h4>".$v['label']."</h4>";
                             $terms = get_the_terms( get_the_ID() , $v['name'] );
                             if(!empty( $terms )) {
+                                echo "<h4>".$v['label']."</h4>";
                                 ?>
                                 <ul class="booking-item-features">
                                     <?php

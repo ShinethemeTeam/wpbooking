@@ -132,33 +132,80 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
             return $args;
         }
         function _service_query_args($args){
-            $args['meta_query'][] = array(
-                'key' => 'service_type',
-                'value' => $this->type_id,
+            $args[ 'meta_query' ][ ] = array(
+                'key'   => 'service_type' ,
+                'value' => $this->type_id ,
             );
-
-            if($location_id = Traveler_Input::request('location_id')){
-                $args['tax_query'][] = array(
-                    'taxonomy' => 'traveler_location',
-                    'field'    => 'term_id',
-                    'terms'    => array( $location_id ),
-                    'operator' => 'IN',
+            if($location_id = Traveler_Input::request( 'location_id' )) {
+                $args[ 'tax_query' ][ ] = array(
+                    'taxonomy' => 'traveler_location' ,
+                    'field'    => 'term_id' ,
+                    'terms'    => array( $location_id ) ,
+                    'operator' => 'IN' ,
                 );
             }
-            if($price = Traveler_Input::request('price')){
-                $args['tax_query'][] = array(
-                    'taxonomy' => 'traveler_location',
-                    'field'    => 'term_id',
-                    'terms'    => array( $location_id ),
-                    'operator' => 'IN',
-                );
+            $tax = Traveler_Input::request( 'taxonomy' );
+            if(!empty( $tax ) and is_array( $tax )) {
+                $taxonomy_operator = Traveler_Input::request( 'taxonomy_operator' );
+                $tax_query         = array();
+                foreach( $tax as $key => $value ) {
+                    if($value) {
+                        if(!empty( $taxonomy_operator[ $key ] )) {
+                            $operator = $taxonomy_operator[ $key ];
+                        } else {
+                            $operator = "OR";
+                        }
+                        $value = explode( ',' , $value );
+                        if(!empty( $value ) and is_array( $value )) {
+                            foreach( $value as $k => $v ) {
+                                if(!empty( $v )) {
+                                    $ids[ ] = $v;
+                                }
+                            }
+                        }
+                        if(!empty( $ids )) {
+                            $tax_query[ ] = array(
+                                'taxonomy' => $key ,
+                                'terms'    => $ids ,
+                                'operator' => $operator ,
+                            );
+                        }
+                        $ids = array();
+                    }
+                }
+                if(!empty( $tax_query )) {
+                    $args[ 'tax_query' ][ ] = $tax_query;
+                }
             }
-
-            //var_dump($args);
-
             return $args;
         }
         function _get_where_query($where){
+            global $wpdb;
+            if($review_rate = Traveler_Input::request( 'review_rate' ) and is_array( explode( ',' , $review_rate ) )) {
+                $and = "";
+                foreach( explode( ',' , $review_rate ) as $k => $v ) {
+                    if($k > 0) {
+                        $and .= " OR ";
+                    }
+                    $and .= " ( {$wpdb->prefix}commentmeta.meta_key = 'traveler_review' AND {$wpdb->prefix}commentmeta.meta_value = {$v} ) ";
+                }
+                if(!empty( $and )) {
+                    $where .= " AND $wpdb->posts.ID IN
+                            (
+                                SELECT * FROM (
+                                        SELECT
+                                            {$wpdb->prefix}comments.comment_post_ID as post_id
+                                        FROM
+                                            wp_comments
+                                        JOIN {$wpdb->prefix}commentmeta ON {$wpdb->prefix}comments.comment_ID = {$wpdb->prefix}commentmeta.comment_id
+                                        WHERE 1 = 1
+                                        AND ( {$and} )
+                                )as ID
+
+                            )";
+                }
+
+            }
             return $where;
         }
 
