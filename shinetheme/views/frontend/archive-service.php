@@ -43,14 +43,38 @@ $my_query = Traveler_Service::inst()->query($args,$service_type);
 
 
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-6 ">
                                             <a href="<?php echo get_the_permalink() ?>" class="">
                                                 <h5 class="booking-item-title"><?php the_title(); ?></h5>
                                             </a>
-                                            <p>
-                                                <i class="fa fa-map-marker"></i>
-                                                <?php echo get_post_meta(get_the_ID(),'address',true); ?>
-                                            </p>
+                                            <?php if($address = get_post_meta(get_the_ID(),'address',true)){ ?>
+                                                <span class="info-item">
+                                                    <i class="fa fa-map-marker"></i>
+                                                    <?php echo get_post_meta(get_the_ID(),'address',true); ?>
+                                                </span>
+                                            <?php } ?>
+                                            <?php
+                                            $taxonomy = Traveler_Admin_Taxonomy_Controller::inst()->get_taxonomies();
+                                            if(!empty($taxonomy)) {
+                                                foreach( $taxonomy as $k => $v ) {
+                                                    if(in_array($service_type,$v['service_type'])){
+                                                        $terms = get_the_terms( get_the_ID() , $v['name'] );
+                                                        if(!empty( $terms )) {
+                                                            echo "<div class='taxonomy-item info-item'>";
+                                                            echo "".$v['label'].": ";
+                                                            $list = array();
+                                                            foreach( $terms as $key2 => $value2 ) {
+                                                                $list []=  esc_html( $value2->name ) ;
+                                                            }
+                                                            echo implode(', ',$list);
+                                                            echo "</div>";
+                                                        }
+                                                    }
+                                                }
+                                            }?>
+                                        </div>
+                                        <div class="col-md-3">
+                                            Price:
                                         </div>
                                     </div>
                                 </li>
