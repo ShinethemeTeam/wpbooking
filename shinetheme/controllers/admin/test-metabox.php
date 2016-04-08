@@ -47,6 +47,12 @@ class Test_Metabox extends Traveler_Controller{
                     'type'    => 'location' ,
                 ),
                 array(
+                    'id'      => 'taxonomies' ,
+                    'label'   => __( 'Taxonomies' , 'traveler-booking' ) ,
+                    'desc'    => __( 'taxonomies' , 'traveler-booking' )  ,
+                    'type'    => 'taxonomies' ,
+                ),
+                array(
                     'id'      => 'check_box' ,
                     'label'   => __( 'Check Box' , 'traveler-booking' ) ,
                     'desc'    => __( 'Check Box' , 'traveler-booking' )  ,

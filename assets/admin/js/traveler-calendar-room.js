@@ -1,6 +1,14 @@
 jQuery(document).ready(function($) {
 	$('.date-picker').datepicker({
-        dateFormat: "mm/dd/yy"
+        dateFormat: "mm/dd/yy",
+        beforeShowDay: function(date){
+            var d = new Date();
+            if( date.getTime() < d.getTime()){
+                return [false];
+            }else{
+                return [true];
+            }
+        }
     });
 
     var RoomCalendar = function( container ){

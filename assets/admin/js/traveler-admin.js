@@ -478,4 +478,31 @@ jQuery(document).ready(function( $ ){
         /* Act on the event */
     });
 
+    /////////////////////////////
+    ////////// Location ////////
+    ////////////////////////////
+
+    if( $('.traveler-select-loction').length ){
+        $('.traveler-select-loction').each(function(index, el) {
+            var parent = $(this);
+            var input = $('input[name="search"]', parent);
+            var list = $('.list-location-wrapper', parent);
+            var timeout;
+            input.keyup(function(event) {
+                clearTimeout( timeout );
+                var t = $(this);
+                timeout = setTimeout(function(){
+                    var text = t.val();
+                    if( text == ''){
+                        $('.item', list).show();
+                    }else{
+                        $('.item', list).hide();
+                        $(".item[data-name*='"+text+"']", list).show();
+                    }
+                    
+                }, 500);
+            });
+        });
+    }
+
 });
