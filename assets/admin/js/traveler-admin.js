@@ -359,26 +359,50 @@ jQuery(document).ready(function( $ ){
                             },
                             navigationControl: true,
                             scrollwheel: true,
-                            streetViewControl: true
                         },
                         events:{
-                            click: function(map){
+                            click: function(marker, event, context){
+                                $('input[name="map_lat"]', t).val( event.latLng.lat() );
+                                $('input[name="map_long"]', t).val( event.latLng.lng() );
+                                $('input[name="map_zoom"]', t).val( marker.zoom );
+
+                                $(this).gmap3({
+                                    clear: {
+                                      name:["marker"],
+                                      last: true
+                                    }
+                                });
+                                $(this).gmap3({
+                                    marker:{
+                                        values:[
+                                          {latLng:event.latLng },
+                                        ],
+                                        options:{
+                                          draggable: false
+                                        },
+                                    } 
+                                });
                             }
-                        }
-                    }
+                        }   
+                    },
+                    marker:{
+                        values:[
+                          {latLng:[ map_lat, map_long ] },
+                        ],
+                        options:{
+                          draggable: false
+                        },
+                    } 
 
                 });
 
 
 
                 var gmap_obj = gmap.gmap3('get');
-                var geocoder = new google.maps.Geocoder;
-                var map_type = "roadmap";
 
-                current_marker = new google.maps.Marker({
-                    position : new google.maps.LatLng( map_lat, map_long ),
-                    map : gmap_obj
-                });
+                var geocoder = new google.maps.Geocoder;
+
+                var map_type = "roadmap";
 
                 if( bt_ot_searchbox.length ){
 
@@ -396,8 +420,24 @@ jQuery(document).ready(function( $ ){
 
                             bounds.extend(place.geometry.location);
 
-                            if(i==0){
-                                current_marker.setPosition(place.geometry.location);
+                            if(i == 0){
+
+                                gmap.gmap3({
+                                    clear: {
+                                      name:["marker"],
+                                      last: true
+                                    }
+                                });
+                                gmap.gmap3({
+                                    marker:{
+                                        values:[
+                                          {latLng: place.geometry.location },
+                                        ],
+                                        options:{
+                                          draggable: false
+                                        },
+                                    } 
+                                });
 
                                 $('input[name="map_lat"]', t).val( place.geometry.location.lat() );
                                 $('input[name="map_long"]', t).val( place.geometry.location.lng() );
