@@ -31,6 +31,7 @@ $autoload['library']=array(
 
 $autoload['controller']=array(
 	'service',
+	'admin/order',
 	'admin/location',
 	'admin/taxonomy',
 	'admin/service',
@@ -47,11 +48,12 @@ $autoload['controller']=array(
 $autoload['model']=array(
 	'service_model',
 	'order_model',
-	'calendar_model'
+	'calendar_model',
+	'payment_model'
 );
 
 $autoload['widget']=array(
-
+    'search-form'
 );
 
 $autoload['encrypr_key'] = 'traveler';

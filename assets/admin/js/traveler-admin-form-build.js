@@ -99,5 +99,60 @@ jQuery(document).ready(function( $ ){
         container.find('.item').change();
     });
 
+    // add field search form
+    $(document).on('click','.btn_add_field_search_form',function(){
+
+        var container_full = $(this).parent().parent().parent().parent();
+        var container = $(this).parent().parent().parent();
+        var post_type = $(this).data('post-type');
+        var number = $(this).attr("data-number");
+        var name_field_search = $(this).attr("data-name-field-search");
+        console.log(number);
+        var item_html = container_full.find('.div_content_hide_'+post_type).html();
+        item_html = item_html.replace(/__number__/g, number);
+        item_html = item_html.replace(/__name_field_search__/g, name_field_search);
+        container.find('.content_list_search_form_widget').append(item_html);
+
+        number = Number(number) + 1;
+
+        $(this).attr("data-number",number);
+    })
+    $(document).on('click','.btn_remove_field_search_form',function(){
+         $(this).parent().parent().remove();
+    });
+
+
+    $(document).on('change','.option_service_search_form',function(){
+        var container = $(this).parent().parent().parent();
+        var post_type = $(this).val();
+        console.log(post_type);
+        container.find(".list_item_widget").hide();
+        container.find(".div_content_"+post_type).show();
+    });
+
+    $(document).on('keyup change','.content_list_search_form_widget input.title',function(){
+        var container  = $(this).parent().parent().parent().parent().parent().parent();
+        var text = $(this).val();
+        container.find(".head-title").html(text);
+    });
+    $('.content_list_search_form_widget input.title').each(function(){
+        var container  = $(this).parent().parent().parent().parent().parent().parent();
+        var text = $(this).val();
+        container.find(".head-title").html(text);
+    });
+
+    $(document).on('click','.btn_edit_field_search_form',function(){
+        var container  = $(this).parent().parent();
+        var check = container.find('.control-hide').css('display');
+        if(check == 'none'){
+            container.find('.control-hide').show(500);
+        }else{
+            container.find('.control-hide').hide(500);
+        }
+         console.log(check);
+    });
+
+
+
 
 });

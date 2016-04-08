@@ -29,7 +29,98 @@ if(!class_exists('Traveler_Service'))
 			add_filter('get_comment_text',array($this,'_show_review_stats'),100);
 
 			add_filter('template_include',array($this,'_show_single_service'));
+
+            add_filter( 'template_include', array( $this, 'template_loader' ) );
 		}
+
+        function query($args=array(),$service_type=false)
+        {
+            $args=wp_parse_args($args,array(
+                'post_type'=>'traveler_service'
+            ));
+
+            $args=apply_filters('traveler_service_query_args',$args);
+            $args=apply_filters('traveler_service_query_args_'.$service_type,$args);
+
+            do_action('traveler_before_service_query',$args);
+            do_action('traveler_before_service_query_'.$service_type,$args);
+
+            $query=new WP_Query($args);
+
+            do_action('traveler_after_service_query',$args);
+            do_action('traveler_after_service_query_'.$service_type,$args);
+
+            return $query;
+        }
+
+        /**
+         * @param $template
+         * @return string
+         */
+        public function template_loader( $template ) {
+            $is_page = get_the_ID();
+            $list_page_search = apply_filters("traveler_add_page_archive_search",array());
+            if(!empty($list_page_search[$is_page]))
+            {
+                $template=traveler_view_path('archive-service');
+            }
+            //var_dump($list_page_search);
+            //var_dump($template);
+            return $template;
+        }
+        /**
+         * @return array|mixed|void
+         */
+        function _get_list_field_search(){
+            $list_filed = array(
+                'room' => array(
+                    array(
+                        'name'    => 'title' ,
+                        'label' => __( 'Title Field' , "traveler-booking" ) ,
+                        'type'  => "text" ,
+                        'value' => ""
+                    ) ,
+                    array(
+                        'name'    => 'placeholder' ,
+                        'label' => __( 'Placeholder' , "traveler-booking" ) ,
+                        'desc'  => __( 'Placeholder' , "traveler-booking" ) ,
+                        'type'  => 'text' ,
+                    ) ,
+                    array(
+                        'name'      => 'field_type' ,
+                        'label'   => __( 'Field Type' , "traveler-booking" ) ,
+                        'type'    => "dropdown" ,
+                        'options' => array(
+                            "location_id"  => __( "Location" , "traveler-booking" ) ,
+                            "check_in"  => __( "Check In" , "traveler-booking" ) ,
+                            "check_out" => __( "Check Out" , "traveler-booking" ) ,
+                            "taxonomy" => __( "Taxonomy" , "traveler-booking" ) ,
+                        )
+                    ) ,
+                    array(
+                        'name'      => 'required' ,
+                        'label'   => __( 'Required' , "traveler-booking" ) ,
+                        'type'    => "dropdown" ,
+                        'options' => array(
+                            "no"  => __( "No" , "traveler-booking" ) ,
+                            "yes"  => __( "Yes" , "traveler-booking" ) ,
+                        )
+                    ) ,
+                ) ,
+                'tour' => array(
+                    array(
+                        'name'    => 'title' ,
+                        'label' => __( 'Title' , "traveler-booking" ) ,
+                        'type'  => "text" ,
+                        'value' => ""
+                    ) ,
+
+                )
+            );
+            $list_filed = apply_filters( "traveler_booking_list_field_form_search" , $list_filed );
+            return $list_filed;
+        }
+
 
 		/**
 		 *

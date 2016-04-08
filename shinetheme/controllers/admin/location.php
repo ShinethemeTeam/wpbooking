@@ -50,7 +50,7 @@ if(!class_exists('Traveler_Admin_Location'))
 
 			register_taxonomy( 'traveler_location', array( 'traveler_service' ), $args );
 
-			$hide=apply_filters('traveler_hide_locaton_select_box',TRUE);
+			$hide=apply_filters('traveler_hide_locaton_select_box',false);
 			if($hide)
 				Traveler_Assets::add_css("#traveler_locationdiv{display:none!important}");
 		}

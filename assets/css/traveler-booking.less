@@ -1,7 +1,7 @@
 // Alert
 .alert{
     padding:10px;
-    margin-bottom: 20px;
+    margin: 20px 0px;
     border: 1px solid transparent;
     border-radius: 4px;
     &.alert-information,
@@ -35,7 +35,8 @@
 /*
 // Rating Review
 */
-.traveler-rating-result-wrap{
+.traveler-rating-result-wrap,
+.traveler-rating-review{
     br{
         display: none;
     }
@@ -53,12 +54,67 @@
     }
 }
 
+
+.traveler-search-form{
+    .item-search{
+        margin-bottom: 10px;
+        input,select{
+            width: 100%;
+            border-radius: 3px;
+            border: 1px solid rgba(51, 51, 51, 0.1);
+        }
+    }
+}
+.traveler-container{
+    padding: 20px;
+    li.content-item{
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    ul{
+        list-style: none;
+        margin: 0px;
+    }
+}
+.traveler-single-content {
+    margin: 0px;
+    .space-top-1 {
+        margin-top: 10px;
+    }
+    .space-top-2 {
+        margin-top: 20px;
+    }
+    .space-top-3 {
+        margin-top: 30px;
+    }
+    .space-top-4 {
+        margin-top: 40px;
+    }
+    .space-top-5 {
+        margin-top: 50px;
+    }
+    .traveler_google_map {
+        height: 500px;
+    }
+    .booking-item-features{
+        list-style: none;
+    }
+}
+
 /// Submit Button Loading Icons
 .submit-button{
     &.loading{
         &:after{
-            content: "loading";
-
+            -webkit-animation: fa-spin 1s infinite steps(8);
+            animation: fa-spin 1s infinite steps(8);
+            content: "\f110";
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
     }
 }

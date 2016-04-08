@@ -1,6 +1,6 @@
 .alert {
   padding: 10px;
-  margin-bottom: 20px;
+  margin: 20px 0px;
   border: 1px solid transparent;
   border-radius: 4px;
 }
@@ -27,14 +27,69 @@
 /*
 // Rating Review
 */
-.traveler-rating-result-wrap br {
+.traveler-rating-result-wrap br,
+.traveler-rating-review br {
   display: none;
 }
-.traveler-rating-result-wrap .rating-stars a.active .icon-star:before {
+.traveler-rating-result-wrap .rating-stars a.active .icon-star:before,
+.traveler-rating-review .rating-stars a.active .icon-star:before {
   content: "\f005";
 }
+.traveler-search-form .item-search {
+  margin-bottom: 10px;
+}
+.traveler-search-form .item-search input,
+.traveler-search-form .item-search select {
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid rgba(51, 51, 51, 0.1);
+}
+.traveler-container {
+  padding: 20px;
+}
+.traveler-container li.content-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.traveler-container ul {
+  list-style: none;
+  margin: 0px;
+}
+.traveler-single-content {
+  margin: 0px;
+}
+.traveler-single-content .space-top-1 {
+  margin-top: 10px;
+}
+.traveler-single-content .space-top-2 {
+  margin-top: 20px;
+}
+.traveler-single-content .space-top-3 {
+  margin-top: 30px;
+}
+.traveler-single-content .space-top-4 {
+  margin-top: 40px;
+}
+.traveler-single-content .space-top-5 {
+  margin-top: 50px;
+}
+.traveler-single-content .traveler_google_map {
+  height: 500px;
+}
+.traveler-single-content .booking-item-features {
+  list-style: none;
+}
 .submit-button.loading:after {
-  content: "loading";
+  -webkit-animation: fa-spin 1s infinite steps(8);
+  animation: fa-spin 1s infinite steps(8);
+  content: "\f110";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .traveler-cart-wrap .traveler-cart-table tr .small-col {
   width: 6%;

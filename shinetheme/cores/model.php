@@ -129,7 +129,7 @@ if(!class_exists('Traveler_Model') ){
 
 		function update($data=array())
 		{
-			if(!empty($data))
+			if(empty($data))
 			{
 				return FALSE;
 			}
@@ -151,9 +151,9 @@ if(!class_exists('Traveler_Model') ){
 			}
 			$set=substr($set,0,-1);
 
-			$query="UPDATE %s SET %s";
+			$query="UPDATE ".$table_name." SET %s";
 
-			$query=$wpdb->prepare($query,array($table_name,$set));
+			$query=$wpdb->prepare($query,array($set));
 			$query.=$where;
 
 			return $wpdb->query($query);
@@ -162,7 +162,7 @@ if(!class_exists('Traveler_Model') ){
 
 		function insert($data=array())
 		{
-			if(!empty($data))
+			if(empty($data))
 			{
 				return FALSE;
 			}
@@ -170,16 +170,25 @@ if(!class_exists('Traveler_Model') ){
 			$table_name = $wpdb->prefix . $this->table_name;
 
 			$set=FALSE;
+			$set_data=array();
 			foreach($data as $key=>$value){
-				$set.="$key='$value',";
+				$set.="%s,";
+				$set_data[]=$value;
+			}
+			$set_columns=FALSE;
+			foreach($data as $key=>$value){
+				$set_columns.=$key.",";
 			}
 			$set=substr($set,0,-1);
+			$set_columns=substr($set_columns,0,-1);
 
-			$query="INSERT INTO %s VALUES (%s)";
+			$query="INSERT INTO ".$table_name." ({$set_columns}) VALUES ($set)";
 
-			$query=$wpdb->prepare($query,array($table_name,$set));
+			$query=$wpdb->prepare($query,$set_data);
 
-			return $wpdb->query($query);
+			$wpdb->query($query);
+
+			return $wpdb->insert_id;
 
 		}
 

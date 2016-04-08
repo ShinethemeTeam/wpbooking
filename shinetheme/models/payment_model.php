@@ -24,15 +24,35 @@ if (!class_exists('Traveler_Payment_Model')) {
 				),
 				'order_id'       => array('type' => "INT"),
 				'created_on'     => array('type' => "INT"),
-				'pay_amount'     => array('type' => 'float'),
+				'amount'         => array('type' => 'float'),
 				'currency'       => array('type' => 'varchar', 'length' => 255),
 				'gateway'        => array('type' => 'varchar', 'length' => 255),
-				'payment_status' => array('type' => "INT")
+				'payment_status' => array('type' => "varchar", 'length' => 255)
 			);
 
 			parent::__construct();
 		}
 
+
+		function create_payment($order_id, $gateway)
+		{
+			$booking = Traveler_Booking::inst();
+			$data = array(
+				'order_id'   => $order_id,
+				'created_on' => time(),
+				'amount'     => $booking->get_order_pay_amount($order_id),
+				'currency'   => Traveler_Currency::get_current_currency('currency'),
+				'gateway'    => $gateway
+			);
+
+			return $this->insert($data);
+		}
+
+		function get_payment_amount($payment_id)
+		{
+			$payment= $this->find($payment_id);
+			if($payment) return $payment->amount;
+		}
 
 		static function inst()
 		{

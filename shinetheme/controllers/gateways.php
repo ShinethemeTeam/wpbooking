@@ -104,21 +104,57 @@ if(!class_exists('Traveler_Payment_Gateways'))
 			$all_gateways=$this->get_gateways();
 			if(isset($all_gateways[$gateway]))
 			{
-
+				// Create Payment
+				$payment=Traveler_Payment_Model::inst();
+				$payment_id=$payment->create_payment($order_id,$gateway);
 				// Get payable order item ids
-				$order_model->prepare_paying($order_id);
+				$order_model->prepare_paying($order_id,$payment_id);
 
 				$selected_gateway=$all_gateways[$gateway];
 
 				if(method_exists($selected_gateway,'do_checkout'))
 				{
-					$data=$selected_gateway->do_checkout($order_id);
+					$data=$selected_gateway->do_checkout($order_id,$payment_id);
 				}
 			}
 
 			return $data;
 		}
 
+		function complete_purchase($payment_id)
+		{
+			$payment=Traveler_Payment_Model::inst();
+			$payment_object=$payment->find($payment_id);
+			$data=FALSE;
+
+			if($payment_object)
+			{
+				$gateway=$payment_object['gateway'];
+				$all_gateways=$this->get_gateways();
+				if(array_key_exists($gateway,$all_gateways))
+				{
+					$selected_gateway=$all_gateways[$gateway];
+					if(method_exists($selected_gateway,'do_checkout'))
+					{
+						do_action('traveler_before_payment_complete_purchase');
+						$data= $selected_gateway->complete_purchase($payment_id);
+						if($data)
+						{
+							// Update the Order Items
+							$order_model=Traveler_Order_Model::inst();
+							$order_model->complete_purchase($payment_id);
+						}
+						do_action('traveler_after_payment_complete_purchase');
+
+					}
+				}
+
+			}
+
+			$data=apply_filters('traveler_complete_purchase',$data);
+			return $data;
+
+		}
 		static function inst()
 		{
 			if(!self::$_inst){

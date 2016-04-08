@@ -126,6 +126,42 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 			parent::__construct();
 		}
 
+        function _add_page_archive_search($args){
+            $id_page = $this->get_option('archive_page');
+            $args = array($id_page=>$this->type_id);
+            return $args;
+        }
+        function _service_query_args($args){
+            $args['meta_query'][] = array(
+                'key' => 'service_type',
+                'value' => $this->type_id,
+            );
+
+            if($location_id = Traveler_Input::request('location_id')){
+                $args['tax_query'][] = array(
+                    'taxonomy' => 'traveler_location',
+                    'field'    => 'term_id',
+                    'terms'    => array( $location_id ),
+                    'operator' => 'IN',
+                );
+            }
+            if($price = Traveler_Input::request('price')){
+                $args['tax_query'][] = array(
+                    'taxonomy' => 'traveler_location',
+                    'field'    => 'term_id',
+                    'terms'    => array( $location_id ),
+                    'operator' => 'IN',
+                );
+            }
+
+            //var_dump($args);
+
+            return $args;
+        }
+        function _get_where_query($where){
+            return $where;
+        }
+
 		static function inst()
 		{
 			if (!self::$_inst) {

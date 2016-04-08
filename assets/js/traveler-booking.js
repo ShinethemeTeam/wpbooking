@@ -93,7 +93,7 @@ jQuery(document).ready(function($){
 
     // Checkout Form
     $('.traveler_checkout_form .submit-button').click(function(){
-        var form=$(this).closest('.traveler_order_form');
+        var form=$(this).closest('.traveler_checkout_form');
         var me=$(this);
         var data=getFormData(form);
         me.addClass('loading').removeClass('error');
@@ -134,6 +134,35 @@ jQuery(document).ready(function($){
         })
     });
 
+
+
+    //////////////////////////////////
+    /////////// Google Gmap //////////
+    //////////////////////////////////
+
+    $('.traveler_google_map').each(function(){
+        var map_lat = $(this).data('lat');
+        var map_lng = $(this).data('lng');
+        var map_zoom = $(this).data('zoom');
+        console.log(map_zoom);
+        $(this).gmap3({
+            map:{
+                options:{
+                    center:[map_lat,map_lng],
+                    zoom: map_zoom
+                }
+            },
+            marker:{
+                values:[
+                    {latLng:[map_lat, map_lng]},
+                ],
+                options:{
+                    draggable: false
+                }
+            }
+        });
+    });
+
     // Gateway Items
     $('.traveler-gateway-item [name=payment_gateway]').change(function(){
        var parent=$(this).closest('.traveler-gateway-item');
@@ -145,3 +174,4 @@ jQuery(document).ready(function($){
     });
 
 });
+
