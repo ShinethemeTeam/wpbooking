@@ -3,8 +3,11 @@
  *@since 1.0.0
  **/
 $service_type=Traveler_Service::inst()->get_service_types();
+
 $old_data = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
-$select=FALSE;
+
+$select = FALSE;
+
 if( $service_type && !empty( $service_type ) ){
 	$select= '<select name="'. esc_html( $data['id'] ).'" id="'. esc_html( $data['id'] ) .'" class="form-control '. esc_html( $data['class'] ).'">';
 	foreach( $service_type as $key => $value ){
@@ -12,15 +15,15 @@ if( $service_type && !empty( $service_type ) ){
 		if( !empty( $data['std'] ) && ( esc_html( $key ) == esc_html( $data['std'] ) ) ){
 			$checked = ' selected ';
 		}
-		if( $old_data && is_array( $old_data ) ){
-			if( in_array( esc_html( $key ), $old_data ) ){
+		if( $old_data ){
+			if( esc_html( $key ) == $old_data ){
 				$checked = ' selected ';
 			}else{
 				$checked = '';
 			}
 		}
 		
-		$select.= '<option data-key-encrypt="'. traveler_encrypt( esc_html( $key ) ).'" value="'. esc_html( $key ).'" '. $checked .'>'. esc_html( $value['label'] ).'</option>';
+		$select.= '<option value="'. esc_html( $key ).'" '. $checked .'>'. esc_html( $value['label'] ).'</option>';
 	}
 	$select .= '</select>';
 }

@@ -38,8 +38,8 @@ if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 $field .= '</div></div>';
 
 ?>
-<div class="form-table traveler-settings ">
-<div class="st-metabox-left <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+<div class="form-table traveler-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+<div class="st-metabox-left">
 	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
 </div>
 <div class="st-metabox-right">
