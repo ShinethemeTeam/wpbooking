@@ -53,9 +53,7 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
                     ?>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-12">
                 <?php
                 $taxonomy = Traveler_Admin_Taxonomy_Controller::inst()->get_taxonomies();
                 if(!empty($taxonomy)) {
@@ -85,32 +83,39 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="content-single">
-                    <?php
-                    $map_lat = get_post_meta( get_the_ID() , 'map_lat', true );
-                    $map_lng = get_post_meta( get_the_ID() , 'map_long', true );
-                    $map_zoom = get_post_meta( get_the_ID() , 'map_zoom', true );
-                    if(!empty($map_lat) and !empty($map_lng)){ ?>
-                        <div class="traveler_google_map" data-lat="<?php echo esc_attr($map_lat) ?>" data-lng="<?php echo esc_attr($map_lng) ?>" data-zoom="<?php echo esc_attr($map_zoom) ?>"></div>
-                    <?php } ?>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-5">
-                <?php
-                $gallery = get_post_meta(get_the_ID(),'gallery',true);
-                $gallery = explode(",",$gallery);
-                if(!empty($gallery)){
-                    ?>
-                    <div class="fotorama" data-width="100%" data-allowfullscreen="true" data-nav="thumbs">
-                        <?php
-                        foreach($gallery as $k=>$v){
-                            echo wp_get_attachment_image($v,'full');
-                        }
-                        ?>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#maps">Maps</a></li>
+                    <li><a data-toggle="tab" href="#gallery">Gallery</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="maps" class="tab-pane fade in active">
+                        <div class="content-single">
+                            <?php
+                            $map_lat = get_post_meta( get_the_ID() , 'map_lat', true );
+                            $map_lng = get_post_meta( get_the_ID() , 'map_long', true );
+                            $map_zoom = get_post_meta( get_the_ID() , 'map_zoom', true );
+                            if(!empty($map_lat) and !empty($map_lng)){ ?>
+                                <div class="traveler_google_map" data-lat="<?php echo esc_attr($map_lat) ?>" data-lng="<?php echo esc_attr($map_lng) ?>" data-zoom="<?php echo esc_attr($map_zoom) ?>"></div>
+                            <?php } ?>
+                        </div>
                     </div>
-                <?php } ?>
+                    <div id="gallery" class="tab-pane fade">
+                        <?php
+                        $gallery = get_post_meta(get_the_ID(),'gallery',true);
+                        $gallery = explode(",",$gallery);
+                        if(!empty($gallery)){
+                            ?>
+                            <div class="fotorama" data-width="100%" data-allowfullscreen="true" data-nav="thumbs">
+                                <?php
+                                foreach($gallery as $k=>$v){
+                                    echo wp_get_attachment_image($v,'full');
+                                }
+                                ?>
+                            </div>
+                        <?php } ?>
+
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -122,6 +127,9 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
                 ?>
             </div>
         </div>
+
+
+
     </div>
 </div>
 
