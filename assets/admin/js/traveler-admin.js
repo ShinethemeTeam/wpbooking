@@ -257,12 +257,12 @@ jQuery(document).ready(function( $ ){
         resize = setTimeout(function(){
             if( $(window).width() < 1024 ){
                 if( $( ".st-metabox-tabs" ).length ){
-                    $( ".st-metabox-tabs" ).tabs({active: 0}).removeClass( "ui-tabs-vertical ui-helper-clearfix" );
+                    $( ".st-metabox-tabs" ).tabs().removeClass( "ui-tabs-vertical ui-helper-clearfix" );
                     $( ".st-metabox-tabs li" ).addClass( "ui-corner-top" ).removeClass( "ui-corner-left" );
                 }
             }else{
                 if( $( ".st-metabox-tabs" ).length ){
-                    $( ".st-metabox-tabs" ).tabs({active: 0}).addClass( "ui-tabs-vertical ui-helper-clearfix" );
+                    $( ".st-metabox-tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
                     $( ".st-metabox-tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
                 }
             }
