@@ -64,6 +64,10 @@
 }
 .traveler-single-content {
   margin: 0px;
+  padding: 15px;
+}
+.traveler-single-content .single-thumbnai {
+  margin-bottom: 10px;
 }
 .traveler-single-content .space-top-1 {
   margin-top: 10px;

@@ -16,12 +16,15 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
 	<meta itemprop="url" content="<?php the_permalink(); ?>" />
     <div class="container-fluid traveler-single-content">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-12">
                 <?php if(has_post_thumbnail() and get_the_post_thumbnail()){
-                    the_post_thumbnail( array( 150, 200 ) );
+                    echo "<div class=single-thumbnai>";
+                    the_post_thumbnail( "full" );
+                    echo "</div>";
+
                 }?>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <h3><?php the_title(); ?></h3>
                 <?php $adress  = get_post_meta(get_the_ID(),'address',true); ?>
                 <?php if(!empty($adress)){ ?>
@@ -111,7 +114,7 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 space-top-3">
+            <div class="col-md-12">
                 <?php
                 if ( comments_open() || get_comments_number() ) :
                     comments_template();
