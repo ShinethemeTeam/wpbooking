@@ -119,14 +119,24 @@ jQuery(document).ready(function($) {
 		$('#calendar-checkout', form_container).val(check_out);
 	}
 
+    var room_calendar;
     if( $('.traveler-calendar-sidebar .calendar-room-form').length ){
-    	$('.traveler-calendar-sidebar .calendar-room-form').each(function(index, el) {
-    		var t = $(this).parents('.traveler-calendar-wrapper');
-    		var calendar = new RoomCalendar( t );
-    		calendar.init();
-    	});
-    	
+        $('.traveler-calendar-sidebar .calendar-room-form').each(function(index, el) {
+            var t = $(this).parents('.traveler-calendar-wrapper');
+            room_calendar = new RoomCalendar( t );
+            room_calendar.init();
+        });
     }
+    if( $( ".st-metabox-tabs" ).length ){
+        $( ".st-metabox-tabs" ).tabs({
+            activate: function( event, ui ) {
+                if( room_calendar ){
+                    $('.traveler-calendar-wrapper .calendar-room').fullCalendar( 'today' );
+                }
+            }
+        });
+    }
+    
 
     var flag_add = false;
     if( $('.traveler-calendar-sidebar .calendar-room-form').length ){

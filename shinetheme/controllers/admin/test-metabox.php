@@ -19,6 +19,179 @@ class Test_Metabox extends Traveler_Controller{
             'priority' => 'high',
             'fields'   => array(
                 array(
+                    'label' => __('General', 'traveler-booking'),
+                    'id' => 'general_tab',
+                    'type' => 'tab',
+                ),
+                array(
+                    'label' => __('Location', 'traveler-booking'),
+                    'id' => 'location',
+                    'type' => 'location'
+                ),
+                array(
+                    'label' => __('Map', 'traveler-booking'),
+                    'id' => 'gmap',
+                    'type' => 'gmap'
+                ),
+                array(
+                    'label' => __('Gallery', 'traveler-booking'),
+                    'id' => 'gallery',
+                    'type' => 'gallery'
+                ),
+                array(
+                    'label' => __('Accommodates', 'traveler-booking'),
+                    'id' => 'accommodates',
+                    'type' => 'text'
+                ),
+                array(
+                    'label' => __('Bathrooms', 'traveler-booking'),
+                    'id' => 'bathrooms',
+                    'type' => 'text'
+                ),
+                array(
+                    'label' => __('Check in Time', 'traveler-booking'),
+                    'id' => 'check_in_time',
+                    'type' => 'text',
+                    'class' => 'time-picker'
+                ),
+                array(
+                    'label' => __('Check out Time', 'traveler-booking'),
+                    'id' => 'check_out_time',
+                    'type' => 'text',
+                    'class' => 'time-picker'
+                ),
+                array(
+                    'label' => __('No. Adult', 'traveler-booking'),
+                    'id' => 'number_adult',
+                    'type' => 'number',
+                ),
+                array(
+                    'label' => __('No. Children', 'traveler-booking'),
+                    'id' => 'number_children',
+                    'type' => 'number',
+                ),
+                array(
+                    'label' => __('External Booking?', 'traveler-booking'),
+                    'id' => 'external_booking',
+                    'type' => 'checkbox',
+                    'value' => array(
+                        'yes' => __('Yes', 'traveler-booking')
+                    ),
+                ),
+                array(
+                    'label' => __('External URL', 'traveler-booking'),
+                    'id' => 'external_url',
+                    'type' => 'text',
+                    'condition' => 'external_booking:is(yes)'
+                ),
+                array(
+                    'label' => __('Instant Booking?', 'traveler-booking'),
+                    'id' => 'instant_booking',
+                    'type' => 'checkbox',
+                    'value' => array(
+                        'yes' => __('Yes', 'traveler-booking')
+                    ),
+                ),
+                array(
+                    'label' => __('Day not available from - to days', 'traveler-booking'),
+                    'id' => 'day_not_available',
+                    'type' => 'text',
+                ),
+                array(
+                    'label' => __('Preparetions', 'traveler-booking'),
+                    'id' => 'preparetions',
+                    'type' => 'text',
+                ),
+                array(
+                    'label' => __('Pricing', 'traveler-booking'),
+                    'id'    => 'price_tab',
+                    'type'  => 'tab',
+                ),
+                array(
+                    'label' => __('Base Price', 'traveler-booking'),
+                    'id' => 'price',
+                    'type' => 'text',
+                ),
+                array(
+                    'label' => __('Currency', 'traveler-booking'),
+                    'id' => 'currency',
+                    'type' => 'dropdown',
+                    'std' => 'usd',
+                    'value' => array(
+                        'usd' => __('USD - $', 'traveler-booking')
+                    ),
+                ),
+                array(
+                    'label' => __('Long Terms?', 'traveler-booking'),
+                    'id' => 'long_terms',
+                    'type' => 'checkbox',
+                    'value' => array(
+                        'yes' => __('Yes', 'traveler-booking')
+                    ),
+                ),
+                array(
+                    'label' => __('Weekly Discount', 'traveler-booking'),
+                    'id' => 'weekly_discount',
+                    'type' => 'text',
+                    'condition' => 'long_terms:is(yes)'
+                ),
+                array(
+                    'label' => __('Monthly Discount', 'traveler-booking'),
+                    'id' => 'monthly_discount',
+                    'type' => 'text',
+                    'condition' => 'long_terms:is(yes)'
+                ),
+                array(
+                    'label' => __('Extra Price', 'traveler-booking'),
+                    'id' => 'extra_price',
+                    'type' => 'list-item',
+                    'value' => array(
+                        array(
+                            'id'    => 'name',
+                            'label' => __('Name Of Item', 'traveler-booking'),
+                            'type'  => 'text',
+                        ),array(
+                            'id'    => 'price',
+                            'label' => __('Price', 'traveler-booking'),
+                            'type'  => 'text',
+                        ),
+                        array(
+                            'label' => __('Type', 'traveler-booking'),
+                            'id' => 'currency',
+                            'type' => 'dropdown',
+                            'value' => array(
+                                'fixed' => __('Fixed', 'traveler-booking'),
+                                'per_day' => __('per Day', 'traveler-booking'),
+                                'per_night' => __('per Night', 'traveler-booking'),
+                            ),
+                        ),
+                    )
+                ),
+                array(
+                    'label' => __('Price Type', 'traveler-booking'),
+                    'id' => 'price_type',
+                    'type' => 'dropdown',
+                    'value' => array(
+                        'fixed' => __('Fixed', 'traveler-booking'),
+                        'per_night' => __('per Night', 'traveler-booking'),
+                    ),
+                ),
+                array(
+                    'label' => __('Deposit?', 'traveler-booking'),
+                    'id' => 'deposit',
+                    'type' => 'dropdown',
+                    'value' => array(
+                        'none' => __('None', 'traveler-booking'),
+                        'percent' => __('Percent', 'traveler-booking'),
+                        'fixed' => __('Fixed', 'traveler-booking'),
+                    ),
+                ),
+                array(
+                    'label' => __('Amount', 'traveler-booking'),
+                    'id' => 'amount',
+                    'type' => 'text',
+                ),
+                array(
                     'label' => __('Calendar', 'traveler-booking'),
                     'id'    => 'calendar_tab',
                     'type'  => 'tab',
@@ -29,173 +202,43 @@ class Test_Metabox extends Traveler_Controller{
                     'type'  => 'calendar',
                     'service_type' => 'room'
                 ),
-            	array(
-                    'label' => __('Location', 'traveler-booking'),
-                    'id'    => 'location_tab',
+                array(
+                    'label' => __('Gateways', 'traveler-booking'),
+                    'id'    => 'gateways',
                     'type'  => 'tab',
                 ),
-				array(
-					'id'=>'service_type',
-					'label'=>__("Service Type",'traveler-booking'),
-					'location'=>'hndle-tag',
-					'type'=>'service-type-select',
-				),
                 array(
-                    'id'      => 'location' ,
-                    'label'   => __( 'Location' , 'traveler-booking' ) ,
-                    'desc'    => __( 'Location' , 'traveler-booking' )  ,
-                    'type'    => 'location' ,
-                ),
-                array(
-                    'id'      => 'taxonomies' ,
-                    'label'   => __( 'Taxonomies' , 'traveler-booking' ) ,
-                    'desc'    => __( 'taxonomies' , 'traveler-booking' )  ,
-                    'type'    => 'taxonomies' ,
-                ),
-                array(
-                    'id'      => 'check_box' ,
-                    'label'   => __( 'Check Box' , 'traveler-booking' ) ,
-                    'desc'    => __( 'Check Box' , 'traveler-booking' )  ,
-                    'type'    => 'checkbox' ,
-                    'std'     => 'check_2',
+                    'label' => __('Cheque', 'traveler-booking'),
+                    'id' => 'gateway_cheque',
+                    'type' => 'checkbox',
                     'value' => array(
-                        'check_1'  => __( 'Check Box 1' , "traveler-booking" ) ,
-                        'check_2' => __( 'Check Box 2' , "traveler-booking" ) ,
-                    ) ,
+                        'yes' => __('Yes', 'traveler-booking')
+                    ),
                 ),
                 array(
-                    'id' => 'list-item',
-                    'label' => 'List Item',
-                    'desc' => 'List Item',
-                    'type' => 'list-item',
+                    'label' => __('Paypal', 'traveler-booking'),
+                    'id' => 'gateway_paypal',
+                    'type' => 'checkbox',
                     'value' => array(
-                        array(
-                            'id'    => 'symbol',
-                            'label' => __('Symbol', 'traveler-booking'),
-                            'desc'  => __('Symbol of currency. Example: $', 'traveler-booking'),
-                            'type'  => 'text',
-                            'std'   => ''
-                        ),
-                        array(
-                            'id'      => 'textarea' ,
-                            'label'   => __( 'Text Area' , 'traveler-booking' ) ,
-                            'desc'    => __( 'Text Area' , 'traveler-booking' )  ,
-                            'type'    => 'textarea' ,
-                            'std'     => 'textarea',
-                        ),
-                        array(
-                            'id'      => 'dropdown' ,
-                            'label'   => __( 'Dropdown' , 'traveler-booking' ) ,
-                            'desc'    => __( 'Dropdown' , 'traveler-booking' )  ,
-                            'type'    => 'dropdown' ,
-                            'std'     => 'yes',
-                            'value' => array(
-                                'no'  => __( 'No' , "traveler-booking" ) ,
-                                'yes' => __( 'Yes' , "traveler-booking" ) ,
-                            ) ,
-                        ),
-                    )
-                ),
-                array(
-                    'id' => 'price',
-                    'label' => 'Text Box',
-                    'desc' => 'Text Box',
-                    'type' => 'text',
-                    'std' => 'textbox',
-                ),
-                array(
-                    'id' => 'gmap',
-                    'label' => 'Gmap',
-                    'desc' => 'Gmap',
-                    'type' => 'gmap',
-                    'std' => 'Gmap',
-                    'map_zoom' => 13
-                ),
-                array(
-                    'id'      => 'radio' ,
-                    'label'   => __( 'Radio' , 'traveler-booking' ) ,
-                    'desc'    => __( 'Radio' , 'traveler-booking' )  ,
-                    'type'    => 'radio' ,
-                    'std'     => 'no',
-                    'value' => array(
-                        'no'  => __( 'No' , "traveler-booking" ) ,
-                        'yes' => __( 'Yes' , "traveler-booking" ) ,
-                    ) ,
-                ),
-                array(
-                    'id'      => 'textarea' ,
-                    'label'   => __( 'Text Area' , 'traveler-booking' ) ,
-                    'desc'    => __( 'Text Area' , 'traveler-booking' )  ,
-                    'type'    => 'textarea' ,
-                    'std'     => 'textarea',
-                    'condition'=>'check_box:is(check_1)'
-                ),
-                array(
-                    'id'      => 'texteditor' ,
-                    'label'   => __( 'Text Editor' , 'traveler-booking' ) ,
-                    'desc'    => __( 'Text Editor' , 'traveler-booking' )  ,
-                    'type'    => 'texteditor' ,
-                    'std'     => 'texteditor',
-                ),
-                array(
-                    'id'      => 'dropdown' ,
-                    'label'   => __( 'Dropdown' , 'traveler-booking' ) ,
-                    'desc'    => __( 'Dropdown' , 'traveler-booking' )  ,
-                    'type'    => 'dropdown' ,
-                    'std'     => 'no',
-                    'value' => array(
-                        'no'  => __( 'No' , "traveler-booking" ) ,
-                        'yes' => __( 'Yes' , "traveler-booking" ) ,
-                    ) ,
+                        'yes' => __('Yes', 'traveler-booking')
+                    ),
                 ),
 
                 array(
-                    'label' => __('Location 1', 'traveler_booking'),
-                    'id'    => 'location_tab1',
-                    'type'  => 'tab'
-                ),
-                array(
-                    'id'      => 'check_box_1' ,
-                    'label'   => __( 'Check Box 1' , 'traveler-booking' ) ,
-                    'desc'    => __( 'Check Box 1' , 'traveler-booking' )  ,
-                    'type'    => 'checkbox' ,
-                    'std'     => 'check_2',
+                    'label' => __('Stripe', 'traveler-booking'),
+                    'id' => 'gateway_stripe',
+                    'type' => 'checkbox',
                     'value' => array(
-                        'check_1'  => __( 'Check Box 1.1' , "traveler-booking" ) ,
-                        'check_2' => __( 'Check Box 2.1' , "traveler-booking" ) ,
-                    ) ,
+                        'yes' => __('Yes', 'traveler-booking')
+                    ),
                 ),
                 array(
-                    'label' => __('Location', 'traveler-booking'),
-                    'id'    => 'location_tab_2',
-                    'type'  => 'tab',
-                ),
-                array(
-                    'id' => 'address',
-                    'label' => __("Address",'traveler-booking'),
-                    'desc' => __("Address",'traveler-booking'),
-                    'type' => 'text',
-                    'std' => '',
-                ),
-                array(
-                    'id' => 'google_map',
-                    'label' => __("Google map",'traveler-booking'),
-                    'desc' => __("Google map",'traveler-booking'),
-                    'type' => 'gmap',
-                    'std' => '',
-                    'map_zoom' => 13
-                ),
-                array(
-                    'label' => __('Info Service', 'traveler-booking'),
-                    'id'    => 'info_service_tab',
-                    'type'  => 'tab',
-                ),
-                array(
-                    'id'      => 'gallery' ,
-                    'label'   => __( 'Gallery' , 'traveler-booking' ) ,
-                    'desc'    => __( 'Gallery' , 'traveler-booking' )  ,
-                    'type'    => 'gallery' ,
-                    'std'     => '',
+                    'label' => __('Payfast', 'traveler-booking'),
+                    'id' => 'gateway_payfast',
+                    'type' => 'checkbox',
+                    'value' => array(
+                        'yes' => __('Yes', 'traveler-booking')
+                    ),
                 ),
             )
 		);

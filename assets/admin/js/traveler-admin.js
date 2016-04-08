@@ -439,7 +439,7 @@ jQuery(document).ready(function( $ ){
     $('.traveler-add-item').click(function(event) {
         /* Act on the event */
         if( $('#traveler-list-item-draft').length ){
-            var content = $('#traveler-list-item-draft td').html();
+            var content = $('#traveler-list-item-draft').html();
 
             var parent = $(this).closest('.traveler-list-item-wrapper');
 
