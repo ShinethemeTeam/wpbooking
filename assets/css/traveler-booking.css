@@ -21,6 +21,9 @@
   border-color: rgba(240, 80, 80, 0.3);
   color: #ff5b5b;
 }
+.alert a {
+  text-decoration: underline;
+}
 .hidden {
   display: none;
 }

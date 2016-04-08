@@ -99,15 +99,16 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 
 		function validate()
 		{
-			if ($this->get_option('test_mode', 'on') == 'on') {
-				if($this->get_option('test_api_username') or $this->get_option('test_api_password') or $this->get_option('test_api_signature') )
+
+			if ($this->get_option('test_mode') == 'on') {
+				if(!$this->get_option('test_api_username') or !$this->get_option('test_api_password') or !$this->get_option('test_api_signature') )
 				{
-					traveler_set_message(__('PayPal API is not correctly! Please check with the Admin','traveler-booking'),'error');
+					traveler_set_message(__('Test PayPal API is not correctly! Please check with the Admin','traveler-booking'),'error');
 					return FALSE;
 				}
 			}else{
 
-				if($this->get_option('api_username') or $this->get_option('api_password') or $this->get_option('api_signature') )
+				if(!$this->get_option('api_username') or !$this->get_option('api_password') or !$this->get_option('api_signature') )
 				{
 					traveler_set_message(__('PayPal API is not correctly! Please check with the Admin','traveler-booking'),'error');
 					return FALSE;
@@ -128,7 +129,7 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 			$payment=Traveler_Payment_Model::inst();
 
 			$gateway=$this->gatewayObject;
-			if ($this->get_option('test_mode', 'on') == 'on') {
+			if ($this->get_option('test_mode') == 'on') {
 				$gateway->setTestMode(true);
 				$gateway->setUsername($this->get_option('test_api_username'));
 				$gateway->setPassword($this->get_option('test_api_password'));
@@ -156,14 +157,64 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 
 			if ($response->isSuccessful()) {
 
-				return array('status' => true);
+				return array('status' => 1);
 
 			} elseif ($response->isRedirect()) {
 
-				return array('status' => false, 'redirect' => $response->getRedirectUrl());
+				return array('status' => 1, 'redirect' => $response->getRedirectUrl());
 			} else {
 
-				return array('status' => false, 'message' => $response->getMessage(), 'data' => $purchase);
+				traveler_set_message($response->getMessage(),'error');
+				return array('status' => false, 'data' => $purchase);
+
+			}
+		}
+
+		function complete_purchase($payment_id,$order_id)
+		{
+			if(!$this->validate())
+			{
+				return array(
+					'status'=>0
+				);
+			}
+			$payment=Traveler_Payment_Model::inst();
+
+			$gateway=$this->gatewayObject;
+			if ($this->get_option('test_mode') == 'on') {
+				$gateway->setTestMode(true);
+				$gateway->setUsername($this->get_option('test_api_username'));
+				$gateway->setPassword($this->get_option('test_api_password'));
+				$gateway->setSignature($this->get_option('test_api_signature'));
+			}else{
+
+				$gateway->setUsername($this->get_option('api_username'));
+				$gateway->setPassword($this->get_option('api_password'));
+				$gateway->setSignature($this->get_option('api_signature'));
+			}
+
+			$total=$payment->get_payment_amount($payment_id);
+
+			$purchase = array(
+				'amount'      => (float)$total,
+				'currency'    => Traveler_Currency::get_current_currency('name'),
+				'description' => __('Traveler Booking','traveler-booking'),
+				'returnUrl'   => $this->get_return_url($order_id,$payment_id),
+				'cancelUrl'   => $this->get_cancel_url($order_id,$payment_id),
+			);
+
+			$response = $gateway->completePurchase(
+				$purchase
+			)->send();
+
+
+			if ($response->isSuccessful()) {
+				return true;
+
+			} elseif ($response->isRedirect()) {
+				return FALSE;
+			} else {
+				return FALSE;
 
 			}
 		}

@@ -24,7 +24,9 @@ if (!class_exists('Traveler_Booking')) {
 			add_action('init', array($this, '_register_shortcode'));
 			add_action('template_redirect', array($this, '_delete_cart_item'));
 
-			add_action('template_redirect',array($this,'_complete_purchase_validate'));
+			add_action('template_redirect', array($this, '_complete_purchase_validate'));
+
+			add_filter('the_content',array($this,'_show_order_information'));
 
 		}
 
@@ -103,9 +105,10 @@ if (!class_exists('Traveler_Booking')) {
 
 				Traveler_Session::set('traveler_cart', $cart);
 
+				traveler_set_message(sprintf(__('Add to %s success', 'traveler-booking'), sprintf('<a href="%s">%s</a>', $this->get_cart_url(), __('cart', 'traveler-booking'))),'success');
 				$res = array(
 					'status'  => 1,
-					'message' => sprintf(__('Add to %s success', 'traveler-booking'), sprintf('<a href="%s">%s</a>', $this->get_cart_url(), __('cart', 'traveler-booking')))
+					'message' => traveler_get_message(TRUE)
 				);
 			}
 
@@ -139,7 +142,7 @@ if (!class_exists('Traveler_Booking')) {
 			}
 
 			if ($is_validate and !traveler_get_option('allow_guest_checkout') and !is_user_logged_in()) {
-				$is_validate=FALSE;
+				$is_validate = FALSE;
 				$res['redirect'] = wp_login_url(get_permalink(traveler_get_option('checkout_page')));
 				traveler_set_message(__("You need login to do this!", 'traveler-booking'), 'error');
 			}
@@ -175,7 +178,6 @@ if (!class_exists('Traveler_Booking')) {
 			}
 
 
-
 			if ($is_validate) {
 				$is_validate = apply_filters('traveler_do_checkout_validate', $is_validate, $cart);
 			}
@@ -192,48 +194,57 @@ if (!class_exists('Traveler_Booking')) {
 				$order_id = $order_model->create($cart);
 				if ($order_id) {
 					$data = array(
+						'status' => 1
+					);
+					$res=array(
 						'status'=>1
 					);
+					// Clear the Cart after create new order,
+					Traveler_Session::set('traveler_cart',array());
 
-					try{
+					// Only work with Order Table bellow
+
+					try {
 						if ($selected_gateway) {
 							$data = Traveler_Payment_Gateways::inst()->do_checkout($selected_gateway, $order_id);
-							if(!$data['status']){
+							if (!$data['status']) {
 								$res = array(
-									'status'   => 0,
-									'message'  => isset($data['message'])?$data['message']:FALSE,
+									'status'  => 0,
+									'message' => traveler_get_message(TRUE),
+									'data'    => $data
 								);
 							}
 
 						}
 
-						if($res['status']){
+						if ($res['status']) {
 							//do checkout
 							$res = array(
-								'message'  => __('Booking Success', 'traveler-booking'),
-								'data'     => $data,
+								'message' => __('Booking Success', 'traveler-booking'),
+								'data'    => $data,
 							);
 						}
 
 
-
-					}catch(Exception $e)
-					{
-						traveler_set_message($e->getMessage(),'error');
+					} catch (Exception $e) {
+						traveler_set_message($e->getMessage(), 'error');
 						//do checkout
 						$res = array(
-							'status'   => 0,
-							'message'  => traveler_get_message(true),
+							'status'  => 0,
+							'message' => traveler_get_message(TRUE),
 
 						);
 					}
 
-					if(empty($data['redirect']) and empty($data['status']))
-					{
-						$res['redirect']=get_permalink($order_id);
+					if (empty($data['redirect']) and empty($data['status'])) {
+						$res['redirect'] = get_permalink($order_id);
 					}
 
-					do_action('traveler_after_checkout_success',$order_id);
+					if(!empty($data['redirect'])){
+						$res['redirect'] = $data['redirect'];
+					}
+
+					do_action('traveler_after_checkout_success', $order_id);
 
 				} else {
 					$res = array(
@@ -241,7 +252,6 @@ if (!class_exists('Traveler_Booking')) {
 						'message' => __('Can not create the order. Please contact the Admin', 'traveler-booking')
 					);
 				}
-
 
 			}
 
@@ -255,7 +265,7 @@ if (!class_exists('Traveler_Booking')) {
 		function _delete_cart_item()
 		{
 			if (isset($_GET['delete_cart_item'])) {
-				$index=Traveler_Input::get('delete_cart_item');
+				$index = Traveler_Input::get('delete_cart_item');
 				$all = Traveler_Session::get('traveler_cart');
 				unset($all[$index]);
 				$all = array_values($all);
@@ -267,17 +277,16 @@ if (!class_exists('Traveler_Booking')) {
 
 		function _complete_purchase_validate()
 		{
-			if(is_singular('traveler_order'))
-			{
-				$action= Traveler_Input::get('action');
-				$payment_id=Traveler_Input::get('payment_id');
-				switch($action)
-				{
+			if (is_singular('traveler_order')) {
+				$action = Traveler_Input::get('action');
+				$payment_id = Traveler_Input::get('payment_id');
+				$order_id=get_the_ID();
+				switch ($action) {
 					case "cancel_purchase":
 
 						break;
 					case "complete_purchase":
-						Traveler_Payment_Gateways::inst()->complete_purchase($payment_id);
+						Traveler_Payment_Gateways::inst()->complete_purchase($payment_id,$order_id);
 						break;
 				}
 			}
@@ -378,8 +387,6 @@ if (!class_exists('Traveler_Booking')) {
 		}
 
 
-
-
 		/**
 		 * Get checkout form HTML from Settings page
 		 *
@@ -407,13 +414,11 @@ if (!class_exists('Traveler_Booking')) {
 		{
 			$total = 0;
 
-			$order_model = Traveler_Order_Model::inst();
-
-			$order_items = $order_model->find_by('order_id', $order_id);
+			$order_items = $this->get_order_items($order_id);
 
 			if (!empty($order_id)) {
 				foreach ($order_items as $key => $value) {
-					$total+=$this->get_order_item_total($value);
+					$total += $this->get_order_item_total($value);
 				}
 			}
 
@@ -453,12 +458,12 @@ if (!class_exists('Traveler_Booking')) {
 				foreach ($order_items as $key => $value) {
 
 					// Payment Completed -> Ignore
-					if($value['payment_status']=='completed') continue;
+					if ($value['payment_status'] == 'completed') continue;
 
 					// Payment On-Paying -> Ignore
-					if($value['payment_status']=='on-paying') continue;
+					if ($value['payment_status'] == 'on-paying') continue;
 
-					if ($value['need_customer_confirm']===1 or $value['need_partner_confirm']===1) continue;
+					if ($value['need_customer_confirm'] === 1 or $value['need_partner_confirm'] === 1) continue;
 
 					$total += $this->get_order_item_total($value);
 				}
@@ -512,6 +517,17 @@ if (!class_exists('Traveler_Booking')) {
 		function _render_checkout_shortcode($attr = array(), $content = FALSE)
 		{
 			return traveler_load_view('checkout/index');
+		}
+
+		function _show_order_information($content)
+		{
+			$content.=traveler_load_view('order/content');
+			return $content;
+		}
+
+		function get_order_items($order_id)
+		{
+			return Traveler_Order_Model::inst()->get_order_items($order_id);
 		}
 
 		static function inst()

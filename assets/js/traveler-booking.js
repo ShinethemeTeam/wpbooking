@@ -119,11 +119,11 @@ jQuery(document).ready(function($){
                     message.html(res.message);
                     me.after(message);
                 }
-                if(res.data.redirect){
-                    //window.location=me.data.redirect;
+                if(typeof res.data !='undefined'&& typeof res.data.redirect !='undefined' && res.data.redirect){
+                    window.location.href=res.data.redirect;
                 }
                 if(res.redirect){
-                    //window.location=me.redirect;
+                    window.location.href=res.redirect;
                 }
 
                 me.removeClass('loading');
