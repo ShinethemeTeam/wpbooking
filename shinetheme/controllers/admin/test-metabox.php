@@ -109,10 +109,21 @@ class Test_Metabox extends Traveler_Controller{
                     'type' => 'text',
                 ),
                 array(
+                    'label' => __('Amelities', 'traveler-booking'),
+                    'id'    => 'amelities_tab',
+                    'type'  => 'tab',
+                ),
+                array(
+                    'label' => __('Taxonomy', 'traveler-booking'),
+                    'id' => 'taxonomy',
+                    'type' => 'taxonomies',
+                ),
+                array(
                     'label' => __('Pricing', 'traveler-booking'),
                     'id'    => 'price_tab',
                     'type'  => 'tab',
                 ),
+
                 array(
                     'label' => __('Base Price', 'traveler-booking'),
                     'id' => 'price',
