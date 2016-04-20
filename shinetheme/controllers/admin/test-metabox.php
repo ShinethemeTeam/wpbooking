@@ -22,7 +22,13 @@ class Test_Metabox extends Traveler_Controller{
                     'label' => __('General', 'traveler-booking'),
                     'id' => 'general_tab',
                     'type' => 'tab',
-                ),
+                ),array(
+                     'id'=>'service_type',
+                     'label'=>__("Service Type",'traveler-booking'),
+                     'location'=>'hndle-tag',
+                    'type'=>'service-type-select',
+                 ),
+
                 array(
                     'label' => __('Location', 'traveler-booking'),
                     'id' => 'location',
@@ -103,10 +109,21 @@ class Test_Metabox extends Traveler_Controller{
                     'type' => 'text',
                 ),
                 array(
+                    'label' => __('Amelities', 'traveler-booking'),
+                    'id'    => 'amelities_tab',
+                    'type'  => 'tab',
+                ),
+                array(
+                    'label' => __('Taxonomy', 'traveler-booking'),
+                    'id' => 'taxonomy',
+                    'type' => 'taxonomies',
+                ),
+                array(
                     'label' => __('Pricing', 'traveler-booking'),
                     'id'    => 'price_tab',
                     'type'  => 'tab',
                 ),
+
                 array(
                     'label' => __('Base Price', 'traveler-booking'),
                     'id' => 'price',
