@@ -85,7 +85,9 @@ if(!class_exists('Traveler_Model') ){
 
 		function where($key,$value){
 			if(is_array($key) and !empty($key)){
-				$this->_where_query=array($this->_where_query,$key);
+				foreach($key as $k1=>$v1){
+					$this->where($k1,$v1);
+				}
 			}
 			if(is_string($key)){
 				$this->_where_query[$key]=$value;
@@ -95,7 +97,9 @@ if(!class_exists('Traveler_Model') ){
 		}
 		function orderby($key,$value){
 			if(is_array($key) and !empty($key)){
-				$this->_order_query=array($this->_order_query,$key);
+				foreach($key as $k1=>$v1){
+					$this->orderby($k1,$v1);
+				}
 			}
 			if(is_string($key)){
 				$this->_order_query[$key]=$value;
@@ -113,7 +117,7 @@ if(!class_exists('Traveler_Model') ){
 			global $wpdb;
 			$query=$this->_get_query();
 			$this->_last_query=$query;
-			$this->_last_result=$wpdb->get_results();
+			$this->_last_result=$wpdb->get_results($query,ARRAY_A);
 
 			return $this;
 		}
@@ -124,7 +128,9 @@ if(!class_exists('Traveler_Model') ){
 		}
 		function result()
 		{
-			return $this->_last_result;
+			$data= $this->_last_result;
+			$this->_clear_query();;
+			return $data;
 		}
 
 		function update($data=array())
@@ -141,7 +147,7 @@ if(!class_exists('Traveler_Model') ){
 				$where='WHERE 1=1 ';
 
 				foreach($this->_where_query as $key=>$value){
-					$where.=$wpdb->prepare(' AND %s=%s',array($key,$value));
+					$where.=$wpdb->prepare(' AND `'.$key.'`=%s',array($value));
 				}
 			}
 
@@ -151,9 +157,8 @@ if(!class_exists('Traveler_Model') ){
 			}
 			$set=substr($set,0,-1);
 
-			$query="UPDATE ".$table_name." SET %s";
+			$query="UPDATE ".$table_name." SET ".$set;
 
-			$query=$wpdb->prepare($query,array($set));
 			$query.=$where;
 
 			return $wpdb->query($query);
@@ -201,7 +206,9 @@ if(!class_exists('Traveler_Model') ){
 
 			if(!$this->table_key or !$this->is_ready()) return FALSE;
 
-			return $this->where($this->table_key,$id)->limit(1)->get()->row();
+			$data= $this->where($this->table_key,$id)->limit(1)->get()->row();
+			$this->_clear_query();
+			return $data;
 		}
 
 		/**
@@ -213,14 +220,18 @@ if(!class_exists('Traveler_Model') ){
 		function find_by($key,$id){
 
 			if(!$this->is_ready()) return FALSE;
-			return $this->where($key,$id)->limit(1)->get()->row();
+			$data= $this->where($key,$id)->limit(1)->get()->row();
+			$this->_clear_query();
+			return $data;
 		}
 
 		function find_all_by($key,$value)
 		{
 			if(!$this->table_key or !$this->is_ready()) return FALSE;
 
-			return $this->where($key,$value)->get()->result();
+			$data= $this->where($key,$value)->get()->result();
+			$this->_clear_query();
+			return $data;
 		}
 
 		/**
@@ -304,16 +315,17 @@ if(!class_exists('Traveler_Model') ){
 
 				if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
 
-					$this->_is_ready = FALSE;
+					$this->is_ready = FALSE;
 
 				} else {
-					$this->_is_ready = TRUE;
+					$this->is_ready = TRUE;
 
 				}
 
 			} else {
-				$this->_is_ready = TRUE;
+				$this->is_ready = TRUE;
 			}
+
 
 			if ($this->is_ready) {
 				// check upgrade data
@@ -434,10 +446,10 @@ if(!class_exists('Traveler_Model') ){
 
 			$where=FALSE;
 			if(!empty($this->_where_query)){
-				$where='WHERE 1=1 ';
+				$where=' WHERE 1=1 ';
 
 				foreach($this->_where_query as $key=>$value){
-					$where.=$wpdb->prepare(' AND %s=%s',array($key,$value));
+					$where.=$wpdb->prepare(' AND `'.$key.'`=%s ',array($value));
 				}
 			}
 			$order=FALSE;
@@ -457,8 +469,8 @@ if(!class_exists('Traveler_Model') ){
 			}
 
 			if($select){
-				$query="SELECT  %s FROM %s";
-				$query=$wpdb->prepare($query,array($select,$table_name));
+				$query="SELECT  {$select} FROM {$table_name} ";
+				//$query=$wpdb->prepare($query,array($select));
 
 				$query.=$where;
 				$query.=$order;
@@ -476,7 +488,6 @@ if(!class_exists('Traveler_Model') ){
 			$this->_select_query=array();
 			$this->_order_query=array();
 			$this->_limit_query=array();
-			$this->_last_query=array();
 		}
 	}
 

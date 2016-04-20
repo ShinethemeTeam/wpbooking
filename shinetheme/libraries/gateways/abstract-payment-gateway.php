@@ -129,7 +129,7 @@ if (!class_exists('Traveler_Abstract_Payment_Gateway')) {
 		 * @return bool
 		 * @since 1.0
 		 */
-		function complete_purchase($payment_id)
+		function complete_purchase($payment_id,$order_id)
 		{
 			return true;
 		}

@@ -1,3 +1,6 @@
+.tab-padding {
+  padding: 20px;
+}
 .alert {
   padding: 10px;
   margin: 20px 0px;
@@ -21,6 +24,9 @@
   border-color: rgba(240, 80, 80, 0.3);
   color: #ff5b5b;
 }
+.alert a {
+  text-decoration: underline;
+}
 .hidden {
   display: none;
 }
@@ -36,7 +42,7 @@
   content: "\f005";
 }
 .traveler-search-form .item-search {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .traveler-search-form .item-search input,
 .traveler-search-form .item-search select {
@@ -64,6 +70,10 @@
 }
 .traveler-single-content {
   margin: 0px;
+  padding: 15px;
+}
+.traveler-single-content .single-thumbnai {
+  margin-bottom: 10px;
 }
 .traveler-single-content .space-top-1 {
   margin-top: 10px;

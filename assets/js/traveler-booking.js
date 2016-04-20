@@ -119,17 +119,21 @@ jQuery(document).ready(function($){
                     message.html(res.message);
                     me.after(message);
                 }
-                if(me.data.redirect){
-                    window.location=me.data.redirect;
+                if(typeof res.data !='undefined'&& typeof res.data.redirect !='undefined' && res.data.redirect){
+                    window.location.href=res.data.redirect;
                 }
-                if(me.redirect){
-                    window.location=me.redirect;
+                if(res.redirect){
+                    window.location.href=res.redirect;
                 }
 
                 me.removeClass('loading');
             },
             error:function(e){
                 me.removeClass('loading').addClass('error');
+                var message=$('<div/>');
+                message.addClass('traveler-message');
+                message.html(e.message);
+                me.after(message);
             }
         })
     });
@@ -183,7 +187,11 @@ jQuery(document).ready(function($){
             }
         })
         container.find('.data_taxonomy').val(list.substring(0,list.length - 1));
-    })
+    });
+
+
+    $('.traveler-date-start').datepicker();
+    $('.traveler-date-end').datepicker();
 
 });
 
