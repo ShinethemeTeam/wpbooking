@@ -187,7 +187,11 @@ jQuery(document).ready(function($){
             }
         })
         container.find('.data_taxonomy').val(list.substring(0,list.length - 1));
-    })
+    });
+
+
+    $('.traveler-date-start').datepicker();
+    $('.traveler-date-end').datepicker();
 
 });
 

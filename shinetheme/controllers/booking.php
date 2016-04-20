@@ -521,6 +521,7 @@ if (!class_exists('Traveler_Booking')) {
 
 		function _show_order_information($content)
 		{
+			if(get_post_type()=='traveler_booking')
 			$content.=traveler_load_view('order/content');
 			return $content;
 		}

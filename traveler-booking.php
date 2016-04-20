@@ -59,6 +59,11 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
             wp_enqueue_style('traveler-bootstrap-css',traveler_assets_url('bootstrap/css/bootstrap.min.css'));
 			wp_enqueue_style('font-awesome',traveler_assets_url('fa4.5/css/font-awesome.min.css'),FALSE,'4.5.0');
             wp_enqueue_style('fotorama',traveler_assets_url('fotorama4.6.4/fotorama.css'));
+			wp_enqueue_style('plugin_name-admin-ui-css',
+				'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/smoothness/jquery-ui.css',
+				false,
+				1.0,
+				false);
 			wp_enqueue_style('traveler-booking',traveler_assets_url('css/traveler-booking.css'));
 
 
@@ -70,7 +75,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
             wp_enqueue_script('fotorama-js',traveler_assets_url('fotorama4.6.4/fotorama.js'),array('jquery'),null,true);
 			wp_enqueue_script('google-map-js','//maps.googleapis.com/maps/api/js?sensor=false',array('jquery'),null,true);
 			wp_enqueue_script('gmap3.min-js',traveler_assets_url('js/gmap3.min.js'),array('jquery'),null,true);
-			wp_enqueue_script('traveler-booking',traveler_assets_url('js/traveler-booking.js'),array('jquery'),null,true);
+			wp_enqueue_script('traveler-booking',traveler_assets_url('js/traveler-booking.js'),array('jquery','jquery-ui-datepicker'),null,true);
 			wp_localize_script('jquery','traveler_params',array(
 				'ajax_url'=>admin_url('admin-ajax.php'),
 				'traveler_security' => wp_create_nonce( 'traveler-nonce-field' )

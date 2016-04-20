@@ -1,3 +1,6 @@
+.tab-padding {
+  padding: 20px;
+}
 .alert {
   padding: 10px;
   margin: 20px 0px;
@@ -39,7 +42,7 @@
   content: "\f005";
 }
 .traveler-search-form .item-search {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .traveler-search-form .item-search input,
 .traveler-search-form .item-search select {

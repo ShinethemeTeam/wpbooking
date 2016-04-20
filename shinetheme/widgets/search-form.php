@@ -19,145 +19,164 @@ if(!class_exists('traveler_widget_form_search')){
                     $id_page = traveler_get_option('service_type_room_archive_page');
                     $page_search = get_permalink($id_page);
             }
-
+			echo $args['before_widget'];
+			if ( ! empty( $instance['title'] ) ) {
+				echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
+			}
             ?>
             <form class="traveler-search-form" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
-                <aside class="widget widget_calendar" id="calendar-2">
-                    <div class="calendar_wrap" id="calendar_wrap">
-                        <h3><?php echo esc_html( $title ) ?></h3>
-                        <?php
-                        if(!empty($field_search[$service_type])){
-                            foreach($field_search[$service_type] as $k=>$v){
-                                $required = "";
-                                if($v['required'] == "yes"){
-                                    $required = 'required';
-                                }
-                                $value = Traveler_Input::request($v['field_type'],'');
-                                switch($v['field_type']){
-                                    case "location_id":
-                                        ?>
-                                        <div class="item-search">
-                                            <label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-                                            <?php
-                                            $args = array(
-                                                'show_option_none' => __( '-- Select --' , "traveler-booking"  ),
-                                                'option_none_value' => "",
-                                                'hierarchical'      => 1 ,
-                                                'name'              => $v['field_type'] ,
-                                                'class'             => '' ,
-                                                'id'             => $v['field_type'] ,
-                                                'taxonomy'          => 'traveler_location' ,
-                                                'hide_empty' => 0,
-                                            );
-                                            $is_taxonomy = Traveler_Input::request($v['field_type']);
-                                            if(!empty($is_taxonomy)){
-                                                $args['selected'] =$is_taxonomy;
-                                            }
-                                            wp_dropdown_categories( $args );
-                                            ?>
-                                        </div>
-                                        <?php
-                                        break;
-                                    case "taxonomy":
-                                        ?>
-                                        <div class="item-search">
-                                            <label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-                                            <?php
-                                            if($v['taxonomy_show'] =='dropdown'){
-                                                $args = array(
-                                                    'show_option_none' => __( '-- Select --' , "traveler-booking" ),
-                                                    'option_none_value' => "",
-                                                    'hierarchical'      => 1 ,
-                                                    'name'              => $v['field_type'].'['.$v['taxonomy'].']' ,
-                                                    'class'             => '' ,
-                                                    'id'             => $v['field_type'].'['.$v['taxonomy'].']' ,
-                                                    'taxonomy'          => $v['taxonomy'] ,
-                                                    'hide_empty' => 0,
-                                                );
-                                                $is_taxonomy = Traveler_Input::request($v['field_type']);
-                                                if(!empty($is_taxonomy[$v['taxonomy']])){
-                                                    $args['selected'] = $is_taxonomy[$v['taxonomy']];
-                                                }
-                                                wp_dropdown_categories( $args );
-                                            }else{ ?>
-                                                <div class="row">
-                                                    <?php
-                                                    $terms = get_terms(  $v['taxonomy'] , array('hide_empty' => false,) );
-                                                    $value_item = $value[$v['taxonomy']];
-                                                    if(!empty( $terms )) {
-                                                        foreach( $terms as $key2 => $value2 ) {
-                                                            $check ="";
-                                                            if(in_array($value2->term_id,explode(',',$value_item))){
-                                                                $check = "checked";
-                                                            }
-                                                            ?>
-                                                            <div class="col-md-6">
-                                                                <input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$value2->term_id ?>" value="<?php echo esc_html( $value2->term_id ) ?>">
-                                                                <label for="<?php echo "item_".$value2->term_id ?>"><?php echo esc_html( $value2->name ) ?></label>
-                                                            </div>
-                                                        <?php
-                                                        }
-                                                    }
-                                                    ?>
-                                                    <input type="hidden" value="<?php echo esc_attr($value_item) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v[ 'field_type' ] . '[' . $v[ 'taxonomy' ] . ']' ) ?>">
-                                                    <input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>"name="<?php echo esc_attr( "taxonomy_operator" . '[' . $v[ 'taxonomy' ] . ']' ) ?>">
-                                                </div>
-                                            <?php } ?>
-                                        </div>
-                                        <?php
-                                        break;
-                                    case "review_rate":
-                                        ?>
-                                        <div class="item-search">
-                                            <label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-                                            <div class="row">
-                                                <?php
-                                                $data = array(
-                                                    "1" => __( "1 Start" , 'traveler-booking' ) ,
-                                                    "2" => __( "2 Start" , 'traveler-booking' ) ,
-                                                    "3" => __( "3 Start" , 'traveler-booking' ) ,
-                                                    "4" => __( "4 Start" , 'traveler-booking' ) ,
-                                                    "5" => __( "5 Start" , 'traveler-booking' )
-                                                );
-                                                if(!empty( $data )) {
-                                                    foreach( $data as $key2 => $value2 ) {
-                                                        $check ="";
-                                                        if(in_array($key2,explode(',',$value))){
-                                                            $check = "checked";
-                                                        }
-                                                        ?>
-                                                        <div class="col-md-6">
-                                                            <input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
-                                                            <label for="<?php echo "item_".$key2 ?>"><?php echo esc_html( $value2 ) ?></label>
-                                                        </div>
-                                                    <?php
-                                                    }
-                                                }
-                                                ?>
-                                                <input type="hidden" value="<?php echo esc_attr($value) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v['field_type'] ) ?>">
-                                            </div>
-                                        </div>
-                                        <?php
-                                        break;
-                                    default:
-                                        ?>
-                                        <div class="item-search">
-                                            <label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-                                            <input type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
-                                        </div>
-                                    <?php
-                                }
-                            }
-                        } ?>
+				<div class="traveler-search-form-wrap" >
+					<?php
+					if(!empty($field_search[$service_type])){
+						foreach($field_search[$service_type] as $k=>$v){
+							$required = "";
+							if($v['required'] == "yes"){
+								$required = 'required';
+							}
+							$value = Traveler_Input::request($v['field_type'],'');
+							switch($v['field_type']){
+								case "location_id":
+									?>
+									<div class="item-search">
+										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+										<?php
+										$args = array(
+											'show_option_none' => __( '-- Select --' , "traveler-booking"  ),
+											'option_none_value' => "",
+											'hierarchical'      => 1 ,
+											'name'              => $v['field_type'] ,
+											'class'             => '' ,
+											'id'             => $v['field_type'] ,
+											'taxonomy'          => 'traveler_location' ,
+											'hide_empty' => 0,
+										);
+										$is_taxonomy = Traveler_Input::request($v['field_type']);
+										if(!empty($is_taxonomy)){
+											$args['selected'] =$is_taxonomy;
+										}
+										wp_dropdown_categories( $args );
+										?>
+									</div>
+									<?php
+									break;
+								case "taxonomy":
+									?>
+									<div class="item-search">
+										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+										<?php
+										if($v['taxonomy_show'] =='dropdown'){
+											$args = array(
+												'show_option_none' => __( '-- Select --' , "traveler-booking" ),
+												'option_none_value' => "",
+												'hierarchical'      => 1 ,
+												'name'              => $v['field_type'].'['.$v['taxonomy'].']' ,
+												'class'             => '' ,
+												'id'             => $v['field_type'].'['.$v['taxonomy'].']' ,
+												'taxonomy'          => $v['taxonomy'] ,
+												'hide_empty' => 0,
+											);
+											$is_taxonomy = Traveler_Input::request($v['field_type']);
+											if(!empty($is_taxonomy[$v['taxonomy']])){
+												$args['selected'] = $is_taxonomy[$v['taxonomy']];
+											}
+											wp_dropdown_categories( $args );
+										}else{ ?>
+											<div class="row">
+												<?php
+												$terms = get_terms(  $v['taxonomy'] , array('hide_empty' => false,) );
+												$value_item = $value[$v['taxonomy']];
+												if(!empty( $terms )) {
+													foreach( $terms as $key2 => $value2 ) {
+														$check ="";
+														if(in_array($value2->term_id,explode(',',$value_item))){
+															$check = "checked";
+														}
+														?>
+														<div class="col-md-6">
+															<input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$value2->term_id ?>" value="<?php echo esc_html( $value2->term_id ) ?>">
+															<label for="<?php echo "item_".$value2->term_id ?>"><?php echo esc_html( $value2->name ) ?></label>
+														</div>
+													<?php
+													}
+												}
+												?>
+												<input type="hidden" value="<?php echo esc_attr($value_item) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v[ 'field_type' ] . '[' . $v[ 'taxonomy' ] . ']' ) ?>">
+												<input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>"name="<?php echo esc_attr( "taxonomy_operator" . '[' . $v[ 'taxonomy' ] . ']' ) ?>">
+											</div>
+										<?php } ?>
+									</div>
+									<?php
+									break;
+								case "review_rate":
+									?>
+									<div class="item-search">
+										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+										<div class="row">
+											<?php
+											$data = array(
+												"1" => __( "1 Start" , 'traveler-booking' ) ,
+												"2" => __( "2 Start" , 'traveler-booking' ) ,
+												"3" => __( "3 Start" , 'traveler-booking' ) ,
+												"4" => __( "4 Start" , 'traveler-booking' ) ,
+												"5" => __( "5 Start" , 'traveler-booking' )
+											);
+											if(!empty( $data )) {
+												foreach( $data as $key2 => $value2 ) {
+													$check ="";
+													if(in_array($key2,explode(',',$value))){
+														$check = "checked";
+													}
+													?>
+													<div class="col-md-6">
+														<input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
+														<label for="<?php echo "item_".$key2 ?>"><?php echo esc_html( $value2 ) ?></label>
+													</div>
+												<?php
+												}
+											}
+											?>
+											<input type="hidden" value="<?php echo esc_attr($value) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v['field_type'] ) ?>">
+										</div>
+									</div>
+									<?php
+									break;
+								//
+								case "check_in":
+									?>
+									<div class="item-search">
+										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+										<input class="traveler-date-start" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+									</div>
+									<?php
+									break;
+								case "check_out":
+									?>
+									<div class="item-search">
+										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+										<input class="traveler-date-end" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+									</div>
+									<?php
+									break;
+								default:
+									?>
+									<div class="item-search">
+										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+										<input type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+									</div>
+								<?php
+									break;
+							}
+						}
+					} ?>
 
-                        <div class="item-search">
-                            <button class="" type="submit"><?php _e("Search",'traveler-booking') ?></button
-                        </div>
-                    </div>
-                </aside>
-
+					<div class="item-search">
+						<button class="" type="submit"><?php _e("Search",'traveler-booking') ?></button
+					</div>
+				</div>
             </form>
             <?php
+
+			echo $args['after_widget'];
         }
 
         /**
@@ -201,7 +220,7 @@ if(!class_exists('traveler_widget_form_search')){
                     </select>
                 </label>
             </p>
-            <?php $all_list_field= Traveler_Service::_get_list_field_search();
+            <?php $all_list_field= Traveler_Service::inst()->_get_list_field_search();
             if(!empty($all_list_field)) {
                 foreach( $all_list_field as $key => $value ) {
                     ?>

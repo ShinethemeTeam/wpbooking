@@ -40,7 +40,7 @@ $order_items=$booking->get_order_items(get_the_ID());
 	</tbody>
 	<tfooter>
 		<tr>
-			<td class="2"><?php _e('Total','traveler-booking')?></td>
+			<td colspan="2"><?php _e('Total','traveler-booking')?></td>
 			<td><?php echo Traveler_Currency::format_money($booking->get_order_total(get_the_ID()));?></td>
 		</tr>
 		<?php do_action('traveler_order_information_footer') ?>

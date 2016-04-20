@@ -26,19 +26,15 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
             </div>
             <div class="col-md-12">
                 <h3><?php the_title(); ?></h3>
-                <?php $adress  = get_post_meta(get_the_ID(),'address',true); ?>
-                <?php if(!empty($adress)){ ?>
+                <?php $address  = get_post_meta(get_the_ID(),'address',true); ?>
+                <?php if(!empty($address)){ ?>
                     <div> <i class="fa fa-map-marker"></i>
-                        <?php echo get_post_meta(get_the_ID(),'address',true); ?>
+                        <?php echo esc_html($address) ?>
                     </div>
                 <?php } ?>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <?php echo traveler_load_view('single/order-form')?>
-            </div>
-        </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="content-single">
@@ -86,6 +82,7 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#maps">Maps</a></li>
                     <li><a data-toggle="tab" href="#gallery">Gallery</a></li>
+                    <li><a data-toggle="tab" href="#place-order"><?php _e('Place Order','traveler-booking')?></a></li>
                 </ul>
                 <div class="tab-content">
                     <div id="maps" class="tab-pane fade in active">
@@ -115,6 +112,9 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
                         <?php } ?>
 
                     </div>
+					<div id="place-order" class="tab-pane fade tab-padding">
+						<?php echo traveler_load_view('single/order-form') ?>
+					</div>
                 </div>
             </div>
         </div>
