@@ -10,8 +10,8 @@ if(!class_exists('traveler_widget_form_search')){
          * @param array $instance
          */
         public function widget($args, $instance) {
-
-			$widget=wp_parse_args($args,array(
+	
+			$widget_args=wp_parse_args($args,array(
 				'before_widget'=>'',
 				'after_widget'=>'',
 				'before_title'=>'',
@@ -183,7 +183,7 @@ if(!class_exists('traveler_widget_form_search')){
             </form>
             <?php
 
-			echo $widget['after_widget'];
+			echo $widget_args['after_widget'];
         }
 
         /**
