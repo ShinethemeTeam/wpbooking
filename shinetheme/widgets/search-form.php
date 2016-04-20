@@ -10,7 +10,8 @@ if(!class_exists('traveler_widget_form_search')){
          * @param array $instance
          */
         public function widget($args, $instance) {
-            extract(wp_parse_args($instance , array('title'=>'','service_type'=>'','field_search'=>"")));
+
+            extract($instance=wp_parse_args($instance , array('title'=>'','service_type'=>'','field_search'=>"",'before_widget'=>FALSE,'after_widget'=>FALSE)));
             $title = apply_filters( 'widget_title', empty( $title ) ? '' : $title, $instance, $this->id_base );
 
             $page_search = "";
