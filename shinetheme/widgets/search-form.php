@@ -11,11 +11,11 @@ if(!class_exists('traveler_widget_form_search')){
          */
         public function widget($args, $instance) {
 
-			$args=wp_parse_args($args,array(
-				'before_widget'=>FALSE,
-				'after_widget'=>FALSE,
-				'before_title'=>FALSE,
-				'after_title'=>FALSE,
+			$widget=wp_parse_args($args,array(
+				'before_widget'=>'',
+				'after_widget'=>'',
+				'before_title'=>'',
+				'after_title'=>'',
 			));
             extract($instance=wp_parse_args($instance , array('title'=>'','service_type'=>'','field_search'=>"",'before_widget'=>FALSE,'after_widget'=>FALSE)));
             $title = apply_filters( 'widget_title', empty( $title ) ? '' : $title, $instance, $this->id_base );
@@ -26,9 +26,9 @@ if(!class_exists('traveler_widget_form_search')){
                     $id_page = traveler_get_option('service_type_room_archive_page');
                     $page_search = get_permalink($id_page);
             }
-			echo $args['before_widget'];
+			echo $widget['before_widget'];
 			if ( ! empty( $instance['title'] ) ) {
-				echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
+				echo $widget['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $widget['after_title'];
 			}
             ?>
             <form class="traveler-search-form" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
@@ -183,7 +183,7 @@ if(!class_exists('traveler_widget_form_search')){
             </form>
             <?php
 
-			echo $args['after_widget'];
+			echo $widget['after_widget'];
         }
 
         /**
