@@ -11,6 +11,12 @@ if(!class_exists('traveler_widget_form_search')){
          */
         public function widget($args, $instance) {
 
+			$args=wp_parse_args($args,array(
+				'before_widget'=>FALSE,
+				'after_widget'=>FALSE,
+				'before_title'=>FALSE,
+				'after_title'=>FALSE,
+			));
             extract($instance=wp_parse_args($instance , array('title'=>'','service_type'=>'','field_search'=>"",'before_widget'=>FALSE,'after_widget'=>FALSE)));
             $title = apply_filters( 'widget_title', empty( $title ) ? '' : $title, $instance, $this->id_base );
 
