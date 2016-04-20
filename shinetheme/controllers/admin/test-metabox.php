@@ -22,7 +22,13 @@ class Test_Metabox extends Traveler_Controller{
                     'label' => __('General', 'traveler-booking'),
                     'id' => 'general_tab',
                     'type' => 'tab',
-                ),
+                ),array(
+                     'id'=>'service_type',
+                     'label'=>__("Service Type",'traveler-booking'),
+                     'location'=>'hndle-tag',
+                    'type'=>'service-type-select',
+                 ),
+
                 array(
                     'label' => __('Location', 'traveler-booking'),
                     'id' => 'location',
