@@ -7,7 +7,7 @@
  */
 if(!class_exists('Traveler_Abstract_Service_Type'))
 {
-	class Traveler_Abstract_Service_Type
+	abstract class Traveler_Abstract_Service_Type
 	{
 		protected $type_id = FALSE;
 		protected $type_info = array();

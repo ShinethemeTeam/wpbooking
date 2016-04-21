@@ -32,6 +32,9 @@ if(!class_exists('traveler_widget_form_search')){
 			}
             ?>
             <form class="traveler-search-form" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
+				<?php if(!get_option('permalink_structure')){
+					printf("<input type='hidden' name='page_id' value='%d'>",$id_page);
+				} ?>
 				<div class="traveler-search-form-wrap" >
 					<?php
 					if(!empty($field_search[$service_type])){

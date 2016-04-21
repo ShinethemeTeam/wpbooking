@@ -164,7 +164,6 @@ if (!class_exists('Traveler_Booking')) {
 
 			}
 
-
 			// Validate Form
 			$validator = new Traveler_Validator();
 			if (!empty($fields) and $is_validate) {
@@ -173,7 +172,10 @@ if (!class_exists('Traveler_Booking')) {
 				}
 				if ($is_validate and !$validator->run()) {
 					$is_validate = FALSE;
-					traveler_set_message($validator->error_string());
+					traveler_set_message($validator->error_string(),'error');
+					$res['error_type']='form_validate';
+					$res['error_fields']=$validator->get_error_fields();
+
 				}
 			}
 
@@ -184,21 +186,25 @@ if (!class_exists('Traveler_Booking')) {
 
 
 			if (!$is_validate) {
-				$res = array(
-					'status'  => 0,
-					'message' => traveler_get_message(TRUE)
-				);
+				$res ['status']=0;
+				$res['message']=traveler_get_message(TRUE);
 			} else {
 
+				// Checkout form data
+				if(!empty($fields))
+				{
+					foreach($fields as $k=>$v){
+						$fields[$k]['value']=Traveler_Input::post($k);
+					}
+				}
 				$order_model = Traveler_Order_Model::inst();
-				$order_id = $order_model->create($cart);
+				$order_id = $order_model->create($cart,$fields);
 				if ($order_id) {
 					$data = array(
 						'status' => 1
 					);
-					$res=array(
-						'status'=>1
-					);
+					$res['status']=1;
+
 					// Clear the Cart after create new order,
 					Traveler_Session::set('traveler_cart',array());
 
@@ -218,11 +224,9 @@ if (!class_exists('Traveler_Booking')) {
 						}
 
 						if ($res['status']) {
+							traveler_set_message(__('Booking Success', 'traveler-booking'));
 							//do checkout
-							$res = array(
-								'message' => __('Booking Success', 'traveler-booking'),
-								'data'    => $data,
-							);
+							$res['data'] =$data;
 						}
 
 
@@ -236,7 +240,7 @@ if (!class_exists('Traveler_Booking')) {
 						);
 					}
 
-					if (empty($data['redirect']) and empty($data['status'])) {
+					if (empty($data['redirect'])) {
 						$res['redirect'] = get_permalink($order_id);
 					}
 
@@ -521,7 +525,7 @@ if (!class_exists('Traveler_Booking')) {
 
 		function _show_order_information($content)
 		{
-			if(get_post_type()=='traveler_booking')
+			if(get_post_type()=='traveler_order')
 			$content.=traveler_load_view('order/content');
 			return $content;
 		}
@@ -531,6 +535,17 @@ if (!class_exists('Traveler_Booking')) {
 			return Traveler_Order_Model::inst()->get_order_items($order_id);
 		}
 
+		function get_order_item_row_info($order_id=FALSE)
+		{
+			if(!$order_id) $order_id=get_the_ID();
+			return Traveler_Order_Model::inst()->find_by('order_id',$order_id);
+		}
+		function get_order_form_datas($order_id=FALSE)
+		{
+			if(!$order_id) $order_id=get_the_ID();
+			return get_post_meta($order_id,'checkout_form_data',true);
+
+		}
 		static function inst()
 		{
 			if (!self::$_inst) {

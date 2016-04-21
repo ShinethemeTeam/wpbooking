@@ -1325,6 +1325,11 @@ if(!class_exists('Traveler_Validator'))
 			return false;
 		}
 
+		function get_error_fields()
+		{
+			return $this->_error_array;
+		}
+
     }
 // END Form Validation Class
 }

@@ -54,6 +54,7 @@ jQuery(document).ready(function($){
     // Order Form
     $('.traveler_order_form .submit-button').click(function(){
         var form=$(this).closest('.traveler_order_form');
+        form.find('[name]').removeClass('input-error');
         var me=$(this);
         var data=getFormData(form);
         me.addClass('loading').removeClass('error');
@@ -79,13 +80,25 @@ jQuery(document).ready(function($){
                     message.html(res.message);
                     me.after(message);
                 }
-                if(me.data.redirect){
-                    window.location=me.data.redirect;
+                if(res.data.redirect){
+                    window.location=res.data.redirect;
+                }
+
+                if(typeof res.error_fields!='undefined')
+                {
+                    for(var k in res.error_fields){
+
+                        form.find("[name='"+k+"']").addClass('input-error');
+                    }
                 }
 
                 me.removeClass('loading');
             },
             error:function(e){
+                var message=$('<div/>');
+                message.addClass('traveler-message');
+                message.html(e.responseText);
+                me.after(message);
                 me.removeClass('loading').addClass('error');
             }
         })
@@ -94,6 +107,7 @@ jQuery(document).ready(function($){
     // Checkout Form
     $('.traveler_checkout_form .submit-button').click(function(){
         var form=$(this).closest('.traveler_checkout_form');
+        form.find('[name]').removeClass('input-error');
         var me=$(this);
         var data=getFormData(form);
         me.addClass('loading').removeClass('error');
@@ -126,13 +140,21 @@ jQuery(document).ready(function($){
                     window.location.href=res.redirect;
                 }
 
+                if(typeof res.error_fields!='undefined')
+                {
+                    console.log(res.error_fields);
+                    for(var k in res.error_fields){
+                        form.find("[name='"+k+"']").addClass('input-error');
+                    }
+                }
                 me.removeClass('loading');
             },
             error:function(e){
+                console.log(e);
                 me.removeClass('loading').addClass('error');
                 var message=$('<div/>');
                 message.addClass('traveler-message');
-                message.html(e.message);
+                message.html(e.responseText);
                 me.after(message);
             }
         })

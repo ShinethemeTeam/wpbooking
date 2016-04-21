@@ -8,6 +8,9 @@
 echo traveler_get_message();
 $booking=Traveler_Booking::inst();
 $order_items=$booking->get_order_items(get_the_ID());
+
+$checkout_form_data=$booking->get_order_form_datas();
+
 ?>
 <h3><?php _e('Your Order','traveler-booking')?></h3>
 <table class="order-information-table">
@@ -46,4 +49,24 @@ $order_items=$booking->get_order_items(get_the_ID());
 		<?php do_action('traveler_order_information_footer') ?>
 	</tfooter>
 </table>
+<?php if(!empty($checkout_form_data) and is_array($checkout_form_data)){?>
+<div class="checkout-form-data">
+	<h3><?php _e('Your Information','traveler-booking')?></h3>
+
+	<ul class="checkout-form-list">
+		<?php foreach($checkout_form_data as $key=>$value){
+			?>
+			<li class="form-item">
+				<div class="form-item-title">
+					<?php echo $value['title'] ?>
+				</div>
+				<div class="form-item-value">
+					<?php echo $value['value'] ?>
+				</div>
+			</li>
+			<?php
+		} ?>
+	</ul>
+</div>
+<?php } ?>
 

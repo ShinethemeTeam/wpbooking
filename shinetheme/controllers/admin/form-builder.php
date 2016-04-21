@@ -53,12 +53,13 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
         function _load_default_shortcodes()
         {
             Traveler_Loader::inst()->load_library(array(
-               'shortcodes/form-build-default/text',
-               'shortcodes/form-build-default/textarea',
-               'shortcodes/form-build-default/dropdown',
-               'shortcodes/form-build-default/checkbox',
-               'shortcodes/form-build-default/radio',
-               'shortcodes/form-build-default/submit-button',
+                'shortcodes/form-build-default/text',
+				'shortcodes/form-build-default/email',
+               	'shortcodes/form-build-default/textarea',
+              	'shortcodes/form-build-default/dropdown',
+              	'shortcodes/form-build-default/checkbox',
+              	'shortcodes/form-build-default/radio',
+              	'shortcodes/form-build-default/submit-button',
             ));
         }
         function _add_scripts()

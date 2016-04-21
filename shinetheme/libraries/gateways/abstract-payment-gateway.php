@@ -134,6 +134,16 @@ if (!class_exists('Traveler_Abstract_Payment_Gateway')) {
 			return true;
 		}
 
+		/**
+		 * Check out functions
+		 * @param $order_id
+		 * @param $payment_id
+		 */
+		function do_checkout($order_id,$payment_id)
+		{
+
+		}
+
 		function _register_gateway($gateways = array())
 		{
 			$gateways[$this->gateway_id] = $this;

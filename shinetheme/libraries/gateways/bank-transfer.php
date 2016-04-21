@@ -62,6 +62,12 @@ if(!class_exists('Traveler_BankTransfer_Gateway') and class_exists('Traveler_Abs
 			echo nl2br($bank_account);
 		}
 
+		function do_checkout($order_id,$payment_id){
+			return array(
+				'status'=>1
+			);
+		}
+
 		static function inst()
 		{
 			if(!self::$_inst){

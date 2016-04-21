@@ -224,20 +224,16 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 
 		function set_admin_message($message,$type='information')
 		{
-			if(isset($_SESSION['message']['admin'])){
-				$_SESSION['message']['admin']=array(
-					'content'=>$message,
-					'type'=>$type
-				);
-			}
+			$_SESSION['message']['admin']=array(
+				'content'=>$message,
+				'type'=>$type
+			);
 		}
 		function set_message($message,$type='information'){
-			if(isset($_SESSION['message']['frontend'])){
-				$_SESSION['message']['frontend']=array(
-					'content'=>$message,
-					'type'=>$type
-				);
-			}
+			$_SESSION['message']['frontend']=array(
+				'content'=>$message,
+				'type'=>$type
+			);
 		}
 
 		function get_message($clear_message=TRUE)

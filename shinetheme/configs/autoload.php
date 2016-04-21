@@ -11,6 +11,7 @@
  */
 $autoload['config']=array(
 	//'settings'
+	'lang'
 );
 
 $autoload['helper']=array(
@@ -18,6 +19,7 @@ $autoload['helper']=array(
 	'assets',
     'settings',
     'form-build',
+    'service',
 );
 
 $autoload['library']=array(

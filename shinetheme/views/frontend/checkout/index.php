@@ -22,7 +22,7 @@ if(empty($cart))
 }
 ?>
 <div class="traveler-checkout-wrap">
-	<form class="traveler_checkout_form" action="<?php echo home_url('/') ?>" onsubmit="return false" method="post">
+	<form class="traveler_checkout_form" action="<?php echo home_url('/') ?>" onsubmit="return false" method="post" novalidate>
 		<div class="traveler-checkout-form">
 			<input name="action" value="traveler_do_checkout" type="hidden">
 			<?php echo do_shortcode($form_id)?>

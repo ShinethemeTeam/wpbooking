@@ -1,9 +1,9 @@
 <?php
 if(function_exists( 'traveler_add_field_form_builder' )) {
     traveler_add_field_form_builder( array(
-            "title"    => __( "Text" , 'traveler-booking' ) ,
-            "name"     => 'traveler_booking_text' ,
-            "category" => 'Standard Fields' ,
+            "title"    => __( "Email" , 'traveler-booking' ) ,
+            "name"     => 'traveler_booking_email' ,
+            "category" => __('Standard Fields','traveler-booking') ,
             "options"  => array(
                 array(
                     "type"             => "required" ,
@@ -79,10 +79,11 @@ if(function_exists( 'traveler_add_field_form_builder' )) {
         )
     );
 }
-if(!function_exists( 'traveler_sc_booking_text' )) {
-    function traveler_sc_booking_text( $attr , $content = false )
+if(!function_exists( 'traveler_booking_email_func' )) {
+    function traveler_booking_email_func( $attr , $content = false )
     {
-        $data = shortcode_atts(
+        $data = wp_parse_args(
+			$attr,
             array(
                 'is_required' => 'off' ,
                 'title'        => '' ,
@@ -93,7 +94,7 @@ if(!function_exists( 'traveler_sc_booking_text' )) {
                 'placeholder' => '' ,
                 'size'        => '' ,
                 'maxlength'   => '' ,
-            ) , $attr , 'traveler_booking_text' );
+            )   );
         extract( $data );
         $required = "";
         $rule = array();
@@ -104,6 +105,7 @@ if(!function_exists( 'traveler_sc_booking_text' )) {
         if(!empty(!$maxlength)){
             $rule []= "max_length[100]";
         }
+		$rule[]='valid_email';
 
         Traveler_Admin_Form_Build::inst()->add_form_field($title , $name,array('data'=>$data,'rule'=>implode('|',$rule)));
 
@@ -112,5 +114,5 @@ if(!function_exists( 'traveler_sc_booking_text' )) {
         return '<input type="text" name="' . $name . '" id="' . $id . '" class="' . $class . '" value="' . $value . '" placeholder="' . $placeholder . '"  maxlength="' . $maxlength . '" size="' . $size . '"  ' . $required . ' />';
     }
 }
-add_shortcode( 'traveler_booking_text' , 'traveler_sc_booking_text' );
+add_shortcode( 'traveler_booking_email' , 'traveler_booking_email_func' );
 

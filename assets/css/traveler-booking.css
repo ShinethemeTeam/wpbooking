@@ -1,6 +1,9 @@
 .tab-padding {
   padding: 20px;
 }
+.input-error {
+  border-color: red;
+}
 .alert {
   padding: 10px;
   margin: 20px 0px;

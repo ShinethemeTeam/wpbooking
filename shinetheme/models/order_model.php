@@ -48,7 +48,7 @@ if (!class_exists('Traveler_Order_Model')) {
 			parent::__construct();
 		}
 
-		function create($cart)
+		function create($cart,$checkout_form_data=array())
 		{
 			$order_data = array(
 				'post_title'  => sprintf(__('New Order In %s', 'traveler-booking'), date(get_option('date_format') . ' @' . get_option('time_format'))),
@@ -56,6 +56,16 @@ if (!class_exists('Traveler_Order_Model')) {
 				'post_status' => 'publish'
 			);
 			$order_id = wp_insert_post($order_data);
+
+			if($order_id){
+				update_post_meta($order_id,'checkout_form_data',$checkout_form_data);
+				if(!empty($checkout_form_data))
+				{
+					foreach($checkout_form_data as $key=>$value){
+						update_post_meta($order_id,'traveler_form_'.$key,$value['value']);
+					}
+				}
+			}
 
 			if (!empty($cart) and is_array($cart)) {
 				foreach ($cart as $key => $value) {
