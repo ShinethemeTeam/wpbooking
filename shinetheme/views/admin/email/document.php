@@ -7,3 +7,6 @@
  */
 ?>
 
+<ol>
+	<li>[traveler_email_order_table] : <?php _e('Order Table','traveler-booking') ?></li>
+</ol>
