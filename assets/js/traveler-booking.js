@@ -80,7 +80,7 @@ jQuery(document).ready(function($){
                     message.html(res.message);
                     me.after(message);
                 }
-                if(res.data.redirect){
+                if(typeof  res.data!='undefined' && res.data.redirect){
                     window.location=res.data.redirect;
                 }
 

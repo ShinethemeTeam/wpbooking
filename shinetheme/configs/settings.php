@@ -138,6 +138,7 @@ $config['settings'] = array(
 						'id'        => 'confirm_to_customer',
 						'label'     => __("For Customer", 'traveler-booking'),
 						'type'      => 'texteditor',
+						'description'=>traveler_admin_load_view('email/document')
 					),
 					array(
 						'id'        => 'confirm_to_partner',
@@ -145,7 +146,24 @@ $config['settings'] = array(
 						'type'      => 'texteditor',
 					),
 				)
-			)
+			),
+			'booking_email' => array(
+				'id'     => 'booking_email',
+				'label'  => __("Booking Email", 'traveler-booking'),
+				'fields' => array(
+
+					array(
+						'id'        => 'email_to_customer',
+						'label'     => __("For Customer", 'traveler-booking'),
+						'type'      => 'texteditor',
+					),
+					array(
+						'id'        => 'email_to_partner',
+						'label'     => __("For Item's Host", 'traveler-booking'),
+						'type'      => 'texteditor',
+					),
+				)
+			),
 
 		)
 	),

@@ -12,8 +12,14 @@ if(!class_exists('Traveler_Email'))
 		static $_inst;
 		function __construct()
 		{
+			// Init Shortcodes
+
+			add_action('init',array($this,'_load_email_shortcodes'));
+
 			add_action('traveler_after_checkout_success',array($this,'_send_order_email_success'));
 			add_action('traveler_after_checkout_success',array($this,'_send_order_email_confirm'));
+
+
 		}
 
 		function _send_order_email_success($order_id)
@@ -41,7 +47,8 @@ if(!class_exists('Traveler_Email'))
 				{
 					$to=$user_email = get_the_author_meta( 'user_email' ,$key);
 					$subject=sprintf(__("New Order from %s",'traveler-booking'),get_bloginfo('title'));
-					$message=traveler_load_view('emails/booking-information',array('items'=>$value));
+					Traveler()->set('items',$value);
+					$message=traveler_load_view('emails/booking-information');
 					$this->send($to,$subject,$message);
 				}
 			}
@@ -91,6 +98,16 @@ if(!class_exists('Traveler_Email'))
 		function set_html_content_type()
 		{
 			return 'text/html';
+		}
+
+		/**
+		 * Load Default Email Shortcodes in folders libraries/shortcodes/email
+		 *
+		 * @since 1.0
+		 */
+		function _load_email_shortcodes()
+		{
+			Traveler_Loader::inst()->load_library('shorcodes/email/order-table');
 		}
 
 		static function inst()

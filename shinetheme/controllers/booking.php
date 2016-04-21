@@ -227,6 +227,7 @@ if (!class_exists('Traveler_Booking')) {
 							traveler_set_message(__('Booking Success', 'traveler-booking'));
 							//do checkout
 							$res['data'] =$data;
+							$res['message'] =traveler_get_message(TRUE);
 						}
 
 
