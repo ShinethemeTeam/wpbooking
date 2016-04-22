@@ -213,10 +213,6 @@ if(!class_exists('Traveler_Service'))
 		function get_service_types()
 		{
 			$default= array(
-				'tour'=>array(
-					'label'=>__("Tour",'traveler-booking')
-				),
-
 			);
 
 			return apply_filters('traveler_service_types',$default);

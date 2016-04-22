@@ -26,6 +26,12 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 
 		private $_version = 1.0;
 
+		/**
+		 * Get and Access Global Variable
+		 * @var array
+		 */
+		protected $global_values=array();
+
 
 		/**
 		 * @since 1.0
@@ -249,6 +255,29 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 			if($clear_message) $_SESSION['message']['admin']=array();
 
 			return $message;
+		}
+
+		/**
+		 * Set Global Variable
+		 *
+		 * @since 1.0
+		 * @param $name
+		 * @param $value
+		 */
+		function set($name,$value){
+			$this->global_values[$name]=$value;
+		}
+
+		/**
+		 * Get Global Variable
+		 *
+		 * @since 1.0
+		 * @param $name
+		 * @param bool|FALSE $default
+		 * @return bool
+		 */
+		function get($name,$default=FALSE){
+			return isset($this->global_values[$name])?$this->global_values[$name]:$default;
 		}
 
 		/**

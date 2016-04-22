@@ -20,6 +20,7 @@ $autoload['helper']=array(
     'settings',
     'form-build',
     'service',
+	'email'
 );
 
 $autoload['library']=array(

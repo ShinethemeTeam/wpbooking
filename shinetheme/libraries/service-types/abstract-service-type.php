@@ -35,6 +35,15 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 
 			add_filter('traveler_get_order_form_id_'.$this->type_id, array($this, 'get_order_form_id'));
 
+
+
+			/**
+			 * Add to cart add Need Customer Confirm
+			 * @see Traveler_Booking::add_to_cart();
+			 */
+			add_filter('traveler_service_need_customer_confirm',array($this,'_get_customer_confirm'),10,3);
+			add_filter('traveler_service_need_partner_confirm',array($this,'_get_partner_confirm'),10,3);
+
 		}
 
 		/**
@@ -49,9 +58,45 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 			}
 
 		}
+
+		/**
+		 * Get the Order Form ID in the Settings
+		 * @return bool|mixed|void
+		 */
 		function get_order_form_id()
 		{
 			return $form_id= $this->get_option('order_form');
+		}
+
+		/**
+		 * Filter Function for Check Service Type is require Customer Confirm the Booking (Confirm by send the email)
+		 * @param $need
+		 * @param $post_id
+		 * @param $service_type
+		 * @return bool|mixed|void
+		 */
+		function _get_customer_confirm($need,$post_id,$service_type)
+		{
+			if($this->type_id==$service_type){
+				$need=$this->get_option('customer_confirm');
+			}
+
+			return $need;
+		}
+
+		/**
+		 * Filter Function for Check Service Type is require Partner Confirm the Booking (Confirm by send the email)
+		 * @param $need
+		 * @param $post_id
+		 * @param $service_type
+		 * @return bool|mixed|void
+		 */
+		function _get_partner_confirm($need,$post_id,$service_type){
+			if($this->type_id==$service_type){
+				$need=$this->get_option('partner_confirm');
+			}
+
+			return $need;
 		}
 
 		function _filter_get_review_stats($stats)
@@ -66,6 +111,13 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 			return $stats;
 		}
 
+		/**
+		 * Get All Review Stats from the Settings
+		 *
+		 * @since 1.0
+		 * @return bool|mixed|void
+		 *
+		 */
 		function get_review_stats()
 		{
 			return $this->get_option('review_stats', array());

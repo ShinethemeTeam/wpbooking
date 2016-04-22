@@ -90,14 +90,14 @@ class Test_Metabox extends Traveler_Controller{
                     'type' => 'text',
                     'condition' => 'external_booking:is(yes)'
                 ),
-                array(
-                    'label' => __('Instant Booking?', 'traveler-booking'),
-                    'id' => 'instant_booking',
-                    'type' => 'checkbox',
-                    'value' => array(
-                        'yes' => __('Yes', 'traveler-booking')
-                    ),
-                ),
+//                array(
+//                    'label' => __('Instant Booking?', 'traveler-booking'),
+//                    'id' => 'instant_booking',
+//                    'type' => 'checkbox',
+//                    'value' => array(
+//                        'yes' => __('Yes', 'traveler-booking')
+//                    ),
+//                ),
                 array(
                     'label' => __('Day not available from - to days', 'traveler-booking'),
                     'id' => 'day_not_available',
@@ -219,44 +219,7 @@ class Test_Metabox extends Traveler_Controller{
                     'type'  => 'calendar',
                     'service_type' => 'room'
                 ),
-                array(
-                    'label' => __('Gateways', 'traveler-booking'),
-                    'id'    => 'gateways',
-                    'type'  => 'tab',
-                ),
-                array(
-                    'label' => __('Cheque', 'traveler-booking'),
-                    'id' => 'gateway_cheque',
-                    'type' => 'checkbox',
-                    'value' => array(
-                        'yes' => __('Yes', 'traveler-booking')
-                    ),
-                ),
-                array(
-                    'label' => __('Paypal', 'traveler-booking'),
-                    'id' => 'gateway_paypal',
-                    'type' => 'checkbox',
-                    'value' => array(
-                        'yes' => __('Yes', 'traveler-booking')
-                    ),
-                ),
 
-                array(
-                    'label' => __('Stripe', 'traveler-booking'),
-                    'id' => 'gateway_stripe',
-                    'type' => 'checkbox',
-                    'value' => array(
-                        'yes' => __('Yes', 'traveler-booking')
-                    ),
-                ),
-                array(
-                    'label' => __('Payfast', 'traveler-booking'),
-                    'id' => 'gateway_payfast',
-                    'type' => 'checkbox',
-                    'value' => array(
-                        'yes' => __('Yes', 'traveler-booking')
-                    ),
-                ),
             )
 		);
 
