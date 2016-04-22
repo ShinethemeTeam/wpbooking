@@ -187,11 +187,16 @@ $form_id = Traveler_Input::request('form_builder_id');
                             $content_post = get_post($form_id);
                             $content = $content_post->post_content;
                         }
-                        wp_editor(stripslashes($content),'traveler-content-build'); ?>
+                        wp_editor(stripslashes($content),'traveler-content-build',array(
+                            'teeny' => false,
+                            'dfw' => false,
+                            'tinymce' => false,
+                            'quicktags' => true
+                        ) ); ?>
                     </div>
                 </div>
                 <div class="traveler-col-md-12">
-                    <div class="save-control">
+                    <div class="save-control text-right">
                         <input type="submit" name="traveler_booking_btn_save_layout" class="btn button button-primary" value="<?php _e("Save Form",'traveler-booking') ?>">
                     </div>
                 </div>
