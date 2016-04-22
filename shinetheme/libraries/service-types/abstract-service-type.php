@@ -62,7 +62,7 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 		{
 			$cart_item=wp_parse_args($cart_item,array(
 				'need_customer_confirm'=>'',
-				'order_form'=>array()
+				'order_form'=>array(),
 			));
 
 			// Show Order Form Field
@@ -72,12 +72,54 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 				echo "<ul class='cart-item-order-form-fields'>";
 				foreach($order_form as $key=>$value){
 
-					if(!$value['value']) continue;
+					$value=wp_parse_args($value,array(
+						'data'=>'',
+						'field_type'=>''
+					));
 
-					printf("<li class='field-item %s'>
+
+					if(!$value['value']) continue;
+					if(is_string($value['value'])){
+						printf("<li class='field-item %s'>
 								<span class='field-title'>%s:</span>
 								<span class='field-value'>%s</span>
 							</li>",$key,$value['title'],$value['value']);
+					}
+					if(is_array($value['value']) and !empty($value['data']['options']) and !empty($value['value'])){
+						$options_array=explode('|',$value['data']['options']);
+						$options=array();
+						if(!empty($options_array))
+						{
+							foreach($options_array as $k=>$v){
+								$ex=explode(':',$v);
+								if(!empty($ex)){
+									$options[$ex[1]]=$ex[0];
+								}
+							}
+						}
+
+						$value_string=array();
+
+						if(!empty($options) )
+						{
+							foreach($value['value'] as $v2){
+								if(array_key_exists($v2,$options)){
+									$value_string[]=$options[$v2];
+								}
+							}
+						}
+
+						if(!empty($value_string))
+						printf("<li class='field-item %s'>
+								<span class='field-title'>%s:</span>
+								<span class='field-value'>%s</span>
+							</li>",$key,$value['title'],implode(', ',$value_string));
+
+
+					}
+
+					do_action('traveler_form_field_to_html',$value);
+					do_action('traveler_form_field_to_html_'.$value['field_type'],$value);
 				}
 				echo "</ul>";
 			}

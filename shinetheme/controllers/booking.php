@@ -101,7 +101,8 @@ if (!class_exists('Traveler_Booking')) {
 				);
 				$cart_params = apply_filters('traveler_cart_item_params', $cart_params, $post_id, $service_type);
 				$cart_params = apply_filters('traveler_cart_item_params_' . $service_type, $cart_params, $post_id);
-				$cart[] = $cart_params;
+
+				$cart[md5($post_id.time().rand(0,999))] = $cart_params;
 
 				Traveler_Session::set('traveler_cart', $cart);
 
