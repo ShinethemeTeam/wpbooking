@@ -39,7 +39,7 @@ echo traveler_get_message();
 										<?php do_action('traveler_cart_item_information_'.$service_type,$value) ?>
 									</td>
 									<td class="col-cart-item-price">
-										<?php echo Traveler_Currency::format_money($booking->get_cart_item_total($value)); ?>
+										<?php echo $booking->get_cart_item_total_html($value); ?>
 									</td>
 									<td class="col-cart-item-actions">
 										<a href="<?php echo esc_url(add_query_arg(array('delete_cart_item'=>$key),$booking->get_cart_url())) ?>">
@@ -53,7 +53,7 @@ echo traveler_get_message();
 					}else{
 						?>
 						<tr>
-							<td colspan="4"><?php _e('Sorry, Your cart is currently empty','traveler-booking') ?></td>
+							<td colspan="5"><?php _e('Sorry, Your cart is currently empty','traveler-booking') ?></td>
 						</tr>
 						<?php
 					}

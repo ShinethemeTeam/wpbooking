@@ -26,7 +26,7 @@ if (!class_exists('Traveler_Booking')) {
 
 			add_action('template_redirect', array($this, '_complete_purchase_validate'));
 
-			add_filter('the_content',array($this,'_show_order_information'));
+			add_filter('the_content', array($this, '_show_order_information'));
 
 		}
 
@@ -83,18 +83,18 @@ if (!class_exists('Traveler_Booking')) {
 					'message' => traveler_get_message(TRUE)
 				);
 			} else {
-				$order_form = array();
 				if (!empty($fields)) {
 					foreach ($fields as $key => $value) {
-						$order_form[$key] = Traveler_Input::post($key);
+						$fields[$key]['value']= Traveler_Input::post($key);
 					}
 				}
 				$cart = Traveler_Session::get('traveler_cart', array());
 				$cart_params = array(
 					'post_id'               => $post_id,
 					'service_type'          => $service_type,
-					'order_form'            => $order_form,
+					'order_form'            => $fields,
 					'base_price'            => get_post_meta($post_id, 'price', TRUE),
+					'currency'              => get_post_meta($post_id, 'currency', TRUE),
 					'customer_id'           => is_user_logged_in() ? get_current_user_id() : FALSE,
 					'need_customer_confirm' => apply_filters('traveler_service_need_customer_confirm', 0, $post_id, $service_type),
 					'need_partner_confirm'  => apply_filters('traveler_service_need_partner_confirm', 0, $post_id, $service_type)
@@ -105,7 +105,7 @@ if (!class_exists('Traveler_Booking')) {
 
 				Traveler_Session::set('traveler_cart', $cart);
 
-				traveler_set_message(sprintf(__('Add to %s success', 'traveler-booking'), sprintf('<a href="%s">%s</a>', $this->get_cart_url(), __('cart', 'traveler-booking'))),'success');
+				traveler_set_message(sprintf(__('Add to %s success', 'traveler-booking'), sprintf('<a href="%s">%s</a>', $this->get_cart_url(), __('cart', 'traveler-booking'))), 'success');
 				$res = array(
 					'status'  => 1,
 					'message' => traveler_get_message(TRUE)
@@ -172,9 +172,9 @@ if (!class_exists('Traveler_Booking')) {
 				}
 				if ($is_validate and !$validator->run()) {
 					$is_validate = FALSE;
-					traveler_set_message($validator->error_string(),'error');
-					$res['error_type']='form_validate';
-					$res['error_fields']=$validator->get_error_fields();
+					traveler_set_message($validator->error_string(), 'error');
+					$res['error_type'] = 'form_validate';
+					$res['error_fields'] = $validator->get_error_fields();
 
 				}
 			}
@@ -186,27 +186,26 @@ if (!class_exists('Traveler_Booking')) {
 
 
 			if (!$is_validate) {
-				$res ['status']=0;
-				$res['message']=traveler_get_message(TRUE);
+				$res ['status'] = 0;
+				$res['message'] = traveler_get_message(TRUE);
 			} else {
 
 				// Checkout form data
-				if(!empty($fields))
-				{
-					foreach($fields as $k=>$v){
-						$fields[$k]['value']=Traveler_Input::post($k);
+				if (!empty($fields)) {
+					foreach ($fields as $k => $v) {
+						$fields[$k]['value'] = Traveler_Input::post($k);
 					}
 				}
 				$order_model = Traveler_Order_Model::inst();
-				$order_id = $order_model->create($cart,$fields);
+				$order_id = $order_model->create($cart, $fields);
 				if ($order_id) {
 					$data = array(
 						'status' => 1
 					);
-					$res['status']=1;
+					$res['status'] = 1;
 
 					// Clear the Cart after create new order,
-					Traveler_Session::set('traveler_cart',array());
+					Traveler_Session::set('traveler_cart', array());
 
 					// Only work with Order Table bellow
 
@@ -226,8 +225,8 @@ if (!class_exists('Traveler_Booking')) {
 						if ($res['status']) {
 							traveler_set_message(__('Booking Success', 'traveler-booking'));
 							//do checkout
-							$res['data'] =$data;
-							$res['message'] =traveler_get_message(TRUE);
+							$res['data'] = $data;
+							$res['message'] = traveler_get_message(TRUE);
 						}
 
 
@@ -245,7 +244,7 @@ if (!class_exists('Traveler_Booking')) {
 						$res['redirect'] = get_permalink($order_id);
 					}
 
-					if(!empty($data['redirect'])){
+					if (!empty($data['redirect'])) {
 						$res['redirect'] = $data['redirect'];
 					}
 
@@ -285,13 +284,13 @@ if (!class_exists('Traveler_Booking')) {
 			if (is_singular('traveler_order')) {
 				$action = Traveler_Input::get('action');
 				$payment_id = Traveler_Input::get('payment_id');
-				$order_id=get_the_ID();
+				$order_id = get_the_ID();
 				switch ($action) {
 					case "cancel_purchase":
 
 						break;
 					case "complete_purchase":
-						Traveler_Payment_Gateways::inst()->complete_purchase($payment_id,$order_id);
+						Traveler_Payment_Gateways::inst()->complete_purchase($payment_id, $order_id);
 						break;
 				}
 			}
@@ -358,6 +357,30 @@ if (!class_exists('Traveler_Booking')) {
 			return $item_price;
 		}
 
+		/**
+		 * Get Price HTML for an Cart Item, including convert currency to current one
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $cart_item
+		 * @return string
+		 */
+		function get_cart_item_total_html($cart_item)
+		{
+
+			$cart_item = wp_parse_args($cart_item, array(
+				'currency' => FALSE,
+				'post_id'  => FALSE
+			));
+
+			$item_price = $this->get_cart_item_total($cart_item);
+
+			$currency = $cart_item['currency'];
+			if (!$currency) $currency = get_post_meta($cart_item['post_id'], 'currency', TRUE);
+
+			return $price_html = Traveler_Currency::format_money($item_price, array('currency' => $currency));
+		}
 
 		/**
 		 * Get Order Form HTML based on Service Type ID
@@ -526,8 +549,9 @@ if (!class_exists('Traveler_Booking')) {
 
 		function _show_order_information($content)
 		{
-			if(get_post_type()=='traveler_order')
-			$content.=traveler_load_view('order/content');
+			if (get_post_type() == 'traveler_order')
+				$content .= traveler_load_view('order/content');
+
 			return $content;
 		}
 
@@ -536,17 +560,21 @@ if (!class_exists('Traveler_Booking')) {
 			return Traveler_Order_Model::inst()->get_order_items($order_id);
 		}
 
-		function get_order_item_row_info($order_id=FALSE)
+		function get_order_item_row_info($order_id = FALSE)
 		{
-			if(!$order_id) $order_id=get_the_ID();
-			return Traveler_Order_Model::inst()->find_by('order_id',$order_id);
+			if (!$order_id) $order_id = get_the_ID();
+
+			return Traveler_Order_Model::inst()->find_by('order_id', $order_id);
 		}
-		function get_order_form_datas($order_id=FALSE)
+
+		function get_order_form_datas($order_id = FALSE)
 		{
-			if(!$order_id) $order_id=get_the_ID();
-			return get_post_meta($order_id,'checkout_form_data',true);
+			if (!$order_id) $order_id = get_the_ID();
+
+			return get_post_meta($order_id, 'checkout_form_data', TRUE);
 
 		}
+
 		static function inst()
 		{
 			if (!self::$_inst) {

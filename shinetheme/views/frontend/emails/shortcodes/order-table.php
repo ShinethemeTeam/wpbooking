@@ -23,12 +23,8 @@ $items=Traveler()->get('items',array());
 		<tr>
 			<td class="review-order-item-info">
 				<h4 class="service-name"><a href="<?php echo get_permalink($value['post_id'])?>" target="_blank"><?php echo get_the_title($value['post_id'])?></a></h4>
-				<?php do_action('traveler_review_order_item_information',$value) ?>
-				<?php do_action('traveler_review_order_item_information_'.$service_type,$value) ?>
-
-
-				<?php do_action('traveler_email_order_item_information',$value) ?>
-				<?php do_action('traveler_email_order_item_information_'.$service_type,$value) ?>
+				<?php do_action('traveler_order_item_information',$value) ?>
+				<?php do_action('traveler_order_item_information_'.$service_type,$value) ?>
 			</td>
 			<td class="review-order-item-total">
 				<p class="cart-item-price"><?php echo Traveler_Currency::format_money($booking->get_order_item_total($value)); ?></p>

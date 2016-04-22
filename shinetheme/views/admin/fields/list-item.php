@@ -40,7 +40,7 @@ $id_list_item    = $data[ 'id' ];
                                                     <input type="text"
                                                            class="form-control  min-width-500 list_item_title"
                                                            value="<?php echo esc_html( $v[ 'title' ] ) ?>"
-                                                           name="traveler_booking_list_item[<?php echo $id_list_item ?>][<?php echo esc_attr( $i ) ?>][title]"
+                                                           name="traveler_booking_list_item[<?php echo esc_attr($id_list_item) ?>][<?php echo esc_attr( $i ) ?>][title]"
                                                            placeholder="title">
                                                 </td>
                                             </tr>

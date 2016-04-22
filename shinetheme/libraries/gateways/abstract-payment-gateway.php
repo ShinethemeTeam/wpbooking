@@ -141,7 +141,9 @@ if (!class_exists('Traveler_Abstract_Payment_Gateway')) {
 		 */
 		function do_checkout($order_id,$payment_id)
 		{
-
+			// On-hold for Offline Gateways
+			$order=Traveler_Order_Model::inst();
+			$order->onhold_purchase($payment_id);
 		}
 
 		function _register_gateway($gateways = array())

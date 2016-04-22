@@ -25,13 +25,14 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
                 }?>
             </div>
             <div class="col-md-12">
-                <h3><?php the_title(); ?></h3>
+                <h3 itemprop="name"><?php the_title(); ?></h3>
                 <?php $address  = get_post_meta(get_the_ID(),'address',true); ?>
                 <?php if(!empty($address)){ ?>
                     <div> <i class="fa fa-map-marker"></i>
                         <?php echo esc_html($address) ?>
                     </div>
                 <?php } ?>
+				<?php echo traveler_load_view('single/price') ?>
             </div>
         </div>
 
@@ -80,8 +81,8 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
         <div class="row">
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#maps">Maps</a></li>
-                    <li><a data-toggle="tab" href="#gallery">Gallery</a></li>
+                    <li class="active"><a data-toggle="tab" href="#maps"><?php _e('Maps','traveler-booking')?></a></li>
+                    <li><a data-toggle="tab" href="#gallery"><?php _e('Gallery','traveler-booking') ?></a></li>
                     <li><a data-toggle="tab" href="#place-order"><?php _e('Place Order','traveler-booking')?></a></li>
                 </ul>
                 <div class="tab-content">

@@ -78,7 +78,7 @@ $my_query = Traveler_Service::inst()->query($args,$service_type);
                                             }?>
                                         </div>
                                         <div class="col-md-3">
-                                            Price:
+                                            <?php echo traveler_service_price_html() ?>
                                         </div>
                                     </div>
                                 </li>

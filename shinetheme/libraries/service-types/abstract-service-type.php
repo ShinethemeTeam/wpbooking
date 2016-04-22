@@ -44,6 +44,104 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 			add_filter('traveler_service_need_customer_confirm',array($this,'_get_customer_confirm'),10,3);
 			add_filter('traveler_service_need_partner_confirm',array($this,'_get_partner_confirm'),10,3);
 
+			add_action('traveler_cart_item_information_'.$this->type_id,array($this,'_show_cart_item_information'));
+			add_action('traveler_review_order_item_information_'.$this->type_id,array($this,'_show_cart_item_information'));
+			add_action('traveler_order_item_information_'.$this->type_id,array($this,'_show_order_item_information'));
+
+		}
+
+		/**
+		 * Show Cart Item Information Based on Service Type ID
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $cart_item
+		 */
+		function _show_cart_item_information($cart_item)
+		{
+			$cart_item=wp_parse_args($cart_item,array(
+				'need_customer_confirm'=>'',
+				'order_form'=>array()
+			));
+
+			// Show Order Form Field
+			$order_form=$cart_item['order_form'];
+			if(!empty($order_form) and is_array($order_form))
+			{
+				echo "<ul class='cart-item-order-form-fields'>";
+				foreach($order_form as $key=>$value){
+
+					if(!$value['value']) continue;
+
+					printf("<li class='field-item %s'>
+								<span class='field-title'>%s:</span>
+								<span class='field-value'>%s</span>
+							</li>",$key,$value['title'],$value['value']);
+				}
+				echo "</ul>";
+			}
+
+			// Show Need Confirm Notification
+			if($cart_item['need_customer_confirm'] or $cart_item['need_customer_confirm'])
+			{
+				echo "<div class='label label-warning'>".__("Need Confirmation ",'traveler-booking')."</div>";
+			}
+		}
+
+		/**
+		 * Show Order Item Information Based on Service Type ID
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $order_item
+		 */
+		function _show_order_item_information($order_item)
+		{
+			$order_item=wp_parse_args($order_item,array(
+				'need_customer_confirm'=>'',
+				'order_form'=>'',
+				'payment_status'=>'',
+				'status'=>''
+			));
+
+			// Show Order Form Field
+			$order_form_string=$order_item['order_form'];
+
+			if($order_form_string and $order_form=unserialize($order_form_string) and  !empty($order_form) and is_array($order_form))
+			{
+				echo "<ul class='cart-item-order-form-fields'>";
+				foreach($order_form as $key=>$value){
+
+					if(!$value['value']) continue;
+
+					printf("<li class='field-item %s'>
+								<span class='field-title'>%s:</span>
+								<span class='field-value'>%s</span>
+							</li>",$key,$value['title'],$value['value']);
+				}
+				echo "</ul>";
+			}
+
+			// Show Need Confirm Notification
+			if($order_item['need_customer_confirm'] or $order_item['need_customer_confirm'])
+			{
+				echo "<div class='label label-warning'>".__("Need Confirmation",'traveler-booking')."</div>";
+			}else{
+				// Show Payment Status
+				switch($order_item['status'])
+				{
+					case "completed":
+						echo "<div class='label label-success'>".__("Completed",'traveler-booking')."</div>";
+						break;
+					case "on-hold":
+						echo "<div class='label label-warning'>".__("On-hold",'traveler-booking')."</div>";
+						break;
+
+				}
+			}
+
 		}
 
 		/**
