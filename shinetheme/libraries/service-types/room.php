@@ -173,6 +173,7 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
                         $ids = array();
                     }
                 }
+
                 if(!empty( $tax_query )) {
                     $args[ 'tax_query' ][ ] = $tax_query;
                 }
