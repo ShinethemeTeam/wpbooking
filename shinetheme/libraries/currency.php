@@ -6,19 +6,18 @@
  * Time: 12:39 PM
  */
 
-if(!class_exists('Traveler_Currency'))
-{
+if (!class_exists('Traveler_Currency')) {
 	class Traveler_Currency
 	{
 		public static $all_currency;
 
 		static function _init()
 		{
-			add_action( 'init',array(__CLASS__,'_location_session'),1 );
-			add_action('init',array(__CLASS__,'_change_current_currency'));
+			add_action('init', array(__CLASS__, '_location_session'), 1);
+			add_action('init', array(__CLASS__, '_change_current_currency'));
 
 
-			self::$all_currency=array (
+			self::$all_currency = array(
 				'ALL' => 'Albania Lek',
 				'AFN' => 'Afghanistan Afghani',
 				'ARS' => 'Argentina Peso',
@@ -138,14 +137,15 @@ if(!class_exists('Traveler_Currency'))
 			/**
 			 * Use in $config[settings]
 			 */
-			add_filter('traveler_get_all_currency',array(__CLASS__,'get_all_currency'));
+			add_filter('traveler_get_all_currency', array(__CLASS__, 'get_all_currency'));
+
 		}
 
 		static function _location_session()
 		{
 
-			if(Traveler_Session::get('traveler_currency')){
-				Traveler_Session::set('traveler_currency',self::get_default_currency());
+			if (!Traveler_Session::get('traveler_currency')) {
+				Traveler_Session::set('traveler_currency', self::get_default_currency());
 			}
 
 		}
@@ -154,50 +154,49 @@ if(!class_exists('Traveler_Currency'))
 		static function _change_current_currency()
 		{
 
-			if(Traveler_Input::get('currency') and $new_currency=self::find_currency($_GET['currency']))
-			{
-
-				Traveler_Session::set('traveler_currency',$new_currency);
+			if (Traveler_Input::get('currency') and $new_currency = self::find_currency($_GET['currency'])) {
+				Traveler_Session::set('traveler_currency', $new_currency);
 			}
 		}
+
 		static function _list_currency()
 		{
-			return self::get_currency(true);
+			return self::get_currency(TRUE);
 		}
 
-		static function get_all_currency(){
-			return apply_filters('traveler_all_currency',self::$all_currency);
+		static function get_all_currency()
+		{
+			return apply_filters('traveler_all_currency', self::$all_currency);
 		}
 
 		/**
 		 * Return All Currencies
-		 *
+		 * @since 1.0
 		 *
 		 * */
-		static function get_currency($theme_option=false)
+		static function get_currency($theme_option = FALSE)
 		{
-			$all= apply_filters('traveler_get_list_currency', traveler_get_option('currency_list',array()));
+			$all = apply_filters('traveler_get_list_currency', traveler_get_option('currency_list', array()));
 
 			//return array for theme options choise
-			if($theme_option){
-				$choice=array();
+			if ($theme_option) {
+				$choice = array();
 
-				if(!empty($all) and is_array($all))
-				{
+				if (!empty($all) and is_array($all)) {
 
 
-					foreach($all as $key=>$value)
-					{
-						$choice[]=array(
+					foreach ($all as $key => $value) {
+						$choice[] = array(
 
-							'label'=>$value['title'],
-							'value'=>$value['name']
+							'label' => $value['title'],
+							'value' => $value['name']
 						);
 					}
 
 				}
+
 				return $choice;
-			}else{
+			} else {
 
 				return $all;
 
@@ -210,20 +209,19 @@ if(!class_exists('Traveler_Currency'))
 		 *
 		 * @since 1.0
 		 * */
-		static function get_default_currency($need=false,$default=FALSE)
+		static function get_default_currency($need = FALSE, $default = FALSE)
 		{
-			$primary=false;
+			$primary = FALSE;
 
 			// Get all added curencies
-			$add_currencies=self::get_added_currencies();
-			if(!empty($add_currencies)){
+			$add_currencies = self::get_added_currencies();
+			if (!empty($add_currencies)) {
 				// first item is default currency
-				$primary=$add_currencies[0];
+				$primary = $add_currencies[0];
 			}
-			$all=self::get_all_currency();
+			$all = self::get_all_currency();
 			// Check currency exists and available in the system
-			if($primary and array_key_exists($primary['currency'],$all))
-			{
+			if ($primary and array_key_exists($primary['currency'], $all)) {
 				// Default Currency Object Format
 //            array(
 //                'currency'=>'USD',
@@ -235,15 +233,15 @@ if(!class_exists('Traveler_Currency'))
 //            ),
 
 
-				if($need){
-					return  isset($primary[$need])?$primary[$need]:$default;
-				}else{
+				if ($need) {
+					return isset($primary[$need]) ? $primary[$need] : $default;
+				} else {
 					return $primary;
 				}
 
 			}
 
-			return false;
+			return FALSE;
 
 
 		}
@@ -258,29 +256,30 @@ if(!class_exists('Traveler_Currency'))
 		 * @return mixed|void
 		 */
 
-		static function get_currency_dropdown($name,$selected=false,$atts=array()){
+		static function get_currency_dropdown($name, $selected = FALSE, $atts = array())
+		{
 
-			$atts['name']=$name;
-			if(!isset($atts['id'])) $atts['id']=$name;
+			$atts['name'] = $name;
+			if (!isset($atts['id'])) $atts['id'] = $name;
 
 			$attributes = '';
-			foreach ( $atts as $attr => $value ) {
-				if ( ! empty( $value ) ) {
-					$value = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
+			foreach ($atts as $attr => $value) {
+				if (!empty($value)) {
+					$value = ('href' === $attr) ? esc_url($value) : esc_attr($value);
 					$attributes .= ' ' . $attr . '="' . $value . '"';
 				}
 			}
 
-			$all=self::get_all_currency();
+			$all = self::get_all_currency();
 
-			$html="<select {$attributes}>";
-			foreach($all as $k=>$v){
-				$html.="<option ".selected($selected,$k,false)." value='{$k}'>{$v} - {$k}</option>";
+			$html = "<select {$attributes}>";
+			foreach ($all as $k => $v) {
+				$html .= "<option " . selected($selected, $k, FALSE) . " value='{$k}'>{$v} - {$k}</option>";
 			}
-			$html.="</select>";
+			$html .= "</select>";
 
 
-			return apply_filters('get_currency_dropdown',$html,$name,$selected,$atts);
+			return apply_filters('get_currency_dropdown', $html, $name, $selected, $atts);
 		}
 
 		/**
@@ -292,39 +291,40 @@ if(!class_exists('Traveler_Currency'))
 		 * @param array $atts
 		 * @return mixed|void
 		 */
-		static function get_added_currency_dropdown($name,$selected=false,$atts=array()){
+		static function get_added_currency_dropdown($name, $selected = FALSE, $atts = array())
+		{
 
-			$atts['name']=$name;
-			if(!isset($atts['id'])) $atts['id']=$name;
+			$atts['name'] = $name;
+			if (!isset($atts['id'])) $atts['id'] = $name;
 
 			$attributes = '';
-			foreach ( $atts as $attr => $value ) {
-				if ( ! empty( $value ) ) {
-					$value = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
+			foreach ($atts as $attr => $value) {
+				if (!empty($value)) {
+					$value = ('href' === $attr) ? esc_url($value) : esc_attr($value);
 					$attributes .= ' ' . $attr . '="' . $value . '"';
 				}
 			}
-			$all_currency=self::get_all_currency();
+			$all_currency = self::get_all_currency();
 
-			$all=self::get_added_currencies();
+			$all = self::get_added_currencies();
 
-			$html="<select {$attributes}>";
-			foreach($all as $k=>$v){
+			$html = "<select {$attributes}>";
+			foreach ($all as $k => $v) {
 
-				if(isset($v['currency']) and isset($all_currency[$v['currency']])){
+				if (isset($v['currency']) and isset($all_currency[$v['currency']])) {
 
-					$code=$v['currency'];
-					$country=$all_currency[$v['currency']];
-					$html.="<option ".selected($selected,$code,false)." value='{$code}'>{$country} - {$code}</option>";
+					$code = $v['currency'];
+					$country = $all_currency[$v['currency']];
+					$html .= "<option " . selected($selected, $code, FALSE) . " value='{$code}'>{$country} - {$code}</option>";
 
-				}else{
+				} else {
 					continue;
 				}
 			}
-			$html.="</select>";
+			$html .= "</select>";
 
 
-			return apply_filters('get_currency_dropdown',$html,$name,$selected,$atts);
+			return apply_filters('get_currency_dropdown', $html, $name, $selected, $atts);
 		}
 
 		/**
@@ -336,31 +336,29 @@ if(!class_exists('Traveler_Currency'))
 		 * @return mixed|void
 		 */
 
-		static function get_added_currency_array($type='metabox'){
+		static function get_added_currency_array($type = 'metabox')
+		{
 
-			$all=self::get_added_currencies();
-			$all_currency=self::get_all_currency();
+			$all = self::get_added_currencies();
+			$all_currency = self::get_all_currency();
 
-			$html=array();
+			$html = array();
 
-			if(!empty($all)){
-				foreach($all as $key=>$value){
+			if (!empty($all)) {
+				foreach ($all as $key => $value) {
 
-					$item=$all_currency[$value['currency']];
+					$item = $all_currency[$value['currency']];
 
-					switch($type){
+					switch ($type) {
 						case "metabox":
-							$html[]=array(
-								'label'=>$item.' - '.$value['currency'],
-								'value'=>$value['currency']
-							);
+							$html[$value['currency']] = $item . ' - ' . $value['currency'];
 							break;
 					}
 				}
 			}
 
 
-			return apply_filters('get_added_currency_array',$html,$type);
+			return apply_filters('get_added_currency_array', $html, $type);
 		}
 
 		/**
@@ -368,22 +366,21 @@ if(!class_exists('Traveler_Currency'))
 		 *
 		 *
 		 * */
-		static  function find_currency($currency_name,$compare_key='currency')
+		static function find_currency($currency_name, $compare_key = 'currency')
 		{
-			$currency_name=esc_attr($currency_name);
+			$currency_name = esc_attr($currency_name);
 
-			$all_currency=self::get_added_currencies();
+			$all_currency = self::get_added_currencies();
 
-			if(!empty($all_currency)){
-				foreach($all_currency as $key)
-				{
-					if($key[$compare_key]==$currency_name)
-					{
+			if (!empty($all_currency)) {
+				foreach ($all_currency as $key) {
+					if ($key[$compare_key] == $currency_name) {
 						return $key;
 					}
 				}
 			}
-			return false;
+
+			return FALSE;
 		}
 
 		/**
@@ -391,92 +388,132 @@ if(!class_exists('Traveler_Currency'))
 		 *
 		 *
 		 * */
-		static function get_current_currency($need=false,$default=FALSE)
+		static function get_current_currency($need = FALSE, $default = FALSE)
 		{
-			//var_dump($need);
-			$current=Traveler_Session::get('traveler_currency');
+			$current = Traveler_Session::get('traveler_currency');
 			//Check session of user first
-			if($need and $current)
-			{
-				if(isset($current[$need])) return $current[$need];
+			if ($need and $current) {
+				if (isset($current[$need])) return $current[$need];
+
 				return $default;
-			}else
-				return self::get_default_currency($need,$default);
+			} else
+				return self::get_default_currency($need, $default);
 		}
 
 
 		static function get_added_currencies()
 		{
 
-			return traveler_get_option('currency',array());
+			return traveler_get_option('currency', array());
 		}
 
 		/**
 		 *
-		 * Conver money from default currency to current currency
+		 * Convert money from default currency to current currency
 		 *
 		 *
 		 * @since 1.0
 		 * */
-		static function convert_money($money = false, $rate = false)
+		static function convert_money($money = FALSE, $rate = FALSE)
 		{
-			if(!$money) $money=0;
-			if(!$rate){
-				$current_rate = self::get_current_currency('rate',1);
-				$current      = self::get_current_currency('title');
+			if (!$money) $money = 0;
+			if (!$rate) {
+				$current_rate = self::get_current_currency('rate', 1);
+				$current = self::get_current_currency('title');
 
-				$default      = self::get_default_currency('title');
+				$default = self::get_default_currency('title');
 
-				if($current != $default)
-					$money= $money * $current_rate;
-			}else{
+				if ($current != $default)
+					$money = $money * $current_rate;
+			} else {
 				$current_rate = $rate;
-				$money= $money * $current_rate;
+				$money = $money * $current_rate;
 			}
 
-			return round((float)$money,2);
+			return round((float)$money, 2);
 		}
-		static function format_money($money,$need_convert=true)
-		{
-			$money=(float)$money;
-			$symbol                 =   self::get_current_currency('symbol');
-			$precision              =   self::get_current_currency('decimal',0);
-			$thousand_separator     =   self::get_current_currency('thousand_sep',' ');
-			$decimal_separator      =   self::get_current_currency('decimal_sep',' ');
 
-			if($need_convert){
-				$money=self::convert_money($money);
+		/**
+		 * Format Money HTML with Currency
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $money
+		 * @param bool|array $args Option for Format
+		 * @return string
+		 */
+		static function format_money($money, $args = array())
+		{
+			$args = wp_parse_args($args, array(
+				'currency'     => FALSE,
+				'need_convert' => TRUE,
+				'rate'         => 1
+			));
+
+			$need_convert = $args['need_convert'];
+			$currency = $args['currency'];
+			$rate = $args['rate'];
+
+			$money = (float)$money;
+			$main_currency=self::get_default_currency('currency');
+			$current_currency = self::get_current_currency('currency');
+			$symbol = self::get_current_currency('symbol');
+			$precision = self::get_current_currency('decimal', 0);
+			$current_rate=self::get_current_currency('rate');
+			$thousand_separator = self::get_current_currency('thousand_sep', '&nbsp;');
+			$decimal_separator = self::get_current_currency('decimal_sep', '&nbsp;');
+
+			if ($need_convert) {
+				if ($currency and $currency_obj = self::find_currency($currency)) {
+
+					// Default for fix Division by zero
+					if(!$currency_obj['rate'])  $currency_obj['rate']=1;
+
+					// If Current Currency is not the same with currency
+
+					if ($current_currency != $currency) {
+
+						if($currency==$main_currency){
+							$rate=$current_rate;
+						}elseif($current_currency==$main_currency){
+							$rate = 1 / $currency_obj['rate'];
+						}else{
+							$rate=$current_rate/($currency_obj['rate']);
+						}
+
+					}
+				}
+				$money = self::convert_money($money, $rate);
 			}
 
-			if($precision){
-				$money = round($money,2);
+			if ($precision) {
+				$money = round($money, 2);
 			}
 
 			$template = self::get_current_currency('position');
 
-			if(!$template)
-			{
-				$template='left';
+			if (!$template) {
+				$template = 'left';
 			}
 
-			$money = number_format((float)$money,$precision,$decimal_separator,$thousand_separator);
+			$money = number_format((float)$money, $precision, $decimal_separator, $thousand_separator);
 
-			switch($template)
-			{
+			switch ($template) {
 
 				case "right":
-					$money_string= $money.$symbol;
+					$money_string = $money . $symbol;
 					break;
 				case "left_with_space":
-					$money_string=$symbol." ".$money;
+					$money_string = $symbol . " " . $money;
 					break;
 
 				case "right_with_space":
-					$money_string=$money." ".$symbol;
+					$money_string = $money . " " . $symbol;
 					break;
 				case "left":
 				default:
-					$money_string= $symbol.$money;
+					$money_string = $symbol . $money;
 					break;
 
 

@@ -107,8 +107,8 @@ if (!class_exists('Traveler_Order_Model')) {
 				'infant_number'         => $cart_item['infant_number'],
 				'customer_id'           => $cart_item['customer_id'],
 				'partner_id'            => get_post_field('post_author', $cart_item['post_id']),
-				'need_customer_confirm' => $cart_item['need_customer_confirm'],
-				'need_partner_confirm'  => $cart_item['need_partner_confirm'],
+				'need_customer_confirm' => $cart_item['need_customer_confirm']?1:0,
+				'need_partner_confirm'  => $cart_item['need_partner_confirm']?1:0,
 				'payment_status'        => 0,
 				'status'                => 'on-hold'
 			);
@@ -168,7 +168,20 @@ if (!class_exists('Traveler_Order_Model')) {
 		function complete_purchase($payment_id)
 		{
 
-			$this->where('payment_id', $payment_id)->update(array('payment_status' => 'completed','payment_id'=>$payment_id));
+			$this->where('payment_id', $payment_id)->update(array('payment_status' => 'completed','status'=>'completed'));
+		}
+
+		/**
+		 * Update Order Status to On-Hold for Offline Payment
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $payment_id
+		 */
+		function onhold_purchase($payment_id)
+		{
+			$this->where('payment_id', $payment_id)->update(array('status'=>'completed'));
 		}
 
 		static function inst()

@@ -88,11 +88,11 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 					'type'      => 'multi-checkbox',
 					'value'=>array(
 						array(
-							'id'=>$this->type_id.'_customer_confirm',
+							'id'=>'service_type_'.$this->type_id.'_customer_confirm',
 							'label'=>__("Require customer confirm the booking by send them an email",'traveler-booking')
 						),
 						array(
-							'id'=>$this->type_id.'_partner_confirm',
+							'id'=>'service_type_'.$this->type_id.'_partner_confirm',
 							'label'=>__("Require partner confirm the booking",'traveler-booking')
 						),
 					)

@@ -66,6 +66,13 @@ $config['settings'] = array(
 									'max' => 3
 								)
 							),
+							array(
+								'id'    => 'rate',
+								'label' => __('Exchange Rate', 'traveler-booking'),
+								'desc'  => __('Exchange Rate vs Main Currency', 'traveler-booking'),
+								'type'  => 'text',
+								'value'=>1
+							),
 
 						)
 					),

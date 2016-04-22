@@ -134,9 +134,7 @@ class Test_Metabox extends Traveler_Controller{
                     'id' => 'currency',
                     'type' => 'dropdown',
                     'std' => 'usd',
-                    'value' => array(
-                        'usd' => __('USD - $', 'traveler-booking')
-                    ),
+                    'value' =>Traveler_Currency::get_added_currency_array()
                 ),
                 array(
                     'label' => __('Long Terms?', 'traveler-booking'),
