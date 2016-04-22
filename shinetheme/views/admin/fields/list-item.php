@@ -52,6 +52,9 @@ $id_list_item    = $data[ 'id' ];
                                                     if(!empty( $v[ $id ] )) {
                                                         $cusstom_value = $v[ $id ];
                                                     }
+                                                    if(!empty($v2['std'])){
+                                                        $cusstom_value = $v2['std'];
+                                                    }
                                                     $default = array(
                                                         'id'                => '' ,
                                                         'label'             => '' ,
