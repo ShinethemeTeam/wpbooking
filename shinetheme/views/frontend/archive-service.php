@@ -22,17 +22,21 @@ if(!empty($list_page_search[$is_page]))
 }
 $my_query = Traveler_Service::inst()->query($args,$service_type);
 ?>
-<div class="traveler-container">
-    <div>
-        <ul>
-            <?php
-            global $wp_query;
-            if($my_query->have_posts()){
-                while ( $my_query->have_posts() ) {
-                    $my_query->the_post();
-                    switch($service_type){
-                        case "room":
-                            ?>
+<div class="traveler-container container">
+    <div class="row">
+        <div class="col-md-3">
+            <?php echo get_sidebar(); ?>
+        </div>
+        <div class="col-md-9">
+            <ul>
+                <?php
+                global $wp_query;
+                if($my_query->have_posts()){
+                    while ( $my_query->have_posts() ) {
+                        $my_query->the_post();
+                        switch($service_type){
+                            case "room":
+                                ?>
                                 <li class="content-item">
 
                                     <div class="row">
@@ -78,39 +82,40 @@ $my_query = Traveler_Service::inst()->query($args,$service_type);
                                         </div>
                                     </div>
                                 </li>
-                            <?php
-                            break;
+                                <?php
+                                break;
+                        }
                     }
+                }else{
+                    _e("<h3>No Content</h3>",'traveler-booking');
                 }
-            }else{
-                _e("<h3>No Content</h3>",'traveler-booking');
-            }
-            ?>
-        </ul>
-        <div id="pagination" class="text-right">
-            <?php
-            $paged        = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
-            $pagenum_link = html_entity_decode( get_pagenum_link() );
-            $query_args   = array();
-            $url_parts    = explode( '?', $pagenum_link );
-            if ( isset( $url_parts[1] ) ) {
-                wp_parse_str( $url_parts[1], $query_args );
-            }
-            $pagenum_link = esc_url(remove_query_arg( array_keys( $query_args ), $pagenum_link ));
-            $pagenum_link = trailingslashit( $pagenum_link ) . '%_%';
-            $format  = $GLOBALS['wp_rewrite']->using_index_permalinks() && ! strpos( $pagenum_link, 'index.php' ) ? 'index.php/' : '';
-            $format .= $GLOBALS['wp_rewrite']->using_permalinks() ? user_trailingslashit( 'page/%#%', 'paged' ) : '?paged=%#%';
-            $args = array(
-                'base'     => $pagenum_link,
-                'format'   => $format,
-                'total'    => $my_query->max_num_pages,
-                'current'  => $paged,
-                'add_args' =>$query_args,
-                'prev_text' => __( 'Previous', "traveler-booking" ),
-                'next_text' => __( 'Next', "traveler-booking" ),
-            );
-            echo paginate_links( $args );
-            ?>
+                ?>
+            </ul>
+            <div id="pagination" class="text-right">
+                <?php
+                $paged        = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
+                $pagenum_link = html_entity_decode( get_pagenum_link() );
+                $query_args   = array();
+                $url_parts    = explode( '?', $pagenum_link );
+                if ( isset( $url_parts[1] ) ) {
+                    wp_parse_str( $url_parts[1], $query_args );
+                }
+                $pagenum_link = esc_url(remove_query_arg( array_keys( $query_args ), $pagenum_link ));
+                $pagenum_link = trailingslashit( $pagenum_link ) . '%_%';
+                $format  = $GLOBALS['wp_rewrite']->using_index_permalinks() && ! strpos( $pagenum_link, 'index.php' ) ? 'index.php/' : '';
+                $format .= $GLOBALS['wp_rewrite']->using_permalinks() ? user_trailingslashit( 'page/%#%', 'paged' ) : '?paged=%#%';
+                $args = array(
+                    'base'     => $pagenum_link,
+                    'format'   => $format,
+                    'total'    => $my_query->max_num_pages,
+                    'current'  => $paged,
+                    'add_args' =>$query_args,
+                    'prev_text' => __( 'Previous', "traveler-booking" ),
+                    'next_text' => __( 'Next', "traveler-booking" ),
+                );
+                echo paginate_links( $args );
+                ?>
+            </div>
         </div>
     </div>
 </div>

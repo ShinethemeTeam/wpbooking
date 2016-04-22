@@ -90,6 +90,9 @@ if(!class_exists('traveler_widget_form_search')){
 												$args['selected'] = $is_taxonomy[$v['taxonomy']];
 											}
 											wp_dropdown_categories( $args );
+                                            ?>
+                                            <input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>" name="<?php echo esc_attr( "taxonomy_operator" . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
+                                        <?php
 										}else{ ?>
 											<div class="row">
 												<?php
@@ -110,8 +113,8 @@ if(!class_exists('traveler_widget_form_search')){
 													}
 												}
 												?>
-												<input type="hidden" value="<?php echo esc_attr($value_item) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v[ 'field_type' ] . '[' . $v[ 'taxonomy' ] . ']' ) ?>">
-												<input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>"name="<?php echo esc_attr( "taxonomy_operator" . '[' . $v[ 'taxonomy' ] . ']' ) ?>">
+												<input type="hidden" value="<?php echo esc_attr($value_item) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v[ 'field_type' ] . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
+												<input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>" name="<?php echo esc_attr( "taxonomy_operator" . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
 											</div>
 										<?php } ?>
 									</div>
@@ -180,7 +183,7 @@ if(!class_exists('traveler_widget_form_search')){
 					} ?>
 
 					<div class="item-search">
-						<button class="" type="submit"><?php _e("Search",'traveler-booking') ?></button
+						<button class="" type="submit"><?php _e("Search",'traveler-booking') ?></button>
 					</div>
 				</div>
             </form>
