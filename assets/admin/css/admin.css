@@ -795,9 +795,9 @@ a.ui-datepicker-next {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0, 0, 0, 0.08);
-  -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0, 0, 0, 0.08);
-  box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: inset 0 1px 0 #ffffff, 0 1px 0 rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: inset 0 1px 0 #ffffff, 0 1px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 1px 0 #ffffff, 0 1px 0 rgba(0, 0, 0, 0.08);
 }
 .ui-datepicker .ui-datepicker-buttonpane button::-moz-focus-inner {
   border-width: 1px 0;
@@ -1203,7 +1203,7 @@ a.ui-datepicker-next {
   padding: 15px;
   margin-top: 5px;
   border: 1px solid #CCC;
-  height: 300px;
+  max-height: 300px;
   overflow-y: scroll;
 }
 .traveler-list-taxonomies .traveler-list-taxonomy-item {

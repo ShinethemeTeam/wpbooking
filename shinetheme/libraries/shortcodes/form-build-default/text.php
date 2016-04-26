@@ -101,7 +101,7 @@ if(!function_exists( 'traveler_sc_booking_text' )) {
             $required = "required";
             $rule []= "required";
         }
-        if(!empty(!$maxlength)){
+        if(!empty($maxlength)){
             $rule []= "max_length[100]";
         }
 

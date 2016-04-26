@@ -58,6 +58,7 @@ $autoload['model']=array(
 $autoload['widget']=array(
     'search-form',
     'currency-switcher',
+	'cart-widget'
 );
 
 $autoload['encrypr_key'] = 'traveler';
