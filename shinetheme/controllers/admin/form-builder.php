@@ -127,61 +127,52 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
 
         function _save_layout()
         {
+            $current_user = wp_get_current_user();
+            $form_id      = Traveler_Input::request( "form_builder_id" );
+            $title        = Traveler_Input::request( "traveler-title" );
             if(!empty( $_POST[ 'traveler_booking_btn_save_layout' ] ) and wp_verify_nonce( $_REQUEST[ 'traveler_booking_save_layout' ] , "traveler_booking_action" )) {
-                $current_user = wp_get_current_user();
-                $form_id    = Traveler_Input::request( "form_builder_id" );
-                $title        = Traveler_Input::request( "traveler-title" );
-                $type         = 'update';
-                if(empty( $form_id )) {
-                    $type = 'create';
-                }
                 if(!empty( $title )) {
-                    if(empty( $form_id )) {
-                        $my_layout = array(
-                            'post_title'   => Traveler_Input::request( "traveler-title" ) ,
-                            'post_content' => stripslashes( Traveler_Input::request( "traveler-content-build" ) ) ,
-                            'post_status'  => 'publish' ,
-                            'post_author'  => $current_user->ID ,
-                            'post_type'    => 'traveler_form' ,
-                            'post_excerpt' => ''
-                        );
-                        $form_id = wp_insert_post( $my_layout );
-                    } else {
+                    if(!empty( $form_id )) {
                         $my_layout = array(
                             'ID'           => $form_id ,
                             'post_title'   => Traveler_Input::request( "traveler-title" ) ,
                             'post_content' => stripslashes( Traveler_Input::request( "traveler-content-build" ) ) ,
                         );
                         wp_update_post( $my_layout );
+                        traveler_set_admin_message( __( "Update layout successfully !" , "traveler-booking" ) , 'success' );
+                        $type_layout = Traveler_Input::request( "traveler-layout-type" );
+                        update_post_meta( $form_id , 'type_layout' , $type_layout );
+
+                    } else {
+                        traveler_set_admin_message( __( "Error : Update layout not successfully !" , "traveler-booking" ) , 'error' );
                     }
+                } else {
+                    traveler_set_admin_message( __( 'Error : Update layout not successfully !' , 'traveler-booking' ) , 'error' );
+                }
+            }
+            if(!empty( $_POST[ 'traveler_booking_btn_add_layout' ] ) and wp_verify_nonce( $_REQUEST[ 'traveler_booking_add_layout' ] , "traveler_booking_action" )) {
+                if(!empty( $title )) {
+                    $my_layout = array(
+                        'post_title'   => Traveler_Input::request( "traveler-title" ) ,
+                        'post_content' => stripslashes( Traveler_Input::request( "traveler-content-build" ) ) ,
+                        'post_status'  => 'publish' ,
+                        'post_author'  => $current_user->ID ,
+                        'post_type'    => 'traveler_form' ,
+                        'post_excerpt' => ''
+                    );
+                    $form_id   = wp_insert_post( $my_layout );
                     if(!empty( $form_id )) {
                         $type_layout = Traveler_Input::request( "traveler-layout-type" );
                         update_post_meta( $form_id , 'type_layout' , $type_layout );
-                        if($type == 'update') {
-                            traveler_set_admin_message( __("Update layout successfully !","traveler-booking") , 'success' );
-
-                        } else {
-                            traveler_set_admin_message( __("Create layout successfully !","traveler-booking"), 'success' );
-                            wp_redirect( add_query_arg(array('page'=>Traveler_Input::request('page'),'form_builder_id'=>$form_id),admin_url('admin.php')) );
-                            exit();
-                        }
-
+                        traveler_set_admin_message( __( "Create layout successfully !" , "traveler-booking" ) , 'success' );
+                        wp_redirect( add_query_arg( array( 'page' => Traveler_Input::request( 'page' ) , 'form_builder_id' => $form_id ) , admin_url( 'admin.php' ) ) );
+                        exit();
                     } else {
-                        if($type == 'update') {
-                            traveler_set_admin_message( __("Error : Update layout not successfully !","traveler-booking") , 'error' );
-                        } else {
-                            traveler_set_admin_message( __('Error : Create layout not successfully !',"traveler-booking") , 'error' );
-                        }
+                        traveler_set_admin_message( __( 'Error : Create layout not successfully !' , "traveler-booking" ) , 'error' );
                     }
                 } else {
-                    if($type == 'update') {
-                        traveler_set_admin_message( __('Error : Update layout not successfully !','traveler-booking') , 'error' );
-                    } else {
-                        traveler_set_admin_message( __('Error : Create layout not successfully !',"traveler-booking") , 'error' );
-                    }
+                    traveler_set_admin_message( __( 'Error : Create layout not successfully !' , "traveler-booking" ) , 'error' );
                 }
-
-
             }
         }
 
