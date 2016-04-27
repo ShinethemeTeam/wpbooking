@@ -26,17 +26,17 @@ if( count( $terms ) ){
 		<div class="form-group">
 			<div class="traveler-list-taxonomies clearfix">
 			<?php 
+				$item_term = array();
 				if( !empty( $terms ) ):
 					foreach( $terms as $key => $term ):
+						$item_term = get_terms( $key, array('hide_empty' => false) );
 			?>	
+				<?php if( !empty( $item_term ) ) : ?>
 				<h4><?php echo esc_html( $term->label ); ?></h4>
+				<?php endif; ?>
 				<div class="traveler-list-taxonomy clearfix">
 					
 					<?php 
-
-						$item_term = get_terms( $key , array(
-							'hide_empty' => false
-						) );
 
 						if( !empty( $item_term ) ):
 
