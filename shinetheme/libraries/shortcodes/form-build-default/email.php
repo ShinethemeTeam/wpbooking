@@ -102,7 +102,7 @@ if(!function_exists( 'traveler_booking_email_func' )) {
             $required = "required";
             $rule []= "required";
         }
-        if(!empty(!$maxlength)){
+        if(!empty($maxlength)){
             $rule []= "max_length[100]";
         }
 		$rule[]='valid_email';

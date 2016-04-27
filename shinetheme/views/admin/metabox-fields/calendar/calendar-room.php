@@ -14,7 +14,7 @@ if(!empty($data['condition'])){
 <div class="<?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
 	<label for="<?php echo esc_html( $data['id'] ); ?>"><strong><?php echo esc_html( $data['label'] ); ?></strong></label>
 	<div class="st-metabox-content-wrapper">
-		<div class="form-group">
+		<div class="form-group" style="width: 100%;">
 			<div class="traveler-calendar-wrapper" data-post-id="<?php echo get_the_ID(); ?>" data-post-encrypt="<?php echo traveler_encrypt( get_the_ID() ); ?>">
 				<div class="traveler-calendar-content">
 					<div class="overlay">
@@ -106,7 +106,7 @@ if(!empty($data['condition'])){
 								</div>
 								<div class="form-group">
 									<div class="form-title">
-										<h4 class=""><input type="checkbox" class="check-all" data-name="months"> <?php echo __('Months', 'traveler-booking'); ?></h4>
+										<h4 class=""><input type="checkbox" class="check-all" data-name="months"> <?php echo __('Months', 'traveler-booking'); ?>(*)</h4>
 									</div>
 									<div class="form-content">
 									<?php 
@@ -130,7 +130,7 @@ if(!empty($data['condition'])){
 								</div>
 								<div class="form-group">
 									<div class="form-title">
-										<h4 class=""><input type="checkbox" class="check-all" data-name="years"> <?php echo __('Years', 'traveler-booking'); ?></h4>
+										<h4 class=""><input type="checkbox" class="check-all" data-name="years"> <?php echo __('Years', 'traveler-booking'); ?>(*)</h4>
 									</div>
 									<div class="form-content">
 									<?php 
@@ -159,8 +159,8 @@ if(!empty($data['condition'])){
 								<div class="form-message" style="margin-top: 20px;"></div>
 							</div>
 							<div class="form-footer">
-								<button type="button" id="calendar-bulk-save" class="button button-primary button-large"><?php echo __('Save','traveler-booking'); ?></button>
-								<button type="button" id="calendar-bulk-cancel" class="button button-large"><?php echo __('Cancel','traveler-booking'); ?></button>
+								<button type="button" id="calendar-bulk-save" class="button button-primary button-large"><?php echo __('Save','traveler-booking'); ?></button><!-- 
+								<button type="button" id="calendar-bulk-cancel" class="button button-large"><?php echo __('Cancel','traveler-booking'); ?></button> -->
 							</div>
 						</div>
 					</div>

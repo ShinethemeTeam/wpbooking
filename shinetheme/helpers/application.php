@@ -150,23 +150,28 @@ if( !function_exists('traveler_show_tree_terms') ){
 		if( count( $terms ) == 0 ){
 			return $returns;
 		}
+
 		$list_tmp = array();
 		foreach ( $terms as $i => $term ) {
 	        if ( $term->parent == $parent ) {
-	            $returns[] = array(
-	            	'id' => $term->term_id,
-	            	'name' => $term->name,
-	            	'deep' => $deep,
-	            	'parent_name' => traveler_get_term( 'term_id', $parent, 'traveler_location', 'name', $term->name)
-	            );
 	            $list_tmp[] = $term;
 	            unset( $terms[ $i ] );
 	        }
 	    }
+	    	
+	    $deep += 15;
+
+
 	    if( $list_tmp ){
 		    foreach ( $list_tmp as $child ) {
-		    	$deep += 15;
+		    	$returns[] = array(
+	            	'id' => $child->term_id,
+	            	'name' => $child->name,
+	            	'deep' => $deep,
+	            	'parent_name' => traveler_get_term( 'term_id', $term->parent, 'traveler_location', 'name', $child->name)
+	            );
 		        traveler_show_tree_terms( $terms, $returns, $child->term_id, $deep );
+		    	
 		    }
 		}
 	}

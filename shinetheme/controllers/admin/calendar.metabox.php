@@ -104,7 +104,7 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 				$post_id = (int) Traveler_Input::post('post_id', 0);
 				$post_encrypt = Traveler_Input::post('post_encrypt', '');
 
-				if( $post_id > 0 || traveler_encrypt_compare( $post_id, $post_encrypt ) ){
+				if( $post_id > 0 && traveler_encrypt_compare( $post_id, $post_encrypt ) ){
 
 					if( isset( $_POST['all_days'] ) && !empty( $_POST['all_days'] ) ){
 
@@ -190,6 +190,21 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 							}
 
 							if( !empty( $day_of_week) && !empty( $day_of_month) ){
+								// Each day in month
+								foreach( $day_of_month as $day ){
+									// Each day in week
+									foreach( $day_of_week as $day_week ){
+										// Each month year
+										foreach( $all_months as $month ){
+											$time = strtotime( $day. ' '. $month );
+
+											if( date('l', $time ) == $day_of_week ){
+												$all_days[] = $time;
+											}
+
+										}	
+									}							
+								}
 								foreach( $day_of_month as $day ){
 									foreach( $all_months as $month ){
 										$day = str_pad( $day, 2, '0', STR_PAD_LEFT );

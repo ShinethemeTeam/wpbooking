@@ -624,7 +624,7 @@ if(!class_exists('Traveler_Validator'))
                 {
                     if ( ! isset($this->_error_messages[$rule]))
                     {
-                        if (FALSE === ($line = st_get_language($rule)))
+                        if (FALSE === ($line = $this->get_lang($rule)))
                         {
                             $line = 'Unable to access an error message corresponding to your field name.';
                         }
@@ -676,7 +676,7 @@ if(!class_exists('Traveler_Validator'))
                 $line = substr($fieldname, 5);
 
                 // Were we able to translate the field name?  If not we use $line
-                if (FALSE === ($fieldname = st_get_language($line)))
+                if (FALSE === ($fieldname = $this->get_lang($line)))
                 {
                     return $line;
                 }
