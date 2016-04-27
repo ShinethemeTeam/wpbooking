@@ -315,6 +315,8 @@ if (!class_exists('Traveler_Booking')) {
 					$item_price = apply_filters('traveler_cart_item_pay_amount', $item_price, $value);
 					$item_price = apply_filters('traveler_cart_item_pay_amount_' . $value['service_type'], $item_price, $value);
 
+					$item_price=Traveler_Currency::convert_money($item_price,array('currency'=>$value['currency']));
+
 					$price += $item_price;
 				}
 			}
@@ -334,7 +336,7 @@ if (!class_exists('Traveler_Booking')) {
 			$cart = Traveler_Session::get('traveler_cart', array());
 			if (!empty($cart)) {
 				foreach ($cart as $key => $value) {
-					$price += $this->get_cart_item_total($value);
+					$price += $this->get_cart_item_total($value,true);
 				}
 			}
 
@@ -346,14 +348,23 @@ if (!class_exists('Traveler_Booking')) {
 		/**
 		 * Get Price Amount for one Cart Item
 		 * @param $cart_item
+		 * @param bool @need_convert Need Convert To Currency
 		 * @return mixed|void
 		 */
-		function get_cart_item_total($cart_item)
+		function get_cart_item_total($cart_item,$need_convert=FALSE)
 		{
 
 			$item_price = $cart_item['base_price'];
 			$item_price = apply_filters('traveler_cart_item_price', $item_price, $cart_item);
 			$item_price = apply_filters('traveler_cart_item_price_' . $cart_item['service_type'], $item_price, $cart_item);
+
+			// Convert to current currency
+			if($need_convert){
+				$item_price=Traveler_Currency::convert_money($item_price,array(
+					'currency'=>$cart_item['currency']
+				));
+			}
+
 
 			return $item_price;
 		}
@@ -447,7 +458,7 @@ if (!class_exists('Traveler_Booking')) {
 
 			if (!empty($order_id)) {
 				foreach ($order_items as $key => $value) {
-					$total += $this->get_order_item_total($value);
+					$total += $this->get_order_item_total($value,true);
 				}
 			}
 
@@ -459,13 +470,21 @@ if (!class_exists('Traveler_Booking')) {
 		/**
 		 * Get total order item price by the given item object
 		 * @param $item mixed
+		 * @param bool $need_convert Need convert to currency
 		 * @return int|mixed|void
 		 */
-		function get_order_item_total($item)
+		function get_order_item_total($item,$need_convert=FALSE)
 		{
 			$item_price = $item['base_price'];
 			$item_price = apply_filters('traveler_order_item_total', $item_price, $item, $item['service_type']);
 			$item_price = apply_filters('traveler_order_item_total_' . $item['service_type'], $item_price, $item);
+
+			// Convert to current currency
+			if($need_convert){
+				$item_price=Traveler_Currency::convert_money($item_price,array(
+					'currency'=>$item['currency']
+				));
+			}
 
 			return $item_price;
 		}
@@ -494,7 +513,7 @@ if (!class_exists('Traveler_Booking')) {
 
 					if ($value['need_customer_confirm'] === 1 or $value['need_partner_confirm'] === 1) continue;
 
-					$total += $this->get_order_item_total($value);
+					$total += $this->get_order_item_total($value,true);
 				}
 			}
 
