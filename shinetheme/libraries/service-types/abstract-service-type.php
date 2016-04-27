@@ -86,16 +86,6 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 							</li>",$key,$value['title'],$value_html);
 					}
 
-					if(!$value['value']) continue;
-					if(is_string($value['value']) and $value['value']){
-						printf("<li class='field-item %s'>
-								<span class='field-title'>%s:</span>
-								<span class='field-value'>%s</span>
-							</li>",$key,$value['title'],$value['value']);
-					}
-
-
-
 					do_action('traveler_form_field_to_html',$value);
 					do_action('traveler_form_field_to_html_'.$value['field_type'],$value);
 				}
@@ -145,47 +135,6 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 								<span class='field-title'>%s:</span>
 								<span class='field-value'>%s</span>
 							</li>",$key,$value['title'],$value_html);
-					}
-
-					if(!$value['value']) continue;
-					if(is_string($value['value']) and $value['value']){
-						printf("<li class='field-item %s'>
-								<span class='field-title'>%s:</span>
-								<span class='field-value'>%s</span>
-							</li>",$key,$value['title'],$value['value']);
-					}
-
-					if(is_array($value['value']) and !empty($value['data']['options']) and !empty($value['value'])){
-						$options_array=explode('|',$value['data']['options']);
-						$options=array();
-						if(!empty($options_array))
-						{
-							foreach($options_array as $k=>$v){
-								$ex=explode(':',$v);
-								if(!empty($ex)){
-									$options[$ex[1]]=$ex[0];
-								}
-							}
-						}
-
-						$value_string=array();
-
-						if(!empty($options) )
-						{
-							foreach($value['value'] as $v2){
-								if(array_key_exists($v2,$options)){
-									$value_string[]=$options[$v2];
-								}
-							}
-						}
-
-						if(!empty($value_string))
-							printf("<li class='field-item %s'>
-								<span class='field-title'>%s:</span>
-								<span class='field-value'>%s</span>
-							</li>",$key,$value['title'],implode(', ',$value_string));
-
-
 					}
 
 					do_action('traveler_form_field_to_html',$value);
