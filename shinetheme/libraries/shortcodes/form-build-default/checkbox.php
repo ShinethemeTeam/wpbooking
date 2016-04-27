@@ -4,7 +4,7 @@ if(!class_exists('Traveler_Form_Checkbox_Field')){
 	{
 		static $_inst;
 
-		function construct()
+		function __construct()
 		{
 			$this->field_id='checkbox';
 			$this->field_data=array(
@@ -87,8 +87,37 @@ if(!class_exists('Traveler_Form_Checkbox_Field')){
 			return $list_item;
 		}
 
-		function get_value($form_item_data){
-			return isset($form_item_data['value'])?$form_item_data['value']:FALSE;
+		function get_value($value){
+
+			if(is_array($value['value']) and !empty($value['data']['options']) and !empty($value['value'])){
+				$options_array=explode('|',$value['data']['options']);
+				$options=array();
+				if(!empty($options_array))
+				{
+					foreach($options_array as $k=>$v){
+						$ex=explode(':',$v);
+						if(!empty($ex)){
+							$options[$ex[1]]=$ex[0];
+						}
+					}
+				}
+
+				$value_string=array();
+
+				if(!empty($options) )
+				{
+					foreach($value['value'] as $v2){
+						if(array_key_exists($v2,$options)){
+							$value_string[]=$options[$v2];
+						}
+					}
+				}
+
+				if(!empty($value_string))
+					return implode(', ',$value_string);
+
+
+			}
 		}
 
 		static  function inst()

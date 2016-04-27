@@ -24,8 +24,8 @@ if(!class_exists('Traveler_Abstract_Formbuilder_Field') )
 		{
 			if(!$this->field_id) return;
 
-			add_action('init',array('_register_field'));
-			add_filter('traveler_get_form_field_data_'.$this->field_id,array($this,'get_value'));
+			add_action('init',array($this,'_register_field'));
+			add_filter('traveler_get_form_field_data_'.$this->field_id,array($this,'_get_form_data_value'),10,2);
 		}
 
 		/**
@@ -114,5 +114,21 @@ if(!class_exists('Traveler_Abstract_Formbuilder_Field') )
 		 * @return string
 		 */
 		abstract function get_value($form_item_data);
+
+		/**
+		 *
+		 * Hook Callback for get Form Data Value
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param string $result Default Result String
+		 * @param array $form_item_data
+		 * @return string
+		 */
+		function _get_form_data_value($result,$form_item_data)
+		{
+			return $this->get_value($form_item_data);
+		}
 	}
 }

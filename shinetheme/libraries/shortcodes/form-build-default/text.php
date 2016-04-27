@@ -4,7 +4,7 @@ if(!class_exists('Traveler_Form_Text_Field')){
 	{
 		static $_inst;
 
-		function construct()
+		function __construct()
 		{
 			$this->field_id='text';
 			$this->field_data=array(

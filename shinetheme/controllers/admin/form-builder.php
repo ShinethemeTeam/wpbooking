@@ -17,8 +17,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
             add_action( 'admin_menu' , array( $this , "register_traveler_booking_sub_menu_page" ) );
 
             add_action( 'init' , array( $this , '_add_post_type' ) , 5 );
-            //add_action( 'init' , array( $this , '_load_default_shortcodes' ) );
-			$this->_load_default_shortcodes();
+            add_action( 'after_setup_theme' , array( $this , '_load_default_shortcodes' ) );
 
             // add script and style
             add_action( 'admin_enqueue_scripts' , array( $this , "_add_scripts" ) );
