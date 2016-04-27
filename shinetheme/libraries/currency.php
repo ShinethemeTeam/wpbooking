@@ -411,11 +411,48 @@ if (!class_exists('Traveler_Currency')) {
 		 *
 		 * Convert money from default currency to current currency
 		 *
+		 * @param bool|float $money Money Amount
+		 * @param array $args Args of convert
+		 * @return float Money Amount after converting
 		 *
 		 * @since 1.0
 		 * */
-		static function convert_money($money = FALSE, $rate = FALSE)
+		static function convert_money($money = FALSE, $args = array())
 		{
+			$args = wp_parse_args($args, array(
+				'currency'     => FALSE,
+				'need_convert' => TRUE,
+				'rate'         => 1
+			));
+
+			$currency = $args['currency'];
+			$rate = $args['rate'];
+
+			$money = (float)$money;
+			$main_currency=self::get_default_currency('currency');
+			$current_currency = self::get_current_currency('currency');
+			$current_rate=self::get_current_currency('rate');
+
+			if ($currency and $currency_obj = self::find_currency($currency)) {
+
+				// Default for fix Division by zero
+				if(!$currency_obj['rate'])  $currency_obj['rate']=1;
+
+				// If Current Currency is not the same with currency
+
+				if ($current_currency != $currency) {
+
+					if($currency==$main_currency){
+						$rate=$current_rate;
+					}elseif($current_currency==$main_currency){
+						$rate = 1 / $currency_obj['rate'];
+					}else{
+						$rate=$current_rate/($currency_obj['rate']);
+					}
+
+				}
+			}
+
 			if (!$money) $money = 0;
 			if (!$rate) {
 				$current_rate = self::get_current_currency('rate', 1);
@@ -446,45 +483,20 @@ if (!class_exists('Traveler_Currency')) {
 		static function format_money($money, $args = array())
 		{
 			$args = wp_parse_args($args, array(
-				'currency'     => FALSE,
 				'need_convert' => TRUE,
-				'rate'         => 1
 			));
 
 			$need_convert = $args['need_convert'];
-			$currency = $args['currency'];
-			$rate = $args['rate'];
 
 			$money = (float)$money;
-			$main_currency=self::get_default_currency('currency');
-			$current_currency = self::get_current_currency('currency');
 			$symbol = self::get_current_currency('symbol');
 			$precision = self::get_current_currency('decimal', 0);
-			$current_rate=self::get_current_currency('rate');
 			$thousand_separator = self::get_current_currency('thousand_sep', '&nbsp;');
 			$decimal_separator = self::get_current_currency('decimal_sep', '&nbsp;');
 
 			if ($need_convert) {
-				if ($currency and $currency_obj = self::find_currency($currency)) {
 
-					// Default for fix Division by zero
-					if(!$currency_obj['rate'])  $currency_obj['rate']=1;
-
-					// If Current Currency is not the same with currency
-
-					if ($current_currency != $currency) {
-
-						if($currency==$main_currency){
-							$rate=$current_rate;
-						}elseif($current_currency==$main_currency){
-							$rate = 1 / $currency_obj['rate'];
-						}else{
-							$rate=$current_rate/($currency_obj['rate']);
-						}
-
-					}
-				}
-				$money = self::convert_money($money, $rate);
+				$money = self::convert_money($money, $args);
 			}
 
 			if ($precision) {

@@ -37,11 +37,6 @@ jQuery(document).ready(function($){
                 value : data1[i].value
             });
         }
-        data.push({
-            name : 'action',
-            value : 'st_add_to_cart'
-        });
-
         var dataobj = {};
         for (var i = 0; i < data.length; ++i){
             dataobj[data[i].name] = data[i].value;
@@ -56,11 +51,10 @@ jQuery(document).ready(function($){
         var form=$(this).closest('.traveler_order_form');
         form.find('[name]').removeClass('input-error');
         var me=$(this);
-        var data=getFormData(form);
         me.addClass('loading').removeClass('error');
         form.find('.traveler-message').remove();
 
-        data.action='traveler_add_to_cart';
+        data=form.serialize();
 
         $.ajax({
             url:traveler_params.ajax_url,
@@ -109,11 +103,10 @@ jQuery(document).ready(function($){
         var form=$(this).closest('.traveler_checkout_form');
         form.find('[name]').removeClass('input-error');
         var me=$(this);
-        var data=getFormData(form);
         me.addClass('loading').removeClass('error');
         form.find('.traveler-message').remove();
 
-        data.action='traveler_do_checkout';
+        data=form.serialize();
 
         $.ajax({
             url:traveler_params.ajax_url,
