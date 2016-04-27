@@ -24,10 +24,10 @@ $my_query = Traveler_Service::inst()->query($args,$service_type);
 ?>
 <div class="traveler-container container">
     <div class="row">
-        <div class="col-md-3">
-            <?php echo get_sidebar(); ?>
-        </div>
-        <div class="col-md-9">
+        <!--<div class="col-md-3">
+            <?php /*echo get_sidebar(); */?>
+        </div>-->
+        <div class="col-md-12">
             <ul>
                 <?php
                 global $wp_query;
