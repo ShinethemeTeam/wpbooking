@@ -162,7 +162,7 @@ $form_id = Traveler_Input::request('form_builder_id');
                             <?php $list_flied = Traveler_Admin_Form_Build::inst()->traveler_get_all_field(); ?>
                             <label for="traveler_field_form_build" class="control-label"><?php _e("Add Field",'traveler-booking') ?>:</label>
                             <select name="traveler_field_form_build" class="form-control" id="traveler_field_form_build">
-                                <option selected value=""><?php _e("-- Select Flied --",'traveler-booking') ?></option>
+                                <option selected value=""><?php _e("-- Select Field --",'traveler-booking') ?></option>
                                 <?php
                                 if(!empty($list_flied)){
                                     $group = "";
