@@ -380,18 +380,9 @@ if (!class_exists('Traveler_Booking')) {
 		 */
 		function get_cart_item_total_html($cart_item)
 		{
+			$item_price = $this->get_cart_item_total($cart_item,true);
 
-			$cart_item = wp_parse_args($cart_item, array(
-				'currency' => FALSE,
-				'post_id'  => FALSE
-			));
-
-			$item_price = $this->get_cart_item_total($cart_item);
-
-			$currency = $cart_item['currency'];
-			if (!$currency) $currency = get_post_meta($cart_item['post_id'], 'currency', TRUE);
-
-			return $price_html = Traveler_Currency::format_money($item_price, array('currency' => $currency));
+			return $price_html = Traveler_Currency::format_money($item_price);
 		}
 
 		/**
@@ -487,6 +478,13 @@ if (!class_exists('Traveler_Booking')) {
 			}
 
 			return $item_price;
+		}
+
+		function get_order_item_total_html($item){
+
+			$item_price=$this->get_order_item_total($item,true);
+
+			return Traveler_Currency::format_money($item_price);
 		}
 
 		/**

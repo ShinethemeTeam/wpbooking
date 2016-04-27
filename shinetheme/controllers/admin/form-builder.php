@@ -17,7 +17,8 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
             add_action( 'admin_menu' , array( $this , "register_traveler_booking_sub_menu_page" ) );
 
             add_action( 'init' , array( $this , '_add_post_type' ) , 5 );
-            add_action( 'init' , array( $this , '_load_default_shortcodes' ) );
+            //add_action( 'init' , array( $this , '_load_default_shortcodes' ) );
+			$this->_load_default_shortcodes();
 
             // add script and style
             add_action( 'admin_enqueue_scripts' , array( $this , "_add_scripts" ) );
@@ -27,9 +28,9 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
 
         }
 
-        function add_form_field($title , $name , $data){
+        function add_form_field($name , $data){
             if(!empty($name)){
-                $data['title'] = $title;
+				if(!empty($data['data']['title'])) $data['title']=$data['data']['title'];
                 $this->traveler_list_field_form_build[$name] = $data;
             }
         }
@@ -53,6 +54,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
         function _load_default_shortcodes()
         {
             Traveler_Loader::inst()->load_library(array(
+				'shortcodes/form-build-default/abstract-formbuilder-field',
                 'shortcodes/form-build-default/text',
 				'shortcodes/form-build-default/email',
                	'shortcodes/form-build-default/textarea',
@@ -270,6 +272,15 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
 
             register_post_type( 'traveler_form' , $args );
         }
+
+		function get_form_field_data($form_item_data){
+
+			if(!empty($form_item_data['field_id']))
+			{
+				$return= apply_filters('traveler_get_form_field_data',FALSE,$form_item_data);
+				return apply_filters('traveler_get_form_field_data_'.$form_item_data['field_id'],$return,$form_item_data);
+			}
+		}
 
         static function inst()
         {

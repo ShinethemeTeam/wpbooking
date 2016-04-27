@@ -161,6 +161,14 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 						'data'=>'',
 						'field_type'=>''
 					));
+					$value_html= Traveler_Admin_Form_Build::inst()->get_form_field_data($value);
+
+					if($value_html){
+						printf("<li class='field-item %s'>
+								<span class='field-title'>%s:</span>
+								<span class='field-value'>%s</span>
+							</li>",$key,$value['title'],$value_html);
+					}
 
 					if(!$value['value']) continue;
 					if(is_string($value['value']) and $value['value']){

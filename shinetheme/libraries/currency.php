@@ -347,6 +347,8 @@ if (!class_exists('Traveler_Currency')) {
 			if (!empty($all)) {
 				foreach ($all as $key => $value) {
 
+					if(empty($all_currency[$value['currency']])) continue;
+
 					$item = $all_currency[$value['currency']];
 
 					switch ($type) {
