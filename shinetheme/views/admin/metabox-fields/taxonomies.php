@@ -21,10 +21,7 @@ if( count( $terms ) ){
 
 ?>
 <div class="form-table traveler-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
-<div class="st-metabox-left">
-	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
-</div>
-<div class="st-metabox-right">
+<div class="st-metabox-left" style="width: 100%;">
 	<div class="st-metabox-content-wrapper">
 		<div class="form-group">
 			<div class="traveler-list-taxonomies clearfix">

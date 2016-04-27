@@ -234,10 +234,6 @@ img.settings-demo-gallery{
         -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
         -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
         transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        &[type=text],&[type=password],&[type=number]
-        {
-            width: 320px;
-        }
         .form-label{
             padding-bottom: 10px;
             padding-top: 5px;
@@ -275,6 +271,12 @@ img.settings-demo-gallery{
     .st-metabox-content-wrapper{
         .st-metabox-content-right{
             font-style: italic;
+        }
+        .form-group{
+            width: 100%;
+            @media(min-width: 1600px){
+                width: 60%;
+            }
         }
     }
 }
@@ -352,6 +354,17 @@ img.settings-demo-gallery{
             padding-right: 15px;
             width: auto;
             margin-left: 200px;
+        }
+        @media(max-width: 1399px){
+            .st-metabox-left{
+                width: 100%;
+                float: none;
+            }
+            .st-metabox-right{
+                width: 100%;
+                margin-left: auto;
+                margin-top: 20px;
+            }
         }
     }
     .form-table:after,
@@ -515,7 +528,7 @@ input.gmap-search{
         }
 
         #form-bulk-edit{
-            position: fixed;
+            position: absolute;
             top: 0px;
             left: 0px;
             width: 100%;
@@ -550,6 +563,7 @@ input.gmap-search{
                     padding-top: 15px;
                     padding-bottom: 15px;
                     .form-group{
+                        width: auto !important;
                         margin-left: 5px;
                         margin-right: 5px;
                         float: left;
@@ -1219,8 +1233,6 @@ a.ui-datepicker-next {
 .traveler-select-loction{
     position: relative;
     z-index: 1;
-    width: 500px;
-    max-width: 100%;
     input[name="search"]{
         width: 100% !important;
         display: block;
