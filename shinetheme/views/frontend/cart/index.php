@@ -25,13 +25,14 @@ echo traveler_get_message();
 			<tbody>
 					<?php
 					$carts=$booking->get_cart();
+					$current=0;
 					if(!empty($carts)){
 						foreach($carts as $key=>$value) {
 							$post_id=$value['post_id'];
 							$service_type=$value['service_type'];
 							?>
 								<tr>
-									<td><?php echo ($key+1)?></td>
+									<td><?php echo ($current+1)?></td>
 									<td class="col-cart-item-img"><a href="<?php echo get_permalink($post_id)?>" target="_blank"><?php echo get_the_post_thumbnail($post_id)?></a></td>
 									<td class="col-cart-item-info">
 										<h4><a href="<?php echo get_permalink($post_id)?>" target="_blank"><?php echo get_the_title($post_id)?></a></h4>
@@ -49,6 +50,7 @@ echo traveler_get_message();
 								</tr>
 
 							<?php
+							$current++;
 						}
 					}else{
 						?>

@@ -1231,8 +1231,26 @@
     .traveler-select-layout {
         padding-bottom: 20px;
         padding-top: 20px;
+        width: 100%;
         select {
             border-radius: 3px;
+        }
+        td.text-right{
+            width: 80%;
+        }
+        th{
+            width: 5%;
+        }
+    }
+    .traveler-add-layout {
+        padding-bottom: 20px;
+        padding-top: 20px;
+        text-align: left;
+        th{
+            width: 100px;
+        }
+        input[type="text"],select{
+            min-width: 300px;
         }
     }
     .save-control {
@@ -1267,6 +1285,16 @@
             input[type="text"], input[type="password"], input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="radio"], input[type="tel"], input[type="time"], input[type="url"], input[type="week"], input[type="search"], select, textarea {
                 border-radius: 5px;
                 width: 100%;
+            }
+            #traveler-shortcode-flied{
+                width: 100%;
+            }
+            .table-group{
+                width: 100%;
+                .add-group{
+                    width: 10%;
+                    text-align: right;
+                }
             }
         }
     }

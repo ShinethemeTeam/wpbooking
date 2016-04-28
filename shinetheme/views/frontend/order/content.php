@@ -35,7 +35,7 @@ do_action('traveler_before_order_content');
 				<?php do_action('traveler_order_item_information_'.$service_type,$value) ?>
 			</td>
 			<td class="review-order-item-total">
-				<p class="cart-item-price"><?php echo Traveler_Currency::format_money($booking->get_order_item_total($value),$value['currency']); ?></p>
+				<p class="cart-item-price"><?php echo $booking->get_order_item_total_html($value) ?></p>
 			</td>
 		</tr>
 		<?php

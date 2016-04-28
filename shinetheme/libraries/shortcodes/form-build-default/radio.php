@@ -76,7 +76,7 @@ if(!function_exists( 'traveler_sc_booking_radio' )) {
                 }
             }
         }
-        Traveler_Admin_Form_Build::inst()->add_form_field($title ,$name,array('data'=>$data,'rule'=>''));
+        Traveler_Admin_Form_Build::inst()->add_form_field($name,array('data'=>$data,'rule'=>''));
         return $list_item;
     }
 }

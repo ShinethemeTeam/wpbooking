@@ -93,7 +93,7 @@ if(!function_exists( 'traveler_sc_booking_textarea' )) {
             $required = "required";
             $rule .= "required";
         }
-        Traveler_Admin_Form_Build::inst()->add_form_field($title ,$name,array('data'=>$data,'rule'=>$rule));
+        Traveler_Admin_Form_Build::inst()->add_form_field($name,array('data'=>$data,'rule'=>$rule));
         return '<textarea name="' . $name . '" id="' . $id . '" class="' . $class . '" rows="' . $rows . '" cols="' . $columns . '" ' . $required . ' >' . $value . '</textarea>';
     }
 }

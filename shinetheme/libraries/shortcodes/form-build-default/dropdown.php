@@ -74,8 +74,8 @@ if(!function_exists( 'traveler_sc_booking_drop_down' )) {
             $required = "required";
             $rule .= "required";
         }
-        Traveler_Admin_Form_Build::inst()->add_form_field($title ,$name,array('data'=>$data,'rule'=>$rule));
-        $list_item = "<option>" . __( "-- Select --" , 'traveler-booking' ) . '</option>';
+        Traveler_Admin_Form_Build::inst()->add_form_field($name,array('data'=>$data,'rule'=>$rule));
+        $list_item = "<option value=''>" . __( "-- Select --" , 'traveler-booking' ) . '</option>';
         if(!empty( $options )) {
             $tmp_list_item = explode( '|' , $options );
             if(!empty( $tmp_list_item )) {
