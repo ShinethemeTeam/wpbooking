@@ -429,6 +429,17 @@ input.gmap-search {
 .form-build .form-field {
   padding-bottom: 15px;
 }
+.traveler-list-item-wrapper {
+  width: 100%;
+}
+@media (min-width: 1600px) {
+  .traveler-list-item-wrapper {
+    width: 60%;
+  }
+}
+.traveler-list-item-wrapper table {
+  width: 100%;
+}
 .traveler-list-item-wrapper .list-item-head {
   width: 100%;
   position: relative;
