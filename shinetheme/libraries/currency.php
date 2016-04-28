@@ -512,7 +512,7 @@ if (!class_exists('Traveler_Currency')) {
 				$template = 'left';
 			}
 
-			$money = number_format((float)$money, $precision, $decimal_separator, $thousand_separator);
+			$money = number_format((float)$money, (float)$precision, $decimal_separator, $thousand_separator);
 
 			switch ($template) {
 
