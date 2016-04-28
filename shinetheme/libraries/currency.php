@@ -504,6 +504,7 @@ if (!class_exists('Traveler_Currency')) {
 			if ($precision) {
 				$money = round($money, 2);
 			}
+			if(!$precision)$precision=0;
 
 			$template = self::get_current_currency('position');
 
