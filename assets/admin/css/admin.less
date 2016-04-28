@@ -1254,3 +1254,26 @@ a.ui-datepicker-next {
         margin-bottom: 15px;
     }
 }
+/*
+// Rating Review
+*/
+.traveler-rating-result-wrap,
+.traveler-rating-review{
+    label{
+        br{
+            display: none;
+        }
+    }
+    .rating-stars{
+
+        a{
+            &.active{
+                .icon-star{
+                    &:before{
+                        content: "\f005";
+                    }
+                }
+            }
+        }
+    }
+}

@@ -29,7 +29,7 @@ $cart=$booking->get_cart();
 				<?php do_action('traveler_review_order_item_information_'.$service_type,$value) ?>
 			</td>
 			<td class="review-order-item-total">
-				<p class="cart-item-price"><?php echo $booking->get_cart_item_total_html($value); ?></p>
+				<p class="cart-item-price"><?php echo esc_html($booking->get_cart_item_total_html($value)); ?></p>
 			</td>
 		</tr>
 		<?php

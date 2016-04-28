@@ -70,6 +70,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 //				false,
 //				1.0,
 //				false);
+			wp_enqueue_style('jquery-ui-datepicker',traveler_assets_url('css/datepicker.css'));
 			wp_enqueue_style('traveler-booking',traveler_assets_url('css/traveler-booking.css'));
 
 

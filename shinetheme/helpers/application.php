@@ -186,3 +186,12 @@ if( !function_exists('traveler_get_term') ){
 		return $default;
 	}
 }
+if( !function_exists('traveler_timestamp_diff_day') ){
+	function traveler_timestamp_diff_day( $date1, $date2 ){
+		$total_time= $date2-$date1;
+
+		$day   = floor($total_time /(3600*24));
+
+		return $day;
+	}
+}

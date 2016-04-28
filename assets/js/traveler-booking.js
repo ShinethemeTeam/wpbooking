@@ -200,13 +200,39 @@ jQuery(document).ready(function($){
             if($(this).attr('checked')) {
                 list +=  $(this).val()+',';
             }
-        })
+        });
         container.find('.data_taxonomy').val(list.substring(0,list.length - 1));
     });
 
+    var has_date_picker=$('.has-date-picker');
+    has_date_picker.datepicker();
+    var datepicker=has_date_picker.datepicker('widget');
+    datepicker.wrap('<div class="ll-skin-melon"/>');
 
-    $('.traveler-date-start').datepicker();
-    $('.traveler-date-end').datepicker();
+    $('.traveler-date-start').datepicker(
+        {
+            minDate:0,
+            onSelect:function(selected) {
+                var form=$(this).closest('form');
+                var date_end=$('.traveler-date-end',form);
+                date_end.datepicker("option","minDate", selected)
+
+            }
+        });
+    datepicker=$('.traveler-date-start').datepicker('widget');
+    datepicker.wrap('<div class="ll-skin-melon"/>');
+
+    $('.traveler-date-end').datepicker( {
+        minDate:0,
+        onSelect:function(selected) {
+            var form=$(this).closest('form');
+            var date_end=$('.traveler-date-start',form);
+            date_end.datepicker("option","maxDate", selected)
+
+        }
+    });
+    datepicker=$('.traveler-date-end').datepicker('widget');
+    datepicker.wrap('<div class="ll-skin-melon"/>');
 
 });
 

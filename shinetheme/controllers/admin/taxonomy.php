@@ -229,16 +229,16 @@ if (!class_exists('Traveler_Admin_Taxonomy_Controller')) {
 			$tax = $this->get_taxonomies();
 			if (Traveler_Input::get('action') == 'traveler_edit_taxonomy') {
 				$single = Traveler_Input::get('taxonomy_name');
-				echo $this->admin_load_view('taxonomy/edit', array('row' => $tax[$single]));
+				echo ($this->admin_load_view('taxonomy/edit', array('row' => $tax[$single])));
 
 				return;
 			}
 
 
-			echo $this->admin_load_view('taxonomy/index', array(
+			echo ($this->admin_load_view('taxonomy/index', array(
 				'rows'     => $tax,
 				'page_url' => $this->get_page_url()
-			));
+			)));
 		}
 
 		function get_taxonomies()

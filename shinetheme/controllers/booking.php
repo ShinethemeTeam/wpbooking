@@ -99,6 +99,18 @@ if (!class_exists('Traveler_Booking')) {
 					'need_customer_confirm' => apply_filters('traveler_service_need_customer_confirm', 0, $post_id, $service_type),
 					'need_partner_confirm'  => apply_filters('traveler_service_need_partner_confirm', 0, $post_id, $service_type)
 				);
+
+				// Convert Check In and Check Out to Timstamp if available
+				if(!empty($fields['check-in']['value'])){
+					$cart_params['check_in_timestamp']=strtotime($fields['check-in']['value']);
+
+					if(!empty($fields['check-out']['value'])){
+						$cart_params['check_out_timestamp']=strtotime($fields['check-out']['value']);
+					}else{
+						$cart_params['check_out_timestamp']=$cart_params['check_in_timestamp'];
+					}
+				}
+
 				$cart_params = apply_filters('traveler_cart_item_params', $cart_params, $post_id, $service_type);
 				$cart_params = apply_filters('traveler_cart_item_params_' . $service_type, $cart_params, $post_id);
 
@@ -273,7 +285,6 @@ if (!class_exists('Traveler_Booking')) {
 				$index = Traveler_Input::get('delete_cart_item');
 				$all = Traveler_Session::get('traveler_cart');
 				unset($all[$index]);
-				$all = array_values($all);
 				Traveler_Session::set('traveler_cart', $all);
 				traveler_set_message(__("Delete cart item successfully", 'traveler-booking'), 'success');
 			}
@@ -347,6 +358,10 @@ if (!class_exists('Traveler_Booking')) {
 
 		/**
 		 * Get Price Amount for one Cart Item
+		 *
+		 * @author dungdt
+		 * @since 1.0
+		 *
 		 * @param $cart_item
 		 * @param bool @need_convert Need Convert To Currency
 		 * @return mixed|void
@@ -438,6 +453,9 @@ if (!class_exists('Traveler_Booking')) {
 
 		/**
 		 * Get total price by the given order id
+		 * @author dungdt
+		 * @since 1.0
+		 *
 		 * @param $order_id
 		 * @return int|mixed|void
 		 */
@@ -460,6 +478,10 @@ if (!class_exists('Traveler_Booking')) {
 
 		/**
 		 * Get total order item price by the given item object
+		 *
+		 * @author dungdt
+		 * @since 1.0
+		 *
 		 * @param $item mixed
 		 * @param bool $need_convert Need convert to currency
 		 * @return int|mixed|void
@@ -523,6 +545,9 @@ if (!class_exists('Traveler_Booking')) {
 		/**
 		 * Get all cart items
 		 *
+		 * @author dungdt
+		 * @since 1.0
+		 *
 		 * @return array
 		 */
 		function get_cart()
@@ -542,6 +567,10 @@ if (!class_exists('Traveler_Booking')) {
 
 		/**
 		 * Return the permalink of the Checkout Page
+		 *
+		 * @author dungdt
+		 * @since 1.0
+		 *
 		 * @return false|string
 		 */
 		function get_checkout_url()

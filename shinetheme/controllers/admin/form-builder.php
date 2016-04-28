@@ -61,6 +61,8 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
               	'shortcodes/form-build-default/checkbox',
               	'shortcodes/form-build-default/radio',
               	'shortcodes/form-build-default/submit-button',
+              	'shortcodes/form-build-default/check-in',
+              	'shortcodes/form-build-default/check-out',
             ));
         }
         function _add_scripts()
@@ -71,9 +73,8 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
         function _get_list_type_layout()
         {
             return apply_filters( 'traveler_build_form_list_type_layout' , array(
-                'Single Hotel' ,
-                'Single Room' ,
-                'Booking'
+                __('Order Form','traveler-booking') ,
+                __('Checkout','traveler-booking') ,
             ) );
         }
 
@@ -209,7 +210,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
 
         function callback_traveler_booking_sub_menu_form_builder()
         {
-            echo $this->admin_load_view( 'form-builder' );
+            echo ($this->admin_load_view( 'form-builder' ));
         }
 
         function _get_all_shortcode_in_content( $content = false )

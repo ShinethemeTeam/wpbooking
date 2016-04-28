@@ -124,6 +124,88 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 			);
 
 			parent::__construct();
+
+			add_filter('traveler_cart_item_price_'.$this->type_id,array($this,'_change_cart_item_price'),10,2);
+			add_filter('traveler_cart_item_pay_amount_'.$this->type_id,array($this,'_change_cart_item_price'),10,2);
+
+			add_filter('traveler_order_item_total_'.$this->type_id,array($this,'_change_order_item_price'),10,2);
+
+
+
+			// Add more params to cart items
+			add_filter('traveler_cart_item_params_'.$this->type_id,array($this,'_change_cart_item_params'),10,2);
+
+		}
+
+		function _change_cart_item_params($cart_item,$post_id=FALSE)
+		{
+			$cart_item['price_type']=get_post_meta($post_id,'price_type',true);
+			return $cart_item;
+		}
+
+		/**
+		 * Change Cart Item Price Hook Callback
+		 *
+		 * @author dungdt
+		 * @since 1.0
+		 *
+		 * @param $price
+		 * @return float
+		 */
+		function _change_cart_item_price($price,$cart_item)
+		{
+			$cart_item=wp_parse_args($cart_item,array(
+				'base_price'=>0,
+				'check_in_timestamp'=>'',
+				'check_out_timestamp'=>'',
+				'price_type'=>''
+			));
+			// Calculate price by number night
+			if($cart_item['price_type']=='per_night' and $cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']){
+
+				$price=$cart_item['base_price'];
+				$night=traveler_timestamp_diff_day($cart_item['check_in_timestamp'],$cart_item['check_out_timestamp']);
+				if(!$night) $night=1;
+
+
+				$price*=$night;
+			}
+
+			return $price;
+		}
+
+
+		function _change_order_item_price($price,$order_item)
+		{
+			$order_item=wp_parse_args($order_item,array(
+				'base_price'=>0,
+				'check_in_timestamp'=>'',
+				'check_out_timestamp'=>'',
+				'raw_data'=>''
+			));
+
+			// We need raw data because table order_item can not save all value from the cart_item data. Example price_type for room
+			$raw_data=unserialize($order_item['raw_data']);
+
+			if(!empty($raw_data) and is_array($raw_data)){
+				$raw_data=wp_parse_args($raw_data,
+					array(
+						'price_type'=>FALSE
+					));
+				// Calculate price by number night
+				if($raw_data['price_type']=='per_night' and $order_item['check_in_timestamp'] and $order_item['check_out_timestamp']){
+
+					$price=$order_item['base_price'];
+					$night=traveler_timestamp_diff_day($order_item['check_in_timestamp'],$order_item['check_out_timestamp']);
+					if(!$night) $night=1;
+
+
+					$price*=$night;
+				}
+			}
+
+
+			return $price;
 		}
 
         function _add_page_archive_search($args){

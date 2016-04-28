@@ -58,16 +58,19 @@ do_action('traveler_before_order_content');
 
 		<ul class="checkout-form-list">
 			<?php foreach($checkout_form_data as $key=>$value){
+				$value_html= Traveler_Admin_Form_Build::inst()->get_form_field_data($value);
+				if($value_html){
 				?>
 				<li class="form-item">
 					<span class="form-item-title">
-						<?php echo $value['title'] ?>:
+						<?php echo do_shortcode($value['title']) ?>:
 					</span>
 					<span class="form-item-value">
-						<?php echo $value['value'] ?>
+						<?php echo do_shortcode($value_html) ?>
 					</span>
 				</li>
 				<?php
+				}
 			} ?>
 		</ul>
 	</div>
