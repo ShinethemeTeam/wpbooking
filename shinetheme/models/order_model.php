@@ -16,7 +16,7 @@ if (!class_exists('Traveler_Order_Model')) {
 		function __construct()
 		{
 			$this->table_name = 'traveler_order_item';
-			$this->table_version='1.1';
+			$this->table_version = '1.1.2';
 			$this->columns = array(
 				'id'                    => array(
 					'type'           => "int",
@@ -25,6 +25,7 @@ if (!class_exists('Traveler_Order_Model')) {
 				'order_id'              => array('type' => "INT"),
 				'post_id'               => array('type' => "INT"),
 				'base_price'            => array('type' => "FLOAT"),
+				'sub_total'             => array('type' => "FLOAT"),
 				'currency'              => array('type' => "VARCHAR", 'length' => 50),
 				'is_main_currency'      => array('type' => "INT"),
 				'raw_data'              => array('type' => "text"),
@@ -48,7 +49,7 @@ if (!class_exists('Traveler_Order_Model')) {
 			parent::__construct();
 		}
 
-		function create($cart,$checkout_form_data=array())
+		function create($cart, $checkout_form_data = array())
 		{
 			$order_data = array(
 				'post_title'  => sprintf(__('New Order In %s', 'traveler-booking'), date(get_option('date_format') . ' @' . get_option('time_format'))),
@@ -57,12 +58,11 @@ if (!class_exists('Traveler_Order_Model')) {
 			);
 			$order_id = wp_insert_post($order_data);
 
-			if($order_id){
-				update_post_meta($order_id,'checkout_form_data',$checkout_form_data);
-				if(!empty($checkout_form_data))
-				{
-					foreach($checkout_form_data as $key=>$value){
-						update_post_meta($order_id,'traveler_form_'.$key,$value['value']);
+			if ($order_id) {
+				update_post_meta($order_id, 'checkout_form_data', $checkout_form_data);
+				if (!empty($checkout_form_data)) {
+					foreach ($checkout_form_data as $key => $value) {
+						update_post_meta($order_id, 'traveler_form_' . $key, $value['value']);
 					}
 				}
 			}
@@ -79,24 +79,26 @@ if (!class_exists('Traveler_Order_Model')) {
 		function save_order_item($cart_item, $order_id)
 		{
 			$cart_item = wp_parse_args($cart_item, array(
-				'post_id'             => '',
-				'base_price'          => 0,
-				'service_type'        => '',
-				'currency'       	  => '',
-				'order_form'          => array(),
-				'check_in_timestamp'  => '',
-				'check_out_timestamp' => '',
-				'adult_number'        => 0,
-				'child_number'        => 0,
-				'infant_number'       => 0,
-				'customer_id'         => 0,
-				'need_customer_confirm'=>0,
-				'need_partner_confirm'=>0
+				'post_id'               => '',
+				'base_price'            => 0,
+				'sub_total'             => 0,
+				'service_type'          => '',
+				'currency'              => '',
+				'order_form'            => array(),
+				'check_in_timestamp'    => '',
+				'check_out_timestamp'   => '',
+				'adult_number'          => 0,
+				'child_number'          => 0,
+				'infant_number'         => 0,
+				'customer_id'           => 0,
+				'need_customer_confirm' => 0,
+				'need_partner_confirm'  => 0
 			));
 			$insert = array(
 				'order_id'              => $order_id,
 				'post_id'               => $cart_item['post_id'],
 				'base_price'            => $cart_item['base_price'],
+				'sub_total'             => $cart_item['sub_total'],
 				'service_type'          => $cart_item['service_type'],
 				'raw_data'              => serialize($cart_item),
 				'currency'              => $cart_item['currency'],
@@ -108,8 +110,8 @@ if (!class_exists('Traveler_Order_Model')) {
 				'infant_number'         => $cart_item['infant_number'],
 				'customer_id'           => $cart_item['customer_id'],
 				'partner_id'            => get_post_field('post_author', $cart_item['post_id']),
-				'need_customer_confirm' => $cart_item['need_customer_confirm']?1:0,
-				'need_partner_confirm'  => $cart_item['need_partner_confirm']?1:0,
+				'need_customer_confirm' => $cart_item['need_customer_confirm'] ? 1 : 0,
+				'need_partner_confirm'  => $cart_item['need_partner_confirm'] ? 1 : 0,
 				'payment_status'        => 0,
 				'status'                => 'on-hold'
 			);
@@ -124,7 +126,8 @@ if (!class_exists('Traveler_Order_Model')) {
 		 */
 		function get_order_items($order_id)
 		{
-			$a= $this->where('order_id', $order_id)->get();
+			$a = $this->where('order_id', $order_id)->get();
+
 			return $a->result();
 		}
 
@@ -134,7 +137,7 @@ if (!class_exists('Traveler_Order_Model')) {
 		 * @param $order_id
 		 * @return bool|array
 		 */
-		function prepare_paying($order_id,$payment_id)
+		function prepare_paying($order_id, $payment_id)
 		{
 			$items = $this->get_order_items($order_id);
 			if (!empty($items)) {
@@ -153,7 +156,7 @@ if (!class_exists('Traveler_Order_Model')) {
 					if ($value['need_partner_confirm'] === 1) continue;
 
 					$on_paying[] = $value['id'];
-					$this->where('id', $value['id'])->update(array('payment_status' => 'on-paying','payment_id'=>$payment_id));
+					$this->where('id', $value['id'])->update(array('payment_status' => 'on-paying', 'payment_id' => $payment_id));
 				}
 
 				return $on_paying;
@@ -169,7 +172,7 @@ if (!class_exists('Traveler_Order_Model')) {
 		function complete_purchase($payment_id)
 		{
 
-			$this->where('payment_id', $payment_id)->update(array('payment_status' => 'completed','status'=>'completed'));
+			$this->where('payment_id', $payment_id)->update(array('payment_status' => 'completed', 'status' => 'completed'));
 		}
 
 		/**
@@ -182,7 +185,7 @@ if (!class_exists('Traveler_Order_Model')) {
 		 */
 		function onhold_purchase($payment_id)
 		{
-			$this->where('payment_id', $payment_id)->update(array('status'=>'completed'));
+			$this->where('payment_id', $payment_id)->update(array('status' => 'completed'));
 		}
 
 		static function inst()

@@ -9,6 +9,8 @@ if (!defined('ABSPATH')) {
 if (!class_exists('Traveler_Calendar_Model')) {
 	class Traveler_Calendar_Model extends Traveler_Model {
 
+		static $_inst = FALSE;
+
 		public function __construct(){
 			$this->table_name = 'traveler_availability';
 			$this->columns = array(
@@ -29,7 +31,20 @@ if (!class_exists('Traveler_Calendar_Model')) {
 			
 		}
 
+		function get_prices($post_id,$from,$to){
+			return $this->where('post_id',$post_id)->where('start>=',$from)->where('start<=',$to)->get()->result();
+		}
+
+		static function inst()
+		{
+			if (!self::$_inst) {
+				self::$_inst = new self();
+			}
+
+			return self::$_inst;
+		}
+
 	}
 
-	new Traveler_Calendar_Model();
+	Traveler_Calendar_Model::inst();
 }

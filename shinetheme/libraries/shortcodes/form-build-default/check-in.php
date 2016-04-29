@@ -84,7 +84,7 @@ if (!class_exists('Traveler_Form_Check_In_Field')) {
 				array(
 					'is_required' => 'off',
 					'title'       => '',
-					'name'        => 'check-in',
+					'name'        => 'check_in',
 					'id'          => '',
 					'class'       => '',
 					'value'       => '',

@@ -84,7 +84,7 @@ if (!class_exists('Traveler_Form_Check_Out_Field')) {
 				array(
 					'is_required' => 'off',
 					'title'       => '',
-					'name'        => 'check-out',
+					'name'        => 'check_out',
 					'id'          => '',
 					'class'       => '',
 					'value'       => '',
