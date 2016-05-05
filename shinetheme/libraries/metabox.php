@@ -17,6 +17,7 @@ if( ! class_exists('Traveler_Metabox') ){
 
 			add_action( 'save_post', array( $this, 'save_meta_box'), 10, 2 );
 
+			add_action( 'traveler_save_metabox', array( $this, 'traveler_save_list_item'), 20, 2);
 			add_action( 'traveler_save_metabox', array( $this, 'traveler_save_gmap'), 20, 2);
 			add_action( 'traveler_save_metabox', array( $this, 'traveler_save_location'), 20, 2);
 			add_action( 'traveler_save_metabox', array( $this, 'traveler_save_taxonomies'), 20, 2);
@@ -171,6 +172,9 @@ if( ! class_exists('Traveler_Metabox') ){
 	      }
 
 	      foreach ( $this->metabox['fields'] as $field ) {
+	      	if ( $field[ 'type' ] == 'list-item' ) {
+	      		continue;
+	      	}
 	        $old = get_post_meta( $post_id, $field['id'], true );
 	        $new = '';
 	        
@@ -259,6 +263,31 @@ if( ! class_exists('Traveler_Metabox') ){
 	    		}
 	    	}
 
+	    	return $post_id;
+	    }
+
+	    public function traveler_save_list_item( $post_id, $post_object ){
+	    	foreach ( $this->metabox[ 'fields' ] as $field ) {
+	    		
+	    		if ( $field[ 'type' ] == 'list-item' ) {
+	    			if ( isset( $_POST[ $field['id'] ] ) && is_array( $_POST[ $field['id'] ]) ) {
+	    				$new_list = array();
+	    				$list = $_POST[ $field['id'] ];
+	    				
+	    				$i = 0;
+    					for( $j = 0; $j < count( $list['name']) - 1; $j ++ ){
+    						foreach( $list as $key1 => $val1 ){
+	    						$new_list[ $i ][ $key1 ] = $list[ $key1 ][ $i];
+	    					}
+	    					$i ++;
+    					}
+    					
+    					update_post_meta( $post_id, $field['id'], $new_list ); 
+	    			}else{
+		    			continue;
+		    		}
+	    		}
+	    	}
 	    	return $post_id;
 	    }
 
