@@ -449,7 +449,18 @@ if(!class_exists('Traveler_Model') ){
 				$where=' WHERE 1=1 ';
 
 				foreach($this->_where_query as $key=>$value){
-					$where.=$wpdb->prepare(' AND `'.$key.'`=%s ',array($value));
+					$last=substr($key,-1);
+					switch($last){
+						case ">":
+						case "<":
+						case "=":
+							$where.=$wpdb->prepare(' AND '.$key.'%s ',array($value));
+							break;
+						default:
+							$where.=$wpdb->prepare(' AND `'.$key.'`=%s ',array($value));
+							break;
+
+					}
 				}
 			}
 			$order=FALSE;

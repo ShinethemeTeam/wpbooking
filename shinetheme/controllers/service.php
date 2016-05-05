@@ -31,8 +31,14 @@ if(!class_exists('Traveler_Service'))
 			add_filter('template_include',array($this,'_show_single_service'));
 
             add_filter( 'template_include', array( $this, 'template_loader' ) );
+			add_filter('body_class',array($this,'_add_body_class'));
 		}
 
+		function _add_body_class($class)
+		{
+
+			return $class;
+		}
         function query($args=array(),$service_type=false)
         {
             $args=wp_parse_args($args,array(

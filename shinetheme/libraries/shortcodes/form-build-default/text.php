@@ -108,7 +108,7 @@ if(!class_exists('Traveler_Form_Text_Field')){
 				$rule []= "required";
 			}
 			if(!empty($maxlength)){
-				$rule []= "max_length[100]";
+				$rule []= "max_length[".$maxlength."]";
 			}
 
 			parent::add_field($name,array('data'=>$data,'rule'=>implode('|',$rule)));

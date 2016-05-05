@@ -55,13 +55,13 @@ class Test_Metabox extends Traveler_Controller{
                     'type' => 'text'
                 ),
                 array(
-                    'label' => __('Check in Time', 'traveler-booking'),
+                    'label' => __('Check-in Time', 'traveler-booking'),
                     'id' => 'check_in_time',
                     'type' => 'text',
                     'class' => 'time-picker'
                 ),
                 array(
-                    'label' => __('Check out Time', 'traveler-booking'),
+                    'label' => __('Check-out Time', 'traveler-booking'),
                     'id' => 'check_out_time',
                     'type' => 'text',
                     'class' => 'time-picker'
@@ -136,6 +136,15 @@ class Test_Metabox extends Traveler_Controller{
                     'std' => 'usd',
                     'value' =>Traveler_Currency::get_added_currency_array()
                 ),
+				array(
+					'label' => __('Price Type', 'traveler-booking'),
+					'id' => 'price_type',
+					'type' => 'dropdown',
+					'value' => array(
+						'fixed' => __('Fixed', 'traveler-booking'),
+						'per_night' => __('Per Night', 'traveler-booking'),
+					),
+				),
                 array(
                     'label' => __('Long Terms?', 'traveler-booking'),
                     'id' => 'long_terms',
@@ -176,20 +185,10 @@ class Test_Metabox extends Traveler_Controller{
                             'type' => 'dropdown',
                             'value' => array(
                                 'fixed' => __('Fixed', 'traveler-booking'),
-                                'per_day' => __('per Day', 'traveler-booking'),
-                                'per_night' => __('per Night', 'traveler-booking'),
+                                'per_night' => __('Per Night', 'traveler-booking'),
                             ),
                         ),
                     )
-                ),
-                array(
-                    'label' => __('Price Type', 'traveler-booking'),
-                    'id' => 'price_type',
-                    'type' => 'dropdown',
-                    'value' => array(
-                        'fixed' => __('Fixed', 'traveler-booking'),
-                        'per_night' => __('per Night', 'traveler-booking'),
-                    ),
                 ),
                 array(
                     'label' => __('Deposit?', 'traveler-booking'),
@@ -205,6 +204,7 @@ class Test_Metabox extends Traveler_Controller{
                     'label' => __('Amount', 'traveler-booking'),
                     'id' => 'amount',
                     'type' => 'text',
+					''
                 ),
                 array(
                     'label' => __('Calendar', 'traveler-booking'),

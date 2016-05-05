@@ -31,7 +31,7 @@ if(!class_exists('Traveler_Widget_Currency_Switcher'))
 		 * @param array $instance Saved values from database.
 		 */
 		public function widget( $args, $instance ) {
-			echo $args['before_widget'];
+			echo ($args['before_widget']);
 			if ( ! empty( $instance['title'] ) ) {
 				echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
 			}

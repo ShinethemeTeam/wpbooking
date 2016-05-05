@@ -1237,3 +1237,14 @@ a.ui-datepicker-next {
   margin-right: 15px;
   margin-bottom: 15px;
 }
+/*
+// Rating Review
+*/
+.traveler-rating-result-wrap label br,
+.traveler-rating-review label br {
+  display: none;
+}
+.traveler-rating-result-wrap .rating-stars a.active .icon-star:before,
+.traveler-rating-review .rating-stars a.active .icon-star:before {
+  content: "\f005";
+}
