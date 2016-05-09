@@ -29,22 +29,10 @@ if(!empty($data['condition'])){
 	<div class="traveler-list-item-wrapper">
 		<div class="traveler-list">
 		<?php 
-			$custom_data = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
-
-			$convert_data = array();
-			if( !empty( $custom_data ) && is_array( $custom_data ) ){
-				if( isset( $custom_data['title'] ) && count( $custom_data['title'] ) - 1 > 0){
-					
-					for( $i = 0; $i < count( $custom_data['title'] ) - 1; $i ++){
-						foreach( $custom_data as $key => $item ){
-							$convert_data[ $i ][ $key ] = $item[ $i ] ;
-						}
-					}
-				}
-			}
+			$conver_data = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
 			
-			if( !empty( $convert_data ) && is_array( $convert_data) ):
-				foreach( $convert_data as $convert_key => $convert_val ):
+			if( !empty( $conver_data ) && is_array( $conver_data) ):
+				foreach( $conver_data as $convert_key => $convert_val ):
 			?>
 			<div class="traveler-list-item">
 				<div class="list-item-head">
