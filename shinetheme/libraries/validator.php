@@ -486,7 +486,7 @@ if(!class_exists('Traveler_Validator'))
                     {
                         if (FALSE === ($line = $this->get_lang($type)))
                         {
-                            $line = __('The field was not set','traveler-booking');
+                            $line = __('The field was not set','wpbooking');
                         }
                     }
                     else

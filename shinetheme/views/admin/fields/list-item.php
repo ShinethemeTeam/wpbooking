@@ -11,8 +11,8 @@ $id_list_item    = $data[ 'id' ];
             <thead>
             <tr>
                 <th class="td td-left"><span class="dashicons dashicons-admin-tools"></span></th>
-                <th class="td td-center"><?php _e( 'Title' , 'traveler-booking' ) ?></th>
-                <th class="td td-right"><?php _e( 'Actions' , 'traveler-booking' ) ?></th>
+                <th class="td td-center"><?php _e( 'Title' , 'wpbooking' ) ?></th>
+                <th class="td td-right"><?php _e( 'Actions' , 'wpbooking' ) ?></th>
             </tr>
             </thead>
             <tbody class="data_content_list_item">
@@ -34,7 +34,7 @@ $id_list_item    = $data[ 'id' ];
                                             <tbody>
                                             <tr class="">
                                                 <th scope="row">
-                                                    <label for=""><?php _e( "Title" , 'traveler-booking' ) ?>:</label>
+                                                    <label for=""><?php _e( "Title" , 'wpbooking' ) ?>:</label>
                                                 </th>
                                                 <td>
                                                     <input type="text"
@@ -83,11 +83,11 @@ $id_list_item    = $data[ 'id' ];
                         </td>
                         <td class="td td-right">
                             <div class="button-section">
-                                <a title="<?php _e( 'Edit' , 'traveler-booking' ) ?>"
+                                <a title="<?php _e( 'Edit' , 'wpbooking' ) ?>"
                                    class="button button-primary btn_list_item_edit" href="javascript:void(0);">
                                     <span class="fa fa-pencil"></span>
                                 </a>
-                                <a title="<?php _e( 'Delete' , 'traveler-booking' ) ?>"
+                                <a title="<?php _e( 'Delete' , 'wpbooking' ) ?>"
                                    class="button button-secondary light right-item btn_list_item_del"
                                    href="javascript:void(0);">
                                     <span class="fa fa-trash-o"></span>
@@ -113,7 +113,7 @@ $id_list_item    = $data[ 'id' ];
                                     <tbody>
                                     <tr class="">
                                         <th scope="row">
-                                            <label for=""><?php _e( "Title" , 'traveler-booking' ) ?>:</label>
+                                            <label for=""><?php _e( "Title" , 'wpbooking' ) ?>:</label>
                                         </th>
                                         <td>
                                             <input type="text" class="form-control  min-width-500 list_item_title"
@@ -151,11 +151,11 @@ $id_list_item    = $data[ 'id' ];
                 </td>
                 <td class="td td-right">
                     <div class="button-section">
-                        <a title="<?php _e( 'Edit' , 'traveler-booking' ) ?>"
+                        <a title="<?php _e( 'Edit' , 'wpbooking' ) ?>"
                            class="button button-primary btn_list_item_edit" href="javascript:void(0);">
                             <span class="fa fa-pencil"></span>
                         </a>
-                        <a title="<?php _e( 'Delete' , 'traveler-booking' ) ?>"
+                        <a title="<?php _e( 'Delete' , 'wpbooking' ) ?>"
                            class="button button-secondary light right-item btn_list_item_del"
                            href="javascript:void(0);">
                             <span class="fa fa-trash-o"></span>
@@ -167,7 +167,7 @@ $id_list_item    = $data[ 'id' ];
         </table>
         <input type="hidden" class="traveler_booking_number_last_list_item" value="<?php echo esc_html( $i ) ?>">
         <button type="button"
-                class="button button-primary btn_add_new_list_item"><?php _e( "Add New" , 'traveler-booking' ) ?></button>
+                class="button button-primary btn_add_new_list_item"><?php _e( "Add New" , 'wpbooking' ) ?></button>
         <i class="traveler-desc"><?php echo balanceTags( $data[ 'desc' ] ) ?></i>
     </td>
 </tr>

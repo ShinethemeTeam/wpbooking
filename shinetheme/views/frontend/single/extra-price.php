@@ -10,7 +10,7 @@ if(empty($extra_price) or !is_array($extra_price)) return;
 return;
 ?>
 <div class="traveler-extra-price-wrap">
-	<h4 ><?php _e('Extra Price:','traveler-booking') ?></h4>
+	<h4 ><?php _e('Extra Price:','wpbooking') ?></h4>
 	<div class="traveler-extra-price-list">
 		<?php
 		foreach($extra_price as $key=>$value){

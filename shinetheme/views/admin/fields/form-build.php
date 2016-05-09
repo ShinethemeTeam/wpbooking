@@ -24,12 +24,12 @@ if(!empty($data['condition'])){
     <td>
         <div class="form-build width-800">
             <div class="head-control-left">
-                <?php _e("Form content",'traveler-booking') ?>
+                <?php _e("Form content",'wpbooking') ?>
             </div>
             <div class="head-control-right">
-                <?php _e("Add field here :",'traveler-booking') ?>
+                <?php _e("Add field here :",'wpbooking') ?>
                 <select>
-                    <option><?php _e("-- Select Field Type --",'traveler-booking') ?></option>
+                    <option><?php _e("-- Select Field Type --",'wpbooking') ?></option>
                 </select>
             </div>
         </div>

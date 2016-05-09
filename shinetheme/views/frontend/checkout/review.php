@@ -9,12 +9,12 @@ $booking=Traveler_Booking::inst();
 
 $cart=$booking->get_cart();
 ?>
-<h3><?php _e('Your Order','traveler-booking')?></h3>
+<h3><?php _e('Your Order','wpbooking')?></h3>
 <table class="review-order-table">
 	<thead>
 		<tr>
-			<th class="review-order-item-info"><?php _e('Service','traveler-booking')?></th>
-			<th class="review-order-item-total"><?php _e('Total','traveler-booking')?></th>
+			<th class="review-order-item-info"><?php _e('Service','wpbooking')?></th>
+			<th class="review-order-item-total"><?php _e('Total','wpbooking')?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -37,11 +37,11 @@ $cart=$booking->get_cart();
 	</tbody>
 	<tfooter>
 		<tr>
-			<td><?php _e('Total','traveler-booking')?></td>
+			<td><?php _e('Total','wpbooking')?></td>
 			<td><?php echo Traveler_Currency::format_money($booking->get_cart_total());?></td>
 		</tr>
 		<tr>
-			<td><?php _e('Pay Amount','traveler-booking')?></td>
+			<td><?php _e('Pay Amount','wpbooking')?></td>
 			<td><?php echo Traveler_Currency::format_money($booking->get_cart_pay_amount());?></td>
 		</tr>
 		<?php do_action('traveler_review_order_footer') ?>

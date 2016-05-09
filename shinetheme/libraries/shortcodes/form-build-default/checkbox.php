@@ -8,46 +8,46 @@ if(!class_exists('Traveler_Form_Checkbox_Field')){
 		{
 			$this->field_id='checkbox';
 			$this->field_data=array(
-				"title"   => __( "Check Box" , 'traveler-booking' ) ,
+				"title"   => __( "Check Box" , 'wpbooking' ) ,
 				"category" => 'Standard Fields',
 				"options" => array(
 					array(
 						"type"             => "text" ,
-						"title"            => __( "Title" , 'traveler-booking' ) ,
+						"title"            => __( "Title" , 'wpbooking' ) ,
 						"name"             => "title" ,
-						"desc"             => __( "Title" , 'traveler-booking' ) ,
+						"desc"             => __( "Title" , 'wpbooking' ) ,
 						'edit_field_class' => 'traveler-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
 						"type"             => "text" ,
-						"title"            => __( "Name" , 'traveler-booking' ) ,
+						"title"            => __( "Name" , 'wpbooking' ) ,
 						"name"             => "name" ,
-						"desc"             => __( "Name" , 'traveler-booking' ) ,
+						"desc"             => __( "Name" , 'wpbooking' ) ,
 						'edit_field_class' => 'traveler-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
 						"type"             => "text" ,
-						"title"            => __( "ID" , 'traveler-booking' ) ,
+						"title"            => __( "ID" , 'wpbooking' ) ,
 						"name"             => "id" ,
-						"desc"             => __( "ID" , 'traveler-booking' ) ,
+						"desc"             => __( "ID" , 'wpbooking' ) ,
 						'edit_field_class' => 'traveler-col-md-6' ,
 						'value' => ""
 					) ,
 					array(
 						"type"             => "text" ,
-						"title"            => __( "Class" , 'traveler-booking' ) ,
+						"title"            => __( "Class" , 'wpbooking' ) ,
 						"name"             => "class" ,
-						"desc"             => __( "Class" , 'traveler-booking' ) ,
+						"desc"             => __( "Class" , 'wpbooking' ) ,
 						'edit_field_class' => 'traveler-col-md-6' ,
 						'value' => ""
 					) ,
 					array(
 						"type"             => "textarea" ,
-						"title"            => __( "Options" , 'traveler-booking' ) ,
+						"title"            => __( "Options" , 'wpbooking' ) ,
 						"name"             => "options" ,
-						"desc"             => __("Ex: Title 1:value_1|Title 2:value_2",'traveler-booking'),
+						"desc"             => __("Ex: Title 1:value_1|Title 2:value_2",'wpbooking'),
 						'edit_field_class' => 'traveler-col-md-12' ,
 						'value' => ""
 					) ,

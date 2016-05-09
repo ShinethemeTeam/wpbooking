@@ -15,7 +15,7 @@ echo traveler_get_message();
 				<tr>
 					<th class="small-col">#</th>
 					<th colspan="2" class="col-cart-item-info">
-						<?php _e('Service Information','traveler-booking') ?>
+						<?php _e('Service Information','wpbooking') ?>
 					</th>
 					<th class="col-cart-item-price"><?php _e('Price')?></th>
 					<th class="col-cart-item-actions"><?php _e('Actions')?></th>
@@ -44,7 +44,7 @@ echo traveler_get_message();
 									</td>
 									<td class="col-cart-item-actions">
 										<a href="<?php echo esc_url(add_query_arg(array('delete_cart_item'=>$key),$booking->get_cart_url())) ?>">
-											<?php _e('delete','traveler-booking')?>
+											<?php _e('delete','wpbooking')?>
 										</a>
 									</td>
 								</tr>
@@ -55,7 +55,7 @@ echo traveler_get_message();
 					}else{
 						?>
 						<tr>
-							<td colspan="5"><?php _e('Sorry, Your cart is currently empty','traveler-booking') ?></td>
+							<td colspan="5"><?php _e('Sorry, Your cart is currently empty','wpbooking') ?></td>
 						</tr>
 						<?php
 					}
@@ -66,10 +66,10 @@ echo traveler_get_message();
 	<div class="traveler-cart-summary-col">
 		<?php if(!empty($carts)){?>
 		<div class="traveler-cart-summary">
-			<h3><?php _e('Cart Summary','traveler-booking') ?></h3>
+			<h3><?php _e('Cart Summary','wpbooking') ?></h3>
 			<ul class="cart-summary-details">
-				<li><?php printf(__('Total: %s','traveler-booking'),Traveler_Currency::format_money($booking->get_cart_total())) ?></li>
-				<li><?php printf(__('Pay Amount: %s','traveler-booking'),Traveler_Currency::format_money($booking->get_cart_pay_amount())) ?></li>
+				<li><?php printf(__('Total: %s','wpbooking'),Traveler_Currency::format_money($booking->get_cart_total())) ?></li>
+				<li><?php printf(__('Pay Amount: %s','wpbooking'),Traveler_Currency::format_money($booking->get_cart_pay_amount())) ?></li>
 				<?php do_action('traveler_cart_summary_details',$carts) ?>
 			</ul>
 

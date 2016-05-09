@@ -76,7 +76,7 @@ if(!class_exists('Traveler_Payment_Gateways'))
 		function _add_settings($settings)
 		{
 			$settings['payment_gateways']=array(
-				'name'=>__("Payment",'traveler-booking'),
+				'name'=>__("Payment",'wpbooking'),
 				'sections'=>apply_filters('traveler_payment_settings_sections',array())
 			);
 			return $settings;
@@ -88,7 +88,7 @@ if(!class_exists('Traveler_Payment_Gateways'))
 			<div id="setting-error-tgmpa" class="updated settings-error notice is-dismissible">
 				<p>
 					<strong>
-						<?php printf(__('You must upgrade your PHP version to at lease 5.3.0 to use Traveler Booking Plugin. Your current is %s','traveler-booking'),phpversion()) ?>
+						<?php printf(__('You must upgrade your PHP version to at lease 5.3.0 to use Traveler Booking Plugin. Your current is %s','wpbooking'),phpversion()) ?>
 					</strong>
 				</p>
 				<button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php _e('Dismiss this notice.','travel-booking')?></span></button>
@@ -147,7 +147,7 @@ if(!class_exists('Traveler_Payment_Gateways'))
 							// Update the Order Items
 							$order_model=Traveler_Order_Model::inst();
 							$order_model->complete_purchase($payment_id,$order_id);
-							traveler_set_message(__('Thank you! Your booking is completed','traveler-booking'),'success');
+							traveler_set_message(__('Thank you! Your booking is completed','wpbooking'),'success');
 						}
 						do_action('traveler_after_payment_complete_purchase');
 

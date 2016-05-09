@@ -89,69 +89,69 @@ if(!class_exists('Traveler_Service'))
                 'room' => array(
                     array(
                         'name'    => 'title' ,
-                        'label' => __( 'Title Field' , "traveler-booking" ) ,
+                        'label' => __( 'Title Field' , "wpbooking" ) ,
                         'type'  => "text" ,
                         'value' => ""
                     ) ,
                     array(
                         'name'    => 'placeholder' ,
-                        'label' => __( 'Placeholder' , "traveler-booking" ) ,
-                        'desc'  => __( 'Placeholder' , "traveler-booking" ) ,
+                        'label' => __( 'Placeholder' , "wpbooking" ) ,
+                        'desc'  => __( 'Placeholder' , "wpbooking" ) ,
                         'type'  => 'text' ,
                     ) ,
                     array(
                         'name'      => 'field_type' ,
-                        'label'   => __( 'Field Type' , "traveler-booking" ) ,
+                        'label'   => __( 'Field Type' , "wpbooking" ) ,
                         'type'    => "dropdown" ,
                         'options' => array(
-                            "location_id"  => __( "Location" , "traveler-booking" ) ,
-                            "check_in"  => __( "Check In" , "traveler-booking" ) ,
-                            "check_out" => __( "Check Out" , "traveler-booking" ) ,
-                            "taxonomy" => __( "Taxonomy" , "traveler-booking" ) ,
-                            "review_rate" => __( "Review Rate" , "traveler-booking" ) ,
+                            "location_id"  => __( "Location" , "wpbooking" ) ,
+                            "check_in"  => __( "Check In" , "wpbooking" ) ,
+                            "check_out" => __( "Check Out" , "wpbooking" ) ,
+                            "taxonomy" => __( "Taxonomy" , "wpbooking" ) ,
+                            "review_rate" => __( "Review Rate" , "wpbooking" ) ,
                         )
                     ) ,
                     array(
                         'name'      => 'taxonomy' ,
-                        'label'   => __( '- Taxonomy' , "traveler-booking" ) ,
+                        'label'   => __( '- Taxonomy' , "wpbooking" ) ,
                         'type'    => "dropdown" ,
                         'class'    => "hide" ,
                         'options' => $list_taxonomy
                     ) ,
                     array(
                         'name'      => 'taxonomy_show' ,
-                        'label'   => __( '- Type Show' , "traveler-booking" ) ,
+                        'label'   => __( '- Type Show' , "wpbooking" ) ,
                         'type'    => "dropdown" ,
                         'class'    => "hide" ,
                         'options' => array(
-                            "dropdown"  => __( "Dropdown" , "traveler-booking" ) ,
-                            "check_box"  => __( "Check Box" , "traveler-booking" ) ,
+                            "dropdown"  => __( "Dropdown" , "wpbooking" ) ,
+                            "check_box"  => __( "Check Box" , "wpbooking" ) ,
                         )
                     ) ,
                     array(
                         'name'      => 'taxonomy_operator' ,
-                        'label'   => __( '- Operator' , "traveler-booking" ) ,
+                        'label'   => __( '- Operator' , "wpbooking" ) ,
                         'type'    => "dropdown" ,
                         'class'    => "hide" ,
                         'options' => array(
-                            "AND"  => __( "And" , "traveler-booking" ) ,
-                            "OR"  => __( "Or" , "traveler-booking" ) ,
+                            "AND"  => __( "And" , "wpbooking" ) ,
+                            "OR"  => __( "Or" , "wpbooking" ) ,
                         )
                     ) ,
                     array(
                         'name'      => 'required' ,
-                        'label'   => __( 'Required' , "traveler-booking" ) ,
+                        'label'   => __( 'Required' , "wpbooking" ) ,
                         'type'    => "dropdown" ,
                         'options' => array(
-                            "no"  => __( "No" , "traveler-booking" ) ,
-                            "yes"  => __( "Yes" , "traveler-booking" ) ,
+                            "no"  => __( "No" , "wpbooking" ) ,
+                            "yes"  => __( "Yes" , "wpbooking" ) ,
                         )
                     ) ,
                 ) ,
                 'tour' => array(
                     array(
                         'name'    => 'title' ,
-                        'label' => __( 'Title' , "traveler-booking" ) ,
+                        'label' => __( 'Title' , "wpbooking" ) ,
                         'type'  => "text" ,
                         'value' => ""
                     ) ,

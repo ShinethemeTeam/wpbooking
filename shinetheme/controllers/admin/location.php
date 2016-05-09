@@ -25,17 +25,17 @@ if(!class_exists('Traveler_Admin_Location'))
 		function _register_taxonomy()
 		{
 			$labels = array(
-				'name'              => _x( 'Locations', 'taxonomy general name','traveler-booking' ),
-				'singular_name'     => _x( 'Location', 'taxonomy singular name','traveler-booking' ),
-				'search_items'      => __( 'Search Locations','traveler-booking' ),
-				'all_items'         => __( 'All Locations','traveler-booking' ),
-				'parent_item'       => __( 'Parent Location' ,'traveler-booking'),
-				'parent_item_colon' => __( 'Parent Location:' ,'traveler-booking'),
-				'edit_item'         => __( 'Edit Location' ,'traveler-booking'),
-				'update_item'       => __( 'Update Location' ,'traveler-booking'),
-				'add_new_item'      => __( 'Add New Location' ,'traveler-booking'),
-				'new_item_name'     => __( 'New Location Name' ,'traveler-booking'),
-				'menu_name'         => __( 'Location' ,'traveler-booking'),
+				'name'              => _x( 'Locations', 'taxonomy general name','wpbooking' ),
+				'singular_name'     => _x( 'Location', 'taxonomy singular name','wpbooking' ),
+				'search_items'      => __( 'Search Locations','wpbooking' ),
+				'all_items'         => __( 'All Locations','wpbooking' ),
+				'parent_item'       => __( 'Parent Location' ,'wpbooking'),
+				'parent_item_colon' => __( 'Parent Location:' ,'wpbooking'),
+				'edit_item'         => __( 'Edit Location' ,'wpbooking'),
+				'update_item'       => __( 'Update Location' ,'wpbooking'),
+				'add_new_item'      => __( 'Add New Location' ,'wpbooking'),
+				'new_item_name'     => __( 'New Location Name' ,'wpbooking'),
+				'menu_name'         => __( 'Location' ,'wpbooking'),
 			);
 
 			$args = array(

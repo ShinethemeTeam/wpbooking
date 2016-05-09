@@ -1,53 +1,53 @@
 <?php
 if(function_exists( 'traveler_add_field_form_builder' )) {
     traveler_add_field_form_builder( array(
-            "title"    => __( "Drop Down" , 'traveler-booking' ) ,
+            "title"    => __( "Drop Down" , 'wpbooking' ) ,
             "name"     => 'traveler_booking_drop_down' ,
             "category" => 'Standard Fields' ,
             "options"  => array(
                 array(
                     "type"             => "required" ,
-                    "title"            => __( "Set as <strong>required</strong>" , 'traveler-booking' ) ,
+                    "title"            => __( "Set as <strong>required</strong>" , 'wpbooking' ) ,
                     "desc"             => "" ,
                     'edit_field_class' => 'traveler-col-md-12' ,
                 ) ,
                 array(
                     "type"             => "text" ,
-                    "title"            => __( "Title" , 'traveler-booking' ) ,
+                    "title"            => __( "Title" , 'wpbooking' ) ,
                     "name"             => "title" ,
-                    "desc"             => __( "Title" , 'traveler-booking' ) ,
+                    "desc"             => __( "Title" , 'wpbooking' ) ,
                     'edit_field_class' => 'traveler-col-md-6' ,
                     'value'            => ""
                 ) ,
                 array(
                     "type"             => "text" ,
-                    "title"            => __( "Name" , 'traveler-booking' ) ,
+                    "title"            => __( "Name" , 'wpbooking' ) ,
                     "name"             => "name" ,
-                    "desc"             => __( "Name" , 'traveler-booking' ) ,
+                    "desc"             => __( "Name" , 'wpbooking' ) ,
                     'edit_field_class' => 'traveler-col-md-6' ,
                     'value'            => ""
                 ) ,
                 array(
                     "type"             => "text" ,
-                    "title"            => __( "ID" , 'traveler-booking' ) ,
+                    "title"            => __( "ID" , 'wpbooking' ) ,
                     "name"             => "id" ,
-                    "desc"             => __( "ID" , 'traveler-booking' ) ,
+                    "desc"             => __( "ID" , 'wpbooking' ) ,
                     'edit_field_class' => 'traveler-col-md-6' ,
                     'value'            => ""
                 ) ,
                 array(
                     "type"             => "text" ,
-                    "title"            => __( "Class" , 'traveler-booking' ) ,
+                    "title"            => __( "Class" , 'wpbooking' ) ,
                     "name"             => "class" ,
-                    "desc"             => __( "Class" , 'traveler-booking' ) ,
+                    "desc"             => __( "Class" , 'wpbooking' ) ,
                     'edit_field_class' => 'traveler-col-md-6' ,
                     'value'            => ""
                 ) ,
                 array(
                     "type"             => "textarea" ,
-                    "title"            => __( "Options" , 'traveler-booking' ) ,
+                    "title"            => __( "Options" , 'wpbooking' ) ,
                     "name"             => "options" ,
-                    "desc"             => __( "Ex: Title 1:value_1|Title 2:value_2" , 'traveler-booking' ) ,
+                    "desc"             => __( "Ex: Title 1:value_1|Title 2:value_2" , 'wpbooking' ) ,
                     'edit_field_class' => 'traveler-col-md-12' ,
                     'value'            => ''
                 ) ,
@@ -75,7 +75,7 @@ if(!function_exists( 'traveler_sc_booking_drop_down' )) {
             $rule .= "required";
         }
         Traveler_Admin_Form_Build::inst()->add_form_field($name,array('data'=>$data,'rule'=>$rule));
-        $list_item = "<option value=''>" . __( "-- Select --" , 'traveler-booking' ) . '</option>';
+        $list_item = "<option value=''>" . __( "-- Select --" , 'wpbooking' ) . '</option>';
         if(!empty( $options )) {
             $tmp_list_item = explode( '|' , $options );
             if(!empty( $tmp_list_item )) {

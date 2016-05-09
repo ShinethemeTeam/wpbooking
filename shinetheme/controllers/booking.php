@@ -54,7 +54,7 @@ if (!class_exists('Traveler_Booking')) {
 			// Validate Post and Post Type
 			if (!$post_id or get_post_type($post_id) != 'traveler_service') {
 				$is_validate = FALSE;
-				traveler_set_message(__("You do not select any service", 'traveler-booking'), 'error');
+				traveler_set_message(__("You do not select any service", 'wpbooking'), 'error');
 			}
 
 			// Validate Form
@@ -121,7 +121,7 @@ if (!class_exists('Traveler_Booking')) {
 
 				Traveler_Session::set('traveler_cart', $cart);
 
-				traveler_set_message(sprintf(__('Add to %s success', 'traveler-booking'), sprintf('<a href="%s">%s</a>', $this->get_cart_url(), __('cart', 'traveler-booking'))), 'success');
+				traveler_set_message(sprintf(__('Add to %s success', 'wpbooking'), sprintf('<a href="%s">%s</a>', $this->get_cart_url(), __('cart', 'wpbooking'))), 'success');
 				$res = array(
 					'status'  => 1,
 					'message' => traveler_get_message(TRUE)
@@ -154,13 +154,13 @@ if (!class_exists('Traveler_Booking')) {
 
 			if (empty($cart)) {
 				$is_validate = FALSE;
-				traveler_set_message(__("Sorry! Your cart is currently empty", 'traveler-booking'), 'error');
+				traveler_set_message(__("Sorry! Your cart is currently empty", 'wpbooking'), 'error');
 			}
 
 			if ($is_validate and !traveler_get_option('allow_guest_checkout') and !is_user_logged_in()) {
 				$is_validate = FALSE;
 				$res['redirect'] = wp_login_url(get_permalink(traveler_get_option('checkout_page')));
-				traveler_set_message(__("You need login to do this!", 'traveler-booking'), 'error');
+				traveler_set_message(__("You need login to do this!", 'wpbooking'), 'error');
 			}
 
 			// Require Payment Gateways
@@ -172,10 +172,10 @@ if (!class_exists('Traveler_Booking')) {
 			if ($is_validate and $pay_amount) {
 				if (!empty($available_gateways) and !$selected_gateway) {
 					$is_validate = FALSE;
-					traveler_set_message(__("Please select at least one Payment Gateway", 'traveler-booking'), 'error');
+					traveler_set_message(__("Please select at least one Payment Gateway", 'wpbooking'), 'error');
 				} elseif (empty($available_gateways) or !array_key_exists($selected_gateway, $available_gateways)) {
 					$is_validate = FALSE;
-					traveler_set_message(sprintf(__("Gateway: %s is not ready to use, please choose other gateway", 'traveler-booking'), $selected_gateway), 'error');
+					traveler_set_message(sprintf(__("Gateway: %s is not ready to use, please choose other gateway", 'wpbooking'), $selected_gateway), 'error');
 				}
 
 			}
@@ -239,7 +239,7 @@ if (!class_exists('Traveler_Booking')) {
 						}
 
 						if ($res['status']) {
-							traveler_set_message(__('Booking Success', 'traveler-booking'));
+							traveler_set_message(__('Booking Success', 'wpbooking'));
 							//do checkout
 							$res['data'] = $data;
 							$res['message'] = traveler_get_message(TRUE);
@@ -269,7 +269,7 @@ if (!class_exists('Traveler_Booking')) {
 				} else {
 					$res = array(
 						'status'  => 0,
-						'message' => __('Can not create the order. Please contact the Admin', 'traveler-booking')
+						'message' => __('Can not create the order. Please contact the Admin', 'wpbooking')
 					);
 				}
 
@@ -289,7 +289,7 @@ if (!class_exists('Traveler_Booking')) {
 				$all = Traveler_Session::get('traveler_cart');
 				unset($all[$index]);
 				Traveler_Session::set('traveler_cart', $all);
-				traveler_set_message(__("Delete cart item successfully", 'traveler-booking'), 'success');
+				traveler_set_message(__("Delete cart item successfully", 'wpbooking'), 'success');
 			}
 
 		}

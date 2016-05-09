@@ -44,7 +44,7 @@ if(!class_exists('Traveler_Admin_Service'))
 		function _add_settings($settings)
 		{
 			$settings['services']=array(
-				'name'=>__("Services",'traveler-booking'),
+				'name'=>__("Services",'wpbooking'),
 				'sections'=>apply_filters('traveler_service_setting_sections',array())
 			);
 			return $settings;
@@ -56,25 +56,25 @@ if(!class_exists('Traveler_Admin_Service'))
 		function _add_post_type()
 		{
 			$labels = array(
-				'name'               => _x( 'Service', 'post type general name', 'traveler-booking' ),
-				'singular_name'      => _x( 'Service', 'post type singular name', 'traveler-booking' ),
-				'menu_name'          => _x( 'Services', 'admin menu', 'traveler-booking' ),
-				'name_admin_bar'     => _x( 'Service', 'add new on admin bar', 'traveler-booking' ),
-				'add_new'            => _x( 'Add New', 'service', 'traveler-booking' ),
-				'add_new_item'       => __( 'Add New Service', 'traveler-booking' ),
+				'name'               => _x( 'Service', 'post type general name', 'wpbooking' ),
+				'singular_name'      => _x( 'Service', 'post type singular name', 'wpbooking' ),
+				'menu_name'          => _x( 'Services', 'admin menu', 'wpbooking' ),
+				'name_admin_bar'     => _x( 'Service', 'add new on admin bar', 'wpbooking' ),
+				'add_new'            => _x( 'Add New', 'service', 'wpbooking' ),
+				'add_new_item'       => __( 'Add New Service', 'wpbooking' ),
 				'new_item'           => __( 'New Service', 'your-plugin-textdomain' ),
-				'edit_item'          => __( 'Edit Service', 'traveler-booking' ),
-				'view_item'          => __( 'View Service', 'traveler-booking' ),
-				'all_items'          => __( 'All Services', 'traveler-booking' ),
-				'search_items'       => __( 'Search Services', 'traveler-booking' ),
-				'parent_item_colon'  => __( 'Parent Services:', 'traveler-booking' ),
-				'not_found'          => __( 'No services found.', 'traveler-booking' ),
-				'not_found_in_trash' => __( 'No services found in Trash.', 'traveler-booking' )
+				'edit_item'          => __( 'Edit Service', 'wpbooking' ),
+				'view_item'          => __( 'View Service', 'wpbooking' ),
+				'all_items'          => __( 'All Services', 'wpbooking' ),
+				'search_items'       => __( 'Search Services', 'wpbooking' ),
+				'parent_item_colon'  => __( 'Parent Services:', 'wpbooking' ),
+				'not_found'          => __( 'No services found.', 'wpbooking' ),
+				'not_found_in_trash' => __( 'No services found in Trash.', 'wpbooking' )
 			);
 
 			$args = array(
 				'labels'             => $labels,
-				'description'        => __( 'Description.', 'traveler-booking' ),
+				'description'        => __( 'Description.', 'wpbooking' ),
 				'public'             => true,
 				'publicly_queryable' => true,
 				'show_ui'            => true,

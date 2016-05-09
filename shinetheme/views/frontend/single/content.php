@@ -81,9 +81,9 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
         <div class="row">
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#maps"><?php _e('Maps','traveler-booking')?></a></li>
-                    <li><a data-toggle="tab" href="#gallery"><?php _e('Gallery','traveler-booking') ?></a></li>
-                    <li><a data-toggle="tab" href="#place-order"><?php _e('Place Order','traveler-booking')?></a></li>
+                    <li class="active"><a data-toggle="tab" href="#maps"><?php _e('Maps','wpbooking')?></a></li>
+                    <li><a data-toggle="tab" href="#gallery"><?php _e('Gallery','wpbooking') ?></a></li>
+                    <li><a data-toggle="tab" href="#place-order"><?php _e('Place Order','wpbooking')?></a></li>
                 </ul>
                 <div class="tab-content">
                     <div id="maps" class="tab-pane fade in active">

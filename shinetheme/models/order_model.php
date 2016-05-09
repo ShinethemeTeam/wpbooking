@@ -52,7 +52,7 @@ if (!class_exists('Traveler_Order_Model')) {
 		function create($cart, $checkout_form_data = array())
 		{
 			$order_data = array(
-				'post_title'  => sprintf(__('New Order In %s', 'traveler-booking'), date(get_option('date_format') . ' @' . get_option('time_format'))),
+				'post_title'  => sprintf(__('New Order In %s', 'wpbooking'), date(get_option('date_format') . ' @' . get_option('time_format'))),
 				'post_type'   => 'traveler_order',
 				'post_status' => 'publish'
 			);

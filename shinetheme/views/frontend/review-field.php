@@ -8,7 +8,7 @@
 $traveler_review_stats=apply_filters('traveler_review_stats',array(),get_the_ID());
 ?>
 <p class="comment-form-review">
-	<label for="traveler_review"><?php _e("Your Rating",'traveler-booking') ?></label>
+	<label for="traveler_review"><?php _e("Your Rating",'wpbooking') ?></label>
 	<input type="hidden" class="" name="traveler_review">
 
 	<?php if(!empty($traveler_review_stats)){

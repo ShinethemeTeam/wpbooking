@@ -8,7 +8,7 @@
 ?>
 <div class="wrap">
 	<div class="icon32 icon32-attributes" id="icon-woocommerce"><br/></div>
-	<h2><?php _e( 'Taxonomies', 'traveler-booking' ) ?></h2>
+	<h2><?php _e( 'Taxonomies', 'wpbooking' ) ?></h2>
 	<br class="clear" />
 	<?php echo traveler_get_admin_message() ?>
 	<div id="col-container">
@@ -17,9 +17,9 @@
 				<table class="widefat attributes-table wp-list-table ui-sortable" style="width:100%">
 					<thead>
 					<tr>
-						<th scope="col"><?php _e( 'Name', 'traveler-booking' ) ?></th>
-						<th scope="col"><?php _e( 'Slug', 'traveler-booking' ) ?></th>
-						<th scope="col"><?php _e( 'Service Type(s)', 'traveler-booking' ) ?></th>
+						<th scope="col"><?php _e( 'Name', 'wpbooking' ) ?></th>
+						<th scope="col"><?php _e( 'Slug', 'wpbooking' ) ?></th>
+						<th scope="col"><?php _e( 'Service Type(s)', 'wpbooking' ) ?></th>
 					</tr>
 					</thead>
 					<tbody>
@@ -35,10 +35,10 @@
 								
 								<div class="row-actions">
 									<span class="edit">
-										<a href="<?php echo esc_url( add_query_arg(array('taxonomy_name'=> $tax,'action'=>'traveler_edit_taxonomy'),$page_url) ); ?>"><?php _e( 'Edit', 'traveler-booking' ); ?></a>
+										<a href="<?php echo esc_url( add_query_arg(array('taxonomy_name'=> $tax,'action'=>'traveler_edit_taxonomy'),$page_url) ); ?>"><?php _e( 'Edit', 'wpbooking' ); ?></a>
 										| </span>
 									<span class="delete">
-										<a class="delete" href="<?php echo  wp_nonce_url( add_query_arg(array('action'=>'traveler_delete_taxonomy','tax_name'=>$tax),$page_url) ) ; ?>"><?php _e( 'Delete', 'traveler-booking' ); ?>
+										<a class="delete" href="<?php echo  wp_nonce_url( add_query_arg(array('action'=>'traveler_delete_taxonomy','tax_name'=>$tax),$page_url) ) ; ?>"><?php _e( 'Delete', 'wpbooking' ); ?>
 										</a>
 									</span>
 								</div>
@@ -54,7 +54,7 @@
 							<?php
 						endforeach;
 					else :
-						?><tr><td colspan="6"><?php _e( 'No custom taxonomies currently exist.', 'traveler-booking' ) ?></td></tr><?php
+						?><tr><td colspan="6"><?php _e( 'No custom taxonomies currently exist.', 'wpbooking' ) ?></td></tr><?php
 					endif;
 					?>
 					</tbody>
@@ -64,23 +64,23 @@
 		<div id="col-left">
 			<div class="col-wrap">
 				<div class="form-wrap">
-					<h3><?php _e( 'Add New Taxonomy', 'traveler-booking' ) ?></h3>
-					<p><?php _e( 'Taxonomies let you define unlimited extra information for Hotel, Car ..etc', 'traveler-booking' ) ?></p>
+					<h3><?php _e( 'Add New Taxonomy', 'wpbooking' ) ?></h3>
+					<p><?php _e( 'Taxonomies let you define unlimited extra information for Hotel, Car ..etc', 'wpbooking' ) ?></p>
 					<form action="" method="post">
 						<div class="form-field">
-							<label for="taxonomy_label"><?php _e( 'Name', 'traveler-booking' ); ?></label>
+							<label for="taxonomy_label"><?php _e( 'Name', 'wpbooking' ); ?></label>
 							<input name="taxonomy_label" id="taxonomy_label" required type="text" value="" />
-							<p class="description"><?php _e( 'Name for the attribute (shown on the front-end).', 'traveler-booking' ); ?></p>
+							<p class="description"><?php _e( 'Name for the attribute (shown on the front-end).', 'wpbooking' ); ?></p>
 						</div>
 						
 						<div class="form-field">
-							<label for="taxonomy_slug"><?php _e( 'Slug', 'traveler-booking' ); ?></label>
+							<label for="taxonomy_slug"><?php _e( 'Slug', 'wpbooking' ); ?></label>
 							<input name="taxonomy_slug" id="taxonomy_slug" type="text" value="" maxlength="28" />
-							<p class="description"><?php _e( 'Unique slug/reference for the attribute; must be shorter than 28 characters.', 'traveler-booking' ); ?></p>
+							<p class="description"><?php _e( 'Unique slug/reference for the attribute; must be shorter than 28 characters.', 'wpbooking' ); ?></p>
 						</div>
 
 						<div class="form-field">
-							<label ><?php _e( 'Service Type', 'traveler-booking' ); ?></label>
+							<label ><?php _e( 'Service Type', 'wpbooking' ); ?></label>
 							<?php
 							$types=Traveler_Service::inst()->get_service_types();
 							if(!empty($types))
@@ -90,11 +90,11 @@
 								}
 							}
 							?>
-							<p class="description"><?php _e( 'Choose which Service type that the Taxonomy supported', 'traveler-booking' ); ?></p>
+							<p class="description"><?php _e( 'Choose which Service type that the Taxonomy supported', 'wpbooking' ); ?></p>
 
 						</div>
 
-						<p class="submit"><input type="submit" name="traveler_create_taxonomy" id="submit" class="button" value="<?php _e( 'Add Taxonomy', 'traveler-booking' ); ?>"></p>
+						<p class="submit"><input type="submit" name="traveler_create_taxonomy" id="submit" class="button" value="<?php _e( 'Add Taxonomy', 'wpbooking' ); ?>"></p>
 						<?php wp_nonce_field( 'traveler_create_taxonomy' ); ?>
 					</form>
 				</div>
@@ -105,7 +105,7 @@
 		/* <![CDATA[ */
 		
 		jQuery('a.delete').click(function(){
-			var answer = confirm ("<?php _e( 'Are you sure you want to delete this attribute?', 'traveler-booking' ); ?>");
+			var answer = confirm ("<?php _e( 'Are you sure you want to delete this attribute?', 'wpbooking' ); ?>");
 			if (answer) return true;
 			return false;
 		});

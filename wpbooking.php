@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Traveler Booking System
+ * Plugin Name: WpBooking
  * Plugin URI: #
  * Description: All in one Booking System
  * Version: 1.0
@@ -9,11 +9,11 @@
  * Requires at least: 4.1
  * Tested up to: 4.3
  *
- * Text Domain: traveler-booking
- * Domain Path: /i18n/languages/
+ * Text Domain: wpbooking
+ * Domain Path: /languages/
  *
- * @package BravoBooking
- * @author Bravotheme
+ * @package wpbooking
+ * @author shinetheme
  * @since 1.0
  */
 if (!defined('ABSPATH')) {
@@ -212,8 +212,8 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		function get_menu_page()
 		{
 			$page = apply_filters('traveler_menu_page_args', array(
-				'page_title' => __("Traveler", 'traveler-booking'),
-				'menu_title' => __("Traveler", 'traveler-booking'),
+				'page_title' => __("Traveler", 'wpbooking'),
+				'menu_title' => __("Traveler", 'wpbooking'),
 				'capability' => 'manage_options',
 				'menu_slug'  => 'traveler_booking',
 				'function'   => array($this, '_show_default_page'),

@@ -8,68 +8,68 @@ if (!class_exists('Traveler_Form_Check_Out_Field')) {
 		{
 			$this->field_id = 'check_out';
 			$this->field_data = array(
-				"title"    => __("Check-Out", 'traveler-booking'),
-				"category" => __("Specific Fields", 'traveler-booking'),
+				"title"    => __("Check-Out", 'wpbooking'),
+				"category" => __("Specific Fields", 'wpbooking'),
 				"options"  => array(
 					array(
 						"type"             => "required",
-						"title"            => __("Set as <strong>required</strong>", 'traveler-booking'),
+						"title"            => __("Set as <strong>required</strong>", 'wpbooking'),
 						"desc"             => "",
 						'edit_field_class' => 'traveler-col-md-12',
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("Title", 'traveler-booking'),
+						"title"            => __("Title", 'wpbooking'),
 						"name"             => "title",
-						"desc"             => __("Title", 'traveler-booking'),
+						"desc"             => __("Title", 'wpbooking'),
 						'edit_field_class' => 'traveler-col-md-6',
 						'value'            => ""
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("ID", 'traveler-booking'),
+						"title"            => __("ID", 'wpbooking'),
 						"name"             => "id",
-						"desc"             => __("ID", 'traveler-booking'),
+						"desc"             => __("ID", 'wpbooking'),
 						'edit_field_class' => 'traveler-col-md-6',
 						'value'            => ""
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("Class", 'traveler-booking'),
+						"title"            => __("Class", 'wpbooking'),
 						"name"             => "class",
-						"desc"             => __("Class", 'traveler-booking'),
+						"desc"             => __("Class", 'wpbooking'),
 						'edit_field_class' => 'traveler-col-md-6',
 						'value'            => ""
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("Value", 'traveler-booking'),
+						"title"            => __("Value", 'wpbooking'),
 						"name"             => "value",
-						"desc"             => __("Value", 'traveler-booking'),
+						"desc"             => __("Value", 'wpbooking'),
 						'edit_field_class' => 'traveler-col-md-6',
 						'value'            => ""
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("Placeholder", 'traveler-booking'),
+						"title"            => __("Placeholder", 'wpbooking'),
 						"name"             => "placeholder",
-						"desc"             => __("Placeholder", 'traveler-booking'),
+						"desc"             => __("Placeholder", 'wpbooking'),
 						'edit_field_class' => 'traveler-col-md-6',
 						'value'            => ""
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("Size", 'traveler-booking'),
+						"title"            => __("Size", 'wpbooking'),
 						"name"             => "size",
-						"desc"             => __("Size", 'traveler-booking'),
+						"desc"             => __("Size", 'wpbooking'),
 						'edit_field_class' => 'traveler-col-md-6',
 						'value'            => ""
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("Maxlength", 'traveler-booking'),
+						"title"            => __("Maxlength", 'wpbooking'),
 						"name"             => "maxlength",
-						"desc"             => __("Maxlength", 'traveler-booking'),
+						"desc"             => __("Maxlength", 'wpbooking'),
 						'edit_field_class' => 'traveler-col-md-6',
 						'value'            => ""
 					)

@@ -20,33 +20,33 @@ if(!class_exists('Traveler_BankTransfer_Gateway') and class_exists('Traveler_Abs
 		function __construct()
 		{
 			$this->gateway_info=array(
-				'label'=>__("Bank Transfer",'traveler-booking')
+				'label'=>__("Bank Transfer",'wpbooking')
 			);
 			$this->settings=array(
 				array(
 					'id'    => 'enable',
-					'label' => __('Enable', 'traveler-booking'),
+					'label' => __('Enable', 'wpbooking'),
 					'type'  => 'checkbox',
 					'std'   => '',
-					'checkbox_label'=>__("Yes, I want to enable Bank Transfer",'traveler-booking')
+					'checkbox_label'=>__("Yes, I want to enable Bank Transfer",'wpbooking')
 				),
 				array(
 					'id'    => 'title',
-					'label' => __('Title', 'traveler-booking'),
+					'label' => __('Title', 'wpbooking'),
 					'type'  => 'text',
 					'std'   => 'Bank Transfer',
 				),
 
 				array(
 					'id'    => 'desc',
-					'label' => __('Descriptions', 'traveler-booking'),
+					'label' => __('Descriptions', 'wpbooking'),
 					'type'  => 'textarea',
 				),
 				array(
 					'id'    => 'bank_account',
-					'label' => __('Bank Account', 'traveler-booking'),
+					'label' => __('Bank Account', 'wpbooking'),
 					'type'  => 'textarea',
-					'description'=>__("Write down your back account here",'traveler-booking')
+					'description'=>__("Write down your back account here",'wpbooking')
 				),
 
 			);

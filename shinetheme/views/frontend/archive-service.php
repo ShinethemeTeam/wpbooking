@@ -87,7 +87,7 @@ $my_query = Traveler_Service::inst()->query($args,$service_type);
                         }
                     }
                 }else{
-                    _e("<h3>No Content</h3>",'traveler-booking');
+                    _e("<h3>No Content</h3>",'wpbooking');
                 }
                 ?>
             </ul>
@@ -110,8 +110,8 @@ $my_query = Traveler_Service::inst()->query($args,$service_type);
                     'total'    => $my_query->max_num_pages,
                     'current'  => $paged,
                     'add_args' =>$query_args,
-                    'prev_text' => __( 'Previous', "traveler-booking" ),
-                    'next_text' => __( 'Next', "traveler-booking" ),
+                    'prev_text' => __( 'Previous', "wpbooking" ),
+                    'next_text' => __( 'Next', "wpbooking" ),
                 );
                 echo paginate_links( $args );
                 ?>

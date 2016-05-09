@@ -58,8 +58,8 @@ if(!class_exists('Traveler_Admin_Setting'))
 			$menu_page=Traveler()->get_menu_page();
 			$page=array(
 				'parent_slug'=>$menu_page['menu_slug'],
-				'page_title'=>__('Settings','traveler-booking'),
-				'menu_title'=>__('Settings','traveler-booking'),
+				'page_title'=>__('Settings','wpbooking'),
+				'menu_title'=>__('Settings','wpbooking'),
 				'capability'=>'manage_options',
 				'menu_slug'=>'traveler_booking_page_settings',
 				'function'=> array($this,'callback_traveler_booking_sub_menu')

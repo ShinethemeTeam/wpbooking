@@ -12,12 +12,12 @@ $order_items=$booking->get_order_items(get_the_ID());
 $checkout_form_data=$booking->get_order_form_datas();
 do_action('traveler_before_order_content');
 ?>
-<h3><?php _e('Your Order','traveler-booking')?></h3>
+<h3><?php _e('Your Order','wpbooking')?></h3>
 <table class="order-information-table">
 	<thead>
 	<tr>
-		<th class="review-order-item-info" colspan="2" valign="top"><?php _e('Service','traveler-booking')?></th>
-		<th class="review-order-item-total"><?php _e('Total','traveler-booking')?></th>
+		<th class="review-order-item-info" colspan="2" valign="top"><?php _e('Service','wpbooking')?></th>
+		<th class="review-order-item-total"><?php _e('Total','wpbooking')?></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -43,7 +43,7 @@ do_action('traveler_before_order_content');
 	</tbody>
 	<tfooter>
 		<tr>
-			<td colspan="2"><?php _e('Total','traveler-booking')?></td>
+			<td colspan="2"><?php _e('Total','wpbooking')?></td>
 			<td><?php echo Traveler_Currency::format_money($booking->get_order_total(get_the_ID()));?></td>
 		</tr>
 		<?php do_action('traveler_order_information_footer') ?>
@@ -54,7 +54,7 @@ do_action('traveler_before_order_content');
 
 	if(!empty($checkout_form_data) and is_array($checkout_form_data)){?>
 	<div class="checkout-form-data">
-		<h3><?php _e('Your Information','traveler-booking')?></h3>
+		<h3><?php _e('Your Information','wpbooking')?></h3>
 
 		<ul class="checkout-form-list">
 			<?php foreach($checkout_form_data as $key=>$value){

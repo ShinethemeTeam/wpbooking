@@ -68,10 +68,10 @@ if (!class_exists('Traveler_Admin_Taxonomy_Controller')) {
 				$all = $this->get_taxonomies();
 				unset($all[$tax_name]);
 				update_option($this->_option_name, $all);
-				traveler_set_admin_message(__('Delete success', 'traveler-booking'), 'success');
+				traveler_set_admin_message(__('Delete success', 'wpbooking'), 'success');
 
 			} else {
-				traveler_set_admin_message(__('Please select an Taxonomy', 'traveler-booking'), 'error');
+				traveler_set_admin_message(__('Please select an Taxonomy', 'wpbooking'), 'error');
 			}
 			wp_redirect($this->get_page_url());
 			die;
@@ -184,17 +184,17 @@ if (!class_exists('Traveler_Admin_Taxonomy_Controller')) {
 
 			// Error checking
 			if (!$taxonomy_label || !$taxonomy_name) {
-				$error = __('Please, provide an taxonomy name .', 'traveler-booking');
+				$error = __('Please, provide an taxonomy name .', 'wpbooking');
 			} elseif (strlen($taxonomy_name) >= 28) {
-				$error = sprintf(__('Slug "%s" is too long (28 characters max). Shorten it, please.', 'traveler-booking'), ($taxonomy_name));
+				$error = sprintf(__('Slug "%s" is too long (28 characters max). Shorten it, please.', 'wpbooking'), ($taxonomy_name));
 			} elseif (in_array($taxonomy_name, $reserved_terms)) {
-				$error = sprintf(__('Slug "%s" is not allowed because it is a reserved term. Change it, please.', 'traveler-booking'), ($taxonomy_name));
+				$error = sprintf(__('Slug "%s" is not allowed because it is a reserved term. Change it, please.', 'wpbooking'), ($taxonomy_name));
 			} else {
 				
 				$taxonomy_exists = taxonomy_exists($taxonomy_name);
 				
 				if ('add' === $action && $taxonomy_exists) {
-					$error = sprintf(__('Slug "%s" is already in use. Change it, please.', 'traveler-booking'), sanitize_title($taxonomy_name));
+					$error = sprintf(__('Slug "%s" is already in use. Change it, please.', 'wpbooking'), sanitize_title($taxonomy_name));
 				}
 			}
 			if ($error) {
@@ -265,8 +265,8 @@ if (!class_exists('Traveler_Admin_Taxonomy_Controller')) {
 			$menu_page = Traveler()->get_menu_page();
 			$page = array(
 				'parent_slug' => $menu_page['menu_slug'],
-				'page_title'  => __('Taxonomies', 'traveler-booking'),
-				'menu_title'  => __('Taxonomies', 'traveler-booking'),
+				'page_title'  => __('Taxonomies', 'wpbooking'),
+				'menu_title'  => __('Taxonomies', 'wpbooking'),
 				'capability'  => 'manage_options',
 				'menu_slug'   => 'traveler_booking_page_taxonomy',
 				'function'    => array($this, '_show_taxonomy_page')

@@ -67,7 +67,7 @@ if(!empty($data['condition'])){
 						<td class="td-left" colspan="3">
 							<div class="form-table traveler-settings ">
 								<div class="st-metabox-left  traveler-form-group  title  traveler-form-group">
-									<?php echo __('Title', 'traveler-booking'); ?>
+									<?php echo __('Title', 'wpbooking'); ?>
 								</div>
 								<div class="st-metabox-right">
 									<input type="text" class="widefat form-control input-title" name="<?php echo esc_html( $data['id'] ); ?>[title][]" value="<?php echo esc_html( $convert_val['title'] ); ?>">
@@ -114,7 +114,7 @@ if(!empty($data['condition'])){
 			</div>
 		<?php endforeach; endif; ?>
 		</div>
-		<button class="traveler-add-item btn button button-primary" type="button"><?php echo __('Add item', 'traveler-booking'); ?></button>
+		<button class="traveler-add-item btn button button-primary" type="button"><?php echo __('Add item', 'wpbooking'); ?></button>
 	</div>
 	<?php endif; ?>
 	<i class="traveler-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
@@ -145,7 +145,7 @@ if(!empty($data['condition'])){
 				<td class="td-left" colspan="3">
 					<div class="form-table traveler-settings  traveler-form-group ">
 						<div class="st-metabox-left">
-							<label><?php echo __('Title', 'traveler-booking'); ?></label>
+							<label><?php echo __('Title', 'wpbooking'); ?></label>
 						</div>	
 						<div class="st-metabox-right">
 							<div class="st-metabox-content-wrapper">

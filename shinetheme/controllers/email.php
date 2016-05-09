@@ -54,7 +54,7 @@ if(!class_exists('Traveler_Email'))
 				foreach($authors as $key=>$value)
 				{
 					$to=$user_email = get_the_author_meta( 'user_email' ,$key);
-					$subject=sprintf(__("New Order from %s",'traveler-booking'),get_bloginfo('title'));
+					$subject=sprintf(__("New Order from %s",'wpbooking'),get_bloginfo('title'));
 					Traveler()->set('items',$value);
 					$message=traveler_load_view('emails/booking-information');
 					$this->send($to,$subject,$message);
@@ -63,7 +63,7 @@ if(!class_exists('Traveler_Email'))
 
 			// to Admin
 			$to=get_option('admin_email');
-			$subject=sprintf(__("New Order from %s",'traveler-booking'),get_bloginfo('title'));
+			$subject=sprintf(__("New Order from %s",'wpbooking'),get_bloginfo('title'));
 			$message=traveler_load_view('emails/booking-information',array('items'=>$items,'order_id'=>$order_id));
 			$this->send($to,$subject,$message);
 
@@ -78,7 +78,7 @@ if(!class_exists('Traveler_Email'))
 
 			if(!$message) return array(
 				'status'  => 0,
-				'message' => __("Email content is empty",'traveler-booking')
+				'message' => __("Email content is empty",'wpbooking')
 			);
 			$from = traveler_get_option('email_from');
 			$from_address = traveler_get_option('email_from_address');

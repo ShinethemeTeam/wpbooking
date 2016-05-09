@@ -1,6 +1,6 @@
 <div class="wrap">
     <div id="icon-tools" class="icon32"></div>
-    <h2><?php _e("Settings",'traveler-booking') ?></h2>
+    <h2><?php _e("Settings",'wpbooking') ?></h2>
 </div>
 <?php
 $custom_settings = Traveler_Admin_Setting::inst()->_get_settings();
@@ -74,7 +74,7 @@ $slug_page_menu = $menu_page['menu_slug'];
 
                 </tbody>
             </table>
-            <input type="submit" class="btn button button-primary" value="<?php _e("Save Settings",'traveler-booking') ?>">
+            <input type="submit" class="btn button button-primary" value="<?php _e("Save Settings",'wpbooking') ?>">
         </form>
     </div>
 </div>

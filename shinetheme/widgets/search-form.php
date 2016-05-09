@@ -3,7 +3,7 @@ if(!class_exists('traveler_widget_form_search')){
     class traveler_widget_form_search extends WP_Widget{
         public function __construct() {
             $widget_ops = array('classname' => '', 'description' => "" );
-            parent::__construct('traveler_widget_form_search', __('Traveler Search Form',"traveler-booking"), $widget_ops);
+            parent::__construct('traveler_widget_form_search', __('Traveler Search Form',"wpbooking"), $widget_ops);
         }
         /**
          * @param array $args
@@ -51,7 +51,7 @@ if(!class_exists('traveler_widget_form_search')){
 										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
 										<?php
 										$args = array(
-											'show_option_none' => __( '-- Select --' , "traveler-booking"  ),
+											'show_option_none' => __( '-- Select --' , "wpbooking"  ),
 											'option_none_value' => "",
 											'hierarchical'      => 1 ,
 											'name'              => $v['field_type'] ,
@@ -76,7 +76,7 @@ if(!class_exists('traveler_widget_form_search')){
 										<?php
 										if($v['taxonomy_show'] =='dropdown'){
 											$args = array(
-												'show_option_none' => __( '-- Select --' , "traveler-booking" ),
+												'show_option_none' => __( '-- Select --' , "wpbooking" ),
 												'option_none_value' => "",
 												'hierarchical'      => 1 ,
 												'name'              => $v['field_type'].'['.$v['taxonomy'].']' ,
@@ -127,11 +127,11 @@ if(!class_exists('traveler_widget_form_search')){
 										<div class="row">
 											<?php
 											$data = array(
-												"1" => __( "1 Start" , 'traveler-booking' ) ,
-												"2" => __( "2 Start" , 'traveler-booking' ) ,
-												"3" => __( "3 Start" , 'traveler-booking' ) ,
-												"4" => __( "4 Start" , 'traveler-booking' ) ,
-												"5" => __( "5 Start" , 'traveler-booking' )
+												"1" => __( "1 Start" , 'wpbooking' ) ,
+												"2" => __( "2 Start" , 'wpbooking' ) ,
+												"3" => __( "3 Start" , 'wpbooking' ) ,
+												"4" => __( "4 Start" , 'wpbooking' ) ,
+												"5" => __( "5 Start" , 'wpbooking' )
 											);
 											if(!empty( $data )) {
 												foreach( $data as $key2 => $value2 ) {
@@ -183,7 +183,7 @@ if(!class_exists('traveler_widget_form_search')){
 					} ?>
 
 					<div class="item-search">
-						<button class="" type="submit"><?php _e("Search",'traveler-booking') ?></button>
+						<button class="" type="submit"><?php _e("Search",'wpbooking') ?></button>
 					</div>
 				</div>
             </form>
@@ -211,14 +211,14 @@ if(!class_exists('traveler_widget_form_search')){
             $instance = wp_parse_args((array) $instance, array( 'title' => '','service_type'=> '','field_search'=>""));
             extract($instance);
             ?>
-            <p><label for="<?php echo $this->get_field_id('title'); ?>"><strong><?php _e('Title:',"traveler-booking"); ?></strong> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
+            <p><label for="<?php echo $this->get_field_id('title'); ?>"><strong><?php _e('Title:',"wpbooking"); ?></strong> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
             <p>
                 <label for="<?php echo $this->get_field_id('service_type'); ?>"><strong><?php _e('Service Type:'); ?></strong>
                     <?php
                     $data = Traveler_Service::inst()->get_service_types();
                     ?>
                     <select name="<?php echo $this->get_field_name('service_type'); ?>" class="option_service_search_form" id="<?php echo $this->get_field_id('service_type'); ?>">
-                        <option value=""><?php _e("-- Select --",'traveler-booking') ?></option>
+                        <option value=""><?php _e("-- Select --",'wpbooking') ?></option>
                         <?php
                         if(!empty($data)){
                             foreach($data as $k=>$v){
@@ -238,7 +238,7 @@ if(!class_exists('traveler_widget_form_search')){
                 foreach( $all_list_field as $key => $value ) {
                     ?>
                     <div class="list_item_widget  div_content_<?php echo esc_attr($key) ?> <?php if($key != $service_type) echo "hide"; ?>">
-                        <label><strong><?php _e("Search Fields:","traveler-booking") ?></strong></label>
+                        <label><strong><?php _e("Search Fields:","wpbooking") ?></strong></label>
                         <div class="list-group content_list_search_form_widget">
 
                             <?php
@@ -250,8 +250,8 @@ if(!class_exists('traveler_widget_form_search')){
                                     <div class="list-group-item">
 
                                         <div class="control">
-                                            <a class="btn_edit_field_search_form"><?php _e("Edit","traveler-booking") ?></a> |
-                                            <a class="btn_remove_field_search_form"><?php _e("Remove","traveler-booking") ?></a>
+                                            <a class="btn_edit_field_search_form"><?php _e("Edit","wpbooking") ?></a> |
+                                            <a class="btn_remove_field_search_form"><?php _e("Remove","wpbooking") ?></a>
                                         </div>
                                         <div class="control-hide hide">
                                             <table class="form-table traveler-settings">
@@ -326,8 +326,8 @@ if(!class_exists('traveler_widget_form_search')){
                     <div class="div_content_hide_<?php echo esc_attr($key) ?> hide">
                         <div class="list-group-item">
                             <div class="control">
-                                <a class="btn_edit_field_search_form"><?php _e("Edit","traveler-booking") ?></a> |
-                                <a class="btn_remove_field_search_form"><?php _e("Remove","traveler-booking") ?></a>
+                                <a class="btn_edit_field_search_form"><?php _e("Edit","wpbooking") ?></a> |
+                                <a class="btn_remove_field_search_form"><?php _e("Remove","wpbooking") ?></a>
                             </div>
                             <div class="control-hide">
                                 <table class="form-table traveler-settings">

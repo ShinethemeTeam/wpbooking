@@ -11,7 +11,7 @@ $items=$booking->get_cart();
 <div class="traveler-cart-widget-content">
 <?php
 if(empty($items)){
-	printf('<p class="alert alert-warning">%s</p>',__('Your cart is currently empty','traveler-booking'));
+	printf('<p class="alert alert-warning">%s</p>',__('Your cart is currently empty','wpbooking'));
 }else{
 	?>
 		<ul class="cart-widget-items">
@@ -36,12 +36,12 @@ if(empty($items)){
 		</ul>
 		<hr>
 		<div class="cart-widget-total">
-			<p class="total"><?php _e('Total:','traveler-booking') ?> <?php echo $booking->get_cart_total() ?></p>
-			<p class="payamount"><?php _e('Pay Amount:','traveler-booking') ?> <?php echo $booking->get_cart_pay_amount() ?></p>
+			<p class="total"><?php _e('Total:','wpbooking') ?> <?php echo $booking->get_cart_total() ?></p>
+			<p class="payamount"><?php _e('Pay Amount:','wpbooking') ?> <?php echo $booking->get_cart_pay_amount() ?></p>
 		</div>
 
 		<div class="cart-widget-actions">
-			<a href="<?php echo esc_url($booking->get_checkout_url()) ?>" class="btn btn-success"><?php _e('Checkout Now','traveler-booking') ?></a>
+			<a href="<?php echo esc_url($booking->get_checkout_url()) ?>" class="btn btn-success"><?php _e('Checkout Now','wpbooking') ?></a>
 		</div>
 	<?php
 }

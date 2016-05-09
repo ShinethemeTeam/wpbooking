@@ -11,7 +11,7 @@ $form_id=$booking->get_checkout_form();
 $cart=$booking->get_cart();
 if(empty($cart))
 {
-	traveler_set_message(__('Sorry! Your cart is currently empty','traveler-booking'),'danger');
+	traveler_set_message(__('Sorry! Your cart is currently empty','wpbooking'),'danger');
 }
 
 echo traveler_get_message();
@@ -36,7 +36,7 @@ if(empty($cart))
 				<?php echo traveler_load_view('checkout/gateways') ?>
 			</div>
 			<div class="checkout-submit-button">
-				<button type="submit" class="button button-primary submit-button"><?php _e('Place Your Order','traveler-booking') ?></button>
+				<button type="submit" class="button button-primary submit-button"><?php _e('Place Your Order','wpbooking') ?></button>
 			</div>
 		</div>
 	</form>

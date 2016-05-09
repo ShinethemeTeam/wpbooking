@@ -15,56 +15,56 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 		function __construct()
 		{
 			$this->type_info = array(
-				'label' => __("Room", 'traveler-booking')
+				'label' => __("Room", 'wpbooking')
 			);
 			$this->settings = array(
 
 				array(
 					'id'    => 'title',
-					'label' => __('General Options', 'traveler-booking'),
+					'label' => __('General Options', 'wpbooking'),
 					'type'  => 'title',
 				), array(
 					'id'    => 'archive_page',
-					'label' => __('Archive Page', 'traveler-booking'),
+					'label' => __('Archive Page', 'wpbooking'),
 					'type'  => 'page-select',
 				),
 				array(
 					'id'    => 'review',
-					'label' => __('Review', 'traveler-booking'),
+					'label' => __('Review', 'wpbooking'),
 					'type'  => 'multi-checkbox',
 					'value' => array(
 						array(
 							'id'    => $this->type_id . '_enable_review',
-							'label' => __('Enable Review', 'traveler-booking')
+							'label' => __('Enable Review', 'wpbooking')
 						),
 						array(
 							'id'    => $this->type_id . '_allow_guest_review',
-							'label' => __('Allow Guest Review', 'traveler-booking')
+							'label' => __('Allow Guest Review', 'wpbooking')
 						),
 						array(
 							'id'    => $this->type_id . '_review_without_booking',
-							'label' => __('Review Without Booking', 'traveler-booking')
+							'label' => __('Review Without Booking', 'wpbooking')
 						),
 						array(
 							'id'    => $this->type_id . '_show_rate_review_button',
-							'label' => __('Show Rate (Help-full) button in each review?', 'traveler-booking')
+							'label' => __('Show Rate (Help-full) button in each review?', 'wpbooking')
 						),
 						array(
 							'id'    => $this->type_id . '_required_partner_approved_review',
-							'label' => __('Review require Partner Approved?', 'traveler-booking')
+							'label' => __('Review require Partner Approved?', 'wpbooking')
 						),
 					)
 				),
 
 				array(
 					'id'    => 'review_stats',
-					'label' => __("Review Stats", 'traveler-booking'),
+					'label' => __("Review Stats", 'wpbooking'),
 					'type'  => 'list-item',
 					'value' => array()
 				),
 				array(
 					'id'    => 'maximum_review',
-					'label' => __("Maximum review per user", 'traveler-booking'),
+					'label' => __("Maximum review per user", 'wpbooking'),
 					'type'  => 'number',
 					'std'   => 1
 				),
@@ -73,27 +73,27 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 				),
 				array(
 					'id'    => 'title',
-					'label' => __('Booking Options', 'traveler-booking'),
+					'label' => __('Booking Options', 'wpbooking'),
 					'type'  => 'title',
 				),
 				array(
 					'id'        => 'order_form',
-					'label'     => __('Order Form', 'traveler-booking'),
+					'label'     => __('Order Form', 'wpbooking'),
 					'type'      => 'post-select',
 					'post_type' => array('traveler_form')
 				),
 				array(
 					'id'    => 'confirm-settings',
-					'label' => __('Instant Booking?', 'traveler-booking'),
+					'label' => __('Instant Booking?', 'wpbooking'),
 					'type'  => 'multi-checkbox',
 					'value' => array(
 						array(
 							'id'    => 'service_type_' . $this->type_id . '_customer_confirm',
-							'label' => __("Require customer confirm the booking by send them an email", 'traveler-booking')
+							'label' => __("Require customer confirm the booking by send them an email", 'wpbooking')
 						),
 						array(
 							'id'    => 'service_type_' . $this->type_id . '_partner_confirm',
-							'label' => __("Require partner confirm the booking", 'traveler-booking')
+							'label' => __("Require partner confirm the booking", 'wpbooking')
 						),
 					)
 				),
@@ -102,12 +102,12 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 				),
 				array(
 					'id'    => 'title',
-					'label' => __('Layout', 'traveler-booking'),
+					'label' => __('Layout', 'wpbooking'),
 					'type'  => 'title',
 				),
 				array(
 					'id'    => 'posts_per_page',
-					'label' => __("Item per page", 'traveler-booking'),
+					'label' => __("Item per page", 'wpbooking'),
 					'type'  => 'number',
 					'std'   => 10
 				),
@@ -135,6 +135,24 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 			// Add more params to cart items
 			add_filter('traveler_cart_item_params_' . $this->type_id, array($this, '_change_cart_item_params'), 10, 2);
 
+			// Change Search Query
+			add_action('traveler_before_service_query_'.$this->type_id,array($this,'_add_change_query'));
+			add_action('traveler_after_service_query_'.$this->type_id,array($this,'_remove_change_query'));
+
+		}
+
+		function _add_change_query()
+		{
+			add_action('posts_fields',array($this,'_add_select_fields'));
+		}
+		function _add_select_fields($fields)
+		{
+
+			return $fields;
+		}
+		function _remove_change_query()
+		{
+			remove_action('posts_fields',array($this,'_add_select_fields'));
 		}
 
 		/**
@@ -187,7 +205,7 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 					// If there are some day not available, return the message
 
 					if (!empty($unavailable)) {
-						$message = __("Sorry, This item is not available in: %s", 'traveler-booking');
+						$message = __("Sorry, This item is not available in: %s", 'wpbooking');
 						$not_avai_string = FALSE;
 						foreach ($unavailable as $k => $v) {
 							$not_avai_string .= date(get_option('date_format'), $v) . ', ';
@@ -198,7 +216,7 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 						$is_validated = FALSE;
 					}
 				} else {
-					traveler_set_message(__("Sorry, This item is not available at the moment", 'traveler-booking'), 'error');
+					traveler_set_message(__("Sorry, This item is not available at the moment", 'wpbooking'), 'error');
 					$is_validated = FALSE;
 				}
 			}

@@ -15,9 +15,9 @@ if(!class_exists('Traveler_Widget_Currency_Switcher'))
 		function __construct() {
 			parent::__construct(
 				FALSE, // Base ID
-				__( 'Currency Switcher', 'traveler-booking' ), // Name,
+				__( 'Currency Switcher', 'wpbooking' ), // Name,
 				array(
-					'description'=>__('[Traveler] Currency Switcher','traveler-booking')
+					'description'=>__('[WPBooking] Currency Switcher','wpbooking')
 				)
 			);
 		}

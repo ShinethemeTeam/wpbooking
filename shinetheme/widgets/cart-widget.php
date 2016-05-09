@@ -15,9 +15,9 @@ if(!class_exists('Traveler_Widget_Cart'))
 		function __construct() {
 			parent::__construct(
 				FALSE, // Base ID
-				__( 'Cart Content', 'traveler-booking' ), // Name,
+				__( 'Cart Content', 'wpbooking' ), // Name,
 				array(
-					'description'=>__('[Traveler] Cart Content','traveler-booking')
+					'description'=>__('[WPBooking] Cart Content','wpbooking')
 				)
 			);
 		}

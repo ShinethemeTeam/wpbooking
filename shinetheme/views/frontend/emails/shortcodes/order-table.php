@@ -11,8 +11,8 @@ $items=Traveler()->get('items',array());
 <table width="100%" cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
-		<th class="review-order-item-info"><?php _e('Service','traveler-booking')?></th>
-		<th class="review-order-item-total"><?php _e('Total','traveler-booking')?></th>
+		<th class="review-order-item-info"><?php _e('Service','wpbooking')?></th>
+		<th class="review-order-item-total"><?php _e('Total','wpbooking')?></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -35,11 +35,11 @@ $items=Traveler()->get('items',array());
 	</tbody>
 	<tfoot>
 		<tr>
-			<td><?php _e('Total','traveler-booking')?></td>
+			<td><?php _e('Total','wpbooking')?></td>
 			<td><?php echo Traveler_Currency::format_money($booking->get_order_total($order_id));?></td>
 		</tr>
 		<tr>
-			<td><?php _e('Pay Amount','traveler-booking')?></td>
+			<td><?php _e('Pay Amount','wpbooking')?></td>
 			<td><?php echo Traveler_Currency::format_money($booking->get_order_pay_amount($order_id));?></td>
 		</tr>
 		<?php do_action('traveler_review_order_footer') ?>

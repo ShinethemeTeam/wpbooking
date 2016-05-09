@@ -22,7 +22,7 @@ if(!empty($data['condition'])){
     <td>
         <?php if(!empty($terms)){ ?>
             <select class="form-control  min-width-500" name="<?php echo esc_html($name) ?>">
-                <?php echo '<option value="">-- ' . __( 'Choose One', 'traveler-booking' ) . ' --</option>'; ?>
+                <?php echo '<option value="">-- ' . __( 'Choose One', 'wpbooking' ) . ' --</option>'; ?>
                 <?php foreach($terms as $k=>$v){ ?>
                     <option <?php if($data_value == $v->term_id) echo "selected"; ?> value="<?php echo esc_attr($v->term_id) ?>"><?php echo esc_html($v->name) ?></option>
                 <?php } ?>

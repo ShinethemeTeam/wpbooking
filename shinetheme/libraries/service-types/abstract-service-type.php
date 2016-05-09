@@ -95,7 +95,7 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 			// Show Need Confirm Notification
 			if($cart_item['need_customer_confirm'] or $cart_item['need_customer_confirm'])
 			{
-				echo "<div class='label label-warning'>".__("Need Confirmation ",'traveler-booking')."</div>";
+				echo "<div class='label label-warning'>".__("Need Confirmation ",'wpbooking')."</div>";
 			}
 		}
 
@@ -146,16 +146,16 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 			// Show Need Confirm Notification
 			if($order_item['need_customer_confirm'] or $order_item['need_customer_confirm'])
 			{
-				echo "<div class='label label-warning'>".__("Need Confirmation",'traveler-booking')."</div>";
+				echo "<div class='label label-warning'>".__("Need Confirmation",'wpbooking')."</div>";
 			}else{
 				// Show Payment Status
 				switch($order_item['status'])
 				{
 					case "completed":
-						echo "<div class='label label-success'>".__("Completed",'traveler-booking')."</div>";
+						echo "<div class='label label-success'>".__("Completed",'wpbooking')."</div>";
 						break;
 					case "on-hold":
-						echo "<div class='label label-warning'>".__("On-hold",'traveler-booking')."</div>";
+						echo "<div class='label label-warning'>".__("On-hold",'wpbooking')."</div>";
 						break;
 
 				}

@@ -23,25 +23,25 @@ if(!class_exists('Traveler_Admin_Order'))
 		{
 			$menu_page = Traveler()->get_menu_page();
 			$labels = array(
-				'name'               => _x( 'Booking', 'post type general name', 'traveler-booking' ),
-				'singular_name'      => _x( 'Booking', 'post type singular name', 'traveler-booking' ),
-				'menu_name'          => _x( 'Booking', 'admin menu', 'traveler-booking' ),
-				'name_admin_bar'     => _x( 'Booking', 'add new on admin bar', 'traveler-booking' ),
-				'add_new'            => _x( 'Add New', 'Booking', 'traveler-booking' ),
-				'add_new_item'       => __( 'Add New Booking', 'traveler-booking' ),
+				'name'               => _x( 'Booking', 'post type general name', 'wpbooking' ),
+				'singular_name'      => _x( 'Booking', 'post type singular name', 'wpbooking' ),
+				'menu_name'          => _x( 'Booking', 'admin menu', 'wpbooking' ),
+				'name_admin_bar'     => _x( 'Booking', 'add new on admin bar', 'wpbooking' ),
+				'add_new'            => _x( 'Add New', 'Booking', 'wpbooking' ),
+				'add_new_item'       => __( 'Add New Booking', 'wpbooking' ),
 				'new_item'           => __( 'New Booking', 'your-plugin-textdomain' ),
-				'edit_item'          => __( 'Edit Booking', 'traveler-booking' ),
-				'view_item'          => __( 'View Booking', 'traveler-booking' ),
-				'all_items'          => __( 'All Booking', 'traveler-booking' ),
-				'search_items'       => __( 'Search Booking', 'traveler-booking' ),
-				'parent_item_colon'  => __( 'Parent Booking:', 'traveler-booking' ),
-				'not_found'          => __( 'No Booking found.', 'traveler-booking' ),
-				'not_found_in_trash' => __( 'No Booking found in Trash.', 'traveler-booking' )
+				'edit_item'          => __( 'Edit Booking', 'wpbooking' ),
+				'view_item'          => __( 'View Booking', 'wpbooking' ),
+				'all_items'          => __( 'All Booking', 'wpbooking' ),
+				'search_items'       => __( 'Search Booking', 'wpbooking' ),
+				'parent_item_colon'  => __( 'Parent Booking:', 'wpbooking' ),
+				'not_found'          => __( 'No Booking found.', 'wpbooking' ),
+				'not_found_in_trash' => __( 'No Booking found in Trash.', 'wpbooking' )
 			);
 
 			$args = array(
 				'labels'             => $labels,
-				'description'        => __( 'Description.', 'traveler-booking' ),
+				'description'        => __( 'Description.', 'wpbooking' ),
 				'public'             => true,
 				'publicly_queryable' => true,
 				'show_ui'            => true,
