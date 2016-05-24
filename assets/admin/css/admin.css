@@ -442,6 +442,7 @@ input.gmap-search {
 }
 .traveler-list-item-wrapper .traveler-list-item {
   display: table;
+  width: 100%;
 }
 .traveler-list-item-wrapper .list-item-head {
   width: 100%;
