@@ -306,6 +306,7 @@ jQuery(document).ready(function( $ ){
         container.find('.traveler_booking_number_last_list_item').val(number_list);
     });
     $(document).on('click', '.btn_list_item_del', function (event) {
+        var confirm=confirm();
         var container = $(this).parent().parent().parent();
         container.remove();
     });

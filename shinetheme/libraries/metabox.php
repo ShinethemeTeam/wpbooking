@@ -171,6 +171,7 @@ if( ! class_exists('Traveler_Metabox') ){
 	          return $post_id;
 	      }
 
+
 	      foreach ( $this->metabox['fields'] as $field ) {
 	      	if ( $field[ 'type' ] == 'list-item' ) {
 	      		continue;

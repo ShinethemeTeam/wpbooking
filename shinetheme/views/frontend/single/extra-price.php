@@ -7,9 +7,8 @@
  */
 $extra_price=get_post_meta(get_the_ID(),'extra_price',true);
 if(empty($extra_price) or !is_array($extra_price)) return;
-return;
 ?>
-<div class="traveler-extra-price-wrap">
+<div class="traveler-extra-price-wrap mb20">
 	<h4 ><?php _e('Extra Price:','wpbooking') ?></h4>
 	<div class="traveler-extra-price-list">
 		<?php

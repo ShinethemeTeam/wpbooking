@@ -127,6 +127,7 @@ if (!class_exists('Traveler_Booking')) {
 					'message' => traveler_get_message(TRUE)
 				);
 			}
+			$res['updated_content']=apply_filters('traveler_cart_updated_content',array());
 
 			$res = apply_filters('traveler_ajax_add_to_cart', $res, $post_id);
 			$res = apply_filters('traveler_ajax_add_to_cart_' . $service_type, $res, $post_id);

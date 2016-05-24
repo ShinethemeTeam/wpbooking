@@ -85,6 +85,16 @@ jQuery(document).ready(function($){
                         form.find("[name='"+k+"']").addClass('input-error');
                     }
                 }
+                console.log(res.updated_content);
+                if(typeof  res.updated_content!='undefined'){
+
+                    for (var k in res.updated_content){
+                        var element=$(k);
+                        console.log(element);
+                        element.replaceWith(res.updated_content[k]);
+                        $(window).trigger('traveler_event_cart_update_content',[k,res.updated_content[k]]);
+                    }
+                }
 
                 me.removeClass('loading');
             },

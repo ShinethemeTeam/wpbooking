@@ -42,10 +42,10 @@ if(!empty($data['condition'])){
 					<div class="item-title"><?php echo esc_html( $convert_val['title'] ); ?></div>
 						
 					<div class="button-control">
-						<a title="Edit" class="button button-primary btn_list_item_edit" href="#">
+						<a title="<?php esc_html_e('Edit','wpbooking') ?>" class="button button-primary btn_list_item_edit" href="#">
 			                <span class="fa fa-pencil"></span>
 			            </a>
-			            <a title="Delete" class="button button-secondary light right-item btn_list_item_del" href="#">
+			            <a title="<?php esc_attr_e('Delete','wpbooking')?>" class="button button-secondary light right-item btn_list_item_del" href="#">
 			                <span class="fa fa-trash-o"></span>
 			            </a>
 					</div>
@@ -91,7 +91,7 @@ if(!empty($data['condition'])){
 
 									$file = 'metabox-fields/' . $item['type'];
 
-									echo traveler_admin_load_view( $file, array( 'data' => $item ) );
+									echo traveler_admin_load_view( $file, array( 'data' => $item,'is_sub_item'=>true ) );
 								?>
 									
 								<?php endforeach; ?>	

@@ -4,6 +4,9 @@
 .input-error {
   border-color: red;
 }
+.mb20 {
+  margin-bottom: 20px;
+}
 .alert {
   padding: 10px;
   margin: 20px 0px;

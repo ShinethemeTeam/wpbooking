@@ -41,6 +41,7 @@ if(!class_exists('Traveler_Widget_Cart'))
 			echo $args['after_widget'];
 		}
 
+
 		/**
 		 * Back-end widget form.
 		 *
@@ -76,9 +77,15 @@ if(!class_exists('Traveler_Widget_Cart'))
 			return $instance;
 		}
 
+		static function _add_cart_update_content($sections=array())
+		{
+			$sections['.traveler-cart-widget-content']=traveler_load_view('cart/cart-widget');
+			return $sections;
+		}
 		static function  widget_init()
 		{
 			add_action( 'widgets_init',array(__CLASS__,'register') );
+			add_filter('traveler_cart_updated_content',array(__CLASS__,'_add_cart_update_content'));
 		}
 		static function register()
 		{
