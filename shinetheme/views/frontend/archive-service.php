@@ -21,8 +21,9 @@ if(!empty($list_page_search[$is_page]))
     $service_type = $list_page_search[$is_page];
 }
 $my_query = Traveler_Service::inst()->query($args,$service_type);
+echo traveler_load_view('wrap/start');
 ?>
-<div class="traveler-container container">
+<div class="traveler-container">
     <div class="row">
         <!--<div class="col-md-3">
             <?php /*echo get_sidebar(); */?>
@@ -120,5 +121,6 @@ $my_query = Traveler_Service::inst()->query($args,$service_type);
     </div>
 </div>
 <?php
+echo traveler_load_view('wrap/end');
 wp_reset_query();
 get_footer();
