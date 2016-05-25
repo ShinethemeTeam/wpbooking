@@ -16,7 +16,7 @@ if (!class_exists('Traveler_Order_Model')) {
 		function __construct()
 		{
 			$this->table_name = 'traveler_order_item';
-			$this->table_version = '1.1.2';
+			$this->table_version = '1.1.3';
 			$this->columns = array(
 				'id'                    => array(
 					'type'           => "int",
@@ -38,6 +38,8 @@ if (!class_exists('Traveler_Order_Model')) {
 				'infant_number'         => array('type' => "INT"),
 				'customer_id'           => array('type' => "INT"),
 				'partner_id'            => array('type' => "INT"),
+				'deposit'               => array('type' => "varchar", 'length' => 50),
+				'deposit_amount'        => array('type' => "FLOAT"),
 				'need_customer_confirm' => array('type' => 'INT'),
 				'customer_confirm_code' => array('type' => "varchar", 'length' => 255),
 				'partner_confirm_code'  => array('type' => "varchar", 'length' => 255),
@@ -92,7 +94,9 @@ if (!class_exists('Traveler_Order_Model')) {
 				'infant_number'         => 0,
 				'customer_id'           => 0,
 				'need_customer_confirm' => 0,
-				'need_partner_confirm'  => 0
+				'need_partner_confirm'  => 0,
+				'deposit'               => '',
+				'deposit_amount'        => '',
 			));
 			$insert = array(
 				'order_id'              => $order_id,
@@ -109,6 +113,8 @@ if (!class_exists('Traveler_Order_Model')) {
 				'child_number'          => $cart_item['child_number'],
 				'infant_number'         => $cart_item['infant_number'],
 				'customer_id'           => $cart_item['customer_id'],
+				'deposit'               => $cart_item['deposit'],
+				'deposit_amount'        => $cart_item['deposit_amount'],
 				'partner_id'            => get_post_field('post_author', $cart_item['post_id']),
 				'need_customer_confirm' => $cart_item['need_customer_confirm'] ? 1 : 0,
 				'need_partner_confirm'  => $cart_item['need_partner_confirm'] ? 1 : 0,

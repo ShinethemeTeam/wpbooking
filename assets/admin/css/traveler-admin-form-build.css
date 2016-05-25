@@ -1221,6 +1221,9 @@
 .content_list_search_form_widget .control {
   text-align: right;
 }
+.content_list_search_form_widget .control a {
+  cursor: pointer;
+}
 .content_list_search_form_widget .form-table th {
   width: 100px;
 }

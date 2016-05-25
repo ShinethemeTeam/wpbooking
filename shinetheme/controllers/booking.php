@@ -67,6 +67,7 @@ if (!class_exists('Traveler_Booking')) {
 				if (!$validator->run()) {
 					$is_validate = FALSE;
 					traveler_set_message($validator->error_string(), 'error');
+					$res['error_fields'] = $validator->get_error_fields();
 				}
 			}
 
@@ -78,10 +79,9 @@ if (!class_exists('Traveler_Booking')) {
 
 
 			if (!$is_validate) {
-				$res = array(
-					'status'  => 0,
-					'message' => traveler_get_message(TRUE)
-				);
+				$res['status']=FALSE;
+				$res['message']=traveler_get_message(TRUE);
+
 			} else {
 				if (!empty($fields)) {
 					foreach ($fields as $key => $value) {
@@ -97,6 +97,8 @@ if (!class_exists('Traveler_Booking')) {
 					'base_price'            => get_post_meta($post_id, 'price', TRUE),
 					'currency'              => get_post_meta($post_id, 'currency', TRUE),
 					'customer_id'           => is_user_logged_in() ? get_current_user_id() : FALSE,
+					'deposit'               => get_post_meta($post_id, 'deposit', TRUE),
+					'deposit_amount'        => get_post_meta($post_id, 'deposit_amount', TRUE),
 					'need_customer_confirm' => apply_filters('traveler_service_need_customer_confirm', 0, $post_id, $service_type),
 					'need_partner_confirm'  => apply_filters('traveler_service_need_partner_confirm', 0, $post_id, $service_type),
 					'sub_total'             => get_post_meta($post_id, 'price', TRUE), // Subtotal of item, without extra price,
@@ -127,7 +129,7 @@ if (!class_exists('Traveler_Booking')) {
 					'message' => traveler_get_message(TRUE)
 				);
 			}
-			$res['updated_content']=apply_filters('traveler_cart_updated_content',array());
+			$res['updated_content'] = apply_filters('traveler_cart_updated_content', array());
 
 			$res = apply_filters('traveler_ajax_add_to_cart', $res, $post_id);
 			$res = apply_filters('traveler_ajax_add_to_cart_' . $service_type, $res, $post_id);

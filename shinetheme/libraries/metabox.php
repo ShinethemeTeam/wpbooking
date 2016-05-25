@@ -6,6 +6,8 @@
 if( ! class_exists('Traveler_Metabox') ){
 	class Traveler_Metabox {
 
+		static $_inst;
+
 		private $metabox;
 
 		public function __construct(){
@@ -276,7 +278,7 @@ if( ! class_exists('Traveler_Metabox') ){
 	    				$list = $_POST[ $field['id'] ];
 	    				
 	    				$i = 0;
-    					for( $j = 0; $j < count( $list['name']) - 1; $j ++ ){
+    					for( $j = 0; $j < count( $list['title']) - 1; $j ++ ){
     						foreach( $list as $key1 => $val1 ){
 	    						$new_list[ $i ][ $key1 ] = $list[ $key1 ][ $i];
 	    					}
@@ -292,5 +294,16 @@ if( ! class_exists('Traveler_Metabox') ){
 	    	return $post_id;
 	    }
 
+		static function inst()
+		{
+			if(!self::$_inst){
+				self::$_inst=new self();
+			}
+			return self::$_inst;
+		}
+
+
 	}
+
+	Traveler_Metabox::inst();
 }

@@ -94,7 +94,7 @@ if(!class_exists('Traveler_Admin_Service'))
 
 		function _add_metabox()
 		{
-			$metabox = new Traveler_Metabox();
+			$metabox = Traveler_Metabox::inst();
 
 			$settings = array(
 				'id'       => 'st_post_metabox',
@@ -190,12 +190,12 @@ if(!class_exists('Traveler_Admin_Service'))
 						'type' => 'text',
 					),
 					array(
-						'label' => __('Preparetions', 'wpbooking'),
-						'id' => 'preparetions',
+						'label' => __('Preparations', 'wpbooking'),
+						'id' => 'preparations',
 						'type' => 'text',
 					),
 					array(
-						'label' => __('Amelities', 'wpbooking'),
+						'label' => __('Amenities', 'wpbooking'),
 						'id'    => 'amelities_tab',
 						'type'  => 'tab',
 					),
@@ -215,13 +215,13 @@ if(!class_exists('Traveler_Admin_Service'))
 						'id' => 'price',
 						'type' => 'text',
 					),
-					array(
-						'label' => __('Currency', 'wpbooking'),
-						'id' => 'currency',
-						'type' => 'dropdown',
-						'std' => 'usd',
-						'value' =>Traveler_Currency::get_added_currency_array()
-					),
+//					array(
+//						'label' => __('Currency', 'wpbooking'),
+//						'id' => 'currency',
+//						'type' => 'dropdown',
+//						'std' => 'usd',
+//						'value' =>Traveler_Currency::get_added_currency_array()
+//					),
 					array(
 						'label' => __('Price Type', 'wpbooking'),
 						'id' => 'price_type',
@@ -231,26 +231,26 @@ if(!class_exists('Traveler_Admin_Service'))
 							'per_night' => __('Per Night', 'wpbooking'),
 						),
 					),
-					array(
-						'label' => __('Long Terms?', 'wpbooking'),
-						'id' => 'long_terms',
-						'type' => 'checkbox',
-						'value' => array(
-							'yes' => __('Yes', 'wpbooking')
-						),
-					),
-					array(
-						'label' => __('Weekly Discount', 'wpbooking'),
-						'id' => 'weekly_discount',
-						'type' => 'text',
-						'condition' => 'long_terms:is(yes)'
-					),
-					array(
-						'label' => __('Monthly Discount', 'wpbooking'),
-						'id' => 'monthly_discount',
-						'type' => 'text',
-						'condition' => 'long_terms:is(yes)'
-					),
+//					array(
+//						'label' => __('Long Terms?', 'wpbooking'),
+//						'id' => 'long_terms',
+//						'type' => 'checkbox',
+//						'value' => array(
+//							'yes' => __('Yes', 'wpbooking')
+//						),
+//					),
+//					array(
+//						'label' => __('Weekly Discount', 'wpbooking'),
+//						'id' => 'weekly_discount',
+//						'type' => 'text',
+//						'condition' => 'long_terms:is(yes)'
+//					),
+//					array(
+//						'label' => __('Monthly Discount', 'wpbooking'),
+//						'id' => 'monthly_discount',
+//						'type' => 'text',
+//						'condition' => 'long_terms:is(yes)'
+//					),
 					array(
 						'label' => __('Extra Price', 'wpbooking'),
 						'id' => 'extra_price',
@@ -263,7 +263,7 @@ if(!class_exists('Traveler_Admin_Service'))
 							),
 							array(
 								'label' => __('Type', 'wpbooking'),
-								'id' => 'currency',
+								'id' => 'type',
 								'type' => 'dropdown',
 								'value' => array(
 									'fixed' => __('Fixed', 'wpbooking'),
@@ -273,7 +273,7 @@ if(!class_exists('Traveler_Admin_Service'))
 						)
 					),
 					array(
-						'label' => __('Deposit?', 'wpbooking'),
+						'label' => __('Allow Deposit?', 'wpbooking'),
 						'id' => 'deposit',
 						'type' => 'dropdown',
 						'value' => array(
@@ -283,8 +283,8 @@ if(!class_exists('Traveler_Admin_Service'))
 						),
 					),
 					array(
-						'label' => __('Amount', 'wpbooking'),
-						'id' => 'amount',
+						'label' => __('Deposit Amount', 'wpbooking'),
+						'id' => 'deposit_amount',
 						'type' => 'text',
 						''
 					),

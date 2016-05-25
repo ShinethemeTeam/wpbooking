@@ -49,7 +49,7 @@ if(!empty($data['condition'])){
 							<input type="hidden" id="calendar-post-id" name="post-id" value="<?php echo get_the_ID(); ?>">
 							<input type="hidden" id="calendar-post-encrypt" name="calendar-post-encrypt" value="<?php echo traveler_encrypt( get_the_ID() ); ?>">
 							<button type="button" id="calendar-save" class="button button-primary button-large"><?php echo __('Save','wpbooking'); ?></button>
-							<button type="button" id="calendar-bulk-edit" class="button button-primary button-large" style="float: right;"><?php echo __('Bulk Edit','wpbooking'); ?></button>
+							<button type="button" id="calendar-bulk-edit" class="button button-large" style="float: right;"><?php echo __('Bulk Edit','wpbooking'); ?></button>
 						</div>
 						<div class="" style="margin-bottom: 10px;">
 							

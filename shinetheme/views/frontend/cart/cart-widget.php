@@ -17,6 +17,7 @@ if(empty($items)){
 		<ul class="cart-widget-items">
 			<?php
 			foreach($items as $key=>$value){
+				$service_type=$value['service_type'];
 				?>
 				<li>
 					<div class="cart-item-img">
@@ -27,6 +28,10 @@ if(empty($items)){
 						<span class="price">
 							<?php echo $booking->get_cart_item_total_html($value) ?>
 						</span>
+						<div class="service-meta">
+							<?php do_action('traveler_cart_item_information',$value) ?>
+							<?php do_action('traveler_cart_item_information_'.$service_type,$value) ?>
+						</div>
 					</div>
 				</li>
 				<?php
