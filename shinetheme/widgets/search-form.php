@@ -2,7 +2,7 @@
 if(!class_exists('WPBooking_Widget_Form_Search')){
     class WPBooking_Widget_Form_Search extends WP_Widget{
         public function __construct() {
-            $widget_ops = array('classname' => '', 'description' => "" );
+            $widget_ops = array('classname' => '', 'description' => "[WPBooking] Search Form" );
             parent::__construct(__CLASS__, __('WPBooking Search Form',"wpbooking"), $widget_ops);
         }
         /**
@@ -261,7 +261,10 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                                                     $default = array( 'name' => '' , 'label' => '' , 'type' => '' , 'options' => '' , 'class' => '', 'value' => '' );
                                                     $v1 = wp_parse_args( $v1 , $default );
 
+													if(!empty($v[$v1['name']]))
                                                     $data_value = $v[$v1['name']];
+													else $data_value=FALSE;
+
                                                     if($v1['name'] == 'title'){
                                                         $hteml_title_form = $data_value;
                                                     }
@@ -270,6 +273,14 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                                                         <tr class="<?php echo esc_attr($v1['class']) ?> div_<?php echo esc_attr($v1['name']) ?>">
                                                             <th> <?php echo esc_html($v1['label']) ?>:  </th>
                                                             <td> <input type="text"  name="<?php echo $this->get_field_name('field_search'); ?>[<?php echo esc_attr($key) ?>][<?php echo esc_attr($number) ?>][<?php echo esc_attr($v1['name']) ?>]" class="form-control <?php echo esc_attr($v1['name']) ?>" value="<?php echo esc_html($data_value) ?>"> </td>
+                                                        </tr>
+                                                    <?php
+                                                    }
+                                                    if($v1['type'] == 'checkbox'){
+                                                        ?>
+                                                        <tr class="<?php echo esc_attr($v1['class']) ?> div_<?php echo esc_attr($v1['name']) ?>">
+                                                            <th> <?php echo esc_html($v1['label']) ?>:  </th>
+                                                            <td> <label><input type="checkbox" <?php checked(1,$data_value) ?>  name="<?php echo $this->get_field_name('field_search'); ?>[<?php echo esc_attr($key) ?>][<?php echo esc_attr($number) ?>][<?php echo esc_attr($v1['name']) ?>]" class=" <?php echo esc_attr($v1['name']) ?>"> <?php esc_html_e('Yes','wpbooking')?></label> </td>
                                                         </tr>
                                                     <?php
                                                     }

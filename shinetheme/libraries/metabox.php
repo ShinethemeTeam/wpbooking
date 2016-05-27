@@ -43,9 +43,34 @@ if( ! class_exists('WPBooking_Metabox') ){
 
 		public function register_meta_box( $metabox = array() ){
 
-			$this->metabox = $metabox;
+			$this->metabox = $this->_pre_handle_metabox($metabox);
 
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+		}
+
+		/**
+		 * Loop and Hook to allow 3rd plugin add metabox
+		 *
+		 * @param $metabox
+		 * @return mixed
+		 *
+		 * @author dungdt
+		 * @since 1.0
+		 */
+		private function _pre_handle_metabox($metabox)
+		{
+			if(!empty($metabox['fields']) and !empty($metabox['id']))
+			{
+				$fields=array();
+				foreach($metabox['fields'] as $key=>$value){
+					$fields[]=$value;
+					if(!empty($value['id']))
+					$fields=apply_filters('wpbooking_metabox_after_'.$metabox['id'].'_field_'.$value['id'],$fields,$value);
+				}
+
+				$metabox['fields']=$fields;
+			}
+			return $metabox;
 		}
 
 		public function add_meta_boxes(){

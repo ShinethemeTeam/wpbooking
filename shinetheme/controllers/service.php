@@ -78,18 +78,19 @@ if(!class_exists('WPBooking_Service'))
          * @return array|mixed|void
          */
         function _get_list_field_search(){
-            $taxonomy = WPBooking_Admin_Taxonomy_Controller::inst()->get_taxonomies();
+            $taxonomy = get_object_taxonomies('wpbooking_service','array');
             $list_taxonomy = array();
             if(!empty($taxonomy)) {
                 foreach( $taxonomy as $k => $v ) {
-                    $list_taxonomy[$k]=$v['label'];
+					if($k=='wpbooking_location') continue;
+                    $list_taxonomy[$k]=$v->label;
                 }
             }
             $list_filed = array(
                 'room' => array(
                     array(
                         'name'    => 'title' ,
-                        'label' => __( 'Title Field' , "wpbooking" ) ,
+                        'label' => __( 'Title' , "wpbooking" ) ,
                         'type'  => "text" ,
                         'value' => ""
                     ) ,
@@ -110,7 +111,9 @@ if(!class_exists('WPBooking_Service'))
                             "taxonomy" => __( "Taxonomy" , "wpbooking" ) ,
                             "review_rate" => __( "Review Rate" , "wpbooking" ) ,
                             "price" => __( "Price" , "wpbooking" ) ,
-                            "bed" => __( "Bed" , "wpbooking" ) ,
+                            "bed" => __( "Beds" , "wpbooking" ) ,
+                            "bedroom" => __( "Bedrooms" , "wpbooking" ) ,
+                            "bathroom" => __( "Bathrooms" , "wpbooking" ) ,
                         )
                     ) ,
                     array(
@@ -122,7 +125,7 @@ if(!class_exists('WPBooking_Service'))
                     ) ,
                     array(
                         'name'      => 'taxonomy_show' ,
-                        'label'   => __( '- Type Show' , "wpbooking" ) ,
+                        'label'   => __( '- Display Style' , "wpbooking" ) ,
                         'type'    => "dropdown" ,
                         'class'    => "hide" ,
                         'options' => array(
@@ -148,6 +151,11 @@ if(!class_exists('WPBooking_Service'))
                             "no"  => __( "No" , "wpbooking" ) ,
                             "yes"  => __( "Yes" , "wpbooking" ) ,
                         )
+                    ) ,
+                    array(
+                        'name'      => 'in_more_filter' ,
+                        'label'   => __( 'More Filter?' , "wpbooking" ) ,
+                        'type'    => "checkbox" ,
                     ) ,
                 ) ,
                 'tour' => array(

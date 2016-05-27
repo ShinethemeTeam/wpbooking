@@ -50,7 +50,7 @@ if(!class_exists('WPBooking_Admin_Location'))
 
 			register_taxonomy( 'wpbooking_location', array( 'wpbooking_service' ), $args );
 
-			$hide=apply_filters('wpbooking_hide_locaton_select_box',false);
+			$hide=apply_filters('wpbooking_hide_locaton_select_box',TRUE);
 			if($hide)
 				WPBooking_Assets::add_css("#wpbooking_locationdiv{display:none!important}");
 		}

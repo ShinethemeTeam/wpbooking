@@ -29,17 +29,8 @@ if(!class_exists('WPBooking_Admin_Service'))
 		{
 			if(get_post_type($post_id)!='wpbooking_service') return false;
 
-			$service_model=WPBooking_Service_Model::inst();
+			WPBooking_Service_Model::inst()->save_extra($post_id);
 
-			$data=array(
-				'map_lat'=>get_post_meta($post_id,'map_lat',true)
-			);
-
-			if(!$service_model->find_by('post_id',$post_id)){
-				$service_model->insert($data);
-			}else{
-				$service_model->where('post_id',$post_id)->update($data);
-			}
 		}
 
 		function _add_settings($settings)
@@ -90,6 +81,36 @@ if(!class_exists('WPBooking_Admin_Service'))
 			);
 
 			register_post_type( 'wpbooking_service', $args );
+
+
+			// Default Taxonomy
+			$labels = array(
+				'name'              => _x( 'Category', 'taxonomy general name','wpbooking' ),
+				'singular_name'     => _x( 'Category', 'taxonomy singular name','wpbooking' ),
+				'search_items'      => __( 'Search Category','wpbooking' ),
+				'all_items'         => __( 'All Categories','wpbooking' ),
+				'parent_item'       => __( 'Parent Category' ,'wpbooking'),
+				'parent_item_colon' => __( 'Parent Category:' ,'wpbooking'),
+				'edit_item'         => __( 'Edit Category' ,'wpbooking'),
+				'update_item'       => __( 'Update Category' ,'wpbooking'),
+				'add_new_item'      => __( 'Add New Category' ,'wpbooking'),
+				'new_item_name'     => __( 'New Category Name' ,'wpbooking'),
+				'menu_name'         => __( 'Category' ,'wpbooking'),
+			);
+
+			$args = array(
+				'hierarchical'      => true,
+				'labels'            => $labels,
+				'show_ui'           => TRUE,
+				'show_admin_column' => true,
+				'query_var'         => true,
+				'rewrite'           => array( 'slug' => 'service-category' ),
+			);
+			$args=apply_filters('wpbooking_register_category_taxonomy',$args);
+
+			register_taxonomy( 'wpbooking_category', array( 'wpbooking_service' ), $args );
+
+			WPBooking_Assets::add_css("#wpbooking_categorydiv{display:none!important}");
 		}
 
 		function _add_metabox()
@@ -100,7 +121,7 @@ if(!class_exists('WPBooking_Admin_Service'))
 				'id'       => 'st_post_metabox',
 				'title'    => __('Information', 'wpbooking'),
 				'desc'     => '',
-				'pages'    => array('post','wpbooking_service'),
+				'pages'    => array('wpbooking_service'),
 				'context'  => 'normal',
 				'priority' => 'high',
 				'fields'   => array(
@@ -130,28 +151,12 @@ if(!class_exists('WPBooking_Admin_Service'))
 						'id' => 'gallery',
 						'type' => 'gallery'
 					),
-					array(
-						'label' => __('Accommodates', 'wpbooking'),
-						'id' => 'accommodates',
-						'type' => 'text'
-					),
-					array(
-						'label' => __('Bathrooms', 'wpbooking'),
-						'id' => 'bathrooms',
-						'type' => 'text'
-					),
-					array(
-						'label' => __('Check-in Time', 'wpbooking'),
-						'id' => 'check_in_time',
-						'type' => 'text',
-						'class' => 'time-picker'
-					),
-					array(
-						'label' => __('Check-out Time', 'wpbooking'),
-						'id' => 'check_out_time',
-						'type' => 'text',
-						'class' => 'time-picker'
-					),
+//					array(
+//						'label' => __('Accommodates', 'wpbooking'),
+//						'id' => 'accommodates',
+//						'type' => 'text'
+//					),
+
 					array(
 						'label' => __('No. Adult', 'wpbooking'),
 						'id' => 'number_adult',

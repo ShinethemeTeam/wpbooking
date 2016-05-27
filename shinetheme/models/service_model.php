@@ -15,6 +15,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 
 		function __construct()
 		{
+			$this->table_version='1.0.1';
 			$this->table_name = 'wpbooking_service';
 			$this->columns = array(
 				'id'                => array(
@@ -31,9 +32,26 @@ if (!class_exists('WPBooking_Service_Model')) {
 				'map_lat'           => array('type' => "FLOAT"),
 				'map_lng'           => array('type' => "FLOAT"),
 			);
+			$this->columns=apply_filters('wpbooking_service_table_columns',$this->columns);
 			parent::__construct();
 		}
 
+		function save_extra($post_id)
+		{
+
+			if(empty($this->columns)) return;
+
+			foreach($this->columns as $k=>$v){
+				if(in_array($k,array('id','post_id'))) continue;
+				$data[$k]=get_post_meta($k,'map_lat',true);
+			}
+
+			if(!$this->find_by('post_id',$post_id)){
+				$this->insert($data);
+			}else{
+				$this->where('post_id',$post_id)->update($data);
+			}
+		}
 		static function inst()
 		{
 			if (!self::$_inst) {

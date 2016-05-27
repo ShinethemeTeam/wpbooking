@@ -124,6 +124,11 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			);
 
 			parent::__construct();
+			// add metabox
+			add_filter('wpbooking_metabox_after_st_post_metabox_field_gallery',array($this,'_add_metabox'));
+
+			add_filter('wpbooking_service_table_columns',array($this,'_add_meta_table_column'));
+
 
 			add_filter('wpbooking_add_to_cart_validate_' . $this->type_id, array($this, '_add_to_cart_validate'), 10, 3);
 
@@ -141,6 +146,68 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 		}
 
+		/**
+		 * Add some extra columns for room
+		 *
+		 * @param $columns
+		 * @return array
+		 * @author dungdt
+		 * @since 1.0
+		 */
+		function _add_meta_table_column($columns)
+		{
+			$columns['bed']=array('type'=>'INT');
+			$columns['bedroom']=array('type'=>'VARCHAR','LENGTH'=>'20');
+			$columns['bathroom']=array('type'=>'VARCHAR','LENGTH'=>'20');
+
+
+			return $columns;
+		}
+		/**
+		 * @author dungdt
+		 * @since 1.0
+		 */
+		function _add_metabox($fields)
+		{
+			$new_fields=array(
+				array(
+					'type' => 'hr'
+				),
+				array(
+					'label' => __('Number of Bedrooms', 'wpbooking'),
+					'id' => 'bedroom',
+					'type' => 'number'
+				),
+				array(
+					'label' => __('Number of Bathrooms', 'wpbooking'),
+					'id' => 'bathroom',
+					'type' => 'number'
+				),
+				array(
+					'label' => __('Number of Beds', 'wpbooking'),
+					'id' => 'bed',
+					'type' => 'number'
+				),
+				array(
+					'label' => __('Check-in Time', 'wpbooking'),
+					'id' => 'check_in_time',
+					'type' => 'text',
+					'class' => 'time-picker'
+				),
+				array(
+					'label' => __('Check-out Time', 'wpbooking'),
+					'id' => 'check_out_time',
+					'type' => 'text',
+					'class' => 'time-picker'
+				),
+				array(
+					'type' => 'hr'
+				),
+			);
+			$fields=array_merge($fields,$new_fields);
+
+			return $fields;
+		}
 		function _add_change_query()
 		{
 			add_action('posts_fields',array($this,'_add_select_fields'));
@@ -424,6 +491,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		}
 	}
 
-	WPBooking_Abstract_Service_Type::inst();
+	WPBooking_Room_Service_Type::inst();
 }
 

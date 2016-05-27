@@ -44,7 +44,7 @@ $autoload['controller']=array(
 	'admin/calendar.metabox',
 	'gateways',
 	'email',
-	'booking'
+	'order'
 );
 
 $autoload['model']=array(

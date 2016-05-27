@@ -406,7 +406,6 @@ jQuery(document).ready(function( $ ){
                 var map_type = "roadmap";
 
                 if( bt_ot_searchbox.length ){
-
                     var searchBox = new google.maps.places.SearchBox( bt_ot_searchbox[0] );
 
                     google.maps.event.addListener(searchBox, 'places_changed', function() {

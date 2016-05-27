@@ -15,7 +15,7 @@ if(!class_exists('WPBooking_Widget_Cart'))
 		function __construct() {
 			parent::__construct(
 				FALSE, // Base ID
-				__( 'Cart Content', 'wpbooking' ), // Name,
+				__( 'WPBooking Cart Content', 'wpbooking' ), // Name,
 				array(
 					'description'=>__('[WPBooking] Cart Content','wpbooking')
 				)

@@ -88,7 +88,7 @@ echo wpbooking_load_view('wrap/start');
                         }
                     }
                 }else{
-                    _e("<h3>No Content</h3>",'wpbooking');
+					printf('<h3>%s</h3>',esc_html__('No Content','wpbooking'));
                 }
                 ?>
             </ul>
