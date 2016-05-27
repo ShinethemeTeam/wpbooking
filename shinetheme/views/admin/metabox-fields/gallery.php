@@ -12,15 +12,15 @@ if( !empty( $value ) ){
 }
 
 
-$class = ' traveler-form-group ';
+$class = ' wpbooking-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){
-    $class .= ' traveler-condition ';
+    $class .= ' wpbooking-condition ';
     $data_class .= ' data-condition='.$data['condition'].' ' ;
 }
 $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
 
-$field = '<div class="st-metabox-content-wrapper traveler-settings"><div class="form-group">';
+$field = '<div class="st-metabox-content-wrapper wpbooking-settings"><div class="form-group">';
 
 $field .= '<input type="text" id="fg_metadata" class="fg_metadata none" value="'. esc_html( $old_data ) .'" name="'. $name .'">
 			<br>
@@ -46,12 +46,12 @@ if( count( $tmp = explode(',', $old_data ) ) > 0 ){
 $field .= '</div></div>';
 
 ?>
-<div class="form-table traveler-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+<div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
 <div class="st-metabox-left">
 	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
 </div>
 <div class="st-metabox-right">
 	<?php echo $field; ?>
-	<i class="traveler-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+	<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
 </div>
 </div>

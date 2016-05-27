@@ -1,769 +1,769 @@
-.traveler-container {
+.wpbooking-container {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
 }
 @media (min-width: 768px) {
-  .traveler-container {
+  .wpbooking-container {
     width: 750px;
   }
 }
 @media (min-width: 992px) {
-  .traveler-container {
+  .wpbooking-container {
     width: 970px;
   }
 }
 @media (min-width: 1200px) {
-  .traveler-container {
+  .wpbooking-container {
     width: 1170px;
   }
 }
-.traveler-container-fluid {
+.wpbooking-container-fluid {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
 }
-.traveler-row {
+.wpbooking-row {
   margin-right: -15px;
   margin-left: -15px;
 }
-.traveler-row > * {
+.wpbooking-row > * {
   box-sizing: border-box;
 }
-.traveler-row:before,
-.traveler-row:after {
+.wpbooking-row:before,
+.wpbooking-row:after {
   display: table;
   content: " ";
 }
-.traveler-row:after {
+.wpbooking-row:after {
   clear: both;
 }
-.traveler-col-xs-1,
-.traveler-col-sm-1,
-.traveler-col-md-1,
-.traveler-col-lg-1,
-.traveler-col-xs-2,
-.traveler-col-sm-2,
-.traveler-col-md-2,
-.traveler-col-lg-2,
-.traveler-col-xs-3,
-.traveler-col-sm-3,
-.traveler-col-md-3,
-.traveler-col-lg-3,
-.traveler-col-xs-4,
-.traveler-col-sm-4,
-.traveler-col-md-4,
-.traveler-col-lg-4,
-.traveler-col-xs-5,
-.traveler-col-sm-5,
-.traveler-col-md-5,
-.traveler-col-lg-5,
-.traveler-col-xs-6,
-.traveler-col-sm-6,
-.traveler-col-md-6,
-.traveler-col-lg-6,
-.traveler-col-xs-7,
-.traveler-col-sm-7,
-.traveler-col-md-7,
-.traveler-col-lg-7,
-.traveler-col-xs-8,
-.traveler-col-sm-8,
-.traveler-col-md-8,
-.traveler-col-lg-8,
-.traveler-col-xs-9,
-.traveler-col-sm-9,
-.traveler-col-md-9,
-.traveler-col-lg-9,
-.traveler-col-xs-10,
-.traveler-col-sm-10,
-.traveler-col-md-10,
-.traveler-col-lg-10,
-.traveler-col-xs-11,
-.traveler-col-sm-11,
-.traveler-col-md-11,
-.traveler-col-lg-11,
-.traveler-col-xs-12,
-.traveler-col-sm-12,
-.traveler-col-md-12,
-.traveler-col-lg-12 {
+.wpbooking-col-xs-1,
+.wpbooking-col-sm-1,
+.wpbooking-col-md-1,
+.wpbooking-col-lg-1,
+.wpbooking-col-xs-2,
+.wpbooking-col-sm-2,
+.wpbooking-col-md-2,
+.wpbooking-col-lg-2,
+.wpbooking-col-xs-3,
+.wpbooking-col-sm-3,
+.wpbooking-col-md-3,
+.wpbooking-col-lg-3,
+.wpbooking-col-xs-4,
+.wpbooking-col-sm-4,
+.wpbooking-col-md-4,
+.wpbooking-col-lg-4,
+.wpbooking-col-xs-5,
+.wpbooking-col-sm-5,
+.wpbooking-col-md-5,
+.wpbooking-col-lg-5,
+.wpbooking-col-xs-6,
+.wpbooking-col-sm-6,
+.wpbooking-col-md-6,
+.wpbooking-col-lg-6,
+.wpbooking-col-xs-7,
+.wpbooking-col-sm-7,
+.wpbooking-col-md-7,
+.wpbooking-col-lg-7,
+.wpbooking-col-xs-8,
+.wpbooking-col-sm-8,
+.wpbooking-col-md-8,
+.wpbooking-col-lg-8,
+.wpbooking-col-xs-9,
+.wpbooking-col-sm-9,
+.wpbooking-col-md-9,
+.wpbooking-col-lg-9,
+.wpbooking-col-xs-10,
+.wpbooking-col-sm-10,
+.wpbooking-col-md-10,
+.wpbooking-col-lg-10,
+.wpbooking-col-xs-11,
+.wpbooking-col-sm-11,
+.wpbooking-col-md-11,
+.wpbooking-col-lg-11,
+.wpbooking-col-xs-12,
+.wpbooking-col-sm-12,
+.wpbooking-col-md-12,
+.wpbooking-col-lg-12 {
   position: relative;
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
 }
-.traveler-col-xs-1,
-.traveler-col-xs-2,
-.traveler-col-xs-3,
-.traveler-col-xs-4,
-.traveler-col-xs-5,
-.traveler-col-xs-6,
-.traveler-col-xs-7,
-.traveler-col-xs-8,
-.traveler-col-xs-9,
-.traveler-col-xs-10,
-.traveler-col-xs-11,
-.traveler-col-xs-12 {
+.wpbooking-col-xs-1,
+.wpbooking-col-xs-2,
+.wpbooking-col-xs-3,
+.wpbooking-col-xs-4,
+.wpbooking-col-xs-5,
+.wpbooking-col-xs-6,
+.wpbooking-col-xs-7,
+.wpbooking-col-xs-8,
+.wpbooking-col-xs-9,
+.wpbooking-col-xs-10,
+.wpbooking-col-xs-11,
+.wpbooking-col-xs-12 {
   float: left;
 }
-.traveler-col-xs-12 {
+.wpbooking-col-xs-12 {
   width: 100%;
 }
-.traveler-col-xs-11 {
+.wpbooking-col-xs-11 {
   width: 91.66666667%;
 }
-.traveler-col-xs-10 {
+.wpbooking-col-xs-10 {
   width: 83.33333333%;
 }
-.traveler-col-xs-9 {
+.wpbooking-col-xs-9 {
   width: 75%;
 }
-.traveler-col-xs-8 {
+.wpbooking-col-xs-8 {
   width: 66.66666667%;
 }
-.traveler-col-xs-7 {
+.wpbooking-col-xs-7 {
   width: 58.33333333%;
 }
-.traveler-col-xs-6 {
+.wpbooking-col-xs-6 {
   width: 50%;
 }
-.traveler-col-xs-5 {
+.wpbooking-col-xs-5 {
   width: 41.66666667%;
 }
-.traveler-col-xs-4 {
+.wpbooking-col-xs-4 {
   width: 33.33333333%;
 }
-.traveler-col-xs-3 {
+.wpbooking-col-xs-3 {
   width: 25%;
 }
-.traveler-col-xs-2 {
+.wpbooking-col-xs-2 {
   width: 16.66666667%;
 }
-.traveler-col-xs-1 {
+.wpbooking-col-xs-1 {
   width: 8.33333333%;
 }
-.traveler-col-xs-pull-12 {
+.wpbooking-col-xs-pull-12 {
   right: 100%;
 }
-.traveler-col-xs-pull-11 {
+.wpbooking-col-xs-pull-11 {
   right: 91.66666667%;
 }
-.traveler-col-xs-pull-10 {
+.wpbooking-col-xs-pull-10 {
   right: 83.33333333%;
 }
-.traveler-col-xs-pull-9 {
+.wpbooking-col-xs-pull-9 {
   right: 75%;
 }
-.traveler-col-xs-pull-8 {
+.wpbooking-col-xs-pull-8 {
   right: 66.66666667%;
 }
-.traveler-col-xs-pull-7 {
+.wpbooking-col-xs-pull-7 {
   right: 58.33333333%;
 }
-.traveler-col-xs-pull-6 {
+.wpbooking-col-xs-pull-6 {
   right: 50%;
 }
-.traveler-col-xs-pull-5 {
+.wpbooking-col-xs-pull-5 {
   right: 41.66666667%;
 }
-.traveler-col-xs-pull-4 {
+.wpbooking-col-xs-pull-4 {
   right: 33.33333333%;
 }
-.traveler-col-xs-pull-3 {
+.wpbooking-col-xs-pull-3 {
   right: 25%;
 }
-.traveler-col-xs-pull-2 {
+.wpbooking-col-xs-pull-2 {
   right: 16.66666667%;
 }
-.traveler-col-xs-pull-1 {
+.wpbooking-col-xs-pull-1 {
   right: 8.33333333%;
 }
-.traveler-col-xs-pull-0 {
+.wpbooking-col-xs-pull-0 {
   right: auto;
 }
-.traveler-col-xs-push-12 {
+.wpbooking-col-xs-push-12 {
   left: 100%;
 }
-.traveler-col-xs-push-11 {
+.wpbooking-col-xs-push-11 {
   left: 91.66666667%;
 }
-.traveler-col-xs-push-10 {
+.wpbooking-col-xs-push-10 {
   left: 83.33333333%;
 }
-.traveler-col-xs-push-9 {
+.wpbooking-col-xs-push-9 {
   left: 75%;
 }
-.traveler-col-xs-push-8 {
+.wpbooking-col-xs-push-8 {
   left: 66.66666667%;
 }
-.traveler-col-xs-push-7 {
+.wpbooking-col-xs-push-7 {
   left: 58.33333333%;
 }
-.traveler-col-xs-push-6 {
+.wpbooking-col-xs-push-6 {
   left: 50%;
 }
-.traveler-col-xs-push-5 {
+.wpbooking-col-xs-push-5 {
   left: 41.66666667%;
 }
-.traveler-col-xs-push-4 {
+.wpbooking-col-xs-push-4 {
   left: 33.33333333%;
 }
-.traveler-col-xs-push-3 {
+.wpbooking-col-xs-push-3 {
   left: 25%;
 }
-.traveler-col-xs-push-2 {
+.wpbooking-col-xs-push-2 {
   left: 16.66666667%;
 }
-.traveler-col-xs-push-1 {
+.wpbooking-col-xs-push-1 {
   left: 8.33333333%;
 }
-.traveler-col-xs-push-0 {
+.wpbooking-col-xs-push-0 {
   left: auto;
 }
-.traveler-col-xs-offset-12 {
+.wpbooking-col-xs-offset-12 {
   margin-left: 100%;
 }
-.traveler-col-xs-offset-11 {
+.wpbooking-col-xs-offset-11 {
   margin-left: 91.66666667%;
 }
-.traveler-col-xs-offset-10 {
+.wpbooking-col-xs-offset-10 {
   margin-left: 83.33333333%;
 }
-.traveler-col-xs-offset-9 {
+.wpbooking-col-xs-offset-9 {
   margin-left: 75%;
 }
-.traveler-col-xs-offset-8 {
+.wpbooking-col-xs-offset-8 {
   margin-left: 66.66666667%;
 }
-.traveler-col-xs-offset-7 {
+.wpbooking-col-xs-offset-7 {
   margin-left: 58.33333333%;
 }
-.traveler-col-xs-offset-6 {
+.wpbooking-col-xs-offset-6 {
   margin-left: 50%;
 }
-.traveler-col-xs-offset-5 {
+.wpbooking-col-xs-offset-5 {
   margin-left: 41.66666667%;
 }
-.traveler-col-xs-offset-4 {
+.wpbooking-col-xs-offset-4 {
   margin-left: 33.33333333%;
 }
-.traveler-col-xs-offset-3 {
+.wpbooking-col-xs-offset-3 {
   margin-left: 25%;
 }
-.traveler-col-xs-offset-2 {
+.wpbooking-col-xs-offset-2 {
   margin-left: 16.66666667%;
 }
-.traveler-col-xs-offset-1 {
+.wpbooking-col-xs-offset-1 {
   margin-left: 8.33333333%;
 }
-.traveler-col-xs-offset-0 {
+.wpbooking-col-xs-offset-0 {
   margin-left: 0;
 }
 @media (min-width: 768px) {
-  .traveler-col-sm-1,
-  .traveler-col-sm-2,
-  .traveler-col-sm-3,
-  .traveler-col-sm-4,
-  .traveler-col-sm-5,
-  .traveler-col-sm-6,
-  .traveler-col-sm-7,
-  .traveler-col-sm-8,
-  .traveler-col-sm-9,
-  .traveler-col-sm-10,
-  .traveler-col-sm-11,
-  .traveler-col-sm-12 {
+  .wpbooking-col-sm-1,
+  .wpbooking-col-sm-2,
+  .wpbooking-col-sm-3,
+  .wpbooking-col-sm-4,
+  .wpbooking-col-sm-5,
+  .wpbooking-col-sm-6,
+  .wpbooking-col-sm-7,
+  .wpbooking-col-sm-8,
+  .wpbooking-col-sm-9,
+  .wpbooking-col-sm-10,
+  .wpbooking-col-sm-11,
+  .wpbooking-col-sm-12 {
     float: left;
   }
-  .traveler-col-sm-12 {
+  .wpbooking-col-sm-12 {
     width: 100%;
   }
-  .traveler-col-sm-11 {
+  .wpbooking-col-sm-11 {
     width: 91.66666667%;
   }
-  .traveler-col-sm-10 {
+  .wpbooking-col-sm-10 {
     width: 83.33333333%;
   }
-  .traveler-col-sm-9 {
+  .wpbooking-col-sm-9 {
     width: 75%;
   }
-  .traveler-col-sm-8 {
+  .wpbooking-col-sm-8 {
     width: 66.66666667%;
   }
-  .traveler-col-sm-7 {
+  .wpbooking-col-sm-7 {
     width: 58.33333333%;
   }
-  .traveler-col-sm-6 {
+  .wpbooking-col-sm-6 {
     width: 50%;
   }
-  .traveler-col-sm-5 {
+  .wpbooking-col-sm-5 {
     width: 41.66666667%;
   }
-  .traveler-col-sm-4 {
+  .wpbooking-col-sm-4 {
     width: 33.33333333%;
   }
-  .traveler-col-sm-3 {
+  .wpbooking-col-sm-3 {
     width: 25%;
   }
-  .traveler-col-sm-2 {
+  .wpbooking-col-sm-2 {
     width: 16.66666667%;
   }
-  .traveler-col-sm-1 {
+  .wpbooking-col-sm-1 {
     width: 8.33333333%;
   }
-  .traveler-col-sm-pull-12 {
+  .wpbooking-col-sm-pull-12 {
     right: 100%;
   }
-  .traveler-col-sm-pull-11 {
+  .wpbooking-col-sm-pull-11 {
     right: 91.66666667%;
   }
-  .traveler-col-sm-pull-10 {
+  .wpbooking-col-sm-pull-10 {
     right: 83.33333333%;
   }
-  .traveler-col-sm-pull-9 {
+  .wpbooking-col-sm-pull-9 {
     right: 75%;
   }
-  .traveler-col-sm-pull-8 {
+  .wpbooking-col-sm-pull-8 {
     right: 66.66666667%;
   }
-  .traveler-col-sm-pull-7 {
+  .wpbooking-col-sm-pull-7 {
     right: 58.33333333%;
   }
-  .traveler-col-sm-pull-6 {
+  .wpbooking-col-sm-pull-6 {
     right: 50%;
   }
-  .traveler-col-sm-pull-5 {
+  .wpbooking-col-sm-pull-5 {
     right: 41.66666667%;
   }
-  .traveler-col-sm-pull-4 {
+  .wpbooking-col-sm-pull-4 {
     right: 33.33333333%;
   }
-  .traveler-col-sm-pull-3 {
+  .wpbooking-col-sm-pull-3 {
     right: 25%;
   }
-  .traveler-col-sm-pull-2 {
+  .wpbooking-col-sm-pull-2 {
     right: 16.66666667%;
   }
-  .traveler-col-sm-pull-1 {
+  .wpbooking-col-sm-pull-1 {
     right: 8.33333333%;
   }
-  .traveler-col-sm-pull-0 {
+  .wpbooking-col-sm-pull-0 {
     right: auto;
   }
-  .traveler-col-sm-push-12 {
+  .wpbooking-col-sm-push-12 {
     left: 100%;
   }
-  .traveler-col-sm-push-11 {
+  .wpbooking-col-sm-push-11 {
     left: 91.66666667%;
   }
-  .traveler-col-sm-push-10 {
+  .wpbooking-col-sm-push-10 {
     left: 83.33333333%;
   }
-  .traveler-col-sm-push-9 {
+  .wpbooking-col-sm-push-9 {
     left: 75%;
   }
-  .traveler-col-sm-push-8 {
+  .wpbooking-col-sm-push-8 {
     left: 66.66666667%;
   }
-  .traveler-col-sm-push-7 {
+  .wpbooking-col-sm-push-7 {
     left: 58.33333333%;
   }
-  .traveler-col-sm-push-6 {
+  .wpbooking-col-sm-push-6 {
     left: 50%;
   }
-  .traveler-col-sm-push-5 {
+  .wpbooking-col-sm-push-5 {
     left: 41.66666667%;
   }
-  .traveler-col-sm-push-4 {
+  .wpbooking-col-sm-push-4 {
     left: 33.33333333%;
   }
-  .traveler-col-sm-push-3 {
+  .wpbooking-col-sm-push-3 {
     left: 25%;
   }
-  .traveler-col-sm-push-2 {
+  .wpbooking-col-sm-push-2 {
     left: 16.66666667%;
   }
-  .traveler-col-sm-push-1 {
+  .wpbooking-col-sm-push-1 {
     left: 8.33333333%;
   }
-  .traveler-col-sm-push-0 {
+  .wpbooking-col-sm-push-0 {
     left: auto;
   }
-  .traveler-col-sm-offset-12 {
+  .wpbooking-col-sm-offset-12 {
     margin-left: 100%;
   }
-  .traveler-col-sm-offset-11 {
+  .wpbooking-col-sm-offset-11 {
     margin-left: 91.66666667%;
   }
-  .traveler-col-sm-offset-10 {
+  .wpbooking-col-sm-offset-10 {
     margin-left: 83.33333333%;
   }
-  .traveler-col-sm-offset-9 {
+  .wpbooking-col-sm-offset-9 {
     margin-left: 75%;
   }
-  .traveler-col-sm-offset-8 {
+  .wpbooking-col-sm-offset-8 {
     margin-left: 66.66666667%;
   }
-  .traveler-col-sm-offset-7 {
+  .wpbooking-col-sm-offset-7 {
     margin-left: 58.33333333%;
   }
-  .traveler-col-sm-offset-6 {
+  .wpbooking-col-sm-offset-6 {
     margin-left: 50%;
   }
-  .traveler-col-sm-offset-5 {
+  .wpbooking-col-sm-offset-5 {
     margin-left: 41.66666667%;
   }
-  .traveler-col-sm-offset-4 {
+  .wpbooking-col-sm-offset-4 {
     margin-left: 33.33333333%;
   }
-  .traveler-col-sm-offset-3 {
+  .wpbooking-col-sm-offset-3 {
     margin-left: 25%;
   }
-  .traveler-col-sm-offset-2 {
+  .wpbooking-col-sm-offset-2 {
     margin-left: 16.66666667%;
   }
-  .traveler-col-sm-offset-1 {
+  .wpbooking-col-sm-offset-1 {
     margin-left: 8.33333333%;
   }
-  .traveler-col-sm-offset-0 {
+  .wpbooking-col-sm-offset-0 {
     margin-left: 0;
   }
 }
 @media (min-width: 992px) {
-  .traveler-col-md-1,
-  .traveler-col-md-2,
-  .traveler-col-md-3,
-  .traveler-col-md-4,
-  .traveler-col-md-5,
-  .traveler-col-md-6,
-  .traveler-col-md-7,
-  .traveler-col-md-8,
-  .traveler-col-md-9,
-  .traveler-col-md-10,
-  .traveler-col-md-11,
-  .traveler-col-md-12 {
+  .wpbooking-col-md-1,
+  .wpbooking-col-md-2,
+  .wpbooking-col-md-3,
+  .wpbooking-col-md-4,
+  .wpbooking-col-md-5,
+  .wpbooking-col-md-6,
+  .wpbooking-col-md-7,
+  .wpbooking-col-md-8,
+  .wpbooking-col-md-9,
+  .wpbooking-col-md-10,
+  .wpbooking-col-md-11,
+  .wpbooking-col-md-12 {
     float: left;
   }
-  .traveler-col-md-12 {
+  .wpbooking-col-md-12 {
     width: 100%;
   }
-  .traveler-col-md-11 {
+  .wpbooking-col-md-11 {
     width: 91.66666667%;
   }
-  .traveler-col-md-10 {
+  .wpbooking-col-md-10 {
     width: 83.33333333%;
   }
-  .traveler-col-md-9 {
+  .wpbooking-col-md-9 {
     width: 75%;
   }
-  .traveler-col-md-8 {
+  .wpbooking-col-md-8 {
     width: 66.66666667%;
   }
-  .traveler-col-md-7 {
+  .wpbooking-col-md-7 {
     width: 58.33333333%;
   }
-  .traveler-col-md-6 {
+  .wpbooking-col-md-6 {
     width: 50%;
   }
-  .traveler-col-md-5 {
+  .wpbooking-col-md-5 {
     width: 41.66666667%;
   }
-  .traveler-col-md-4 {
+  .wpbooking-col-md-4 {
     width: 33.33333333%;
   }
-  .traveler-col-md-3 {
+  .wpbooking-col-md-3 {
     width: 25%;
   }
-  .traveler-col-md-2 {
+  .wpbooking-col-md-2 {
     width: 16.66666667%;
   }
-  .traveler-col-md-1 {
+  .wpbooking-col-md-1 {
     width: 8.33333333%;
   }
-  .traveler-col-md-pull-12 {
+  .wpbooking-col-md-pull-12 {
     right: 100%;
   }
-  .traveler-col-md-pull-11 {
+  .wpbooking-col-md-pull-11 {
     right: 91.66666667%;
   }
-  .traveler-col-md-pull-10 {
+  .wpbooking-col-md-pull-10 {
     right: 83.33333333%;
   }
-  .traveler-col-md-pull-9 {
+  .wpbooking-col-md-pull-9 {
     right: 75%;
   }
-  .traveler-col-md-pull-8 {
+  .wpbooking-col-md-pull-8 {
     right: 66.66666667%;
   }
-  .traveler-col-md-pull-7 {
+  .wpbooking-col-md-pull-7 {
     right: 58.33333333%;
   }
-  .traveler-col-md-pull-6 {
+  .wpbooking-col-md-pull-6 {
     right: 50%;
   }
-  .traveler-col-md-pull-5 {
+  .wpbooking-col-md-pull-5 {
     right: 41.66666667%;
   }
-  .traveler-col-md-pull-4 {
+  .wpbooking-col-md-pull-4 {
     right: 33.33333333%;
   }
-  .traveler-col-md-pull-3 {
+  .wpbooking-col-md-pull-3 {
     right: 25%;
   }
-  .traveler-col-md-pull-2 {
+  .wpbooking-col-md-pull-2 {
     right: 16.66666667%;
   }
-  .traveler-col-md-pull-1 {
+  .wpbooking-col-md-pull-1 {
     right: 8.33333333%;
   }
-  .traveler-col-md-pull-0 {
+  .wpbooking-col-md-pull-0 {
     right: auto;
   }
-  .traveler-col-md-push-12 {
+  .wpbooking-col-md-push-12 {
     left: 100%;
   }
-  .traveler-col-md-push-11 {
+  .wpbooking-col-md-push-11 {
     left: 91.66666667%;
   }
-  .traveler-col-md-push-10 {
+  .wpbooking-col-md-push-10 {
     left: 83.33333333%;
   }
-  .traveler-col-md-push-9 {
+  .wpbooking-col-md-push-9 {
     left: 75%;
   }
-  .traveler-col-md-push-8 {
+  .wpbooking-col-md-push-8 {
     left: 66.66666667%;
   }
-  .traveler-col-md-push-7 {
+  .wpbooking-col-md-push-7 {
     left: 58.33333333%;
   }
-  .traveler-col-md-push-6 {
+  .wpbooking-col-md-push-6 {
     left: 50%;
   }
-  .traveler-col-md-push-5 {
+  .wpbooking-col-md-push-5 {
     left: 41.66666667%;
   }
-  .traveler-col-md-push-4 {
+  .wpbooking-col-md-push-4 {
     left: 33.33333333%;
   }
-  .traveler-col-md-push-3 {
+  .wpbooking-col-md-push-3 {
     left: 25%;
   }
-  .traveler-col-md-push-2 {
+  .wpbooking-col-md-push-2 {
     left: 16.66666667%;
   }
-  .traveler-col-md-push-1 {
+  .wpbooking-col-md-push-1 {
     left: 8.33333333%;
   }
-  .traveler-col-md-push-0 {
+  .wpbooking-col-md-push-0 {
     left: auto;
   }
-  .traveler-col-md-offset-12 {
+  .wpbooking-col-md-offset-12 {
     margin-left: 100%;
   }
-  .traveler-col-md-offset-11 {
+  .wpbooking-col-md-offset-11 {
     margin-left: 91.66666667%;
   }
-  .traveler-col-md-offset-10 {
+  .wpbooking-col-md-offset-10 {
     margin-left: 83.33333333%;
   }
-  .traveler-col-md-offset-9 {
+  .wpbooking-col-md-offset-9 {
     margin-left: 75%;
   }
-  .traveler-col-md-offset-8 {
+  .wpbooking-col-md-offset-8 {
     margin-left: 66.66666667%;
   }
-  .traveler-col-md-offset-7 {
+  .wpbooking-col-md-offset-7 {
     margin-left: 58.33333333%;
   }
-  .traveler-col-md-offset-6 {
+  .wpbooking-col-md-offset-6 {
     margin-left: 50%;
   }
-  .traveler-col-md-offset-5 {
+  .wpbooking-col-md-offset-5 {
     margin-left: 41.66666667%;
   }
-  .traveler-col-md-offset-4 {
+  .wpbooking-col-md-offset-4 {
     margin-left: 33.33333333%;
   }
-  .traveler-col-md-offset-3 {
+  .wpbooking-col-md-offset-3 {
     margin-left: 25%;
   }
-  .traveler-col-md-offset-2 {
+  .wpbooking-col-md-offset-2 {
     margin-left: 16.66666667%;
   }
-  .traveler-col-md-offset-1 {
+  .wpbooking-col-md-offset-1 {
     margin-left: 8.33333333%;
   }
-  .traveler-col-md-offset-0 {
+  .wpbooking-col-md-offset-0 {
     margin-left: 0;
   }
 }
 @media (min-width: 1200px) {
-  .traveler-col-lg-1,
-  .traveler-col-lg-2,
-  .traveler-col-lg-3,
-  .traveler-col-lg-4,
-  .traveler-col-lg-5,
-  .traveler-col-lg-6,
-  .traveler-col-lg-7,
-  .traveler-col-lg-8,
-  .traveler-col-lg-9,
-  .traveler-col-lg-10,
-  .traveler-col-lg-11,
-  .traveler-col-lg-12 {
+  .wpbooking-col-lg-1,
+  .wpbooking-col-lg-2,
+  .wpbooking-col-lg-3,
+  .wpbooking-col-lg-4,
+  .wpbooking-col-lg-5,
+  .wpbooking-col-lg-6,
+  .wpbooking-col-lg-7,
+  .wpbooking-col-lg-8,
+  .wpbooking-col-lg-9,
+  .wpbooking-col-lg-10,
+  .wpbooking-col-lg-11,
+  .wpbooking-col-lg-12 {
     float: left;
   }
-  .traveler-col-lg-12 {
+  .wpbooking-col-lg-12 {
     width: 100%;
   }
-  .traveler-col-lg-11 {
+  .wpbooking-col-lg-11 {
     width: 91.66666667%;
   }
-  .traveler-col-lg-10 {
+  .wpbooking-col-lg-10 {
     width: 83.33333333%;
   }
-  .traveler-col-lg-9 {
+  .wpbooking-col-lg-9 {
     width: 75%;
   }
-  .traveler-col-lg-8 {
+  .wpbooking-col-lg-8 {
     width: 66.66666667%;
   }
-  .traveler-col-lg-7 {
+  .wpbooking-col-lg-7 {
     width: 58.33333333%;
   }
-  .traveler-col-lg-6 {
+  .wpbooking-col-lg-6 {
     width: 50%;
   }
-  .traveler-col-lg-5 {
+  .wpbooking-col-lg-5 {
     width: 41.66666667%;
   }
-  .traveler-col-lg-4 {
+  .wpbooking-col-lg-4 {
     width: 33.33333333%;
   }
-  .traveler-col-lg-3 {
+  .wpbooking-col-lg-3 {
     width: 25%;
   }
-  .traveler-col-lg-2 {
+  .wpbooking-col-lg-2 {
     width: 16.66666667%;
   }
-  .traveler-col-lg-1 {
+  .wpbooking-col-lg-1 {
     width: 8.33333333%;
   }
-  .traveler-col-lg-pull-12 {
+  .wpbooking-col-lg-pull-12 {
     right: 100%;
   }
-  .traveler-col-lg-pull-11 {
+  .wpbooking-col-lg-pull-11 {
     right: 91.66666667%;
   }
-  .traveler-col-lg-pull-10 {
+  .wpbooking-col-lg-pull-10 {
     right: 83.33333333%;
   }
-  .traveler-col-lg-pull-9 {
+  .wpbooking-col-lg-pull-9 {
     right: 75%;
   }
-  .traveler-col-lg-pull-8 {
+  .wpbooking-col-lg-pull-8 {
     right: 66.66666667%;
   }
-  .traveler-col-lg-pull-7 {
+  .wpbooking-col-lg-pull-7 {
     right: 58.33333333%;
   }
-  .traveler-col-lg-pull-6 {
+  .wpbooking-col-lg-pull-6 {
     right: 50%;
   }
-  .traveler-col-lg-pull-5 {
+  .wpbooking-col-lg-pull-5 {
     right: 41.66666667%;
   }
-  .traveler-col-lg-pull-4 {
+  .wpbooking-col-lg-pull-4 {
     right: 33.33333333%;
   }
-  .traveler-col-lg-pull-3 {
+  .wpbooking-col-lg-pull-3 {
     right: 25%;
   }
-  .traveler-col-lg-pull-2 {
+  .wpbooking-col-lg-pull-2 {
     right: 16.66666667%;
   }
-  .traveler-col-lg-pull-1 {
+  .wpbooking-col-lg-pull-1 {
     right: 8.33333333%;
   }
-  .traveler-col-lg-pull-0 {
+  .wpbooking-col-lg-pull-0 {
     right: auto;
   }
-  .traveler-col-lg-push-12 {
+  .wpbooking-col-lg-push-12 {
     left: 100%;
   }
-  .traveler-col-lg-push-11 {
+  .wpbooking-col-lg-push-11 {
     left: 91.66666667%;
   }
-  .traveler-col-lg-push-10 {
+  .wpbooking-col-lg-push-10 {
     left: 83.33333333%;
   }
-  .traveler-col-lg-push-9 {
+  .wpbooking-col-lg-push-9 {
     left: 75%;
   }
-  .traveler-col-lg-push-8 {
+  .wpbooking-col-lg-push-8 {
     left: 66.66666667%;
   }
-  .traveler-col-lg-push-7 {
+  .wpbooking-col-lg-push-7 {
     left: 58.33333333%;
   }
-  .traveler-col-lg-push-6 {
+  .wpbooking-col-lg-push-6 {
     left: 50%;
   }
-  .traveler-col-lg-push-5 {
+  .wpbooking-col-lg-push-5 {
     left: 41.66666667%;
   }
-  .traveler-col-lg-push-4 {
+  .wpbooking-col-lg-push-4 {
     left: 33.33333333%;
   }
-  .traveler-col-lg-push-3 {
+  .wpbooking-col-lg-push-3 {
     left: 25%;
   }
-  .traveler-col-lg-push-2 {
+  .wpbooking-col-lg-push-2 {
     left: 16.66666667%;
   }
-  .traveler-col-lg-push-1 {
+  .wpbooking-col-lg-push-1 {
     left: 8.33333333%;
   }
-  .traveler-col-lg-push-0 {
+  .wpbooking-col-lg-push-0 {
     left: auto;
   }
-  .traveler-col-lg-offset-12 {
+  .wpbooking-col-lg-offset-12 {
     margin-left: 100%;
   }
-  .traveler-col-lg-offset-11 {
+  .wpbooking-col-lg-offset-11 {
     margin-left: 91.66666667%;
   }
-  .traveler-col-lg-offset-10 {
+  .wpbooking-col-lg-offset-10 {
     margin-left: 83.33333333%;
   }
-  .traveler-col-lg-offset-9 {
+  .wpbooking-col-lg-offset-9 {
     margin-left: 75%;
   }
-  .traveler-col-lg-offset-8 {
+  .wpbooking-col-lg-offset-8 {
     margin-left: 66.66666667%;
   }
-  .traveler-col-lg-offset-7 {
+  .wpbooking-col-lg-offset-7 {
     margin-left: 58.33333333%;
   }
-  .traveler-col-lg-offset-6 {
+  .wpbooking-col-lg-offset-6 {
     margin-left: 50%;
   }
-  .traveler-col-lg-offset-5 {
+  .wpbooking-col-lg-offset-5 {
     margin-left: 41.66666667%;
   }
-  .traveler-col-lg-offset-4 {
+  .wpbooking-col-lg-offset-4 {
     margin-left: 33.33333333%;
   }
-  .traveler-col-lg-offset-3 {
+  .wpbooking-col-lg-offset-3 {
     margin-left: 25%;
   }
-  .traveler-col-lg-offset-2 {
+  .wpbooking-col-lg-offset-2 {
     margin-left: 16.66666667%;
   }
-  .traveler-col-lg-offset-1 {
+  .wpbooking-col-lg-offset-1 {
     margin-left: 8.33333333%;
   }
-  .traveler-col-lg-offset-0 {
+  .wpbooking-col-lg-offset-0 {
     margin-left: 0;
   }
 }
@@ -830,10 +830,10 @@
   background-color: #ffffff;
   padding: 10px;
 }
-.content-form-build .container-form-build .traveler-row {
+.content-form-build .container-form-build .wpbooking-row {
   margin-bottom: 30px;
 }
-.content-form-build .container-form-build .traveler-control-row {
+.content-form-build .container-form-build .wpbooking-control-row {
   background: #f5f5f5 none repeat scroll 0 0;
   display: inline-block;
   height: 24px;
@@ -842,7 +842,7 @@
   padding-right: 5px;
   text-align: right;
 }
-.content-form-build .container-form-build .traveler-control-row .fa {
+.content-form-build .container-form-build .wpbooking-control-row .fa {
   color: #aaa;
   cursor: pointer;
   font-size: 18px;
@@ -850,33 +850,33 @@
   padding-right: 3px;
   padding-top: 5px;
 }
-.content-form-build .container-form-build .traveler-control-row .fa-arrows {
+.content-form-build .container-form-build .wpbooking-control-row .fa-arrows {
   font-size: 15px;
 }
-.content-form-build .container-form-build .traveler-control-row .fa:hover {
+.content-form-build .container-form-build .wpbooking-control-row .fa:hover {
   color: #000;
 }
-.content-form-build .container-form-build .traveler-control {
+.content-form-build .container-form-build .wpbooking-control {
   background: #f5f5f5 none repeat scroll 0 0;
   height: 24px;
   line-height: 1px;
   padding-left: 15px;
   text-align: left;
 }
-.content-form-build .container-form-build .traveler-control .fa {
+.content-form-build .container-form-build .wpbooking-control .fa {
   font-size: 18px;
   color: #aaa;
   cursor: pointer;
   padding-top: 5px;
 }
-.content-form-build .container-form-build .traveler-control .fa:hover {
+.content-form-build .container-form-build .wpbooking-control .fa:hover {
   color: #000;
 }
-.content-form-build .container-form-build .traveler-content {
+.content-form-build .container-form-build .wpbooking-content {
   background: #f5f5f5 none repeat scroll 0 0;
   padding: 1px 14px;
 }
-.content-form-build .container-form-build .traveler-content .empty-element {
+.content-form-build .container-form-build .wpbooking-content .empty-element {
   padding: 10px;
   text-align: center;
   font-weight: bold;
@@ -1085,30 +1085,30 @@
 .form-build-v2 .min-width-200 {
   min-width: 200px;
 }
-.form-build-v2 .traveler-select-layout {
+.form-build-v2 .wpbooking-select-layout {
   padding-bottom: 20px;
   padding-top: 20px;
   width: 100%;
 }
-.form-build-v2 .traveler-select-layout select {
+.form-build-v2 .wpbooking-select-layout select {
   border-radius: 3px;
 }
-.form-build-v2 .traveler-select-layout td.text-right {
+.form-build-v2 .wpbooking-select-layout td.text-right {
   width: 80%;
 }
-.form-build-v2 .traveler-select-layout th {
+.form-build-v2 .wpbooking-select-layout th {
   width: 5%;
 }
-.form-build-v2 .traveler-add-layout {
+.form-build-v2 .wpbooking-add-layout {
   padding-bottom: 20px;
   padding-top: 20px;
   text-align: left;
 }
-.form-build-v2 .traveler-add-layout th {
+.form-build-v2 .wpbooking-add-layout th {
   width: 100px;
 }
-.form-build-v2 .traveler-add-layout input[type="text"],
-.form-build-v2 .traveler-add-layout select {
+.form-build-v2 .wpbooking-add-layout input[type="text"],
+.form-build-v2 .wpbooking-add-layout select {
   min-width: 300px;
 }
 .form-build-v2 .save-control {
@@ -1133,63 +1133,63 @@
   line-height: 1em;
   margin: 0 0 0 5px;
 }
-.form-build-v2 .select-control .traveler-build-group {
+.form-build-v2 .select-control .wpbooking-build-group {
   display: block;
   padding-bottom: 5px;
 }
-.form-build-v2 .select-control .traveler-build-group label {
+.form-build-v2 .select-control .wpbooking-build-group label {
   display: block;
   padding-bottom: 5px;
 }
-.form-build-v2 .select-control .traveler-build-group input[type="text"],
-.form-build-v2 .select-control .traveler-build-group input[type="password"],
-.form-build-v2 .select-control .traveler-build-group input[type="color"],
-.form-build-v2 .select-control .traveler-build-group input[type="date"],
-.form-build-v2 .select-control .traveler-build-group input[type="datetime"],
-.form-build-v2 .select-control .traveler-build-group input[type="datetime-local"],
-.form-build-v2 .select-control .traveler-build-group input[type="email"],
-.form-build-v2 .select-control .traveler-build-group input[type="month"],
-.form-build-v2 .select-control .traveler-build-group input[type="number"],
-.form-build-v2 .select-control .traveler-build-group input[type="radio"],
-.form-build-v2 .select-control .traveler-build-group input[type="tel"],
-.form-build-v2 .select-control .traveler-build-group input[type="time"],
-.form-build-v2 .select-control .traveler-build-group input[type="url"],
-.form-build-v2 .select-control .traveler-build-group input[type="week"],
-.form-build-v2 .select-control .traveler-build-group input[type="search"],
-.form-build-v2 .select-control .traveler-build-group select,
-.form-build-v2 .select-control .traveler-build-group textarea {
+.form-build-v2 .select-control .wpbooking-build-group input[type="text"],
+.form-build-v2 .select-control .wpbooking-build-group input[type="password"],
+.form-build-v2 .select-control .wpbooking-build-group input[type="color"],
+.form-build-v2 .select-control .wpbooking-build-group input[type="date"],
+.form-build-v2 .select-control .wpbooking-build-group input[type="datetime"],
+.form-build-v2 .select-control .wpbooking-build-group input[type="datetime-local"],
+.form-build-v2 .select-control .wpbooking-build-group input[type="email"],
+.form-build-v2 .select-control .wpbooking-build-group input[type="month"],
+.form-build-v2 .select-control .wpbooking-build-group input[type="number"],
+.form-build-v2 .select-control .wpbooking-build-group input[type="radio"],
+.form-build-v2 .select-control .wpbooking-build-group input[type="tel"],
+.form-build-v2 .select-control .wpbooking-build-group input[type="time"],
+.form-build-v2 .select-control .wpbooking-build-group input[type="url"],
+.form-build-v2 .select-control .wpbooking-build-group input[type="week"],
+.form-build-v2 .select-control .wpbooking-build-group input[type="search"],
+.form-build-v2 .select-control .wpbooking-build-group select,
+.form-build-v2 .select-control .wpbooking-build-group textarea {
   border-radius: 5px;
   width: 100%;
 }
-.form-build-v2 .select-control .traveler-build-group #traveler-shortcode-flied {
+.form-build-v2 .select-control .wpbooking-build-group #wpbooking-shortcode-flied {
   width: 100%;
 }
-.form-build-v2 .select-control .traveler-build-group .table-group {
+.form-build-v2 .select-control .wpbooking-build-group .table-group {
   width: 100%;
 }
-.form-build-v2 .select-control .traveler-build-group .table-group .add-group {
+.form-build-v2 .select-control .wpbooking-build-group .table-group .add-group {
   width: 10%;
   text-align: right;
 }
-.form-build-v2 .traveler-title-layout {
+.form-build-v2 .wpbooking-title-layout {
   text-align: left;
   width: 100%;
 }
-.form-build-v2 .traveler-title-layout label {
+.form-build-v2 .wpbooking-title-layout label {
   display: block;
   padding-bottom: 10px;
   text-align: left;
 }
-.form-build-v2 .traveler-title-layout input {
+.form-build-v2 .wpbooking-title-layout input {
   font-weight: normal;
   width: 100%;
   border-radius: 3px;
 }
-.form-build-v2 .traveler-title-layout select {
+.form-build-v2 .wpbooking-title-layout select {
   font-weight: normal;
   border-radius: 3px;
 }
-.form-build-v2 .traveler-title-layout th:nth-child(2) {
+.form-build-v2 .wpbooking-title-layout th:nth-child(2) {
   padding-left: 20px;
 }
 .form-build-v2 .w100_ {
@@ -1201,7 +1201,7 @@
 .form-build-v2 .div-content-control {
   display: none;
 }
-.form-build-v2 #traveler-shortcode-flied {
+.form-build-v2 #wpbooking-shortcode-flied {
   cursor: pointer;
 }
 /*widget*/

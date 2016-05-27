@@ -21,7 +21,6 @@ if(!function_exists('wpbooking_admin_load_view')) {
 if(!function_exists('wpbooking_load_view')) {
 	function wpbooking_load_view($view, $data = array())
 	{
-		// Try to find overided file in theme_name/traveler-booking/file-name.php
 		$file=locate_template(array(
 			'wpbooking/'.$view.'.php'
 		),FALSE);
@@ -43,7 +42,7 @@ if(!function_exists('wpbooking_load_view')) {
 if(!function_exists('wpbooking_view_path')) {
 	function wpbooking_view_path($view)
 	{
-		// Try to find overided file in theme_name/traveler-booking/file-name.php
+		// Try to find overided file in theme_name/wpbooking/file-name.php
 		$file=locate_template(array(
 			'wpbooking/'.$view.'.php'
 		),FALSE);

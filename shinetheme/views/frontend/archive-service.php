@@ -8,22 +8,22 @@ if(get_query_var( 'paged' )) {
     $paged = 1;
 }
 $args = array(
-    'post_type' => 'traveler_service' ,
+    'post_type' => 'wpbooking_service' ,
     's'         => '' ,
     'paged'     => $paged,
     'posts_per_page'     => 3,
 );
 $service_type = '';
 $is_page = get_the_ID();
-$list_page_search = apply_filters("traveler_add_page_archive_search",array());
+$list_page_search = apply_filters("wpbooking_add_page_archive_search",array());
 if(!empty($list_page_search[$is_page]))
 {
     $service_type = $list_page_search[$is_page];
 }
-$my_query = Traveler_Service::inst()->query($args,$service_type);
-echo traveler_load_view('wrap/start');
+$my_query = WPBooking_Service::inst()->query($args,$service_type);
+echo wpbooking_load_view('wrap/start');
 ?>
-<div class="traveler-container">
+<div class="wpbooking-container">
     <div class="row">
         <!--<div class="col-md-3">
             <?php /*echo get_sidebar(); */?>
@@ -59,7 +59,7 @@ echo traveler_load_view('wrap/start');
                                                 </span>
                                             <?php } ?>
                                             <?php
-                                            $taxonomy = Traveler_Admin_Taxonomy_Controller::inst()->get_taxonomies();
+                                            $taxonomy = WPBooking_Admin_Taxonomy_Controller::inst()->get_taxonomies();
                                             if(!empty($taxonomy)) {
                                                 foreach( $taxonomy as $k => $v ) {
                                                     if(in_array($service_type,$v['service_type'])){
@@ -79,7 +79,7 @@ echo traveler_load_view('wrap/start');
                                             }?>
                                         </div>
                                         <div class="col-md-3">
-                                            <?php echo traveler_service_price_html() ?>
+                                            <?php echo wpbooking_service_price_html() ?>
                                         </div>
                                     </div>
                                 </li>
@@ -121,6 +121,6 @@ echo traveler_load_view('wrap/start');
     </div>
 </div>
 <?php
-echo traveler_load_view('wrap/end');
+echo wpbooking_load_view('wrap/end');
 wp_reset_query();
 get_footer();

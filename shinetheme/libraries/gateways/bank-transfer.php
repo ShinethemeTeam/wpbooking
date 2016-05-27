@@ -50,7 +50,7 @@ if(!class_exists('WPBooking_BankTransfer_Gateway') and class_exists('WPBooking_A
 
 			);
 
-			add_action('traveler_gateway_desc_'.$this->gateway_id,array($this,'_show_bank_account'));
+			add_action('wpbooking_gateway_desc_'.$this->gateway_id,array($this,'_show_bank_account'));
 
 			parent::__construct();
 		}

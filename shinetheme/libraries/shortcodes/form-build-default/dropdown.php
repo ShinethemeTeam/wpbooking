@@ -9,14 +9,14 @@ if(function_exists( 'wpbooking_add_field_form_builder' )) {
                     "type"             => "required" ,
                     "title"            => __( "Set as <strong>required</strong>" , 'wpbooking' ) ,
                     "desc"             => "" ,
-                    'edit_field_class' => 'traveler-col-md-12' ,
+                    'edit_field_class' => 'wpbooking-col-md-12' ,
                 ) ,
                 array(
                     "type"             => "text" ,
                     "title"            => __( "Title" , 'wpbooking' ) ,
                     "name"             => "title" ,
                     "desc"             => __( "Title" , 'wpbooking' ) ,
-                    'edit_field_class' => 'traveler-col-md-6' ,
+                    'edit_field_class' => 'wpbooking-col-md-6' ,
                     'value'            => ""
                 ) ,
                 array(
@@ -24,7 +24,7 @@ if(function_exists( 'wpbooking_add_field_form_builder' )) {
                     "title"            => __( "Name" , 'wpbooking' ) ,
                     "name"             => "name" ,
                     "desc"             => __( "Name" , 'wpbooking' ) ,
-                    'edit_field_class' => 'traveler-col-md-6' ,
+                    'edit_field_class' => 'wpbooking-col-md-6' ,
                     'value'            => ""
                 ) ,
                 array(
@@ -32,7 +32,7 @@ if(function_exists( 'wpbooking_add_field_form_builder' )) {
                     "title"            => __( "ID" , 'wpbooking' ) ,
                     "name"             => "id" ,
                     "desc"             => __( "ID" , 'wpbooking' ) ,
-                    'edit_field_class' => 'traveler-col-md-6' ,
+                    'edit_field_class' => 'wpbooking-col-md-6' ,
                     'value'            => ""
                 ) ,
                 array(
@@ -40,7 +40,7 @@ if(function_exists( 'wpbooking_add_field_form_builder' )) {
                     "title"            => __( "Class" , 'wpbooking' ) ,
                     "name"             => "class" ,
                     "desc"             => __( "Class" , 'wpbooking' ) ,
-                    'edit_field_class' => 'traveler-col-md-6' ,
+                    'edit_field_class' => 'wpbooking-col-md-6' ,
                     'value'            => ""
                 ) ,
                 array(
@@ -48,7 +48,7 @@ if(function_exists( 'wpbooking_add_field_form_builder' )) {
                     "title"            => __( "Options" , 'wpbooking' ) ,
                     "name"             => "options" ,
                     "desc"             => __( "Ex: Title 1:value_1|Title 2:value_2" , 'wpbooking' ) ,
-                    'edit_field_class' => 'traveler-col-md-12' ,
+                    'edit_field_class' => 'wpbooking-col-md-12' ,
                     'value'            => ''
                 ) ,
             )

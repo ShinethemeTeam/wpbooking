@@ -8,9 +8,9 @@
 $extra_price=get_post_meta(get_the_ID(),'extra_price',true);
 if(empty($extra_price) or !is_array($extra_price)) return;
 ?>
-<div class="traveler-extra-price-wrap mb20">
+<div class="wpbooking-extra-price-wrap mb20">
 	<h4 ><?php _e('Extra Price:','wpbooking') ?></h4>
-	<div class="traveler-extra-price-list">
+	<div class="wpbooking-extra-price-list">
 		<?php
 		foreach($extra_price as $key=>$value){
 			?>
@@ -24,11 +24,11 @@ if(empty($extra_price) or !is_array($extra_price)) return;
 						$extra_item_price=FALSE;
 						switch($type){
 							case "per_night":
-								$extra_item_price=sprintf(esc_attr__('%s/night','wpbooking'),Traveler_Currency::format_money($value['price']));
+								$extra_item_price=sprintf(esc_attr__('%s/night','wpbooking'),WPBooking_Currency::format_money($value['price']));
 								break;
 						}
-						//echo Traveler_Currency::format_money($value['price']);
-						echo apply_filters('traveler_extra_item_price_html',$extra_item_price,$value);
+						//echo WPBooking_Currency::format_money($value['price']);
+						echo apply_filters('wpbooking_extra_item_price_html',$extra_item_price,$value);
 						?>
 					</span>
 				</label>

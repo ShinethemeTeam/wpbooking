@@ -9,8 +9,8 @@ get_header();
 ?>
 
 <?php
-	echo traveler_load_view('single/content');
+	echo wpbooking_load_view('single/content');
 
-	do_action('traveler_booking_sidebar');
+	do_action('wpbooking_booking_sidebar');
 
 get_footer();

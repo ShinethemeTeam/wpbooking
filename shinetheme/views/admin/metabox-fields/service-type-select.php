@@ -2,7 +2,7 @@
 /**
  *@since 1.0.0
  **/
-$service_type=Traveler_Service::inst()->get_service_types();
+$service_type=WPBooking_Service::inst()->get_service_types();
 
 $old_data = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
 
@@ -28,8 +28,8 @@ if( $service_type && !empty( $service_type ) ){
 	$select .= '</select>';
 }
 ?>
-<div class="traveler-hndle-tag-input hidden">
-	<label class="traveler-form-group" ><?php echo esc_html($data['label']) ?>
+<div class="wpbooking-hndle-tag-input hidden">
+	<label class="wpbooking-form-group" ><?php echo esc_html($data['label']) ?>
 		<?php echo $select?>
 	</label>
 </div>

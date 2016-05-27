@@ -1,13 +1,13 @@
-<?php $value     = traveler_get_option( $data[ 'id' ] , $data[ 'std' ] );
+<?php $value     = wpbooking_get_option( $data[ 'id' ] , $data[ 'std' ] );
 $custom_settings = $data[ 'value' ];
 $id_list_item    = $data[ 'id' ];
 ?>
-<tr class="traveler-setting-<?php echo esc_html( $data[ 'id' ] ) ?> traveler-setting-list-item ">
+<tr class="wpbooking-setting-<?php echo esc_html( $data[ 'id' ] ) ?> wpbooking-setting-list-item ">
     <th scope="row">
         <label for="<?php echo esc_html( $data[ 'id' ] ) ?>"><?php echo esc_html( $data[ 'label' ] ) ?>:</label>
     </th>
     <td class="">
-        <table class="traveler-list-item-wrap" cellpadding="0" cellspacing="0">
+        <table class="wpbooking-list-item-wrap" cellpadding="0" cellspacing="0">
             <thead>
             <tr>
                 <th class="td td-left"><span class="dashicons dashicons-admin-tools"></span></th>
@@ -28,9 +28,9 @@ $id_list_item    = $data[ 'id' ];
                                 <div class="list-title">
                                     <?php echo esc_html( $v[ 'title' ] ) ?>
                                 </div>
-                                <div class="traveler-setting-setting-body">
+                                <div class="wpbooking-setting-setting-body">
                                     <div class="list-item">
-                                        <table class="form-table traveler-settings">
+                                        <table class="form-table wpbooking-settings">
                                             <tbody>
                                             <tr class="">
                                                 <th scope="row">
@@ -40,7 +40,7 @@ $id_list_item    = $data[ 'id' ];
                                                     <input type="text"
                                                            class="form-control  min-width-500 list_item_title"
                                                            value="<?php echo esc_html( $v[ 'title' ] ) ?>"
-                                                           name="traveler_booking_list_item[<?php echo esc_attr($id_list_item) ?>][<?php echo esc_attr( $i ) ?>][title]"
+                                                           name="wpbooking_booking_list_item[<?php echo esc_attr($id_list_item) ?>][<?php echo esc_attr( $i ) ?>][title]"
                                                            placeholder="title">
                                                 </td>
                                             </tr>
@@ -63,12 +63,12 @@ $id_list_item    = $data[ 'id' ];
                                                         'std'               => '' ,
                                                         'taxonomy'          => '' ,
                                                         'element_list_item' => true ,
-                                                        'custom_name'       => 'traveler_booking_list_item[' . $id_list_item . '][' . $i . '][' . $id . ']' ,
+                                                        'custom_name'       => 'wpbooking_booking_list_item[' . $id_list_item . '][' . $i . '][' . $id . ']' ,
                                                         'custom_value'      => $cusstom_value
                                                     );
                                                     $v2      = wp_parse_args( $v2 , $default );
                                                     $path    = 'fields/' . $v2[ 'type' ];
-                                                    echo $xx = traveler_admin_load_view( $path , array(
+                                                    echo $xx = wpbooking_admin_load_view( $path , array(
                                                         'data'           => $v2 ,
                                                         'slug_page_menu' => $slug_page_menu
                                                     ) );
@@ -107,9 +107,9 @@ $id_list_item    = $data[ 'id' ];
                 <td class="td td-center">
                     <div class="list-content">
                         <div class="list-title"></div>
-                        <div class="traveler-setting-setting-body">
+                        <div class="wpbooking-setting-setting-body">
                             <div class="list-item">
-                                <table class="form-table traveler-settings">
+                                <table class="form-table wpbooking-settings">
                                     <tbody>
                                     <tr class="">
                                         <th scope="row">
@@ -117,7 +117,7 @@ $id_list_item    = $data[ 'id' ];
                                         </th>
                                         <td>
                                             <input type="text" class="form-control  min-width-500 list_item_title"
-                                                   name="traveler_booking_list_item[<?php echo $id_list_item ?>][__number_list__][title]"
+                                                   name="wpbooking_booking_list_item[<?php echo $id_list_item ?>][__number_list__][title]"
                                                    placeholder="title">
                                         </td>
                                     </tr>
@@ -132,12 +132,12 @@ $id_list_item    = $data[ 'id' ];
                                                               'std'               => '' ,
                                                               'taxonomy'          => '' ,
                                                               'element_list_item' => true ,
-                                                              'custom_name'       => 'traveler_booking_list_item[' . $id_list_item . '][__number_list__][' . $id . ']' ,
+                                                              'custom_name'       => 'wpbooking_booking_list_item[' . $id_list_item . '][__number_list__][' . $id . ']' ,
                                                               'custom_value'      => ""
                                             );
                                             $v2      = wp_parse_args( $v2 , $default );
                                             $path    = 'fields/' . $v2[ 'type' ];
-                                            echo $xx = traveler_admin_load_view( $path , array( 'data'           => $v2 ,
+                                            echo $xx = wpbooking_admin_load_view( $path , array( 'data'           => $v2 ,
                                                                                                 'slug_page_menu' => $slug_page_menu
                                             ) );
                                         }
@@ -165,9 +165,9 @@ $id_list_item    = $data[ 'id' ];
             </tr>
             </tfoot>
         </table>
-        <input type="hidden" class="traveler_booking_number_last_list_item" value="<?php echo esc_html( $i ) ?>">
+        <input type="hidden" class="wpbooking_booking_number_last_list_item" value="<?php echo esc_html( $i ) ?>">
         <button type="button"
                 class="button button-primary btn_add_new_list_item"><?php _e( "Add New" , 'wpbooking' ) ?></button>
-        <i class="traveler-desc"><?php echo balanceTags( $data[ 'desc' ] ) ?></i>
+        <i class="wpbooking-desc"><?php echo balanceTags( $data[ 'desc' ] ) ?></i>
     </td>
 </tr>

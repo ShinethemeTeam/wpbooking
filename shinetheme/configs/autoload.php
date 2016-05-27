@@ -7,7 +7,7 @@
  */
 
 /**
- * @see Traveler_Loader::_autoload();
+ * @see WPBooking_Loader::_autoload();
  */
 $autoload['config']=array(
 	//'settings'
@@ -60,4 +60,4 @@ $autoload['widget']=array(
 	'cart-widget'
 );
 
-$autoload['encrypr_key'] = 'traveler';
+$autoload['encrypr_key'] = 'wpbooking';

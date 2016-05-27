@@ -16,16 +16,16 @@ if(!class_exists('WPBooking_Email'))
 
 			add_action('init',array($this,'_load_email_shortcodes'));
 
-			add_action('traveler_after_checkout_success',array($this,'_send_order_email_success'));
+			add_action('wpbooking_after_checkout_success',array($this,'_send_order_email_success'));
 
 			/**
 			 * Send Emails when new Order Item has been updated/changed, example: payment complete or cancelled
 			 * @since 1.0
 			 */
-			add_action('traveler_order_item_changed',array($this,'_send_order_email_success'));
+			add_action('wpbooking_order_item_changed',array($this,'_send_order_email_success'));
 
 
-			//add_action('traveler_after_checkout_success',array($this,'_send_order_email_confirm'));
+			//add_action('wpbooking_after_checkout_success',array($this,'_send_order_email_confirm'));
 
 
 		}

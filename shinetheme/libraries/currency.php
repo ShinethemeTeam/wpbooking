@@ -137,15 +137,15 @@ if (!class_exists('WPBooking_Currency')) {
 			/**
 			 * Use in $config[settings]
 			 */
-			add_filter('traveler_get_all_currency', array(__CLASS__, 'get_all_currency'));
+			add_filter('wpbooking_get_all_currency', array(__CLASS__, 'get_all_currency'));
 
 		}
 
 		static function _location_session()
 		{
 
-			if (!Traveler_Session::get('traveler_currency')) {
-				Traveler_Session::set('traveler_currency', self::get_default_currency());
+			if (!WPBooking_Session::get('wpbooking_currency')) {
+				WPBooking_Session::set('wpbooking_currency', self::get_default_currency());
 			}
 
 		}
@@ -155,7 +155,7 @@ if (!class_exists('WPBooking_Currency')) {
 		{
 
 			if (WPBooking_Input::get('currency') and $new_currency = self::find_currency($_GET['currency'])) {
-				Traveler_Session::set('traveler_currency', $new_currency);
+				WPBooking_Session::set('wpbooking_currency', $new_currency);
 			}
 		}
 
@@ -166,7 +166,7 @@ if (!class_exists('WPBooking_Currency')) {
 
 		static function get_all_currency()
 		{
-			return apply_filters('traveler_all_currency', self::$all_currency);
+			return apply_filters('wpbooking_all_currency', self::$all_currency);
 		}
 
 		/**
@@ -176,7 +176,7 @@ if (!class_exists('WPBooking_Currency')) {
 		 * */
 		static function get_currency($theme_option = FALSE)
 		{
-			$all = apply_filters('traveler_get_list_currency', traveler_get_option('currency_list', array()));
+			$all = apply_filters('wpbooking_get_list_currency', wpbooking_get_option('currency_list', array()));
 
 			//return array for theme options choise
 			if ($theme_option) {
@@ -392,7 +392,7 @@ if (!class_exists('WPBooking_Currency')) {
 		 * */
 		static function get_current_currency($need = FALSE, $default = FALSE)
 		{
-			$current = Traveler_Session::get('traveler_currency');
+			$current = WPBooking_Session::get('wpbooking_currency');
 			//Check session of user first
 			if ($need and $current) {
 				if (isset($current[$need])) return $current[$need];
@@ -406,7 +406,7 @@ if (!class_exists('WPBooking_Currency')) {
 		static function get_added_currencies()
 		{
 
-			return traveler_get_option('currency', array());
+			return wpbooking_get_option('currency', array());
 		}
 
 		/**

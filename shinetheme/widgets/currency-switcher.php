@@ -5,9 +5,9 @@
  * Date: 4/22/2016
  * Time: 2:21 PM
  */
-if(!class_exists('Traveler_Widget_Currency_Switcher'))
+if(!class_exists('WPBooking_Widget_Currency_Switcher'))
 {
-	class Traveler_Widget_Currency_Switcher extends  WP_Widget
+	class WPBooking_Widget_Currency_Switcher extends  WP_Widget
 	{
 		/**
 		 * Register widget with WordPress.
@@ -36,13 +36,13 @@ if(!class_exists('Traveler_Widget_Currency_Switcher'))
 				echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
 			}
 
-			$all_currency = Traveler_Currency::get_all_currency();
+			$all_currency = WPBooking_Currency::get_all_currency();
 
-			$all = Traveler_Currency::get_added_currencies();
+			$all = WPBooking_Currency::get_added_currencies();
 
 			$html = "<select onchange='window.location.href=this.value'>";
 
-			$selected=Traveler_Currency::get_current_currency('currency');
+			$selected=WPBooking_Currency::get_current_currency('currency');
 
 			foreach ($all as $k => $v) {
 
@@ -58,7 +58,7 @@ if(!class_exists('Traveler_Widget_Currency_Switcher'))
 			}
 			$html .= "</select>";
 
-			echo apply_filters('traveler_widget_currency_switcher',$html);
+			echo apply_filters('wpbooking_widget_currency_switcher',$html);
 
 			echo $args['after_widget'];
 		}
@@ -107,8 +107,8 @@ if(!class_exists('Traveler_Widget_Currency_Switcher'))
 			register_widget( __CLASS__ );
 		}
 	}
-
-	Traveler_Widget_Currency_Switcher::widget_init();
+	
+	WPBooking_Widget_Currency_Switcher::widget_init();
 
 
 

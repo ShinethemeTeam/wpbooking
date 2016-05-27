@@ -14,8 +14,8 @@ if(!function_exists('wpbooking_service_price'))
 		$base_price= get_post_meta($post_id,'price',true);
 		$service_type= get_post_meta($post_id,'service_type',true);
 
-		$base_price= apply_filters('traveler_service_base_price',$base_price,$post_id,$service_type);
-		$base_price= apply_filters('traveler_service_base_price_'.$service_type,$base_price,$post_id,$service_type);
+		$base_price= apply_filters('wpbooking_service_base_price',$base_price,$post_id,$service_type);
+		$base_price= apply_filters('wpbooking_service_base_price_'.$service_type,$base_price,$post_id,$service_type);
 
 		return $base_price;
 	}
@@ -32,8 +32,8 @@ if(!function_exists('wpbooking_service_price_html'))
 
 		$price_html=WPBooking_Currency::format_money($price,array('currency'=>$currency));
 
-		$price_html= apply_filters('traveler_service_base_price',$price_html,$post_id,$service_type);
-		$price_html= apply_filters('traveler_service_base_price_'.$service_type,$price_html,$post_id,$service_type);
+		$price_html= apply_filters('wpbooking_service_base_price',$price_html,$post_id,$service_type);
+		$price_html= apply_filters('wpbooking_service_base_price_'.$service_type,$price_html,$post_id,$service_type);
 
 		return $price_html;
 	}

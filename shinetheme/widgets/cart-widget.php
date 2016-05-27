@@ -5,9 +5,9 @@
  * Date: 4/22/2016
  * Time: 2:21 PM
  */
-if(!class_exists('Traveler_Widget_Cart'))
+if(!class_exists('WPBooking_Widget_Cart'))
 {
-	class Traveler_Widget_Cart extends  WP_Widget
+	class WPBooking_Widget_Cart extends  WP_Widget
 	{
 		/**
 		 * Register widget with WordPress.
@@ -79,21 +79,21 @@ if(!class_exists('Traveler_Widget_Cart'))
 
 		static function _add_cart_update_content($sections=array())
 		{
-			$sections['.traveler-cart-widget-content']=traveler_load_view('cart/cart-widget');
+			$sections['.wpbooking-cart-widget-content']=wpbooking_load_view('cart/cart-widget');
 			return $sections;
 		}
 		static function  widget_init()
 		{
 			add_action( 'widgets_init',array(__CLASS__,'register') );
-			add_filter('traveler_cart_updated_content',array(__CLASS__,'_add_cart_update_content'));
+			add_filter('wpbooking_cart_updated_content',array(__CLASS__,'_add_cart_update_content'));
 		}
 		static function register()
 		{
 			register_widget( __CLASS__ );
 		}
 	}
-
-	Traveler_Widget_Cart::widget_init();
+	
+	WPBooking_Widget_Cart::widget_init();
 
 
 

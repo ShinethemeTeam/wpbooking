@@ -8,12 +8,12 @@ jQuery(document).ready(function( $ ){
      */
     var condition_object='select, input[type="radio"]:checked, input[type="text"], input[type="hidden"], input.ot-numeric-slider-hidden-input,input[type="checkbox"]';
     // condition function to show and hide sections
-    $('.traveler-form-group').on( 'change.conditionals', condition_object, function(e) {
+    $('.wpbooking-form-group').on( 'change.conditionals', condition_object, function(e) {
         run_condition_engine();
     });
     run_condition_engine();
     function run_condition_engine(){
-        $('.traveler-condition[data-condition]').each(function() {
+        $('.wpbooking-condition[data-condition]').each(function() {
             
             var passed;
             var conditions = get_match_condition( $( this ).data( 'condition' ) );
@@ -222,22 +222,22 @@ jQuery(document).ready(function( $ ){
     ///////////////////////////////////
     /////// IMAGE THUMB ///////////////
     ///////////////////////////////////
-    $(document).on('keyup', '.traveler_booking_image_thumb_width', function(event) {
+    $(document).on('keyup', '.wpbooking_booking_image_thumb_width', function(event) {
         var container = $(this).parent();
         _save_data_image_thumb(container);
     });
-    $(document).on('keyup', '.traveler_booking_image_thumb_height', function(event) {
+    $(document).on('keyup', '.wpbooking_booking_image_thumb_height', function(event) {
         var container = $(this).parent();
         _save_data_image_thumb(container);
     });
-    $(document).on('change', '.traveler_booking_image_thumb_crop', function(event) {
+    $(document).on('change', '.wpbooking_booking_image_thumb_crop', function(event) {
         var container = $(this).parent();
         _save_data_image_thumb(container);
     });
     function _save_data_image_thumb(container){
-        var height = container.find('.traveler_booking_image_thumb_height').val();
-        var width = container.find('.traveler_booking_image_thumb_width').val();
-        if ( container.find('.traveler_booking_image_thumb_crop').is(":checked"))
+        var height = container.find('.wpbooking_booking_image_thumb_height').val();
+        var width = container.find('.wpbooking_booking_image_thumb_width').val();
+        if ( container.find('.wpbooking_booking_image_thumb_crop').is(":checked"))
         {
             var crop = 'on';
         }else{
@@ -270,7 +270,7 @@ jQuery(document).ready(function( $ ){
     }).resize();
 
     // move field to hndle tags
-    $( '.traveler-hndle-tag-input').each(function(){
+    $( '.wpbooking-hndle-tag-input').each(function(){
         var me=$(this);
         var hndle=me.closest('.postbox').find('.hndle');
         hndle.find('span').append(me.html());
@@ -297,13 +297,13 @@ jQuery(document).ready(function( $ ){
     $(".btn_add_new_list_item").click(function () {
         var container = $(this).parent();
         var content_html = container.find(".content_list_item_hide").html();
-        var number_list = container.find('.traveler_booking_number_last_list_item').val();
+        var number_list = container.find('.wpbooking_booking_number_last_list_item').val();
         content_html = content_html.replace(/__number_list__/g, number_list);
         container.find('.data_content_list_item').append(content_html);
-        container.find('.traveler-setting-setting-body').slideUp('fast');
-        container.find('.number_list_' + number_list + ' .traveler-setting-setting-body').slideDown('fast');
+        container.find('.wpbooking-setting-setting-body').slideUp('fast');
+        container.find('.number_list_' + number_list + ' .wpbooking-setting-setting-body').slideDown('fast');
         number_list = Number(number_list) + 1;
-        container.find('.traveler_booking_number_last_list_item').val(number_list);
+        container.find('.wpbooking_booking_number_last_list_item').val(number_list);
     });
     $(document).on('click', '.btn_list_item_del', function (event) {
         var confirm=confirm();
@@ -313,12 +313,12 @@ jQuery(document).ready(function( $ ){
     $(document).on('click', '.btn_list_item_edit', function (event) {
         var container_full = $(this).parent().parent().parent().parent();
         var container = $(this).parent().parent().parent();
-        container_full.find('.traveler-setting-setting-body').slideUp('fast');
-        $check = container.find('.traveler-setting-setting-body').css('display');
+        container_full.find('.wpbooking-setting-setting-body').slideUp('fast');
+        $check = container.find('.wpbooking-setting-setting-body').css('display');
         if ($check == "none") {
-            container.find('.traveler-setting-setting-body').slideDown('fast');
+            container.find('.wpbooking-setting-setting-body').slideDown('fast');
         } else {
-            container.find('.traveler-setting-setting-body').slideUp('fast');
+            container.find('.wpbooking-setting-setting-body').slideUp('fast');
         }
     });
     $(document).on('click', '.list_item_title', function (event) {
@@ -473,26 +473,26 @@ jQuery(document).ready(function( $ ){
     /////////////////////////////////
     /////// List item //////////////
     ///////////////////////////////
-    $( ".traveler-list-item-wrapper .traveler-list" ).sortable({
+    $( ".wpbooking-list-item-wrapper .wpbooking-list" ).sortable({
         cursor: "move"
     });
 
-    $('.traveler-add-item').click(function(event) {
+    $('.wpbooking-add-item').click(function(event) {
         /* Act on the event */
-        if( $('#traveler-list-item-draft').length ){
-            var content = $('#traveler-list-item-draft').html();
+        if( $('#wpbooking-list-item-draft').length ){
+            var content = $('#wpbooking-list-item-draft').html();
 
-            var parent = $(this).closest('.traveler-list-item-wrapper');
+            var parent = $(this).closest('.wpbooking-list-item-wrapper');
 
-            $('.traveler-list', parent).append( content );
-            $( ".traveler-list-item-wrapper .traveler-list" ).sortable({
+            $('.wpbooking-list', parent).append( content );
+            $( ".wpbooking-list-item-wrapper .wpbooking-list" ).sortable({
                 cursor: "move"
             });
         }
         return false;
     });
 
-    $('.traveler-list-item-wrapper').on('click', '.btn_list_item_edit', function(event) {
+    $('.wpbooking-list-item-wrapper').on('click', '.btn_list_item_edit', function(event) {
         var parent = $(this).closest('.list-item-head');
         parent.next().stop(true, true).toggleClass('hidden');
 
@@ -500,8 +500,8 @@ jQuery(document).ready(function( $ ){
         /* Act on the event */
     });
 
-    $('.traveler-list-item-wrapper').on('click', '.btn_list_item_del', function(event) {
-        var parent = $(this).closest('.traveler-list-item');
+    $('.wpbooking-list-item-wrapper').on('click', '.btn_list_item_del', function(event) {
+        var parent = $(this).closest('.wpbooking-list-item');
         parent.remove();
 
         event.preventDefault();
@@ -510,8 +510,8 @@ jQuery(document).ready(function( $ ){
 
     
 
-    $('.traveler-list-item-wrapper').on('keyup', '.input-title', function(event) {
-        var parent = $(this).closest('.traveler-list-item');
+    $('.wpbooking-list-item-wrapper').on('keyup', '.input-title', function(event) {
+        var parent = $(this).closest('.wpbooking-list-item');
         var val = $(this).val();
         $('.item-title', parent).text( val );
 
@@ -523,8 +523,8 @@ jQuery(document).ready(function( $ ){
     ////////// Location ////////
     ////////////////////////////
 
-    if( $('.traveler-select-loction').length ){
-        $('.traveler-select-loction').each(function(index, el) {
+    if( $('.wpbooking-select-loction').length ){
+        $('.wpbooking-select-loction').each(function(index, el) {
             var parent = $(this);
             var input = $('input[name="search"]', parent);
             var list = $('.list-location-wrapper', parent);

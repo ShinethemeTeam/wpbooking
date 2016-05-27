@@ -5,12 +5,12 @@
  * Date: 4/8/2016
  * Time: 4:59 PM
  */
-echo traveler_get_message();
-$booking=Traveler_Booking::inst();
+echo wpbooking_get_message();
+$booking=WPBooking_Order::inst();
 $order_items=$booking->get_order_items(get_the_ID());
 
 $checkout_form_data=$booking->get_order_form_datas();
-do_action('traveler_before_order_content');
+do_action('wpbooking_before_order_content');
 ?>
 <h3><?php _e('Your Order','wpbooking')?></h3>
 <table class="order-information-table">
@@ -31,8 +31,8 @@ do_action('traveler_before_order_content');
 			</td>
 			<td class="review-order-item-info">
 				<h4 class="service-name"><a href="<?php echo get_permalink($value['post_id'])?>" target="_blank"><?php echo get_the_title($value['post_id'])?></a></h4>
-				<?php do_action('traveler_order_item_information',$value) ?>
-				<?php do_action('traveler_order_item_information_'.$service_type,$value) ?>
+				<?php do_action('wpbooking_order_item_information',$value) ?>
+				<?php do_action('wpbooking_order_item_information_'.$service_type,$value) ?>
 			</td>
 			<td class="review-order-item-total">
 				<p class="cart-item-price"><?php echo $booking->get_order_item_total_html($value) ?></p>
@@ -44,13 +44,13 @@ do_action('traveler_before_order_content');
 	<tfooter>
 		<tr>
 			<td colspan="2"><?php _e('Total','wpbooking')?></td>
-			<td><?php echo Traveler_Currency::format_money($booking->get_order_total(get_the_ID()));?></td>
+			<td><?php echo WPBooking_Currency::format_money($booking->get_order_total(get_the_ID()));?></td>
 		</tr>
-		<?php do_action('traveler_order_information_footer') ?>
+		<?php do_action('wpbooking_order_information_footer') ?>
 	</tfooter>
 </table>
 <?php
-	do_action('traveler_before_checkout_form_data');
+	do_action('wpbooking_before_checkout_form_data');
 
 	if(!empty($checkout_form_data) and is_array($checkout_form_data)){?>
 	<div class="checkout-form-data">
@@ -58,7 +58,7 @@ do_action('traveler_before_order_content');
 
 		<ul class="checkout-form-list">
 			<?php foreach($checkout_form_data as $key=>$value){
-				$value_html= Traveler_Admin_Form_Build::inst()->get_form_field_data($value);
+				$value_html= WPBooking_Admin_Form_Build::inst()->get_form_field_data($value);
 				if($value_html){
 				?>
 				<li class="form-item">
@@ -76,6 +76,6 @@ do_action('traveler_before_order_content');
 	</div>
 	<?php }
 
-	do_action('traveler_end_checkout_form_data');
+	do_action('wpbooking_end_checkout_form_data');
 
-do_action('traveler_end_order_content');
+do_action('wpbooking_end_order_content');

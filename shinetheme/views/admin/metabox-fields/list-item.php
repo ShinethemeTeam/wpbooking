@@ -10,31 +10,31 @@ if( !empty( $value ) ){
 	$old_data = $value;
 }
 
-$class = ' traveler-form-group ';
+$class = ' wpbooking-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){
-    $class .= ' traveler-condition ';
+    $class .= ' wpbooking-condition ';
     $data_class .= ' data-condition='.$data['condition'].' ' ;
 }
 
 ?>
-<div class="form-table traveler-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
-<div id="traveler-list-item_<?php echo esc_html( $data['id'] ); ?>"  class="st-metabox-left">
+<div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+<div id="wpbooking-list-item_<?php echo esc_html( $data['id'] ); ?>"  class="st-metabox-left">
 	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
 </div>
 <div class="st-metabox-right">
 	<?php 
 		if( !empty( $data['value'] ) && is_array( $data['value'] ) ):
 	?>
-	<div class="traveler-list-item-wrapper">
-		<div class="traveler-list">
+	<div class="wpbooking-list-item-wrapper">
+		<div class="wpbooking-list">
 		<?php 
 			$conver_data = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
 			
 			if( !empty( $conver_data ) && is_array( $conver_data) ):
 				foreach( $conver_data as $convert_key => $convert_val ):
 			?>
-			<div class="traveler-list-item">
+			<div class="wpbooking-list-item">
 				<div class="list-item-head">
 					
 					<span class="dashicons dashicons-menu"></span>
@@ -53,8 +53,8 @@ if(!empty($data['condition'])){
 				<table class="hidden">	
 					<tr>
 						<td class="td-left" colspan="3">
-							<div class="form-table traveler-settings ">
-								<div class="st-metabox-left  traveler-form-group  title  traveler-form-group">
+							<div class="form-table wpbooking-settings ">
+								<div class="st-metabox-left  wpbooking-form-group  title  wpbooking-form-group">
 									<?php echo __('Title', 'wpbooking'); ?>
 								</div>
 								<div class="st-metabox-right">
@@ -91,7 +91,7 @@ if(!empty($data['condition'])){
 
 									$file = 'metabox-fields/' . $item['type'];
 
-									echo traveler_admin_load_view( $file, array( 'data' => $item,'is_sub_item'=>true ) );
+									echo wpbooking_admin_load_view( $file, array( 'data' => $item,'is_sub_item'=>true ) );
 								?>
 									
 								<?php endforeach; ?>	
@@ -102,17 +102,17 @@ if(!empty($data['condition'])){
 			</div>
 		<?php endforeach; endif; ?>
 		</div>
-		<button class="traveler-add-item btn button button-primary" type="button"><?php echo __('Add item', 'wpbooking'); ?></button>
+		<button class="wpbooking-add-item btn button button-primary" type="button"><?php echo __('Add item', 'wpbooking'); ?></button>
 	</div>
 	<?php endif; ?>
-	<i class="traveler-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+	<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
 </div>
 </div>
 <?php 
 	if( !empty( $data['value'] ) && is_array( $data['value'] ) ):
 ?>
-<div id="traveler-list-item-draft" style="display: none !important;">
-	<div class="traveler-list-item">
+<div id="wpbooking-list-item-draft" style="display: none !important;">
+	<div class="wpbooking-list-item">
 		<div class="list-item-head">
 			
 			<span class="dashicons dashicons-menu"></span>
@@ -131,7 +131,7 @@ if(!empty($data['condition'])){
 		<table>	
 			<tr>
 				<td class="td-left" colspan="3">
-					<div class="form-table traveler-settings  traveler-form-group ">
+					<div class="form-table wpbooking-settings  wpbooking-form-group ">
 						<div class="st-metabox-left">
 							<label><?php echo __('Title', 'wpbooking'); ?></label>
 						</div>	
@@ -170,7 +170,7 @@ if(!empty($data['condition'])){
 
 						$file = 'metabox-fields/' . $item['type'];
 
-						echo traveler_admin_load_view( $file, array( 'data' => $item ) );
+						echo wpbooking_admin_load_view( $file, array( 'data' => $item ) );
 
 						unset( $data['value'][ $key ] );
 					?>

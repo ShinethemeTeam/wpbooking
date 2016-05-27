@@ -10,7 +10,7 @@
 	<div class="icon32 icon32-attributes" id="icon-woocommerce"><br/></div>
 	<h2><?php _e( 'Taxonomies', 'wpbooking' ) ?></h2>
 	<br class="clear" />
-	<?php echo traveler_get_admin_message() ?>
+	<?php echo wpbooking_get_admin_message() ?>
 	<div id="col-container">
 		<div id="col-right">
 			<div class="col-wrap">
@@ -30,15 +30,15 @@
 							
 							<td><a href="<?php echo esc_url(add_query_arg(array(
 									'taxonomy'=>$tax,
-									'post_type'=>'traveler_service'
+									'post_type'=>'wpbooking_service'
 								),admin_url('edit-tags.php'))) ?>"><?php echo esc_html( $value['label'] ); ?></a>
 								
 								<div class="row-actions">
 									<span class="edit">
-										<a href="<?php echo esc_url( add_query_arg(array('taxonomy_name'=> $tax,'action'=>'traveler_edit_taxonomy'),$page_url) ); ?>"><?php _e( 'Edit', 'wpbooking' ); ?></a>
+										<a href="<?php echo esc_url( add_query_arg(array('taxonomy_name'=> $tax,'action'=>'wpbooking_edit_taxonomy'),$page_url) ); ?>"><?php _e( 'Edit', 'wpbooking' ); ?></a>
 										| </span>
 									<span class="delete">
-										<a class="delete" href="<?php echo  wp_nonce_url( add_query_arg(array('action'=>'traveler_delete_taxonomy','tax_name'=>$tax),$page_url) ) ; ?>"><?php _e( 'Delete', 'wpbooking' ); ?>
+										<a class="delete" href="<?php echo  wp_nonce_url( add_query_arg(array('action'=>'wpbooking_delete_taxonomy','tax_name'=>$tax),$page_url) ) ; ?>"><?php _e( 'Delete', 'wpbooking' ); ?>
 										</a>
 									</span>
 								</div>
@@ -82,7 +82,7 @@
 						<div class="form-field">
 							<label ><?php _e( 'Service Type', 'wpbooking' ); ?></label>
 							<?php
-							$types=Traveler_Service::inst()->get_service_types();
+							$types=WPBooking_Service::inst()->get_service_types();
 							if(!empty($types))
 							{
 								foreach($types as $key=>$value){
@@ -94,8 +94,8 @@
 
 						</div>
 
-						<p class="submit"><input type="submit" name="traveler_create_taxonomy" id="submit" class="button" value="<?php _e( 'Add Taxonomy', 'wpbooking' ); ?>"></p>
-						<?php wp_nonce_field( 'traveler_create_taxonomy' ); ?>
+						<p class="submit"><input type="submit" name="wpbooking_create_taxonomy" id="submit" class="button" value="<?php _e( 'Add Taxonomy', 'wpbooking' ); ?>"></p>
+						<?php wp_nonce_field( 'wpbooking_create_taxonomy' ); ?>
 					</form>
 				</div>
 			</div>

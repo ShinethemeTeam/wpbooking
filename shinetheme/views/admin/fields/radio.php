@@ -1,7 +1,7 @@
 <?php
 
-$data_value = traveler_get_option($data['id'],array($data['std']));
-$name = 'traveler_booking_'.$data['id'];
+$data_value = wpbooking_get_option($data['id'],array($data['std']));
+$name = 'wpbooking_booking_'.$data['id'];
 
 if(!empty($data['element_list_item'])){
     $name = $data['custom_name'];
@@ -40,6 +40,6 @@ if(!empty($data['element_list_item'])){
                 <?php } ?>
             </ul>
         </fieldset>
-        <i class="traveler-desc"><?php echo balanceTags($data['desc']) ?></i>
+        <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
     </td>
 </tr>

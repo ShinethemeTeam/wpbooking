@@ -19,7 +19,7 @@ $config['settings'] = array(
 								'id'    => 'currency',
 								'label' => __('Currency', 'wpbooking'),
 								'type'  => 'dropdown',
-								'value'   => apply_filters('traveler_get_all_currency', array()),
+								'value'   => apply_filters('wpbooking_get_all_currency', array()),
 							),
 							array(
 								'id'    => 'symbol',
@@ -102,7 +102,7 @@ $config['settings'] = array(
 						'id'        => 'checkout_form',
 						'label'     => __("Checkout Form", 'wpbooking'),
 						'type'      => 'post-select',
-						'post_type' => array('traveler_form')
+						'post_type' => array('wpbooking_form')
 					),
 					array(
 						'id'        => 'allow_guest_checkout',
@@ -126,7 +126,7 @@ $config['settings'] = array(
 						'id'        => 'email_from',
 						'label'     => __("Email From Name", 'wpbooking'),
 						'type'      => 'text',
-						'std'		=>__("Traveler Booking Plugin",'wpbooking')
+						'std'		=>__("WPBooking Plugin",'wpbooking')
 					),
 					array(
 						'id'        => 'email_from_address',

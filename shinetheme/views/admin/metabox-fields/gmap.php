@@ -12,10 +12,10 @@ $map_zoom = (int) get_post_meta( $post_id, 'map_zoom', true );
 
 if( !$map_zoom ){ $map_zoom = $data['map_zoom']; }
 
-$class = ' traveler-form-group ';
+$class = ' wpbooking-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){
-    $class .= ' traveler-condition  ';
+    $class .= ' wpbooking-condition  ';
     $data_class .= ' data-condition='.$data['condition'].' ' ;
 }
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
@@ -35,12 +35,12 @@ $field .= '<div style="margin-bottom: 7px;"><div class="gmap-container"><div id=
 $field .= '</div></div>';
 
 ?>
-<div class="form-table traveler-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+<div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
 <div class="st-metabox-left">
 	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
 </div>
 <div class="st-metabox-right">
 	<?php echo $field; ?>
-	<i class="traveler-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+	<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
 </div>
 </div>

@@ -1,16 +1,16 @@
 <?php
-$class = "traveler-col-md-6";
+$class = "wpbooking-col-md-6";
 if(!empty($data['edit_field_class'])){
     $class = $data['edit_field_class'];
 }
 ?>
 <div class="<?php echo esc_html($class) ?> ">
-    <div class="traveler-build-group ">
+    <div class="wpbooking-build-group ">
         <label class="control-label"><?php echo balanceTags($data['title']) ?>:</label>
-        <div class="traveler-row group-checkbox">
+        <div class="wpbooking-row group-checkbox">
             <?php if(!empty($data['options'])){
                 foreach($data['options'] as $k=>$v){
-                    echo ' <div class="traveler-col-md-4"><label><input type="checkbox" class="item_check_box" value="'.$v.'">'.$k.'</label></div>';
+                    echo ' <div class="wpbooking-col-md-4"><label><input type="checkbox" class="item_check_box" value="'.$v.'">'.$k.'</label></div>';
                 }
             } ?>
         </div>

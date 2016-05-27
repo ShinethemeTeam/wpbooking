@@ -36,12 +36,12 @@ if (!class_exists('WPBooking_Payment_Model')) {
 
 		function create_payment($order_id, $gateway)
 		{
-			$booking = WPBooking_Booking::inst();
+			$booking = WPBooking_Order::inst();
 			$data = array(
 				'order_id'   => $order_id,
 				'created_on' => time(),
 				'amount'     => $booking->get_order_pay_amount($order_id),
-				'currency'   => Traveler_Currency::get_current_currency('currency'),
+				'currency'   => WPBooking_Currency::get_current_currency('currency'),
 				'gateway'    => $gateway
 			);
 

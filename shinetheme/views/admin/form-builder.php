@@ -1,33 +1,33 @@
 <?php
-$menu_page=Traveler_Admin_Form_Build::inst()->get_menu_page();
+$menu_page=WPBooking_Admin_Form_Build::inst()->get_menu_page();
 $slug_page_menu = $menu_page['menu_slug'];
-$form_id = Traveler_Input::request('form_builder_id');
+$form_id = WPBooking_Input::request('form_builder_id');
 ?>
 <div class="wrap">
     <div id="icon-tools" class="icon32"></div>
     <h2><?php _e( "Form Builder" , 'wpbooking' ) ?></h2>
     <div class="msg">
-        <?php echo traveler_get_admin_message(); ?>
+        <?php echo wpbooking_get_admin_message(); ?>
     </div>
 </div>
 <form id="form-settings-admin" action="" method="post">
-    <?php wp_nonce_field('traveler_booking_action','traveler_booking_add_layout') ?>
+    <?php wp_nonce_field('wpbooking_booking_action','wpbooking_booking_add_layout') ?>
     <div class="wrap">
         <br class="clear">
-        <div class="traveler-container-fluid">
-            <div class="traveler-row form-build-v2">
-                <div class="traveler-col-md-12 head-form">
+        <div class="wpbooking-container-fluid">
+            <div class="wpbooking-row form-build-v2">
+                <div class="wpbooking-col-md-12 head-form">
                     <h3 class=""><span><?php _e("Add Form","wpbooking") ?></span></h3>
                 </div>
-                <div class="traveler-col-md-12">
-                    <table class="traveler-add-layout">
+                <div class="wpbooking-col-md-12">
+                    <table class="wpbooking-add-layout">
                         <tbody>
                         <tr class="">
                             <th>
                                 <label><?php _e("Form Name:","wpbooking") ?></label>
                             </th>
                             <td>
-                                <input name="traveler-title" type="text" >
+                                <input name="wpbooking-title" type="text" >
                             </td>
 
 
@@ -39,9 +39,9 @@ $form_id = Traveler_Input::request('form_builder_id');
                             </th>
                             <td>
                                 <?php
-                                $list_type = Traveler_Admin_Form_Build::inst()->_get_list_type_layout();
+                                $list_type = WPBooking_Admin_Form_Build::inst()->_get_list_type_layout();
                                 ?>
-                                <select name="traveler-layout-type" class="form-control min-width-200">
+                                <select name="wpbooking-layout-type" class="form-control min-width-200">
                                     <?php if(!empty($list_type)){
                                         foreach($list_type as $k=>$v){
                                             echo '<option value="'.$v.'">'.$v.'</option>';
@@ -52,7 +52,7 @@ $form_id = Traveler_Input::request('form_builder_id');
                         </tr>
                         <tr class="">
                             <td>
-                                <input type="submit" name="traveler_booking_btn_add_layout" class="btn button button-primary" value="<?php _e("Add New",'wpbooking') ?>">
+                                <input type="submit" name="wpbooking_booking_btn_add_layout" class="btn button button-primary" value="<?php _e("Add New",'wpbooking') ?>">
                             </td>
 
                         </tr>
@@ -66,25 +66,25 @@ $form_id = Traveler_Input::request('form_builder_id');
 </form>
 
 <form method="post" action="" id="form-settings-admin">
-    <?php wp_nonce_field('traveler_booking_action','traveler_booking_save_layout') ?>
+    <?php wp_nonce_field('wpbooking_booking_action','wpbooking_booking_save_layout') ?>
     <div class="wrap">
         <br class="clear">
-        <div class="traveler-container-fluid">
-            <div class="traveler-row form-build-v2">
-                <div class="traveler-col-md-12 head-form">
+        <div class="wpbooking-container-fluid">
+            <div class="wpbooking-row form-build-v2">
+                <div class="wpbooking-col-md-12 head-form">
                     <h3 class=""><span><?php _e("Edit Form",'wpbooking') ?></span></h3>
                 </div>
-                <div class="traveler-col-md-12">
-                    <table class="traveler-select-layout">
+                <div class="wpbooking-col-md-12">
+                    <table class="wpbooking-select-layout">
                         <tr class="">
                             <th scope="row">
                                 <label><?php _e("Select Form:",'wpbooking') ?></label>
                             </th>
                             <td>
                                 <?php
-                                $list_layout = Traveler_Admin_Form_Build::inst()->_get_list_layout();
+                                $list_layout = WPBooking_Admin_Form_Build::inst()->_get_list_layout();
                                 ?>
-                                <select name="traveler-layout-id" class="form-control min-width-200" id="traveler-layout-id">
+                                <select name="wpbooking-layout-id" class="form-control min-width-200" id="wpbooking-layout-id">
                                     <option value=""><?php _e("-- Select Form --",'wpbooking') ?></option>
                                     <?php
                                     if(!empty($list_layout)){
@@ -125,12 +125,12 @@ $form_id = Traveler_Input::request('form_builder_id');
 
                 <?php  if(!empty($form_id)){ ?>
 
-                    <div class="traveler-col-md-8">
-                        <table class="traveler-title-layout">
+                    <div class="wpbooking-col-md-8">
+                        <table class="wpbooking-title-layout">
                             <tr class="">
                                 <th scope="row">
                                     <label for="dropdown"><?php _e("Form Title:",'wpbooking') ?></label>
-                                    <input class="" type="text" name="traveler-title" value="<?php if(!empty($form_id)) echo get_the_title($form_id) ?>">
+                                    <input class="" type="text" name="wpbooking-title" value="<?php if(!empty($form_id)) echo get_the_title($form_id) ?>">
                                 </th>
                                 <th>
                                     <?php
@@ -138,10 +138,10 @@ $form_id = Traveler_Input::request('form_builder_id');
                                     if(!empty($form_id)){
                                         $type_layout = get_post_meta($form_id,'type_layout',true);
                                     }
-                                    $list_type = Traveler_Admin_Form_Build::inst()->_get_list_type_layout();
+                                    $list_type = WPBooking_Admin_Form_Build::inst()->_get_list_type_layout();
                                     ?>
                                     <label for="dropdown"><?php _e("Form Type:",'wpbooking') ?></label>
-                                    <select name="traveler-layout-type" class="form-control min-width-200">
+                                    <select name="wpbooking-layout-type" class="form-control min-width-200">
                                         <?php if(!empty($list_type)){
                                             foreach($list_type as $k=>$v){
                                                 $check = "";
@@ -157,11 +157,11 @@ $form_id = Traveler_Input::request('form_builder_id');
                         </table>
                     </div>
 
-                    <div class="traveler-col-md-5">
+                    <div class="wpbooking-col-md-5">
                         <div class="select-control">
-                            <?php $list_flied = Traveler_Admin_Form_Build::inst()->traveler_get_all_field(); ?>
-                            <label for="traveler_field_form_build" class="control-label"><?php _e("Add Field",'wpbooking') ?>:</label>
-                            <select name="traveler_field_form_build" class="form-control" id="traveler_field_form_build">
+                            <?php $list_flied = WPBooking_Admin_Form_Build::inst()->wpbooking_get_all_field(); ?>
+                            <label for="wpbooking_field_form_build" class="control-label"><?php _e("Add Field",'wpbooking') ?>:</label>
+                            <select name="wpbooking_field_form_build" class="form-control" id="wpbooking_field_form_build">
                                 <option selected value=""><?php _e("-- Select Field --",'wpbooking') ?></option>
                                 <?php
                                 if(!empty($list_flied)){
@@ -204,7 +204,7 @@ $form_id = Traveler_Input::request('form_builder_id');
                                                         $value = wp_parse_args( $value , $default );
 
                                                         $path='fields/form-build/input-'.$value['type'];
-                                                        echo traveler_admin_load_view($path,array('data'=>$value,'parent'=>$v['name']));
+                                                        echo wpbooking_admin_load_view($path,array('data'=>$value,'parent'=>$v['name']));
                                                     }
                                                 } ?>
                                             </div>
@@ -219,19 +219,19 @@ $form_id = Traveler_Input::request('form_builder_id');
                             <div class="head"></div>
                             <hr>
                             <div class="content-control">
-                                <div class="traveler-row content-flied-control"></div>
+                                <div class="wpbooking-row content-flied-control"></div>
                             </div>
                             <hr>
                             <div>
-                                <div class="traveler-row">
-                                    <div class="traveler-col-md-12">
-                                        <div class="traveler-build-group ">
+                                <div class="wpbooking-row">
+                                    <div class="wpbooking-col-md-12">
+                                        <div class="wpbooking-build-group ">
                                             <label class="control-label"><?php _e("Copy and paste this shortcode into the form at right side",'wpbooking') ?></label>
 
                                             <table class="table-group">
                                                 <tr>
                                                     <td>
-                                                        <input type="text"   name="" id="traveler-shortcode-flied" readonly="readonly" onclick="this.focus();this.select()">
+                                                        <input type="text"   name="" id="wpbooking-shortcode-flied" readonly="readonly" onclick="this.focus();this.select()">
 
                                                     </td>
                                                     <td class="add-group">
@@ -245,7 +245,7 @@ $form_id = Traveler_Input::request('form_builder_id');
                             </div>
                         </div>
                     </div>
-                    <div class="traveler-col-md-7">
+                    <div class="wpbooking-col-md-7">
                         <div class="form-content">
                             <?php
                             $content = '';
@@ -253,7 +253,7 @@ $form_id = Traveler_Input::request('form_builder_id');
                                 $content_post = get_post($form_id);
                                 $content = $content_post->post_content;
                             }
-                            wp_editor(stripslashes($content),'traveler-content-build',array(
+                            wp_editor(stripslashes($content),'wpbooking-content-build',array(
                                 'teeny' => false,
                                 'dfw' => false,
                                 'tinymce' => false,
@@ -261,9 +261,9 @@ $form_id = Traveler_Input::request('form_builder_id');
                             ) ); ?>
                         </div>
                     </div>
-                    <div class="traveler-col-md-12">
+                    <div class="wpbooking-col-md-12">
                         <div class="save-control text-right">
-                            <input type="submit" name="traveler_booking_btn_save_layout" class="btn button button-primary" value="<?php _e("Save Form",'wpbooking') ?>">
+                            <input type="submit" name="wpbooking_booking_btn_save_layout" class="btn button button-primary" value="<?php _e("Save Form",'wpbooking') ?>">
                         </div>
                     </div>
 

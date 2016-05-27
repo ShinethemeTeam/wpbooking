@@ -146,7 +146,7 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 			$purchase = array(
 				'amount'      => (float)$total,
 				'currency'    => WPBooking_Currency::get_current_currency('name'),
-				'description' => __('Traveler Booking','wpbooking'),
+				'description' => __('WPBooking','wpbooking'),
 				'returnUrl'   => $this->get_return_url($order_id,$payment_id),
 				'cancelUrl'   => $this->get_cancel_url($order_id,$payment_id),
 			);
@@ -198,7 +198,7 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 			$purchase = array(
 				'amount'      => (float)$total,
 				'currency'    => WPBooking_Currency::get_current_currency('name'),
-				'description' => __('Traveler Booking','wpbooking'),
+				'description' => __('WPBooking','wpbooking'),
 				'returnUrl'   => $this->get_return_url($order_id,$payment_id),
 				'cancelUrl'   => $this->get_cancel_url($order_id,$payment_id),
 			);

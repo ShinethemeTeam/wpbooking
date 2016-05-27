@@ -4,27 +4,27 @@
 **/
 
 
-$class = ' traveler-form-group ';
+$class = ' wpbooking-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){
-    $class .= ' traveler-condition';
+    $class .= ' wpbooking-condition';
     $data_class .= ' data-condition='.$data['condition'].' ' ;
 }
 $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
 
-$terms = get_object_taxonomies( 'traveler_service', 'objects' );
+$terms = get_object_taxonomies( 'wpbooking_service', 'objects' );
 
 if( count( $terms ) ){
-	unset( $terms['traveler_location'] );
+	unset( $terms['wpbooking_location'] );
 }
 
 
 ?>
-<div class="form-table traveler-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+<div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
 <div class="st-metabox-left" style="width: 100%;">
 	<div class="st-metabox-content-wrapper">
 		<div class="form-group">
-			<div class="traveler-list-taxonomies clearfix">
+			<div class="wpbooking-list-taxonomies clearfix">
 			<?php 
 				$item_term = array();
 				if( !empty( $terms ) ):
@@ -34,7 +34,7 @@ if( count( $terms ) ){
 				<?php if( !empty( $item_term ) ) : ?>
 				<h4><?php echo esc_html( $term->label ); ?></h4>
 				<?php endif; ?>
-				<div class="traveler-list-taxonomy clearfix">
+				<div class="wpbooking-list-taxonomy clearfix">
 					
 					<?php 
 
@@ -50,7 +50,7 @@ if( count( $terms ) ){
 
 							foreach( $item_term as $item ):
 					?>
-						<div class="traveler-list-taxonomy-item">
+						<div class="wpbooking-list-taxonomy-item">
 							<label>
 								<input <?php if( in_array( $item->term_id, $old ) ) echo 'checked'; ?> type="checkbox" value="<?php echo esc_html( $item->term_id ); ?>" name="<?php echo $name.'['. $key .'][]'; ?>">
 								<span style="margin-left: 5px;"><strong><?php echo esc_html( $item->name ); ?></strong></span>
@@ -62,6 +62,6 @@ if( count( $terms ) ){
 			</div>
 		</div>
 	</div>
-	<i class="traveler-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+	<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
 </div>
 </div>

@@ -205,8 +205,8 @@ if(!class_exists('WPBooking_Service'))
 
 			if(get_post_type($post_id)!='wpbooking_service') return FALSE;
 
-			update_comment_meta($comment_id,'wpbooking_review',Traveler_Input::post('wpbooking_review'));
-			update_comment_meta($comment_id,'wpbooking_review_detail',Traveler_Input::post('wpbooking_review_detail'));
+			update_comment_meta($comment_id,'wpbooking_review',WPBooking_Input::post('wpbooking_review'));
+			update_comment_meta($comment_id,'wpbooking_review_detail',WPBooking_Input::post('wpbooking_review_detail'));
 
 			do_action('after_wpbooking_update_review_stats');
 		}

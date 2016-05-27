@@ -5,35 +5,35 @@
  * Date: 4/5/2016
  * Time: 9:47 AM
  */
-$booking=Traveler_Booking::inst();
+$booking=WPBooking_Order::inst();
 $form_id=$booking->get_checkout_form();
 
 $cart=$booking->get_cart();
 if(empty($cart))
 {
-	traveler_set_message(__('Sorry! Your cart is currently empty','wpbooking'),'danger');
+	wpbooking_set_message(__('Sorry! Your cart is currently empty','wpbooking'),'danger');
 }
 
-echo traveler_get_message();
+echo wpbooking_get_message();
 
 if(empty($cart))
 {
 	return;
 }
 ?>
-<div class="traveler-checkout-wrap">
-	<form class="traveler_checkout_form" action="<?php echo home_url('/') ?>" onsubmit="return false" method="post" novalidate>
-		<div class="traveler-checkout-form">
-			<input name="action" value="traveler_do_checkout" type="hidden">
+<div class="wpbooking-checkout-wrap">
+	<form class="wpbooking_checkout_form" action="<?php echo home_url('/') ?>" onsubmit="return false" method="post" novalidate>
+		<div class="wpbooking-checkout-form">
+			<input name="action" value="wpbooking_do_checkout" type="hidden">
 			<?php echo do_shortcode($form_id)?>
 		</div>
-		<div class="traveler-checkout-review-order">
-			<div class="traveler-review-order">
-				<?php echo traveler_load_view('checkout/review') ?>
+		<div class="wpbooking-checkout-review-order">
+			<div class="wpbooking-review-order">
+				<?php echo wpbooking_load_view('checkout/review') ?>
 
 			</div>
-			<div class="traveler-gateways">
-				<?php echo traveler_load_view('checkout/gateways') ?>
+			<div class="wpbooking-gateways">
+				<?php echo wpbooking_load_view('checkout/gateways') ?>
 			</div>
 			<div class="checkout-submit-button">
 				<button type="submit" class="button button-primary submit-button"><?php _e('Place Your Order','wpbooking') ?></button>

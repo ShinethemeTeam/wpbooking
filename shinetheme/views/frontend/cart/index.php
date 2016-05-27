@@ -5,12 +5,12 @@
  * Date: 4/1/2016
  * Time: 3:54 PM
  */
-$booking=Traveler_Booking::inst();
+$booking=WPBooking_Order::inst();
 echo wpbooking_get_message();
 ?>
-<div class="traveler-cart-wrap">
-	<div class="traveler-cart-table-col">
-		<table class="traveler-cart-table">
+<div class="wpbooking-cart-wrap">
+	<div class="wpbooking-cart-table-col">
+		<table class="wpbooking-cart-table">
 			<thead>
 				<tr>
 					<th class="small-col">#</th>
@@ -36,8 +36,8 @@ echo wpbooking_get_message();
 									<td class="col-cart-item-img"><a href="<?php echo get_permalink($post_id)?>" target="_blank"><?php echo get_the_post_thumbnail($post_id)?></a></td>
 									<td class="col-cart-item-info">
 										<h4><a href="<?php echo get_permalink($post_id)?>" target="_blank"><?php echo get_the_title($post_id)?></a></h4>
-										<?php do_action('traveler_cart_item_information',$value) ?>
-										<?php do_action('traveler_cart_item_information_'.$service_type,$value) ?>
+										<?php do_action('wpbooking_cart_item_information',$value) ?>
+										<?php do_action('wpbooking_cart_item_information_'.$service_type,$value) ?>
 									</td>
 									<td class="col-cart-item-price">
 										<?php echo $booking->get_cart_item_total_html($value); ?>
@@ -63,14 +63,14 @@ echo wpbooking_get_message();
 				</tbody>
 		</table>
 	</div>
-	<div class="traveler-cart-summary-col">
+	<div class="wpbooking-cart-summary-col">
 		<?php if(!empty($carts)){?>
-		<div class="traveler-cart-summary">
+		<div class="wpbooking-cart-summary">
 			<h3><?php _e('Cart Summary','wpbooking') ?></h3>
 			<ul class="cart-summary-details">
-				<li><?php printf(__('Total: %s','wpbooking'),Traveler_Currency::format_money($booking->get_cart_total())) ?></li>
-				<li><?php printf(__('Pay Amount: %s','wpbooking'),Traveler_Currency::format_money($booking->get_cart_pay_amount())) ?></li>
-				<?php do_action('traveler_cart_summary_details',$carts) ?>
+				<li><?php printf(__('Total: %s','wpbooking'),WPBooking_Currency::format_money($booking->get_cart_total())) ?></li>
+				<li><?php printf(__('Pay Amount: %s','wpbooking'),WPBooking_Currency::format_money($booking->get_cart_pay_amount())) ?></li>
+				<?php do_action('wpbooking_cart_summary_details',$carts) ?>
 			</ul>
 
 			<div class="cart-summary-actions">

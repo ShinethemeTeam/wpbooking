@@ -67,16 +67,16 @@ jQuery(document).ready(function($) {
 				},
 				events:function(start, end, timezone, callback) {
                     $.ajax({
-                        url: traveler_params.ajax_url,
+                        url: wpbooking_params.ajax_url,
                         dataType: 'json',
                         type:'post',
                         data: {
-                            action: 'traveler_load_availability',
+                            action: 'wpbooking_load_availability',
                             post_id: self.container.data('post-id'),
                             post_encrypt: self.container.data('post-encrypt'),
                             start: start.unix(),
                             end: end.unix(),
-                            security: traveler_params.traveler_security
+                            security: wpbooking_params.wpbooking_security
                         },
                         success: function(doc){
                         	if(typeof doc == 'object'){
@@ -120,9 +120,9 @@ jQuery(document).ready(function($) {
 	}
 
     var room_calendar;
-    if( $('.traveler-calendar-sidebar .calendar-room-form').length ){
-        $('.traveler-calendar-sidebar .calendar-room-form').each(function(index, el) {
-            var t = $(this).parents('.traveler-calendar-wrapper');
+    if( $('.wpbooking-calendar-sidebar .calendar-room-form').length ){
+        $('.wpbooking-calendar-sidebar .calendar-room-form').each(function(index, el) {
+            var t = $(this).parents('.wpbooking-calendar-wrapper');
             room_calendar = new RoomCalendar( t );
             room_calendar.init();
         });
@@ -131,7 +131,7 @@ jQuery(document).ready(function($) {
         $( ".st-metabox-tabs" ).tabs({
             activate: function( event, ui ) {
                 if( room_calendar ){
-                    $('.traveler-calendar-wrapper .calendar-room').fullCalendar( 'today' );
+                    $('.wpbooking-calendar-wrapper .calendar-room').fullCalendar( 'today' );
                 }
             }
         });
@@ -139,9 +139,9 @@ jQuery(document).ready(function($) {
     
 
     var flag_add = false;
-    if( $('.traveler-calendar-sidebar .calendar-room-form').length ){
-    	$('.traveler-calendar-sidebar .calendar-room-form #calendar-save').click(function(event) {
-    		var container = $(this).parents('.traveler-calendar-wrapper');
+    if( $('.wpbooking-calendar-sidebar .calendar-room-form').length ){
+    	$('.wpbooking-calendar-sidebar .calendar-room-form #calendar-save').click(function(event) {
+    		var container = $(this).parents('.wpbooking-calendar-wrapper');
 
     		var parent = $(this).parents('.calendar-room-form');
 
@@ -152,8 +152,8 @@ jQuery(document).ready(function($) {
     			'status' : $('#calendar-status', parent).val(),
     			'post-id' : $('#calendar-post-id', parent).val(),
     			'post-encrypt' : $('#calendar-post-encrypt', parent).val(),
-    			'action' : 'traveler_add_availability',
-    			'security': traveler_params.traveler_security
+    			'action' : 'wpbooking_add_availability',
+    			'security': wpbooking_params.wpbooking_security
     		}
     		if( flag_add ) return false; flag_add = true;
 
@@ -161,7 +161,7 @@ jQuery(document).ready(function($) {
     		$('.overlay', container).addClass('open');
 
     		$.ajax({
-    			url: traveler_params.ajax_url,
+    			url: wpbooking_params.ajax_url,
     			type: 'POST',
     			dataType: 'json',
     			data: data,
@@ -204,7 +204,7 @@ jQuery(document).ready(function($) {
     if( $('#form-bulk-edit').length ){
         $('#calendar-bulk-close').click(function(event) {
             $(this).closest('#form-bulk-edit').fadeOut();
-            $(this).closest('.traveler-calendar-wrapper').find('.calendar-room').fullCalendar('refetchEvents');
+            $(this).closest('.wpbooking-calendar-wrapper').find('.calendar-room').fullCalendar('refetchEvents');
         });
     }
 
@@ -218,7 +218,7 @@ jQuery(document).ready(function($) {
     if( $('#form-bulk-edit').length ){
         $('#calendar-bulk-save').click(function(event) {
             var parent = $(this).closest('#form-bulk-edit');
-            var container = $(this).closest('.traveler-calendar-wrapper');
+            var container = $(this).closest('.wpbooking-calendar-wrapper');
 
             if( flag_save_bulk ) return false; flag_save_bulk = true;
 
@@ -251,8 +251,8 @@ jQuery(document).ready(function($) {
                 'price_bulk' : $('input[name="price-bulk"]').val(),
                 'post_id' : $('input[name="post-id"]', parent).val(),
                 'post_encrypt' : $('input[name="post-encrypt"]', parent).val(),
-                'action' : 'traveler_calendar_bulk_edit',
-                'security': traveler_params.traveler_security
+                'action' : 'wpbooking_calendar_bulk_edit',
+                'security': wpbooking_params.wpbooking_security
             };
 
             $('.form-message', parent).html('').removeClass('error success');
@@ -277,13 +277,13 @@ jQuery(document).ready(function($) {
                 'all_days' : all_days,
                 'post_id' : post_id,
                 'post_encrypt' : post_encrypt,
-                'action' : 'traveler_calendar_bulk_edit',
-                'security': traveler_params.traveler_security
+                'action' : 'wpbooking_calendar_bulk_edit',
+                'security': wpbooking_params.wpbooking_security
             }
         }
         
         $.ajax({
-            url: traveler_params.ajax_url,
+            url: wpbooking_params.ajax_url,
             type: 'POST',
             dataType: 'json',
             data: data,

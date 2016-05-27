@@ -72,16 +72,16 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 					if( isset( $split['delete'] ) && !empty( $split['delete'] ) ){
 						foreach( $split['delete'] as $item ){
-							$this->traveler_delete_availability( $item['id'] );
+							$this->wpbooking_delete_availability( $item['id'] );
 						}
 					}
 
 					if( isset( $split['insert'] ) && !empty( $split['insert'] ) ){
 						foreach( $split['insert'] as $item ){
-							$this->traveler_insert_availability( $item['post_id'], $item['base_id'], $item['start'], $item['end'], $item['price'], $item['status'], $item['group_day']);
+							$this->wpbooking_insert_availability( $item['post_id'], $item['base_id'], $item['start'], $item['end'], $item['price'], $item['status'], $item['group_day']);
 						}
 					}
-					$new_item = $this->traveler_insert_availability( $post_id, $base_id, $check_in, $check_out, $price, $status, $group_day );
+					$new_item = $this->wpbooking_insert_availability( $post_id, $base_id, $check_in, $check_out, $price, $status, $group_day );
 
 					if( $new_item > 0 ){
 						echo json_encode( array(
@@ -305,13 +305,13 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 				if( isset( $split['delete'] ) && !empty( $split['delete'] ) ){
 					foreach( $split['delete'] as $item ){
-						$this->traveler_delete_availability( $item['id'] );
+						$this->wpbooking_delete_availability( $item['id'] );
 					}
 				}
 				/*	.End */
 
 
-				$this->traveler_insert_availability( $data['post_id'], $data['base_id'], $data['start'], $data['end'], $data['price'], $data['status'], $data['group_day']);
+				$this->wpbooking_insert_availability( $data['post_id'], $data['base_id'], $data['start'], $data['end'], $data['price'], $data['status'], $data['group_day']);
 			}
 			
 
@@ -334,7 +334,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 			return $return;
 		}
 
-		public function traveler_delete_availability( $id = '' ){
+		public function wpbooking_delete_availability( $id = '' ){
 
 			global $wpdb;
 
@@ -349,7 +349,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 		}
 
-		public function traveler_insert_availability( $post_id = '', $base_id = '', $check_in = '', $check_out = '', $price = '', $status = '', $group_day = '' ){
+		public function wpbooking_insert_availability( $post_id = '', $base_id = '', $check_in = '', $check_out = '', $price = '', $status = '', $group_day = '' ){
 			global $wpdb;
 
 			$table = $wpdb->prefix. 'wpbooking_availability';

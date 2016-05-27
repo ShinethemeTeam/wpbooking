@@ -1,9 +1,9 @@
 <?php
-if(!class_exists('traveler_widget_form_search')){
-    class traveler_widget_form_search extends WP_Widget{
+if(!class_exists('WPBooking_Widget_Form_Search')){
+    class WPBooking_Widget_Form_Search extends WP_Widget{
         public function __construct() {
             $widget_ops = array('classname' => '', 'description' => "" );
-            parent::__construct('traveler_widget_form_search', __('Traveler Search Form',"wpbooking"), $widget_ops);
+            parent::__construct(__CLASS__, __('WPBooking Search Form',"wpbooking"), $widget_ops);
         }
         /**
          * @param array $args
@@ -23,7 +23,7 @@ if(!class_exists('traveler_widget_form_search')){
             $page_search = "";
             switch($service_type){
                 case "room":
-                    $id_page = traveler_get_option('service_type_room_archive_page');
+                    $id_page = wpbooking_get_option('service_type_room_archive_page');
                     $page_search = get_permalink($id_page);
             }
 			echo $widget_args['before_widget'];
@@ -31,11 +31,11 @@ if(!class_exists('traveler_widget_form_search')){
 				echo $widget_args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $widget_args['after_title'];
 			}
             ?>
-            <form class="traveler-search-form" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
+            <form class="wpbooking-search-form" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
 				<?php if(!get_option('permalink_structure')){
 					printf("<input type='hidden' name='page_id' value='%d'>",$id_page);
 				} ?>
-				<div class="traveler-search-form-wrap" >
+				<div class="wpbooking-search-form-wrap" >
 					<?php
 					if(!empty($field_search[$service_type])){
 						foreach($field_search[$service_type] as $k=>$v){
@@ -57,7 +57,7 @@ if(!class_exists('traveler_widget_form_search')){
 											'name'              => $v['field_type'] ,
 											'class'             => '' ,
 											'id'             => $v['field_type'] ,
-											'taxonomy'          => 'traveler_location' ,
+											'taxonomy'          => 'wpbooking_location' ,
 											'hide_empty' => 0,
 										);
 										$is_taxonomy = WPBooking_Input::request($v['field_type']);
@@ -158,7 +158,7 @@ if(!class_exists('traveler_widget_form_search')){
 									?>
 									<div class="item-search">
 										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-										<input class="traveler-date-start" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+										<input class="wpbooking-date-start" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
 									</div>
 									<?php
 									break;
@@ -166,7 +166,7 @@ if(!class_exists('traveler_widget_form_search')){
 									?>
 									<div class="item-search">
 										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-										<input class="traveler-date-end" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+										<input class="wpbooking-date-end" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
 									</div>
 									<?php
 									break;
@@ -215,7 +215,7 @@ if(!class_exists('traveler_widget_form_search')){
             <p>
                 <label for="<?php echo $this->get_field_id('service_type'); ?>"><strong><?php _e('Service Type:'); ?></strong>
                     <?php
-                    $data = Traveler_Service::inst()->get_service_types();
+                    $data = WPBooking_Service::inst()->get_service_types();
                     ?>
                     <select name="<?php echo $this->get_field_name('service_type'); ?>" class="option_service_search_form" id="<?php echo $this->get_field_id('service_type'); ?>">
                         <option value=""><?php _e("-- Select --",'wpbooking') ?></option>
@@ -233,7 +233,7 @@ if(!class_exists('traveler_widget_form_search')){
                     </select>
                 </label>
             </p>
-            <?php $all_list_field= Traveler_Service::inst()->_get_list_field_search();
+            <?php $all_list_field= WPBooking_Service::inst()->_get_list_field_search();
             if(!empty($all_list_field)) {
                 foreach( $all_list_field as $key => $value ) {
                     ?>
@@ -254,7 +254,7 @@ if(!class_exists('traveler_widget_form_search')){
                                             <a class="btn_remove_field_search_form"><?php _e("Remove","wpbooking") ?></a>
                                         </div>
                                         <div class="control-hide hide">
-                                            <table class="form-table traveler-settings">
+                                            <table class="form-table wpbooking-settings">
                                                 <?php
                                                 $hteml_title_form = "";
                                                 foreach($value as $k1=>$v1){
@@ -330,7 +330,7 @@ if(!class_exists('traveler_widget_form_search')){
                                 <a class="btn_remove_field_search_form"><?php _e("Remove","wpbooking") ?></a>
                             </div>
                             <div class="control-hide">
-                                <table class="form-table traveler-settings">
+                                <table class="form-table wpbooking-settings">
                                     <?php foreach($value as $k=>$v){?>
                                         <?php
                                         $default = array( 'name' => '' , 'label' => '' , 'type' => '' , 'options' => '' , 'class' => '', 'value' => '' );
@@ -376,8 +376,8 @@ if(!class_exists('traveler_widget_form_search')){
         <?php
         }
     }
-    function traveler_widget_form_search() {
-        register_widget( 'traveler_widget_form_search' );
+    function wpbooking_widget_form_search() {
+        register_widget( 'WPBooking_Widget_Form_Search' );
     }
-    add_action( 'widgets_init', 'traveler_widget_form_search' );
+    add_action( 'widgets_init', 'wpbooking_widget_form_search' );
 }

@@ -6,6 +6,6 @@
  * Time: 2:38 PM
  */
 
-$email_content=traveler_get_option('email_to_partner');
+$email_content=wpbooking_get_option('email_to_partner');
 echo do_shortcode($email_content);
 

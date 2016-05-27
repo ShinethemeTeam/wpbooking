@@ -1,13 +1,13 @@
 <?php
 /**
  * @package WordPress
- * @subpackage Traveler
+ * @subpackage WPBooking
  * @since 1.0
  *
- * Class ST_Input_Class
+ * Class WPBooking_Input
  *
  * Created by ShineTheme
- *
+ * @author quandq
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly

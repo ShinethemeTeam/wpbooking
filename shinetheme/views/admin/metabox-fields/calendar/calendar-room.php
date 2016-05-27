@@ -3,10 +3,10 @@
 *@since 1.0.0
 **/
 
-$class = ' traveler-form-group ';
+$class = ' wpbooking-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){
-    $class .= ' traveler-condition';
+    $class .= ' wpbooking-condition';
     $data_class .= ' data-condition='.$data['condition'].' ' ;
 }
 ?>
@@ -15,8 +15,8 @@ if(!empty($data['condition'])){
 	<label for="<?php echo esc_html( $data['id'] ); ?>"><strong><?php echo esc_html( $data['label'] ); ?></strong></label>
 	<div class="st-metabox-content-wrapper">
 		<div class="form-group" style="width: 100%;">
-			<div class="traveler-calendar-wrapper" data-post-id="<?php echo get_the_ID(); ?>" data-post-encrypt="<?php echo traveler_encrypt( get_the_ID() ); ?>">
-				<div class="traveler-calendar-content">
+			<div class="wpbooking-calendar-wrapper" data-post-id="<?php echo get_the_ID(); ?>" data-post-encrypt="<?php echo wpbooking_encrypt( get_the_ID() ); ?>">
+				<div class="wpbooking-calendar-content">
 					<div class="overlay">
 						<span class="spinner is-active"></span>
 					</div>
@@ -24,7 +24,7 @@ if(!empty($data['condition'])){
 						
 					</div>
 				</div>
-				<div class="traveler-calendar-sidebar">
+				<div class="wpbooking-calendar-sidebar">
 					<div class="form-container calendar-room-form">
 						<div class="" style="margin-bottom: 10px;">
 							<label class="calendar-label" for="calendar-checkin"><?php echo __('From', 'wpbooking'); ?></label>
@@ -47,7 +47,7 @@ if(!empty($data['condition'])){
 						</div>
 						<div class="clearfix" style="margin-bottom: 10px;">
 							<input type="hidden" id="calendar-post-id" name="post-id" value="<?php echo get_the_ID(); ?>">
-							<input type="hidden" id="calendar-post-encrypt" name="calendar-post-encrypt" value="<?php echo traveler_encrypt( get_the_ID() ); ?>">
+							<input type="hidden" id="calendar-post-encrypt" name="calendar-post-encrypt" value="<?php echo wpbooking_encrypt( get_the_ID() ); ?>">
 							<button type="button" id="calendar-save" class="button button-primary button-large"><?php echo __('Save','wpbooking'); ?></button>
 							<button type="button" id="calendar-bulk-edit" class="button button-large" style="float: right;"><?php echo __('Bulk Edit','wpbooking'); ?></button>
 						</div>
@@ -155,7 +155,7 @@ if(!empty($data['condition'])){
 							<div class="form-content clearfix">
 								<label class="block"><span><strong><?php echo __('Price', 'wpbooking'); ?>: </strong></span><input type="text" value="" name="price-bulk" id="price-bulk" placeholder="<?php echo __('Price', 'wpbooking'); ?>"></label>
 								<input type="hidden" name="post-id" value="<?php echo get_the_ID(); ?>">
-								<input type="hidden" name="post-encrypt" value="<?php echo traveler_encrypt( get_the_ID() ); ?>">
+								<input type="hidden" name="post-encrypt" value="<?php echo wpbooking_encrypt( get_the_ID() ); ?>">
 								<div class="form-message" style="margin-top: 20px;"></div>
 							</div>
 							<div class="form-footer">
@@ -168,5 +168,5 @@ if(!empty($data['condition'])){
 			</div>
 		</div>
 	</div>	
-	<i class="traveler-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+	<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
 </div>

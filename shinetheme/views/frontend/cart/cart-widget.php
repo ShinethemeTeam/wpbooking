@@ -5,10 +5,10 @@
  * Date: 4/26/16
  * Time: 5:15 PM
  */
-$booking=Traveler_Booking::inst();
+$booking=WPBooking_Order::inst();
 $items=$booking->get_cart();
 ?>
-<div class="traveler-cart-widget-content">
+<div class="wpbooking-cart-widget-content">
 <?php
 if(empty($items)){
 	printf('<p class="alert alert-warning">%s</p>',__('Your cart is currently empty','wpbooking'));
@@ -29,8 +29,8 @@ if(empty($items)){
 							<?php echo $booking->get_cart_item_total_html($value) ?>
 						</span>
 						<div class="service-meta">
-							<?php do_action('traveler_cart_item_information',$value) ?>
-							<?php do_action('traveler_cart_item_information_'.$service_type,$value) ?>
+							<?php do_action('wpbooking_cart_item_information',$value) ?>
+							<?php do_action('wpbooking_cart_item_information_'.$service_type,$value) ?>
 						</div>
 					</div>
 				</li>

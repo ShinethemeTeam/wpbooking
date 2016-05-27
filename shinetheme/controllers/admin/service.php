@@ -220,7 +220,7 @@ if(!class_exists('WPBooking_Admin_Service'))
 //						'id' => 'currency',
 //						'type' => 'dropdown',
 //						'std' => 'usd',
-//						'value' =>Traveler_Currency::get_added_currency_array()
+//						'value' =>WPBooking_Currency::get_added_currency_array()
 //					),
 					array(
 						'label' => __('Price Type', 'wpbooking'),

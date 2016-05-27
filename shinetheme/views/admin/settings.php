@@ -3,12 +3,12 @@
     <h2><?php _e("Settings",'wpbooking') ?></h2>
 </div>
 <?php
-$custom_settings = Traveler_Admin_Setting::inst()->_get_settings();
-$menu_page=Traveler_Admin_Setting::inst()->get_menu_page();
+$custom_settings = WPBooking_Admin_Setting::inst()->_get_settings();
+$menu_page=WPBooking_Admin_Setting::inst()->get_menu_page();
 $slug_page_menu = $menu_page['menu_slug'];
 ?>
 <div class="wrap">
-    <?php $is_tab = Traveler_Input::request('st_tab'); ?>
+    <?php $is_tab = WPBooking_Input::request('st_tab'); ?>
     <h2 class="nav-tab-wrapper">
         <?php if(!empty($custom_settings)){
             $i=0;
@@ -27,7 +27,7 @@ $slug_page_menu = $menu_page['menu_slug'];
 <div class="wrap">
     <ul class="subsubsub">
         <?php
-        $is_section = Traveler_Input::request('st_section');
+        $is_section = WPBooking_Input::request('st_section');
         $title_page_active = "";
         if(!empty($custom_settings[$is_tab]) and !empty($custom_settings[$is_tab]['sections'])){
             $i=0;
@@ -54,20 +54,20 @@ $slug_page_menu = $menu_page['menu_slug'];
    <!-- <h3><?php /*echo esc_html($title_page_active) */?></h3>-->
     <div class="content-field">
         <form method="post" action="" id="form-settings-admin">
-            <?php wp_nonce_field('traveler_booking_action','traveler_booking_save_settings_field') ?>
-            <input type="hidden" name="traveler_booking_save_settings" value="true" >
-            <table class="form-table traveler-settings ">
+            <?php wp_nonce_field('wpbooking_booking_action','wpbooking_booking_save_settings_field') ?>
+            <input type="hidden" name="wpbooking_booking_save_settings" value="true" >
+            <table class="form-table wpbooking-settings ">
                 <tbody>
                     <?php
                     if(!empty($custom_settings[$is_tab]) and !empty($custom_settings[$is_tab]['sections'][$is_section]['fields'])){
-                        $fields=apply_filters('traveler_booking_settings_'.$is_tab.'_'.$is_section.'_fields',$custom_settings[$is_tab]['sections'][$is_section]['fields']);
+                        $fields=apply_filters('wpbooking_booking_settings_'.$is_tab.'_'.$is_section.'_fields',$custom_settings[$is_tab]['sections'][$is_section]['fields']);
                         foreach($fields as $k=>$v){
                             $default = array( 'id' => '' , 'label' => '' , 'desc' => '' , 'type' => '' , 'std' => '', 'taxonomy' => '' );
                             $v = wp_parse_args( $v , $default );
                             $path='fields/'.$v['type'];
-                            $field_file=apply_filters('traveler_booking_field_type_'.$v['type'].'_path',$path);
-                            $html =  traveler_admin_load_view($field_file,array('data'=>$v,'slug_page_menu'=>$slug_page_menu));
-                            echo apply_filters('traveler_booking_field_type_'.$v['type'].'_html',$html);
+                            $field_file=apply_filters('wpbooking_booking_field_type_'.$v['type'].'_path',$path);
+                            $html =  wpbooking_admin_load_view($field_file,array('data'=>$v,'slug_page_menu'=>$slug_page_menu));
+                            echo apply_filters('wpbooking_booking_field_type_'.$v['type'].'_html',$html);
                         }
                     }
                     ?>

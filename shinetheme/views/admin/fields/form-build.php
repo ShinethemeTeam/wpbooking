@@ -1,6 +1,6 @@
 <?php
-$data_value = traveler_get_option($data['id'],$data['std']);
-$name = 'traveler_booking_'.$data['id'];
+$data_value = wpbooking_get_option($data['id'],$data['std']);
+$name = 'wpbooking_booking_'.$data['id'];
 
 if(!empty($data['element_list_item'])){
     $name = $data['custom_name'];
@@ -12,8 +12,8 @@ if(!empty($data['element_list_item'])){
 $class = $name;
 $data_class = '';
 if(!empty($data['condition'])){
-    $class .= ' traveler-condition traveler-form-group ';
-    $data_class .= ' data-condition=traveler_booking_'.$data['condition'].' ' ;
+    $class .= ' wpbooking-condition wpbooking-form-group ';
+    $data_class .= ' data-condition=wpbooking_booking_'.$data['condition'].' ' ;
 }
 
 ?>
@@ -51,6 +51,6 @@ if(!empty($data['condition'])){
             </div>
         </div>
 
-        <i class="traveler-desc"><?php echo balanceTags($data['desc']) ?></i>
+        <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
     </td>
 </tr>

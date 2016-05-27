@@ -3,7 +3,7 @@ jQuery(document).ready(function( $ ){
  * Condition tags
  * @type {string}
  */
-    $('#traveler-layout-id').change(function(){
+    $('#wpbooking-layout-id').change(function(){
         var container = $(this).parent().parent();
         var value = $(this).val();
         var url = container.find('.url_layout').data('url');
@@ -22,9 +22,9 @@ jQuery(document).ready(function( $ ){
         }
     });
 
-    $('#traveler_field_form_build').prop('selectedIndex',0);
+    $('#wpbooking_field_form_build').prop('selectedIndex',0);
 
-    $("#traveler_field_form_build").change(function(){
+    $("#wpbooking_field_form_build").change(function(){
         var container  = $(this).parent().parent();
         var value = $(this).val();
         var html = container.find('#item-'+value).html();
@@ -32,7 +32,7 @@ jQuery(document).ready(function( $ ){
         var div_control = container.find('.select-control');
         div_control.find('.head').html(title);
         div_control.find('.content-flied-control').html(html);
-        div_control.find('#traveler-shortcode-flied').val("");
+        div_control.find('#wpbooking-shortcode-flied').val("");
         if(value != ""){
             container.find(".div-content-control").show(500);
         }else{
@@ -53,7 +53,7 @@ jQuery(document).ready(function( $ ){
                 }
             });
             shortcode += " ]";
-            $("#traveler-shortcode-flied").val(shortcode);
+            $("#wpbooking-shortcode-flied").val(shortcode);
         }
     });
 
@@ -85,7 +85,7 @@ jQuery(document).ready(function( $ ){
         if(content){
             shortcode += content+"[/"+name_shortcode+"]";
         }
-        $("#traveler-shortcode-flied").val(shortcode);
+        $("#wpbooking-shortcode-flied").val(shortcode);
     });
     $(document).on('change','.content-flied-control .group-checkbox .item_check_box',function(){
         var value = '';
@@ -223,7 +223,7 @@ jQuery(document).ready(function( $ ){
 
     $(document).on('click','.button-copy-shortcode',function(){
         var container  = $(this).closest('tr');
-        var input = container.find('#traveler-shortcode-flied');
+        var input = container.find('#wpbooking-shortcode-flied');
         var value = input.val();
         setTimeout(function(){
             input.trigger('focus');
