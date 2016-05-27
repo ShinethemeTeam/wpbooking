@@ -36,7 +36,7 @@ if(!class_exists('Traveler_Widget_Cart'))
 				echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
 			}
 
-			echo traveler_load_view('cart/cart-widget');
+			echo wpbooking_load_view('cart/cart-widget');
 
 			echo $args['after_widget'];
 		}

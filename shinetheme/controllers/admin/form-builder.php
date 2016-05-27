@@ -3,18 +3,18 @@ if(!defined( 'ABSPATH' )) {
     exit; // Exit if accessed directly
 }
 
-if(!class_exists( 'Traveler_Admin_Form_Build' )) {
-    class Traveler_Admin_Form_Build extends Traveler_Controller
+if(!class_exists( 'WPBooking_Admin_Form_Build' )) {
+    class WPBooking_Admin_Form_Build extends WPBooking_Controller
     {
         private static $_inst;
 
-        public static $traveler_param = array();
+        public static $wpbooking_param = array();
 
-        protected  $traveler_list_field_form_build = array();
+        protected  $wpbooking_list_field_form_build = array();
 
         function __construct()
         {
-            add_action( 'admin_menu' , array( $this , "register_traveler_booking_sub_menu_page" ) );
+            add_action( 'admin_menu' , array( $this , "register_wpbooking_booking_sub_menu_page" ) );
 
             add_action( 'init' , array( $this , '_add_post_type' ) , 5 );
             add_action( 'after_setup_theme' , array( $this , '_load_default_shortcodes' ) );
@@ -30,7 +30,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
         function add_form_field($name , $data){
             if(!empty($name)){
 				if(!empty($data['data']['title'])) $data['title']=$data['data']['title'];
-                $this->traveler_list_field_form_build[$name] = $data;
+                $this->wpbooking_list_field_form_build[$name] = $data;
             }
         }
         function get_form_fields($form_id){
@@ -41,18 +41,18 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
 			if($post)
 			{
 				do_shortcode($post->post_content);
-				return $this->traveler_list_field_form_build;
+				return $this->wpbooking_list_field_form_build;
 			}
 
         }
 		function _clear_fields()
 		{
-			$this->traveler_list_field_form_build=array();
+			$this->wpbooking_list_field_form_build=array();
 		}
 
         function _load_default_shortcodes()
         {
-            Traveler_Loader::inst()->load_library(array(
+			WPBooking_Loader::inst()->load_library(array(
 				'shortcodes/form-build-default/abstract-formbuilder-field',
                 'shortcodes/form-build-default/text',
 				'shortcodes/form-build-default/email',
@@ -72,23 +72,23 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
 
         function _get_list_type_layout()
         {
-            return apply_filters( 'traveler_build_form_list_type_layout' , array(
+            return apply_filters( 'wpbooking_build_form_list_type_layout' , array(
                 __('Order Form','wpbooking') ,
                 __('Checkout','wpbooking') ,
             ) );
         }
 
-        function traveler_add_field_form_builder( $option = array() )
+        function add_field_form_builder( $option = array() )
         {
-            self::$traveler_param[ ] = $option;
+            self::$wpbooking_param[ ] = $option;
         }
 
-        function traveler_get_all_field()
+        function wpbooking_get_all_field()
         {
 
             $list_field  =array();
-            if(!empty(self::$traveler_param)){
-                foreach(self::$traveler_param as $k=>$v){
+            if(!empty(self::$wpbooking_param)){
+                foreach(self::$wpbooking_param as $k=>$v){
                     $list_field [$v['category']][] = $v;
                 }
             }
@@ -98,7 +98,7 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
         function _get_list_layout()
         {
             $query = array(
-                'post_type'      => 'traveler_form' ,
+                'post_type'      => 'wpbooking_form' ,
                 'posts_per_page' => -1 ,
             );
             query_posts( $query );
@@ -120,63 +120,63 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
 
         function _del_layout()
         {
-            if(Traveler_Input::request( 'del_layout' )) {
-                wp_delete_post( Traveler_Input::request( 'del_layout' ) , true );
+            if(WPBooking_Input::request( 'del_layout' )) {
+                wp_delete_post( WPBooking_Input::request( 'del_layout' ) , true );
             }
         }
 
         function _save_layout()
         {
             $current_user = wp_get_current_user();
-            $form_id      = Traveler_Input::request( "form_builder_id" );
-            $title        = Traveler_Input::request( "traveler-title" );
-            if(!empty( $_POST[ 'traveler_booking_btn_save_layout' ] ) and wp_verify_nonce( $_REQUEST[ 'traveler_booking_save_layout' ] , "traveler_booking_action" )) {
+            $form_id      = WPBooking_Input::request( "form_builder_id" );
+            $title        = WPBooking_Input::request( "traveler-title" );
+            if(!empty( $_POST[ 'wpbooking_booking_btn_save_layout' ] ) and wp_verify_nonce( $_REQUEST[ 'wpbooking_booking_save_layout' ] , "wpbooking_booking_action" )) {
                 if(!empty( $title )) {
                     if(!empty( $form_id )) {
                         $my_layout = array(
                             'ID'           => $form_id ,
-                            'post_title'   => Traveler_Input::request( "traveler-title" ) ,
-                            'post_content' => stripslashes( Traveler_Input::request( "traveler-content-build" ) ) ,
+                            'post_title'   => WPBooking_Input::request( "traveler-title" ) ,
+                            'post_content' => stripslashes( WPBooking_Input::request( "traveler-content-build" ) ) ,
                         );
                         wp_update_post( $my_layout );
-                        traveler_set_admin_message( __( "Update layout successfully !" , "wpbooking" ) , 'success' );
-                        $type_layout = Traveler_Input::request( "traveler-layout-type" );
+                        wpbooking_set_admin_message( __( "Update layout successfully !" , "wpbooking" ) , 'success' );
+                        $type_layout = WPBooking_Input::request( "traveler-layout-type" );
                         update_post_meta( $form_id , 'type_layout' , $type_layout );
 
                     } else {
-                        traveler_set_admin_message( __( "Error : Update layout not successfully !" , "wpbooking" ) , 'error' );
+						wpbooking_set_admin_message( __( "Error : Update layout not successfully !" , "wpbooking" ) , 'error' );
                     }
                 } else {
-                    traveler_set_admin_message( __( 'Error : Update layout not successfully !' , 'wpbooking' ) , 'error' );
+					wpbooking_set_admin_message( __( 'Error : Update layout not successfully !' , 'wpbooking' ) , 'error' );
                 }
             }
-            if(!empty( $_POST[ 'traveler_booking_btn_add_layout' ] ) and wp_verify_nonce( $_REQUEST[ 'traveler_booking_add_layout' ] , "traveler_booking_action" )) {
+            if(!empty( $_POST[ 'wpbooking_booking_btn_add_layout' ] ) and wp_verify_nonce( $_REQUEST[ 'wpbooking_booking_add_layout' ] , "wpbooking_booking_action" )) {
                 if(!empty( $title )) {
                     $my_layout = array(
-                        'post_title'   => Traveler_Input::request( "traveler-title" ) ,
-                        'post_content' => stripslashes( Traveler_Input::request( "traveler-content-build" ) ) ,
+                        'post_title'   => WPBooking_Input::request( "traveler-title" ) ,
+                        'post_content' => stripslashes( WPBooking_Input::request( "traveler-content-build" ) ) ,
                         'post_status'  => 'publish' ,
                         'post_author'  => $current_user->ID ,
-                        'post_type'    => 'traveler_form' ,
+                        'post_type'    => 'wpbooking_form' ,
                         'post_excerpt' => ''
                     );
                     $form_id   = wp_insert_post( $my_layout );
                     if(!empty( $form_id )) {
-                        $type_layout = Traveler_Input::request( "traveler-layout-type" );
+                        $type_layout = WPBooking_Input::request( "traveler-layout-type" );
                         update_post_meta( $form_id , 'type_layout' , $type_layout );
-                        traveler_set_admin_message( __( "Create layout successfully !" , "wpbooking" ) , 'success' );
-                        wp_redirect( add_query_arg( array( 'page' => Traveler_Input::request( 'page' ) , 'form_builder_id' => $form_id ) , admin_url( 'admin.php' ) ) );
+						wpbooking_set_admin_message( __( "Create layout successfully !" , "wpbooking" ) , 'success' );
+                        wp_redirect( add_query_arg( array( 'page' => WPBooking_Input::request( 'page' ) , 'form_builder_id' => $form_id ) , admin_url( 'admin.php' ) ) );
                         exit();
                     } else {
-                        traveler_set_admin_message( __( 'Error : Create layout not successfully !' , "wpbooking" ) , 'error' );
+						wpbooking_set_admin_message( __( 'Error : Create layout not successfully !' , "wpbooking" ) , 'error' );
                     }
                 } else {
-                    traveler_set_admin_message( __( 'Error : Create layout not successfully !' , "wpbooking" ) , 'error' );
+					wpbooking_set_admin_message( __( 'Error : Create layout not successfully !' , "wpbooking" ) , 'error' );
                 }
             }
         }
 
-        function register_traveler_booking_sub_menu_page()
+        function register_wpbooking_booking_sub_menu_page()
         {
 
             $menu_page = $this->get_menu_page();
@@ -194,21 +194,21 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
         function get_menu_page()
         {
 
-            $menu_page = Traveler()->get_menu_page();
+            $menu_page = WPBooking()->get_menu_page();
             $page      = array(
                 'parent_slug' => $menu_page[ 'menu_slug' ] ,
                 'page_title'  => __( 'Form Builder' , 'wpbooking' ) ,
                 'menu_title'  => __( 'Form Builder' , 'wpbooking' ) ,
                 'capability'  => 'manage_options' ,
-                'menu_slug'   => 'traveler_booking_page_form_builder' ,
-                'function'    => array( $this , 'callback_traveler_booking_sub_menu_form_builder' )
+                'menu_slug'   => 'wpbooking_booking_page_form_builder' ,
+                'function'    => array( $this , 'callback_wpbooking_booking_sub_menu_form_builder' )
             );
 
-            return apply_filters( 'traveler_setting_menu_args' , $page );
+            return apply_filters( 'wpbooking_setting_menu_args' , $page );
 
         }
 
-        function callback_traveler_booking_sub_menu_form_builder()
+        function callback_wpbooking_booking_sub_menu_form_builder()
         {
             echo ($this->admin_load_view( 'form-builder' ));
         }
@@ -261,15 +261,15 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
                 'supports'           => array( 'title' , 'editor' )
             );
 
-            register_post_type( 'traveler_form' , $args );
+            register_post_type( 'wpbooking_form' , $args );
         }
 
 		function get_form_field_data($form_item_data){
 
 			if(!empty($form_item_data['field_id']))
 			{
-				$return= apply_filters('traveler_get_form_field_data',FALSE,$form_item_data);
-				return apply_filters('traveler_get_form_field_data_'.$form_item_data['field_id'],$return,$form_item_data);
+				$return= apply_filters('wpbooking_get_form_field_data',FALSE,$form_item_data);
+				return apply_filters('wpbooking_get_form_field_data_'.$form_item_data['field_id'],$return,$form_item_data);
 			}
 		}
 
@@ -283,5 +283,5 @@ if(!class_exists( 'Traveler_Admin_Form_Build' )) {
 
     }
 
-    Traveler_Admin_Form_Build::inst();
+	WPBooking_Admin_Form_Build::inst();
 }

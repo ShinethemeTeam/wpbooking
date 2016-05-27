@@ -6,7 +6,7 @@
  * Time: 3:54 PM
  */
 $booking=Traveler_Booking::inst();
-echo traveler_get_message();
+echo wpbooking_get_message();
 ?>
 <div class="traveler-cart-wrap">
 	<div class="traveler-cart-table-col">

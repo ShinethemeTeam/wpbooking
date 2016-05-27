@@ -8,8 +8,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-if(!class_exists('Traveler_Loader')){
-	class Traveler_Loader
+if(!class_exists('WPBooking_Loader')){
+	class WPBooking_Loader
 	{
 		private static $_inst;
 
@@ -22,7 +22,7 @@ if(!class_exists('Traveler_Loader')){
 		 * @return bool
 		 */
 		function _autoload(){
-			$file=Traveler()->get_dir('shinetheme/configs/autoload.php');
+			$file=WPBooking()->get_dir('shinetheme/configs/autoload.php');
 
 			if(file_exists($file)) include $file;
 
@@ -30,7 +30,7 @@ if(!class_exists('Traveler_Loader')){
 
 			if(!empty($autoload['config']))
 			{
-				Traveler_Config::inst()->load($autoload['config']);
+				WPBooking_Config::inst()->load($autoload['config']);
 			}
 
 			// Composer Vendor
@@ -75,7 +75,7 @@ if(!class_exists('Traveler_Loader')){
 			}
 
 			if(is_string($file)){
-				$real_file=Traveler()->get_dir('shinetheme/controllers/'.$file.'.php');
+				$real_file=WPBooking()->get_dir('shinetheme/controllers/'.$file.'.php');
 				if(file_exists($real_file))
 				{
 					include_once $real_file;
@@ -95,7 +95,7 @@ if(!class_exists('Traveler_Loader')){
 			}
 
 			if(is_string($file)){
-				$real_file=Traveler()->get_dir('shinetheme/libraries/'.$file.'.php');
+				$real_file=WPBooking()->get_dir('shinetheme/libraries/'.$file.'.php');
 				if(file_exists($real_file))
 				{
 					include_once $real_file;
@@ -111,7 +111,7 @@ if(!class_exists('Traveler_Loader')){
 			}
 
 			if(is_string($file)){
-				$real_file=Traveler()->get_dir('shinetheme/helpers/'.$file.'.php');
+				$real_file=WPBooking()->get_dir('shinetheme/helpers/'.$file.'.php');
 				if(file_exists($real_file))
 				{
 					include_once $real_file;
@@ -129,7 +129,7 @@ if(!class_exists('Traveler_Loader')){
 			}
 
 			if(is_string($file)){
-				$real_file=Traveler()->get_dir('shinetheme/models/'.$file.'.php');
+				$real_file=WPBooking()->get_dir('shinetheme/models/'.$file.'.php');
 				if(file_exists($real_file))
 				{
 					include_once $real_file;
@@ -146,7 +146,7 @@ if(!class_exists('Traveler_Loader')){
 			}
 
 			if(is_string($file)){
-				$real_file=Traveler()->get_dir('shinetheme/widgets/'.$file.'.php');
+				$real_file=WPBooking()->get_dir('shinetheme/widgets/'.$file.'.php');
 				if(file_exists($real_file))
 				{
 					include_once $real_file;
@@ -164,6 +164,6 @@ if(!class_exists('Traveler_Loader')){
 		}
 	}
 
-	Traveler_Loader::inst();
+	WPBooking_Loader::inst();
 
 }

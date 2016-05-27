@@ -1,8 +1,8 @@
 <?php
-if(function_exists( 'traveler_add_field_form_builder' )) {
-    traveler_add_field_form_builder( array(
+if(function_exists( 'wpbooking_add_field_form_builder' )) {
+    wpbooking_add_field_form_builder( array(
             "title"    => __( "Drop Down" , 'wpbooking' ) ,
-            "name"     => 'traveler_booking_drop_down' ,
+            "name"     => 'wpbooking_booking_drop_down' ,
             "category" => 'Standard Fields' ,
             "options"  => array(
                 array(
@@ -55,10 +55,10 @@ if(function_exists( 'traveler_add_field_form_builder' )) {
         )
     );
 }
-if(!function_exists( 'traveler_sc_booking_drop_down' )) {
-    function traveler_sc_booking_drop_down( $attr , $content = false )
+if(!function_exists( 'wpbooking_sc_booking_drop_down' )) {
+    function wpbooking_sc_booking_drop_down( $attr , $content = false )
     {
-        $data = shortcode_atts(
+        $data = wp_parse_args($attr,
             array(
                 'is_required' => 'off' ,
                 'title'        => '' ,
@@ -66,7 +66,7 @@ if(!function_exists( 'traveler_sc_booking_drop_down' )) {
                 'id'          => '' ,
                 'class'       => '' ,
                 'options'     => '' ,
-            ) , $attr , 'traveler_booking_drop_down' );
+            ) );
         extract( $data );
         $required = "";
         $rule = "";
@@ -74,7 +74,7 @@ if(!function_exists( 'traveler_sc_booking_drop_down' )) {
             $required = "required";
             $rule .= "required";
         }
-        Traveler_Admin_Form_Build::inst()->add_form_field($name,array('data'=>$data,'rule'=>$rule));
+        WPBooking_Admin_Form_Build::inst()->add_form_field($name,array('data'=>$data,'rule'=>$rule));
         $list_item = "<option value=''>" . __( "-- Select --" , 'wpbooking' ) . '</option>';
         if(!empty( $options )) {
             $tmp_list_item = explode( '|' , $options );
@@ -93,4 +93,4 @@ if(!function_exists( 'traveler_sc_booking_drop_down' )) {
                 </select>';
     }
 }
-add_shortcode( 'traveler_booking_drop_down' , 'traveler_sc_booking_drop_down' );
+add_shortcode( 'wpbooking_booking_drop_down' , 'wpbooking_sc_booking_drop_down' );

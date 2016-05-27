@@ -5,10 +5,9 @@
  * Date: 3/23/2016
  * Time: 2:37 PM
  */
-use Omnipay\Omnipay;
-if(!class_exists('Traveler_BankTransfer_Gateway') and class_exists('Traveler_Abstract_Payment_Gateway'))
+if(!class_exists('WPBooking_BankTransfer_Gateway') and class_exists('WPBooking_Abstract_Payment_Gateway'))
 {
-	class Traveler_BankTransfer_Gateway extends Traveler_Abstract_Payment_Gateway
+	class WPBooking_BankTransfer_Gateway extends WPBooking_Abstract_Payment_Gateway
 	{
 		static $_inst=FALSE;
 
@@ -78,6 +77,6 @@ if(!class_exists('Traveler_BankTransfer_Gateway') and class_exists('Traveler_Abs
 		}
 	}
 
-	Traveler_BankTransfer_Gateway::inst();
+	WPBooking_Abstract_Payment_Gateway::inst();
 }
 

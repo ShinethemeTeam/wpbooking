@@ -6,9 +6,9 @@
  * Time: 6:50 PM
  */
 
-if(!class_exists('Traveler_Session'))
+if(!class_exists('WPBooking_Session'))
 {
-	class Traveler_Session
+	class WPBooking_Session
 	{
 		static function _init()
 		{
@@ -40,5 +40,5 @@ if(!class_exists('Traveler_Session'))
 		}
 	}
 
-	Traveler_Session::_init();
+	WPBooking_Session::_init();
 }

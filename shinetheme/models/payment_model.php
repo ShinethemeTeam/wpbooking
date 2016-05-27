@@ -8,8 +8,8 @@
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
-if (!class_exists('Traveler_Payment_Model')) {
-	class Traveler_Payment_Model extends Traveler_Model
+if (!class_exists('WPBooking_Payment_Model')) {
+	class WPBooking_Payment_Model extends WPBooking_Model
 	{
 		static $_inst;
 
@@ -36,7 +36,7 @@ if (!class_exists('Traveler_Payment_Model')) {
 
 		function create_payment($order_id, $gateway)
 		{
-			$booking = Traveler_Booking::inst();
+			$booking = WPBooking_Booking::inst();
 			$data = array(
 				'order_id'   => $order_id,
 				'created_on' => time(),
@@ -64,5 +64,5 @@ if (!class_exists('Traveler_Payment_Model')) {
 		}
 	}
 
-	Traveler_Payment_Model::inst();
+	WPBooking_Payment_Model::inst();
 }

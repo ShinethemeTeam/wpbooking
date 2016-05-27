@@ -8,8 +8,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-if(!class_exists('Traveler_Model') ){
-	class Traveler_Model
+if(!class_exists('WPBooking_Model') ){
+	class WPBooking_Model
 	{
 		/**
 		 * Name of the Table
@@ -239,7 +239,7 @@ if(!class_exists('Traveler_Model') ){
 		 * @return array
 		 */
 		function get_columns(){
-			return apply_filters('traveler_model_table_'.$this->table_name.'_columns',$this->columns);
+			return apply_filters('wpbooking_model_table_'.$this->table_name.'_columns',$this->columns);
 		}
 
 		/**

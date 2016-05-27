@@ -2,32 +2,34 @@
 /**
 *@since 1.0.0
 **/
-if( !class_exists('Traveler_Calendar_Metabox') ){
-	class Traveler_Calendar_Metabox extends Traveler_Controller{
+if( !class_exists('WPBooking_Calendar_Metabox') ){
+	class WPBooking_Calendar_Metabox extends WPBooking_Controller{
+		static $_inst;
+
 		public function __construct(){
 			parent::__construct();	
 
-			add_action('wp_ajax_traveler_load_availability', array( $this, 'traveler_load_availability') );
+			add_action('wp_ajax_wpbooking_load_availability', array( $this, '_load_availability') );
 
-			add_action('wp_ajax_traveler_add_availability', array( $this, 'traveler_add_availability') );
+			add_action('wp_ajax_wpbooking_add_availability', array( $this, '_add_availability') );
 
-			add_action('wp_ajax_traveler_calendar_bulk_edit', array( $this, 'traveler_calendar_bulk_edit') );
+			add_action('wp_ajax_wpbooking_calendar_bulk_edit', array( $this, '_calendar_bulk_edit') );
 		}
 
-		public function traveler_load_availability(){
-			if(  wp_verify_nonce( $_POST['security'], 'traveler-nonce-field' ) ){
-				$post_id = (int) Traveler_Input::post('post_id','');
-				$post_encrypt = (int) Traveler_Input::post('post_encrypt','');
+		public function _load_availability(){
+			if(  wp_verify_nonce( $_POST['security'], 'wpbooking-nonce-field' ) ){
+				$post_id = (int) WPBooking_Input::post('post_id','');
+				$post_encrypt = (int) WPBooking_Input::post('post_encrypt','');
 
-				if( $post_id > 0 || traveler_encrypt_compare( $post_id, $post_encrypt ) ){
+				if( $post_id > 0 || wpbooking_encrypt_compare( $post_id, $post_encrypt ) ){
 
-					$base_id = (int) traveler_origin_id( $post_id, 'traveler_service', true );
+					$base_id = (int) wpbooking_origin_id( $post_id, 'wpbooking_service', true );
 
-					$check_in = (int) Traveler_Input::post('start', '');
-					$check_out = (int) Traveler_Input::post('end', '');
+					$check_in = (int) WPBooking_Input::post('start', '');
+					$check_out = (int) WPBooking_Input::post('end', '');
 
 					
-					$return = $this->traveler_get_availability( $base_id, $check_in, $check_out );
+					$return = $this->get_availability( $base_id, $check_in, $check_out );
 
 					echo json_encode( $return );
 					die;
@@ -36,15 +38,15 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 			}
 		}
 
-		public function traveler_add_availability(){
-			if(  wp_verify_nonce( $_POST['security'], 'traveler-nonce-field' ) ){
-				$post_id = (int) Traveler_Input::post('post-id', 0);
-				$post_encrypt = (int) Traveler_Input::post('post-encrypt', '');
+		public function _add_availability(){
+			if(  wp_verify_nonce( $_POST['security'], 'wpbooking-nonce-field' ) ){
+				$post_id = (int) WPBooking_Input::post('post-id', 0);
+				$post_encrypt = (int) WPBooking_Input::post('post-encrypt', '');
 
-				if( $post_id > 0 || traveler_encrypt_compare( $post_id, $post_encrypt ) ){
+				if( $post_id > 0 || wpbooking_encrypt_compare( $post_id, $post_encrypt ) ){
 
-					$check_in = strtotime( Traveler_Input::post('check_in','') ) ;
-					$check_out = strtotime( Traveler_Input::post('check_out','') );
+					$check_in = strtotime( WPBooking_Input::post('check_in','') ) ;
+					$check_out = strtotime( WPBooking_Input::post('check_out','') );
 					if( !$check_in || !$check_out ){
 						echo json_encode( array(
 							'status' => 0,
@@ -53,20 +55,20 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 						die;
 					}
 
-					$price = (float) Traveler_Input::post('price', '');
+					$price = (float) WPBooking_Input::post('price', '');
 
-					$status = Traveler_Input::post('status', '');
+					$status = WPBooking_Input::post('status', '');
 
-					$group_day = Traveler_Input::post('group_day','');
+					$group_day = WPBooking_Input::post('group_day','');
 
 					/* Get origin post id if use WPML */
-					$base_id = (int) traveler_origin_id( $post_id, 'traveler_service', true );
+					$base_id = (int) wpbooking_origin_id( $post_id, 'wpbooking_service', true );
 
 					/* Get all item between check in - out */
 
-					$result = $this->traveler_get_availability( $base_id, $check_in, $check_out );
+					$result = $this->get_availability( $base_id, $check_in, $check_out );
 
-					$split = $this->traveler_split_availability( $result, $check_in, $check_out );
+					$split = $this->split_availability( $result, $check_in, $check_out );
 
 					if( isset( $split['delete'] ) && !empty( $split['delete'] ) ){
 						foreach( $split['delete'] as $item ){
@@ -99,20 +101,20 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 			}
 		}
 
-		public function traveler_calendar_bulk_edit(){
-			if(  wp_verify_nonce( $_POST['security'], 'traveler-nonce-field' ) ){
-				$post_id = (int) Traveler_Input::post('post_id', 0);
-				$post_encrypt = Traveler_Input::post('post_encrypt', '');
+		public function _calendar_bulk_edit(){
+			if(  wp_verify_nonce( $_POST['security'], 'wpbooking-nonce-field' ) ){
+				$post_id = (int) WPBooking_Input::post('post_id', 0);
+				$post_encrypt = WPBooking_Input::post('post_encrypt', '');
 
-				if( $post_id > 0 && traveler_encrypt_compare( $post_id, $post_encrypt ) ){
+				if( $post_id > 0 && wpbooking_encrypt_compare( $post_id, $post_encrypt ) ){
 
 					if( isset( $_POST['all_days'] ) && !empty( $_POST['all_days'] ) ){
 
-						$data = Traveler_Input::post('data', '');
-						$all_days = Traveler_Input::post('all_days','');
-						$posts_per_page = (int) Traveler_Input::post('posts_per_page','');
-						$current_page = (int) Traveler_Input::post('current_page','');
-						$total = (int) Traveler_Input::post('total','');
+						$data = WPBooking_Input::post('data', '');
+						$all_days = WPBooking_Input::post('all_days','');
+						$posts_per_page = (int) WPBooking_Input::post('posts_per_page','');
+						$current_page = (int) WPBooking_Input::post('current_page','');
+						$total = (int) WPBooking_Input::post('total','');
 
 						if( $current_page > ceil( $total / $posts_per_page ) ){
 
@@ -128,8 +130,8 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 						}
 					}
 
-					$day_of_week = Traveler_Input::post('day-of-week', '');
-					$day_of_month = Traveler_Input::post('day-of-month', '');
+					$day_of_week = WPBooking_Input::post('day-of-week', '');
+					$day_of_month = WPBooking_Input::post('day-of-month', '');
 
 					$array_month = array(
 						'January' => '1',
@@ -146,11 +148,11 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 						'December' => '12',
 					);
 
-					$months = Traveler_Input::post('months', '');
+					$months = WPBooking_Input::post('months', '');
 
-					$years = Traveler_Input::post('years', '');
+					$years = WPBooking_Input::post('years', '');
 
-					$price = Traveler_Input::post('price_bulk', '');
+					$price = WPBooking_Input::post('price_bulk', '');
 
 					if( !is_numeric( $price) ){
 						echo json_encode( array(
@@ -161,11 +163,11 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 					}
 					$price = (float) $price;
 					
-					$status = Traveler_Input::post('status', 'available');
+					$status = WPBooking_Input::post('status', 'available');
 
-					$group_day = Traveler_Input::post('group_day', '');
+					$group_day = WPBooking_Input::post('group_day', '');
 
-					$base_id = (int) traveler_origin_id( $post_id, 'traveler_service', true );
+					$base_id = (int) wpbooking_origin_id( $post_id, 'wpbooking_service', true );
 
 					/*	Start, End is a timestamp */
 					$all_years = array();
@@ -283,7 +285,7 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 
 		public function insert_calendar_bulk( $data, $posts_per_page, $total, $current_page, $all_days , $post_id, $post_encrypt ){
 			global $wpdb;
-			$table = $wpdb->prefix. 'traveler_availability';
+			$table = $wpdb->prefix. 'wpbooking_availability';
 
 			$start = ($current_page - 1 ) * $posts_per_page;
 
@@ -297,9 +299,9 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 				$data['end'] = $all_days[ $i ];
 
 				/*	Delete old item */
-				$result = $this->traveler_get_availability( $data['base_id'], $all_days[ $i ], $all_days[ $i ] );
+				$result = $this->get_availability( $data['base_id'], $all_days[ $i ], $all_days[ $i ] );
 
-				$split = $this->traveler_split_availability( $result, $all_days[ $i ], $all_days[ $i ] );
+				$split = $this->split_availability( $result, $all_days[ $i ], $all_days[ $i ] );
 
 				if( isset( $split['delete'] ) && !empty( $split['delete'] ) ){
 					foreach( $split['delete'] as $item ){
@@ -336,7 +338,7 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 
 			global $wpdb;
 
-			$table = $wpdb->prefix. 'traveler_availability';
+			$table = $wpdb->prefix. 'wpbooking_availability';
 
 			$wpdb->delete(
 				$table,
@@ -350,7 +352,7 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 		public function traveler_insert_availability( $post_id = '', $base_id = '', $check_in = '', $check_out = '', $price = '', $status = '', $group_day = '' ){
 			global $wpdb;
 
-			$table = $wpdb->prefix. 'traveler_availability';
+			$table = $wpdb->prefix. 'wpbooking_availability';
 			if( $group_day == 'group' ){
 				$wpdb->insert(
 					$table,
@@ -385,10 +387,10 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 			return (int) $wpdb->insert_id;
 		}
 
-		public function traveler_get_availability( $base_id = '', $check_in = '', $check_out = ''){
+		public function get_availability( $base_id = '', $check_in = '', $check_out = ''){
 			global $wpdb;
 
-			$table = $wpdb->prefix. 'traveler_availability';
+			$table = $wpdb->prefix. 'wpbooking_availability';
 
 			$sql = "SELECT * FROM {$table} WHERE base_id = {$base_id} AND ( ( CAST( `start` AS UNSIGNED ) >= CAST( {$check_in} AS UNSIGNED) AND CAST( `start` AS UNSIGNED ) <= CAST( {$check_out} AS UNSIGNED ) ) OR ( CAST( `end` AS UNSIGNED ) >= CAST( {$check_in} AS UNSIGNED ) AND ( CAST( `end` AS UNSIGNED ) <= CAST( {$check_out} AS UNSIGNED ) ) ) )";
 
@@ -414,7 +416,7 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 			return $return;
 		}
 
-		public function traveler_split_availability( $result = array(), $check_in = '', $check_out = ''){
+		public function split_availability( $result = array(), $check_in = '', $check_out = ''){
 			$return = array();	
 
 			if( !empty( $result ) ){
@@ -458,6 +460,14 @@ if( !class_exists('Traveler_Calendar_Metabox') ){
 			return $return;
 		}
 
+		static function inst()
+		{
+			if(!self::$_inst){
+				self::$_inst=new self();
+			}
+			return self::$_inst;
+		}
 	}
-	new Traveler_Calendar_Metabox();
+
+	WPBooking_Calendar_Metabox::inst();
 }

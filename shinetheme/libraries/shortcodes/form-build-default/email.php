@@ -1,8 +1,8 @@
 <?php
-if(function_exists( 'traveler_add_field_form_builder' )) {
-    traveler_add_field_form_builder( array(
+if(function_exists( 'wpbooking_add_field_form_builder' )) {
+    wpbooking_add_field_form_builder( array(
             "title"    => __( "Email" , 'wpbooking' ) ,
-            "name"     => 'traveler_booking_email' ,
+            "name"     => 'wpbooking_booking_email' ,
             "category" => __('Standard Fields','wpbooking') ,
             "options"  => array(
                 array(
@@ -79,8 +79,8 @@ if(function_exists( 'traveler_add_field_form_builder' )) {
         )
     );
 }
-if(!function_exists( 'traveler_booking_email_func' )) {
-    function traveler_booking_email_func( $attr , $content = false )
+if(!function_exists( 'wpbooking_booking_email_func' )) {
+    function wpbooking_booking_email_func( $attr , $content = false )
     {
         $data = wp_parse_args(
 			$attr,
@@ -107,12 +107,10 @@ if(!function_exists( 'traveler_booking_email_func' )) {
         }
 		$rule[]='valid_email';
 
-        Traveler_Admin_Form_Build::inst()->add_form_field( $name,array('data'=>$data,'rule'=>implode('|',$rule)));
-
-
+        WPBooking_Admin_Form_Build::inst()->add_form_field( $name,array('data'=>$data,'rule'=>implode('|',$rule)));
 
         return '<input type="text" name="' . $name . '" id="' . $id . '" class="' . $class . '" value="' . $value . '" placeholder="' . $placeholder . '"  maxlength="' . $maxlength . '" size="' . $size . '"  ' . $required . ' />';
     }
 }
-add_shortcode( 'traveler_booking_email' , 'traveler_booking_email_func' );
+add_shortcode( 'wpbooking_booking_email' , 'wpbooking_booking_email_func' );
 

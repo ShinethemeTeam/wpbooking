@@ -1,6 +1,6 @@
 <?php
-if (!class_exists('Traveler_Form_Check_Out_Field')) {
-	class Traveler_Form_Check_Out_Field extends Traveler_Abstract_Formbuilder_Field
+if (!class_exists('WPBooking_Form_Check_Out_Field')) {
+	class WPBooking_Form_Check_Out_Field extends WPBooking_Abstract_Formbuilder_Field
 	{
 		static $_inst;
 
@@ -142,7 +142,7 @@ if (!class_exists('Traveler_Form_Check_Out_Field')) {
 		}
 	}
 
-	Traveler_Form_Check_Out_Field::inst();
+	WPBooking_Form_Check_Out_Field::inst();
 
 }
 

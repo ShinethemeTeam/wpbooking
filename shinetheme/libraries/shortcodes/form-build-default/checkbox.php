@@ -1,6 +1,6 @@
 <?php
-if(!class_exists('Traveler_Form_Checkbox_Field')){
-	class Traveler_Form_Checkbox_Field extends Traveler_Abstract_Formbuilder_Field
+if(!class_exists('WPBooking_Form_Checkbox_Field')){
+	class WPBooking_Form_Checkbox_Field extends WPBooking_Abstract_Formbuilder_Field
 	{
 		static $_inst;
 
@@ -65,7 +65,7 @@ if(!class_exists('Traveler_Form_Checkbox_Field')){
 					'id'          => '' ,
 					'class'       => '' ,
 					'options'       => '' ,
-				) , $attr , 'traveler_booking_check_box' );
+				) , $attr , 'WPBooking_booking_check_box' );
 			extract( $data );
 			$list_item = "";
 			if(!empty($options)){
@@ -129,6 +129,6 @@ if(!class_exists('Traveler_Form_Checkbox_Field')){
 			return self::$_inst;
 		}
 	}
-	Traveler_Form_Checkbox_Field::inst();
+	WPBooking_Form_Checkbox_Field::inst();
 
 }

@@ -5,23 +5,23 @@
  * Date: 3/15/2016
  * Time: 10:51 AM
  */
-if(!function_exists('traveler_assets_url'))
+if(!function_exists('wpbooking_assets_url'))
 {
-	function traveler_assets_url($url)
+	function wpbooking_assets_url($url)
 	{
-		return Traveler()->get_url('assets/'.$url);
+		return WPBooking()->get_url('assets/'.$url);
 	}
 }
-if(!function_exists('traveler_admin_assets_url'))
+if(!function_exists('wpbooking_admin_assets_url'))
 {
-	function traveler_admin_assets_url($url)
+	function wpbooking_admin_assets_url($url)
 	{
-		return Traveler()->get_url('assets/admin/'.$url);
+		return WPBooking()->get_url('assets/admin/'.$url);
 	}
 }
-if(!function_exists('traveler_get_image_size'))
+if(!function_exists('wpbooking_get_image_size'))
 {
-	function traveler_get_image_size($url)
+	function wpbooking_get_image_size($url)
 	{
 
 	}

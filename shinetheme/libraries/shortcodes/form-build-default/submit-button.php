@@ -1,8 +1,8 @@
 <?php
-if(function_exists( 'traveler_add_field_form_builder' )) {
-    traveler_add_field_form_builder( array(
+if(function_exists( 'wpbooking_add_field_form_builder' )) {
+    wpbooking_add_field_form_builder( array(
             "title"    => __( "Submit Button" , 'wpbooking' ) ,
-            "name"     => 'traveler_booking_submit_buttom' ,
+            "name"     => 'wpbooking_booking_submit_buttom' ,
             "category" => 'Standard Fields' ,
             "options"  => array(
                 array(
@@ -41,8 +41,8 @@ if(function_exists( 'traveler_add_field_form_builder' )) {
         )
     );
 }
-if(!function_exists( 'traveler_sc_booking_submit_buttom' )) {
-    function traveler_sc_booking_submit_buttom( $attr , $content = false )
+if(!function_exists( 'wpbooking_sc_booking_submit_buttom' )) {
+    function wpbooking_sc_booking_submit_buttom( $attr , $content = false )
     {
         $data = shortcode_atts(
             array(
@@ -50,10 +50,10 @@ if(!function_exists( 'traveler_sc_booking_submit_buttom' )) {
                 'name'  => '' ,
                 'id'    => '' ,
                 'class' => ' ' ,
-            ) , $attr , 'traveler_booking_submit_buttom' );
+            ) , $attr , 'wpbooking_booking_submit_buttom' );
         extract( $data );
 		$class.=' submit-button';
         return '<button type="submit" name="' . $name . '" id="' . $id . '" class="' . $class . '" >' . $label . '</button>';
     }
 }
-add_shortcode( 'traveler_booking_submit_buttom' , 'traveler_sc_booking_submit_buttom' );
+add_shortcode( 'wpbooking_booking_submit_buttom' , 'wpbooking_sc_booking_submit_buttom' );

@@ -145,7 +145,7 @@ $config['settings'] = array(
 						'id'        => 'confirm_to_customer',
 						'label'     => __("For Customer", 'wpbooking'),
 						'type'      => 'texteditor',
-						'desc'=>traveler_admin_load_view('email/document')
+						'desc'=>wpbooking_admin_load_view('email/document')
 					),
 					array(
 						'id'        => 'confirm_to_partner',
@@ -163,13 +163,13 @@ $config['settings'] = array(
 						'id'        => 'email_to_customer',
 						'label'     => __("For Customer", 'wpbooking'),
 						'type'      => 'texteditor',
-						'desc'=>traveler_admin_load_view('email/document')
+						'desc'=>wpbooking_admin_load_view('email/document')
 					),
 					array(
 						'id'        => 'email_to_partner',
 						'label'     => __("For Item's Host", 'wpbooking'),
 						'type'      => 'texteditor',
-						'desc'=>traveler_admin_load_view('email/document')
+						'desc'=>wpbooking_admin_load_view('email/document')
 					),
 				)
 			),

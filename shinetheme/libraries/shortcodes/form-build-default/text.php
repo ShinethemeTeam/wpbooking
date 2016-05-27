@@ -1,6 +1,6 @@
 <?php
-if(!class_exists('Traveler_Form_Text_Field')){
-	class Traveler_Form_Text_Field extends Traveler_Abstract_Formbuilder_Field
+if(!class_exists('WPBooking_Form_Text_Field')){
+	class WPBooking_Form_Text_Field extends WPBooking_Abstract_Formbuilder_Field
 	{
 		static $_inst;
 
@@ -15,14 +15,14 @@ if(!class_exists('Traveler_Form_Text_Field')){
 						"type"             => "required" ,
 						"title"            => __( "Set as <strong>required</strong>" , 'wpbooking' ) ,
 						"desc"             => "" ,
-						'edit_field_class' => 'traveler-col-md-12' ,
+						'edit_field_class' => 'wpbooking-col-md-12' ,
 					) ,
 					array(
 						"type"             => "text" ,
 						"title"            => __( "Title" , 'wpbooking' ) ,
 						"name"             => "title" ,
 						"desc"             => __( "Title" , 'wpbooking' ) ,
-						'edit_field_class' => 'traveler-col-md-6' ,
+						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
@@ -30,7 +30,7 @@ if(!class_exists('Traveler_Form_Text_Field')){
 						"title"            => __( "Name" , 'wpbooking' ) ,
 						"name"             => "name" ,
 						"desc"             => __( "Name" , 'wpbooking' ) ,
-						'edit_field_class' => 'traveler-col-md-6' ,
+						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
@@ -38,7 +38,7 @@ if(!class_exists('Traveler_Form_Text_Field')){
 						"title"            => __( "ID" , 'wpbooking' ) ,
 						"name"             => "id" ,
 						"desc"             => __( "ID" , 'wpbooking' ) ,
-						'edit_field_class' => 'traveler-col-md-6' ,
+						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
@@ -46,7 +46,7 @@ if(!class_exists('Traveler_Form_Text_Field')){
 						"title"            => __( "Class" , 'wpbooking' ) ,
 						"name"             => "class" ,
 						"desc"             => __( "Class" , 'wpbooking' ) ,
-						'edit_field_class' => 'traveler-col-md-6' ,
+						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
@@ -54,7 +54,7 @@ if(!class_exists('Traveler_Form_Text_Field')){
 						"title"            => __( "Value" , 'wpbooking' ) ,
 						"name"             => "value" ,
 						"desc"             => __( "Value" , 'wpbooking' ) ,
-						'edit_field_class' => 'traveler-col-md-6' ,
+						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
@@ -62,7 +62,7 @@ if(!class_exists('Traveler_Form_Text_Field')){
 						"title"            => __( "Placeholder" , 'wpbooking' ) ,
 						"name"             => "placeholder" ,
 						"desc"             => __( "Placeholder" , 'wpbooking' ) ,
-						'edit_field_class' => 'traveler-col-md-6' ,
+						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
@@ -70,7 +70,7 @@ if(!class_exists('Traveler_Form_Text_Field')){
 						"title"            => __( "Size" , 'wpbooking' ) ,
 						"name"             => "size" ,
 						"desc"             => __( "Size" , 'wpbooking' ) ,
-						'edit_field_class' => 'traveler-col-md-6' ,
+						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
@@ -78,7 +78,7 @@ if(!class_exists('Traveler_Form_Text_Field')){
 						"title"            => __( "Maxlength" , 'wpbooking' ) ,
 						"name"             => "maxlength" ,
 						"desc"             => __( "Maxlength" , 'wpbooking' ) ,
-						'edit_field_class' => 'traveler-col-md-6' ,
+						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					)
 				)
@@ -129,7 +129,7 @@ if(!class_exists('Traveler_Form_Text_Field')){
 			return self::$_inst;
 		}
 	}
-	Traveler_Form_Text_Field::inst();
+	WPBooking_Form_Text_Field::inst();
 
 }
 

@@ -6,9 +6,9 @@
  * Time: 5:34 PM
  */
 
-if(!function_exists('traveler_get_option'))
+if(!function_exists('wpbooking_get_option'))
 {
-	function traveler_get_option($key,$default=FALSE){
-		return Traveler_Admin_Setting::inst()->get_option($key,$default);
+	function wpbooking_get_option($key,$default=FALSE){
+		return WPBooking_Admin_Setting::inst()->get_option($key,$default);
 	}
 }

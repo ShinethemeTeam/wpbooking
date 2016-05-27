@@ -5,9 +5,9 @@
  * Date: 3/23/2016
  * Time: 2:35 PM
  */
-if(!class_exists('Traveler_Abstract_Service_Type'))
+if(!class_exists('WPBooking_Abstract_Service_Type'))
 {
-	abstract class Traveler_Abstract_Service_Type
+	abstract class WPBooking_Abstract_Service_Type
 	{
 		protected $type_id = FALSE;
 		protected $type_info = array();
@@ -21,32 +21,32 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 				'description' => ''
 			));
 
-			add_filter('traveler_service_types', array($this, '_register_type'));
-			add_filter('traveler_service_setting_sections', array($this, '_add_setting_section'));
-			add_filter('traveler_review_stats', array($this, '_filter_get_review_stats'));
-			add_filter('traveler_get_order_form_'.$this->type_id, array($this, '_get_order_form'));
+			add_filter('wpbooking_service_types', array($this, '_register_type'));
+			add_filter('wpbooking_service_setting_sections', array($this, '_add_setting_section'));
+			add_filter('wpbooking_review_stats', array($this, '_filter_get_review_stats'));
+			add_filter('wpbooking_get_order_form_'.$this->type_id, array($this, '_get_order_form'));
 
             /*Change Search*/
-			add_filter('traveler_add_page_archive_search', array($this, '_add_page_archive_search'));
-			add_filter('traveler_service_query_args_'.$this->type_id, array($this, '_service_query_args'));
-			add_action('traveler_before_service_query_'.$this->type_id, array($this, '_before_service_query'));
-			add_action('traveler_after_service_query_'.$this->type_id, array($this, '_after_service_query_'));
+			add_filter('wpbooking_add_page_archive_search', array($this, '_add_page_archive_search'));
+			add_filter('wpbooking_service_query_args_'.$this->type_id, array($this, '_service_query_args'));
+			add_action('wpbooking_before_service_query_'.$this->type_id, array($this, '_before_service_query'));
+			add_action('wpbooking_after_service_query_'.$this->type_id, array($this, '_after_service_query_'));
 
 
-			add_filter('traveler_get_order_form_id_'.$this->type_id, array($this, 'get_order_form_id'));
+			add_filter('wpbooking_get_order_form_id_'.$this->type_id, array($this, 'get_order_form_id'));
 
 
 
 			/**
 			 * Add to cart add Need Customer Confirm
-			 * @see Traveler_Booking::add_to_cart();
+			 * @see WPBooking_Order::add_to_cart();
 			 */
-			add_filter('traveler_service_need_customer_confirm',array($this,'_get_customer_confirm'),10,3);
-			add_filter('traveler_service_need_partner_confirm',array($this,'_get_partner_confirm'),10,3);
+			add_filter('wpbooking_service_need_customer_confirm',array($this,'_get_customer_confirm'),10,3);
+			add_filter('wpbooking_service_need_partner_confirm',array($this,'_get_partner_confirm'),10,3);
 
-			add_action('traveler_cart_item_information_'.$this->type_id,array($this,'_show_cart_item_information'));
-			add_action('traveler_review_order_item_information_'.$this->type_id,array($this,'_show_cart_item_information'));
-			add_action('traveler_order_item_information_'.$this->type_id,array($this,'_show_order_item_information'));
+			add_action('wpbooking_cart_item_information_'.$this->type_id,array($this,'_show_cart_item_information'));
+			add_action('wpbooking_review_order_item_information_'.$this->type_id,array($this,'_show_cart_item_information'));
+			add_action('wpbooking_order_item_information_'.$this->type_id,array($this,'_show_order_item_information'));
 
 		}
 
@@ -77,7 +77,7 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 						'field_type'=>''
 					));
 
-					$value_html= Traveler_Admin_Form_Build::inst()->get_form_field_data($value);
+					$value_html= WPBooking_Admin_Form_Build::inst()->get_form_field_data($value);
 
 					if($value_html){
 						printf("<li class='field-item %s'>
@@ -86,8 +86,8 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 							</li>",$key,$value['title'],$value_html);
 					}
 
-					do_action('traveler_form_field_to_html',$value);
-					do_action('traveler_form_field_to_html_'.$value['field_type'],$value);
+					do_action('wpbooking_form_field_to_html',$value);
+					do_action('wpbooking_form_field_to_html_'.$value['field_type'],$value);
 				}
 				echo "</ul>";
 			}
@@ -128,7 +128,7 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 						'data'=>'',
 						'field_type'=>''
 					));
-					$value_html= Traveler_Admin_Form_Build::inst()->get_form_field_data($value);
+					$value_html= WPBooking_Admin_Form_Build::inst()->get_form_field_data($value);
 
 					if($value_html){
 						printf("<li class='field-item %s'>
@@ -137,8 +137,8 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 							</li>",$key,$value['title'],$value_html);
 					}
 
-					do_action('traveler_form_field_to_html',$value);
-					do_action('traveler_form_field_to_html_'.$value['field_type'],$value);
+					do_action('wpbooking_form_field_to_html',$value);
+					do_action('wpbooking_form_field_to_html_'.$value['field_type'],$value);
 				}
 				echo "</ul>";
 			}
@@ -260,20 +260,20 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 		function get_settings_fields()
 		{
 
-			return apply_filters('traveler_service_type_'.$this->type_id.'_settings_fields',$this->settings);
+			return apply_filters('wpbooking_service_type_'.$this->type_id.'_settings_fields',$this->settings);
 		}
 
 		function get_info($key=FALSE)
 		{
-			$info= apply_filters('traveler_service_type_info',$this->type_info);
-			$info= apply_filters('traveler_service_type_'.$this->type_id.'_info',$info);
+			$info= apply_filters('wpbooking_service_type_info',$this->type_info);
+			$info= apply_filters('wpbooking_service_type_'.$this->type_id.'_info',$info);
 
 			if($key){
 
 				$data= isset($info[$key])?$info[$key]:FALSE;
 
-				$data= apply_filters('traveler_service_type_info_'.$key,$data);
-				$data= apply_filters('traveler_service_type_'.$this->type_id.'_info_'.$key,$data);
+				$data= apply_filters('wpbooking_service_type_info_'.$key,$data);
+				$data= apply_filters('wpbooking_service_type_'.$this->type_id.'_info_'.$key,$data);
 				return $data;
 			}
 
@@ -281,7 +281,7 @@ if(!class_exists('Traveler_Abstract_Service_Type'))
 		}
 		function get_option($key,$default=FALSE)
 		{
-			return traveler_get_option('service_type_'.$this->type_id.'_'.$key,$default);
+			return wpbooking_get_option('service_type_'.$this->type_id.'_'.$key,$default);
 		}
 
 		function _register_type($service_types=array())

@@ -6,8 +6,8 @@
  * Time: 12:39 PM
  */
 
-if (!class_exists('Traveler_Currency')) {
-	class Traveler_Currency
+if (!class_exists('WPBooking_Currency')) {
+	class WPBooking_Currency
 	{
 		public static $all_currency;
 
@@ -154,7 +154,7 @@ if (!class_exists('Traveler_Currency')) {
 		static function _change_current_currency()
 		{
 
-			if (Traveler_Input::get('currency') and $new_currency = self::find_currency($_GET['currency'])) {
+			if (WPBooking_Input::get('currency') and $new_currency = self::find_currency($_GET['currency'])) {
 				Traveler_Session::set('traveler_currency', $new_currency);
 			}
 		}
@@ -539,5 +539,5 @@ if (!class_exists('Traveler_Currency')) {
 
 	}
 
-	Traveler_Currency::_init();
+	WPBooking_Currency::_init();
 }

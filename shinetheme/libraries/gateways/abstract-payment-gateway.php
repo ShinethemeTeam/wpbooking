@@ -8,8 +8,8 @@
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
-if (!class_exists('Traveler_Abstract_Payment_Gateway')) {
-	class Traveler_Abstract_Payment_Gateway
+if (!class_exists('WPBooking_Abstract_Payment_Gateway')) {
+	class WPBooking_Abstract_Payment_Gateway
 	{
 		protected $gateway_id = FALSE;
 		protected $gateway_info = array();
@@ -23,8 +23,8 @@ if (!class_exists('Traveler_Abstract_Payment_Gateway')) {
 				'description' => ''
 			));
 
-			add_filter('traveler_payment_gateways', array($this, '_register_gateway'));
-			add_filter('traveler_payment_settings_sections', array($this, '_add_setting_section'));
+			add_filter('wpbooking_payment_gateways', array($this, '_register_gateway'));
+			add_filter('wpbooking_payment_settings_sections', array($this, '_add_setting_section'));
 		}
 
 		function _add_setting_section($sections = array())
@@ -47,20 +47,20 @@ if (!class_exists('Traveler_Abstract_Payment_Gateway')) {
 
 		function get_settings_fields()
 		{
-			return apply_filters('traveler_payment_' . $this->gateway_id . '_settings_fields', $this->settings);
+			return apply_filters('wpbooking_payment_' . $this->gateway_id . '_settings_fields', $this->settings);
 		}
 
 		function get_info($key = FALSE)
 		{
-			$info = apply_filters('traveler_gateway_info', $this->gateway_info);
-			$info = apply_filters('traveler_gateway_' . $this->gateway_id . '_info', $info);
+			$info = apply_filters('wpbooking_gateway_info', $this->gateway_info);
+			$info = apply_filters('wpbooking_gateway_' . $this->gateway_id . '_info', $info);
 
 			if ($key) {
 
 				$data = isset($info[$key]) ? $info[$key] : FALSE;
 
-				$data = apply_filters('traveler_gateway_info_' . $key, $data);
-				$data = apply_filters('traveler_gateway_' . $this->gateway_id . '_info_' . $key, $data);
+				$data = apply_filters('wpbooking_gateway_info_' . $key, $data);
+				$data = apply_filters('wpbooking_gateway_' . $this->gateway_id . '_info_' . $key, $data);
 
 				return $data;
 			}
@@ -71,7 +71,7 @@ if (!class_exists('Traveler_Abstract_Payment_Gateway')) {
 		function get_option($key, $default = FALSE)
 		{
 
-			return traveler_get_option('gateway_' . $this->gateway_id . '_' . $key, $default);
+			return wpbooking_get_option('gateway_' . $this->gateway_id . '_' . $key, $default);
 		}
 
 		function is_available()
@@ -115,9 +115,9 @@ if (!class_exists('Traveler_Abstract_Payment_Gateway')) {
 
 			$url = htmlentities($res->getRedirectUrl(), ENT_QUOTES, 'UTF-8', FALSE);
 
-			return sprintf('<form action="%s" method="post" id="traveler_payment_redirect_form">
+			return sprintf('<form action="%s" method="post" id="wpbooking_payment_redirect_form">
 
-    						<script>document.getElementById(\'traveler_payment_redirect_form\').submit();</script>
+    						<script>document.getElementById(\'wpbooking_payment_redirect_form\').submit();</script>
 							%s
 						</form>', $url, $hiddenFields);
 		}
@@ -142,7 +142,7 @@ if (!class_exists('Traveler_Abstract_Payment_Gateway')) {
 		function do_checkout($order_id,$payment_id)
 		{
 			// On-hold for Offline Gateways
-			$order=Traveler_Order_Model::inst();
+			$order=WPBooking_Order_Model::inst();
 			$order->onhold_purchase($payment_id);
 		}
 

@@ -8,14 +8,14 @@
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
-if (!class_exists('Traveler_Order_Model')) {
-	class Traveler_Order_Model extends Traveler_Model
+if (!class_exists('WPBooking_Order_Model')) {
+	class WPBooking_Order_Model extends WPBooking_Model
 	{
 		static $_inst = FALSE;
 
 		function __construct()
 		{
-			$this->table_name = 'traveler_order_item';
+			$this->table_name = 'wpbooking_order_item';
 			$this->table_version = '1.1.3';
 			$this->columns = array(
 				'id'                    => array(
@@ -55,7 +55,7 @@ if (!class_exists('Traveler_Order_Model')) {
 		{
 			$order_data = array(
 				'post_title'  => sprintf(__('New Order In %s', 'wpbooking'), date(get_option('date_format') . ' @' . get_option('time_format'))),
-				'post_type'   => 'traveler_order',
+				'post_type'   => 'wpbooking_order',
 				'post_status' => 'publish'
 			);
 			$order_id = wp_insert_post($order_data);
@@ -64,7 +64,7 @@ if (!class_exists('Traveler_Order_Model')) {
 				update_post_meta($order_id, 'checkout_form_data', $checkout_form_data);
 				if (!empty($checkout_form_data)) {
 					foreach ($checkout_form_data as $key => $value) {
-						update_post_meta($order_id, 'traveler_form_' . $key, $value['value']);
+						update_post_meta($order_id, 'wpbooking_form_' . $key, $value['value']);
 					}
 				}
 			}
@@ -205,5 +205,5 @@ if (!class_exists('Traveler_Order_Model')) {
 	}
 
 
-	Traveler_Order_Model::inst();
+	WPBooking_Order_Model::inst();
 }

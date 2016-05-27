@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-if(!class_exists('Traveler_Admin_Location'))
+if(!class_exists('WPBooking_Admin_Location'))
 {
-	class Traveler_Admin_Location extends Traveler_Controller
+	class WPBooking_Admin_Location extends WPBooking_Controller
 	{
 		static $_inst;
 
@@ -46,13 +46,13 @@ if(!class_exists('Traveler_Admin_Location'))
 				'query_var'         => true,
 				'rewrite'           => array( 'slug' => 'location' ),
 			);
-			$args=apply_filters('traveler_register_location_taxonomy',$args);
+			$args=apply_filters('wpbooking_register_location_taxonomy',$args);
 
-			register_taxonomy( 'traveler_location', array( 'traveler_service' ), $args );
+			register_taxonomy( 'wpbooking_location', array( 'wpbooking_service' ), $args );
 
-			$hide=apply_filters('traveler_hide_locaton_select_box',false);
+			$hide=apply_filters('wpbooking_hide_locaton_select_box',false);
 			if($hide)
-				Traveler_Assets::add_css("#traveler_locationdiv{display:none!important}");
+				WPBooking_Assets::add_css("#wpbooking_locationdiv{display:none!important}");
 		}
 
 		static function inst()
@@ -64,5 +64,5 @@ if(!class_exists('Traveler_Admin_Location'))
 		}
 	}
 
-	Traveler_Admin_Location::inst();
+	WPBooking_Admin_Location::inst();
 }

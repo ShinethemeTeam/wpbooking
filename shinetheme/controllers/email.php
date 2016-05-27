@@ -5,9 +5,9 @@
  * Date: 4/5/2016
  * Time: 12:01 PM
  */
-if(!class_exists('Traveler_Email'))
+if(!class_exists('WPBooking_Email'))
 {
-	class Traveler_Email
+	class WPBooking_Email
 	{
 		static $_inst;
 		function __construct()
@@ -32,7 +32,7 @@ if(!class_exists('Traveler_Email'))
 
 		function _send_order_email_success($order_id)
 		{
-			$order_model=Traveler_Order_Model::inst();
+			$order_model=WPBooking_Order_Model::inst();
 
 			$items=$order_model->get_order_items($order_id);
 
@@ -55,8 +55,8 @@ if(!class_exists('Traveler_Email'))
 				{
 					$to=$user_email = get_the_author_meta( 'user_email' ,$key);
 					$subject=sprintf(__("New Order from %s",'wpbooking'),get_bloginfo('title'));
-					Traveler()->set('items',$value);
-					$message=traveler_load_view('emails/booking-information');
+					WPBooking()->set('items',$value);
+					$message=wpbooking_load_view('emails/booking-information');
 					$this->send($to,$subject,$message);
 				}
 			}
@@ -64,7 +64,7 @@ if(!class_exists('Traveler_Email'))
 			// to Admin
 			$to=get_option('admin_email');
 			$subject=sprintf(__("New Order from %s",'wpbooking'),get_bloginfo('title'));
-			$message=traveler_load_view('emails/booking-information',array('items'=>$items,'order_id'=>$order_id));
+			$message=wpbooking_load_view('emails/booking-information',array('items'=>$items,'order_id'=>$order_id));
 			$this->send($to,$subject,$message);
 
 		}
@@ -80,8 +80,8 @@ if(!class_exists('Traveler_Email'))
 				'status'  => 0,
 				'message' => __("Email content is empty",'wpbooking')
 			);
-			$from = traveler_get_option('email_from');
-			$from_address = traveler_get_option('email_from_address');
+			$from = wpbooking_get_option('email_from');
+			$from_address = wpbooking_get_option('email_from_address');
 			$headers = array();
 
 			if($from and $from_address){
@@ -115,7 +115,7 @@ if(!class_exists('Traveler_Email'))
 		 */
 		function _load_email_shortcodes()
 		{
-			Traveler_Loader::inst()->load_library('shorcodes/email/order-table');
+			WPBooking_Loader::inst()->load_library('shorcodes/email/order-table');
 		}
 
 		static function inst()
@@ -129,5 +129,5 @@ if(!class_exists('Traveler_Email'))
 		}
 	}
 
-	Traveler_Email::inst();
+	WPBooking_Email::inst();
 }

@@ -19,8 +19,8 @@
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
-if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
-	class Traveler_Booking_System
+if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
+	class WPBooking_System
 	{
 		static $_inst=FALSE;
 
@@ -32,20 +32,19 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		 */
 		protected $global_values=array();
 
+		protected $_dir_path=FALSE;
+		protected $_dir_url=FALSE;
+
 
 		/**
 		 * @since 1.0
 		 */
 		function __construct()
 		{
-			do_action('traveler_before_plugin_init');
+			do_action('wpbooking_before_plugin_init');
 
-			if(!defined('TRAVELER_PLUGIN_PATH')){
-				define('TRAVELER_PLUGIN_PATH',plugin_dir_path(__FILE__));
-			}
-			if(!defined('TRAVELER_PLUGIN_URL')){
-				define('TRAVELER_PLUGIN_URL',plugin_dir_url(__FILE__));
-			}
+			$this->_dir_path=plugin_dir_path(__FILE__);
+			$this->_dir_url=plugin_dir_url(__FILE__);
 
 			add_action('init', array($this, '_init'));
 			add_action('admin_menu', array($this, '_admin_init_menu_page'));
@@ -54,7 +53,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 			add_action('admin_enqueue_scripts',array($this,'_admin_default_scripts'));
 			add_action('wp_enqueue_scripts',array($this,'_frontend_scripts'));
 
-			do_action('traveler_after_plugin_init');
+			do_action('wpbooking_after_plugin_init');
 		}
 
 		function _frontend_scripts()
@@ -196,7 +195,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		 */
 		function get_dir($file = FALSE)
 		{
-			return TRAVELER_PLUGIN_PATH . $file;
+			return $this->_dir_path . $file;
 		}
 
 		/**
@@ -206,16 +205,16 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		 */
 		function get_url($file = FALSE)
 		{
-			return TRAVELER_PLUGIN_URL . $file;
+			return $this->_dir_url . $file;
 		}
 
 		function get_menu_page()
 		{
-			$page = apply_filters('traveler_menu_page_args', array(
-				'page_title' => __("Traveler", 'wpbooking'),
-				'menu_title' => __("Traveler", 'wpbooking'),
+			$page = apply_filters('wpbooking_menu_page_args', array(
+				'page_title' => __("WPBooking", 'wpbooking'),
+				'menu_title' => __("WPBooking", 'wpbooking'),
 				'capability' => 'manage_options',
-				'menu_slug'  => 'traveler_booking',
+				'menu_slug'  => 'wpbooking',
 				'function'   => array($this, '_show_default_page'),
 				'icon_url'   => FALSE,
 				'position'   =>55
@@ -226,7 +225,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		}
 		function _show_default_page()
 		{
-			do_action('traveler_default_menu_page');
+			do_action('wpbooking_default_menu_page');
 		}
 
 		function set_admin_message($message,$type='information')
@@ -282,7 +281,7 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 		}
 
 		/**
-		 * @return Traveler_Booking_System
+		 * @return WPBooking_System
 		 */
 		static function inst()
 		{
@@ -300,10 +299,10 @@ if (!class_exists('Traveler_Booking_System') and !function_exists('Traveler')) {
 	/**
 	 * @since 1.0
 	 */
-	function Traveler()
+	function WPBooking()
 	{
-		return Traveler_Booking_System::inst();
+		return WPBooking_System::inst();
 	}
 
-	Traveler();
+	WPBooking();
 }

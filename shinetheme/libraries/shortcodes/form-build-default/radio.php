@@ -1,8 +1,8 @@
 <?php
-if(function_exists( 'traveler_add_field_form_builder' )) {
-    traveler_add_field_form_builder( array(
+if(function_exists( 'wpbooking_add_field_form_builder' )) {
+    wpbooking_add_field_form_builder( array(
             "title"   => __( "Radio" , 'wpbooking' ) ,
-            "name"    => 'traveler_booking_radio' ,
+            "name"    => 'wpbooking_booking_radio' ,
             "category" => 'Standard Fields',
             "options" => array(
                 array(
@@ -49,8 +49,8 @@ if(function_exists( 'traveler_add_field_form_builder' )) {
         )
     );
 }
-if(!function_exists( 'traveler_sc_booking_radio' )) {
-    function traveler_sc_booking_radio( $attr , $content = false )
+if(!function_exists( 'wpbooking_sc_booking_radio' )) {
+    function wpbooking_sc_booking_radio( $attr , $content = false )
     {
         $data = shortcode_atts(
             array(
@@ -59,7 +59,7 @@ if(!function_exists( 'traveler_sc_booking_radio' )) {
                 'id'          => '' ,
                 'class'       => '' ,
                 'options'       => '' ,
-            ) , $attr , 'traveler_booking_radio' );
+            ) , $attr , 'wpbooking_booking_radio' );
         extract( $data );
         $list_item = "";
         if(!empty($options)){
@@ -76,8 +76,8 @@ if(!function_exists( 'traveler_sc_booking_radio' )) {
                 }
             }
         }
-        Traveler_Admin_Form_Build::inst()->add_form_field($name,array('data'=>$data,'rule'=>''));
+        WPBooking_Admin_Form_Build::inst()->add_form_field($name,array('data'=>$data,'rule'=>''));
         return $list_item;
     }
 }
-add_shortcode( 'traveler_booking_radio' , 'traveler_sc_booking_radio' );
+add_shortcode( 'wpbooking_booking_radio' , 'wpbooking_sc_booking_radio' );

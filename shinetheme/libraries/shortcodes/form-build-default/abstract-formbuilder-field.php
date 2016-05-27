@@ -5,7 +5,7 @@
  * Date: 4/27/2016
  * Time: 4:35 PM
  */
-if(!class_exists('Traveler_Abstract_Formbuilder_Field') )
+if(!class_exists('WPBooking_Abstract_Formbuilder_Field') )
 {
 	/**
 	 * Base class for Form Builder Field
@@ -13,9 +13,9 @@ if(!class_exists('Traveler_Abstract_Formbuilder_Field') )
 	 * @since 1.0
 	 * @author dungdt
 	 *
-	 * Class Traveler_Abstract_Formbuilder_Field
+	 * Class WPBooking_Abstract_Formbuilder_Field
 	 */
-	abstract class  Traveler_Abstract_Formbuilder_Field
+	abstract class  WPBooking_Abstract_Formbuilder_Field
 	{
 		protected $field_id=FALSE;
 		protected $field_data=array();
@@ -25,7 +25,7 @@ if(!class_exists('Traveler_Abstract_Formbuilder_Field') )
 			if(!$this->field_id) return;
 
 			add_action('init',array($this,'_register_field'));
-			add_filter('traveler_get_form_field_data_'.$this->field_id,array($this,'_get_form_data_value'),10,2);
+			add_filter('wpbooking_get_form_field_data_'.$this->field_id,array($this,'_get_form_data_value'),10,2);
 		}
 
 		/**
@@ -38,8 +38,8 @@ if(!class_exists('Traveler_Abstract_Formbuilder_Field') )
 		 */
 		function get_field_id()
 		{
-			$field_id= apply_filters('traveler_form_field_id','traveler_form_'.$this->field_id);
-			$field_id= apply_filters('traveler_form_field_id_'.$this->field_id,$field_id);
+			$field_id= apply_filters('wpbooking_form_field_id','wpbooking_form_'.$this->field_id);
+			$field_id= apply_filters('wpbooking_form_field_id_'.$this->field_id,$field_id);
 
 			return $field_id;
 		}
@@ -58,7 +58,7 @@ if(!class_exists('Traveler_Abstract_Formbuilder_Field') )
 
 			$this->field_data['name']=$this->get_field_id();
 
-			return apply_filters('traveler_form_get_field_data',$this->field_data,$this);
+			return apply_filters('wpbooking_form_get_field_data',$this->field_data,$this);
 		}
 
 		/**
@@ -71,7 +71,7 @@ if(!class_exists('Traveler_Abstract_Formbuilder_Field') )
 		{
 			if(!empty($this->field_data))
 			{
-				traveler_add_field_form_builder($this->get_field_data());
+				wpbooking_add_field_form_builder($this->get_field_data());
 			}
 
 			add_shortcode($this->get_field_id() , array($this,'shortcode') );
@@ -88,7 +88,7 @@ if(!class_exists('Traveler_Abstract_Formbuilder_Field') )
 		protected function add_field($name,$options)
 		{
 			$options['field_id']=$this->field_id;
-			Traveler_Admin_Form_Build::inst()->add_form_field($name,$options);
+			WPBooking_Admin_Form_Build::inst()->add_form_field($name,$options);
 		}
 
 		/**

@@ -8,9 +8,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-if(!class_exists('Traveler_Admin_Order'))
+if(!class_exists('WPBooking_Admin_Order'))
 {
-	class Traveler_Admin_Order extends Traveler_Controller
+	class WPBooking_Admin_Order extends WPBooking_Controller
 	{
 		static $_inst;
 
@@ -21,7 +21,7 @@ if(!class_exists('Traveler_Admin_Order'))
 
 		function _register_post_type()
 		{
-			$menu_page = Traveler()->get_menu_page();
+			$menu_page = WPBooking()->get_menu_page();
 			$labels = array(
 				'name'               => _x( 'Booking', 'post type general name', 'wpbooking' ),
 				'singular_name'      => _x( 'Booking', 'post type singular name', 'wpbooking' ),
@@ -55,7 +55,7 @@ if(!class_exists('Traveler_Admin_Order'))
 				'supports'           => array( 'title',  'author' )
 			);
 
-			register_post_type( 'traveler_order', $args );
+			register_post_type( 'wpbooking_order', $args );
 		}
 
 		static function inst()
@@ -68,5 +68,5 @@ if(!class_exists('Traveler_Admin_Order'))
 		}
 	}
 
-	Traveler_Admin_Order::inst();
+	WPBooking_Admin_Order::inst();
 }

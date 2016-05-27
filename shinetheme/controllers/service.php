@@ -8,9 +8,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-if(!class_exists('Traveler_Service'))
+if(!class_exists('WPBooking_Service'))
 {
-	class Traveler_Service{
+	class WPBooking_Service{
 
 		private static $_inst;
 
@@ -18,7 +18,7 @@ if(!class_exists('Traveler_Service'))
 		{
 			// Load Abstract Service Type class and Default Service Types
 
-			$loader=Traveler_Loader::inst();
+			$loader=WPBooking_Loader::inst();
 			$loader->load_library(array(
 				'service-types/abstract-service-type',
 				'service-types/room',
@@ -42,19 +42,19 @@ if(!class_exists('Traveler_Service'))
         function query($args=array(),$service_type=false)
         {
             $args=wp_parse_args($args,array(
-                'post_type'=>'traveler_service'
+                'post_type'=>'wpbooking_service'
             ));
 
-            $args=apply_filters('traveler_service_query_args',$args);
-            $args=apply_filters('traveler_service_query_args_'.$service_type,$args);
+            $args=apply_filters('wpbooking_service_query_args',$args);
+            $args=apply_filters('wpbooking_service_query_args_'.$service_type,$args);
 
-            do_action('traveler_before_service_query',$args);
-            do_action('traveler_before_service_query_'.$service_type,$args);
+            do_action('wpbooking_before_service_query',$args);
+            do_action('wpbooking_before_service_query_'.$service_type,$args);
 
             $query=new WP_Query($args);
 
-            do_action('traveler_after_service_query',$args);
-            do_action('traveler_after_service_query_'.$service_type,$args);
+            do_action('wpbooking_after_service_query',$args);
+            do_action('wpbooking_after_service_query_'.$service_type,$args);
 
             return $query;
         }
@@ -65,10 +65,10 @@ if(!class_exists('Traveler_Service'))
          */
         public function template_loader( $template ) {
             $is_page = get_the_ID();
-            $list_page_search = apply_filters("traveler_add_page_archive_search",array());
+            $list_page_search = apply_filters("wpbooking_add_page_archive_search",array());
             if(!empty($list_page_search[$is_page]))
             {
-                $template=traveler_view_path('archive-service');
+                $template=wpbooking_view_path('archive-service');
             }
             //var_dump($list_page_search);
             //var_dump($template);
@@ -78,7 +78,7 @@ if(!class_exists('Traveler_Service'))
          * @return array|mixed|void
          */
         function _get_list_field_search(){
-            $taxonomy = Traveler_Admin_Taxonomy_Controller::inst()->get_taxonomies();
+            $taxonomy = WPBooking_Admin_Taxonomy_Controller::inst()->get_taxonomies();
             $list_taxonomy = array();
             if(!empty($taxonomy)) {
                 foreach( $taxonomy as $k => $v ) {
@@ -109,6 +109,8 @@ if(!class_exists('Traveler_Service'))
                             "check_out" => __( "Check Out" , "wpbooking" ) ,
                             "taxonomy" => __( "Taxonomy" , "wpbooking" ) ,
                             "review_rate" => __( "Review Rate" , "wpbooking" ) ,
+                            "price" => __( "Price" , "wpbooking" ) ,
+                            "bed" => __( "Bed" , "wpbooking" ) ,
                         )
                     ) ,
                     array(
@@ -158,7 +160,7 @@ if(!class_exists('Traveler_Service'))
 
                 )
             );
-            $list_filed = apply_filters( "traveler_booking_list_field_form_search" , $list_filed );
+            $list_filed = apply_filters( "wpbooking_booking_list_field_form_search" , $list_filed );
             return $list_filed;
         }
 
@@ -169,9 +171,9 @@ if(!class_exists('Traveler_Service'))
 		function _show_single_service($template)
 		{
 
-			if(get_post_type()=='traveler_service' and is_single())
+			if(get_post_type()=='wpbooking_service' and is_single())
 			{
-				$template=traveler_view_path('single-service');
+				$template=wpbooking_view_path('single-service');
 			}
 			return $template;
 		}
@@ -186,9 +188,9 @@ if(!class_exists('Traveler_Service'))
 			$comnent_id=get_comment_ID();
 			$comemntObj = get_comment($comnent_id);
 			$post_id = $comemntObj->comment_post_ID;
-			if(get_post_type($post_id)!='traveler_service') return $content;
+			if(get_post_type($post_id)!='wpbooking_service') return $content;
 
-			$content=traveler_load_view('review-item-stats').$content;
+			$content=wpbooking_load_view('review-item-stats').$content;
 			return $content;
 		}
 		/**
@@ -201,19 +203,19 @@ if(!class_exists('Traveler_Service'))
 			$comemntObj = get_comment($comment_id);
 			$post_id = $comemntObj->comment_post_ID;
 
-			if(get_post_type($post_id)!='traveler_service') return FALSE;
+			if(get_post_type($post_id)!='wpbooking_service') return FALSE;
 
-			update_comment_meta($comment_id,'traveler_review',Traveler_Input::post('traveler_review'));
-			update_comment_meta($comment_id,'traveler_review_detail',Traveler_Input::post('traveler_review_detail'));
+			update_comment_meta($comment_id,'wpbooking_review',Traveler_Input::post('wpbooking_review'));
+			update_comment_meta($comment_id,'wpbooking_review_detail',Traveler_Input::post('wpbooking_review_detail'));
 
-			do_action('after_traveler_update_review_stats');
+			do_action('after_wpbooking_update_review_stats');
 		}
 
 		function add_review_field($fields)
 		{
-			if(get_post_type()!='traveler_service') return $fields;
+			if(get_post_type()!='wpbooking_service') return $fields;
 
-			$field_review=apply_filters('traveler_review_field',traveler_load_view('review-field'));
+			$field_review=apply_filters('wpbooking_review_field',wpbooking_load_view('review-field'));
 			return $field_review.$fields;
 		}
 		function get_service_types()
@@ -221,14 +223,14 @@ if(!class_exists('Traveler_Service'))
 			$default= array(
 			);
 
-			return apply_filters('traveler_service_types',$default);
+			return apply_filters('wpbooking_service_types',$default);
 		}
 
 		function comments_template($template)
 		{
-			if(get_post_type()!='traveler_service') return $template;
+			if(get_post_type()!='wpbooking_service') return $template;
 
-			$template=traveler_view_path('reviews');
+			$template=wpbooking_view_path('reviews');
 
 			return $template;
 		}
@@ -245,5 +247,5 @@ if(!class_exists('Traveler_Service'))
 
 	}
 
-	Traveler_Service::inst();
+	WPBooking_Service::inst();
 }

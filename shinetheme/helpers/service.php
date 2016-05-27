@@ -5,9 +5,9 @@
  * Date: 4/20/2016
  * Time: 6:00 PM
  */
-if(!function_exists('traveler_service_price'))
+if(!function_exists('wpbooking_service_price'))
 {
-	function traveler_service_price($post_id=FALSE)
+	function wpbooking_service_price($post_id=FALSE)
 	{
 		if(!$post_id) $post_id=get_the_ID();
 
@@ -20,17 +20,17 @@ if(!function_exists('traveler_service_price'))
 		return $base_price;
 	}
 }
-if(!function_exists('traveler_service_price_html'))
+if(!function_exists('wpbooking_service_price_html'))
 {
-	function traveler_service_price_html($post_id=FALSE)
+	function wpbooking_service_price_html($post_id=FALSE)
 	{
 		if(!$post_id) $post_id=get_the_ID();
 
-		$price=traveler_service_price($post_id);
+		$price=wpbooking_service_price($post_id);
 		$currency=get_post_meta($post_id,'currency',TRUE);
 		$service_type= get_post_meta($post_id,'service_type',true);
 
-		$price_html=Traveler_Currency::format_money($price,array('currency'=>$currency));
+		$price_html=WPBooking_Currency::format_money($price,array('currency'=>$currency));
 
 		$price_html= apply_filters('traveler_service_base_price',$price_html,$post_id,$service_type);
 		$price_html= apply_filters('traveler_service_base_price_'.$service_type,$price_html,$post_id,$service_type);

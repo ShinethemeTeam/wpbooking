@@ -43,7 +43,7 @@ if(!class_exists('traveler_widget_form_search')){
 							if($v['required'] == "yes"){
 								$required = 'required';
 							}
-							$value = Traveler_Input::request($v['field_type'],'');
+							$value = WPBooking_Input::request($v['field_type'],'');
 							switch($v['field_type']){
 								case "location_id":
 									?>
@@ -60,7 +60,7 @@ if(!class_exists('traveler_widget_form_search')){
 											'taxonomy'          => 'traveler_location' ,
 											'hide_empty' => 0,
 										);
-										$is_taxonomy = Traveler_Input::request($v['field_type']);
+										$is_taxonomy = WPBooking_Input::request($v['field_type']);
 										if(!empty($is_taxonomy)){
 											$args['selected'] =$is_taxonomy;
 										}
@@ -85,7 +85,7 @@ if(!class_exists('traveler_widget_form_search')){
 												'taxonomy'          => $v['taxonomy'] ,
 												'hide_empty' => 0,
 											);
-											$is_taxonomy = Traveler_Input::request($v['field_type']);
+											$is_taxonomy = WPBooking_Input::request($v['field_type']);
 											if(!empty($is_taxonomy[$v['taxonomy']])){
 												$args['selected'] = $is_taxonomy[$v['taxonomy']];
 											}

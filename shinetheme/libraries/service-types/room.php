@@ -5,8 +5,8 @@
  * Date: 3/24/2016
  * Time: 4:23 PM
  */
-if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstract_Service_Type')) {
-	class Traveler_Room_Service_Type extends Traveler_Abstract_Service_Type
+if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abstract_Service_Type')) {
+	class WPBooking_Room_Service_Type extends WPBooking_Abstract_Service_Type
 	{
 		static $_inst = FALSE;
 
@@ -80,7 +80,7 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 					'id'        => 'order_form',
 					'label'     => __('Order Form', 'wpbooking'),
 					'type'      => 'post-select',
-					'post_type' => array('traveler_form')
+					'post_type' => array('wpbooking_form')
 				),
 				array(
 					'id'    => 'confirm-settings',
@@ -125,19 +125,19 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 
 			parent::__construct();
 
-			add_filter('traveler_add_to_cart_validate_' . $this->type_id, array($this, '_add_to_cart_validate'), 10, 3);
+			add_filter('wpbooking_add_to_cart_validate_' . $this->type_id, array($this, '_add_to_cart_validate'), 10, 3);
 
-			add_filter('traveler_cart_item_price_' . $this->type_id, array($this, '_change_cart_item_price'), 10, 2);
-			add_filter('traveler_cart_item_pay_amount_' . $this->type_id, array($this, '_change_cart_item_price'), 10, 2);
+			add_filter('wpbooking_cart_item_price_' . $this->type_id, array($this, '_change_cart_item_price'), 10, 2);
+			add_filter('wpbooking_cart_item_pay_amount_' . $this->type_id, array($this, '_change_cart_item_price'), 10, 2);
 
-			add_filter('traveler_order_item_total_' . $this->type_id, array($this, '_change_order_item_price'), 10, 2);
+			add_filter('wpbooking_order_item_total_' . $this->type_id, array($this, '_change_order_item_price'), 10, 2);
 
 			// Add more params to cart items
-			add_filter('traveler_cart_item_params_' . $this->type_id, array($this, '_change_cart_item_params'), 10, 2);
+			add_filter('wpbooking_cart_item_params_' . $this->type_id, array($this, '_change_cart_item_params'), 10, 2);
 
 			// Change Search Query
-			add_action('traveler_before_service_query_'.$this->type_id,array($this,'_add_change_query'));
-			add_action('traveler_after_service_query_'.$this->type_id,array($this,'_remove_change_query'));
+			add_action('wpbooking_before_service_query_'.$this->type_id,array($this,'_add_change_query'));
+			add_action('wpbooking_after_service_query_'.$this->type_id,array($this,'_remove_change_query'));
 
 		}
 
@@ -168,10 +168,10 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 		 */
 		function _add_to_cart_validate($is_validated, $service_type, $post_id)
 		{
-			$calendar = Traveler_Calendar_Model::inst();
+			$calendar = WPBooking_Calendar_Model::inst();
 
-			$check_in = Traveler_Input::post('check_in');
-			$check_out = Traveler_Input::post('check_out');
+			$check_in = WPBooking_Input::post('check_in');
+			$check_out = WPBooking_Input::post('check_out');
 
 			if ($check_in) {
 				$check_in_timestamp = strtotime($check_in);
@@ -212,11 +212,11 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 						}
 						$not_avai_string = substr($not_avai_string, 0, -2);
 
-						traveler_set_message(sprintf($message, $not_avai_string), 'error');
+						wpbooking_set_message(sprintf($message, $not_avai_string), 'error');
 						$is_validated = FALSE;
 					}
 				} else {
-					traveler_set_message(__("Sorry, This item is not available at the moment", 'wpbooking'), 'error');
+					wpbooking_set_message(__("Sorry, This item is not available at the moment", 'wpbooking'), 'error');
 					$is_validated = FALSE;
 				}
 			}
@@ -241,7 +241,7 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 				'check_out_timestamp' => '',
 			));
 
-			$calendar = Traveler_Calendar_Model::inst();
+			$calendar = WPBooking_Calendar_Model::inst();
 			$cart_item['price_type'] = get_post_meta($post_id, 'price_type', TRUE);
 
 			if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
@@ -256,7 +256,7 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 
 					$price= $cart_item['base_price'];
 
-					$night = traveler_timestamp_diff_day($cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
+					$night = wpbooking_timestamp_diff_day($cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
 					if (!$night) $night = 1;
 
 					$price *= $night;
@@ -336,17 +336,17 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 				'key'   => 'service_type',
 				'value' => $this->type_id,
 			);
-			if ($location_id = Traveler_Input::request('location_id')) {
+			if ($location_id = WPBooking_Input::request('location_id')) {
 				$args['tax_query'][] = array(
-					'taxonomy' => 'traveler_location',
+					'taxonomy' => 'wpbooking_location',
 					'field'    => 'term_id',
 					'terms'    => array($location_id),
 					'operator' => 'IN',
 				);
 			}
-			$tax = Traveler_Input::request('taxonomy');
+			$tax = WPBooking_Input::request('taxonomy');
 			if (!empty($tax) and is_array($tax)) {
-				$taxonomy_operator = Traveler_Input::request('taxonomy_operator');
+				$taxonomy_operator = WPBooking_Input::request('taxonomy_operator');
 				$tax_query = array();
 				foreach ($tax as $key => $value) {
 					if ($value) {
@@ -385,13 +385,13 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 		function _get_where_query($where)
 		{
 			global $wpdb;
-			if ($review_rate = Traveler_Input::request('review_rate') and is_array(explode(',', $review_rate))) {
+			if ($review_rate = WPBooking_Input::request('review_rate') and is_array(explode(',', $review_rate))) {
 				$and = "";
 				foreach (explode(',', $review_rate) as $k => $v) {
 					if ($k > 0) {
 						$and .= " OR ";
 					}
-					$and .= " ( {$wpdb->prefix}commentmeta.meta_key = 'traveler_review' AND {$wpdb->prefix}commentmeta.meta_value = {$v} ) ";
+					$and .= " ( {$wpdb->prefix}commentmeta.meta_key = 'wpbooking_review' AND {$wpdb->prefix}commentmeta.meta_value = {$v} ) ";
 				}
 				if (!empty($and)) {
 					$where .= " AND $wpdb->posts.ID IN
@@ -424,6 +424,6 @@ if (!class_exists('Traveler_Room_Service_Type') and class_exists('Traveler_Abstr
 		}
 	}
 
-	Traveler_Room_Service_Type::inst();
+	WPBooking_Abstract_Service_Type::inst();
 }
 

@@ -3,8 +3,8 @@
  *@since 1.0.0
  * Add metabox
  **/
-if( ! class_exists('Traveler_Metabox') ){
-	class Traveler_Metabox {
+if( ! class_exists('WPBooking_Metabox') ){
+	class WPBooking_Metabox {
 
 		static $_inst;
 
@@ -19,10 +19,10 @@ if( ! class_exists('Traveler_Metabox') ){
 
 			add_action( 'save_post', array( $this, 'save_meta_box'), 10, 2 );
 
-			add_action( 'traveler_save_metabox', array( $this, 'traveler_save_list_item'), 20, 2);
-			add_action( 'traveler_save_metabox', array( $this, 'traveler_save_gmap'), 20, 2);
-			add_action( 'traveler_save_metabox', array( $this, 'traveler_save_location'), 20, 2);
-			add_action( 'traveler_save_metabox', array( $this, 'traveler_save_taxonomies'), 20, 2);
+			add_action( 'wpbooking_save_metabox', array( $this, 'wpbooking_save_list_item'), 20, 2);
+			add_action( 'wpbooking_save_metabox', array( $this, 'wpbooking_save_gmap'), 20, 2);
+			add_action( 'wpbooking_save_metabox', array( $this, 'wpbooking_save_location'), 20, 2);
+			add_action( 'wpbooking_save_metabox', array( $this, 'wpbooking_save_taxonomies'), 20, 2);
 			
 		}
 
@@ -37,7 +37,7 @@ if( ! class_exists('Traveler_Metabox') ){
 
 				wp_enqueue_script( 'maps.googleapis.js ' , 'http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places', array( 'jquery') , null , true );
 
-				wp_enqueue_script( 'gmap3.js ' , traveler_admin_assets_url( 'js/gmap3.min.js' ) , array( 'jquery') , null , true );
+				wp_enqueue_script( 'gmap3.js ' , wpbooking_admin_assets_url( 'js/gmap3.min.js' ) , array( 'jquery') , null , true );
 			}
 		}
 
@@ -68,7 +68,7 @@ if( ! class_exists('Traveler_Metabox') ){
 								$class = '';
 								$data_class = '';
 								if(!empty($field['condition'])){
-									$class .= ' traveler-condition ';
+									$class .= ' wpbooking-condition ';
 									$data_class .= ' data-condition='.$field['condition'].' ' ;
 								}
 								?>
@@ -82,7 +82,7 @@ if( ! class_exists('Traveler_Metabox') ){
 							$class = '';
 							$data_class = '';
 							if(!empty($field['condition'])){
-								$class .= ' traveler-condition ';
+								$class .= ' wpbooking-condition ';
 								$data_class .= ' data-condition='.$field['condition'].' ' ;
 							}
 							?>
@@ -120,14 +120,14 @@ if( ! class_exists('Traveler_Metabox') ){
 
 											$class_extra=FALSE;
 											if($field_sub['location']=='hndle-tag'){
-												$class_extra='traveler-hndle-tag-input';
+												$class_extra='wpbooking-hndle-tag-input';
 											}
 											$file = 'metabox-fields/' . $field_sub['type'];
 
-											$field_html=apply_filters('traveler_metabox_field_html_'.$field_sub['type'],FALSE,$field_sub);
+											$field_html=apply_filters('wpbooking_metabox_field_html_'.$field_sub['type'],FALSE,$field_sub);
 											if($field_html) echo $field_html;
 											else
-											echo traveler_admin_load_view( $file, array( 'data' => $field_sub,'class_extra' => $class_extra ) );
+											echo wpbooking_admin_load_view( $file, array( 'data' => $field_sub,'class_extra' => $class_extra ) );
 
 											unset( $fields[ $key_sub ] );
 											?>
@@ -197,15 +197,15 @@ if( ! class_exists('Traveler_Metabox') ){
 	        }
 	      }
 
-	      do_action('traveler_save_metabox', $post_id, $post_object);
+	      do_action('wpbooking_save_metabox', $post_id, $post_object);
 	  
 	    }
 
-	    public function traveler_save_gmap( $post_id, $post_object ){
+	    public function wpbooking_save_gmap( $post_id, $post_object ){
 	    	if( isset( $_POST['map_lat'] ) && isset( $_POST['map_long'] ) && isset($_POST['map_zoom'] ) ){
-	    		$map_lat = (float)Traveler_Input::post('map_lat', 0);
-		    	$map_long = (float)Traveler_Input::post('map_long', 0);
-		    	$map_zoom = (int)Traveler_Input::post('map_zoom', 0);
+	    		$map_lat = (float)WPBooking_Input::post('map_lat', 0);
+		    	$map_long = (float)WPBooking_Input::post('map_long', 0);
+		    	$map_zoom = (int)WPBooking_Input::post('map_zoom', 0);
 
 		    	update_post_meta( $post_id, 'map_lat', $map_lat );
 		    	update_post_meta( $post_id, 'map_long', $map_long );
@@ -216,16 +216,16 @@ if( ! class_exists('Traveler_Metabox') ){
 	    	
 	    }
 
-	    public function traveler_save_location( $post_id, $post_object ){
+	    public function wpbooking_save_location( $post_id, $post_object ){
 	    	foreach ( $this->metabox[ 'fields' ] as $field ) {
 	    		if ( $field[ 'type' ] == 'location' ) {
-	    			$new = Traveler_Input::post( $field[ 'id' ] , '');
+	    			$new = WPBooking_Input::post( $field[ 'id' ] , '');
 
 	    			if( !empty( $new ) && is_array( $new ) ){
-	    				wp_set_post_terms( $post_id, $new, 'traveler_location' );
+	    				wp_set_post_terms( $post_id, $new, 'wpbooking_location' );
 	    			}else{
 
-	    				wp_set_post_terms( $post_id, array(0), 'traveler_location' );
+	    				wp_set_post_terms( $post_id, array(0), 'wpbooking_location' );
 	    			}
 
 	    		}
@@ -234,17 +234,17 @@ if( ! class_exists('Traveler_Metabox') ){
 	    	return $post_id;
 	    }
 
-	    public function traveler_save_taxonomies( $post_id, $post_object ){
+	    public function wpbooking_save_taxonomies( $post_id, $post_object ){
 	    	foreach ( $this->metabox[ 'fields' ] as $field ) {
 	    		if ( $field[ 'type' ] == 'taxonomies' ) {
 	    			
-	    			$terms = Traveler_Input::post( $field[ 'id' ] , '');
+	    			$terms = WPBooking_Input::post( $field[ 'id' ] , '');
 
 
 	    			$service = get_post_meta( $post_id, 'service_type', true );
 	    			if( !$service ) $service = 'room';
 
-	    			$term_service = get_option('traveler_taxonomies', array() );
+	    			$term_service = get_option('wpbooking_taxonomies', array() );
 	    			if( !empty( $term_service ) && is_array( $term_service ) ){
 	    				foreach( $term_service as $key => $term ){
 	    					if( in_array( $service, $term['service_type'] ) ){
@@ -269,7 +269,7 @@ if( ! class_exists('Traveler_Metabox') ){
 	    	return $post_id;
 	    }
 
-	    public function traveler_save_list_item( $post_id, $post_object ){
+	    public function wpbooking_save_list_item( $post_id, $post_object ){
 	    	foreach ( $this->metabox[ 'fields' ] as $field ) {
 	    		
 	    		if ( $field[ 'type' ] == 'list-item' ) {
@@ -305,5 +305,5 @@ if( ! class_exists('Traveler_Metabox') ){
 
 	}
 
-	Traveler_Metabox::inst();
+	WPBooking_Metabox::inst();
 }

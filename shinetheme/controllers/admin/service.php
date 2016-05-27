@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-if(!class_exists('Traveler_Admin_Service'))
+if(!class_exists('WPBooking_Admin_Service'))
 {
-	class Traveler_Admin_Service extends Traveler_Controller
+	class WPBooking_Admin_Service extends WPBooking_Controller
 	{
 		private static $_inst;
 
@@ -21,15 +21,15 @@ if(!class_exists('Traveler_Admin_Service'))
 			add_action('init',array($this,'_add_post_type'),5);
 			add_action('init',array($this,'_add_metabox'));
 			add_action('save_post',array($this,'_save_extra_field'));
-			add_filter('traveler_booking_settings',array($this,'_add_settings'));
+			add_filter('wpbooking_settings',array($this,'_add_settings'));
 		}
 
 
 		function _save_extra_field($post_id=FALSE)
 		{
-			if(get_post_type($post_id)!='traveler_service') return false;
+			if(get_post_type($post_id)!='wpbooking_service') return false;
 
-			$service_model=Traveler_Service_Model::inst();
+			$service_model=WPBooking_Service_Model::inst();
 
 			$data=array(
 				'map_lat'=>get_post_meta($post_id,'map_lat',true)
@@ -46,7 +46,7 @@ if(!class_exists('Traveler_Admin_Service'))
 		{
 			$settings['services']=array(
 				'name'=>__("Services",'wpbooking'),
-				'sections'=>apply_filters('traveler_service_setting_sections',array())
+				'sections'=>apply_filters('wpbooking_service_setting_sections',array())
 			);
 			return $settings;
 		}
@@ -89,18 +89,18 @@ if(!class_exists('Traveler_Admin_Service'))
 				'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
 			);
 
-			register_post_type( 'traveler_service', $args );
+			register_post_type( 'wpbooking_service', $args );
 		}
 
 		function _add_metabox()
 		{
-			$metabox = Traveler_Metabox::inst();
+			$metabox = WPBooking_Metabox::inst();
 
 			$settings = array(
 				'id'       => 'st_post_metabox',
 				'title'    => __('Information', 'wpbooking'),
 				'desc'     => '',
-				'pages'    => array('post','traveler_service'),
+				'pages'    => array('post','wpbooking_service'),
 				'context'  => 'normal',
 				'priority' => 'high',
 				'fields'   => array(
@@ -317,5 +317,5 @@ if(!class_exists('Traveler_Admin_Service'))
 
 	}
 
-	Traveler_Admin_Service::inst();
+	WPBooking_Admin_Service::inst();
 }

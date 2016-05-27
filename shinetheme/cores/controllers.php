@@ -8,9 +8,9 @@
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
-if(!class_exists('Traveler_Controller'))
+if(!class_exists('WPBooking_Controller'))
 {
-	class Traveler_Controller
+	class WPBooking_Controller
 	{
 		function __construct()
 		{
@@ -19,12 +19,12 @@ if(!class_exists('Traveler_Controller'))
 
 		function load_view($view,$data=array())
 		{
-			return traveler_load_view($view,$data);
+			return wpbooking_load_view($view,$data);
 		}
 
 		function admin_load_view($view,$data=array())
 		{
-			return traveler_admin_load_view($view,$data);
+			return wpbooking_admin_load_view($view,$data);
 		}
 	}
 }

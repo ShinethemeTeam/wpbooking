@@ -13,9 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-if(!class_exists('Traveler_Input'))
+if(!class_exists('WPBooking_Input'))
 {
-    class Traveler_Input
+    class WPBooking_Input
     {
         static function ip_address()
         {

@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-if(!class_exists('Traveler_Assets'))
+if(!class_exists('WPBooking_Assets'))
 {
-	class Traveler_Assets
+	class WPBooking_Assets
 	{
 		static $css=FALSE;
 		static $last_string_id;
@@ -26,12 +26,12 @@ if(!class_exists('Traveler_Assets'))
 		}
 		static function _show_head_css()
 		{
-			printf("<style id='traveler_head_css'>%s</style>",self::$css);
+			printf("<style id='wpbooking_head_css'>%s</style>",self::$css);
 			self::$css=FALSE;
 		}
 		static function _show_footer_css()
 		{
-			printf("<style id='traveler_footer_css'>%s</style>",self::$css);
+			printf("<style id='wpbooking_footer_css'>%s</style>",self::$css);
 			self::$css=FALSE;
 		}
 		static function add_css($string)
@@ -41,7 +41,7 @@ if(!class_exists('Traveler_Assets'))
 
 		static function build_css_class($css)
 		{
-			$class='traveler_'.(self::$last_string_id+1);
+			$class='wpbooking_'.(self::$last_string_id+1);
 
 			self::add_css(sprintf('%s{
 				%s
@@ -52,15 +52,15 @@ if(!class_exists('Traveler_Assets'))
 
 		static function url($url)
 		{
-			return Traveler()->get_url('assets/'.$url);
+			return WPBooking()->get_url('assets/'.$url);
 		}
 
 		static function admin_url($url){
 
-			return Traveler()->get_url('assets/admin/'.$url);
+			return WPBooking()->get_url('assets/admin/'.$url);
 		}
 
 	}
 
-	Traveler_Assets::init();
+	WPBooking_Assets::init();
 }

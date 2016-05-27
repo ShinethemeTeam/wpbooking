@@ -9,22 +9,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-if (!class_exists('Traveler_Admin_Taxonomy_Controller')) {
-	class Traveler_Admin_Taxonomy_Controller extends Traveler_Controller
+if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
+	class WPBooking_Admin_Taxonomy_Controller extends WPBooking_Controller
 	{
 
 		static $_inst;
 
-		protected $_option_name = 'traveler_taxonomies';
+		protected $_option_name = 'wpbooking_taxonomies';
 
 		function __construct()
 		{
 			parent::__construct();
 
-			if (Traveler_Input::post('traveler_create_taxonomy')) {
-				add_action('init', array($this, '_traveler_create_taxonomy'));
+			if (WPBooking_Input::post('wpbooking_create_taxonomy')) {
+				add_action('init', array($this, '_wpbooking_create_taxonomy'));
 			}
-			if (Traveler_Input::get('action') == 'traveler_delete_taxonomy') {
+			if (WPBooking_Input::get('action') == 'wpbooking_delete_taxonomy') {
 				add_action('init', array($this, '_delete_taxonomy'));
 			}
 			add_action('admin_menu', array($this, '_add_taxonomy_page'));
@@ -51,12 +51,12 @@ if (!class_exists('Traveler_Admin_Taxonomy_Controller')) {
 						'rewrite'            => array('slug' => $value['slug']),
 					);
 
-					register_taxonomy($value['name'], array('traveler_service'), $args);
+					register_taxonomy($value['name'], array('wpbooking_service'), $args);
 
-					$hide=apply_filters('traveler_hide_taxonomy_select_box',true);
-					$hide=apply_filters('traveler_hide_taxonomy_select_box_'.$value['name'],$hide);
+					$hide=apply_filters('wpbooking_hide_taxonomy_select_box',true);
+					$hide=apply_filters('wpbooking_hide_taxonomy_select_box_'.$value['name'],$hide);
 					if($hide)
-					Traveler_Assets::add_css("#".$value['name'].'div{display:none!important}');
+					WPBooking_Assets::add_css("#".$value['name'].'div{display:none!important}');
 				}
 			}
 
@@ -64,36 +64,36 @@ if (!class_exists('Traveler_Admin_Taxonomy_Controller')) {
 
 		function _delete_taxonomy()
 		{
-			if ($tax_name = Traveler_Input::get('tax_name')) {
+			if ($tax_name = WPBooking_Input::get('tax_name')) {
 				$all = $this->get_taxonomies();
 				unset($all[$tax_name]);
 				update_option($this->_option_name, $all);
-				traveler_set_admin_message(__('Delete success', 'wpbooking'), 'success');
+				wpbooking_set_admin_message(__('Delete success', 'wpbooking'), 'success');
 
 			} else {
-				traveler_set_admin_message(__('Please select an Taxonomy', 'wpbooking'), 'error');
+				wpbooking_set_admin_message(__('Please select an Taxonomy', 'wpbooking'), 'error');
 			}
 			wp_redirect($this->get_page_url());
 			die;
 		}
 		
-		function _traveler_create_taxonomy()
+		function _wpbooking_create_taxonomy()
 		{
 			$error = FALSE;
 			$validate = TRUE;
 
-			check_admin_referer('traveler_create_taxonomy');
-			$taxonomy_label = stripslashes(Traveler_Input::post('taxonomy_label'));
-			$taxonomy_slug = stripslashes(Traveler_Input::post('taxonomy_slug'));// for rewrite url
+			check_admin_referer('wpbooking_create_taxonomy');
+			$taxonomy_label = stripslashes(WPBooking_Input::post('taxonomy_label'));
+			$taxonomy_slug = stripslashes(WPBooking_Input::post('taxonomy_slug'));// for rewrite url
 
-			$action = Traveler_Input::post('taxonomy_name') ? 'edit' : 'add';
+			$action = WPBooking_Input::post('taxonomy_name') ? 'edit' : 'add';
 
 			if ($action == 'add') {
 				$taxonomy_name = mb_strtolower($taxonomy_label);
 				$taxonomy_name = sanitize_title_with_dashes(stripslashes($taxonomy_name));
-				$taxonomy_name = 'traveler_' . str_replace('-', '_', $taxonomy_name);
+				$taxonomy_name = 'wpbooking_' . str_replace('-', '_', $taxonomy_name);
 			} else {
-				$taxonomy_name = Traveler_Input::post('taxonomy_name');
+				$taxonomy_name = WPBooking_Input::post('taxonomy_name');
 			}
 
 			// Forbidden attribute names
@@ -173,7 +173,7 @@ if (!class_exists('Traveler_Admin_Taxonomy_Controller')) {
 				'withcomments',
 				'withoutcomments',
 				'year',
-				'traveler_service_type'
+				'wpbooking_service_type'
 			);
 
 
@@ -199,10 +199,10 @@ if (!class_exists('Traveler_Admin_Taxonomy_Controller')) {
 			}
 			if ($error) {
 				$validate = FALSE;
-				traveler_set_admin_message($error, 'error');
+				wpbooking_set_admin_message($error, 'error');
 			}
 			
-			$validate = apply_filters('traveler_admin_save_taxonomy_validate', $validate);
+			$validate = apply_filters('wpbooking_admin_save_taxonomy_validate', $validate);
 
 			if (!$validate) return;
 
@@ -212,23 +212,23 @@ if (!class_exists('Traveler_Admin_Taxonomy_Controller')) {
 				'label'        => $taxonomy_label,
 				'name'         => $taxonomy_name,
 				'hierarchical' => 1,
-				'service_type' => Traveler_Input::post('taxonomy_service_type'),
+				'service_type' => WPBooking_Input::post('taxonomy_service_type'),
 				'slug'         => $taxonomy_slug
 			);
 			update_option($this->_option_name, $all);
 			flush_rewrite_rules();
 			if ($action == 'add') {
-				traveler_set_admin_message('Create Success', 'success');
+				wpbooking_set_admin_message('Create Success', 'success');
 			} else {
-				traveler_set_admin_message('Saved Success', 'success');
+				wpbooking_set_admin_message('Saved Success', 'success');
 			}
 		}
 
 		function _show_taxonomy_page()
 		{
 			$tax = $this->get_taxonomies();
-			if (Traveler_Input::get('action') == 'traveler_edit_taxonomy') {
-				$single = Traveler_Input::get('taxonomy_name');
+			if (WPBooking_Input::get('action') == 'wpbooking_edit_taxonomy') {
+				$single = WPBooking_Input::get('taxonomy_name');
 				echo ($this->admin_load_view('taxonomy/edit', array('row' => $tax[$single])));
 
 				return;
@@ -262,17 +262,17 @@ if (!class_exists('Traveler_Admin_Taxonomy_Controller')) {
 
 		function get_menu_page()
 		{
-			$menu_page = Traveler()->get_menu_page();
+			$menu_page = WPBooking()->get_menu_page();
 			$page = array(
 				'parent_slug' => $menu_page['menu_slug'],
 				'page_title'  => __('Taxonomies', 'wpbooking'),
 				'menu_title'  => __('Taxonomies', 'wpbooking'),
 				'capability'  => 'manage_options',
-				'menu_slug'   => 'traveler_booking_page_taxonomy',
+				'menu_slug'   => 'wpbooking_booking_page_taxonomy',
 				'function'    => array($this, '_show_taxonomy_page')
 			);
 
-			return apply_filters('traveler_setting_menu_args', $page);
+			return apply_filters('wpbooking_setting_menu_args', $page);
 		}
 
 		function get_page_url()
@@ -299,5 +299,5 @@ if (!class_exists('Traveler_Admin_Taxonomy_Controller')) {
 
 	}
 
-	Traveler_Admin_Taxonomy_Controller::inst();
+	WPBooking_Admin_Taxonomy_Controller::inst();
 }

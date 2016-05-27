@@ -8,14 +8,14 @@
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
-if (!class_exists('Traveler_Service_Model')) {
-	class Traveler_Service_Model extends Traveler_Model
+if (!class_exists('WPBooking_Service_Model')) {
+	class WPBooking_Service_Model extends WPBooking_Model
 	{
 		static $_inst = FALSE;
 
 		function __construct()
 		{
-			$this->table_name = 'traveler_service';
+			$this->table_name = 'wpbooking_service';
 			$this->columns = array(
 				'id'                => array(
 					'type'           => "int",
@@ -43,5 +43,5 @@ if (!class_exists('Traveler_Service_Model')) {
 		}
 
 	}
-	Traveler_Service_Model::inst();
+	WPBooking_Service_Model::inst();
 }

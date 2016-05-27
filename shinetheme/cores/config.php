@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-if(!class_exists('Traveler_Config'))
+if(!class_exists('WPBooking_Config'))
 {
-	class Traveler_Config
+	class WPBooking_Config
 	{
 		protected $configs=array();
 		private static $_inst;
@@ -31,7 +31,7 @@ if(!class_exists('Traveler_Config'))
 			}
 
 			if(is_string($file)){
-				$real_file=Traveler()->get_dir('shinetheme/configs/'.$file.'.php');
+				$real_file=WPBooking()->get_dir('shinetheme/configs/'.$file.'.php');
 				if(file_exists($real_file))
 				{
 					include $real_file;
@@ -69,13 +69,13 @@ if(!class_exists('Traveler_Config'))
 		}
 	}
 
-	Traveler_Config::inst();
+	WPBooking_Config::inst();
 
-	if(!function_exists('TravelerConfig'))
+	if(!function_exists('WPBookingConfig'))
 	{
-		function TravelerConfig()
+		function WPBookingConfig()
 		{
-			return Traveler_Config::inst();
+			return WPBooking_Config::inst();
 		}
 	}
 

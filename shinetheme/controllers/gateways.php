@@ -8,9 +8,9 @@
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
-if(!class_exists('Traveler_Payment_Gateways'))
+if(!class_exists('WPBooking_Payment_Gateways'))
 {
-	class Traveler_Payment_Gateways{
+	class WPBooking_Payment_Gateways{
 
 		static $_inst;
 
@@ -19,7 +19,7 @@ if(!class_exists('Traveler_Payment_Gateways'))
 		function __construct()
 		{
 			// load abstract class
-			Traveler_Loader::inst()->load_library('gateways/abstract-payment-gateway');
+			WPBooking_Loader::inst()->load_library('gateways/abstract-payment-gateway');
 
 			// We used Omnipay for our default payment Gateways
 			if (!version_compare(phpversion(), '5.3', '<')) {
@@ -31,13 +31,13 @@ if(!class_exists('Traveler_Payment_Gateways'))
 					'payfast',
 				);
 				foreach($defaults as $value){
-					Traveler_Loader::inst()->load_library('gateways/'.$value);
+					WPBooking_Loader::inst()->load_library('gateways/'.$value);
 				}
 			}else{
 				add_action( 'admin_notices', array($this,'add_php_version_notices') );
 			}
 
-			add_filter('traveler_booking_settings',array($this,'_add_settings'));
+			add_filter('wpbooking_booking_settings',array($this,'_add_settings'));
 
 		}
 
@@ -48,7 +48,7 @@ if(!class_exists('Traveler_Payment_Gateways'))
 		 */
 		function get_gateways()
 		{
-			return apply_filters('traveler_payment_gateways',$this->gateways);
+			return apply_filters('wpbooking_payment_gateways',$this->gateways);
 		}
 
 		/**
@@ -77,7 +77,7 @@ if(!class_exists('Traveler_Payment_Gateways'))
 		{
 			$settings['payment_gateways']=array(
 				'name'=>__("Payment",'wpbooking'),
-				'sections'=>apply_filters('traveler_payment_settings_sections',array())
+				'sections'=>apply_filters('wpbooking_payment_settings_sections',array())
 			);
 			return $settings;
 		}
@@ -88,7 +88,7 @@ if(!class_exists('Traveler_Payment_Gateways'))
 			<div id="setting-error-tgmpa" class="updated settings-error notice is-dismissible">
 				<p>
 					<strong>
-						<?php printf(__('You must upgrade your PHP version to at lease 5.3.0 to use Traveler Booking Plugin. Your current is %s','wpbooking'),phpversion()) ?>
+						<?php printf(__('You must upgrade your PHP version to at lease 5.3.0 to use WPBooking Plugin. Your current is %s','wpbooking'),phpversion()) ?>
 					</strong>
 				</p>
 				<button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php _e('Dismiss this notice.','travel-booking')?></span></button>
@@ -98,14 +98,14 @@ if(!class_exists('Traveler_Payment_Gateways'))
 
 		function do_checkout($gateway,$order_id)
 		{
-			$order_model=Traveler_Order_Model::inst();
+			$order_model=WPBooking_Order_Model::inst();
 
 			$data=array();
 			$all_gateways=$this->get_gateways();
 			if(isset($all_gateways[$gateway]))
 			{
 				// Create Payment
-				$payment=Traveler_Payment_Model::inst();
+				$payment=WPBooking_Payment_Model::inst();
 				$payment_id=$payment->create_payment($order_id,$gateway);
 				// Get payable order item ids
 				$order_model->prepare_paying($order_id,$payment_id);
@@ -127,7 +127,7 @@ if(!class_exists('Traveler_Payment_Gateways'))
 
 		function complete_purchase($payment_id,$order_id)
 		{
-			$payment=Traveler_Payment_Model::inst();
+			$payment=WPBooking_Payment_Model::inst();
 			$payment_object=$payment->find($payment_id);
 			$data=FALSE;
 
@@ -140,23 +140,23 @@ if(!class_exists('Traveler_Payment_Gateways'))
 					$selected_gateway=$all_gateways[$gateway];
 					if(method_exists($selected_gateway,'do_checkout'))
 					{
-						do_action('traveler_before_payment_complete_purchase');
+						do_action('wpbooking_before_payment_complete_purchase');
 						$data= $selected_gateway->complete_purchase($payment_id,$order_id);
 						if($data)
 						{
 							// Update the Order Items
-							$order_model=Traveler_Order_Model::inst();
+							$order_model=WPBooking_Order_Model::inst();
 							$order_model->complete_purchase($payment_id,$order_id);
-							traveler_set_message(__('Thank you! Your booking is completed','wpbooking'),'success');
+							wpbooking_set_message(__('Thank you! Your booking is completed','wpbooking'),'success');
 						}
-						do_action('traveler_after_payment_complete_purchase');
+						do_action('wpbooking_after_payment_complete_purchase');
 
 					}
 				}
 
 			}
 
-			$data=apply_filters('traveler_complete_purchase',$data);
+			$data=apply_filters('wpbooking_complete_purchase',$data);
 			return $data;
 
 		}
@@ -171,5 +171,5 @@ if(!class_exists('Traveler_Payment_Gateways'))
 
 	}
 
-	Traveler_Payment_Gateways::inst();
+	WPBooking_Payment_Gateways::inst();
 }

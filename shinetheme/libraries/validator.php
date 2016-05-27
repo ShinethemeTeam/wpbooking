@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Class Traveler_Validator
+ * Class WPBooking_Form_Validator
  *
  * Created by ShineTheme
  *
@@ -10,10 +10,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-if(!class_exists('Traveler_Validator'))
+if(!class_exists('WPBooking_Form_Validator'))
 {
 
-    class Traveler_Validator {
+    class WPBooking_Form_Validator {
 
         protected $_field_data			= array();
         protected $_config_rules		= array();
@@ -1320,7 +1320,7 @@ if(!class_exists('Traveler_Validator'))
 
 		function get_lang($key)
 		{
-			$langs=TravelerConfig()->item('lang');
+			$langs=WPBookingConfig()->item('lang');
 			if(isset($langs[$key])) return $langs[$key];
 			return false;
 		}

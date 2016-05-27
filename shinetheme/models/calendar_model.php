@@ -6,13 +6,13 @@
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
-if (!class_exists('Traveler_Calendar_Model')) {
-	class Traveler_Calendar_Model extends Traveler_Model {
+if (!class_exists('WPBooking_Calendar_Model')) {
+	class WPBooking_Calendar_Model extends WPBooking_Model {
 
 		static $_inst = FALSE;
 
 		public function __construct(){
-			$this->table_name = 'traveler_availability';
+			$this->table_name = 'wpbooking_availability';
 			$this->columns = array(
 				'id' => array(
 					'type'           => 'int',
@@ -46,5 +46,5 @@ if (!class_exists('Traveler_Calendar_Model')) {
 
 	}
 
-	Traveler_Calendar_Model::inst();
+	WPBooking_Calendar_Model::inst();
 }

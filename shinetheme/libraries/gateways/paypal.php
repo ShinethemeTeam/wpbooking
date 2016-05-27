@@ -6,9 +6,9 @@
  * Time: 2:37 PM
  */
 use Omnipay\Omnipay;
-if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_Payment_Gateway'))
+if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstract_Payment_Gateway'))
 {
-	class Traveler_Paypal_Gateway extends Traveler_Abstract_Payment_Gateway
+	class WPBooking_Paypal_Gateway extends WPBooking_Abstract_Payment_Gateway
 	{
 		static $_inst=FALSE;
 
@@ -103,14 +103,14 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 			if ($this->get_option('test_mode') == 'on') {
 				if(!$this->get_option('test_api_username') or !$this->get_option('test_api_password') or !$this->get_option('test_api_signature') )
 				{
-					traveler_set_message(__('Test PayPal API is not correctly! Please check with the Admin','wpbooking'),'error');
+					wpbooking_set_message(__('Test PayPal API is not correctly! Please check with the Admin','wpbooking'),'error');
 					return FALSE;
 				}
 			}else{
 
 				if(!$this->get_option('api_username') or !$this->get_option('api_password') or !$this->get_option('api_signature') )
 				{
-					traveler_set_message(__('PayPal API is not correctly! Please check with the Admin','wpbooking'),'error');
+					wpbooking_set_message(__('PayPal API is not correctly! Please check with the Admin','wpbooking'),'error');
 					return FALSE;
 				}
 			}
@@ -126,7 +126,7 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 					'status'=>0
 				);
 			}
-			$payment=Traveler_Payment_Model::inst();
+			$payment=WPBooking_Payment_Model::inst();
 
 			$gateway=$this->gatewayObject;
 			if ($this->get_option('test_mode') == 'on') {
@@ -145,7 +145,7 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 
 			$purchase = array(
 				'amount'      => (float)$total,
-				'currency'    => Traveler_Currency::get_current_currency('name'),
+				'currency'    => WPBooking_Currency::get_current_currency('name'),
 				'description' => __('Traveler Booking','wpbooking'),
 				'returnUrl'   => $this->get_return_url($order_id,$payment_id),
 				'cancelUrl'   => $this->get_cancel_url($order_id,$payment_id),
@@ -164,7 +164,7 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 				return array('status' => 1, 'redirect' => $response->getRedirectUrl());
 			} else {
 
-				traveler_set_message($response->getMessage(),'error');
+				wpbooking_set_message($response->getMessage(),'error');
 				return array('status' => false, 'data' => $purchase);
 
 			}
@@ -178,7 +178,7 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 					'status'=>0
 				);
 			}
-			$payment=Traveler_Payment_Model::inst();
+			$payment=WPBooking_Payment_Model::inst();
 
 			$gateway=$this->gatewayObject;
 			if ($this->get_option('test_mode') == 'on') {
@@ -197,7 +197,7 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 
 			$purchase = array(
 				'amount'      => (float)$total,
-				'currency'    => Traveler_Currency::get_current_currency('name'),
+				'currency'    => WPBooking_Currency::get_current_currency('name'),
 				'description' => __('Traveler Booking','wpbooking'),
 				'returnUrl'   => $this->get_return_url($order_id,$payment_id),
 				'cancelUrl'   => $this->get_cancel_url($order_id,$payment_id),
@@ -229,6 +229,6 @@ if(!class_exists('Traveler_Paypal_Gateway') and class_exists('Traveler_Abstract_
 		}
 	}
 
-	Traveler_Paypal_Gateway::inst();
+	WPBooking_Paypal_Gateway::inst();
 }
 
