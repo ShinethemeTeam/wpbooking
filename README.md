@@ -1,0 +1,2 @@
+# wpbooking
+Wordpress Booking Plugin
