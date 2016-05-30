@@ -127,7 +127,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			// add metabox
 			add_filter('wpbooking_metabox_after_st_post_metabox_field_gallery',array($this,'_add_metabox'));
 
-			add_filter('wpbooking_service_table_columns',array($this,'_add_meta_table_column'));
+			add_filter('wpbooking_model_table_wpbooking_service_columns',array($this,'_add_meta_table_column'));
 
 
 			add_filter('wpbooking_add_to_cart_validate_' . $this->type_id, array($this, '_add_to_cart_validate'), 10, 3);
@@ -157,10 +157,10 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		function _add_meta_table_column($columns)
 		{
 			$columns['bed']=array('type'=>'INT');
-			$columns['bedroom']=array('type'=>'VARCHAR','LENGTH'=>'20');
-			$columns['bathroom']=array('type'=>'VARCHAR','LENGTH'=>'20');
-
-
+			$columns['bedroom']=array('type'=>'VARCHAR','length'=>'20');
+			$columns['bathroom']=array('type'=>'VARCHAR','length'=>'20');
+			$columns['require_customer_confirm']=array('type'=>'VARCHAR','length'=>'10');
+			$columns['require_partner_confirm']=array('type'=>'VARCHAR','length'=>'10');
 			return $columns;
 		}
 		/**
@@ -399,10 +399,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 		function _service_query_args($args)
 		{
-			$args['meta_query'][] = array(
+			$meta_query=array();
+			$meta_query[]=array(
 				'key'   => 'service_type',
 				'value' => $this->type_id,
 			);
+
 			if ($location_id = WPBooking_Input::request('location_id')) {
 				$args['tax_query'][] = array(
 					'taxonomy' => 'wpbooking_location',
@@ -441,16 +443,23 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					}
 				}
 
+
+
 				if (!empty($tax_query)) {
 					$args['tax_query'][] = $tax_query;
 				}
 			}
+
+			$args['meta_query']=$meta_query;
 
 			return $args;
 		}
 
 		function _get_where_query($where)
 		{
+
+			$is_meta_table_working=WPBooking_Service_Model::inst()->is_ready();
+
 			global $wpdb;
 			if ($review_rate = WPBooking_Input::request('review_rate') and is_array(explode(',', $review_rate))) {
 				$and = "";
@@ -462,21 +471,52 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 				}
 				if (!empty($and)) {
 					$where .= " AND $wpdb->posts.ID IN
-                            (
-                                SELECT * FROM (
-                                        SELECT
-                                            {$wpdb->prefix}comments.comment_post_ID as post_id
-                                        FROM
-                                            wp_comments
-                                        JOIN {$wpdb->prefix}commentmeta ON {$wpdb->prefix}comments.comment_ID = {$wpdb->prefix}commentmeta.comment_id
-                                        WHERE 1 = 1
-                                        AND ( {$and} )
-                                )as ID
+						(
+							SELECT * FROM (
+									SELECT
+										{$wpdb->prefix}comments.comment_post_ID as post_id
+									FROM
+										wp_comments
+									JOIN {$wpdb->prefix}commentmeta ON {$wpdb->prefix}comments.comment_ID = {$wpdb->prefix}commentmeta.comment_id
+									WHERE 1 = 1
+									AND ( {$and} )
+							)as ID
 
-                            )";
+						)";
 				}
 
 			}
+
+
+			// Beds
+			if($beds=WPBooking_Input::get('bed') and $is_meta_table_working){
+				$where.=' AND bed<='.$beds;
+			}
+			// Bedrooms
+			if($bedrooms=WPBooking_Input::get('bedroom') and $is_meta_table_working){
+				$where.=' AND bedroom<='.$bedrooms;
+			}
+			// Bathrooms
+			if($bathrooms=WPBooking_Input::get('bathroom') and $is_meta_table_working){
+				$where.=' AND bathroom<='.$bathrooms;
+			}
+			// Required Customer Confirm
+			if($bathroom=WPBooking_Input::get('customer_confirm') and $is_meta_table_working){
+				if($this->get_option('customer_confirm')){
+					$where.=' AND (require_customer_confirm is null or LENGTH(require_customer_confirm)=0)';
+				}else{
+					$where.=' AND require_customer_confirm=1';
+				}
+			}
+			// Required Partner Confirm
+			if($bathroom=WPBooking_Input::get('partner_confirm') and $is_meta_table_working){
+				if($this->get_option('partner_confirm')){
+					$where.=' AND (require_partner_confirm is null or LENGTH(require_partner_confirm)=0)';
+				}else{
+					$where.=' AND require_partner_confirm=1';
+				}
+			}
+
 
 			return $where;
 		}

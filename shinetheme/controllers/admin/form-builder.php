@@ -14,7 +14,7 @@ if(!class_exists( 'WPBooking_Admin_Form_Build' )) {
 
         function __construct()
         {
-            add_action( 'admin_menu' , array( $this , "register_wpbooking_booking_sub_menu_page" ) );
+            add_action( 'admin_menu' , array( $this , "register_wpbooking_sub_menu_page" ) );
 
             add_action( 'init' , array( $this , '_add_post_type' ) , 5 );
             add_action( 'after_setup_theme' , array( $this , '_load_default_shortcodes' ) );
@@ -130,7 +130,7 @@ if(!class_exists( 'WPBooking_Admin_Form_Build' )) {
             $current_user = wp_get_current_user();
             $form_id      = WPBooking_Input::request( "form_builder_id" );
             $title        = WPBooking_Input::request( "wpbooking-title" );
-            if(!empty( $_POST[ 'wpbooking_booking_btn_save_layout' ] ) and wp_verify_nonce( $_REQUEST[ 'wpbooking_booking_save_layout' ] , "wpbooking_booking_action" )) {
+            if(!empty( $_POST[ 'wpbooking_btn_save_layout' ] ) and wp_verify_nonce( $_REQUEST[ 'wpbooking_save_layout' ] , "wpbooking_action" )) {
                 if(!empty( $title )) {
                     if(!empty( $form_id )) {
                         $my_layout = array(
@@ -150,7 +150,7 @@ if(!class_exists( 'WPBooking_Admin_Form_Build' )) {
 					wpbooking_set_admin_message( __( 'Error : Update layout not successfully !' , 'wpbooking' ) , 'error' );
                 }
             }
-            if(!empty( $_POST[ 'wpbooking_booking_btn_add_layout' ] ) and wp_verify_nonce( $_REQUEST[ 'wpbooking_booking_add_layout' ] , "wpbooking_booking_action" )) {
+            if(!empty( $_POST[ 'wpbooking_btn_add_layout' ] ) and wp_verify_nonce( $_REQUEST[ 'wpbooking_add_layout' ] , "wpbooking_action" )) {
                 if(!empty( $title )) {
                     $my_layout = array(
                         'post_title'   => WPBooking_Input::request( "wpbooking-title" ) ,
@@ -176,7 +176,7 @@ if(!class_exists( 'WPBooking_Admin_Form_Build' )) {
             }
         }
 
-        function register_wpbooking_booking_sub_menu_page()
+        function register_wpbooking_sub_menu_page()
         {
 
             $menu_page = $this->get_menu_page();
@@ -200,15 +200,15 @@ if(!class_exists( 'WPBooking_Admin_Form_Build' )) {
                 'page_title'  => __( 'Form Builder' , 'wpbooking' ) ,
                 'menu_title'  => __( 'Form Builder' , 'wpbooking' ) ,
                 'capability'  => 'manage_options' ,
-                'menu_slug'   => 'wpbooking_booking_page_form_builder' ,
-                'function'    => array( $this , 'callback_wpbooking_booking_sub_menu_form_builder' )
+                'menu_slug'   => 'wpbooking_page_form_builder' ,
+                'function'    => array( $this , 'callback_wpbooking_sub_menu_form_builder' )
             );
 
             return apply_filters( 'wpbooking_setting_menu_args' , $page );
 
         }
 
-        function callback_wpbooking_booking_sub_menu_form_builder()
+        function callback_wpbooking_sub_menu_form_builder()
         {
             echo ($this->admin_load_view( 'form-builder' ));
         }

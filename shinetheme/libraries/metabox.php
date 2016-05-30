@@ -118,6 +118,9 @@ if( ! class_exists('WPBooking_Metabox') ){
 
 									$current_tab = (int) $key;
 									foreach( (array) $fields as $key_sub => $field_sub ):
+
+										if(empty($fields[$key_sub]['type'])) continue;
+
 										if( $fields[ $key_sub ]['type'] === 'tab' ){
 
 											if( (int) $current_tab != (int) $key_sub ){
@@ -213,6 +216,7 @@ if( ! class_exists('WPBooking_Metabox') ){
 	            $new = $_POST[$field['id']];
 	        
 	        }
+
 	        
 	        if ( isset( $new ) && $new !== $old ) {
 	          update_post_meta( $post_id, $field['id'], $new );

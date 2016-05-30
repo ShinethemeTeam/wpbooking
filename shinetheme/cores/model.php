@@ -329,11 +329,12 @@ if(!class_exists('WPBooking_Model') ){
 
 			if ($this->is_ready) {
 				// check upgrade data
-				if ($db_version = get_option($this->table_name.'_version')) {
-					if (version_compare($db_version, $this->table_version, '<')) {
-						$this->_upgrade_table();
-						update_option($this->table_name.'_version', $this->table_version);
-					}
+				$db_version = get_option($this->table_name.'_version');
+				if(!$db_version) $db_version=0;
+
+				if (version_compare($db_version, $this->table_version, '<')) {
+					$this->_upgrade_table();
+					//update_option($this->table_name.'_version', $this->table_version);
 				}
 
 			}
@@ -380,7 +381,6 @@ if(!class_exists('WPBooking_Model') ){
 				}
 			}
 
-
 			// Do create new columns
 			if (!empty($insert_key)) {
 				$insert_col_string = '';
@@ -389,6 +389,7 @@ if(!class_exists('WPBooking_Model') ){
 					//Add length for varchar data type
 					switch (strtolower($value['type'])) {
 						case "varchar":
+
 							if (isset($value['length']) and $value['length']) {
 								$prefix = '(' . $value['length'] . ')';
 							}
@@ -490,6 +491,18 @@ if(!class_exists('WPBooking_Model') ){
 				return $query;
 			}
 			return FALSE;
+		}
+
+		/**
+		 * Get Table Name with Prefix
+		 *
+		 * @author dungdt
+		 * @since 1.0
+		 * @return string
+		 */
+		function get_table_name(){
+			global $wpdb;
+			return $table_name = $wpdb->prefix . $this->table_name;
 		}
 
 

@@ -40,7 +40,7 @@ $id_list_item    = $data[ 'id' ];
                                                     <input type="text"
                                                            class="form-control  min-width-500 list_item_title"
                                                            value="<?php echo esc_html( $v[ 'title' ] ) ?>"
-                                                           name="wpbooking_booking_list_item[<?php echo esc_attr($id_list_item) ?>][<?php echo esc_attr( $i ) ?>][title]"
+                                                           name="wpbooking_list_item[<?php echo esc_attr($id_list_item) ?>][<?php echo esc_attr( $i ) ?>][title]"
                                                            placeholder="title">
                                                 </td>
                                             </tr>
@@ -63,7 +63,7 @@ $id_list_item    = $data[ 'id' ];
                                                         'std'               => '' ,
                                                         'taxonomy'          => '' ,
                                                         'element_list_item' => true ,
-                                                        'custom_name'       => 'wpbooking_booking_list_item[' . $id_list_item . '][' . $i . '][' . $id . ']' ,
+                                                        'custom_name'       => 'wpbooking_list_item[' . $id_list_item . '][' . $i . '][' . $id . ']' ,
                                                         'custom_value'      => $cusstom_value
                                                     );
                                                     $v2      = wp_parse_args( $v2 , $default );
@@ -117,7 +117,7 @@ $id_list_item    = $data[ 'id' ];
                                         </th>
                                         <td>
                                             <input type="text" class="form-control  min-width-500 list_item_title"
-                                                   name="wpbooking_booking_list_item[<?php echo $id_list_item ?>][__number_list__][title]"
+                                                   name="wpbooking_list_item[<?php echo $id_list_item ?>][__number_list__][title]"
                                                    placeholder="title">
                                         </td>
                                     </tr>
@@ -132,7 +132,7 @@ $id_list_item    = $data[ 'id' ];
                                                               'std'               => '' ,
                                                               'taxonomy'          => '' ,
                                                               'element_list_item' => true ,
-                                                              'custom_name'       => 'wpbooking_booking_list_item[' . $id_list_item . '][__number_list__][' . $id . ']' ,
+                                                              'custom_name'       => 'wpbooking_list_item[' . $id_list_item . '][__number_list__][' . $id . ']' ,
                                                               'custom_value'      => ""
                                             );
                                             $v2      = wp_parse_args( $v2 , $default );
@@ -165,7 +165,7 @@ $id_list_item    = $data[ 'id' ];
             </tr>
             </tfoot>
         </table>
-        <input type="hidden" class="wpbooking_booking_number_last_list_item" value="<?php echo esc_html( $i ) ?>">
+        <input type="hidden" class="wpbooking_number_last_list_item" value="<?php echo esc_html( $i ) ?>">
         <button type="button"
                 class="button button-primary btn_add_new_list_item"><?php _e( "Add New" , 'wpbooking' ) ?></button>
         <i class="wpbooking-desc"><?php echo balanceTags( $data[ 'desc' ] ) ?></i>

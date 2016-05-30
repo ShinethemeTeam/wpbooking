@@ -2,7 +2,7 @@
 if(function_exists( 'wpbooking_add_field_form_builder' )) {
     wpbooking_add_field_form_builder( array(
             "title"    => __( "Email" , 'wpbooking' ) ,
-            "name"     => 'wpbooking_booking_email' ,
+            "name"     => 'wpbooking_form_field_email' ,
             "category" => __('Standard Fields','wpbooking') ,
             "options"  => array(
                 array(
@@ -79,8 +79,8 @@ if(function_exists( 'wpbooking_add_field_form_builder' )) {
         )
     );
 }
-if(!function_exists( 'wpbooking_booking_email_func' )) {
-    function wpbooking_booking_email_func( $attr , $content = false )
+if(!function_exists( 'wpbooking_email_func' )) {
+    function wpbooking_email_func( $attr , $content = false )
     {
         $data = wp_parse_args(
 			$attr,
@@ -112,5 +112,5 @@ if(!function_exists( 'wpbooking_booking_email_func' )) {
         return '<input type="text" name="' . $name . '" id="' . $id . '" class="' . $class . '" value="' . $value . '" placeholder="' . $placeholder . '"  maxlength="' . $maxlength . '" size="' . $size . '"  ' . $required . ' />';
     }
 }
-add_shortcode( 'wpbooking_booking_email' , 'wpbooking_booking_email_func' );
+add_shortcode( 'wpbooking_form_field_email' , 'wpbooking_email_func' );
 

@@ -46,16 +46,21 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 							$value = WPBooking_Input::request($v['field_type'],'');
 							switch($v['field_type']){
 								case "location_id":
+								case "location_suggestion":
 									?>
 									<div class="item-search">
 										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
 										<?php
+										$class=FALSE;
+										if($v['field_type']=='location_suggestion'){
+											$class='bravo-select2';
+										}
 										$args = array(
 											'show_option_none' => __( '-- Select --' , "wpbooking"  ),
 											'option_none_value' => "",
 											'hierarchical'      => 1 ,
-											'name'              => $v['field_type'] ,
-											'class'             => '' ,
+											'name'              => 'location_id' ,
+											'class'             => $class ,
 											'id'             => $v['field_type'] ,
 											'taxonomy'          => 'wpbooking_location' ,
 											'hide_empty' => 0,
@@ -127,11 +132,11 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 										<div class="row">
 											<?php
 											$data = array(
-												"1" => __( "1 Start" , 'wpbooking' ) ,
-												"2" => __( "2 Start" , 'wpbooking' ) ,
-												"3" => __( "3 Start" , 'wpbooking' ) ,
-												"4" => __( "4 Start" , 'wpbooking' ) ,
-												"5" => __( "5 Start" , 'wpbooking' )
+												"1" => __( "1 Star" , 'wpbooking' ) ,
+												"2" => __( "2 Star" , 'wpbooking' ) ,
+												"3" => __( "3 Star" , 'wpbooking' ) ,
+												"4" => __( "4 Star" , 'wpbooking' ) ,
+												"5" => __( "5 Star" , 'wpbooking' )
 											);
 											if(!empty( $data )) {
 												foreach( $data as $key2 => $value2 ) {
@@ -170,6 +175,28 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 									</div>
 									<?php
 									break;
+								case "customer_confirm":
+								case "partner_confirm":?>
+									<div class="item-search">
+										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+										<label><input <?php checked(WPBooking_Input::get($v['field_type']),1) ?>  type="checkbox" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="1"></label>
+									</div>
+									<?php
+									break;
+								case "bathroom":
+								case "bed":
+								case "bedroom":
+									?>
+									<div class="item-search">
+										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+										<select id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>">
+											<?php for($i=0;$i<=20;$i++){
+												printf('<option value="%s" %s >%s</option>',$i,selected(WPBooking_Input::get($v['field_type']),$i,FALSE),$i);
+											} ?>
+										</select>
+									</div>
+									<?php
+									break;
 								default:
 									?>
 									<div class="item-search">
@@ -178,6 +205,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 									</div>
 								<?php
 									break;
+
 							}
 						}
 					} ?>

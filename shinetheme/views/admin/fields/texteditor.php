@@ -1,6 +1,6 @@
 <?php
 $data_value = wpbooking_get_option($data['id'],$data['std']);
-$name = 'wpbooking_booking_'.$data['id'];
+$name = 'wpbooking_'.$data['id'];
 
 if(!empty($data['element_list_item'])){
     $name = $data['custom_name'];
@@ -14,7 +14,7 @@ $class = str_ireplace(']','_',$class);
 $data_class = '';
 if(!empty($data['condition'])){
     $class .= ' wpbooking-condition wpbooking-form-group ';
-    $data_class .= ' data-condition=wpbooking_booking_'.$data['condition'].' ' ;
+    $data_class .= ' data-condition=wpbooking_'.$data['condition'].' ' ;
 }
 ?>
 <tr class="<?php echo esc_html($class) ?>" <?php echo esc_attr($data_class) ?>>
@@ -25,7 +25,7 @@ if(!empty($data['condition'])){
             <?php
             if(!empty($data['element_list_item'])){
                 /*$content = $data_value;
-                $editor_id = 'tmp_wpbooking_booking_'.$data['id'];
+                $editor_id = 'tmp_wpbooking_'.$data['id'];
                 $settings = array('media_buttons' => false, 'textarea_name' => $name);
                 wp_editor($content, $editor_id, $settings);*/
                 ?>

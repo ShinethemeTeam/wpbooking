@@ -2,8 +2,8 @@
 if(function_exists( 'wpbooking_add_field_form_builder' )) {
     wpbooking_add_field_form_builder( array(
             "title"    => __( "TextArea" , 'wpbooking' ) ,
-            "name"     => 'wpbooking_booking_textarea' ,
-            "category" => 'Standard Fields' ,
+            "name"     => 'wpbooking_form_field_textarea' ,
+            "category" => esc_attr__('Standard Fields','wpbooking') ,
             "options"  => array(
                 array(
                     "type"             => "required" ,
@@ -75,7 +75,8 @@ if(function_exists( 'wpbooking_add_field_form_builder' )) {
 if(!function_exists( 'wpbooking_sc_booking_textarea' )) {
     function wpbooking_sc_booking_textarea( $attr , $content = false )
     {
-        $data = shortcode_atts(
+        $data = wp_parse_args(
+			$attr,
             array(
                 'is_required' => 'off' ,
                 'title'        => '' ,
@@ -85,7 +86,7 @@ if(!function_exists( 'wpbooking_sc_booking_textarea' )) {
                 'value'       => '' ,
                 'rows'        => '' ,
                 'columns'     => '' ,
-            ) , $attr , 'wpbooking_booking_textarea' );
+            ) );
         extract( $data );
         $required = "";
         $rule = "";
@@ -97,4 +98,4 @@ if(!function_exists( 'wpbooking_sc_booking_textarea' )) {
         return '<textarea name="' . $name . '" id="' . $id . '" class="' . $class . '" rows="' . $rows . '" cols="' . $columns . '" ' . $required . ' >' . $value . '</textarea>';
     }
 }
-add_shortcode( 'wpbooking_booking_textarea' , 'wpbooking_sc_booking_textarea' );
+add_shortcode( 'wpbooking_form_field_textarea' , 'wpbooking_sc_booking_textarea' );

@@ -2,7 +2,7 @@
 if(function_exists( 'wpbooking_add_field_form_builder' )) {
     wpbooking_add_field_form_builder( array(
             "title"    => __( "Submit Button" , 'wpbooking' ) ,
-            "name"     => 'wpbooking_booking_submit_buttom' ,
+            "name"     => 'wpbooking_form_submit_button' ,
             "category" => 'Standard Fields' ,
             "options"  => array(
                 array(
@@ -44,16 +44,17 @@ if(function_exists( 'wpbooking_add_field_form_builder' )) {
 if(!function_exists( 'wpbooking_sc_booking_submit_buttom' )) {
     function wpbooking_sc_booking_submit_buttom( $attr , $content = false )
     {
-        $data = shortcode_atts(
+        $data = wp_parse_args(
+			$attr,
             array(
                 'label' => '' ,
                 'name'  => '' ,
                 'id'    => '' ,
                 'class' => ' ' ,
-            ) , $attr , 'wpbooking_booking_submit_buttom' );
+            ) , $attr  );
         extract( $data );
 		$class.=' submit-button';
         return '<button type="submit" name="' . $name . '" id="' . $id . '" class="' . $class . '" >' . $label . '</button>';
     }
 }
-add_shortcode( 'wpbooking_booking_submit_buttom' , 'wpbooking_sc_booking_submit_buttom' );
+add_shortcode( 'wpbooking_form_submit_button' , 'wpbooking_sc_booking_submit_buttom' );

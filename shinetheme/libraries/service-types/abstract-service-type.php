@@ -196,6 +196,8 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 		{
 			if($this->type_id==$service_type){
 				$need=$this->get_option('customer_confirm');
+
+				if($meta=get_post_meta($post_id,'require_customer_confirm',TRUE)) $need=$meta;
 			}
 
 			return $need;
@@ -211,6 +213,8 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 		function _get_partner_confirm($need,$post_id,$service_type){
 			if($this->type_id==$service_type){
 				$need=$this->get_option('partner_confirm');
+
+				if($meta=get_post_meta($post_id,'require_partner_confirm',TRUE)) $need=$meta;
 			}
 
 			return $need;
@@ -302,12 +306,21 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
         }
         function _before_service_query($args){
             add_filter('posts_where', array($this, '_get_where_query'));
+            add_filter('posts_join', array($this, '_get_join_query'));
             return $args;
         }
         function _after_service_query_($args){
             remove_filter('posts_where', array($this, '_get_where_query'));
+			remove_filter('posts_join', array($this, '_get_join_query'));
             return $args;
         }
+		function _get_join_query($join){
+			global $wpdb;
+			$table=WPBooking_Service_Model::inst()->get_table_name();
+			$join.=' JOIN '.$table.' on '.$table.'.post_id='.$wpdb->posts.'.ID ';
+			return $join;
+		}
+
         function _get_where_query($where){
             return $where;
         }

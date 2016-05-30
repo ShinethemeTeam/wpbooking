@@ -1,7 +1,7 @@
 <?php
 
 $data_value = wpbooking_get_option($data['id'],array($data['std']));
-$name = 'wpbooking_booking_'.$data['id'];
+$name = 'wpbooking_'.$data['id'];
 
 if(!empty($data['element_list_item'])){
     $name = $data['custom_name'];

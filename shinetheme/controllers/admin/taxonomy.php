@@ -268,7 +268,7 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 				'page_title'  => __('Taxonomies', 'wpbooking'),
 				'menu_title'  => __('Taxonomies', 'wpbooking'),
 				'capability'  => 'manage_options',
-				'menu_slug'   => 'wpbooking_booking_page_taxonomy',
+				'menu_slug'   => 'wpbooking_page_taxonomy',
 				'function'    => array($this, '_show_taxonomy_page')
 			);
 

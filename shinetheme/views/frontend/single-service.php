@@ -11,6 +11,6 @@ get_header();
 <?php
 	echo wpbooking_load_view('single/content');
 
-	do_action('wpbooking_booking_sidebar');
+	do_action('wpbooking_sidebar');
 
 get_footer();

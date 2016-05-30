@@ -222,22 +222,22 @@ jQuery(document).ready(function( $ ){
     ///////////////////////////////////
     /////// IMAGE THUMB ///////////////
     ///////////////////////////////////
-    $(document).on('keyup', '.wpbooking_booking_image_thumb_width', function(event) {
+    $(document).on('keyup', '.wpbooking_image_thumb_width', function(event) {
         var container = $(this).parent();
         _save_data_image_thumb(container);
     });
-    $(document).on('keyup', '.wpbooking_booking_image_thumb_height', function(event) {
+    $(document).on('keyup', '.wpbooking_image_thumb_height', function(event) {
         var container = $(this).parent();
         _save_data_image_thumb(container);
     });
-    $(document).on('change', '.wpbooking_booking_image_thumb_crop', function(event) {
+    $(document).on('change', '.wpbooking_image_thumb_crop', function(event) {
         var container = $(this).parent();
         _save_data_image_thumb(container);
     });
     function _save_data_image_thumb(container){
-        var height = container.find('.wpbooking_booking_image_thumb_height').val();
-        var width = container.find('.wpbooking_booking_image_thumb_width').val();
-        if ( container.find('.wpbooking_booking_image_thumb_crop').is(":checked"))
+        var height = container.find('.wpbooking_image_thumb_height').val();
+        var width = container.find('.wpbooking_image_thumb_width').val();
+        if ( container.find('.wpbooking_image_thumb_crop').is(":checked"))
         {
             var crop = 'on';
         }else{
@@ -297,13 +297,13 @@ jQuery(document).ready(function( $ ){
     $(".btn_add_new_list_item").click(function () {
         var container = $(this).parent();
         var content_html = container.find(".content_list_item_hide").html();
-        var number_list = container.find('.wpbooking_booking_number_last_list_item').val();
+        var number_list = container.find('.wpbooking_number_last_list_item').val();
         content_html = content_html.replace(/__number_list__/g, number_list);
         container.find('.data_content_list_item').append(content_html);
         container.find('.wpbooking-setting-setting-body').slideUp('fast');
         container.find('.number_list_' + number_list + ' .wpbooking-setting-setting-body').slideDown('fast');
         number_list = Number(number_list) + 1;
-        container.find('.wpbooking_booking_number_last_list_item').val(number_list);
+        container.find('.wpbooking_number_last_list_item').val(number_list);
     });
     $(document).on('click', '.btn_list_item_del', function (event) {
         var confirm=confirm();

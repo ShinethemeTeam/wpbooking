@@ -37,7 +37,7 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 				add_action( 'admin_notices', array($this,'add_php_version_notices') );
 			}
 
-			add_filter('wpbooking_booking_settings',array($this,'_add_settings'));
+			add_filter('wpbooking_settings',array($this,'_add_settings'));
 
 		}
 

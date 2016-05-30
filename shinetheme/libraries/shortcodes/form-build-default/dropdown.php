@@ -2,7 +2,7 @@
 if(function_exists( 'wpbooking_add_field_form_builder' )) {
     wpbooking_add_field_form_builder( array(
             "title"    => __( "Drop Down" , 'wpbooking' ) ,
-            "name"     => 'wpbooking_booking_drop_down' ,
+            "name"     => 'wpbooking_form_field_dropdown' ,
             "category" => 'Standard Fields' ,
             "options"  => array(
                 array(
@@ -93,4 +93,4 @@ if(!function_exists( 'wpbooking_sc_booking_drop_down' )) {
                 </select>';
     }
 }
-add_shortcode( 'wpbooking_booking_drop_down' , 'wpbooking_sc_booking_drop_down' );
+add_shortcode( 'wpbooking_form_field_dropdown' , 'wpbooking_sc_booking_drop_down' );

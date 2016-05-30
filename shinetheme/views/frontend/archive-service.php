@@ -38,7 +38,7 @@ echo wpbooking_load_view('wrap/start');
                         switch($service_type){
                             case "room":
                                 ?>
-                                <li class="content-item">
+                                <li <?php post_class('content-item') ?>>
 
                                     <div class="row">
                                         <div class="col-md-3">
@@ -53,7 +53,7 @@ echo wpbooking_load_view('wrap/start');
                                                 <h5 class="booking-item-title"><?php the_title(); ?></h5>
                                             </a>
                                             <?php if($address = get_post_meta(get_the_ID(),'address',true)){ ?>
-                                                <span class="info-item">
+                                                <span class="info-item service-address">
                                                     <i class="fa fa-map-marker"></i>
                                                     <?php echo get_post_meta(get_the_ID(),'address',true); ?>
                                                 </span>
@@ -77,6 +77,10 @@ echo wpbooking_load_view('wrap/start');
                                                     }
                                                 }
                                             }?>
+											<?php
+
+											?>
+
                                         </div>
                                         <div class="col-md-3">
                                             <?php echo wpbooking_service_price_html() ?>

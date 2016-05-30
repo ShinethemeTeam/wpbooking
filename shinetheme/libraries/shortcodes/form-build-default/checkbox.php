@@ -58,14 +58,15 @@ if(!class_exists('WPBooking_Form_Checkbox_Field')){
 
 		function shortcode($attr=array(),$content=FALSE)
 		{
-			$data = shortcode_atts(
+			$data = wp_parse_args(
+				$attr,
 				array(
 					'title'          => '' ,
 					'name'          => '' ,
 					'id'          => '' ,
 					'class'       => '' ,
 					'options'       => '' ,
-				) , $attr , 'WPBooking_booking_check_box' );
+				)   );
 			extract( $data );
 			$list_item = "";
 			if(!empty($options)){

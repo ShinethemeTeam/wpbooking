@@ -11,7 +11,7 @@ $form_id = WPBooking_Input::request('form_builder_id');
     </div>
 </div>
 <form id="form-settings-admin" action="" method="post">
-    <?php wp_nonce_field('wpbooking_booking_action','wpbooking_booking_add_layout') ?>
+    <?php wp_nonce_field('wpbooking_action','wpbooking_add_layout') ?>
     <div class="wrap">
         <br class="clear">
         <div class="wpbooking-container-fluid">
@@ -52,7 +52,7 @@ $form_id = WPBooking_Input::request('form_builder_id');
                         </tr>
                         <tr class="">
                             <td>
-                                <input type="submit" name="wpbooking_booking_btn_add_layout" class="btn button button-primary" value="<?php _e("Add New",'wpbooking') ?>">
+                                <input type="submit" name="wpbooking_btn_add_layout" class="btn button button-primary" value="<?php _e("Add New",'wpbooking') ?>">
                             </td>
 
                         </tr>
@@ -66,7 +66,7 @@ $form_id = WPBooking_Input::request('form_builder_id');
 </form>
 
 <form method="post" action="" id="form-settings-admin">
-    <?php wp_nonce_field('wpbooking_booking_action','wpbooking_booking_save_layout') ?>
+    <?php wp_nonce_field('wpbooking_action','wpbooking_save_layout') ?>
     <div class="wrap">
         <br class="clear">
         <div class="wpbooking-container-fluid">
@@ -263,7 +263,7 @@ $form_id = WPBooking_Input::request('form_builder_id');
                     </div>
                     <div class="wpbooking-col-md-12">
                         <div class="save-control text-right">
-                            <input type="submit" name="wpbooking_booking_btn_save_layout" class="btn button button-primary" value="<?php _e("Save Form",'wpbooking') ?>">
+                            <input type="submit" name="wpbooking_btn_save_layout" class="btn button button-primary" value="<?php _e("Save Form",'wpbooking') ?>">
                         </div>
                     </div>
 

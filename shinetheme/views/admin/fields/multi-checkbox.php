@@ -20,7 +20,7 @@ $custom_value = $data['value'];
                         ?>
                         <li>
                             <label>
-                                <input type="checkbox" class="form-control min-width-500" <?php echo esc_html($is_check) ?>   name="wpbooking_booking_<?php echo esc_html($value['id']) ?>">
+                                <input type="checkbox" class="form-control min-width-500" <?php echo esc_html($is_check) ?>   name="wpbooking_<?php echo esc_html($value['id']) ?>">
                                 <?php echo esc_html($value['label']) ?>
                             </label>
                         </li>

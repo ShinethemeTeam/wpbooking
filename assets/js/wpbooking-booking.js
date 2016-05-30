@@ -241,5 +241,7 @@ jQuery(document).ready(function($){
     datepicker=$('.wpbooking-date-end').datepicker('widget');
     datepicker.wrap('<div class="ll-skin-melon"/>');
 
+    $('.bravo-select2').select2();
+
 });
 

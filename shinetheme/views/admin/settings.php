@@ -54,20 +54,20 @@ $slug_page_menu = $menu_page['menu_slug'];
    <!-- <h3><?php /*echo esc_html($title_page_active) */?></h3>-->
     <div class="content-field">
         <form method="post" action="" id="form-settings-admin">
-            <?php wp_nonce_field('wpbooking_booking_action','wpbooking_booking_save_settings_field') ?>
-            <input type="hidden" name="wpbooking_booking_save_settings" value="true" >
+            <?php wp_nonce_field('wpbooking_action','wpbooking_save_settings_field') ?>
+            <input type="hidden" name="wpbooking_save_settings" value="true" >
             <table class="form-table wpbooking-settings ">
                 <tbody>
                     <?php
                     if(!empty($custom_settings[$is_tab]) and !empty($custom_settings[$is_tab]['sections'][$is_section]['fields'])){
-                        $fields=apply_filters('wpbooking_booking_settings_'.$is_tab.'_'.$is_section.'_fields',$custom_settings[$is_tab]['sections'][$is_section]['fields']);
+                        $fields=apply_filters('wpbooking_settings_'.$is_tab.'_'.$is_section.'_fields',$custom_settings[$is_tab]['sections'][$is_section]['fields']);
                         foreach($fields as $k=>$v){
                             $default = array( 'id' => '' , 'label' => '' , 'desc' => '' , 'type' => '' , 'std' => '', 'taxonomy' => '' );
                             $v = wp_parse_args( $v , $default );
                             $path='fields/'.$v['type'];
-                            $field_file=apply_filters('wpbooking_booking_field_type_'.$v['type'].'_path',$path);
+                            $field_file=apply_filters('wpbooking_field_type_'.$v['type'].'_path',$path);
                             $html =  wpbooking_admin_load_view($field_file,array('data'=>$v,'slug_page_menu'=>$slug_page_menu));
-                            echo apply_filters('wpbooking_booking_field_type_'.$v['type'].'_html',$html);
+                            echo apply_filters('wpbooking_field_type_'.$v['type'].'_html',$html);
                         }
                     }
                     ?>

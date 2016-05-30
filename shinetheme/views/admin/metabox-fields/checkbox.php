@@ -16,9 +16,9 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
 
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
-if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
+if(  !empty( $data['choices'] ) and is_array( $data['choices'] ) ){
 
-	foreach( $data['value'] as $key => $value ){
+	foreach( $data['choices'] as $key => $value ){
 		$checked = '';
 		if( !empty( $data['std'] ) && ( esc_html( $key ) == esc_html( $data['std'] ) ) ){
 			$checked = ' checked ';
@@ -33,6 +33,16 @@ if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 		
 		$field .= '<div style="margin-bottom: 7px;"><label><input type="checkbox" name="'. $name .'" id="'. esc_html( $data['id'] ).'" class="'. esc_html( $data['class'] ) . '" value="'. esc_html( $key ) .'" ' . $checked .'> <span>'. esc_html( $value ) .'</span></label></div>';
 	}
+}elseif(!empty($data['checkbox_label'])){
+	$value=$data['checkbox_label'];
+	$checked=FALSE;
+	if(empty($data['checkbox_value'])) $data['checkbox_value']=1;
+
+	$checked=checked($old_data,$data['checkbox_value'],FALSE);
+	$name=$data['id'];
+	$key=$data['checkbox_value'];
+
+	$field .= '<div style="margin-bottom: 7px;"><label><input type="checkbox" name="'. $name .'" id="'. esc_html( $data['id'] ).'" class="'. esc_html( $data['class'] ) . '" value="'. esc_html( $key ) .'" ' . $checked .'> <span>'. esc_html( $value ) .'</span></label></div>';
 }
 
 $field .= '</div></div>';

@@ -14,7 +14,7 @@ if(!class_exists('WPBooking_Admin_Setting'))
 			WPBookingConfig()->load('settings');
 
             //add_action('init',array($this,'_add_post_type'));
-            add_action( 'admin_menu', array($this,"register_wpbooking_booking_sub_menu_page") );
+            add_action( 'admin_menu', array($this,"register_wpbooking_sub_menu_page") );
 
             add_action( 'admin_init', array($this,"_save_settings") );
 
@@ -32,7 +32,7 @@ if(!class_exists('WPBooking_Admin_Setting'))
         /*---------Begin Helper Functions----------------*/
         function get_option($option_id,$default=false){
             /* get the saved options */
-            $options = get_option( 'wpbooking_booking_'.$option_id );
+            $options = get_option( 'wpbooking_'.$option_id );
             /* look for the saved value */
             if ( isset( $options ) && '' != $options ) {
                 return $options;
@@ -40,7 +40,7 @@ if(!class_exists('WPBooking_Admin_Setting'))
             return $default;
         }
 
-        function register_wpbooking_booking_sub_menu_page() {
+        function register_wpbooking_sub_menu_page() {
 
 			$menu_page=$this->get_menu_page();
             add_submenu_page(
@@ -61,18 +61,18 @@ if(!class_exists('WPBooking_Admin_Setting'))
 				'page_title'=>__('Settings','wpbooking'),
 				'menu_title'=>__('Settings','wpbooking'),
 				'capability'=>'manage_options',
-				'menu_slug'=>'wpbooking_booking_page_settings',
-				'function'=> array($this,'callback_wpbooking_booking_sub_menu')
+				'menu_slug'=>'wpbooking_page_settings',
+				'function'=> array($this,'callback_wpbooking_sub_menu')
 			);
 
 			return apply_filters('wpbooking_setting_menu_args',$page);
 
 		}
-        function callback_wpbooking_booking_sub_menu() {
+        function callback_wpbooking_sub_menu() {
 			echo ($this->admin_load_view('settings'));
         }
         function _save_settings(){
-            if(!empty($_POST['wpbooking_booking_save_settings']) and wp_verify_nonce($_REQUEST[ 'wpbooking_booking_save_settings_field' ],"wpbooking_booking_action")){
+            if(!empty($_POST['wpbooking_save_settings']) and wp_verify_nonce($_REQUEST[ 'wpbooking_save_settings_field' ],"wpbooking_action")){
                 $full_settings =$this->_get_settings();
 
                 if(!empty($full_settings)){
@@ -96,7 +96,7 @@ if(!class_exists('WPBooking_Admin_Setting'))
                             case "multi-checkbox":
                                 $custom_multi_checkbox = $value['value'];
                                 foreach($custom_multi_checkbox as $key_multi=>$value_multi){
-                                    $key_request = 'wpbooking_booking_'.$value_multi['id'];
+                                    $key_request = 'wpbooking_'.$value_multi['id'];
                                     $value_request = WPBooking_Input::request($key_request);
                                     update_option($key_request,$value_request);
                                 }
@@ -104,18 +104,18 @@ if(!class_exists('WPBooking_Admin_Setting'))
                             case "list-item":
                                 $id_list_item = $value['id'];
                                 $data = array();
-                                $key_request = 'wpbooking_booking_list_item';
+                                $key_request = 'wpbooking_list_item';
                                 $value_request = WPBooking_Input::request($key_request);
                                 if(!empty($value_request[$id_list_item])){
                                     $data = $value_request[$id_list_item];
                                 }
                                 unset($data['__number_list__']);
-                                $id_save = 'wpbooking_booking_'.$value['id'];
+                                $id_save = 'wpbooking_'.$value['id'];
                                 update_option($id_save,$data);
                                 break;
                             default:
 								if(isset($value['id'])){
-									$key_request = 'wpbooking_booking_'.$value['id'];
+									$key_request = 'wpbooking_'.$value['id'];
 									$value_request = WPBooking_Input::request($key_request);
 									update_option($key_request,$value_request);
 								}
@@ -127,7 +127,7 @@ if(!class_exists('WPBooking_Admin_Setting'))
         }
         function _get_settings(){
             $custom_settings=WPBooking_Config::inst()->item('settings');
-            $custom_settings = apply_filters( 'wpbooking_booking_settings' , $custom_settings );
+            $custom_settings = apply_filters( 'wpbooking_settings' , $custom_settings );
             return $custom_settings;
         }
 

@@ -142,6 +142,11 @@ if(!class_exists('WPBooking_Admin_Service'))
 						'type' => 'location'
 					),
 					array(
+						'label' => __('Address', 'wpbooking'),
+						'id' => 'address',
+						'type' => 'text'
+					),
+					array(
 						'label' => __('Map', 'wpbooking'),
 						'id' => 'gmap',
 						'type' => 'gmap'
@@ -171,9 +176,7 @@ if(!class_exists('WPBooking_Admin_Service'))
 						'label' => __('External Booking?', 'wpbooking'),
 						'id' => 'external_booking',
 						'type' => 'checkbox',
-						'value' => array(
-							'yes' => __('Yes', 'wpbooking')
-						),
+						'checkbox_label'=>__('Yes', 'wpbooking')
 					),
 					array(
 						'label' => __('External URL', 'wpbooking'),
@@ -181,6 +184,20 @@ if(!class_exists('WPBooking_Admin_Service'))
 						'type' => 'text',
 						'condition' => 'external_booking:is(yes)'
 					),
+					array('type'=>'hr'),
+					array(
+						'id'    => 'require_customer_confirm',
+						'label' => __("Require customer confirm the booking by send them an email", 'wpbooking'),
+						'type' => 'checkbox',
+						'checkbox_label'=>__('Yes', 'wpbooking')
+					),
+					array(
+						'id'    => 'require_partner_confirm',
+						'label' => __("Require partner confirm the booking", 'wpbooking'),
+						'type' => 'checkbox',
+						'checkbox_label'=>__('Yes', 'wpbooking')
+					),
+					array('type'=>'hr'),
 //                array(
 //                    'label' => __('Instant Booking?', 'wpbooking'),
 //                    'id' => 'instant_booking',
