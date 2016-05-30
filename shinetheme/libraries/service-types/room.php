@@ -495,15 +495,15 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 			// Beds
 			if($beds=WPBooking_Input::get('bed') and $is_meta_table_working){
-				$where.=' AND bed<='.$beds;
+				$where.=' AND bed>='.$beds;
 			}
 			// Bedrooms
 			if($bedrooms=WPBooking_Input::get('bedroom') and $is_meta_table_working){
-				$where.=' AND bedroom<='.$bedrooms;
+				$where.=' AND bedroom>='.$bedrooms;
 			}
 			// Bathrooms
 			if($bathrooms=WPBooking_Input::get('bathroom') and $is_meta_table_working){
-				$where.=' AND bathroom<='.$bathrooms;
+				$where.=' AND bathroom>='.$bathrooms;
 			}
 			// Required Customer Confirm
 			if($bathroom=WPBooking_Input::get('customer_confirm') and $is_meta_table_working){
