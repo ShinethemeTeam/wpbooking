@@ -450,6 +450,11 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 				}
 			}
 
+			if($posts_per_page=$this->get_option('posts_per_page'))
+			{
+				$args['posts_per_page']=$posts_per_page;
+			}
+
 			$args['meta_query']=$meta_query;
 
 			return $args;

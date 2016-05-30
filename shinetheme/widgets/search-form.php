@@ -101,6 +101,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 										}else{ ?>
 											<div class="row">
 												<?php
+												if(empty($v['taxonomy'])) continue;
 												$terms = get_terms(  $v['taxonomy'] , array('hide_empty' => false,) );
 												$value_item = $value[$v['taxonomy']];
 												if(!empty( $terms )) {
