@@ -169,6 +169,10 @@ if( ! class_exists('WPBooking_Metabox') ){
 		}
 
 		function save_meta_box( $post_id, $post_object ) {
+			if(empty($this->metabox['pages'])) return;
+
+			if(!in_array(get_post_type($post_id),$this->metabox['pages'])) return;
+
 	      global $pagenow;
 
 	      /* don't save if $_POST is empty */
@@ -284,13 +288,12 @@ if( ! class_exists('WPBooking_Metabox') ){
 
 	    			if( !empty( $terms ) && is_array( $terms ) ){
 	    				foreach( $terms as $key => $val ){
-
 	    					if( !empty( $val ) && is_array( $val ) ){
 			    				wp_set_post_terms( $post_id, $val, $key );
-			    			}
+			    			}else{
+								wp_set_post_terms( $post_id, array(0) , $key );
+							}
 	    				}
-	    			}else{
-	    				wp_set_post_terms( $post_id, array(0) , $key );
 	    			}
 	    		}
 	    	}

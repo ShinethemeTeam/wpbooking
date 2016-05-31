@@ -2,6 +2,8 @@
  * Created by Dungdt on 3/30/2016.
  */
 jQuery(document).ready(function($){
+
+
     $('.wpbooking-rating-review a').hover(function(){
         var index=$(this).index();
         index=parseInt(index);
@@ -285,5 +287,77 @@ jQuery(document).ready(function($){
             type:type
         });
     });
+
+
+    /**
+     * Calendar Handler for Single Place Order Form
+     *
+     * @since 1.0
+     * @author dungdt
+     */
+    var wpbooking_calendar_months=[];
+    var wpbooking_enable_dates=[];
+    $('.wpbooking_order_form .wpbooking-field-date-start').datepicker({
+        beforeShowDay: function(date){
+            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+
+            for(i=0;i<wpbooking_enable_dates.length;i++){
+                if(string==wpbooking_enable_dates[i]['date']) return [1];
+            }
+
+            return [0];
+        },
+        onChangeMonthYear:function(year,month){
+            loadCalendarMonth($(this),year,month);
+        }
+    });
+
+    $('.wpbooking_order_form .wpbooking-field-date-start').each(function(){
+        loadCalendarMonth($(this));
+    });
+
+    function loadCalendarMonth(me,year,month)
+    {
+        var currentMonth=false;
+        var currentYear=false;
+        var key=false;
+
+        if(typeof  year=='undefined' && typeof month=='undefined'){
+            var date=new Date();
+            currentMonth=date.getMonth();
+            currentYear=date.getFullYear();
+        }else{
+            currentMonth=month;
+            currentYear=year;
+        }
+
+        key=currentMonth+'_'+currentYear;
+        // check in exists calendar month
+        if($.inArray(key,wpbooking_calendar_months)==-1){
+            $.ajax({
+                url:wpbooking_params.ajax_url,
+                type:'post',
+                dataType:'json',
+                data:{
+                    post_id:$('[name=post_id]').val(),
+                    currentMonth:currentMonth,
+                    currentYear:currentYear,
+                    action:'wpbooking_calendar_months'
+                },
+                success:function(res){
+                    if(typeof res.months!='undefined'){
+
+                        for(var k in res.months){
+                            wpbooking_calendar_months.push(k);
+                            wpbooking_enable_dates= $.merge(wpbooking_enable_dates,res.months[k]);
+                        }
+
+                        me.datepicker('refresh');
+                    }
+                }
+            });
+        }
+    }
+
 });
 

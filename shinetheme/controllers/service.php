@@ -32,8 +32,56 @@ if (!class_exists('WPBooking_Service')) {
 
 			add_filter('template_include', array($this, 'template_loader'));
 			add_filter('body_class', array($this, '_add_body_class'));
+
+			/**
+			 *
+			 * Ajax Get Calendar Months
+			 * @author dungdt
+			 * @since 1.0
+			 */
+			add_action('wp_ajax_wpbooking_calendar_months',array($this,'_calendar_months'));
+			add_action('wp_ajax_nopriv_wpbooking_calendar_months',array($this,'_calendar_months'));
 		}
 
+		/**
+		 * Function Ajax Get Calendar Months
+		 * @since 1.0
+		 * @return string json result
+		 */
+		function _calendar_months()
+		{
+			$res=array();
+
+			$post_id=WPBooking_Input::post('post_id');
+			$currentMonth=WPBooking_Input::post('currentMonth');
+			$currentYear=WPBooking_Input::post('currentYear');
+			$start_date=new DateTime($currentYear.'-'.$currentMonth.'-1');
+			$start=$start_date->getTimestamp();
+			$end_date=$start_date->modify('+3 months');
+			$end=$end_date->getTimestamp();
+
+			$raw_data=WPBooking_Calendar_Model::inst()->calendar_months($post_id,$start,$end);
+			$calendar_months=array();
+			if(!empty($raw_data))
+			{
+				foreach($raw_data as $k=>$v){
+					// Ignore Not Available Date
+					if($v['status']=='not_available') continue;
+
+					$key=date('m',$v['start']).'_'.date('Y',$v['start']);
+					$calendar_months[$key][]=array(
+						'date'=>date('Y-m-d',$v['start']),
+						'price'=>$v['price']
+					);
+				}
+			}
+
+			$res['months']=$calendar_months;
+
+			echo json_encode($res);
+
+			die;
+		}
 		function _add_body_class($class)
 		{
 

@@ -95,7 +95,7 @@ if (!class_exists('WPBooking_Form_Check_Out_Field')) {
 			extract($data);
 			$array = array(
 				'id'          => $id,
-				'class'       => $class.' wpbooking-date-end',
+				'class'       => $class.' wpbooking-field-date-end',
 				'value'       => $value,
 				'placeholder' => $placeholder,
 				'size'        => $size,

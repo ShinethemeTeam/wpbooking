@@ -84,7 +84,17 @@ if(!class_exists('WPBooking_Model') ){
 			return $this->_last_query;
 		}
 
-		function where($key,$value){
+		/**
+		 * Add Where Clause to current Query
+		 *
+		 * @author dungdt
+		 * @since 1.0
+		 *
+		 * @param $key
+		 * @param bool|FALSE $value
+		 * @return $this
+		 */
+		function where($key,$value=FALSE){
 			if(is_array($key) and !empty($key)){
 				foreach($key as $k1=>$v1){
 					$this->where($k1,$v1);
@@ -567,7 +577,11 @@ if(!class_exists('WPBooking_Model') ){
 			$order=FALSE;
 			if(!empty($this->_order_query)){
 				$order=' ORDER BY ';
-				$order.=implode(',',$this->_order_query);
+				foreach($this->_order_query as $k=>$v){
+					$order.=' '.$k.' '.$v.',';
+				}
+
+				$order=substr($order,0,-1);
 			}
 
 			$limit=FALSE;
