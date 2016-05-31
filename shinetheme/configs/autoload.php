@@ -51,7 +51,8 @@ $autoload['model']=array(
 	'service_model',
 	'order_model',
 	'calendar_model',
-	'payment_model'
+	'payment_model',
+	'comments_model'
 );
 
 $autoload['widget']=array(

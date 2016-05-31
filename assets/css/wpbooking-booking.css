@@ -43,8 +43,7 @@
 .wpbooking-rating-review br {
   display: none;
 }
-.wpbooking-rating-result-wrap .rating-stars a.active .icon-star:before,
-.wpbooking-rating-review .rating-stars a.active .icon-star:before {
+.rating-stars a.active .icon-star:before {
   content: "\f005";
 }
 .wpbooking-search-form .item-search {

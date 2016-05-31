@@ -43,18 +43,23 @@ if(!function_exists('wpbooking_service_price_html'))
 		return $price_html;
 	}
 }
-if(!function_exists('wpbooking_rate_to_html'))
+if(!function_exists('wpbooking_service_rate_to_html'))
 {
-	function wpbooking_rate_to_html($rate=0)
+	function wpbooking_service_rate_to_html($post_id=FALSE)
 	{
-		return '
-		<span class="rating-stars">
-			<a class="'.($rate>=1)? 'active':FALSE.'"><i class="fa fa-star-o icon-star"></i></a>
-			<a class="'.($rate>=2)? 'active':FALSE.'"><i class="fa fa-star-o icon-star"></i></a>
-			<a class="'.($rate>=3)? 'active':FALSE.'"><i class="fa fa-star-o icon-star"></i></a>
-			<a class="'.($rate>=4)? 'active':FALSE.'"><i class="fa fa-star-o icon-star"></i></a>
-			<a class="'.($rate>=5)? 'active':FALSE.'"><i class="fa fa-star-o icon-star"></i></a>
-		</span>';
+		if(!$post_id) $post_id=get_the_ID();
+		$rate=WPBooking_Comment_Model::inst()->get_avg_review($post_id);
+
+		$html= '
+		<span class="rating-stars">';
+		for($i=1;$i<=5;$i++){
+			$active=FALSE;
+			if($rate>=$i) $active='active';
+			$html.=sprintf('<a class="%s"><i class="fa fa-star-o icon-star"></i></a>',$active);
+		}
+		$html.='</span>';
+
+		return $html;
 
 	}
 }

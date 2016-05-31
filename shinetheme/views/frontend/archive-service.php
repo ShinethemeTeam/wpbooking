@@ -77,9 +77,11 @@ echo wpbooking_load_view('wrap/start');
                                                     }
                                                 }
                                             }?>
+											<div class="service-rating-review">
 											<?php
-
+											echo wpbooking_service_rate_to_html();
 											?>
+											</div>
 
                                         </div>
                                         <div class="col-md-3">
@@ -92,7 +94,7 @@ echo wpbooking_load_view('wrap/start');
                         }
                     }
                 }else{
-					printf('<h3>%s</h3>',esc_html__('No Content','wpbooking'));
+					printf('<h3>%s</h3>',esc_html__('Found nothing match your search','wpbooking'));
                 }
                 ?>
             </ul>
