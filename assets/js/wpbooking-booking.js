@@ -268,5 +268,22 @@ jQuery(document).ready(function($){
             parent.find('.wpbooking-show-more-fields').show();
         });
     });
+
+    /**
+     * Ion-RangeSlider for Price Search Field
+     * @author dungdt
+     * @since 1.0
+     */
+    $('.wpbooking-ionrangeslider').each(function(){
+        if(typeof $.fn.ionRangeSlider=='undefined') return false;
+        var min=$(this).data('min');
+        var max=$(this).data('max');
+        var type=$(this).data('type');
+        $(this).ionRangeSlider({
+            min: min,
+            max: max,
+            type:type
+        });
+    });
 });
 

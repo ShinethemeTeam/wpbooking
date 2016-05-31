@@ -116,11 +116,19 @@ jQuery(document).ready(function( $ ){
         number = Number(number) + 1;
 
         $(this).attr("data-number",number);
+        $('.content_list_search_form_widget').sortable('refresh');
     })
     $(document).on('click','.btn_remove_field_search_form',function(){
-         $(this).parent().parent().remove();
+        if(confirm(wpbooking_params.delete_confirm)){
+
+            $(this).parent().parent().remove();
+        }
+    });
+    jQuery(document).on('widget-updated', function(e, widget){
+        $('.content_list_search_form_widget').sortable();
     });
 
+    $('.content_list_search_form_widget').sortable();
 
     $(document).on('change','.option_service_search_form',function(){
         var container = $(this).parent().parent().parent();

@@ -70,12 +70,23 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 //				1.0,
 //				false);
 
+
+
 			/**
 			 * Select2 CSS
 			 */
 			wp_enqueue_style('wpbooking-select2',wpbooking_assets_url('select2/css/select2.min.css'));
 			wp_enqueue_style('jquery-ui-datepicker',wpbooking_assets_url('css/datepicker.css'));
 			wp_enqueue_style('wpbooking-booking',wpbooking_assets_url('css/wpbooking-booking.css'));
+
+			/**
+			 * Ion RangeSlider for Price Search Field
+			 * @author dungdt
+			 * @since 1.0
+			 */
+			wp_register_script('ion-range-slider',wpbooking_assets_url('ion-range-slider/js/ion.rangeSlider.min.js'),array('jquery'),null,true);
+			wp_register_style('ion-range-slider',wpbooking_assets_url('ion-range-slider/css/ion.rangeSlider.css'));
+			wp_register_style('ion-range-slider-flatui',wpbooking_assets_url('ion-range-slider/css/ion.rangeSlider.skinFlat.css'));
 
 
 
@@ -126,7 +137,8 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 
 			wp_localize_script('jquery','wpbooking_params',array(
 				'ajax_url'=>admin_url('admin-ajax.php'),
-				'wpbooking_security' => wp_create_nonce( 'wpbooking-nonce-field' )
+				'wpbooking_security' => wp_create_nonce( 'wpbooking-nonce-field' ),
+				'delete_confirm'=>esc_html__('Are you want to delete?','wpbooking')
 			));
 		}
 		function _load_cores()

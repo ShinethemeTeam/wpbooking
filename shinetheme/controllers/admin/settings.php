@@ -123,6 +123,8 @@ if(!class_exists('WPBooking_Admin_Setting'))
 
                     }
                 }
+
+				do_action('wpbooking_before_admin_settings_saved',$full_settings);
             }
         }
         function _get_settings(){

@@ -18,6 +18,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 				'after_title'=>'',
 			));
             extract($instance=wp_parse_args($instance , array('title'=>'','service_type'=>'','field_search'=>"",'before_widget'=>FALSE,'after_widget'=>FALSE)));
+			$service_type=$instance['service_type'];
             $title = apply_filters( 'widget_title', empty( $title ) ? '' : $title, $instance, $this->id_base );
 
             $page_search = "";
@@ -48,7 +49,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 								$search_more_fields[$k]=$v;
 								continue;
 							}
-							$this->get_field_html($v);
+							$this->get_field_html($v,$service_type);
 
 						}
 					} ?>
@@ -60,7 +61,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 							<div class="wpbooking-search-form-more">
 								<?php
 									foreach($search_more_fields as $k=>$v){
-										$this->get_field_html($v);
+										$this->get_field_html($v,$service_type);
 									}?>
 								<a href="#" onclick="return false" class="btn btn-link wpbooking-hide-more-fields"><?php esc_html_e('Cancel','wpbooking') ?></a>
 							</div>
@@ -78,7 +79,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 			echo $widget_args['after_widget'];
         }
 
-		function get_field_html($v)
+		function get_field_html($v,$service_type)
 		{
 			$required = "";
 			if($v['required'] == "yes"){
@@ -144,7 +145,9 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 								<?php
 								if(empty($v['taxonomy'])) continue;
 								$terms = get_terms(  $v['taxonomy'] , array('hide_empty' => false,) );
-								$value_item = $value[$v['taxonomy']];
+
+								if(!empty($value[$v['taxonomy']])) $value_item=$value[$v['taxonomy']];else $value_item=FALSE;
+
 								if(!empty( $terms )) {
 									foreach( $terms as $key2 => $value2 ) {
 										$check ="";
@@ -236,6 +239,22 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 								printf('<option value="%s" %s >%s</option>',$i,selected(WPBooking_Input::get($v['field_type']),$i,FALSE),$i);
 							} ?>
 						</select>
+					</div>
+					<?php
+					break;
+				case "price":
+					wp_enqueue_script('ion-range-slider');
+					wp_enqueue_style('ion-range-slider');
+					wp_enqueue_style('ion-range-slider-flatui');
+					$min_max_price=WPBooking_Service_Model::inst()->get_min_max_price(array('service_type'=>$service_type));
+					$min_max_price=wp_parse_args($min_max_price,array(
+						'min'=>FALSE,
+						'max'=>FALSE
+					));
+					?>
+					<div class="item-search">
+						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+						<input type="text" data-type="double" data-min="<?php echo esc_attr($min_max_price['min']) ?>" data-max="<?php echo esc_attr($min_max_price['max']) ?>" class="wpbooking-ionrangeslider" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
 					</div>
 					<?php
 					break;

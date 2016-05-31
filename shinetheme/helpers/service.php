@@ -27,10 +27,10 @@ if(!function_exists('wpbooking_service_price_html'))
 		if(!$post_id) $post_id=get_the_ID();
 
 		$price=wpbooking_service_price($post_id);
-		$currency=get_post_meta($post_id,'currency',TRUE);
+		//$currency=get_post_meta($post_id,'currency',TRUE);
 		$service_type= get_post_meta($post_id,'service_type',true);
 
-		$price_html=WPBooking_Currency::format_money($price,array('currency'=>$currency));
+		$price_html=WPBooking_Currency::format_money($price);
 		switch(get_post_meta($post_id,'price_type',true)){
 			case "per_night":
 				$price_html=sprintf(__('%s Per Night','wpbooking'),$price_html);
@@ -63,4 +63,3 @@ if(!function_exists('wpbooking_service_rate_to_html'))
 
 	}
 }
-

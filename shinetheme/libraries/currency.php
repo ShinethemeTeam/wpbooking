@@ -139,6 +139,27 @@ if (!class_exists('WPBooking_Currency')) {
 			 */
 			add_filter('wpbooking_get_all_currency', array(__CLASS__, 'get_all_currency'));
 
+			// Update Session after Update Settings
+			add_action('wpbooking_before_admin_settings_saved',array(__CLASS__,'_reload_current_currency'));
+
+		}
+
+		/**
+		 * Hook function after Saving the List of Currencies, We Update Current Currency Information
+		 * @since 1.0
+		 * @author dungdt
+		 */
+		static function _reload_current_currency()
+		{
+			$current=WPBooking_Session::get('wpbooking_currency');
+			$new_data=self::find_currency($current['currency']);
+			if($new_data){
+				WPBooking_Session::set('wpbooking_currency',$new_data);
+			}else{
+
+				// If Currency is deleted from list of added currencies, we remove the  session data
+				WPBooking_Session::destroy('wpbooking_currency');
+			}
 		}
 
 		static function _location_session()

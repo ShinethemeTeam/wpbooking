@@ -322,6 +322,24 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 		}
 
         function _get_where_query($where){
+			global $wpdb;
+
+			//Room Price Filter
+			if($price=WPBooking_Input::get('price'))
+			{
+				$array=explode(',',$price);
+
+				if(!empty($array[0]))
+				{
+					$where.=$wpdb->prepare('AND price>=%d',$array[0]);
+				}
+				if(!empty($array[1]))
+				{
+					$where.=$wpdb->prepare('AND price<=%d',$array[1]);
+				}
+			}
+
+
             return $where;
         }
 	}

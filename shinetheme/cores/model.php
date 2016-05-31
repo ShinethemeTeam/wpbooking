@@ -461,6 +461,9 @@ if(!class_exists('WPBooking_Model') ){
 			if (!empty($insert_key)) {
 				$insert_col_string = '';
 				foreach ($insert_key as $key => $value) {
+
+					if(empty($value['type'])) continue;
+
 					$prefix = '';
 					//Add length for varchar data type
 					switch (strtolower($value['type'])) {

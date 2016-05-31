@@ -95,7 +95,7 @@ if (!class_exists('WPBooking_Order')) {
 					'service_type'          => $service_type,
 					'order_form'            => $fields,
 					'base_price'            => get_post_meta($post_id, 'price', TRUE),
-					'currency'              => get_post_meta($post_id, 'currency', TRUE),
+					'currency'              => WPBooking_Currency::get_current_currency('currency'),
 					'customer_id'           => is_user_logged_in() ? get_current_user_id() : FALSE,
 					'deposit'               => get_post_meta($post_id, 'deposit', TRUE),
 					'deposit_amount'        => get_post_meta($post_id, 'deposit_amount', TRUE),
