@@ -30,6 +30,8 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 			if ( ! empty( $instance['title'] ) ) {
 				echo $widget_args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $widget_args['after_title'];
 			}
+
+			$search_more_fields=array();
             ?>
             <form class="wpbooking-search-form" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
 				<?php if(!get_option('permalink_structure')){
@@ -39,176 +41,31 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					<?php
 					if(!empty($field_search[$service_type])){
 						foreach($field_search[$service_type] as $k=>$v){
-							$required = "";
-							if($v['required'] == "yes"){
-								$required = 'required';
+							$v=wp_parse_args($v,array(
+								'in_more_filter'=>''
+							));
+							if($v['in_more_filter']){
+								$search_more_fields[$k]=$v;
+								continue;
 							}
-							$value = WPBooking_Input::request($v['field_type'],'');
-							switch($v['field_type']){
-								case "location_id":
-								case "location_suggestion":
-									?>
-									<div class="item-search">
-										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-										<?php
-										$class=FALSE;
-										if($v['field_type']=='location_suggestion'){
-											$class='bravo-select2';
-										}
-										$args = array(
-											'show_option_none' => __( '-- Select --' , "wpbooking"  ),
-											'option_none_value' => "",
-											'hierarchical'      => 1 ,
-											'name'              => 'location_id' ,
-											'class'             => $class ,
-											'id'             => $v['field_type'] ,
-											'taxonomy'          => 'wpbooking_location' ,
-											'hide_empty' => 0,
-										);
-										$is_taxonomy = WPBooking_Input::request($v['field_type']);
-										if(!empty($is_taxonomy)){
-											$args['selected'] =$is_taxonomy;
-										}
-										wp_dropdown_categories( $args );
-										?>
-									</div>
-									<?php
-									break;
-								case "taxonomy":
-									?>
-									<div class="item-search">
-										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-										<?php
-										if($v['taxonomy_show'] =='dropdown'){
-											$args = array(
-												'show_option_none' => __( '-- Select --' , "wpbooking" ),
-												'option_none_value' => "",
-												'hierarchical'      => 1 ,
-												'name'              => $v['field_type'].'['.$v['taxonomy'].']' ,
-												'class'             => '' ,
-												'id'             => $v['field_type'].'['.$v['taxonomy'].']' ,
-												'taxonomy'          => $v['taxonomy'] ,
-												'hide_empty' => 0,
-											);
-											$is_taxonomy = WPBooking_Input::request($v['field_type']);
-											if(!empty($is_taxonomy[$v['taxonomy']])){
-												$args['selected'] = $is_taxonomy[$v['taxonomy']];
-											}
-											wp_dropdown_categories( $args );
-                                            ?>
-                                            <input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>" name="<?php echo esc_attr( "taxonomy_operator" . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
-                                        <?php
-										}else{ ?>
-											<div class="row">
-												<?php
-												if(empty($v['taxonomy'])) continue;
-												$terms = get_terms(  $v['taxonomy'] , array('hide_empty' => false,) );
-												$value_item = $value[$v['taxonomy']];
-												if(!empty( $terms )) {
-													foreach( $terms as $key2 => $value2 ) {
-														$check ="";
-														if(in_array($value2->term_id,explode(',',$value_item))){
-															$check = "checked";
-														}
-														?>
-														<div class="col-md-6">
-															<input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$value2->term_id ?>" value="<?php echo esc_html( $value2->term_id ) ?>">
-															<label for="<?php echo "item_".$value2->term_id ?>"><?php echo esc_html( $value2->name ) ?></label>
-														</div>
-													<?php
-													}
-												}
-												?>
-												<input type="hidden" value="<?php echo esc_attr($value_item) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v[ 'field_type' ] . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
-												<input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>" name="<?php echo esc_attr( "taxonomy_operator" . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
-											</div>
-										<?php } ?>
-									</div>
-									<?php
-									break;
-								case "review_rate":
-									?>
-									<div class="item-search">
-										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-										<div class="row">
-											<?php
-											$data = array(
-												"1" => __( "1 Star" , 'wpbooking' ) ,
-												"2" => __( "2 Star" , 'wpbooking' ) ,
-												"3" => __( "3 Star" , 'wpbooking' ) ,
-												"4" => __( "4 Star" , 'wpbooking' ) ,
-												"5" => __( "5 Star" , 'wpbooking' )
-											);
-											if(!empty( $data )) {
-												foreach( $data as $key2 => $value2 ) {
-													$check ="";
-													if(in_array($key2,explode(',',$value))){
-														$check = "checked";
-													}
-													?>
-													<div class="col-md-6">
-														<input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
-														<label for="<?php echo "item_".$key2 ?>"><?php echo esc_html( $value2 ) ?></label>
-													</div>
-												<?php
-												}
-											}
-											?>
-											<input type="hidden" value="<?php echo esc_attr($value) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v['field_type'] ) ?>">
-										</div>
-									</div>
-									<?php
-									break;
-								//
-								case "check_in":
-									?>
-									<div class="item-search">
-										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-										<input class="wpbooking-date-start" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
-									</div>
-									<?php
-									break;
-								case "check_out":
-									?>
-									<div class="item-search">
-										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-										<input class="wpbooking-date-end" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
-									</div>
-									<?php
-									break;
-								case "customer_confirm":
-								case "partner_confirm":?>
-									<div class="item-search">
-										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-										<label><input <?php checked(WPBooking_Input::get($v['field_type']),1) ?>  type="checkbox" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="1"></label>
-									</div>
-									<?php
-									break;
-								case "bathroom":
-								case "bed":
-								case "bedroom":
-									?>
-									<div class="item-search">
-										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-										<select id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>">
-											<?php for($i=0;$i<=20;$i++){
-												printf('<option value="%s" %s >%s</option>',$i,selected(WPBooking_Input::get($v['field_type']),$i,FALSE),$i);
-											} ?>
-										</select>
-									</div>
-									<?php
-									break;
-								default:
-									?>
-									<div class="item-search">
-										<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-										<input type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
-									</div>
-								<?php
-									break;
+							$this->get_field_html($v);
 
-							}
 						}
+					} ?>
+
+					<?php if(!empty($search_more_fields)){
+						?>
+						<div class="wpbooking-search-form-more-wrap mb20">
+							<a href="#" onclick="return false" class="btn btn-link wpbooking-show-more-fields"><?php esc_html_e('More Filters','wpbooking') ?></a>
+							<div class="wpbooking-search-form-more">
+								<?php
+									foreach($search_more_fields as $k=>$v){
+										$this->get_field_html($v);
+									}?>
+								<a href="#" onclick="return false" class="btn btn-link wpbooking-hide-more-fields"><?php esc_html_e('Cancel','wpbooking') ?></a>
+							</div>
+						</div>
+						<?php
 					} ?>
 
 					<div class="item-search">
@@ -220,6 +77,181 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
 			echo $widget_args['after_widget'];
         }
+
+		function get_field_html($v)
+		{
+			$required = "";
+			if($v['required'] == "yes"){
+				$required = 'required';
+			}
+			$value = WPBooking_Input::request($v['field_type'],'');
+			switch($v['field_type']){
+				case "location_id":
+				case "location_suggestion":
+					?>
+					<div class="item-search">
+						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+						<?php
+						$class=FALSE;
+						if($v['field_type']=='location_suggestion'){
+							$class='bravo-select2';
+						}
+						$args = array(
+							'show_option_none' => __( '-- Select --' , "wpbooking"  ),
+							'option_none_value' => "",
+							'hierarchical'      => 1 ,
+							'name'              => 'location_id' ,
+							'class'             => $class ,
+							'id'             => $v['field_type'] ,
+							'taxonomy'          => 'wpbooking_location' ,
+							'hide_empty' => 0,
+						);
+						$is_taxonomy = WPBooking_Input::request($v['field_type']);
+						if(!empty($is_taxonomy)){
+							$args['selected'] =$is_taxonomy;
+						}
+						wp_dropdown_categories( $args );
+						?>
+					</div>
+					<?php
+					break;
+				case "taxonomy":
+					?>
+					<div class="item-search">
+						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+						<?php
+						if($v['taxonomy_show'] =='dropdown'){
+							$args = array(
+								'show_option_none' => __( '-- Select --' , "wpbooking" ),
+								'option_none_value' => "",
+								'hierarchical'      => 1 ,
+								'name'              => $v['field_type'].'['.$v['taxonomy'].']' ,
+								'class'             => '' ,
+								'id'             => $v['field_type'].'['.$v['taxonomy'].']' ,
+								'taxonomy'          => $v['taxonomy'] ,
+								'hide_empty' => 0,
+							);
+							$is_taxonomy = WPBooking_Input::request($v['field_type']);
+							if(!empty($is_taxonomy[$v['taxonomy']])){
+								$args['selected'] = $is_taxonomy[$v['taxonomy']];
+							}
+							wp_dropdown_categories( $args );
+							?>
+							<input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>" name="<?php echo esc_attr( "taxonomy_operator" . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
+							<?php
+						}else{ ?>
+							<div class="row">
+								<?php
+								if(empty($v['taxonomy'])) continue;
+								$terms = get_terms(  $v['taxonomy'] , array('hide_empty' => false,) );
+								$value_item = $value[$v['taxonomy']];
+								if(!empty( $terms )) {
+									foreach( $terms as $key2 => $value2 ) {
+										$check ="";
+										if(in_array($value2->term_id,explode(',',$value_item))){
+											$check = "checked";
+										}
+										?>
+										<div class="col-md-6">
+											<input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$value2->term_id ?>" value="<?php echo esc_html( $value2->term_id ) ?>">
+											<label for="<?php echo "item_".$value2->term_id ?>"><?php echo esc_html( $value2->name ) ?></label>
+										</div>
+										<?php
+									}
+								}
+								?>
+								<input type="hidden" value="<?php echo esc_attr($value_item) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v[ 'field_type' ] . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
+								<input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>" name="<?php echo esc_attr( "taxonomy_operator" . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
+							</div>
+						<?php } ?>
+					</div>
+					<?php
+					break;
+				case "review_rate":
+					?>
+					<div class="item-search">
+						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+						<div class="row">
+							<?php
+							$data = array(
+								"1" => __( "1 Star" , 'wpbooking' ) ,
+								"2" => __( "2 Star" , 'wpbooking' ) ,
+								"3" => __( "3 Star" , 'wpbooking' ) ,
+								"4" => __( "4 Star" , 'wpbooking' ) ,
+								"5" => __( "5 Star" , 'wpbooking' )
+							);
+							if(!empty( $data )) {
+								foreach( $data as $key2 => $value2 ) {
+									$check ="";
+									if(in_array($key2,explode(',',$value))){
+										$check = "checked";
+									}
+									?>
+									<div class="col-md-6">
+										<input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
+										<label for="<?php echo "item_".$key2 ?>"><?php echo esc_html( $value2 ) ?></label>
+									</div>
+									<?php
+								}
+							}
+							?>
+							<input type="hidden" value="<?php echo esc_attr($value) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v['field_type'] ) ?>">
+						</div>
+					</div>
+					<?php
+					break;
+				//
+				case "check_in":
+					?>
+					<div class="item-search">
+						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+						<input class="wpbooking-date-start" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+					</div>
+					<?php
+					break;
+				case "check_out":
+					?>
+					<div class="item-search">
+						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+						<input class="wpbooking-date-end" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+					</div>
+					<?php
+					break;
+				case "customer_confirm":
+				case "partner_confirm":?>
+					<div class="item-search">
+						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+						<label><input <?php checked(WPBooking_Input::get($v['field_type']),1) ?>  type="checkbox" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="1"></label>
+					</div>
+					<?php
+					break;
+				case "bathroom":
+				case "bed":
+				case "bedroom":
+					?>
+					<div class="item-search">
+						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+						<select id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>">
+							<?php for($i=0;$i<=20;$i++){
+								printf('<option value="%s" %s >%s</option>',$i,selected(WPBooking_Input::get($v['field_type']),$i,FALSE),$i);
+							} ?>
+						</select>
+					</div>
+					<?php
+					break;
+				default:
+					?>
+					<div class="item-search">
+						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+						<input type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+					</div>
+					<?php
+					break;
+
+			}
+		}
+
+
 
         /**
          * @param array $new_instance
@@ -309,7 +341,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                                                         ?>
                                                         <tr class="<?php echo esc_attr($v1['class']) ?> div_<?php echo esc_attr($v1['name']) ?>">
                                                             <th> <?php echo esc_html($v1['label']) ?>:  </th>
-                                                            <td> <label><input type="checkbox" <?php checked(1,$data_value) ?>  name="<?php echo $this->get_field_name('field_search'); ?>[<?php echo esc_attr($key) ?>][<?php echo esc_attr($number) ?>][<?php echo esc_attr($v1['name']) ?>]" class=" <?php echo esc_attr($v1['name']) ?>"> <?php esc_html_e('Yes','wpbooking')?></label> </td>
+                                                            <td> <label><input type="checkbox" <?php checked(1,$data_value) ?> value="1"  name="<?php echo $this->get_field_name('field_search'); ?>[<?php echo esc_attr($key) ?>][<?php echo esc_attr($number) ?>][<?php echo esc_attr($v1['name']) ?>]" class=" <?php echo esc_attr($v1['name']) ?>"> <?php esc_html_e('Yes','wpbooking')?></label> </td>
                                                         </tr>
                                                     <?php
                                                     }

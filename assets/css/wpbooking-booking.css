@@ -58,6 +58,9 @@
 .wpbooking-search-form .item-search select {
   width: 100%;
 }
+.wpbooking-search-form .wpbooking-search-form-more {
+  display: none;
+}
 .wpbooking-container {
   padding: 20px;
 }

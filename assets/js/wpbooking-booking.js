@@ -243,5 +243,30 @@ jQuery(document).ready(function($){
 
     $('.bravo-select2').select2();
 
+    /**
+     * Show More Search Fields
+     * @author dungdt
+     * @since 1.0
+     */
+    $('.wpbooking-show-more-fields').click(function(){
+        var parent=$(this).parent();
+
+        parent.find('.wpbooking-search-form-more').slideDown('fast');
+        $(this).hide();
+    });
+
+    /**
+     * Hide More Search Fields
+     * @author dungdt
+     * @since 1.0
+     */
+    $('.wpbooking-hide-more-fields').click(function(){
+        var parent=$(this).closest('.wpbooking-search-form-more-wrap');
+
+        parent.find('.wpbooking-search-form-more').slideUp('fast',function(){
+
+            parent.find('.wpbooking-show-more-fields').show();
+        });
+    });
 });
 
