@@ -100,7 +100,7 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 			}
 			if($cart_item['need_partner_confirm'])
 			{
-				echo "<div class='label label-warning'>".__("Wait For Approval ",'wpbooking')."</div>";
+				echo "<div class='label label-warning'>".__("Need Approval",'wpbooking')."</div>";
 			}
 		}
 
