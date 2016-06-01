@@ -303,7 +303,7 @@ jQuery(document).ready(function($){
     order_start_date .datepicker({
         minDate:0,
         onSelect:function(selected) {
-            order_end_date.datepicker("option","minDate", selected)
+            order_end_date.datepicker("option","minDate", selected);
         },
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
@@ -316,11 +316,15 @@ jQuery(document).ready(function($){
         },
         onChangeMonthYear:function(year,month){
             loadCalendarMonth(year,month);
+        },
+        onClose:function(){
+            $('.tooltip ').hide();
         }
     });
     order_end_date.datepicker({minDate:0,
         onSelect:function(selected) {
-            order_start_date.datepicker("option","maxDate", selected)
+            order_start_date.datepicker("option","maxDate", selected);
+            $('.wpbooking-enable-date').tooltip('hide');
         },
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
@@ -333,6 +337,9 @@ jQuery(document).ready(function($){
         },
         onChangeMonthYear:function(year,month){
             loadCalendarMonth(year,month);
+        },
+        onClose:function(){
+            $('.tooltip ').hide();
         }
     });
 
@@ -341,12 +348,6 @@ jQuery(document).ready(function($){
             container:'body',
             trigger:'hover'
         }).tooltip('show');
-    });
-    $(document).on('mouseleave','.wpbooking-enable-date',function(){
-        $( this).tooltip({
-            container:'body',
-            trigger:'hover'
-        }).tooltip('hide');
     });
 
     function loadCalendarMonth(year,month)
