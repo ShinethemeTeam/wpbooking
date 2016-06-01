@@ -47,11 +47,15 @@ if (!class_exists('WPBooking_Calendar_Model')) {
 		 * @return array|bool
 		 */
 		function calendar_months($post_id,$start_date,$end_date){
-			return $this->where(array(
+			$today=strtotime('today');
+			if($start_date<$today) $start_date=$today;
+			$res= $this->where(array(
 				'post_id'=>$post_id,
-				'start>='.$start_date,
-				'end<='.$end_date
+				'start>='=>$start_date,
+				'end<='=>$end_date
 			))->orderby('start','asc')->get()->result();
+
+			return $res;
 		}
 
 		static function inst()

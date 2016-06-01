@@ -62,6 +62,18 @@ if (!class_exists('WPBooking_Service')) {
 
 			$raw_data=WPBooking_Calendar_Model::inst()->calendar_months($post_id,$start,$end);
 			$calendar_months=array();
+
+			// Default Months
+			for($i=0;$i<3;$i++){
+				$date=new DateTime($currentYear.'-'.$currentMonth.'-1');
+				if(!$i){
+					$calendar_months[$date->format('m_Y')]=array();
+				}else{
+					$date->modify('+'.$i.' months');
+					$calendar_months[$date->format('m_Y')]=array();
+				}
+			}
+
 			if(!empty($raw_data))
 			{
 				foreach($raw_data as $k=>$v){
@@ -71,7 +83,7 @@ if (!class_exists('WPBooking_Service')) {
 					$key=date('m',$v['start']).'_'.date('Y',$v['start']);
 					$calendar_months[$key][]=array(
 						'date'=>date('Y-m-d',$v['start']),
-						'price'=>$v['price']
+						'price'=>WPBooking_Currency::format_money($v['price'])
 					);
 				}
 			}

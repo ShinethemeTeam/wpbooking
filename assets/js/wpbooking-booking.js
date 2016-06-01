@@ -214,9 +214,9 @@ jQuery(document).ready(function($){
     });
 
     var has_date_picker=$('.has-date-picker');
-    has_date_picker.datepicker();
-    var datepicker=has_date_picker.datepicker('widget');
-    datepicker.wrap('<div class="ll-skin-melon"/>');
+    has_date_picker.datepicker()
+        .datepicker('widget')
+        .wrap('<div class="ll-skin-melon"/>');
 
     $('.wpbooking-date-start').datepicker(
         {
@@ -227,9 +227,8 @@ jQuery(document).ready(function($){
                 date_end.datepicker("option","minDate", selected)
 
             }
-        });
-    datepicker=$('.wpbooking-date-start').datepicker('widget');
-    datepicker.wrap('<div class="ll-skin-melon"/>');
+        })
+        .datepicker('widget').wrap('<div class="ll-skin-melon"/>');
 
     $('.wpbooking-date-end').datepicker( {
         minDate:0,
@@ -239,9 +238,9 @@ jQuery(document).ready(function($){
             date_end.datepicker("option","maxDate", selected)
 
         }
-    });
-    datepicker=$('.wpbooking-date-end').datepicker('widget');
-    datepicker.wrap('<div class="ll-skin-melon"/>');
+    })
+    .datepicker('widget')
+    .wrap('<div class="ll-skin-melon"/>');
 
     $('.bravo-select2').select2();
 
@@ -297,26 +296,60 @@ jQuery(document).ready(function($){
      */
     var wpbooking_calendar_months=[];
     var wpbooking_enable_dates=[];
-    $('.wpbooking_order_form .wpbooking-field-date-start').datepicker({
+    var order_start_date=$('.wpbooking_order_form .wpbooking-field-date-start');
+    var order_end_date=$('.wpbooking_order_form .wpbooking-field-date-end');
+
+    // Init Datepicker
+    order_start_date .datepicker({
+        minDate:0,
+        onSelect:function(selected) {
+            order_end_date.datepicker("option","minDate", selected)
+        },
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
 
             for(i=0;i<wpbooking_enable_dates.length;i++){
-                if(string==wpbooking_enable_dates[i]['date']) return [1];
+                if(string==wpbooking_enable_dates[i]['date']) return [1,'wpbooking-enable-date',wpbooking_enable_dates[i]['price']];
             }
 
-            return [0];
+            return [0,'wpbooking-disable-date'];
         },
         onChangeMonthYear:function(year,month){
-            loadCalendarMonth($(this),year,month);
+            loadCalendarMonth(year,month);
+        }
+    });
+    order_end_date.datepicker({minDate:0,
+        onSelect:function(selected) {
+            order_start_date.datepicker("option","maxDate", selected)
+        },
+        beforeShowDay: function(date){
+            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+
+            for(i=0;i<wpbooking_enable_dates.length;i++){
+                if(string==wpbooking_enable_dates[i]['date']) return [1,'wpbooking-enable-date',wpbooking_enable_dates[i]['price']];
+            }
+
+            return [0,'wpbooking-disable-date'];
+        },
+        onChangeMonthYear:function(year,month){
+            loadCalendarMonth(year,month);
         }
     });
 
-    $('.wpbooking_order_form .wpbooking-field-date-start').each(function(){
-        loadCalendarMonth($(this));
+    $(document).on('hover','.wpbooking-enable-date',function(){
+        $( this).tooltip({
+            container:'body',
+            trigger:'hover'
+        }).tooltip('show');
+    });
+    $(document).on('mouseleave','.wpbooking-enable-date',function(){
+        $( this).tooltip({
+            container:'body',
+            trigger:'hover'
+        }).tooltip('hide');
     });
 
-    function loadCalendarMonth(me,year,month)
+    function loadCalendarMonth(year,month)
     {
         var currentMonth=false;
         var currentYear=false;
@@ -351,13 +384,17 @@ jQuery(document).ready(function($){
                             wpbooking_calendar_months.push(k);
                             wpbooking_enable_dates= $.merge(wpbooking_enable_dates,res.months[k]);
                         }
-
-                        me.datepicker('refresh');
+                        order_start_date.datepicker('refresh');
+                        order_end_date.datepicker('refresh');
                     }
                 }
             });
         }
     }
 
+    loadCalendarMonth();
+    //==========================================================================================
+    // End Calendar Handler for Single Place Order Form
+    //==========================================================================================
 });
 
