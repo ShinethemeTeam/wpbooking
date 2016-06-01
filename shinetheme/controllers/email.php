@@ -56,7 +56,7 @@ if(!class_exists('WPBooking_Email'))
 					$to=$user_email = get_the_author_meta( 'user_email' ,$key);
 					$subject=sprintf(__("New Order from %s",'wpbooking'),get_bloginfo('title'));
 					WPBooking()->set('items',$value);
-					$message=wpbooking_load_view('emails/booking-information');
+					$message=do_shortcode(wpbooking_load_view('emails/booking-information'));
 					$this->send($to,$subject,$message);
 				}
 			}
@@ -64,7 +64,7 @@ if(!class_exists('WPBooking_Email'))
 			// to Admin
 			$to=get_option('admin_email');
 			$subject=sprintf(__("New Order from %s",'wpbooking'),get_bloginfo('title'));
-			$message=wpbooking_load_view('emails/booking-information',array('items'=>$items,'order_id'=>$order_id));
+			$message=do_shortcode(wpbooking_load_view('emails/booking-information',array('items'=>$items,'order_id'=>$order_id)));
 			$this->send($to,$subject,$message);
 
 		}
