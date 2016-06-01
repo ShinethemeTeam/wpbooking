@@ -9,7 +9,7 @@ if(!function_exists('wpbooking_email_order_table_func'))
 {
 	function wpbooking_email_order_table_func($attr=array(),$content=FALSE)
 	{
-		return wpbooking_load_view('email/shortcodes/order-table',$attr);
+		return wpbooking_load_view('emails/shortcodes/order-table',$attr);
 	}
 
 	add_shortcode('wpbooking_email_order_table','wpbooking_email_order_table_func');

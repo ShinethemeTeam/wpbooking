@@ -5,8 +5,10 @@
  * Date: 4/21/2016
  * Time: 4:33 PM
  */
+$booking=WPBooking_Order::inst();
 $order_id=WPBooking()->get('order_id');
-$items=WPBooking()->get('items',array());
+if(!$order_id) return;
+$items=$booking->get_order_items($order_id);
 ?>
 <table width="100%" cellpadding="0" cellspacing="0">
 	<thead>

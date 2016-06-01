@@ -32,7 +32,9 @@ if(!function_exists('wpbooking_load_view')) {
 
 		if(file_exists($file)){
 
+			if(is_array($data))
 			extract($data);
+
 			ob_start();
 			include($file);
 			return @ob_get_clean();

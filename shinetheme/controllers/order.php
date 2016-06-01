@@ -538,7 +538,7 @@ if (!class_exists('WPBooking_Order')) {
 					// Payment On-Paying -> Ignore
 					if ($value['payment_status'] == 'on-paying') continue;
 
-					if ($value['need_customer_confirm'] === 1 or $value['need_partner_confirm'] === 1) continue;
+					if ($value['need_customer_confirm'] == 1 or $value['need_partner_confirm'] == 1) continue;
 
 					$total += $this->get_order_item_total($value, TRUE);
 				}

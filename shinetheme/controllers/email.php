@@ -27,11 +27,25 @@ if(!class_exists('WPBooking_Email'))
 
 			//add_action('wpbooking_after_checkout_success',array($this,'_send_order_email_confirm'));
 
-
+			add_action('admin_init',array($this,'_test_email'));
 		}
 
+		function _test_email()
+		{
+			if(WPBooking_Input::get('test_email') and $order_id=WPBooking_Input::get('post_id')){
+				$order_model=WPBooking_Order_Model::inst();
+
+				$items=$order_model->get_order_items($order_id);
+				WPBooking()->set('order_id',$order_id);
+				$message=do_shortcode(wpbooking_load_view('emails/booking-information',array('items'=>$items,'order_id'=>$order_id)));
+				var_dump($message);
+				die;
+			}
+		}
 		function _send_order_email_success($order_id)
 		{
+			WPBooking()->set('order_id',$order_id);
+
 			$order_model=WPBooking_Order_Model::inst();
 
 			$items=$order_model->get_order_items($order_id);
@@ -115,7 +129,7 @@ if(!class_exists('WPBooking_Email'))
 		 */
 		function _load_email_shortcodes()
 		{
-			WPBooking_Loader::inst()->load_library('shorcodes/email/order-table');
+			WPBooking_Loader::inst()->load_library('shortcodes/emails/order-table');
 		}
 
 		static function inst()
