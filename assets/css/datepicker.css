@@ -760,3 +760,6 @@
 }
 
 
+.ll-skin-melon .ui-datepicker-header .ui-state-disabled {
+  display: none;
+}

@@ -314,7 +314,7 @@ jQuery(document).ready(function($){
 
             return [0,'wpbooking-disable-date'];
         },
-        onChangeMonthYear:function(year,month){
+        onChangeMonthYear:function(year,month,obj){
             loadCalendarMonth(year,month);
         },
         onClose:function(){
@@ -323,8 +323,9 @@ jQuery(document).ready(function($){
     });
     order_end_date.datepicker({minDate:0,
         onSelect:function(selected) {
-            order_start_date.datepicker("option","maxDate", selected);
-            $('.wpbooking-enable-date').tooltip('hide');
+            if(selected){
+                order_start_date.datepicker("option","maxDate", selected);
+            }
         },
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
@@ -365,7 +366,10 @@ jQuery(document).ready(function($){
             currentYear=year;
         }
 
+        currentMonth=(parseInt(currentMonth)<10)?'0'+currentMonth:currentMonth;
+
         key=currentMonth+'_'+currentYear;
+        
         // check in exists calendar month
         if($.inArray(key,wpbooking_calendar_months)==-1){
             $.ajax({
@@ -385,8 +389,8 @@ jQuery(document).ready(function($){
                             wpbooking_calendar_months.push(k);
                             wpbooking_enable_dates= $.merge(wpbooking_enable_dates,res.months[k]);
                         }
-                        order_start_date.datepicker('refresh');
-                        order_end_date.datepicker('refresh');
+                       // order_start_date.datepicker('refresh');
+                       // order_end_date.datepicker('refresh');
                     }
                 }
             });
