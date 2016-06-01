@@ -447,7 +447,7 @@ if (!class_exists('WPBooking_Order')) {
 		function get_checkout_form()
 		{
 			$form_id = wpbooking_get_option('checkout_form');
-			if ($post = get_post($form_id)) {
+			if ($form_id and $post = get_post($form_id)) {
 				return $content = apply_filters('the_content', $post->post_content);
 			}
 		}

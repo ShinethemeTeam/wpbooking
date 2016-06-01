@@ -20,6 +20,7 @@ if(empty($cart))
 {
 	return;
 }
+
 ?>
 <div class="wpbooking-checkout-wrap">
 	<form class="wpbooking_checkout_form" action="<?php echo home_url('/') ?>" onsubmit="return false" method="post" novalidate>

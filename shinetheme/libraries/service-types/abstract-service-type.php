@@ -63,6 +63,7 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 			$cart_item=wp_parse_args($cart_item,array(
 				'need_customer_confirm'=>'',
 				'order_form'=>array(),
+				'need_partner_confirm'=>FALSE
 			));
 
 			// Show Order Form Field
@@ -93,9 +94,13 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 			}
 
 			// Show Need Confirm Notification
-			if($cart_item['need_customer_confirm'] or $cart_item['need_customer_confirm'])
+			if($cart_item['need_customer_confirm'])
 			{
 				echo "<div class='label label-warning'>".__("Need Confirmation ",'wpbooking')."</div>";
+			}
+			if($cart_item['need_partner_confirm'])
+			{
+				echo "<div class='label label-warning'>".__("Wait For Approval ",'wpbooking')."</div>";
 			}
 		}
 
