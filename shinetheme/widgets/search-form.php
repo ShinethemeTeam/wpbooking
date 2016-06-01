@@ -245,7 +245,8 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 				case "price":
 					wp_enqueue_script('ion-range-slider');
 					wp_enqueue_style('ion-range-slider');
-					wp_enqueue_style('ion-range-slider-flatui');
+					wp_enqueue_style('ion-range-slider-html5');
+
 					$min_max_price=WPBooking_Service_Model::inst()->get_min_max_price(array('service_type'=>$service_type));
 					$min_max_price=wp_parse_args($min_max_price,array(
 						'min'=>FALSE,
@@ -254,6 +255,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					?>
 					<div class="item-search">
 						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+						<div class="price-chart"></div>
 						<input type="text" data-type="double" data-min="<?php echo esc_attr($min_max_price['min']) ?>" data-max="<?php echo esc_attr($min_max_price['max']) ?>" class="wpbooking-ionrangeslider" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
 					</div>
 					<?php

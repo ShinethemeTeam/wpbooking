@@ -369,7 +369,7 @@ jQuery(document).ready(function($){
         currentMonth=(parseInt(currentMonth)<10)?'0'+currentMonth:currentMonth;
 
         key=currentMonth+'_'+currentYear;
-        
+
         // check in exists calendar month
         if($.inArray(key,wpbooking_calendar_months)==-1){
             $.ajax({
@@ -401,5 +401,7 @@ jQuery(document).ready(function($){
     //==========================================================================================
     // End Calendar Handler for Single Place Order Form
     //==========================================================================================
+
+
 });
 

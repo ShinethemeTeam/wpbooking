@@ -87,6 +87,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			wp_register_script('ion-range-slider',wpbooking_assets_url('ion-range-slider/js/ion.rangeSlider.min.js'),array('jquery'),null,true);
 			wp_register_style('ion-range-slider',wpbooking_assets_url('ion-range-slider/css/ion.rangeSlider.css'));
 			wp_register_style('ion-range-slider-flatui',wpbooking_assets_url('ion-range-slider/css/ion.rangeSlider.skinFlat.css'));
+			wp_register_style('ion-range-slider-html5',wpbooking_assets_url('ion-range-slider/css/ion.rangeSlider.skinHTML5.css'));
 
 
 
