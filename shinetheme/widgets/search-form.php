@@ -247,7 +247,6 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					wp_enqueue_style('ion-range-slider');
 					wp_enqueue_style('ion-range-slider-html5');
 
-					wp_enqueue_script('chartjs');
 
 					$min_max_price=WPBooking_Service_Model::inst()->get_min_max_price(array('service_type'=>$service_type));
 					$price_chart=WPBooking_Service_Model::inst()->get_price_chart(array('service_type'=>$service_type));

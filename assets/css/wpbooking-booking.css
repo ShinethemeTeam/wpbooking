@@ -155,12 +155,11 @@
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
 }
 .wpbooking-price-chart {
-  padding: 0px 15px;
   margin-bottom: -19px;
 }
 .wpbooking-price-chart .bar-item {
   display: inline-block;
-  width: 3%;
+  width: 3.33%;
   background: rgba(118, 118, 118, 0.5);
 }
 .irs .irs .irs-line {
