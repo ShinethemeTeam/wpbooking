@@ -17,6 +17,27 @@ if(!class_exists('WPBooking_Admin_Order'))
 		function __construct()
 		{
 			add_action('init',array($this,'_register_post_type'));
+			add_action('add_meta_boxes',array($this,'_register_metabox'));
+		}
+
+		/**
+		 * Register Metabox to show Order Information
+		 * @author dungdt
+		 * @since 1.0
+		 */
+		function _register_metabox()
+		{
+			add_meta_box('wpbooking_order_metabox',esc_html__('Order Information','wpbooking'),array($this,'_show_metabox'),'wpbooking_order','normal','high');
+		}
+
+		/**
+		 * Callback function to show Order Metabox HTML
+		 * @since 1.0
+		 * @author dungdt
+		 */
+		function _show_metabox()
+		{
+			echo wpbooking_admin_load_view('order/detail');
 		}
 
 		function _register_post_type()
