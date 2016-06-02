@@ -437,6 +437,14 @@ jQuery(document).ready(function($){
         });
 
 
-    })
+    });
+
+    /**
+     * Active Next Check In Field
+     */
+    $('[name=location_id]').change(function(){
+        var parent=$(this).closest('.item-search');
+        parent.next().find('[name=check_in]').focus();
+    });
 });
 
