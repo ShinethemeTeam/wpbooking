@@ -484,6 +484,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 									FROM
 										wp_comments
 									JOIN {$wpdb->prefix}commentmeta ON {$wpdb->prefix}comments.comment_ID = {$wpdb->prefix}commentmeta.comment_id
+									WHERE comment_approved=1
 									GROUP BY {$wpdb->prefix}comments.comment_post_ID HAVING avg_rate
 							)as ID
 

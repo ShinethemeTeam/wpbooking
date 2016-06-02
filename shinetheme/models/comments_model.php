@@ -27,6 +27,7 @@ if(!class_exists('WPBooking_Comment_Model'))
 				->join('commentmeta','commentmeta.comment_id=comments.comment_ID')
 				->where($wpdb->commentmeta.'.meta_key','wpbooking_review')
 				->where('comment_post_ID',$post_id)
+				->where('comment_approved',1)
 				->get()->row();
 
 			return !empty($row['avg_rate'])?$row['avg_rate']:FALSE;
