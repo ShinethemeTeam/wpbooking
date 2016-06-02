@@ -136,24 +136,24 @@ $config['settings'] = array(
 					),
 				)
 			),
-			'confirm_email' => array(
-				'id'     => 'confirm_email',
-				'label'  => __("Confirmation Email", 'wpbooking'),
-				'fields' => array(
-
-					array(
-						'id'        => 'confirm_to_customer',
-						'label'     => __("For Customer", 'wpbooking'),
-						'type'      => 'texteditor',
-						'desc'=>wpbooking_admin_load_view('email/document')
-					),
-					array(
-						'id'        => 'confirm_to_partner',
-						'label'     => __("For Partner", 'wpbooking'),
-						'type'      => 'texteditor',
-					),
-				)
-			),
+//			'confirm_email' => array(
+//				'id'     => 'confirm_email',
+//				'label'  => __("Confirmation Email", 'wpbooking'),
+//				'fields' => array(
+//
+//					array(
+//						'id'        => 'confirm_to_customer',
+//						'label'     => __("For Customer", 'wpbooking'),
+//						'type'      => 'texteditor',
+//						'desc'=>wpbooking_admin_load_view('email/document')
+//					),
+//					array(
+//						'id'        => 'confirm_to_partner',
+//						'label'     => __("For Partner", 'wpbooking'),
+//						'type'      => 'texteditor',
+//					),
+//				)
+//			),
 			'booking_email' => array(
 				'id'     => 'booking_email',
 				'label'  => __("Booking Email", 'wpbooking'),
