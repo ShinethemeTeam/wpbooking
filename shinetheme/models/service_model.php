@@ -78,7 +78,39 @@ if (!class_exists('WPBooking_Service_Model')) {
 
 			return $res;
 		}
+		/**
+		 * Get Array of Price for Chart
+		 * @since 1.0
+		 *
+		 * @param $args array Search Params
+		 * @return mixed
+		 */
+		function get_price_chart($args = array())
+		{
+			$min_max=$this->get_min_max_price($args);
+			if($min_max){
+				$res=array();
+				$columns=30;
+				$step=($min_max['max']-$min_max['min'])/$columns;
 
+				for($i=1;$i<=$columns;$i++){
+					$row=$this->select('count(post_id) as total')
+						->where('price>=',$step*$i+$min_max['min'])
+						->where('price<',$step*($i+1)+$min_max['min'])
+						->get()->row();
+
+					if($row){
+						$res[]=(float)$row['total'];
+					}else{
+						$res[]=0;
+					}
+				}
+
+				return $res;
+			}
+
+			return array();
+		}
 		static function inst()
 		{
 			if (!self::$_inst) {

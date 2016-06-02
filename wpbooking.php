@@ -100,6 +100,11 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			wp_enqueue_script('gmap3.min-js',wpbooking_assets_url('js/gmap3.min.js'),array('jquery'),null,true);
 
 			/**
+			 * Chartjs - For Price Slider
+			 */
+			wp_register_script('chartjs',wpbooking_assets_url('js/Chart.min.js'),array(),null,true);
+
+			/**
 			 * Select2 Jquery
 			 */
 			wp_enqueue_script('wpbooking-select2',wpbooking_assets_url('select2/js/select2.full.min.js'),array('jquery'),null,true);

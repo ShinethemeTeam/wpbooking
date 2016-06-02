@@ -403,5 +403,40 @@ jQuery(document).ready(function($){
     //==========================================================================================
 
 
+    /**
+     * Price Chart
+     */
+
+
+    $(window).load(function(){
+        $('.wpbooking-price-chart').each(function(){
+            var me=$(this);
+            console.log(me.data('chart'));
+            try{
+                var data=me.data('chart');
+                console.log(data);
+                var max=data[0];
+
+                for(i=0;i<data.length;i++){
+                    if(data[i]>max) max=data[i];
+                }
+
+                for(i=0;i<data.length;i++){
+                    var bar=$('<div/>');
+                    var height=parseInt(data[i]*25/max);
+                    bar.addClass('bar-item');
+                    bar.css({
+                        height:height
+                    });
+                    me.append(bar);
+                }
+            }catch(e){
+
+            }
+
+        });
+
+
+    })
 });
 

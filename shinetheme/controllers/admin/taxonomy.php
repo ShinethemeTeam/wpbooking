@@ -39,6 +39,8 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 				foreach ($all as $key => $value) {
 					$labels = array(
 						'name' => $value['label'],
+						'add_new_item'      => sprintf(esc_html__('Add New %s','wpbooking'),$value['label']),
+						'new_item_name'     => sprintf(esc_html__('New %s Name','wpbooking'),$value['label']),
 					);
 
 					$args = array(

@@ -71,7 +71,15 @@
 
 .wpbooking-search-form{
     .item-search{
+        >label{
+            margin-bottom: 10px;
+            font-weight: bold;
+
+        }
         margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #dce0e0;
+
         input,select{
             border-radius: 3px;
             border: 1px solid rgba(51, 51, 51, 0.1);
@@ -79,6 +87,7 @@
         input[text],select{
             width: 100%;
         }
+
     }
 
     .wpbooking-search-form-more{
@@ -207,5 +216,34 @@
         margin-top: 8.3333%;
         background: #fff;
         box-shadow: 0 0 1px rgba(0,0,0,.15);
+    }
+}
+
+.wpbooking-price-chart{
+    padding: 0px 15px;
+    margin-bottom: -19px;
+    .bar-item{
+        display: inline-block;
+        width: 3%;
+        background: rgba(118,118,118,0.5);
+    }
+}
+
+// Ion-ranger slider
+.irs{
+    .irs{
+        .irs-line{
+            top:13px;
+        }
+        .irs-from, .irs-to, .irs-single,.irs-min, .irs-max{
+            bottom:0px;
+            top:auto;
+        }
+    }
+    .irs-bar{
+        top:13px;
+    }
+    .irs-slider{
+        top:4px;
     }
 }
