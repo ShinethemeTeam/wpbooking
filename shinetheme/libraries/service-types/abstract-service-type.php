@@ -323,6 +323,11 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 			global $wpdb;
 			$table=WPBooking_Service_Model::inst()->get_table_name();
 			$join.=' JOIN '.$table.' on '.$table.'.post_id='.$wpdb->posts.'.ID ';
+//			if(WPBooking_Input::get('review_rate'))
+//			{
+//				$join.=' JOIN '.$wpdb->comments.' on '.$wpdb->commentmeta.'.comment_post_ID='.$wpdb->posts.'.ID ';
+//				$join.=' JOIN '.$wpdb->commentmeta.' on '.$wpdb->comments.'.comment_ID='.$wpdb->commentmeta.'.comment_id ';
+//			}
 			return $join;
 		}
 

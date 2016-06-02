@@ -473,19 +473,18 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 						$and .= " OR ";
 					}
 
-					$and .= $wpdb->prepare(" ( {$wpdb->prefix}commentmeta.meta_key = 'wpbooking_review' AND {$wpdb->prefix}commentmeta.meta_value = %s ) ",$v);
+					$and .= $wpdb->prepare("  avg_rate>= %s  ",$v);
 				}
 				if (!empty($and)) {
 					$where .= " AND $wpdb->posts.ID IN
 						(
-							SELECT * FROM (
+							SELECT post_id FROM (
 									SELECT
-										{$wpdb->prefix}comments.comment_post_ID as post_id
+										{$wpdb->prefix}comments.comment_post_ID as post_id,avg({$wpdb->commentmeta}.meta_value) as avg_rate
 									FROM
 										wp_comments
 									JOIN {$wpdb->prefix}commentmeta ON {$wpdb->prefix}comments.comment_ID = {$wpdb->prefix}commentmeta.comment_id
-									WHERE 1 = 1
-									AND ( {$and} )
+									GROUP BY {$wpdb->prefix}comments.comment_post_ID HAVING avg_rate
 							)as ID
 
 						)";
