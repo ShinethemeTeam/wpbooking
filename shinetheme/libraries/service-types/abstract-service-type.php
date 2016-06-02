@@ -336,11 +336,11 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 
 				if(!empty($array[0]))
 				{
-					$where.=$wpdb->prepare('AND price>=%d',$array[0]);
+					$where.=$wpdb->prepare(' AND price>=%d',$array[0]);
 				}
 				if(!empty($array[1]))
 				{
-					$where.=$wpdb->prepare('AND price<=%d',$array[1]);
+					$where.=$wpdb->prepare(' AND price<=%d',$array[1]);
 				}
 			}
 
