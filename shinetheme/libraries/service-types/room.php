@@ -400,10 +400,10 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		function _service_query_args($args)
 		{
 			$meta_query=array();
-			$meta_query[]=array(
-				'key'   => 'service_type',
-				'value' => $this->type_id,
-			);
+//			$meta_query[]=array(
+//				'key'   => 'service_type',
+//				'value' => $this->type_id,
+//			);
 
 			if ($location_id = WPBooking_Input::request('location_id')) {
 				$args['tax_query'][] = array(
@@ -467,13 +467,13 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 			global $wpdb;
 			if ($review_rate = WPBooking_Input::request('review_rate') and is_array(explode(',', $review_rate))) {
-				$and = "";
+				$and = "HAVING ";
 				foreach (explode(',', $review_rate) as $k => $v) {
 					if ($k > 0) {
 						$and .= " OR ";
 					}
 
-					$and .= $wpdb->prepare("  avg_rate>= %s  ",$v);
+					$and .= $wpdb->prepare("  ( avg_rate>= %d and avg_rate<%d )",$v,$v+1);
 				}
 				if (!empty($and)) {
 					$where .= " AND $wpdb->posts.ID IN
@@ -483,12 +483,14 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 										{$wpdb->prefix}comments.comment_post_ID as post_id,avg({$wpdb->commentmeta}.meta_value) as avg_rate
 									FROM
 										wp_comments
-									JOIN {$wpdb->prefix}commentmeta ON {$wpdb->prefix}comments.comment_ID = {$wpdb->prefix}commentmeta.comment_id
+									JOIN {$wpdb->prefix}commentmeta ON {$wpdb->prefix}comments.comment_ID = {$wpdb->prefix}commentmeta.comment_id and {$wpdb->commentmeta}.meta_key='wpbooking_review'
 									WHERE comment_approved=1
-									GROUP BY {$wpdb->prefix}comments.comment_post_ID HAVING avg_rate
+
+									GROUP BY {$wpdb->prefix}comments.comment_post_ID {$and}
 							)as ID
 
 						)";
+
 				}
 
 			}
