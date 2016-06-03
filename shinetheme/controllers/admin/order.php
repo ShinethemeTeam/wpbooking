@@ -21,7 +21,6 @@ if(!class_exists('WPBooking_Admin_Order'))
 
 			add_filter('post_row_actions',array($this,'_add_post_row_actions'),10,2);
 			add_action('admin_init',array($this,'_resend_email'));
-
 		}
 
 		/**

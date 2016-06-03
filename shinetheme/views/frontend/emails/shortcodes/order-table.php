@@ -27,6 +27,7 @@ $items=$booking->get_order_items($order_id);
 				<h4 class="service-name"><a href="<?php echo get_permalink($value['post_id'])?>" target="_blank"><?php echo get_the_title($value['post_id'])?></a></h4>
 				<?php do_action('wpbooking_order_item_information',$value) ?>
 				<?php do_action('wpbooking_order_item_information_'.$service_type,$value) ?>
+				<?php do_action('wpbooking_email_order_item_information_'.$service_type,$value) ?>
 			</td>
 			<td class="review-order-item-total">
 				<p class="cart-item-price"><?php echo WPBooking_Currency::format_money($booking->get_order_item_total($value)); ?></p>

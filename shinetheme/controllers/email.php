@@ -50,15 +50,22 @@ if(!class_exists('WPBooking_Email'))
 
 			$items=$order_model->get_order_items($order_id);
 
+			// Send Booking Information to Customer
+			$customer=FALSE;
+
 			// Send Booking Information
 			// To all Partners
 			$authors=array();
+			$authors_email=array();
 			if(!empty($items))
 			{
 				foreach($items as $key=>$value)
 				{
 					if(!empty($value['partner_id'])){
 						$authors[$value['partner_id']][]=$value;
+					}
+					if(!empty($value['customer_id'])){
+						$customer=$value;
 					}
 				}
 			}
@@ -68,18 +75,46 @@ if(!class_exists('WPBooking_Email'))
 				foreach($authors as $key=>$value)
 				{
 					$to=$user_email = get_the_author_meta( 'user_email' ,$key);
+
+					// Check if author is sent, then ignore current loop
+					if(in_array($to,$authors_email)) continue;
+
+					$authors_email[]=$to;
+
 					$subject=sprintf(__("New Order from %s",'wpbooking'),get_bloginfo('title'));
 					WPBooking()->set('items',$value);
+					WPBooking()->set('is_email_to_author',1);
+
 					$message=do_shortcode(wpbooking_load_view('emails/booking-information'));
 					$this->send($to,$subject,$message);
+
+					WPBooking()->set('is_email_to_author',0);
 				}
 			}
 
-			// to Admin
+			if(!empty($customer))
+			{
+				$to=$user_email = get_the_author_meta( 'user_email' ,$customer['customer_id']);
+				$subject=sprintf(__("New Order from %s",'wpbooking'),get_bloginfo('title'));
+				WPBooking()->set('items',$customer);
+				WPBooking()->set('is_email_to_customer',1);
+				$message=do_shortcode(wpbooking_load_view('emails/booking-information'));
+				$this->send($to,$subject,$message);
+				WPBooking()->set('is_email_to_customer',0);
+			}
+
+			// to Admin, check if Admin is already an author
 			$to=get_option('admin_email');
-			$subject=sprintf(__("New Order from %s",'wpbooking'),get_bloginfo('title'));
-			$message=do_shortcode(wpbooking_load_view('emails/booking-information',array('items'=>$items,'order_id'=>$order_id)));
-			$this->send($to,$subject,$message);
+			if(!in_array($to,$authors_email)){
+
+				WPBooking()->set('is_email_to_admin',1);
+				$subject=sprintf(__("New Order from %s",'wpbooking'),get_bloginfo('title'));
+				$message=do_shortcode(wpbooking_load_view('emails/booking-information',array('items'=>$items,'order_id'=>$order_id)));
+				$this->send($to,$subject,$message);
+
+				WPBooking()->set('is_email_to_admin',0);
+			}
+
 
 		}
 

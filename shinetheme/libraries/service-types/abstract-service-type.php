@@ -48,8 +48,42 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 			add_action('wpbooking_review_order_item_information_'.$this->type_id,array($this,'_show_cart_item_information'));
 			add_action('wpbooking_order_item_information_'.$this->type_id,array($this,'_show_order_item_information'));
 
+			/**
+			 * @since 1.0
+			 * @author dungdt
+			 */
+			add_action('wpbooking_email_order_item_information_'.$this->type_id,array($this,'_show_email_order_information'));
+
 		}
 
+		/**
+		 * Show Email Order Information, ex Confirm Button
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $order_item array
+		 *
+		 */
+		function _show_email_order_information($order_item)
+		{
+			// Check Email is send to Customer
+			if(WPBooking()->get('is_email_to_customer')){
+				$confirm_url=WPBooking_Order::inst()->get_customer_confirm_url($order_item);
+				if($confirm_url){
+					// Show Button
+					printf('<a target="_blank" href="%s">%s</a>',$confirm_url,esc_html__('Confirm Now','wpbooking'));
+				}
+			}
+			//Check Email Is send to Author or Admin
+			if(WPBooking()->get('is_email_to_author') or WPBooking()->get('is_email_to_admin'))
+			{
+				$confirm_url=WPBooking_Order::inst()->get_partner_confirm_url($order_item);
+				if($confirm_url){
+					// Show Button
+					printf('<a target="_blank" href="%s">%s</a>',$confirm_url,esc_html__('Confirm Now','wpbooking'));
+				}
+			}
+		}
 		/**
 		 * Show Cart Item Information Based on Service Type ID
 		 *

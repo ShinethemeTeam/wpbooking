@@ -28,6 +28,14 @@ if (!class_exists('WPBooking_Order')) {
 
 			add_filter('the_content', array($this, '_show_order_information'));
 
+
+			/**
+			 * Register Handle Confirmation URL
+			 *
+			 * @author dungdt
+			 * @since 1.0
+			 */
+			add_action('init',array($this,'_handle_confirmation'));
 		}
 
 
@@ -96,7 +104,6 @@ if (!class_exists('WPBooking_Order')) {
 					'order_form'            => $fields,
 					'base_price'            => get_post_meta($post_id, 'price', TRUE),
 					'currency'              => WPBooking_Currency::get_current_currency('currency'),
-					'customer_id'           => is_user_logged_in() ? get_current_user_id() : FALSE,
 					'deposit'               => get_post_meta($post_id, 'deposit', TRUE),
 					'deposit_amount'        => get_post_meta($post_id, 'deposit_amount', TRUE),
 					'need_customer_confirm' => apply_filters('wpbooking_service_need_customer_confirm', 0, $post_id, $service_type),
@@ -571,6 +578,150 @@ if (!class_exists('WPBooking_Order')) {
 			return get_permalink(wpbooking_get_option('cart_page'));
 		}
 
+		/**
+		 * Get Confirmation Booking URL for each Order Item
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $order_item array
+		 * @return string
+		 */
+		function get_customer_confirm_url($order_item)
+		{
+			if($order_item['need_customer_confirm'] and $order_item['customer_id']){
+				if(!$order_item['customer_confirm_code']){
+					WPBooking_Order_Model::inst()->generate_order_item_confirm_code($order_item['id']);
+				}
+				$order_item=WPBooking_Order_Model::inst()->find($order_item['id']);
+
+				if($order_item['customer_confirm_code']){
+
+					return add_query_arg(array(
+						'wpbooking_customer_confirm'=>$order_item['id'],
+						'confirmation_code'=>$order_item['customer_confirm_code']
+					),get_permalink($order_item['order_id']));
+				}
+			}
+		}
+		/**
+		 * Get Partner Confirmation Booking URL for each Order Item
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $order_item array
+		 * @return string
+		 */
+		function get_partner_confirm_url($order_item)
+		{
+			if($order_item['need_partner_confirm']){
+				if(!$order_item['partner_confirm_code']){
+					WPBooking_Order_Model::inst()->generate_order_item_confirm_code($order_item['id']);
+				}
+				$order_item=WPBooking_Order_Model::inst()->find($order_item['id']);
+
+				if($order_item['partner_confirm_code']){
+
+					return add_query_arg(array(
+						'wpbooking_partner_confirm'=>$order_item['id'],
+						'confirmation_code'=>$order_item['partner_confirm_code']
+					),get_permalink($order_item['order_id']));
+				}
+			}
+		}
+
+
+		/**
+		 * Handle Confirmation URL
+		 *
+		 * @author dungdt
+		 * @since 1.0
+		 */
+		function _handle_confirmation()
+		{
+			// Customer Confirmation
+			if($order_item_id=WPBooking_Input::get('wpbooking_customer_confirm') and WPBooking_Input::get('confirmation_code')){
+				if($oder_item=WPBooking_Order_Model::inst()->find($order_item_id)){
+
+					// Validate Current User is allowed to confirm
+					if(!$oder_item['customer_id']){
+						wpbooking_set_message(esc_html__('Sorry! This Order does not belong to anyone','wpbooking'),'danger');
+						return;
+					}
+					if(!is_user_logged_in()){
+						$url=add_query_arg($_GET,get_permalink($oder_item['order_id']));
+						wp_safe_redirect(wp_login_url($url));
+						die;
+					}
+					if($oder_item['customer_id']!=get_current_user_id()){
+						wpbooking_set_message(esc_html__('Sorry! You does not have permission to do that','wpbooking'),'danger');
+						return;
+					}
+
+					if(!$oder_item['need_customer_confirm']){
+
+						wpbooking_set_message(esc_html__('Sorry! This Order does not need to confirm','wpbooking'),'danger');
+						return;
+					}
+
+					if(WPBooking_Input::get('confirmation_code')!=$oder_item['customer_confirm_code']){
+						wpbooking_set_message(esc_html__('Sorry! We can not recognize this confirmation code','wpbooking'),'danger');
+						return;
+					}
+
+					WPBooking_Order_Model::inst()->where('id',$order_item_id)->update(array(
+						'need_customer_confirm'=>0
+					));
+
+					wpbooking_set_message(esc_html__('Thank you! Your Order Item is now confirmed','wpbooking'),'success');
+
+				}else{
+					wpbooking_set_message(esc_html__('We cannot recognize this order!','wpbooking'),'danger');
+				}
+			}
+
+			// Partner Confirmation
+			if($order_item_id=WPBooking_Input::get('wpbooking_partner_confirm') and WPBooking_Input::get('confirmation_code')){
+				if($oder_item=WPBooking_Order_Model::inst()->find($order_item_id)){
+
+					// Validate Current User is allowed to confirm
+					if(!$oder_item['partner_id']){
+						wpbooking_set_message(esc_html__('Sorry! This Order does not belong to anyone','wpbooking'),'danger');
+						return;
+					}
+					if(!is_user_logged_in()){
+						$url=add_query_arg($_GET,get_permalink($oder_item['order_id']));
+						wp_safe_redirect(wp_login_url($url));
+						die;
+					}
+					if($oder_item['partner_id']!=get_current_user_id()){
+						wpbooking_set_message(esc_html__('Sorry! You does not have permission to do that','wpbooking'),'danger');
+						return;
+					}
+
+					if(!$oder_item['need_partner_confirm']){
+
+						wpbooking_set_message(esc_html__('Sorry! This Order does not need to confirm','wpbooking'),'danger');
+						return;
+					}
+
+					if(WPBooking_Input::get('confirmation_code')!=$oder_item['partner_confirm_code']){
+						wpbooking_set_message(esc_html__('Sorry! We can not recognize this confirmation code','wpbooking'),'danger');
+						return;
+					}
+
+					WPBooking_Order_Model::inst()->where('id',$order_item_id)->update(array(
+						'need_partner_confirm'=>0
+					));
+
+					wpbooking_set_message(esc_html__('Thank you! This Order Item is now confirmed','wpbooking'),'success');
+
+				}else{
+					wpbooking_set_message(esc_html__('We cannot recognize this order!','wpbooking'),'danger');
+				}
+			}
+		}
 
 		/**
 		 * Return the permalink of the Checkout Page

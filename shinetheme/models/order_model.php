@@ -112,7 +112,7 @@ if (!class_exists('WPBooking_Order_Model')) {
 				'adult_number'          => $cart_item['adult_number'],
 				'child_number'          => $cart_item['child_number'],
 				'infant_number'         => $cart_item['infant_number'],
-				'customer_id'           => $cart_item['customer_id'],
+				'customer_id'           => is_user_logged_in() ? get_current_user_id() : FALSE,
 				'deposit'               => $cart_item['deposit'],
 				'deposit_amount'        => $cart_item['deposit_amount'],
 				'partner_id'            => get_post_field('post_author', $cart_item['post_id']),
@@ -122,7 +122,52 @@ if (!class_exists('WPBooking_Order_Model')) {
 				'status'                => 'on-hold'
 			);
 
+			if($insert['need_customer_confirm']) $insert['customer_confirm_code']=$this->generate_random_code();
+			if($insert['need_partner_confirm']) $insert['partner_confirm_code']=$this->generate_random_code();
+
 			return $this->insert($insert);
+		}
+
+		/**
+		 * Generate Confirmation Code
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $order_item_id int
+		 */
+		function generate_order_item_confirm_code($order_item_id){
+			if($order_item_id){
+				$item=$this->find($order_item_id);
+				if(!empty($item)){
+					$update=array();
+
+					// Customer Confirm
+					if($item['need_customer_confirm'] and !$item['customer_confirm_code']){
+						$update['customer_confirm_code']=$this->generate_random_code();
+					}
+					// Partner Confirm
+					if($item['need_partner_confirm'] and !$item['need_partner_confirm']){
+						$update['partner_confirm_code']=$this->generate_random_code();
+					}
+
+					if(!empty($update)){
+						$this->where('id',$order_item_id)->update($update);
+					}
+				}
+			}
+		}
+
+		/**
+		 * Generate Random MD5 string
+		 * @param $string
+		 * @return string
+		 */
+		function generate_random_code($string=FALSE)
+		{
+			if(!$string) $string=rand(0,99999);
+
+			return md5($string.time());
 		}
 
 		/**
