@@ -18,8 +18,61 @@ if(!class_exists('WPBooking_Admin_Order'))
 		{
 			add_action('init',array($this,'_register_post_type'));
 			add_action('add_meta_boxes',array($this,'_register_metabox'));
+
+			add_filter('post_row_actions',array($this,'_add_post_row_actions'),10,2);
+			add_action('admin_init',array($this,'_resend_email'));
+
 		}
 
+		/**
+		 * Check and resend email booking
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 */
+		function _resend_email()
+		{
+			if(WPBooking_Input::get('post_type')=='wpbooking_order'
+			and $order_id=WPBooking_Input::get('order_id')
+			and WPBooking_Input::get('bravo_resend_email')
+			){
+				WPBooking_Email::inst()->_send_order_email_success($order_id);
+				add_action('admin_notices',array($this,'_show_notice_email_success'));
+			}
+		}
+
+		/**
+		 * Show Admin Notice: Email send success
+		 * @since 1.0
+		 * @author dungdt
+		 */
+		function _show_notice_email_success()
+		{
+			?>
+			<div class="notice notice-success is-dismissible">
+				<p><?php esc_html_e( 'Email Resend Success!', 'wpbooking' ); ?></p>
+			</div>
+			<?php
+		}
+		/**
+		 * Filer to add row actions to order
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 */
+		function _add_post_row_actions($actions, $post)
+		{
+			if($post->post_type=='wpbooking_order'){
+				$url=add_query_arg(array(
+					'post_type'=>'wpbooking_order',
+					'order_id'=>$post->ID,
+					'bravo_resend_email'=>1,
+
+				),admin_url('edit.php'));
+				$actions['bravo_resend_email']='<a href="'.$url.'">'.esc_html__('Resend Booking Email','wpbooking').'</a>';
+			}
+			return $actions;
+		}
 		/**
 		 * Register Metabox to show Order Information
 		 * @author dungdt
