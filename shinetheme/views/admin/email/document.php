@@ -9,4 +9,5 @@
 
 <ol>
 	<li>[wpbooking_email_order_table] : <?php _e('Order Table','wpbooking') ?></li>
+	<li>[wpbooking_email_checkout_info]: <?php _e('Checkout Form Information','wpbooking') ?> </li>
 </ol>
