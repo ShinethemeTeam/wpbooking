@@ -69,6 +69,11 @@ if(!class_exists('WPBooking_Admin_Order'))
 
 				),admin_url('edit.php'));
 				$actions['bravo_resend_email']='<a href="'.$url.'">'.esc_html__('Resend Booking Email','wpbooking').'</a>';
+//				$actions['bravo_test_email']='<a href="'.add_query_arg(array(
+//						'test_email'=>'1',
+//						'post_id'=>$post->ID,
+//
+//					),admin_url('edit.php')).'">'.esc_html__('Test Email Template','wpbooking').'</a>';
 			}
 			return $actions;
 		}

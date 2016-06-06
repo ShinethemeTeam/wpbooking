@@ -156,20 +156,26 @@ $config['settings'] = array(
 //			),
 			'booking_email' => array(
 				'id'     => 'booking_email',
-				'label'  => __("Booking Email", 'wpbooking'),
+				'label'  => __("Email Template", 'wpbooking'),
 				'fields' => array(
 
 					array(
 						'id'        => 'email_to_customer',
 						'label'     => __("For Customer", 'wpbooking'),
 						'type'      => 'texteditor',
-						'desc'=>wpbooking_admin_load_view('email/document')
+						'desc'=>wpbooking_admin_load_view('email/document'),
+						'editor_args'=>array(
+							'tinymce'=>FALSE
+						)
 					),
 					array(
 						'id'        => 'email_to_partner',
-						'label'     => __("For Item's Host", 'wpbooking'),
+						'label'     => __("For Author and Administrator", 'wpbooking'),
 						'type'      => 'texteditor',
-						'desc'=>wpbooking_admin_load_view('email/document')
+						'desc'=>wpbooking_admin_load_view('email/document'),
+						'editor_args'=>array(
+							'tinymce'=>FALSE
+						)
 					),
 				)
 			),

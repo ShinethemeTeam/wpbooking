@@ -147,7 +147,7 @@ if (!class_exists('WPBooking_Order_Model')) {
 						$update['customer_confirm_code']=$this->generate_random_code();
 					}
 					// Partner Confirm
-					if($item['need_partner_confirm'] and !$item['need_partner_confirm']){
+					if($item['need_partner_confirm'] and !$item['partner_confirm_code']){
 						$update['partner_confirm_code']=$this->generate_random_code();
 					}
 

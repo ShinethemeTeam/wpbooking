@@ -1,4 +1,7 @@
 <?php
+$data=wp_parse_args($data,array(
+	'editor_args'=>FALSE
+));
 $data_value = wpbooking_get_option($data['id'],$data['std']);
 $name = 'wpbooking_'.$data['id'];
 
@@ -33,7 +36,7 @@ if(!empty($data['condition'])){
             <?php
             }else{
                 echo '<div class="min-width-500 width-800 content_editor">';
-                wp_editor(stripslashes($data_value),$name);
+                wp_editor(stripslashes($data_value),$name,$data['editor_args']);
                 echo '</div>';
             }
             ?>

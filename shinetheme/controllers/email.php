@@ -37,21 +37,94 @@ if(!class_exists('WPBooking_Email'))
 
 				$items=$order_model->get_order_items($order_id);
 				WPBooking()->set('order_id',$order_id);
-				$message=do_shortcode(wpbooking_load_view('emails/booking-information',array('items'=>$items,'order_id'=>$order_id)));
-				var_dump($message);
+				WPBooking()->set('is_email_to_author',1);
+				$message=do_shortcode(wpbooking_get_option('email_to_partner'));
+				WPBooking()->set('is_email_to_author',0);
+				echo ($message);
 				die;
 			}
 		}
 		function _send_order_email_success($order_id)
 		{
-			WPBooking()->set('order_id',$order_id);
+			$this->send_partner_email($order_id);
 
+			$this->send_customer_email($order_id);
+
+			$this->send_admin_email($order_id);
+
+		}
+
+		/**
+		 * @author dungdt
+		 * @since 1.0
+		 * @param $order_id
+		 */
+		private function send_admin_email($order_id){
+
+			$authors_email=$this->get_order_author_emails($order_id);
 			$order_model=WPBooking_Order_Model::inst();
-
 			$items=$order_model->get_order_items($order_id);
 
-			// Send Booking Information to Customer
-			$customer=FALSE;
+			$to=get_option('admin_email');
+			if(!in_array($to,$authors_email)){
+
+				WPBooking()->set('is_email_to_admin',1);
+				$subject=sprintf(__("New Order from %s",'wpbooking'),get_bloginfo('title'));
+				$message=do_shortcode(wpbooking_get_option('email_to_partner'));
+				$this->send($to,$subject,$message);
+
+				WPBooking()->set('is_email_to_admin',0);
+			}
+		}
+		/**
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param bool|FALSE $order_id
+		 * @return array
+		 */
+		private function get_order_author_emails($order_id=false)
+		{
+			$order_model=WPBooking_Order_Model::inst();
+			$items=$order_model->get_order_items($order_id);
+			$authors_email=array();
+
+			if(!empty($items))
+			{
+				foreach($items as $key=>$value)
+				{
+					if(!empty($value['partner_id'])){
+						$authors[$value['partner_id']][]=$value;
+					}
+				}
+			}
+
+			if(!empty($authors))
+			{
+				foreach($authors as $key=>$value)
+				{
+					$to=$user_email = get_the_author_meta( 'user_email' ,$key);
+					$authors_email[]=$to;
+				}
+			}
+
+			return $authors_email;
+		}
+
+		/**
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $order_id
+		 */
+		private function send_partner_email($order_id)
+		{
+			do_action('wpbooking_before_send_partner_email',$order_id);
+
+			WPBooking()->set('order_id',$order_id);
+			$order_model=WPBooking_Order_Model::inst();
+			$items=$order_model->get_order_items($order_id);
+
 
 			// Send Booking Information
 			// To all Partners
@@ -63,9 +136,6 @@ if(!class_exists('WPBooking_Email'))
 				{
 					if(!empty($value['partner_id'])){
 						$authors[$value['partner_id']][]=$value;
-					}
-					if(!empty($value['customer_id'])){
-						$customer=$value;
 					}
 				}
 			}
@@ -85,37 +155,60 @@ if(!class_exists('WPBooking_Email'))
 					WPBooking()->set('items',$value);
 					WPBooking()->set('is_email_to_author',1);
 
-					$message=do_shortcode(wpbooking_load_view('emails/booking-information'));
+					$message=do_shortcode(wpbooking_get_option('email_to_partner'));
 					$this->send($to,$subject,$message);
 
 					WPBooking()->set('is_email_to_author',0);
 				}
 			}
 
-			if(!empty($customer))
+			do_action('wpbooking_after_send_partner_email',$order_id);
+		}
+
+		/**
+		 *
+		 *
+		 * @author dungdt
+		 * @since 1.0
+		 *
+		 * @param $order_id
+		 *
+		 */
+		private function send_customer_email($order_id){
+
+			do_action('wpbooking_before_send_customer_email',$order_id);
+
+			WPBooking()->set('order_id',$order_id);
+
+			$order_model=WPBooking_Order_Model::inst();
+
+			$items=$order_model->get_order_items($order_id);
+
+			// Send Booking Information to Customer
+			$customer=FALSE;
+			if(!empty($items))
 			{
-				$to=$user_email = get_the_author_meta( 'user_email' ,$customer['customer_id']);
-				$subject=sprintf(__("New Order from %s",'wpbooking'),get_bloginfo('title'));
-				WPBooking()->set('items',$customer);
-				WPBooking()->set('is_email_to_customer',1);
-				$message=do_shortcode(wpbooking_load_view('emails/booking-information'));
-				$this->send($to,$subject,$message);
-				WPBooking()->set('is_email_to_customer',0);
+				foreach($items as $key=>$value)
+				{
+					if(!empty($value['customer_id'])){
+						$customer=$value;
+					}
+				}
 			}
 
-			// to Admin, check if Admin is already an author
-			$to=get_option('admin_email');
-			if(!in_array($to,$authors_email)){
+			$to=$user_email = get_the_author_meta( 'user_email' ,$customer['customer_id']);
 
-				WPBooking()->set('is_email_to_admin',1);
-				$subject=sprintf(__("New Order from %s",'wpbooking'),get_bloginfo('title'));
-				$message=do_shortcode(wpbooking_load_view('emails/booking-information',array('items'=>$items,'order_id'=>$order_id)));
-				$this->send($to,$subject,$message);
+			$subject=sprintf(__("New Order from %s",'wpbooking'),get_bloginfo('title'));
 
-				WPBooking()->set('is_email_to_admin',0);
-			}
+			WPBooking()->set('is_email_to_customer',1);
 
+			$message=do_shortcode(wpbooking_get_option('email_to_customer'));
 
+			$this->send($to,$subject,$message);
+
+			WPBooking()->set('is_email_to_customer',0);
+
+			do_action('wpbooking_after_send_customer_email',$order_id);
 		}
 
 		function _send_order_email_confirm()
