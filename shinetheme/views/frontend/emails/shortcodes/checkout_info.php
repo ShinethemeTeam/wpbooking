@@ -6,6 +6,7 @@
  * Time: 3:16 PM
  */
 $order_id=WPBooking()->get('order_id');
+$booking=WPBooking_Order::inst();
 if(!$order_id) return;
 
 $checkout_form_data=$booking->get_order_form_datas($order_id);

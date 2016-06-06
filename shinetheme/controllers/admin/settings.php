@@ -116,7 +116,7 @@ if(!class_exists('WPBooking_Admin_Setting'))
                             default:
 								if(isset($value['id'])){
 									$key_request = 'wpbooking_'.$value['id'];
-									$value_request = WPBooking_Input::request($key_request);
+									$value_request = WPBooking_Input::post($key_request);
 									update_option($key_request,$value_request);
 								}
                         }

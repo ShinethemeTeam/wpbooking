@@ -39,6 +39,13 @@ if(!class_exists('WPBooking_Email'))
 				WPBooking()->set('order_id',$order_id);
 				WPBooking()->set('is_email_to_author',1);
 				$message=do_shortcode(wpbooking_get_option('email_to_partner'));
+				if(class_exists('Emogrifier')){
+
+					$e=new Emogrifier();
+					$e->setHtml($message);
+					$e->setCss(wpbooking_get_option('email_stylesheet'));
+					$message=$e->emogrify();
+				}
 				WPBooking()->set('is_email_to_author',0);
 				echo ($message);
 				die;
@@ -232,6 +239,20 @@ if(!class_exists('WPBooking_Email'))
 
 			add_filter( 'wp_mail_content_type', array($this,'set_html_content_type') );
 
+			// Apply CSS to Inline CSS
+			if(class_exists('Emogrifier') and $email_css=wpbooking_get_option('email_stylesheet'))
+			{
+				try{
+					$Emogrifier=new Emogrifier();
+					$Emogrifier->setHtml($message);
+					$Emogrifier->setCss($email_css);
+					$message=$Emogrifier->emogrify();
+				}catch(Exception $e){
+
+				}
+
+			}
+
 			$check=wp_mail( $to, $subject, $message,$headers ,$attachment);
 
 			remove_filter( 'wp_mail_content_type', array($this,'set_html_content_type') );
@@ -258,6 +279,7 @@ if(!class_exists('WPBooking_Email'))
 		function _load_email_shortcodes()
 		{
 			WPBooking_Loader::inst()->load_library('shortcodes/emails/order-table');
+			WPBooking_Loader::inst()->load_library('shortcodes/emails/checkout-info');
 		}
 
 		static function inst()

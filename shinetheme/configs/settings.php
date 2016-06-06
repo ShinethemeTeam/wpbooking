@@ -177,6 +177,12 @@ $config['settings'] = array(
 							'tinymce'=>FALSE
 						)
 					),
+					array(
+						'id'        => 'email_stylesheet',
+						'label'     => __("Email CSS Code", 'wpbooking'),
+						'type'      => 'ace-editor',
+						'desc'=>esc_html__('We will use this to transmogrifies your Email HTML by parsing the CSS and inserting the CSS definitions into tags within your Email HTML based on the CSS selectors'),
+					),
 				)
 			),
 
