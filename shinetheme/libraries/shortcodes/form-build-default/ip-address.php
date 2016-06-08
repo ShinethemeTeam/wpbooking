@@ -115,7 +115,7 @@ if (!class_exists('WPBooking_Ip_Address_Field')) {
 		}
 	}
 
-	WPBooking_Current_Datetime_Field::inst();
+	WPBooking_Ip_Address_Field::inst();
 
 }
 

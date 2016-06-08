@@ -23,7 +23,8 @@ if (!class_exists('WPBooking_Country_Dropdown_Field')) {
 						"name"             => "title",
 						"desc"             => __("Title", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
-						'value'            => ""
+						'value'            => "",
+						'required'         => TRUE
 					),
 					array(
 						"type"             => "text",
@@ -31,7 +32,8 @@ if (!class_exists('WPBooking_Country_Dropdown_Field')) {
 						"name"             => "name",
 						"desc"             => __("Name", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
-						'value'            => ""
+						'value'            => "",
+						'required'         => TRUE
 					),
 					array(
 						"type"             => "text",
@@ -88,7 +90,7 @@ if (!class_exists('WPBooking_Country_Dropdown_Field')) {
 			extract($data);
 			$array = array(
 				'id'          => $id,
-				'class'       => $class.' ',
+				'class'       => $class . ' ',
 				'value'       => $value,
 				'placeholder' => $placeholder,
 				'size'        => $size,
@@ -101,10 +103,10 @@ if (!class_exists('WPBooking_Country_Dropdown_Field')) {
 			if ($is_required == "on") {
 				$required = "required";
 				$rule [] = "required";
-				$array['class'].=' required';
+				$array['class'] .= ' required';
 			}
 			if (!empty($maxlength)) {
-				$rule [] = "max_length[".$maxlength."]";
+				$rule [] = "max_length[" . $maxlength . "]";
 			}
 
 			parent::add_field($name, array('data' => $data, 'rule' => implode('|', $rule)));
@@ -117,15 +119,15 @@ if (!class_exists('WPBooking_Country_Dropdown_Field')) {
 				}
 			}
 
-			$country=$this->get_country_list();
+			$country = $this->get_country_list();
 
-			$html= '<select '.$a.' >';
-				if(!empty($country)){
-					foreach($country as $k=>$v){
-						$html.=sprintf('<option value="%s">%s</option>',$k,$v);
-					}
+			$html = '<select ' . $a . ' >';
+			if (!empty($country)) {
+				foreach ($country as $k => $v) {
+					$html .= sprintf('<option value="%s">%s</option>', $k, $v);
 				}
-			$html.='</select>';
+			}
+			$html .= '</select>';
 
 			return $html;
 		}
@@ -400,12 +402,14 @@ if (!class_exists('WPBooking_Country_Dropdown_Field')) {
 				"AX" => "Åland Islands",
 			);
 
-			return apply_filters('wpbooking_country_lists',$countryList);
+			return apply_filters('wpbooking_country_lists', $countryList);
 		}
+
 		function get_value($form_item_data)
 		{
-			$country=$this->get_country_list();
-			return (isset($form_item_data['value']) and array_key_exists($form_item_data['key'],$country) ) ? $country[$form_item_data['value']] : FALSE;
+			$country = $this->get_country_list();
+
+			return (isset($form_item_data['value']) and array_key_exists($form_item_data['key'], $country)) ? $country[$form_item_data['value']] : FALSE;
 		}
 
 		static function inst()

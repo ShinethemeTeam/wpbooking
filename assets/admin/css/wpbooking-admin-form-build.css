@@ -1073,6 +1073,9 @@
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
   background: #fff;
 }
+.form-build-v2 .required {
+  color: red;
+}
 .form-build-v2 .head-form {
   border-bottom: 1px solid #e5e5e5;
   font-size: 10px;
