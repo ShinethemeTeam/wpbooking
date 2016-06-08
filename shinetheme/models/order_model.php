@@ -51,7 +51,7 @@ if (!class_exists('WPBooking_Order_Model')) {
 			parent::__construct();
 		}
 
-		function create($cart, $checkout_form_data = array())
+		function create($cart, $checkout_form_data = array(),$selected_gateway=FALSE)
 		{
 			$order_data = array(
 				'post_title'  => sprintf(__('New Order In %s', 'wpbooking'), date(get_option('date_format') . ' @' . get_option('time_format'))),
@@ -62,6 +62,7 @@ if (!class_exists('WPBooking_Order_Model')) {
 
 			if ($order_id) {
 				update_post_meta($order_id, 'checkout_form_data', $checkout_form_data);
+				update_post_meta($order_id, 'wpbooking_selected_gateway', $selected_gateway);
 				if (!empty($checkout_form_data)) {
 					foreach ($checkout_form_data as $key => $value) {
 						update_post_meta($order_id, 'wpbooking_form_' . $key, $value['value']);

@@ -1251,6 +1251,17 @@ a.ui-datepicker-next {
 .wpbooking-rating-review .rating-stars a.active .icon-star:before {
   content: "\f005";
 }
+.wpbooking-order-information .wpbooking-order-table,
+.wpbooking-order-information .wpbooking-order-table tr {
+  border-top: 1px solid #dcdcdc;
+  border-left: 1px solid #dcdcdc;
+}
+.wpbooking-order-information .wpbooking-order-table td,
+.wpbooking-order-information .wpbooking-order-table th {
+  border-bottom: 1px solid #dcdcdc;
+  border-right: 1px solid #dcdcdc;
+  padding: 10px;
+}
 .label {
   display: inline;
   padding: .2em .6em .3em;

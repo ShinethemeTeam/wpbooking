@@ -223,7 +223,7 @@ if (!class_exists('WPBooking_Order')) {
 					}
 				}
 				$order_model = WPBooking_Order_Model::inst();
-				$order_id = $order_model->create($cart, $fields);
+				$order_id = $order_model->create($cart, $fields,$selected_gateway);
 				if ($order_id) {
 					$data = array(
 						'status' => 1

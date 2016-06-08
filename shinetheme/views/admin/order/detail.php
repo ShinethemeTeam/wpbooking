@@ -14,6 +14,7 @@ $checkout_form_data=$booking->get_order_form_datas();
 
 ?>
 <div class="wpbooking-order-information">
+	<h3><?php esc_html_e('Order Items','wpbooking') ?></h3>
 	<table class="wpbooking-order-table" width="100%" cellpadding="0" cellspacing="0">
 		<thead>
 		<tr>
@@ -47,10 +48,12 @@ $checkout_form_data=$booking->get_order_form_datas();
 		</tbody>
 		<tfoot>
 		<tr>
-			<td colspan="2"><?php _e('Total','wpbooking')?> <?php echo WPBooking_Currency::format_money($booking->get_order_total($order_id));?></td>
+			<td colspan="2"><?php _e('Total','wpbooking')?> </td>
+			<td><?php echo WPBooking_Currency::format_money($booking->get_order_total($order_id));?></td>
 		</tr>
 		<tr>
-			<td colspan="2"><?php _e('Pay Amount','wpbooking')?> <?php echo WPBooking_Currency::format_money($booking->get_order_pay_amount($order_id));?></td>
+			<td colspan="2"><?php _e('Pay Amount','wpbooking')?></td>
+			<td><?php echo WPBooking_Currency::format_money($booking->get_order_pay_amount($order_id));?></td>
 		</tr>
 		</tfoot>
 	</table>
@@ -81,6 +84,15 @@ $checkout_form_data=$booking->get_order_form_datas();
 			} ?>
 		</ul>
 	</div>
-	<?php }
-	do_action('wpbooking_end_checkout_form_data');?>
+	<?php }?>
+
+	<hr>
+	<h3><?php esc_html_e('Payment Method','wpbooking') ?></h3>
+	<?php
+	$selected_gateway=get_post_meta($order_id,'wpbooking_selected_gateway',true);
+
+	?>
+
+
+	<?php do_action('wpbooking_end_checkout_form_data');?>
 </div>

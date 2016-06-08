@@ -10,7 +10,7 @@ if(!empty($data['edit_field_class'])){
         <select class="item" data-type="dropdown"  data-name-shortcode="<?php echo esc_attr($parent) ?>" name="<?php echo balanceTags($data['name']) ?>" id="<?php echo balanceTags($data['name']) ?>">
             <?php if(!empty($data['options'])){
                     foreach($data['options'] as $k=>$v){
-                        echo '<option value="'.$v.'">'.$k.'</option>';
+                        echo '<option value="'.$k.'">'.$v.'</option>';
                     }
             } ?>
 
