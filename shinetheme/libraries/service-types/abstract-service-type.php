@@ -186,19 +186,20 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 			if($order_item['need_customer_confirm'] or $order_item['need_customer_confirm'])
 			{
 				echo "<div class='label label-warning'>".__("Need Confirmation",'wpbooking')."</div>";
-			}else{
-				// Show Payment Status
-				switch($order_item['status'])
-				{
-					case "completed":
-						echo "<div class='label label-success'>".__("Completed",'wpbooking')."</div>";
-						break;
-					case "on-hold":
-						echo "<div class='label label-warning'>".__("On-hold",'wpbooking')."</div>";
-						break;
-
-				}
 			}
+//			else{
+//				// Show Payment Status
+//				switch($order_item['status'])
+//				{
+//					case "completed":
+//						echo "<div class='label label-success'>".__("Completed",'wpbooking')."</div>";
+//						break;
+//					case "on-hold":
+//						echo "<div class='label label-warning'>".__("On-hold",'wpbooking')."</div>";
+//						break;
+//
+//				}
+//			}
 
 		}
 

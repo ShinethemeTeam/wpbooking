@@ -35,7 +35,7 @@ if (!class_exists('WPBooking_Order')) {
 			 * @author dungdt
 			 * @since 1.0
 			 */
-			add_action('init',array($this,'_handle_confirmation'));
+			add_action('init', array($this, '_handle_confirmation'));
 		}
 
 
@@ -87,8 +87,8 @@ if (!class_exists('WPBooking_Order')) {
 
 
 			if (!$is_validate) {
-				$res['status']=FALSE;
-				$res['message']=wpbooking_get_message(TRUE);
+				$res['status'] = FALSE;
+				$res['message'] = wpbooking_get_message(TRUE);
 
 			} else {
 				if (!empty($fields)) {
@@ -222,8 +222,42 @@ if (!class_exists('WPBooking_Order')) {
 						$fields[$k]['value'] = WPBooking_Input::post($k);
 					}
 				}
+
+				// Register User
+				$customer_id = FALSE;
+				// Default Fields
+				$fields = wp_parse_args($fields, array(
+					'user_first_name'          => FALSE,
+					'user_last_name'           => FALSE,
+					'user_email'               => FALSE,
+					'wpbooking_create_account' => FALSE
+				));
+
+				if ($email = $fields['user_email']) {
+					// Check User Exists
+					if ($user_id = email_exists($email)) $customer_id = $user_id;
+
+					// Check user want to create account
+					if ($fields['wpbooking_create_account']) {
+						$user_name = $this->generate_username();
+						if ($user_name) {
+
+							if ($create_user = wp_insert_user(array(
+									'user_login' => $user_name,
+									'user_email' => $email,
+									'first_name' => $fields['user_first_name'],
+									'last_name'  => $fields['user_last_name'],
+
+								)) and !is_wp_error($create_user)
+							) {
+								$customer_id = $create_user;
+							}
+						}
+					}
+				}
+
 				$order_model = WPBooking_Order_Model::inst();
-				$order_id = $order_model->create($cart, $fields,$selected_gateway);
+				$order_id = $order_model->create($cart, $fields, $selected_gateway, $customer_id);
 				if ($order_id) {
 					$data = array(
 						'status' => 1
@@ -542,8 +576,8 @@ if (!class_exists('WPBooking_Order')) {
 					// Payment Completed -> Ignore
 					if ($value['payment_status'] == 'completed') continue;
 
-					// Payment On-Paying -> Ignore
-					if ($value['payment_status'] == 'on-paying') continue;
+					// Payment processing -> Ignore
+					if ($value['payment_status'] == 'processing') continue;
 
 					if ($value['need_customer_confirm'] == 1 or $value['need_partner_confirm'] == 1) continue;
 
@@ -589,21 +623,22 @@ if (!class_exists('WPBooking_Order')) {
 		 */
 		function get_customer_confirm_url($order_item)
 		{
-			if($order_item['need_customer_confirm'] and $order_item['customer_id']){
-				if(!$order_item['customer_confirm_code']){
+			if ($order_item['need_customer_confirm'] and $order_item['customer_id']) {
+				if (!$order_item['customer_confirm_code']) {
 					WPBooking_Order_Model::inst()->generate_order_item_confirm_code($order_item['id']);
 				}
-				$order_item=WPBooking_Order_Model::inst()->find($order_item['id']);
+				$order_item = WPBooking_Order_Model::inst()->find($order_item['id']);
 
-				if($order_item['customer_confirm_code']){
+				if ($order_item['customer_confirm_code']) {
 
 					return add_query_arg(array(
-						'wpbooking_customer_confirm'=>$order_item['id'],
-						'confirmation_code'=>$order_item['customer_confirm_code']
-					),get_permalink($order_item['order_id']));
+						'wpbooking_customer_confirm' => $order_item['id'],
+						'confirmation_code'          => $order_item['customer_confirm_code']
+					), get_permalink($order_item['order_id']));
 				}
 			}
 		}
+
 		/**
 		 * Get Partner Confirmation Booking URL for each Order Item
 		 *
@@ -615,18 +650,18 @@ if (!class_exists('WPBooking_Order')) {
 		 */
 		function get_partner_confirm_url($order_item)
 		{
-			if($order_item['need_partner_confirm']){
-				if(!$order_item['partner_confirm_code']){
+			if ($order_item['need_partner_confirm']) {
+				if (!$order_item['partner_confirm_code']) {
 					WPBooking_Order_Model::inst()->generate_order_item_confirm_code($order_item['id']);
 				}
-				$order_item=WPBooking_Order_Model::inst()->find($order_item['id']);
+				$order_item = WPBooking_Order_Model::inst()->find($order_item['id']);
 
-				if($order_item['partner_confirm_code']){
+				if ($order_item['partner_confirm_code']) {
 
 					return add_query_arg(array(
-						'wpbooking_partner_confirm'=>$order_item['id'],
-						'confirmation_code'=>$order_item['partner_confirm_code']
-					),get_permalink($order_item['order_id']));
+						'wpbooking_partner_confirm' => $order_item['id'],
+						'confirmation_code'         => $order_item['partner_confirm_code']
+					), get_permalink($order_item['order_id']));
 				}
 			}
 		}
@@ -641,84 +676,92 @@ if (!class_exists('WPBooking_Order')) {
 		function _handle_confirmation()
 		{
 			// Customer Confirmation
-			if($order_item_id=WPBooking_Input::get('wpbooking_customer_confirm') and WPBooking_Input::get('confirmation_code')){
-				if($oder_item=WPBooking_Order_Model::inst()->find($order_item_id)){
+			if ($order_item_id = WPBooking_Input::get('wpbooking_customer_confirm') and WPBooking_Input::get('confirmation_code')) {
+				if ($oder_item = WPBooking_Order_Model::inst()->find($order_item_id)) {
 
 					// Validate Current User is allowed to confirm
-					if(!$oder_item['customer_id']){
-						wpbooking_set_message(esc_html__('Sorry! This Order does not belong to anyone','wpbooking'),'danger');
+					if (!$oder_item['customer_id']) {
+						wpbooking_set_message(esc_html__('Sorry! This Order does not belong to anyone', 'wpbooking'), 'danger');
+
 						return;
 					}
-					if(!is_user_logged_in()){
-						$url=add_query_arg($_GET,get_permalink($oder_item['order_id']));
+					if (!is_user_logged_in()) {
+						$url = add_query_arg($_GET, get_permalink($oder_item['order_id']));
 						wp_safe_redirect(wp_login_url($url));
 						die;
 					}
-					if($oder_item['customer_id']!=get_current_user_id()){
-						wpbooking_set_message(esc_html__('Sorry! You does not have permission to do that','wpbooking'),'danger');
+					if ($oder_item['customer_id'] != get_current_user_id()) {
+						wpbooking_set_message(esc_html__('Sorry! You does not have permission to do that', 'wpbooking'), 'danger');
+
 						return;
 					}
 
-					if(!$oder_item['need_customer_confirm']){
+					if (!$oder_item['need_customer_confirm']) {
 
-						wpbooking_set_message(esc_html__('Sorry! This Order does not need to confirm','wpbooking'),'danger');
+						wpbooking_set_message(esc_html__('Sorry! This Order does not need to confirm', 'wpbooking'), 'danger');
+
 						return;
 					}
 
-					if(WPBooking_Input::get('confirmation_code')!=$oder_item['customer_confirm_code']){
-						wpbooking_set_message(esc_html__('Sorry! We can not recognize this confirmation code','wpbooking'),'danger');
+					if (WPBooking_Input::get('confirmation_code') != $oder_item['customer_confirm_code']) {
+						wpbooking_set_message(esc_html__('Sorry! We can not recognize this confirmation code', 'wpbooking'), 'danger');
+
 						return;
 					}
 
-					WPBooking_Order_Model::inst()->where('id',$order_item_id)->update(array(
-						'need_customer_confirm'=>0
+					WPBooking_Order_Model::inst()->where('id', $order_item_id)->update(array(
+						'need_customer_confirm' => 0
 					));
 
-					wpbooking_set_message(esc_html__('Thank you! Your Order Item is now confirmed','wpbooking'),'success');
+					wpbooking_set_message(esc_html__('Thank you! Your Order Item is now confirmed', 'wpbooking'), 'success');
 
-				}else{
-					wpbooking_set_message(esc_html__('We cannot recognize this order!','wpbooking'),'danger');
+				} else {
+					wpbooking_set_message(esc_html__('We cannot recognize this order!', 'wpbooking'), 'danger');
 				}
 			}
 
 			// Partner Confirmation
-			if($order_item_id=WPBooking_Input::get('wpbooking_partner_confirm') and WPBooking_Input::get('confirmation_code')){
-				if($oder_item=WPBooking_Order_Model::inst()->find($order_item_id)){
+			if ($order_item_id = WPBooking_Input::get('wpbooking_partner_confirm') and WPBooking_Input::get('confirmation_code')) {
+				if ($oder_item = WPBooking_Order_Model::inst()->find($order_item_id)) {
 
 					// Validate Current User is allowed to confirm
-					if(!$oder_item['partner_id']){
-						wpbooking_set_message(esc_html__('Sorry! This Order does not belong to anyone','wpbooking'),'danger');
+					if (!$oder_item['partner_id']) {
+						wpbooking_set_message(esc_html__('Sorry! This Order does not belong to anyone', 'wpbooking'), 'danger');
+
 						return;
 					}
-					if(!is_user_logged_in()){
-						$url=add_query_arg($_GET,get_permalink($oder_item['order_id']));
+					if (!is_user_logged_in()) {
+						$url = add_query_arg($_GET, get_permalink($oder_item['order_id']));
 						wp_safe_redirect(wp_login_url($url));
 						die;
 					}
-					if($oder_item['partner_id']!=get_current_user_id()){
-						wpbooking_set_message(esc_html__('Sorry! You does not have permission to do that','wpbooking'),'danger');
+					if ($oder_item['partner_id'] != get_current_user_id()) {
+						wpbooking_set_message(esc_html__('Sorry! You does not have permission to do that', 'wpbooking'), 'danger');
+
 						return;
 					}
 
-					if(!$oder_item['need_partner_confirm']){
+					if (!$oder_item['need_partner_confirm']) {
 
-						wpbooking_set_message(esc_html__('Sorry! This Order does not need to confirm','wpbooking'),'danger');
+						wpbooking_set_message(esc_html__('Sorry! This Order does not need to confirm', 'wpbooking'), 'danger');
+
 						return;
 					}
 
-					if(WPBooking_Input::get('confirmation_code')!=$oder_item['partner_confirm_code']){
-						wpbooking_set_message(esc_html__('Sorry! We can not recognize this confirmation code','wpbooking'),'danger');
+					if (WPBooking_Input::get('confirmation_code') != $oder_item['partner_confirm_code']) {
+						wpbooking_set_message(esc_html__('Sorry! We can not recognize this confirmation code', 'wpbooking'), 'danger');
+
 						return;
 					}
 
-					WPBooking_Order_Model::inst()->where('id',$order_item_id)->update(array(
-						'need_partner_confirm'=>0
+					WPBooking_Order_Model::inst()->where('id', $order_item_id)->update(array(
+						'need_partner_confirm' => 0
 					));
 
-					wpbooking_set_message(esc_html__('Thank you! This Order Item is now confirmed','wpbooking'),'success');
+					wpbooking_set_message(esc_html__('Thank you! This Order Item is now confirmed', 'wpbooking'), 'success');
 
-				}else{
-					wpbooking_set_message(esc_html__('We cannot recognize this order!','wpbooking'),'danger');
+				} else {
+					wpbooking_set_message(esc_html__('We cannot recognize this order!', 'wpbooking'), 'danger');
 				}
 			}
 		}
@@ -778,6 +821,15 @@ if (!class_exists('WPBooking_Order')) {
 
 			return get_post_meta($order_id, 'checkout_form_data', TRUE);
 
+		}
+
+		function generate_username()
+		{
+			$prefix=apply_filters('wpbooking_generated_username_prefix','wpbooking_');
+			$user_name = $prefix.time() . rand(0, 999);
+			if (username_exists($user_name)) return $this->generate_username();
+
+			return $user_name;
 		}
 
 		static function inst()

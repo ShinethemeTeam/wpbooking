@@ -33,7 +33,7 @@ $checkout_form_data=$booking->get_order_form_datas();
 			<tr>
 				<td><?php echo esc_html($i) ?></td>
 				<td class="review-order-item-info">
-					<h4 class="service-name"><a href="<?php echo get_permalink($value['post_id'])?>" target="_blank"><?php echo get_the_title($value['post_id'])?></a></h4>
+					<a class="service-name" href="<?php echo get_permalink($value['post_id'])?>" target="_blank"><?php echo get_the_title($value['post_id'])?></a>
 					<?php do_action('wpbooking_order_item_information',$value) ?>
 					<?php do_action('wpbooking_order_item_information_'.$service_type,$value) ?>
 				</td>

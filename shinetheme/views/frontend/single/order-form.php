@@ -1,4 +1,9 @@
 <?php
+// External Booking
+if(get_post_meta(get_the_ID(),'external_booking',true) and $url=get_post_meta(get_the_ID(),'external_url',true)){
+	printf('<a href="%s">%s</a>',$url,esc_html__('Book Now','wpbooking'));
+	return;
+}
 $booking=WPBooking_Order::inst();
 $extra_price=wpbooking_load_view('single/extra-price');
 $form=$booking->get_order_form_by_post_id();

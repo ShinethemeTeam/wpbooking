@@ -27,6 +27,7 @@ if(empty($cart))
 		<div class="wpbooking-checkout-form">
 			<input name="action" value="wpbooking_do_checkout" type="hidden">
 			<?php echo do_shortcode($form_id)?>
+			<label ><input type="checkbox" name="wpbooking_create_account" value="1"><?php printf(esc_html__('Create %s account','wpbooking'),get_bloginfo('name')) ?></label>
 		</div>
 		<div class="wpbooking-checkout-review-order">
 			<div class="wpbooking-review-order">

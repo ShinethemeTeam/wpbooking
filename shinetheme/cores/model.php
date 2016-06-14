@@ -68,6 +68,8 @@ if(!class_exists('WPBooking_Model') ){
 		protected $_limit_query=array();
 		protected $_last_query=array();
 		protected $_last_result=array();
+		protected $_groupby=array();
+		protected $_having=array();
 
 		/**
 		 * @since 1.0
@@ -166,9 +168,33 @@ if(!class_exists('WPBooking_Model') ){
 				foreach($key as $k1=>$v1){
 					$this->orderby($k1,$v1);
 				}
+
+				return $this;
 			}
 			if(is_string($key)){
 				$this->_order_query[$key]=$value;
+			}
+			return $this;
+		}
+		function groupby($key,$value){
+			if(is_array($key) and !empty($key)){
+				foreach($key as $k1=>$v1){
+					$this->groupby($k1,$v1);
+				}
+			}
+			if(is_string($key)){
+				$this->_groupby[$key]=$value;
+			}
+			return $this;
+		}
+		function having($key,$value){
+			if(is_array($key) and !empty($key)){
+				foreach($key as $k1=>$v1){
+					$this->having($k1,$v1);
+				}
+			}
+			if(is_string($key)){
+				$this->_having[$key]=$value;
 			}
 			return $this;
 		}
@@ -584,6 +610,30 @@ if(!class_exists('WPBooking_Model') ){
 				$order=substr($order,0,-1);
 			}
 
+			$groupby=FALSE;
+
+			if(!empty($this->_groupby)){
+				$groupby=' GROUP BY ';
+				foreach($this->_groupby as $k=>$v){
+					$groupby.=' '.$k.' '.$v.',';
+				}
+
+				$groupby=substr($groupby,0,-1);
+
+				$having=FALSE;
+				if(!empty($this->_having)){
+					$having.=' HAVING ';
+					foreach($this->_having as $k=>$v){
+						$having.=' '.$k.' '.$v.',';
+					}
+
+					$having=substr($having,0,-1);
+
+					$groupby.=' '.$having;
+				}
+
+			}
+
 			$limit=FALSE;
 			if(!empty($this->_limit_query[0])){
 				$limit=' LIMIT ';
@@ -599,6 +649,7 @@ if(!class_exists('WPBooking_Model') ){
 				//$query=$wpdb->prepare($query,array($select));
 				$query.=$join;
 				$query.=$where;
+				$query.=$groupby;
 				$query.=$order;
 				$query.=$limit;
 

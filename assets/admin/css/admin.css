@@ -1262,6 +1262,9 @@ a.ui-datepicker-next {
   border-right: 1px solid #dcdcdc;
   padding: 10px;
 }
+.clear {
+  clear: both;
+}
 .label {
   display: inline;
   padding: .2em .6em .3em;

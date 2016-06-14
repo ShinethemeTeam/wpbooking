@@ -10,7 +10,7 @@
  * @see WPBooking_Loader::_autoload();
  */
 $autoload['config']=array(
-	//'settings'
+	'config',
 	'lang'
 );
 

@@ -51,7 +51,7 @@ if (!class_exists('WPBooking_Order_Model')) {
 			parent::__construct();
 		}
 
-		function create($cart, $checkout_form_data = array(),$selected_gateway=FALSE)
+		function create($cart, $checkout_form_data = array(),$selected_gateway=FALSE,$customer_id=FALSE)
 		{
 			$order_data = array(
 				'post_title'  => sprintf(__('New Order In %s', 'wpbooking'), date(get_option('date_format') . ' @' . get_option('time_format'))),
@@ -63,6 +63,16 @@ if (!class_exists('WPBooking_Order_Model')) {
 			if ($order_id) {
 				update_post_meta($order_id, 'checkout_form_data', $checkout_form_data);
 				update_post_meta($order_id, 'wpbooking_selected_gateway', $selected_gateway);
+				update_post_meta($order_id, 'customer_id', $customer_id);
+
+				//User Fields in case of customer dont want to create new account
+				$f=array('user_email','user_first_name','user_last_name');
+				foreach($f as $v){
+					if(array_key_exists($v,$checkout_form_data))
+					update_post_meta($order_id,$v,$checkout_form_data[$v]);
+				}
+
+
 				if (!empty($checkout_form_data)) {
 					foreach ($checkout_form_data as $key => $value) {
 						update_post_meta($order_id, 'wpbooking_form_' . $key, $value['value']);
@@ -72,15 +82,17 @@ if (!class_exists('WPBooking_Order_Model')) {
 
 			if (!empty($cart) and is_array($cart)) {
 				foreach ($cart as $key => $value) {
-					$this->save_order_item($value, $order_id);
+					$this->save_order_item($value, $order_id,$customer_id);
 				}
 			}
 
 			return $order_id;
 		}
 
-		function save_order_item($cart_item, $order_id)
+		function save_order_item($cart_item, $order_id,$customer_id=FALSE)
 		{
+			if(!$customer_id) $customer_id=is_user_logged_in() ? get_current_user_id() : FALSE;
+
 			$cart_item = wp_parse_args($cart_item, array(
 				'post_id'               => '',
 				'base_price'            => 0,
@@ -113,7 +125,7 @@ if (!class_exists('WPBooking_Order_Model')) {
 				'adult_number'          => $cart_item['adult_number'],
 				'child_number'          => $cart_item['child_number'],
 				'infant_number'         => $cart_item['infant_number'],
-				'customer_id'           => is_user_logged_in() ? get_current_user_id() : FALSE,
+				'customer_id'           => $customer_id,
 				'deposit'               => $cart_item['deposit'],
 				'deposit_amount'        => $cart_item['deposit_amount'],
 				'partner_id'            => get_post_field('post_author', $cart_item['post_id']),
@@ -198,8 +210,8 @@ if (!class_exists('WPBooking_Order_Model')) {
 					// Payment Completed -> Ignore
 					if ($value['payment_status'] == 'completed') continue;
 
-					// Payment On-Paying -> Ignore
-					if ($value['payment_status'] == 'on-paying') continue;
+					// Payment processing -> Ignore
+					if ($value['payment_status'] == 'processing') continue;
 
 					// Customer does not confirm the booking -> Ignore
 					if ($value['need_customer_confirm'] === 1) continue;
@@ -208,7 +220,7 @@ if (!class_exists('WPBooking_Order_Model')) {
 					if ($value['need_partner_confirm'] === 1) continue;
 
 					$on_paying[] = $value['id'];
-					$this->where('id', $value['id'])->update(array('payment_status' => 'on-paying', 'payment_id' => $payment_id));
+					$this->where('id', $value['id'])->update(array('payment_status' => 'processing', 'payment_id' => $payment_id));
 				}
 
 				return $on_paying;

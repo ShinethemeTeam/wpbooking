@@ -297,11 +297,33 @@ if (!class_exists('WPBooking_Service')) {
 			return $field_review . $fields;
 		}
 
+		/**
+		 * Get All Registered Service Types
+		 *
+		 * @author dungdt
+		 * @since 1.0
+		 *
+		 * @return mixed|void
+		 */
 		function get_service_types()
 		{
 			$default = array();
 
 			return apply_filters('wpbooking_service_types', $default);
+		}
+
+		/**
+		 * Get Service Type Object by Type ID
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param bool|FALSE $type
+		 * @return bool|object
+		 */
+		function get_service_type($type=FALSE){
+			$all=$this->get_service_types();
+
+			if($type and isset($all[$type])) return $all[$type];
 		}
 
 		function comments_template($template)

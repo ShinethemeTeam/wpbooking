@@ -63,3 +63,49 @@ if(!function_exists('wpbooking_service_rate_to_html'))
 
 	}
 }
+
+if(!function_exists('wpbooking_order_item_status_html')){
+	function wpbooking_order_item_status_html($status){
+		$all_status=WPBooking_Config::inst()->item('order_item_status');
+		if(array_key_exists($status,$all_status)){
+			switch($status){
+				case "on-hold":
+					return sprintf('<label class="label label-warning">%s</label>',$all_status[$status]['label']);
+				break;
+				case "completed":
+					return sprintf('<label class="label label-success">%s</label>',$all_status[$status]['label']);
+				break;
+				case "cancelled":
+				case "refunded":
+					return sprintf('<label class="label label-danger">%s</label>',$all_status[$status]['label']);
+				break;
+			}
+		}else{
+			return sprintf('<label class="label label-default">%s</label>',esc_html__('Unknown','wpbooking'));
+		}
+	}
+}
+if(!function_exists('wpbooking_payment_status_html')){
+	function wpbooking_payment_status_html($status){
+
+		// Pre-handle for old
+		if($status=='on-paying') $status='processing';
+
+		$all_status=WPBooking_Config::inst()->item('order_item_status');
+		if(array_key_exists($status,$all_status)){
+			switch($status){
+				case "processing":
+					return sprintf('<label class="label label-info">%s</label>',$all_status[$status]['label']);
+				break;
+				case "completed":
+					return sprintf('<label class="label label-success">%s</label>',$all_status[$status]['label']);
+				break;
+				case "failed":
+					return sprintf('<label class="label label-danger">%s</label>',$all_status[$status]['label']);
+				break;
+			}
+		}else{
+			return sprintf('<label class="label label-default">%s</label>',esc_html__('Unknown','wpbooking'));
+		}
+	}
+}

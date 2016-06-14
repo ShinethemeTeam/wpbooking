@@ -15,7 +15,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 
 		function __construct()
 		{
-			$this->table_version = '1.0.2.2';
+			$this->table_version = '1.0.2.3';
 			$this->table_name = 'wpbooking_service';
 			$this->columns = array(
 				'id'                => array(
@@ -24,6 +24,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 				),
 				'post_id'           => array('type' => "INT"),
 				'price'             => array('type' => "FLOAT"),
+				'number'            => array('type' => "INT"),
 				'children_price'    => array('type' => "FLOAT"),
 				'infant_price'      => array('type' => "FLOAT"),
 				'max_people'        => array('type' => "INT"),
@@ -31,7 +32,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 				'avg_review_rate'   => array('type' => "INT"),
 				'map_lat'           => array('type' => "FLOAT"),
 				'map_lng'           => array('type' => "FLOAT"),
-				'service_type'      => array('type' => "varchar",'length' => "50"),
+				'service_type'      => array('type' => "varchar", 'length' => "50"),
 			);
 			parent::__construct();
 		}
@@ -78,6 +79,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 
 			return $res;
 		}
+
 		/**
 		 * Get Array of Price for Chart
 		 * @since 1.0
@@ -87,22 +89,22 @@ if (!class_exists('WPBooking_Service_Model')) {
 		 */
 		function get_price_chart($args = array())
 		{
-			$min_max=$this->get_min_max_price($args);
-			if($min_max){
-				$res=array();
-				$columns=30;
-				$step=($min_max['max']-$min_max['min'])/$columns;
+			$min_max = $this->get_min_max_price($args);
+			if ($min_max) {
+				$res = array();
+				$columns = 30;
+				$step = ($min_max['max'] - $min_max['min']) / $columns;
 
-				for($i=1;$i<=$columns;$i++){
-					$row=$this->select('count(post_id) as total')
-						->where('price>=',$step*$i+$min_max['min'])
-						->where('price<',$step*($i+1)+$min_max['min'])
+				for ($i = 1; $i <= $columns; $i++) {
+					$row = $this->select('count(post_id) as total')
+						->where('price>=', $step * $i + $min_max['min'])
+						->where('price<', $step * ($i + 1) + $min_max['min'])
 						->get()->row();
 
-					if($row){
-						$res[]=(float)$row['total'];
-					}else{
-						$res[]=0;
+					if ($row) {
+						$res[] = (float)$row['total'];
+					} else {
+						$res[] = 0;
 					}
 				}
 
@@ -111,6 +113,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 
 			return array();
 		}
+
 		static function inst()
 		{
 			if (!self::$_inst) {

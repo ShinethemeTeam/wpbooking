@@ -17,12 +17,51 @@ if(!class_exists('WPBooking_Admin_Order'))
 		function __construct()
 		{
 			add_action('init',array($this,'_register_post_type'));
+			add_action('admin_menu',array($this,'_add_booking_menupage'));
 			add_action('add_meta_boxes',array($this,'_register_metabox'));
 
 			add_filter('post_row_actions',array($this,'_add_post_row_actions'),10,2);
 			add_action('admin_init',array($this,'_resend_email'));
 		}
 
+		function _add_booking_menupage()
+		{
+			$menu_page=$this->get_menu_page();
+			add_submenu_page(
+				$menu_page['parent_slug'],
+				$menu_page['page_title'],
+				$menu_page['menu_title'],
+				$menu_page['capability'],
+				$menu_page['menu_slug'],
+				$menu_page['function']
+			);
+		}
+
+		/**
+		 * @author dungdt
+		 * @since 1.0
+		 *
+		 * @return mixed|void
+		 */
+		function get_menu_page()
+		{
+			$menu_page=WPBooking()->get_menu_page();
+			$page=array(
+				'parent_slug'=>$menu_page['menu_slug'],
+				'page_title'=>__('All Bookings','wpbooking'),
+				'menu_title'=>__('All Bookings','wpbooking'),
+				'capability'=>'manage_options',
+				'menu_slug'=>'wpbooking_page_orders',
+				'function'=> array($this,'callback_menu_page')
+			);
+
+			return apply_filters('wpbooking_admin_order_menu_args',$page);
+
+		}
+		function callback_menu_page()
+		{
+			echo ($this->admin_load_view('order/index'));
+		}
 		/**
 		 * Check and resend email booking
 		 *
@@ -126,7 +165,7 @@ if(!class_exists('WPBooking_Admin_Order'))
 				'description'        => __( 'Description.', 'wpbooking' ),
 				'public'             => true,
 				'publicly_queryable' => true,
-				'show_ui'            => true,
+				'show_ui'            => FALSE,
 				'show_in_menu'       => $menu_page['menu_slug'],
 				'query_var'          => true,
 				'rewrite'            => array( 'slug' => 'booking' ),

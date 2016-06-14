@@ -195,7 +195,7 @@ if (!class_exists('WPBooking_Country_Dropdown_Field')) {
 				"CU" => "Cuba",
 				"CY" => "Cyprus",
 				"CZ" => "Czech Republic",
-				"CI" => "Côte d’Ivoire",
+				"CI" => "CÃ´te dâ€™Ivoire",
 				"DK" => "Denmark",
 				"DJ" => "Djibouti",
 				"DM" => "Dominica",
@@ -329,8 +329,8 @@ if (!class_exists('WPBooking_Country_Dropdown_Field')) {
 				"RO" => "Romania",
 				"RU" => "Russia",
 				"RW" => "Rwanda",
-				"RE" => "Réunion",
-				"BL" => "Saint Barthélemy",
+				"RE" => "RÃ©union",
+				"BL" => "Saint BarthÃ©lemy",
 				"SH" => "Saint Helena",
 				"KN" => "Saint Kitts and Nevis",
 				"LC" => "Saint Lucia",
@@ -362,7 +362,7 @@ if (!class_exists('WPBooking_Country_Dropdown_Field')) {
 				"SE" => "Sweden",
 				"CH" => "Switzerland",
 				"SY" => "Syria",
-				"ST" => "São Tomé and Príncipe",
+				"ST" => "SÃ£o TomÃ© and PrÃ­ncipe",
 				"TW" => "Taiwan",
 				"TJ" => "Tajikistan",
 				"TZ" => "Tanzania",
@@ -399,7 +399,7 @@ if (!class_exists('WPBooking_Country_Dropdown_Field')) {
 				"YE" => "Yemen",
 				"ZM" => "Zambia",
 				"ZW" => "Zimbabwe",
-				"AX" => "Åland Islands",
+				"AX" => "Ã…land Islands",
 			);
 
 			return apply_filters('wpbooking_country_lists', $countryList);
@@ -407,9 +407,14 @@ if (!class_exists('WPBooking_Country_Dropdown_Field')) {
 
 		function get_value($form_item_data)
 		{
+			$form_item_data=wp_parse_args($form_item_data,array(
+				'value'=>FALSE
+			));
+
+			$form_item_data['value']=(string)$form_item_data['value'];
 			$country = $this->get_country_list();
 
-			return (isset($form_item_data['value']) and array_key_exists($form_item_data['key'], $country)) ? $country[$form_item_data['value']] : FALSE;
+			return (isset($form_item_data['value']) and array_key_exists($form_item_data['value'], $country)) ? $country[$form_item_data['value']] : FALSE;
 		}
 
 		static function inst()

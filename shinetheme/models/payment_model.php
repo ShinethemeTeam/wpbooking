@@ -15,7 +15,7 @@ if (!class_exists('WPBooking_Payment_Model')) {
 
 		function __construct()
 		{
-			$this->table_name = 'payment';
+			$this->table_name = 'wpbooking_payment';
 			$this->table_version = '1.0';
 			$this->columns = array(
 				'id'             => array(
