@@ -127,7 +127,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			 * Ace Editor
 			 */
 			wp_register_script('acejs',wpbooking_assets_url('ace/ace.js'),array(),null,true);
-
+			wp_register_script('bootstrap',wpbooking_assets_url('bootstrap/js/bootstrap.min.js'),array('jquery'),null,true);
 
 			wp_enqueue_script('wpbooking-admin',wpbooking_admin_assets_url('js/wpbooking-admin.js'),array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker'),null,true);
 			wp_enqueue_script('wpbooking-admin-form-build',wpbooking_admin_assets_url('js/wpbooking-admin-form-build.js'),array('jquery'),null,true);
@@ -139,6 +139,10 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			wp_enqueue_script('fullcalendar-lang', wpbooking_admin_assets_url('/js/lang-all.js'), array('jquery'), null, true);
 
 			wp_enqueue_script('wpbooking-calendar-room',wpbooking_admin_assets_url('js/wpbooking-calendar-room.js'),array('jquery','jquery-ui-datepicker'),null,true);
+
+
+			//Popover
+			wp_register_style('popover',wpbooking_assets_url('bootstrap/less/popovers.css'));
 
 			wp_enqueue_style('full-calendar',wpbooking_admin_assets_url('/css/fullcalendar.min.css'),FALSE,'1.1.6');
 			//wp_enqueue_style('full-calendar-print',wpbooking_admin_assets_url('/css/fullcalendar.print.css'),FALSE,'1.1.6');

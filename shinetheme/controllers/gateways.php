@@ -52,6 +52,22 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 		}
 
 		/**
+		 * Get Gateway Item by ID
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param bool|FALSE $gateway_id
+		 * @return bool|object
+		 */
+		function get_gateway($gateway_id=FALSE)
+		{
+			$all=$this->get_gateways();
+			if(!empty($all) and !empty($all[$gateway_id])) return $gateway_id;
+		}
+
+
+		/**
 		 * Return only enabled gateway in the Dashboard
 		 * @return array
 		 */

@@ -101,6 +101,7 @@ if(!class_exists('WPBooking_Model') ){
 				foreach($key as $k1=>$v1){
 					$this->where($k1,$v1);
 				}
+				return $this;
 			}
 			if(is_string($key)){
 				$this->_where_query[$key]=$value;
@@ -307,6 +308,40 @@ if(!class_exists('WPBooking_Model') ){
 
 			return $wpdb->insert_id;
 
+		}
+
+		/**
+		 * Delete from table with where clause
+		 *
+		 * @author dungdt
+		 * @since 1.0
+		 *
+		 * @return bool|false|int
+		 */
+		function delete()
+		{
+			if(empty($data))
+			{
+				return FALSE;
+			}
+			global $wpdb;
+			$table_name = $wpdb->prefix . $this->table_name;
+
+			$where=FALSE;
+			if(!empty($this->_where_query)){
+				$where='WHERE 1=1 ';
+
+				foreach($this->_where_query as $key=>$value){
+					$where.=$wpdb->prepare(' AND `'.$key.'`=%s',array($value));
+				}
+			}
+
+
+			$query="DELETE FROM ".$table_name." ";
+
+			$query.=$where;
+
+			return $wpdb->query($query);
 		}
 
 		/**

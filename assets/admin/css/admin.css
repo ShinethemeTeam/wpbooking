@@ -1265,6 +1265,34 @@ a.ui-datepicker-next {
 .clear {
   clear: both;
 }
+.wpbooking-paginate {
+  margin: 20px 0px;
+  text-align: right;
+}
+.wpbooking-paginate a,
+.wpbooking-paginate span {
+  display: inline-block;
+  min-width: 17px;
+  border: 1px solid #d2d2d2;
+  padding: 3px 5px 7px;
+  background: #e4e4e4;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+}
+#wpbooking_order_calendar {
+  background: white;
+  margin-top: 30px;
+  padding: 20px;
+}
+#wpbooking_order_calendar .fc-event {
+  border-radius: 0px;
+  font-size: 13px;
+  padding: 3px;
+  margin-bottom: 2px;
+}
 .label {
   display: inline;
   padding: .2em .6em .3em;

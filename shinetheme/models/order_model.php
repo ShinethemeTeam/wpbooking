@@ -16,7 +16,7 @@ if (!class_exists('WPBooking_Order_Model')) {
 		function __construct()
 		{
 			$this->table_name = 'wpbooking_order_item';
-			$this->table_version = '1.1.3';
+			$this->table_version = '1.1.4';
 			$this->columns = array(
 				'id'                    => array(
 					'type'           => "int",
@@ -44,6 +44,7 @@ if (!class_exists('WPBooking_Order_Model')) {
 				'customer_confirm_code' => array('type' => "varchar", 'length' => 255),
 				'partner_confirm_code'  => array('type' => "varchar", 'length' => 255),
 				'need_partner_confirm'  => array('type' => 'INT'),
+				'created_at'            => array('type' => 'INT'),
 				'payment_status'        => array('type' => "varchar", 'length' => 50),
 				'payment_id'            => array('type' => "varchar", 'length' => 50),
 				'status'                => array('type' => "varchar", 'length' => 50),
@@ -51,8 +52,9 @@ if (!class_exists('WPBooking_Order_Model')) {
 			parent::__construct();
 		}
 
-		function create($cart, $checkout_form_data = array(),$selected_gateway=FALSE,$customer_id=FALSE)
+		function create($cart, $checkout_form_data = array(), $selected_gateway = FALSE, $customer_id = FALSE)
 		{
+			$created = time();
 			$order_data = array(
 				'post_title'  => sprintf(__('New Order In %s', 'wpbooking'), date(get_option('date_format') . ' @' . get_option('time_format'))),
 				'post_type'   => 'wpbooking_order',
@@ -66,10 +68,10 @@ if (!class_exists('WPBooking_Order_Model')) {
 				update_post_meta($order_id, 'customer_id', $customer_id);
 
 				//User Fields in case of customer dont want to create new account
-				$f=array('user_email','user_first_name','user_last_name');
-				foreach($f as $v){
-					if(array_key_exists($v,$checkout_form_data))
-					update_post_meta($order_id,$v,$checkout_form_data[$v]);
+				$f = array('user_email', 'user_first_name', 'user_last_name');
+				foreach ($f as $v) {
+					if (array_key_exists($v, $checkout_form_data))
+						update_post_meta($order_id, $v, $checkout_form_data[$v]);
 				}
 
 
@@ -82,16 +84,17 @@ if (!class_exists('WPBooking_Order_Model')) {
 
 			if (!empty($cart) and is_array($cart)) {
 				foreach ($cart as $key => $value) {
-					$this->save_order_item($value, $order_id,$customer_id);
+					$value['created_at'] = $created;
+					$this->save_order_item($value, $order_id, $customer_id);
 				}
 			}
 
 			return $order_id;
 		}
 
-		function save_order_item($cart_item, $order_id,$customer_id=FALSE)
+		function save_order_item($cart_item, $order_id, $customer_id = FALSE)
 		{
-			if(!$customer_id) $customer_id=is_user_logged_in() ? get_current_user_id() : FALSE;
+			if (!$customer_id) $customer_id = is_user_logged_in() ? get_current_user_id() : FALSE;
 
 			$cart_item = wp_parse_args($cart_item, array(
 				'post_id'               => '',
@@ -110,6 +113,7 @@ if (!class_exists('WPBooking_Order_Model')) {
 				'need_partner_confirm'  => 0,
 				'deposit'               => '',
 				'deposit_amount'        => '',
+				'created_at'            => FALSE
 			));
 			$insert = array(
 				'order_id'              => $order_id,
@@ -132,11 +136,12 @@ if (!class_exists('WPBooking_Order_Model')) {
 				'need_customer_confirm' => $cart_item['need_customer_confirm'] ? 1 : 0,
 				'need_partner_confirm'  => $cart_item['need_partner_confirm'] ? 1 : 0,
 				'payment_status'        => 0,
-				'status'                => 'on-hold'
+				'status'                => 'on-hold',
+				'created_at'            => $cart_item['created_at']
 			);
 
-			if($insert['need_customer_confirm']) $insert['customer_confirm_code']=$this->generate_random_code();
-			if($insert['need_partner_confirm']) $insert['partner_confirm_code']=$this->generate_random_code();
+			if ($insert['need_customer_confirm']) $insert['customer_confirm_code'] = $this->generate_random_code();
+			if ($insert['need_partner_confirm']) $insert['partner_confirm_code'] = $this->generate_random_code();
 
 			return $this->insert($insert);
 		}
@@ -149,23 +154,24 @@ if (!class_exists('WPBooking_Order_Model')) {
 		 *
 		 * @param $order_item_id int
 		 */
-		function generate_order_item_confirm_code($order_item_id){
-			if($order_item_id){
-				$item=$this->find($order_item_id);
-				if(!empty($item)){
-					$update=array();
+		function generate_order_item_confirm_code($order_item_id)
+		{
+			if ($order_item_id) {
+				$item = $this->find($order_item_id);
+				if (!empty($item)) {
+					$update = array();
 
 					// Customer Confirm
-					if($item['need_customer_confirm'] and !$item['customer_confirm_code']){
-						$update['customer_confirm_code']=$this->generate_random_code();
+					if ($item['need_customer_confirm'] and !$item['customer_confirm_code']) {
+						$update['customer_confirm_code'] = $this->generate_random_code();
 					}
 					// Partner Confirm
-					if($item['need_partner_confirm'] and !$item['partner_confirm_code']){
-						$update['partner_confirm_code']=$this->generate_random_code();
+					if ($item['need_partner_confirm'] and !$item['partner_confirm_code']) {
+						$update['partner_confirm_code'] = $this->generate_random_code();
 					}
 
-					if(!empty($update)){
-						$this->where('id',$order_item_id)->update($update);
+					if (!empty($update)) {
+						$this->where('id', $order_item_id)->update($update);
 					}
 				}
 			}
@@ -176,11 +182,11 @@ if (!class_exists('WPBooking_Order_Model')) {
 		 * @param $string
 		 * @return string
 		 */
-		function generate_random_code($string=FALSE)
+		function generate_random_code($string = FALSE)
 		{
-			if(!$string) $string=rand(0,99999);
+			if (!$string) $string = rand(0, 99999);
 
-			return md5($string.time());
+			return md5($string . time());
 		}
 
 		/**

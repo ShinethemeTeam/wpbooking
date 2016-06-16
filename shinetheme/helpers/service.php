@@ -79,9 +79,38 @@ if(!function_exists('wpbooking_order_item_status_html')){
 				case "refunded":
 					return sprintf('<label class="label label-danger">%s</label>',$all_status[$status]['label']);
 				break;
+
+				default:
+					return sprintf('<label class="label label-default">%s</label>',$all_status[$status]['label']);
+					break;
 			}
 		}else{
 			return sprintf('<label class="label label-default">%s</label>',esc_html__('Unknown','wpbooking'));
+		}
+	}
+}
+if(!function_exists('wpbooking_order_item_status_color')){
+	function wpbooking_order_item_status_color($status){
+		$all_status=WPBooking_Config::inst()->item('order_item_status');
+		if(array_key_exists($status,$all_status)){
+			switch($status){
+				case "on-hold":
+					return '#f0ad4e';
+				break;
+				case "completed":
+					return '#5cb85c';
+				break;
+				case "cancelled":
+				case "refunded":
+					return '#d9534f';
+				break;
+
+				default:
+					return '#5e5e5e';
+					break;
+			}
+		}else{
+			return '#5e5e5e';
 		}
 	}
 }
@@ -106,6 +135,21 @@ if(!function_exists('wpbooking_payment_status_html')){
 			}
 		}else{
 			return sprintf('<label class="label label-default">%s</label>',esc_html__('Unknown','wpbooking'));
+		}
+	}
+}
+if(!function_exists('wpbooking_get_order_item_used_gateway')){
+	function wpbooking_get_order_item_used_gateway($payment_id=FALSE){
+
+		$payment=WPBooking_Payment_Model::inst()->find($payment_id);
+		if($payment and !empty($payment['gateway'])){
+			$gateway=WPBooking_Payment_Gateways::inst()->get_gateway($payment['gateway']);
+			if($gateway){
+				return (!empty($gateway['label']))?$gateway['label']:$payment['gateway'];
+			}else{
+				return esc_html__('Unknown Gateway','wpbooking');
+			}
+
 		}
 	}
 }

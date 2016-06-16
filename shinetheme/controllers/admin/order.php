@@ -5,28 +5,89 @@
  * Date: 4/7/2016
  * Time: 11:16 AM
  */
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
-if(!class_exists('WPBooking_Admin_Order'))
-{
+if (!class_exists('WPBooking_Admin_Order')) {
 	class WPBooking_Admin_Order extends WPBooking_Controller
 	{
 		static $_inst;
 
 		function __construct()
 		{
-			add_action('init',array($this,'_register_post_type'));
-			add_action('admin_menu',array($this,'_add_booking_menupage'));
-			add_action('add_meta_boxes',array($this,'_register_metabox'));
+			add_action('init', array($this, '_register_post_type'));
+			add_action('admin_menu', array($this, '_add_booking_menupage'));
 
-			add_filter('post_row_actions',array($this,'_add_post_row_actions'),10,2);
-			add_action('admin_init',array($this,'_resend_email'));
+			// Apply Changes to Order Items
+			add_action('admin_init', array($this, '_apply_change_form'));
+
+			add_action('add_meta_boxes', array($this, '_register_metabox'));
+
+			add_filter('post_row_actions', array($this, '_add_post_row_actions'), 10, 2);
+			add_action('admin_init', array($this, '_resend_email'));
+
+			// Ajax for Jquery Fullcalendar
+			add_action('wp_ajax_wpbooking_order_calendar', array($this, '_ajax_order_calendar'));
+
+			add_action('admin_enqueue_scripts',array($this,'_add_script'));
+		}
+
+		function _apply_change_form()
+		{
+
+			// Validate Permission
+			if (!is_user_logged_in() or !current_user_can('manage_options')) return;
+
+			$order_model = WPBooking_Order_Model::inst();
+			if (WPBooking_Input::get('wpbooking_apply_changes') and $action = WPBooking_Input::get('action')) {
+				$items = WPBooking_Input::get('wpbooking_order_item');
+				if (empty($items)) {
+					wpbooking_set_message(esc_html__('You did not select any order item', 'wpbooking'), 'danger');
+
+					return;
+				}
+
+				switch ($action) {
+					case "cancel_booking":
+						foreach ($items as $item) {
+							$order_model->where('id', $item)->update(array('status' => 'cancelled'));
+						}
+						break;
+					case "complete_booking":
+						foreach ($items as $item) {
+							$order_model->where('id', $item)->update(array('status' => 'completed'));
+						}
+						break;
+					case "refunded_booking":
+						foreach ($items as $item) {
+							$order_model->where('id', $item)->update(array('status' => 'refunded'));
+						}
+						break;
+					case "onhold_booking":
+						foreach ($items as $item) {
+							$order_model->where('id', $item)->update(array('status' => 'on-hold'));
+						}
+						break;
+					case "trash":
+						foreach ($items as $item) {
+							$order_model->where('id', $item)->update(array('status' => 'trash'));
+						}
+						break;
+					case "permanently_delete":
+						foreach ($items as $item) {
+							$order_model->where('id', $item)->delete();
+						}
+						break;
+				}
+
+				wpbooking_set_admin_message(esc_html__('Saved successfully', 'wpbooking'), 'success');
+
+			}
 		}
 
 		function _add_booking_menupage()
 		{
-			$menu_page=$this->get_menu_page();
+			$menu_page = $this->get_menu_page();
 			add_submenu_page(
 				$menu_page['parent_slug'],
 				$menu_page['page_title'],
@@ -37,6 +98,7 @@ if(!class_exists('WPBooking_Admin_Order'))
 			);
 		}
 
+
 		/**
 		 * @author dungdt
 		 * @since 1.0
@@ -45,23 +107,83 @@ if(!class_exists('WPBooking_Admin_Order'))
 		 */
 		function get_menu_page()
 		{
-			$menu_page=WPBooking()->get_menu_page();
-			$page=array(
-				'parent_slug'=>$menu_page['menu_slug'],
-				'page_title'=>__('All Bookings','wpbooking'),
-				'menu_title'=>__('All Bookings','wpbooking'),
-				'capability'=>'manage_options',
-				'menu_slug'=>'wpbooking_page_orders',
-				'function'=> array($this,'callback_menu_page')
+			$menu_page = WPBooking()->get_menu_page();
+			$page = array(
+				'parent_slug' => $menu_page['menu_slug'],
+				'page_title'  => __('All Bookings', 'wpbooking'),
+				'menu_title'  => __('All Bookings', 'wpbooking'),
+				'capability'  => 'manage_options',
+				'menu_slug'   => 'wpbooking_page_orders',
+				'function'    => array($this, 'callback_menu_page')
 			);
 
-			return apply_filters('wpbooking_admin_order_menu_args',$page);
+			return apply_filters('wpbooking_admin_order_menu_args', $page);
 
 		}
+
 		function callback_menu_page()
 		{
-			echo ($this->admin_load_view('order/index'));
+			// Check Detail Page
+			if ($id = WPBooking_Input::get('order_item_id')) {
+				$order_item = WPBooking_Order_Model::inst()->find($id);
+
+				if ($order_item) {
+
+					$data['order_id'] = $order_item['order_id'];
+					$data['order_item'] = $order_item;
+
+					echo($this->admin_load_view('order/detail', $data));
+
+					return;
+				}
+
+
+			}
+
+
+			// Listing Page
+			echo($this->admin_load_view('order/index'));
+
 		}
+
+		function _add_script()
+		{
+			if(WPBooking_Input::get('page')=='wpbooking_page_orders'){
+				wp_enqueue_script('bootstrap');
+				wp_enqueue_style('popover');
+			}
+		}
+		function _ajax_order_calendar()
+		{
+			$order_model = WPBooking_Order_Model::inst();
+
+			$result = $order_model->where('check_in_timestamp>=', WPBooking_Input::post('start'))
+				->where('check_out_timestamp<=', WPBooking_Input::post('end'))
+				->limit(500)
+				->get()->result();
+
+			$return = array();
+
+			if (!empty($result)) {
+				foreach ($result as $item) {
+					$return[] = array(
+						'id'              => $item['id'],
+						'post_id'         => $item['post_id'],
+						'start'           => date('Y-m-d', $item['check_in_timestamp']),
+						'end'             => date('Y-m-d', $item['check_out_timestamp']),
+						'status'          => $item['status'],
+						'title'           => '#' . $item['id'] . ' - ' . get_the_title($item['post_id']),
+						'backgroundColor' => wpbooking_order_item_status_color($item['status']),
+						'borderColor' => wpbooking_order_item_status_color($item['status']),
+						'tooltipContent'=>wpbooking_admin_load_view('order/calendar-popover',array('item'=>$item))
+					);
+				}
+			}
+
+			echo json_encode($return);
+			die;
+		}
+
 		/**
 		 * Check and resend email booking
 		 *
@@ -70,12 +192,12 @@ if(!class_exists('WPBooking_Admin_Order'))
 		 */
 		function _resend_email()
 		{
-			if(WPBooking_Input::get('post_type')=='wpbooking_order'
-			and $order_id=WPBooking_Input::get('order_id')
-			and WPBooking_Input::get('bravo_resend_email')
-			){
+			if (WPBooking_Input::get('post_type') == 'wpbooking_order'
+				and $order_id = WPBooking_Input::get('order_id')
+				and WPBooking_Input::get('bravo_resend_email')
+			) {
 				WPBooking_Email::inst()->_send_order_email_success($order_id);
-				add_action('admin_notices',array($this,'_show_notice_email_success'));
+				add_action('admin_notices', array($this, '_show_notice_email_success'));
 			}
 		}
 
@@ -88,10 +210,11 @@ if(!class_exists('WPBooking_Admin_Order'))
 		{
 			?>
 			<div class="notice notice-success is-dismissible">
-				<p><?php esc_html_e( 'Email Resend Success!', 'wpbooking' ); ?></p>
+				<p><?php esc_html_e('Email Resend Success!', 'wpbooking'); ?></p>
 			</div>
 			<?php
 		}
+
 		/**
 		 * Filer to add row actions to order
 		 *
@@ -100,26 +223,28 @@ if(!class_exists('WPBooking_Admin_Order'))
 		 */
 		function _add_post_row_actions($actions, $post)
 		{
-			if($post->post_type=='wpbooking_order'){
-				$url=add_query_arg(array(
-					'post_type'=>'wpbooking_order',
-					'order_id'=>$post->ID,
-					'bravo_resend_email'=>1,
+			if ($post->post_type == 'wpbooking_order') {
+				$url = add_query_arg(array(
+					'post_type'          => 'wpbooking_order',
+					'order_id'           => $post->ID,
+					'bravo_resend_email' => 1,
 
-				),admin_url('edit.php'));
-				$actions['bravo_resend_email']='<a href="'.$url.'">'.esc_html__('Resend Booking Email','wpbooking').'</a>';
+				), admin_url('edit.php'));
+				$actions['bravo_resend_email'] = '<a href="' . $url . '">' . esc_html__('Resend Booking Email', 'wpbooking') . '</a>';
 
-				if(defined('WP_DEBUG') and WP_DEBUG){
-					$actions['bravo_test_email']='<a href="'.add_query_arg(array(
-							'test_email'=>'1',
-							'post_id'=>$post->ID,
+				if (defined('WP_DEBUG') and WP_DEBUG) {
+					$actions['bravo_test_email'] = '<a href="' . add_query_arg(array(
+							'test_email' => '1',
+							'post_id'    => $post->ID,
 
-						),admin_url('edit.php')).'">'.esc_html__('Test Partner Email','wpbooking').'</a>';
+						), admin_url('edit.php')) . '">' . esc_html__('Test Partner Email', 'wpbooking') . '</a>';
 				}
 
 			}
+
 			return $actions;
 		}
+
 		/**
 		 * Register Metabox to show Order Information
 		 * @author dungdt
@@ -127,7 +252,7 @@ if(!class_exists('WPBooking_Admin_Order'))
 		 */
 		function _register_metabox()
 		{
-			add_meta_box('wpbooking_order_metabox',esc_html__('Order Information','wpbooking'),array($this,'_show_metabox'),'wpbooking_order','normal','high');
+			add_meta_box('wpbooking_order_metabox', esc_html__('Order Information', 'wpbooking'), array($this, '_show_metabox'), 'wpbooking_order', 'normal', 'high');
 		}
 
 		/**
@@ -144,47 +269,47 @@ if(!class_exists('WPBooking_Admin_Order'))
 		{
 			$menu_page = WPBooking()->get_menu_page();
 			$labels = array(
-				'name'               => _x( 'Booking', 'post type general name', 'wpbooking' ),
-				'singular_name'      => _x( 'Booking', 'post type singular name', 'wpbooking' ),
-				'menu_name'          => _x( 'Booking', 'admin menu', 'wpbooking' ),
-				'name_admin_bar'     => _x( 'Booking', 'add new on admin bar', 'wpbooking' ),
-				'add_new'            => _x( 'Add New', 'Booking', 'wpbooking' ),
-				'add_new_item'       => __( 'Add New Booking', 'wpbooking' ),
-				'new_item'           => __( 'New Booking', 'your-plugin-textdomain' ),
-				'edit_item'          => __( 'Edit Booking', 'wpbooking' ),
-				'view_item'          => __( 'View Booking', 'wpbooking' ),
-				'all_items'          => __( 'All Booking', 'wpbooking' ),
-				'search_items'       => __( 'Search Booking', 'wpbooking' ),
-				'parent_item_colon'  => __( 'Parent Booking:', 'wpbooking' ),
-				'not_found'          => __( 'No Booking found.', 'wpbooking' ),
-				'not_found_in_trash' => __( 'No Booking found in Trash.', 'wpbooking' )
+				'name'               => _x('Booking', 'post type general name', 'wpbooking'),
+				'singular_name'      => _x('Booking', 'post type singular name', 'wpbooking'),
+				'menu_name'          => _x('Booking', 'admin menu', 'wpbooking'),
+				'name_admin_bar'     => _x('Booking', 'add new on admin bar', 'wpbooking'),
+				'add_new'            => _x('Add New', 'Booking', 'wpbooking'),
+				'add_new_item'       => __('Add New Booking', 'wpbooking'),
+				'new_item'           => __('New Booking', 'your-plugin-textdomain'),
+				'edit_item'          => __('Edit Booking', 'wpbooking'),
+				'view_item'          => __('View Booking', 'wpbooking'),
+				'all_items'          => __('All Booking', 'wpbooking'),
+				'search_items'       => __('Search Booking', 'wpbooking'),
+				'parent_item_colon'  => __('Parent Booking:', 'wpbooking'),
+				'not_found'          => __('No Booking found.', 'wpbooking'),
+				'not_found_in_trash' => __('No Booking found in Trash.', 'wpbooking')
 			);
 
 			$args = array(
 				'labels'             => $labels,
-				'description'        => __( 'Description.', 'wpbooking' ),
-				'public'             => true,
-				'publicly_queryable' => true,
+				'description'        => __('Description.', 'wpbooking'),
+				'public'             => TRUE,
+				'publicly_queryable' => TRUE,
 				'show_ui'            => FALSE,
 				'show_in_menu'       => $menu_page['menu_slug'],
-				'query_var'          => true,
-				'rewrite'            => array( 'slug' => 'booking' ),
+				'query_var'          => TRUE,
+				'rewrite'            => array('slug' => 'booking'),
 				'capability_type'    => 'post',
-				'has_archive'        => true,
-				'hierarchical'       => false,
+				'has_archive'        => TRUE,
+				'hierarchical'       => FALSE,
 				//'menu_position'      => '59.9',
-				'supports'           => array( 'title',  'author' )
+				'supports'           => array('title', 'author')
 			);
 
-			register_post_type( 'wpbooking_order', $args );
+			register_post_type('wpbooking_order', $args);
 		}
 
 		static function inst()
 		{
-			if(!self::$_inst)
-			{
-				self::$_inst=new self();
+			if (!self::$_inst) {
+				self::$_inst = new self();
 			}
+
 			return self::$_inst;
 		}
 	}

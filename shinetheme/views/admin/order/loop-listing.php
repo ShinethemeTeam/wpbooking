@@ -5,9 +5,25 @@
  * Date: 6/14/2016
  * Time: 8:46 AM
  */
+$limit=20;
+$offset=$limit*(WPBooking_Input::get('page_number',1)-1);
 $order_model=WPBooking_Order_Model::inst();
-$order_model->limit(20)->orderby('id','desc');
+// Filter
+if(WPBooking_Input::get('service_type')){
+	$order_model->where('service_type',WPBooking_Input::get('service_type'));
+}
+if(WPBooking_Input::get('status')){
+	$order_model->where('status',WPBooking_Input::get('status'));
+}
 
+if(WPBooking_Input::get('payment_status')){
+	$order_model->where('payment_status',WPBooking_Input::get('payment_status'));
+}
+$total=$order_model->select('count(id) as total')->get()->row();
+
+$order_model->limit($limit,$offset)->orderby('id','desc');
+
+//Filter
 if(WPBooking_Input::get('service_type')){
 	$order_model->where('service_type',WPBooking_Input::get('service_type'));
 }
@@ -36,6 +52,7 @@ $rows=$order_model->get()->result();
 		<td class="manage-column column-date asc"> <?php esc_html_e('Status','wpbooking') ?></td>
 		<td class="manage-column column-date asc"> <?php esc_html_e('Payment','wpbooking') ?></td>
 		<td class="manage-column column-date asc"> <?php esc_html_e('Service Type','wpbooking') ?></td>
+		<td class="manage-column column-date asc"> <?php esc_html_e('Booking Date','wpbooking') ?></td>
 		<td class="manage-column column-date asc"> <?php esc_html_e('Total','wpbooking') ?></td>
 	</tr>
 	</thead>
@@ -43,16 +60,18 @@ $rows=$order_model->get()->result();
 	<tbody>
 	<?php if(!empty($rows)){
 		foreach($rows as $row){
-			$url=add_query_arg(array('id'=>$row['id'],'page'=>'wpbooking_page_orders'),admin_url());
+			$url=add_query_arg(array('page'=>'wpbooking_page_orders','order_item_id'=>$row['id']),admin_url('admin.php'));
 			$service_type=$row['service_type'];
 			?>
 			<tr>
 				<th class="manage-column column-cb check-column">
-					<input  type="checkbox" name="wpbooking_post[]" value="<?php echo esc_attr($row['id']) ?>">
+					<input  type="checkbox" name="wpbooking_order_item[]" value="<?php echo esc_attr($row['id']) ?>">
 				</th>
 				<td>
 					<a href="<?php echo esc_url($url)  ?>">#<?php echo esc_attr($row['id']) ?></a>
 					-
+					<a class="service-name" href="<?php echo get_permalink($row['post_id'])?>" target="_blank"><?php echo get_the_title($row['post_id'])?></a>
+					- <?php esc_html_e('by','wpbooking') ?>
 					<?php if($row['customer_id']){
 						$user=get_userdata($row['customer_id']);
 						if(!$user){
@@ -65,11 +84,10 @@ $rows=$order_model->get()->result();
 					} ?>
 					<div class="row-actions">
 						<span class="edit"><a href="<?php echo esc_url($url)  ?>" title="<?php esc_html_e('Edit this item','wpbooking')?>"><?php esc_html_e('Edit','wpbooking')?></a> | </span>
-						<span class="edit"><a href="<?php echo esc_url($url)  ?>" title="<?php esc_html_e('Edit this item','wpbooking')?>"><?php esc_html_e('Edit','wpbooking')?></a> | </span>
+						<span class="move_trash trash"><a href="<?php echo add_query_arg(array('action'=>'trash','wpbooking_apply_changes'=>'1','wpbooking_order_item'=>array($row['id']))) ?>" onclick="return confirm('<?php esc_html_e('Are you want to move to trash?','wpbooking') ?>')" title="<?php esc_html_e('Move to trash','wpbooking')?>"><?php esc_html_e('Trash','wpbooking')?></a> | </span>
 					</div>
 				</td>
 				<td class="booking-data">
-					<a class="service-name" href="<?php echo get_permalink($row['post_id'])?>" target="_blank"><?php echo get_the_title($row['post_id'])?></a>
 					<?php do_action('wpbooking_order_item_information',$row) ?>
 					<?php do_action('wpbooking_order_item_information_'.$service_type,$row) ?>
 				</td>
@@ -82,7 +100,12 @@ $rows=$order_model->get()->result();
 					<?php
 					echo wpbooking_payment_status_html($row['payment_status']);
 					?>
-
+					<?php if($gateway_label= wpbooking_get_order_item_used_gateway($row['payment_id'])){
+						?>
+						-
+						<?php
+						echo ($gateway_label);
+					}?>
 				</td>
 				<td>
 					<?php
@@ -91,6 +114,11 @@ $rows=$order_model->get()->result();
 						echo ($service_type_obj['label']);
 					}
 
+					?>
+				</td>
+				<td class="manage-column column-date asc">
+					<?php
+					echo get_the_time(get_option('date_format').' - '.get_option('time_format'),$row['order_id']);
 					?>
 				</td>
 				<td class="manage-column column-date asc">
@@ -110,3 +138,13 @@ $rows=$order_model->get()->result();
 	} ?>
 	</tbody>
 </table>
+<div class="wpbooking-paginate">
+<?php
+echo paginate_links(array(
+	'total'=>ceil($total['total']/$limit),
+	'current'=>WPBooking_Input::get('page_number',1),
+	'format'=>'?page_number=%#%',
+	'add_args'=>array()
+));
+?>
+</div>

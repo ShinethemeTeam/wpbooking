@@ -560,4 +560,52 @@ jQuery(document).ready(function( $ ){
         });
     });
 
+
+    // ALl Booking Calendar
+    $('#wpbooking_order_calendar .calendar-wrap').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        //eventLimit: true, // allow "more" link when too many events,
+        height:500,
+        numberOfMonths: 2,
+        events:function(start, end, timezone, callback) {
+            $.ajax({
+                url: wpbooking_params.ajax_url,
+                dataType: 'json',
+                type:'post',
+                data: {
+                    action: 'wpbooking_order_calendar',
+                    start: start.unix(),
+                    end: end.unix(),
+                },
+                success: function(doc){
+                    if(typeof doc == 'object'){
+                        callback(doc);
+                    }
+                },
+                error:function(e){
+                    alert('Can not get the order data. Lost connect with your sever');
+                    console.log(e);
+                }
+            });
+        },
+        eventMouseover: function(event, element, view){
+            var html = event.tooltipContent;
+            $(this).popover({
+                content:html,
+                placement:'bottom',
+                container:'body',
+                html:true
+            });
+            $(this).popover('show');
+
+        },
+        eventMouseout:function(){
+            $(this).popover('hide');
+        }
+
+    });
 });
