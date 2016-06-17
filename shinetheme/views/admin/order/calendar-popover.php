@@ -19,7 +19,9 @@ $service_type=$item['service_type'];
 		?>
 	</li>
 	<li class="service-type">
-		<?php  ?>
+		<?php if($service_type and $service_type_obj=WPBooking_Service::inst()->get_service_type($service_type)){
+			printf('<b>%s</b>: %s',esc_html__('Service Type','wpbooking'),$service_type_obj['label']);
+		} ?>
 	</li>
 	<li class="booking-data">
 		<?php do_action('wpbooking_order_item_information',$item) ?>

@@ -572,6 +572,7 @@ jQuery(document).ready(function( $ ){
         height:500,
         numberOfMonths: 2,
         events:function(start, end, timezone, callback) {
+            var filter=$('.tablenav');
             $.ajax({
                 url: wpbooking_params.ajax_url,
                 dataType: 'json',
@@ -580,6 +581,7 @@ jQuery(document).ready(function( $ ){
                     action: 'wpbooking_order_calendar',
                     start: start.unix(),
                     end: end.unix(),
+                    filter:filter.find('input,select').serialize()
                 },
                 success: function(doc){
                     if(typeof doc == 'object'){

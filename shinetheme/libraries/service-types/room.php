@@ -249,7 +249,8 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					$check_out_timestamp = $check_in_timestamp;
 				}
 
-				$calendar_prices = $calendar->get_prices($post_id, $check_in_timestamp, $check_out_timestamp);
+				//$calendar_prices = $calendar->get_prices($post_id, $check_in_timestamp, $check_out_timestamp);
+				$calendar_prices=$calendar->calendar_months($post_id,$check_in_timestamp,$check_out_timestamp);
 
 				if (!empty($calendar_prices)) {
 					$check_in_temp = $check_in_timestamp;

@@ -51,36 +51,32 @@ if (!class_exists('WPBooking_Calendar_Model')) {
 
 			$today=strtotime('today');
 			if($start_date<$today) $start_date=$today;
-			$res= $this->where(array(
-				'post_id'=>$post_id,
-				'start>='=>$start_date,
-				'end<='=>$end_date
-			))
-			->orderby('start','asc')->get()->result();
+			$res= $this
+				->select(array(
+					$wpdb->prefix.'wpbooking_availability.*',
+					"count({$wpdb->prefix}wpbooking_order_item.id) as total_booked",
+					$wpdb->prefix.'wpbooking_service.number',
+				))
+				->join('wpbooking_service','wpbooking_service.post_id=wpbooking_availability.post_id')
+				->join('wpbooking_order_item',
+					"wpbooking_order_item.post_id=wpbooking_availability.post_id
+					AND wpbooking_order_item.`status` not in ('refunded','cancelled')
+					AND (
+						(wpbooking_order_item.check_in_timestamp<=wpbooking_availability.`start` and wpbooking_order_item.check_out_timestamp>=wpbooking_availability.`start`)
+						OR (wpbooking_order_item.check_in_timestamp>=wpbooking_availability.`start` and wpbooking_order_item.check_in_timestamp<=wpbooking_availability.`end`)
+					)
+					",
+					'left'
+					)
+				->where(array(
+					$wpdb->prefix.'wpbooking_availability.post_id'=>$post_id,
+					'start>='=>$start_date,
+					'end<='=>$end_date
+				))
+				->groupby($wpdb->prefix.'wpbooking_availability.id')
+				->having($wpdb->prefix.'wpbooking_service.number>total_booked')
+				->orderby('start','asc')->get()->result();
 
-			if(!empty($res)){
-				foreach($res as $key=>$value){
-					$start=$value['start'];
-					$end=$value['end'];
-					// Check is full booking
-//					$check=WPBooking_Service_Model::inst()->select('count('.$wpdb->prefix.'wpbooking_order_item.id) as total_booked,'.$wpdb->prefix.'_wpbooking_service.number')
-//															->join('wpbooking_order_item',"wpbooking_order_item.post_id=wpbooking_service.post_id
-//															wpbooking_order_item.`status` not in('refunded','cancelled')
-//															AND (
-//																(wpbooking_order_item.check_in_timestamp<={$start} and wpbooking_order_item.check_out_timestamp>={$start})
-//																OR (wpbooking_order_item.check_in_timestamp>={$start} and wpbooking_order_item.check_in_timestamp<={$end})
-//															)
-//
-//															",'left')
-//															->where('post_id',$value['post_id'])
-//															->groupby($wpdb->prefix.'wpbooking_service.post_id')
-//															->having('total_booked<number')
-//															->limit(1)
-//															->get()->row();
-//					echo WPBooking_Service_Model::inst()->last_query();
-//					if(empty($check)) unset($res[$key]);
-				}
-			}
 			return $res;
 		}
 

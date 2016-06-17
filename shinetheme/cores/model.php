@@ -164,7 +164,7 @@ if(!class_exists('WPBooking_Model') ){
 			return $this;
 		}
 
-		function orderby($key,$value){
+		function orderby($key,$value='asc'){
 			if(is_array($key) and !empty($key)){
 				foreach($key as $k1=>$v1){
 					$this->orderby($k1,$v1);
@@ -177,25 +177,25 @@ if(!class_exists('WPBooking_Model') ){
 			}
 			return $this;
 		}
-		function groupby($key,$value){
+		function groupby($key){
 			if(is_array($key) and !empty($key)){
-				foreach($key as $k1=>$v1){
-					$this->groupby($k1,$v1);
+				foreach($key as $v1){
+					$this->groupby($v1);
 				}
 			}
 			if(is_string($key)){
-				$this->_groupby[$key]=$value;
+				$this->_groupby[]=$key;
 			}
 			return $this;
 		}
-		function having($key,$value){
+		function having($key){
 			if(is_array($key) and !empty($key)){
-				foreach($key as $k1=>$v1){
-					$this->having($k1,$v1);
+				foreach($key as $v1){
+					$this->having($v1);
 				}
 			}
 			if(is_string($key)){
-				$this->_having[$key]=$value;
+				$this->_having[]=$key;
 			}
 			return $this;
 		}
@@ -650,7 +650,7 @@ if(!class_exists('WPBooking_Model') ){
 			if(!empty($this->_groupby)){
 				$groupby=' GROUP BY ';
 				foreach($this->_groupby as $k=>$v){
-					$groupby.=' '.$k.' '.$v.',';
+					$groupby.=' '.$v.',';
 				}
 
 				$groupby=substr($groupby,0,-1);
@@ -659,7 +659,7 @@ if(!class_exists('WPBooking_Model') ){
 				if(!empty($this->_having)){
 					$having.=' HAVING ';
 					foreach($this->_having as $k=>$v){
-						$having.=' '.$k.' '.$v.',';
+						$having.=' '.$v.',';
 					}
 
 					$having=substr($having,0,-1);
@@ -713,6 +713,8 @@ if(!class_exists('WPBooking_Model') ){
 			$this->_order_query=array();
 			$this->_limit_query=array();
 			$this->_join_query=array();
+			$this->_groupby=array();
+			$this->_having=array();
 		}
 	}
 

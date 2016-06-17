@@ -157,6 +157,22 @@ if (!class_exists('WPBooking_Admin_Order')) {
 		{
 			$order_model = WPBooking_Order_Model::inst();
 
+			// Filter
+			if($filter_raw=WPBooking_Input::post('filter')){
+				parse_str($filter_raw,$filter);
+
+				if(!empty($filter['service_type'])){
+					$order_model->where('service_type',$filter['service_type']);
+				}
+				if(!empty($filter['status'])){
+					$order_model->where('status',$filter['status']);
+				}
+				if(!empty($filter['payment_status'])){
+					$order_model->where('payment_status',$filter['payment_status']);
+				}
+
+			}
+
 			$result = $order_model->where('check_in_timestamp>=', WPBooking_Input::post('start'))
 				->where('check_out_timestamp<=', WPBooking_Input::post('end'))
 				->limit(500)

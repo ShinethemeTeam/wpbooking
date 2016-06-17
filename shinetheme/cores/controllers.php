@@ -12,9 +12,9 @@ if(!class_exists('WPBooking_Controller'))
 {
 	class WPBooking_Controller
 	{
+
 		function __construct()
 		{
-
 		}
 
 		function load_view($view,$data=array())

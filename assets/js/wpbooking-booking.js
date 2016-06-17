@@ -64,6 +64,8 @@ jQuery(document).ready(function($){
             dataType:'json',
             type:'post',
             success:function(res){
+                if(typeof grecaptcha !='undefined')
+                grecaptcha.reset();
                 if(res.status){
                     me.addClass('success');
                 }else{
@@ -98,11 +100,14 @@ jQuery(document).ready(function($){
                 me.removeClass('loading');
             },
             error:function(e){
+                if(typeof grecaptcha !='undefined')
+                    grecaptcha.reset();
                 var message=$('<div/>');
                 message.addClass('wpbooking-message');
                 message.html(e.responseText);
                 me.after(message);
                 me.removeClass('loading').addClass('error');
+
             }
         })
     });
@@ -123,6 +128,8 @@ jQuery(document).ready(function($){
             dataType:'json',
             type:'post',
             success:function(res){
+                if(typeof grecaptcha !='undefined')
+                    grecaptcha.reset();
                 if(res.status){
                     me.addClass('success');
                 }else{
@@ -152,7 +159,8 @@ jQuery(document).ready(function($){
                 me.removeClass('loading');
             },
             error:function(e){
-                console.log(e);
+                if(typeof grecaptcha !='undefined')
+                    grecaptcha.reset();
                 me.removeClass('loading').addClass('error');
                 var message=$('<div/>');
                 message.addClass('wpbooking-message');
@@ -309,7 +317,7 @@ jQuery(document).ready(function($){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
 
             for(i=0;i<wpbooking_enable_dates.length;i++){
-                if(string==wpbooking_enable_dates[i]['date']) return [1,'wpbooking-enable-date',wpbooking_enable_dates[i]['price']];
+                if(string==wpbooking_enable_dates[i]['date']) return [1,'wpbooking-enable-date',wpbooking_enable_dates[i]['tooltip_content']];
             }
 
             return [0,'wpbooking-disable-date'];
@@ -331,7 +339,7 @@ jQuery(document).ready(function($){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
 
             for(i=0;i<wpbooking_enable_dates.length;i++){
-                if(string==wpbooking_enable_dates[i]['date']) return [1,'wpbooking-enable-date',wpbooking_enable_dates[i]['price']];
+                if(string==wpbooking_enable_dates[i]['date']) return [1,'wpbooking-enable-date',wpbooking_enable_dates[i]['tooltip_content']];
             }
 
             return [0,'wpbooking-disable-date'];
