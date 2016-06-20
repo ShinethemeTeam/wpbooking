@@ -69,7 +69,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 						<?php
 					} ?>
 
-					<div class="item-search">
+					<div class="item-search search-button-wrap">
 						<button class="" type="submit"><?php _e("Search",'wpbooking') ?></button>
 					</div>
 				</div>

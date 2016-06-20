@@ -24,6 +24,7 @@ $autoload['helper']=array(
 );
 
 $autoload['library']=array(
+	'helper',
     'input',
     'assets',
 	'session',

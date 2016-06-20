@@ -259,9 +259,11 @@ jQuery(document).ready(function($){
      */
     $('.wpbooking-show-more-fields').click(function(){
         var parent=$(this).parent();
-
+        $('.wpbooking-search-form-wrap').addClass('show-more-active');
+        
         parent.find('.wpbooking-search-form-more').slideDown('fast');
         $(this).hide();
+
     });
 
     /**
@@ -276,6 +278,8 @@ jQuery(document).ready(function($){
 
             parent.find('.wpbooking-show-more-fields').show();
         });
+
+        $('.wpbooking-search-form-wrap').removeClass('show-more-active');
     });
 
     /**
@@ -456,22 +460,27 @@ jQuery(document).ready(function($){
     });
 
     // Ajax Search in Archive page
-    var form_filter=$('.wpbooking-archive-page');
-    if(form_filter.length)
+    var form_filter=$('.wpbooking-search-form');
+    if($('.wpbooking-archive-page').length)
     {
         var me=$(this)
-        $('.wpbooking-search-form').submit(function(){
-            $('.wpbooking-loop-wrap').addClass('loading');
+        form_filter.submit(function(){
+            var loop_wrap=$('.wpbooking-loop-wrap');
+            loop_wrap.addClass('loading');
             // Ajax Search
             $.ajax({
                 url:form_filter.attr('action'),
                 type:form_filter.attr('method'),
                 data:form_filter.serialize(),
                 dataType:'json',
-                success:function(){
-
+                success:function(res){
+                    loop_wrap.removeClass('loading');
+                    if(typeof res.html!='undefined'){
+                        loop_wrap.html(res.html);
+                    }
                 },
                 error:function(){
+                    loop_wrap.removeClass('loading');
 
                 }
             });

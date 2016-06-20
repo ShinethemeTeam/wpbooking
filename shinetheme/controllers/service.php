@@ -41,8 +41,58 @@ if (!class_exists('WPBooking_Service')) {
 			 */
 			add_action('wp_ajax_wpbooking_calendar_months',array($this,'_calendar_months'));
 			add_action('wp_ajax_nopriv_wpbooking_calendar_months',array($this,'_calendar_months'));
+
+			/**
+			 * Ajax Filter
+			 * @author dungdt
+			 * @since 1.0
+			 */
+			add_action('template_redirect',array($this,'_ajax_filter_archivepage'));
 		}
 
+		/**
+		 * Ajax Filter Service Type
+		 *
+		 * @author dungdt
+		 * @since 1.0
+		 *
+		 */
+		function _ajax_filter_archivepage()
+		{
+
+			// Ajax Search Handle
+			if(WPBooking_Helpers::is_ajax()){
+				if(get_query_var( 'paged' )) {
+					$paged = get_query_var( 'paged' );
+				} else if(get_query_var( 'page' )) {
+					$paged = get_query_var( 'page' );
+				} else {
+					$paged = 1;
+				}
+				$args = array(
+					'post_type' => 'wpbooking_service' ,
+					's'         => '' ,
+					'paged'     => $paged,
+					'posts_per_page'     => 3,
+				);
+				$service_type = '';
+				$is_page = get_the_ID();
+				$list_page_search = apply_filters("wpbooking_add_page_archive_search",array());
+				if(!empty($list_page_search[$is_page]))
+				{
+					$service_type = $list_page_search[$is_page];
+				}
+				$my_query = WPBooking_Service::inst()->query($args,$service_type);
+
+				$res=array(
+					'html'=>wpbooking_load_view('archive/loop',array('my_query'=>$my_query,'service_type'=>$service_type)),
+				);
+				$res['html'].=wpbooking_load_view('archive/pagination',array('my_query'=>$my_query,'service_type'=>$service_type));
+
+				echo json_encode($res);die;
+
+			}
+		}
 		/**
 		 * Function Ajax Get Calendar Months
 		 * @since 1.0
@@ -138,9 +188,10 @@ if (!class_exists('WPBooking_Service')) {
 			$list_page_search = apply_filters("wpbooking_add_page_archive_search", array());
 			if (!empty($list_page_search[$is_page])) {
 				$template = wpbooking_view_path('archive-service');
+
+
 			}
-			//var_dump($list_page_search);
-			//var_dump($template);
+
 			return $template;
 		}
 

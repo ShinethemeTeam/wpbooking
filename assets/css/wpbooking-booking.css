@@ -46,6 +46,12 @@
 .rating-stars a.active .icon-star:before {
   content: "\f005";
 }
+.wpbooking-archive-page .search-button-wrap {
+  display: none;
+}
+.wpbooking-archive-page .wpbooking-search-form-wrap.show-more-active .search-button-wrap {
+  display: block;
+}
 .wpbooking-search-form .item-search {
   margin-bottom: 20px;
   padding-bottom: 15px;
@@ -72,6 +78,20 @@
 }
 .wpbooking-search-form .wpbooking-search-form-more {
   display: none;
+}
+.wpbooking-loop-wrap.loading {
+  position: relative;
+}
+.wpbooking-loop-wrap.loading:before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  z-index: 2;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  opacity: 0.7;
+  background: white;
 }
 .wpbooking-container {
   padding: 20px;
