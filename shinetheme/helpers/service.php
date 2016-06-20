@@ -145,7 +145,7 @@ if(!function_exists('wpbooking_get_order_item_used_gateway')){
 		if($payment and !empty($payment['gateway'])){
 			$gateway=WPBooking_Payment_Gateways::inst()->get_gateway($payment['gateway']);
 			if($gateway){
-				return (!empty($gateway['label']))?$gateway['label']:$payment['gateway'];
+				return $gateway->get_info('label');
 			}else{
 				return esc_html__('Unknown Gateway','wpbooking');
 			}

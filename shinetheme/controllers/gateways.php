@@ -63,7 +63,7 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 		function get_gateway($gateway_id=FALSE)
 		{
 			$all=$this->get_gateways();
-			if(!empty($all) and !empty($all[$gateway_id])) return $gateway_id;
+			if(!empty($all) and !empty($all[$gateway_id])) return $all[$gateway_id];
 		}
 
 

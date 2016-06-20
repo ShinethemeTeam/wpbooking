@@ -64,6 +64,12 @@
 .wpbooking-search-form .item-search select {
   width: 100%;
 }
+.wpbooking-search-form .item-search .hidden_term {
+  display: none;
+}
+.wpbooking-search-form .item-search .show-more-terms {
+  cursor: pointer;
+}
 .wpbooking-search-form .wpbooking-search-form-more {
   display: none;
 }

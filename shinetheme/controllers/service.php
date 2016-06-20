@@ -97,6 +97,13 @@ if (!class_exists('WPBooking_Service')) {
 		}
 		function _add_body_class($class)
 		{
+			if(is_singular()){
+				$is_page = get_the_ID();
+				$list_page_search = apply_filters("wpbooking_add_page_archive_search", array());
+				if (!empty($list_page_search[$is_page])) {
+					$class[]='wpbooking-archive-page';
+				}
+			}
 
 			return $class;
 		}

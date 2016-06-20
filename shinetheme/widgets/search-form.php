@@ -144,6 +144,10 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 							<div class="row">
 								<?php
 								if(empty($v['taxonomy'])) continue;
+								$tax=get_taxonomy($v['taxonomy']);
+
+								if(!$tax) continue;
+
 								$terms = get_terms(  $v['taxonomy'] , array('hide_empty' => false,) );
 
 								if(!empty($value[$v['taxonomy']])) $value_item=$value[$v['taxonomy']];else $value_item=FALSE;
@@ -154,12 +158,23 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 										if(in_array($value2->term_id,explode(',',$value_item))){
 											$check = "checked";
 										}
+										$class=FALSE;
+										if($key2>=4){
+											$class='hidden_term';
+										}
 										?>
-										<div class="col-md-6">
+										<div class="col-md-12 term-item <?php echo esc_attr($class)?>">
 											<input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$value2->term_id ?>" value="<?php echo esc_html( $value2->term_id ) ?>">
 											<label for="<?php echo "item_".$value2->term_id ?>"><?php echo esc_html( $value2->name ) ?></label>
 										</div>
 										<?php
+										if($key2==3 and count($terms)>4){
+										?>
+											<div class="col-md-12">
+												<label class="show-more-terms" ><b><?php printf(esc_html__('More %s ...','wpbooking'),$tax->label) ?></b></label>
+											</div>
+											<?php
+										}
 									}
 								}
 								?>

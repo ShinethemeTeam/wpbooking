@@ -454,5 +454,42 @@ jQuery(document).ready(function($){
         var parent=$(this).closest('.item-search');
         parent.next().find('[name=check_in]').focus();
     });
+
+    // Ajax Search in Archive page
+    var form_filter=$('.wpbooking-archive-page');
+    if(form_filter.length)
+    {
+        var me=$(this)
+        $('.wpbooking-search-form').submit(function(){
+            $('.wpbooking-loop-wrap').addClass('loading');
+            // Ajax Search
+            $.ajax({
+                url:form_filter.attr('action'),
+                type:form_filter.attr('method'),
+                data:form_filter.serialize(),
+                dataType:'json',
+                success:function(){
+
+                },
+                error:function(){
+
+                }
+            });
+            return false;
+        });
+
+        // Trigger Search
+        $(this).find('input,select').change(function(){
+            form_filter.submit();
+        });
+    }
+
+    /**
+     * Button Show More Terms in search fields
+     */
+    $('.show-more-terms').click(function(){
+        $(this).closest('.row').find('.term-item').removeClass('hidden_term');
+        $(this).parent().remove();
+    });
 });
 

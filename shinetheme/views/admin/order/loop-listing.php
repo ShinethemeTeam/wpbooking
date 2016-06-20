@@ -102,7 +102,7 @@ $rows=$order_model->get()->result();
 					?>
 					<?php if($gateway_label= wpbooking_get_order_item_used_gateway($row['payment_id'])){
 						?>
-						-
+						<br>-
 						<?php
 						echo ($gateway_label);
 					}?>
