@@ -455,6 +455,10 @@ jQuery(document).ready(function( $ ){
                 google.maps.event.addListener(gmap_obj, "zoom_changed", function(event) {
                     $('input[name="map_zoom"]', t).val( gmap_obj.getZoom() );
                 });
+
+                $(window).resize(function(){
+                    google.maps.event.trigger(gmap_obj, 'resize');
+                });
             });
         }
     }
@@ -619,11 +623,12 @@ jQuery(document).ready(function( $ ){
            $(this).parent().removeClass('active');
        }else{
            var s=$(this).parent().siblings('.wpbooking-metabox-accordion');
-           console.log(s);
            s.find('.wpbooking-metabox-accordion-content').slideUp('fast');
            s.removeClass('active');
            $(this).parent().find('.wpbooking-metabox-accordion-content').slideDown('fast');
            $(this).parent().addClass('active');
+
+           $(window).trigger('resize');
        }
     });
 });

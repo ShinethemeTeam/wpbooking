@@ -16,7 +16,7 @@ if(!empty($data['condition'])){
     $class .= ' wpbooking-condition ';
     $data_class .= ' data-condition='.$data['condition'].' ' ;
 }
-
+$class.=' width-'.$data['width'];
 $attr=FALSE;
 if(!empty($data['attr']) and is_array($data['attr'])){
 	$attr=implode(' ',$data['attr']);
@@ -31,7 +31,7 @@ $field .= '<div style="margin-bottom: 7px;"><input '.$attr.' id="'. esc_html( $d
 $field .= '</div></div>';
 
 ?>
-<div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+<div class="wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
 
 <div class="st-metabox-left">
 	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>

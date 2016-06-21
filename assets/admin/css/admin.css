@@ -402,31 +402,29 @@ img.settings-demo-gallery {
 .st-metabox-tab-content-wrap * {
   box-sizing: border-box;
 }
-.st-metabox-tab-content-wrap .form-table {
+.st-metabox-tab-content-wrap .wpbooking-form-group {
   margin-bottom: 10px;
-  margin-left: -15px;
-  margin-right: -15px;
   margin-top: 20px;
 }
-.st-metabox-tab-content-wrap .form-table .st-metabox-left {
+.st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
   font-weight: bold;
   width: 200px;
   float: left;
   padding-left: 15px;
   padding-right: 15px;
 }
-.st-metabox-tab-content-wrap .form-table .st-metabox-right {
+.st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right {
   padding-left: 15px;
   padding-right: 15px;
   width: auto;
   margin-left: 200px;
 }
 @media (max-width: 1399px) {
-  .st-metabox-tab-content-wrap .form-table .st-metabox-left {
+  .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
     width: 100%;
     float: none;
   }
-  .st-metabox-tab-content-wrap .form-table .st-metabox-right {
+  .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right {
     width: 100%;
     margin-left: auto;
     margin-top: 20px;
@@ -1307,6 +1305,11 @@ a.ui-datepicker-next {
   margin-right: 15px;
   margin-bottom: 15px;
 }
+.wpbooking-list-taxonomies .wpbooking-list-taxonomy-item span {
+  font-weight: normal;
+  margin-left: 5px;
+  font-size: 12px;
+}
 /*
 // Rating Review
 */
@@ -1380,4 +1383,11 @@ a.ui-datepicker-next {
   margin-top: -1px;
   border: 1px solid #d3d3d3;
   padding: 0px 10px;
+}
+.st-metabox-tabs-content .wpbooking-form-group.width-two {
+  float: left;
+  width: 50%;
+}
+.st-metabox-tabs-content .wpbooking-form-group.width-two .st-metabox-content-wrapper .form-group {
+  width: 100%;
 }

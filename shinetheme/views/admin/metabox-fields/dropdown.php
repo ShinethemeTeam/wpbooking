@@ -11,6 +11,8 @@ if(!empty($data['condition'])){
     $class .= ' wpbooking-condition ';
     $data_class .= ' data-condition='.$data['condition'].' ' ;
 }
+
+$class.=' width-'.$data['width'];
 $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
 
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';

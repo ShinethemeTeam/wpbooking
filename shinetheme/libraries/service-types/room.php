@@ -176,31 +176,36 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					'type'  => 'accordion-start'
 				),
 				array(
-					'label' => __('Number of Bedrooms', 'wpbooking'),
+					'label' => __('Bedrooms', 'wpbooking'),
 					'id' => 'bedroom',
-					'type' => 'number'
+					'type' => 'number',
+					'width'=>'two'
 				),
 				array(
-					'label' => __('Number of Bathrooms', 'wpbooking'),
+					'label' => __('Bathrooms', 'wpbooking'),
 					'id' => 'bathroom',
-					'type' => 'number'
+					'type' => 'number',
+					'width'=>'two'
 				),
 				array(
-					'label' => __('Number of Beds', 'wpbooking'),
+					'label' => __('Beds', 'wpbooking'),
 					'id' => 'bed',
-					'type' => 'number'
+					'type' => 'number',
+					'width'=>'two'
 				),
 				array(
 					'label' => __('Check-in Time', 'wpbooking'),
 					'id' => 'check_in_time',
 					'type' => 'text',
-					'class' => 'time-picker'
+					'class' => 'time-picker',
+					'width'=>'two'
 				),
 				array(
 					'label' => __('Check-out Time', 'wpbooking'),
 					'id' => 'check_out_time',
 					'type' => 'text',
-					'class' => 'time-picker'
+					'class' => 'time-picker',
+					'width'=>'two'
 				),
 				array(
 					'type'  => 'accordion-end'

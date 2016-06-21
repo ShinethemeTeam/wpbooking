@@ -20,6 +20,7 @@ if(!empty($data['condition'])){
     $class .= ' wpbooking-condition ';
     $data_class .= ' data-condition='.$data['condition'].' ' ;
 }
+$class.=' width-'.$data['width'];
 
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
@@ -31,7 +32,7 @@ $field .= '</div></div>';
 
 ?>
 
-<div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+<div class="wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
 	<div class="st-metabox-left">
 		<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
 	</div>

@@ -163,8 +163,15 @@ if (!class_exists('WPBooking_Admin_Service')) {
 					),
 					array(
 						'label' => __('Gallery', 'wpbooking'),
+						'type'  => 'accordion-start'
+					),
+					array(
+						'label' => __("Room's gallery", 'wpbooking'),
 						'id'    => 'gallery',
 						'type'  => 'gallery'
+					),
+					array(
+						'type'  => 'accordion-end',
 					),
 //					array(
 //						'label' => __('Accommodates', 'wpbooking'),
@@ -216,16 +223,16 @@ if (!class_exists('WPBooking_Admin_Service')) {
 //                        'yes' => __('Yes', 'wpbooking')
 //                    ),
 //                ),
-					array(
-						'label' => __('Day not available from - to days', 'wpbooking'),
-						'id'    => 'day_not_available',
-						'type'  => 'text',
-					),
-					array(
-						'label' => __('Preparations', 'wpbooking'),
-						'id'    => 'preparations',
-						'type'  => 'text',
-					),
+//					array(
+//						'label' => __('Day not available from - to days', 'wpbooking'),
+//						'id'    => 'day_not_available',
+//						'type'  => 'text',
+//					),
+//					array(
+//						'label' => __('Preparations', 'wpbooking'),
+//						'id'    => 'preparations',
+//						'type'  => 'text',
+//					),
 					array(
 						'label' => __('Amenities', 'wpbooking'),
 						'id'    => 'amelities_tab',
