@@ -207,6 +207,19 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					'class' => 'time-picker',
 					'width'=>'two'
 				),
+
+				array(
+					'label' => __('No. Adult', 'wpbooking'),
+					'id'    => 'number_adult',
+					'type'  => 'number',
+					'width'=>'two'
+				),
+				array(
+					'label' => __('No. Children', 'wpbooking'),
+					'id'    => 'number_children',
+					'type'  => 'number',
+					'width'=>'two'
+				),
 				array(
 					'type'  => 'accordion-end'
 				),

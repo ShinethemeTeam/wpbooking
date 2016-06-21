@@ -1391,3 +1391,10 @@ a.ui-datepicker-next {
 .st-metabox-tabs-content .wpbooking-form-group.width-two .st-metabox-content-wrapper .form-group {
   width: 100%;
 }
+.fc-highlight {
+  background: #0073aa;
+  opacity: .7;
+}
+.fc-past {
+  background: #f1f1f1;
+}

@@ -28,7 +28,8 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					$check_in = (int) WPBooking_Input::post('start', '');
 					$check_out = (int) WPBooking_Input::post('end', '');
 
-					
+					if($check_in<strtotime('today')){$check_in=strtotime('today');}
+
 					$return = $this->get_availability( $base_id, $check_in, $check_out );
 
 					echo json_encode( $return );

@@ -178,17 +178,6 @@ if (!class_exists('WPBooking_Admin_Service')) {
 //						'id' => 'accommodates',
 //						'type' => 'text'
 //					),
-
-					array(
-						'label' => __('No. Adult', 'wpbooking'),
-						'id'    => 'number_adult',
-						'type'  => 'number',
-					),
-					array(
-						'label' => __('No. Children', 'wpbooking'),
-						'id'    => 'number_children',
-						'type'  => 'number',
-					),
 					array(
 						'label'          => __('External Booking?', 'wpbooking'),
 						'id'             => 'external_booking',

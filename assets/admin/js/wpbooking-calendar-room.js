@@ -65,7 +65,7 @@ jQuery(document).ready(function($) {
 						setCheckInOut(check_in, check_out, self.form_container);
 					}
 				},
-				events:function(start, end, timezone, callback) {
+                events:function(start, end, timezone, callback) {
                     $.ajax({
                         url: wpbooking_params.ajax_url,
                         dataType: 'json',
@@ -89,7 +89,7 @@ jQuery(document).ready(function($) {
                     });
                 },
 				eventClick: function(event, element, view){
-                    
+                    return false;
 				},
 				eventRender: function(event, element, view){
 					var html = '';
