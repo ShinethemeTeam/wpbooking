@@ -107,7 +107,7 @@ if (!class_exists('WPBooking_Metabox')) {
 								?>
 								<li class=""><a
 										class="<?php echo esc_attr($class) ?>" <?php echo esc_attr($data_class) ?>
-										href="#<?php echo 'st-metabox-tab-item-' . esc_html($field['id']); ?>"><?php echo esc_html($field['label']); ?></a>
+										href="#<?php echo 'st-metabox-tab-item-' . esc_html($field['id']); ?>"><?php echo ($field['label']); ?></a>
 								</li>
 							<?php endif; endforeach; ?>
 					</ul>
@@ -124,8 +124,7 @@ if (!class_exists('WPBooking_Metabox')) {
 							?>
 							<div id="<?php echo 'st-metabox-tab-item-' . esc_html($field['id']); ?>"
 								 class="st-metabox-tabs-content ">
-								<div
-									class="st-metabox-tab-content-wrap <?php echo esc_attr($class) ?> row" <?php echo esc_attr($data_class) ?>>
+								<div class="st-metabox-tab-content-wrap <?php echo esc_attr($class) ?> row" <?php echo esc_attr($data_class) ?>>
 									
 									<?php
 

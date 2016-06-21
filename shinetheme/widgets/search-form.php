@@ -205,7 +205,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 										$check = "checked";
 									}
 									?>
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
 										<label for="<?php echo "item_".$key2 ?>"><?php echo esc_html( $value2 ) ?></label>
 									</div>
@@ -419,7 +419,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                         </div>
                         <div class="widget-control-actions">
                             <div class="alignleft">
-                                <input type="button" value="Add Field" data-number="<?php echo esc_attr($number) ?>" data-name-field-search="<?php echo $this->get_field_name('field_search'); ?>" data-post-type="<?php echo esc_attr($key) ?>" class="button button-primary left btn_add_field_search_form" id="#">
+                                <input type="button" value="<?php  esc_html_e('Add Field','wpbooking')?>" data-number="<?php echo esc_attr($number) ?>" data-name-field-search="<?php echo $this->get_field_name('field_search'); ?>" data-post-type="<?php echo esc_attr($key) ?>" class="button button-primary left btn_add_field_search_form" id="#">
                             </div>
                             <br class="clear">
                         </div>

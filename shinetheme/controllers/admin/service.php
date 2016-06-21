@@ -128,7 +128,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				'priority' => 'high',
 				'fields'   => array(
 					array(
-						'label' => __('General', 'wpbooking'),
+						'label' => __('<i class="fa fa-home"></i> General', 'wpbooking'),
 						'id'    => 'general_tab',
 						'type'  => 'tab',
 					), array(
@@ -234,7 +234,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 //						'type'  => 'text',
 //					),
 					array(
-						'label' => __('Amenities', 'wpbooking'),
+						'label' => __('<i class="fa fa-sliders"></i> Amenities', 'wpbooking'),
 						'id'    => 'amelities_tab',
 						'type'  => 'tab',
 					),
@@ -244,7 +244,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'type'  => 'taxonomies',
 					),
 					array(
-						'label' => __('Pricing', 'wpbooking'),
+						'label' => __('<i class="fa fa-money"></i> Pricing', 'wpbooking'),
 						'id'    => 'price_tab',
 						'type'  => 'tab',
 					),
@@ -337,7 +337,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						''
 					),
 					array(
-						'label' => __('Calendar', 'wpbooking'),
+						'label' => __('<i class="fa fa-calendar-check-o"></i> Calendar', 'wpbooking'),
 						'id'    => 'calendar_tab',
 						'type'  => 'tab',
 					),
