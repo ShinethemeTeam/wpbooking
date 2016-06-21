@@ -139,6 +139,10 @@ if (!class_exists('WPBooking_Admin_Service')) {
 					),
 
 					array(
+						'label' => __('Address', 'wpbooking'),
+						'type'  => 'accordion-start'
+					),
+					array(
 						'label' => __('Location', 'wpbooking'),
 						'id'    => 'location',
 						'type'  => 'location'
@@ -152,6 +156,10 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'label' => __('Map', 'wpbooking'),
 						'id'    => 'gmap',
 						'type'  => 'gmap'
+					),
+					array(
+						'type'  => 'accordion-end',
+						'id'=>'end_address_accordion'
 					),
 					array(
 						'label' => __('Gallery', 'wpbooking'),
@@ -236,6 +244,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 
 					array(
 						'label' => __('Base Price', 'wpbooking'),
+						'desc'  => __('Will be shown in frontend', 'wpbooking'),
 						'id'    => 'price',
 						'type'  => 'text',
 					),

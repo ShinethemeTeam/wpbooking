@@ -610,4 +610,20 @@ jQuery(document).ready(function( $ ){
         }
 
     });
+
+    // Accordion
+    //$('.wpbooking-metabox-accordion').accordion();
+    $('.wpbooking-accordion-title').click(function(){
+       if($(this).parent().hasClass('active')){
+           $(this).parent().find('.wpbooking-metabox-accordion-content').slideUp('fast');
+           $(this).parent().removeClass('active');
+       }else{
+           var s=$(this).parent().siblings('.wpbooking-metabox-accordion');
+           console.log(s);
+           s.find('.wpbooking-metabox-accordion-content').slideUp('fast');
+           s.removeClass('active');
+           $(this).parent().find('.wpbooking-metabox-accordion-content').slideDown('fast');
+           $(this).parent().addClass('active');
+       }
+    });
 });

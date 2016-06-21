@@ -1,3 +1,70 @@
+.label {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+}
+a.label:hover,
+a.label:focus {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+.label:empty {
+  display: none;
+}
+.btn .label {
+  position: relative;
+  top: -1px;
+}
+.label-default {
+  background-color: #777;
+}
+.label-default[href]:hover,
+.label-default[href]:focus {
+  background-color: #5e5e5e;
+}
+.label-primary {
+  background-color: #337ab7;
+}
+.label-primary[href]:hover,
+.label-primary[href]:focus {
+  background-color: #286090;
+}
+.label-success {
+  background-color: #5cb85c;
+}
+.label-success[href]:hover,
+.label-success[href]:focus {
+  background-color: #449d44;
+}
+.label-info {
+  background-color: #5bc0de;
+}
+.label-info[href]:hover,
+.label-info[href]:focus {
+  background-color: #31b0d5;
+}
+.label-warning {
+  background-color: #f0ad4e;
+}
+.label-warning[href]:hover,
+.label-warning[href]:focus {
+  background-color: #ec971f;
+}
+.label-danger {
+  background-color: #d9534f;
+}
+.label-danger[href]:hover,
+.label-danger[href]:focus {
+  background-color: #c9302c;
+}
 .subsubsub {
   color: #666;
   font-size: 13px;
@@ -1293,70 +1360,24 @@ a.ui-datepicker-next {
   padding: 3px;
   margin-bottom: 2px;
 }
-.label {
-  display: inline;
-  padding: .2em .6em .3em;
-  font-size: 75%;
-  font-weight: bold;
-  line-height: 1;
-  color: #fff;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: .25em;
-}
-a.label:hover,
-a.label:focus {
-  color: #fff;
-  text-decoration: none;
+.wpbooking-metabox-accordion .wpbooking-accordion-title {
   cursor: pointer;
+  border: 1px solid #d3d3d3;
+  background: #e6e6e6 ;
+  padding: 7px 10px;
+  margin-bottom: 0px;
+  font-size: 14px;
+  font-weight: bold;
 }
-.label:empty {
+.wpbooking-metabox-accordion.active .wpbooking-accordion-title {
+  background: white;
+}
+.wpbooking-metabox-accordion.active .wpbooking-accordion-title i:before {
+  content: "\f0ab";
+}
+.wpbooking-metabox-accordion .wpbooking-metabox-accordion-content {
   display: none;
-}
-.btn .label {
-  position: relative;
-  top: -1px;
-}
-.label-default {
-  background-color: #777;
-}
-.label-default[href]:hover,
-.label-default[href]:focus {
-  background-color: #5e5e5e;
-}
-.label-primary {
-  background-color: #337ab7;
-}
-.label-primary[href]:hover,
-.label-primary[href]:focus {
-  background-color: #286090;
-}
-.label-success {
-  background-color: #5cb85c;
-}
-.label-success[href]:hover,
-.label-success[href]:focus {
-  background-color: #449d44;
-}
-.label-info {
-  background-color: #5bc0de;
-}
-.label-info[href]:hover,
-.label-info[href]:focus {
-  background-color: #31b0d5;
-}
-.label-warning {
-  background-color: #f0ad4e;
-}
-.label-warning[href]:hover,
-.label-warning[href]:focus {
-  background-color: #ec971f;
-}
-.label-danger {
-  background-color: #d9534f;
-}
-.label-danger[href]:hover,
-.label-danger[href]:focus {
-  background-color: #c9302c;
+  margin-top: -1px;
+  border: 1px solid #d3d3d3;
+  padding: 0px 10px;
 }

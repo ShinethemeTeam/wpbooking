@@ -260,7 +260,7 @@ jQuery(document).ready(function($){
     $('.wpbooking-show-more-fields').click(function(){
         var parent=$(this).parent();
         $('.wpbooking-search-form-wrap').addClass('show-more-active');
-        
+
         parent.find('.wpbooking-search-form-more').slideDown('fast');
         $(this).hide();
 

@@ -125,7 +125,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 			parent::__construct();
 			// add metabox
-			add_filter('wpbooking_metabox_after_st_post_metabox_field_gallery',array($this,'_add_metabox'));
+			add_filter('wpbooking_metabox_after_st_post_metabox_field_end_address_accordion',array($this,'_add_metabox'));
 
 			add_filter('wpbooking_model_table_wpbooking_service_columns',array($this,'_add_meta_table_column'));
 
@@ -170,8 +170,10 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		function _add_metabox($fields)
 		{
 			$new_fields=array(
+
 				array(
-					'type' => 'hr'
+					'label' => __('Space of Room', 'wpbooking'),
+					'type'  => 'accordion-start'
 				),
 				array(
 					'label' => __('Number of Bedrooms', 'wpbooking'),
@@ -201,7 +203,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					'class' => 'time-picker'
 				),
 				array(
-					'type' => 'hr'
+					'type'  => 'accordion-end'
 				),
 			);
 			$fields=array_merge($fields,$new_fields);
