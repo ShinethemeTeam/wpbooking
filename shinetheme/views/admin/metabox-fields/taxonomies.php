@@ -53,7 +53,7 @@ if( count( $terms ) ){
 						<div class="wpbooking-list-taxonomy-item">
 							<label>
 								<input <?php if( in_array( $item->term_id, $old ) ) echo 'checked'; ?> type="checkbox" value="<?php echo esc_html( $item->term_id ); ?>" name="<?php echo $name.'['. $key .'][]'; ?>">
-								<span style="margin-left: 5px;"><strong><?php echo esc_html( $item->name ); ?></strong></span>
+								<span ><?php echo esc_html( $item->name ); ?></span>
 							</label>
 						</div>
 					<?php endforeach; endif; ?>
