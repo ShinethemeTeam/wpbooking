@@ -65,6 +65,12 @@ a.label:focus {
 .label-danger[href]:focus {
   background-color: #c9302c;
 }
+.mb20 {
+  margin-bottom: 20px;
+}
+.mb10 {
+  margin-bottom: 10px;
+}
 .subsubsub {
   color: #666;
   font-size: 13px;
@@ -590,6 +596,12 @@ input.gmap-search {
 }
 .wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-input {
   width: 100%;
+}
+.wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-room-form-item {
+  margin-bottom: 20px;
+  float: left;
+  width: 50%;
+  padding: 0px 7px;
 }
 .wpbooking-calendar-wrapper .wpbooking-calendar-sidebar #form-bulk-edit {
   position: absolute;

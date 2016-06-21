@@ -26,26 +26,27 @@ if(!empty($data['condition'])){
 				</div>
 				<div class="wpbooking-calendar-sidebar">
 					<div class="form-container calendar-room-form">
-						<div class="" style="margin-bottom: 10px;">
+						<div class="calendar-room-form-item" >
 							<label class="calendar-label" for="calendar-checkin"><?php echo __('From', 'wpbooking'); ?></label>
 							<input class="calendar-input date-picker" type="text" id="calendar-checkin" name="calendar-checkin" value="" readonly="readonly" placeholder="<?php echo __('From Date','wpbooking'); ?>">
 						</div>
-						<div class="" style="margin-bottom: 10px;">
+						<div class="calendar-room-form-item" >
 							<label class="calendar-label" for="calendar-checkout"><?php echo __('To', 'wpbooking'); ?></label>
 							<input class="calendar-input date-picker" type="text" id="calendar-checkout" name="calendar-checkout" value="" readonly="readonly" placeholder="<?php echo __('To Date','wpbooking'); ?>">
 						</div>
-						<div class="" style="margin-bottom: 10px;">
+						<div class="calendar-room-form-item" >
 							<label class="calendar-label" for="calendar-price"><?php echo __('Price', 'wpbooking'); ?></label>
 							<input class="calendar-input" type="text" id="calendar-price" name="calendar-price" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
 						</div>
-						<div class="" style="margin-bottom: 10px;">
+						<div class="calendar-room-form-item" >
 							<label class="calendar-label" for="calendar-status"><?php echo __('Status', 'wpbooking'); ?></label>
 							<select name="calendar-status" id="calendar-status">
 								<option value="available"><?php echo __('Available','wpbooking'); ?></option>
 								<option value="not_available"><?php echo __('Not Available','wpbooking'); ?></option>
 							</select>
 						</div>
-						<div class="clearfix" style="margin-bottom: 10px;">
+						<div class="clear"></div>
+						<div class="clearfix mb10" >
 							<input type="hidden" id="calendar-post-id" name="post-id" value="<?php echo get_the_ID(); ?>">
 							<input type="hidden" id="calendar-post-encrypt" name="calendar-post-encrypt" value="<?php echo wpbooking_encrypt( get_the_ID() ); ?>">
 							<button type="button" id="calendar-save" class="button button-primary button-large"><?php echo __('Save','wpbooking'); ?></button>
