@@ -170,6 +170,10 @@ if (!class_exists('WPBooking_Admin_Order')) {
 				if(!empty($filter['payment_status'])){
 					$order_model->where('payment_status',$filter['payment_status']);
 				}
+				if(!empty($filter['keyword'])){
+					$order_model->like('id',$filter['keyword']);
+				}
+
 
 			}
 

@@ -35,6 +35,7 @@ $autoload['library']=array(
 );
 
 $autoload['controller']=array(
+	'user',
 	'service',
 	'admin/order',
 	'admin/location',

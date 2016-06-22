@@ -70,6 +70,7 @@ if(!class_exists('WPBooking_Model') ){
 		protected $_last_result=array();
 		protected $_groupby=array();
 		protected $_having=array();
+		protected $_like_query=array();
 
 		/**
 		 * @since 1.0
@@ -86,6 +87,40 @@ if(!class_exists('WPBooking_Model') ){
 			return $this->_last_query;
 		}
 
+		function like($key,$value,$format='both'){
+			if(is_array($key) and !empty($key)){
+				foreach($key as $k1=>$v1){
+					$this->like($v1['key'],$v1['value'],$v1['format']);
+				}
+				return $this;
+			}
+			if(is_string($key)){
+				$this->_like_query[]=array(
+					'key'=>$key,
+					'value'=>$value,
+					'clause'=>"AND",
+					'format'=>$format
+				);
+			}
+			return $this;
+		}
+		function or_like($key,$value,$format='both'){
+			if(is_array($key) and !empty($key)){
+				foreach($key as $k1=>$v1){
+					$this->or_like($v1['key'],$v1['value'],$v1['format']);
+				}
+				return $this;
+			}
+			if(is_string($key)){
+				$this->_like_query[]=array(
+					'key'=>$key,
+					'value'=>$value,
+					'clause'=>"OR",
+					'format'=>$format
+				);
+			}
+			return $this;
+		}
 		/**
 		 * Add Where Clause to current Query
 		 *
@@ -616,9 +651,9 @@ if(!class_exists('WPBooking_Model') ){
 				}
 			}
 
-			$where=FALSE;
+			$where=' WHERE 1=1 ';
+
 			if(!empty($this->_where_query)){
-				$where=' WHERE 1=1 ';
 
 				foreach($this->_where_query as $key=>$value){
 					$last=substr($key,-1);
@@ -635,6 +670,35 @@ if(!class_exists('WPBooking_Model') ){
 					}
 				}
 			}
+
+			// Like
+			if(!empty($this->_like_query)){
+
+				foreach($this->_like_query as $key=>$value){
+					$value=wp_parse_args($value,
+						array(
+							'key'=>FALSE,
+							'value'=>FALSE,
+							'clause'=>'AND',
+							'format'=>'both'
+						));
+					switch($value['format']){
+						case "before":
+							$where.=' '.$value['clause'].' '.$value['key']." LIKE '%".$wpdb->_real_escape($value['value'])."' ";
+							break;
+						case "after":
+							$where.=' '.$value['clause'].' '.$value['key']." LIKE '".$wpdb->_real_escape($value['value'])."%' ";
+							break;
+
+						default:
+							$where.=' '.$value['clause'].' '.$value['key']." LIKE '%".$wpdb->_real_escape($value['value'])."%' ";
+							break;
+
+					}
+					}
+			}
+
+
 			$order=FALSE;
 			if(!empty($this->_order_query)){
 				$order=' ORDER BY ';

@@ -34,6 +34,9 @@ if(WPBooking_Input::get('status')){
 if(WPBooking_Input::get('payment_status')){
 	$order_model->where('payment_status',WPBooking_Input::get('payment_status'));
 }
+if(WPBooking_Input::get('keyword')){
+	$order_model->like('id',WPBooking_Input::get('keyword'));
+}
 
 $rows=$order_model->get()->result();
 ?>

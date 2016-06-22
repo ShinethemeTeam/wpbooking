@@ -341,6 +341,9 @@ img.settings-demo-gallery {
 .st-metabox-tabs .st-metabox-nav li a {
   display: block;
 }
+.st-metabox-tabs .st-metabox-nav li a i {
+  margin-right: 5px;
+}
 .st-metabox-tabs .st-metabox-nav li.ui-tabs-active {
   padding-bottom: 0;
   padding-right: .1em;
@@ -443,6 +446,9 @@ img.settings-demo-gallery {
 }
 .st-metabox-tab-content-wrap .form-table:after {
   clear: both;
+}
+.st-metabox-content-wrapper .wpbooking-gmap-wrapper {
+  margin-bottom: 7px;
 }
 .st-metabox-content-wrapper .gmap-container {
   position: relative;

@@ -76,6 +76,15 @@ $config['settings'] = array(
 
 						)
 					),
+					array(
+						'label'=>esc_html__('Accounts','wpbooking'),
+						'type'=>'title'
+					),
+					array(
+						'label'=>esc_html__('My Account Page','wpbooking'),
+						'type'=>'page-select',
+						'id'=>'myaccount-page'
+					),
 				)
 			),
 		),

@@ -335,8 +335,8 @@ jQuery(document).ready(function( $ ){
     ///////////////////////////
     
     function load_gmap(){
-        if( $('.st-metabox-content-wrapper').length ){
-            $('.st-metabox-content-wrapper').each(function(index, el) {
+        if( $('.wpbooking-gmap-wrapper').length ){
+            $('.wpbooking-gmap-wrapper').each(function(index, el) {
                 var t = $(this);
                 var gmap = $('.gmap-content', t);
                 var map_lat = parseFloat( $('input[name="map_lat"]', t).val() );
@@ -347,6 +347,7 @@ jQuery(document).ready(function( $ ){
                 var bt_ot_searchbox = $('input.gmap-search', t);
 
                 var current_marker;
+
 
                 gmap.gmap3({
                     map:{
@@ -385,21 +386,29 @@ jQuery(document).ready(function( $ ){
                                 });
                             }
                         }   
-                    },
-                    marker:{
-                        values:[
-                          {latLng:[ map_lat, map_long ] },
-                        ],
-                        options:{
-                          draggable: false
-                        },
-                    } 
+                    }
 
                 });
 
-
-
                 var gmap_obj = gmap.gmap3('get');
+
+                if(!map_lat || !map_long){
+                    // Try to get current location
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function(showPosition){
+                            var gmap_obj = gmap.gmap3('get');
+                            map_lat=showPosition.coords.latitude;
+                            map_long=showPosition.coords.longitude;
+                            gmap_obj.setCenter(new google.maps.LatLng(map_lat,map_long));
+                            gmap_obj.setZoom(11);
+                            $('input[name="map_lat"]', t).val( map_lat );
+                            $('input[name="map_long"]', t).val( map_long );
+                            $('input[name="map_zoom"]', t).val( 11);
+                        });
+
+                    }
+                }
+
 
                 var geocoder = new google.maps.Geocoder;
 
@@ -627,7 +636,7 @@ jQuery(document).ready(function( $ ){
            s.removeClass('active');
            $(this).parent().find('.wpbooking-metabox-accordion-content').slideDown('fast');
            $(this).parent().addClass('active');
-
+            console.log(1);
            $(window).trigger('resize');
        }
     });

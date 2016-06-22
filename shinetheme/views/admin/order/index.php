@@ -48,6 +48,7 @@ $payment_status=WPBooking_Config::inst()->item('payment_status');
 		<?php if(WPBooking_Input::get('tab')){
 			printf('<input type="hidden" name=tab value=%s>',WPBooking_Input::get('tab'));
 		} ?>
+
 		<div class="tablenav top">
 			<?php if(!WPBooking_Input::get('tab') or WPBooking_Input::get('tab')=='list'){?>
 			<div class="alignleft actions bulkactions">
@@ -92,6 +93,13 @@ $payment_status=WPBooking_Config::inst()->item('payment_status');
 				<input type="submit" id="doaction" class="button action" value="<?php esc_html_e('Filter','wpbooking') ?>">
 			</div>
 <!--			End .actions-->
+
+			<div class="tablenav-pages">
+				<p class="search-box">
+					<label class="screen-reader-text" for="post-search-input"><?php esc_html_e('Search Order','wpbooking') ?></label>
+					<input type="search"  name="keyword" value="<?php echo WPBooking_Input::get('keyword') ?>">
+					<input type="submit"  class="button" value="<?php esc_html_e('Search Order','wpbooking') ?>"></p>
+			</div>
 		</div>
 <!--		End top-->
 

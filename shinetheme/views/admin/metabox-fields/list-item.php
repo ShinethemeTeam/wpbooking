@@ -82,7 +82,8 @@ if(!empty($data['condition'])){
 										'map_long'    => '',
 										'map_zoom'    => 13,
 										'custom_name' => $custom_name,
-										'custom_data' => $custom_data
+										'custom_data' => $custom_data,
+										'width'=>FALSE
 									);
 
 									$item['id'] = esc_html( $data['id'] ) . '_' . esc_html( $item['id'] );
@@ -164,6 +165,7 @@ if(!empty($data['condition'])){
 							'map_long'    => '',
 							'map_zoom'    => 13,
 							'custom_name' => $custom_name,
+							'width'=>FALSE
 						);
 
 						$item = wp_parse_args( $item , $default );
