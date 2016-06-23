@@ -9,11 +9,10 @@
 <form action="" method="post" id="wpbooking-register-form">
 	<input type="hidden"  name="action" value="wpbooking_do_register">
 	<?php echo wpbooking_get_message() ?>
-	<input type="text" class="hidden" value="">
 	<h3 class="form-title"><?php esc_html_e('Register','wpbooking') ?></h3>
 	<div class="form-group">
-		<label for="input-login"><?php esc_html_e('Username','wpbooking') ?></label>
-		<input type="text" class="form-control" value="<?php echo WPBooking_Input::post('login') ?>" name="login" id="input-login"  placeholder="<?php esc_html_e('Your Username','wpbooking') ?>">
+		<label for="reg-login"><?php esc_html_e('Username','wpbooking') ?></label>
+		<input type="text" class="form-control" value="<?php echo WPBooking_Input::post('login') ?>" name="login" id="reg-login"  placeholder="<?php esc_html_e('Your Username','wpbooking') ?>">
 	</div>
 	<div class="form-group">
 		<label for="input-email"><?php esc_html_e('Email','wpbooking') ?></label>

@@ -32,6 +32,7 @@ if(!class_exists('WPBooking_User'))
 		 */
 		function _login_register_handler(){
 
+			if(is_user_logged_in()) return false;
 			// Login
 			if(WPBooking_Input::post('action')=='wpbooking_do_login'){
 
@@ -66,9 +67,14 @@ if(!class_exists('WPBooking_User'))
 		{
 			return wpbooking_load_view('account/index');
 		}
+		function _partner_register_shortcode()
+		{
+			return wpbooking_load_view('account/partner-register');
+		}
 		function _add_shortcode()
 		{
 			add_shortcode('wpbooking-myaccount',array($this,'_myaccount_shortcode'));
+			add_shortcode('wpbooking-partner-register',array($this,'_partner_register_shortcode'));
 		}
 
 		static function inst()

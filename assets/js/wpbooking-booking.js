@@ -500,5 +500,51 @@ jQuery(document).ready(function($){
         $(this).closest('.row').find('.term-item').removeClass('hidden_term');
         $(this).parent().remove();
     });
+
+    // Partner Register
+
+    $('.upload-certificate').each(function(){
+        var me=$(this);
+        $('.service_type_checkbox').change(function(){
+            if($(this).attr('checked')){
+                me.addClass('active');
+            }else{
+                me.removeClass('active');
+            }
+        })
+
+        me.find('.upload_input').change(function(){
+            var formData = new FormData();
+            me.append('action','wpbooking_upload_certificate');
+            formData.append('image',$(this).val());
+
+            me.find('.upload-message').html('');
+
+            $.ajax({
+                type: "POST",
+                url: wpbooking_params.ajax_url,
+                enctype: 'multipart/form-data',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function(data) {
+                    if(data.message){
+                        me.find('.upload-message').html(data.message);
+                    }
+                    if(data.status && data.image_url){
+                        me.find('.image_url').val(data.image_url);
+                        me.append('<img class="uploaded_image_preview" alt="" src="'+data.image_url+'">');
+                    }
+                },
+                error:function(e){
+                    if(e.responseText){
+                        me.find('.upload-message').html(e.responseText);
+                    }
+                }
+            });
+        });
+
+    });
 });
 
