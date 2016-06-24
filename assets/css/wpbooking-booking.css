@@ -232,3 +232,6 @@
 .wpbooking-register-form .upload-certificate.active {
   display: block;
 }
+.wpbooking-register-form .upload-certificate .uploaded_image_preview {
+  max-width: 200px;
+}

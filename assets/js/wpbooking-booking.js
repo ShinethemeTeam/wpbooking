@@ -312,7 +312,7 @@ jQuery(document).ready(function($){
     var order_end_date=$('.wpbooking_order_form .wpbooking-field-date-end');
 
     // Init Datepicker
-    order_start_date .datepicker({
+    order_start_date.datepicker({
         minDate:0,
         onSelect:function(selected) {
             order_end_date.datepicker("option","minDate", selected);
@@ -408,8 +408,10 @@ jQuery(document).ready(function($){
             });
         }
     }
+    if(order_start_date.length || order_end_date.length){
 
-    loadCalendarMonth();
+        loadCalendarMonth();
+    }
     //==========================================================================================
     // End Calendar Handler for Single Place Order Form
     //==========================================================================================
@@ -515,8 +517,8 @@ jQuery(document).ready(function($){
 
         me.find('.upload_input').change(function(){
             var formData = new FormData();
-            me.append('action','wpbooking_upload_certificate');
-            formData.append('image',$(this).val());
+            formData.append('action','wpbooking_upload_certificate');
+            formData.append('image',$(this)[0].files[0]);
 
             me.find('.upload-message').html('');
 
@@ -529,12 +531,13 @@ jQuery(document).ready(function($){
                 contentType: false,
                 dataType: "json",
                 success: function(data) {
+                    me.find('.uploaded_image_preview').remove();
                     if(data.message){
                         me.find('.upload-message').html(data.message);
                     }
-                    if(data.status && data.image_url){
-                        me.find('.image_url').val(data.image_url);
-                        me.append('<img class="uploaded_image_preview" alt="" src="'+data.image_url+'">');
+                    if(data.status && data.image){
+                        me.find('.image_url').val(data.image.url);
+                        me.append('<img class="uploaded_image_preview" alt="" src="'+data.image.url+'">');
                     }
                 },
                 error:function(e){

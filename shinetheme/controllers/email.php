@@ -28,7 +28,10 @@ if(!class_exists('WPBooking_Email'))
 			//add_action('wpbooking_after_checkout_success',array($this,'_send_order_email_confirm'));
 
 			add_action('admin_init',array($this,'_test_email'));
+
 		}
+
+
 
 		function _test_email()
 		{
@@ -269,6 +272,35 @@ if(!class_exists('WPBooking_Email'))
 		function set_html_content_type()
 		{
 			return 'text/html';
+		}
+
+		/**
+		 * Apply CSS From WPBooking -> Email Option ->CSS to Email Content
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $message
+		 * @return mixed|string|void
+		 */
+		function apply_css($message)
+		{
+			// Apply CSS to Inline CSS
+			if(class_exists('Emogrifier') and $email_css=wpbooking_get_option('email_stylesheet'))
+			{
+				try{
+					$Emogrifier=new Emogrifier();
+					$Emogrifier->setHtml($message);
+					$Emogrifier->setCss($email_css);
+					$message=$Emogrifier->emogrify();
+				}catch(Exception $e){
+
+				}
+
+			}
+
+			$message=apply_filters('wpbooking_email_content_apply_css',$message);
+			return $message;
 		}
 
 		/**

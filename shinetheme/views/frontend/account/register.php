@@ -8,7 +8,10 @@
 ?>
 <form action="" method="post" id="wpbooking-register-form">
 	<input type="hidden"  name="action" value="wpbooking_do_register">
-	<?php echo wpbooking_get_message() ?>
+	<?php
+	if(WPBooking_Input::post('action')=='wpbooking_do_register')
+	echo wpbooking_get_message()
+	?>
 	<h3 class="form-title"><?php esc_html_e('Register','wpbooking') ?></h3>
 	<div class="form-group">
 		<label for="reg-login"><?php esc_html_e('Username','wpbooking') ?></label>

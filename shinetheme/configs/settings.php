@@ -1,6 +1,6 @@
 <?php
 $config['settings'] = array(
-	"general"      => array(
+	"general" => array(
 		"name"     => __('General', 'wpbooking'),
 		"sections" => array(
 			"general_option" => array(
@@ -19,7 +19,7 @@ $config['settings'] = array(
 								'id'    => 'currency',
 								'label' => __('Currency', 'wpbooking'),
 								'type'  => 'dropdown',
-								'value'   => apply_filters('wpbooking_get_all_currency', array()),
+								'value' => apply_filters('wpbooking_get_all_currency', array()),
 							),
 							array(
 								'id'    => 'symbol',
@@ -71,25 +71,25 @@ $config['settings'] = array(
 								'label' => __('Exchange Rate', 'wpbooking'),
 								'desc'  => __('Exchange Rate vs Main Currency', 'wpbooking'),
 								'type'  => 'text',
-								'value'=>1
+								'value' => 1
 							),
 
 						)
 					),
 					array(
-						'label'=>esc_html__('Accounts','wpbooking'),
-						'type'=>'title'
+						'label' => esc_html__('Accounts', 'wpbooking'),
+						'type'  => 'title'
 					),
 					array(
-						'label'=>esc_html__('My Account Page','wpbooking'),
-						'type'=>'page-select',
-						'id'=>'myaccount-page'
+						'label' => esc_html__('My Account Page', 'wpbooking'),
+						'type'  => 'page-select',
+						'id'    => 'myaccount-page'
 					),
 				)
 			),
 		),
 	),
-	'booking'      => array(
+	'booking' => array(
 		'name'     => __("Booking", 'wpbooking'),
 		'sections' => array(
 			'general_booking' => array(
@@ -98,14 +98,14 @@ $config['settings'] = array(
 				'fields' => array(
 
 					array(
-						'id'        => 'cart_page',
-						'label'     => __("Cart Page", 'wpbooking'),
-						'type'      => 'page-select',
+						'id'    => 'cart_page',
+						'label' => __("Cart Page", 'wpbooking'),
+						'type'  => 'page-select',
 					),
 					array(
-						'id'        => 'checkout_page',
-						'label'     => __("Checkout Page", 'wpbooking'),
-						'type'      => 'page-select',
+						'id'    => 'checkout_page',
+						'label' => __("Checkout Page", 'wpbooking'),
+						'type'  => 'page-select',
 					),
 					array(
 						'id'        => 'checkout_form',
@@ -114,16 +114,16 @@ $config['settings'] = array(
 						'post_type' => array('wpbooking_form')
 					),
 					array(
-						'id'        => 'allow_guest_checkout',
-						'label'     => __("Allow Guest Checkout?", 'wpbooking'),
-						'type'      => 'checkbox',
+						'id'    => 'allow_guest_checkout',
+						'label' => __("Allow Guest Checkout?", 'wpbooking'),
+						'type'  => 'checkbox',
 					),
 				)
 			)
 
 		)
 	),
-	'email'      => array(
+	'email'   => array(
 		'name'     => __("Email", 'wpbooking'),
 		'sections' => array(
 			'general_booking' => array(
@@ -132,16 +132,22 @@ $config['settings'] = array(
 				'fields' => array(
 
 					array(
-						'id'        => 'email_from',
-						'label'     => __("Email From Name", 'wpbooking'),
-						'type'      => 'text',
-						'std'		=>__("WPBooking Plugin",'wpbooking')
+						'id'    => 'email_from',
+						'label' => __("Email From Name", 'wpbooking'),
+						'type'  => 'text',
+						'std'   => __("WPBooking Plugin", 'wpbooking')
 					),
 					array(
-						'id'        => 'email_from_address',
-						'label'     => __("Email From Address", 'wpbooking'),
-						'type'      => 'text',
-						'placeholder'=>'contact@domain.com'
+						'id'          => 'email_from_address',
+						'label'       => __("Email From Address", 'wpbooking'),
+						'type'        => 'text',
+						'placeholder' => 'contact@domain.com'
+					),
+					array(
+						'id'    => 'email_stylesheet',
+						'label' => __("Email CSS Code", 'wpbooking'),
+						'type'  => 'ace-editor',
+						'desc'  => esc_html__('We will use this to transmogrifies your Email HTML by parsing the CSS and inserting the CSS definitions into tags within your Email HTML based on the CSS selectors'),
 					),
 				)
 			),
@@ -163,37 +169,99 @@ $config['settings'] = array(
 //					),
 //				)
 //			),
-			'booking_email' => array(
+			'booking_email'   => array(
 				'id'     => 'booking_email',
 				'label'  => __("Email Template", 'wpbooking'),
 				'fields' => array(
 
 					array(
-						'id'        => 'email_to_customer',
-						'label'     => __("For Customer", 'wpbooking'),
-						'type'      => 'texteditor',
-						'desc'=>wpbooking_admin_load_view('email/document'),
-						'editor_args'=>array(
-							'tinymce'=>FALSE
+						'id'          => 'email_to_customer',
+						'label'       => __("For Customer", 'wpbooking'),
+						'type'        => 'texteditor',
+						'desc'        => wpbooking_admin_load_view('email/document'),
+						'editor_args' => array(
+							'tinymce' => FALSE
 						)
 					),
 					array(
-						'id'        => 'email_to_partner',
-						'label'     => __("For Author and Administrator", 'wpbooking'),
-						'type'      => 'texteditor',
-						'desc'=>wpbooking_admin_load_view('email/document'),
-						'editor_args'=>array(
-							'tinymce'=>FALSE
+						'id'          => 'email_to_partner',
+						'label'       => __("For Author and Administrator", 'wpbooking'),
+						'type'        => 'texteditor',
+						'desc'        => wpbooking_admin_load_view('email/document'),
+						'editor_args' => array(
+							'tinymce' => FALSE
 						)
-					),
-					array(
-						'id'        => 'email_stylesheet',
-						'label'     => __("Email CSS Code", 'wpbooking'),
-						'type'      => 'ace-editor',
-						'desc'=>esc_html__('We will use this to transmogrifies your Email HTML by parsing the CSS and inserting the CSS definitions into tags within your Email HTML based on the CSS selectors'),
 					),
 				)
 			),
+			'partner_email'   => array(
+				'id'     => 'partner_email',
+				'label'  => __("Registration Email", 'wpbooking'),
+				'fields' => array(
+
+					array(
+						'id'    => 'on_registration_email_customer',
+						'label' => __("Enable Registration Email To Customer", 'wpbooking'),
+						'type'  => 'checkbox',
+						'std'   => '1'
+					),
+					array(
+						'id'          => 'registration_email_customer',
+						'label'       => __("Registration Email To Customer", 'wpbooking'),
+						'type'        => 'texteditor',
+						'desc'        => wpbooking_admin_load_view('email/registration_document'),
+						'editor_args' => array(
+							'tinymce' => FALSE
+						),
+						'condition'   => 'on_registration_email_customer:is(1)'
+					),
+					array(
+						'id'    => 'on_registration_email_admin',
+						'label' => __("Enable Registration Email To Admin", 'wpbooking'),
+						'type'  => 'checkbox',
+					),
+					array(
+						'id'          => 'registration_email_admin',
+						'label'       => __("Registration Email To Admin", 'wpbooking'),
+						'type'        => 'texteditor',
+						'desc'        => wpbooking_admin_load_view('email/registration_document'),
+						'editor_args' => array(
+							'tinymce' => FALSE
+						),
+						'condition'   => 'on_registration_email_admin:is(1)'
+					),
+					array(
+						'id'    => 'on_registration_partner_email_partner',
+						'label' => __("Enable Registration Email To Partner", 'wpbooking'),
+						'type'  => 'checkbox',
+					),
+					array(
+						'id'          => 'registration_partner_email_to_partner',
+						'label'       => __("Registration Partner Email to Partner", 'wpbooking'),
+						'type'        => 'texteditor',
+						'desc'        => wpbooking_admin_load_view('email/partner_registration_document'),
+						'editor_args' => array(
+							'tinymce' => FALSE
+						),
+						'condition'   => 'on_registration_partner_email_partner:is(1)'
+					),
+					array(
+						'id'    => 'on_registration_partner_email_admin',
+						'label' => __("Enable Registration Email To Admin", 'wpbooking'),
+						'type'  => 'checkbox',
+					),
+					array(
+						'id'          => 'registration_partner_email_to_admin',
+						'label'       => __("Registration Partner Email To Admin", 'wpbooking'),
+						'type'        => 'texteditor',
+						'desc'        => wpbooking_admin_load_view('email/partner_registration_document'),
+						'editor_args' => array(
+							'tinymce' => FALSE
+						),
+						'condition'   => 'on_registration_partner_email_admin:is(1)'
+					),
+				)
+			)
 
 		)
 	),

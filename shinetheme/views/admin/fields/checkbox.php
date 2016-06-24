@@ -15,9 +15,10 @@ if($data_value == 'on'){
     $is_check = "checked";
 }
 $class = $name;
+$class.=' wpbooking-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){
-    $class .= ' wpbooking-condition wpbooking-form-group ';
+    $class .= ' wpbooking-condition  ';
     $data_class .= ' data-condition=wpbooking_'.$data['condition'].' ' ;
 }
 ?>
@@ -27,7 +28,7 @@ if(!empty($data['condition'])){
     </th>
     <td>
 		<label >
-        <input type="checkbox" id="<?php echo esc_attr($name) ?>" class="form-control min-width-500" <?php echo esc_html($is_check) ?>   name="<?php echo esc_html($name) ?>">
+        <input type="checkbox" id="<?php echo esc_attr($name) ?>" class="form-control min-width-500" <?php echo esc_html($is_check) ?>   name="<?php echo esc_html($name) ?>" value="1">
         <?php echo esc_html($data['checkbox_label']?$data['checkbox_label']:$data['label']) ?>
 		</label>
         <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
