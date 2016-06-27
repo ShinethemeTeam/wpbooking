@@ -13,6 +13,7 @@ if (!class_exists('WPBooking_User')) {
 		function __construct()
 		{
 			add_action('init', array($this, '_add_shortcode'));
+			add_action('wp_enqueue_scripts', array($this, '_add_scripts'));
 			/**
 			 * Login & Register handler
 			 *
@@ -45,6 +46,14 @@ if (!class_exists('WPBooking_User')) {
 			 * @author dungdt
 			 */
 			add_filter('wpbooking_registration_email_shortcode', array($this, '_get_shortcode_content'), 10, 3);
+
+			/**
+			 * Preview Email
+			 *
+			 * @since 1.0
+			 * @author dungdt
+			 */
+			add_action('wp_ajax_wpbooking_register_email_preview',array($this,'_preview_email'));
 		}
 
 		/**
@@ -327,7 +336,7 @@ if (!class_exists('WPBooking_User')) {
 
 			// Send To Admin
 			if (wpbooking_get_option('on_registration_email_admin') and wpbooking_get_option('registration_email_admin')) {
-				$to = wpbooking_get_option('email_from');
+				$to = wpbooking_get_option('system_email');
 				$content = do_shortcode(wpbooking_get_option('registration_email_admin'));
 				$content = $this->replace_email_shortcode($content, $user_id);
 				WPBooking_Email::inst()->send($to, $subject, $content);
@@ -359,7 +368,7 @@ if (!class_exists('WPBooking_User')) {
 
 			// Send To Admin
 			if (wpbooking_get_option('on_registration_partner_email_admin') and wpbooking_get_option('registration_partner_email_to_admin')) {
-				$to = wpbooking_get_option('email_from');
+				$to = wpbooking_get_option('system_email');
 				$content = do_shortcode(wpbooking_get_option('registration_partner_email_to_admin'));
 				$content = $this->replace_email_shortcode($content, $user_id);
 
@@ -394,9 +403,9 @@ if (!class_exists('WPBooking_User')) {
 
 			if (!empty($all_shortcodes)) {
 				foreach ($all_shortcodes as $k => $v) {
-					$v = apply_filters('wpbooking_registration_email_shortcode', $v, $k, $user_id);
+					$v = apply_filters('wpbooking_registration_email_shortcode', FALSE, $k, $user_id);
 					$v = apply_filters('wpbooking_registration_email_shortcode_' . $k, $v, $user_id);
-					$content = str_replace($k, $v, $content);
+					$content = str_replace('['.$k.']', $v, $content);
 				}
 			}
 
@@ -414,11 +423,10 @@ if (!class_exists('WPBooking_User')) {
 		function get_email_shortcodes()
 		{
 			$all_shortcodes = array(
-				'user_name'      => '',
-				'user_email'     => '',
+				'user_login'      => esc_html__('Your Username','wpbooking'),// Default Value for Preview
+				'user_email'     => esc_html__('email@domain.com','wpbooking'),
 				'profile_button' => '',
-				'profile_url'    => FALSE
-
+				'profile_url'    => esc_html__('http://domain.com/profile.php','wpbooking'),
 			);
 
 			$all_shortcodes = apply_filters('wpbooking_registration_email_shortcodes', $all_shortcodes);
@@ -442,7 +450,7 @@ if (!class_exists('WPBooking_User')) {
 			if (!$user = get_userdata($user_id)) return FALSE;
 
 			switch ($shortcode) {
-				case "user_name":
+				case "user_login":
 					return $user->user_login;
 					break;
 
@@ -460,6 +468,59 @@ if (!class_exists('WPBooking_User')) {
 			}
 
 			return $content;
+		}
+
+		/**
+		 * Preview Registration Email
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 */
+		function _preview_email()
+		{
+			$allowed=array(
+				'registration_email_customer',
+				'registration_email_admin',
+				'registration_partner_email_to_partner',
+				'registration_partner_email_to_admin',
+			);
+			if(in_array(WPBooking_Input::get('email'),$allowed)){
+
+				$content=wpbooking_get_option(WPBooking_Input::get('email'));
+				$content = do_shortcode($content);
+
+				// Apply Default Shortcode Content
+				$all_shortcodes = $this->get_email_shortcodes();
+
+				if (!empty($all_shortcodes)) {
+					foreach ($all_shortcodes as $k => $v) {
+						$content = str_replace('['.$k.']', $v, $content);
+					}
+				}
+
+				$content=WPBooking_Email::inst()->apply_css($content);
+				echo ($content);
+				die;
+			}
+		}
+
+		/**
+		 * Add Js, CSS To Account Page
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 */
+		function _add_scripts()
+		{
+			if(WPBooking_Input::get('wpbooking_action')=='edit_service'){
+				wp_enqueue_script('moment-js',wpbooking_admin_assets_url('js/moment.min.js'),array('jquery'),null,true);
+
+				wp_enqueue_script('full-calendar',wpbooking_admin_assets_url('js/fullcalendar.min.js'),array('jquery', 'moment-js'),null,true);
+
+				wp_enqueue_script('fullcalendar-lang', wpbooking_admin_assets_url('/js/lang-all.js'), array('jquery'), null, true);
+
+				wp_enqueue_script('wpbooking-calendar-room',wpbooking_admin_assets_url('js/wpbooking-calendar-room.js'),array('jquery','jquery-ui-datepicker'),null,true);
+			}
 		}
 
 		function _myaccount_shortcode($attr = array(), $content = FALSE)

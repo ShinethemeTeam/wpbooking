@@ -113,18 +113,29 @@ if(!class_exists('WPBooking_Admin_Setting'))
                                 $id_save = 'wpbooking_'.$value['id'];
                                 update_option($id_save,$data);
                                 break;
+							case "checkbox":
+								if(isset($value['id'])){
+									$key_request = 'wpbooking_'.$value['id'];
+									$value_request = WPBooking_Input::post($key_request);
+									if(!$value_request)
+										delete_option($key_request);
+									else
+										update_option($key_request,$value_request);
+								}
+							break;
                             default:
 								if(isset($value['id'])){
 									$key_request = 'wpbooking_'.$value['id'];
 									$value_request = WPBooking_Input::post($key_request);
 									update_option($key_request,$value_request);
 								}
+							break;
                         }
 
                     }
                 }
 
-				do_action('wpbooking_before_admin_settings_saved',$full_settings);
+				do_action('wpbooking_after_admin_settings_saved',$full_settings);
             }
         }
         function _get_settings(){

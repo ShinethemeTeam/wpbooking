@@ -141,7 +141,13 @@ $config['settings'] = array(
 						'id'          => 'email_from_address',
 						'label'       => __("Email From Address", 'wpbooking'),
 						'type'        => 'text',
-						'placeholder' => 'contact@domain.com'
+						'placeholder' => 'no-reply@domain.com'
+					),
+					array(
+						'id'          => 'system_email',
+						'label'       => __("System Email to get Booking, Registration Notification...etc", 'wpbooking'),
+						'type'        => 'text',
+						'placeholder' => 'system@domain.com'
 					),
 					array(
 						'id'    => 'email_stylesheet',
@@ -171,7 +177,7 @@ $config['settings'] = array(
 //			),
 			'booking_email'   => array(
 				'id'     => 'booking_email',
-				'label'  => __("Email Template", 'wpbooking'),
+				'label'  => __("Booking Email", 'wpbooking'),
 				'fields' => array(
 
 					array(
@@ -200,64 +206,82 @@ $config['settings'] = array(
 				'fields' => array(
 
 					array(
+						'type'=>'title',
+						'label'=>esc_html__('Customer Registration','wpbooking')
+					),
+					array(
 						'id'    => 'on_registration_email_customer',
-						'label' => __("Enable Registration Email To Customer", 'wpbooking'),
+						'label' => __("Enable Email To Customer", 'wpbooking'),
 						'type'  => 'checkbox',
 						'std'   => '1'
 					),
 					array(
 						'id'          => 'registration_email_customer',
-						'label'       => __("Registration Email To Customer", 'wpbooking'),
+						'label'       => __("Email To Customer", 'wpbooking'),
 						'type'        => 'texteditor',
 						'desc'        => wpbooking_admin_load_view('email/registration_document'),
 						'editor_args' => array(
 							'tinymce' => FALSE
 						),
+						'extra_html'=>'<a class="wpbooking-preview-modal thickbox button button-primary" href="'.add_query_arg(array('action'=>'wpbooking_register_email_preview','email'=>'registration_email_customer'),'admin-ajax.php').'">'.esc_html__('Preview','wpbooking').'</a>',
 						'condition'   => 'on_registration_email_customer:is(1)'
 					),
 					array(
 						'id'    => 'on_registration_email_admin',
-						'label' => __("Enable Registration Email To Admin", 'wpbooking'),
+						'label' => __("Enable Email To Admin", 'wpbooking'),
 						'type'  => 'checkbox',
 					),
 					array(
 						'id'          => 'registration_email_admin',
-						'label'       => __("Registration Email To Admin", 'wpbooking'),
+						'label'       => __("Email To Admin", 'wpbooking'),
 						'type'        => 'texteditor',
 						'desc'        => wpbooking_admin_load_view('email/registration_document'),
 						'editor_args' => array(
 							'tinymce' => FALSE
 						),
+						'extra_html'=>'<a class="wpbooking-preview-modal thickbox button button-primary" href="'.add_query_arg(array('action'=>'wpbooking_register_email_preview','email'=>'registration_email_admin'),'admin-ajax.php').'">'.esc_html__('Preview','wpbooking').'</a>',
+
 						'condition'   => 'on_registration_email_admin:is(1)'
 					),
 					array(
+						'type'=>'hr',
+					),
+					array(
+						'type'=>'title',
+						'label'=>esc_html__('Partner Registration','wpbooking')
+					),
+					array(
 						'id'    => 'on_registration_partner_email_partner',
-						'label' => __("Enable Registration Email To Partner", 'wpbooking'),
+						'label' => __("Enable Email To Partner", 'wpbooking'),
 						'type'  => 'checkbox',
 					),
 					array(
 						'id'          => 'registration_partner_email_to_partner',
-						'label'       => __("Registration Partner Email to Partner", 'wpbooking'),
+						'label'       => __("Email to Partner", 'wpbooking'),
 						'type'        => 'texteditor',
 						'desc'        => wpbooking_admin_load_view('email/partner_registration_document'),
 						'editor_args' => array(
 							'tinymce' => FALSE
 						),
+						'extra_html'=>'<a class="wpbooking-preview-modal thickbox button button-primary" href="'.add_query_arg(array('action'=>'wpbooking_register_email_preview','email'=>'registration_partner_email_to_partner'),'admin-ajax.php').'">'.esc_html__('Preview','wpbooking').'</a>',
+
 						'condition'   => 'on_registration_partner_email_partner:is(1)'
 					),
 					array(
 						'id'    => 'on_registration_partner_email_admin',
-						'label' => __("Enable Registration Email To Admin", 'wpbooking'),
+						'label' => __("Enable Email To Admin", 'wpbooking'),
 						'type'  => 'checkbox',
 					),
 					array(
 						'id'          => 'registration_partner_email_to_admin',
-						'label'       => __("Registration Partner Email To Admin", 'wpbooking'),
+						'label'       => __("Email To Admin", 'wpbooking'),
 						'type'        => 'texteditor',
 						'desc'        => wpbooking_admin_load_view('email/partner_registration_document'),
 						'editor_args' => array(
 							'tinymce' => FALSE
 						),
+						'extra_html'=>'<a class="wpbooking-preview-modal thickbox button button-primary" href="'.add_query_arg(array('action'=>'wpbooking_register_email_preview','email'=>'registration_partner_email_to_admin'),'admin-ajax.php').'">'.esc_html__('Preview','wpbooking').'</a>',
+
 						'condition'   => 'on_registration_partner_email_admin:is(1)'
 					),
 				)

@@ -1,6 +1,7 @@
 <?php
 $data=wp_parse_args($data,array(
-	'editor_args'=>FALSE
+	'editor_args'=>FALSE,
+	'extra_html'=>FALSE
 ));
 $data_value = wpbooking_get_option($data['id'],$data['std']);
 $name = 'wpbooking_'.$data['id'];
@@ -39,7 +40,12 @@ if(!empty($data['condition'])){
                 wp_editor(stripslashes($data_value),$name,$data['editor_args']);
                 echo '</div>';
             }
+
+			if($data['extra_html']){
+				printf('<div class="wpbooking-extra-html">%s</div>',do_shortcode($data['extra_html']));
+			}
             ?>
+
         <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
     </td>
 </tr>

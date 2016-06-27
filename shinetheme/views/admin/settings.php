@@ -16,8 +16,13 @@ $slug_page_menu = $menu_page['menu_slug'];
                 if(empty($is_tab) and $i == 0){
                     $is_tab = $k;
                 }
+				if($is_tab == $k){
+					$url='#';
+				}else{
+					$url=add_query_arg(array("page"=>$slug_page_menu,"st_tab"=>$k),admin_url("admin.php"));
+				}
                 ?>
-                <a class="nav-tab <?php if($is_tab == $k) echo "nav-tab-active"; ?>" href="<?php echo add_query_arg(array("page"=>$slug_page_menu,"st_tab"=>$k),admin_url("admin.php")) ?>"><?php echo esc_html($v['name']) ?></a>
+                <a class="nav-tab <?php if($is_tab == $k) echo "nav-tab-active"; ?>" href="<?php echo esc_url($url) ?>"><?php echo esc_html($v['name']) ?></a>
                 <?php
                 $i++;
             }
@@ -41,6 +46,7 @@ $slug_page_menu = $menu_page['menu_slug'];
                 if($is_section == $v['id']) {
                     $is_class = "current";
                     $title_page_active = $v['label'];
+					$url='#';
                 }
                 echo '<li><a class="'.$is_class.'" href="'.$url.'">'.$v['label'].'</a>  </li>';
                 if( ( $i+ 1) < count($sections)) echo "|";

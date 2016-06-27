@@ -140,7 +140,7 @@ if (!class_exists('WPBooking_Currency')) {
 			add_filter('wpbooking_get_all_currency', array(__CLASS__, 'get_all_currency'));
 
 			// Update Session after Update Settings
-			add_action('wpbooking_before_admin_settings_saved',array(__CLASS__,'_reload_current_currency'));
+			add_action('wpbooking_after_admin_settings_saved',array(__CLASS__,'_reload_current_currency'));
 
 		}
 

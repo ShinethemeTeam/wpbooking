@@ -549,5 +549,280 @@ jQuery(document).ready(function($){
         });
 
     });
+
+    // MY Account
+    // Table Check All
+    $('.select-all [type=checkbox]').change(function(){
+       if($(this).attr('checked')){
+           $(this).closest('table').find('tbody .select-all [type=checkbox]').prop('checked',true);
+       }else{
+           $(this).closest('table').find('tbody .select-all [type=checkbox]').prop('checked',false);
+       }
+    });
+
+    // Accordion
+    $('.wpbooking-accordion-title').click(function(){
+        if($(this).parent().hasClass('active')){
+            $(this).parent().find('.wpbooking-metabox-accordion-content').slideUp('fast');
+            $(this).parent().removeClass('active');
+        }else{
+            var s=$(this).parent().siblings('.wpbooking-metabox-accordion');
+            s.find('.wpbooking-metabox-accordion-content').slideUp('fast');
+            s.removeClass('active');
+            $(this).parent().find('.wpbooking-metabox-accordion-content').slideDown('fast');
+            $(this).parent().addClass('active');
+            console.log(1);
+            $(window).trigger('resize');
+        }
+    });
+    /**
+     * Condition tags
+     * @type {string}
+     */
+    var condition_object='select, input[type="radio"]:checked, input[type="text"], input[type="hidden"], input.ot-numeric-slider-hidden-input,input[type="checkbox"]';
+    // condition function to show and hide sections
+    $('.wpbooking-form-group').on( 'change.conditionals', condition_object, function(e) {
+        run_condition_engine();
+    });
+    run_condition_engine();
+    function run_condition_engine(){
+        $('.wpbooking-condition[data-condition]').each(function() {
+
+            var passed;
+            var conditions = get_match_condition( $( this ).data( 'condition' ) );
+            var operator = ( $( this ).data( 'operator' ) || 'and' ).toLowerCase();
+            $.each( conditions, function( index, condition ) {
+
+                var target   = $(  '#'+ condition.check );
+
+                var targetEl = !! target.length && target.first();
+
+                if ( ! target.length || ( ! targetEl.length && condition.value.toString() != '' ) ) {
+                    return;
+                }
+
+                var v1 = targetEl.length ? targetEl.val().toString() : '';
+                var v2 = condition.value.toString();
+                var result;
+
+                if(targetEl.length && targetEl.attr('type')=='checkbox'){
+                    v1=targetEl.is(':checked')?v1:'';
+                }
+
+                switch ( condition.rule ) {
+                    case 'less_than':
+                        result = ( parseInt( v1 ) < parseInt( v2 ) );
+                        break;
+                    case 'less_than_or_equal_to':
+                        result = ( parseInt( v1 ) <= parseInt( v2 ) );
+                        break;
+                    case 'greater_than':
+                        result = ( parseInt( v1 ) > parseInt( v2 ) );
+                        break;
+                    case 'greater_than_or_equal_to':
+                        result = ( parseInt( v1 ) >= parseInt( v2 ) );
+                        break;
+                    case 'contains':
+                        result = ( v1.indexOf(v2) !== -1 ? true : false );
+                        break;
+                    case 'is':
+                        result = ( v1 == v2 );
+                        break;
+                    case 'not':
+                        result = ( v1 != v2 );
+                        break;
+                }
+
+                if ( 'undefined' == typeof passed ) {
+                    passed = result;
+                }
+
+                switch ( operator ) {
+                    case 'or':
+                        passed = ( passed || result );
+                        break;
+                    case 'and':
+                    default:
+                        passed = ( passed && result );
+                        break;
+                }
+
+            });
+
+            if ( passed ) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+
+            delete passed;
+
+        });
+    }
+
+    function get_match_condition(condition){
+        var match;
+        var regex = /(.+?):(is|not|contains|less_than|less_than_or_equal_to|greater_than|greater_than_or_equal_to)\((.*?)\),?/g;
+        var conditions = [];
+
+        while( match = regex.exec( condition ) ) {
+            conditions.push({
+                'check': match[1],
+                'rule':  match[2],
+                'value': match[3] || ''
+            });
+        }
+
+        return conditions;
+    }
+    // Please do not edit condition section if you don't understand what it is
+
+    jQuery(window).load(function(){
+
+        ///////////////////////////
+        //////  Gmap    //////////
+        ///////////////////////////
+
+        function load_gmap(){
+            if( $('.wpbooking-gmap-wrapper').length ){
+                $('.wpbooking-gmap-wrapper').each(function(index, el) {
+                    var t = $(this);
+                    var gmap = $('.gmap-content', t);
+                    var map_lat = parseFloat( $('input[name="map_lat"]', t).val() );
+                    var map_long = parseFloat( $('input[name="map_long"]', t).val() );
+
+                    var map_zoom = parseInt( $('input[name="map_zoom"]', t).val() );
+
+                    var bt_ot_searchbox = $('input.gmap-search', t);
+
+                    var current_marker;
+
+
+                    gmap.gmap3({
+                        map:{
+                            options:{
+                                center:[map_lat, map_long],
+                                zoom:map_zoom,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                                mapTypeControl: true,
+                                mapTypeControlOptions: {
+                                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+                                },
+                                navigationControl: true,
+                                scrollwheel: true,
+                            },
+                            events:{
+                                click: function(marker, event, context){
+                                    $('input[name="map_lat"]', t).val( event.latLng.lat() );
+                                    $('input[name="map_long"]', t).val( event.latLng.lng() );
+                                    $('input[name="map_zoom"]', t).val( marker.zoom );
+
+                                    $(this).gmap3({
+                                        clear: {
+                                            name:["marker"],
+                                            last: true
+                                        }
+                                    });
+                                    $(this).gmap3({
+                                        marker:{
+                                            values:[
+                                                {latLng:event.latLng },
+                                            ],
+                                            options:{
+                                                draggable: false
+                                            },
+                                        }
+                                    });
+                                }
+                            }
+                        }
+
+                    });
+
+                    var gmap_obj = gmap.gmap3('get');
+
+                    if(!map_lat || !map_long){
+                        // Try to get current location
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(function(showPosition){
+                                var gmap_obj = gmap.gmap3('get');
+                                map_lat=showPosition.coords.latitude;
+                                map_long=showPosition.coords.longitude;
+                                gmap_obj.setCenter(new google.maps.LatLng(map_lat,map_long));
+                                gmap_obj.setZoom(11);
+                                $('input[name="map_lat"]', t).val( map_lat );
+                                $('input[name="map_long"]', t).val( map_long );
+                                $('input[name="map_zoom"]', t).val( 11);
+                            });
+
+                        }
+                    }
+
+
+                    var geocoder = new google.maps.Geocoder;
+
+                    var map_type = "roadmap";
+
+                    if( bt_ot_searchbox.length ){
+                        var searchBox = new google.maps.places.SearchBox( bt_ot_searchbox[0] );
+
+                        google.maps.event.addListener(searchBox, 'places_changed', function() {
+                            var places = searchBox.getPlaces();
+                            if (places.length == 0) {
+                                return;
+                            }
+
+                            // For each place, get the icon, place name, and location.
+                            var bounds = new google.maps.LatLngBounds();
+                            for (var i = 0, place; place = places[i]; i++) {
+
+                                bounds.extend(place.geometry.location);
+
+                                if(i == 0){
+
+                                    gmap.gmap3({
+                                        clear: {
+                                            name:["marker"],
+                                            last: true
+                                        }
+                                    });
+                                    gmap.gmap3({
+                                        marker:{
+                                            values:[
+                                                {latLng: place.geometry.location },
+                                            ],
+                                            options:{
+                                                draggable: false
+                                            },
+                                        }
+                                    });
+
+                                    $('input[name="map_lat"]', t).val( place.geometry.location.lat() );
+                                    $('input[name="map_long"]', t).val( place.geometry.location.lng() );
+                                    $('input[name="map_zoom"]', t).val( gmap_obj.getZoom() );
+
+                                }
+                            }
+
+                            gmap_obj.fitBounds(bounds);
+
+                        });
+
+                    }
+
+                    google.maps.event.addListener(gmap_obj, "zoom_changed", function(event) {
+                        $('input[name="map_zoom"]', t).val( gmap_obj.getZoom() );
+                    });
+
+                    $(window).resize(function(){
+                        google.maps.event.trigger(gmap_obj, 'resize');
+                    });
+                });
+            }
+        }
+
+        load_gmap();
+    });
 });
+
 

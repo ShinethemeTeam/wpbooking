@@ -226,11 +226,27 @@ if(!class_exists('WPBooking_Email'))
 
 		}
 
+		/**
+		 * Do Send Email to Specific Address, Subject and Message
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $to
+		 * @param $subject
+		 * @param $message
+		 * @param bool|FALSE $attachment
+		 * @return array
+		 */
 		function send($to, $subject, $message, $attachment=false){
 
 			if(!$message) return array(
 				'status'  => 0,
 				'message' => __("Email content is empty",'wpbooking')
+			);
+			if(!$to) return array(
+				'status'  => 0,
+				'message' => __("Email To Address is empty",'wpbooking')
 			);
 			$from = wpbooking_get_option('email_from');
 			$from_address = wpbooking_get_option('email_from_address');

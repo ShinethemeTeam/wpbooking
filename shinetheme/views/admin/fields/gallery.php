@@ -20,7 +20,7 @@ if(!empty($data['condition'])){
         <label for="<?php echo esc_html($data['id']) ?>"><?php echo esc_html($data['label']) ?>:</label>
     </th>
     <td>
-        <input type="text" id="fg_metadata" class="fg_metadata none" value="<?php echo esc_html($data_value) ?>" name="<?php echo esc_html($name) ?>">
+        <input type="hidden" id="fg_metadata" class="fg_metadata none" value="<?php echo esc_html($data_value) ?>" name="<?php echo esc_html($name) ?>">
         <br>
         <div class="featuredgallerydiv max-width-500">
                 <?php

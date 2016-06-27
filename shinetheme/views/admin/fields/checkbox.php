@@ -2,7 +2,7 @@
 $data=wp_parse_args($data,array(
 	'checkbox_label'=>''
 ));
-$data_value = wpbooking_get_option($data['id'],$data['std']);
+$data_value = wpbooking_get_option($data['id']);
 $name = 'wpbooking_'.$data['id'];
 if(!empty($data['element_list_item'])){
     $name = $data['custom_name'];
@@ -11,7 +11,7 @@ if(!empty($data['element_list_item'])){
     $data_value = $data['custom_value'];
 }
 $is_check="";
-if($data_value == 'on'){
+if($data_value == 1){
     $is_check = "checked";
 }
 $class = $name;

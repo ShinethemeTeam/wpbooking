@@ -44,6 +44,17 @@ if (!class_exists('WPBooking_Metabox')) {
 			}
 		}
 
+		/**
+		 * Get Registered Metabox
+		 *
+		 * @author dungdt
+		 * @since 1.0
+		 *
+		 */
+		public function get_metabox()
+		{
+			return $this->metabox;
+		}
 		public function register_meta_box($metabox = array())
 		{
 
