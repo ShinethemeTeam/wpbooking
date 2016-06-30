@@ -13,10 +13,6 @@ if (!class_exists('WPBooking_Metabox')) {
 
 		public function __construct()
 		{
-			if (!is_admin()) {
-				return;
-			}
-
 			add_action('admin_enqueue_scripts', array($this, '_add_scripts'));
 
 			add_action('save_post', array($this, 'save_meta_box'), 10, 2);
@@ -176,10 +172,10 @@ if (!class_exists('WPBooking_Metabox')) {
 											}
 											$file = 'metabox-fields/' . $field_sub['type'];
 
-											$field_html = apply_filters('wpbooking_metabox_field_html_' . $field_sub['type'], FALSE, $field_sub);
+											$field_html = apply_filters('wpbooking_metabox_field_html_' . $field_sub['type'], FALSE, $field_sub,get_the_ID());
 											if ($field_html) echo $field_html;
 											else
-												echo wpbooking_admin_load_view($file, array('data' => $field_sub, 'class_extra' => $class_extra));
+												echo wpbooking_admin_load_view($file, array('data' => $field_sub, 'class_extra' => $class_extra,'post_id'=>get_the_ID()));
 
 											unset($fields[$key_sub]);
 											?>
@@ -232,7 +228,27 @@ if (!class_exists('WPBooking_Metabox')) {
 			}
 
 
+			$this->do_save_metabox($post_id);
+
+		}
+
+		/**
+		 * Start Save Metabox after Validate in method save_meta_box(). That also used to save Service in Frontend
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $post_id INT Post ID
+		 * @param $post_object bool|object Only Available in Backend
+		 *
+		 */
+		public function do_save_metabox($post_id,$post_object=FALSE)
+		{
+			if(empty($this->metabox)) return;
+
 			foreach ($this->metabox['fields'] as $field) {
+				if(empty( $field['id'])) continue;
+
 				if ($field['type'] == 'list-item') {
 					continue;
 				}
@@ -257,7 +273,6 @@ if (!class_exists('WPBooking_Metabox')) {
 			}
 
 			do_action('wpbooking_save_metabox', $post_id, $post_object);
-
 		}
 
 		public function wpbooking_save_gmap($post_id, $post_object)

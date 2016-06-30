@@ -155,6 +155,11 @@ if (!class_exists('WPBooking_Admin_Order')) {
 		}
 		function _ajax_order_calendar()
 		{
+			// Check Permission
+			if(!current_user_can('publish_posts')){
+				echo json_encode(array());
+				die;
+			}
 			$order_model = WPBooking_Order_Model::inst();
 
 			// Filter
@@ -175,6 +180,11 @@ if (!class_exists('WPBooking_Admin_Order')) {
 				}
 
 
+			}
+
+			// Is Partner
+			if(!current_user_can('manage_options')){
+				$order_model->where('partner_id',get_current_user_id());
 			}
 
 			$result = $order_model->where('check_in_timestamp>=', WPBooking_Input::post('start'))

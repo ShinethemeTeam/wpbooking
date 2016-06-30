@@ -5,7 +5,7 @@
 
 $old_data = esc_html( $data['std'] );
 
-$value = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true);
+$value = get_post_meta( $post_id, esc_html( $data['id'] ), true);
 if( !empty( $value ) ){
 	$old_data = $value;
 }

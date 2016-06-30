@@ -2,7 +2,7 @@
 /**
 *@since 1.0.0
 **/
-$post_id = get_the_ID();
+$post_id = $post_id;
 
 $map_lat = (float) get_post_meta( $post_id, 'map_lat', true );
 

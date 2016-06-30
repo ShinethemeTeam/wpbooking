@@ -4,7 +4,7 @@
  **/
 $service_type=WPBooking_Service::inst()->get_service_types();
 
-$old_data = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
+$old_data = get_post_meta( $post_id, esc_html( $data['id'] ), true );
 
 $select = FALSE;
 

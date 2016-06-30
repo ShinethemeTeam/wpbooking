@@ -8,7 +8,7 @@ $old_data = esc_html( $data['std'] );
 if(!empty($data['custom_name'])){
 	if(isset($data['custom_data'])) $old_data=$data['custom_data'];
 }else{
-	$old_data=get_post_meta( get_the_ID(), esc_html( $data['id'] ), true);
+	$old_data=get_post_meta( $post_id, esc_html( $data['id'] ), true);
 }
 if( !empty( $value ) ){
 	$old_data = $value;

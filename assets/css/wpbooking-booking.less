@@ -381,11 +381,81 @@
             }
         }
     }
+
+    .subsubsub{
+        margin:0px;
+        padding:0px;
+        list-style: none;
+        margin-bottom: 20px;
+        li {
+            display: inline;
+            list-style: none;
+            a.current{
+                text-decoration: none;
+                border-bottom: 0px;
+            }
+          }
+    }
+
+    .tab-page-title{
+        font-size: 20px;
+        margin:0px;
+        margin-bottom: 20px;
+    }
+    .tablenav{
+        .clearfix;
+        font-size: 15px;
+
+        .alignleft{
+            float: left;
+        }
+        .alignright{
+            float: right;
+        }
+        .button{
+            padding:7px 15px;
+        }
+        select,input[type=text]{
+            font-size: 15px;
+            line-height: 34px;
+            height: 34px;
+            margin-bottom: 10px;
+        }
+
+    }
+    .wp-list-table{
+        font-size: 15px;
+        .select-all{
+            width: 40px;
+        }
+        .column-date{
+            width: 70px;
+        }
+        .column-date-booking{
+            width: 100px;
+        }
+        tr{
+            .row-actions{
+                display: none;
+            }
+            &:hover{
+                .row-actions{
+                    display: block;
+                }
+            }
+        }
+
+
+    }
 }
-@import "bootstrap.vertical-tabs";
+//@import "bootstrap.vertical-tabs";
 .wpbooking-service-edit{
     .form-row{
         margin-bottom: 30px;
+        .form-title{
+            margin-top:0px;
+            margin-bottom: 15px;
+        }
     }
     #wp-service_content-editor-container{
         border:1px solid #ddd
@@ -396,9 +466,10 @@
         font-size: 14px;
 
         .col-tab-nav{
-            float: left;
-            width: 20%;
+            //float: left;
+            //width: 20%;
             .nav-tabs{
+                border-bottom: none;
                 a{
                     &:hover{
                         border-bottom: 1px solid #eeeeee;
@@ -407,8 +478,8 @@
             }
         }
         .col-tab-content{
-            float: left;
-            width: 80%;
+            //float: left;
+            //width: 80%;
             .tab-content{
                 padding:10px;
                 border:1px solid #ddd
@@ -462,7 +533,7 @@
             margin-bottom: 20px;
             .st-metabox-left{
                 font-weight: bold;
-                width: 150px;
+                width: 200px;
                 float: left;
                 padding-left: 15px;
                 padding-right: 15px;
@@ -471,7 +542,7 @@
                 padding-left: 15px;
                 padding-right: 15px;
                 width: auto;
-                margin-left: 150px;
+                margin-left: 200px;
             }
             @media(max-width: 1399px){
                 .st-metabox-left{
@@ -503,6 +574,7 @@
             }
         }
         .gmap-container{
+            position:relative;
             .gmap-content {
                 border: 1px dashed #C0C0C0;
                 width: 100%;
@@ -511,12 +583,192 @@
             .gmap-search {
                 display: block;
                 position: absolute;
-                width: 200px;
+                width: 185px;
                 top: 10px;
                 left: 100px;
-                height: 31px;
+                height: 35px;
                 z-index: 9;
                 border: 1px solid #CCC;
+                font-size: 14px;
+                background: white;
+            }
+        }
+
+        .wpbooking-calendar-wrapper{
+
+            margin-top: 20px;
+            button{
+                font-size: 12px;
+                padding: 7px 14px;
+                height: auto;
+            }
+            .fc-button-group{
+                button{
+
+                    &:hover{
+                        background: #e6e6e6;
+                    }
+                }
+            }
+
+            input[type=text]{
+                border: 1px solid #CCC;
+                font-size: 14px;
+                background: white;
+            }
+            h2{
+                margin:0px;
+            }
+            .wpbooking-calendar-content{
+                padding-left: 15px;
+                padding-right: 15px;
+                z-index: 1;
+
+            }
+            .wpbooking-calendar-sidebar{
+                padding-left: 15px;
+                padding-right: 15px;
+                .form-container{
+                    padding: 7px;
+                    border: 1px solid #CCC;
+                    .calendar-label{
+                        display: block;
+                        font-weight: bold;
+                        margin-bottom: 5px;
+                        font-size: 15px;
+                    }
+                    .calendar-input{
+                        width: 100%;
+                    }
+                    .calendar-room-form-item{
+                        .mb20;
+                        float: left;
+                        width: 50%;
+                        padding: 0px 7px;
+                    }
+                }
+
+                #form-bulk-edit{
+                    position: absolute;
+                    top: 0px;
+                    left: 0px;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 9999;
+                    background: rgba(0, 0, 0, 0.7) none repeat scroll 0% 0%;
+                    display: none;
+                    .form-container{
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        z-index: 1;
+                        background: rgb(255, 255, 255) none repeat scroll 0% 0%;
+                        transform: translateX(-50%) translateY(-50%);
+                        border: 1px solid rgb(36, 35, 35);
+                        padding: 15px;
+                        max-width: 90%;
+                        width: 950px;
+                        h4,h3{
+                            margin: 0;
+                            padding: 0;
+                        }
+                        .form-title{
+                            padding-bottom: 15px;
+                            border-bottom: 1px solid #CCC;
+                        }
+                        .form-footer{
+                            padding-top: 15px;
+                            border-top: 1px solid #CCC;
+                        }
+                        .form-content{
+                            padding-top: 15px;
+                            padding-bottom: 15px;
+                            .form-group{
+                                width: auto !important;
+                                margin-left: 5px;
+                                margin-right: 5px;
+                                float: left;
+                                padding: 10px;
+                                border-radius: 3px;
+                                border: 1px solid #CCC;
+                                margin-bottom: 10px;
+                                label{
+                                    display: inline-block;
+                                    margin-right: 5px;
+                                    margin-bottom: 5px;
+                                    &.block{
+                                        display: block;
+                                        margin-bottom: 5px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+            #form-bulk-edit{
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                background: rgba(0, 0, 0, 0.7) none repeat scroll 0% 0%;
+                display: none;
+
+
+                h3{
+                    margin:0px;
+                }
+
+                .form-container{
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    z-index: 1;
+                    background: rgb(255, 255, 255) none repeat scroll 0% 0%;
+                    transform: translateX(-50%) translateY(-50%);
+                    border: 1px solid rgb(36, 35, 35);
+                    padding: 15px;
+                    max-width: 90%;
+                    width: 950px;
+                    h4,h3{
+                        margin: 0;
+                        padding: 0;
+                    }
+                    .form-title{
+                        padding-bottom: 15px;
+                        border-bottom: 1px solid #CCC;
+                    }
+                    .form-footer{
+                        padding-top: 15px;
+                        border-top: 1px solid #CCC;
+                    }
+                    .form-content{
+                        padding-top: 15px;
+                        padding-bottom: 15px;
+                        .form-group{
+                            width: auto !important;
+                            margin-left: 5px;
+                            margin-right: 5px;
+                            float: left;
+                            padding: 10px;
+                            border-radius: 3px;
+                            border: 1px solid #CCC;
+                            margin-bottom: 10px;
+                            label{
+                                display: inline-block;
+                                margin-right: 5px;
+                                margin-bottom: 5px;
+                                &.block{
+                                    display: block;
+                                    margin-bottom: 5px;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

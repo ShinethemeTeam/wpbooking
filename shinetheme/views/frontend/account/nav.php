@@ -5,10 +5,7 @@
  * Date: 6/27/2016
  * Time: 10:44 AM
  */
-$tabs=array(
-	'services'=>esc_html__('Services','wpbooking'),
-	'booking_history'=>esc_html__('Booking History','wpbooking')
-);
+$tabs=WPBooking_User::inst()->get_tabs();
 
 ?>
 <!-- Nav tabs -->
@@ -19,13 +16,11 @@ $tabs=array(
 		foreach($tabs as $k=>$tab){
 			$class=FALSE;
 
-			if($current_tab=WPBooking_Input::get('tab') and $current_tab==$k) $class='active';
+			if($current_tab=get_query_var('tab') and $current_tab==$k) $class='active';
 
-			if(!WPBooking_Input::get('tab') and $i==1) $class='active';
+			if(!get_query_var('tab') and $i==1) $class='active';
 
-			$url=add_query_arg(array(
-				'tab'=>$k
-			),get_permalink(wpbooking_get_option('myaccount-page')));
+			$url=get_permalink(wpbooking_get_option('myaccount-page')).'tab/'.$k;
 
 			printf('<li role="presentation" class="%s"><a href="%s">%s</a></li>',$class,$url,$tab);
 			$i++;

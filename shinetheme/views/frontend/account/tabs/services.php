@@ -5,7 +5,7 @@
  * Date: 6/27/2016
  * Time: 10:45 AM
  */
-if(WPBooking_Input::get('wpbooking_action')=='edit_service'){
+if(get_query_var('service')){
 	echo wpbooking_load_view('account/service/update');
 	return;
 }
@@ -44,11 +44,7 @@ $query=new WP_Query(array(
 				while($query->have_posts()){
 					$query->the_post();
 					$service_type=get_post_meta(get_the_ID(),'service_type',true);
-					$edit_url=add_query_arg(array(
-						'wpbooking_action'=>'edit_service',
-						'service_id'=>get_the_ID(),
-						'tab'=>'services'
-					),get_permalink(wpbooking_get_option('myaccount-page')));
+					$edit_url=get_permalink(wpbooking_get_option('myaccount-page')).'service/'.get_the_ID();
 					?>
 					<tr class="wpbooking-account-service">
 						<td class="select-all"><input type="checkbox" name="service_ids[]" value="<?php get_the_ID() ?>"></td>

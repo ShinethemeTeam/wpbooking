@@ -85,7 +85,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 			if($v['required'] == "yes"){
 				$required = 'required';
 			}
-			$value = WPBooking_Input::request($v['field_type'],'');
+			$value = WPBooking_Input::get($v['field_type'],'');
 			switch($v['field_type']){
 				case "location_id":
 				case "location_suggestion":
@@ -151,7 +151,6 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 								$terms = get_terms(  $v['taxonomy'] , array('hide_empty' => false,) );
 
 								if(!empty($value[$v['taxonomy']])) $value_item=$value[$v['taxonomy']];else $value_item=FALSE;
-
 								if(!empty( $terms )) {
 									foreach( $terms as $key2 => $value2 ) {
 										$check ="";

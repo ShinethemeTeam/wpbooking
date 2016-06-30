@@ -10,7 +10,7 @@
 	<?php
 	if(is_user_logged_in()){
 		echo wpbooking_load_view('account/nav');
-		if(!$tab=WPBooking_Input::get('tab')) $tab='services';
+		if(!$tab=get_query_var('tab')) $tab='services';
 		echo "<div class='wpbooking-account-tab ".$tab."'>";
 		echo wpbooking_load_view('account/tabs/'.$tab);
 		echo "</div>";

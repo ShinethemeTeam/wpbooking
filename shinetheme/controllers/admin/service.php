@@ -229,7 +229,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 					),
 					array(
 						'label' => __('Taxonomy', 'wpbooking'),
-						'id'    => 'taxonomy',
+						'id'    => 'wpb_taxonomy',
 						'type'  => 'taxonomies',
 					),
 					array(

@@ -6,23 +6,37 @@
  * Time: 4:01 PM
  */
 $service = FALSE;
-if (WPBooking_Input::get('service_id')) {
-	$service = get_post(WPBooking_Input::get('service_id'));
+$service_id=FALSE;
+if (get_query_var('service')) {
+	$service = get_post(get_query_var('service'));
+	$service_id = get_query_var('service');
 }
 $meta = WPBooking_Metabox::inst()->get_metabox();
 
 ?>
+<h3 class="service-form-title">
+	<?php
+	if($service_id){
+		printf(esc_html__('Update Service %s','wpbooking'),get_the_title($service_id));
+	}else{
+		esc_html_e('Add New Service','wpbooking');
+	}
+	?>
+</h3>
 <?php echo wpbooking_get_message() ?>
 <div class="wpbooking-service-edit">
 	<form action="" method="post">
 		<input type="hidden" name="action" value="wpbooking_save_service">
+		<?php if($service_id) printf('<input type="hidden" name="service_id" value="%s">',$service_id) ?>
 
 		<div class="form-row">
+			<h4 class="form-title"><?php esc_html_e('Service Name','wpbooking') ?></h4>
 			<input type="text" class="service_title" name="service_title"
 				   placeholder="<?php esc_html_e('Service Name') ?>"
 				   value="<?php echo WPBooking_Input::post('service_title', !empty($service->post_title) ? $service->post_title : FALSE) ?>">
 		</div>
 		<div class="service_content form-row">
+			<h4 class="form-title"><?php esc_html_e('Detailed Description','wpbooking') ?></h4>
 			<?php wp_editor(WPBooking_Input::post('service_content', !empty($service->post_content) ? $service->post_content : FALSE), 'service_content') ?>
 		</div>
 
@@ -30,7 +44,7 @@ $meta = WPBooking_Metabox::inst()->get_metabox();
 			<div class="wpbooking-service-metabox form-row">
 				<div class="col-tab-nav"> <!-- required for floating -->
 					<!-- Nav tabs -->
-					<ul class="nav nav-tabs tabs-left"><!-- 'tabs-right' for right tabs -->
+					<ul class="nav nav-tabs"><!-- 'tabs-right' for right tabs -->
 						<?php
 						$tabs=array();
 						$last_tab_id=FALSE;
@@ -95,11 +109,11 @@ $meta = WPBooking_Metabox::inst()->get_metabox();
 
 											$file = 'metabox-fields/' . $tab_field['type'];
 
-											$field_html = apply_filters('wpbooking_metabox_field_html_' . $tab_field['type'], FALSE, $tab_field);
+											$field_html = apply_filters('wpbooking_metabox_field_html_' . $tab_field['type'], FALSE, $tab_field,$service_id);
 											if ($field_html)
 												echo do_shortcode($field_html);
 											else
-												echo wpbooking_admin_load_view($file, array('data' => $tab_field, 'class_extra' => $class_extra));
+												echo wpbooking_admin_load_view($file, array('data' => $tab_field, 'class_extra' => $class_extra,'post_id'=>$service_id));
 										}
 									}
 									?>
@@ -110,16 +124,13 @@ $meta = WPBooking_Metabox::inst()->get_metabox();
 						}
 						?>
 
-						<div class="tab-pane" id="profile">Profile Tab.</div>
-						<div class="tab-pane" id="messages">Messages Tab.</div>
-						<div class="tab-pane" id="settings">Settings Tab.</div>
 					</div>
 				</div>
 			</div>
 		<?php endif; ?>
 		<div class="wpbooking-save form-row">
 			<input type="submit" name="submit"
-				   value="<?php echo (!WPBooking_Input::get('service_id')) ? esc_html__('Update', 'wpbooking') : esc_html__('Publish', 'wpbooking') ?>">
+				   value="<?php echo (!$service_id) ? esc_html__('Update', 'wpbooking') : esc_html__('Publish', 'wpbooking') ?>">
 		</div>
 	</form>
 </div>

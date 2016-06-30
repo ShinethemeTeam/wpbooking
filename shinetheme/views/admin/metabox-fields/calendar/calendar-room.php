@@ -15,7 +15,7 @@ if(!empty($data['condition'])){
 	<label for="<?php echo esc_html( $data['id'] ); ?>"><strong><?php echo esc_html( $data['label'] ); ?></strong></label>
 	<div class="st-metabox-content-wrapper">
 		<div class="form-group" style="width: 100%;">
-			<div class="wpbooking-calendar-wrapper" data-post-id="<?php echo get_the_ID(); ?>" data-post-encrypt="<?php echo wpbooking_encrypt( get_the_ID() ); ?>">
+			<div class="wpbooking-calendar-wrapper" data-post-id="<?php echo esc_attr($post_id); ?>" data-post-encrypt="<?php echo wpbooking_encrypt( $post_id ); ?>">
 				<div class="wpbooking-calendar-content">
 					<div class="overlay">
 						<span class="spinner is-active"></span>
@@ -47,8 +47,8 @@ if(!empty($data['condition'])){
 						</div>
 						<div class="clear"></div>
 						<div class="clearfix mb10" >
-							<input type="hidden" id="calendar-post-id" name="post-id" value="<?php echo get_the_ID(); ?>">
-							<input type="hidden" id="calendar-post-encrypt" name="calendar-post-encrypt" value="<?php echo wpbooking_encrypt( get_the_ID() ); ?>">
+							<input type="hidden" id="calendar-post-id" name="post_id" value="<?php echo esc_attr($post_id); ?>">
+							<input type="hidden" id="calendar-post-encrypt" name="calendar-post-encrypt" value="<?php echo wpbooking_encrypt( $post_id ); ?>">
 							<button type="button" id="calendar-save" class="button button-primary button-large"><?php echo __('Save','wpbooking'); ?></button>
 							<button type="button" id="calendar-bulk-edit" class="button button-large" style="float: right;"><?php echo __('Bulk Edit','wpbooking'); ?></button>
 						</div>
@@ -155,8 +155,8 @@ if(!empty($data['condition'])){
 							</div>
 							<div class="form-content clearfix">
 								<label class="block"><span><strong><?php echo __('Price', 'wpbooking'); ?>: </strong></span><input type="text" value="" name="price-bulk" id="price-bulk" placeholder="<?php echo __('Price', 'wpbooking'); ?>"></label>
-								<input type="hidden" name="post-id" value="<?php echo get_the_ID(); ?>">
-								<input type="hidden" name="post-encrypt" value="<?php echo wpbooking_encrypt( get_the_ID() ); ?>">
+								<input type="hidden" name="post_id" value="<?php echo esc_attr($post_id); ?>">
+								<input type="hidden" name="post-encrypt" value="<?php echo wpbooking_encrypt( $post_id ); ?>">
 								<div class="form-message" style="margin-top: 20px;"></div>
 							</div>
 							<div class="form-footer">

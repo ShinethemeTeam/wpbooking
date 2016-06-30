@@ -3,7 +3,7 @@
 *@since 1.0.0
 **/
 
-$old_data = (isset( $data['custom_data'] ) ) ? esc_html( $data['custom_data'] ) : get_post_meta( get_the_ID(), esc_html( $data['id'] ), true);
+$old_data = (isset( $data['custom_data'] ) ) ? esc_html( $data['custom_data'] ) : get_post_meta( $post_id, esc_html( $data['id'] ), true);
 
 $class = ' wpbooking-form-group ';
 $data_class = '';

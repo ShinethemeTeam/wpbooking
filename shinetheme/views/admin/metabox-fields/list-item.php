@@ -5,7 +5,7 @@
 
 $old_data = esc_html( $data['std'] );
 
-$value = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true);
+$value = get_post_meta( $post_id, esc_html( $data['id'] ), true);
 if( !empty( $value ) ){
 	$old_data = $value;
 }
@@ -29,7 +29,7 @@ if(!empty($data['condition'])){
 	<div class="wpbooking-list-item-wrapper">
 		<div class="wpbooking-list">
 		<?php 
-			$conver_data = get_post_meta( get_the_ID(), esc_html( $data['id'] ), true );
+			$conver_data = get_post_meta( $post_id, esc_html( $data['id'] ), true );
 			
 			if( !empty( $conver_data ) && is_array( $conver_data) ):
 				foreach( $conver_data as $convert_key => $convert_val ):

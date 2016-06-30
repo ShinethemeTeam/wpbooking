@@ -41,7 +41,7 @@ if( count( $terms ) ){
 						if( !empty( $item_term ) ):
 
 							$old = array();
-							$old_terms = wp_get_post_terms( get_the_ID(), $key );
+							$old_terms = wp_get_post_terms( $post_id, $key );
 							if( !empty( $old_terms ) && is_array( $old_terms ) ){
 								foreach( $old_terms as $term ){
 									$old[] = (int) $term->term_id;

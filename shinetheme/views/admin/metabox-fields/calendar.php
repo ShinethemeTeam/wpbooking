@@ -8,4 +8,4 @@ if( empty( $service_type ) ) $service_type = 'room';
 
 $file = 'metabox-fields/calendar/calendar-' . $service_type;
 
-echo wpbooking_admin_load_view( $file, array( 'data' => $data) );
+echo wpbooking_admin_load_view( $file, array( 'data' => $data,'post_id'=>$post_id) );

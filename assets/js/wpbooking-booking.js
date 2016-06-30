@@ -425,10 +425,8 @@ jQuery(document).ready(function($){
     $(window).load(function(){
         $('.wpbooking-price-chart').each(function(){
             var me=$(this);
-            console.log(me.data('chart'));
             try{
                 var data=me.data('chart');
-                console.log(data);
                 var max=data[0];
 
                 for(i=0;i<data.length;i++){
@@ -571,7 +569,6 @@ jQuery(document).ready(function($){
             s.removeClass('active');
             $(this).parent().find('.wpbooking-metabox-accordion-content').slideDown('fast');
             $(this).parent().addClass('active');
-            console.log(1);
             $(window).trigger('resize');
         }
     });
@@ -684,8 +681,10 @@ jQuery(document).ready(function($){
         ///////////////////////////
 
         function load_gmap(){
+            var last_center=false;
             if( $('.wpbooking-gmap-wrapper').length ){
                 $('.wpbooking-gmap-wrapper').each(function(index, el) {
+
                     var t = $(this);
                     var gmap = $('.gmap-content', t);
                     var map_lat = parseFloat( $('input[name="map_lat"]', t).val() );
@@ -697,12 +696,9 @@ jQuery(document).ready(function($){
 
                     var current_marker;
 
-
-                    gmap.gmap3({
+                    var map_options={
                         map:{
                             options:{
-                                center:[map_lat, map_long],
-                                zoom:map_zoom,
                                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                                 mapTypeControl: true,
                                 mapTypeControlOptions: {
@@ -713,6 +709,7 @@ jQuery(document).ready(function($){
                             },
                             events:{
                                 click: function(marker, event, context){
+                                    last_center=event.latLng;
                                     $('input[name="map_lat"]', t).val( event.latLng.lat() );
                                     $('input[name="map_long"]', t).val( event.latLng.lng() );
                                     $('input[name="map_zoom"]', t).val( marker.zoom );
@@ -737,7 +734,12 @@ jQuery(document).ready(function($){
                             }
                         }
 
-                    });
+                    };
+                    if(map_lat && map_long){
+                        map_options.map.options.center=[map_lat, map_long];
+                        map_options.map.options.zoom=map_zoom;
+                    }
+                    gmap.gmap3(map_options);
 
                     var gmap_obj = gmap.gmap3('get');
 
@@ -745,14 +747,35 @@ jQuery(document).ready(function($){
                         // Try to get current location
                         if (navigator.geolocation) {
                             navigator.geolocation.getCurrentPosition(function(showPosition){
+
                                 var gmap_obj = gmap.gmap3('get');
                                 map_lat=showPosition.coords.latitude;
                                 map_long=showPosition.coords.longitude;
-                                gmap_obj.setCenter(new google.maps.LatLng(map_lat,map_long));
-                                gmap_obj.setZoom(11);
+
+                                last_center=new google.maps.LatLng(map_lat,map_long);
+
+                                gmap_obj.setCenter(last_center);
+                                gmap_obj.setZoom(13);
                                 $('input[name="map_lat"]', t).val( map_lat );
                                 $('input[name="map_long"]', t).val( map_long );
-                                $('input[name="map_zoom"]', t).val( 11);
+                                $('input[name="map_zoom"]', t).val( 13);
+
+                                gmap.gmap3({
+                                    clear: {
+                                        name:["marker"],
+                                        last: true
+                                    }
+                                });
+                                gmap.gmap3({
+                                    marker:{
+                                        values:[
+                                            {latLng:last_center },
+                                        ],
+                                        options:{
+                                            draggable: false
+                                        },
+                                    }
+                                });
                             });
 
                         }
@@ -804,7 +827,7 @@ jQuery(document).ready(function($){
                                 }
                             }
 
-                            gmap_obj.fitBounds(bounds);
+                            //gmap_obj.fitBounds(bounds);
 
                         });
 
@@ -816,12 +839,65 @@ jQuery(document).ready(function($){
 
                     $(window).resize(function(){
                         google.maps.event.trigger(gmap_obj, 'resize');
+                        if(last_center){
+                            gmap_obj.setCenter(last_center);
+                        }
                     });
                 });
             }
         }
 
         load_gmap();
+    });
+
+    // ALl Booking Calendar
+    $('#wpbooking_order_calendar .calendar-wrap').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        //eventLimit: true, // allow "more" link when too many events,
+        height:500,
+        numberOfMonths: 2,
+        events:function(start, end, timezone, callback) {
+            var filter=$('.tablenav');
+            $.ajax({
+                url: wpbooking_params.ajax_url,
+                dataType: 'json',
+                type:'post',
+                data: {
+                    action: 'wpbooking_order_calendar',
+                    start: start.unix(),
+                    end: end.unix(),
+                    filter:filter.find('input,select').serialize()
+                },
+                success: function(doc){
+                    if(typeof doc == 'object'){
+                        callback(doc);
+                    }
+                },
+                error:function(e){
+                    alert('Can not get the order data. Lost connect with your sever');
+                    console.log(e);
+                }
+            });
+        },
+        eventMouseover: function(event, element, view){
+            var html = event.tooltipContent;
+            $(this).popover({
+                content:html,
+                placement:'bottom',
+                container:'body',
+                html:true
+            });
+            $(this).popover('show');
+
+        },
+        eventMouseout:function(){
+            $(this).popover('hide');
+        }
+
     });
 });
 

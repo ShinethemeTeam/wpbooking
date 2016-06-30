@@ -16,9 +16,23 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 			add_action('wp_ajax_wpbooking_calendar_bulk_edit', array( $this, '_calendar_bulk_edit') );
 		}
 
+		/**
+		 * @since 1.0
+		 * @author haint
+		 *
+		 *
+		 */
 		public function _load_availability(){
+			$post_id = (int) WPBooking_Input::post('post_id','');
+
+			// Validate Permission
+			$post=get_post($post_id);
+			if(!$post or $post->post_author!=get_current_user_id() or !current_user_can('manage_options')){
+				return FALSE;
+			}
+
 			if(  wp_verify_nonce( $_POST['security'], 'wpbooking-nonce-field' ) ){
-				$post_id = (int) WPBooking_Input::post('post_id','');
+
 				$post_encrypt = (int) WPBooking_Input::post('post_encrypt','');
 
 				if( $post_id > 0 || wpbooking_encrypt_compare( $post_id, $post_encrypt ) ){
@@ -40,8 +54,20 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 		}
 
 		public function _add_availability(){
+
+			$post_id = (int) WPBooking_Input::post('post-id',0);
+
+			// Validate Permission
+			$post=get_post($post_id);
+			if(!$post or $post->post_author!=get_current_user_id() or !current_user_can('manage_options')){
+				echo json_encode(array(
+					'status'=>0,
+					'message'=>esc_html__('You do not have permission to do it','wpbooking')
+				));
+				die;
+			}
+
 			if(  wp_verify_nonce( $_POST['security'], 'wpbooking-nonce-field' ) ){
-				$post_id = (int) WPBooking_Input::post('post-id', 0);
 				$post_encrypt = (int) WPBooking_Input::post('post-encrypt', '');
 
 				if( $post_id > 0 || wpbooking_encrypt_compare( $post_id, $post_encrypt ) ){
@@ -103,6 +129,18 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 		}
 
 		public function _calendar_bulk_edit(){
+
+			$post_id = (int) WPBooking_Input::post('post_id',0);
+
+			// Validate Permission
+			$post=get_post($post_id);
+			if(!$post or $post->post_author!=get_current_user_id() or !current_user_can('manage_options')){
+				echo json_encode(array(
+					'status'=>0,
+					'message'=>esc_html__('You do not have permission to do it','wpbooking')
+				));
+			}
+
 			if(  wp_verify_nonce( $_POST['security'], 'wpbooking-nonce-field' ) ){
 				$post_id = (int) WPBooking_Input::post('post_id', 0);
 				$post_encrypt = WPBooking_Input::post('post_encrypt', '');
@@ -383,7 +421,6 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					);
 				}
 			}
-			
 
 			return (int) $wpdb->insert_id;
 		}
