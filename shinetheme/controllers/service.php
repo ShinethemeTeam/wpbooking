@@ -61,7 +61,7 @@ if (!class_exists('WPBooking_Service')) {
 		{
 
 			// Ajax Search Handle
-			if(WPBooking_Helpers::is_ajax()){
+			if(WPBooking_Helpers::is_ajax() and WPBooking_Input::get('wpbooking_action')=='archive_filter'){
 				if(get_query_var( 'paged' )) {
 					$paged = get_query_var( 'paged' );
 				} else if(get_query_var( 'page' )) {

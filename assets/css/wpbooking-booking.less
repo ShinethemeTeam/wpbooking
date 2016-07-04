@@ -773,3 +773,67 @@
         }
     }
 }
+
+// Inbox sections
+.inbox-wrap{
+    .clearfix;
+    .inbox-user{
+        width: 30%;
+        float: left;
+        border-right: 1px solid #ddd;
+        .inbox-user-item{
+            padding:5px;
+            border-bottom: 1px solid #ddd;
+            &:hover,
+            &.active{
+                background:#365899;
+            }
+            .avatar{
+                float: left;
+                img{
+                    max-width: 50px;
+                    margin-right: 8px;
+                }
+            }
+            .info{
+                display: table;
+                .user-displayname{
+                    margin:0px;
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+    .inbox-messages{
+        width: 70%;
+        float: left;
+        padding:10px;
+        .send-messag-to{
+            margin:0px;
+
+        }
+        .wb-send-message-form{
+            margin:20px 0px;
+        }
+
+        .message{
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+            .avatar{
+                float: left;
+                img{
+                    max-width: 50px;
+                    margin-right: 8px;
+                }
+            }
+            .info{
+                display: table;
+                .user-displayname{
+                    margin:0px;
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+}

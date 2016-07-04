@@ -32,6 +32,7 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
                         <?php echo esc_html($address) ?>
                     </div>
                 <?php } ?>
+				<a class="btn btn-primary" data-toggle="modal" data-target="#wb-send-message"><?php esc_html_e('Contact Host','wpbooking') ?></a>
 				<?php echo wpbooking_load_view('single/price') ?>
             </div>
         </div>
@@ -133,5 +134,29 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
 
     </div>
 </div>
-
+<div class="modal fade" id="wb-send-message" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action="<?php echo home_url('/') ?>" method="post" class="wb-send-message-form"  onsubmit="return false" >
+				<input type="hidden" name="wpbooking_action" value="send_message">
+				<input type="hidden" name="post_id" value="<?php the_ID()?>">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title"><?php printf(esc_html__('Send Message To %s','wpbooking'),get_the_author()) ?></h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="wb-message-input"><?php esc_html_e('Your Message','wpbooking') ?></label>
+					<textarea name="wb-message-input"  id="wb-message-input" cols="30" placeholder="<?php esc_html_e('Your Message','wpbooking') ?>" rows="10"></textarea>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"><?php esc_html_e('Close','wpbooking') ?></button>
+				<button type="submit" class="btn btn-primary" type="submit"><?php esc_html_e('Send Message','wpbooking') ?></button>
+				<div class="message-box text-left"></div>
+			</div>
+			</form>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 

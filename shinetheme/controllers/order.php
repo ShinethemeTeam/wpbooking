@@ -80,10 +80,8 @@ if (!class_exists('WPBooking_Order')) {
 			}
 
 
-			if ($is_validate) {
-				$is_validate = apply_filters('wpbooking_add_to_cart_validate', $is_validate, $service_type, $post_id);
-				$is_validate = apply_filters('wpbooking_add_to_cart_validate_' . $service_type, $is_validate, $service_type, $post_id);
-			}
+			$is_validate = apply_filters('wpbooking_add_to_cart_validate', $is_validate, $service_type, $post_id);
+			$is_validate = apply_filters('wpbooking_add_to_cart_validate_' . $service_type, $is_validate, $service_type, $post_id);
 
 
 			if (!$is_validate) {
@@ -206,9 +204,7 @@ if (!class_exists('WPBooking_Order')) {
 			}
 
 
-			if ($is_validate) {
-				$is_validate = apply_filters('wpbooking_do_checkout_validate', $is_validate, $cart);
-			}
+			$is_validate = apply_filters('wpbooking_do_checkout_validate', $is_validate, $cart);
 
 
 			if (!$is_validate) {

@@ -47,7 +47,8 @@ $autoload['controller']=array(
 	'admin/calendar.metabox',
 	'gateways',
 	'email',
-	'order'
+	'order',
+	'inbox'
 );
 
 $autoload['model']=array(
@@ -55,7 +56,8 @@ $autoload['model']=array(
 	'order_model',
 	'calendar_model',
 	'payment_model',
-	'comments_model'
+	'comments_model',
+	'inbox_model'
 );
 
 $autoload['widget']=array(

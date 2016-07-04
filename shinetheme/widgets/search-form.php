@@ -38,6 +38,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 				<?php if(!get_option('permalink_structure')){
 					printf("<input type='hidden' name='page_id' value='%d'>",$id_page);
 				} ?>
+				<input type="hidden" name="wpbooking_action" value="archive_filter">
 				<div class="wpbooking-search-form-wrap" >
 					<?php
 					if(!empty($field_search[$service_type])){

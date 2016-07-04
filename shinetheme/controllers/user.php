@@ -71,6 +71,7 @@ if (!class_exists('WPBooking_User')) {
 			 *
 			 */
 			add_action( 'init', array( $this, 'add_endpoints' ) );
+
 		}
 
 		/**
@@ -682,6 +683,8 @@ if (!class_exists('WPBooking_User')) {
 
 		}
 
+
+
 		/**
 		 * Get All Tabs in My Account Pages.
 		 *
@@ -698,6 +701,8 @@ if (!class_exists('WPBooking_User')) {
 			if(current_user_can('publish_posts')){
 				$tabs['orders']=esc_html__('Orders','wpbooking');
 			}
+
+			$tabs['inbox']=esc_html__('Inbox','wpbooking');
 
 			return apply_filters('wpbooking_myaccount_tabs',$tabs);
 		}

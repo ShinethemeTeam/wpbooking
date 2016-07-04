@@ -851,54 +851,133 @@ jQuery(document).ready(function($){
     });
 
     // ALl Booking Calendar
-    $('#wpbooking_order_calendar .calendar-wrap').fullCalendar({
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-        },
-        //eventLimit: true, // allow "more" link when too many events,
-        height:500,
-        numberOfMonths: 2,
-        events:function(start, end, timezone, callback) {
-            var filter=$('.tablenav');
-            $.ajax({
-                url: wpbooking_params.ajax_url,
-                dataType: 'json',
-                type:'post',
-                data: {
-                    action: 'wpbooking_order_calendar',
-                    start: start.unix(),
-                    end: end.unix(),
-                    filter:filter.find('input,select').serialize()
-                },
-                success: function(doc){
-                    if(typeof doc == 'object'){
-                        callback(doc);
+    if(typeof $.fn.fullCalendar=='function'){
+
+        $('#wpbooking_order_calendar .calendar-wrap').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            //eventLimit: true, // allow "more" link when too many events,
+            height:500,
+            numberOfMonths: 2,
+            events:function(start, end, timezone, callback) {
+                var filter=$('.tablenav');
+                $.ajax({
+                    url: wpbooking_params.ajax_url,
+                    dataType: 'json',
+                    type:'post',
+                    data: {
+                        action: 'wpbooking_order_calendar',
+                        start: start.unix(),
+                        end: end.unix(),
+                        filter:filter.find('input,select').serialize()
+                    },
+                    success: function(doc){
+                        if(typeof doc == 'object'){
+                            callback(doc);
+                        }
+                    },
+                    error:function(e){
+                        alert('Can not get the order data. Lost connect with your sever');
+                        console.log(e);
                     }
-                },
-                error:function(e){
-                    alert('Can not get the order data. Lost connect with your sever');
-                    console.log(e);
+                });
+            },
+            eventMouseover: function(event, element, view){
+                var html = event.tooltipContent;
+                $(this).popover({
+                    content:html,
+                    placement:'bottom',
+                    container:'body',
+                    html:true
+                });
+                $(this).popover('show');
+
+            },
+            eventMouseout:function(){
+                $(this).popover('hide');
+            }
+
+        });
+    }
+
+    /**
+     * Ajax Reload Old Messages
+     *
+     * @since 1.0
+     * @author dungdt
+     *
+     */
+    function reloadOldMessages()
+    {
+        var me=$('old-messages');
+
+        if(!me.length) return;
+
+        me.addClass('loading');
+        $.ajax({
+            url:wpbooking_params.ajax_url,
+            data:{
+                action:'wpbooking_reload_old_message',
+                user_id:me.data('user-id')
+            },
+            dataType:'json',
+            type:'post',
+            success:function(res){
+                me.removeClass('loading');
+                if(res.html){
+                    me.html(res.html);
                 }
-            });
-        },
-        eventMouseover: function(event, element, view){
-            var html = event.tooltipContent;
-            $(this).popover({
-                content:html,
-                placement:'bottom',
-                container:'body',
-                html:true
-            });
-            $(this).popover('show');
+            },
+            error:function(e){
+                me.html(e.responseText);
+            }
+        })
+    }
+    function appendNewMessage(messageHtml)
+    {
+        $('.old-messages').prepend(messageHtml);
+    }
 
-        },
-        eventMouseout:function(){
-            $(this).popover('hide');
-        }
+    $('.wb-send-message-form').submit(function(){
+        console.log(1);
+        var me=$(this);
+        $(this).addClass('loading');
+        $(this).find('.message-box').html('');
 
+        $.ajax({
+            type:'post',
+            dataType:'json',
+            url:$(this).attr('action'),
+            data:$(this).serialize(),
+            success:function(res){
+                me.removeClass('loading');
+                if(res.message){
+                    me.find('.message-box').html(res.message);
+                }
+
+                if(res.status){
+                    // For User Dashboard Page
+                    if(me.data('reload') && typeof res.messageHTML!='undefined'){
+                        //reloadOldMessages();
+                        appendNewMessage(res.messageHTML);
+                    }
+
+                    // Clear the Form
+                    me.find('textarea').html('');
+                }
+
+            },
+            error:function(e){
+                me.removeClass('loading');
+                me.find('.message-box').html(e.responseText);
+            }
+        })
     });
+
+
 });
 
 

@@ -5,10 +5,10 @@
  * Date: 3/11/2016
  * Time: 10:23 AM
  */
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
-if(!class_exists('WPBooking_Model') ){
+if (!class_exists('WPBooking_Model')) {
 	class WPBooking_Model
 	{
 		/**
@@ -16,7 +16,7 @@ if(!class_exists('WPBooking_Model') ){
 		 * @var bool
 		 * @since 1.0
 		 */
-		protected $table_name=FALSE;
+		protected $table_name = FALSE;
 
 
 		/**
@@ -24,7 +24,7 @@ if(!class_exists('WPBooking_Model') ){
 		 * @var bool
 		 * @since 1.0
 		 */
-		protected $table_version='1.0';
+		protected $table_version = '1.0';
 
 
 		/**
@@ -32,7 +32,7 @@ if(!class_exists('WPBooking_Model') ){
 		 * @var array
 		 * @since 1.0
 		 */
-		protected $columns=array();
+		protected $columns = array();
 
 
 		/**
@@ -40,8 +40,7 @@ if(!class_exists('WPBooking_Model') ){
 		 * @var bool
 		 * @since 1.0
 		 */
-		protected $is_ready=FALSE;
-
+		protected $is_ready = FALSE;
 
 
 		/**
@@ -49,8 +48,7 @@ if(!class_exists('WPBooking_Model') ){
 		 * @var string
 		 * @since 1.0
 		 */
-		protected $table_key='id';
-
+		protected $table_key = 'id';
 
 
 		/**
@@ -58,69 +56,79 @@ if(!class_exists('WPBooking_Model') ){
 		 * @var bool
 		 * @since 1.0
 		 */
-		protected $ignore_create_table=FALSE;
+		protected $ignore_create_table = FALSE;
 
 
-		protected $_where_query=array();
-		protected $_join_query=array();
-		protected $_select_query=array();
-		protected $_order_query=array();
-		protected $_limit_query=array();
-		protected $_last_query=array();
-		protected $_last_result=array();
-		protected $_groupby=array();
-		protected $_having=array();
-		protected $_like_query=array();
+		protected $_where_query = array();
+		protected $_join_query = array();
+		protected $_select_query = array();
+		protected $_order_query = array();
+		protected $_limit_query = array();
+		protected $_last_query = array();
+		protected $_last_result = array();
+		protected $_groupby = array();
+		protected $_having = array();
+		protected $_like_query = array();
 
 		/**
 		 * @since 1.0
 		 */
-		function __construct(){
+		function __construct()
+		{
 			global $wpdb;
-			if($this->ignore_create_table==FALSE and $this->table_name){
+			if ($this->ignore_create_table == FALSE and $this->table_name) {
 
 				add_action('after_setup_theme', array($this, '_check_meta_table_is_working'));
 			}
 		}
+
 		function last_query()
 		{
 			return $this->_last_query;
 		}
 
-		function like($key,$value,$format='both'){
-			if(is_array($key) and !empty($key)){
-				foreach($key as $k1=>$v1){
-					$this->like($v1['key'],$v1['value'],$v1['format']);
+		function like($key, $value, $format = 'both')
+		{
+			if (is_array($key) and !empty($key)) {
+				foreach ($key as $k1 => $v1) {
+					$this->like($v1['key'], $v1['value'], $v1['format']);
 				}
+
 				return $this;
 			}
-			if(is_string($key)){
-				$this->_like_query[]=array(
-					'key'=>$key,
-					'value'=>$value,
-					'clause'=>"AND",
-					'format'=>$format
+			if (is_string($key)) {
+				$this->_like_query[] = array(
+					'key'    => $key,
+					'value'  => $value,
+					'clause' => "AND",
+					'format' => $format
 				);
 			}
+
 			return $this;
 		}
-		function or_like($key,$value,$format='both'){
-			if(is_array($key) and !empty($key)){
-				foreach($key as $k1=>$v1){
-					$this->or_like($v1['key'],$v1['value'],$v1['format']);
+
+		function or_like($key, $value, $format = 'both')
+		{
+			if (is_array($key) and !empty($key)) {
+				foreach ($key as $k1 => $v1) {
+					$this->or_like($v1['key'], $v1['value'], $v1['format']);
 				}
+
 				return $this;
 			}
-			if(is_string($key)){
-				$this->_like_query[]=array(
-					'key'=>$key,
-					'value'=>$value,
-					'clause'=>"OR",
-					'format'=>$format
+			if (is_string($key)) {
+				$this->_like_query[] = array(
+					'key'    => $key,
+					'value'  => $value,
+					'clause' => "OR",
+					'format' => $format
 				);
 			}
+
 			return $this;
 		}
+
 		/**
 		 * Add Where Clause to current Query
 		 *
@@ -129,17 +137,57 @@ if(!class_exists('WPBooking_Model') ){
 		 *
 		 * @param $key
 		 * @param bool|FALSE $value
+		 * @param $raw_where bool
 		 * @return $this
 		 */
-		function where($key,$value=FALSE){
-			if(is_array($key) and !empty($key)){
-				foreach($key as $k1=>$v1){
-					$this->where($k1,$v1);
+		function where($key, $value = FALSE, $raw_where = FALSE)
+		{
+			if (is_array($key) and !empty($key)) {
+				foreach ($key as $k1 => $v1) {
+					$this->where($k1, $v1, $raw_where);
 				}
+
 				return $this;
 			}
-			if(is_string($key)){
-				$this->_where_query[$key]=$value;
+			if (is_string($key)) {
+				$this->_where_query[] = array(
+					'key'    => $key,
+					'value'  => $value,
+					'clause' => 'and',
+					'is_raw' => $raw_where
+				);
+			}
+
+			return $this;
+		}
+
+		/**
+		 * Add OR Where Clause to current Query
+		 *
+		 * @author dungdt
+		 * @since 1.0
+		 *
+		 * @param $key
+		 * @param bool|FALSE $value
+		 * @param bool
+		 * @return $this
+		 */
+		function or_where($key, $value = FALSE, $raw_where = FALSE)
+		{
+			if (is_array($key) and !empty($key)) {
+				foreach ($key as $k1 => $v1) {
+					$this->or_where($k1, $v1, $raw_where);
+				}
+
+				return $this;
+			}
+			if (is_string($key)) {
+				$this->_where_query[] = array(
+					'key'    => $key,
+					'value'  => $value,
+					'clause' => 'or',
+					'is_raw' => $raw_where
+				);
 			}
 
 			return $this;
@@ -155,16 +203,16 @@ if(!class_exists('WPBooking_Model') ){
 		 * @return Object Current Object
 		 *
 		 */
-		function select($column_name){
-			if(is_array($column_name) and !empty($column_name))
-			{
-				foreach($column_name as $v) $this->select($v);
+		function select($column_name)
+		{
+			if (is_array($column_name) and !empty($column_name)) {
+				foreach ($column_name as $v) $this->select($v);
 			}
 
-			if(is_string($column_name))
-			{
-				$this->_select_query[]=$column_name;
+			if (is_string($column_name)) {
+				$this->_select_query[] = $column_name;
 			}
+
 			return $this;
 		}
 
@@ -179,73 +227,84 @@ if(!class_exists('WPBooking_Model') ){
 		 * @param $join_key string join keyword, default is INNER
 		 * @return Object Current Object
 		 */
-		function join($table,$on_clause,$join_key='INNER')
+		function join($table, $on_clause, $join_key = 'INNER')
 		{
-			if(is_array($table) and !empty($table)){
-				foreach($table as $v){
-					$v=wp_parse_args($v,array(
-						'table'=>'',
-						'on'=>'',
-						'keyword'=>'',
+			if (is_array($table) and !empty($table)) {
+				foreach ($table as $v) {
+					$v = wp_parse_args($v, array(
+						'table'   => '',
+						'on'      => '',
+						'keyword' => '',
 					));
-					$this->join($v['table'],$v['on'],$v['keyword']);
+					$this->join($v['table'], $v['on'], $v['keyword']);
 				}
 			}
 
-			if(is_string($table)){
-				$this->_join_query[]=array('table'=>$table,'on'=>$on_clause,'keyword'=>$join_key);
+			if (is_string($table)) {
+				$this->_join_query[] = array('table' => $table, 'on' => $on_clause, 'keyword' => $join_key);
 			}
 
 			return $this;
 		}
 
-		function orderby($key,$value='asc'){
-			if(is_array($key) and !empty($key)){
-				foreach($key as $k1=>$v1){
-					$this->orderby($k1,$v1);
+		function orderby($key, $value = 'asc')
+		{
+			if (is_array($key) and !empty($key)) {
+				foreach ($key as $k1 => $v1) {
+					$this->orderby($k1, $v1);
 				}
 
 				return $this;
 			}
-			if(is_string($key)){
-				$this->_order_query[$key]=$value;
+			if (is_string($key)) {
+				$this->_order_query[$key] = $value;
 			}
-			return $this;
-		}
-		function groupby($key){
-			if(is_array($key) and !empty($key)){
-				foreach($key as $v1){
-					$this->groupby($v1);
-				}
-			}
-			if(is_string($key)){
-				$this->_groupby[]=$key;
-			}
-			return $this;
-		}
-		function having($key){
-			if(is_array($key) and !empty($key)){
-				foreach($key as $v1){
-					$this->having($v1);
-				}
-			}
-			if(is_string($key)){
-				$this->_having[]=$key;
-			}
-			return $this;
-		}
-		function limit($key,$value=0){
-			$this->_limit_query[0]=$key;
-			$this->_limit_query[1]=$value;
 
 			return $this;
 		}
+
+		function groupby($key)
+		{
+			if (is_array($key) and !empty($key)) {
+				foreach ($key as $v1) {
+					$this->groupby($v1);
+				}
+			}
+			if (is_string($key)) {
+				$this->_groupby[] = $key;
+			}
+
+			return $this;
+		}
+
+		function having($key)
+		{
+			if (is_array($key) and !empty($key)) {
+				foreach ($key as $v1) {
+					$this->having($v1);
+				}
+			}
+			if (is_string($key)) {
+				$this->_having[] = $key;
+			}
+
+			return $this;
+		}
+
+		function limit($key, $value = 0)
+		{
+			$this->_limit_query[0] = $key;
+			$this->_limit_query[1] = $value;
+
+			return $this;
+		}
+
 		function get()
 		{
 			global $wpdb;
-			$query=$this->_get_query();
-			$this->_last_query=$query;
-			$this->_last_result=$wpdb->get_results($query,ARRAY_A);
+			$query = $this->_get_query();
+			$this->_last_query = $query;
+			$this->_last_result = $wpdb->get_results($query, ARRAY_A);
 
 			return $this;
 		}
@@ -260,8 +319,9 @@ if(!class_exists('WPBooking_Model') ){
 		 */
 		function row()
 		{
-			$data= isset($this->_last_result[0])?$this->_last_result[0]:FALSE;
+			$data = isset($this->_last_result[0]) ? $this->_last_result[0] : FALSE;
 			$this->_clear_query();
+
 			return $data;
 
 		}
@@ -276,68 +336,72 @@ if(!class_exists('WPBooking_Model') ){
 		 */
 		function result()
 		{
-			$data= $this->_last_result;
+			$data = $this->_last_result;
 			$this->_clear_query();
+
 			return $data;
 		}
 
-		function update($data=array())
+		function update($data = array())
 		{
-			if(empty($data))
-			{
+			if (empty($data)) {
 				return FALSE;
 			}
 			global $wpdb;
 			$table_name = $wpdb->prefix . $this->table_name;
 
-			$where=FALSE;
-			if(!empty($this->_where_query)){
-				$where='WHERE 1=1 ';
+			$where = FALSE;
+			if (!empty($this->_where_query)) {
+				$where = 'WHERE 1=1 ';
 
-				foreach($this->_where_query as $key=>$value){
-					$where.=$wpdb->prepare(' AND `'.$key.'`=%s',array($value));
+				foreach ($this->_where_query as $key => $value) {
+					$value = wp_parse_args($value, array(
+						'key'    => FALSE,
+						'value'  => FALSE,
+						'clause' => 'and'
+					));
+					$where .= $wpdb->prepare(' ' . $value['clause'] . ' `' . $value['key'] . '`=%s', array($value['value']));
 				}
 			}
 
-			$set=FALSE;
-			foreach($data as $key=>$value){
-				$set.="$key='$value',";
+			$set = FALSE;
+			foreach ($data as $key => $value) {
+				$set .= "$key='$value',";
 			}
-			$set=substr($set,0,-1);
+			$set = substr($set, 0, -1);
 
-			$query="UPDATE ".$table_name." SET ".$set;
+			$query = "UPDATE " . $table_name . " SET " . $set;
 
-			$query.=$where;
+			$query .= $where;
 
 			return $wpdb->query($query);
 
 		}
 
-		function insert($data=array())
+		function insert($data = array())
 		{
-			if(empty($data))
-			{
+			if (empty($data)) {
 				return FALSE;
 			}
 			global $wpdb;
 			$table_name = $wpdb->prefix . $this->table_name;
 
-			$set=FALSE;
-			$set_data=array();
-			foreach($data as $key=>$value){
-				$set.="%s,";
-				$set_data[]=$value;
+			$set = FALSE;
+			$set_data = array();
+			foreach ($data as $key => $value) {
+				$set .= "%s,";
+				$set_data[] = $value;
 			}
-			$set_columns=FALSE;
-			foreach($data as $key=>$value){
-				$set_columns.=$key.",";
+			$set_columns = FALSE;
+			foreach ($data as $key => $value) {
+				$set_columns .= $key . ",";
 			}
-			$set=substr($set,0,-1);
-			$set_columns=substr($set_columns,0,-1);
+			$set = substr($set, 0, -1);
+			$set_columns = substr($set_columns, 0, -1);
 
-			$query="INSERT INTO ".$table_name." ({$set_columns}) VALUES ($set)";
+			$query = "INSERT INTO " . $table_name . " ({$set_columns}) VALUES ($set)";
 
-			$query=$wpdb->prepare($query,$set_data);
+			$query = $wpdb->prepare($query, $set_data);
 
 			$wpdb->query($query);
 
@@ -355,26 +419,30 @@ if(!class_exists('WPBooking_Model') ){
 		 */
 		function delete()
 		{
-			if(empty($data))
-			{
+			if (empty($data)) {
 				return FALSE;
 			}
 			global $wpdb;
 			$table_name = $wpdb->prefix . $this->table_name;
 
-			$where=FALSE;
-			if(!empty($this->_where_query)){
-				$where='WHERE 1=1 ';
+			$where = FALSE;
+			if (!empty($this->_where_query)) {
+				$where = 'WHERE 1=1 ';
 
-				foreach($this->_where_query as $key=>$value){
-					$where.=$wpdb->prepare(' AND `'.$key.'`=%s',array($value));
+				foreach ($this->_where_query as $key => $value) {
+					$value = wp_parse_args($value, array(
+						'key'    => FALSE,
+						'value'  => FALSE,
+						'clause' => 'and'
+					));
+					$where .= $wpdb->prepare(' ' . $value['clause'] . ' `' . $value['key'] . '`=%s', array($value['value']));
 				}
 			}
 
 
-			$query="DELETE FROM ".$table_name." ";
+			$query = "DELETE FROM " . $table_name . " ";
 
-			$query.=$where;
+			$query .= $where;
 
 			return $wpdb->query($query);
 		}
@@ -384,12 +452,14 @@ if(!class_exists('WPBooking_Model') ){
 		 * @param $id
 		 * @return array|bool|null|object|void
 		 */
-		function find($id){
+		function find($id)
+		{
 
-			if(!$this->table_key or !$this->is_ready()) return FALSE;
+			if (!$this->table_key or !$this->is_ready()) return FALSE;
 
-			$data= $this->where($this->table_key,$id)->limit(1)->get()->row();
+			$data = $this->where($this->table_key, $id)->limit(1)->get()->row();
 			$this->_clear_query();
+
 			return $data;
 		}
 
@@ -399,20 +469,23 @@ if(!class_exists('WPBooking_Model') ){
 		 * @param $id
 		 * @return array|bool|null|object|void
 		 */
-		function find_by($key,$id){
+		function find_by($key, $id)
+		{
 
-			if(!$this->is_ready()) return FALSE;
-			$data= $this->where($key,$id)->limit(1)->get()->row();
+			if (!$this->is_ready()) return FALSE;
+			$data = $this->where($key, $id)->limit(1)->get()->row();
 			$this->_clear_query();
+
 			return $data;
 		}
 
-		function find_all_by($key,$value)
+		function find_all_by($key, $value)
 		{
-			if(!$this->table_key or !$this->is_ready()) return FALSE;
+			if (!$this->table_key or !$this->is_ready()) return FALSE;
 
-			$data= $this->where($key,$value)->get()->result();
+			$data = $this->where($key, $value)->get()->result();
 			$this->_clear_query();
+
 			return $data;
 		}
 
@@ -420,8 +493,9 @@ if(!class_exists('WPBooking_Model') ){
 		 * Get columns of the table
 		 * @return array
 		 */
-		function get_columns(){
-			return apply_filters('wpbooking_model_table_'.$this->table_name.'_columns',$this->columns);
+		function get_columns()
+		{
+			return apply_filters('wpbooking_model_table_' . $this->table_name . '_columns', $this->columns);
 		}
 
 		/**
@@ -429,9 +503,10 @@ if(!class_exists('WPBooking_Model') ){
 		 * @since 1.0
 		 * @return bool
 		 */
-		function is_ready(){
+		function is_ready()
+		{
 
-			if($this->ignore_create_table) return true;
+			if ($this->ignore_create_table) return TRUE;
 
 			return $this->is_ready;
 		}
@@ -439,7 +514,8 @@ if(!class_exists('WPBooking_Model') ){
 		/**
 		 * @since 1.0
 		 */
-		function _check_meta_table_is_working(){
+		function _check_meta_table_is_working()
+		{
 			global $wpdb;
 
 			$table_name = $wpdb->prefix . $this->table_name;
@@ -493,7 +569,7 @@ if(!class_exists('WPBooking_Model') ){
 
 				$wpdb->query($sql);
 
-				update_option($this->table_name.'_version', $this->table_version);
+				update_option($this->table_name . '_version', $this->table_version);
 
 				if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
 
@@ -511,8 +587,8 @@ if(!class_exists('WPBooking_Model') ){
 
 			if ($this->is_ready) {
 				// check upgrade data
-				$db_version = get_option($this->table_name.'_version');
-				if(!$db_version) $db_version=0;
+				$db_version = get_option($this->table_name . '_version');
+				if (!$db_version) $db_version = 0;
 
 				if (version_compare($db_version, $this->table_version, '<')) {
 					$this->_upgrade_table();
@@ -527,7 +603,7 @@ if(!class_exists('WPBooking_Model') ){
 		 *
 		 * @since 1.0
 		 */
-		protected  function _upgrade_table()
+		protected function _upgrade_table()
 		{
 			global $wpdb;
 			$table_name = $wpdb->prefix . $this->table_name;
@@ -552,12 +628,12 @@ if(!class_exists('WPBooking_Model') ){
 
 			if ($old_coumns and !empty($old_coumns)) {
 				foreach ($old_coumns as $key => $value) {
-					unset($insert_key[ $value->COLUMN_NAME ]);
+					unset($insert_key[$value->COLUMN_NAME]);
 
 					// for columns need update
-					if (isset($table_columns[ $value->COLUMN_NAME ])) {
-						if (strtolower($table_columns[ $value->COLUMN_NAME ]['type']) != strtolower($value->DATA_TYPE)) {
-							$update_key[ $value->COLUMN_NAME ] = $table_columns[ $value->COLUMN_NAME ];
+					if (isset($table_columns[$value->COLUMN_NAME])) {
+						if (strtolower($table_columns[$value->COLUMN_NAME]['type']) != strtolower($value->DATA_TYPE)) {
+							$update_key[$value->COLUMN_NAME] = $table_columns[$value->COLUMN_NAME];
 						}
 					}
 				}
@@ -568,7 +644,7 @@ if(!class_exists('WPBooking_Model') ){
 				$insert_col_string = '';
 				foreach ($insert_key as $key => $value) {
 
-					if(empty($value['type'])) continue;
+					if (empty($value['type'])) continue;
 
 					$prefix = '';
 					//Add length for varchar data type
@@ -622,138 +698,150 @@ if(!class_exists('WPBooking_Model') ){
 			global $wpdb;
 			$table_name = $wpdb->prefix . $this->table_name;
 
-			$select=FALSE;
-			if(!empty($this->_select_query)){
+			$select = FALSE;
+			if (!empty($this->_select_query)) {
 
-				$select=implode(',',$this->_select_query);
-			}else{
-				$select='*';
+				$select = implode(',', $this->_select_query);
+			} else {
+				$select = '*';
 			}
 
-			$join=FALSE;
-			if(!empty($this->_join_query)){
-				foreach($this->_join_query as $j){
-					$j=wp_parse_args($j,array(
-						'tale'=>FALSE,
-						'on'=>FALSE,
-						'keyword'=>FALSE
+			$join = FALSE;
+			if (!empty($this->_join_query)) {
+				foreach ($this->_join_query as $j) {
+					$j = wp_parse_args($j, array(
+						'tale'    => FALSE,
+						'on'      => FALSE,
+						'keyword' => FALSE
 					));
 
-					if(!$j['table'] or !$j['on']) continue;
+					if (!$j['table'] or !$j['on']) continue;
 
-					$table=$wpdb->prefix.$j['table'];
+					$table = $wpdb->prefix . $j['table'];
 
 					// Replace JOIN ON to add Table prefix to Table Name
-					$j['on']=str_replace($j['table'],$table,$j['on']);
-					$j['on']=str_replace($this->table_name,$table_name,$j['on']);
+					$j['on'] = str_replace($j['table'], $table, $j['on']);
+					$j['on'] = str_replace($this->table_name, $table_name, $j['on']);
 
-					$join.=' '.$j['keyword'].' JOIN '.$table.' ON '.$j['on'];
+					$join .= ' ' . $j['keyword'] . ' JOIN ' . $table . ' ON ' . $j['on'];
 				}
 			}
 
-			$where=' WHERE 1=1 ';
+			$where = ' WHERE 1=1 ';
 
-			if(!empty($this->_where_query)){
+			if (!empty($this->_where_query)) {
 
-				foreach($this->_where_query as $key=>$value){
-					$last=substr($key,-1);
-					switch($last){
-						case ">":
-						case "<":
-						case "=":
-							$where.=$wpdb->prepare(' AND '.$key.'%s ',array($value));
-							break;
-						default:
-							$where.=$wpdb->prepare(' AND '.$key.'=%s ',array($value));
-							break;
+				foreach ($this->_where_query as $key => $value) {
+					$value = wp_parse_args($value, array(
+						'key'    => FALSE,
+						'value'  => FALSE,
+						'clause' => 'and',
+						'is_raw' => FALSE
+					));
+					if (!$value['is_raw']) {
+						$last = substr($value['key'], -1);
+						switch ($last) {
+							case ">":
+							case "<":
+							case "=":
+								$where .= $wpdb->prepare(' ' . $value['clause'] . ' ' . $value['key'] . '%s ', array($value['value']));
+								break;
+							default:
+								$where .= $wpdb->prepare(' ' . $value['clause'] . ' ' . $value['key'] . '=%s ', array($value['value']));
+								break;
 
+						}
+					} else {
+						$where .= ' ' . $value['clause'] . ' ' . $value['key'];
 					}
+
 				}
 			}
 
 			// Like
-			if(!empty($this->_like_query)){
+			if (!empty($this->_like_query)) {
 
-				foreach($this->_like_query as $key=>$value){
-					$value=wp_parse_args($value,
+				foreach ($this->_like_query as $key => $value) {
+					$value = wp_parse_args($value,
 						array(
-							'key'=>FALSE,
-							'value'=>FALSE,
-							'clause'=>'AND',
-							'format'=>'both'
+							'key'    => FALSE,
+							'value'  => FALSE,
+							'clause' => 'AND',
+							'format' => 'both'
 						));
-					switch($value['format']){
+					switch ($value['format']) {
 						case "before":
-							$where.=' '.$value['clause'].' '.$value['key']." LIKE '%".$wpdb->_real_escape($value['value'])."' ";
+							$where .= ' ' . $value['clause'] . ' ' . $value['key'] . " LIKE '%" . $wpdb->_real_escape($value['value']) . "' ";
 							break;
 						case "after":
-							$where.=' '.$value['clause'].' '.$value['key']." LIKE '".$wpdb->_real_escape($value['value'])."%' ";
+							$where .= ' ' . $value['clause'] . ' ' . $value['key'] . " LIKE '" . $wpdb->_real_escape($value['value']) . "%' ";
 							break;
 
 						default:
-							$where.=' '.$value['clause'].' '.$value['key']." LIKE '%".$wpdb->_real_escape($value['value'])."%' ";
+							$where .= ' ' . $value['clause'] . ' ' . $value['key'] . " LIKE '%" . $wpdb->_real_escape($value['value']) . "%' ";
 							break;
 
 					}
+				}
+			}
+
+
+			$order = FALSE;
+			if (!empty($this->_order_query)) {
+				$order = ' ORDER BY ';
+				foreach ($this->_order_query as $k => $v) {
+					$order .= ' ' . $k . ' ' . $v . ',';
+				}
+
+				$order = substr($order, 0, -1);
+			}
+
+			$groupby = FALSE;
+
+			if (!empty($this->_groupby)) {
+				$groupby = ' GROUP BY ';
+				foreach ($this->_groupby as $k => $v) {
+					$groupby .= ' ' . $v . ',';
+				}
+
+				$groupby = substr($groupby, 0, -1);
+
+				$having = FALSE;
+				if (!empty($this->_having)) {
+					$having .= ' HAVING ';
+					foreach ($this->_having as $k => $v) {
+						$having .= ' ' . $v . ',';
 					}
-			}
 
+					$having = substr($having, 0, -1);
 
-			$order=FALSE;
-			if(!empty($this->_order_query)){
-				$order=' ORDER BY ';
-				foreach($this->_order_query as $k=>$v){
-					$order.=' '.$k.' '.$v.',';
-				}
-
-				$order=substr($order,0,-1);
-			}
-
-			$groupby=FALSE;
-
-			if(!empty($this->_groupby)){
-				$groupby=' GROUP BY ';
-				foreach($this->_groupby as $k=>$v){
-					$groupby.=' '.$v.',';
-				}
-
-				$groupby=substr($groupby,0,-1);
-
-				$having=FALSE;
-				if(!empty($this->_having)){
-					$having.=' HAVING ';
-					foreach($this->_having as $k=>$v){
-						$having.=' '.$v.',';
-					}
-
-					$having=substr($having,0,-1);
-
-					$groupby.=' '.$having;
+					$groupby .= ' ' . $having;
 				}
 
 			}
 
-			$limit=FALSE;
-			if(!empty($this->_limit_query[0])){
-				$limit=' LIMIT ';
+			$limit = FALSE;
+			if (!empty($this->_limit_query[0])) {
+				$limit = ' LIMIT ';
 
-				$offset=!empty($this->_limit_query[1])?$this->_limit_query[1]:0;
+				$offset = !empty($this->_limit_query[1]) ? $this->_limit_query[1] : 0;
 
-				$limit.=$offset.','.$this->_limit_query[0];
+				$limit .= $offset . ',' . $this->_limit_query[0];
 
 			}
 
-			if($select){
-				$query="SELECT  {$select} FROM {$table_name} ";
+			if ($select) {
+				$query = "SELECT  {$select} FROM {$table_name} ";
 				//$query=$wpdb->prepare($query,array($select));
-				$query.=$join;
-				$query.=$where;
-				$query.=$groupby;
-				$query.=$order;
-				$query.=$limit;
+				$query .= $join;
+				$query .= $where;
+				$query .= $groupby;
+				$query .= $order;
+				$query .= $limit;
 
 				return $query;
 			}
+
 			return FALSE;
 		}
 
@@ -764,21 +852,23 @@ if(!class_exists('WPBooking_Model') ){
 		 * @since 1.0
 		 * @return string
 		 */
-		function get_table_name(){
+		function get_table_name()
+		{
 			global $wpdb;
+
 			return $table_name = $wpdb->prefix . $this->table_name;
 		}
 
 
 		protected function _clear_query()
 		{
-			$this->_where_query=array();
-			$this->_select_query=array();
-			$this->_order_query=array();
-			$this->_limit_query=array();
-			$this->_join_query=array();
-			$this->_groupby=array();
-			$this->_having=array();
+			$this->_where_query = array();
+			$this->_select_query = array();
+			$this->_order_query = array();
+			$this->_limit_query = array();
+			$this->_join_query = array();
+			$this->_groupby = array();
+			$this->_having = array();
 		}
 	}
 

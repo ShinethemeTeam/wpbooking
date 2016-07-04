@@ -34,11 +34,10 @@ $query=new WP_Query(array(
 			if(!$query->have_posts()){
 				?>
 				<tr>
-					<td colspan="10"><div class="alert alert-danger"><?php esc_html_e('No Items Found','wpbooking') ?></div></td>
+					<td colspan="5"><div class="alert alert-danger"><?php esc_html_e('No Items Found','wpbooking') ?></div></td>
 				</tr>
 
 				<?php
-				return;
 			}
 			else{
 				while($query->have_posts()){
