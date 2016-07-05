@@ -966,7 +966,7 @@ jQuery(document).ready(function($){
                     }
 
                     // Clear the Form
-                    me.find('textarea').html('');
+                    me.find('textarea').val('');
                 }
 
             },

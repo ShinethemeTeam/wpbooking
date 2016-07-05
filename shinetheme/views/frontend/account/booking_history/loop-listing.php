@@ -38,7 +38,7 @@ if(WPBooking_Input::get('payment_status')){
 if(WPBooking_Input::get('keyword')){
 	$order_model->like('id',WPBooking_Input::get('keyword'));
 }
-$order_model->where('partner_id',get_current_user_id());
+$order_model->where('customer_id',get_current_user_id());
 $rows=$order_model->get()->result();
 ?>
 <table class="wp-list-table widefat fixed striped posts">

@@ -161,6 +161,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
 				die;
 			}
 			$order_model = WPBooking_Order_Model::inst();
+			$wpbooking_booking_history=FALSE;
 
 			// Filter
 			if($filter_raw=WPBooking_Input::post('filter')){
@@ -179,11 +180,14 @@ if (!class_exists('WPBooking_Admin_Order')) {
 					$order_model->like('id',$filter['keyword']);
 				}
 
-
+				if(!empty($filter['wpbooking_booking_history'])){
+					$order_model->where('customer_id',get_current_user_id());
+					$wpbooking_booking_history=true;
+				}
 			}
 
-			// Is Partner
-			if(!current_user_can('manage_options')){
+			// Is Partner and not listing admin
+			if(!current_user_can('manage_options') and !$wpbooking_booking_history ){
 				$order_model->where('partner_id',get_current_user_id());
 			}
 

@@ -141,7 +141,6 @@ if (!class_exists('WPBooking_User')) {
 				$creds['remember'] = WPBooking_Input::post('remember');
 
 				$user = wp_signon($creds, FALSE);
-
 				if (is_wp_error($user)) {
 					wpbooking_set_message(esc_html__('Your Username or Password is not correct! Please try again', 'wpbooking'), 'danger');
 
@@ -151,6 +150,10 @@ if (!class_exists('WPBooking_User')) {
 					if ($redirect = WPBooking_Input::post('url')) {
 						wp_redirect($redirect);
 						die;
+					}else{
+						// redirect to account page
+						wp_redirect(get_permalink(wpbooking_get_option('myaccount-page')));die;
+
 					}
 				}
 
@@ -159,8 +162,7 @@ if (!class_exists('WPBooking_User')) {
 
 			// Register
 			if (WPBooking_Input::post('action') == 'wpbooking_do_register') {
-
-
+				$this->_do_register();
 			}
 
 			// Partner Register
@@ -542,7 +544,7 @@ if (!class_exists('WPBooking_User')) {
 				wp_enqueue_script('wpbooking-calendar-room',wpbooking_admin_assets_url('js/wpbooking-calendar-room.js'),array('jquery','jquery-ui-datepicker'),null,true);
 			}
 
-			if(get_query_var('tab')=='orders' and WPBooking_Input::get('subtab')=='calendar'){
+			if(in_array(get_query_var('tab'),array('orders','booking_history')) and WPBooking_Input::get('subtab')=='calendar'){
 
 				wp_enqueue_style('full-calendar',wpbooking_admin_assets_url('/css/fullcalendar.min.css'),FALSE,'1.1.6');
 

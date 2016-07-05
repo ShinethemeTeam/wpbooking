@@ -249,7 +249,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'desc'  => __('Number of service allow to book', 'wpbooking'),
 						'id'    => 'number',
 						'type'  => 'number',
-						'std'   => 1
+						//'std'   => 1
 
 					),
 //					array(
