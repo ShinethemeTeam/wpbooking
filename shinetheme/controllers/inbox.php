@@ -116,9 +116,10 @@ if (!class_exists('WPBooking_Inbox')) {
 			return $model->limit(30)
 				->where('from_user', $current_user)
 				->or_where('to_user', $current_user)
+				->where('from_user!=to_user', FALSE,true)
 				->orderby('created_at', 'desc')
 				->groupby('from_user')
-				->groupby('to_user')
+				->having('from_user!=to_user')
 				->get()->result();
 		}
 

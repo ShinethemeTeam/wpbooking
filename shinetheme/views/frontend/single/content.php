@@ -5,6 +5,7 @@
  * Date: 4/4/2016
  * Time: 3:23 PM
  */
+global $post;
 if ( post_password_required() ) {
 	echo get_the_password_form();
 	return;
@@ -32,7 +33,9 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
                         <?php echo esc_html($address) ?>
                     </div>
                 <?php } ?>
+				<?php if(is_user_logged_in() and get_current_user_id()!=$post->post_author){ ?>
 				<a class="btn btn-primary" data-toggle="modal" data-target="#wb-send-message"><?php esc_html_e('Contact Host','wpbooking') ?></a>
+				<?php }?>
 				<?php echo wpbooking_load_view('single/price') ?>
             </div>
         </div>
