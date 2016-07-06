@@ -550,7 +550,7 @@ jQuery(document).ready(function( $ ){
                         $('.item', list).show();
                     }else{
                         $('.item', list).hide();
-                        $(".item[data-name*='"+text+"']", list).show();
+                        $(".item[data-name*='"+text.toLowerCase()+"']", list).show();
                     }
                     
                 }, 500);

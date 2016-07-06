@@ -316,6 +316,9 @@ jQuery(document).ready(function($){
         minDate:0,
         onSelect:function(selected) {
             order_end_date.datepicker("option","minDate", selected);
+            //order_end_date.focus();
+            order_end_date.datepicker( "show" );
+
         },
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);

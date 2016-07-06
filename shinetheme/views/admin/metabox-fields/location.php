@@ -41,7 +41,7 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
 	                    if( is_array( $lists ) && count( $lists) ):
 	                        foreach( $lists as $key => $location ):
 	                ?>
-	                    <div data-name="<?php echo $location['parent_name']; ?>" class="item" style="margin-left: <?php echo $location['deep'].'px;'; ?> margin-bottom: 5px;">
+	                    <div data-name="<?php echo strtolower($location['parent_name']); ?>" class="item" style="margin-left: <?php echo $location['deep'].'px;'; ?> margin-bottom: 5px;">
 	                        <label for="<?php echo 'location-'.$location['id']; ?>">
 	                            <input <?php if(in_array($location['id'], $old)) echo 'checked'; ?> id="<?php echo 'location-'.$location['id']; ?>" type="checkbox" name="<?php echo $name; ?>" value="<?php echo $location['id']; ?>">
 	                            <span><?php echo $location['name']; ?></span>
