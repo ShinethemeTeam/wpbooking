@@ -170,7 +170,7 @@ if (!class_exists('WPBooking_Email')) {
 			$order_model = WPBooking_Order_Model::inst();
 			$items = $order_model->get_order_items($order_id);
 
-			$admin_email = get_option('admin_email');
+			$admin_email = wpbooking_get_option('system_email');
 
 			// Send Booking Information
 			// To all Partners
