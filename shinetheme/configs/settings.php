@@ -181,22 +181,56 @@ $config['settings'] = array(
 				'fields' => array(
 
 					array(
+						'id'    => 'on_booking_email_customer',
+						'label' => __("Enable Email To Customer", 'wpbooking'),
+						'type'  => 'checkbox',
+						'std'   => '1'
+					),
+					array(
 						'id'          => 'email_to_customer',
 						'label'       => __("For Customer", 'wpbooking'),
 						'type'        => 'texteditor',
 						'desc'        => wpbooking_admin_load_view('email/document'),
+						'extra_html'=>'<a class="wpbooking-preview-modal thickbox button button-primary" href="'.add_query_arg(array('action'=>'wpbooking_booking_email_preview','email'=>'email_to_customer'),'admin-ajax.php').'">'.esc_html__('Preview','wpbooking').'</a>',
 						'editor_args' => array(
 							'tinymce' => FALSE
-						)
+						),
+						'condition'   => 'on_booking_email_customer:is(1)'
+					),
+
+					array(
+						'id'    => 'on_booking_email_author',
+						'label' => __("Enable Email To Author", 'wpbooking'),
+						'type'  => 'checkbox',
+						'std'   => '1'
 					),
 					array(
 						'id'          => 'email_to_partner',
-						'label'       => __("For Author and Administrator", 'wpbooking'),
+						'label'       => __("For Author", 'wpbooking'),
 						'type'        => 'texteditor',
 						'desc'        => wpbooking_admin_load_view('email/document'),
+						'extra_html'=>'<a class="wpbooking-preview-modal thickbox button button-primary" href="'.add_query_arg(array('action'=>'wpbooking_booking_email_preview','email'=>'email_to_partner'),'admin-ajax.php').'">'.esc_html__('Preview','wpbooking').'</a>',
 						'editor_args' => array(
 							'tinymce' => FALSE
-						)
+						),
+						'condition'   => 'on_booking_email_author:is(1)'
+					),
+					array(
+						'id'    => 'on_booking_email_admin',
+						'label' => __("Enable Email To Admin", 'wpbooking'),
+						'type'  => 'checkbox',
+						'std'   => '1'
+					),
+					array(
+						'id'          => 'email_to_admin',
+						'label'       => __("For Administrator", 'wpbooking'),
+						'type'        => 'texteditor',
+						'desc'        => wpbooking_admin_load_view('email/document'),
+						'extra_html'=>'<a class="wpbooking-preview-modal thickbox button button-primary" href="'.add_query_arg(array('action'=>'wpbooking_booking_email_preview','email'=>'email_to_admin'),'admin-ajax.php').'">'.esc_html__('Preview','wpbooking').'</a>',
+						'editor_args' => array(
+							'tinymce' => FALSE
+						),
+						'condition'   => 'on_booking_email_admin:is(1)'
 					),
 				)
 			),

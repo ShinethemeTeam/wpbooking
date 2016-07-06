@@ -30,6 +30,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
 			add_action('wp_ajax_wpbooking_order_calendar', array($this, '_ajax_order_calendar'));
 
 			add_action('admin_enqueue_scripts',array($this,'_add_script'));
+
 		}
 
 		function _apply_change_form()
@@ -337,6 +338,8 @@ if (!class_exists('WPBooking_Admin_Order')) {
 
 			register_post_type('wpbooking_order', $args);
 		}
+
+
 
 		static function inst()
 		{
