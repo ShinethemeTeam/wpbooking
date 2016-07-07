@@ -19,6 +19,15 @@ if (!class_exists('WPBooking_Captcha_Field')) {
 				"category" => __("Advance Field", 'wpbooking'),
 				"options"  => array(
 					array(
+						"type"             => "checkbox" ,
+						'name'=>'hide_when_logged_in',
+						'options'=>array(
+							__( "Hide with <strong>Logged in use</strong>" , 'wpbooking' )=>1
+						),
+						'single_checkbox'=>1,
+						'edit_field_class' => 'wpbooking-col-md-12' ,
+					) ,
+					array(
 						"type"             => "text",
 						"title"            => __("Title", 'wpbooking'),
 						"name"             => "title",
@@ -77,7 +86,7 @@ if (!class_exists('WPBooking_Captcha_Field')) {
 
 			$required = "";
 			$rule = array();
-			if ($is_required == "on") {
+			if ($this->is_required($attr)) {
 				$required = "required";
 				$rule [] = "required";
 				$array['class'] .= ' required';
@@ -95,6 +104,7 @@ if (!class_exists('WPBooking_Captcha_Field')) {
 					$a .= ' ' . $key . '="' . $val . '"';
 				}
 			}
+			if($this->is_hidden($attr)) return FALSE;
 
 
 			switch ($data['type']) {

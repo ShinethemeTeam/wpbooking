@@ -12,6 +12,15 @@ if(!class_exists('WPBooking_Form_Checkbox_Field')){
 				"category" => 'Standard Fields',
 				"options" => array(
 					array(
+						"type"             => "checkbox" ,
+						'name'=>'hide_when_logged_in',
+						'options'=>array(
+							__( "Hide with <strong>Logged in use</strong>" , 'wpbooking' )=>1
+						),
+						'single_checkbox'=>1,
+						'edit_field_class' => 'wpbooking-col-md-12' ,
+					) ,
+					array(
 						"type"             => "text" ,
 						"title"            => __( "Title" , 'wpbooking' ) ,
 						"name"             => "title" ,
@@ -84,6 +93,8 @@ if(!class_exists('WPBooking_Form_Checkbox_Field')){
 				}
 			}
 			parent::add_field($name,array('data'=>$data,'rule'=>''));
+
+			if($this->is_hidden($attr)) return FALSE;
 
 			return $list_item;
 		}

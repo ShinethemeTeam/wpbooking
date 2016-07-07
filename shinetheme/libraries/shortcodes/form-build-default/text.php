@@ -15,7 +15,16 @@ if(!class_exists('WPBooking_Form_Text_Field')){
 						"type"             => "required" ,
 						"title"            => __( "Set as <strong>required</strong>" , 'wpbooking' ) ,
 						"desc"             => "" ,
-						'edit_field_class' => 'wpbooking-col-md-12' ,
+						'edit_field_class' => 'wpbooking-col-md-6' ,
+					) ,
+					array(
+						"type"             => "checkbox" ,
+						'name'=>'hide_when_logged_in',
+						'options'=>array(
+							__( "Hide with <strong>Logged in use</strong>" , 'wpbooking' )=>1
+						),
+						'single_checkbox'=>1,
+						'edit_field_class' => 'wpbooking-col-md-6' ,
 					) ,
 					array(
 						"type"             => "text" ,
@@ -103,7 +112,7 @@ if(!class_exists('WPBooking_Form_Text_Field')){
 			extract( $data );
 			$required = "";
 			$rule = array();
-			if($is_required == "on") {
+			if($this->is_required($attr)) {
 				$required = "required";
 				$rule []= "required";
 			}
@@ -112,6 +121,7 @@ if(!class_exists('WPBooking_Form_Text_Field')){
 			}
 
 			parent::add_field($name,array('data'=>$data,'rule'=>implode('|',$rule)));
+			if($this->is_hidden($attr)) return FALSE;
 
 			return '<input type="text" name="' . $name . '" id="' . $id . '" class="' . $class . '" value="' . $value . '" placeholder="' . $placeholder . '"  maxlength="' . $maxlength . '" size="' . $size . '"  ' . $required . ' />';
 		}

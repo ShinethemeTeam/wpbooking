@@ -90,12 +90,17 @@ jQuery(document).ready(function( $ ){
     $(document).on('change','.content-flied-control .group-checkbox .item_check_box',function(){
         var value = '';
         var container =  $(this).parent().parent().parent().parent();
-        container.find('.item_check_box').each(function(){
-            if($(this).attr('checked')) {
-                value +=  $(this).val()+',';
-            }
-        });
-        container.find('.item').val(value.substring(0,value.length - 1));
+        if($(this).hasClass('single_checkbox')){
+            container.find('.item_check_box').each(function(){
+                if($(this).attr('checked')) {
+                    value +=  $(this).val()+',';
+                }
+            });
+            container.find('.item').val(value.substring(0,value.length - 1));
+        }else{
+            container.find('.item').val($(this).val());
+        }
+
         container.find('.item').change();
     });
 

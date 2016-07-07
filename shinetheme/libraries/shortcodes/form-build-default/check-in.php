@@ -105,7 +105,7 @@ if (!class_exists('WPBooking_Form_Check_In_Field')) {
 
 			$required = "";
 			$rule = array();
-			if ($is_required == "on") {
+			if ($this->is_required($attr)) {
 				$required = "required";
 				$rule [] = "required";
 				$array['class'].=' required';
@@ -116,6 +116,8 @@ if (!class_exists('WPBooking_Form_Check_In_Field')) {
 
 			parent::add_field($name, array('data' => $data, 'rule' => implode('|', $rule)));
 
+			if($this->is_hidden($attr)) return FALSE;
+
 			$a = FALSE;
 
 			foreach ($array as $key => $val) {
@@ -124,7 +126,7 @@ if (!class_exists('WPBooking_Form_Check_In_Field')) {
 				}
 			}
 
-			return '<input type="text" '.$a.' />';
+			return '<input readonly type="text" '.$a.' />';
 		}
 
 		function get_value($form_item_data)

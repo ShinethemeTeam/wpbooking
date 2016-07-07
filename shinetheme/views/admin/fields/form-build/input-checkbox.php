@@ -6,11 +6,16 @@ if(!empty($data['edit_field_class'])){
 ?>
 <div class="<?php echo esc_html($class) ?> ">
     <div class="wpbooking-build-group ">
+		<?php if(!empty($data['title'])){?>
         <label class="control-label"><?php echo balanceTags($data['title']) ?>:</label>
+		<?php } ?>
         <div class="wpbooking-row group-checkbox">
             <?php if(!empty($data['options'])){
                 foreach($data['options'] as $k=>$v){
-                    echo ' <div class="wpbooking-col-md-4"><label><input type="checkbox" class="item_check_box" value="'.$v.'">'.$k.'</label></div>';
+					$class=FALSE;
+					if(!empty($data['single_checkbox'])) $class='single_checkbox';
+
+                    echo ' <div class="wpbooking-col-md-12"><label><input type="checkbox"  class="item_check_box '.$class.'" value="'.$v.'">'.$k.'</label></div>';
                 }
             } ?>
         </div>

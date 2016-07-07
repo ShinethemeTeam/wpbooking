@@ -11,7 +11,6 @@ if (!class_exists('WPBooking_Current_Datetime_Field')) {
 				"title"    => __("Current Datetime (Server Time)", 'wpbooking'),
 				"category" => __("Hidden Fields", 'wpbooking'),
 				"options"  => array(
-
 					array(
 						"type"             => "text",
 						"title"            => __("Title", 'wpbooking'),
@@ -82,7 +81,7 @@ if (!class_exists('WPBooking_Current_Datetime_Field')) {
 
 			$required = "";
 			$rule = array();
-			if ($is_required == "on") {
+			if ($this->is_required($attr)) {
 				$required = "required";
 				$rule [] = "required";
 				$array['class'].=' required';
@@ -92,6 +91,8 @@ if (!class_exists('WPBooking_Current_Datetime_Field')) {
 			}
 
 			parent::add_field($name, array('data' => $data, 'rule' => implode('|', $rule)));
+
+			if($this->is_hidden($attr)) return FALSE;
 
 			$a = FALSE;
 

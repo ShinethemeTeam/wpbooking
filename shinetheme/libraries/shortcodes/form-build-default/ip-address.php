@@ -11,7 +11,6 @@ if (!class_exists('WPBooking_Ip_Address_Field')) {
 				"title"    => __("IP Address (Client)", 'wpbooking'),
 				"category" => __("Hidden Fields", 'wpbooking'),
 				"options"  => array(
-
 					array(
 						"type"             => "text",
 						"title"            => __("Title", 'wpbooking'),
@@ -20,6 +19,7 @@ if (!class_exists('WPBooking_Ip_Address_Field')) {
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'value'            => ""
 					),
+
 					array(
 						"type"             => "text",
 						"title"            => __("ID (optional)", 'wpbooking'),

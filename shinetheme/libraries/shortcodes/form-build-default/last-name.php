@@ -15,8 +15,17 @@ if (!class_exists('WPBooking_Last_Name_Field')) {
 						"type"             => "required",
 						"title"            => __("Set as <strong>required</strong>", 'wpbooking'),
 						"desc"             => "",
-						'edit_field_class' => 'wpbooking-col-md-12',
+						'edit_field_class' => 'wpbooking-col-md-6',
 					),
+					array(
+						"type"             => "checkbox" ,
+						'name'=>'hide_when_logged_in',
+						'options'=>array(
+							__( "Hide with <strong>Logged in use</strong>" , 'wpbooking' )=>1
+						),
+						'single_checkbox'=>1,
+						'edit_field_class' => 'wpbooking-col-md-6' ,
+					) ,
 					array(
 						"type"             => "text",
 						"title"            => __("Title", 'wpbooking'),
@@ -93,7 +102,7 @@ if (!class_exists('WPBooking_Last_Name_Field')) {
 
 			$required = "";
 			$rule = array();
-			if ($is_required == "on") {
+			if ($this->is_required($attr)) {
 				$required = "required";
 				$rule [] = "required";
 				$array['class'].=' required';

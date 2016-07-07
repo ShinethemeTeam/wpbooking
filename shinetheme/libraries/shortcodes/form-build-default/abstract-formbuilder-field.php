@@ -130,5 +130,44 @@ if(!class_exists('WPBooking_Abstract_Formbuilder_Field') )
 		{
 			return $this->get_value($form_item_data);
 		}
+
+		/**
+		 * Check if Field is required
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param array $attr
+		 * @return bool
+		 */
+		function is_required($attr=array()){
+			$attr=wp_parse_args($attr,array(
+				'is_required'=>'',
+				'hide_when_logged_in'=>FALSE
+			));
+
+			if($attr['is_required']=='on' and (empty($attr['hide_when_logged_in']) or !is_user_logged_in())){
+				return true;
+			}else{
+				return FALSE;
+			}
+		}
+
+		/**
+		 * Check if field is hidden for logged in user
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $attr
+		 * @return bool
+		 */
+		function is_hidden($attr){
+			$attr=wp_parse_args($attr,array(
+				'hide_when_logged_in'=>FALSE
+			));
+			if(is_user_logged_in() and !empty($attr['hide_when_logged_in'])) return true;
+			return FALSE;
+		}
 	}
 }
