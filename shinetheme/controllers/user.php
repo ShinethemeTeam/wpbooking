@@ -285,6 +285,9 @@ if (!class_exists('WPBooking_User')) {
 					wpbooking_set_message(esc_html__('Your account is registered successfully. You can login now', 'wpbooking'), 'success');
 
 					// Hook after Register Success, maybe sending some email...etc
+					/**
+					 * @see WPBooking_User::_send_registration_email()
+					 */
 					do_action('wpbooking_register_success', $user_id);
 				}
 			}
@@ -389,6 +392,9 @@ if (!class_exists('WPBooking_User')) {
 					wpbooking_set_message(esc_html__('Your account is registered successfully. You can login now', 'wpbooking'), 'success');
 
 					// Hook after Register Success, maybe sending some email...etc
+					/**
+					 * @see WPBooking_User::_send_partner_registration_email()
+					 */
 					do_action('wpbooking_partner_register_success', $user_id);
 				}
 			}
@@ -889,6 +895,44 @@ if (!class_exists('WPBooking_User')) {
 			add_shortcode('wpbooking-partner-register', array($this, '_partner_register_shortcode'));
 		}
 
+		function order_create_user($data=array())
+		{
+			$data=wp_parse_args($data,array(
+				'user_email' => '',
+				'first_name' => '',
+				'last_name'  => '',
+			));
+			if(!$data['user_email']) return FALSE;
+
+			$user_name = $this->generate_username();
+			if ($user_name) {
+
+				$create_user = wp_insert_user(array(
+					'user_login' => $user_name,
+					'user_email' => $data['user_email'],
+					'first_name' => $data['first_name'],
+					'last_name'  => $data['last_name'],
+
+				));
+
+				if (!is_wp_error($create_user)) {
+
+					do_action('wpbooking_register_success',$create_user);
+					return $create_user;
+				}
+			}
+
+			return FALSE;
+
+		}
+		function generate_username()
+		{
+			$prefix=apply_filters('wpbooking_generated_username_prefix','wpbooking_');
+			$user_name = $prefix.time() . rand(0, 999);
+			if (username_exists($user_name)) return $this->generate_username();
+
+			return $user_name;
+		}
 		static function inst()
 		{
 			if (!self::$_inst) self::$_inst = new self();

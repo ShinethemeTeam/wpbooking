@@ -235,20 +235,12 @@ if (!class_exists('WPBooking_Order')) {
 
 					// Check user want to create account
 					if ($fields['wpbooking_create_account']) {
-						$user_name = $this->generate_username();
-						if ($user_name) {
 
-							if ($create_user = wp_insert_user(array(
-									'user_login' => $user_name,
-									'user_email' => $email,
-									'first_name' => $fields['user_first_name'],
-									'last_name'  => $fields['user_last_name'],
-
-								)) and !is_wp_error($create_user)
-							) {
-								$customer_id = $create_user;
-							}
-						}
+						$customer_id=WPBooking_User::inst()->order_create_user(array(
+							'user_email' => $email,
+							'first_name' => $fields['user_first_name'],
+							'last_name'  => $fields['user_last_name'],
+						));
 					}
 				}
 
