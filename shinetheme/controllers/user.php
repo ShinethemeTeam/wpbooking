@@ -236,8 +236,8 @@ if (!class_exists('WPBooking_User')) {
 		function _do_register()
 		{
 			$validate = new WPBooking_Form_Validator();
-			$validate->set_rules('login', esc_html__('Username', 'wpbooking'), 'required|max_length[100]');
-			$validate->set_rules('email', esc_html__('Email', 'wpbooking'), 'required|max_length[100]|valid_email');
+			$validate->set_rules('login', esc_html__('Username', 'wpbooking'), 'required|max_length[100]|is_unique[users.user_login]');
+			$validate->set_rules('email', esc_html__('Email', 'wpbooking'), 'required|max_length[100]|valid_email|is_unique[users.user_email]');
 			$validate->set_rules('password', esc_html__('Password', 'wpbooking'), 'required|min_length[6]|max_length[100]');
 			$validate->set_rules('repassword', esc_html__('Re-Type Password', 'wpbooking'), 'required|min_length[6]|max_length[100]|matches[password]');
 			$validate->set_rules('term_condition', esc_html__('Term & Condition', 'wpbooking'), 'required');
@@ -249,17 +249,7 @@ if (!class_exists('WPBooking_User')) {
 				$is_validated = FALSE;
 			}
 
-			// Validate Username and Email exists
-			$user_id = username_exists(WPBooking_Input::post('login'));
-			$user_email = WPBooking_Input::post('email');
-			if (WPBooking_Input::post('login') and $user_id ) {
-				wpbooking_set_message(esc_html__('Username exists.', 'wpbooking'), 'danger');
-				$is_validated = FALSE;
-			}
-			if($user_email and email_exists($user_email)){
-				wpbooking_set_message(esc_html__('Email exists.', 'wpbooking'), 'danger');
-				$is_validated = FALSE;
-			}
+
 
 			// Allow to add filter before register
 			$is_validated = apply_filters('wpbooking_register_validate', $is_validated);
@@ -302,47 +292,35 @@ if (!class_exists('WPBooking_User')) {
 		function _do_partner_register()
 		{
 			$validate = new WPBooking_Form_Validator();
-			$validate->set_rules('login', esc_html__('Username', 'wpbooking'), 'required|max_length[100]');
-			$validate->set_rules('email', esc_html__('Email', 'wpbooking'), 'required|max_length[100]|valid_email');
+			$validate->set_rules('login', esc_html__('Username', 'wpbooking'), 'required|max_length[100]|is_unique[users.user_login]');
+			$validate->set_rules('email', esc_html__('Email', 'wpbooking'), 'required|max_length[100]|valid_email|is_unique[users.user_email]');
 			$validate->set_rules('password', esc_html__('Password', 'wpbooking'), 'required|min_length[6]|max_length[100]');
 			$validate->set_rules('repassword', esc_html__('Re-Type Password', 'wpbooking'), 'required|min_length[6]|max_length[100]|matches[password]');
-			$validate->set_rules('service_type', esc_html__('Certificate', 'wpbooking'), 'required');
+			$validate->set_rules('service_type[]', esc_html__('Certificate', 'wpbooking'), 'required');
 			$validate->set_rules('term_condition', esc_html__('Term & Condition', 'wpbooking'), 'required');
 
 			$is_validated = TRUE;
 
 			if (!$validate->run()) {
-				wpbooking_set_message($validate->error_string(), 'danger');
+
 				$is_validated = FALSE;
 
-			}
-
-			// Validate Username and Email exists
-			$user_id = username_exists(WPBooking_Input::post('login'));
-			$user_email = WPBooking_Input::post('email');
-			if (WPBooking_Input::post('login') and $user_id ) {
-				wpbooking_set_message(esc_html__('Username exists.', 'wpbooking'), 'danger');
-				$is_validated = FALSE;
-			}
-			if($user_email and email_exists($user_email)){
-				wpbooking_set_message(esc_html__('Email exists.', 'wpbooking'), 'danger');
-				$is_validated = FALSE;
-			}
-
-
-			// Validate Certificate Upload
-			$is_select_service = FALSE;
-			$service_type = WPBooking_Input::post('service_type');
-			if (is_array($service_type) and !empty($service_type)) {
-				foreach ($service_type as $k => $v) {
-					if (!empty($v[$k]['name'])) $is_select_service = TRUE;
+				// Validate Certificate Upload
+				$is_select_service = FALSE;
+				$service_type = WPBooking_Input::post('service_type');
+				if (is_array($service_type) and !empty($service_type)) {
+					foreach ($service_type as $k => $v) {
+						if (!empty($v[$k]['name'])) $is_select_service = TRUE;
+					}
 				}
-			}
 
-			if (!$is_select_service) {
-				$is_validated = FALSE;
-				wpbooking_set_message(esc_html__('Please select at lease one Service Type!', 'wpbooking'), 'danger');
+				if (!$is_select_service) {
+					$is_validated = FALSE;
+					$validate->set_error_message('service_type',esc_html__('Please select at lease one Service Type!','wpbooking'));
+				}
 
+
+				wpbooking_set_message($validate->error_string(), 'danger');
 			}
 
 

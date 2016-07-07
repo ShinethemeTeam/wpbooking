@@ -1318,6 +1318,28 @@ if(!class_exists('WPBooking_Form_Validator'))
             return false;
         }
 
+		/**
+		 * Is Unique
+		 *
+		 * Check if the input value doesn't already exist
+		 * in the specified database field.
+		 *
+		 * @param	string	$str
+		 * @param	string	$field
+		 * @return	bool
+		 */
+		public function is_unique($str, $field)
+		{
+			global $wpdb;
+
+			sscanf($field, '%[^.].%[^.]', $table, $field);
+
+			$sql='SELECT * FROM '.$wpdb->prefix.$table.' WHERE '.$field.'=%s  LIMIT 1';
+			$res= $wpdb->get_row($wpdb->prepare($sql,$str));
+
+			return $res?FALSE:true;
+
+		}
 		function get_lang($key)
 		{
 			$langs=WPBookingConfig()->item('lang');
