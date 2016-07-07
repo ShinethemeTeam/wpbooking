@@ -980,7 +980,42 @@ jQuery(document).ready(function($){
         })
     });
 
+    $('.upload-avatar').each(function(){
+        var me=$(this);
+        me.find('.upload_input').change(function(){
+            var formData = new FormData();
+            formData.append('action','wpbooking_upload_avatar');
+            formData.append('image',$(this)[0].files[0]);
 
+            me.find('.upload-message').html('');
+
+            $.ajax({
+                type: "POST",
+                url: wpbooking_params.ajax_url,
+                enctype: 'multipart/form-data',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function(data) {
+                    me.find('.uploaded_image_preview').remove();
+                    if(data.message){
+                        me.find('.upload-message').html(data.message);
+                    }
+                    if(data.status && data.image){
+                        me.find('.image_url').val(data.image.url);
+                        me.append('<img class="uploaded_image_preview" alt="" src="'+data.image.url+'">');
+                    }
+                },
+                error:function(e){
+                    if(e.responseText){
+                        me.find('.upload-message').html(e.responseText);
+                    }
+                }
+            });
+        });
+
+    });
 });
 
 

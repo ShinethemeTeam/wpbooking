@@ -293,7 +293,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					// If there are some day not available, return the message
 
 					if (!empty($unavailable)) {
-						$message = __("Sorry, This item is not available in: %s", 'wpbooking');
+						$message = esc_html__("Those dates are not available: %s", 'wpbooking');
 						$not_avai_string = FALSE;
 						foreach ($unavailable as $k => $v) {
 							$not_avai_string .= date(get_option('date_format'), $v) . ', ';

@@ -28,6 +28,12 @@ if (!class_exists('WPBooking_User')) {
 			 * @since 1.0
 			 */
 			add_action('wp_ajax_nopriv_wpbooking_upload_certificate', array($this, '_ajax_upload_certificate'));
+			/**
+			 * Ajax Handler Upload Certificate before Register
+			 * @author dungdt
+			 * @since 1.0
+			 */
+			add_action('wp_ajax_wpbooking_upload_avatar', array($this, '_ajax_upload_avatar'));
 
 
 			/**
@@ -81,6 +87,54 @@ if (!class_exists('WPBooking_User')) {
 		 * @author dungdt
 		 */
 		function _ajax_upload_certificate()
+		{
+			$res = array(
+				'status' => 1
+
+			);
+			if (!function_exists('wp_handle_upload')) {
+				require_once(ABSPATH . 'wp-admin/includes/file.php');
+			}
+
+			if (empty($_FILES['image'])) {
+				echo json_encode(array(
+					'status'  => 0,
+					'message' => esc_html__('You did not select any file', 'wpbooking')
+				));
+				die;
+			}
+			$uploadedfile = $_FILES['image'];
+
+			$size_file = $uploadedfile["size"];
+
+			if ($size_file > (1024 * 1024 * 2)) {
+				$res['status'] = 0;
+				$res['message'] = esc_html__('Max upload size is 2mb', 'wpbooking');
+			} else {
+				$allowed_file_types = array('jpg' => 'image/jpg', 'jpeg' => 'image/jpeg', 'gif' => 'image/gif', 'png' => 'image/png');
+				$overrides = array('test_form' => FALSE, 'mimes' => $allowed_file_types);
+
+				$movefile = wp_handle_upload($uploadedfile, $overrides);
+
+				if ($movefile && !isset($movefile['error'])) {
+					$res['image'] = $movefile;
+
+				} else {
+					$res['status'] = FALSE;
+					$res['message'] = $movefile['error'];
+				}
+			}
+
+			echo json_encode($res);
+			die;
+		}
+		/**
+		 * Upload Certificate Ajax Handler
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 */
+		function _ajax_upload_avatar()
 		{
 			$res = array(
 				'status' => 1
@@ -624,6 +678,101 @@ if (!class_exists('WPBooking_User')) {
 
 					}
 				break;
+
+				// Update Profile
+				case "wpbooking_update_profile":
+					if(is_user_logged_in()){
+
+						do_action('wpbooking_before_update_profile');
+
+						$validate=new WPBooking_Form_Validator();
+						$validate->set_rules('u_avatar',esc_html__('Avatar','wpbooking'),'max_length[500]');
+						$validate->set_rules('u_display_name',esc_html__('Display Name','wpbooking'),'required|max_length[255]');
+						$validate->set_rules('u_email',esc_html__('Email','wpbooking'),'required|max_length[255]|valid_email');
+						$validate->set_rules('u_phone',esc_html__('Phone Number','wpbooking'),'required|max_length[255]');
+
+						$is_validate=true;
+						$is_updated=FALSE;
+
+						if(!$validate->run()){
+							$is_validate=FALSE;
+							wpbooking_set_message($validate->error_string(),'danger');
+						}
+
+						$is_validate=apply_filters('wpbooking_update_profile_validate',$is_validate);
+
+						if($is_validate){
+							// Start Update
+							$is_updated=wp_update_user(array(
+								'ID'=>get_current_user_id(),
+								'display_name'=>WPBooking_Input::post('u_display_name'),
+								'user_email'=>WPBooking_Input::post('u_email')
+							));
+
+							if(is_wp_error($is_updated)){
+								wpbooking_set_message($is_updated->get_error_message(),'danger');
+							}else{
+								wpbooking_set_message(esc_html__('Updated Successfully','wpbooking'),'success');
+								// Update Success
+								update_user_meta(get_current_user_id(),'phone_number',WPBooking_Input::post('u_phone'));
+								update_user_meta(get_current_user_id(),'avatar',WPBooking_Input::post('u_avatar'));
+							}
+						}
+
+
+						do_action('wpbooking_after_update_profile',$is_validate,$is_updated);
+					}
+					break;
+
+				// Change Password
+				case "wpbooking_change_password":
+					if(is_user_logged_in()){
+
+						do_action('wpbooking_before_change_password');
+
+						$validate=new WPBooking_Form_Validator();
+						$validate->set_rules('u_password',esc_html__('Password','wpbooking'),'required|max_length[255]');
+						$validate->set_rules('u_new_password',esc_html__('New Password','wpbooking'),'required|max_length[255]');
+						$validate->set_rules('u_re_new_password',esc_html__('New Password Again','wpbooking'),'required|max_length[255]|matches[u_new_password]');
+
+						$is_validate=true;
+						$is_updated=FALSE;
+
+						if(!$validate->run()){
+							$is_validate=FALSE;
+							wpbooking_set_message($validate->error_string(),'danger');
+						}
+
+						global $current_user;
+						get_currentuserinfo();
+
+						if(!wp_check_password( WPBooking_Input::post('u_password'), $current_user->user_pass)){
+							$is_validate=FALSE;
+							wpbooking_set_message(esc_html__('Your Current Password is not correct','wpbooking'),'danger');
+						}
+
+						$is_validate=apply_filters('wpbooking_change_password_validate',$is_validate);
+
+						if($is_validate){
+							// Start Update
+							$is_updated=wp_update_user(array(
+								'ID'=>get_current_user_id(),
+								'user_pass'=>WPBooking_Input::post('u_new_password'),
+							));
+
+							if(is_wp_error($is_updated)){
+								wpbooking_set_message($is_updated->get_error_message(),'danger');
+							}else{
+
+								wpbooking_set_message(esc_html__('Password Changed Successfully','wpbooking'),'success');
+							}
+						}
+
+
+						do_action('wpbooking_after_change_password',$is_validate,$is_updated);
+					}
+					break;
+
 			}
 		}
 
@@ -680,6 +829,8 @@ if (!class_exists('WPBooking_User')) {
 			// Detail Order
 			add_rewrite_endpoint('order-detail',EP_PAGES);
 
+			// update-profile
+			add_rewrite_endpoint('update-profile',EP_PAGES);
 
 			flush_rewrite_rules();
 
@@ -696,6 +847,7 @@ if (!class_exists('WPBooking_User')) {
 		function get_tabs()
 		{
 			$tabs=array(
+				'profile'=>esc_html__('Profile','wpbooking'),
 				'services'=>esc_html__('Services','wpbooking'),
 				'booking_history'=>esc_html__('Booking History','wpbooking'),
 
@@ -715,6 +867,12 @@ if (!class_exists('WPBooking_User')) {
 			// Set Page Tabs
 			if(get_query_var('order-detail')){
 				set_query_var('tab','orders');
+			}
+			if(get_query_var('service')){
+				set_query_var('tab','services');
+			}
+			if(get_query_var('update-profile')){
+				set_query_var('tab','profile');
 			}
 
 			return wpbooking_load_view('account/index');

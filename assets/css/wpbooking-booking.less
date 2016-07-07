@@ -323,6 +323,36 @@
         }
     }
 }
+.upload-avatar{
+    .btn-file{
+        overflow: hidden;
+        input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+    }
+    .upload_input{
+        display: none;
+    }
+    &.active{
+        display: block;
+    }
+
+    .uploaded_image_preview{
+        max-width: 200px;
+    }
+}
 .wpbooking-account-tab
 {
     padding:10px;

@@ -243,6 +243,33 @@
 .wpbooking-register-form .upload-certificate .uploaded_image_preview {
   max-width: 200px;
 }
+.upload-avatar .btn-file {
+  overflow: hidden;
+}
+.upload-avatar .btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+.upload-avatar .upload_input {
+  display: none;
+}
+.upload-avatar.active {
+  display: block;
+}
+.upload-avatar .uploaded_image_preview {
+  max-width: 200px;
+}
 .wpbooking-account-tab {
   padding: 10px;
 }
