@@ -132,19 +132,13 @@ if( !function_exists('wpbooking_encrypt_compare') ){
 if( !function_exists('wpbooking_origin_id') ){
 	function wpbooking_origin_id( $post_id , $post_type = 'post', $return_origin ){
 		if(function_exists('icl_object_id')) {
-		    return icl_object_id( $post_id, $post_type, true );
+		    return wpml_object_id_filter( $post_id, $post_type, true );
 		} else {
 		    return $post_id;
 		}
 	}
 }
-if( !function_exists('dateDiff') ){
-	function dateDiff( $start, $end ){
-        $start = strtotime( $start );
-        $end = strtotime( $end );
-        return ($end - $start) / (60 * 60 * 24);
-    }
-}
+
 
 if( !function_exists('wpbooking_show_tree_terms') ){
 	function wpbooking_show_tree_terms( array &$terms, array &$returns, $parent = 0 , $deep = 0){

@@ -1,7 +1,7 @@
-<?php 
+<?php
 /**
-*@since 1.0.0
-**/
+ *@since 1.0.0
+ **/
 
 $old_data = esc_html( $data['std'] );
 
@@ -17,17 +17,11 @@ if( !empty( $value ) ){
 $class = ' wpbooking-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){
-    $class .= ' wpbooking-condition ';
-    $data_class .= ' data-condition='.$data['condition'].' ' ;
+	$class .= ' wpbooking-condition ';
+	$data_class .= ' data-condition='.$data['condition'].' ' ;
 }
 $class.=' width-'.$data['width'];
-if(!empty($data['container_class'])) $class.=' '.$data['container_class'];
 
-$field = '';
-
-$name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
-
-$field .= '<input id="'. esc_html( $data['id'] ).'" type="text" name="'. $name .'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'">';
 
 ?>
 
@@ -38,12 +32,10 @@ $field .= '<input id="'. esc_html( $data['id'] ).'" type="text" name="'. $name .
 	<div class="st-metabox-right">
 		<div class="st-metabox-content-wrapper">
 			<div class="form-group">
-				<?php echo ($field);
-				if(!empty($data['help_inline'])){
-					printf('<span class="help_inline">%s</span>',$data['help_inline']);
-				}
-				?>
-
+				<label class="wpbooking-switch-wrap">
+					<input type="checkbox" name="<?php echo esc_html($data['id']) ?>" <?php checked($old_data,1) ?> value="1" class="checkbox">
+					<div class="wpbooking-switch <?php echo ($old_data==1)?'switchOn':FALSE ?>"></div>
+				</label>
 			</div>
 		</div>
 		<div class="metabox-help"><?php echo balanceTags( $data['desc'] ) ?></div>

@@ -1,9 +1,17 @@
 @import "label.less";
+@import "popovers.less";
 .mb20{
     margin-bottom: 20px;
 }
 .mb10{
     margin-bottom: 10px;
+}
+.clearfix{
+    &:after{
+        clear: both;
+        content: " ";
+        display: table;
+    }
 }
 .subsubsub {
     color: #666;
@@ -32,7 +40,9 @@ ul.padding-0 li{
 .width-70{
     width: 70px;
 }
-
+.mb25{
+    margin-bottom: 25px;
+}
 .min-width-800{
     min-width: 800px;
 }
@@ -47,6 +57,72 @@ ul.padding-0 li{
 }
 .none{
     display: none;
+}
+.wpbooking-switch-wrap{
+    .checkbox{
+        display: none;
+    }
+    .wpbooking-switch{
+        width: 54px;
+        height: 26px;
+        background: #cccccc;
+        z-index: 0;
+        margin: 0;
+        padding: 0;
+        appearance: none;
+        border: none;
+        cursor: pointer;
+        position: relative;
+        border-radius: 16px;
+        -moz-border-radius: 16px;
+        -webkit-border-radius: 16px;
+        &:before{
+            content: 'OFF';
+            position: absolute;
+            left: 1px;
+            top: 1px;
+            width: 52px;
+            height: 24px;
+            //background: #cccccc;
+            z-index: 1;
+            border-radius: 16px;
+            -moz-border-radius: 16px;
+            -webkit-border-radius: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            line-height: 25px;
+            text-align: right;
+            box-sizing: border-box;
+            padding:0px 4px;
+        }
+        &:after{
+            content: ' ';
+            height: 23px;
+            width: 23px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
+            z-index: 2;
+            top: 1px;
+            left: 1px;
+            -webkit-transition-duration: 300ms;
+            transition-duration: 300ms;
+            //-webkit-box-shadow: 0 2px 5px #999999;
+            //box-shadow: 0 2px 5px #999999;
+        }
+        &.switchOn{
+            background: #ed8323 !important;
+            &:before{
+                background: #ed8323 !important;
+                content:"ON";
+                text-align: left;
+            }
+            &:after{
+                left: 30px !important;
+            }
+        }
+    }
 }
 img.settings-demo-image{
     max-height: 200px;
@@ -71,12 +147,22 @@ img.settings-demo-gallery{
 .demo-url-image.min-width-500{
     min-width: 420px;
 }
-.wpbooking-settings .button-secondary {
-    background: #b73b27 none repeat scroll 0 0;
-    border-color: #7f291b;
-    box-shadow: 0 1px 0 rgba(229, 134, 119, 0.5) inset, 0 1px 0 rgba(0, 0, 0, 0.15);
-    color: #fff;
-    text-shadow: none;
+.wpbooking-settings {
+    &.wb-money-input-field{
+        .input-group{
+            float: left;
+        }
+        .help_inline{
+            line-height: 30px;
+        }
+    }
+    .button-secondary {
+        background: #b73b27 none repeat scroll 0 0;
+        border-color: #7f291b;
+        box-shadow: 0 1px 0 rgba(229, 134, 119, 0.5) inset, 0 1px 0 rgba(0, 0, 0, 0.15);
+        color: #fff;
+        text-shadow: none;
+    }
 }
 .wpbooking-settings .button-secondary.hover, .wpbooking-settings .button-secondary:hover, .wpbooking-settings .button-secondary.focus, .wpbooking-settings .button-secondary:focus {
     background: #9b3221 none repeat scroll 0 0;
@@ -194,38 +280,44 @@ img.settings-demo-gallery{
 }
 
 .st-metabox-nav{
-    width: 160px;
+    //width: 160px;
     li{
-        float: left; display: inline-block;
+
+        display: inline-block;
         a{
-            border: 1px solid transparent;
+           // border: 1px solid transparent;
             text-decoration: none;
-            padding: 12px 15px;
-            opacity: .7;
-            color: #5f5f5f;
-            background-color: rgba(255, 255, 255, 0.35);
-            transition: opacity, 0.3s;
-            margin-bottom: 2px;
+            color: #999999;
         }
-        &.ui-tabs-active {
+        &.ui-state-active{
             a{
-                border: 1px solid #CCC; border-right: 1px solid #FFF; border-radius: 3px 0 0 3px;
-                font-weight: bold;
-                background-color: #fff;
-                opacity: 1;
+                color: #ec8223;
             }
         }
+        //&.ui-tabs-active {
+        //    a{
+        //        border: 1px solid #CCC; border-right: 1px solid #FFF; border-radius: 3px 0 0 3px;
+        //        font-weight: bold;
+        //        background-color: #fff;
+        //        opacity: 1;
+        //    }
+        //}
     }
 
 }
 .st-metabox-tabs-content{
-    width: auto !important; min-height: 200px; margin-left: 158px; float: none !important; border: 1px solid #ccc;
+    width: auto !important; min-height: 200px; float: none !important;
     .form-label{
         padding-bottom: 10px;
         font-weight: bold;
         font-size: 15px;
         border-bottom: none;
         margin-bottom: 10px;
+    }
+    .input-group{
+        &.small{
+            width: 215px;
+        }
     }
     .form-control{
         height: 30px;
@@ -236,11 +328,15 @@ img.settings-demo-gallery{
         background-image: none;
         border: 1px solid #ccc;
         border-radius: 0px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        //-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        //box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: none;
         -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
         -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
         transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        &.small{
+            width: 215px;
+        }
         .form-label{
             padding-bottom: 10px;
             padding-top: 5px;
@@ -280,10 +376,64 @@ img.settings-demo-gallery{
             font-style: italic;
         }
         .form-group{
+        }
+        .wpbooking-row{
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            position: relative;
+            display: table;
+            border-collapse: separate;
+        }
+        .input-group[class*="col-"] {
+            float: none;
+            padding-right: 0;
+            padding-left: 0;
+        }
+        .input-group .form-control {
+            position: relative;
+            z-index: 2;
+            float: left;
             width: 100%;
-            @media(min-width: 1600px){
-                width: 60%;
-            }
+            margin: 0px;
+        }
+        .input-group .form-control:focus {
+            z-index: 3;
+        }
+        .input-group-lg > .form-control,
+        .input-group-lg > .input-group-addon,
+        .input-group-lg > .input-group-btn > .btn {
+            height: 46px;
+            line-height: 1.3333333;
+            background: #cccccc;
+            border-color: #ccc;
+            font-size: 12px;
+            padding:6px;
+            border-radius: 1px;
+        }
+        .input-group-addon:first-child {
+            border-right: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+
+        }
+        .input-group-addon, .input-group-btn {
+            width: 1%;
+            white-space: nowrap;
+            vertical-align: middle;
+        }
+        .input-group-addon {
+            display: table-cell;
+            font-weight: 400;
+            line-height: 1;
+            color: #555;
+            text-align: center;
+            border: 1px solid #ccc;
+            background: #cccccc;
+            font-size: 12px;
+            padding:6px;
+            border-radius: 1px;
         }
     }
 }
@@ -299,15 +449,15 @@ img.settings-demo-gallery{
 //.st-metabox-content-left{ width: 70%; float: left; padding-right: 15px;}
 //.st-metabox-content-right{ margin-left: 70% }
 //.st-metabox-tabs { width: 100%; }
-.st-metabox-tabs .st-metabox-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
-.st-metabox-tabs .st-metabox-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
-.st-metabox-tabs .st-metabox-nav li a { display:block;
+.st-metabox-tabs .st-metabox-nav { padding: .2em .1em .2em .2em; }
+.st-metabox-tabs .st-metabox-nav li { clear: left;  border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+.st-metabox-tabs .st-metabox-nav li a {
     i{
         margin-right: 5px;
     }
 }
 .st-metabox-tabs .st-metabox-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; }
-.st-metabox-tabs .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+.st-metabox-tabs .ui-tabs-panel { padding: 1em; }
 
 .st-metabox-tabs .st-metabox-nav li a:focus{
     -webkit-box-shadow: none;
@@ -323,8 +473,59 @@ img.settings-demo-gallery{
     .st-metabox-content-right{ width: 100%; margin: 10px 0; border-top: 1px dotted #CCC; padding-right: 0}
 }
 .st-metabox-tab-content-wrap {
+    color: #666666;
     display: table;
     width: 100%;
+    .wpbooking-field-title{
+        position: relative;
+        &:before{
+            content: "";
+            position: absolute;
+            top:10px;
+            left:0px;
+            right:0px;
+            border-bottom: 1px solid #ececec;
+        }
+        .field-title{
+            margin-top: 0px;
+            margin-bottom: 30px;
+            padding-right: 20px;
+            background: white;
+            color: #666666;
+            font-size: 22px;
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+            .wb-help-popover{
+                i{
+                  color:#ed8323;
+                }
+            }
+
+
+        }
+    }
+}
+.popover.wb-help-popover-el{
+    background: #ed8323;
+    color: white;
+    font-style: italic;
+    border-color: #ed8323;
+    border-radius: 2px;
+    box-shadow: none;
+    width: 580px;
+    max-width: none;
+    &.bottom{
+        > .arrow{
+            border-bottom-color: #ed8323;
+            top:-8px;
+            border-bottom-width: 8px;
+        }
+    }
+    .popover-content{
+        box-shadow: none;
+        padding:10px;
+    }
 }
 .st-metabox-wrapper{
     position: relative;
@@ -350,30 +551,56 @@ img.settings-demo-gallery{
         box-sizing: border-box;
     }
     .wpbooking-form-group{
-        margin-bottom: 10px;
-        margin-top: 20px;
+        margin-bottom: 18px;
+        margin-left: 15px;
         .st-metabox-left{
             font-weight: bold;
-            width: 200px;
+            width: 170px;
             float: left;
             padding-left: 15px;
             padding-right: 15px;
+            label{
+                font-weight: normal;
+                font-size: 13px;
+            }
         }
         .st-metabox-right{
             padding-left: 15px;
             padding-right: 15px;
             width: auto;
-            margin-left: 200px;
+            margin-left: 170px;
+
+            .st-metabox-content-wrapper{
+                float: left;
+                margin-right: 40px;
+                width: 580px;
+            }
+            .metabox-help{
+                float: left;
+                color: #999999;
+                font-style: italic;
+                font-weight: 300;
+            }
+            .help_inline{
+                color: #999999;
+                font-style: italic;
+                font-weight: 300;
+                margin-left: 20px;
+            }
         }
         @media(max-width: 1399px){
             .st-metabox-left{
                 width: 100%;
                 float: none;
+                margin-bottom: 10px;
             }
             .st-metabox-right{
                 width: 100%;
                 margin-left: auto;
-                margin-top: 20px;
+                .st-metabox-content-wrapper{
+                    width: 100%;
+                    margin-right: 0px;
+                }
             }
         }
     }
@@ -387,7 +614,7 @@ img.settings-demo-gallery{
     }
 }
 .st-metabox-content-wrapper{
-    
+
     //padding-bottom: 20px;
 
     .wpbooking-gmap-wrapper{
@@ -402,7 +629,7 @@ img.settings-demo-gallery{
             min-height: 300px;
         }
     }
-    
+
 }
 input.gmap-search{
     display: block;
@@ -530,7 +757,9 @@ input.gmap-search{
         padding-left: 15px;
         padding-right: 15px;
         z-index: 1;
-
+        .fc-scroller{
+            height: auto!important;
+        }
     }
     .wpbooking-calendar-sidebar{
         width: 100%;
@@ -614,7 +843,7 @@ input.gmap-search{
                 }
             }
         }
-        
+
     }
 }
 @media( max-width: 1040px ){
@@ -682,7 +911,7 @@ input.gmap-search{
         display: block !important;
     }
 }
-/* -------------------------------------------------- 
+/* --------------------------------------------------
   :: Date Picker
   ---------------------------------------------------*/
 .ui-datepicker {
@@ -717,7 +946,7 @@ input.gmap-search{
 .ui-datepicker .ui-datepicker-title {
   text-align: center;
 }
-.ui-datepicker-prev, 
+.ui-datepicker-prev,
 .ui-datepicker-next {
   color: #ccc;
   display: inline-block;
@@ -736,11 +965,11 @@ input.gmap-search{
      -moz-border-radius: 0 2px 0 0;
           border-radius: 0 2px 0 0;
 }
-.ui-datepicker-prev span, 
+.ui-datepicker-prev span,
 .ui-datepicker-next span {
   display: none;
 }
-.ui-datepicker-prev:hover, 
+.ui-datepicker-prev:hover,
 .ui-datepicker-next:hover {
   color: #fff;
 }
@@ -769,7 +998,7 @@ input.gmap-search{
   float: right;
   width: 31px;
 }
-a.ui-datepicker-prev, 
+a.ui-datepicker-prev,
 a.ui-datepicker-next {
   outline: 0;
 }
@@ -797,7 +1026,7 @@ a.ui-datepicker-next {
 .ui-datepicker tbody tr:last-child {
   border-bottom: 0px;
 }
-.ui-datepicker td span, 
+.ui-datepicker td span,
 .ui-datepicker td a {
   display: inline-block;
   font-size: 11px;
@@ -937,7 +1166,7 @@ a.ui-datepicker-next {
 .ui-datepicker-prev:before {
   border-color: #444;
 }
-.ui-datepicker-prev:hover, 
+.ui-datepicker-prev:hover,
 .ui-datepicker-next:hover {
   background: #222;
   color: #0074a2 !important;
@@ -958,7 +1187,7 @@ a.ui-datepicker-next {
 .admin-color-light .ui-datepicker-prev:before {
   border-color: #999;
 }
-.admin-color-light .ui-datepicker-prev:hover, 
+.admin-color-light .ui-datepicker-prev:hover,
 .admin-color-light .ui-datepicker-next:hover {
   background: #777;
   color: #eee !important;
@@ -979,7 +1208,7 @@ a.ui-datepicker-next {
 .admin-color-blue .ui-datepicker-prev:before {
   border-color: #5dc2e6;
 }
-.admin-color-blue .ui-datepicker-prev:hover, 
+.admin-color-blue .ui-datepicker-prev:hover,
 .admin-color-blue .ui-datepicker-next:hover {
   background: #006484;
   color: #fff !important;
@@ -1000,7 +1229,7 @@ a.ui-datepicker-next {
 .admin-color-coffee .ui-datepicker-prev:before {
   border-color: #675f58;
 }
-.admin-color-coffee .ui-datepicker-prev:hover, 
+.admin-color-coffee .ui-datepicker-prev:hover,
 .admin-color-coffee .ui-datepicker-next:hover {
   background: #cca588;
   color: #fff !important;
@@ -1021,7 +1250,7 @@ a.ui-datepicker-next {
 .admin-color-ectoplasm .ui-datepicker-prev:before {
   border-color: #644d85;
 }
-.admin-color-ectoplasm .ui-datepicker-prev:hover, 
+.admin-color-ectoplasm .ui-datepicker-prev:hover,
 .admin-color-ectoplasm .ui-datepicker-next:hover {
   background: #a3b542;
   color: #fff !important;
@@ -1042,7 +1271,7 @@ a.ui-datepicker-next {
 .admin-color-midnight .ui-datepicker-prev:before {
   border-color: #4c5359;
 }
-.admin-color-midnight .ui-datepicker-prev:hover, 
+.admin-color-midnight .ui-datepicker-prev:hover,
 .admin-color-midnight .ui-datepicker-next:hover {
   background: #ed543f;
   color: #fff !important;
@@ -1063,7 +1292,7 @@ a.ui-datepicker-next {
 .admin-color-ocean .ui-datepicker-prev:before {
   border-color: #87a6af;
 }
-.admin-color-ocean .ui-datepicker-prev:hover, 
+.admin-color-ocean .ui-datepicker-prev:hover,
 .admin-color-ocean .ui-datepicker-next:hover {
   background: #9ab8a0;
   color: #fff !important;
@@ -1084,20 +1313,20 @@ a.ui-datepicker-next {
 .admin-color-sunrise .ui-datepicker-prev:before {
   border-color: #e75546;
 }
-.admin-color-sunrise .ui-datepicker-prev:hover, 
+.admin-color-sunrise .ui-datepicker-prev:hover,
 .admin-color-sunrise .ui-datepicker-next:hover {
   background: #e88436;
   color: #fff !important;
 }
 
-/* -------------------------------------------------- 
+/* --------------------------------------------------
   :: Time Picker
   ---------------------------------------------------*/
 .ui-timepicker-div {
   border-top: 1px solid #ccc;
   padding: 0 .4em;
 }
-.ui-timepicker-div .ui-widget-content { 
+.ui-timepicker-div .ui-widget-content {
   border: 1px solid #aaa;
   background: #fff;
   font-weight: normal;
@@ -1121,12 +1350,12 @@ a.ui-datepicker-next {
   color: #555;
   cursor: pointer;
   display: block;
-  height: 1.3em; 
+  height: 1.3em;
   margin-left: -.5em;
   outline: 0;
   position: absolute;
   top: -.325em;
-  width: .8em; 
+  width: .8em;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 0 rgba(0,0,0,.08);
      -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 0 rgba(0,0,0,.08);
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 0 rgba(0,0,0,.08);
@@ -1153,31 +1382,31 @@ a.ui-datepicker-next {
 .ui-datepicker-prev:before {
   border-color: #444;
 }
-.ui-datepicker-prev:hover, 
+.ui-datepicker-prev:hover,
 .ui-datepicker-next:hover {
   background: #222;
   color: #0074a2 !important;
 }
 
-.ui-timepicker-div dl { 
-  text-align: left; 
+.ui-timepicker-div dl {
+  text-align: left;
 }
-.ui-timepicker-div dl dt { 
-  float: left; 
-  clear: left; 
-  padding: 0 0 0 5px; 
+.ui-timepicker-div dl dt {
+  float: left;
+  clear: left;
+  padding: 0 0 0 5px;
 }
-.ui-timepicker-div dl dd { 
-  margin: 0 10px 10px 45%; 
+.ui-timepicker-div dl dd {
+  margin: 0 10px 10px 45%;
 }
-.ui-timepicker-div td { 
-  font-size: 90%; 
+.ui-timepicker-div td {
+  font-size: 90%;
 }
-.ui-tpicker-grid-label { 
-  background: none; 
-  border: none; 
-  margin: 0; 
-  padding: 0; 
+.ui-tpicker-grid-label {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 /* default */
 .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle {
@@ -1391,6 +1620,7 @@ a.ui-datepicker-next {
 .st-metabox-tabs-content
 {
     .wpbooking-form-group{
+        .clearfix;
         &.width-two{
             float: left;
             width: 50%;
@@ -1398,6 +1628,8 @@ a.ui-datepicker-next {
                 .form-group {
                     width: 100%;
                 }
+
+
             }
         }
     }

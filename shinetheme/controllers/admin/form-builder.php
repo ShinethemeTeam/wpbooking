@@ -263,10 +263,10 @@ if(!class_exists( 'WPBooking_Admin_Form_Build' )) {
                 'publicly_queryable' => true ,
                 'show_ui'            => true ,
                 'show_in_menu'       => false ,
-                'query_var'          => true ,
+                'query_var'          => FALSE ,
                 'rewrite'            => array( 'slug' => 'form_builder' ) ,
                 'capability_type'    => 'post' ,
-                'has_archive'        => true ,
+                'has_archive'        => FALSE ,
                 'hierarchical'       => false ,
                 //'menu_position'      => '59.9',
                 'supports'           => array( 'title' , 'editor' )

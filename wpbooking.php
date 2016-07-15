@@ -129,12 +129,12 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			wp_register_script('acejs',wpbooking_assets_url('ace/ace.js'),array(),null,true);
 			wp_register_script('bootstrap',wpbooking_assets_url('bootstrap/js/bootstrap.min.js'),array('jquery'),null,true);
 
-			wp_enqueue_script('wpbooking-admin',wpbooking_admin_assets_url('js/wpbooking-admin.js'),array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker','jquery-ui-accordion'),null,true);
+			wp_enqueue_script('wpbooking-admin',wpbooking_admin_assets_url('js/wpbooking-admin.js'),array('jquery','bootstrap', 'jquery-ui-core', 'jquery-ui-datepicker','jquery-ui-accordion'),null,true);
 			wp_enqueue_script('wpbooking-admin-form-build',wpbooking_admin_assets_url('js/wpbooking-admin-form-build.js'),array('jquery'),null,true);
 			
 			wp_enqueue_script('moment-js',wpbooking_admin_assets_url('js/moment.min.js'),array('jquery'),null,true);
 
-			wp_enqueue_script('full-calendar',wpbooking_admin_assets_url('js/fullcalendar.min.js'),array('jquery', 'moment-js'),null,true);
+			wp_enqueue_script('full-calendar',wpbooking_admin_assets_url('js/fullcalendar-yearview.js'),array('jquery', 'moment-js'),null,true);
 
 			wp_enqueue_script('fullcalendar-lang', wpbooking_admin_assets_url('/js/lang-all.js'), array('jquery'), null, true);
 
@@ -144,7 +144,14 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			//Popover
 			wp_register_style('popover',wpbooking_assets_url('bootstrap/less/popovers.css'));
 
-			wp_enqueue_style('full-calendar',wpbooking_admin_assets_url('/css/fullcalendar.min.css'),FALSE,'1.1.6');
+			// Admin Fonts
+			$fonts=add_query_arg(array(
+				'family'=>'Open+Sans:700,800',
+				'subset'=>'vietnamese',
+			),'https://fonts.googleapis.com/css');
+
+			wp_enqueue_style('open-sans-bold',$fonts);
+			wp_enqueue_style('full-calendar',wpbooking_admin_assets_url('/css/fullcalendar-yearview.css'),FALSE,'1.1.6');
 			//wp_enqueue_style('full-calendar-print',wpbooking_admin_assets_url('/css/fullcalendar.print.css'),FALSE,'1.1.6');
 
 			wp_enqueue_style('font-awesome',wpbooking_assets_url('fa4.5/css/font-awesome.min.css'),FALSE,'4.5.0');

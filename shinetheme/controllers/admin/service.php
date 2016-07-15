@@ -128,51 +128,185 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				'priority' => 'high',
 				'fields'   => array(
 					array(
-						'label' => __('<i class="fa fa-home"></i> General', 'wpbooking'),
+						'label' => __('1. About /', 'wpbooking'),
 						'id'    => 'general_tab',
 						'type'  => 'tab',
-					), array(
-						'id'       => 'service_type',
-						'label'    => __("Service Type", 'wpbooking'),
-						'location' => 'hndle-tag',
-						'type'     => 'service-type-select',
 					),
 
 					array(
-						'label' => __('Address', 'wpbooking'),
-						'type'  => 'accordion-start'
+						'label' => __("About Your Property", 'wpbooking'),
+						'type'  => 'title',
 					),
 					array(
-						'label' => __('Location', 'wpbooking'),
-						'id'    => 'location',
-						'type'  => 'location'
+						'id'    => 'service_type',
+						'label' => __("Service Type", 'wpbooking'),
+						'type'  => 'service-type-select',
 					),
 					array(
-						'label' => __('Address', 'wpbooking'),
-						'id'    => 'address',
-						'type'  => 'text'
+						'id'    => 'enable',
+						'label' => __("Enable Property", 'wpbooking'),
+						'type'  => 'on-off',
+						'std'   => 1,
+						'desc'  => esc_html__('Listing will appear in search results.', 'wpbooking'),
 					),
 					array(
-						'label' => __('Map', 'wpbooking'),
+						'label' => __('Bedrooms', 'wpbooking'),
+						'id'    => 'bedroom',
+						'type'  => 'dropdown',
+						'value' => array(
+							1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+						),
+						'class' => 'small'
+					),
+					array(
+						'label' => __('Bathrooms', 'wpbooking'),
+						'id'    => 'bathrooms',
+						'type'  => 'dropdown',
+						'value' => array(
+							1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+						),
+						'class' => 'small'
+					),
+					array(
+						'label' => __('Max Guests', 'wpbooking'),
+						'id'    => 'max_guests',
+						'type'  => 'dropdown',
+						'value' => array(
+							1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+						),
+						'class' => 'small'
+					),
+					array(
+						'label' => __("Property Location", 'wpbooking'),
+						'type'  => 'title',
+					),
+					array(
+						'label' => __('Map Lat & Long', 'wpbooking'),
 						'id'    => 'gmap',
 						'type'  => 'gmap'
 					),
 					array(
-						'type'  => 'accordion-end',
-						'id'=>'end_address_accordion'
+						'label'           => __('Address', 'wpbooking'),
+						'id'              => 'address',
+						'type'            => 'address',
+						'container_class' => 'mb25'
 					),
 					array(
-						'label' => __('Gallery', 'wpbooking'),
-						'type'  => 'accordion-start'
+						'label'        => __("Rate & Availability", 'wpbooking'),
+						'type'         => 'title',
+						'help_popover' => esc_html__('eg. If your nightly rate is 110USD, and your weekly rate is 700USD, a 3 night stay will cost 330USD, a 7 night stay will cost 700USD, and a 10 night stay will cost 1000USD (700 / 7 * 10).', 'wpbooking')
 					),
 					array(
-						'label' => __("Room's gallery", 'wpbooking'),
-						'id'    => 'gallery',
-						'type'  => 'gallery'
+						'label' => __("Nightly Rate", 'wpbooking'),
+						'type'  => 'money_input',
+						'id'    => 'base_price',
+						'class' => 'small'
 					),
 					array(
-						'type'  => 'accordion-end',
+						'label' => __("Weekly Rate", 'wpbooking'),
+						'type'  => 'money_input',
+						'id'    => 'weekly_rate',
+						'class' => 'small'
 					),
+					array(
+						'label'           => __("Montly Rate", 'wpbooking'),
+						'type'            => 'money_input',
+						'id'              => 'montly_rate',
+						'class'           => 'small',
+						'container_class' => 'mb25'
+					),
+					array(
+						'label' => __("Additional Guests / Taxes/ Misc", 'wpbooking'),
+						'type'  => 'title',
+					),
+					array(
+						'label' => __('Allowed', 'wpbooking'),
+						'type'  => 'on-off',
+						'id'    => 'enable_additional_guest_tax'
+					),
+					array(
+						'label'       => __("Rates are based on occupancy of", 'wpbooking'),
+						'type'        => 'text',
+						'id'          => 'rate_based_on',
+						'class'       => 'small',
+						'help_inline' => esc_html__('guest(s)', 'wpbooking')
+					),
+					array(
+						'label'       => __("Each additional guest will pay", 'wpbooking'),
+						'type'        => 'money_input',
+						'id'          => 'additional_guest_money',
+						'class'       => 'small',
+						'help_inline' => esc_html__('/night', 'wpbooking')
+					),
+					array(
+						'label' => __("Tax (%)", 'wpbooking'),
+						'type'  => 'text',
+						'id'    => 'tax',
+						'class' => 'small'
+					),
+					array(
+						'label' => __('2. Details', 'wpbooking'),
+						'id'    => 'detail_tab',
+						'type'  => 'tab',
+					),
+					array(
+						'label' => __("More About Your Property", 'wpbooking'),
+						'type'  => 'title',
+					),
+
+					array(
+						'label' => __('Amenities', 'wpbooking'),
+						'id'    => 'wpb_taxonomy',
+						'type'  => 'taxonomies',
+					),
+					array(
+						'label' => __('Double Bed', 'wpbooking'),
+						'id'    => 'double_bed',
+						'type'  => 'dropdown',
+						'value' => array(
+							1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+						)
+					),
+					array(
+						'label' => __('Single Bed', 'wpbooking'),
+						'id'    => 'single_bed',
+						'type'  => 'dropdown',
+						'value' => array(
+							0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+						)
+					),
+					array(
+						'label' => __('Sofa Bed', 'wpbooking'),
+						'id'    => 'sofa_bed',
+						'type'  => 'dropdown',
+						'value' => array(
+							0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+						)
+					),
+					array(
+						'label' => __('Property Floor', 'wpbooking'),
+						'id'    => 'property_floor',
+						'type'  => 'dropdown',
+						'value' => array(
+							1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+						)
+					),
+					array(
+						'label'   => __('Property Size', 'wpbooking'),
+						'id'      => 'property_size',
+						'type'    => 'property_size',
+						'unit_id' => 'property_unit'
+					),
+					array(
+						'label' => __("Extra Services:", 'wpbooking'),
+						'type'  => 'title',
+					),
+					array(
+						'label' => __("Extra Services:", 'wpbooking'),
+						'type'  => 'extra_services',
+						'id'    => 'extra_services'
+					),
+
 //					array(
 //						'label' => __('Accommodates', 'wpbooking'),
 //						'id' => 'accommodates',
@@ -226,11 +360,6 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'label' => __('<i class="fa fa-sliders"></i> Amenities', 'wpbooking'),
 						'id'    => 'amelities_tab',
 						'type'  => 'tab',
-					),
-					array(
-						'label' => __('Taxonomy', 'wpbooking'),
-						'id'    => 'wpb_taxonomy',
-						'type'  => 'taxonomies',
 					),
 					array(
 						'label' => __('<i class="fa fa-money"></i> Pricing', 'wpbooking'),

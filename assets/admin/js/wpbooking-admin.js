@@ -255,17 +255,17 @@ jQuery(document).ready(function( $ ){
         clearTimeout( resize );
 
         resize = setTimeout(function(){
-            if( $(window).width() < 1024 ){
-                if( $( ".st-metabox-tabs" ).length ){
-                    $( ".st-metabox-tabs" ).tabs().removeClass( "ui-tabs-vertical ui-helper-clearfix" );
-                    $( ".st-metabox-tabs li" ).addClass( "ui-corner-top" ).removeClass( "ui-corner-left" );
-                }
-            }else{
-                if( $( ".st-metabox-tabs" ).length ){
-                    $( ".st-metabox-tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-                    $( ".st-metabox-tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-                }
-            }
+            //if( $(window).width() < 1024 ){
+            //    if( $( ".st-metabox-tabs" ).length ){
+            //        $( ".st-metabox-tabs" ).tabs().removeClass( "ui-tabs-vertical ui-helper-clearfix" );
+            //        $( ".st-metabox-tabs li" ).addClass( "ui-corner-top" ).removeClass( "ui-corner-left" );
+            //    }
+            //}else{
+            //    if( $( ".st-metabox-tabs" ).length ){
+            //        $( ".st-metabox-tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+            //        $( ".st-metabox-tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+            //    }
+            //}
         }, 500);
     }).resize();
 
@@ -347,46 +347,48 @@ jQuery(document).ready(function( $ ){
                 var bt_ot_searchbox = $('input.gmap-search', t);
 
                 var current_marker;
+                var map_options={
+                    options:{
+                        zoom:map_zoom,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        mapTypeControl: true,
+                        mapTypeControlOptions: {
+                            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+                        },
+                        navigationControl: true,
+                        scrollwheel: true,
+                    },
+                    events:{
+                        click: function(marker, event, context){
+                            $('input[name="map_lat"]', t).val( event.latLng.lat() );
+                            $('input[name="map_long"]', t).val( event.latLng.lng() );
+                            $('input[name="map_zoom"]', t).val( marker.zoom );
 
+                            $(this).gmap3({
+                                clear: {
+                                    name:["marker"],
+                                    last: true
+                                }
+                            });
+                            $(this).gmap3({
+                                marker:{
+                                    values:[
+                                        {latLng:event.latLng },
+                                    ],
+                                    options:{
+                                        draggable: false
+                                    },
+                                }
+                            });
+                        }
+                    }
+                };
+                if(map_lat && map_long){
+                    map_options.options.center=[map_lat, map_long];
+                }
 
                 gmap.gmap3({
-                    map:{
-                        options:{
-                            center:[map_lat, map_long],
-                            zoom:map_zoom,
-                            mapTypeId: google.maps.MapTypeId.ROADMAP,
-                            mapTypeControl: true,
-                            mapTypeControlOptions: {
-                                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-                            },
-                            navigationControl: true,
-                            scrollwheel: true,
-                        },
-                        events:{
-                            click: function(marker, event, context){
-                                $('input[name="map_lat"]', t).val( event.latLng.lat() );
-                                $('input[name="map_long"]', t).val( event.latLng.lng() );
-                                $('input[name="map_zoom"]', t).val( marker.zoom );
-
-                                $(this).gmap3({
-                                    clear: {
-                                      name:["marker"],
-                                      last: true
-                                    }
-                                });
-                                $(this).gmap3({
-                                    marker:{
-                                        values:[
-                                          {latLng:event.latLng },
-                                        ],
-                                        options:{
-                                          draggable: false
-                                        },
-                                    } 
-                                });
-                            }
-                        }   
-                    }
+                    map:map_options
 
                 });
 
@@ -474,13 +476,13 @@ jQuery(document).ready(function( $ ){
 
     load_gmap();
 
-     $( ".st-metabox-tabs" ).tabs({
-        activate: function( event, ui ) {
-            setTimeout(function(){
-                load_gmap();
-            }, 500);
-        }
-     });
+     //$( ".st-metabox-tabs" ).tabs({
+     //   activate: function( event, ui ) {
+     //       setTimeout(function(){
+     //           load_gmap();
+     //       }, 500);
+     //   }
+     //});
 
     /////////////////////////////////
     /////// List item //////////////
@@ -640,4 +642,16 @@ jQuery(document).ready(function( $ ){
            $(window).trigger('resize');
        }
     });
+
+    // On-off
+    $('.wpbooking-switch').click(function()
+    {
+        $(this).toggleClass("switchOn");
+    });
+
+    //Popover
+    $('.wb-help-popover').popover({
+        container:'body',
+        template:'<div class="popover wb-help-popover-el" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+    })
 });

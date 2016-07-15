@@ -125,7 +125,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 			parent::__construct();
 			// add metabox
-			add_filter('wpbooking_metabox_after_st_post_metabox_field_end_address_accordion',array($this,'_add_metabox'));
+			//add_filter('wpbooking_metabox_after_st_post_metabox_field_end_address_accordion',array($this,'_add_metabox'));
 
 			add_filter('wpbooking_model_table_wpbooking_service_columns',array($this,'_add_meta_table_column'));
 

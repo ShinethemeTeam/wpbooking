@@ -1,15 +1,15 @@
-<?php 
+<?php
 /**
-*@since 1.0.0
-**/
+ *@since 1.0.0
+ **/
 
 $old_data = (isset( $data['custom_data'] ) ) ? esc_html( $data['custom_data'] ) : get_post_meta( $post_id, esc_html( $data['id'] ), true);
 
 $class = ' wpbooking-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){
-    $class .= ' wpbooking-condition ';
-    $data_class .= ' data-condition='.$data['condition'].' ' ;
+	$class .= ' wpbooking-condition ';
+	$data_class .= ' data-condition='.$data['condition'].' ' ;
 }
 
 $class.=' width-'.$data['width'];
@@ -41,11 +41,15 @@ $field .= '</div></div>';
 
 ?>
 <div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
-<div class="st-metabox-left">
-	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
-</div>
-<div class="st-metabox-right">
-	<?php echo do_shortcode($field); ?>
-	<div class="metabox-help"><?php echo balanceTags( $data['desc'] ) ?></div>
-</div>
+	<div class="st-metabox-left">
+		<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
+	</div>
+	<div class="st-metabox-right">
+
+		<div class="st-metabox-content-wrapper">
+			<?php ?>
+		</div>
+
+		<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+	</div>
 </div>

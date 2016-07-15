@@ -64,11 +64,148 @@ a.label:focus {
 .label-danger[href]:focus {
   background-color: #c9302c;
 }
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1060;
+  display: none;
+  max-width: 276px;
+  padding: 1px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: left;
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  white-space: normal;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  line-break: auto;
+}
+.popover.top {
+  margin-top: -10px;
+}
+.popover.right {
+  margin-left: 10px;
+}
+.popover.bottom {
+  margin-top: 10px;
+}
+.popover.left {
+  margin-left: -10px;
+}
+.popover-title {
+  padding: 8px 14px;
+  margin: 0;
+  font-size: 14px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0;
+}
+.popover-content {
+  padding: 9px 14px;
+}
+.popover > .arrow,
+.popover > .arrow:after {
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+.popover > .arrow {
+  border-width: 11px;
+}
+.popover > .arrow:after {
+  content: "";
+  border-width: 10px;
+}
+.popover.top > .arrow {
+  bottom: -11px;
+  left: 50%;
+  margin-left: -11px;
+  border-top-color: #999;
+  border-top-color: rgba(0, 0, 0, 0.25);
+  border-bottom-width: 0;
+}
+.popover.top > .arrow:after {
+  bottom: 1px;
+  margin-left: -10px;
+  content: " ";
+  border-top-color: #fff;
+  border-bottom-width: 0;
+}
+.popover.right > .arrow {
+  top: 50%;
+  left: -11px;
+  margin-top: -11px;
+  border-right-color: #999;
+  border-right-color: rgba(0, 0, 0, 0.25);
+  border-left-width: 0;
+}
+.popover.right > .arrow:after {
+  bottom: -10px;
+  left: 1px;
+  content: " ";
+  border-right-color: #fff;
+  border-left-width: 0;
+}
+.popover.bottom > .arrow {
+  top: -11px;
+  left: 50%;
+  margin-left: -11px;
+  border-top-width: 0;
+  border-bottom-color: #999;
+  border-bottom-color: rgba(0, 0, 0, 0.25);
+}
+.popover.bottom > .arrow:after {
+  top: 1px;
+  margin-left: -10px;
+  content: " ";
+  border-top-width: 0;
+  border-bottom-color: #fff;
+}
+.popover.left > .arrow {
+  top: 50%;
+  right: -11px;
+  margin-top: -11px;
+  border-right-width: 0;
+  border-left-color: #999;
+  border-left-color: rgba(0, 0, 0, 0.25);
+}
+.popover.left > .arrow:after {
+  right: 1px;
+  bottom: -10px;
+  content: " ";
+  border-right-width: 0;
+  border-left-color: #fff;
+}
 .mb20 {
   margin-bottom: 20px;
 }
 .mb10 {
   margin-bottom: 10px;
+}
+.clearfix:after {
+  clear: both;
+  content: " ";
+  display: table;
 }
 .subsubsub {
   color: #666;
@@ -97,6 +234,9 @@ ul.padding-0 li {
 .width-70 {
   width: 70px;
 }
+.mb25 {
+  margin-bottom: 25px;
+}
 .min-width-800 {
   min-width: 800px;
 }
@@ -111,6 +251,67 @@ ul.padding-0 li {
 }
 .none {
   display: none;
+}
+.wpbooking-switch-wrap .checkbox {
+  display: none;
+}
+.wpbooking-switch-wrap .wpbooking-switch {
+  width: 54px;
+  height: 26px;
+  background: #cccccc;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  border-radius: 16px;
+  -moz-border-radius: 16px;
+  -webkit-border-radius: 16px;
+}
+.wpbooking-switch-wrap .wpbooking-switch:before {
+  content: 'OFF';
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  width: 52px;
+  height: 24px;
+  z-index: 1;
+  border-radius: 16px;
+  -moz-border-radius: 16px;
+  -webkit-border-radius: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 25px;
+  text-align: right;
+  box-sizing: border-box;
+  padding: 0px 4px;
+}
+.wpbooking-switch-wrap .wpbooking-switch:after {
+  content: ' ';
+  height: 23px;
+  width: 23px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  z-index: 2;
+  top: 1px;
+  left: 1px;
+  -webkit-transition-duration: 300ms;
+  transition-duration: 300ms;
+}
+.wpbooking-switch-wrap .wpbooking-switch.switchOn {
+  background: #ed8323 !important;
+}
+.wpbooking-switch-wrap .wpbooking-switch.switchOn:before {
+  background: #ed8323 !important;
+  content: "ON";
+  text-align: left;
+}
+.wpbooking-switch-wrap .wpbooking-switch.switchOn:after {
+  left: 30px !important;
 }
 img.settings-demo-image {
   max-height: 200px;
@@ -132,6 +333,12 @@ img.settings-demo-gallery {
 }
 .demo-url-image.min-width-500 {
   min-width: 420px;
+}
+.wpbooking-settings.wb-money-input-field .input-group {
+  float: left;
+}
+.wpbooking-settings.wb-money-input-field .help_inline {
+  line-height: 30px;
 }
 .wpbooking-settings .button-secondary {
   background: #b73b27 none repeat scroll 0 0;
@@ -225,37 +432,20 @@ img.settings-demo-gallery {
 .wpbooking-setting-list-item .wpbooking-list-item-wrap .list-item tbody > tr:nth-child(odd) {
   background: none;
 }
-.st-metabox-nav {
-  width: 160px;
-}
 .st-metabox-nav li {
-  float: left;
   display: inline-block;
 }
 .st-metabox-nav li a {
-  border: 1px solid transparent;
   text-decoration: none;
-  padding: 12px 15px;
-  opacity: .7;
-  color: #5f5f5f;
-  background-color: rgba(255, 255, 255, 0.35);
-  transition: opacity, 0.3s;
-  margin-bottom: 2px;
+  color: #999999;
 }
-.st-metabox-nav li.ui-tabs-active a {
-  border: 1px solid #CCC;
-  border-right: 1px solid #FFF;
-  border-radius: 3px 0 0 3px;
-  font-weight: bold;
-  background-color: #fff;
-  opacity: 1;
+.st-metabox-nav li.ui-state-active a {
+  color: #ec8223;
 }
 .st-metabox-tabs-content {
   width: auto !important;
   min-height: 200px;
-  margin-left: 158px;
   float: none !important;
-  border: 1px solid #ccc;
 }
 .st-metabox-tabs-content .form-label {
   padding-bottom: 10px;
@@ -263,6 +453,9 @@ img.settings-demo-gallery {
   font-size: 15px;
   border-bottom: none;
   margin-bottom: 10px;
+}
+.st-metabox-tabs-content .input-group.small {
+  width: 215px;
 }
 .st-metabox-tabs-content .form-control {
   height: 30px;
@@ -273,11 +466,13 @@ img.settings-demo-gallery {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 0px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: none;
   -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
   -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+.st-metabox-tabs-content .form-control.small {
+  width: 215px;
 }
 .st-metabox-tabs-content .form-control .form-label {
   padding-bottom: 10px;
@@ -310,13 +505,62 @@ img.settings-demo-gallery {
 .st-metabox-tabs-content .st-metabox-content-wrapper .st-metabox-content-right {
   font-style: italic;
 }
-.st-metabox-tabs-content .st-metabox-content-wrapper .form-group {
-  width: 100%;
+.st-metabox-tabs-content .st-metabox-content-wrapper .wpbooking-row {
+  margin-bottom: 15px;
 }
-@media (min-width: 1600px) {
-  .st-metabox-tabs-content .st-metabox-content-wrapper .form-group {
-    width: 60%;
-  }
+.st-metabox-tabs-content .st-metabox-content-wrapper .input-group {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .input-group[class*="col-"] {
+  float: none;
+  padding-right: 0;
+  padding-left: 0;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .input-group .form-control {
+  position: relative;
+  z-index: 2;
+  float: left;
+  width: 100%;
+  margin: 0px;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .input-group .form-control:focus {
+  z-index: 3;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .input-group-lg > .form-control,
+.st-metabox-tabs-content .st-metabox-content-wrapper .input-group-lg > .input-group-addon,
+.st-metabox-tabs-content .st-metabox-content-wrapper .input-group-lg > .input-group-btn > .btn {
+  height: 46px;
+  line-height: 1.3333333;
+  background: #cccccc;
+  border-color: #ccc;
+  font-size: 12px;
+  padding: 6px;
+  border-radius: 1px;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .input-group-addon:first-child {
+  border-right: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .input-group-addon,
+.st-metabox-tabs-content .st-metabox-content-wrapper .input-group-btn {
+  width: 1%;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .input-group-addon {
+  display: table-cell;
+  font-weight: 400;
+  line-height: 1;
+  color: #555;
+  text-align: center;
+  border: 1px solid #ccc;
+  background: #cccccc;
+  font-size: 12px;
+  padding: 6px;
+  border-radius: 1px;
 }
 .postbox .hndle > span {
   display: block;
@@ -327,18 +571,12 @@ img.settings-demo-gallery {
 }
 .st-metabox-tabs .st-metabox-nav {
   padding: .2em .1em .2em .2em;
-  float: left;
-  width: 12em;
 }
 .st-metabox-tabs .st-metabox-nav li {
   clear: left;
-  width: 100%;
   border-bottom-width: 1px !important;
   border-right-width: 0 !important;
   margin: 0 -1px 0.2em 0;
-}
-.st-metabox-tabs .st-metabox-nav li a {
-  display: block;
 }
 .st-metabox-tabs .st-metabox-nav li a i {
   margin-right: 5px;
@@ -350,8 +588,6 @@ img.settings-demo-gallery {
 }
 .st-metabox-tabs .ui-tabs-panel {
   padding: 1em;
-  float: right;
-  width: 40em;
 }
 .st-metabox-tabs .st-metabox-nav li a:focus {
   -webkit-box-shadow: none;
@@ -385,8 +621,53 @@ img.settings-demo-gallery {
   }
 }
 .st-metabox-tab-content-wrap {
+  color: #666666;
   display: table;
   width: 100%;
+}
+.st-metabox-tab-content-wrap .wpbooking-field-title {
+  position: relative;
+}
+.st-metabox-tab-content-wrap .wpbooking-field-title:before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 0px;
+  right: 0px;
+  border-bottom: 1px solid #ececec;
+}
+.st-metabox-tab-content-wrap .wpbooking-field-title .field-title {
+  margin-top: 0px;
+  margin-bottom: 30px;
+  padding-right: 20px;
+  background: white;
+  color: #666666;
+  font-size: 22px;
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+}
+.st-metabox-tab-content-wrap .wpbooking-field-title .field-title .wb-help-popover i {
+  color: #ed8323;
+}
+.popover.wb-help-popover-el {
+  background: #ed8323;
+  color: white;
+  font-style: italic;
+  border-color: #ed8323;
+  border-radius: 2px;
+  box-shadow: none;
+  width: 580px;
+  max-width: none;
+}
+.popover.wb-help-popover-el.bottom > .arrow {
+  border-bottom-color: #ed8323;
+  top: -8px;
+  border-bottom-width: 8px;
+}
+.popover.wb-help-popover-el .popover-content {
+  box-shadow: none;
+  padding: 10px;
 }
 .st-metabox-wrapper {
   position: relative;
@@ -411,31 +692,56 @@ img.settings-demo-gallery {
   box-sizing: border-box;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group {
-  margin-bottom: 10px;
-  margin-top: 20px;
+  margin-bottom: 18px;
+  margin-left: 15px;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
   font-weight: bold;
-  width: 200px;
+  width: 170px;
   float: left;
   padding-left: 15px;
   padding-right: 15px;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left label {
+  font-weight: normal;
+  font-size: 13px;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right {
   padding-left: 15px;
   padding-right: 15px;
   width: auto;
-  margin-left: 200px;
+  margin-left: 170px;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .st-metabox-content-wrapper {
+  float: left;
+  margin-right: 40px;
+  width: 580px;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .metabox-help {
+  float: left;
+  color: #999999;
+  font-style: italic;
+  font-weight: 300;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .help_inline {
+  color: #999999;
+  font-style: italic;
+  font-weight: 300;
+  margin-left: 20px;
 }
 @media (max-width: 1399px) {
   .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
     width: 100%;
     float: none;
+    margin-bottom: 10px;
   }
   .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right {
     width: 100%;
     margin-left: auto;
-    margin-top: 20px;
+  }
+  .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .st-metabox-content-wrapper {
+    width: 100%;
+    margin-right: 0px;
   }
 }
 .st-metabox-tab-content-wrap .form-table:after,
@@ -583,6 +889,9 @@ input.gmap-search {
   padding-right: 15px;
   z-index: 1;
 }
+.wpbooking-calendar-wrapper .wpbooking-calendar-content .fc-scroller {
+  height: auto!important;
+}
 .wpbooking-calendar-wrapper .wpbooking-calendar-sidebar {
   width: 100%;
   float: left;
@@ -726,7 +1035,7 @@ input.gmap-search {
 .overlay.open {
   display: block !important;
 }
-/* -------------------------------------------------- 
+/* --------------------------------------------------
   :: Date Picker
   ---------------------------------------------------*/
 .ui-datepicker {
@@ -1132,7 +1441,7 @@ a.ui-datepicker-next {
   background: #e88436;
   color: #fff !important;
 }
-/* -------------------------------------------------- 
+/* --------------------------------------------------
   :: Time Picker
   ---------------------------------------------------*/
 .ui-timepicker-div {
@@ -1400,6 +1709,11 @@ a.ui-datepicker-next {
   margin-top: -1px;
   border: 1px solid #d3d3d3;
   padding: 0px 10px;
+}
+.st-metabox-tabs-content .wpbooking-form-group:after {
+  clear: both;
+  content: " ";
+  display: table;
 }
 .st-metabox-tabs-content .wpbooking-form-group.width-two {
   float: left;

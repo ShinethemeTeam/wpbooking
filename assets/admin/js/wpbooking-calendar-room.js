@@ -40,6 +40,8 @@ jQuery(document).ready(function($) {
                     center: 'title',
                     right:  'prev, next'
 				},
+                defaultView: 'year',
+                yearColumns: 3,
 				selectable: true,
 				select : function(start, end, jsEvent, view){
 					var zone = moment(start._d).format('Z');
