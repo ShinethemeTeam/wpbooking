@@ -55,7 +55,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 						),
 					)
 				),
-
+				array(
+					'id'    => 'extra_services',
+					'label' => esc_html__('Extra Services', 'wpbooking'),
+					'type'  => 'list-item',
+					'value' => array()
+				),
 				array(
 					'id'    => 'review_stats',
 					'label' => __("Review Stats", 'wpbooking'),
@@ -81,21 +86,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					'label'     => __('Order Form', 'wpbooking'),
 					'type'      => 'post-select',
 					'post_type' => array('wpbooking_form')
-				),
-				array(
-					'id'    => 'confirm-settings',
-					'label' => __('Instant Booking?', 'wpbooking'),
-					'type'  => 'multi-checkbox',
-					'value' => array(
-						array(
-							'id'    => 'service_type_' . $this->type_id . '_customer_confirm',
-							'label' => __("Require customer confirm the booking by send them an email", 'wpbooking')
-						),
-						array(
-							'id'    => 'service_type_' . $this->type_id . '_partner_confirm',
-							'label' => __("Require partner confirm the booking", 'wpbooking')
-						),
-					)
 				),
 				array(
 					'type' => 'hr'
@@ -127,7 +117,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			// add metabox
 			//add_filter('wpbooking_metabox_after_st_post_metabox_field_end_address_accordion',array($this,'_add_metabox'));
 
-			add_filter('wpbooking_model_table_wpbooking_service_columns',array($this,'_add_meta_table_column'));
+			add_filter('wpbooking_model_table_wpbooking_service_columns', array($this, '_add_meta_table_column'));
 
 
 			add_filter('wpbooking_add_to_cart_validate_' . $this->type_id, array($this, '_add_to_cart_validate'), 10, 3);
@@ -141,8 +131,8 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			add_filter('wpbooking_cart_item_params_' . $this->type_id, array($this, '_change_cart_item_params'), 10, 2);
 
 			// Change Search Query
-			add_action('wpbooking_before_service_query_'.$this->type_id,array($this,'_add_change_query'));
-			add_action('wpbooking_after_service_query_'.$this->type_id,array($this,'_remove_change_query'));
+			add_action('wpbooking_before_service_query_' . $this->type_id, array($this, '_add_change_query'));
+			add_action('wpbooking_after_service_query_' . $this->type_id, array($this, '_remove_change_query'));
 
 		}
 
@@ -156,20 +146,22 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		 */
 		function _add_meta_table_column($columns)
 		{
-			$columns['bed']=array('type'=>'INT');
-			$columns['bedroom']=array('type'=>'VARCHAR','length'=>'20');
-			$columns['bathroom']=array('type'=>'VARCHAR','length'=>'20');
-			$columns['require_customer_confirm']=array('type'=>'VARCHAR','length'=>'10');
-			$columns['require_partner_confirm']=array('type'=>'VARCHAR','length'=>'10');
+			$columns['bed'] = array('type' => 'INT');
+			$columns['bedroom'] = array('type' => 'VARCHAR', 'length' => '20');
+			$columns['bathroom'] = array('type' => 'VARCHAR', 'length' => '20');
+			$columns['require_customer_confirm'] = array('type' => 'VARCHAR', 'length' => '10');
+			$columns['require_partner_confirm'] = array('type' => 'VARCHAR', 'length' => '10');
+
 			return $columns;
 		}
+
 		/**
 		 * @author dungdt
 		 * @since 1.0
 		 */
 		function _add_metabox($fields)
 		{
-			$new_fields=array(
+			$new_fields = array(
 
 				array(
 					'label' => __('Space of Room', 'wpbooking'),
@@ -177,69 +169,72 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 				),
 				array(
 					'label' => __('Bedrooms', 'wpbooking'),
-					'id' => 'bedroom',
-					'type' => 'number',
-					'width'=>'two'
+					'id'    => 'bedroom',
+					'type'  => 'number',
+					'width' => 'two'
 				),
 				array(
 					'label' => __('Bathrooms', 'wpbooking'),
-					'id' => 'bathroom',
-					'type' => 'number',
-					'width'=>'two'
+					'id'    => 'bathroom',
+					'type'  => 'number',
+					'width' => 'two'
 				),
 				array(
 					'label' => __('Beds', 'wpbooking'),
-					'id' => 'bed',
-					'type' => 'number',
-					'width'=>'two'
+					'id'    => 'bed',
+					'type'  => 'number',
+					'width' => 'two'
 				),
 				array(
 					'label' => __('Check-in Time', 'wpbooking'),
-					'id' => 'check_in_time',
-					'type' => 'text',
+					'id'    => 'check_in_time',
+					'type'  => 'text',
 					'class' => 'time-picker',
-					'width'=>'two'
+					'width' => 'two'
 				),
 				array(
 					'label' => __('Check-out Time', 'wpbooking'),
-					'id' => 'check_out_time',
-					'type' => 'text',
+					'id'    => 'check_out_time',
+					'type'  => 'text',
 					'class' => 'time-picker',
-					'width'=>'two'
+					'width' => 'two'
 				),
 
 				array(
 					'label' => __('No. Adult', 'wpbooking'),
 					'id'    => 'number_adult',
 					'type'  => 'number',
-					'width'=>'two'
+					'width' => 'two'
 				),
 				array(
 					'label' => __('No. Children', 'wpbooking'),
 					'id'    => 'number_children',
 					'type'  => 'number',
-					'width'=>'two'
+					'width' => 'two'
 				),
 				array(
-					'type'  => 'accordion-end'
+					'type' => 'accordion-end'
 				),
 			);
-			$fields=array_merge($fields,$new_fields);
+			$fields = array_merge($fields, $new_fields);
 
 			return $fields;
 		}
+
 		function _add_change_query()
 		{
-			add_action('posts_fields',array($this,'_add_select_fields'));
+			add_action('posts_fields', array($this, '_add_select_fields'));
 		}
+
 		function _add_select_fields($fields)
 		{
 
 			return $fields;
 		}
+
 		function _remove_change_query()
 		{
-			remove_action('posts_fields',array($this,'_add_select_fields'));
+			remove_action('posts_fields', array($this, '_add_select_fields'));
 		}
 
 		/**
@@ -270,21 +265,21 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 				}
 
 				//$calendar_prices = $calendar->get_prices($post_id, $check_in_timestamp, $check_out_timestamp);
-				$calendar_prices=$calendar->calendar_months($post_id,$check_in_timestamp,$check_out_timestamp);
+				$calendar_prices = $calendar->calendar_months($post_id, $check_in_timestamp, $check_out_timestamp);
 
 				if (!empty($calendar_prices)) {
 					$check_in_temp = $check_in_timestamp;
 					$unavailable = array();
 					while ($check_in_temp <= $check_out_timestamp) {
-						$match=FALSE;
+						$match = FALSE;
 						foreach ($calendar_prices as $key => $value) {
 							if ($value['start'] == $check_in_temp) {
 								$match = TRUE;
 								if ($value['status'] == 'not_available') $unavailable[] = $check_in_temp;
 							}
 						}
-						if(!$match){
-							$unavailable[]=$check_in_temp;
+						if (!$match) {
+							$unavailable[] = $check_in_temp;
 						}
 
 						$check_in_temp = strtotime('+1 day', $check_in_temp);
@@ -337,12 +332,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 				$calendar_prices = $calendar->get_prices($post_id, $cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
 				$cart_item['calendar_price'] = $calendar_prices;
 
-				$price =0;
+				$price = 0;
 
 				// Calculate Sub Total
 				if (empty($calendar_prices)) {
 
-					$price= $cart_item['base_price'];
+					$price = $cart_item['base_price'];
 
 					$night = wpbooking_timestamp_diff_day($cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
 					if (!$night) $night = 1;
@@ -384,6 +379,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			$cart_item = wp_parse_args($cart_item, array(
 				'extra_prices' => '',
 			));
+
 			// Calculate Extra Prices
 
 			return $price;
@@ -393,7 +389,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		function _change_order_item_price($price, $order_item)
 		{
 			$order_item = wp_parse_args($order_item, array(
-				'raw_data'            => '',
+				'raw_data' => '',
 			));
 
 			// We need raw data because table order_item can not save all value from the cart_item data. Example price_type for room
@@ -402,7 +398,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			if (!empty($raw_data) and is_array($raw_data)) {
 				$raw_data = wp_parse_args($raw_data,
 					array(
-						'extra_prices'     => FALSE,
+						'extra_prices' => FALSE,
 					));
 
 			}
@@ -420,7 +416,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 		function _service_query_args($args)
 		{
-			$meta_query=array();
+			$meta_query = array();
 //			$meta_query[]=array(
 //				'key'   => 'service_type',
 //				'value' => $this->type_id,
@@ -465,18 +461,16 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 				}
 
 
-
 				if (!empty($tax_query)) {
 					$args['tax_query'][] = $tax_query;
 				}
 			}
 
-			if($posts_per_page=$this->get_option('posts_per_page'))
-			{
-				$args['posts_per_page']=$posts_per_page;
+			if ($posts_per_page = $this->get_option('posts_per_page')) {
+				$args['posts_per_page'] = $posts_per_page;
 			}
 
-			$args['meta_query']=$meta_query;
+			$args['meta_query'] = $meta_query;
 
 			return $args;
 		}
@@ -484,7 +478,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		function _get_where_query($where)
 		{
 
-			$is_meta_table_working=WPBooking_Service_Model::inst()->is_ready();
+			$is_meta_table_working = WPBooking_Service_Model::inst()->is_ready();
 
 			global $wpdb;
 			if ($review_rate = WPBooking_Input::request('review_rate') and is_array(explode(',', $review_rate))) {
@@ -494,7 +488,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 						$and .= " OR ";
 					}
 
-					$and .= $wpdb->prepare("  ( avg_rate>= %d and avg_rate<%d )",$v,$v+1);
+					$and .= $wpdb->prepare("  ( avg_rate>= %d and avg_rate<%d )", $v, $v + 1);
 				}
 				if (!empty($and)) {
 					$where .= " AND $wpdb->posts.ID IN
@@ -518,33 +512,33 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 
 			// Beds
-			if($beds=WPBooking_Input::get('bed') and $is_meta_table_working){
-				$where.=$wpdb->prepare(' AND bed>=%d',$beds);
+			if ($beds = WPBooking_Input::get('bed') and $is_meta_table_working) {
+				$where .= $wpdb->prepare(' AND bed>=%d', $beds);
 			}
 			// Bedrooms
-			if($bedrooms=WPBooking_Input::get('bedroom') and $is_meta_table_working){
-				$where.=' AND bedroom>='.$bedrooms;
-				$where.=$wpdb->prepare(' AND bedroom>=%d',$bedrooms);
+			if ($bedrooms = WPBooking_Input::get('bedroom') and $is_meta_table_working) {
+				$where .= ' AND bedroom>=' . $bedrooms;
+				$where .= $wpdb->prepare(' AND bedroom>=%d', $bedrooms);
 			}
 			// Bathrooms
-			if($bathrooms=WPBooking_Input::get('bathroom') and $is_meta_table_working){
+			if ($bathrooms = WPBooking_Input::get('bathroom') and $is_meta_table_working) {
 
-				$where.=$wpdb->prepare(' AND bathroom>=%d',$bathrooms);
+				$where .= $wpdb->prepare(' AND bathroom>=%d', $bathrooms);
 			}
 			// Required Customer Confirm
-			if($bathroom=WPBooking_Input::get('customer_confirm') and $is_meta_table_working){
-				if($this->get_option('customer_confirm')){
-					$where.=' AND (require_customer_confirm is null or LENGTH(require_customer_confirm)=0)';
-				}else{
-					$where.=' AND require_customer_confirm=1';
+			if ($bathroom = WPBooking_Input::get('customer_confirm') and $is_meta_table_working) {
+				if ($this->get_option('customer_confirm')) {
+					$where .= ' AND (require_customer_confirm is null or LENGTH(require_customer_confirm)=0)';
+				} else {
+					$where .= ' AND require_customer_confirm=1';
 				}
 			}
 			// Required Partner Confirm
-			if($bathroom=WPBooking_Input::get('partner_confirm') and $is_meta_table_working){
-				if($this->get_option('partner_confirm')){
-					$where.=' AND (require_partner_confirm is null or LENGTH(require_partner_confirm)=0)';
-				}else{
-					$where.=' AND require_partner_confirm=1';
+			if ($bathroom = WPBooking_Input::get('partner_confirm') and $is_meta_table_working) {
+				if ($this->get_option('partner_confirm')) {
+					$where .= ' AND (require_partner_confirm is null or LENGTH(require_partner_confirm)=0)';
+				} else {
+					$where .= ' AND require_partner_confirm=1';
 				}
 			}
 

@@ -3,53 +3,70 @@
  *@since 1.0.0
  **/
 
-$old_data = (isset( $data['custom_data'] ) ) ? esc_html( $data['custom_data'] ) : get_post_meta( $post_id, esc_html( $data['id'] ), true);
+$service_types=WPBooking_Service::inst()->get_service_types();
+if(!empty($service_types)){
+	foreach($service_types as $type_id=>$type){
+		$class=FALSE;
+		$class.=$type_id;
+		?>
+		<div class="form-table wpbooking-settings  wpbooking-form-group wpbooking_extra_service_type <?php echo esc_html( $class ); ?>" data-condition="service_type:is(<?php echo esc_attr($type_id) ?>)">
+			<div class="st-metabox-left">
+				<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
+			</div>
+			<div class="st-metabox-right">
+				<div class="st-metabox-content-wrapper">
+					<div class="form-group">
+						<div class="list-extra-services">
+							<?php
+							$old=get_post_meta(get_the_ID(),$data['id'],true);
+							if(isset($old[$type_id])) $old=$old[$type_id]; else $old=FALSE;
 
-$class = ' wpbooking-form-group ';
-$data_class = '';
-if(!empty($data['condition'])){
-	$class .= ' wpbooking-condition ';
-	$data_class .= ' data-condition='.$data['condition'].' ' ;
-}
+							$extras=$type['object']->get_extra_services();
+							if(!empty($extras)){
+								foreach($extras as $k=>$value){
+									$checked=FALSE;
+									$current=FALSE;
+									if(!empty($old)){
+										foreach($old as $old_item){
+											if($old_item['title']==$value['title']){
+												$checked='checked';
+												$current=$old_item;
+											}
+										}
+									}
+								?>
+									<div class="extra-item">
+										<label class="title" ><input type="checkbox" value="<?php echo esc_html($value['title']) ?>" <?php echo esc_attr($checked) ?> name="<?php echo esc_attr($data['id'].'['.$type_id.']['.$k.'][is_selected]') ?>">
+										<?php echo esc_html($value['title']) ?></label>
+										<div class="money-number">
+											<div class="input-group ">
+												<span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
+												<input type="text" class="form-control" value="<?php echo (!empty($current['money']))?$current['money']:FALSE; ?>" name="<?php echo esc_attr($data['id'].'['.$type_id.']['.$k.'][money]') ?>"  >
+											</div>
+										</div>
+										<div class="require-options">
+											<select name="<?php echo esc_attr($data['id'].'['.$type_id.']['.$k.'][require]') ?>" >
+												<option value="yes"><?php esc_html_e('Yes','wpbooking') ?></option>
+												<option value="no"><?php esc_html_e('No','wpbooking') ?></option>
+											</select>
+											<span class="help_inline"><?php esc_html_e('Required') ?></span>
+										</div>
+									</div>
+								<?php
+								}
 
-$class.=' width-'.$data['width'];
-$name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
-
-$field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
-
-if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
-	$field .= '<div style="margin-bottom: 7px;"><select name="'. $name .'" id="'. esc_html( $data['id'] ) .'" class="widefat form-control '. esc_html( $data['class'] ).'">';
-	foreach( $data['value'] as $key => $value ){
-		$checked = '';
-		if( !empty( $data['std'] ) && ( esc_html( $key ) == esc_html( $data['std'] ) ) ){
-			$checked = ' selected ';
-		}
-		if( $old_data && !empty( $old_data ) ){
-			if( esc_html( $key ) == esc_html( $old_data ) ){
-				$checked = ' selected ';
-			}else{
-				$checked = '';
-			}
-		}
-		
-		$field .= '<option value="'. esc_html( $key ).'" '. $checked .'>'. esc_html( $value ).'</option>';
-	}
-	$field .= '</select></div>';
-}
-
-$field .= '</div></div>';
-
-?>
-<div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
-	<div class="st-metabox-left">
-		<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
-	</div>
-	<div class="st-metabox-right">
-
-		<div class="st-metabox-content-wrapper">
-			<?php ?>
+							}?>
+						</div>
+						<div class="add-new-extra-service">
+							<input type="text" class="service-name form-control" placeholder="<?php esc_html_e('Extra Service Name','wpbooking') ?>">
+							<a href="#" onclick="return false" class="button wb-btn-add-extra-service" data-
+							="<?php echo esc_attr($type_id) ?>" ><?php esc_html_e('Add New','wpbooking') ?> <i class="fa fa-spin  fa-spinner loading-icon"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="metabox-help"><?php echo balanceTags( $data['desc'] ) ?></div>
+			</div>
 		</div>
-
-		<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
-	</div>
-</div>
+		<?php
+	}
+}

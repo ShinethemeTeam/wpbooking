@@ -328,6 +328,17 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 			return wpbooking_get_option('service_type_'.$this->type_id.'_'.$key,$default);
 		}
 
+		/**
+		 * Get All Extra Services From Settings Page
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return mixed|void
+		 */
+		function get_extra_services(){
+			return $this->get_option('extra_services');
+		}
 		function _register_type($service_types=array())
 		{
 			$service_types[$this->type_id]=array(

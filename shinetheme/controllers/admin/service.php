@@ -87,17 +87,17 @@ if (!class_exists('WPBooking_Admin_Service')) {
 
 			// Default Taxonomy
 			$labels = array(
-				'name'              => _x('Category', 'taxonomy general name', 'wpbooking'),
-				'singular_name'     => _x('Category', 'taxonomy singular name', 'wpbooking'),
-				'search_items'      => __('Search Category', 'wpbooking'),
-				'all_items'         => __('All Categories', 'wpbooking'),
-				'parent_item'       => __('Parent Category', 'wpbooking'),
-				'parent_item_colon' => __('Parent Category:', 'wpbooking'),
-				'edit_item'         => __('Edit Category', 'wpbooking'),
-				'update_item'       => __('Update Category', 'wpbooking'),
-				'add_new_item'      => __('Add New Category', 'wpbooking'),
-				'new_item_name'     => __('New Category Name', 'wpbooking'),
-				'menu_name'         => __('Category', 'wpbooking'),
+				'name'              => _x('Amenities', 'taxonomy general name', 'wpbooking'),
+				'singular_name'     => _x('Amenity', 'taxonomy singular name', 'wpbooking'),
+				'search_items'      => __('Search Amenity', 'wpbooking'),
+				'all_items'         => __('All Amenities', 'wpbooking'),
+				'parent_item'       => __('Parent Amenity', 'wpbooking'),
+				'parent_item_colon' => __('Parent Amenity:', 'wpbooking'),
+				'edit_item'         => __('Edit Amenity', 'wpbooking'),
+				'update_item'       => __('Update Amenity', 'wpbooking'),
+				'add_new_item'      => __('Add New Amenity', 'wpbooking'),
+				'new_item_name'     => __('New Amenity Name', 'wpbooking'),
+				'menu_name'         => __('Amenity', 'wpbooking'),
 			);
 
 			$args = array(
@@ -106,13 +106,13 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				'show_ui'           => TRUE,
 				'show_admin_column' => TRUE,
 				'query_var'         => TRUE,
-				'rewrite'           => array('slug' => 'service-category'),
+				'rewrite'           => array('slug' => 'amenities'),
 			);
-			$args = apply_filters('wpbooking_register_category_taxonomy', $args);
+			$args = apply_filters('wpbooking_register_amenity_taxonomy', $args);
 
-			register_taxonomy('wpbooking_category', array('wpbooking_service'), $args);
+			register_taxonomy('wpbooking_amenity', array('wpbooking_service'), $args);
 
-			WPBooking_Assets::add_css("#wpbooking_categorydiv{display:none!important}");
+			WPBooking_Assets::add_css("#wpbooking_amenitydiv{display:none!important}");
 		}
 
 		function _add_metabox()
@@ -189,7 +189,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'label'           => __('Address', 'wpbooking'),
 						'id'              => 'address',
 						'type'            => 'address',
-						'container_class' => 'mb25'
+						'container_class' => 'mb35'
 					),
 					array(
 						'label'        => __("Rate & Availability", 'wpbooking'),
@@ -213,7 +213,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'type'            => 'money_input',
 						'id'              => 'montly_rate',
 						'class'           => 'small',
-						'container_class' => 'mb25'
+						'container_class' => 'mb35'
 					),
 					array(
 						'label' => __("Additional Guests / Taxes/ Misc", 'wpbooking'),
@@ -245,6 +245,10 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'class' => 'small'
 					),
 					array(
+						'type'  => 'section_navigation',
+						'prev'=>FALSE
+					),
+					array(
 						'label' => __('2. Details', 'wpbooking'),
 						'id'    => 'detail_tab',
 						'type'  => 'tab',
@@ -265,7 +269,8 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'type'  => 'dropdown',
 						'value' => array(
 							1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-						)
+						),
+						'class' => 'small'
 					),
 					array(
 						'label' => __('Single Bed', 'wpbooking'),
@@ -273,7 +278,8 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'type'  => 'dropdown',
 						'value' => array(
 							0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-						)
+						),
+						'class' => 'small'
 					),
 					array(
 						'label' => __('Sofa Bed', 'wpbooking'),
@@ -281,7 +287,8 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'type'  => 'dropdown',
 						'value' => array(
 							0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-						)
+						),
+						'class' => 'small'
 					),
 					array(
 						'label' => __('Property Floor', 'wpbooking'),
@@ -289,7 +296,8 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'type'  => 'dropdown',
 						'value' => array(
 							1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-						)
+						),
+						'class' => 'small'
 					),
 					array(
 						'label'   => __('Property Size', 'wpbooking'),
@@ -307,6 +315,11 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'id'    => 'extra_services'
 					),
 
+					array(
+						'label' => __('3. Policies', 'wpbooking'),
+						'id'    => 'policies_tab',
+						'type'  => 'tab',
+					),
 //					array(
 //						'label' => __('Accommodates', 'wpbooking'),
 //						'id' => 'accommodates',

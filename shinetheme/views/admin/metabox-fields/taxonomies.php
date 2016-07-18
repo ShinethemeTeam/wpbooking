@@ -12,56 +12,53 @@ if(!empty($data['condition'])){
 }
 $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
 
-$terms = get_object_taxonomies( 'wpbooking_service', 'objects' );
+$taxs = get_object_taxonomies( 'wpbooking_service', 'objects' );
 
-if( count( $terms ) ){
-	unset( $terms['wpbooking_location'] );
+if( count( $taxs ) ){
+	unset( $taxs['wpbooking_location'] );
 }
 
+if(empty($taxs)) return FALSE;
+foreach ($taxs as $tax_id=>$tax){
 
-?>
-<div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
-<div class="st-metabox-left" style="width: 100%;">
-	<div class="st-metabox-content-wrapper">
-		<div class="form-group">
-			<div class="wpbooking-list-taxonomies clearfix">
-			<?php 
-				$item_term = array();
-				if( !empty( $terms ) ):
-					foreach( $terms as $key => $term ):
-						$item_term = get_terms( $key, array('hide_empty' => false) );
-			?>	
-				<?php if( !empty( $item_term ) ) : ?>
-				<h4><?php echo esc_html( $term->label ); ?></h4>
-				<?php endif; ?>
-				<div class="wpbooking-list-taxonomy clearfix">
-					
-					<?php 
-
-						if( !empty( $item_term ) ):
-
-							$old = array();
-							$old_terms = wp_get_post_terms( $post_id, $key );
-							if( !empty( $old_terms ) && is_array( $old_terms ) ){
-								foreach( $old_terms as $term ){
-									$old[] = (int) $term->term_id;
-								}
-							}
-
-							foreach( $item_term as $item ):
+	$old = array();
+	$old_terms = wp_get_post_terms( get_the_ID(), $tax_id );
+	if( !empty( $old_terms ) && is_array( $old_terms ) ){
+		foreach( $old_terms as $old_term ){
+			$old[] = (int) $old_term->term_id;
+		}
+	}
+	?>
+	<div class="form-table wpbooking-settings wpbooking-form-group wb-taxonomy-field" >
+		<div class="st-metabox-left">
+			<label ><?php echo esc_html($tax->label) ?></label>
+		</div>
+		<div class="st-metabox-right">
+			<div class="list-terms-checkbox">
+			<?php $terms=get_terms($tax_id,array('hide_empty' => false));
+			 if(!empty($terms) and !is_wp_error($terms)){
+			 	?>
+					<?php foreach($terms as $term){
+						$selected=FALSE;
+						if(in_array( $term->term_id, $old )){
+							$selected='checked';
+						}
+						printf('<div class="term-checkbox">
+								<label><input type="checkbox" name="%s" value="%s" %s ><span>%s</span></label>
+							</div>',$name.'['.$tax_id.'][]',$term->term_id,$selected,$term->name);
+						}
 					?>
-						<div class="wpbooking-list-taxonomy-item">
-							<label>
-								<input <?php if( in_array( $item->term_id, $old ) ) echo 'checked'; ?> type="checkbox" value="<?php echo esc_html( $item->term_id ); ?>" name="<?php echo $name.'['. $key .'][]'; ?>">
-								<span ><?php echo esc_html( $item->name ); ?></span>
-							</label>
-						</div>
-					<?php endforeach; endif; ?>
-				</div>
-			<?php endforeach; endif; ?>
+			 	<?php
+			 }
+			 ?>
 			</div>
+			<div class="add-new-terms">
+				<input type="text" class="term-name form-control" placeholder="<?php printf(esc_html__('%s name','wpbooking'),$tax->label) ?>">
+				<a href="#" onclick="return false" class="button wb-btn-add-term" data-name="<?php echo esc_attr($name) ?>" data-tax="<?php echo esc_attr($tax_id) ?>"><?php esc_html_e('Add New','wpbooking') ?> <i class="fa fa-spin  fa-spinner loading-icon"></i></a>
+			</div>
+
 		</div>
 	</div>
-	<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
-</div>
-</div>
+	<?php
+}
+?>

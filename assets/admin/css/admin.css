@@ -237,6 +237,9 @@ ul.padding-0 li {
 .mb25 {
   margin-bottom: 25px;
 }
+.mb35 {
+  margin-bottom: 35px!important;
+}
 .min-width-800 {
   min-width: 800px;
 }
@@ -729,7 +732,7 @@ img.settings-demo-gallery {
   font-weight: 300;
   margin-left: 20px;
 }
-@media (max-width: 1399px) {
+@media (max-width: 1100px) {
   .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
     width: 100%;
     float: none;
@@ -1721,6 +1724,77 @@ a.ui-datepicker-next {
 }
 .st-metabox-tabs-content .wpbooking-form-group.width-two .st-metabox-content-wrapper .form-group {
   width: 100%;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wb-taxonomy-field {
+  margin-bottom: 50px;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wb-taxonomy-field .list-terms-checkbox {
+  width: 440px;
+  margin-bottom: 15px;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wb-taxonomy-field .list-terms-checkbox:after {
+  clear: both;
+  content: " ";
+  display: table;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wb-taxonomy-field .list-terms-checkbox .term-checkbox {
+  width: 213px;
+  float: left;
+  margin-bottom: 10px;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wb-taxonomy-field .add-new-terms .wb-btn-add-term {
+  height: 30px;
+  line-height: 30px;
+  background: white;
+  box-shadow: none;
+  margin-left: 10px;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wb-taxonomy-field .add-new-terms .wb-btn-add-term .loading-icon {
+  display: none;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wb-taxonomy-field .add-new-terms.loading .wb-btn-add-term .loading-icon {
+  display: inline-block;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wb-property-size-field .st-metabox-content-wrapper input {
+  float: left;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wb-property-size-field .st-metabox-content-wrapper .unit_type {
+  height: 30px;
+  line-height: 20px;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .list-extra-services {
+  margin-bottom: 20px;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item {
+  margin-bottom: 15px;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item:after {
+  clear: both;
+  content: " ";
+  display: table;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .title {
+  float: left;
+  width: 215px;
+  margin-right: 15px;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .money-number {
+  float: left;
+  width: 105px;
+  margin-right: 20px;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .require-options {
+  float: left;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .add-new-extra-service .loading-icon {
+  display: none;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .add-new-extra-service.loading .loading-icon {
+  display: inline-block;
+}
+.st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .add-new-extra-service .button {
+  height: 30px;
+  line-height: 30px;
 }
 .fc-highlight {
   background: #0073aa;

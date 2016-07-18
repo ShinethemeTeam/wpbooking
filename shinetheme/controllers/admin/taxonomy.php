@@ -30,6 +30,42 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 			add_action('admin_menu', array($this, '_add_taxonomy_page'));
 
 			add_action('init', array($this, '_register_taxonomy'));
+
+			add_action('wp_ajax_wpbooking_add_term',array($this,'_add_term'));
+		}
+
+		/**
+		 * Ajax Add Term for metabox
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 */
+		function _add_term()
+		{
+			$res=array(
+				'status'=>0
+			);
+
+			if(current_user_can('manage_options') and $term_name=WPBooking_Input::post('term_name') and $tax=WPBooking_Input::post('taxonomy')){
+
+				$parent_term = term_exists( $term_name, $tax ); // array is returned if taxonomy is given
+				if($parent_term){
+					$res['message']=esc_html__('Term exists','wpbooking');
+				}else{
+					$q=wp_insert_term($term_name,$tax);
+					if(!is_wp_error($q)){
+						$res['status']=1;
+						$res['data']=array(
+							'term_id'=>$q['term_id'],
+							'name'=>$term_name);
+					}
+				}
+
+			}
+
+			echo json_encode($res);
+			die;
 		}
 
 		function _register_taxonomy()

@@ -35,15 +35,15 @@ $field .= '</div></div>';
 
 ?>
 
-<div class="wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+<div class="wpbooking-settings  <?php echo esc_html( $class ); ?> wb-property-size-field" <?php echo esc_html( $data_class ); ?>>
 	<div class="st-metabox-left">
 		<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
 	</div>
 	<div class="st-metabox-right">
 		<div class="st-metabox-content-wrapper">
-			<input type="text" name="<?php echo esc_html__($name) ?>" id="<?php echo esc_html( $data['id'] ); ?>" value="<?php echo esc_attr($old_data) ?>" placeholder="<?php esc_html_e('Eg: 100','wpbooking') ?>">
-			<select name="<?php echo esc_html($data['unit_key'])  ?>" id="<?php echo esc_html($data['unit_key'])  ?>" class="unit_type">
-				<?php $old=get_post_meta(get_the_ID(),$data['unit_key'],TRUE); ?>
+			<input type="text" class="form-control small" name="<?php echo esc_html__($name) ?>" id="<?php echo esc_html( $data['id'] ); ?>" value="<?php echo esc_attr($old_data) ?>" placeholder="<?php esc_html_e('Eg: 100','wpbooking') ?>">
+			<select name="<?php echo esc_html($data['unit_id'])  ?>" id="<?php echo esc_html($data['unit_id'])  ?>" class="unit_type">
+				<?php $old=get_post_meta(get_the_ID(),$data['unit_id'],TRUE); ?>
 				<option value="meter" <?php selected('meter',$old) ?>><?php echo esc_html__('Meter','wpbooking') ?></option>
 				<option value="feet" <?php selected('feet',$old) ?>><?php echo esc_html__('Feet','wpbooking') ?></option>
 			</select>
