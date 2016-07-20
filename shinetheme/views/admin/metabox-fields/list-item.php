@@ -23,6 +23,7 @@ if(!empty($data['condition'])){
 	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
 </div>
 <div class="st-metabox-right">
+	<div class="st-metabox-content-wrapper">
 	<?php 
 		if( !empty( $data['value'] ) && is_array( $data['value'] ) ):
 	?>
@@ -42,10 +43,10 @@ if(!empty($data['condition'])){
 					<div class="item-title"><?php echo esc_html( $convert_val['title'] ); ?></div>
 						
 					<div class="button-control">
-						<a title="<?php esc_html_e('Edit','wpbooking') ?>" class="button button-primary btn_list_item_edit" href="#">
+						<a title="<?php esc_html_e('Edit','wpbooking') ?>" class=" btn_list_item_edit" href="#">
 			                <span class="fa fa-pencil"></span>
 			            </a>
-			            <a title="<?php esc_attr_e('Delete','wpbooking')?>" class="button button-secondary light right-item btn_list_item_del" href="#">
+			            <a title="<?php esc_attr_e('Delete','wpbooking')?>" class="light right-item btn_list_item_del" href="#">
 			                <span class="fa fa-trash-o"></span>
 			            </a>
 					</div>
@@ -103,10 +104,13 @@ if(!empty($data['condition'])){
 			</div>
 		<?php endforeach; endif; ?>
 		</div>
-		<button class="wpbooking-add-item btn button button-primary" type="button"><?php echo __('Add item', 'wpbooking'); ?></button>
+		<div class="text-right">
+			<button class="wpbooking-add-item btn button button-default" type="button"><i class="fa fa-plus"></i></button>
+		</div>
 	</div>
 	<?php endif; ?>
 	<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+	</div>
 </div>
 </div>
 <?php 
@@ -116,15 +120,15 @@ if(!empty($data['condition'])){
 	<div class="wpbooking-list-item">
 		<div class="list-item-head">
 			
-			<span class="dashicons dashicons-menu"></span>
-		
+<!--			<span class="dashicons dashicons-menu"></span>-->
+
 			<div class="item-title"></div>
 				
 			<div class="button-control">
-				<a title="Edit" class="button button-primary btn_list_item_edit" href="#">
+				<a title="Edit" class=" btn_list_item_edit" href="#">
 	                <span class="fa fa-pencil"></span>
 	            </a>
-	            <a title="Delete" class="button button-secondary light right-item btn_list_item_del" href="#">
+	            <a title="Delete" class="light right-item btn_list_item_del" href="#">
 	                <span class="fa fa-trash-o"></span>
 	            </a>
 			</div>

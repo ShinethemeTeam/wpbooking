@@ -2,7 +2,7 @@
 /**
 *@since 1.0.0
 **/
-
+$post_id=get_the_ID();
 $old_data = esc_html( $data['std'] );
 
 $value = (isset( $data['custom_data'] ) ) ? esc_html( $data['custom_data'] ) : get_post_meta( $post_id, esc_html( $data['id'] ), true);

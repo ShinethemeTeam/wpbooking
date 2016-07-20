@@ -21,6 +21,8 @@ if(!class_exists('WPBooking_Admin_Setting'))
             // add script and style
             add_action('admin_enqueue_scripts',array($this,"_add_scripts"));
 
+			add_action('wp_ajax_wpbooking_add_extra_service',array($this,'_ajax_add_extra_service'));
+
         }
 
         function _add_scripts()
@@ -29,6 +31,48 @@ if(!class_exists('WPBooking_Admin_Setting'))
             wp_enqueue_media();
         }
 
+		/**
+		 * Ajax create new extra service item for
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 */
+		function _ajax_add_extra_service()
+		{
+			$res=array(
+				'status'=>0
+			);
+			if(current_user_can('manage_options')){
+				$service_type=WPBooking_Input::post('service_type');
+				$service_name=WPBooking_Input::post('service_name');
+				if($service_type and $service_name){
+					$option_key='wpbooking_service_type_'.$service_type.'_extra_services';
+					$option=get_option($option_key);
+
+					// check service name exsits
+					$is_exists=FALSE;
+					if(is_array($option) and !empty($option)){
+						foreach($option as $value){
+							if($value['title']==$service_name) $is_exists=true;
+						}
+					}
+
+					if(!$is_exists){
+						$option[]=array(
+							'title'=>$service_name
+						);
+
+						update_option($option_key,$option);
+						$res['status']=1;
+					}else{
+						$res['message']=esc_html__('Service Exists. Please choose other name','wpbooking');
+					}
+				}
+			}
+
+			echo json_encode($res);
+			die;
+		}
         /*---------Begin Helper Functions----------------*/
         function get_option($option_id,$default=false){
             /* get the saved options */

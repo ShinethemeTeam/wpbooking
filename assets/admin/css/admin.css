@@ -698,6 +698,9 @@ img.settings-demo-gallery {
   margin-bottom: 18px;
   margin-left: 15px;
 }
+.st-metabox-tab-content-wrap .wpbooking-form-group .wpbooking-form-group {
+  margin-left: 0px;
+}
 .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
   font-weight: bold;
   width: 170px;
@@ -715,10 +718,25 @@ img.settings-demo-gallery {
   width: auto;
   margin-left: 170px;
 }
+.st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .st-metabox-left {
+  float: none;
+  margin-bottom: 10px;
+  padding: 0px;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .st-metabox-right {
+  padding: 0px;
+  margin-left: 0px;
+}
 .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .st-metabox-content-wrapper {
   float: left;
   margin-right: 40px;
   width: 580px;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .st-metabox-content-wrapper .st-metabox-content-wrapper {
+  width: 100%;
+  float: none;
+  margin-right: 0px;
+  margin-left: 0px;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .metabox-help {
   float: left;
@@ -823,11 +841,6 @@ input.gmap-search {
 .wpbooking-list-item-wrapper {
   width: 100%;
 }
-@media (min-width: 1600px) {
-  .wpbooking-list-item-wrapper {
-    width: 60%;
-  }
-}
 .wpbooking-list-item-wrapper table {
   width: 100%;
 }
@@ -839,7 +852,7 @@ input.gmap-search {
   width: 100%;
   position: relative;
   clear: both;
-  background: #cccccc none repeat scroll 0% 0%;
+  background: #ebebeb none repeat scroll 0% 0%;
   display: block;
   float: left;
   padding: 5px;
@@ -860,7 +873,7 @@ input.gmap-search {
   padding-left: 35px;
   z-index: 8;
   font-weight: bold;
-  color: #000;
+  color: #666666;
 }
 .wpbooking-list-item-wrapper .list-item-head .button-control {
   position: relative;
@@ -868,11 +881,14 @@ input.gmap-search {
   float: right;
   margin-top: 2px;
 }
+.wpbooking-list-item-wrapper .list-item-head .button-control a {
+  color: #666666;
+}
 .wpbooking-list-item-wrapper .hidden {
   display: none !important;
 }
 .wpbooking-list-item-wrapper .wpbooking-list-item {
-  box-shadow: 0px 0px 0px 1px #aeaaaa;
+  border: 1px solid #cccccc;
   margin-bottom: 5px;
 }
 .wpbooking-list-item-wrapper .wpbooking-list-item .td-left .title {
@@ -1805,4 +1821,7 @@ a.ui-datepicker-next {
 }
 .wpbooking-extra-html {
   margin-top: 20px;
+}
+.wb-section-navigation .wb-next-section {
+  margin-left: 20px;
 }

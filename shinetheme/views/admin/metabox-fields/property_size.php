@@ -23,6 +23,7 @@ if(!empty($data['condition'])){
 	$class .= ' wpbooking-condition ';
 	$data_class .= ' data-condition='.$data['condition'].' ' ;
 }
+if(!empty($data['container_class'])) $class.=' '.$data['container_class'];
 $class.=' width-'.$data['width'];
 
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';

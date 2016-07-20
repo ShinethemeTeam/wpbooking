@@ -177,6 +177,11 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'class' => 'small'
 					),
 					array(
+						'label' => esc_html__('External Booking URL', 'wpbooking'),
+						'id'    => 'external_booking_url',
+						'type'  => 'text'
+					),
+					array(
 						'label' => __("Property Location", 'wpbooking'),
 						'type'  => 'title',
 					),
@@ -245,8 +250,8 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'class' => 'small'
 					),
 					array(
-						'type'  => 'section_navigation',
-						'prev'=>FALSE
+						'type' => 'section_navigation',
+						'prev' => FALSE
 					),
 					array(
 						'label' => __('2. Details', 'wpbooking'),
@@ -303,7 +308,8 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'label'   => __('Property Size', 'wpbooking'),
 						'id'      => 'property_size',
 						'type'    => 'property_size',
-						'unit_id' => 'property_unit'
+						'unit_id' => 'property_unit',
+						'container_class' => 'mb35'
 					),
 					array(
 						'label' => __("Extra Services:", 'wpbooking'),
@@ -316,59 +322,98 @@ if (!class_exists('WPBooking_Admin_Service')) {
 					),
 
 					array(
-						'label' => __('3. Policies', 'wpbooking'),
+						'type' => 'section_navigation',
+					),
+					array(
+						'label' => __('3. Policies /', 'wpbooking'),
 						'id'    => 'policies_tab',
 						'type'  => 'tab',
 					),
-//					array(
-//						'label' => __('Accommodates', 'wpbooking'),
-//						'id' => 'accommodates',
-//						'type' => 'text'
-//					),
 					array(
-						'label'          => __('External Booking?', 'wpbooking'),
-						'id'             => 'external_booking',
-						'type'           => 'checkbox',
-						'checkbox_label' => __('Yes', 'wpbooking')
+						'label' => __("Property Policies", 'wpbooking'),
+						'type'  => 'title',
 					),
 					array(
-						'label'     => __('External URL', 'wpbooking'),
-						'id'        => 'external_url',
-						'type'      => 'text',
-						'condition' => 'external_booking:is(1)'
-					),
-					array('type' => 'hr'),
-					array(
-						'id'             => 'require_customer_confirm',
-						'label'          => __("Require customer confirm the booking by send them an email", 'wpbooking'),
-						'type'           => 'checkbox',
-						'checkbox_label' => __('Yes', 'wpbooking')
+						'label'          => __('Deposit Type', 'wpbooking'),
+						'id'             => 'deposit_type',
+						'type'           => 'dropdown',
+						'value' => array(
+							'value'   => __('Value', 'wpbooking'),
+							'percent' => __('Percent', 'wpbooking'),
+						),
+						'class' => 'small'
 					),
 					array(
-						'id'             => 'require_partner_confirm',
-						'label'          => __("Require partner confirm the booking", 'wpbooking'),
-						'type'           => 'checkbox',
-						'checkbox_label' => __('Yes', 'wpbooking')
+						'label' => __('Deposit Amount', 'wpbooking'),
+						'id'    => 'deposit_amount',
+						'type'  => 'money_input',
+						'class' => 'small'
 					),
-					array('type' => 'hr'),
-//                array(
-//                    'label' => __('Instant Booking?', 'wpbooking'),
-//                    'id' => 'instant_booking',
-//                    'type' => 'checkbox',
-//                    'value' => array(
-//                        'yes' => __('Yes', 'wpbooking')
-//                    ),
-//                ),
-//					array(
-//						'label' => __('Day not available from - to days', 'wpbooking'),
-//						'id'    => 'day_not_available',
-//						'type'  => 'text',
-//					),
-//					array(
-//						'label' => __('Preparations', 'wpbooking'),
-//						'id'    => 'preparations',
-//						'type'  => 'text',
-//					),
+					array(
+						'label' => __('Minimum Stay', 'wpbooking'),
+						'id'    => 'minimum_stay',
+						'type'  => 'dropdown',
+						'value' => array(
+							1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,21,22,23,24,25,26,27,28,29,30
+						),
+						'class' => 'small'
+					),
+					array(
+						'label' => __('Cancellation Allowed', 'wpbooking'),
+						'id'    => 'cancellation_allowed',
+						'type'  => 'on-off',
+						'std'=>1,
+						'container_class'=>'mb35'
+					),
+					array(
+						'label' => __('Terms & Conditions', 'wpbooking'),
+						'id'    => 'terms_conditions',
+						'type'  => 'textarea',
+					),
+					array(
+						'label' => __("Host's Regulations", 'wpbooking'),
+						'id'    => 'host_regulations',
+						'type'  => 'list-item',
+						'value'=>array(
+							array(
+								'id'=>'icon',
+								'label'=>esc_html__('Visual Icon','wpbooking'),
+								'type'=>'icon_select'
+							),
+							array(
+								'id'=>'content',
+								'label'=>esc_html__('Content','wpbooking'),
+								'type'=>'textarea'
+							),
+						)
+					),
+					array(
+						'label' => __("Check In & Check Out", 'wpbooking'),
+						'type'  => 'title',
+					),
+					array(
+						'label' => __('Instructions', 'wpbooking'),
+						'id'    => 'check_in_out_instructions',
+						'type'  => 'textarea',
+					),
+					array(
+						'label' => __('Check In Time', 'wpbooking'),
+						'id'    => 'check_in_time',
+						'type'  => 'time_select',
+					),
+					array(
+						'label' => __('Check Out Time', 'wpbooking'),
+						'id'    => 'check_out_time',
+						'type'  => 'time_select',
+					),
+
+					array(
+						'label' => __("Cancellation Policies", 'wpbooking'),
+						'type'  => 'title',
+					),
+					array(
+						'type'  => 'cancellation_policies_text',
+					),
 					array(
 						'label' => __('<i class="fa fa-sliders"></i> Amenities', 'wpbooking'),
 						'id'    => 'amelities_tab',
@@ -430,27 +475,6 @@ if (!class_exists('WPBooking_Admin_Service')) {
 //						'type' => 'text',
 //						'condition' => 'long_terms:is(yes)'
 //					),
-					array(
-						'label' => __('Extra Price', 'wpbooking'),
-						'id'    => 'extra_price',
-						'type'  => 'list-item',
-						'value' => array(
-							array(
-								'id'    => 'price',
-								'label' => __('Price', 'wpbooking'),
-								'type'  => 'text',
-							),
-							array(
-								'label' => __('Type', 'wpbooking'),
-								'id'    => 'type',
-								'type'  => 'dropdown',
-								'value' => array(
-									'fixed'     => __('Fixed', 'wpbooking'),
-									'per_night' => __('Per Night', 'wpbooking'),
-								),
-							),
-						)
-					),
 					array(
 						'label' => __('Allow Deposit?', 'wpbooking'),
 						'id'    => 'deposit',

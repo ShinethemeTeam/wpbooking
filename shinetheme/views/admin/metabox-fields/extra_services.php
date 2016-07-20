@@ -49,7 +49,7 @@ if(!empty($service_types)){
 												<option value="yes"><?php esc_html_e('Yes','wpbooking') ?></option>
 												<option value="no"><?php esc_html_e('No','wpbooking') ?></option>
 											</select>
-											<span class="help_inline"><?php esc_html_e('Required') ?></span>
+											<span class="help_inline"><?php esc_html_e('Required','wpbooking') ?></span>
 										</div>
 									</div>
 								<?php
@@ -58,8 +58,27 @@ if(!empty($service_types)){
 							}?>
 						</div>
 						<div class="add-new-extra-service">
+							<div class="hidden extra-item-default ">
+								<div class="extra-item">
+									<label class="title" ><input type="checkbox" value=""  name="">
+										<span class="extra-item-name"></span></label>
+									<div class="money-number">
+										<div class="input-group ">
+											<span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
+											<input type="text" class="form-control" value="" name=""  >
+										</div>
+									</div>
+									<div class="require-options">
+										<select name="" >
+											<option value="yes"><?php esc_html_e('Yes','wpbooking') ?></option>
+											<option value="no"><?php esc_html_e('No','wpbooking') ?></option>
+										</select>
+										<span class="help_inline"><?php esc_html_e('Required') ?></span>
+									</div>
+								</div>
+							</div>
 							<input type="text" class="service-name form-control" placeholder="<?php esc_html_e('Extra Service Name','wpbooking') ?>">
-							<a href="#" onclick="return false" class="button wb-btn-add-extra-service" data-
+							<a href="#" onclick="return false" class="button wb-btn-add-extra-service" data-id="<?php echo esc_attr($data['id']) ?>" data-type
 							="<?php echo esc_attr($type_id) ?>" ><?php esc_html_e('Add New','wpbooking') ?> <i class="fa fa-spin  fa-spinner loading-icon"></i></a>
 						</div>
 					</div>

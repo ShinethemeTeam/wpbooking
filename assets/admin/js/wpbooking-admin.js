@@ -653,5 +653,108 @@ jQuery(document).ready(function( $ ){
     $('.wb-help-popover').popover({
         container:'body',
         template:'<div class="popover wb-help-popover-el" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
-    })
+    });
+
+    // Next, Prev Button
+    $('.wb-prev-section').click(function(){
+        var h=$('#st_post_metabox').offset().top;
+        $('.st-metabox-nav li.ui-state-active').prev().find('a').trigger('click');
+        $('html,body').animate('scrollTop',parseInt(h)+100);
+        return false;
+    });
+    $('.wb-next-section').click(function(){
+        var h=$('#st_post_metabox').offset().top;
+        $('.st-metabox-nav li.ui-state-active').next().find('a').trigger('click');
+
+        $('html,body').animate('scrollTop',parseInt(h)+100);
+        return false;
+    });
+
+    // Ajax Create Term
+    $('.wb-btn-add-term').click(function(){
+        var parent=$(this).parent();
+        var me=$(this);
+        var list_terms=$(this).closest('.st-metabox-right').find('.list-terms-checkbox');
+        var term_name=parent.find('.term-name').val();
+        var tax_name=me.data('tax');
+        if(!term_name) return false;
+
+        parent.addClass('loading');
+        $.ajax({
+            url:wpbooking_params.ajax_url,
+            type:'post',
+            dataType:'json',
+            data:{
+                action:'wpbooking_add_term',
+                term_name:term_name,
+                taxonomy:tax_name
+            },
+            success:function(res){
+                parent.removeClass('loading');
+                if(res.status){
+                    if(res.data.term_id && res.data.name){
+                        var input_name=me.data('name');
+                        list_terms.append('<div class="term-checkbox"><label><input type="checkbox" name="'+input_name+'['+tax_name+'][]" value="'+res.data.term_id+'"><span>'+res.data.name+'</span></label></div>')
+                    }
+                    parent.find('.term-name').val('');
+                }
+                if(res.message){
+                    alert(res.message);
+                }
+            },
+            error:function(e){
+                parent.removeClass('loading');
+                list_terms.append(e.responseText);
+            }
+        })
+    });
+
+    // Add Extra Services
+    $('.wb-btn-add-extra-service').click(function(){
+        var parent=$(this).parent();
+        var wrap=$(this).closest('.add-new-extra-service');
+        var me=$(this);
+        var list_terms=$(this).closest('.st-metabox-right').find('.list-extra-services');
+        var term_name=parent.find('.service-name ').val();
+        var service_type=me.data('type');
+        var id=me.data('id');
+        if(!term_name) return false;
+
+        parent.addClass('loading');
+        $.ajax({
+            url:wpbooking_params.ajax_url,
+            type:'post',
+            dataType:'json',
+            data:{
+                action:'wpbooking_add_extra_service',
+                service_name:term_name,
+                service_type:service_type
+            },
+            success:function(res){
+                parent.removeClass('loading');
+                if(res.status){
+
+                    var input_name=me.data('name');
+                    var html=wrap.find('.extra-item-default .extra-item');
+                    var count=list_terms.find('.extra-item').length;
+                    html.find('.title input').attr('name',id+'['+service_type+']'+'['+(count)+'][is_selected]');
+                    html.find('.title input').val(term_name);
+                    html.find('.extra-item-name').html(term_name);
+                    html.find('.money-number input').attr('name',id+'['+service_type+']'+'['+(count)+'][money]');
+                    html.find('.require-options select').attr('name',id+'['+service_type+']'+'['+(count)+'][require]');
+
+                    list_terms.append(html);
+
+                    parent.find('.service-name').val('');
+                }
+                if(res.message){
+                    alert(res.message);
+                }
+            },
+            error:function(e){
+                parent.removeClass('loading');
+                list_terms.append(e.responseText);
+            }
+        })
+    });
 });
