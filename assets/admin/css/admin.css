@@ -350,6 +350,34 @@ img.settings-demo-gallery {
   color: #fff;
   text-shadow: none;
 }
+.wpbooking-settings.cancellation_text .cancellation_text_content {
+  float: left;
+  margin-left: 30px;
+  width: 750px;
+}
+.wpbooking-settings.cancellation_text .cancellation_text_content .first-text {
+  font-style: italic;
+  margin-bottom: 30px;
+}
+.wpbooking-settings.cancellation_text .cancellation_text_content .wb-well {
+  background: #f1f1f1;
+  padding: 20px;
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+  color: #666666;
+}
+.wpbooking-settings.cancellation_text .cancellation_text_content .wb-well .wb-well-title {
+  font-weight: bold;
+  color: #ff9933;
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+.wpbooking-settings.cancellation_text .cancellation-help {
+  color: #999999;
+  font-style: italic;
+  float: right;
+  width: 440px;
+}
 .wpbooking-settings .button-secondary.hover,
 .wpbooking-settings .button-secondary:hover,
 .wpbooking-settings .button-secondary.focus,
@@ -723,6 +751,9 @@ img.settings-demo-gallery {
   margin-bottom: 10px;
   padding: 0px;
 }
+.st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .st-metabox-left label {
+  color: #999999;
+}
 .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .st-metabox-right {
   padding: 0px;
   margin-left: 0px;
@@ -857,7 +888,7 @@ input.gmap-search {
   float: left;
   padding: 5px;
   margin-bottom: -2px;
-  height: 42px;
+  height: 30px;
 }
 .wpbooking-list-item-wrapper .list-item-head .dashicons {
   float: left;
@@ -869,10 +900,9 @@ input.gmap-search {
   top: 0px;
   left: 0px;
   width: 100%;
-  line-height: 40px;
+  line-height: 30px;
   padding-left: 35px;
   z-index: 8;
-  font-weight: bold;
   color: #666666;
 }
 .wpbooking-list-item-wrapper .list-item-head .button-control {
@@ -883,6 +913,9 @@ input.gmap-search {
 }
 .wpbooking-list-item-wrapper .list-item-head .button-control a {
   color: #666666;
+  text-decoration: none;
+  margin-left: 15px;
+  font-weight: bold;
 }
 .wpbooking-list-item-wrapper .hidden {
   display: none !important;

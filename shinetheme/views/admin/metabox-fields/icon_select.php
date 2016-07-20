@@ -38,7 +38,11 @@ $field .= '<input id="'. esc_html( $data['id'] ).'" type="text" name="'. $name .
 	<div class="st-metabox-right">
 		<div class="st-metabox-content-wrapper">
 			<div class="form-group">
-				<?php echo ($field);
+				<div class="input-group">
+					<input data-placement="bottomRight" class="form-control icp icp-auto" value="<?php echo esc_html($old_data) ?>" type="text" />
+					<span class="input-group-addon"></span>
+				</div>
+				<?php
 				if(!empty($data['help_inline'])){
 					printf('<span class="help_inline">%s</span>',$data['help_inline']);
 				}

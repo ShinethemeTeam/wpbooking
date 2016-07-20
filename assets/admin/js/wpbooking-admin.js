@@ -502,6 +502,7 @@ jQuery(document).ready(function( $ ){
             $( ".wpbooking-list-item-wrapper .wpbooking-list" ).sortable({
                 cursor: "move"
             });
+            $('.icp-auto').iconpicker();
         }
         return false;
     });
@@ -757,4 +758,7 @@ jQuery(document).ready(function( $ ){
             }
         })
     });
+
+    // Icon picker
+    $('.icp-auto').iconpicker();
 });

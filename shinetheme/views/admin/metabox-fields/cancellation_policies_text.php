@@ -22,7 +22,7 @@
 					</ul>
 				</li>
 				<li><b>+ The Roomorama service fee of 15% is not refundable.</b></li>
-				<li>+ Penalty is calculated based on the listing’s local check in time (or 3:00 PM if not specified) on the day of check in.</li>
+				<li>+ Penalty is calculated based on the listing's local check in time (or 3:00 PM if not specified) on the day of check in.</li>
 			</ul>
 		</div>
 	</div>

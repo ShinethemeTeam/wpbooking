@@ -166,6 +166,38 @@ img.settings-demo-gallery{
         color: #fff;
         text-shadow: none;
     }
+    &.cancellation_text{
+        .cancellation_text_content{
+            float: left;
+            margin-left: 30px;
+            width: 750px;
+            .first-text{
+                font-style: italic;
+                margin-bottom: 30px;
+            }
+
+            .wb-well{
+                background: #f1f1f1;
+                padding:20px;
+                border:1px solid #cccccc;
+                border-radius: 2px;
+
+                .wb-well-title{
+                    font-weight: bold;
+                    color: #ff9933;
+                    margin-top:0px;
+                    margin-bottom: 20px;
+                }
+                color: #666666;
+            }
+        }
+        .cancellation-help{
+            color: #999999;
+            font-style: italic;
+            float: right;
+            width: 440px;
+        }
+    }
 }
 .wpbooking-settings .button-secondary.hover, .wpbooking-settings .button-secondary:hover, .wpbooking-settings .button-secondary.focus, .wpbooking-settings .button-secondary:focus {
     background: #9b3221 none repeat scroll 0 0;
@@ -580,6 +612,9 @@ img.settings-demo-gallery{
                 float: none;
                 margin-bottom: 10px;
                 padding:0px;
+                label{
+                    color: #999999;
+                }
             }
             .st-metabox-right{
                 padding:0px;
@@ -730,7 +765,7 @@ input.gmap-search{
         float: left;
         padding: 5px;
         margin-bottom: -2px;
-        height: 42px;
+        height: 30px;
         .dashicons{
             float: left;
             margin-top: 6px;
@@ -741,10 +776,9 @@ input.gmap-search{
             top: 0px;
             left: 0px;
             width: 100%;
-            line-height: 40px;
+            line-height: 30px;
             padding-left: 35px;
             z-index: 8;
-            font-weight: bold;
             color: #666666;
         }
         .button-control{
@@ -754,6 +788,9 @@ input.gmap-search{
             margin-top: 2px;
             a{
                 color: #666666;
+                text-decoration: none;
+                margin-left: 15px;
+                font-weight: bold;
             }
         }
     }
@@ -1742,6 +1779,7 @@ a.ui-datepicker-next {
 
             }
         }
+
     }
 
 }
