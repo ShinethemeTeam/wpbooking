@@ -139,7 +139,8 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			
 			wp_enqueue_script('moment-js',wpbooking_admin_assets_url('js/moment.min.js'),array('jquery'),null,true);
 
-			wp_enqueue_script('full-calendar',wpbooking_admin_assets_url('js/fullcalendar-yearview.js'),array('jquery', 'moment-js'),null,true);
+			//wp_enqueue_script('full-calendar',wpbooking_admin_assets_url('js/fullcalendar-yearview.js'),array('jquery', 'moment-js'),null,true);
+			wp_enqueue_script('full-calendar',wpbooking_admin_assets_url('js/fullcalendar.min.js'),array('jquery', 'moment-js'),null,true);
 
 			wp_enqueue_script('fullcalendar-lang', wpbooking_admin_assets_url('/js/lang-all.js'), array('jquery'), null, true);
 
@@ -157,7 +158,8 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 
 			wp_enqueue_style('open-sans-bold',$fonts);
 			wp_enqueue_style('iconpicker',wpbooking_assets_url('iconpicker/css/fontawesome-iconpicker.min.css'));
-			wp_enqueue_style('full-calendar',wpbooking_admin_assets_url('/css/fullcalendar-yearview.css'),FALSE,'1.1.6');
+			//wp_enqueue_style('full-calendar',wpbooking_admin_assets_url('/css/fullcalendar-yearview.css'),FALSE,'1.1.6');
+			wp_enqueue_style('full-calendar',wpbooking_admin_assets_url('/css/fullcalendar.min.css'),FALSE,'1.1.6');
 			//wp_enqueue_style('full-calendar-print',wpbooking_admin_assets_url('/css/fullcalendar.print.css'),FALSE,'1.1.6');
 
 			wp_enqueue_style('font-awesome',wpbooking_assets_url('fa4.5/css/font-awesome.min.css'),FALSE,'4.5.0');

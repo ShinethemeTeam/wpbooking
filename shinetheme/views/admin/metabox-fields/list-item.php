@@ -117,7 +117,7 @@ if(!empty($data['condition'])){
 	if( !empty( $data['value'] ) && is_array( $data['value'] ) ):
 ?>
 <div id="wpbooking-list-item-draft" style="display: none !important;">
-	<div class="wpbooking-list-item">
+	<div class="wpbooking-list-item active">
 		<div class="list-item-head">
 			
 <!--			<span class="dashicons dashicons-menu"></span>-->

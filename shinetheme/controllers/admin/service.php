@@ -254,7 +254,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'prev' => FALSE
 					),
 					array(
-						'label' => __('2. Details', 'wpbooking'),
+						'label' => __('2. Details /', 'wpbooking'),
 						'id'    => 'detail_tab',
 						'type'  => 'tab',
 					),
@@ -406,7 +406,6 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'id'    => 'check_out_time',
 						'type'  => 'time_select',
 					),
-
 					array(
 						'label' => __("Cancellation Policies", 'wpbooking'),
 						'type'  => 'title',
@@ -415,94 +414,50 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'type'  => 'cancellation_policies_text',
 					),
 					array(
-						'label' => __('<i class="fa fa-sliders"></i> Amenities', 'wpbooking'),
-						'id'    => 'amelities_tab',
+						'type' => 'section_navigation',
+					),
+					array(
+						'label' => __('4. Photos /', 'wpbooking'),
+						'id'    => 'photo_tab',
 						'type'  => 'tab',
 					),
 					array(
-						'label' => __('<i class="fa fa-money"></i> Pricing', 'wpbooking'),
-						'id'    => 'price_tab',
-						'type'  => 'tab',
+						'label' => __("Pictures", 'wpbooking'),
+						'type'  => 'title',
+					),
+					array(
+						'id'=>'gallery',
+						'type'=>'gallery',
+						'desc'=>__('Picture recommendations
+
+				We recommend having pictures in the following order (if available):
+
+				Living area
+				Bedroom(s)
+				Kitchen
+				View from the apartment/house
+				Exterior of apartment/building
+				Please no generic pictures of the city
+				Pictures showing animals, people, watermarks, logos and images composed of multiple
+				smaller images will be removed.','wpbooking')
 					),
 
 					array(
-						'label' => __('Base Price', 'wpbooking'),
-						'desc'  => __('Will be shown in frontend', 'wpbooking'),
-						'id'    => 'price',
-						'type'  => 'text',
+						'type' => 'section_navigation',
 					),
 					array(
-						'label' => __('Capacity of Service', 'wpbooking'),
-						'desc'  => __('Number of service allow to book', 'wpbooking'),
-						'id'    => 'number',
-						'type'  => 'number',
-						//'std'   => 1
-
-					),
-//					array(
-//						'label' => __('Currency', 'wpbooking'),
-//						'id' => 'currency',
-//						'type' => 'dropdown',
-//						'std' => 'usd',
-//						'value' =>WPBooking_Currency::get_added_currency_array()
-//					),
-					array(
-						'label' => __('Price Type', 'wpbooking'),
-						'id'    => 'price_type',
-						'type'  => 'dropdown',
-						'value' => array(
-							'fixed'     => __('Fixed', 'wpbooking'),
-							'per_night' => __('Per Night', 'wpbooking'),
-						),
-					),
-//					array(
-//						'label' => __('Long Terms?', 'wpbooking'),
-//						'id' => 'long_terms',
-//						'type' => 'checkbox',
-//						'value' => array(
-//							'yes' => __('Yes', 'wpbooking')
-//						),
-//					),
-//					array(
-//						'label' => __('Weekly Discount', 'wpbooking'),
-//						'id' => 'weekly_discount',
-//						'type' => 'text',
-//						'condition' => 'long_terms:is(yes)'
-//					),
-//					array(
-//						'label' => __('Monthly Discount', 'wpbooking'),
-//						'id' => 'monthly_discount',
-//						'type' => 'text',
-//						'condition' => 'long_terms:is(yes)'
-//					),
-					array(
-						'label' => __('Allow Deposit?', 'wpbooking'),
-						'id'    => 'deposit',
-						'type'  => 'dropdown',
-						'value' => array(
-							'none'    => __('None', 'wpbooking'),
-							'percent' => __('Percent', 'wpbooking'),
-							'fixed'   => __('Fixed', 'wpbooking'),
-						),
-					),
-					array(
-						'label' => __('Deposit Amount', 'wpbooking'),
-						'id'    => 'deposit_amount',
-						'type'  => 'text',
-						''
-					),
-					array(
-						'label' => __('<i class="fa fa-calendar-check-o"></i> Calendar', 'wpbooking'),
+						'label' => __('5. Calendar', 'wpbooking'),
 						'id'    => 'calendar_tab',
 						'type'  => 'tab',
 					),
 					array(
-						'label'        => __('Availability', 'wpbooking'),
-						'id'           => 'availability',
-						'type'         => 'calendar',
-						'service_type' => 'room'
+						'type'=>'title',
+						'label'=>esc_html__('Availability Template','wpbooking')
 					),
-
+					array(
+						'id'=>'calendar',
+						'type'=>'calendar'
+					)
 				)
 			);
 

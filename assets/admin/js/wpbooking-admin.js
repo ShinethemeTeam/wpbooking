@@ -511,6 +511,20 @@ jQuery(document).ready(function( $ ){
         var parent = $(this).closest('.list-item-head');
         parent.next().stop(true, true).toggleClass('hidden');
 
+        var list_item=$(this).closest('.wpbooking-list-item');
+        if(parent.next().hasClass('hidden')){
+            list_item.removeClass('active');
+        }else{
+            list_item.addClass('active');
+        }
+
+        //if(list_item.hasClass('active')){
+        //    list_item.removeClass('active');
+        //}else{
+        //    wrap.find('.wpbooking-list-item').removeClass('active');
+        //    list_item.addClass('active');
+        //}
+
         event.preventDefault();
         /* Act on the event */
     });
@@ -652,7 +666,7 @@ jQuery(document).ready(function( $ ){
 
     //Popover
     $('.wb-help-popover').popover({
-        container:'body',
+        //container:'body',
         template:'<div class="popover wb-help-popover-el" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
     });
 
