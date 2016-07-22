@@ -426,6 +426,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'type'  => 'title',
 					),
 					array(
+						'label' => __("Gallery", 'wpbooking'),
 						'id'=>'gallery',
 						'type'=>'gallery',
 						'desc'=>__('Picture recommendations

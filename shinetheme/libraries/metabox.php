@@ -270,6 +270,27 @@ if (!class_exists('WPBooking_Metabox')) {
 				} else if ('' == $new && $old) {
 					delete_post_meta($post_id, $field['id'], $old);
 				}
+
+				// Property Size
+				switch($field['type']){
+					case "property_size":
+						if(!empty($field['unit_id'])) update_post_meta($post_id,$field['unit_id'],$new);
+						break;
+
+					case "extra_services":
+						if(!empty($new)){
+							foreach($new as $new_key=>$new_item){
+								if(!empty($new_item)){
+									foreach( $new_item as $key=>$value){
+										if(empty($value['is_selected'])) unset($new[$new_key][$key]);
+									}
+								}
+							}
+						}
+
+						update_post_meta($post_id,$field['id'],$new);
+						break;
+				}
 			}
 
 			do_action('wpbooking_save_metabox', $post_id, $post_object);

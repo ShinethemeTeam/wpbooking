@@ -19,7 +19,8 @@ if(!empty($service_types)){
 						<div class="list-extra-services">
 							<?php
 							$old=get_post_meta(get_the_ID(),$data['id'],true);
-							if(isset($old[$type_id])) $old=$old[$type_id]; else $old=FALSE;
+							if(isset($old[$type_id])) $old=$old[$type_id]; else $old=array();
+
 
 							$extras=$type['object']->get_extra_services();
 							if(!empty($extras)){
@@ -28,7 +29,7 @@ if(!empty($service_types)){
 									$current=FALSE;
 									if(!empty($old)){
 										foreach($old as $old_item){
-											if($old_item['title']==$value['title']){
+											if(!empty($old_item['is_selected']) and $old_item['is_selected']==$value['title']){
 												$checked='checked';
 												$current=$old_item;
 											}

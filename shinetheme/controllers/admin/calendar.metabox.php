@@ -457,6 +457,8 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 						'start' => date( 'Y-m-d', $item['start'] ),
 						'end' => date('Y-m-d', strtotime( '+1 day', $item['end'] ) ),
 						'price' => (float) $item['price'],
+						'weekly' => (float) $item['weekly'],
+						'monthly' => (float) $item['monthly'],
 						'status' => $item['status'],
 						'group_day' => $item['group_day'],
 					);
