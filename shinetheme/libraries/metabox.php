@@ -274,7 +274,7 @@ if (!class_exists('WPBooking_Metabox')) {
 				// Property Size
 				switch($field['type']){
 					case "property_size":
-						if(!empty($field['unit_id'])) update_post_meta($post_id,$field['unit_id'],$new);
+						if(!empty($field['unit_id'])) update_post_meta($post_id,$field['unit_id'],WPBooking_Input::post($field['unit_id']));
 						break;
 
 					case "extra_services":
