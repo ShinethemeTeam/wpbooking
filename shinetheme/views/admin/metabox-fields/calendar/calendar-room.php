@@ -26,46 +26,53 @@ if(!empty($data['condition'])){
 				</div>
 				<div class="wpbooking-calendar-sidebar">
 					<div class="form-container calendar-room-form">
-						<div class="calendar-room-form-item" >
-							<label class="calendar-label" for="calendar-checkin"><?php echo __('From', 'wpbooking'); ?></label>
-							<input class="calendar-input date-picker" type="text" id="calendar-checkin" name="calendar-checkin" value="" readonly="readonly" placeholder="<?php echo __('From Date','wpbooking'); ?>">
+						<h4 class="form-title"><?php echo esc_html__('Price Preview') ?></h4>
+						<div class="calendar-room-form-item full-width" >
+							<label class="calendar-label" for="calendar-checkin"><?php echo __('Check In', 'wpbooking'); ?></label>
+							<div class="calendar-input-icon">
+								<input class="calendar-input date-picker" type="text" id="calendar-checkin" name="calendar-checkin" value="" readonly="readonly" placeholder="<?php echo __('From Date','wpbooking'); ?>">
+								<label for="calendar-checkin" class="fa"><i class="fa fa-calendar"></i></label>
+							</div>
 						</div>
-						<div class="calendar-room-form-item" >
-							<label class="calendar-label" for="calendar-checkout"><?php echo __('To', 'wpbooking'); ?></label>
-							<input class="calendar-input date-picker" type="text" id="calendar-checkout" name="calendar-checkout" value="" readonly="readonly" placeholder="<?php echo __('To Date','wpbooking'); ?>">
+						<div class="calendar-room-form-item full-width" >
+							<label class="calendar-label" for="calendar-checkout"><?php echo __('Check Out', 'wpbooking'); ?></label>
+							<div class="calendar-input-icon">
+								<input class="calendar-input date-picker" type="text" id="calendar-checkout" name="calendar-checkout" value="" readonly="readonly" placeholder="<?php echo __('To Date','wpbooking'); ?>">
+								<label for="calendar-checkout" class="fa"><i class="fa fa-calendar"></i></label>
+							</div>
 						</div>
-						<div class="calendar-room-form-item" >
+						<div class="calendar-room-form-item full-width" >
 							<label class="calendar-label" for="calendar-status"><?php echo __('Status', 'wpbooking'); ?></label>
 							<select name="calendar-status" id="calendar-status">
 								<option value="available"><?php echo __('Available','wpbooking'); ?></option>
 								<option value="not_available"><?php echo __('Not Available','wpbooking'); ?></option>
 							</select>
 						</div>
-						<div class="calendar-room-form-item" style="clear:both" >
+						<div class="calendar-room-form-item full-width" style="clear:both" >
 							<label class="calendar-label" for="calendar-price"><?php echo __('Nightly Price', 'wpbooking'); ?></label>
 							<input class="calendar-input" type="text" id="calendar-price" name="calendar-price" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
 						</div>
-						<div class="calendar-room-form-item" >
+						<div class="calendar-room-form-item full-width" >
 							<label class="calendar-label" for="calendar-price-week"><?php echo __('Weekly Price', 'wpbooking'); ?></label>
 							<input class="calendar-input-week" type="text" id="calendar-price-week" name="calendar-price-week" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
 						</div>
-						<div class="calendar-room-form-item" >
+						<div class="calendar-room-form-item full-width" >
 							<label class="calendar-label" for="calendar-price-month"><?php echo __('Montly Price', 'wpbooking'); ?></label>
 							<input class="calendar-input-month" type="text" id="calendar-price-month" name="calendar-price-month" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
 						</div>
-						<div class="calendar-room-form-item" >
-							<label class="calendar-label" for="calendar-can-check-in"><input class="calendar-can-check-in" type="checkbox" id="calendar-can-check-in" name="calendar-can-check-in" value="1" > <?php echo __('Can Check In?', 'wpbooking'); ?></label>
+						<div class="calendar-room-form-item full-width " >
+							<label class="calendar-label" for="calendar-can-check-in"><input data-style="icheckbox_square-orange" class="wb-icheck calendar-can-check-in" type="checkbox" id="calendar-can-check-in" name="calendar-can-check-in" value="1" > <?php echo __('Can Check In?', 'wpbooking'); ?></label>
 
 						</div>
-						<div class="calendar-room-form-item" >
-							<label class="calendar-label" for="calendar-can-check-out"><input class="calendar-can-check-out" type="checkbox" id="calendar-can-check-out" name="calendar-can-check-out" value="1" > <?php echo __('Can Check Out?', 'wpbooking'); ?></label>
+						<div class="calendar-room-form-item full-width" >
+							<label class="calendar-label" for="calendar-can-check-out"><input data-style="icheckbox_square-orange" class="wb-icheck calendar-can-check-out" type="checkbox" id="calendar-can-check-out" name="calendar-can-check-out" value="1" > <?php echo __('Can Check Out?', 'wpbooking'); ?></label>
 
 						</div>
 						<div class="clear"></div>
 						<div class="clearfix mb10" >
 							<input type="hidden" id="calendar-post-id" name="post_id" value="<?php echo esc_attr($post_id); ?>">
 							<input type="hidden" id="calendar-post-encrypt" name="calendar-post-encrypt" value="<?php echo wpbooking_encrypt( $post_id ); ?>">
-							<button type="button" id="calendar-save" class="button button-primary button-large"><?php echo __('Save','wpbooking'); ?></button>
+							<button type="button" id="calendar-save" class="button button-primary button-large button-success	"><?php echo __('Save','wpbooking'); ?></button>
 							<button type="button" id="calendar-bulk-edit" class="button button-large" style="float: right;"><?php echo __('Bulk Edit','wpbooking'); ?></button>
 						</div>
 						<div class="" style="margin-bottom: 10px;">

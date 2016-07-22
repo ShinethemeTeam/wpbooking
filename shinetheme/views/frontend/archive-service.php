@@ -7,14 +7,15 @@ if(get_query_var( 'paged' )) {
 } else {
     $paged = 1;
 }
+
+$is_page = get_the_ID();
 $args = array(
     'post_type' => 'wpbooking_service' ,
     's'         => '' ,
     'paged'     => $paged,
-    'posts_per_page'     => 3,
+    'posts_per_page'     => apply_filters('wpbooking_archive_posts_per_page',10,$is_page),
 );
 $service_type = '';
-$is_page = get_the_ID();
 $list_page_search = apply_filters("wpbooking_add_page_archive_search",array());
 if(!empty($list_page_search[$is_page]))
 {

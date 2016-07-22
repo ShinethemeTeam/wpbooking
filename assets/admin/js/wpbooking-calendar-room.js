@@ -16,6 +16,10 @@ jQuery(document).ready(function($) {
 		this.container = container;
 		this.calendar = null;
 		this.form_container = null;
+        this.last_start_date=false;
+        this.last_end_date=false;
+        this.onMouseDown=false;
+        this.selectedQueue=[];
 
 		this.init = function(){
 			self.container = container;
@@ -44,6 +48,13 @@ jQuery(document).ready(function($) {
                 //yearColumns: 3,
 				selectable: true,
 				select : function(start, end, jsEvent, view){
+                    self.last_start_date=moment(start._d);
+                    self.last_end_date=moment(end._d);
+                    var today_object=moment();
+                    // Check Past Date
+                    if(self.last_end_date.diff(today_object)<0){
+                        return false;
+                    }
 					var zone = moment(start._d).format('Z');
 							zone = zone.split(':');
 							zone = "" + parseInt(zone[0]) + ":00";
@@ -66,6 +77,14 @@ jQuery(document).ready(function($) {
 						var	check_out = moment(end._d).utcOffset(zone).subtract(1, 'day').format("MM/DD/YYYY");
 						setCheckInOut(check_in, check_out, self.form_container);
 					}
+
+                    //Highlight
+                    // Check not allow past date
+                    if(self.last_start_date.diff(today_object)<0){
+                        self.last_start_date=today_object;
+                    }
+                    self.showDateRange();
+
 				},
                 events:function(start, end, timezone, callback) {
                     $.ajax({
@@ -83,10 +102,14 @@ jQuery(document).ready(function($) {
                         success: function(doc){
                         	if(typeof doc == 'object'){
                             	callback(doc);
+
                         	}
+                            self.clearDateRange();
                         },
                         error:function(e){
                             alert('Can not get the availability slot. Lost connect with your sever');
+                            self.clearDateRange();
+
                         }
                     });
                 },
@@ -113,7 +136,79 @@ jQuery(document).ready(function($) {
                 },
 
 			});
+
+            // Event Click and Select Date Range
+            //$(document).on('mousedown','.fc-day',function(){
+            //    self.clearDateRange();
+            //    var date=$(this).data('date');
+            //    if(!date) return;
+            //    var moment_object=moment(date);
+            //    var today_object=moment();
+            //    // Check Past Date
+            //    if(moment_object.diff(today_object)<0){
+            //        return false;
+            //    }
+            //
+            //    self.calendar.addClass('on-selected');
+            //    self.last_start_date=moment_object;
+            //    self.onMouseDown=true;
+            //
+            //});
+            //$(document).on('mouseleave','.fc-day',function(){
+            //    if(!self.onMouseDown) return false;
+            //    $(this).removeClass('wb-highlight');
+            //});
+            //$(document).on('mouseup',function(){
+            //    self.last_start_date=false;
+            //    self.onMouseDown=false;
+            //});
+            //
+            //// Event Mouse Move
+            //$(document).on('mousemove','.fc-day',function(){
+            //    if(!self.last_start_date) return false;
+            //    if(!self.onMouseDown) return false;
+            //
+            //    var date=$(this).data('date');
+            //    if(!date) return;
+            //    var moment_object=moment(date);
+            //    var today_object=moment();
+            //    // Check Past Date
+            //    if(moment_object.diff(today_object)<0){
+            //        return false;
+            //    }
+            //
+            //    if(moment_object.diff(self.last_start_date)){
+            //        self.last_end_date=self.last_start_date;
+            //        self.last_start_date=moment_object;
+            //    }
+            //
+            //    $(this).addClass('wb-highlight');
+            //    self.calendar.find('.fc-content-skeleton [data-date='+ $(this).data('date')+']').addClass('wb-highlight');
+            //});
 		}
+
+        this.showDateRange=function(){
+            if(self.last_end_date && self.last_start_date){
+               self.calendar.find('.fc-bg .fc-day').removeClass('wb-highlight');
+               self.calendar.find('.fc-content-skeleton .fc-day-number').removeClass('wb-highlight');
+               var diff= self.last_end_date.diff(self.last_start_date,'days');
+                var temp=self.last_start_date;
+               for(i=1;i<=diff; i++){
+                   self.calendar.find('.fc-bg [data-date='+ temp.format('YYYY-MM-DD')+']').addClass('wb-highlight');
+                   self.calendar.find('.fc-content-skeleton [data-date='+ temp.format('YYYY-MM-DD')+']').addClass('wb-highlight');
+                   temp.add(1,'day');
+               }
+
+               self.calendar.addClass('on-selected');
+            }
+        }
+        this.clearDateRange=function(){
+
+            self.calendar.find('.fc-bg .fc-day').removeClass('wb-highlight');
+            self.calendar.find('.fc-content-skeleton .fc-day-number').removeClass('wb-highlight');
+            self.calendar.removeClass('on-selected');
+
+        }
     }
 
     function setCheckInOut(check_in, check_out, form_container){
@@ -155,7 +250,11 @@ jQuery(document).ready(function($) {
     			'post-id' : $('#calendar-post-id', parent).val(),
     			'post-encrypt' : $('#calendar-post-encrypt', parent).val(),
     			'action' : 'wpbooking_add_availability',
-    			'security': wpbooking_params.wpbooking_security
+    			'security': wpbooking_params.wpbooking_security,
+                'weekly':$('#calendar-price-week').val(),
+                'monthly':$('#calendar-price-month').val(),
+                'can_check_in':$('#calendar-can-check-in').val(),
+                'can_check_out':$('#calendar-can-check-out').val()
     		}
     		if( flag_add ) return false; flag_add = true;
 
@@ -177,17 +276,23 @@ jQuery(document).ready(function($) {
     					$('.form-message', parent).html( respon.message ).addClass( 'success' );
     				}
     			}
+                room_calendar.clearDateRange();
+
     		})
     		.fail(function() {
     			alert('Can not save data.');
-    		})
+                room_calendar.clearDateRange();
+
+                })
     		.always(function() {
     			flag_add = false;
 
     			$('.calendar-room', container).fullCalendar('refetchEvents');
 
     			$('.overlay', container).removeClass('open');
-    		});
+                room_calendar.clearDateRange();
+
+                });
     		
     		return false;
     	});

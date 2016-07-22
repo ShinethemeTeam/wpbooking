@@ -134,7 +134,13 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			 */
 			wp_register_script('iconpicker',wpbooking_assets_url('iconpicker/js/fontawesome-iconpicker.min.js'),array('jquery'),null,true);
 
-			wp_enqueue_script('wpbooking-admin',wpbooking_admin_assets_url('js/wpbooking-admin.js'),array('jquery','bootstrap', 'jquery-ui-core','iconpicker', 'jquery-ui-datepicker','jquery-ui-accordion'),null,true);
+			/**
+			 * Icheck
+			 */
+			wp_register_script('icheck',wpbooking_assets_url('icheck/icheck.min.js'),array('jquery'),null,true);
+			wp_register_style('icheck',wpbooking_assets_url('icheck/skins/square/_all.css'));
+
+			wp_enqueue_script('wpbooking-admin',wpbooking_admin_assets_url('js/wpbooking-admin.js'),array('jquery','bootstrap','icheck', 'jquery-ui-core','iconpicker', 'jquery-ui-datepicker','jquery-ui-accordion'),null,true);
 			wp_enqueue_script('wpbooking-admin-form-build',wpbooking_admin_assets_url('js/wpbooking-admin-form-build.js'),array('jquery'),null,true);
 			
 			wp_enqueue_script('moment-js',wpbooking_admin_assets_url('js/moment.min.js'),array('jquery'),null,true);
@@ -150,6 +156,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			//Popover
 			wp_register_style('popover',wpbooking_assets_url('bootstrap/less/popovers.css'));
 
+
 			// Admin Fonts
 			$fonts=add_query_arg(array(
 				'family'=>'Open+Sans:700,800',
@@ -163,7 +170,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			//wp_enqueue_style('full-calendar-print',wpbooking_admin_assets_url('/css/fullcalendar.print.css'),FALSE,'1.1.6');
 
 			wp_enqueue_style('font-awesome',wpbooking_assets_url('fa4.5/css/font-awesome.min.css'),FALSE,'4.5.0');
-			wp_enqueue_style('wpbooking-admin',wpbooking_admin_assets_url('css/admin.css'));
+			wp_enqueue_style('wpbooking-admin',wpbooking_admin_assets_url('css/admin.css'),array('icheck'));
 			wp_enqueue_style('wpbooking-admin-form-build',wpbooking_admin_assets_url('css/wpbooking-admin-form-build.css'));
 
 

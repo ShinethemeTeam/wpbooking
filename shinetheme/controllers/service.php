@@ -341,10 +341,15 @@ if (!class_exists('WPBooking_Service')) {
 
 			if (get_post_type($post_id) != 'wpbooking_service') return FALSE;
 
-			update_comment_meta($comment_id, 'wpbooking_review', WPBooking_Input::post('wpbooking_review'));
-			update_comment_meta($comment_id, 'wpbooking_review_detail', WPBooking_Input::post('wpbooking_review_detail'));
+			$validate=apply_filters('wpbooking_save_review_stats_validate',true,$post_id,$comment_id);
 
-			do_action('after_wpbooking_update_review_stats');
+			if($validate){
+
+				update_comment_meta($comment_id, 'wpbooking_review', WPBooking_Input::post('wpbooking_review'));
+				update_comment_meta($comment_id, 'wpbooking_review_detail', WPBooking_Input::post('wpbooking_review_detail'));
+			}
+
+			do_action('after_wpbooking_update_review_stats',$validate,$comment_id,$post_id);
 		}
 
 		function add_review_field($fields)

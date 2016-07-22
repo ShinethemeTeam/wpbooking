@@ -110,7 +110,7 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
                             <div class="fotorama" data-width="100%" data-allowfullscreen="true" data-nav="thumbs">
                                 <?php
                                 foreach($gallery as $k=>$v){
-                                    echo wp_get_attachment_image($v,'full');
+                                    echo wp_get_attachment_image($v,apply_filters('wpbooking_single_loop_image_size','full',$service_type,get_the_ID()));
                                 }
                                 ?>
                             </div>

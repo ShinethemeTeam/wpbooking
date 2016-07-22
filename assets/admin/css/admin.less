@@ -837,6 +837,7 @@ input.gmap-search{
         margin-top: 20px;
     }
 }
+@import "calendar.less";
 .wpbooking-calendar-wrapper{
     margin-top: 20px;
     .wpbooking-calendar-content{
@@ -844,37 +845,132 @@ input.gmap-search{
         width: 100%;
         float: left;
         padding-left: 15px;
-        padding-right: 15px;
+        padding-right: 40px;
         z-index: 1;
         .fc-scroller{
             height: auto!important;
+        }
+        .fc-highlight{
+            background: none;
+        }
+        .fc-unthemed .fc-divider, .fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead {
+             border-color: #cfd4d4;
+
+         }
+        .fc-past {
+            background: #dce0e0;
+
+            cursor: not-allowed;
+        }
+        .fc-content-skeleton{
+            .fc-day-number{
+                text-align: left;
+                font-size: 14px;
+                color: #757575;
+                background: none;
+            }
+        }
+        .fc-highlight-skeleton{
+            z-index: 0;
+        }
+        .fc-bg{
+            .fc-day{
+                cursor: pointer;
+                &.fc-past{
+                    cursor: not-allowed;
+                }
+            }
+        }
+
+
+        .calendar-room{
+            &.on-selected{
+                .fc-bg,.fc-content-skeleton{
+                    .fc-day{
+                        opacity: 0.32;
+                        &.wb-highlight{
+
+                            z-index: 2;
+                            -webkit-animation: anim-cal-tile-raised .4s ease;
+                            -moz-animation: anim-cal-tile-raised .4s ease;
+                            -o-animation: anim-cal-tile-raised .4s ease;
+                            animation: anim-cal-tile-raised .4s ease;
+                            -webkit-box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+                            -moz-box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+                            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+                            opacity: 1;
+                        }
+                    }
+                    .fc-day-number{
+                        opacity: 0.32;
+                    }
+                }
+
+            }
         }
     }
     .wpbooking-calendar-sidebar{
         width: 100%;
         float: left;
-        padding-left: 15px;
-        padding-right: 15px;
         .form-container{
-            padding: 7px;
             border: 1px solid #CCC;
+            background: #f1f1f1;
+            padding:20px;
+            border-radius: 2px;
+            input[type=text]{
+                padding:5px;
+            }
+            .form-title{
+                color: @maincolor;
+                margin: 0px;
+                margin-bottom: 20px;
+                margin-top: 10px;
+                font-weight: bold;
+                font-size: 20px;
+            }
             .calendar-label{
                 display: block;
-                font-weight: bold;
-                margin-bottom: 5px;
+                margin-bottom: 10px;
                 font-size: 15px;
+                color: #666666;
             }
             .calendar-input{
-                width: 100%;
+                //width: 100%;
             }
             .calendar-room-form-item{
                 .mb20;
                 float: left;
                 width: 50%;
-                padding: 0px 7px;
-                input{
-                    max-width: 100%;
+                input,select{
+                    width: 100%;
                 }
+
+                &.full-width{
+                    float: none;
+                    clear: both;
+                    width: auto;
+                }
+            }
+            .calendar-input-icon{
+                position: relative;
+                input{
+                    background: white;
+                    width: 100%;
+                }
+                >.fa{
+                    position: absolute;
+                    top: 5px;
+                    right: 3px;
+                    border: 1px solid #ccc;
+                    background: #ebebeb;
+                    border-radius: 2px;
+                    padding: 4px 7px;
+                }
+            }
+            .button-success{
+                background: #66cc66;
+                color: white;
+                border-color: #66cc66;
             }
         }
 

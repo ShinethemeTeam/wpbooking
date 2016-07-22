@@ -21,7 +21,7 @@
 						<div class="row">
 							<div class="col-md-3">
 								<?php if(has_post_thumbnail() and get_the_post_thumbnail()){
-									the_post_thumbnail( array( 200, 150 ) );
+									the_post_thumbnail( apply_filters('wpbooking_archive_loop_image_size',FALSE,$service_type,get_the_ID()) );
 								}?>
 
 

@@ -87,6 +87,10 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					$status = WPBooking_Input::post('status', '');
 
 					$group_day = WPBooking_Input::post('group_day','');
+					$can_check_in=WPBooking_Input::post('can_check_in');
+					$can_check_out=WPBooking_Input::post('can_check_out');
+					$weekly=WPBooking_Input::post('weekly');
+					$monthly=WPBooking_Input::post('monthly');
 
 					/* Get origin post id if use WPML */
 					$base_id = (int) wpbooking_origin_id( $post_id, 'wpbooking_service', true );
@@ -105,10 +109,10 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 					if( isset( $split['insert'] ) && !empty( $split['insert'] ) ){
 						foreach( $split['insert'] as $item ){
-							$this->wpbooking_insert_availability( $item['post_id'], $item['base_id'], $item['start'], $item['end'], $item['price'], $item['status'], $item['group_day']);
+							$this->wpbooking_insert_availability( $item['post_id'], $item['base_id'], $item['start'], $item['end'], $item['price'], $item['status'], $item['group_day'],$weekly,$monthly,$can_check_in,$can_check_out);
 						}
 					}
-					$new_item = $this->wpbooking_insert_availability( $post_id, $base_id, $check_in, $check_out, $price, $status, $group_day );
+					$new_item = $this->wpbooking_insert_availability( $post_id, $base_id, $check_in, $check_out, $price, $status, $group_day,$weekly,$monthly,$can_check_in,$can_check_out );
 
 					if( $new_item > 0 ){
 						echo json_encode( array(
@@ -388,7 +392,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 		}
 
-		public function wpbooking_insert_availability( $post_id = '', $base_id = '', $check_in = '', $check_out = '', $price = '', $status = '', $group_day = '' ){
+		public function wpbooking_insert_availability( $post_id = '', $base_id = '', $check_in = '', $check_out = '', $price = '', $status = '', $group_day = '',$weekly=FALSE,$monthly=FALSE,$can_check_in=FALSE,$can_check_out=FALSE){
 			global $wpdb;
 
 			$table = $wpdb->prefix. 'wpbooking_availability';
@@ -402,7 +406,11 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 						'end'       => $check_out,
 						'price'     => $price,
 						'status'    => $status,
-						'group_day' => $group_day
+						'group_day' => $group_day,
+						'monthly'=>$monthly,
+						'weekly'=>$weekly,
+						'can_check_in'=>$can_check_in,
+						'can_check_out'=>$can_check_out
 					)
 				);
 			}else{
@@ -416,7 +424,11 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 							'end'       => $i,
 							'price'     => $price,
 							'status'    => $status,
-							'group_day' => $group_day
+							'group_day' => $group_day,
+							'monthly'=>$monthly,
+							'weekly'=>$weekly,
+							'can_check_in'=>$can_check_in,
+							'can_check_out'=>$can_check_out
 						)
 					);
 				}

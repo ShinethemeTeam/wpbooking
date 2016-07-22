@@ -34,23 +34,23 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					'type'  => 'multi-checkbox',
 					'value' => array(
 						array(
-							'id'    => $this->type_id . '_enable_review',
+							'id'    => 'service_type_'.$this->type_id . '_enable_review',
 							'label' => __('Enable Review', 'wpbooking')
 						),
 						array(
-							'id'    => $this->type_id . '_allow_guest_review',
+							'id'    => 'service_type_'.$this->type_id . '_allow_guest_review',
 							'label' => __('Allow Guest Review', 'wpbooking')
 						),
 						array(
-							'id'    => $this->type_id . '_review_without_booking',
+							'id'    => 'service_type_'.$this->type_id . '_review_without_booking',
 							'label' => __('Review Without Booking', 'wpbooking')
 						),
 						array(
-							'id'    => $this->type_id . '_show_rate_review_button',
+							'id'    => 'service_type_'.$this->type_id . '_show_rate_review_button',
 							'label' => __('Show Rate (Help-full) button in each review?', 'wpbooking')
 						),
 						array(
-							'id'    => $this->type_id . '_required_partner_approved_review',
+							'id'    => 'service_type_'.$this->type_id . '_required_partner_approved_review',
 							'label' => __('Review require Partner Approved?', 'wpbooking')
 						),
 					)
@@ -133,6 +133,40 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			// Change Search Query
 			add_action('wpbooking_before_service_query_' . $this->type_id, array($this, '_add_change_query'));
 			add_action('wpbooking_after_service_query_' . $this->type_id, array($this, '_remove_change_query'));
+
+			add_filter('comments_open',array($this,'_comments_open'),10,2);
+			add_action('pre_comment_on_post',array($this,'_validate_comment'));
+			add_filter('pre_comment_approved',array($this,'_pre_comment_approved'));
+
+			// wpbooking_archive_posts_per_page
+
+			add_filter('wpbooking_archive_posts_per_page',array($this,'_change_posts_per_page'),10,2);
+
+			//wpbooking_archive_loop_image_size
+			add_filter('wpbooking_archive_loop_image_size',array($this,'_apply_thumb_size'),10,3);
+			add_filter('wpbooking_single_loop_image_size',array($this,'_apply_gallery_size'),10,3);
+
+			add_action('after_setup_theme',array($this,'_add_image_size'));
+
+		}
+
+		function _add_image_size()
+		{
+			$thumb=$this->thumb_size('150,150,off');
+			$thumb=explode(',',$thumb);
+			if(count($thumb)==3){
+				if($thumb[2]=='off') $thumb[2]=FALSE;
+
+				add_image_size('wpbooking_room_thumb_size',$thumb[0],$thumb[1],$thumb[2]=FALSE);
+			}
+
+			$thumb=$this->gallery_size('800,600,off');
+			$thumb=explode(',',$thumb);
+			if(count($thumb)==3){
+				if($thumb[2]=='off') $thumb[2]=FALSE;
+
+				add_image_size('wpbooking_room_gallery_size',$thumb[0],$thumb[1],$thumb[2]=FALSE);
+			}
 
 		}
 
@@ -544,6 +578,193 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 
 			return parent::_get_where_query($where);
+		}
+
+		/**
+		 * Validate Before Post Comment
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $comment_post_ID
+		 */
+		function _validate_comment($comment_post_ID)
+		{
+			$service_type=get_post_meta($comment_post_ID,'service_type',true);
+
+			if($service_type==$this->type_id){
+				// Validate start
+				$is_validated=true;
+
+				if(!$this->get_option('enable_review'))
+				{
+					wpbooking_set_message(esc_html__('This service is not allowed to write review','wpbooking'));
+					$is_validated=FALSE;
+				}
+
+				if(!$this->allow_guest_review() and !is_user_logged_in()){
+					wpbooking_set_message(esc_html__('You need login to write review','wpbooking'));
+					$is_validated=FALSE;
+				}
+
+				// room_maximum_review
+				if($max=$this->room_maximum_review() and is_user_logged_in()){
+					$comment=WPBooking_Comment_Model::inst();
+					$count=$comment->select('count(comment_ID) as total')->where(array('comment_post_ID'=>$comment_post_ID,'user_id'=>get_current_user_id()))->get()->row();
+					if(!empty($count['total']) and $count['total']>=$max){
+
+						wpbooking_set_message(sprintf(esc_html__('Maximum number of review you can post is %d','wpbooking'),$max));
+						$is_validated=FALSE;
+					}
+				}
+
+				// review_without_booking
+				if(!$this->review_without_booking() and is_user_logged_in()){
+					$order_item=WPBooking_Order_Model::inst();
+					$count=$order_item->select('count(id) as total')->where(array('post_id'=>$comment_post_ID,'customer_id'=>get_current_user_id()))->get()->row();
+					if(empty($count['total']) or $count['total']<1){
+
+						wpbooking_set_message(esc_html__('This Room required booking before writing review','wpbooking'));
+						$is_validated=FALSE;
+					}
+				}
+
+				$is_validated=apply_filters('wpbooking_validate_before_post_comment_service_type_room',$is_validated,$comment_post_ID);
+
+				if(!$is_validated){
+					wp_redirect(get_permalink($comment_post_ID));
+					die;
+				}
+			}
+		}
+
+		/**
+		 * Change Default of Comment Approved
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $approved
+		 * @param $commentdata
+		 * @return bool
+		 */
+		function _pre_comment_approved($approved, $commentdata)
+		{
+			if(!empty($commentdata['comment_post_ID'])){
+				$service_type=get_post_meta($commentdata['comment_post_ID'],'service_type',true);
+
+				if($service_type==$this->type_id){
+					if($this->required_partner_approved_review()){
+						$approved=0;
+					}
+				}
+
+			}
+			return $approved;
+		}
+
+		function _comments_open($open,$post_id)
+		{
+			$service_type=get_post_meta($post_id,'service_type',true);
+			if($service_type==$this->type_id){
+				$open=$this->get_option('enable_review');
+
+				if(!$this->allow_guest_review() and !is_user_logged_in()){
+					wpbooking_set_message(esc_html__('You need login to write review','wpbooking'));
+					$open=FALSE;
+				}
+
+				// room_maximum_review
+				if($max=$this->room_maximum_review() and is_user_logged_in()){
+					$comment=WPBooking_Comment_Model::inst();
+					$count=$comment->select('count(comment_ID) as total')->where(array('comment_post_ID'=>$post_id,'user_id'=>get_current_user_id()))->get()->row();
+					if(!empty($count['total']) and $count['total']>=$max){
+
+						wpbooking_set_message(sprintf(esc_html__('Maximum number of review you can post is %d','wpbooking'),$max));
+						$open=FALSE;
+					}
+				}
+
+				// review_without_booking
+				if(!$this->review_without_booking() and is_user_logged_in()){
+					$order_item=WPBooking_Order_Model::inst();
+					$count=$order_item->select('count(id) as total')->where(array('post_id'=>$post_id,'customer_id'=>get_current_user_id()))->get()->row();
+					if(empty($count['total']) or $count['total']<1){
+
+						wpbooking_set_message(esc_html__('This Room required booking before writing review','wpbooking'));
+						$open=FALSE;
+					}
+				}
+
+				if($open) $open='open';
+			}
+
+
+			return $open;
+		}
+
+		/**
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return bool|mixed|void
+		 */
+		function allow_guest_review()
+		{
+			return $this->get_option('allow_guest_review',FALSE);
+		}
+
+
+
+		function required_partner_approved_review(){
+			return $this->get_option('required_partner_approved_review',FALSE);
+		}
+
+		function room_maximum_review()
+		{
+			return $this->get_option('maximum_review');
+		}
+		function review_without_booking()
+		{
+			return $this->get_option('review_without_booking');
+		}
+
+		function posts_per_page(){
+			return $this->get_option('posts_per_page');
+		}
+
+		function _change_posts_per_page($posts_per_page,$template_id=FALSE)
+		{
+			if($template_id and $this->get_option('archive_page')==$template_id){
+				$posts_per_page=$this->posts_per_page();
+			}
+
+			return $posts_per_page;
+		}
+		function thumb_size($default=FALSE)
+		{
+			return $this->get_option('thumb_size',$default);
+		}
+
+		function gallery_size($default=FALSE)
+		{
+			return $this->get_option('gallery_size',$default);
+		}
+		function _apply_thumb_size($size,$service_type,$post_id)
+		{
+			if($service_type==$this->type_id){
+				$size='wpbooking_room_thumb_size';
+			}
+			return $size;
+		}
+		function _apply_gallery_size($size,$service_type,$post_id)
+		{
+			if($service_type==$this->type_id){
+
+				$size='wpbooking_room_gallery_size';
+			}
+			return $size;
 		}
 
 		static function inst()

@@ -152,6 +152,7 @@ jQuery(document).ready(function( $ ){
                 var imageHTML = '';
                 var metadataString = '';
                 images = file_frame.state().get('library');
+                console.log(images);
                 images.each(function(attachment) {
                     imageIDArray.push(attachment.attributes.id);
                     imageHTML += '<img class="demo-image-gallery settings-demo-gallery" src="'+attachment.attributes.url+'">';
@@ -231,7 +232,7 @@ jQuery(document).ready(function( $ ){
         _save_data_image_thumb(container);
     });
     $(document).on('change', '.wpbooking_image_thumb_crop', function(event) {
-        var container = $(this).parent();
+        var container = $(this).closest('td');
         _save_data_image_thumb(container);
     });
     function _save_data_image_thumb(container){
@@ -243,7 +244,9 @@ jQuery(document).ready(function( $ ){
         }else{
             var crop = 'off';
         }
-        var value = width+","+height+","+crop
+        console.log(crop);
+        var value = width+","+height+","+crop;
+        console.log(value);
         container.find('.data_value').val(value);
     }
 
@@ -306,7 +309,8 @@ jQuery(document).ready(function( $ ){
         container.find('.wpbooking_number_last_list_item').val(number_list);
     });
     $(document).on('click', '.btn_list_item_del', function (event) {
-        var confirm=confirm();
+        var confirm_delete=confirm('Are You Want To Delete It?');
+        if(!confirm_delete) return false;
         var container = $(this).parent().parent().parent();
         container.remove();
     });
@@ -775,4 +779,13 @@ jQuery(document).ready(function( $ ){
 
     // Icon picker
     $('.icp-auto').iconpicker();
+
+    /**
+     * I-Check
+     */
+    $('.wb-icheck').each(function(){
+        $(this).iCheck({
+            checkboxClass:$(this).data('style')
+        });
+    });
 });
