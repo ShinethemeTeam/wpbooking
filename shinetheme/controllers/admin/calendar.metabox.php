@@ -51,41 +51,43 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 
 					// Other day, in case Specific Periods Available
-					if(get_post_meta($post_id,'property_available_for',true)=='specific_periods'){
-						$all_days=array();
 
-						$begin = new DateTime( ); $begin->setTimestamp($check_in);
-						$end = new DateTime( );$end->setTimestamp($check_out);
+					$all_days=array();
 
-						$interval = DateInterval::createFromDateString('1 day');
-						$period = new DatePeriod($begin, $interval, $end);
+					$begin = new DateTime( ); $begin->setTimestamp($check_in);
+					$end = new DateTime( );$end->setTimestamp($check_out);
 
-						foreach ( $period as $dt )
-						{
-							$all_days[$dt->format('Y-m-d')]=array(
-								'start'=>$dt->format('Y-m-d'),
-								'end'=>$dt->format('Y-m-d'),
-								//'rendering'=>'background',
-								//'backgroundColor'=>'#dce0e0'
-								'status'=>'not_available'
-							);
+					$interval = DateInterval::createFromDateString('1 day');
+					$period = new DatePeriod($begin, $interval, $end);
 
+					foreach ( $period as $dt )
+					{
+						$all_days[$dt->format('Y-m-d')]=array(
+							'start'=>$dt->format('Y-m-d'),
+							'end'=>$dt->format('Y-m-d'),
+							//'rendering'=>'background',
+							//'backgroundColor'=>'#dce0e0'
+							'status'=>'available'
+						);
+						if(get_post_meta($post_id,'property_available_for',true)=='specific_periods'){
+							$all_days[$dt->format('Y-m-d')]['status']='not_available';
 						}
 
-						// Foreach Data
-						if(!empty($return)){
-							foreach($return as $day){
-								if(array_key_exists($day['start'],$all_days)){
-									unset($all_days[$day['start']]);
-								}
+					}
+
+					// Foreach Data
+					if(!empty($return)){
+						foreach($return as $day){
+							if(array_key_exists($day['start'],$all_days)){
+								unset($all_days[$day['start']]);
 							}
 						}
+					}
 
-						// Now append the exsits
-						if(!empty($all_days)){
-							foreach($all_days as $day){
-								$return[]=$day;
-							}
+					// Now append the exsits
+					if(!empty($all_days)){
+						foreach($all_days as $day){
+							$return[]=$day;
 						}
 					}
 

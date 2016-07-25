@@ -138,7 +138,9 @@ jQuery(document).ready(function($) {
 				eventRender: function(event, element, view){
 					var html = '';
 					if(event.status == 'available'){
-						html += '<div class="price"><div class="price-title">'+event.price_text+'</div></div>';
+                        if(typeof event.price_text!='undefined'){
+                            html += '<div class="price"><div class="price-title">'+event.price_text+'</div></div>';
+                        }
                         self.calendar.find('.fc-bg [data-date='+ event.start.format('YYYY-MM-DD')+']').removeClass('bg-disable');
 
 					}
