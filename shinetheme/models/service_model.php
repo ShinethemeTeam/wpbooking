@@ -15,24 +15,25 @@ if (!class_exists('WPBooking_Service_Model')) {
 
 		function __construct()
 		{
-			$this->table_version = '1.0.2.3';
+			$this->table_version = '1.0.2.4';
 			$this->table_name = 'wpbooking_service';
 			$this->columns = array(
-				'id'                => array(
+				'id'                     => array(
 					'type'           => "int",
 					'AUTO_INCREMENT' => TRUE
 				),
-				'post_id'           => array('type' => "INT"),
-				'price'             => array('type' => "FLOAT"),
-				'number'            => array('type' => "INT"),
-				'children_price'    => array('type' => "FLOAT"),
-				'infant_price'      => array('type' => "FLOAT"),
-				'max_people'        => array('type' => "INT"),
-				'next_days_blocked' => array('type' => "INT"),
-				'avg_review_rate'   => array('type' => "INT"),
-				'map_lat'           => array('type' => "FLOAT"),
-				'map_lng'           => array('type' => "FLOAT"),
-				'service_type'      => array('type' => "varchar", 'length' => "50"),
+				'post_id'                => array('type' => "INT"),
+				'price'                  => array('type' => "FLOAT"),
+				'number'                 => array('type' => "INT"),
+				'children_price'         => array('type' => "FLOAT"),
+				'infant_price'           => array('type' => "FLOAT"),
+				'max_people'             => array('type' => "INT"),
+				'next_days_blocked'      => array('type' => "INT"),
+				'avg_review_rate'        => array('type' => "INT"),
+				'map_lat'                => array('type' => "FLOAT"),
+				'map_lng'                => array('type' => "FLOAT"),
+				'service_type'           => array('type' => "varchar", 'length' => "50"),
+				'property_available_for' => array('type' => 'varchar', 'length' => 50)
 			);
 			parent::__construct();
 		}

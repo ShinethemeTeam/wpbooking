@@ -9,6 +9,7 @@ if(!empty($data['condition'])){
     $class .= ' wpbooking-condition';
     $data_class .= ' data-condition='.$data['condition'].' ' ;
 }
+$property_available_for=get_post_meta(get_the_ID(),'property_available_for',true);
 ?>
 
 <div class="<?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
@@ -20,7 +21,7 @@ if(!empty($data['condition'])){
 					<div class="overlay">
 						<span class="spinner is-active"></span>
 					</div>
-					<div class="calendar-room">
+					<div class="calendar-room <?php echo ($property_available_for=='specific_periods')?'specific_periods':FALSE ?>">
 						
 					</div>
 				</div>
@@ -79,9 +80,31 @@ if(!empty($data['condition'])){
 							
 						</div>
 						<div class="form-message" style="margin-bottom: 10px;">
-							
 						</div>
-					</div>	
+					</div>
+					<div class="form-container">
+
+						<div class="calendar-room-form-item full-width" >
+							<label class="calendar-label" ><?php echo __('This Property is available:', 'wpbooking'); ?></label>
+							<div class="calendar-input-icon mt20">
+								<label class="calendar-label wb-radio-input" ><input data-style="iradio_square-orange" class="wb-icheck property_available_forever" type="radio"  name="property_available_for" data-post-id="<?php the_ID()?>" value="forever" <?php if($property_available_for=='forever' or !$property_available_for) echo 'checked' ?> > <?php echo __('Forever', 'wpbooking'); ?></label>
+								<label class="calendar-label wb-radio-input" ><input data-style="iradio_square-orange" class="wb-icheck property_available_specific" type="radio"  name="property_available_for" data-post-id="<?php the_ID()?>" value="specific_periods" <?php if($property_available_for=='specific_periods') echo 'checked' ?> > <?php echo __('For specific periods', 'wpbooking'); ?></label>
+							</div>
+						</div>
+					</div>
+
+					<div class="calendar-help">
+						<div class="help-label"><?php esc_html_e('How to set Availability ?','wpbooking') ?></div>
+						<ul class="list">
+							<li>+ <?php esc_html_e('To set availability on your calendar:','wpbooking') ?>
+								<ul>
+									<li>- <?php esc_html_e('Click a day in the calendar to set a start date','wpbooking') ?></li>
+									<li>- <?php esc_html_e('Click another day to set the end date of the period you want to edit','wpbooking') ?></li>
+								</ul>
+							</li>
+							<li>+ <?php esc_html_e('A right sight table, allowing you to set availbility for that period','wpbooking')?></li>
+						</ul>
+					</div>
 					<div id="form-bulk-edit">
 						<div class="form-container">
 							<div class="overlay">

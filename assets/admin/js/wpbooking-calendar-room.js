@@ -1,15 +1,5 @@
 jQuery(document).ready(function($) {
-	$('.date-picker').datepicker({
-        dateFormat: "mm/dd/yy",
-        beforeShowDay: function(date){
-            var d = new Date();
-            if( date.getTime() < d.getTime()){
-                return [false];
-            }else{
-                return [true];
-            }
-        }
-    });
+
 
     var RoomCalendar = function( container ){
     	var self = this;
@@ -26,6 +16,8 @@ jQuery(document).ready(function($) {
 			self.calendar = $('.calendar-room', self.container);
 			self.form_container = $('.form-container', self.container);
 			self.initCalendar();
+            self.bindEvent();
+            //self.calendar.fullCalendar( 'refetchEvents' );
 		}
 
 		this.initCalendar = function(){
@@ -48,9 +40,10 @@ jQuery(document).ready(function($) {
                 //yearColumns: 3,
 				selectable: true,
 				select : function(start, end, jsEvent, view){
-                    self.last_start_date=moment(start._d);
-                    self.last_end_date=moment(end._d);
+                    self.last_start_date=moment(start.format('YYYY-MM-DD'));
+                    self.last_end_date=end;
                     var today_object=moment();
+                    today_object=moment(today_object.format('YYYY-MM-DD'));
                     // Check Past Date
                     if(self.last_end_date.diff(today_object)<0){
                         return false;
@@ -69,15 +62,15 @@ jQuery(document).ready(function($) {
 
 					var today_year = moment().format("YYYY");
 
-					if((start_date < today && start_year <= today_year) || (end_date < today && end_year <= today_year)){
-						self.calendar.fullCalendar('unselect');
-						setCheckInOut('', '', self.form_container);
-					}else{
-						var check_in = moment(start._d).utcOffset(zone).format("MM/DD/YYYY");
-						var	check_out = moment(end._d).utcOffset(zone).subtract(1, 'day').format("MM/DD/YYYY");
-						setCheckInOut(check_in, check_out, self.form_container);
-					}
-
+					//if((start_date < today && start_year <= today_year) || (end_date < today && end_year <= today_year)){
+					//	self.calendar.fullCalendar('unselect');
+					//	setCheckInOut('', '', self.form_container);
+					//}else{
+					//	var check_in = moment(start._d).format("MM/DD/YYYY");
+					//	var	check_out = moment(end._d).subtract(1, 'day').format("MM/DD/YYYY");
+					//	setCheckInOut(check_in, check_out, self.form_container);
+					//}
+                    setCheckInOut(self.last_start_date.format('MM/DD/YYYY'), self.last_end_date.format('MM/DD/YYYY'), self.form_container);
                     //Highlight
                     // Check not allow past date
                     if(self.last_start_date.diff(today_object)<0){
@@ -101,8 +94,7 @@ jQuery(document).ready(function($) {
                         },
                         success: function(doc){
                         	if(typeof doc == 'object'){
-                            	callback(doc);
-
+                            	callback(doc.data);
                         	}
                             self.clearDateRange();
                         },
@@ -114,16 +106,46 @@ jQuery(document).ready(function($) {
                     });
                 },
 				eventClick: function(event, element, view){
+
+                    setCheckInOut(self.last_start_date.format('MM/DD/YYYY'), self.last_end_date.format('MM/DD/YYYY'), self.form_container);
+
+                    $('#calendar-price').val(event.price);
+
+                    $('#calendar-status option[value='+event.status+']').prop('selected',true);
+
+                    $('#calendar-price-week').val(event.weekly);
+                    $('#calendar-price-month').val(event.monthly);
+                    if(event.can_check_in){
+                        $('.calendar-can-check-in').iCheck('check');
+                    }else{
+                        $('.calendar-can-check-in').iCheck('uncheck');
+                    }
+
+                    if(event.can_check_out){
+                        $('.calendar-can-check-out').iCheck('check');
+                    }else{
+                        $('.calendar-can-check-out').iCheck('uncheck');
+                    }
+
+                    // Show Date Range
+                    self.last_start_date=moment(event.start);
+                    self.last_end_date=moment(event.end);
+
+                    self.showDateRange();
+
                     return false;
 				},
 				eventRender: function(event, element, view){
 					var html = '';
 					if(event.status == 'available'){
-						html += '<div class="price">Price: '+event.price+'</div>';
-						
+						html += '<div class="price"><div class="price-title">'+event.price_text+'</div></div>';
+                        self.calendar.find('.fc-bg [data-date='+ event.start.format('YYYY-MM-DD')+']').removeClass('bg-disable');
+
 					}
 					if(typeof event.status == 'undefined' || event.status != 'available'){
-						html += '<div class="not_available">Not Available</div>';
+						html += '<div class="not_available"></div>';
+
+                        self.calendar.find('.fc-bg [data-date='+ event.start.format('YYYY-MM-DD')+']').addClass('bg-disable');
 					}
 					$('.fc-content', element).html(html);
 				},
@@ -137,62 +159,112 @@ jQuery(document).ready(function($) {
 
 			});
 
-            // Event Click and Select Date Range
-            //$(document).on('mousedown','.fc-day',function(){
-            //    self.clearDateRange();
-            //    var date=$(this).data('date');
-            //    if(!date) return;
-            //    var moment_object=moment(date);
-            //    var today_object=moment();
-            //    // Check Past Date
-            //    if(moment_object.diff(today_object)<0){
-            //        return false;
-            //    }
-            //
-            //    self.calendar.addClass('on-selected');
-            //    self.last_start_date=moment_object;
-            //    self.onMouseDown=true;
-            //
-            //});
-            //$(document).on('mouseleave','.fc-day',function(){
-            //    if(!self.onMouseDown) return false;
-            //    $(this).removeClass('wb-highlight');
-            //});
-            //$(document).on('mouseup',function(){
-            //    self.last_start_date=false;
-            //    self.onMouseDown=false;
-            //});
-            //
-            //// Event Mouse Move
-            //$(document).on('mousemove','.fc-day',function(){
-            //    if(!self.last_start_date) return false;
-            //    if(!self.onMouseDown) return false;
-            //
-            //    var date=$(this).data('date');
-            //    if(!date) return;
-            //    var moment_object=moment(date);
-            //    var today_object=moment();
-            //    // Check Past Date
-            //    if(moment_object.diff(today_object)<0){
-            //        return false;
-            //    }
-            //
-            //    if(moment_object.diff(self.last_start_date)){
-            //        self.last_end_date=self.last_start_date;
-            //        self.last_start_date=moment_object;
-            //    }
-            //
-            //    $(this).addClass('wb-highlight');
-            //    self.calendar.find('.fc-content-skeleton [data-date='+ $(this).data('date')+']').addClass('wb-highlight');
-            //});
 		}
+
+        this.bindEvent=function(){
+            $('.st-metabox-nav li>a[href=#st-metabox-tab-item-calendar_tab]').click(function(){
+                self.calendar.fullCalendar( 'refetchEvents' );
+            });
+            $('#calendar-checkin').datepicker({
+                dateFormat: "mm/dd/yy",
+                beforeShowDay: function(date){
+                    var d = new Date();
+                    if( date.getTime() < d.getTime()){
+                        return [false];
+                    }else{
+                        return [true];
+                    }
+                },
+                onSelect:function(date_string){
+                    var dt=new Date(date_string);
+                    var end_dt=new Date($('#calendar-checkout').val());
+
+                    if(dt<=end_dt){
+                        self.last_start_date=moment(date_string);
+                        self.showDateRange();
+                    }else{
+                        $('#calendar-checkout').val('');
+                        self.last_end_date=false;
+                        $('#calendar-checkout').datepicker('show');
+                    }
+
+                }
+            });
+            $('#calendar-checkout').datepicker({
+                dateFormat: "mm/dd/yy",
+                beforeShowDay: function(date){
+                    var d = new Date();
+                    if( date.getTime() < d.getTime()){
+                        return [false];
+                    }else{
+                        return [true];
+                    }
+                },
+                onSelect:function(date_string){
+                    var dt=new Date($('#calendar-checkin').val());
+                    var end_dt=new Date(date_string);
+                    if(dt<=end_dt){
+                        self.last_start_date=moment(date_string);
+                        self.showDateRange();
+                    }else{
+                        $('#calendar-in').val('');
+                        self.last_start_date=false;
+                        $('#calendar-checkin').datepicker('show');
+                    }
+                }
+            });
+
+            $('.property_available_forever').on('ifChecked',function() {
+                var val = $(this).val();
+                // Show Loading
+                self.ajaxSavePropertyAvailableFor(val,$(this).data('post-id'));
+            });
+            $('.property_available_specific').on('ifChecked',function() {
+                var val = $(this).val();
+                // Show Loading
+                self.ajaxSavePropertyAvailableFor(val,$(this).data('post-id'));
+            });
+
+            // Check In
+
+        };
+        this.ajaxSavePropertyAvailableFor=function(val,post_id){
+                $('.overlay', self.container).addClass('open');
+                if(val=='specific_periods'){
+                    self.calendar.addClass('specific_periods');
+                }else{
+                    self.calendar.removeClass('specific_periods');
+                }
+                // do ajax save the reload the calendar
+                $.ajax({
+                    url:wpbooking_params.ajax_url,
+                    data:{
+                        action:'wpbooking_save_property_available_for',
+                        property_available_for:val,
+                        post_id:post_id
+                    },
+                    dataType:'json',
+                    type:'post',
+                    success:function(){
+                        $('.overlay', self.container).removeClass('open');
+
+                        self.calendar.fullCalendar( 'refetchEvents' );
+                    },
+                    error:function(e){
+                        console.log(e.responseText);
+                        alert('Can you save the value');
+                        $('.overlay', self.container).removeClass('open');
+                    }
+                });
+
+        }
 
         this.showDateRange=function(){
             if(self.last_end_date && self.last_start_date){
                self.calendar.find('.fc-bg .fc-day').removeClass('wb-highlight');
                self.calendar.find('.fc-content-skeleton .fc-day-number').removeClass('wb-highlight');
                var diff= self.last_end_date.diff(self.last_start_date,'days');
-                var temp=self.last_start_date;
+               var temp=self.last_start_date;
                for(i=1;i<=diff; i++){
                    self.calendar.find('.fc-bg [data-date='+ temp.format('YYYY-MM-DD')+']').addClass('wb-highlight');
                    self.calendar.find('.fc-content-skeleton [data-date='+ temp.format('YYYY-MM-DD')+']').addClass('wb-highlight');

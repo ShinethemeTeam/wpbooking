@@ -14,6 +14,9 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 			add_action('wp_ajax_wpbooking_add_availability', array( $this, '_add_availability') );
 
 			add_action('wp_ajax_wpbooking_calendar_bulk_edit', array( $this, '_calendar_bulk_edit') );
+
+			// Ajax Save Property For
+			add_action('wp_ajax_wpbooking_save_property_available_for',array($this,'_save_property_available_for'));
 		}
 
 		/**
@@ -46,7 +49,53 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 					$return = $this->get_availability( $base_id, $check_in, $check_out );
 
-					echo json_encode( $return );
+
+					// Other day, in case Specific Periods Available
+					if(get_post_meta($post_id,'property_available_for',true)=='specific_periods'){
+						$all_days=array();
+
+						$begin = new DateTime( ); $begin->setTimestamp($check_in);
+						$end = new DateTime( );$end->setTimestamp($check_out);
+
+						$interval = DateInterval::createFromDateString('1 day');
+						$period = new DatePeriod($begin, $interval, $end);
+
+						foreach ( $period as $dt )
+						{
+							$all_days[$dt->format('Y-m-d')]=array(
+								'start'=>$dt->format('Y-m-d'),
+								'end'=>$dt->format('Y-m-d'),
+								//'rendering'=>'background',
+								//'backgroundColor'=>'#dce0e0'
+								'status'=>'not_available'
+							);
+
+						}
+
+						// Foreach Data
+						if(!empty($return)){
+							foreach($return as $day){
+								if(array_key_exists($day['start'],$all_days)){
+									unset($all_days[$day['start']]);
+								}
+							}
+						}
+
+						// Now append the exsits
+						if(!empty($all_days)){
+							foreach($all_days as $day){
+								$return[]=$day;
+							}
+						}
+					}
+
+
+
+					$data=array(
+						'data'=>$return
+					);
+
+					echo json_encode( $data );
 					die;
 
 				}
@@ -450,18 +499,25 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 			if( !empty( $result ) ){
 				foreach( $result as $item ){
-					$return[] = array(
+					$item_array= array(
 						'id' => $item['id'],
 						'post_id' => $item['post_id'],
 						'base_id' => $item['base_id'],
 						'start' => date( 'Y-m-d', $item['start'] ),
 						'end' => date('Y-m-d', strtotime( '+1 day', $item['end'] ) ),
 						'price' => (float) $item['price'],
+						'price_text' => WPBooking_Currency::format_money($item['price']),
 						'weekly' => (float) $item['weekly'],
 						'monthly' => (float) $item['monthly'],
 						'status' => $item['status'],
 						'group_day' => $item['group_day'],
 					);
+//					if($item['status']=='not_available'){
+//						$item_array['rendering']='background';
+//						$item_array['backgroundColor']='#dce0e0';
+//					}
+
+					$return[] =$item_array;
 				}
 			}
 
@@ -510,6 +566,28 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 			}
 
 			return $return;
+		}
+
+		/**
+		 * Ajax Handler for save property available for
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 */
+		function _save_property_available_for()
+		{
+			$post_id=WPBooking_Input::post('post_id');
+			if(!$post_id) return FALSE;
+
+			$property_available_for=WPBooking_Input::post('property_available_for');
+			update_post_meta($post_id,'property_available_for',$property_available_for);
+			WPBooking_Service_Model::inst()->where('post_id',$post_id)->update(array(
+				'property_available_for'=>$property_available_for
+			));
+
+			echo json_encode(array('status'=>1));
+			die;
 		}
 
 		static function inst()

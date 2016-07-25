@@ -728,6 +728,7 @@ jQuery(document).ready(function( $ ){
         })
     });
 
+
     // Add Extra Services
     $('.wb-btn-add-extra-service').click(function(){
         var parent=$(this).parent();
@@ -785,7 +786,10 @@ jQuery(document).ready(function( $ ){
      */
     $('.wb-icheck').each(function(){
         $(this).iCheck({
-            checkboxClass:$(this).data('style')
+            checkboxClass:$(this).data('style'),
+            radioClass:$(this).data('style'),
         });
     });
+
+
 });

@@ -21,6 +21,8 @@ if (!class_exists('WPBooking_Admin_Service')) {
 			add_action('init', array($this, '_add_metabox'));
 			add_action('save_post', array($this, '_save_extra_field'));
 			add_filter('wpbooking_settings', array($this, '_add_settings'));
+
+			// Ajax save property
 		}
 
 
@@ -56,7 +58,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				'name_admin_bar'     => _x('Service', 'add new on admin bar', 'wpbooking'),
 				'add_new'            => _x('Add New', 'service', 'wpbooking'),
 				'add_new_item'       => __('Add New Service', 'wpbooking'),
-				'new_item'           => __('New Service', 'your-plugin-textdomain'),
+				'new_item'           => __('New Service', 'wpbooking'),
 				'edit_item'          => __('Edit Service', 'wpbooking'),
 				'view_item'          => __('View Service', 'wpbooking'),
 				'all_items'          => __('All Services', 'wpbooking'),

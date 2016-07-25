@@ -7,6 +7,9 @@
 .mb10{
     margin-bottom: 10px;
 }
+.mt20{
+    margin-top: 20px;
+}
 .clearfix{
     &:after{
         clear: both;
@@ -859,15 +862,15 @@ input.gmap-search{
          }
         .fc-past {
             background: #dce0e0;
-
             cursor: not-allowed;
         }
         .fc-content-skeleton{
             .fc-day-number{
                 text-align: left;
                 font-size: 14px;
-                color: #757575;
                 background: none;
+                color: #777676;
+                font-weight: bold;
             }
         }
         .fc-highlight-skeleton{
@@ -881,31 +884,115 @@ input.gmap-search{
                 }
             }
         }
-
-
+        .fc-unthemed .fc-today{
+            background: none;
+        }
+        .fc-bgevent{
+            opacity: 1;
+            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAJTpkz5zwjjgzg5OTmMYAEYB8RmROaABADNNQ7Ag/fD+gAAAABJRU5ErkJggg==");
+        }
+        .fc-row .fc-bg {
+            z-index: 3;
+        }
         .calendar-room{
             &.on-selected{
                 .fc-bg,.fc-content-skeleton{
                     .fc-day{
                         opacity: 0.32;
-                        &.wb-highlight{
+                        background-color: #ccc;
+                        &.bg-disable{
+                            opacity: 0.6;
 
+                        }
+                        &.wb-highlight{
+                            position: relative;
+                            background: white;
                             z-index: 2;
                             -webkit-animation: anim-cal-tile-raised .4s ease;
                             -moz-animation: anim-cal-tile-raised .4s ease;
                             -o-animation: anim-cal-tile-raised .4s ease;
                             animation: anim-cal-tile-raised .4s ease;
-                            -webkit-box-shadow: 0 8px 16px rgba(0,0,0,0.12);
-                            -moz-box-shadow: 0 8px 16px rgba(0,0,0,0.12);
-                            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+                            //-webkit-box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+                            //-moz-box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+                            //box-shadow: 0 8px 1px rgba(0,0,0,0.75);
                             opacity: 1;
+                            &:before{
+                                content: "";
+                                border: 2px solid @maincolor;
+                                position: absolute;
+                                bottom:0px;
+                                left: 0px;
+                                right: 0px;
+                            }
+
+                        }
+                        &.fc-past{
+                            background: #4a4a4a;
                         }
                     }
                     .fc-day-number{
                         opacity: 0.32;
                     }
+
+
                 }
 
+            }
+            .bg-disable{
+                background-color: #dce0e0;
+                background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAJTpkz5zwjjgzg5OTmMYAEYB8RmROaABADNNQ7Ag/fD+gAAAABJRU5ErkJggg==");
+            }
+            //&.specific_periods{
+            //    .fc-day{
+            //        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAJTpkz5zwjjgzg5OTmMYAEYB8RmROaABADNNQ7Ag/fD+gAAAABJRU5ErkJggg==");
+            //        background-color: #dce0e0;
+            //    }
+            //}
+            .fc-content-skeleton{
+                cursor: pointer;
+                height: 100%;
+                >table{
+                    height: 100%;
+                    .fc-event-container{
+                        vertical-align: bottom;
+                        position: relative;
+                        .fc-event{
+                            position: static;
+                            background: none;
+                            color: #de8650;
+                            border:none;
+                            font-weight: bold;
+                            font-size: 13px;
+                            margin-bottom: 2px;
+                            .fc-content{
+                                position: static;
+                                .not_available{
+                                    //background-color: #dce0e0;
+                                    position: absolute;
+                                    top:-22px;
+                                    right:0px;
+                                    bottom:-3px;
+                                    left: 0px;
+                                    //background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAJTpkz5zwjjgzg5OTmMYAEYB8RmROaABADNNQ7Ag/fD+gAAAABJRU5ErkJggg==");
+                                }
+
+                                .price{
+                                    position: absolute;
+                                    top:50%;
+                                    right:0px;
+                                    bottom:-3px;
+                                    left: 0px;
+                                    .price-title{
+                                        position: absolute;
+                                        bottom: 5px;
+                                        left: 3px;
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -917,6 +1004,7 @@ input.gmap-search{
             background: #f1f1f1;
             padding:20px;
             border-radius: 2px;
+            margin-bottom: 30px;
             input[type=text]{
                 padding:5px;
             }
@@ -933,6 +1021,10 @@ input.gmap-search{
                 margin-bottom: 10px;
                 font-size: 15px;
                 color: #666666;
+                &.wb-radio-input{
+                    display: inline-block;
+                    margin-right: 20px;
+                }
             }
             .calendar-input{
                 //width: 100%;
@@ -971,6 +1063,23 @@ input.gmap-search{
                 background: #66cc66;
                 color: white;
                 border-color: #66cc66;
+            }
+        }
+        .calendar-help{
+            .help-label{
+                font-weight: bold;
+                margin-bottom: 20px;
+                font-size: 18px;
+            }
+            .list{
+                padding:0px;
+                margin:0px;
+                list-style: none;
+                ul{
+                    list-style: none;
+                    padding-left: 50px;
+                    margin:0px;
+                }
             }
         }
 
