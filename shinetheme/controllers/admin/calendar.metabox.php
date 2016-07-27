@@ -42,8 +42,10 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 					$base_id = (int) wpbooking_origin_id( $post_id, 'wpbooking_service', true );
 
-					$check_in = (int) WPBooking_Input::post('start', '');
-					$check_out = (int) WPBooking_Input::post('end', '');
+					$check_in = WPBooking_Input::post('start', '');
+					$check_out = WPBooking_Input::post('end', '');
+					$check_in=strtotime($check_in);
+					$check_out=strtotime($check_out);
 
 					if($check_in<strtotime('today')){$check_in=strtotime('today');}
 
@@ -70,7 +72,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 							'status'=>'available'
 						);
 						if(get_post_meta($post_id,'property_available_for',true)=='specific_periods'){
-							$all_days[$dt->format('Y-m-d')]['status']='not_available';
+							$all_days[$dt->format('Y-m-d')]['status']='wb-disable';
 						}
 
 					}
@@ -513,6 +515,8 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 						'monthly' => (float) $item['monthly'],
 						'status' => $item['status'],
 						'group_day' => $item['group_day'],
+						'can_check_in' => $item['can_check_in'],
+						'can_check_out' => $item['can_check_out'],
 					);
 //					if($item['status']=='not_available'){
 //						$item_array['rendering']='background';

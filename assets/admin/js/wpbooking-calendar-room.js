@@ -10,6 +10,7 @@ jQuery(document).ready(function($) {
         this.last_end_date=false;
         this.onMouseDown=false;
         this.selectedQueue=[];
+        this.calendarObject=false;
 
 		this.init = function(){
 			self.container = container;
@@ -21,152 +22,221 @@ jQuery(document).ready(function($) {
 		}
 
 		this.initCalendar = function(){
-			self.calendar.fullCalendar({
-				firstDay: 1,
-				customButtons: {
-			        reloadButton: {
-                        text: 'Refresh',
-			            click: function() {
-			                self.calendar.fullCalendar( 'refetchEvents' );
-			            }
-			        }
-			    },
-				header : {
-				    left:   'today,reloadButton',
-                    center: 'title',
-                    right:  'prev, next'
-				},
-                //defaultView: 'year',
-                //yearColumns: 3,
-				selectable: true,
-				select : function(start, end, jsEvent, view){
-                    self.last_start_date=moment(start.format('YYYY-MM-DD'));
-                    self.last_end_date=end;
-                    var today_object=moment();
-                    today_object=moment(today_object.format('YYYY-MM-DD'));
-                    // Check Past Date
-                    if(self.last_end_date.diff(today_object)<0){
-                        return false;
-                    }
-					var zone = moment(start._d).format('Z');
-							zone = zone.split(':');
-							zone = "" + parseInt(zone[0]) + ":00";
+            self.calendarObject=$('.calendar-room2', self.container).wbCalendar({
+                    sourceBinding: function (start, end, callback) {
+                        $.ajax({
+                            url: wpbooking_params.ajax_url,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                action: 'wpbooking_load_availability',
+                                post_id: self.container.data('post-id'),
+                                post_encrypt: self.container.data('post-encrypt'),
+                                start: start,
+                                end: end,
+                                security: wpbooking_params.wpbooking_security
+                            },
+                            success: function (doc) {
+                                if (typeof doc == 'object') {
+                                    callback(doc.data);
+                                }
+                                //self.clearDateRange();
+                            },
+                            error: function (e) {
+                                alert('Can not get the availability slot. Lost connect with your sever');
+                                //self.clearDateRange();
 
-					var start_date = moment(start._d).utcOffset(zone).format("MM");
-					var end_date = moment(end._d).utcOffset(zone).format("MM");
-
-					var start_year = moment(start._d).utcOffset(zone).format("YYYY");
-					var end_year = moment(end._d).utcOffset(zone).format("YYYY");
-
-					var today = moment().format("MM");
-
-					var today_year = moment().format("YYYY");
-
-					//if((start_date < today && start_year <= today_year) || (end_date < today && end_year <= today_year)){
-					//	self.calendar.fullCalendar('unselect');
-					//	setCheckInOut('', '', self.form_container);
-					//}else{
-					//	var check_in = moment(start._d).format("MM/DD/YYYY");
-					//	var	check_out = moment(end._d).subtract(1, 'day').format("MM/DD/YYYY");
-					//	setCheckInOut(check_in, check_out, self.form_container);
-					//}
-                    setCheckInOut(self.last_start_date.format('MM/DD/YYYY'), self.last_end_date.format('MM/DD/YYYY'), self.form_container);
-                    //Highlight
-                    // Check not allow past date
-                    if(self.last_start_date.diff(today_object)<0){
-                        self.last_start_date=today_object;
-                    }
-                    self.showDateRange();
-
-				},
-                events:function(start, end, timezone, callback) {
-                    $.ajax({
-                        url: wpbooking_params.ajax_url,
-                        dataType: 'json',
-                        type:'post',
-                        data: {
-                            action: 'wpbooking_load_availability',
-                            post_id: self.container.data('post-id'),
-                            post_encrypt: self.container.data('post-encrypt'),
-                            start: start.unix(),
-                            end: end.unix(),
-                            security: wpbooking_params.wpbooking_security
-                        },
-                        success: function(doc){
-                        	if(typeof doc == 'object'){
-                            	callback(doc.data);
-                        	}
-                            self.clearDateRange();
-                        },
-                        error:function(e){
-                            alert('Can not get the availability slot. Lost connect with your sever');
-                            self.clearDateRange();
-
+                            }
+                        });
+                    },
+                    sourceRender: function (source, element) {
+                        if (source.status == 'available') {
+                            element.append('<span class="wb-price">' + source.price_text + '</span>');
                         }
-                    });
-                },
-				eventClick: function(event, element, view){
+                    },
+                    dayClick: function (element, source) {
 
-                    setCheckInOut(self.last_start_date.format('MM/DD/YYYY'), self.last_end_date.format('MM/DD/YYYY'), self.form_container);
+                        if(source){
+                           setCheckInOut(source.start,source.end, self.form_container);
 
-                    $('#calendar-price').val(event.price);
+                           $('#calendar-price').val(source.price);
 
-                    $('#calendar-status option[value='+event.status+']').prop('selected',true);
+                           $('#calendar-status option[value='+source.status+']').prop('selected',true);
 
-                    $('#calendar-price-week').val(event.weekly);
-                    $('#calendar-price-month').val(event.monthly);
-                    if(event.can_check_in){
-                        $('.calendar-can-check-in').iCheck('check');
-                    }else{
-                        $('.calendar-can-check-in').iCheck('uncheck');
-                    }
+                           $('#calendar-price-week').val(source.weekly);
+                           $('#calendar-price-month').val(source.monthly);
+                           if(source.can_check_in){
+                               $('.calendar-can-check-in').iCheck('check');
+                           }else{
+                               $('.calendar-can-check-in').iCheck('uncheck');
+                           }
 
-                    if(event.can_check_out){
-                        $('.calendar-can-check-out').iCheck('check');
-                    }else{
-                        $('.calendar-can-check-out').iCheck('uncheck');
-                    }
-
-                    // Show Date Range
-                    self.last_start_date=moment(event.start);
-                    self.last_end_date=moment(event.end);
-
-                    self.showDateRange();
-
-                    return false;
-				},
-				eventRender: function(event, element, view){
-					var html = '';
-					if(event.status == 'available'){
-                        if(typeof event.price_text!='undefined'){
-                            html += '<div class="price"><div class="price-title">'+event.price_text+'</div></div>';
+                           if(source.can_check_out){
+                               $('.calendar-can-check-out').iCheck('check');
+                           }else{
+                               $('.calendar-can-check-out').iCheck('uncheck');
+                           }
                         }
-                        self.calendar.find('.fc-bg [data-date='+ event.start.format('YYYY-MM-DD')+']').removeClass('bg-disable');
-
-					}
-					if(typeof event.status == 'undefined' || event.status != 'available'){
-						html += '<div class="not_available"></div>';
-
-                        self.calendar.find('.fc-bg [data-date='+ event.start.format('YYYY-MM-DD')+']').addClass('bg-disable');
-					}
-					$('.fc-content', element).html(html);
-				},
-                loading: function(isLoading, view){
-                    if(isLoading){
-                    	$('.overlay', self.container).addClass('open');
-                    }else{
-                    	$('.overlay', self.container).removeClass('open');
+                    },
+                    onSelectionRange:function(start,end){
+                        setCheckInOut(start.data('date'),end.data('date'), self.form_container);
                     }
-                },
-
-			});
+                }
+            );
+			//self.calendar.fullCalendar({
+			//	firstDay: 1,
+			//	customButtons: {
+			//        reloadButton: {
+             //           text: 'Refresh',
+			//            click: function() {
+			//                self.calendar.fullCalendar( 'refetchEvents' );
+			//            }
+			//        }
+			//    },
+			//	header : {
+			//	    left:   'today,reloadButton',
+             //       center: 'title',
+             //       right:  'prev, next'
+			//	},
+             //   //defaultView: 'year',
+             //   //yearColumns: 3,
+			//	selectable: true,
+			//	select : function(start, end, jsEvent, view){
+             //       self.last_start_date=moment(start.format('YYYY-MM-DD'));
+             //       self.last_end_date=end;
+             //       var today_object=moment();
+             //       today_object=moment(today_object.format('YYYY-MM-DD'));
+             //       // Check Past Date
+             //       if(self.last_end_date.diff(today_object)<0){
+             //           return false;
+             //       }
+			//		var zone = moment(start._d).format('Z');
+			//				zone = zone.split(':');
+			//				zone = "" + parseInt(zone[0]) + ":00";
+            //
+			//		var start_date = moment(start._d).utcOffset(zone).format("MM");
+			//		var end_date = moment(end._d).utcOffset(zone).format("MM");
+            //
+			//		var start_year = moment(start._d).utcOffset(zone).format("YYYY");
+			//		var end_year = moment(end._d).utcOffset(zone).format("YYYY");
+            //
+			//		var today = moment().format("MM");
+            //
+			//		var today_year = moment().format("YYYY");
+            //
+			//		//if((start_date < today && start_year <= today_year) || (end_date < today && end_year <= today_year)){
+			//		//	self.calendar.fullCalendar('unselect');
+			//		//	setCheckInOut('', '', self.form_container);
+			//		//}else{
+			//		//	var check_in = moment(start._d).format("MM/DD/YYYY");
+			//		//	var	check_out = moment(end._d).subtract(1, 'day').format("MM/DD/YYYY");
+			//		//	setCheckInOut(check_in, check_out, self.form_container);
+			//		//}
+             //       setCheckInOut(self.last_start_date.format('MM/DD/YYYY'), self.last_end_date.format('MM/DD/YYYY'), self.form_container);
+             //       //Highlight
+             //       // Check not allow past date
+             //       if(self.last_start_date.diff(today_object)<0){
+             //           self.last_start_date=today_object;
+             //       }
+             //       self.showDateRange();
+            //
+			//	},
+             //   events:function(start, end, timezone, callback) {
+             //       $.ajax({
+             //           url: wpbooking_params.ajax_url,
+             //           dataType: 'json',
+             //           type:'post',
+             //           data: {
+             //               action: 'wpbooking_load_availability',
+             //               post_id: self.container.data('post-id'),
+             //               post_encrypt: self.container.data('post-encrypt'),
+             //               start: start.unix(),
+             //               end: end.unix(),
+             //               security: wpbooking_params.wpbooking_security
+             //           },
+             //           success: function(doc){
+             //           	if(typeof doc == 'object'){
+             //               	callback(doc.data);
+             //           	}
+             //               self.clearDateRange();
+             //           },
+             //           error:function(e){
+             //               alert('Can not get the availability slot. Lost connect with your sever');
+             //               self.clearDateRange();
+            //
+             //           }
+             //       });
+             //   },
+			//	eventClick: function(event, element, view){
+            //
+             //       setCheckInOut(self.last_start_date.format('MM/DD/YYYY'), self.last_end_date.format('MM/DD/YYYY'), self.form_container);
+            //
+             //       $('#calendar-price').val(event.price);
+            //
+             //       $('#calendar-status option[value='+event.status+']').prop('selected',true);
+            //
+             //       $('#calendar-price-week').val(event.weekly);
+             //       $('#calendar-price-month').val(event.monthly);
+             //       if(event.can_check_in){
+             //           $('.calendar-can-check-in').iCheck('check');
+             //       }else{
+             //           $('.calendar-can-check-in').iCheck('uncheck');
+             //       }
+            //
+             //       if(event.can_check_out){
+             //           $('.calendar-can-check-out').iCheck('check');
+             //       }else{
+             //           $('.calendar-can-check-out').iCheck('uncheck');
+             //       }
+            //
+             //       // Show Date Range
+             //       self.last_start_date=moment(event.start);
+             //       self.last_end_date=moment(event.end);
+            //
+             //       self.showDateRange();
+            //
+             //       return false;
+			//	},
+			//	eventRender: function(event, element, view){
+			//		var html = '';
+			//		if(event.status == 'available'){
+             //           if(typeof event.price_text!='undefined'){
+             //               html += '<div class="price"><div class="price-title">'+event.price_text+'</div></div>';
+             //           }
+             //           self.calendar.find('.fc-bg [data-date='+ event.start.format('YYYY-MM-DD')+']').removeClass('bg-disable');
+            //
+			//		}
+			//		if(typeof event.status == 'undefined' || event.status != 'available'){
+			//			html += '<div class="not_available"></div>';
+            //
+             //           self.calendar.find('.fc-bg [data-date='+ event.start.format('YYYY-MM-DD')+']').addClass('bg-disable');
+			//		}
+			//		$('.fc-content', element).html(html);
+			//	},
+             //   loading: function(isLoading, view){
+             //       if(isLoading){
+             //       	$('.overlay', self.container).addClass('open');
+             //       }else{
+             //       	$('.overlay', self.container).removeClass('open');
+             //       }
+             //   },
+            //
+			//});
 
 		}
 
         this.bindEvent=function(){
-            $('.st-metabox-nav li>a[href=#st-metabox-tab-item-calendar_tab]').click(function(){
-                self.calendar.fullCalendar( 'refetchEvents' );
-            });
+            //$('.st-metabox-nav li>a[href=#st-metabox-tab-item-calendar_tab]').click(function(){
+                //self.calendar.fullCalendar( 'refetchEvents' );
+           // });
+
+            if( $('#form-bulk-edit').length ){
+                $('#calendar-bulk-close').click(function(event) {
+                    $(this).closest('#form-bulk-edit').fadeOut();
+
+                    self.calendarObject.refreshCalendar();
+                });
+            }
             $('#calendar-checkin').datepicker({
                 dateFormat: "mm/dd/yy",
                 beforeShowDay: function(date){
@@ -229,6 +299,69 @@ jQuery(document).ready(function($) {
 
             // Check In
 
+
+
+            var flag_add = false;
+            if( $('.wpbooking-calendar-sidebar .calendar-room-form').length ){
+                $('.wpbooking-calendar-sidebar .calendar-room-form #calendar-save').click(function(event) {
+                    var container = $(this).parents('.wpbooking-calendar-wrapper');
+
+                    var parent = $(this).parents('.calendar-room-form');
+
+                    var data = {
+                        'check_in' : $('#calendar-checkin', parent).val(),
+                        'check_out' : $('#calendar-checkout', parent).val(),
+                        'price' : $('#calendar-price', parent).val(),
+                        'status' : $('#calendar-status', parent).val(),
+                        'post-id' : $('#calendar-post-id', parent).val(),
+                        'post-encrypt' : $('#calendar-post-encrypt', parent).val(),
+                        'action' : 'wpbooking_add_availability',
+                        'security': wpbooking_params.wpbooking_security,
+                        'weekly':$('#calendar-price-week').val(),
+                        'monthly':$('#calendar-price-month').val(),
+                        'can_check_in':$('#calendar-can-check-in').val(),
+                        'can_check_out':$('#calendar-can-check-out').val()
+                    }
+                    if( flag_add ) return false; flag_add = true;
+
+                    $('.form-message', parent).html('').removeClass('error success');
+                    $('.overlay', container).addClass('open');
+
+                    $.ajax({
+                        url: wpbooking_params.ajax_url,
+                        type: 'POST',
+                        dataType: 'json',
+                        data: data,
+                    })
+                        .done(function( respon ) {
+                            if( typeof( respon ) == 'object' ){
+                                if( respon.status == 0 ){
+                                    $('.form-message', parent).html( respon.message ).addClass( 'error' );
+                                }
+                                if( respon.status == 1 ){
+                                    $('.form-message', parent).html( respon.message ).addClass( 'success' );
+                                }
+                            }
+
+                        })
+                        .fail(function() {
+                            alert('Can not save data.');
+
+                        })
+                        .always(function() {
+                            flag_add = false;
+
+                            //$('.calendar-room', container).fullCalendar('refetchEvents');
+                            self.calendarObject.refreshCalendar();
+
+                            $('.overlay', container).removeClass('open');
+
+                        });
+
+                    return false;
+                });
+            }
+
         };
         this.ajaxSavePropertyAvailableFor=function(val,post_id){
                 $('.overlay', self.container).addClass('open');
@@ -250,7 +383,8 @@ jQuery(document).ready(function($) {
                     success:function(){
                         $('.overlay', self.container).removeClass('open');
 
-                        self.calendar.fullCalendar( 'refetchEvents' );
+                        //self.calendar.fullCalendar( 'refetchEvents' );
+                        self.calendarObject.refreshCalendar();
                     },
                     error:function(e){
                         console.log(e.responseText);
@@ -307,70 +441,7 @@ jQuery(document).ready(function($) {
             }
         });
     }
-    
 
-    var flag_add = false;
-    if( $('.wpbooking-calendar-sidebar .calendar-room-form').length ){
-    	$('.wpbooking-calendar-sidebar .calendar-room-form #calendar-save').click(function(event) {
-    		var container = $(this).parents('.wpbooking-calendar-wrapper');
-
-    		var parent = $(this).parents('.calendar-room-form');
-
-    		var data = {
-    			'check_in' : $('#calendar-checkin', parent).val(),
-    			'check_out' : $('#calendar-checkout', parent).val(),
-    			'price' : $('#calendar-price', parent).val(),
-    			'status' : $('#calendar-status', parent).val(),
-    			'post-id' : $('#calendar-post-id', parent).val(),
-    			'post-encrypt' : $('#calendar-post-encrypt', parent).val(),
-    			'action' : 'wpbooking_add_availability',
-    			'security': wpbooking_params.wpbooking_security,
-                'weekly':$('#calendar-price-week').val(),
-                'monthly':$('#calendar-price-month').val(),
-                'can_check_in':$('#calendar-can-check-in').val(),
-                'can_check_out':$('#calendar-can-check-out').val()
-    		}
-    		if( flag_add ) return false; flag_add = true;
-
-    		$('.form-message', parent).html('').removeClass('error success');
-    		$('.overlay', container).addClass('open');
-
-    		$.ajax({
-    			url: wpbooking_params.ajax_url,
-    			type: 'POST',
-    			dataType: 'json',
-    			data: data,
-    		})
-    		.done(function( respon ) {
-    			if( typeof( respon ) == 'object' ){
-    				if( respon.status == 0 ){
-    					$('.form-message', parent).html( respon.message ).addClass( 'error' );
-    				}
-    				if( respon.status == 1 ){
-    					$('.form-message', parent).html( respon.message ).addClass( 'success' );
-    				}
-    			}
-                room_calendar.clearDateRange();
-
-    		})
-    		.fail(function() {
-    			alert('Can not save data.');
-                room_calendar.clearDateRange();
-
-                })
-    		.always(function() {
-    			flag_add = false;
-
-    			$('.calendar-room', container).fullCalendar('refetchEvents');
-
-    			$('.overlay', container).removeClass('open');
-                room_calendar.clearDateRange();
-
-                });
-    		
-    		return false;
-    	});
-    }
 
 
 
@@ -382,12 +453,6 @@ jQuery(document).ready(function($) {
         $("input[name='"+ name +"[]']").prop('checked', $(this).prop("checked"));
     });
 
-    if( $('#form-bulk-edit').length ){
-        $('#calendar-bulk-close').click(function(event) {
-            $(this).closest('#form-bulk-edit').fadeOut();
-            $(this).closest('.wpbooking-calendar-wrapper').find('.calendar-room').fullCalendar('refetchEvents');
-        });
-    }
 
     $('#calendar-bulk-edit').click(function(event) {
         if( $('#form-bulk-edit').length ){

@@ -38,7 +38,7 @@ if(!empty($data['condition'])){
 			<div class="wpbooking-list-item">
 				<div class="list-item-head">
 					
-					<span class="dashicons dashicons-menu"></span>
+<!--					<span class="dashicons dashicons-menu"></span>-->
 				
 					<div class="item-title"><?php echo esc_html( $convert_val['title'] ); ?></div>
 						

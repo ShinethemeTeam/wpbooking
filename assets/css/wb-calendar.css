@@ -1,0 +1,252 @@
+@-webkit-keyframes anim-cal-tile-raised {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  15% {
+    -webkit-transform: scale(1.05) translateY(-6px);
+    transform: scale(1.05) translateY(-6px);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@-moz-keyframes anim-cal-tile-raised {
+  0% {
+    -moz-transform: scale(1);
+    transform: scale(1);
+  }
+  15% {
+    -moz-transform: scale(1.05) translateY(-6px);
+    transform: scale(1.05) translateY(-6px);
+  }
+  100% {
+    -moz-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@-o-keyframes anim-cal-tile-raised {
+  0% {
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+  15% {
+    -o-transform: scale(1.05) translateY(-6px);
+    transform: scale(1.05) translateY(-6px);
+  }
+  100% {
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes anim-cal-tile-raised {
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+  15% {
+    -webkit-transform: scale(1.05) translateY(-6px);
+    -moz-transform: scale(1.05) translateY(-6px);
+    -o-transform: scale(1.05) translateY(-6px);
+    transform: scale(1.05) translateY(-6px);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+}
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Chrome/Safari/Opera */
+  -khtml-user-select: none;
+  /* Konqueror */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+.wb-calendar {
+  margin-bottom: 30px;
+  position: relative;
+}
+.wb-calendar:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.wb-calendar:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.wb-calendar .wb-heading {
+  text-align: center;
+  padding: 10px 0px 20px;
+}
+.wb-calendar .wb-heading:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.wb-calendar .wb-heading .wb-center {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 20px;
+}
+.wb-calendar .wb-heading .wb-head-right {
+  text-align: right;
+  float: right;
+}
+.wb-calendar .wb-heading .wb-head-right > a {
+  margin-left: 10px;
+}
+.wb-calendar .wb-days {
+  margin: 0px;
+}
+.wb-calendar .wb-days:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.wb-calendar .wb-days > li.wb-day {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Chrome/Safari/Opera */
+  -khtml-user-select: none;
+  /* Konqueror */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                  not supported by any browser */
+  position: relative;
+  width: 14%;
+  border: 1px solid #dce0e0;
+  float: left;
+  margin-bottom: 0px;
+  background: white;
+  padding: 1px 1px 9% 4px;
+  font-weight: bold;
+}
+.wb-calendar .wb-days > li.wb-day .day-title {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Chrome/Safari/Opera */
+  -khtml-user-select: none;
+  /* Konqueror */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+.wb-calendar .wb-days > li.wb-day.wb-past {
+  cursor: not-allowed;
+  border-color: #cfd4d4;
+  background: #dce0e0;
+}
+.wb-calendar .wb-days > li.wb-day.wb-disable,
+.wb-calendar .wb-days > li.wb-day.not_available {
+  background: #dce0e0;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAJTpkz5zwjjgzg5OTmMYAEYB8RmROaABADNNQ7Ag/fD+gAAAABJRU5ErkJggg==");
+}
+.wb-calendar .wb-days > li.wb-day .wb-price {
+  color: #ec8223;
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+  font-weight: bold;
+}
+.wb-calendar .wb-icon-select {
+  visibility: hidden;
+  opacity: 0;
+}
+.wb-calendar .wb-icon-select i {
+  border-radius: 50%;
+  width: 21px;
+  line-height: 21px;
+  color: #565656;
+  box-shadow: 0 0 0 1px rgba(118, 135, 140, 0.4), 0 2px 4px rgba(0, 0, 0, 0.12);
+  cursor: w-resize;
+  text-align: center;
+  background: #e8e8e8;
+}
+.wb-calendar .wb-weekdays {
+  margin: 0px;
+}
+.wb-calendar .wb-weekdays:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.wb-calendar .wb-weekdays > li {
+  margin: 0px;
+  width: 14%;
+  border: 1px solid #ddd;
+  float: left;
+  text-align: center;
+  font-weight: bold;
+  background: white;
+}
+.wb-calendar.on-selected .wb-days .wb-day {
+  opacity: 0.32;
+}
+.wb-calendar.on-selected .wb-days .wb-day.wb-disable {
+  opacity: 0.6;
+}
+.wb-calendar.on-selected .wb-days .wb-day.wb-enable {
+  cursor: pointer;
+  background: #d6d6d6;
+}
+.wb-calendar.on-selected .wb-days .wb-day.wb-highlight {
+  position: relative;
+  opacity: 1;
+  background: white;
+  z-index: 2;
+  -webkit-animation: anim-cal-tile-raised 0.4s ease;
+  -moz-animation: anim-cal-tile-raised 0.4s ease;
+  -o-animation: anim-cal-tile-raised 0.4s ease;
+  animation: anim-cal-tile-raised 0.4s ease;
+}
+.wb-calendar.on-selected .wb-days .wb-day.wb-highlight:after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  background: #ec8223;
+  height: 3px;
+}
+.wb-calendar.on-selected .wb-days .wb-day.wb-past {
+  border-color: #4c4c4c;
+  background: #949494;
+}
+.wb-calendar.on-selected .wb-icon-select {
+  position: absolute;
+  padding: 4px;
+  display: inline-block;
+  z-index: 6;
+  visibility: visible;
+  opacity: 1;
+}

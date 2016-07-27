@@ -21,8 +21,11 @@ $property_available_for=get_post_meta(get_the_ID(),'property_available_for',true
 					<div class="overlay">
 						<span class="spinner is-active"></span>
 					</div>
-					<div class="calendar-room <?php echo ($property_available_for=='specific_periods')?'specific_periods':FALSE ?>">
+					<div class="calendar-room2 <?php echo ($property_available_for=='specific_periods')?'specific_periods':FALSE ?>">
 						
+					</div>
+					<div class="calendar-room <?php echo ($property_available_for=='specific_periods')?'specific_periods':FALSE ?>">
+
 					</div>
 				</div>
 				<div class="wpbooking-calendar-sidebar">

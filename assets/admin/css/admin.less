@@ -207,6 +207,18 @@ img.settings-demo-gallery{
             float: right;
             width: 440px;
         }
+
+        @media(max-width: 1366px){
+            .cancellation-help{
+                float: none;
+                margin-left: 35px;
+                width:auto;
+                margin-top: 0px;
+            }
+            .cancellation_text_content{
+                float: none;
+            }
+        }
     }
 }
 .wpbooking-settings .button-secondary.hover, .wpbooking-settings .button-secondary:hover, .wpbooking-settings .button-secondary.focus, .wpbooking-settings .button-secondary:focus {
@@ -607,7 +619,7 @@ img.settings-demo-gallery{
         }
         .st-metabox-left{
             font-weight: bold;
-            width: 170px;
+            width: 13%;
             float: left;
             padding-left: 15px;
             padding-right: 15px;
@@ -620,7 +632,7 @@ img.settings-demo-gallery{
             padding-left: 15px;
             padding-right: 15px;
             width: auto;
-            margin-left: 170px;
+            margin-left: 13%;
 
             .st-metabox-left{
                 float: none;
@@ -638,7 +650,7 @@ img.settings-demo-gallery{
             .st-metabox-content-wrapper{
                 float: left;
                 margin-right: 40px;
-                width: 580px;
+                width: 53%;
                 .st-metabox-content-wrapper{
                     width: 100%;
                     float: none;
@@ -840,7 +852,7 @@ input.gmap-search{
         margin-top: 20px;
     }
 }
-@import "calendar.less";
+//@import "calendar.less";
 .wpbooking-calendar-wrapper{
     margin-top: 20px;
     .wpbooking-calendar-content{
@@ -968,7 +980,7 @@ input.gmap-search{
                                 position: static;
                                 .not_available{
                                     //background-color: #dce0e0;
-                                    position: absolute;
+                                    //position: absolute;
                                     top:-22px;
                                     right:0px;
                                     bottom:-3px;
@@ -1110,6 +1122,7 @@ input.gmap-search{
                 .form-title{
                     padding-bottom: 15px;
                     border-bottom: 1px solid #CCC;
+                    font-size: 12px;
                 }
                 .form-footer{
                     padding-top: 15px;
@@ -1141,6 +1154,34 @@ input.gmap-search{
             }
         }
 
+    }
+
+    @media(max-width: 1366px){
+        .wpbooking-calendar-content{
+            float: left;
+            padding: 0px;
+            width: 68%;
+            margin-bottom: 30px;
+            margin-right: 2%;
+        }
+        .wpbooking-calendar-sidebar{
+            width: 30%;
+            float: left;
+            .form-container{
+                padding: 10px;
+            }
+        }
+
+    }
+    @media (max-width: 992px){
+        .wpbooking-calendar-content{
+            float: none;
+            width: 100%;
+        }
+        .wpbooking-calendar-sidebar{
+            width: 100%;
+            float: none;
+        }
     }
 }
 @media( max-width: 1040px ){

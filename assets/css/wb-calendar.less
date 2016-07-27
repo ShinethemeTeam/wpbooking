@@ -1,0 +1,160 @@
+@import "../admin/css/calendar.less";
+@maincolor:#ec8223;
+.clearfix{
+    &:after{
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+.wb-calendar{
+    margin-bottom: 30px;
+    position: relative;
+    .clearfix;
+    &:after{
+        content: "";
+        display: table;
+        clear: both;
+    }
+    .wb-heading{
+        text-align: center;
+        padding:10px 0px 20px;
+        .clearfix;
+        .wb-center{
+            display: inline-block;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .wb-head-right{
+            text-align: right;
+            float: right;
+            >a{
+                margin-left: 10px;
+            }
+        }
+    }
+    .wb-days{
+        margin: 0px;
+        .clearfix;
+        >li.wb-day{
+            .noselect;
+            position: relative;
+            width: 14%;
+            border:1px solid #dce0e0;
+            float: left;
+            margin-bottom: 0px;
+            background: white;
+            padding: 1px 1px 9% 4px;
+            font-weight: bold;
+            .day-title{
+                .noselect;
+            }
+
+            &.wb-past{
+                cursor: not-allowed;
+                border-color: #cfd4d4;
+                background: #dce0e0;
+            }
+            &.wb-disable,&.not_available{
+                background: #dce0e0;
+                background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAJTpkz5zwjjgzg5OTmMYAEYB8RmROaABADNNQ7Ag/fD+gAAAABJRU5ErkJggg==");
+            }
+
+            .wb-price{
+                color: @maincolor;
+                position: absolute;
+                left: 4px;
+                bottom:4px;
+                font-weight: bold;
+            }
+        }
+    }
+    .wb-icon-select{
+        //display: none;
+        visibility: hidden;
+        opacity: 0;
+        //transition: all 0.3s;
+        i{
+            border-radius: 50%;
+            width: 21px;
+            line-height: 21px;
+            //border: 1px solid #a79c9c;
+            color: #565656;
+            box-shadow: 0 0 0 1px rgba(118,135,140,0.4),0 2px 4px rgba(0,0,0,0.12);
+            cursor: w-resize;
+            text-align: center;
+            background: #e8e8e8;
+        }
+    }
+
+    .wb-weekdays{
+        margin: 0px;
+        .clearfix;
+        >li{
+            margin: 0px;
+            width: 14%;
+            border:1px solid #ddd;
+            float: left;
+            text-align: center;
+            font-weight: bold;
+            background: white;
+        }
+    }
+
+    &.on-selected{
+        .wb-days{
+            .wb-day{
+                opacity: 0.32;
+                &.wb-disable{
+                    opacity: 0.6;
+                }
+                &.wb-enable{
+                    cursor: pointer;
+                    background: #d6d6d6;
+                }
+                &.wb-highlight{
+                    position: relative;
+                    opacity: 1;
+                    background: white;
+                    z-index: 2;
+                    -webkit-animation: anim-cal-tile-raised .4s ease;
+                    -moz-animation: anim-cal-tile-raised .4s ease;
+                    -o-animation: anim-cal-tile-raised .4s ease;
+                    animation: anim-cal-tile-raised .4s ease;
+                    &:after{
+                        content: "";
+                        position: absolute;
+                        left: 0px;
+                        bottom:0px;
+                        right: 0px;
+                        //rder-bottom: 3px solid @maincolor;
+                        background: @maincolor;
+                        height: 3px;
+                    }
+                }
+
+                &.wb-past{
+                    border-color: #4c4c4c;
+                    background: #949494;
+                }
+            }
+        }
+        .wb-icon-select{
+            position: absolute;
+            padding:4px;
+            display: inline-block;
+            z-index: 6;
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+}
