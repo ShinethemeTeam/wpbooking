@@ -17,9 +17,11 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 				'before_title'=>'',
 				'after_title'=>'',
 			));
-            extract($instance=wp_parse_args($instance , array('title'=>'','service_type'=>'','field_search'=>"",'before_widget'=>FALSE,'after_widget'=>FALSE)));
+            extract($instance=wp_parse_args($instance , array('title'=>'','is_filter_form'=>FALSE,'service_type'=>'','field_search'=>"",'before_widget'=>FALSE,'after_widget'=>FALSE)));
 			$service_type=$instance['service_type'];
             $title = apply_filters( 'widget_title', empty( $title ) ? '' : $title, $instance, $this->id_base );
+
+			echo $widget_args['before_widget'];
 
             $page_search = "";
             switch($service_type){
@@ -27,14 +29,16 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                     $id_page = wpbooking_get_option('service_type_room_archive_page');
                     $page_search = get_permalink($id_page);
             }
-			echo $widget_args['before_widget'];
-			if ( ! empty( $instance['title'] ) ) {
-				echo $widget_args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $widget_args['after_title'];
-			}
+
 
 			$search_more_fields=array();
             ?>
-            <form class="wpbooking-search-form" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
+            <form class="wpbooking-search-form <?php echo ($instance['is_filter_form'])?'is_filter_form':'is_search_form' ?>" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
+            	<?php
+					if ( ! empty( $instance['title'] ) ) {
+						echo $widget_args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $widget_args['after_title'];
+					}
+             	?>
 				<?php if(!get_option('permalink_structure')){
 					printf("<input type='hidden' name='page_id' value='%d'>",$id_page);
 				} ?>
@@ -58,21 +62,21 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					<?php if(!empty($search_more_fields)){
 						?>
 						<div class="wpbooking-search-form-more-wrap mb20">
-							<a href="#" onclick="return false" class="btn btn-link wpbooking-show-more-fields"><?php esc_html_e('More Filters','wpbooking') ?></a>
+							<a href="#" onclick="return false"  class="btn btn-link wpbooking-show-more-fields"><span class="for-more"><?php esc_html_e('More','wpbooking') ?> <i class="fa fa-plus"></i></span><span class="for-less"><?php esc_html_e('Less','wpbooking') ?> <i class="fa fa-minus"></i></span></a>
 							<div class="wpbooking-search-form-more">
 								<?php
 									foreach($search_more_fields as $k=>$v){
 										$this->get_field_html($v,$service_type);
 									}?>
-								<a href="#" onclick="return false" class="btn btn-link wpbooking-hide-more-fields"><?php esc_html_e('Cancel','wpbooking') ?></a>
 							</div>
 						</div>
 						<?php
 					} ?>
-
+					<?php if(!$instance['is_filter_form']){ ?>
 					<div class="item-search search-button-wrap">
-						<button class="" type="submit"><?php _e("Search",'wpbooking') ?></button>
+						<button class="wb-button" type="submit"><?php _e("Search",'wpbooking') ?></button>
 					</div>
+					<?php }?>
 				</div>
             </form>
             <?php
@@ -144,39 +148,42 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 						}else{ ?>
 							<div class="row">
 								<?php
-								if(empty($v['taxonomy'])) continue;
-								$tax=get_taxonomy($v['taxonomy']);
+								$value_item=FALSE;
+								if(!empty($v['taxonomy'])){
+									$tax=get_taxonomy($v['taxonomy']);
+									if($tax){
+										$terms = get_terms(  $v['taxonomy'] , array('hide_empty' => false,) );
 
-								if(!$tax) continue;
-
-								$terms = get_terms(  $v['taxonomy'] , array('hide_empty' => false,) );
-
-								if(!empty($value[$v['taxonomy']])) $value_item=$value[$v['taxonomy']];else $value_item=FALSE;
-								if(!empty( $terms )) {
-									foreach( $terms as $key2 => $value2 ) {
-										$check ="";
-										if(in_array($value2->term_id,explode(',',$value_item))){
-											$check = "checked";
-										}
-										$class=FALSE;
-										if($key2>=4){
-											$class='hidden_term';
-										}
-										?>
-										<div class="col-md-12 term-item <?php echo esc_attr($class)?>">
-											<input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$value2->term_id ?>" value="<?php echo esc_html( $value2->term_id ) ?>">
-											<label for="<?php echo "item_".$value2->term_id ?>"><?php echo esc_html( $value2->name ) ?></label>
-										</div>
-										<?php
-										if($key2==3 and count($terms)>4){
-										?>
-											<div class="col-md-12">
-												<label class="show-more-terms" ><b><?php printf(esc_html__('More %s ...','wpbooking'),$tax->label) ?></b></label>
-											</div>
-											<?php
+										if(!empty($value[$v['taxonomy']])) $value_item=$value[$v['taxonomy']];else $value_item=FALSE;
+										if(!empty( $terms )) {
+											foreach( $terms as $key2 => $value2 ) {
+												$check ="";
+												if(in_array($value2->term_id,explode(',',$value_item))){
+													$check = "checked";
+												}
+												$class=FALSE;
+												if($key2>=4){
+													$class='hidden_term';
+												}
+												?>
+												<div class="col-md-12 term-item <?php echo esc_attr($class)?>">
+													<input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$value2->term_id ?>" value="<?php echo esc_html( $value2->term_id ) ?>">
+													<label for="<?php echo "item_".$value2->term_id ?>"><?php echo esc_html( $value2->name ) ?></label>
+												</div>
+												<?php
+												if($key2==3 and count($terms)>4){
+												?>
+													<div class="col-md-12">
+														<label class="show-more-terms" ><b><?php printf(esc_html__('More %s ...','wpbooking'),$tax->label) ?></b></label>
+													</div>
+													<?php
+												}
+											}
 										}
 									}
+
 								}
+
 								?>
 								<input type="hidden" value="<?php echo esc_attr($value_item) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v[ 'field_type' ] . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
 								<input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>" name="<?php echo esc_attr( "taxonomy_operator" . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
@@ -206,8 +213,8 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 									}
 									?>
 									<div class="col-md-12">
-										<input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
-										<label for="<?php echo "item_".$key2 ?>"><?php echo esc_html( $value2 ) ?></label>
+										<label ><input class="wb-icheck" data-style="icheckbox_square-orange" type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
+										<?php echo esc_html( $value2 ) ?></label>
 									</div>
 									<?php
 								}
@@ -232,6 +239,19 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					<div class="item-search">
 						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
 						<input class="wpbooking-date-end" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+					</div>
+					<?php
+					break;
+				case "guest":
+					?>
+					<div class="item-search">
+						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+						<select id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" class="small-input">
+							<option value=""><?php esc_html_e('- Select','wpbooking') ?></option>
+							<?php for($i=1;$i<=20;$i++){
+								printf('<option value="%s" %s>%s</option>',$i,checked(WPBooking_Input::get($v['field_type']),$i,FALSE),$i);
+							} ?>
+						</select>
 					</div>
 					<?php
 					break;
@@ -307,12 +327,17 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
             return wp_parse_args($new_instance,$old_instance);
         }
         public function form( $instance ) {
-            $instance = wp_parse_args((array) $instance, array( 'title' => '','service_type'=> '','field_search'=>""));
+            $instance = wp_parse_args((array) $instance, array(
+            'title' => '',
+            'service_type'=> '',
+            'field_search'=>"",
+            'is_filter_form'=>FALSE
+            ));
             extract($instance);
             ?>
             <p><label for="<?php echo $this->get_field_id('title'); ?>"><strong><?php _e('Title:',"wpbooking"); ?></strong> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
             <p>
-                <label for="<?php echo $this->get_field_id('service_type'); ?>"><strong><?php _e('Service Type:'); ?></strong>
+                <label for="<?php echo $this->get_field_id('service_type'); ?>"><strong><?php _e('Service Type:','wpbooking'); ?></strong>
                     <?php
                     $data = WPBooking_Service::inst()->get_service_types();
                     ?>
@@ -332,6 +357,12 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                     </select>
                 </label>
             </p>
+			<p>
+				<label>
+					<input type="checkbox" name="<?php echo $this->get_field_name('is_filter_form'); ?>" value="1" <?php checked($instance['is_filter_form'],1) ?>>
+					<?php esc_html_e('Use as Filter Form?','wpbooking') ?></label>
+				<p class="help"><?php esc_html_e('Filter form does not cotain search button and only visible at archive page','wpbooking') ?></p>
+			</p>
             <?php $all_list_field= WPBooking_Service::inst()->_get_list_field_search();
             if(!empty($all_list_field)) {
                 foreach( $all_list_field as $key => $value ) {

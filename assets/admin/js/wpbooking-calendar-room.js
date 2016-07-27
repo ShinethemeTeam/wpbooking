@@ -57,7 +57,9 @@ jQuery(document).ready(function($) {
                     dayClick: function (element, source) {
 
                         if(source){
-                           setCheckInOut(source.start,source.end, self.form_container);
+                           var start=moment(source.start);
+                           var end=moment(source.end);
+                           setCheckInOut(start.format('MM/DD/YYYY'),end.format('MM/DD/YYYY'), self.form_container);
 
                            $('#calendar-price').val(source.price);
 
@@ -79,7 +81,9 @@ jQuery(document).ready(function($) {
                         }
                     },
                     onSelectionRange:function(start,end){
-                        setCheckInOut(start.data('date'),end.data('date'), self.form_container);
+                        var start_moment=moment(start.data('date'));
+                        var end_moment=moment(end.data('date'));
+                        setCheckInOut(start_moment.format('MM/DD/YYYY'),end_moment.format('MM/DD/YYYY'), self.form_container);
                     }
                 }
             );

@@ -30,6 +30,8 @@ echo wpbooking_load_view('wrap/start');
             <?php /*echo get_sidebar(); */?>
         </div>-->
         <div class="col-md-12 ">
+
+			<?php echo wpbooking_load_view('archive/header',array('my_query'=>$my_query,'service_type'=>$service_type))?>
 			<div class="wpbooking-loop-wrap">
 				<?php echo wpbooking_load_view('archive/loop',array('my_query'=>$my_query,'service_type'=>$service_type))?>
 				<?php echo wpbooking_load_view('archive/pagination',array('my_query'=>$my_query,'service_type'=>$service_type))?>

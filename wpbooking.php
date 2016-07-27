@@ -70,14 +70,18 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 //				1.0,
 //				false);
 
-
+			/**
+			 * Icheck
+			 */
+			wp_register_script('icheck',wpbooking_assets_url('icheck/icheck.min.js'),array('jquery'),null,true);
+			wp_register_style('icheck',wpbooking_assets_url('icheck/skins/square/_all.css'));
 
 			/**
 			 * Select2 CSS
 			 */
 			wp_enqueue_style('wpbooking-select2',wpbooking_assets_url('select2/css/select2.min.css'));
 			wp_enqueue_style('jquery-ui-datepicker',wpbooking_assets_url('css/datepicker.css'));
-			wp_enqueue_style('wpbooking-booking',wpbooking_assets_url('css/wpbooking-booking.css'));
+			wp_enqueue_style('wpbooking-booking',wpbooking_assets_url('css/wpbooking-booking.css'),array('icheck'));
 
 			/**
 			 * Ion RangeSlider for Price Search Field
@@ -109,7 +113,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			 */
 			wp_enqueue_script('wpbooking-select2',wpbooking_assets_url('select2/js/select2.full.min.js'),array('jquery'),null,true);
 
-			wp_enqueue_script('wpbooking-booking',wpbooking_assets_url('js/wpbooking-booking.js'),array('jquery','jquery-ui-datepicker'),null,true);
+			wp_enqueue_script('wpbooking-booking',wpbooking_assets_url('js/wpbooking-booking.js'),array('jquery','jquery-ui-datepicker','icheck'),null,true);
 
 
 			wp_localize_script('jquery','wpbooking_params',array(

@@ -31,7 +31,8 @@ $autoload['library']=array(
 	'currency',
 	'validator',
 	'metabox',
-	'email/emogrifier'
+	'email/emogrifier',
+	'query'
 );
 
 $autoload['controller']=array(

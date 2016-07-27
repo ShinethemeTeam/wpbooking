@@ -47,7 +47,7 @@ if (!class_exists('WPBooking_Service')) {
 			 * @author dungdt
 			 * @since 1.0
 			 */
-			add_action('template_redirect',array($this,'_ajax_filter_archivepage'));
+			add_action('template_redirect',array($this,'_ajax_filter_archivepage'),100);
 		}
 
 		/**
@@ -88,6 +88,10 @@ if (!class_exists('WPBooking_Service')) {
 					'html'=>wpbooking_load_view('archive/loop',array('my_query'=>$my_query,'service_type'=>$service_type)),
 				);
 				$res['html'].=wpbooking_load_view('archive/pagination',array('my_query'=>$my_query,'service_type'=>$service_type));
+
+				$res['updated_element']=array(
+					'.post-query-desc'=>wpbooking_post_query_desc(WPBooking_Input::post())
+				);
 
 				echo json_encode($res);die;
 
@@ -211,18 +215,6 @@ if (!class_exists('WPBooking_Service')) {
 			$list_filed = array(
 				'room' => array(
 					array(
-						'name'  => 'title',
-						'label' => __('Title', "wpbooking"),
-						'type'  => "text",
-						'value' => ""
-					),
-					array(
-						'name'  => 'placeholder',
-						'label' => __('Placeholder', "wpbooking"),
-						'desc'  => __('Placeholder', "wpbooking"),
-						'type'  => 'text',
-					),
-					array(
 						'name'    => 'field_type',
 						'label'   => __('Field Type', "wpbooking"),
 						'type'    => "dropdown",
@@ -237,9 +229,22 @@ if (!class_exists('WPBooking_Service')) {
 							"bed"                 => __("Beds", "wpbooking"),
 							"bedroom"             => __("Bedrooms", "wpbooking"),
 							"bathroom"            => __("Bathrooms", "wpbooking"),
-							"customer_confirm"    => __("Require Customer Confirm?", "wpbooking"),
-							"partner_confirm"     => __("Require Partner Confirm?", "wpbooking"),
+							"guest"            => __("Guest", "wpbooking"),
+//							"customer_confirm"    => __("Require Customer Confirm?", "wpbooking"),
+//							"partner_confirm"     => __("Require Partner Confirm?", "wpbooking"),
 						)
+					),
+					array(
+						'name'  => 'title',
+						'label' => __('Title', "wpbooking"),
+						'type'  => "text",
+						'value' => ""
+					),
+					array(
+						'name'  => 'placeholder',
+						'label' => __('Placeholder', "wpbooking"),
+						'desc'  => __('Placeholder', "wpbooking"),
+						'type'  => 'text',
 					),
 					array(
 						'name'    => 'taxonomy',
@@ -279,7 +284,7 @@ if (!class_exists('WPBooking_Service')) {
 					),
 					array(
 						'name'  => 'in_more_filter',
-						'label' => __('More Filter?', "wpbooking"),
+						'label' => __('Into More Filter?', "wpbooking"),
 						'type'  => "checkbox",
 					),
 				),

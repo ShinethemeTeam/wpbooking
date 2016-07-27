@@ -153,3 +153,40 @@ if(!function_exists('wpbooking_get_order_item_used_gateway')){
 		}
 	}
 }
+
+if(!function_exists('wpbooking_post_query_desc'))
+{
+	function wpbooking_post_query_desc($input=FALSE)
+	{
+		if(!$input) $input=WPBooking_Input::get();
+
+		$q=array();
+		if(!empty($input['location_id']) and $location_id=$input['location_id']){
+			$location=get_term($location_id,'wpbooking_location');
+			if(!is_wp_error($location) and $location)
+			$q[]=sprintf(esc_html__('in %s','wpbooking'),$location->name);
+		}
+		if(!empty($input['check_in']) and $check_in=$input['check_in']){
+			$q[]=sprintf(esc_html__('from %s','wpbooking'),$check_in);
+
+			if(!empty($input['check_out']) and $check_out=$input['check_out']){
+				$q[]=sprintf(esc_html__('to %s','wpbooking'),$check_out);
+			}
+		}
+
+		if(!empty($input['guest']) and $guest=$input['guest']){
+			$q[]=sprintf(esc_html__('%d guest(s)','wpbooking'),$guest);
+		}
+		$query_desc=FALSE;
+		if(!empty($q)){
+			foreach($q as $key=>$val){
+				if($key==count($q)-1 && count($q)>1){
+					$query_desc.='and ';
+				}
+				$query_desc.=$val.' ';
+			}
+		}
+
+		return  apply_filters('wpbooking_service_post_query_desc',$query_desc,$q,$input);
+	}
+}
