@@ -496,6 +496,15 @@ jQuery(document).ready(function($){
                         }
 
                     }
+                    // Loop Grid Gallery
+                    if(typeof $.fn.owlCarousel=='function')
+                        $('.service-gallery-slideshow').owlCarousel(
+                            {
+                                items:1,
+                                nav:true,
+                                navText:['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>']
+                            }
+                        );
                 },
                 error:function(){
                     loop_wrap.removeClass('loading');
@@ -1040,6 +1049,21 @@ jQuery(document).ready(function($){
             checkboxClass:$(this).data('style'),
             radioClass:$(this).data('style'),
         });
+    });
+
+    // Loop Grid Gallery
+    if(typeof $.fn.owlCarousel=='function')
+    $('.service-gallery-slideshow').owlCarousel(
+        {
+            items:1,
+            nav:true,
+            navText:['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>']
+        }
+    );
+
+    // Form Order By Submit
+    $('.wpbooking-loop-sort-by').change(function(){
+       $(this).closest('form').submit();
     });
 });
 

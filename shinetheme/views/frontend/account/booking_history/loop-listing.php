@@ -92,7 +92,7 @@ $rows=$order_model->get()->result();
 					<?php do_action('wpbooking_order_item_information',$row) ?>
 					<?php do_action('wpbooking_order_item_information_'.$service_type,$row) ?>
 					<?php
-					$service_type_obj=WPBooking_Service::inst()->get_service_type($service_type);
+					$service_type_obj=WPBooking_Service_Controller::inst()->get_service_type($service_type);
 					if($service_type_obj){
 						printf('<strong>%s</strong>',$service_type_obj['label']);
 					}

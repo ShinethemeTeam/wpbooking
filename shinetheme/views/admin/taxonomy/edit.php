@@ -39,7 +39,7 @@
 				</th>
 				<td>
 					<?php
-					$types=WPBooking_Service::inst()->get_service_types();
+					$types=WPBooking_Service_Controller::inst()->get_service_types();
 					if(!empty($types))
 					{
 						foreach($types as $key=>$value){

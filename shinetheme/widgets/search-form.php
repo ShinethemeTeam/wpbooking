@@ -61,7 +61,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
 					<?php if(!empty($search_more_fields)){
 						?>
-						<div class="wpbooking-search-form-more-wrap mb20">
+						<div class="wpbooking-search-form-more-wrap">
 							<a href="#" onclick="return false"  class="btn btn-link wpbooking-show-more-fields"><span class="for-more"><?php esc_html_e('More','wpbooking') ?> <i class="fa fa-plus"></i></span><span class="for-less"><?php esc_html_e('Less','wpbooking') ?> <i class="fa fa-minus"></i></span></a>
 							<div class="wpbooking-search-form-more">
 								<?php
@@ -73,7 +73,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 						<?php
 					} ?>
 					<?php if(!$instance['is_filter_form']){ ?>
-					<div class="item-search search-button-wrap">
+					<div class="search-button-wrap">
 						<button class="wb-button" type="submit"><?php _e("Search",'wpbooking') ?></button>
 					</div>
 					<?php }?>
@@ -146,7 +146,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 							<input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>" name="<?php echo esc_attr( "taxonomy_operator" . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
 							<?php
 						}else{ ?>
-							<div class="row">
+							<div class="list-checkbox">
 								<?php
 								$value_item=FALSE;
 								if(!empty($v['taxonomy'])){
@@ -166,14 +166,14 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 													$class='hidden_term';
 												}
 												?>
-												<div class="col-md-12 term-item <?php echo esc_attr($class)?>">
-													<input type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$value2->term_id ?>" value="<?php echo esc_html( $value2->term_id ) ?>">
-													<label for="<?php echo "item_".$value2->term_id ?>"><?php echo esc_html( $value2->name ) ?></label>
+												<div class="term-item <?php echo esc_attr($class)?>">
+													<label ><input class="wb-icheck" data-style="icheckbox_square-orange" type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$value2->term_id ?>" value="<?php echo esc_html( $value2->term_id ) ?>">
+													<?php echo esc_html( $value2->name ) ?></label>
 												</div>
 												<?php
 												if($key2==3 and count($terms)>4){
 												?>
-													<div class="col-md-12">
+													<div class="">
 														<label class="show-more-terms" ><b><?php printf(esc_html__('More %s ...','wpbooking'),$tax->label) ?></b></label>
 													</div>
 													<?php
@@ -196,7 +196,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					?>
 					<div class="item-search">
 						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-						<div class="row">
+						<div class="list-checkbox">
 							<?php
 							$data = array(
 								"1" => __( "1 Star" , 'wpbooking' ) ,
@@ -212,10 +212,8 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 										$check = "checked";
 									}
 									?>
-									<div class="col-md-12">
 										<label ><input class="wb-icheck" data-style="icheckbox_square-orange" type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
 										<?php echo esc_html( $value2 ) ?></label>
-									</div>
 									<?php
 								}
 							}
@@ -339,7 +337,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
             <p>
                 <label for="<?php echo $this->get_field_id('service_type'); ?>"><strong><?php _e('Service Type:','wpbooking'); ?></strong>
                     <?php
-                    $data = WPBooking_Service::inst()->get_service_types();
+                    $data = WPBooking_Service_Controller::inst()->get_service_types();
                     ?>
                     <select name="<?php echo $this->get_field_name('service_type'); ?>" class="option_service_search_form" id="<?php echo $this->get_field_id('service_type'); ?>">
                         <option value=""><?php _e("-- Select --",'wpbooking') ?></option>
@@ -363,7 +361,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					<?php esc_html_e('Use as Filter Form?','wpbooking') ?></label>
 				<p class="help"><?php esc_html_e('Filter form does not cotain search button and only visible at archive page','wpbooking') ?></p>
 			</p>
-            <?php $all_list_field= WPBooking_Service::inst()->_get_list_field_search();
+            <?php $all_list_field= WPBooking_Service_Controller::inst()->_get_list_field_search();
             if(!empty($all_list_field)) {
                 foreach( $all_list_field as $key => $value ) {
                     ?>

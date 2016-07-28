@@ -114,6 +114,9 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			);
 
 			parent::__construct();
+
+			add_action('init',array($this,'_register_taxonomy'));
+
 			// add metabox
 			//add_filter('wpbooking_metabox_after_st_post_metabox_field_end_address_accordion',array($this,'_add_metabox'));
 
@@ -146,10 +149,57 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			add_filter('wpbooking_archive_loop_image_size',array($this,'_apply_thumb_size'),10,3);
 			add_filter('wpbooking_single_loop_image_size',array($this,'_apply_gallery_size'),10,3);
 
+			// Archive Room Type
+			add_action('wpbooking_after_service_address_rate',array($this,'_show_room_type'),10,3);
+
 			add_action('after_setup_theme',array($this,'_add_image_size'));
 
 		}
 
+		function _register_taxonomy()
+		{
+			$labels = array(
+				'name'              => _x('Room Type', 'taxonomy general name', 'wpbooking'),
+				'singular_name'     => _x('Room Type', 'taxonomy singular name', 'wpbooking'),
+				'search_items'      => __('Search Room Type', 'wpbooking'),
+				'all_items'         => __('All Room Type', 'wpbooking'),
+				'parent_item'       => __('Parent Room Type', 'wpbooking'),
+				'parent_item_colon' => __('Parent Room Type:', 'wpbooking'),
+				'edit_item'         => __('Edit Room Type', 'wpbooking'),
+				'update_item'       => __('Update Room Type', 'wpbooking'),
+				'add_new_item'      => __('Add New Room Type', 'wpbooking'),
+				'new_item_name'     => __('New Room Type Name', 'wpbooking'),
+				'menu_name'         => __('Room Type', 'wpbooking'),
+			);
+
+			$args = array(
+				'hierarchical'      => TRUE,
+				'labels'            => $labels,
+				'show_ui'           => TRUE,
+				'show_admin_column' => TRUE,
+				'query_var'         => TRUE,
+				'rewrite'           => array('slug' => 'room-type'),
+			);
+			$args = apply_filters('wpbooking_register_room_type_taxonomy', $args);
+
+			register_taxonomy('wpbooking_room_type', array('wpbooking_service'), $args);
+		}
+		function _show_room_type($post_id,$service_type,$service_object)
+		{
+			if($this->type_id==$service_type){
+				$terms=wp_get_post_terms($post_id,'wpbooking_room_type');
+				if(!empty($terms) and !is_wp_error($terms)){
+					$output[]='<div class="wpbooking-room-type">';
+					foreach($terms as $term){
+						$output[]=sprintf('<a href="%s">%s</a>',get_term_link($term,'wpbooking_room_type'),$term->name);
+					}
+					$output[]='</div>';
+
+					$output=apply_filters('wpbooking_room_show_room_type',$output);
+					echo implode(' ',$output);
+				}
+			}
+		}
 		function _add_image_size()
 		{
 			$thumb=$this->thumb_size('150,150,off');
@@ -505,6 +555,29 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			}
 
 			$args['meta_query'] = $meta_query;
+
+
+			// Order By
+			if(WPBooking_Input::request('wb_sort_by')){
+				switch(WPBooking_Input::request('wb_sort_by')){
+					case "price_asc":
+						$args['orderby']='price';
+						$args['order']='asc';
+						break;
+					case "price_desc":
+						$args['orderby']='price';
+						$args['order']='desc';
+						break;
+					case "date_asc":
+						$args['orderby']='date';
+						$args['order']='asc';
+						break;
+					case "date_desc":
+						$args['orderby']='date';
+						$args['order']='desc';
+						break;
+				}
+			}
 
 			return $args;
 		}

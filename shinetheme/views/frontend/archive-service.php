@@ -21,7 +21,7 @@ if(!empty($list_page_search[$is_page]))
 {
     $service_type = $list_page_search[$is_page];
 }
-$my_query = WPBooking_Service::inst()->query($args,$service_type);
+$my_query = WPBooking_Service_Controller::inst()->query($args,$service_type);
 echo wpbooking_load_view('wrap/start');
 ?>
 <div class="wpbooking-container">

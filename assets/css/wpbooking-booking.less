@@ -103,8 +103,17 @@
     .item-search{
         margin-bottom: 20px;
         >label{
-            margin-bottom: 5px;
+            margin-bottom: 11px;
             display: block;
+            font-size: 16px;
+        }
+
+        .list-checkbox{
+            font-size: 14px;
+            label{
+                display: block;
+                margin-bottom: 8px;
+            }
         }
 
         input[text],select{
@@ -179,17 +188,22 @@
         background: white;
         width: 14px;
         height: 14px;
+        .iCheck-helper{
+
+            position: absolute;
+            top:1px!important;
+            right:1px;
+            bottom:1px;
+            left: 1px!important;
+            opacity: 1!important;
+            width: auto!important;
+            height: auto!important;
+            transition: all 0.2s;
+        }
         &.hover,&.checked{
             .iCheck-helper{
-                position: absolute;
-                top:1px!important;
-                right:1px;
-                bottom:1px;
-                left: 1px!important;
-                background: #333333!important;
                 opacity: 1!important;
-                width: auto!important;
-                height: auto!important;
+                background: #333333!important;
                 &:after{
                     content: "";
                     width: 2px;
@@ -202,8 +216,209 @@
             }
         }
     }
+    &.is_filter_form{
+        background: white;
+        border-color:#d5d5d5;
+    }
+}
+.wpbooking-loop-header{
+    margin-bottom: 50px;
+    .post-found-count{
+        font-size: 30px;
+        color: #666666;
+        margin-bottom: 15px;
+        font-weight: normal;
+        margin-top: 0px;
+    }
+    .post-query-desc{
+        font-size: 14px;
+        color: #666;
+    }
 }
 .wpbooking-loop-wrap{
+    .wpbooking-loop-items{
+        margin-left: -15px;
+        margin-right: -15px;
+        .loop-item{
+            box-sizing: border-box;
+            box-shadow: none;
+            padding:0px 15px;
+            margin:0px;
+            float: left;
+            width: 50%;
+            border:none;
+            margin-bottom: 28px;
+            &:nth-child(2n+1){
+                clear: both;
+            }
+            .content-item{
+                background: white;
+                transition:all 0.2s;
+                border:1px solid #e6e6e6;
+                padding: 11px 13px;
+                &:hover{
+                    background: #f2f2f2;
+                }
+
+                .service-gallery{
+                    position: relative;
+                    margin-bottom: 20px;
+                    .service-fav{
+                        position: absolute;
+                        top:10px;
+                        right: 15px;
+                        z-index: 2;
+                        padding-left: 1px;
+                        i{
+                            font-size: 24px;
+                            color: #e6e6e6;
+                            //position: absolute;
+                            left:3px;
+                            top:2px;
+                            text-shadow: 0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white;
+                            &.icon-bg{
+                                color: white;
+                                position: static;
+                                font-size: 28px;
+                                display: none;
+                            }
+
+
+
+                        }
+                        &.active{
+                            i{
+                                color: @maincolor;
+                            }
+                        }
+                    }
+                    .service-author{
+                        position: absolute;
+                        left: 13px;
+                        bottom: -15px;
+                        z-index: 4;
+                        img{
+                            max-width: 44px;
+                            border:2px solid white;
+                            border-radius: 50%;
+                            height: auto;
+                        }
+                    }
+                    .owl-prev{
+                        position: absolute;
+                        color: white;
+                        top: 30%;
+                        left: 0px;
+                        font-size: 30px;
+                        font-weight: normal;
+                        padding:0px 15px;
+                    }
+                    .owl-next{
+                        position: absolute;
+                        color: white;
+                        top: 30%;
+                        right: 0px;
+                        font-size: 30px;
+                        font-weight: normal;
+                        padding:0px 15px;
+                    }
+                }
+
+                .service-content{
+                    .service-title{
+                        margin: 0px;
+                        font-size: 16px;
+                        font-weight: normal;
+                        margin-bottom: 10px;
+                        a{
+                            &:hover,&:focus{
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                    .service-address-rate{
+                        .clearfix;
+                        .service-address{
+                            color: #666666;
+                            font-size: 13px;
+                            float: left;
+                        }
+
+                        .service-rate{
+                            float: right;
+                            margin-top: 3px;
+                            .rating-stars{
+                                .clearfix;
+                                margin-top: 3px;
+                                a{
+                                    line-height: 12px;
+                                    height: 12px;
+                                    i{
+                                        float: left;
+                                    }
+                                }
+                            }
+                            .fa{
+                                font-size: 12px;
+                                color: #ffa980;
+                            }
+                            .rating-count{
+                                text-align: right;
+                                display: block;
+                                font-size: 11px;
+                                color: #666666;
+                            }
+                        }
+                    }
+
+
+                    .service-price-book-now{
+                        .clearfix;
+                        margin-top: 15px;
+                        .service-price{
+                            display: inline-block;
+                            line-height: normal;
+                            font-size: 13px;
+                            float: left;
+                            .price{
+                                font-size: 20px;
+                            }
+                        }
+                        .service-book-now{
+                            display: inline-block;
+                            float: right;
+                            .wb-btn-primary{
+                                color: white;
+                                background: #f0ad4e;
+                                font-size: 12px;
+                                text-transform: uppercase;
+                                font-weight: normal;
+                                border:1px solid #ff9933;
+                                border-radius: 0px;
+                                padding-top: 8px;
+                                padding-bottom: 8px;
+                            }
+                        }
+                    }
+                    .wpbooking-room-type{
+                        margin-top: -11px;
+                        a{
+                            font-size: 12px;
+                            color: #999999;
+                            border:1px solid #999999;
+                            border-radius: 3px;
+                            padding: 2px 5px;
+                            &:hover,&:focus{
+                                text-decoration: none;
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        }
+    }
     &.loading{
         position: relative;
         &:before{
@@ -221,11 +436,6 @@
 }
 .wpbooking-container{
     padding: 20px;
-    li.content-item{
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
     ul{
         list-style: none;
         margin: 0px;

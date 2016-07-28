@@ -13,57 +13,55 @@
 	if($my_query->have_posts()){
 		while ( $my_query->have_posts() ) {
 			$my_query->the_post();
+			$service=new WB_Service();
 			switch($service_type){
 				case "room":
 					?>
-					<li <?php post_class('content-item') ?>>
-
-						<div class="row">
-							<div class="col-md-3">
-								<?php if(has_post_thumbnail() and get_the_post_thumbnail()){
-									the_post_thumbnail( apply_filters('wpbooking_archive_loop_image_size',FALSE,$service_type,get_the_ID()) );
-								}?>
-
-
-							</div>
-							<div class="col-md-6 ">
-								<a href="<?php echo get_the_permalink() ?>" class="">
-									<h5 class="booking-item-title"><?php the_title(); ?></h5>
-								</a>
-								<?php if($address = get_post_meta(get_the_ID(),'address',true)){ ?>
-									<span class="info-item service-address">
-                                                    <i class="fa fa-map-marker"></i>
-										<?php echo get_post_meta(get_the_ID(),'address',true); ?>
-                                                </span>
-								<?php } ?>
-								<?php
-								$taxonomy = WPBooking_Admin_Taxonomy_Controller::inst()->get_taxonomies();
-								if(!empty($taxonomy)) {
-									foreach( $taxonomy as $k => $v ) {
-										if(in_array($service_type,$v['service_type'])){
-											$terms = get_the_terms( get_the_ID() , $v['name'] );
-											if(!empty( $terms )) {
-												echo "<div class='taxonomy-item info-item'>";
-												echo "".$v['label'].": ";
-												$list = array();
-												foreach( $terms as $key2 => $value2 ) {
-													$list []=  esc_html( $value2->name ) ;
-												}
-												echo implode(', ',$list);
-												echo "</div>";
-											}
+					<li <?php post_class('loop-item') ?>>
+						<div class="content-item">
+							<div class="service-gallery">
+								<a href="#" class="service-fav <?php if($service->check_favorite()) echo 'active'; ?>"><i class="fa fa-heart"></i></a>
+								<div class="service-gallery-slideshow">
+									<?php
+									$gallery=$service->get_gallery();
+									if(!empty($gallery)){
+										foreach($gallery as $media){
+											printf('<div class="slider-item">%s</div>',$media['gallery']);
 										}
 									}
-								}?>
-								<div class="service-rating-review">
-									<?php
-									echo wpbooking_service_rate_to_html();
 									?>
 								</div>
-
+								<div class="service-author">
+									<a href="#"><?php echo ($service->get_author('avatar')) ?></a>
+								</div>
 							</div>
-							<div class="col-md-3">
-								<?php echo wpbooking_service_price_html() ?>
+							<div class="service-content">
+								<h3 class="service-title"><a href="<?php the_permalink()?>"><?php the_title()?></a></h3>
+								<div class="service-address-rate">
+									<?php $address=$service->get_address();
+									if($address){
+									?>
+									<div class="service-address">
+										<i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
+									</div>
+									<?php }?>
+									<div class="service-rate">
+										<?php
+										$service->get_rate_html();
+										?>
+									</div>
+								</div>
+								<?php do_action('wpbooking_after_service_address_rate',get_the_ID(),$service->get_type(),$service) ?>
+								<div class="service-price-book-now">
+									<div class="service-price">
+										<?php
+										$service->get_price_html();
+										?>
+									</div>
+									<div class="service-book-now">
+										<a class="btn wb-btn-primary" href="<?php the_permalink() ?>"><?php esc_html_e('Book Now','wpbooking') ?></a>
+									</div>
+								</div>
 							</div>
 						</div>
 					</li>

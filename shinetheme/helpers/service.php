@@ -31,11 +31,7 @@ if(!function_exists('wpbooking_service_price_html'))
 		$service_type= get_post_meta($post_id,'service_type',true);
 
 		$price_html=WPBooking_Currency::format_money($price);
-		switch(get_post_meta($post_id,'price_type',true)){
-			case "per_night":
-				$price_html=sprintf(__('%s Per Night','wpbooking'),$price_html);
-				break;
-		}
+		$price_html=sprintf(__('from %s/night','wpbooking'),'<br><span class="price">'.$price_html.'</span>');
 
 		$price_html= apply_filters('wpbooking_service_base_price',$price_html,$post_id,$service_type);
 		$price_html= apply_filters('wpbooking_service_base_price_'.$service_type,$price_html,$post_id,$service_type);
@@ -56,6 +52,17 @@ if(!function_exists('wpbooking_service_rate_to_html'))
 			$active=FALSE;
 			if($rate>=$i) $active='active';
 			$html.=sprintf('<a class="%s"><i class="fa fa-star-o icon-star"></i></a>',$active);
+		}
+		$html.='</span>';
+
+		$count=get_comments_number($post_id);
+		$html.='<span class="rating-count">';
+		if($count==0){
+			$html.=esc_html__('0 review','wpbooking');
+		}elseif($count>1){
+			$html.=sprintf(esc_html__('%d reviews','wpbooking'),$count);
+		}else{
+			$html.=esc_html__('1 review','wpbooking');
 		}
 		$html.='</span>';
 

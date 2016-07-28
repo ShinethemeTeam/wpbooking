@@ -299,8 +299,11 @@ if (!class_exists('WPBooking_Model')) {
 			return $this;
 		}
 
-		function get()
+		function get($limit=FALSE,$offset=FALSE)
 		{
+			if($limit){
+				$this->limit($limit,$offset);
+			}
 			global $wpdb;
 			$query = $this->_get_query();
 			$this->_last_query = $query;

@@ -32,7 +32,8 @@ $autoload['library']=array(
 	'validator',
 	'metabox',
 	'email/emogrifier',
-	'query'
+	'query',
+	'base/service'
 );
 
 $autoload['controller']=array(
@@ -58,7 +59,8 @@ $autoload['model']=array(
 	'calendar_model',
 	'payment_model',
 	'comments_model',
-	'inbox_model'
+	'inbox_model',
+	'user_favorite_model'
 );
 
 $autoload['widget']=array(

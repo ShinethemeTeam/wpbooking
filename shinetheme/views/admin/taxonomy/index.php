@@ -82,7 +82,7 @@
 						<div class="form-field">
 							<label ><?php _e( 'Service Type', 'wpbooking' ); ?></label>
 							<?php
-							$types=WPBooking_Service::inst()->get_service_types();
+							$types=WPBooking_Service_Controller::inst()->get_service_types();
 							if(!empty($types))
 							{
 								foreach($types as $key=>$value){

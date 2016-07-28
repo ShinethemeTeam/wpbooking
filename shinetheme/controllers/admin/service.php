@@ -206,7 +206,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 					array(
 						'label' => __("Nightly Rate", 'wpbooking'),
 						'type'  => 'money_input',
-						'id'    => 'base_price',
+						'id'    => 'price',
 						'class' => 'small'
 					),
 					array(

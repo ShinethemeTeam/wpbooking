@@ -7,7 +7,7 @@
  */
 if(is_user_logged_in()) return;
 
-$types=WPBooking_Service::inst()->get_service_types();
+$types=WPBooking_Service_Controller::inst()->get_service_types();
 ?>
 <form action="" method="post" id="wpbooking-register-form" class="wpbooking-register-form">
 	<input type="hidden"  name="action" value="wpbooking_do_partner_register">

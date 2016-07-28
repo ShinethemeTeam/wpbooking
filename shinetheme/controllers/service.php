@@ -8,8 +8,8 @@
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
-if (!class_exists('WPBooking_Service')) {
-	class WPBooking_Service
+if (!class_exists('WPBooking_Service_Controller')) {
+	class WPBooking_Service_Controller
 	{
 
 		private static $_inst;
@@ -82,7 +82,7 @@ if (!class_exists('WPBooking_Service')) {
 				{
 					$service_type = $list_page_search[$is_page];
 				}
-				$my_query = WPBooking_Service::inst()->query($args,$service_type);
+				$my_query = $this->query($args,$service_type);
 
 				$res=array(
 					'html'=>wpbooking_load_view('archive/loop',array('my_query'=>$my_query,'service_type'=>$service_type)),
@@ -381,6 +381,8 @@ if (!class_exists('WPBooking_Service')) {
 			return apply_filters('wpbooking_service_types', $default);
 		}
 
+
+
 		/**
 		 * Get Service Type Object by Type ID
 		 * @since 1.0
@@ -416,5 +418,5 @@ if (!class_exists('WPBooking_Service')) {
 
 	}
 
-	WPBooking_Service::inst();
+	WPBooking_Service_Controller::inst();
 }

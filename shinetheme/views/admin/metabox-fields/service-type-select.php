@@ -2,7 +2,7 @@
 /**
  *@since 1.0.0
  **/
-$service_type=WPBooking_Service::inst()->get_service_types();
+$service_type=WPBooking_Service_Controller::inst()->get_service_types();
 
 $old_data = get_post_meta( $post_id, esc_html( $data['id'] ), true );
 
