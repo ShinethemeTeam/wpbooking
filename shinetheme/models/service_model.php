@@ -93,7 +93,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 			$min_max = $this->get_min_max_price($args);
 			if ($min_max) {
 				$res = array();
-				$columns = 30;
+				$columns = 20;
 				$step = ($min_max['max'] - $min_max['min']) / $columns;
 
 				for ($i = 1; $i <= $columns; $i++) {

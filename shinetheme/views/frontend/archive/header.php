@@ -55,6 +55,10 @@ if(!$my_query->have_posts()) return;
 					</select>
 				</form>
 			</div>
+			<div class="wpbooking-view-switch">
+				<a href="#" class="<?php if(empty($_COOKIE['wpbooking_view_type']) or $_COOKIE['wpbooking_view_type']=='grid') echo 'active'; ?>" data-view="grid"><i class="fa fa-th"></i></a>
+				<a href="#" class="<?php if(!empty($_COOKIE['wpbooking_view_type']) and $_COOKIE['wpbooking_view_type']=='list') echo 'active'; ?>" data-view="list"><i class="fa fa-list-ul"></i></a>
+			</div>
 		</div>
 	</div>
 </div>

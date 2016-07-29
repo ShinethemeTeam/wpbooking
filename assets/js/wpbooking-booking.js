@@ -435,29 +435,83 @@ jQuery(document).ready(function($){
 
 
     $(window).load(function(){
-        $('.wpbooking-price-chart').each(function(){
-            var me=$(this);
-            try{
-                var data=me.data('chart');
-                var max=data[0];
-
-                for(i=0;i<data.length;i++){
-                    if(data[i]>max) max=data[i];
+        //$('.wpbooking-price-chart').each(function(){
+        //    var me=$(this);
+        //    try{
+        //        var data=me.data('chart');
+        //        var max=data[0];
+        //
+        //        for(i=0;i<data.length;i++){
+        //            if(data[i]>max) max=data[i];
+        //        }
+        //
+        //        for(i=0;i<data.length;i++){
+        //            var bar=$('<div/>');
+        //            var height=parseInt(data[i]*25/max);
+        //            bar.addClass('bar-item');
+        //            bar.css({
+        //                height:height
+        //            });
+        //            me.append(bar);
+        //        }
+        //    }catch(e){
+        //
+        //    }
+        //
+        //});
+        var ctx=$('#wpbooking-price-chart2');
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["1", "2", "3", "4", "5", "6", "7",8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28],
+                datasets: [{
+                    label: "My First dataset",
+                    fill: false,
+                    lineTension: 0.1,
+                    borderWidth:1,
+                    //backgroundColor: "red",
+                    borderColor: "#c1c1c1",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "transparent",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 0,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "transparent",
+                    pointHoverBorderColor: "transparent",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 0,
+                    pointHitRadius: 10,
+                    data: ctx.data('chart'),
+                    spanGaps: false,
+                }]
+            },
+            options: {
+                scaleShowLabels:false,
+                tooltips:{
+                        enabled:false
+                    },
+                legend:{
+                    display:false
+                },
+                scales: {
+                    xAxes: [{
+                        display: false,
+                        gridLines: {
+                            color: "white"
+                        }
+                    }],
+                    yAxes: [{
+                        display: false,
+                        gridLines: {
+                            color: "white"
+                        }
+                    }]
                 }
-
-                for(i=0;i<data.length;i++){
-                    var bar=$('<div/>');
-                    var height=parseInt(data[i]*25/max);
-                    bar.addClass('bar-item');
-                    bar.css({
-                        height:height
-                    });
-                    me.append(bar);
-                }
-            }catch(e){
 
             }
-
         });
 
 
@@ -1065,6 +1119,68 @@ jQuery(document).ready(function($){
     $('.wpbooking-loop-sort-by').change(function(){
        $(this).closest('form').submit();
     });
+
+    // wpbooking-view-switch
+    $('.wpbooking-view-switch a').click(function(){
+        var cname='wpbooking_view_type';
+        var cvalue=$(this).data('view');
+        var d = new Date();
+        d.setTime(d.getTime() + (365*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+
+        $('.wpbooking-loop-items').removeClass('list').addClass(cvalue);
+        $(this).addClass('active').siblings().removeClass('active');
+
+        if(typeof $.fn.owlCarousel=='function')
+            $('.service-gallery-slideshow').owlCarousel(
+                {
+                    items:1,
+                    nav:true,
+                    navText:['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>']
+                }
+            );
+
+        return false;
+    });
+
+    // Add Favorite
+    $('.service-fav').click(function(){
+        var me=$(this);
+        $.ajax({
+            url:wpbooking_params.ajax_url,
+            dataType:'json',
+            type:'post',
+            data:{
+                action:'wpbooking_add_favorite',
+                post_id:$(this).data('post')
+            },
+            success:function(res){
+                if(res.status){
+                    if(res.fav_status) me.addClass('active');
+                    else me.removeClass('active');
+                }
+
+                if(res.message) alert(res.message);
+            },
+            error:function(e){
+                console.log(e.responseText);
+            }
+        });
+
+        return false;
+    });
+
+    //
+    $('.wpbooking-search-form.is_filter_form .item-search>label').click(function(){
+       $(this).closest('.item-search').toggleClass('closed');
+    });
+    $('.wpbooking-search-form.is_filter_form .item-search .wb-collapse').click(function(){
+       $(this).closest('.item-search').toggleClass('closed');
+    });
+
+
+
 });
 
 

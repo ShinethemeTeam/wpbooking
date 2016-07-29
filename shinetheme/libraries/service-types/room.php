@@ -152,7 +152,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			// Archive Room Type
 			add_action('wpbooking_after_service_address_rate',array($this,'_show_room_type'),10,3);
 
-			add_action('after_setup_theme',array($this,'_add_image_size'));
+			//add_action('after_setup_theme',array($this,'_add_image_size'));
 
 		}
 
@@ -214,8 +214,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			$thumb=explode(',',$thumb);
 			if(count($thumb)==3){
 				if($thumb[2]=='off') $thumb[2]=FALSE;
-
-				add_image_size('wpbooking_room_gallery_size',$thumb[0],$thumb[1],$thumb[2]=FALSE);
+				add_image_size('wpbooking_room_gallery_size',$thumb[0],$thumb[1]);
 			}
 
 		}
@@ -827,7 +826,14 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		function _apply_thumb_size($size,$service_type,$post_id)
 		{
 			if($service_type==$this->type_id){
-				$size='wpbooking_room_thumb_size';
+				$thumb=$this->thumb_size('150,150,off');
+				$thumb=explode(',',$thumb);
+				if(count($thumb)==3){
+					if($thumb[2]=='off') $thumb[2]=FALSE;
+
+					$size= array($thumb[0],$thumb[1]);
+				}
+
 			}
 			return $size;
 		}
@@ -835,7 +841,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		{
 			if($service_type==$this->type_id){
 
-				$size='wpbooking_room_gallery_size';
+				$thumb=$this->gallery_size('800,600,off');
+				$thumb=explode(',',$thumb);
+				if(count($thumb)==3){
+					if($thumb[2]=='off') $thumb[2]=FALSE;
+					$size=array($thumb[0],$thumb[1]);
+				}
 			}
 			return $size;
 		}

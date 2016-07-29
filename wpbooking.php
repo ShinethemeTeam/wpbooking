@@ -120,7 +120,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			 */
 			wp_enqueue_script('wpbooking-select2',wpbooking_assets_url('select2/js/select2.full.min.js'),array('jquery'),null,true);
 
-			wp_enqueue_script('wpbooking-booking',wpbooking_assets_url('js/wpbooking-booking.js'),array('jquery','jquery-ui-datepicker','icheck','owlcarousel'),null,true);
+			wp_enqueue_script('wpbooking-booking',wpbooking_assets_url('js/wpbooking-booking.js'),array('jquery','chartjs','jquery-ui-datepicker','icheck','owlcarousel'),null,true);
 
 
 			wp_localize_script('jquery','wpbooking_params',array(

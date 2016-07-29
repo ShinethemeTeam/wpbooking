@@ -7,7 +7,7 @@
  */
 ?>
 
-<ul class="wpbooking-loop-items">
+<ul class="wpbooking-loop-items <?php echo !empty($_COOKIE['wpbooking_view_type'])?$_COOKIE['wpbooking_view_type']:FALSE ?>">
 	<?php
 	global $wp_query;
 	if($my_query->have_posts()){
@@ -20,7 +20,7 @@
 					<li <?php post_class('loop-item') ?>>
 						<div class="content-item">
 							<div class="service-gallery">
-								<a href="#" class="service-fav <?php if($service->check_favorite()) echo 'active'; ?>"><i class="fa fa-heart"></i></a>
+								<a href="#" data-post="<?php the_ID()?>" class="service-fav <?php if($service->check_favorite()) echo 'active'; ?>"><i class="fa fa-heart"></i></a>
 								<div class="service-gallery-slideshow">
 									<?php
 									$gallery=$service->get_gallery();
@@ -36,22 +36,24 @@
 								</div>
 							</div>
 							<div class="service-content">
-								<h3 class="service-title"><a href="<?php the_permalink()?>"><?php the_title()?></a></h3>
-								<div class="service-address-rate">
-									<?php $address=$service->get_address();
-									if($address){
-									?>
-									<div class="service-address">
-										<i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
-									</div>
-									<?php }?>
-									<div class="service-rate">
-										<?php
-										$service->get_rate_html();
+								<div class="service-content-inner">
+									<h3 class="service-title"><a href="<?php the_permalink()?>"><?php the_title()?></a></h3>
+									<div class="service-address-rate">
+										<?php $address=$service->get_address();
+										if($address){
 										?>
+										<div class="service-address">
+											<i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
+										</div>
+										<?php }?>
+										<div class="service-rate">
+											<?php
+											$service->get_rate_html();
+											?>
+										</div>
 									</div>
+									<?php do_action('wpbooking_after_service_address_rate',get_the_ID(),$service->get_type(),$service) ?>
 								</div>
-								<?php do_action('wpbooking_after_service_address_rate',get_the_ID(),$service->get_type(),$service) ?>
 								<div class="service-price-book-now">
 									<div class="service-price">
 										<?php

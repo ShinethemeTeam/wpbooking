@@ -7,7 +7,7 @@
  */
 ?>
 
-<div id="pagination" class="text-right">
+<div class="wpbooking-pagination" >
 	<?php
 	$paged        = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
 	$pagenum_link = html_entity_decode( get_pagenum_link() );

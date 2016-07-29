@@ -136,5 +136,28 @@ if (!class_exists('WB_Service')) {
 				}
 			}
 		}
+
+		function do_favorite(){
+			if($this->ID and $user_id=is_user_logged_in()){
+				if($this->check_favorite($user_id)){
+					$model=WPBooking_User_Favorite_Model::inst();
+					$model->where(array(
+						'post_id'=>$this->ID,
+						'user_id'=>$user_id
+					))->delete();
+
+					return FALSE;
+				}else{
+					$model=WPBooking_User_Favorite_Model::inst();
+					$model->insert(array(
+						'post_id'=>$this->ID,
+						'user_id'=>$user_id,
+						'created_at'=>time()
+					));
+
+					return true;
+				}
+			}
+		}
 	}
 }

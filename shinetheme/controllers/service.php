@@ -48,8 +48,40 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			 * @since 1.0
 			 */
 			add_action('template_redirect',array($this,'_ajax_filter_archivepage'),100);
+
+			/**
+			 * Ajax Add Favorite
+			 * @author dungdt
+			 * @since 1.0
+			 */
+			add_action('wp_ajax_wpbooking_add_favorite',array($this,'_add_favorite'));
 		}
 
+		/**
+		 * Ajax Callback Add Favorite
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 */
+		function _add_favorite()
+		{
+			$res=array('status'=>0);
+
+			if(is_user_logged_in()){
+				if(!$post_id=WPBooking_Input::post('post_id')){
+					$res['message']=esc_html__('Post ID is required','wpbooking');
+				}else{
+					$service=new WB_Service($post_id);
+					$res['status']=1;
+					$res['fav_status']=$service->do_favorite();
+				}
+			}else{
+				$res['not_logged_in']=1;
+				$res['login_url']=wp_login_url();
+			}
+
+			echo json_encode($res);die;
+		}
 		/**
 		 * Ajax Filter Service Type
 		 *

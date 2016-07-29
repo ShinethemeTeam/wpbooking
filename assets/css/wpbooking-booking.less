@@ -1,3 +1,4 @@
+@maincolor:#f0ad4e;
 //Helper Class
 .tab-padding{
     padding:20px;
@@ -78,9 +79,9 @@
 }
 // Hide Search Button in archive page
 .wpbooking-archive-page{
-    .search-button-wrap{
-        display: none;
-    }
+    //.search-button-wrap{
+    //    display: none;
+    //}
     .wpbooking-search-form-wrap.show-more-active{
         .search-button-wrap{
             display: block;
@@ -182,6 +183,11 @@
             }
         }
     }
+    .star-rating{
+        i{
+           margin-right: 4px;
+        }
+    }
     .icheckbox_square-orange{
         margin-right: 10px;
         border: 1px solid #666666;
@@ -216,9 +222,158 @@
             }
         }
     }
+
+    .wb-collapse{
+        display: none;
+    }
     &.is_filter_form{
         background: white;
         border-color:#d5d5d5;
+        padding-left: 0px;
+        padding-right: 0px;
+        .widget-title{
+            padding: 0px 15px 15px;
+            border-bottom: 1px solid #ededed;
+        }
+        input[type=select],select,.select2-selection.select2-selection--single{
+            border:1px solid #dddddd;
+            background: white;
+        }
+        .item-search{
+            padding: 0px 15px 15px;
+            border-bottom: 1px solid #ececec;
+            margin-bottom: 20px;
+            position: relative;
+            >label{
+                color: #666;
+                cursor: pointer;
+                &:before{
+                    content: "\f0d7";
+                    font: normal normal normal 14px/1 FontAwesome;
+                    text-rendering: auto;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    margin-right: 3px;
+                    width: 8px;
+                    display: inline-block;
+                }
+
+
+            }
+
+            &.closed{
+                >label{
+                    &:before{
+                        content: "\f0da";
+                    }
+                }
+                .wb-collapse{
+                    display: none;
+                }
+                .item-search-content{
+                    display: none;
+                }
+            }
+            .item-search-content
+            {
+                margin-bottom: 20px;
+            }
+            .wb-collapse{
+                display: block;
+                cursor: pointer;
+                position: absolute;
+                height: 14px;
+                line-height: 11px;
+                bottom:0px;
+                left: 0px;
+                right: 0px;
+                &:before{
+                    content: "\f0d8";
+                    color: #cccccc;
+                    font: normal normal normal 14px/1 FontAwesome;
+                    text-rendering: auto;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    margin-right: 3px;
+                    width: 8px;
+                    display: inline-block;
+                }
+                text-align: center;
+                &:hover{
+                    background: #f5f5f5;
+                }
+            }
+            .list-checkbox{
+                >label,>.term-item{
+                    margin-left: -15px;
+                    margin-right: -15px;
+                    padding:0px 15px;
+                    height: 29px;
+                    line-height: 29px;
+                    margin-bottom: 0px;
+                    &:hover{
+                        background: #337ab7;
+                        .star-rating{
+                            i{
+                                color: #ffffff;
+                            }
+                        }
+                    }
+                    .icheckbox_square-orange{
+                        border-color: #e6e6e6;
+                        &.hover:not(.checked){
+                            .iCheck-helper{
+                                background: none!important;
+                            }
+                        }
+                        &.checked{
+                            border-color: #666666;
+                        }
+                    }
+                }
+
+            }
+            .star-rating{
+                i{
+                    color: #f0ad4e;
+                }
+            }
+            &.search-price{
+
+                .price-chart-wrap{
+                    overflow: hidden;
+                    margin-bottom: -19px;
+                    margin-top: 30px;
+                    #wpbooking-price-chart2{
+                        background: rgb(249, 248, 248);
+                        //margin-left: -34px;
+                        //margin-bottom: -43px;
+                    }
+                }
+                .irs-line{
+                    background: #e6e6e6;
+                    height: 11px;
+                    border-radius: 0;
+                    border:none;
+                }
+                .irs-bar{
+                    background: @maincolor;
+                    height: 11px;
+                    border:none;
+                }
+                .irs-slider{
+                    width: 12px;
+                    height: 11px;
+                    background: white;
+                    box-shadow: none;
+                    border:1px solid @maincolor;
+                    border-radius: 0px;
+                    top:13px;
+                }
+
+
+            }
+        }
     }
 }
 .wpbooking-loop-header{
@@ -234,11 +389,46 @@
         font-size: 14px;
         color: #666;
     }
+    .wpbooking-loop-order{
+        float: right;
+        select{
+            background: #f2f2f2;
+            border:1px solid #d5d5d5;
+            font-size: 14px;
+            color: #666666;
+            height: 25px;
+        }
+    }
+
+    .wpbooking-view-switch{
+        float: right;
+        margin-right: 20px;
+        a{
+            i{
+                font-size: 20px;
+                color: #999999;
+                padding:3px 4px;
+                border:1px solid transparent;
+            }
+
+            &.active{
+                i{
+                    background: #e6e6e6;
+                    border:1px solid #d6d6d6;
+                }
+            }
+
+            &:focus,&:active{
+                outline: none;
+            }
+        }
+    }
 }
 .wpbooking-loop-wrap{
     .wpbooking-loop-items{
         margin-left: -15px;
         margin-right: -15px;
+        .clearfix;
         .loop-item{
             box-sizing: border-box;
             box-shadow: none;
@@ -283,10 +473,11 @@
                                 display: none;
                             }
 
-
-
                         }
-                        &.active{
+                        &:focus,&:active{
+                            outline: none;
+                        }
+                        &.active,&:hover{
                             i{
                                 color: @maincolor;
                             }
@@ -417,6 +608,56 @@
                 }
             }
 
+        }
+
+        &.list{
+            margin-left: 0px;
+            margin-right: 0px;
+            .loop-item{
+                width: 100%;
+                padding:0px;
+                .content-item{
+                    .clearfix;
+                    position: relative;
+                    .service-gallery{
+                        width: 44%;
+                        float: left;
+                        margin-bottom: 10px;
+                    }
+                    .service-content{
+                        width:54%;
+                        float: right;
+                        .service-content-inner{
+                            float: left;
+                            width: 50%;
+                            .service-address{
+                                float: none;
+                            }
+                            .service-rate{
+                                float: none;
+                                text-align: left;
+                                .rating-count{
+                                    text-align: left;
+                                }
+                            }
+                            .wpbooking-room-type{
+                                margin-top: 0px;
+                            }
+                        }
+                        .service-price-book-now{
+                            margin-top: 0px;
+                            float: right;
+                            width: 50%;
+                            text-align: right;
+                            .service-book-now{
+                                position: absolute;
+                                bottom:21px;
+                                right:13px;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     &.loading{
@@ -1165,4 +1406,20 @@
     list-style: none;
     margin:0px;
     padding:0px;
+}
+.wpbooking-pagination{
+    margin-top: 50px;
+    text-align: center;
+    a,span{
+        color: #666;
+        font-size: 14px;
+        background: white;
+        border:1px solid #adadad;
+        text-align: center;
+        padding: 4px 10px;
+    }
+    span,a:hover{
+        background: #e6e6e6;
+        text-decoration: none;
+    }
 }
