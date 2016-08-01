@@ -374,6 +374,9 @@
 
             }
         }
+        .wpbooking-show-more-fields{
+            margin-left: 15px;
+        }
     }
 }
 .wpbooking-loop-header{
@@ -1421,5 +1424,219 @@
     span,a:hover{
         background: #e6e6e6;
         text-decoration: none;
+    }
+}
+
+// Single
+.single-wpbooking_service{
+    .wpbooking-single-content{
+        color: #666;
+        .service-title-gallery{
+            margin-bottom: 30px;
+            .service-title{
+                font-size: 30px;
+                margin-top: 50px;
+                color: #333;
+                margin-bottom: 15px;
+                font-weight: normal;
+            }
+            .service-address-rate{
+                .clearfix;
+                margin-bottom: 10px;
+                .service-address{
+                    display: inline-block;
+                    margin-right: 22px;
+                    font-size: 14px;
+                }
+                .service-rate{
+                    font-size: 13px;
+                    display: inline-block;
+                    .rating-stars
+                    {
+                        a{
+                            color: #ff9966;
+                            margin-right: 3px;
+                        }
+                    }
+                    .rating-count{
+                        margin-left: 5px;
+                    }
+                }
+            }
+            .wpbooking-room-type{
+                a{
+                    font-size: 14px;
+                    color: #333;
+                    border-radius: 2px;
+                    border:1px solid #ddd;
+                    padding:2px 5px;
+                    &:hover{
+                        text-decoration: none;
+                    }
+
+                }
+            }
+            .service-gallery-single{
+                .clearfix;
+                margin-left: -2px;
+                margin-right: -2px;
+                .gallery-item{
+                    float: left;
+                    width: 33%;
+                    padding:2px;
+                    position: relative;
+                    cursor: pointer;
+                    img{
+                        max-width: 100%;
+                    }
+
+                    .hover-tag{
+                        display: none;
+                        position: absolute;
+                        top:2px;
+                        right:2px;
+                        left: 2px;
+                        bottom: 2px;
+                        background: rgba(0,0,0,0.5);
+                        text-align: center;
+                        border:none;
+                        i{
+                            color: white;
+                            margin-top: 48%;
+                        }
+                    }
+
+                    &:hover{
+                        .hover-tag{
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+
+        .service-order-form{
+            .service-price{
+                background: @maincolor;
+                border:1px solid #eea236;
+                color: white;
+                font-size: 14px;
+                padding:0px 8px;
+                br {
+                    display: none;
+                }
+                .price{
+                    font-size: 30px;
+                }
+            }
+            .order-form-content{
+                background: #e6e6e6;
+                padding:0px 10px;
+                font-size: 14px;
+                padding-bottom: 10px;
+                div{
+                    max-width: 100%;
+                }
+                p{
+                    margin-bottom: 0px;
+                }
+                input[type=text],select{
+                    margin-top: 5px;
+                    line-height: 36px;
+                    height: 36px;
+                    border:none;
+                    border-radius: 0px;
+                    background: white;
+                    padding:0px 10px;
+                    font-size: 14px;
+                }
+                .wb-field{
+                    margin-bottom: 15px;
+                }
+                .wb-field-datepicker{
+                    position: relative;
+                    label{
+                        display: block;
+                    }
+                    i{
+                        position: absolute;
+                        top: 14px;
+                        right: 13px;
+                        color: #333;
+                        font-size: 19px;
+                    }
+                }
+                .wb-extra-field{
+                    background: white;
+                    .clearfix;
+                    padding:10px 8px;
+                    margin-bottom: 10px;
+                    color: #333333;
+                    .field-number{
+                        float: right;
+                        select{
+                            background: #f2f2f2;
+                            height: 27px;
+                            line-height: 27px;
+                        }
+                    }
+                }
+                .submit-button{
+                    text-transform: uppercase;
+                    background: #31b0d5;
+                    border: 1px solid #269abc;
+                    color: white;
+                    padding: 6px 20px;
+                    font-weight: normal;
+                }
+            }
+        }
+
+        .service-content-section{
+            margin-bottom: 30px;
+            .service-info-title{
+                font-size: 20px;
+                margin-top: 0px;
+                margin-bottom: 30px;
+                display: block;
+            }
+            .service-detail-item{
+                font-size: 14px;
+                color: #666666;
+                margin-bottom: 30px;
+                .clearfix;
+                .service-detail-title{
+                    float: left;
+                    width: 30%;
+                    margin-right: 2%;
+                    background: #f2f2f2;
+                    border-bottom: 1px solid #d6d6d6;
+                    margin-bottom: 20px;
+                    padding: 5px 10px;
+                }
+                .service-detail-content{
+                    float: left;
+                    width: 68%;
+                    background: #f2f2f2;
+                    border-bottom: 1px solid #d6d6d6;
+                    padding:10px;
+
+                    .service-extra-price{
+                        list-style: none;
+                        margin:0px;
+                        padding:0px;
+
+                        .required{
+                            color: #d43f3a;
+                            font-style: italic;
+                            margin-left: 15px;
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+
+
+        }
     }
 }

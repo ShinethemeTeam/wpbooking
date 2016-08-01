@@ -190,3 +190,13 @@ if( !function_exists('wpbooking_timestamp_diff_day') ){
 		return $day;
 	}
 }
+if(!function_exists('wpbooking_get_translated_string')){
+	function wpbooking_get_translated_string($string,$name=FALSE){
+
+		if(!$name) $name=$string;
+
+		do_action( 'wpml_register_single_string', 'wpbooking', $name, $string );
+
+		return $string;
+	}
+}

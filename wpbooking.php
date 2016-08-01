@@ -69,6 +69,11 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 //				false,
 //				1.0,
 //				false);
+			/**
+			 * Magnific
+			 */
+			wp_register_script('magnific',wpbooking_assets_url('magnific/jquery.magnific-popup.min.js'),array('jquery'),null,true);
+			wp_register_style('magnific',wpbooking_assets_url('magnific/magnific-popup.css'));
 
 			/**
 			 * Icheck
@@ -87,6 +92,10 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			 */
 			wp_enqueue_style('wpbooking-select2',wpbooking_assets_url('select2/css/select2.min.css'));
 			wp_enqueue_style('jquery-ui-datepicker',wpbooking_assets_url('css/datepicker.css'));
+			if(is_singular('wpbooking_service')){
+				wp_enqueue_style('magnific');
+				wp_enqueue_script('magnific');
+			}
 			wp_enqueue_style('wpbooking-booking',wpbooking_assets_url('css/wpbooking-booking.css'),array('icheck','owlcarousel'));
 
 

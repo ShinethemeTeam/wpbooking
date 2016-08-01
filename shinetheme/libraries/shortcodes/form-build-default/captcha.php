@@ -113,7 +113,7 @@ if (!class_exists('WPBooking_Captcha_Field')) {
 					$html = $this->get_recaptcha();
 					break;
 			}
-			$html .= '<input type="hidden" name="wpbooking_captcha_type" value="' . $data['type'] . '">';
+			$html .= '<div class="wb-field"><input type="hidden" name="wpbooking_captcha_type" value="' . $data['type'] . '"></div>';
 
 			return $html;
 		}

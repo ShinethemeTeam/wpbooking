@@ -159,5 +159,35 @@ if (!class_exists('WB_Service')) {
 				}
 			}
 		}
+
+		function service_type_object()
+		{
+			if ($this->ID and $this->service_type) {
+				$service_types = WPBooking_Service_Controller::inst()->get_service_types();
+
+				if (!empty($service_types) and array_key_exists($this->service_type, $service_types)) {
+					return $service_types[$this->service_type];
+				}
+			}
+		}
+
+		function get_extra_services()
+		{
+			if($this->ID){
+				$meta=get_post_meta($this->ID,'extra_services',true);
+				if(!empty($meta) and $this->service_type and array_key_exists($this->service_type,$meta)){
+					$res= $meta[$this->service_type];
+
+					if(!empty($res) and is_array($res)){
+						foreach($res as $key=>$value){
+							$res[$key]['title']=$value['is_selected'];
+							unset($res[$key]['is_selected']);
+						}
+					}
+
+					return $res;
+				}
+			}
+		}
 	}
 }

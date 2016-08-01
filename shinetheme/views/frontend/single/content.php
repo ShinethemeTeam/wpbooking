@@ -11,6 +11,7 @@ if ( post_password_required() ) {
 	return;
 }
 $service_type = get_post_meta(get_the_ID(),'service_type',true);
+$service=new WB_Service();
 ?>
 <div  itemscope itemtype="http://schema.org/Product" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
 
@@ -25,35 +26,199 @@ $service_type = get_post_meta(get_the_ID(),'service_type',true);
 
                 }?>
             </div>
-            <div class="col-md-12">
-                <h3 itemprop="name"><?php the_title(); ?></h3>
-                <?php $address  = get_post_meta(get_the_ID(),'address',true); ?>
-                <?php if(!empty($address)){ ?>
-                    <div> <i class="fa fa-map-marker"></i>
-                        <?php echo esc_html($address) ?>
-                    </div>
-                <?php } ?>
-				<?php if(is_user_logged_in() and get_current_user_id()!=$post->post_author){ ?>
-				<a class="btn btn-primary" data-toggle="modal" data-target="#wb-send-message"><?php esc_html_e('Contact Host','wpbooking') ?></a>
-				<?php }?>
-				<?php echo wpbooking_load_view('single/price') ?>
-            </div>
+
         </div>
 
+		<div class="service-title-gallery">
+			<h1 class="service-title" itemprop="name"><?php the_title(); ?></h1>
+			<div class="service-address-rate">
+				<?php $address=$service->get_address();
+				if($address){
+					?>
+					<div class="service-address">
+						<i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
+					</div>
+				<?php }?>
+				<div class="service-rate">
+					<?php
+					$service->get_rate_html();
+					?>
+				</div>
+			</div>
+			<?php do_action('wpbooking_after_service_address_rate',get_the_ID(),$service->get_type(),$service) ?>
+
+		</div>
+		<div class="row">
+			<div class="col-sm-8 col-service-title">
+				<div class="service-title-gallery">
+
+
+					<div class="service-gallery-single">
+						<?php
+						$gallery=$service->get_gallery();
+						if(!empty($gallery)){
+							foreach($gallery as $media){
+								printf('<div class="gallery-item">%s<a class="hover-tag" data-effect="mfp-zoom-out" href="%s"><i class="fa fa-plus"></i></a></div>',$media['gallery'],$media['gallery_url']);
+							}
+						}
+						?>
+					</div>
+				</div>
+				<?php if(is_user_logged_in() and get_current_user_id()!=$post->post_author){ ?>
+					<a class="btn btn-primary" data-toggle="modal" data-target="#wb-send-message"><?php esc_html_e('Contact Host','wpbooking') ?></a>
+				<?php }?>
+			</div>
+			<div class="col-sm-4 col-order-form">
+				<div class="service-order-form">
+					<div class="service-price"><?php $service->get_price_html();?></div>
+					<div class="order-form-content">
+						<?php echo wpbooking_load_view('single/order-form') ?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="service-content-section">
+			<h5 class="service-info-title"><?php esc_html_e('Description','wpbooing')?></h5>
+			<div class="service-content-wrap">
+				<?php
+				if(have_posts()){
+					while(have_posts())
+					{
+						the_post();
+						the_content();
+					}
+				}
+				?>
+			</div>
+		</div>
+		<div class="service-content-section">
+			<h5 class="service-info-title"><?php esc_html_e('About Property','wpbooing')?></h5>
+			<div class="service-details">
+				<div class="service-detail-item">
+					<div class="service-detail-title"><?php esc_html_e('The space','wpbooking') ?></div>
+					<div class="service-detail-content">
+
+					</div>
+				</div>
+				<div class="service-detail-item">
+					<div class="service-detail-title"><?php esc_html_e('Amenities','wpbooking') ?></div>
+					<div class="service-detail-content">
+
+					</div>
+				</div>
+				<?php do_action('wpbooking_after_service_detail_amenities',$service_type,$service) ?>
+
+				<div class="service-detail-item">
+					<div class="service-detail-title"><?php esc_html_e('Rate','wpbooking') ?>	<span class="help-icon"><fa class="fa-question"></fa></span></div>
+					<div class="service-detail-content">
+						<?php $array=array(
+							'price'=>esc_html__('Nightly Rate: %s','wpbooking'),
+							'weekly_rate'=>esc_html__('Weekly Rate: %s','wpbooking'),
+							'monthly_rate'=>esc_html__('Monthly Rate: %s','wpbooking'),
+						);
+						foreach($array as $key=>$val){
+							if($value=get_post_meta(get_the_ID(),$key,true)){
+								printf($val,WPBooking_Currency::format_money($value).'<br>');
+							}
+						}
+						?>
+					</div>
+				</div>
+				<?php if(get_post_meta(get_the_ID(),'enable_additional_guest_tax',true)){ ?>
+				<div class="service-detail-item">
+					<div class="service-detail-title"><?php esc_html_e('Additional Guests / Taxes / Misc','wpbooking') ?></div>
+					<div class="service-detail-content">
+						<?php $array=array(
+							'rate_based_on'=>esc_html__('Rates are based on occupancy of: <strong>%s</strong>','wpbooking'),
+							'additional_guest_money'=>esc_html__('Each additional guest will pay : %s / night','wpbooking'),
+							'tax'=>esc_html__('Tax: <strong>%s</strong>','wpbooking'),
+						);
+						foreach($array as $key=>$val){
+							if($value=get_post_meta(get_the_ID(),$key,true)){
+								printf($val,WPBooking_Currency::format_money($value).'<br>');
+							}
+						}
+						?>
+					</div>
+				</div>
+				<?php } ?>
+
+
+
+				<?php
+				$extra_services=$service->get_extra_services();
+				if(is_array($extra_services) and !empty($extra_services)){ ?>
+				<div class="service-detail-item">
+					<div class="service-detail-title"><?php esc_html_e('Extra services','wpbooking') ?></div>
+					<div class="service-detail-content">
+						<ul class="service-extra-price">
+							<?php
+							foreach($extra_services as $key=>$val){
+								$price=WPBooking_Currency::format_money($val['money']);
+								if($val['require']) $price.='<span class="required">'.esc_html__('required','wpbooking').'</span>';
+								printf('<li>+ %s: %s</li>',wpbooking_get_translated_string($val['title']),$price);
+							}
+							?>
+						</ul>
+					</div>
+				</div>
+				<?php } ?>
+
+				<div class="service-detail-item">
+					<div class="service-detail-title"><?php esc_html_e('Rule','wpbooking') ?></div>
+					<div class="service-detail-content">
+						<?php
+						if($deposit_amount=get_post_meta(get_the_ID(),'deposit_amount',true)){
+							if(get_post_meta(get_the_ID(),'deposit_type',true)=='percent'){
+								printf(esc_html__('Deposit: %s ','wpbooking'),$deposit_amount.'% <span class="required">'.esc_html__('required','wpbooking').'</span>');
+							}else{
+								printf(esc_html__('Deposit: %s ','wpbooking'),WPBooking_Currency::format_money($deposit_amount).' <span class="required">'.esc_html__('required','wpbooking').'</span>');
+							}
+						}
+
+						$array=array(
+							'check_in_time'=>esc_html__('Check In Time: %s','wpbooking'),
+							'check_out_time'=>esc_html__('Check Out Time: %s','wpbooking'),
+						);
+						foreach($array as $key=>$val){
+							if($value=get_post_meta(get_the_ID(),$key,true)){
+								printf($val,'<strong>'.$value.'</strong> <i class="fa fa-clock" ></i>	<br>');
+							}
+						}
+						$array=array(
+							'minimum_stay'=>esc_html__('Minimum Stay: %s','wpbooking'),
+						);
+						foreach($array as $key=>$val){
+							if($value=get_post_meta(get_the_ID(),$key,true)){
+								printf($val,$value.'<br>');
+							}
+						}
+
+						$array=array(
+							'cancellation_allowed'=>esc_html__('Cancellation Allowed: %s','wpbooking'),
+						);
+
+						foreach($array as $key=>$val){
+							if($value=get_post_meta(get_the_ID(),$key,true)){
+								printf($val,$value?esc_html__('Yes','wpbooking'):esc_html__('No','wpbooking').'<br>');
+							}
+						}
+
+						$host_regulations=get_post_meta(get_the_ID(),'host_regulations',true);
+						if(!empty($host_regulations)){
+							foreach($host_regulations as $key=>$value){
+								echo (wpbooking_get_translated_string($value['title']).': '.wpbooking_get_translated_string($value['content']).'<br>');
+							}
+						}
+						?>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
         <div class="row">
-            <div class="col-md-12">
-                <div class="content-single">
-                    <?php
-                    if(have_posts()){
-                        while(have_posts())
-                        {
-                            the_post();
-                            the_content();
-                        }
-                    }
-                    ?>
-                </div>
-            </div>
+
             <div class="col-md-12">
                 <?php
                 $taxonomy = WPBooking_Admin_Taxonomy_Controller::inst()->get_taxonomies();

@@ -126,7 +126,7 @@ if (!class_exists('WPBooking_Form_Check_In_Field')) {
 				}
 			}
 
-			return '<input readonly type="text" '.$a.' />';
+			return '<div class="wb-field-datepicker wb-field"><label><input readonly type="text" '.$a.' /><i class="fa fa-calendar"></i></label></div>';
 		}
 
 		function get_value($form_item_data)

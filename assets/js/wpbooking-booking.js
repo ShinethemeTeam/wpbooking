@@ -1180,7 +1180,16 @@ jQuery(document).ready(function($){
     });
 
 
-
+    // Lighbox gallery
+    $('.service-gallery-single').each(function() {
+        $(this).magnificPopup({
+            delegate: 'a.hover-tag',
+            type: 'image',
+            gallery: {
+                enabled: true
+            }
+        });
+    });
 });
 
 

@@ -133,13 +133,13 @@ if (!class_exists('WPBooking_Country_Dropdown_Field')) {
 
 			$country = $this->get_country_list();
 
-			$html = '<select ' . $a . ' >';
+			$html = '<div class="wb-field"><select ' . $a . ' >';
 			if (!empty($country)) {
 				foreach ($country as $k => $v) {
 					$html .= sprintf('<option value="%s">%s</option>', $k, $v);
 				}
 			}
-			$html .= '</select>';
+			$html .= '</select></div>';
 
 			return $html;
 		}

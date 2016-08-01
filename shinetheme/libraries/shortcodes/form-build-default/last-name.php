@@ -121,7 +121,7 @@ if (!class_exists('WPBooking_Last_Name_Field')) {
 				}
 			}
 
-			return '<input type="text" '.$a.' />';
+			return '<div class="wb-field"><input type="text" '.$a.' /></div>';
 		}
 
 		function get_value($form_item_data)

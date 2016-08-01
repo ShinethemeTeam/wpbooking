@@ -334,6 +334,9 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 							</div>
 							<input type="text" data-type="double" data-min="<?php echo esc_attr($min_max_price['min']) ?>" data-max="<?php echo esc_attr($min_max_price['max']) ?>" class="wpbooking-ionrangeslider" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
 
+							<div class="search-button-wrap">
+								<button class="wb-button" type="submit"><?php _e("Filter",'wpbooking') ?></button>
+							</div>
 						</div>
 						<div class="wb-collapse"></div>
 					</div>

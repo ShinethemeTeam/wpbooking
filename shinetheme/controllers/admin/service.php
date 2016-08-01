@@ -216,9 +216,9 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'class' => 'small'
 					),
 					array(
-						'label'           => __("Montly Rate", 'wpbooking'),
+						'label'           => __("Monthly Rate", 'wpbooking'),
 						'type'            => 'money_input',
-						'id'              => 'montly_rate',
+						'id'              => 'monthly_rate',
 						'class'           => 'small',
 						'container_class' => 'mb35'
 					),
