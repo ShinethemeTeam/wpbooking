@@ -115,6 +115,19 @@ if (!class_exists('WPBooking_Admin_Service')) {
 			register_taxonomy('wpbooking_amenity', array('wpbooking_service'), $args);
 
 			WPBooking_Assets::add_css("#wpbooking_amenitydiv{display:none!important}");
+
+
+			WPBooking_Taxonomy_Metabox::inst()->add_metabox(array(
+				'id'=>'amenity_information',
+				'taxonomy'=>array('wpbooking_amenity'),
+				'fields'=>array(
+					array(
+						'type'=>'icon',
+						'id'=>'icon',
+						'label'=>esc_html__('Icon','wpbooking')
+					)
+				)
+			));
 		}
 
 		function _add_metabox()
@@ -377,11 +390,11 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'id'    => 'host_regulations',
 						'type'  => 'list-item',
 						'value'=>array(
-							array(
-								'id'=>'icon',
-								'label'=>esc_html__('Visual Icon','wpbooking'),
-								'type'=>'icon_select'
-							),
+//							array(
+//								'id'=>'icon',
+//								'label'=>esc_html__('Visual Icon','wpbooking'),
+//								'type'=>'icon_select'
+//							),
 							array(
 								'id'=>'content',
 								'label'=>esc_html__('Content','wpbooking'),

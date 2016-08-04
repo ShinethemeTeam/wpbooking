@@ -176,7 +176,7 @@ jQuery(document).ready(function($){
     /////////// Google Gmap //////////
     //////////////////////////////////
 
-    $('.wpbooking_google_map').each(function(){
+    $('.service-map-element').each(function(){
         var map_lat = $(this).data('lat');
         var map_lng = $(this).data('lng');
         var map_zoom = $(this).data('zoom');
@@ -1103,6 +1103,10 @@ jQuery(document).ready(function($){
             checkboxClass:$(this).data('style'),
             radioClass:$(this).data('style'),
         });
+
+        if($(this).hasClass('disable')){
+            $(this).iCheck('disable');
+        }
     });
 
     // Loop Grid Gallery
@@ -1189,6 +1193,14 @@ jQuery(document).ready(function($){
                 enabled: true
             }
         });
+    });
+
+    $('.wp-show-detail-review span').click(function(){
+       $(this).closest('.wpbooking-more-review-detail').toggleClass('active');
+    });
+
+    $('.wpbooking-vote-for-review .review-do-vote').click(function(){
+
     });
 });
 

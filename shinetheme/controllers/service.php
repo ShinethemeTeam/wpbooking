@@ -26,10 +26,11 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
 			add_filter('comment_form_field_comment', array($this, 'add_review_field'));
 			add_action('comment_post', array($this, '_save_review_stats'));
-			add_filter('get_comment_text', array($this, '_show_review_stats'), 100);
+			//add_filter('get_comment_text', array($this, '_show_review_stats'), 100);
 
 			add_filter('template_include', array($this, '_show_single_service'));
 
+			// archive page
 			add_filter('template_include', array($this, 'template_loader'));
 			add_filter('body_class', array($this, '_add_body_class'));
 
@@ -55,6 +56,14 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			 * @since 1.0
 			 */
 			add_action('wp_ajax_wpbooking_add_favorite',array($this,'_add_favorite'));
+
+			/**
+			 * Filter to load specific comment template file
+			 *
+			 * @since 1.0
+			 * @author dungdt
+			 */
+			add_filter( 'comments_template', array( $this, '_comments_template' ) );
 		}
 
 		/**
@@ -361,7 +370,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			$post_id = $comemntObj->comment_post_ID;
 			if (get_post_type($post_id) != 'wpbooking_service') return $content;
 
-			$content = wpbooking_load_view('review-item-stats') . $content;
+			$content = wpbooking_load_view('single/review/review-item-stats') . $content;
 
 			return $content;
 		}
@@ -393,7 +402,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 		{
 			if (get_post_type() != 'wpbooking_service') return $fields;
 
-			$field_review = apply_filters('wpbooking_review_field', wpbooking_load_view('review-field'));
+			$field_review = apply_filters('wpbooking_review_field', wpbooking_load_view('single/review/review-field'));
 
 			return $field_review . $fields;
 		}
@@ -429,7 +438,16 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			if($type and isset($all[$type])) return $all[$type];
 		}
 
-		function comments_template($template)
+		/**
+		 * Filter to load our specific reviews template
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $template
+		 * @return string
+		 */
+		function _comments_template($template)
 		{
 			if (get_post_type() != 'wpbooking_service') return $template;
 

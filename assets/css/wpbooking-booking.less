@@ -18,6 +18,27 @@
         clear: both;
     }
 }
+// Button
+.wb-btn{
+    font-size: 12px;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 0px;
+    padding:4px 10px;
+    display: inline-block;
+
+    &.wb-btn-success{
+        background: #5cb85c;
+        border:1px solid #4cae4c;
+        color: white;
+        &:hover{
+            background: #4cae4c;
+        }
+    }
+    &:hover{
+        text-decoration: none;
+    }
+}
 // Alert
 .alert{
     padding:10px;
@@ -1580,6 +1601,49 @@
                             line-height: 27px;
                         }
                     }
+                    .extra-service-money{
+                        margin-left: 24px;
+                    }
+                    .icheckbox_square-orange{
+                        margin-right: 5px;
+                        border: 1px solid #666666;
+                        background: white;
+                        width: 14px;
+                        height: 14px;
+                        .iCheck-helper{
+
+                            position: absolute;
+                            top:1px!important;
+                            right:1px;
+                            bottom:1px;
+                            left: 1px!important;
+                            opacity: 1!important;
+                            width: auto!important;
+                            height: auto!important;
+                            transition: all 0.2s;
+                        }
+                        &.hover,&.checked{
+                            .iCheck-helper{
+                                opacity: 1!important;
+                                background: #333333!important;
+                                &:after{
+                                    content: "";
+                                    width: 2px;
+                                    height: 2px;
+                                    position: absolute;
+                                    background: white;
+                                    top: 4px;
+                                    left: 4px;
+                                }
+                            }
+                        }
+
+                        &.hover:not(.checked){
+                            .iCheck-helper{
+                                background: none!important;
+                            }
+                        }
+                    }
                 }
                 .submit-button{
                     text-transform: uppercase;
@@ -1599,7 +1663,17 @@
                 margin-top: 0px;
                 margin-bottom: 30px;
                 display: block;
+                font-weight: normal;
             }
+            .service-content-wrap{
+                 border:1px solid #e6e6e6;
+                 border-top:2px solid #f3f3f3;
+                 padding:15px;
+                 font-size: 14px;
+                 line-height: 24px;
+                 color: #666666;
+                 padding-bottom: 0px;
+             }
             .service-detail-item{
                 font-size: 14px;
                 color: #666666;
@@ -1614,6 +1688,7 @@
                     margin-bottom: 20px;
                     padding: 5px 10px;
                 }
+
                 .service-detail-content{
                     float: left;
                     width: 68%;
@@ -1631,12 +1706,244 @@
                             font-style: italic;
                             margin-left: 15px;
                             font-weight: bold;
+                            font-size: 13px;
+                        }
+                    }
+
+                    .service-list-terms{
+                        .clearfix;
+                        margin: 0px;
+                        list-style: none;
+                        padding:0px;
+                        margin-top: 10px;
+                        .service-term{
+                            margin-bottom: 20px;
+                            width: 33%;
+                            float: left;
+                            text-align: center;
+                            .service-term-icon{
+                                display: block;
+                                i{
+                                    font-size: 22px;
+                                }
+                            }
+                            .sevice-term-name{
+                                color: #666;
+                                &:hover{
+                                    text-decoration: none;
+                                }
+                            }
                         }
                     }
                 }
             }
 
+            // Author
+            .service-map-contact{
+                .service-map-element{
+                    height: 230px;
+                }
+                .service-author-contact{
+                    background: #fafafa;
+                    padding:10px;
+                    .clearfix;
+                    .author-meta{
+                        width: 15%;
+                        float: left;
+                        margin-right: 2%;
+                        font-size: 13px;
+                        text-align: center;
+                        img{
+                            max-width: 88px;
+                            border-radius: 50%;
+                            border:5px solid white;
+                            margin-top: -35px;
+                            margin-bottom: 13px;
+                            position: relative;
+                        }
+                    }
+                    .author-details{
+                        width: 83%;
+                        float: left;
+                        font-size: 13px;
+                        .author-name{
+                            margin-top: 0px;
+                            margin-bottom: 10px;
+                            a{
+                                color: #666666;
+                                font-size: 16px;
+                                font-weight: bold;
+                                &:hover{
+                                    text-decoration: none;
+                                }
+                            }
+                        }
 
+                        .author-address{
+                            margin-bottom: 10px;
+                        }
+                        .author-desc{
+                            margin-bottom: 10px;
+                            padding-left: 30px;
+                            position: relative;
+                            .quote-icon{
+                                position: absolute;
+                                top:0px;
+                                left: 0px;
+                                color: #666;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            .wb-reviews-section{
+
+            }
+        }
+        .wb-reviews-section{
+            .comment-list{
+                list-style: none;
+                margin:0px;
+                padding: 0px;
+                margin-bottom: 30px;
+                >li{
+                    .clearfix;
+                    .comment-meta{
+                        float: left;
+                        width: 17%;
+                        font-size: 13px;
+                        text-align: center;
+                        .comment-author{
+                            text-align: center;
+                        }
+                        img{
+                            max-width: 48px;
+                            height: auto;
+                            -webkit-border-radius: 1px;
+                            -moz-border-radius: 1px;
+                            border-radius: 50%;
+                            border:3px solid #e6e6e6;
+                            margin: 0px;
+                            margin-bottom: 11px;
+                            display: inline-block;
+                            float: none;
+                        }
+                        .review-author-name{
+                            display: block;
+                        }
+                        .review-count{
+                            display: block;
+                        }
+                    }
+                    .comment-content{
+                        width: 83%;
+                        border:1px solid #e6e6e6;
+                        padding:13px;
+                        float: left;
+                        position: relative;
+                        &:before{
+                            content: "";
+                            position: absolute;
+                            width: 0;
+                            height: 0;
+                            border-style: solid;
+                            border-width: 8.5px 9px 8.5px 0;
+                            border-color: transparent #e6e6e6 transparent transparent;
+                            top:20px;
+                            left: -9px;
+                        }
+
+                        .wpbooking-review-summary{
+                            position: absolute;
+                            top:13px;
+                            right: 13px;
+                            a{
+                                color: @maincolor;
+                                font-size: 14px;
+                                //margin-left: px;
+                                text-decoration: none;
+                                border-bottom: none;
+                                &:hover{
+                                    text-decoration: none;
+                                }
+                            }
+                        }
+                        .comment-text{
+                            font-size: 14px;
+                            p{
+                                line-height: 24px;
+                                margin-bottom: 10px;
+                            }
+                        }
+
+                        .wpbooking-more-review-detail{
+                            margin: 5px 0px 10px;
+                            font-size: 14px;
+                            a{
+                                color: @maincolor;
+                                //margin-left: px;
+                                font-size: 14px;
+                                text-decoration: none;
+                                border-bottom: none;
+                            }
+                            .wpbooking-rating-review-result{
+                                display: none;
+                                font-size: 14px;
+                            }
+                            .less{
+                                display:none;
+                            }
+                            .more,.less{
+                                color: @maincolor;
+                                font-style: italic;
+                                cursor: pointer;
+                            }
+                            &.active{
+                                .less{
+                                    display: block;
+
+                                }
+                                .more{
+                                    display: none;
+                                }
+                                .wpbooking-rating-review-result{
+                                    display: block;
+                                }
+                            }
+                        }
+                        .wpbooking-vote-for-review{
+                            font-size: 13px;
+                            margin-bottom:10px;
+                            .review-vote-count{
+                                font-weight: bold;
+                            }
+                            .review-do-vote{
+                                width: 20px;
+                                height: 20px;
+                                text-align: center;
+                                display: inline-block;
+                                line-height: 20px;
+                                border-radius: 50%;
+                                border:1px solid #333;
+                                color: #333;
+                                &.active{
+                                    color: white;
+                                    background: @maincolor;
+                                    border-color: @maincolor;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .wpbooking-review-total{
+                font-size: 13px;
+                span{
+                    margin-right: 10px;
+                }
+            }
         }
     }
 }

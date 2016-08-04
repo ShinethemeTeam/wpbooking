@@ -67,15 +67,22 @@ if (!class_exists('WPBooking_Form_Extra_Service_Field')) {
 					foreach($extra_services as $key=>$value){
 						$title='#'.($key+1).' '.wpbooking_get_translated_string($value['title']);
 						if($value['money']){
-							$title.='<br>'.WPBooking_Currency::format_money($value['money']);
+							$title.='<br><span class="extra-service-money">'.WPBooking_Currency::format_money($value['money']).'</span>';
 						}
-
+						$checked=FALSE;
+						$class=FALSE;
+						$start_from=0;
+						if(!empty($value['require']) and $value['require']=='yes'){
+							$checked='checked disable';
+							$class='disable';
+							$start_from=1;
+						}
 						$list_item[]='<div class="wb-extra-field">';
-						$list_item[]=sprintf('<label class="field-title"><input name="extra_services[selected][%s]" data-style="icheckbox_square-orange" class="wb-icheck"  type="checkbox" value="%s"> %s</label>',$key,$value['title'],$title);
+						$list_item[]=sprintf('<label class="field-title"><input  name="extra_services[%s][selected]" data-style="icheckbox_square-orange" class="wb-icheck %s" %s  type="checkbox" value="%s"> %s</label>',$key,$class,$checked,$value['title'],$title);
 						$list_item[]='<label class="field-number">';
-							$list_item[]=sprintf("<select name='extra_services[number][%s]'>",$key);
-							for($i=0;$i<20;$i++){
-								$list_item[]=sprintf('<option value="%d">%d</option>',$key,$key);
+							$list_item[]=sprintf("<select name='extra_services[%s][number]'>",$key);
+							for($i=$start_from;$i<=20;$i++){
+								$list_item[]=sprintf('<option value="%d">%d</option>',$i,$i);
 							}
 							$list_item[]='</select>';
 						$list_item[]='</label>';

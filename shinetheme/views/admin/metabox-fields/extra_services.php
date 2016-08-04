@@ -27,12 +27,20 @@ if(!empty($service_types)){
 								foreach($extras as $k=>$value){
 									$checked=FALSE;
 									$current=FALSE;
+									$is_required=true;
 									if(!empty($old)){
 										foreach($old as $old_item){
-											if(!empty($old_item['is_selected']) and $old_item['is_selected']==$value['title']){
-												$checked='checked';
-												$current=$old_item;
+											if($old_item['is_selected']==$value['title']){
+												if(!empty($old_item['is_selected'])){
+													$checked='checked';
+													$current=$old_item;
+												}
+												if(!empty($old_item['require']) and $old_item['require']=='no'){
+													$is_required=FALSE;
+												}
 											}
+
+
 										}
 									}
 								?>
@@ -48,7 +56,7 @@ if(!empty($service_types)){
 										<div class="require-options">
 											<select name="<?php echo esc_attr($data['id'].'['.$type_id.']['.$k.'][require]') ?>" >
 												<option value="yes"><?php esc_html_e('Yes','wpbooking') ?></option>
-												<option value="no"><?php esc_html_e('No','wpbooking') ?></option>
+												<option <?php echo (!$is_required)?'selected':false; ?> value="no"><?php esc_html_e('No','wpbooking') ?></option>
 											</select>
 											<span class="help_inline"><?php esc_html_e('Required','wpbooking') ?></span>
 										</div>

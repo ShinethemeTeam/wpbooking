@@ -2110,3 +2110,9 @@ a.ui-datepicker-next {
   background: #ec8223;
   color: white;
 }
+.wpbooking-taxonomy-metabox .small-input {
+  max-width: 350px;
+}
+.wpbooking-taxonomy-metabox .input-group input[type=text] {
+  width: auto;
+}

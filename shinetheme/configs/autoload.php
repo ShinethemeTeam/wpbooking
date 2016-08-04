@@ -33,7 +33,8 @@ $autoload['library']=array(
 	'metabox',
 	'email/emogrifier',
 	'query',
-	'base/service'
+	'base/service',
+	'taxonomy-metabox'
 );
 
 $autoload['controller']=array(
@@ -60,7 +61,8 @@ $autoload['model']=array(
 	'payment_model',
 	'comments_model',
 	'inbox_model',
-	'user_favorite_model'
+	'user_favorite_model',
+	'review_helpful'
 );
 
 $autoload['widget']=array(

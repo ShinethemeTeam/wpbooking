@@ -18,6 +18,12 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
 if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
+	$array_with_out_key=FALSE;
+	$keys = array_keys( $data['value']);
+	if($keys[0]===0){
+		$array_with_out_key=true;
+	}
+
 	$field .= '<div style="margin-bottom: 7px;"><select name="'. $name .'" id="'. esc_html( $data['id'] ) .'" class="widefat form-control '. esc_html( $data['class'] ).'">';
 	foreach( $data['value'] as $key => $value ){
 		$checked = '';
@@ -31,8 +37,10 @@ if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 				$checked = '';
 			}
 		}
+		$option_val=$key;
+		if($array_with_out_key) $option_val=$value;
 		
-		$field .= '<option value="'. esc_html( $key ).'" '. $checked .'>'. esc_html( $value ).'</option>';
+		$field .= '<option value="'. esc_html( $option_val ).'" '. $checked .'>'. esc_html( $value ).'</option>';
 	}
 	$field .= '</select></div>';
 }

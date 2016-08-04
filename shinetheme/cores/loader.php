@@ -13,6 +13,9 @@ if(!class_exists('WPBooking_Loader')){
 	{
 		private static $_inst;
 
+		private $lib_loaded=array();
+
+
 		function __construct()
 		{
 			$this->_autoload();
@@ -129,9 +132,13 @@ if(!class_exists('WPBooking_Loader')){
 			}
 
 			if(is_string($file)){
+
+				if(isset($this->lib_loaded['model'][$file])) return;// Ignore Loaded File
+
 				$real_file=WPBooking()->get_dir('shinetheme/models/'.$file.'.php');
 				if(file_exists($real_file))
 				{
+					$this->lib_loaded['model'][$file]=true;
 					include_once $real_file;
 
 				}

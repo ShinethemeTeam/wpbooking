@@ -82,6 +82,7 @@ $service=new WB_Service();
 			<div class="service-content-wrap">
 				<?php
 				if(have_posts()){
+
 					while(have_posts())
 					{
 						the_post();
@@ -94,18 +95,97 @@ $service=new WB_Service();
 		<div class="service-content-section">
 			<h5 class="service-info-title"><?php esc_html_e('About Property','wpbooing')?></h5>
 			<div class="service-details">
+				<?php
+				$array=array(
+					'max_guests'=>array(
+						'title'=>esc_html__('Max Guests','wpbooking'),
+						'icon'=>'',
+					),
+					'bedroom'=>array(
+						'title'=>esc_html__('Bedrooms','wpbooking'),
+						'icon'=>'flaticon-hotel-room'
+					),
+					'bathrooms'=>array(
+						'title'=>esc_html__('Bathrooms','wpbooking'),
+						'icon'=>'flaticon-bathtub'
+					),
+					'property_floor'=>array(
+						'title'=>esc_html__('Floors','wpbooking'),
+						'icon'=>'flaticon-stairs'
+					),
+					'property_size'=>array(
+						'title'=>esc_html__('Size (%s)','wpbooking'),
+						'icon'=>'flaticon-full-size',
+					),
+					'double_bed'=>array(
+						'title'=>esc_html__('Double beds','wpbooking'),
+						'icon'=>'flaticon-double-bed'
+					),
+					'single_bed'=>array(
+						'title'=>esc_html__('Single beds','wpbooking'),
+						'icon'=>'flaticon-single-bed-outline'
+					),
+					'sofa_bed'=>array(
+						'title'=>esc_html__('Sofa beds','wpbooking'),
+						'icon'=>'flaticon-sofa'
+					)
+				);
+				$space_html=array();
+				foreach($array as $key=>$val){
+					if($meta=get_post_meta(get_the_ID(),$key,true)){
+						$space_html[]='<li class="service-term">';
+						$space_html[]='<span class="icon-data-wrap">x<span class="icon-data">'.$meta.'</span></span>';
+
+						if($icon=$val['icon']){
+							$space_html[]=sprintf('<span class="service-term-icon"><i class="%s"></i></span>',wpbooking_icon_class_handler($icon));
+						}
+
+						switch($key){
+							case "property_size":
+								$space_html[]='<a  class="sevice-term-name">'.sprintf($val['title'],get_post_meta(get_the_ID(),'property_unit',true)).'</a>';
+							break;
+							default:
+								$space_html[]='<a  class="sevice-term-name">'.$val['title'].'</a>';
+							break;
+						}
+
+						$space_html[]='</li>';
+					}
+				}
+				if(!empty($space_html)) {
+				?>
 				<div class="service-detail-item">
 					<div class="service-detail-title"><?php esc_html_e('The space','wpbooking') ?></div>
 					<div class="service-detail-content">
-
+						<ul class="service-list-terms icon_with_data">
+							<?php echo implode("\r\n",$space_html)?>
+						</ul>
 					</div>
 				</div>
+				<?php } ?>
+
+				<?php if($terms=$service->get_terms('wpbooking_amenity')){
+				?>
 				<div class="service-detail-item">
 					<div class="service-detail-title"><?php esc_html_e('Amenities','wpbooking') ?></div>
 					<div class="service-detail-content">
+						<ul class="service-list-terms">
+							<?php foreach($terms as $term){
+								$html=array();
+								$html[]='<li class="service-term">';
+								$icon=wpbooking_get_term_meta($term->term_id,'icon');
+								if($icon) $html[]=sprintf('<span class="service-term-icon"><i class="%s"></i></span>',wpbooking_icon_class_handler($icon));
+
+								$html[]='<a  class="sevice-term-name">'.$term->name.'</a>';
+								$html[]='</li>';
+
+								echo implode("\r\n",$html);
+							} ?>
+						</ul>
 
 					</div>
 				</div>
+				<?php }?>
 				<?php do_action('wpbooking_after_service_detail_amenities',$service_type,$service) ?>
 
 				<div class="service-detail-item">
@@ -207,6 +287,7 @@ $service=new WB_Service();
 						$host_regulations=get_post_meta(get_the_ID(),'host_regulations',true);
 						if(!empty($host_regulations)){
 							foreach($host_regulations as $key=>$value){
+								if($value['title'] or $value['content'])
 								echo (wpbooking_get_translated_string($value['title']).': '.wpbooking_get_translated_string($value['content']).'<br>');
 							}
 						}
@@ -217,88 +298,52 @@ $service=new WB_Service();
 			</div>
 		</div>
 
-        <div class="row">
-
-            <div class="col-md-12">
-                <?php
-                $taxonomy = WPBooking_Admin_Taxonomy_Controller::inst()->get_taxonomies();
-                if(!empty($taxonomy)) {
-                    foreach( $taxonomy as $k => $v ) {
-                        if(in_array($service_type,$v['service_type'])){
-                            $terms = get_the_terms( get_the_ID() , $v['name'] );
-                            if(!empty( $terms )) {
-                                echo "<h4>".$v['label']."</h4>";
-                                ?>
-                                <ul class="booking-item-features">
-                                    <?php
-                                    foreach( $terms as $key2 => $value2 ) {
-                                        ?>
-                                        <li class="">
-                                            <span class="booking-item-feature-title"><?php echo esc_html( $value2->name ) ?></span>
-                                        </li>
-                                    <?php
-                                    }
-                                    ?>
-                                </ul>
-                            <?php
-                            }
-                        }
-                    }
-                }?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#maps"><?php _e('Maps','wpbooking')?></a></li>
-                    <li><a data-toggle="tab" href="#gallery"><?php _e('Gallery','wpbooking') ?></a></li>
-                    <li><a data-toggle="tab" href="#place-order"><?php _e('Place Order','wpbooking')?></a></li>
-                </ul>
-                <div class="tab-content">
-                    <div id="maps" class="tab-pane fade in active">
-                        <div class="content-single">
-                            <?php
-                            $map_lat = get_post_meta( get_the_ID() , 'map_lat', true );
-                            $map_lng = get_post_meta( get_the_ID() , 'map_long', true );
-                            $map_zoom = get_post_meta( get_the_ID() , 'map_zoom', true );
-                            if(!empty($map_lat) and !empty($map_lng)){ ?>
-                                <div class="wpbooking_google_map" data-lat="<?php echo esc_attr($map_lat) ?>" data-lng="<?php echo esc_attr($map_lng) ?>" data-zoom="<?php echo esc_attr($map_zoom) ?>"></div>
-                            <?php } ?>
-                        </div>
-                    </div>
-                    <div id="gallery" class="tab-pane fade">
-                        <?php
-                        $gallery = get_post_meta(get_the_ID(),'gallery',true);
-                        $gallery = explode(",",$gallery);
-                        if(!empty($gallery)){
-                            ?>
-                            <div class="fotorama" data-width="100%" data-allowfullscreen="true" data-nav="thumbs">
-                                <?php
-                                foreach($gallery as $k=>$v){
-                                    echo wp_get_attachment_image($v,apply_filters('wpbooking_single_loop_image_size','full',$service_type,get_the_ID()));
-                                }
-                                ?>
-                            </div>
-                        <?php } ?>
-
-                    </div>
-					<div id="place-order" class="tab-pane fade tab-padding">
-						<?php echo wpbooking_load_view('single/order-form') ?>
+		<div class="service-content-section">
+			<div class="service-map-contact">
+				<div class="service-map">
+					<?php
+					$map_lat = get_post_meta( get_the_ID() , 'map_lat', true );
+					$map_lng = get_post_meta( get_the_ID() , 'map_long', true );
+					$map_zoom = get_post_meta( get_the_ID() , 'map_zoom', true );
+					if(!empty($map_lat) and !empty($map_lng)){ ?>
+						<div class="service-map-element"  data-lat="<?php echo esc_attr($map_lat) ?>" data-lng="<?php echo esc_attr($map_lng) ?>" data-zoom="<?php echo esc_attr($map_zoom) ?>"></div>
+					<?php } ?>
+				</div>
+				<div class="service-author-contact">
+					<div class="author-meta">
+						<a href="<?php echo esc_url($service->get_author('profile_url')) ?>">
+							<?php echo ($service->get_author('avatar')) ?>
+						</a>
+						<span class="author-since"><?php echo ($service->get_author('since')) ?></span>
 					</div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <?php
-                if ( comments_open() || get_comments_number() ) :
-                    comments_template();
-                endif;
-                ?>
-            </div>
-        </div>
+					<div class="author-details">
+						<h5 class="author-name">
+							<a href="<?php echo esc_url($service->get_author('profile_url')) ?>">
+								<?php echo ($service->get_author('name')) ?>
+							</a>
+						</h5>
+						<?php if($address=$service->get_author('address')){
+							printf('<p class="author-address">%s</p>',$address);
+						} ?>
+						<?php if($desc=$service->get_author('description')){
+							printf('<div class="author-desc">%s</div>',$desc);
+						} ?>
+						<?php if(is_user_logged_in()){
+							printf('<a href="%s" class="wb-btn wb-btn-success">%s</a>',$service->get_author('contact_now_url'),esc_html__('Contact Now','wpbooking'));
+						} ?>
+					</div>
 
+				</div>
+			</div>
+		</div>
 
+		<div class="service-content-section comment-section">
+			<?php
+			if ( comments_open() || get_comments_number() ) :
+				comments_template();
+			endif;
+			?>
+		</div>
 
     </div>
 </div>

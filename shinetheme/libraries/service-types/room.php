@@ -49,10 +49,10 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 							'id'    => 'service_type_'.$this->type_id . '_show_rate_review_button',
 							'label' => __('Show Rate (Help-full) button in each review?', 'wpbooking')
 						),
-						array(
-							'id'    => 'service_type_'.$this->type_id . '_required_partner_approved_review',
-							'label' => __('Review require Partner Approved?', 'wpbooking')
-						),
+//						array(
+//							'id'    => 'service_type_'.$this->type_id . '_required_partner_approved_review',
+//							'label' => __('Review require Partner Approved?', 'wpbooking')
+//						),
 					)
 				),
 				array(
@@ -154,6 +154,11 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 			//add_action('after_setup_theme',array($this,'_add_image_size'));
 
+			/**
+			 * Enable Vote For Review
+			 */
+			add_filter('wpbooking_enable_vote_for_review_'.$this->type_id,array($this,'_enable_vote_for_review'));
+
 		}
 
 		function _register_taxonomy()
@@ -183,6 +188,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			$args = apply_filters('wpbooking_register_room_type_taxonomy', $args);
 
 			register_taxonomy('wpbooking_room_type', array('wpbooking_service'), $args);
+
 		}
 		function _show_room_type($post_id,$service_type,$service_object)
 		{
@@ -788,6 +794,16 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		}
 
 
+		/**
+		 * Enable vote for review
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 */
+		function _enable_vote_for_review()
+		{
+			return $this->get_option('show_rate_review_button',FALSE);
+		}
 
 		function required_partner_approved_review(){
 			return $this->get_option('required_partner_approved_review',FALSE);

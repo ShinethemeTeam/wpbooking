@@ -864,7 +864,7 @@ if (!class_exists('WPBooking_User')) {
 		function _add_shortcode()
 		{
 			add_shortcode('wpbooking-myaccount', array($this, '_myaccount_shortcode'));
-			add_shortcode('wpbooking-partner-register', array($this, '_partner_register_shortcode'));
+			//add_shortcode('wpbooking-partner-register', array($this, '_partner_register_shortcode'));
 		}
 
 		function order_create_user($data=array())
@@ -897,6 +897,36 @@ if (!class_exists('WPBooking_User')) {
 			return FALSE;
 
 		}
+
+		/**
+		 * Get Permalink of Account Page
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return false|string
+		 */
+		function account_page_url(){
+			$myaccount_page=get_permalink(wpbooking_get_option('myaccount-page'));
+			return $myaccount_page;
+		}
+
+		/**
+		 * Count Number of Comment inside Comment Loop or use specific author email
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $author_email bool|string
+		 * @return null|string
+		 */
+		function count_reviews($author_email=FALSE)
+		{
+			if(!$author_email) $author_email=get_comment_author_email();
+			global $wpdb;
+			return $count = $wpdb->get_var('SELECT COUNT(comment_ID) FROM ' . $wpdb->comments. ' WHERE comment_author_email = "' . $author_email . '"');
+		}
+
 		function generate_username()
 		{
 			$prefix=apply_filters('wpbooking_generated_username_prefix','wpbooking_');
@@ -905,6 +935,7 @@ if (!class_exists('WPBooking_User')) {
 
 			return $user_name;
 		}
+
 		static function inst()
 		{
 			if (!self::$_inst) self::$_inst = new self();

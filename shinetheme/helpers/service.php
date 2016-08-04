@@ -197,3 +197,22 @@ if(!function_exists('wpbooking_post_query_desc'))
 		return  apply_filters('wpbooking_service_post_query_desc',$query_desc,$q,$input);
 	}
 }
+if(!function_exists('wpbooking_comment_nav')){
+	function wpbooking_comment_nav() {
+		if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
+			echo '<nav class="wb-reviews-pagination">';
+			paginate_comments_links( apply_filters( 'wpbooking_comment_pagination_args', array(
+				'prev_text' => '&larr;',
+				'next_text' => '&rarr;',
+				'type'      => 'list',
+			) ) );
+			echo '</nav>';
+		endif;
+	}
+}
+if(!function_exists('wpbooking_comment_item')){
+	function wpbooking_comment_item( $comment, $args, $depth ) {
+		$GLOBALS['comment'] = $comment;
+		echo wpbooking_load_view( 'single/review/item', array( 'comment' => $comment, 'args' => $args, 'depth' => $depth ) );
+	}
+}

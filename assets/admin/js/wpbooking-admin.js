@@ -353,7 +353,6 @@ jQuery(document).ready(function( $ ){
                 var current_marker;
                 var map_options={
                     options:{
-                        zoom:map_zoom,
                         mapTypeId: google.maps.MapTypeId.ROADMAP,
                         mapTypeControl: true,
                         mapTypeControlOptions: {
@@ -362,44 +361,78 @@ jQuery(document).ready(function( $ ){
                         navigationControl: true,
                         scrollwheel: true,
                     },
-                    events:{
-                        click: function(marker, event, context){
-                            $('input[name="map_lat"]', t).val( event.latLng.lat() );
-                            $('input[name="map_long"]', t).val( event.latLng.lng() );
-                            $('input[name="map_zoom"]', t).val( marker.zoom );
-
-                            $(this).gmap3({
-                                clear: {
-                                    name:["marker"],
-                                    last: true
-                                }
-                            });
-                            $(this).gmap3({
-                                marker:{
-                                    values:[
-                                        {latLng:event.latLng },
-                                    ],
-                                    options:{
-                                        draggable: false
-                                    },
-                                }
-                            });
-                        }
-                    }
+                    //events:{
+                    //    click: function(marker, event, context){
+                    //        $('input[name="map_lat"]', t).val( marker.latLng.lat() );
+                    //        $('input[name="map_long"]', t).val( marker.latLng.lng() );
+                    //        $('input[name="map_zoom"]', t).val( marker.zoom );
+                    //
+                    //        $(this).gmap3({
+                    //            clear: {
+                    //                name:["marker"],
+                    //                last: true
+                    //            }
+                    //        });
+                    //        $(this).gmap3({
+                    //            marker:{
+                    //                values:[
+                    //                    {latLng:marker.latLng },
+                    //                ],
+                    //                options:{
+                    //                    draggable: false
+                    //                },
+                    //            }
+                    //        });
+                    //    }
+                    //}
                 };
                 if(map_lat && map_long){
                     map_options.options.center=[map_lat, map_long];
+                    map_options.marker={
+                                        values:[
+                                            {latLng:new google.maps.LatLng({lat: map_lat, lng: map_long}) },
+                                        ],
+                                        options:{
+                                            draggable: false
+                                        },
+                                    };
+                }
+                if(map_zoom){
+                    map_options.options.zoom=map_zoom;
                 }
 
                 gmap.gmap3({
                     map:map_options
-
                 });
 
                 var gmap_obj = gmap.gmap3('get');
 
+                // Map Click
+                gmap_obj.addListener('click', function(e) {
+
+                    $('input[name="map_lat"]', t).val( e.latLng.lat() );
+                    $('input[name="map_long"]', t).val( e.latLng.lng() );
+
+                    gmap.gmap3({
+                        clear: {
+                            name:["marker"],
+                            last: true
+                        }
+                    });
+                    gmap.gmap3({
+                        marker:{
+                            values:[
+                                {latLng:e.latLng },
+                            ],
+                            options:{
+                                draggable: false
+                            },
+                        }
+                    });
+                });
+
                 if(!map_lat || !map_long){
-                    // Try to get current location
+                     //Try to get current location
                     if (navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(function(showPosition){
                             var gmap_obj = gmap.gmap3('get');
@@ -451,7 +484,7 @@ jQuery(document).ready(function( $ ){
                                         options:{
                                           draggable: false
                                         },
-                                    } 
+                                    }
                                 });
 
                                 $('input[name="map_lat"]', t).val( place.geometry.location.lat() );

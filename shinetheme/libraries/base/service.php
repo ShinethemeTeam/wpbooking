@@ -78,12 +78,31 @@ if (!class_exists('WB_Service')) {
 		{
 			if ($this->ID) {
 				$author_id = get_post_field('post_author', $this->ID);
+				$udata = get_userdata($author_id);
+				$contact_now_url=FALSE;
+				if(is_user_logged_in()){
+					$contact_now_url=WPBooking_User::inst()->account_page_url().'/start-chat/'.$author_id;
+				}
 				$author_info = array(
-					'id'     => $author_id,
-					'avatar' => get_avatar($author_id)
+					'id'              => $author_id,
+					'name'            => $udata->display_name,
+					'avatar'          => get_avatar($author_id),
+					'user_registered' => $udata->user_registered,
+					'description'     => $udata->user_description,
+					'address'         => get_user_meta($author_id, 'wb_address', TRUE),
+					'profile_url'     =>WPBooking_User::inst()->account_page_url().'profile/'.$author_id,
+					'contact_now_url'=>$contact_now_url
 				);
 				if ($need) {
-					return !empty($author_info[$need]) ? $author_info[$need] : FALSE;
+					switch ($need) {
+						case "since":
+							return sprintf(esc_html__('since %s','wpbooking'),date_i18n('Y M', strtotime($author_info['user_registered'])));
+							break;
+						default:
+							return !empty($author_info[$need]) ? $author_info[$need] : FALSE;
+							break;
+					}
+
 				}
 
 				return $author_info;
@@ -120,42 +139,45 @@ if (!class_exists('WB_Service')) {
 			return $this->service_type;
 		}
 
-		function check_favorite($user_id=FALSE){
-			if($this->ID){
-				if(!$user_id) $user_id=get_current_user_id();
+		function check_favorite($user_id = FALSE)
+		{
+			if ($this->ID) {
+				if (!$user_id) $user_id = get_current_user_id();
 
-				if(!$user_id) return FALSE;
+				if (!$user_id) return FALSE;
 
-				$model=WPBooking_User_Favorite_Model::inst();
+				$model = WPBooking_User_Favorite_Model::inst();
 
-				if($model->where(array(
-					'post_id'=>$this->ID,
-					'user_id'=>$user_id
-				))->get(1)->row()){
-					return true;
+				if ($model->where(array(
+					'post_id' => $this->ID,
+					'user_id' => $user_id
+				))->get(1)->row()
+				) {
+					return TRUE;
 				}
 			}
 		}
 
-		function do_favorite(){
-			if($this->ID and $user_id=is_user_logged_in()){
-				if($this->check_favorite($user_id)){
-					$model=WPBooking_User_Favorite_Model::inst();
+		function do_favorite()
+		{
+			if ($this->ID and $user_id = is_user_logged_in()) {
+				if ($this->check_favorite($user_id)) {
+					$model = WPBooking_User_Favorite_Model::inst();
 					$model->where(array(
-						'post_id'=>$this->ID,
-						'user_id'=>$user_id
+						'post_id' => $this->ID,
+						'user_id' => $user_id
 					))->delete();
 
 					return FALSE;
-				}else{
-					$model=WPBooking_User_Favorite_Model::inst();
+				} else {
+					$model = WPBooking_User_Favorite_Model::inst();
 					$model->insert(array(
-						'post_id'=>$this->ID,
-						'user_id'=>$user_id,
-						'created_at'=>time()
+						'post_id'    => $this->ID,
+						'user_id'    => $user_id,
+						'created_at' => time()
 					));
 
-					return true;
+					return TRUE;
 				}
 			}
 		}
@@ -173,14 +195,14 @@ if (!class_exists('WB_Service')) {
 
 		function get_extra_services()
 		{
-			if($this->ID){
-				$meta=get_post_meta($this->ID,'extra_services',true);
-				if(!empty($meta) and $this->service_type and array_key_exists($this->service_type,$meta)){
-					$res= $meta[$this->service_type];
+			if ($this->ID) {
+				$meta = get_post_meta($this->ID, 'extra_services', TRUE);
+				if (!empty($meta) and $this->service_type and array_key_exists($this->service_type, $meta)) {
+					$res = $meta[$this->service_type];
 
-					if(!empty($res) and is_array($res)){
-						foreach($res as $key=>$value){
-							$res[$key]['title']=$value['is_selected'];
+					if (!empty($res) and is_array($res)) {
+						foreach ($res as $key => $value) {
+							$res[$key]['title'] = $value['is_selected'];
 							unset($res[$key]['is_selected']);
 						}
 					}
@@ -188,6 +210,35 @@ if (!class_exists('WB_Service')) {
 					return $res;
 				}
 			}
+		}
+
+		function get_terms($tax = FALSE)
+		{
+			if ($this->ID and $tax) {
+				$terms = wp_get_post_terms($this->ID, $tax);
+				if (is_wp_error($terms)) return FALSE;
+				if (empty($terms)) return FALSE;
+
+				return $terms;
+			}
+		}
+
+		/**
+		 * Check if current post is allowed to vote for the review
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return bool|mixed|void
+		 */
+		function enable_vote_for_review(){
+			$enable=FALSE;
+			if($this->ID and is_user_logged_in()){
+				$enable=apply_filters('wpbooking_enable_vote_for_review',$enable,$this->ID,$this->service_type);
+				$enable=apply_filters('wpbooking_enable_vote_for_review_'.$this->service_type,$enable,$this->ID,$this->service_type);
+			}
+
+			return $enable;
 		}
 	}
 }
