@@ -1200,7 +1200,26 @@ jQuery(document).ready(function($){
     });
 
     $('.wpbooking-vote-for-review .review-do-vote').click(function(){
-
+        var me=$(this);
+        $.ajax({
+            data:{
+                action:'wpbooking_vote_review',
+                review_id:$(this).data('review-id'),
+            },
+            type:'post',
+            url:wpbooking_params.ajax_url,
+            dataType:'json',
+            success:function(res){
+                if(res.status){
+                    $('.review-vote-count').html(res.vote_count);
+                }
+                if(res.voted){
+                    me.addClass('active');
+                }else{
+                    me.removeClass('active');
+                }
+            }
+        })
     });
 });
 

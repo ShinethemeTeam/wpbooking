@@ -24,7 +24,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 				'service-types/room',
 			));
 
-			add_filter('comment_form_field_comment', array($this, 'add_review_field'));
+			//add_filter('comment_form_field_comment', array($this, 'add_review_field'));
 			add_action('comment_post', array($this, '_save_review_stats'));
 			//add_filter('get_comment_text', array($this, '_show_review_stats'), 100);
 
@@ -64,6 +64,14 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			 * @author dungdt
 			 */
 			add_filter( 'comments_template', array( $this, '_comments_template' ) );
+
+			/**
+			 * Ajax Vote Review Handler
+			 *
+			 * @since 1.0
+			 * @author dungdt
+			 */
+			add_action('wp_ajax_wpbooking_vote_review',array($this,'_wpbooking_vote_review'));
 		}
 
 		/**
@@ -400,11 +408,11 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
 		function add_review_field($fields)
 		{
-			if (get_post_type() != 'wpbooking_service') return $fields;
-
-			$field_review = apply_filters('wpbooking_review_field', wpbooking_load_view('single/review/review-field'));
-
-			return $field_review . $fields;
+//			if (get_post_type() != 'wpbooking_service') return $fields;
+//
+//			$field_review = apply_filters('wpbooking_review_field', wpbooking_load_view('single/review/review-field'));
+//
+//			return $field_review . $fields;
 		}
 
 		/**
@@ -454,6 +462,38 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			$template = wpbooking_view_path('reviews');
 
 			return $template;
+		}
+
+		/**
+		 * Ajax Vote for Review handler
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 */
+		function _wpbooking_vote_review()
+		{
+			$res=array(
+				'status'=>FALSE
+			);
+			$review_id=WPBooking_Input::post('review_id');
+			if(!is_user_logged_in()){
+				$res['status']=FALSE;
+				$res['not_logged_in']=1;
+			}else{
+				$model=WPBooking_Review_Helpful_Model::inst();
+
+				$res['voted']=(int)$model->vote($review_id,get_current_user_id());
+				$res['status']=1;
+				if($count=$model->count($review_id)){
+					$res['vote_count']=sprintf(esc_html__('%d like this','wpbooking'),$count);
+				}else{
+					$res['vote_count']='';
+				}
+
+			}
+
+			echo json_encode($res);
+			die;
 		}
 
 		static function inst()

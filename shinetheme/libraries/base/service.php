@@ -36,6 +36,14 @@ if (!class_exists('WB_Service')) {
 			$this->gallery_size = apply_filters('wpbooking_single_loop_image_size', 'full', $this->service_type, $this->ID);
 		}
 
+		/**
+		 * Get Array of Gallery of the Service.
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return mixed|void
+		 */
 		function get_gallery()
 		{
 			if ($this->ID) {
@@ -74,6 +82,15 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
+		/**
+		 * IF $need is specific, return the single value of author of the service. Otherwise, return the array
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param bool|FALSE $need
+		 * @return array|bool|string
+		 */
 		function get_author($need = FALSE)
 		{
 			if ($this->ID) {
@@ -81,7 +98,7 @@ if (!class_exists('WB_Service')) {
 				$udata = get_userdata($author_id);
 				$contact_now_url=FALSE;
 				if(is_user_logged_in()){
-					$contact_now_url=WPBooking_User::inst()->account_page_url().'/start-chat/'.$author_id;
+					$contact_now_url=WPBooking_User::inst()->account_page_url().'start-chat/'.$author_id;
 				}
 				$author_info = array(
 					'id'              => $author_id,
@@ -109,6 +126,14 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
+		/**
+		 * Get Location Address String of Current Service
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return mixed
+		 */
 		function get_address()
 		{
 			if ($this->ID) {
@@ -116,6 +141,15 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
+		/**
+		 * Get Rate in HTML format of current Service
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param bool|TRUE $echo
+		 * @return string
+		 */
 		function get_rate_html($echo = TRUE)
 		{
 			if ($this->ID) {
@@ -125,6 +159,15 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
+		/**
+		 * Get Price in HTML format of current Service
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param bool|TRUE $echo
+		 * @return mixed|string|void
+		 */
 		function get_price_html($echo = TRUE)
 		{
 			if ($this->ID) {
@@ -134,11 +177,28 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
+		/**
+		 * Get Service Type ID of current Service
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return bool|mixed
+		 */
 		function get_type()
 		{
 			return $this->service_type;
 		}
 
+		/**
+		 * Check if Current Service is in Favorites of Curent User
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param bool|FALSE $user_id
+		 * @return bool
+		 */
 		function check_favorite($user_id = FALSE)
 		{
 			if ($this->ID) {
@@ -158,6 +218,14 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
+		/**
+		 * Add Current Service to Current Logged In User
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return bool
+		 */
 		function do_favorite()
 		{
 			if ($this->ID and $user_id = is_user_logged_in()) {
@@ -182,6 +250,14 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
+		/**
+		 * Get Object of Service Type of Current Service
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return mixed
+		 */
 		function service_type_object()
 		{
 			if ($this->ID and $this->service_type) {
@@ -193,6 +269,14 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
+		/**
+		 * Get All Added Extra Services of current Service
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return array
+		 */
 		function get_extra_services()
 		{
 			if ($this->ID) {
@@ -212,6 +296,15 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
+		/**
+		 * Get Terms array of current Post by Taxonomy
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param bool|FALSE $tax
+		 * @return array|bool|WP_Error
+		 */
 		function get_terms($tax = FALSE)
 		{
 			if ($this->ID and $tax) {

@@ -49,6 +49,14 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 							'id'    => 'service_type_'.$this->type_id . '_show_rate_review_button',
 							'label' => __('Show Rate (Help-full) button in each review?', 'wpbooking')
 						),
+						array(
+							'id'    => 'service_type_'.$this->type_id . '_allowed_review_on_own_listing',
+							'label' => __('User can write review on their own listing?', 'wpbooking')
+						),
+						array(
+							'id'    => 'service_type_'.$this->type_id . '_allowed_vote_for_own_review',
+							'label' => __('User can vote for their own review?', 'wpbooking')
+						),
 //						array(
 //							'id'    => 'service_type_'.$this->type_id . '_required_partner_approved_review',
 //							'label' => __('Review require Partner Approved?', 'wpbooking')
@@ -157,7 +165,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			/**
 			 * Enable Vote For Review
 			 */
-			add_filter('wpbooking_enable_vote_for_review_'.$this->type_id,array($this,'_enable_vote_for_review'));
+			add_filter('wpbooking_enable_vote_for_review_'.$this->type_id,array($this,'_enable_vote_for_review'),10,3);
 
 		}
 
@@ -741,6 +749,16 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			return $approved;
 		}
 
+		/**
+		 * Hook Filter To Show Review Form for Room
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $open
+		 * @param $post_id
+		 * @return bool|mixed|string|void
+		 */
 		function _comments_open($open,$post_id)
 		{
 			$service_type=get_post_meta($post_id,'service_type',true);
@@ -774,6 +792,14 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					}
 				}
 
+				// Review in their own posts
+				if(!$this->get_option('allowed_review_on_own_listing') and is_user_logged_in()){
+					$author_id = get_post_field('post_author', $post_id);
+					if($author_id==get_current_user_id()){
+						$open=FALSE;
+					}
+				}
+
 				if($open) $open='open';
 			}
 
@@ -799,10 +825,24 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		 *
 		 * @since 1.0
 		 * @author dungdt
+		 *
+		 * @param $enable bool
+		 * @param $post_id int
+		 * @param @service_type string
+		 * @return bool
 		 */
-		function _enable_vote_for_review()
+		function _enable_vote_for_review($enable,$post_id,$service_type)
 		{
-			return $this->get_option('show_rate_review_button',FALSE);
+			//_allowed_vote_for_own_review
+			$enable= $this->get_option('show_rate_review_button',FALSE);
+			$author_id = get_post_field('post_author', $post_id);
+			if(is_user_logged_in()){
+				if(!$this->get_option('allowed_vote_for_own_review') and get_current_user_id()==$author_id){
+					$enable=FALSE;
+				}
+			}
+
+			return $enable;
 		}
 
 		function required_partner_approved_review(){

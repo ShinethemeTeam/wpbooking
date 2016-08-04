@@ -1569,6 +1569,15 @@
   margin-bottom: 20px;
   padding: 5px 10px;
 }
+.single-wpbooking_service .wpbooking-single-content .service-content-section .service-detail-item .service-detail-title .help-icon {
+  font-size: 8px;
+  background: #f0ad4e;
+  border-radius: 50%;
+  color: white;
+  width: 13px;
+  text-align: center;
+  display: inline-block;
+}
 .single-wpbooking_service .wpbooking-single-content .service-content-section .service-detail-item .service-detail-content {
   float: left;
   width: 68%;
@@ -1614,11 +1623,39 @@
 .single-wpbooking_service .wpbooking-single-content .service-content-section .service-detail-item .service-detail-content .service-list-terms .service-term .service-term-icon i {
   font-size: 22px;
 }
+.single-wpbooking_service .wpbooking-single-content .service-content-section .service-detail-item .service-detail-content .service-list-terms .service-term .service-term-icon i:before {
+  font-size: inherit;
+  margin: 0px;
+}
 .single-wpbooking_service .wpbooking-single-content .service-content-section .service-detail-item .service-detail-content .service-list-terms .service-term .sevice-term-name {
   color: #666;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .service-detail-item .service-detail-content .service-list-terms .service-term .sevice-term-name:hover {
   text-decoration: none;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .service-detail-item .service-detail-content .service-list-terms.icon_with_data .icon-data-wrap {
+  border: 1px solid #e6e6e6;
+  background: white;
+  font-size: 22px;
+  color: #cccccc;
+  text-align: right;
+  padding: 0px 3px 0px 51px;
+  position: relative;
+  margin-bottom: 21px;
+  display: inline-block;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .service-detail-item .service-detail-content .service-list-terms.icon_with_data .icon-data-wrap .service-term-icon {
+  position: absolute;
+  top: 2px;
+  left: 10px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .service-detail-item .service-detail-content .service-list-terms.icon_with_data .icon-data-wrap .service-term-icon i {
+  font-size: 33px;
+  color: #333;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .service-detail-item .service-detail-content .service-list-terms.icon_with_data .sevice-term-name {
+  display: block;
+  text-align: center;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .service-map-contact .service-map-element {
   height: 230px;
@@ -1809,6 +1846,7 @@
   border-radius: 50%;
   border: 1px solid #333;
   color: #333;
+  cursor: pointer;
 }
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content .wpbooking-vote-for-review .review-do-vote.active {
   color: white;
@@ -1817,7 +1855,99 @@
 }
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .wpbooking-review-total {
   font-size: 13px;
+  margin-bottom: 30px;
 }
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .wpbooking-review-total span {
   margin-right: 10px;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond {
+  padding: 30px 15px;
+  background: #f2f2f2;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-reply-title {
+  font-size: 20px;
+  font-weight: normal;
+  margin-top: 0px;
+  margin-bottom: 25px;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form {
+  font-size: 14px;
+  padding-top: 0px;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form input[type=text],
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form input[type=email],
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form input[type=url] {
+  border: 1px solid #e6e6e6;
+  background: white;
+  padding: 6px 10px;
+  line-height: 19px;
+  font-size: 14px;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form textarea {
+  background: white;
+  line-height: 19px;
+  font-size: 14px;
+  border: 1px solid #e6e6e6;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form:before,
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form:after {
+  display: table;
+  content: " ";
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form:after {
+  clear: both;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form label {
+  text-transform: none;
+  font-weight: normal;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .logged-in-as {
+  margin-bottom: 10px;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .comment-form-author {
+  float: left;
+  width: 48%;
+  margin-right: 4%;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .comment-form-email {
+  float: left;
+  width: 48%;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .wpbooking-comment-form-rating {
+  width: 37%;
+  float: left;
+  margin-left: 3%;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .wpbooking-comment-form-rating label.form-label {
+  margin-bottom: 26px;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .wpbooking-comment-form-rating .wpbooking-rating-review {
+  margin-bottom: 10px;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .wpbooking-comment-form-rating .wpbooking-rating-review .rating-title {
+  width: 110px;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .wpbooking-comment-form-rating .rating-stars a {
+  color: #f0ad4e;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .wpbooking-comment-form-content {
+  clear: both;
+  width: 60%;
+  float: left;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .wpbooking-comment-form-content p {
+  margin-bottom: 15px;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .form-submit {
+  clear: both;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .form-submit .submit {
+  display: inline-block;
+  background: #31b0d5;
+  font-weight: normal;
+  font-size: 14px;
+  border: 1px solid #269abc;
+  width: auto;
 }

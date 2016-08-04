@@ -598,63 +598,64 @@ if (!class_exists('WPBooking_User')) {
 		 */
 		function _myaccount_page_handler()
 		{
-
-
 			$action=WPBooking_Input::post('action');
 			switch($action){
 				case "wpbooking_save_service":
-					$validate=$this->validate_service();
-					if($validate){
-						if($service_id=get_query_var('service')){
-							$service=get_post($service_id);
-							// Update
-							wp_update_post(array(
-								'ID'=>$service_id,
-								'post_title'=>WPBooking_Input::post('service_title'),
-								'post_content'=>WPBooking_Input::post('service_content'),
-								'post_author'=>$service->post_author
-							));
+					if(is_user_logged_in()){
+						$validate=$this->validate_service();
+						if($validate){
+							if($service_id=get_query_var('service')){
+								$service=get_post($service_id);
+								// Update
+								wp_update_post(array(
+									'ID'=>$service_id,
+									'post_title'=>WPBooking_Input::post('service_title'),
+									'post_content'=>WPBooking_Input::post('service_content'),
+									'post_author'=>$service->post_author
+								));
 
-							wpbooking_set_message(esc_html__('Update Successful','wpbooking'),'success');
-
-							// Save Metabox
-							//WPBooking_Metabox::inst()->do_save_metabox($service_id);
-
-							do_action('wpbooking_after_user_update_service',$service_id);
-
-						}else{
-							// Insert
-							$service_id=wp_insert_post(array(
-								'post_title'=>WPBooking_Input::post('service_title'),
-								'post_content'=>WPBooking_Input::post('service_content'),
-							));
-
-							if(!is_wp_error($service_id)){
-								// Success
-								wpbooking_set_message(esc_html__('Create Successful','wpbooking'),'success');
+								wpbooking_set_message(esc_html__('Update Successful','wpbooking'),'success');
 
 								// Save Metabox
 								//WPBooking_Metabox::inst()->do_save_metabox($service_id);
 
-								do_action('wpbooking_after_user_insert_service_success',$service_id);
-
-								// Redirect To Edit Page
-								$myaccount_page=get_permalink(wpbooking_get_option('myaccount-page'));
-								$edit_url=$myaccount_page.'service/'.$service_id;
-								wp_redirect(esc_url_raw($edit_url));
-								die;
+								do_action('wpbooking_after_user_update_service',$service_id);
 
 							}else{
-								// Create Error
-								wpbooking_set_message($service_id->get_error_message(),'danger');
+								// Insert
+								$service_id=wp_insert_post(array(
+									'post_title'=>WPBooking_Input::post('service_title'),
+									'post_content'=>WPBooking_Input::post('service_content'),
+								));
 
-								do_action('wpbooking_after_user_insert_service_error',$service_id);
+								if(!is_wp_error($service_id)){
+									// Success
+									wpbooking_set_message(esc_html__('Create Successful','wpbooking'),'success');
+
+									// Save Metabox
+									//WPBooking_Metabox::inst()->do_save_metabox($service_id);
+
+									do_action('wpbooking_after_user_insert_service_success',$service_id);
+
+									// Redirect To Edit Page
+									$myaccount_page=get_permalink(wpbooking_get_option('myaccount-page'));
+									$edit_url=$myaccount_page.'service/'.$service_id;
+									wp_redirect(esc_url_raw($edit_url));
+									die;
+
+								}else{
+									// Create Error
+									wpbooking_set_message($service_id->get_error_message(),'danger');
+
+									do_action('wpbooking_after_user_insert_service_error',$service_id);
+								}
+
+
 							}
 
-
 						}
-
 					}
+
 				break;
 
 				// Update Profile

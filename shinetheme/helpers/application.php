@@ -220,7 +220,7 @@ if(!function_exists('wpbooking_count_review_vote')){
 		$model= WPBooking_Review_Helpful_Model::inst();
 
 		$res= $model->select('count(id) as total')->where(array(
-			'comment_id'=>$review_id,
+			'review_id'=>$review_id,
 		))->get(1)->row();
 
 		if($res) return $res['total'];
@@ -233,15 +233,7 @@ if(!function_exists('wpbooking_user_liked_review')){
 		if(!$user_id) $user_id=get_current_user_id();
 		if(!$user_id) return FALSE;
 
-		$model= WPBooking_Review_Helpful_Model::inst();
-
-		$res= $model->select('count(id) as total')->where(array(
-			'comment_id'=>$review_id,
-			'user_id'=>$user_id
-		))->get(1)->row();
-
-		if($res) return true;
-		else return FALSE;
+		return WPBooking_Review_Helpful_Model::inst()->count($review_id);
 
 	}
 }

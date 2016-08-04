@@ -1,6 +1,6 @@
 	/*
   	Flaticon icon font: Flaticon
-  	Creation date: 03/08/2016 13:19
+  	Creation date: 04/08/2016 09:59
   	*/
 
 @font-face {
@@ -33,9 +33,10 @@ margin-left: 20px;
 .flaticon-double-bed:before { content: "\f101"; }
 .flaticon-full-size:before { content: "\f102"; }
 .flaticon-hotel-room:before { content: "\f103"; }
-.flaticon-single-bed-outline:before { content: "\f104"; }
-.flaticon-sofa:before { content: "\f105"; }
-.flaticon-stairs:before { content: "\f106"; }
-.flaticon-towel:before { content: "\f107"; }
-.flaticon-wheelchair:before { content: "\f108"; }
-.flaticon-wiping-swipe-for-floors:before { content: "\f109"; }
+.flaticon-people:before { content: "\f104"; }
+.flaticon-single-bed-outline:before { content: "\f105"; }
+.flaticon-sofa:before { content: "\f106"; }
+.flaticon-stairs:before { content: "\f107"; }
+.flaticon-towel:before { content: "\f108"; }
+.flaticon-wheelchair:before { content: "\f109"; }
+.flaticon-wiping-swipe-for-floors:before { content: "\f10a"; }

@@ -438,23 +438,36 @@ if (!class_exists('WPBooking_Model')) {
 		 */
 		function delete()
 		{
-			if (empty($data)) {
-				return FALSE;
-			}
 			global $wpdb;
 			$table_name = $wpdb->prefix . $this->table_name;
 
 			$where = FALSE;
 			if (!empty($this->_where_query)) {
-				$where = 'WHERE 1=1 ';
-
+				$where=' WHERE 1=1 ';
 				foreach ($this->_where_query as $key => $value) {
 					$value = wp_parse_args($value, array(
 						'key'    => FALSE,
 						'value'  => FALSE,
-						'clause' => 'and'
+						'clause' => 'and',
+						'is_raw' => FALSE
 					));
-					$where .= $wpdb->prepare(' ' . $value['clause'] . ' `' . $value['key'] . '`=%s', array($value['value']));
+					if (!$value['is_raw']) {
+						$last = substr($value['key'], -1);
+						switch ($last) {
+							case ">":
+							case "<":
+							case "=":
+								$where .= $wpdb->prepare(' ' . $value['clause'] . ' ' . $value['key'] . '%s ', array($value['value']));
+								break;
+							default:
+								$where .= $wpdb->prepare(' ' . $value['clause'] . ' ' . $value['key'] . '=%s ', array($value['value']));
+								break;
+
+						}
+					} else {
+						$where .= ' ' . $value['clause'] . ' ' . $value['key'];
+					}
+
 				}
 			}
 

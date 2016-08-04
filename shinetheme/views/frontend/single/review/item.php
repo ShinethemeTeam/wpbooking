@@ -76,7 +76,7 @@ $service=new WB_Service();
 				}
 				if($service->enable_vote_for_review()){
 					$count=wpbooking_count_review_vote(get_comment_ID());
-					$liked=wpbooking_user_liked_review()?'active':FALSE;
+					$liked=wpbooking_user_liked_review(get_comment_ID())?'active':FALSE;
 
 					printf('<div class="wpbooking-vote-for-review">%s <span class="review-vote-count">%s</span> <a data-review-id="%s" class="review-do-vote %s"><i class="fa fa-thumbs-o-up"></i></a></div>',esc_html__('Was this review helpful?','wpbooking'),($count)?sprintf(esc_html__('%d like this','wpbooking'),$count):FALSE,get_comment_ID(),$liked);
 				}

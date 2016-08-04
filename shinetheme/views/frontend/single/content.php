@@ -99,7 +99,7 @@ $service=new WB_Service();
 				$array=array(
 					'max_guests'=>array(
 						'title'=>esc_html__('Max Guests','wpbooking'),
-						'icon'=>'',
+						'icon'=>'flaticon-people',
 					),
 					'bedroom'=>array(
 						'title'=>esc_html__('Bedrooms','wpbooking'),
@@ -134,11 +134,12 @@ $service=new WB_Service();
 				foreach($array as $key=>$val){
 					if($meta=get_post_meta(get_the_ID(),$key,true)){
 						$space_html[]='<li class="service-term">';
-						$space_html[]='<span class="icon-data-wrap">x<span class="icon-data">'.$meta.'</span></span>';
+						$space_html[]='<span class="icon-data-wrap">x<span class="icon-data">'.$meta.'</span>';
 
 						if($icon=$val['icon']){
 							$space_html[]=sprintf('<span class="service-term-icon"><i class="%s"></i></span>',wpbooking_icon_class_handler($icon));
 						}
+						$space_html[]='</span>';
 
 						switch($key){
 							case "property_size":
@@ -189,7 +190,7 @@ $service=new WB_Service();
 				<?php do_action('wpbooking_after_service_detail_amenities',$service_type,$service) ?>
 
 				<div class="service-detail-item">
-					<div class="service-detail-title"><?php esc_html_e('Rate','wpbooking') ?>	<span class="help-icon"><fa class="fa-question"></fa></span></div>
+					<div class="service-detail-title"><?php esc_html_e('Rate','wpbooking') ?>	<!--<span class="help-icon"><i class="fa fa-question"></i></span>--></div>
 					<div class="service-detail-content">
 						<?php $array=array(
 							'price'=>esc_html__('Nightly Rate: %s','wpbooking'),
