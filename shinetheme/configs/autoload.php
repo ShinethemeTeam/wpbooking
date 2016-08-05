@@ -34,7 +34,8 @@ $autoload['library']=array(
 	'email/emogrifier',
 	'query',
 	'base/service',
-	'taxonomy-metabox'
+	'taxonomy-metabox',
+	'query-inject'
 );
 
 $autoload['controller']=array(

@@ -238,3 +238,21 @@ if(!function_exists('wpbooking_user_liked_review')){
 	}
 }
 
+if(!function_exists('wpbooking_query')){
+	function wpbooking_query($query_id='default',$arg,$service_type=FALSE){
+
+		do_action('wpbooking_before_wb_query_start',$query_id,$service_type);
+
+		WPBooking_Query_Inject::inst()->inject();
+
+		$arg=apply_filters('wpbooking_wb_query_arg',$arg,$query_id,$service_type);
+
+		$query=new WP_Query($arg);
+
+		WPBooking_Query_Inject::inst()->clear();
+
+		do_action('wpbooking_after_wb_query_clear',$query_id,$service_type);
+
+		return $query;
+	}
+}

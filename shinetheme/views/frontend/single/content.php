@@ -345,6 +345,7 @@ $service=new WB_Service();
 			endif;
 			?>
 		</div>
+		<?php echo wpbooking_load_view('single/related') ?>
 
     </div>
 </div>

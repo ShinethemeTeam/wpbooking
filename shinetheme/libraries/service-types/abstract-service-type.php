@@ -54,6 +54,13 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 			 */
 			add_action('wpbooking_email_order_item_information_'.$this->type_id,array($this,'_show_email_order_information'));
 
+			/**
+			 * Change Related Query Search
+			 * @since 1.0
+			 * @author dungdt
+			 */
+			add_action('wpbooking_before_related_query_'.$this->type_id,array($this,'_add_related_query_hook'),10,2);
+
 		}
 
 		/**
@@ -398,5 +405,43 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 
             return $where;
         }
+
+		/**
+		 * Add Hook for Related Query
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $post_id
+		 * @param $service_type
+		 */
+		function _add_related_query_hook($post_id,$service_type)
+		{
+			$rate=WPBooking_Comment_Model::inst()->get_avg_review($post_id);
+			if($rate){
+				if(is_float($rate)){
+					// Check if Avg is Decimal: example 4.3
+					$rate=(float)$rate;
+					$min=floor($rate);
+					$max=ceil($rate);
+				}else{
+					// If Avg is Integerl: Example 4 -> we will get 4->5 star
+					$min=$rate;
+					$max=$rate+1;
+				}
+				global $wpdb;
+
+				$injection=WPBooking_Query_Inject::inst();
+				$injection->select('avg('.$wpdb->commentmeta.'.meta_value) as avg_rate')
+					->join('comments',$wpdb->prefix.'comments.comment_post_ID='.$wpdb->posts.'.ID')
+					->join('commentmeta',$wpdb->prefix.'commentmeta.comment_id='.$wpdb->prefix.'comments.comment_ID and '.$wpdb->commentmeta.".meta_key='wpbooking_review'")
+					->where('comment_approved',1)
+					->having("avg_rate>=".$min)
+					->having("avg_rate<=".$max);
+
+			}
+
+		}
+
 	}
 }

@@ -276,6 +276,16 @@ if (!class_exists('WPBooking_Metabox')) {
 					case "property_size":
 						if(!empty($field['unit_id'])) update_post_meta($post_id,$field['unit_id'],WPBooking_Input::post($field['unit_id']));
 						break;
+					case "address":
+						$array=array('zip_code','address','apt_unit','location_id');
+						foreach($array as $name){
+							if(isset($_POST[$name])){
+
+								update_post_meta($post_id,$name,WPBooking_Input::post($name));
+							}
+						}
+
+						break;
 
 					case "extra_services":
 						if(!empty($new)){

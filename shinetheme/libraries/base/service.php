@@ -333,5 +333,46 @@ if (!class_exists('WB_Service')) {
 
 			return $enable;
 		}
+
+		/**
+		 * Get Query to return related service
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $arg array
+		 * @return object|mixed
+		 */
+		function get_related_query($arg=array())
+		{
+			if($this->ID){
+
+				do_action('wpbooking_before_related_query',$this->ID,$this->service_type);
+				do_action('wpbooking_before_related_query_'.$this->service_type,$this->ID,$this->service_type);
+
+				$arg=wp_parse_args($arg,array(
+					'post_type'=>'wpbooking_service',
+					'posts_per_page'=>4,
+					'post__not_in'=>array($this->ID)
+				));
+
+				$current_price=get_post_meta($this->ID,'price',true);
+				$arg['meta_query'][]=array(
+					'key'=>'price',
+					'value'=>$current_price
+				);
+				$location_id=get_post_meta($this->ID,'location_id',true);
+				$arg['meta_query'][]=array(
+					'key'=>'location_id',
+					'value'=>$location_id
+				);
+
+				$query=wpbooking_query('related_service',$arg);
+
+				return $query;
+
+			}
+
+		}
 	}
 }
