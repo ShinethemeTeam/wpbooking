@@ -96,9 +96,9 @@ if (!class_exists('WB_Service')) {
 			if ($this->ID) {
 				$author_id = get_post_field('post_author', $this->ID);
 				$udata = get_userdata($author_id);
-				$contact_now_url=FALSE;
-				if(is_user_logged_in()){
-					$contact_now_url=WPBooking_User::inst()->account_page_url().'start-chat/'.$author_id;
+				$contact_now_url = FALSE;
+				if (is_user_logged_in()) {
+					$contact_now_url = WPBooking_User::inst()->account_page_url() . 'start-chat/' . $author_id;
 				}
 				$author_info = array(
 					'id'              => $author_id,
@@ -107,13 +107,14 @@ if (!class_exists('WB_Service')) {
 					'user_registered' => $udata->user_registered,
 					'description'     => $udata->user_description,
 					'address'         => get_user_meta($author_id, 'wb_address', TRUE),
-					'profile_url'     =>WPBooking_User::inst()->account_page_url().'profile/'.$author_id,
-					'contact_now_url'=>$contact_now_url
+					'profile_url'     => WPBooking_User::inst()->account_page_url() . 'profile/' . $author_id,
+					'contact_now_url' => $contact_now_url,
+					'email'           => $udata->user_email
 				);
 				if ($need) {
 					switch ($need) {
 						case "since":
-							return sprintf(esc_html__('since %s','wpbooking'),date_i18n('Y M', strtotime($author_info['user_registered'])));
+							return sprintf(esc_html__('since %s', 'wpbooking'), date_i18n('Y M', strtotime($author_info['user_registered'])));
 							break;
 						default:
 							return !empty($author_info[$need]) ? $author_info[$need] : FALSE;
@@ -324,11 +325,12 @@ if (!class_exists('WB_Service')) {
 		 *
 		 * @return bool|mixed|void
 		 */
-		function enable_vote_for_review(){
-			$enable=FALSE;
-			if($this->ID and is_user_logged_in()){
-				$enable=apply_filters('wpbooking_enable_vote_for_review',$enable,$this->ID,$this->service_type);
-				$enable=apply_filters('wpbooking_enable_vote_for_review_'.$this->service_type,$enable,$this->ID,$this->service_type);
+		function enable_vote_for_review()
+		{
+			$enable = FALSE;
+			if ($this->ID and is_user_logged_in()) {
+				$enable = apply_filters('wpbooking_enable_vote_for_review', $enable, $this->ID, $this->service_type);
+				$enable = apply_filters('wpbooking_enable_vote_for_review_' . $this->service_type, $enable, $this->ID, $this->service_type);
 			}
 
 			return $enable;
@@ -343,31 +345,31 @@ if (!class_exists('WB_Service')) {
 		 * @param $arg array
 		 * @return object|mixed
 		 */
-		function get_related_query($arg=array())
+		function get_related_query($arg = array())
 		{
-			if($this->ID){
+			if ($this->ID) {
 
-				do_action('wpbooking_before_related_query',$this->ID,$this->service_type);
-				do_action('wpbooking_before_related_query_'.$this->service_type,$this->ID,$this->service_type);
+				do_action('wpbooking_before_related_query', $this->ID, $this->service_type);
+				do_action('wpbooking_before_related_query_' . $this->service_type, $this->ID, $this->service_type);
 
-				$arg=wp_parse_args($arg,array(
-					'post_type'=>'wpbooking_service',
-					'posts_per_page'=>4,
-					'post__not_in'=>array($this->ID)
+				$arg = wp_parse_args($arg, array(
+					'post_type'      => 'wpbooking_service',
+					'posts_per_page' => 4,
+					'post__not_in'   => array($this->ID)
 				));
 
-				$current_price=get_post_meta($this->ID,'price',true);
-				$arg['meta_query'][]=array(
-					'key'=>'price',
-					'value'=>$current_price
+				$current_price = get_post_meta($this->ID, 'price', TRUE);
+				$arg['meta_query'][] = array(
+					'key'   => 'price',
+					'value' => $current_price
 				);
-				$location_id=get_post_meta($this->ID,'location_id',true);
-				$arg['meta_query'][]=array(
-					'key'=>'location_id',
-					'value'=>$location_id
+				$location_id = get_post_meta($this->ID, 'location_id', TRUE);
+				$arg['meta_query'][] = array(
+					'key'   => 'location_id',
+					'value' => $location_id
 				);
 
-				$query=wpbooking_query('related_service',$arg);
+				$query = wpbooking_query('related_service', $arg);
 
 				return $query;
 

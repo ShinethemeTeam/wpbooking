@@ -38,6 +38,19 @@
     &:hover{
         text-decoration: none;
     }
+
+    &.wb-btn-primary{
+
+        color: white;
+        background: #f0ad4e;
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: normal;
+        border:1px solid #ff9933;
+        border-radius: 0px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
 }
 // Alert
 .alert{
@@ -1851,7 +1864,10 @@
                 padding: 0px;
                 margin-bottom: 30px;
                 >li{
-                    .clearfix;
+                    .comment_container{
+                        .clearfix;
+                        margin-bottom: 20px;
+                    }
                     .comment-meta{
                         float: left;
                         width: 17%;
@@ -1879,7 +1895,7 @@
                             display: block;
                         }
                     }
-                    .comment-content{
+                    .comment-content-wrap{
                         width: 83%;
                         border:1px solid #e6e6e6;
                         padding:13px;
@@ -1975,6 +1991,62 @@
                                     color: white;
                                     background: @maincolor;
                                     border-color: @maincolor;
+                                }
+                            }
+                        }
+                        .wb-btn-reply-comment{
+                            font-size: 13px;
+                            font-style: italic;
+                            color: @maincolor;
+                            border:none;
+                        }
+                    }
+
+                    ul,ol{
+                        li {
+                            padding-left: 0px;
+                        }
+
+                        padding-left: 17%;
+                        list-style: none;
+                        margin-left: 0px;
+                        .reply-comment-form{
+                            display: none;
+                            &.active{
+                                display: block;
+                            }
+                        }
+                        .wpbooking-add-reply{
+                            .clearfix;
+                            .reply-input{
+                                width: 85%;
+                                float: left;
+                                textarea{
+                                    border:none;
+                                    height: 120px;
+                                    background: #f2f2f2;
+                                    font-size: 14px;
+                                }
+                            }
+                            .reply-submit{
+                                float: left;
+                                width: 13%;
+                                margin-left: 2%;
+                                .wb-btn{
+                                    text-align: center;
+                                    width: 100%;
+                                    padding-top: 5px;
+                                    padding-bottom: 5px;
+
+                                    i{
+                                        display: none;
+                                    }
+
+                                    &.loading{
+                                        i{
+                                            display: inline-block;
+                                        }
+                                    }
                                 }
                             }
                         }

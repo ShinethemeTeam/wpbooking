@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
 if (!class_exists('WPBooking_Service_Controller')) {
-	class WPBooking_Service_Controller
+	class WPBooking_Service_Controller extends WPBooking_Controller
 	{
 
 		private static $_inst;
@@ -40,22 +40,22 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			 * @author dungdt
 			 * @since 1.0
 			 */
-			add_action('wp_ajax_wpbooking_calendar_months',array($this,'_calendar_months'));
-			add_action('wp_ajax_nopriv_wpbooking_calendar_months',array($this,'_calendar_months'));
+			add_action('wp_ajax_wpbooking_calendar_months', array($this, '_calendar_months'));
+			add_action('wp_ajax_nopriv_wpbooking_calendar_months', array($this, '_calendar_months'));
 
 			/**
 			 * Ajax Filter
 			 * @author dungdt
 			 * @since 1.0
 			 */
-			add_action('template_redirect',array($this,'_ajax_filter_archivepage'),100);
+			add_action('template_redirect', array($this, '_ajax_filter_archivepage'), 100);
 
 			/**
 			 * Ajax Add Favorite
 			 * @author dungdt
 			 * @since 1.0
 			 */
-			add_action('wp_ajax_wpbooking_add_favorite',array($this,'_add_favorite'));
+			add_action('wp_ajax_wpbooking_add_favorite', array($this, '_add_favorite'));
 
 			/**
 			 * Filter to load specific comment template file
@@ -63,7 +63,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			 * @since 1.0
 			 * @author dungdt
 			 */
-			add_filter( 'comments_template', array( $this, '_comments_template' ) );
+			add_filter('comments_template', array($this, '_comments_template'));
 
 			/**
 			 * Ajax Vote Review Handler
@@ -71,7 +71,15 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			 * @since 1.0
 			 * @author dungdt
 			 */
-			add_action('wp_ajax_wpbooking_vote_review',array($this,'_wpbooking_vote_review'));
+			add_action('wp_ajax_wpbooking_vote_review', array($this, '_wpbooking_vote_review'));
+
+			/**
+			 * Ajax Reply a Review
+			 *
+			 * @since 1.0
+			 * @author dungdt
+			 */
+			add_action('wp_ajax_wpbooking_write_reply', array($this, '_wpbooking_write_reply'));
 		}
 
 		/**
@@ -82,23 +90,25 @@ if (!class_exists('WPBooking_Service_Controller')) {
 		 */
 		function _add_favorite()
 		{
-			$res=array('status'=>0);
+			$res = array('status' => 0);
 
-			if(is_user_logged_in()){
-				if(!$post_id=WPBooking_Input::post('post_id')){
-					$res['message']=esc_html__('Post ID is required','wpbooking');
-				}else{
-					$service=new WB_Service($post_id);
-					$res['status']=1;
-					$res['fav_status']=$service->do_favorite();
+			if (is_user_logged_in()) {
+				if (!$post_id = WPBooking_Input::post('post_id')) {
+					$res['message'] = esc_html__('Post ID is required', 'wpbooking');
+				} else {
+					$service = new WB_Service($post_id);
+					$res['status'] = 1;
+					$res['fav_status'] = $service->do_favorite();
 				}
-			}else{
-				$res['not_logged_in']=1;
-				$res['login_url']=wp_login_url();
+			} else {
+				$res['not_logged_in'] = 1;
+				$res['login_url'] = wp_login_url();
 			}
 
-			echo json_encode($res);die;
+			echo json_encode($res);
+			die;
 		}
+
 		/**
 		 * Ajax Filter Service Type
 		 *
@@ -110,42 +120,43 @@ if (!class_exists('WPBooking_Service_Controller')) {
 		{
 
 			// Ajax Search Handle
-			if(WPBooking_Helpers::is_ajax() and WPBooking_Input::get('wpbooking_action')=='archive_filter'){
-				if(get_query_var( 'paged' )) {
-					$paged = get_query_var( 'paged' );
-				} else if(get_query_var( 'page' )) {
-					$paged = get_query_var( 'page' );
+			if (WPBooking_Helpers::is_ajax() and WPBooking_Input::get('wpbooking_action') == 'archive_filter') {
+				if (get_query_var('paged')) {
+					$paged = get_query_var('paged');
+				} else if (get_query_var('page')) {
+					$paged = get_query_var('page');
 				} else {
 					$paged = 1;
 				}
 				$args = array(
-					'post_type' => 'wpbooking_service' ,
-					's'         => '' ,
-					'paged'     => $paged,
-					'posts_per_page'     => 3,
+					'post_type'      => 'wpbooking_service',
+					's'              => '',
+					'paged'          => $paged,
+					'posts_per_page' => 3,
 				);
 				$service_type = '';
 				$is_page = get_the_ID();
-				$list_page_search = apply_filters("wpbooking_add_page_archive_search",array());
-				if(!empty($list_page_search[$is_page]))
-				{
+				$list_page_search = apply_filters("wpbooking_add_page_archive_search", array());
+				if (!empty($list_page_search[$is_page])) {
 					$service_type = $list_page_search[$is_page];
 				}
-				$my_query = $this->query($args,$service_type);
+				$my_query = $this->query($args, $service_type);
 
-				$res=array(
-					'html'=>wpbooking_load_view('archive/loop',array('my_query'=>$my_query,'service_type'=>$service_type)),
+				$res = array(
+					'html' => wpbooking_load_view('archive/loop', array('my_query' => $my_query, 'service_type' => $service_type)),
 				);
-				$res['html'].=wpbooking_load_view('archive/pagination',array('my_query'=>$my_query,'service_type'=>$service_type));
+				$res['html'] .= wpbooking_load_view('archive/pagination', array('my_query' => $my_query, 'service_type' => $service_type));
 
-				$res['updated_element']=array(
-					'.post-query-desc'=>wpbooking_post_query_desc(WPBooking_Input::post())
+				$res['updated_element'] = array(
+					'.post-query-desc' => wpbooking_post_query_desc(WPBooking_Input::post())
 				);
 
-				echo json_encode($res);die;
+				echo json_encode($res);
+				die;
 
 			}
 		}
+
 		/**
 		 * Function Ajax Get Calendar Months
 		 * @since 1.0
@@ -153,58 +164,58 @@ if (!class_exists('WPBooking_Service_Controller')) {
 		 */
 		function _calendar_months()
 		{
-			$res=array();
+			$res = array();
 
-			$post_id=WPBooking_Input::post('post_id');
-			$currentMonth=WPBooking_Input::post('currentMonth');
-			$currentYear=WPBooking_Input::post('currentYear');
-			$start_date=new DateTime($currentYear.'-'.$currentMonth.'-1');
-			$start=$start_date->getTimestamp();
-			$end_date=$start_date->modify('+3 months');
-			$end=$end_date->getTimestamp();
+			$post_id = WPBooking_Input::post('post_id');
+			$currentMonth = WPBooking_Input::post('currentMonth');
+			$currentYear = WPBooking_Input::post('currentYear');
+			$start_date = new DateTime($currentYear . '-' . $currentMonth . '-1');
+			$start = $start_date->getTimestamp();
+			$end_date = $start_date->modify('+3 months');
+			$end = $end_date->getTimestamp();
 
-			$raw_data=WPBooking_Calendar_Model::inst()->calendar_months($post_id,$start,$end);
-			$calendar_months=array();
+			$raw_data = WPBooking_Calendar_Model::inst()->calendar_months($post_id, $start, $end);
+			$calendar_months = array();
 
 			// Default Months
-			for($i=0;$i<3;$i++){
-				$date=new DateTime($currentYear.'-'.$currentMonth.'-1');
-				if(!$i){
-					$calendar_months[$date->format('m_Y')]=array();
-				}else{
-					$date->modify('+'.$i.' months');
-					$calendar_months[$date->format('m_Y')]=array();
+			for ($i = 0; $i < 3; $i++) {
+				$date = new DateTime($currentYear . '-' . $currentMonth . '-1');
+				if (!$i) {
+					$calendar_months[$date->format('m_Y')] = array();
+				} else {
+					$date->modify('+' . $i . ' months');
+					$calendar_months[$date->format('m_Y')] = array();
 				}
 			}
 
-			if(!empty($raw_data))
-			{
-				foreach($raw_data as $k=>$v){
+			if (!empty($raw_data)) {
+				foreach ($raw_data as $k => $v) {
 					// Ignore Not Available Date
-					if($v['status']=='not_available') continue;
+					if ($v['status'] == 'not_available') continue;
 
-					$key=date('m',$v['start']).'_'.date('Y',$v['start']);
-					$calendar_months[$key][]=array(
-						'date'=>date('Y-m-d',$v['start']),
-						'price'=>WPBooking_Currency::format_money($v['price']),
-						'tooltip_content'=>sprintf(esc_html__('%s - %d available','wpbooking'),WPBooking_Currency::format_money($v['price']),$v['number']-$v['total_booked'])
+					$key = date('m', $v['start']) . '_' . date('Y', $v['start']);
+					$calendar_months[$key][] = array(
+						'date'            => date('Y-m-d', $v['start']),
+						'price'           => WPBooking_Currency::format_money($v['price']),
+						'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked'])
 					);
 				}
 			}
 
-			$res['months']=$calendar_months;
+			$res['months'] = $calendar_months;
 
 			echo json_encode($res);
 
 			die;
 		}
+
 		function _add_body_class($class)
 		{
-			if(is_singular()){
+			if (is_singular()) {
 				$is_page = get_the_ID();
 				$list_page_search = apply_filters("wpbooking_add_page_archive_search", array());
 				if (!empty($list_page_search[$is_page])) {
-					$class[]='wpbooking-archive-page';
+					$class[] = 'wpbooking-archive-page';
 				}
 			}
 
@@ -278,7 +289,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 							"bed"                 => __("Beds", "wpbooking"),
 							"bedroom"             => __("Bedrooms", "wpbooking"),
 							"bathroom"            => __("Bathrooms", "wpbooking"),
-							"guest"            => __("Guest", "wpbooking"),
+							"guest"               => __("Guest", "wpbooking"),
 //							"customer_confirm"    => __("Require Customer Confirm?", "wpbooking"),
 //							"partner_confirm"     => __("Require Partner Confirm?", "wpbooking"),
 						)
@@ -395,15 +406,15 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
 			if (get_post_type($post_id) != 'wpbooking_service') return FALSE;
 
-			$validate=apply_filters('wpbooking_save_review_stats_validate',true,$post_id,$comment_id);
+			$validate = apply_filters('wpbooking_save_review_stats_validate', TRUE, $post_id, $comment_id);
 
-			if($validate){
+			if ($validate) {
 
 				update_comment_meta($comment_id, 'wpbooking_review', WPBooking_Input::post('wpbooking_review'));
 				update_comment_meta($comment_id, 'wpbooking_review_detail', WPBooking_Input::post('wpbooking_review_detail'));
 			}
 
-			do_action('after_wpbooking_update_review_stats',$validate,$comment_id,$post_id);
+			do_action('after_wpbooking_update_review_stats', $validate, $comment_id, $post_id);
 		}
 
 		function add_review_field($fields)
@@ -431,7 +442,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
 		}
 
 
-
 		/**
 		 * Get Service Type Object by Type ID
 		 * @since 1.0
@@ -440,10 +450,11 @@ if (!class_exists('WPBooking_Service_Controller')) {
 		 * @param bool|FALSE $type
 		 * @return bool|object
 		 */
-		function get_service_type($type=FALSE){
-			$all=$this->get_service_types();
+		function get_service_type($type = FALSE)
+		{
+			$all = $this->get_service_types();
 
-			if($type and isset($all[$type])) return $all[$type];
+			if ($type and isset($all[$type])) return $all[$type];
 		}
 
 		/**
@@ -472,25 +483,90 @@ if (!class_exists('WPBooking_Service_Controller')) {
 		 */
 		function _wpbooking_vote_review()
 		{
-			$res=array(
-				'status'=>FALSE
+			$res = array(
+				'status' => FALSE
 			);
-			$review_id=WPBooking_Input::post('review_id');
-			if(!is_user_logged_in()){
-				$res['status']=FALSE;
-				$res['not_logged_in']=1;
-			}else{
-				$model=WPBooking_Review_Helpful_Model::inst();
+			$review_id = WPBooking_Input::post('review_id');
+			if (!is_user_logged_in()) {
+				$res['status'] = FALSE;
+				$res['not_logged_in'] = 1;
+			} else {
+				$model = WPBooking_Review_Helpful_Model::inst();
 
-				$res['voted']=(int)$model->vote($review_id,get_current_user_id());
-				$res['status']=1;
-				if($count=$model->count($review_id)){
-					$res['vote_count']=sprintf(esc_html__('%d like this','wpbooking'),$count);
-				}else{
-					$res['vote_count']='';
+				$res['voted'] = (int)$model->vote($review_id, get_current_user_id());
+				$res['status'] = 1;
+				if ($count = $model->count($review_id)) {
+					$res['vote_count'] = sprintf(esc_html__('%d like this', 'wpbooking'), $count);
+				} else {
+					$res['vote_count'] = '';
 				}
 
 			}
+
+			echo json_encode($res);
+			die;
+		}
+
+		/**
+		 * Ajax Reply for Review
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 */
+		function _wpbooking_write_reply()
+		{
+			$res = array(
+				'status' => FALSE
+			);
+			$review_id = $this->post('review_id');
+			$message = $this->post('message');
+			if ($review_id and $message and is_user_logged_in()) {
+
+				$review = get_comment($review_id);
+				$post_id = $review->comment_post_ID;
+				$service = new WB_Service($post_id);
+
+				// Only Level 1 and check current user permission
+				if (wpbooking_review_allow_reply($review_id)) {
+					$current_user = wp_get_current_user();
+					$data = array(
+						'comment_content'      => $message,
+						'comment_parent'       => $review_id,
+						'user_id'              => get_current_user_id(),
+						'comment_author_IP'    => $this->ip_address(),
+						'comment_author_email' => $current_user->user_email,
+						'comment_post_ID'      => $post_id
+					);
+					$reply_id = wp_insert_comment($data);
+					$count = WPBooking_User::inst()->count_reviews($service->get_author('email'));
+					$html_count = FALSE;
+					if ($count) $html_count = sprintf('<span class="review-count">' . _n('1 review', '%d reviews', $count, 'wpbooking') . '</span>', $count);
+
+					$res['status'] = 1;
+					$res['html'] = '<li>
+										<div class="comment_container">
+											<footer class="comment-meta">
+												<div class="comment-author vcard">
+													' . $service->get_author('avatar')
+						. sprintf('<b class="review-author-name">%s</b>', $service->get_author('name'))
+						. $html_count . '
+												</div><!-- .comment-author -->
+											</footer><!-- .comment-meta -->
+
+											<div class="comment-content-wrap">
+												<div class="comment-text">
+													' . $message . '
+												</div>
+											</div><!-- .comment-content -->
+										</div>
+									</li>';
+
+					$res['html'] = apply_filters('wpbooking_write_reply_html_result', $res['html'], $reply_id);
+
+				}
+			}
+
+			$res = apply_filters('wpbooking_write_reply_result', $res);
 
 			echo json_encode($res);
 			die;

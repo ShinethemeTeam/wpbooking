@@ -1221,6 +1221,43 @@ jQuery(document).ready(function($){
             }
         })
     });
+
+    $('.wb-btn-reply-comment').click(function(){
+       var parent=$(this).closest('li');
+       parent.find('ul .reply-comment-form').toggleClass('active');
+    });
+
+    // Reply
+    $('.reply-submit a').click(function(){
+        var me=$(this);
+        var parent=me.closest('.wpbooking-add-reply');
+        me.addClass('loading');
+        var message=parent.find('.reply_content').val();
+        if(!message) return false;
+
+        $.ajax({
+            data:{
+                action:'wpbooking_write_reply',
+                review_id:me.data('review-id'),
+                message:message
+            },
+            url:wpbooking_params.ajax_url,
+            dataType:'json',
+            type:'post',
+            success:function(res){
+                me.removeClass('loading');
+                if(res.status){
+                    me.closest('.comment').find('.wb-btn-reply-comment').hide();
+                    me.closest('ul').html(res.html);
+                }
+            },
+            error:function(e){
+                console.log(e.responseText);
+                me.removeClass('loading');
+            }
+        })
+
+    });
 });
 
 
