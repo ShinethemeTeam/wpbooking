@@ -50,7 +50,7 @@ jQuery(document).ready(function($) {
                         });
                     },
                     sourceRender: function (source, element) {
-                        if (source.status == 'available') {
+                        if (source.status == 'available' && typeof source.price_text!='undefined' ) {
                             element.append('<span class="wb-price">' + source.price_text + '</span>');
                         }
                     },
@@ -67,16 +67,16 @@ jQuery(document).ready(function($) {
 
                            $('#calendar-price-week').val(source.weekly);
                            $('#calendar-price-month').val(source.monthly);
-                           if(source.can_check_in){
-                               $('.calendar-can-check-in').iCheck('check');
+                           if(source.can_check_in==1){
+                               $('#calendar-can-check-in').iCheck('check');
                            }else{
-                               $('.calendar-can-check-in').iCheck('uncheck');
+                               $('#calendar-can-check-in').iCheck('uncheck');
                            }
 
-                           if(source.can_check_out){
-                               $('.calendar-can-check-out').iCheck('check');
+                           if(source.can_check_out==1){
+                               $('#calendar-can-check-out').iCheck('check');
                            }else{
-                               $('.calendar-can-check-out').iCheck('uncheck');
+                               $('#calendar-can-check-out').iCheck('uncheck');
                            }
                         }
                     },
@@ -311,7 +311,8 @@ jQuery(document).ready(function($) {
                     var container = $(this).parents('.wpbooking-calendar-wrapper');
 
                     var parent = $(this).parents('.calendar-room-form');
-
+                    var can_check_in=$('#calendar-can-check-in').attr('checked')=='checked'?1:0;
+                    var can_check_out=$('#calendar-can-check-out').attr('checked')=='checked'?1:0;
                     var data = {
                         'check_in' : $('#calendar-checkin', parent).val(),
                         'check_out' : $('#calendar-checkout', parent).val(),
@@ -323,8 +324,8 @@ jQuery(document).ready(function($) {
                         'security': wpbooking_params.wpbooking_security,
                         'weekly':$('#calendar-price-week').val(),
                         'monthly':$('#calendar-price-month').val(),
-                        'can_check_in':$('#calendar-can-check-in').val(),
-                        'can_check_out':$('#calendar-can-check-out').val()
+                        'can_check_in':can_check_in,
+                        'can_check_out':can_check_out
                     }
                     if( flag_add ) return false; flag_add = true;
 

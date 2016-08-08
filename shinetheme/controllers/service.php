@@ -159,7 +159,10 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
 		/**
 		 * Function Ajax Get Calendar Months
+		 *
 		 * @since 1.0
+		 * @author dungdt
+		 *
 		 * @return string json result
 		 */
 		function _calendar_months()
@@ -169,24 +172,28 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			$post_id = WPBooking_Input::post('post_id');
 			$currentMonth = WPBooking_Input::post('currentMonth');
 			$currentYear = WPBooking_Input::post('currentYear');
+			$today=new Datetime();
 			$start_date = new DateTime($currentYear . '-' . $currentMonth . '-1');
-			$start = $start_date->getTimestamp();
-			$end_date = $start_date->modify('+3 months');
-			$end = $end_date->getTimestamp();
+			if($start_date<$today) $start_date=$today;
+			$start=$start_date->getTimestamp();
+			$end = strtotime($start_date->format('Y-m-t'));
+			$end_date=new DateTime();
+			$end_date->setTimestamp($end);
 
 			$raw_data = WPBooking_Calendar_Model::inst()->calendar_months($post_id, $start, $end);
 			$calendar_months = array();
+			$calendar_dates=array();
 
 			// Default Months
-			for ($i = 0; $i < 3; $i++) {
-				$date = new DateTime($currentYear . '-' . $currentMonth . '-1');
-				if (!$i) {
-					$calendar_months[$date->format('m_Y')] = array();
-				} else {
-					$date->modify('+' . $i . ' months');
-					$calendar_months[$date->format('m_Y')] = array();
-				}
-			}
+//			for ($i = 0; $i < 3; $i++) {
+//				$date = new DateTime($currentYear . '-' . $currentMonth . '-1');
+//				if (!$i) {
+//					$calendar_months[$date->format('m_Y')] = array();
+//				} else {
+//					$date->modify('+' . $i . ' months');
+//					$calendar_months[$date->format('m_Y')] = array();
+//				}
+//			}
 
 			if (!empty($raw_data)) {
 				foreach ($raw_data as $k => $v) {
@@ -197,12 +204,56 @@ if (!class_exists('WPBooking_Service_Controller')) {
 					$calendar_months[$key][] = array(
 						'date'            => date('Y-m-d', $v['start']),
 						'price'           => WPBooking_Currency::format_money($v['price']),
-						'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked'])
+						'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked']),
+						'can_check_in'    => $v['can_check_in'],
+						'can_check_out'   => $v['can_check_out'],
+					);
+
+					$calendar_dates[]=array(
+						'date'            => date('Y-m-d', $v['start']),
+						'price'           => WPBooking_Currency::format_money($v['price']),
+						'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked']),
+						'can_check_in'    => $v['can_check_in'],
+						'can_check_out'   => $v['can_check_out'],
 					);
 				}
 			}
+			// All day data
+			$all_days = array();
 
-			$res['months'] = $calendar_months;
+			$interval = DateInterval::createFromDateString('1 day');
+			$period = new DatePeriod($start_date, $interval, $end_date->modify('+1 day'));
+
+			foreach ($period as $dt) {
+				if (get_post_meta($post_id, 'property_available_for', TRUE) != 'specific_periods') {
+					$all_days[$dt->format('Y-m-d')] = array(
+						'date'          => $dt->format('Y-m-d'),
+						'status'        => 'available',
+						'price'         => WPBooking_Currency::format_money(get_post_meta($post_id,'price',true)),
+						'can_check_in'  => 1,
+						'can_check_out' => 1
+					);
+				}
+
+			}
+			// Foreach Data
+			if(!empty($calendar_dates)){
+				foreach($calendar_dates as $day){
+					if(array_key_exists($day['date'],$all_days)){
+						unset($all_days[$day['date']]);
+					}
+				}
+			}
+
+			// Now append the exsits
+			if(!empty($all_days)){
+				foreach($all_days as $day){
+					$calendar_dates[]=$day;
+				}
+			}
+
+			//$res['months'] = $calendar_months;
+			$res['dates'] = $calendar_dates;
 
 			echo json_encode($res);
 

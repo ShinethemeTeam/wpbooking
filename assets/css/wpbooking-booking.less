@@ -51,6 +51,12 @@
         padding-top: 8px;
         padding-bottom: 8px;
     }
+
+    &.wb-btn-blue{
+        background: #31b0d5;
+        border: 1px solid #269abc;
+        color: white;
+    }
 }
 // Alert
 .alert{
@@ -781,13 +787,6 @@
 
         }
     }
-}
-.cart-item-order-form-fields{
-    list-style: none;
-    padding: 5px 0px;
-    margin: 5px 0px;
-    border-top:1px solid #ccc;
-    border-bottom:1px solid #ccc;
 }
 .wpbooking-all-gateways{
     list-style: none;
@@ -2144,6 +2143,130 @@
                     }
                 }
             }
+        }
+    }
+}
+
+// Cart
+.wpbooking-cart-wrap{
+    font-size: 14px;
+    .wpbooking-cart-table-col{
+        background: #f2f2f2;
+        border-bottom:2px solid rgba(216,216,216,0.7);
+        margin-bottom: 30px;
+        table,tr{
+            border-top:1px solid white;
+            border-left:1px solid white
+        }
+        td,th{
+            border-right:1px solid white;
+            border-bottom:1px solid white;
+            padding: 10px;
+        }
+        .delete-cart-item{
+            border:none;
+            color: #999999;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            display: inline-block;
+            background: white;
+            &:hover{
+                text-decoration: none;
+            }
+        }
+        .col-cart-item-img{
+            width: 15%;
+        }
+        .col-cart-item-info{
+            .service-name{
+                margin:0px;
+                color: @maincolor;
+                font-size: 14px;
+                font-weight: normal;
+                margin-bottom: 10px;
+                a{
+                    border:none;
+                    color: inherit;
+                    &:hover{
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .wpbooking-room-type{
+                a{
+                    font-size: 14px;
+                    color: #333;
+                    border-radius: 4px;
+                    border:1px solid #999999;
+                    padding:1px 3px;
+                    &:hover{
+                        text-decoration: none;
+                    }
+
+                }
+            }
+            .cart-item-order-form-fields-wrap{
+                .booking-detail-label{
+                    display: block;
+                    padding-bottom: 10px;
+                    border-bottom: 1px solid white;
+                }
+                .cart-item-order-form-fields{
+                    display: none;
+                    li{
+                        padding:10px 0px;
+                        border-bottom: 1px solid white;
+                        display: block;
+                        .field-title{
+                            font-weight: bold;
+                        }
+                    }
+                }
+                .show-more-less{
+                    color: @maincolor;
+                    cursor: pointer;
+                    text-decoration: underline;
+                    .less{
+                        display: none;
+                    }
+                }
+                &.active{
+                    .cart-item-order-form-fields{
+                        display: block;
+                    }
+                    .show-more-less{
+                        .less{
+                            display: inline-block;
+                        }
+                        .more{
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+        .col-cart-item-type,
+        .col-cart-item-price{
+            width: 19%;
+        }
+
+    }
+    .wpbooking-cart-summary-col{
+
+        border-bottom:2px solid rgba(216,216,216,0.7);
+        background: #f2f2f2;
+        text-align: right;
+        padding: 20px;
+        .cart-summary-details{
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+            color: #333333;
+            margin-bottom: 20px;
+            font-size: 18px;
         }
     }
 }

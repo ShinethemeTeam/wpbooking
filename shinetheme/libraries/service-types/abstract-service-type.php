@@ -104,13 +104,34 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 			$cart_item=wp_parse_args($cart_item,array(
 				'need_customer_confirm'=>'',
 				'order_form'=>array(),
-				'need_partner_confirm'=>FALSE
+				'post_id'=>FALSE
 			));
+
+			$terms=wp_get_post_terms($cart_item['post_id'],'wpbooking_room_type');
+			if(!empty($terms) and !is_wp_error($terms)){
+				$output[]='<div class="wpbooking-room-type">';
+				$key=0;
+				foreach($terms as $term){
+					$html=sprintf('<a href="%s">%s</a>',get_term_link($term,'wpbooking_room_type'),$term->name);
+					if($key<count($term)){
+						$html.=',';
+					}
+					$output[]=$html;
+					$key++;
+				}
+
+				$output[]='</div>';
+
+				$output=apply_filters('wpbooking_room_show_room_type',$output);
+				echo implode(' ',$output);
+			}
 
 			// Show Order Form Field
 			$order_form=$cart_item['order_form'];
 			if(!empty($order_form) and is_array($order_form))
 			{
+				echo '<div class="cart-item-order-form-fields-wrap">';
+				echo '<span class="booking-detail-label">'.esc_html__('Booking Details:','wpbooking').'</span>';
 				echo "<ul class='cart-item-order-form-fields'>";
 				foreach($order_form as $key=>$value){
 
@@ -132,17 +153,19 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 					do_action('wpbooking_form_field_to_html_'.$value['field_type'],$value);
 				}
 				echo "</ul>";
+				echo '<span class="show-more-less"><span class="more">'.esc_html__('More','wpbooking').' <i class="fa fa-angle-double-down"></i></span><span class="less">'.esc_html__('Less','wpbooking').' <i class="fa fa-angle-double-up"></i></span></span>';
+				echo "</div>";
 			}
 
 			// Show Need Confirm Notification
-			if($cart_item['need_customer_confirm'])
-			{
-				echo "<div class='label label-warning'>".__("Need Confirmation ",'wpbooking')."</div>";
-			}
-			if($cart_item['need_partner_confirm'])
-			{
-				echo "<div class='label label-warning'>".__("Need Approval",'wpbooking')."</div>";
-			}
+//			if($cart_item['need_customer_confirm'])
+//			{
+//				echo "<div class='label label-warning'>".__("Need Confirmation ",'wpbooking')."</div>";
+//			}
+//			if($cart_item['need_partner_confirm'])
+//			{
+//				echo "<div class='label label-warning'>".__("Need Approval",'wpbooking')."</div>";
+//			}
 		}
 
 		/**

@@ -30,6 +30,7 @@ if(!class_exists( 'WPBooking_Admin_Form_Build' )) {
         function add_form_field($name , $data){
             if(!empty($name)){
 				if(!empty($data['data']['title'])) $data['title']=$data['data']['title'];
+				else $data['title']=$name;
                 $this->wpbooking_list_field_form_build[$name] = $data;
             }
         }

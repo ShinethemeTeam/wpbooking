@@ -347,7 +347,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		 */
 		function _add_to_cart_validate($is_validated, $service_type, $post_id)
 		{
-			$calendar = WPBooking_Calendar_Model::inst();
 
 			$check_in = WPBooking_Input::post('check_in');
 			$check_out = WPBooking_Input::post('check_out');
@@ -360,44 +359,28 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 				} else {
 					$check_out_timestamp = $check_in_timestamp;
 				}
-
-				//$calendar_prices = $calendar->get_prices($post_id, $check_in_timestamp, $check_out_timestamp);
-				$calendar_prices = $calendar->calendar_months($post_id, $check_in_timestamp, $check_out_timestamp);
-
-				if (!empty($calendar_prices)) {
-					$check_in_temp = $check_in_timestamp;
-					$unavailable = array();
-					while ($check_in_temp <= $check_out_timestamp) {
-						$match = FALSE;
-						foreach ($calendar_prices as $key => $value) {
-							if ($value['start'] == $check_in_temp) {
-								$match = TRUE;
-								if ($value['status'] == 'not_available') $unavailable[] = $check_in_temp;
-							}
-						}
-						if (!$match) {
-							$unavailable[] = $check_in_temp;
-						}
-
-						$check_in_temp = strtotime('+1 day', $check_in_temp);
-					}
+				$service=new WB_Service($post_id);
+				$res=$service->check_availability($check_in_timestamp,$check_out_timestamp);
+				if(!$res['status']){
+					$is_validated=FALSE;
 
 					// If there are some day not available, return the message
-
-					if (!empty($unavailable)) {
+					if(!empty($res['can_not_check_in'])){
+						wpbooking_set_message(sprintf("You can not check-in at: %s", 'wpbooking'),date(get_option('date_format'),$check_in_timestamp));
+					}
+					if(!empty($res['can_not_check_out'])){
+						wpbooking_set_message(sprintf("You can not check-out at: %s", 'wpbooking'),date(get_option('date_format'),$check_out_timestamp));
+					}
+					if (!empty($res['unavailable_dates'])) {
 						$message = esc_html__("Those dates are not available: %s", 'wpbooking');
 						$not_avai_string = FALSE;
-						foreach ($unavailable as $k => $v) {
+						foreach ($res['unavailable_dates'] as $k => $v) {
 							$not_avai_string .= date(get_option('date_format'), $v) . ', ';
 						}
 						$not_avai_string = substr($not_avai_string, 0, -2);
 
 						wpbooking_set_message(sprintf($message, $not_avai_string), 'error');
-						$is_validated = FALSE;
 					}
-				} else {
-					wpbooking_set_message(__("Sorry, This item is not available at the moment", 'wpbooking'), 'error');
-					$is_validated = FALSE;
 				}
 			}
 

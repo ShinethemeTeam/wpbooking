@@ -42,7 +42,6 @@ if(empty($items)){
 		<hr>
 		<div class="cart-widget-total">
 			<p class="total"><?php _e('Total:','wpbooking') ?> <?php echo $booking->get_cart_total() ?></p>
-			<p class="payamount"><?php _e('Pay Amount:','wpbooking') ?> <?php echo $booking->get_cart_pay_amount() ?></p>
 		</div>
 
 		<div class="cart-widget-actions">

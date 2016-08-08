@@ -65,11 +65,11 @@ $property_available_for=get_post_meta(get_the_ID(),'property_available_for',true
 							<input class="calendar-input-month" type="text" id="calendar-price-month" name="calendar-price-month" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
 						</div>
 						<div class="calendar-room-form-item full-width " >
-							<label class="calendar-label" for="calendar-can-check-in"><input data-style="icheckbox_square-orange" class="wb-icheck calendar-can-check-in" type="checkbox" id="calendar-can-check-in" name="calendar-can-check-in" value="1" > <?php echo __('Can Check In?', 'wpbooking'); ?></label>
+							<label class="calendar-label" for="calendar-can-check-in"><input data-style="icheckbox_square-orange" class="wb-icheck calendar-can-check-in" type="checkbox" id="calendar-can-check-in" name="calendar-can-check-in" checked="checked" value="1" > <?php echo __('Can Check In?', 'wpbooking'); ?></label>
 
 						</div>
 						<div class="calendar-room-form-item full-width" >
-							<label class="calendar-label" for="calendar-can-check-out"><input data-style="icheckbox_square-orange" class="wb-icheck calendar-can-check-out" type="checkbox" id="calendar-can-check-out" name="calendar-can-check-out" value="1" > <?php echo __('Can Check Out?', 'wpbooking'); ?></label>
+							<label class="calendar-label" for="calendar-can-check-out"><input data-style="icheckbox_square-orange" class="wb-icheck calendar-can-check-out" type="checkbox" id="calendar-can-check-out" name="calendar-can-check-out" checked="checked" value="1" > <?php echo __('Can Check Out?', 'wpbooking'); ?></label>
 
 						</div>
 						<div class="clear"></div>

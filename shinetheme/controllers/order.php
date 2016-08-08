@@ -174,7 +174,7 @@ if (!class_exists('WPBooking_Order')) {
 			// Require Payment Gateways
 			$gateway_manage = WPBooking_Payment_Gateways::inst();
 			$selected_gateway = WPBooking_Input::post('payment_gateway');
-			$pay_amount = $this->get_cart_pay_amount();
+			$pay_amount = $this->get_cart_total();
 			$available_gateways = $gateway_manage->get_available_gateways();
 
 			if ($is_validate and $pay_amount) {
@@ -350,26 +350,26 @@ if (!class_exists('WPBooking_Order')) {
 		 */
 		function get_cart_pay_amount()
 		{
-			$price = 0;
-			$cart = WPBooking_Session::get('wpbooking_cart', array());
-			if (!empty($cart)) {
-				foreach ($cart as $key => $value) {
-
-					if ($value['need_customer_confirm'] or $value['need_partner_confirm']) continue;
-
-					$item_price = $value['sub_total'];
-					$item_price = apply_filters('wpbooking_cart_item_pay_amount', $item_price, $value);
-					$item_price = apply_filters('wpbooking_cart_item_pay_amount_' . $value['service_type'], $item_price, $value);
-
-					$item_price = WPBooking_Currency::convert_money($item_price, array('currency' => $value['currency']));
-
-					$price += $item_price;
-				}
-			}
-
-			$price = apply_filters('wpbooking_get_cart_pay_amount', $price, $cart);
-
-			return $price;
+//			$price = 0;
+//			$cart = WPBooking_Session::get('wpbooking_cart', array());
+//			if (!empty($cart)) {
+//				foreach ($cart as $key => $value) {
+//
+//					if ($value['need_customer_confirm'] or $value['need_partner_confirm']) continue;
+//
+//					$item_price = $value['sub_total'];
+//					$item_price = apply_filters('wpbooking_cart_item_pay_amount', $item_price, $value);
+//					$item_price = apply_filters('wpbooking_cart_item_pay_amount_' . $value['service_type'], $item_price, $value);
+//
+//					$item_price = WPBooking_Currency::convert_money($item_price, array('currency' => $value['currency']));
+//
+//					$price += $item_price;
+//				}
+//			}
+//
+//			$price = apply_filters('wpbooking_get_cart_pay_amount', $price, $cart);
+//
+//			return $price;
 		}
 
 		/**

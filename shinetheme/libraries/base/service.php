@@ -192,6 +192,23 @@ if (!class_exists('WB_Service')) {
 		}
 
 		/**
+		 * Get Service Type Name
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return mixed
+		 */
+		function get_type_name()
+		{
+			if($this->ID){
+				$type_object=WPBooking_Service_Controller::inst()->get_service_type($this->get_type());
+				if(!empty($type_object['label'])) return $type_object['label'];
+
+			}
+		}
+
+		/**
 		 * Check if Current Service is in Favorites of Curent User
 		 *
 		 * @since 1.0
@@ -375,6 +392,99 @@ if (!class_exists('WB_Service')) {
 
 			}
 
+		}
+
+		/**
+		 * Get Default State of Service, Available forever or specific periods
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return mixed
+		 */
+		function is_available_for(){
+			if($this->ID){
+				return get_post_meta($this->ID,'property_available_for',true);
+			}
+		}
+
+		/**
+		 * Check Available state for date range
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $start
+		 * @param $end
+		 * @return bool
+		 */
+		function check_availability($start,$end){
+
+			$return=array(
+				'status'=>0,
+				'unavailable_dates'=>array()
+			);
+
+			if($this->ID){
+				$calendar = WPBooking_Calendar_Model::inst();
+				$calendar_prices = $calendar->calendar_months($this->ID, $start, $start);
+
+				// Reformat the res
+				if(!empty($calendar_prices)){
+					foreach($calendar_prices as $key=>$value){
+						$calendar_prices[$value['start']]=$value;
+					}
+				}
+
+				switch($this->is_available_for()){
+						case "specific_periods":
+							if(!empty($calendar_prices)){
+								$return['status']=1;
+								$check_in_temp=$start;
+								while ($check_in_temp <= $end) {
+
+									if(!array_key_exists($check_in_temp,$calendar_prices) or $calendar_prices[$check_in_temp]['status']=='not_available'){
+										$return['unavailable_dates'] = $check_in_temp;
+										$return['status']=0;
+									}
+
+									$check_in_temp = strtotime('+1 day', $check_in_temp);
+								}
+
+							}
+							break;
+
+						case "forever":
+						default:
+							$return['status']=1;
+							if(!empty($calendar_prices)){
+								$check_in_temp=$start;
+								while ($check_in_temp <= $end) {
+
+									if(array_key_exists($check_in_temp,$calendar_prices) and $calendar_prices[$check_in_temp]['status']=='not_available'){
+										$return['unavailable_dates'] = $check_in_temp;
+										$return['status']=0;
+									}
+
+									$check_in_temp = strtotime('+1 day', $check_in_temp);
+								}
+							}
+							break;
+				}
+				if(!empty($calendar_prices)){
+					if(array_key_exists($start,$calendar_prices) and $calendar_prices[$start]['can_check_in']==FALSE){
+						$return['status']=0;
+						$return['can_not_check_in']=TRUE;
+					}
+					if(array_key_exists($end,$calendar_prices) and $calendar_prices[$end]['can_check_out']==FALSE){
+						$return['status']=0;
+						$return['can_not_check_out']=TRUE;
+					}
+				}
+
+			}
+
+			return apply_filters('wpbooking_service_check_availability',$return,$this,$start,$end);
 		}
 	}
 }

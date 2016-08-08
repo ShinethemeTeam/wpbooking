@@ -40,10 +40,6 @@ $cart=$booking->get_cart();
 			<td><?php _e('Total','wpbooking')?></td>
 			<td><?php echo WPBooking_Currency::format_money($booking->get_cart_total());?></td>
 		</tr>
-		<tr>
-			<td><?php _e('Pay Amount','wpbooking')?></td>
-			<td><?php echo WPBooking_Currency::format_money($booking->get_cart_pay_amount());?></td>
-		</tr>
 		<?php do_action('wpbooking_review_order_footer') ?>
 	</tfooter>
 </table>

@@ -13,12 +13,12 @@ echo wpbooking_get_message();
 		<table class="wpbooking-cart-table">
 			<thead>
 				<tr>
-					<th class="small-col">#</th>
+					<th class="small-col text-center">&nbsp;</th>
 					<th colspan="2" class="col-cart-item-info">
-						<?php _e('Service Information','wpbooking') ?>
+						<?php _e('Property items','wpbooking') ?>
 					</th>
-					<th class="col-cart-item-price"><?php _e('Price')?></th>
-					<th class="col-cart-item-actions"><?php _e('Actions')?></th>
+					<th class="col-cart-item-type text-center"><?php _e('Property type','wpbooking')?></th>
+					<th class="col-cart-item-price text-center"><?php _e('Total','wpbooking')?></th>
 				</tr>
 
 			</thead>
@@ -30,22 +30,23 @@ echo wpbooking_get_message();
 						foreach($carts as $key=>$value) {
 							$post_id=$value['post_id'];
 							$service_type=$value['service_type'];
+							$service=new WB_Service($post_id);
 							?>
 								<tr>
-									<td><?php echo ($current+1)?></td>
+									<td class="text-center"><a class="delete-cart-item" href="<?php echo esc_url(add_query_arg(array('delete_cart_item'=>$key),$booking->get_cart_url())) ?>">
+											<i class="fa fa-times"></i>
+										</a></td>
 									<td class="col-cart-item-img"><a href="<?php echo get_permalink($post_id)?>" target="_blank"><?php echo get_the_post_thumbnail($post_id)?></a></td>
 									<td class="col-cart-item-info">
-										<h4><a href="<?php echo get_permalink($post_id)?>" target="_blank"><?php echo get_the_title($post_id)?></a></h4>
+										<h4 class="service-name"><a href="<?php echo get_permalink($post_id)?>" target="_blank"><?php echo get_the_title($post_id)?></a></h4>
 										<?php do_action('wpbooking_cart_item_information',$value) ?>
 										<?php do_action('wpbooking_cart_item_information_'.$service_type,$value) ?>
 									</td>
-									<td class="col-cart-item-price">
-										<?php echo $booking->get_cart_item_total_html($value); ?>
+									<td class="col-cart-item-type text-center">
+										<?php echo esc_html($service->get_type_name()) ?>
 									</td>
-									<td class="col-cart-item-actions">
-										<a href="<?php echo esc_url(add_query_arg(array('delete_cart_item'=>$key),$booking->get_cart_url())) ?>">
-											<?php _e('delete','wpbooking')?>
-										</a>
+									<td class="col-cart-item-price text-center">
+										<?php echo $booking->get_cart_item_total_html($value); ?>
 									</td>
 								</tr>
 
@@ -66,15 +67,13 @@ echo wpbooking_get_message();
 	<div class="wpbooking-cart-summary-col">
 		<?php if(!empty($carts)){?>
 		<div class="wpbooking-cart-summary">
-			<h3><?php _e('Cart Summary','wpbooking') ?></h3>
 			<ul class="cart-summary-details">
-				<li><?php printf(__('Total: %s','wpbooking'),WPBooking_Currency::format_money($booking->get_cart_total())) ?></li>
-				<li><?php printf(__('Pay Amount: %s','wpbooking'),WPBooking_Currency::format_money($booking->get_cart_pay_amount())) ?></li>
+				<li><?php printf(__('Total: %s','wpbooking'),'<strong>'.WPBooking_Currency::format_money($booking->get_cart_total()).'</strong>') ?></li>
 				<?php do_action('wpbooking_cart_summary_details',$carts) ?>
 			</ul>
 
 			<div class="cart-summary-actions">
-				<a href="<?php echo esc_url($booking->get_checkout_url())?>" class="button button-primary"><?php _e('Checkout Now')?></a>
+				<a href="<?php echo esc_url($booking->get_checkout_url())?>" class="wb-btn wb-btn-blue"><?php _e('Checkout Now','wpbooking')?> <i class="fa fa-long-arrow-right"></i></a>
 			</div>
 		</div>
 		<?php }?>

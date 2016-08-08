@@ -8,7 +8,7 @@
 $booking=WPBooking_Order::inst();
 $gateway=WPBooking_Payment_Gateways::inst();
 $all=$gateway->get_available_gateways();
-$pay_amount=$booking->get_cart_pay_amount();
+$pay_amount=$booking->get_cart_total();
 if(!$pay_amount) return;
 ?>
 <ul class="wpbooking-all-gateways">
