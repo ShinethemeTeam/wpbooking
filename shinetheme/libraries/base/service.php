@@ -83,6 +83,41 @@ if (!class_exists('WB_Service')) {
 		}
 
 		/**
+		 * Get Featured Image
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return array
+		 */
+		function get_featured_image()
+		{
+			$res = array(
+				'thumb'       => sprintf('<img src="%s" alt="%s"/>', wpbooking_assets_url('images/default.png'), get_the_title($this->ID)),
+				'thumb_url'   => wpbooking_assets_url('images/default.png'),
+				'gallery'     => sprintf('<img src="%s" alt="%s"/>', wpbooking_assets_url('images/default.png'), get_the_title($this->ID)),
+				'gallery_url' => wpbooking_assets_url('images/default.png'),
+
+			);
+			if($this->ID){
+				if(has_post_thumbnail($this->ID)){
+
+					$thumb = wp_get_attachment_image_src(get_post_thumbnail_id($this->ID), $this->thumb_size);
+					$gallery = wp_get_attachment_image_src(get_post_thumbnail_id($this->ID), $this->gallery_size);
+					$res = array(
+						'thumb'       => get_the_post_thumbnail($this->ID,$this->thumb_size),
+						'thumb_url'   => !empty($thumb[0]) ? $thumb[0] : FALSE,
+						'gallery'     => get_the_post_thumbnail($this->ID, $this->gallery_size),
+						'gallery_url' => !empty($gallery[0]) ? $gallery[0] : FALSE,
+
+					);
+				}
+			}
+
+			return $res;
+		}
+
+		/**
 		 * IF $need is specific, return the single value of author of the service. Otherwise, return the array
 		 *
 		 * @since 1.0

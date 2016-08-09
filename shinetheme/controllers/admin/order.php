@@ -229,7 +229,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
 		{
 			if (WPBooking_Input::get('post_type') == 'wpbooking_order'
 				and $order_id = WPBooking_Input::get('order_id')
-				and WPBooking_Input::get('bravo_resend_email')
+				and WPBooking_Input::get('wpbooking_resend_email')
 			) {
 				WPBooking_Email::inst()->_send_order_email_success($order_id);
 				add_action('admin_notices', array($this, '_show_notice_email_success'));
@@ -262,13 +262,13 @@ if (!class_exists('WPBooking_Admin_Order')) {
 				$url = add_query_arg(array(
 					'post_type'          => 'wpbooking_order',
 					'order_id'           => $post->ID,
-					'bravo_resend_email' => 1,
+					'wpbooking_resend_email' => 1,
 
 				), admin_url('edit.php'));
-				$actions['bravo_resend_email'] = '<a href="' . $url . '">' . esc_html__('Resend Booking Email', 'wpbooking') . '</a>';
+				$actions['wpbooking_resend_email'] = '<a href="' . $url . '">' . esc_html__('Resend Booking Email', 'wpbooking') . '</a>';
 
 				if (defined('WP_DEBUG') and WP_DEBUG) {
-					$actions['bravo_test_email'] = '<a href="' . add_query_arg(array(
+					$actions['wpbooking_test_email'] = '<a href="' . add_query_arg(array(
 							'test_email' => '1',
 							'post_id'    => $post->ID,
 

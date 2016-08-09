@@ -204,7 +204,8 @@ if (!class_exists('WPBooking_Service_Controller')) {
 					$calendar_months[$key][] = array(
 						'date'            => date('Y-m-d', $v['start']),
 						'price'           => WPBooking_Currency::format_money($v['price']),
-						'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked']),
+						//'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked']),
+						'tooltip_content' => WPBooking_Currency::format_money($v['price']),
 						'can_check_in'    => $v['can_check_in'],
 						'can_check_out'   => $v['can_check_out'],
 					);
@@ -212,9 +213,10 @@ if (!class_exists('WPBooking_Service_Controller')) {
 					$calendar_dates[]=array(
 						'date'            => date('Y-m-d', $v['start']),
 						'price'           => WPBooking_Currency::format_money($v['price']),
-						'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked']),
+						//'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked']),
 						'can_check_in'    => $v['can_check_in'],
 						'can_check_out'   => $v['can_check_out'],
+						'tooltip_content' => WPBooking_Currency::format_money($v['price']),
 					);
 				}
 			}
@@ -230,6 +232,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 						'date'          => $dt->format('Y-m-d'),
 						'status'        => 'available',
 						'price'         => WPBooking_Currency::format_money(get_post_meta($post_id,'price',true)),
+						'tooltip_content' => WPBooking_Currency::format_money(get_post_meta($post_id,'price',true)),
 						'can_check_in'  => 1,
 						'can_check_out' => 1
 					);

@@ -45,7 +45,6 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 			add_filter('wpbooking_service_need_partner_confirm',array($this,'_get_partner_confirm'),10,3);
 
 			add_action('wpbooking_cart_item_information_'.$this->type_id,array($this,'_show_cart_item_information'));
-			add_action('wpbooking_review_order_item_information_'.$this->type_id,array($this,'_show_cart_item_information'));
 			add_action('wpbooking_order_item_information_'.$this->type_id,array($this,'_show_order_item_information'));
 
 			/**
@@ -190,13 +189,17 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 
 			if($order_form_string and $order_form=unserialize($order_form_string) and  !empty($order_form) and is_array($order_form))
 			{
-				echo "<ul class='cart-item-order-form-fields'>";
+
+				echo '<div class="order-item-form-fields-wrap">';
+				echo '<span class="booking-detail-label">'.esc_html__('Booking Details:','wpbooking').'</span>';
+				echo "<ul class='order-item-form-fields'>";
 				foreach($order_form as $key=>$value){
 
 					$value=wp_parse_args($value,array(
 						'data'=>'',
 						'field_type'=>''
 					));
+
 					$value_html= WPBooking_Admin_Form_Build::inst()->get_form_field_data($value);
 
 					if($value_html){
@@ -210,26 +213,10 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 					do_action('wpbooking_form_field_to_html_'.$value['field_type'],$value);
 				}
 				echo "</ul>";
+				echo '<span class="show-more-less"><span class="more">'.esc_html__('More','wpbooking').' <i class="fa fa-angle-double-down"></i></span><span class="less">'.esc_html__('Less','wpbooking').' <i class="fa fa-angle-double-up"></i></span></span>';
+				echo "</div>";
 			}
 
-			// Show Need Confirm Notification
-			if($order_item['need_customer_confirm'] or $order_item['need_customer_confirm'])
-			{
-				echo "<div class='label label-warning'>".__("Need Confirmation",'wpbooking')."</div>";
-			}
-//			else{
-//				// Show Payment Status
-//				switch($order_item['status'])
-//				{
-//					case "completed":
-//						echo "<div class='label label-success'>".__("Completed",'wpbooking')."</div>";
-//						break;
-//					case "on-hold":
-//						echo "<div class='label label-warning'>".__("On-hold",'wpbooking')."</div>";
-//						break;
-//
-//				}
-//			}
 
 		}
 

@@ -788,23 +788,7 @@
         }
     }
 }
-.wpbooking-all-gateways{
-    list-style: none;
-    margin: 0px;
-    padding:0px;
 
-    .wpbooking-gateway-item
-    {
-        .gateway-desc{
-            display: none;
-        }
-        &.active{
-            .gateway-desc{
-                display: block;
-            }
-        }
-    }
-}
 
 
 // Widget Minicart
@@ -1582,6 +1566,9 @@
                     background: white;
                     padding:0px 10px;
                     font-size: 14px;
+                    &.input-error{
+                        border: 1px solid red;
+                    }
                 }
                 .wb-field{
                     margin-bottom: 15px;
@@ -2162,6 +2149,10 @@
             border-right:1px solid white;
             border-bottom:1px solid white;
             padding: 10px;
+            vertical-align: top;
+        }
+        th{
+            color: #333;
         }
         .delete-cart-item{
             border:none;
@@ -2180,9 +2171,10 @@
             width: 15%;
         }
         .col-cart-item-info{
+            vertical-align: top;
             .service-name{
                 margin:0px;
-                color: @maincolor;
+                color: #eea236;
                 font-size: 14px;
                 font-weight: normal;
                 margin-bottom: 10px;
@@ -2209,6 +2201,7 @@
                 }
             }
             .cart-item-order-form-fields-wrap{
+                margin-top: 15px;
                 .booking-detail-label{
                     display: block;
                     padding-bottom: 10px;
@@ -2226,7 +2219,7 @@
                     }
                 }
                 .show-more-less{
-                    color: @maincolor;
+                    color: #eea236;
                     cursor: pointer;
                     text-decoration: underline;
                     .less{
@@ -2268,5 +2261,300 @@
             margin-bottom: 20px;
             font-size: 18px;
         }
+    }
+}
+
+// Checkout
+.wpbooking-checkout-wrap{
+    .clearfix;
+    font-size: 14px;
+    color: #333;
+    .checkout-form-title{
+        text-transform: initial;
+        margin: 0px;
+        font-size: 20px;
+        color: inherit;
+        margin-bottom: 20px;
+        font-weight: normal;
+    }
+    .wpbooking-checkout-form{
+        width: 60%;
+        float: left;
+        margin-right: 2%;
+        .checkout-form-wrap{
+
+            background: #f2f2f2;
+            border-bottom:2px solid rgba(216,216,216,0.7);
+            margin-bottom: 30px;
+            padding:20px 15px;
+
+            p{
+                margin-bottom: 0px;
+            }
+            input[type=text],select{
+                margin-top: 5px;
+                line-height: 36px;
+                height: 36px;
+                border:1px solid #e6e6e6;
+                border-radius: 0px;
+                background: white;
+                padding:0px 10px;
+                font-size: 14px;
+                &.input-error{
+                    border: 1px solid red;
+                }
+            }
+            .wb-field{
+                margin-bottom: 15px;
+            }
+        }
+
+        .wpbooking-gateways{
+            margin-bottom: 30px;
+            border:1px solid #e6e6e6;
+            background: white;
+            padding:20px 15px;
+            .wpbooking-all-gateways{
+                .clearfix;
+                list-style: none;
+                margin: 0px;
+                padding:0px;
+                margin-left: -2%;
+                margin-right: -2%;
+
+                .wpbooking-gateway-item
+                {
+
+                    float: left;
+                    width: 50%;
+                    padding: 2%;
+                    .gateway-content{
+
+                        .gateway-title{
+                            position: relative;
+                            text-align: center;
+                            border:1px solid #e6e6e6;
+                            background: white;
+                            margin: 0px;
+                            padding: 10px 0px;
+                            margin-bottom: 10px;
+                            font-size: 16px;
+                            text-transform: uppercase;
+                            color: #999999;
+                            span{
+                                display: block;
+                            }
+
+                            &:after{
+                                display: none;
+                                content: '';
+                                position: absolute;
+                                bottom:-20px;
+                                left: 50%;
+                                margin-left: -7px;
+                                width: 0;
+                                height: 0;
+                                border-style: solid;
+                                border-width: 0 7.5px 7px 7.5px;
+                                border-color: transparent transparent #f2f2f2 transparent;
+                            }
+                        }
+                    }
+                    &.active{
+                        .gateway-title{
+                            background: #e6e6e6;
+                        }
+                        .gateway-title:after{
+                            display: block;
+
+                        }
+                    }
+                }
+            }
+            .wpbooking-gateways-desc{
+                .gateway-desc{
+                    display: none;
+                    position: relative;
+                    background: #f2f2f2;
+                    color: #999999;
+                    padding: 15px;
+                    &.active{
+                        display: block;
+                    }
+                }
+            }
+        }
+
+    }
+    .wpbooking-checkout-review-order{
+        width: 38%;
+        float: left;
+        background: #f2f2f2;
+        border-bottom:2px solid rgba(216,216,216,0.7);
+        margin-bottom: 30px;
+        padding:15px 10px;
+        .wpbooking-review-order{
+            margin-bottom: 30px;
+            .review-order-item{
+                .clearfix;
+                padding: 4px;
+                background: white;
+                position: relative;
+                .review-order-item-img{
+                    float: left;
+                    margin-right: 7px;
+                    img{
+                        max-width: 60px;
+
+                    }
+                }
+                .review-order-item-info{
+                    display: table;
+                    .service-name{
+                        margin:0px;
+                        font-weight: normal;
+                        line-height: normal;
+                        font-size: 14px;
+                        a{
+                            font-size: 14px;
+                            border:none;
+                            &:hover{
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                    p {
+                        margin-bottom: 0px;
+                    }
+                }
+                .delete-cart-item{
+                    position: absolute;
+                    text-decoration: none;
+                    border:none;
+                    font-size: 12px;
+                    color: #999;
+                    top:0px;
+                    right: 5px;
+                    &:hover{
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+        .review-order-total{
+            .clearfix;
+            .total-title{
+                font-size: 14px;
+                float: left;
+                margin-top: 10px;
+            }
+            .total-amount{
+                font-size: 24px;
+                color: #666666;
+                float: right;
+            }
+        }
+    }
+}
+
+// Order Details
+.wpbooking-order-detail-page{
+    font-size: 14px;
+    .wpbooking-thankyou-message{
+        margin-bottom: 30px;
+        .success-icon{
+            font-size: 60px;
+            color: #4cae4c;
+            margin-bottom: 30px;
+        }
+        h3{
+            margin-top: 0px;
+            margin-bottom: 20px;
+            font-size: 30px;
+            line-height: 36px;
+            color: #333;
+        }
+
+    }
+
+    .section-title{
+        color: #333;
+        font-size: 18px;
+        margin: 0px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+    .order-information-table{
+        td,th{
+            vertical-align: top;
+        }
+        .review-order-item-type,
+        .review-order-item-total{
+            width: 19%;
+            text-align: center;
+        }
+        .service-name{
+            color: #eea236;
+            margin:0px;
+            font-size: 16px;
+            font-weight: bold;
+            a{
+                color: inherit;
+                border: none;
+            }
+        }
+        .order-item-form-fields-wrap{
+            .booking-detail-label{
+                margin-bottom: 10px;
+                display: block;
+            }
+            ul{
+                display: none;
+                list-style: none;
+                margin: 0px;
+                padding: 0px;
+                li{
+                    margin-bottom: 10px;
+                    .field-title{
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            .show-more-less{
+                cursor: pointer;;
+                color: #eea236;
+                text-decoration: underline;
+                .less{
+                    display: none;
+                }
+            }
+
+            &.active{
+                ul{
+                    display: block;
+                }
+                .show-more-less{
+                    .more{
+                        display: none;
+
+                    }
+                    .less{
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+        .order-total{
+            font-size: 18px;
+            .price{
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
+    }
+    .checkout-form-list{
+        list-style: none;
+        padding-left: 20px;
     }
 }

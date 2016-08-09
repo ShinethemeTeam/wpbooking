@@ -206,18 +206,25 @@ jQuery(document).ready(function($){
             parent.siblings().removeClass('active');
             parent.addClass('active');
         }
+
+        var name=$(this).val();
+        if(!$('.wpbooking-gateways-desc .gateway-desc.gateway-id-'+name).hasClass('active')){
+            $('.wpbooking-gateways-desc .gateway-desc').removeClass('active');
+            $('.wpbooking-gateways-desc .gateway-desc.gateway-id-'+name).addClass('active');
+        }
     });
 
 
-    $(document).on('click','.item-search .item_taxonomy',function(){
-        var container  = $(this).parent().parent();
+    $('.item-search .wb-icheck').change(function(){
+
         var list = "";
-        container.find(".item_taxonomy").each(function(){
+        container.find(".wb-icheck").each(function(){
             if($(this).attr('checked')) {
                 list +=  $(this).val()+',';
             }
         });
         container.find('.data_taxonomy').val(list.substring(0,list.length - 1));
+
     });
 
     var has_date_picker=$('.has-date-picker');
@@ -232,7 +239,11 @@ jQuery(document).ready(function($){
                 var form=$(this).closest('form');
                 var date_end=$('.wpbooking-date-end',form);
                 date_end.datepicker("option","minDate", selected)
-
+                if($('.wpbooking-date-end').length){
+                    window.setTimeout(function(){
+                        $('.wpbooking-date-end').datepicker('show');
+                    },100);
+                }
             }
         })
         .datepicker('widget');//.wrap('<div class="ll-skin-melon"/>');
@@ -249,7 +260,7 @@ jQuery(document).ready(function($){
     .datepicker('widget');
     //.wrap('<div class="ll-skin-melon"/>');
 
-    $('.bravo-select2').select2();
+    $('.wpbooking-select2').select2();
 
     /**
      * Show More Search Fields
@@ -1280,6 +1291,11 @@ jQuery(document).ready(function($){
     // Cart Item
     $('.cart-item-order-form-fields-wrap .show-more-less').click(function(){
        $(this).closest('.cart-item-order-form-fields-wrap').toggleClass('active');
+    });
+
+    // Order Item
+    $('.order-item-form-fields-wrap .show-more-less').click(function(){
+       $(this).closest('.order-item-form-fields-wrap').toggleClass('active');
     });
 });
 

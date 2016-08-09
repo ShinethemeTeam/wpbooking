@@ -31,12 +31,14 @@ echo wpbooking_get_message();
 							$post_id=$value['post_id'];
 							$service_type=$value['service_type'];
 							$service=new WB_Service($post_id);
+							$featured=$service->get_featured_image();
 							?>
 								<tr>
-									<td class="text-center"><a class="delete-cart-item" href="<?php echo esc_url(add_query_arg(array('delete_cart_item'=>$key),$booking->get_cart_url())) ?>">
+									<td class="text-center">
+										<a class="delete-cart-item" onclick="return confirm('<?php esc_html_e('Do you want to delete it?','wpbooking') ?>')" href="<?php echo esc_url(add_query_arg(array('delete_cart_item'=>$key),$booking->get_cart_url())) ?>">
 											<i class="fa fa-times"></i>
 										</a></td>
-									<td class="col-cart-item-img"><a href="<?php echo get_permalink($post_id)?>" target="_blank"><?php echo get_the_post_thumbnail($post_id)?></a></td>
+									<td class="col-cart-item-img"><a href="<?php echo get_permalink($post_id)?>" target="_blank"><?php echo wp_kses($featured['thumb'],array('img'=>array('src'=>array(),'alt'=>array())))?></a></td>
 									<td class="col-cart-item-info">
 										<h4 class="service-name"><a href="<?php echo get_permalink($post_id)?>" target="_blank"><?php echo get_the_title($post_id)?></a></h4>
 										<?php do_action('wpbooking_cart_item_information',$value) ?>
@@ -64,8 +66,8 @@ echo wpbooking_get_message();
 				</tbody>
 		</table>
 	</div>
+	<?php if(!empty($carts)){?>
 	<div class="wpbooking-cart-summary-col">
-		<?php if(!empty($carts)){?>
 		<div class="wpbooking-cart-summary">
 			<ul class="cart-summary-details">
 				<li><?php printf(__('Total: %s','wpbooking'),'<strong>'.WPBooking_Currency::format_money($booking->get_cart_total()).'</strong>') ?></li>
@@ -76,6 +78,6 @@ echo wpbooking_get_message();
 				<a href="<?php echo esc_url($booking->get_checkout_url())?>" class="wb-btn wb-btn-blue"><?php _e('Checkout Now','wpbooking')?> <i class="fa fa-long-arrow-right"></i></a>
 			</div>
 		</div>
-		<?php }?>
 	</div>
+	<?php }?>
 </div>

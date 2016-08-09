@@ -102,7 +102,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 							<?php
 							$class=FALSE;
 							if($v['field_type']=='location_suggestion'){
-								$class='bravo-select2';
+								$class='wpbooking-select2';
 							}
 							$args = array(
 								'show_option_none' => __( '-- Select --' , "wpbooking"  ),

@@ -34,6 +34,8 @@ $autoload['library']=array(
 	'email/emogrifier',
 	'query',
 	'base/service',
+	'base/order',
+	'base/order-item',
 	'taxonomy-metabox',
 	'query-inject'
 );

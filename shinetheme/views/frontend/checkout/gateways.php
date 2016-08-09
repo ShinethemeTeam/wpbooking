@@ -18,18 +18,14 @@ if(!$pay_amount) return;
 		{
 			?>
 			<li class="wpbooking-gateway-item">
+				<div class="gateway-content">
+					<h4 class="gateway-title">
+						<label>
+							<span><?php echo $value->get_option('title') ?></span>
+							<input type="radio" name="payment_gateway" value="<?php echo esc_attr($key)?>" >
 
-				<h4 class="gateway-title">
-					<label>
-						<input type="radio" name="payment_gateway" value="<?php echo esc_attr($key)?>" >
-						<?php echo $value->get_option('title') ?>
-					</label>
-				</h4>
-				<div class="gateway-desc">
-					<?php echo do_shortcode($value->get_option('desc'));
-					do_action('wpbooking_gateway_desc',$key,$value);
-					do_action('wpbooking_gateway_desc_'.$key,$value);
-					?>
+						</label>
+					</h4>
 				</div>
 			</li>
 			<?php
@@ -37,3 +33,20 @@ if(!$pay_amount) return;
 	}
 	?>
 </ul>
+<div class="wpbooking-gateways-desc">
+	<?php if(!empty($all))
+	{
+		foreach($all as $key=>$value)
+		{
+			?>
+				<div class="gateway-desc gateway-id-<?php echo esc_attr($key) ?>">
+					<?php echo do_shortcode($value->get_option('desc'));
+					do_action('wpbooking_gateway_desc',$key,$value);
+					do_action('wpbooking_gateway_desc_'.$key,$value);
+					?>
+				</div>
+			<?php
+		}
+	}
+	?>
+</div>

@@ -246,8 +246,8 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			$columns['bed'] = array('type' => 'INT');
 			$columns['bedroom'] = array('type' => 'VARCHAR', 'length' => '20');
 			$columns['bathroom'] = array('type' => 'VARCHAR', 'length' => '20');
-			$columns['require_customer_confirm'] = array('type' => 'VARCHAR', 'length' => '10');
-			$columns['require_partner_confirm'] = array('type' => 'VARCHAR', 'length' => '10');
+//			$columns['require_customer_confirm'] = array('type' => 'VARCHAR', 'length' => '10');
+//			$columns['require_partner_confirm'] = array('type' => 'VARCHAR', 'length' => '10');
 
 			return $columns;
 		}
