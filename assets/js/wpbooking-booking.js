@@ -215,9 +215,10 @@ jQuery(document).ready(function($){
     });
 
 
-    $('.item-search .wb-icheck').change(function(){
+    $('.item-search .wb-icheck').on('ifChanged',function(){
 
         var list = "";
+        var container=$(this).closest('.list-checkbox');
         container.find(".wb-icheck").each(function(){
             if($(this).attr('checked')) {
                 list +=  $(this).val()+',';
@@ -464,30 +465,6 @@ jQuery(document).ready(function($){
 
 
     $(window).load(function(){
-        //$('.wpbooking-price-chart').each(function(){
-        //    var me=$(this);
-        //    try{
-        //        var data=me.data('chart');
-        //        var max=data[0];
-        //
-        //        for(i=0;i<data.length;i++){
-        //            if(data[i]>max) max=data[i];
-        //        }
-        //
-        //        for(i=0;i<data.length;i++){
-        //            var bar=$('<div/>');
-        //            var height=parseInt(data[i]*25/max);
-        //            bar.addClass('bar-item');
-        //            bar.css({
-        //                height:height
-        //            });
-        //            me.append(bar);
-        //        }
-        //    }catch(e){
-        //
-        //    }
-        //
-        //});
         var ctx=$('#wpbooking-price-chart2');
         var myLineChart = new Chart(ctx, {
             type: 'line',

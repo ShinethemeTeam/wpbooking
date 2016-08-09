@@ -240,11 +240,14 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 				//
 				case "check_in":
 					?>
-					<div class="item-search">
+					<div class="item-search datepicker-field">
 						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
 
 						<div class="item-search-content">
-							<input class="wpbooking-date-start" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+							<label >
+								<input class="wpbooking-date-start" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+								<i class="fa fa-calendar"></i>
+							</label>
 						</div>
 						<div class="wb-collapse"></div>
 					</div>
@@ -252,11 +255,14 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					break;
 				case "check_out":
 					?>
-					<div class="item-search">
+					<div class="item-search  datepicker-field">
 						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
 
 						<div class="item-search-content">
-							<input class="wpbooking-date-end" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+							<label >
+								<input class="wpbooking-date-end" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+								<i class="fa fa-calendar"></i>
+							</label>
 						</div>
 						<div class="wb-collapse"></div>
 					</div>
@@ -372,6 +378,12 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                 $data = $new_instance['field_search'][$post_type];
                 $new_instance['field_search']  = array();
                 $new_instance['field_search'][$post_type] = $data;
+                //$new_instance['is_filter_form'] = ;
+            }
+            if(!empty($new_instance['is_filter_form']) and $new_instance['is_filter_form']=='on'){
+            	$new_instance['is_filter_form']=1;
+            } else{
+            	$new_instance['is_filter_form']=0;
             }
             return wp_parse_args($new_instance,$old_instance);
         }
@@ -384,7 +396,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
             ));
             extract($instance);
             ?>
-            <p><label for="<?php echo $this->get_field_id('title'); ?>"><strong><?php _e('Title:',"wpbooking"); ?></strong> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
+            <p><label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><strong><?php _e('Title:',"wpbooking"); ?></strong> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
             <p>
                 <label for="<?php echo $this->get_field_id('service_type'); ?>"><strong><?php _e('Service Type:','wpbooking'); ?></strong>
                     <?php
@@ -408,7 +420,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
             </p>
 			<p>
 				<label>
-					<input type="checkbox" name="<?php echo $this->get_field_name('is_filter_form'); ?>" value="1" <?php checked($instance['is_filter_form'],1) ?>>
+					<input type="checkbox" id="<?php echo esc_attr($this->get_field_id('is_filter_form')); ?>" name="<?php echo esc_attr($this->get_field_name('is_filter_form')); ?>" <?php checked($instance['is_filter_form'],1) ?>>
 					<?php esc_html_e('Use as Filter Form?','wpbooking') ?></label>
 				<p class="help"><?php esc_html_e('Filter form does not cotain search button and only visible at archive page','wpbooking') ?></p>
 			</p>

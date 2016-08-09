@@ -138,6 +138,48 @@
 .wpbooking-search-form .item-search .show-more-terms {
   cursor: pointer;
 }
+.wpbooking-search-form .item-search.search-price .price-chart-wrap {
+  overflow: hidden;
+  margin-bottom: -19px;
+  margin-top: 30px;
+}
+.wpbooking-search-form .item-search.search-price .price-chart-wrap #wpbooking-price-chart2 {
+  background: #e6e6e6;
+}
+.wpbooking-search-form .item-search.search-price .irs-line {
+  background: #cccccc;
+  height: 11px;
+  border-radius: 0;
+  border: none;
+}
+.wpbooking-search-form .item-search.search-price .irs-bar {
+  background: #666666;
+  height: 11px;
+  border: none;
+}
+.wpbooking-search-form .item-search.search-price .irs-slider {
+  width: 12px;
+  height: 11px;
+  background: white;
+  box-shadow: none;
+  border: 1px solid #666666;
+  border-radius: 0px;
+  top: 13px;
+}
+.wpbooking-search-form .item-search.search-price .irs-from,
+.wpbooking-search-form .item-search.search-price .irs-to,
+.wpbooking-search-form .item-search.search-price .irs-single {
+  font-size: 11px;
+}
+.wpbooking-search-form .item-search.datepicker-field .item-search-content {
+  position: relative;
+}
+.wpbooking-search-form .item-search.datepicker-field .item-search-content label i {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+}
 .wpbooking-search-form .select2-container--default .select2-selection--single {
   height: 36px;
   border-radius: 0px;
@@ -323,34 +365,6 @@
 }
 .wpbooking-search-form.is_filter_form .item-search .star-rating i {
   color: #f0ad4e;
-}
-.wpbooking-search-form.is_filter_form .item-search.search-price .price-chart-wrap {
-  overflow: hidden;
-  margin-bottom: -19px;
-  margin-top: 30px;
-}
-.wpbooking-search-form.is_filter_form .item-search.search-price .price-chart-wrap #wpbooking-price-chart2 {
-  background: #f9f8f8;
-}
-.wpbooking-search-form.is_filter_form .item-search.search-price .irs-line {
-  background: #e6e6e6;
-  height: 11px;
-  border-radius: 0;
-  border: none;
-}
-.wpbooking-search-form.is_filter_form .item-search.search-price .irs-bar {
-  background: #f0ad4e;
-  height: 11px;
-  border: none;
-}
-.wpbooking-search-form.is_filter_form .item-search.search-price .irs-slider {
-  width: 12px;
-  height: 11px;
-  background: white;
-  box-shadow: none;
-  border: 1px solid #f0ad4e;
-  border-radius: 0px;
-  top: 13px;
 }
 .wpbooking-search-form.is_filter_form .wpbooking-show-more-fields {
   margin-left: 15px;

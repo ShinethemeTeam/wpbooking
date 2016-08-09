@@ -129,6 +129,7 @@
     }
 }
 
+// Search form
 .wpbooking-search-form{
 
     padding:30px 15px;
@@ -174,7 +175,56 @@
         .show-more-terms{
             cursor: pointer;
         }
+        &.search-price{
 
+            .price-chart-wrap{
+                overflow: hidden;
+                margin-bottom: -19px;
+                margin-top: 30px;
+                #wpbooking-price-chart2{
+                    background: #e6e6e6;
+                    //margin-left: -34px;
+                    //margin-bottom: -43px;
+                }
+            }
+            .irs-line{
+                background: #cccccc;
+                height: 11px;
+                border-radius: 0;
+                border:none;
+            }
+            .irs-bar{
+                background: #666666;
+                height: 11px;
+                border:none;
+            }
+            .irs-slider{
+                width: 12px;
+                height: 11px;
+                background: white;
+                box-shadow: none;
+                border:1px solid #666666;
+                border-radius: 0px;
+                top:13px;
+            }
+            .irs-from, .irs-to, .irs-single{
+                font-size: 11px;
+            }
+
+        }
+        &.datepicker-field{
+            .item-search-content{
+                position: relative;
+                label{
+                    i{
+                        position: absolute;
+                        top:10px;
+                        right: 10px;
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
     }
     .select2-container--default .select2-selection--single{
         height: 36px;
@@ -378,47 +428,14 @@
                     color: #f0ad4e;
                 }
             }
-            &.search-price{
-
-                .price-chart-wrap{
-                    overflow: hidden;
-                    margin-bottom: -19px;
-                    margin-top: 30px;
-                    #wpbooking-price-chart2{
-                        background: rgb(249, 248, 248);
-                        //margin-left: -34px;
-                        //margin-bottom: -43px;
-                    }
-                }
-                .irs-line{
-                    background: #e6e6e6;
-                    height: 11px;
-                    border-radius: 0;
-                    border:none;
-                }
-                .irs-bar{
-                    background: @maincolor;
-                    height: 11px;
-                    border:none;
-                }
-                .irs-slider{
-                    width: 12px;
-                    height: 11px;
-                    background: white;
-                    box-shadow: none;
-                    border:1px solid @maincolor;
-                    border-radius: 0px;
-                    top:13px;
-                }
-
-
-            }
         }
         .wpbooking-show-more-fields{
             margin-left: 15px;
         }
     }
 }
+
+// Loop Header
 .wpbooking-loop-header{
     margin-bottom: 50px;
     .post-found-count{
