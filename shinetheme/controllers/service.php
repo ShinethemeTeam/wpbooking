@@ -148,7 +148,8 @@ if (!class_exists('WPBooking_Service_Controller')) {
 				$res['html'] .= wpbooking_load_view('archive/pagination', array('my_query' => $my_query, 'service_type' => $service_type));
 
 				$res['updated_element'] = array(
-					'.post-query-desc' => wpbooking_post_query_desc(WPBooking_Input::post())
+					'.post-query-desc' => wpbooking_post_query_desc(WPBooking_Input::post()),
+					'.post-found-count'=>sprintf(esc_html__('Found %d room(s)','wpbooking'),$my_query->found_posts)
 				);
 
 				echo json_encode($res);

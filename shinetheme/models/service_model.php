@@ -15,7 +15,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 
 		function __construct()
 		{
-			$this->table_version = '1.0.2.4';
+			$this->table_version = '1.0.2.5';
 			$this->table_name = 'wpbooking_service';
 			$this->columns = array(
 				'id'                     => array(
@@ -23,6 +23,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 					'AUTO_INCREMENT' => TRUE
 				),
 				'post_id'                => array('type' => "INT"),
+				'enable'               => array('type' => "varchar", 'length' => 10),
 				'price'                  => array('type' => "FLOAT"),
 				'number'                 => array('type' => "INT"),
 				'children_price'         => array('type' => "FLOAT"),

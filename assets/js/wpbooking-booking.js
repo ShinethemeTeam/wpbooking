@@ -545,6 +545,12 @@ jQuery(document).ready(function($){
                 type:form_filter.attr('method'),
                 data:form_filter.serialize(),
                 dataType:'json',
+                beforeSend:function(){
+
+                    $('body,html').animate({
+                        scrollTop:($('.wpbooking-loop-header').offset().top-100)
+                    },'fast');
+                },
                 success:function(res){
                     loop_wrap.removeClass('loading');
                     if(typeof res.html!='undefined'){

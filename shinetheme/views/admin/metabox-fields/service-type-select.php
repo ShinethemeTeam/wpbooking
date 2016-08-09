@@ -26,7 +26,7 @@ $class.=' width-'.$data['width'];
 			<div class="list-radio">
 				<?php if( $service_type && !empty( $service_type ) ){
 					foreach( $service_type as $key => $value ){
-						printf('<label class="wb-radio-button"><input type="radio" name="%s" value="%s" %s> %s</label>',$data['id'],$old_data,checked($old_data,$key,FALSE),$value['label']);
+						printf('<label class="wb-radio-button"><input type="radio" name="%s" value="%s" %s> %s</label>',$data['id'],$key,checked($old_data,$key,FALSE),$value['label']);
 					}
 				} ?>
 			</div>
