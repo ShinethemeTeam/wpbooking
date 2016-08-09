@@ -25,8 +25,16 @@ $class.=' width-'.$data['width'];
 		<div class="st-metabox-content-wrapper">
 			<div class="list-radio">
 				<?php if( $service_type && !empty( $service_type ) ){
+					$i=0;
 					foreach( $service_type as $key => $value ){
-						printf('<label class="wb-radio-button"><input type="radio" name="%s" value="%s" %s> %s</label>',$data['id'],$key,checked($old_data,$key,FALSE),$value['label']);
+						$check=FALSE;
+						if($old_data){
+							$check=checked($old_data,$key,FALSE);
+						}elseif($i==0){
+							$check='checked="checked"';
+						}
+						printf('<label class="wb-radio-button"><input type="radio" name="%s" value="%s" %s> %s</label>',$data['id'],$key,$check,$value['label']);
+						$i++;
 					}
 				} ?>
 			</div>
