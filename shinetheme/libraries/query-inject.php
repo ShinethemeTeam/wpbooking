@@ -251,6 +251,19 @@ if(!class_exists('WPBooking_Query_Inject')){
 		}
 
 		/**
+		 * Get Query Arg By Key
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $key
+		 * @return bool
+		 */
+		function get_arg($key){
+			return isset($this->_query_args[$key])?$this->_query_args[$key]:FALSE;
+		}
+
+		/**
 		 * Add Join Clause to the Query
 		 *
 		 * @since 1.0
@@ -279,6 +292,8 @@ if(!class_exists('WPBooking_Query_Inject')){
 					$join .= ' ' . $j['keyword'] . ' JOIN ' . $table . ' ON ' . $j['on'];
 				}
 			}
+
+			if($join)
 			$join_default.=$join;
 
 			return $join_default;
@@ -362,7 +377,8 @@ if(!class_exists('WPBooking_Query_Inject')){
 				}
 
 			}
-			$group_by_default.=' '.$groupby;
+			if($groupby)
+			$group_by_default=$groupby;
 
 			return $group_by_default;
 		}

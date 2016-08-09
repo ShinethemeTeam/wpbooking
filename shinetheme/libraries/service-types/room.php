@@ -141,10 +141,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			// Add more params to cart items
 			add_filter('wpbooking_cart_item_params_' . $this->type_id, array($this, '_change_cart_item_params'), 10, 2);
 
-			// Change Search Query
-			add_action('wpbooking_before_service_query_' . $this->type_id, array($this, '_add_change_query'));
-			add_action('wpbooking_after_service_query_' . $this->type_id, array($this, '_remove_change_query'));
-
 			add_filter('comments_open',array($this,'_comments_open'),10,2);
 			add_action('pre_comment_on_post',array($this,'_validate_comment'));
 			add_filter('pre_comment_approved',array($this,'_pre_comment_approved'));
@@ -166,6 +162,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			 * Enable Vote For Review
 			 */
 			add_filter('wpbooking_enable_vote_for_review_'.$this->type_id,array($this,'_enable_vote_for_review'),10,3);
+
 
 		}
 
@@ -316,22 +313,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			$fields = array_merge($fields, $new_fields);
 
 			return $fields;
-		}
-
-		function _add_change_query()
-		{
-			add_action('posts_fields', array($this, '_add_select_fields'));
-		}
-
-		function _add_select_fields($fields)
-		{
-
-			return $fields;
-		}
-
-		function _remove_change_query()
-		{
-			remove_action('posts_fields', array($this, '_add_select_fields'));
 		}
 
 		/**
@@ -494,26 +475,25 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			return $args;
 		}
 
-		function _service_query_args($args)
+		function _add_default_query_hook()
 		{
-			$meta_query = array();
-//			$meta_query[]=array(
-//				'key'   => 'service_type',
-//				'value' => $this->type_id,
-//			);
+			$injection=WPBooking_Query_Inject::inst();
+			$tax_query=$injection->get_arg('tax_query');
 
 			if ($location_id = WPBooking_Input::request('location_id')) {
-				$args['tax_query'][] = array(
+				$tax_query[] = array(
 					'taxonomy' => 'wpbooking_location',
 					'field'    => 'term_id',
 					'terms'    => array($location_id),
 					'operator' => 'IN',
 				);
 			}
+
+			// Taxonomy
 			$tax = WPBooking_Input::request('taxonomy');
 			if (!empty($tax) and is_array($tax)) {
 				$taxonomy_operator = WPBooking_Input::request('taxonomy_operator');
-				$tax_query = array();
+				$tax_query_child = array();
 				foreach ($tax as $key => $value) {
 					if ($value) {
 						if (!empty($taxonomy_operator[$key])) {
@@ -540,114 +520,71 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					}
 				}
 
-
-				if (!empty($tax_query)) {
-					$args['tax_query'][] = $tax_query;
-				}
+				if(!empty($tax_query_child))
+				$tax_query[]=$tax_query_child;
 			}
 
+			// Posts Per page
 			if ($posts_per_page = $this->get_option('posts_per_page')) {
-				$args['posts_per_page'] = $posts_per_page;
+				$injection->add_arg('posts_per_page',$posts_per_page);
 			}
-
-			$args['meta_query'] = $meta_query;
-
 
 			// Order By
 			if(WPBooking_Input::request('wb_sort_by')){
 				switch(WPBooking_Input::request('wb_sort_by')){
 					case "price_asc":
-						$args['orderby']='price';
-						$args['order']='asc';
+						$injection->add_arg('orderby','price');
+						$injection->add_arg('order','asc');
 						break;
 					case "price_desc":
-						$args['orderby']='price';
-						$args['order']='desc';
+						$injection->add_arg('orderby','price');
+						$injection->add_arg('order','desc');
 						break;
 					case "date_asc":
-						$args['orderby']='date';
-						$args['order']='asc';
+						$injection->add_arg('orderby','date');
+						$injection->add_arg('order','asc');
 						break;
 					case "date_desc":
-						$args['orderby']='date';
-						$args['order']='desc';
+						$injection->add_arg('orderby','date');
+						$injection->add_arg('order','desc');
 						break;
 				}
-			}
-
-			return $args;
-		}
-
-		function _get_where_query($where)
-		{
-
-			$is_meta_table_working = WPBooking_Service_Model::inst()->is_ready();
-
-			global $wpdb;
-			if ($review_rate = WPBooking_Input::request('review_rate') and is_array(explode(',', $review_rate))) {
-				$and = "HAVING ";
-				foreach (explode(',', $review_rate) as $k => $v) {
-					if ($k > 0) {
-						$and .= " OR ";
-					}
-
-					$and .= $wpdb->prepare("  ( avg_rate>= %d and avg_rate<%d )", $v, $v + 1);
-				}
-				if (!empty($and)) {
-					$where .= " AND $wpdb->posts.ID IN
-						(
-							SELECT post_id FROM (
-									SELECT
-										{$wpdb->prefix}comments.comment_post_ID as post_id,avg({$wpdb->commentmeta}.meta_value) as avg_rate
-									FROM
-										wp_comments
-									JOIN {$wpdb->prefix}commentmeta ON {$wpdb->prefix}comments.comment_ID = {$wpdb->prefix}commentmeta.comment_id and {$wpdb->commentmeta}.meta_key='wpbooking_review'
-									WHERE comment_approved=1
-
-									GROUP BY {$wpdb->prefix}comments.comment_post_ID {$and}
-							)as ID
-
-						)";
-
-				}
-
 			}
 
 
 			// Beds
-			if ($beds = WPBooking_Input::get('bed') and $is_meta_table_working) {
-				$where .= $wpdb->prepare(' AND bed>=%d', $beds);
+			if ($beds = WPBooking_Input::get('bed')) {
+				$injection->where('bed>=', $beds);
 			}
 			// Bedrooms
-			if ($bedrooms = WPBooking_Input::get('bedroom') and $is_meta_table_working) {
-				$where .= ' AND bedroom>=' . $bedrooms;
-				$where .= $wpdb->prepare(' AND bedroom>=%d', $bedrooms);
+			if ($bedrooms = WPBooking_Input::get('bedroom')) {
+				$injection->where('bedroom>=', $bedrooms);
 			}
 			// Bathrooms
-			if ($bathrooms = WPBooking_Input::get('bathroom') and $is_meta_table_working) {
-
-				$where .= $wpdb->prepare(' AND bathroom>=%d', $bathrooms);
+			if ($bathrooms = WPBooking_Input::get('bathroom')) {
+				$injection->where('bathroom>=', $bedrooms);
 			}
-			// Required Customer Confirm
-			if ($bathroom = WPBooking_Input::get('customer_confirm') and $is_meta_table_working) {
-				if ($this->get_option('customer_confirm')) {
-					$where .= ' AND (require_customer_confirm is null or LENGTH(require_customer_confirm)=0)';
-				} else {
-					$where .= ' AND require_customer_confirm=1';
+
+			// Review
+			global $wpdb;
+			if ($review_rate = WPBooking_Input::request('review_rate') and is_array(explode(',', $review_rate))) {
+
+				$injection->select('avg('.$wpdb->commentmeta.'.meta_value) as avg_rate')
+					->join('comments',$wpdb->prefix.'comments.comment_post_ID='.$wpdb->posts.'.ID and  '.$wpdb->comments.'.comment_approved=1','LEFT')
+					->join('commentmeta',$wpdb->prefix.'commentmeta.comment_id='.$wpdb->prefix.'comments.comment_ID and '.$wpdb->commentmeta.".meta_key='wpbooking_review'",'LEFT');
+
+				foreach (explode(',', $review_rate) as $k => $v) {
+					$injection->having("avg_rate>=".$v)
+						->having("avg_rate<=".($v+1));
 				}
-			}
-			// Required Partner Confirm
-			if ($bathroom = WPBooking_Input::get('partner_confirm') and $is_meta_table_working) {
-				if ($this->get_option('partner_confirm')) {
-					$where .= ' AND (require_partner_confirm is null or LENGTH(require_partner_confirm)=0)';
-				} else {
-					$where .= ' AND require_partner_confirm=1';
-				}
-			}
 
+			}
+			if(!empty($tax_query))
+			$injection->add_arg('tax_query',$tax_query);
 
-			return parent::_get_where_query($where);
+			parent::_add_default_query_hook();
 		}
+
 
 		/**
 		 * Validate Before Post Comment

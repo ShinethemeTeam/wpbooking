@@ -28,14 +28,9 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 
             /*Change Search*/
 			add_filter('wpbooking_add_page_archive_search', array($this, '_add_page_archive_search'));
-			add_filter('wpbooking_service_query_args_'.$this->type_id, array($this, '_service_query_args'));
-			add_action('wpbooking_before_service_query_'.$this->type_id, array($this, '_before_service_query'));
-			add_action('wpbooking_after_service_query_'.$this->type_id, array($this, '_after_service_query_'));
 
 
 			add_filter('wpbooking_get_order_form_id_'.$this->type_id, array($this, 'get_order_form_id'));
-
-
 
 			/**
 			 * Add to cart add Need Customer Confirm
@@ -59,6 +54,14 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 			 * @author dungdt
 			 */
 			add_action('wpbooking_before_related_query_'.$this->type_id,array($this,'_add_related_query_hook'),10,2);
+
+
+			/**
+			 * Change Default Query Search
+			 * @since 1.0
+			 * @author dungdt
+			 */
+			add_action('wpbooking_before_default_query_'.$this->type_id,array($this,'_add_default_query_hook'));
 
 		}
 
@@ -372,49 +375,6 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
         function _service_query_args($args){
             return $args;
         }
-        function _before_service_query($args){
-            add_filter('posts_where', array($this, '_get_where_query'));
-            add_filter('posts_join', array($this, '_get_join_query'));
-            return $args;
-        }
-        function _after_service_query_($args){
-            remove_filter('posts_where', array($this, '_get_where_query'));
-			remove_filter('posts_join', array($this, '_get_join_query'));
-            return $args;
-        }
-		function _get_join_query($join){
-			global $wpdb;
-			$table=WPBooking_Service_Model::inst()->get_table_name();
-			$join.=' JOIN '.$table.' on '.$table.'.post_id='.$wpdb->posts.'.ID ';
-//			if(WPBooking_Input::get('review_rate'))
-//			{
-//				$join.=' JOIN '.$wpdb->comments.' on '.$wpdb->commentmeta.'.comment_post_ID='.$wpdb->posts.'.ID ';
-//				$join.=' JOIN '.$wpdb->commentmeta.' on '.$wpdb->comments.'.comment_ID='.$wpdb->commentmeta.'.comment_id ';
-//			}
-			return $join;
-		}
-
-        function _get_where_query($where){
-			global $wpdb;
-
-			//Room Price Filter
-			if($price=WPBooking_Input::get('price'))
-			{
-				$array=explode(',',$price);
-
-				if(!empty($array[0]))
-				{
-					$where.=$wpdb->prepare(' AND price>=%d',$array[0]);
-				}
-				if(!empty($array[1]))
-				{
-					$where.=$wpdb->prepare(' AND price<=%d',$array[1]);
-				}
-			}
-
-
-            return $where;
-        }
 
 		/**
 		 * Add Hook for Related Query
@@ -443,6 +403,7 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 
 				$injection=WPBooking_Query_Inject::inst();
 				$injection->select('avg('.$wpdb->commentmeta.'.meta_value) as avg_rate')
+					->groupby($wpdb->posts.'.ID')
 					->join('comments',$wpdb->prefix.'comments.comment_post_ID='.$wpdb->posts.'.ID')
 					->join('commentmeta',$wpdb->prefix.'commentmeta.comment_id='.$wpdb->prefix.'comments.comment_ID and '.$wpdb->commentmeta.".meta_key='wpbooking_review'")
 					->where('comment_approved',1)
@@ -451,6 +412,36 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 
 			}
 
+		}
+
+		function _add_default_query_hook(){
+
+			global $wpdb;
+
+			$table=WPBooking_Service_Model::inst()->get_table_name(FALSE);
+			$table_prefix=WPBooking_Service_Model::inst()->get_table_name();
+
+			$injection=WPBooking_Query_Inject::inst();
+
+			$injection->join($table,$table_prefix.'.post_id='.$wpdb->posts.'.ID');
+			$injection->groupby($wpdb->posts.'.ID');
+
+			// Price
+			if($price=WPBooking_Input::get('price'))
+			{
+				$array=explode(';',$price);
+
+				if(!empty($array[0]))
+				{
+					$injection->where('price>=',$array[0]);
+				}
+				if(!empty($array[1]))
+				{
+					$injection->where('price<=',$array[1]);
+				}
+			}
+
+			//
 		}
 
 	}

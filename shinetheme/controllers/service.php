@@ -140,7 +140,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 				if (!empty($list_page_search[$is_page])) {
 					$service_type = $list_page_search[$is_page];
 				}
-				$my_query = $this->query($args, $service_type);
+				$my_query = $this->query($args);
 
 				$res = array(
 					'html' => wpbooking_load_view('archive/loop', array('my_query' => $my_query, 'service_type' => $service_type)),
@@ -279,20 +279,14 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
 		function query($args = array(), $service_type = FALSE)
 		{
+			do_action('wpbooking_before_default_query_'.$service_type);
+
 			$args = wp_parse_args($args, array(
 				'post_type' => 'wpbooking_service'
 			));
 
-			$args = apply_filters('wpbooking_service_query_args', $args);
-			$args = apply_filters('wpbooking_service_query_args_' . $service_type, $args);
+			$query = wpbooking_query('default',$args);
 
-			do_action('wpbooking_before_service_query', $args);
-			do_action('wpbooking_before_service_query_' . $service_type, $args);
-
-			$query = new WP_Query($args);
-
-			do_action('wpbooking_after_service_query', $args);
-			do_action('wpbooking_after_service_query_' . $service_type, $args);
 
 			return $query;
 		}

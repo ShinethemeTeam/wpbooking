@@ -882,13 +882,19 @@ if (!class_exists('WPBooking_Model')) {
 		 *
 		 * @author dungdt
 		 * @since 1.0
+		 *
+		 *
+		 * @param $prefix
 		 * @return string
 		 */
-		function get_table_name()
+		function get_table_name($prefix=true)
 		{
 			global $wpdb;
 
-			return $table_name = $wpdb->prefix . $this->table_name;
+			if($prefix)
+				return $table_name = $wpdb->prefix . $this->table_name;
+			else
+				return $this->table_name;
 		}
 
 
