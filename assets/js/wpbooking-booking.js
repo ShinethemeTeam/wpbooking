@@ -535,7 +535,7 @@ jQuery(document).ready(function($){
     var form_filter=$('.wpbooking-search-form');
     if($('.wpbooking-archive-page').length)
     {
-        
+
         var me=$(this);
         //form_filter.submit(function(){
         //    var loop_wrap=$('.wpbooking-loop-wrap');
