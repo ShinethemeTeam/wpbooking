@@ -393,7 +393,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 					),
 					array(
 						'name'  => 'in_more_filter',
-						'label' => __('Into More Filter?', "wpbooking"),
+						'label' => __('In Advance Search?', "wpbooking"),
 						'type'  => "checkbox",
 					),
 				),

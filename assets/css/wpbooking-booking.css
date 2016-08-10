@@ -138,6 +138,13 @@
 .wpbooking-search-form .item-search select.small-input {
   width: auto;
 }
+.wpbooking-search-form .item-search input[text].wb-error,
+.wpbooking-search-form .item-search select.wb-error {
+  border: 1px solid red;
+}
+.wpbooking-search-form .item-search.wb-error .select2-container {
+  border: 1px solid red;
+}
 .wpbooking-search-form .item-search .hidden_term {
   display: none;
 }

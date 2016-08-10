@@ -88,7 +88,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 		{
 			$required = "";
 			if($v['required'] == "yes"){
-				$required = 'required';
+				//$required = 'required';
 			}
 			$value = WPBooking_Input::get($v['field_type'],'');
 			switch($v['field_type']){
@@ -104,6 +104,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 							if($v['field_type']=='location_suggestion'){
 								$class='wpbooking-select2';
 							}
+							if($v['required']) $class.=' wb-required';
 							$args = array(
 								'show_option_none' => __( '-- Select --' , "wpbooking"  ),
 								'option_none_value' => "",
@@ -245,7 +246,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
 						<div class="item-search-content">
 							<label >
-								<input class="wpbooking-date-start" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+								<input class="wpbooking-date-start <?php if($v['required']) echo 'wb-required' ?>" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
 								<i class="fa fa-calendar"></i>
 							</label>
 						</div>
@@ -260,7 +261,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
 						<div class="item-search-content">
 							<label >
-								<input class="wpbooking-date-end" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+								<input class="wpbooking-date-end <?php if($v['required']) echo 'wb-required' ?>" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
 								<i class="fa fa-calendar"></i>
 							</label>
 						</div>
@@ -274,24 +275,12 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
 
 						<div class="item-search-content">
-							<select id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" class="small-input">
+							<select id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" class="small-input <?php if($v['required']) echo 'wb-required' ?>">
 								<option value=""><?php esc_html_e('- Select','wpbooking') ?></option>
 								<?php for($i=1;$i<=20;$i++){
 									printf('<option value="%s" %s>%s</option>',$i,checked(WPBooking_Input::get($v['field_type']),$i,FALSE),$i);
 								} ?>
 							</select>
-						</div>
-						<div class="wb-collapse"></div>
-					</div>
-					<?php
-					break;
-				case "customer_confirm":
-				case "partner_confirm":?>
-					<div class="item-search">
-						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-
-						<div class="item-search-content">
-							<label><input <?php checked(WPBooking_Input::get($v['field_type']),1) ?>  type="checkbox" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="1"></label>
 						</div>
 						<div class="wb-collapse"></div>
 					</div>
@@ -307,8 +296,9 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 						<?php } ?>
 
 						<div class="item-search-content">
-							<select id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>">
-							<?php for($i=0;$i<=20;$i++){
+							<select id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" class="<?php if($v['required']) echo 'wb-required' ?>">
+							<?php if($v['placeholder']) printf('<option value="">%s</option>',$v['placeholder']); ?>
+							<?php for($i=1;$i<=20;$i++){
 								printf('<option value="%s" %s >%s</option>',$i,selected(WPBooking_Input::get($v['field_type']),$i,FALSE),$i);
 							} ?>
 							</select>

@@ -533,6 +533,42 @@ jQuery(document).ready(function($){
 
     // Ajax Search in Archive page
     var form_filter=$('.wpbooking-search-form');
+    form_filter.submit(function(){
+
+        // Validate Required Field
+        var is_validated=true;
+        var scrollTo=false;
+        form_filter.find('.wb-required').removeClass('wb-error');
+        form_filter.find('.item-search').removeClass('wb-error');
+
+        form_filter.find('.wb-required').each(function(){
+            if($(this).val()==false){
+                is_validated=false;
+                $(this).addClass('wb-error');
+                $(this).closest('.item-search').addClass('wb-error');
+
+                // Scroll to first error input
+                if(!scrollTo) scrollTo=$(this).offset().top-200;
+            }
+        });
+
+        if(!is_validated){
+            if(scrollTo){
+                $('html,body').animate({
+                    scrollTop:scrollTo
+                },'fast');
+            }
+            return false;
+        }
+    });
+    // Remove Class Wb-error on input
+    $(this).find('input,select').change(function(){
+        if($(this).hasClass('wb-error') && $(this).val()){
+            $(this).removeClass('wb-error');
+            $(this).closest('.item-search').removeClass('wb-error');
+        }
+    });
+
     if($('.wpbooking-archive-page').length)
     {
 

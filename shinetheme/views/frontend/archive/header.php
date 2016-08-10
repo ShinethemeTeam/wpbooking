@@ -43,6 +43,8 @@ if(!$my_query->have_posts()) return;
 						'date_desc'=>esc_html__('Date DESC','wpbooking'),
 						'price_asc'=>esc_html__('Price ASC','wpbooking'),
 						'price_desc'=>esc_html__('Price DESC','wpbooking'),
+						'rate_asc'=>esc_html__('Rate ASC','wpbooking'),
+						'rate_desc'=>esc_html__('Rate DESC','wpbooking'),
 					)
 					?>
 					<select name="wb_sort_by" class="wpbooking-loop-sort-by">
