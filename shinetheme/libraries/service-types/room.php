@@ -483,15 +483,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			$tax_query=$injection->get_arg('tax_query');
 			$rate_calculate=FALSE;
 
-			if ($location_id = WPBooking_Input::request('location_id')) {
-				$tax_query[] = array(
-					'taxonomy' => 'wpbooking_location',
-					'field'    => 'term_id',
-					'terms'    => array($location_id),
-					'operator' => 'IN',
-				);
-			}
-
 			// Guest
 			if($guest=WPBooking_Input::get('guest')){
 				$injection->where($table_prefix.'.max_guests >=',$guest);
