@@ -92,6 +92,12 @@
 .wpbooking-archive-page .wpbooking-search-form-wrap.show-more-active .search-button-wrap {
   display: block;
 }
+.select2-container {
+  font-size: 14px;
+}
+.ui-datepicker {
+  font-size: 14px;
+}
 .wpbooking-search-form {
   padding: 30px 15px;
   background: #f0ad4e;

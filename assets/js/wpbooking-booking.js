@@ -591,7 +591,7 @@ jQuery(document).ready(function($){
      * Button Show More Terms in search fields
      */
     $('.show-more-terms').click(function(){
-        $(this).closest('.row').find('.term-item').removeClass('hidden_term');
+        $(this).closest('.list-checkbox').find('.term-item').removeClass('hidden_term');
         $(this).parent().remove();
     });
 
