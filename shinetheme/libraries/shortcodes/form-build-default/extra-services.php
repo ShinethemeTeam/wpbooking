@@ -74,8 +74,9 @@ if (!class_exists('WPBooking_Form_Extra_Service_Field')) {
 						$list_item[]=sprintf('<p><label>%s</label></p>',$data['title']);
 					}
 					$list_item[]='<div class="wb-field wb-extra-fields">';
+					$i=1;
 					foreach($extra_services as $key=>$value){
-						$title='#'.($key+1).' '.wpbooking_get_translated_string($value['title']);
+						$title='#'.($i).' '.wpbooking_get_translated_string($value['title']);
 						if($value['money']){
 							$title.='<br><span class="extra-service-money">'.WPBooking_Currency::format_money($value['money']).'</span>';
 						}
@@ -97,6 +98,7 @@ if (!class_exists('WPBooking_Form_Extra_Service_Field')) {
 							$list_item[]='</select>';
 						$list_item[]='</label>';
 						$list_item[]='</div>';
+						$i++;
 					}
 
 					$list_item[]='</div>';

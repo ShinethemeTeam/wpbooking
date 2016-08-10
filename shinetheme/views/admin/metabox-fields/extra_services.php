@@ -55,8 +55,8 @@ if(!empty($service_types)){
 										</div>
 										<div class="require-options">
 											<select name="<?php echo esc_attr($data['id'].'['.$type_id.']['.$k.'][require]') ?>" >
-												<option value="yes"><?php esc_html_e('Yes','wpbooking') ?></option>
-												<option <?php echo (!$is_required)?'selected':false; ?> value="no"><?php esc_html_e('No','wpbooking') ?></option>
+												<option value="no"><?php esc_html_e('No','wpbooking') ?></option>
+												<option <?php echo (!$is_required)?'selected':false; ?> value="yes"><?php esc_html_e('Yes','wpbooking') ?></option>
 											</select>
 											<span class="help_inline"><?php esc_html_e('Required','wpbooking') ?></span>
 										</div>
