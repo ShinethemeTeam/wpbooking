@@ -3,8 +3,6 @@
  *@since 1.0.0
  **/
 
-$old_data = esc_html( $data['std'] );
-
 if(!empty($data['custom_name'])){
 	if(isset($data['custom_data'])) $old_data=$data['custom_data'];
 }else{
@@ -13,7 +11,9 @@ if(!empty($data['custom_name'])){
 if( !empty( $value ) ){
 	$old_data = $value;
 }
-
+if(empty($old_data)){
+	$old_data = esc_html( $data['std'] );
+}
 $class = ' wpbooking-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){
@@ -33,8 +33,8 @@ $class.=' width-'.$data['width'];
 		<div class="st-metabox-content-wrapper">
 			<div class="form-group">
 				<label class="wpbooking-switch-wrap">
-					<input type="checkbox" name="<?php echo esc_html($data['id']) ?>" <?php checked($old_data,1) ?> value="1" class="checkbox">
-					<div class="wpbooking-switch <?php echo ($old_data==1)?'switchOn':FALSE ?>"></div>
+					<input type="checkbox" name="<?php echo esc_html($data['id']) ?>" <?php checked($old_data,'on') ?>  class="checkbox">
+					<div class="wpbooking-switch <?php echo ($old_data=='on')?'switchOn':FALSE ?>"></div>
 				</label>
 			</div>
 		</div>

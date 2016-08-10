@@ -503,7 +503,7 @@ if (!class_exists('WPBooking_Model')) {
 		 */
 		function find_by($key, $id)
 		{
-
+			$this->_clear_query();
 			if (!$this->is_ready()) return FALSE;
 			$data = $this->where($key, $id)->limit(1)->get()->row();
 			$this->_clear_query();
@@ -642,6 +642,7 @@ if (!class_exists('WPBooking_Model')) {
 			$table_columns = $this->get_columns();
 
 			$insert_key = $table_columns;
+			$delete_key=array();
 			$update_key = array();
 
 			//Old table columns
@@ -667,7 +668,12 @@ if (!class_exists('WPBooking_Model')) {
 						if (strtolower($table_columns[$value->COLUMN_NAME]['type']) != strtolower($value->DATA_TYPE)) {
 							$update_key[$value->COLUMN_NAME] = $table_columns[$value->COLUMN_NAME];
 						}
+					}else{
+						// Delete
+						$delete_key[]=$value->COLUMN_NAME;
 					}
+
+
 				}
 			}
 
@@ -722,6 +728,20 @@ if (!class_exists('WPBooking_Model')) {
 
 				$wpdb->query($query);
 			}
+
+			// Do delete unused columns
+			if(!empty($delete_key)){
+				$delete_query_string=FALSE;
+				foreach($delete_key as $val){
+					$delete_query_string.=' DROP COLUMN '.$val.',';
+				}
+				$delete_query_string = substr($delete_query_string, 0, -1);
+
+				$query = "ALTER TABLE $table_name " . $delete_query_string;
+
+				$wpdb->query($query);
+			}
+
 		}
 
 
@@ -760,7 +780,6 @@ if (!class_exists('WPBooking_Model')) {
 			}
 
 			$where = ' WHERE 1=1 ';
-
 			if (!empty($this->_where_query)) {
 
 				foreach ($this->_where_query as $key => $value) {

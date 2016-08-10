@@ -15,7 +15,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 
 		function __construct()
 		{
-			$this->table_version = '1.0.2.5';
+			$this->table_version = '1.0.2.8';
 			$this->table_name = 'wpbooking_service';
 			$this->columns = array(
 				'id'                     => array(
@@ -23,18 +23,16 @@ if (!class_exists('WPBooking_Service_Model')) {
 					'AUTO_INCREMENT' => TRUE
 				),
 				'post_id'                => array('type' => "INT"),
-				'enable'               => array('type' => "varchar", 'length' => 10),
+				'enable'                 => array('type' => "varchar", 'length' => 10),
 				'price'                  => array('type' => "FLOAT"),
 				'number'                 => array('type' => "INT"),
 				'children_price'         => array('type' => "FLOAT"),
 				'infant_price'           => array('type' => "FLOAT"),
-				'max_people'             => array('type' => "INT"),
-				'next_days_blocked'      => array('type' => "INT"),
-				'avg_review_rate'        => array('type' => "INT"),
 				'map_lat'                => array('type' => "FLOAT"),
-				'map_lng'                => array('type' => "FLOAT"),
+				'map_long'               => array('type' => "FLOAT"),
 				'service_type'           => array('type' => "varchar", 'length' => "50"),
-				'property_available_for' => array('type' => 'varchar', 'length' => 50)
+				'property_available_for' => array('type' => 'varchar', 'length' => 50),
+				'max_guests'             => array('type' => "INT")
 			);
 			parent::__construct();
 		}
@@ -47,9 +45,29 @@ if (!class_exists('WPBooking_Service_Model')) {
 			foreach ($columns as $k => $v) {
 				if (in_array($k, array('id', 'post_id'))) continue;
 				$data[$k] = get_post_meta($post_id, $k, TRUE);
+
+				// Set Default Value
+				switch ($k) {
+					case "enable":
+						if (!$data[$k]) $data[$k] = 'on';
+						break;
+					case "property_available_for":
+						if (!$data[$k]) $data[$k] = 'forever';
+						break;
+					case "service_type":
+						if (!$data[$k]){
+							// Set the first Type
+							$all=WPBooking_Service_Controller::inst()->get_service_types();
+							if(!empty($all)){
+								reset($all);
+								$data[$k] = key($all);
+							}
+						}
+						break;
+				}
 			}
 
-			if (!$this->find_by('post_id', $post_id)) {
+			if (!$check_exists=$this->find_by('post_id', $post_id)) {
 				$data['post_id'] = $post_id;
 				$this->insert($data);
 			} else {

@@ -21,6 +21,7 @@ if (!class_exists('WB_Service')) {
 		private $service_type = FALSE;
 		private $thumb_size = FALSE;
 		private $gallery_size = FALSE;
+		private $service_data=array();
 
 		function __construct($service_id = FALSE)
 		{
@@ -34,6 +35,25 @@ if (!class_exists('WB_Service')) {
 
 			$this->thumb_size = apply_filters('wpbooking_archive_loop_image_size', FALSE, $this->service_type, $this->ID);
 			$this->gallery_size = apply_filters('wpbooking_single_loop_image_size', 'full', $this->service_type, $this->ID);
+
+			/**
+			 * Data from extra Table
+			 */
+			$this->service_data=WPBooking_Service_Model::inst()->find_by('post_id',$service_id);
+		}
+
+		/**
+		 * Check if Service is Enable
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return bool
+		 */
+		function is_enable(){
+			if($this->ID){
+				if(!empty($this->service_data['enable']) and $this->service_data['enable']=='on') return true;
+			}
 		}
 
 		/**

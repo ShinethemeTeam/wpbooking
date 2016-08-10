@@ -478,7 +478,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		function _add_default_query_hook()
 		{
 			global $wpdb;
-
+			$table_prefix=WPBooking_Service_Model::inst()->get_table_name();
 			$injection=WPBooking_Query_Inject::inst();
 			$tax_query=$injection->get_arg('tax_query');
 			$rate_calculate=FALSE;
@@ -491,6 +491,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					'operator' => 'IN',
 				);
 			}
+
+			// Guest
+			if($guest=WPBooking_Input::get('guest')){
+				$injection->where($table_prefix.'.max_guests >=',$guest);
+			}
+
 
 			// Taxonomy
 			$tax = WPBooking_Input::request('taxonomy');

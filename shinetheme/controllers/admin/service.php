@@ -21,8 +21,10 @@ if (!class_exists('WPBooking_Admin_Service')) {
 			add_action('init', array($this, '_add_metabox'));
 			add_action('save_post', array($this, '_save_extra_field'));
 			add_filter('wpbooking_settings', array($this, '_add_settings'));
-
 			// Ajax save property
+
+			// Merge Data
+			add_action('admin_init',array($this,'_merge_data'));
 		}
 
 
@@ -161,7 +163,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'id'    => 'enable',
 						'label' => __("Enable Property", 'wpbooking'),
 						'type'  => 'on-off',
-						'std'   => 1,
+						'std'   => 'on',
 						'desc'  => esc_html__('Listing will appear in search results.', 'wpbooking'),
 					),
 					array(
@@ -478,6 +480,23 @@ if (!class_exists('WPBooking_Admin_Service')) {
 			);
 
 			$metabox->register_meta_box($settings);
+		}
+
+		function _merge_data(){
+			if($this->get('wb_merge_data')){
+				$query=new WP_Query(array(
+					'post_type'=>'wpbooking_service',
+					'posts_per_page'=>1000
+				));
+
+				while($query->have_posts()){
+					$query->the_post();
+					WPBooking_Service_Model::inst()->save_extra(get_the_ID());
+				}
+				wp_reset_postdata();
+				echo 'done';
+				die;
+			}
 		}
 
 		static function inst()

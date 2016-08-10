@@ -80,6 +80,30 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			 * @author dungdt
 			 */
 			add_action('wp_ajax_wpbooking_write_reply', array($this, '_wpbooking_write_reply'));
+
+			/**
+			 * Redirect for Disable Property
+			 *
+			 * @since 1.0
+			 * @author dungdt
+			 */
+			add_action('template_redirect',array($this,'_redirect_disable_property'));
+		}
+
+		/**
+		 * Redirect for Disable Property
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 */
+		function _redirect_disable_property()
+		{
+			if(is_singular('wpbooking_service')){
+				$service=new WB_Service(get_the_ID());
+				if(!$service->is_enable()){
+					wp_safe_redirect(home_url('/'));
+				}
+			}
 		}
 
 		/**
