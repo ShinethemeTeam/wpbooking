@@ -15,7 +15,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 
 		function __construct()
 		{
-			$this->table_version = '1.0.2.8';
+			$this->table_version = '1.0.2.9';
 			$this->table_name = 'wpbooking_service';
 			$this->columns = array(
 				'id'                     => array(
