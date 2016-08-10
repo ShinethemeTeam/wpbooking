@@ -160,7 +160,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'type'  => 'service-type-select',
 					),
 					array(
-						'id'    => 'enable',
+						'id'    => 'enable_property',
 						'label' => __("Enable Property", 'wpbooking'),
 						'type'  => 'on-off',
 						'std'   => 'on',

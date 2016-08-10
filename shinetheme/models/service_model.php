@@ -23,7 +23,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 					'AUTO_INCREMENT' => TRUE
 				),
 				'post_id'                => array('type' => "INT"),
-				'enable'                 => array('type' => "varchar", 'length' => 10),
+				'enable_property'                 => array('type' => "varchar", 'length' => 10),
 				'price'                  => array('type' => "FLOAT"),
 				'number'                 => array('type' => "INT"),
 				'children_price'         => array('type' => "FLOAT"),
@@ -48,7 +48,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 
 				// Set Default Value
 				switch ($k) {
-					case "enable":
+					case "enable_property":
 						if (!$data[$k]) $data[$k] = 'on';
 						break;
 					case "property_available_for":

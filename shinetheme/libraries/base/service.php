@@ -52,7 +52,7 @@ if (!class_exists('WB_Service')) {
 		 */
 		function is_enable(){
 			if($this->ID){
-				if(!empty($this->service_data['enable']) and $this->service_data['enable']=='on') return true;
+				if(!empty($this->service_data['enable_property']) and $this->service_data['enable_property']=='on') return true;
 			}
 		}
 

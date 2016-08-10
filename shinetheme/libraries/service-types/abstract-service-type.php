@@ -442,7 +442,7 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 			}
 
 			// Enable
-			$injection->where($table_prefix.'.enable',1);
+			$injection->where($table_prefix.'.enable_property',1);
 		}
 
 	}
