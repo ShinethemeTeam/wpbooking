@@ -500,7 +500,7 @@ jQuery(document).ready(function($) {
                 'months' : months,
                 'years' : years,
                 'price_bulk' : $('input[name="price-bulk"]').val(),
-                'post_id' : $('input[name="post-id"]', parent).val(),
+                'post_id' : $('input[name="post_id"]', parent).val(),
                 'post_encrypt' : $('input[name="post-encrypt"]', parent).val(),
                 'action' : 'wpbooking_calendar_bulk_edit',
                 'security': wpbooking_params.wpbooking_security

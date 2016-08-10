@@ -201,6 +201,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					'status'=>0,
 					'message'=>esc_html__('You do not have permission to do it','wpbooking')
 				));
+				die;
 			}
 
 			if(  wp_verify_nonce( $_POST['security'], 'wpbooking-nonce-field' ) ){
