@@ -115,7 +115,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 								'taxonomy'          => 'wpbooking_location' ,
 								'hide_empty' => 0,
 							);
-							$is_taxonomy = WPBooking_Input::request($v['field_type']);
+							$is_taxonomy = WPBooking_Input::get('location_id');
 							if(!empty($is_taxonomy)){
 								$args['selected'] =$is_taxonomy;
 							}
@@ -160,7 +160,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 									if(!empty($v['taxonomy'])){
 										$tax=get_taxonomy($v['taxonomy']);
 										if($tax){
-											$terms = get_terms(  $v['taxonomy'] , array('hide_empty' => false,) );
+											$terms = get_terms(  $v['taxonomy'] , array('hide_empty' => FALSE,) );
 
 											if(!empty($value[$v['taxonomy']])) $value_item=$value[$v['taxonomy']];else $value_item=FALSE;
 											if(!empty( $terms )) {
@@ -278,7 +278,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 							<select id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" class="small-input <?php if($v['required']=='yes') echo 'wb-required' ?>">
 								<option value=""><?php esc_html_e('- Select','wpbooking') ?></option>
 								<?php for($i=1;$i<=20;$i++){
-									printf('<option value="%s" %s>%s</option>',$i,checked(WPBooking_Input::get($v['field_type']),$i,FALSE),$i);
+									printf('<option value="%s" %s>%s</option>',$i,selected(WPBooking_Input::get($v['field_type']),$i,FALSE),$i);
 								} ?>
 							</select>
 						</div>
@@ -338,19 +338,6 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					</div>
 					<?php
 					break;
-				default:
-					?>
-					<div class="item-search">
-						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-
-						<div class="item-search-content">
-							<input type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
-						</div>
-						<div class="wb-collapse"></div>
-					</div>
-					<?php
-					break;
-
 			}
 		}
 
@@ -502,6 +489,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                         <div class="widget-control-actions">
                             <div class="alignleft">
                                 <input type="button" value="<?php  esc_html_e('Add Field','wpbooking')?>" data-number="<?php echo esc_attr($number) ?>" data-name-field-search="<?php echo $this->get_field_name('field_search'); ?>" data-post-type="<?php echo esc_attr($key) ?>" class="button button-primary left btn_add_field_search_form" id="#">
+                                <p><i><?php esc_html_e('Remember hit Save button after add or remove new search field','wpbooking') ?></i></p>
                             </div>
                             <br class="clear">
                         </div>
@@ -535,6 +523,14 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                                             </tr>
                                         <?php
                                         }
+										if($v['type'] == 'checkbox'){
+											?>
+											<tr class="<?php echo esc_attr($v['class']) ?> div_<?php echo esc_attr($v['name']) ?>">
+												<th> <?php echo esc_html($v['label']) ?>:  </th>
+												<td> <label><input type="checkbox"  value="1"  name="__name_field_search__[<?php echo esc_attr($key) ?>][__number__][<?php echo esc_attr($v['name']) ?>]" class="<?php echo esc_attr($v['name']) ?>"> <?php esc_html_e('Yes','wpbooking')?></label> </td>
+											</tr>
+										<?php
+										}
                                         if($v['type'] == 'dropdown'){
                                             $options = $v['options'];
                                             ?>
