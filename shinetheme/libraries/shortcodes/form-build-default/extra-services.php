@@ -30,10 +30,17 @@ if (!class_exists('WPBooking_Form_Extra_Service_Field')) {
 					),
 					array(
 						"type"             => "text",
+						"title"            => __("Title", 'wpbooking'),
+						"name"             => "title",
+						'edit_field_class' => 'wpbooking-col-md-6',
+						'value'            => ""
+					),
+					array(
+						"type"             => "text",
 						"title"            => __("Class", 'wpbooking'),
 						"name"             => "class",
 						"desc"             => __("Class", 'wpbooking'),
-						'edit_field_class' => 'wpbooking-col-md-6',
+						'edit_field_class' => 'wpbooking-col-md-6 clear',
 						'value'            => ""
 					),
 				)
@@ -63,6 +70,9 @@ if (!class_exists('WPBooking_Form_Extra_Service_Field')) {
 				$extra_services=$service->get_extra_services();
 
 				if(!empty($extra_services) and is_array($extra_services)){
+					if(!empty($data['title'])){
+						$list_item[]=sprintf('<p><label>%s</label></p>',$data['title']);
+					}
 					$list_item[]='<div class="wb-field wb-extra-fields">';
 					foreach($extra_services as $key=>$value){
 						$title='#'.($key+1).' '.wpbooking_get_translated_string($value['title']);
