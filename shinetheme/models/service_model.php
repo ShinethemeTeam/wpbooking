@@ -23,7 +23,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 					'AUTO_INCREMENT' => TRUE
 				),
 				'post_id'                => array('type' => "INT"),
-				'enable_property'                 => array('type' => "varchar", 'length' => 10),
+				'enable_property'        => array('type' => "varchar", 'length' => 10),
 				'price'                  => array('type' => "FLOAT"),
 				'number'                 => array('type' => "INT"),
 				'children_price'         => array('type' => "FLOAT"),
@@ -32,7 +32,8 @@ if (!class_exists('WPBooking_Service_Model')) {
 				'map_long'               => array('type' => "FLOAT"),
 				'service_type'           => array('type' => "varchar", 'length' => "50"),
 				'property_available_for' => array('type' => 'varchar', 'length' => 50),
-				'max_guests'             => array('type' => "INT")
+				'max_guests'             => array('type' => "INT"),
+				'location_id'            => array('type' => "INT"),
 			);
 			parent::__construct();
 		}
@@ -55,19 +56,24 @@ if (!class_exists('WPBooking_Service_Model')) {
 						if (!$data[$k]) $data[$k] = 'forever';
 						break;
 					case "service_type":
-						if (!$data[$k]){
+						if (!$data[$k]) {
 							// Set the first Type
-							$all=WPBooking_Service_Controller::inst()->get_service_types();
-							if(!empty($all)){
+							$all = WPBooking_Service_Controller::inst()->get_service_types();
+							if (!empty($all)) {
 								reset($all);
 								$data[$k] = key($all);
 							}
 						}
 						break;
+					case "number":
+						if (!$data[$k]) {
+							$data[$k] = 1;
+						}
+						break;
 				}
 			}
 
-			if (!$check_exists=$this->find_by('post_id', $post_id)) {
+			if (!$check_exists = $this->find_by('post_id', $post_id)) {
 				$data['post_id'] = $post_id;
 				$this->insert($data);
 			} else {

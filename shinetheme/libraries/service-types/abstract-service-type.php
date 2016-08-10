@@ -388,7 +388,7 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 		function _add_related_query_hook($post_id,$service_type)
 		{
 			global $wpdb;
-			
+
 			$rate=WPBooking_Comment_Model::inst()->get_avg_review($post_id);
 			$table=WPBooking_Service_Model::inst()->get_table_name(FALSE);
 			$table_prefix=WPBooking_Service_Model::inst()->get_table_name();
