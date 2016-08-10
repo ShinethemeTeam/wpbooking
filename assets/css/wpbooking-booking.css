@@ -283,6 +283,13 @@
   margin-bottom: 20px;
   position: relative;
 }
+.wpbooking-search-form.is_filter_form .item-search:last-child {
+  border-bottom: 0px;
+  margin-bottom: 0px;
+}
+.wpbooking-search-form.is_filter_form .item-search:last-child .item-search-content {
+  margin-bottom: 0px;
+}
 .wpbooking-search-form.is_filter_form .item-search > label {
   color: #666;
   cursor: pointer;

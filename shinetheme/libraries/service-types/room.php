@@ -477,8 +477,11 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 		function _add_default_query_hook()
 		{
+			global $wpdb;
+
 			$injection=WPBooking_Query_Inject::inst();
 			$tax_query=$injection->get_arg('tax_query');
+			$rate_calculate=FALSE;
 
 			if ($location_id = WPBooking_Input::request('location_id')) {
 				$tax_query[] = array(
@@ -530,8 +533,8 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			}
 
 			// Order By
-			if(WPBooking_Input::request('wb_sort_by')){
-				switch(WPBooking_Input::request('wb_sort_by')){
+			if($sortby=WPBooking_Input::request('wb_sort_by')){
+				switch($sortby){
 					case "price_asc":
 						$injection->add_arg('orderby','price');
 						$injection->add_arg('order','asc');
@@ -547,6 +550,18 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					case "date_desc":
 						$injection->add_arg('orderby','date');
 						$injection->add_arg('order','desc');
+						break;
+					case "rate_asc":
+					case "rate_desc":
+						$rate_calculate=1;
+
+						$injection->add_arg('orderby','avg_rate');
+						if($sortby=='rate_asc'){
+							$injection->add_arg('order','asc');
+						}else{
+							$injection->add_arg('order','desc');
+						}
+
 						break;
 				}
 			}
@@ -566,19 +581,26 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			}
 
 			// Review
-			global $wpdb;
 			if ($review_rate = WPBooking_Input::request('review_rate') and is_array(explode(',', $review_rate))) {
 
-				$injection->select('avg('.$wpdb->commentmeta.'.meta_value) as avg_rate')
-					->join('comments',$wpdb->prefix.'comments.comment_post_ID='.$wpdb->posts.'.ID and  '.$wpdb->comments.'.comment_approved=1','LEFT')
-					->join('commentmeta',$wpdb->prefix.'commentmeta.comment_id='.$wpdb->prefix.'comments.comment_ID and '.$wpdb->commentmeta.".meta_key='wpbooking_review'",'LEFT');
+				$rate_calculate=1;
+
 
 				foreach (explode(',', $review_rate) as $k => $v) {
-					$injection->having("avg_rate>=".$v)
-						->having("avg_rate<=".($v+1));
+					$clause='AND';
+					if($k) $clause='OR';
+					$injection->having("(avg_rate>=".$v.' and avg_rate<'.($v+1).') ',$clause);
+
 				}
 
 			}
+
+			if($rate_calculate){
+				$injection->select('avg('.$wpdb->commentmeta.'.meta_value) as avg_rate')
+					->join('comments',$wpdb->prefix.'comments.comment_post_ID='.$wpdb->posts.'.ID and  '.$wpdb->comments.'.comment_approved=1','LEFT')
+					->join('commentmeta',$wpdb->prefix.'commentmeta.comment_id='.$wpdb->prefix.'comments.comment_ID and '.$wpdb->commentmeta.".meta_key='wpbooking_review'",'LEFT');
+			}
+
 			if(!empty($tax_query))
 			$injection->add_arg('tax_query',$tax_query);
 

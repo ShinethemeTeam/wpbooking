@@ -331,7 +331,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					));
 					?>
 					<div class="item-search search-price">
-						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+						<?php if($v['title']) { ?><label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label> <?php } ?>
 
 						<div class="item-search-content">
 							<div class="wpbooking-price-chart" data-chart='<?php echo json_encode($price_chart)?>'></div>
@@ -344,7 +344,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 								<button class="wb-button" type="submit"><?php _e("Filter",'wpbooking') ?></button>
 							</div>
 						</div>
-						<div class="wb-collapse"></div>
+						<?php if($v['title']) { ?><div class="wb-collapse"></div> <?php } ?>
 					</div>
 					<?php
 					break;
