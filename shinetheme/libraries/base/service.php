@@ -430,17 +430,6 @@ if (!class_exists('WB_Service')) {
 					'post__not_in'   => array($this->ID)
 				));
 
-				$current_price = get_post_meta($this->ID, 'price', TRUE);
-				$arg['meta_query'][] = array(
-					'key'   => 'price',
-					'value' => $current_price
-				);
-				$location_id = get_post_meta($this->ID, 'location_id', TRUE);
-				$arg['meta_query'][] = array(
-					'key'   => 'location_id',
-					'value' => $location_id
-				);
-
 				$query = wpbooking_query('related_service', $arg);
 
 				return $query;

@@ -423,6 +423,17 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 
 			}
 
+			if($location_id=get_post_meta($post_id,'location_id',true)){
+				$injection->where($table_prefix.'.location_id',$location_id);
+			}
+
+
+			// Price
+			if($price=get_post_meta($post_id,'price',true)){
+				$injection->where($table_prefix.'.price',$price);
+			}
+
+
 		}
 
 		function _add_default_query_hook(){
@@ -454,6 +465,11 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 
 			// Enable
 			$injection->where($table_prefix.'.enable_property','on');
+
+			// Location
+			if($location_id=WPBooking_Input::get('location_id'))
+			$injection->where($table_prefix.'.location_id',$location_id);
+
 		}
 
 	}
