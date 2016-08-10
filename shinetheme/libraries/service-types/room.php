@@ -597,7 +597,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			}
 			// Bathrooms
 			if ($bathrooms = WPBooking_Input::get('bathroom')) {
-				$injection->where('bathroom>=', $bedrooms);
+				$injection->where('bathrooms>=', $bathrooms);
 			}
 
 			// Review

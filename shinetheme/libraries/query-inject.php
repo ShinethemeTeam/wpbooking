@@ -98,6 +98,43 @@ if(!class_exists('WPBooking_Query_Inject')){
 		}
 
 		/**
+		 * Generate Where IN clause
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $key
+		 * @param array $value
+		 * @return $this
+		 */
+		function where_in($key,$value=array()){
+
+			if (is_array($key) and !empty($key)) {
+				foreach ($key as $k1 => $v1) {
+					$this->where_in($k1, $v1);
+				}
+
+				return $this;
+			}
+			if (is_string($key) and !empty($value)) {
+				$in_string=FALSE;
+				foreach($value as $k=>$v){
+					$in_string.="'".$v."',";
+				}
+				$in_string=substr($in_string,0,-1);
+
+				$this->_where_query[] = array(
+					'key'    => $key. ' IN ('.$in_string.')',
+					'value'  => FALSE,
+					'clause' => 'AND',
+					'is_raw' => true
+				);
+			}
+
+			return $this;
+		}
+
+		/**
 		 * Add Select
 		 *
 		 * @since 1.0

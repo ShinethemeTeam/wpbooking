@@ -353,6 +353,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 						'label'   => __('Field Type', "wpbooking"),
 						'type'    => "dropdown",
 						'options' => array(
+							""                    => __("-- Select --", "wpbooking"),
 							"location_id"         => __("Location Dropdown", "wpbooking"),
 							"location_suggestion" => __("Location Suggestion", "wpbooking"),
 							"check_in"            => __("Check In", "wpbooking"),
@@ -489,8 +490,8 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			if ($validate) {
 
 				update_comment_meta($comment_id, 'wpbooking_review', $this->post('wpbooking_review'));
-				update_comment_meta($comment_id, 'wpbooking_review_detail',$this->post('wpbooking_review_detail'));
-				update_comment_meta($comment_id,'wpbooking_title',$this->post('wpbooking_title'));
+				update_comment_meta($comment_id, 'wpbooking_review_detail', $this->post('wpbooking_review_detail'));
+				update_comment_meta($comment_id, 'wpbooking_title', $this->post('wpbooking_title'));
 			}
 
 			do_action('after_wpbooking_update_review_stats', $validate, $comment_id, $post_id);

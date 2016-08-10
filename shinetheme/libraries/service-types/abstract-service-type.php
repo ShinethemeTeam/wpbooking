@@ -452,8 +452,22 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 
 			}
 
+			// Locations
 			if ($location_id = get_post_meta($post_id, 'location_id', TRUE)) {
-				$injection->where($table_prefix . '.location_id', $location_id);
+
+				$childs=get_term_children($location_id,'wpbooking_location');
+
+				$ids=array($location_id);
+
+				if(!empty($childs) and !is_wp_error($childs)){
+					foreach($childs as $key=>$value){
+						$ids[]=$value->term_id;
+					}
+				}
+				if(!empty($ids)){
+					$injection->where_in($table_prefix . '.location_id', $ids);
+				}
+
 			}
 
 
@@ -494,8 +508,22 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 			$injection->where($table_prefix . '.enable_property', 'on');
 
 			// Location
-			if ($location_id = WPBooking_Input::get('location_id'))
-				$injection->where($table_prefix . '.location_id', $location_id);
+			if ($location_id = WPBooking_Input::get('location_id')){
+				$childs=get_term_children($location_id,'wpbooking_location');
+
+				$ids=array($location_id);
+
+				if(!empty($childs) and !is_wp_error($childs)){
+					foreach($childs as $key=>$value){
+						$ids[]=$value;
+					}
+				}
+				if(!empty($ids)){
+					$injection->where_in($table_prefix . '.location_id', $ids);
+				}
+
+			}
+
 
 		}
 

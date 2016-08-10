@@ -325,11 +325,11 @@ if (!class_exists('WPBooking_Metabox')) {
 		public function wpbooking_save_location($post_id, $post_object)
 		{
 			foreach ($this->metabox['fields'] as $field) {
-				if ($field['type'] == 'location') {
-					$new = WPBooking_Input::post($field['id'], '');
+				if ($field['type'] == 'address' and isset($_POST['location_od'])) {
 
-					if (!empty($new) && is_array($new)) {
-						wp_set_post_terms($post_id, $new, 'wpbooking_location');
+					$new = WPBooking_Input::post('location_id', '');
+					if ($new) {
+						wp_set_post_terms($post_id, array($new), 'wpbooking_location');
 					} else {
 
 						wp_set_post_terms($post_id, array(0), 'wpbooking_location');
