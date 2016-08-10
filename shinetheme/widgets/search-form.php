@@ -246,7 +246,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
 						<div class="item-search-content">
 							<label >
-								<input class="wpbooking-date-start <?php if($v['required']) echo 'wb-required' ?>" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+								<input class="wpbooking-date-start <?php if($v['required']=='yes') echo 'wb-required' ?>" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
 								<i class="fa fa-calendar"></i>
 							</label>
 						</div>

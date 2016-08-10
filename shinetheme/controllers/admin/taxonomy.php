@@ -32,6 +32,41 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 			add_action('init', array($this, '_register_taxonomy'));
 
 			add_action('wp_ajax_wpbooking_add_term',array($this,'_add_term'));
+
+			add_action('wp_ajax_wpbooking_add_extra_service',array($this,'_ajax_add_extra_service'));
+		}
+
+
+		/**
+		 * Ajax create new extra service item for
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 */
+		function _ajax_add_extra_service()
+		{
+			$res=array('status'=>0);
+
+			if(current_user_can('manage_options') and $service_type=WPBooking_Input::post('service_type') and $service_name=WPBooking_Input::post('service_name')){
+				$tax='wpbooking_extra_service';
+				$parent_term = term_exists( $service_name, $tax ); // array is returned if taxonomy is given
+				if($parent_term){
+					$res['message']=esc_html__('Term exists','wpbooking');
+				}else{
+					$q=wp_insert_term($service_name,$tax);
+					if(!is_wp_error($q)){
+						$res['status']=1;
+						$res['data']=array(
+							'term_id'=>$q['term_id'],
+							'title'=>$service_name);
+						WPBooking_Taxonomy_Meta_Model::inst()->add_meta($q['term_id'],'service_type',$service_type);
+					}
+				}
+
+			}
+
+			echo json_encode($res);
+			die;
 		}
 
 		/**

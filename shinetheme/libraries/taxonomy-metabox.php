@@ -33,6 +33,9 @@ if(!class_exists('WPBooking_Taxonomy_Metabox'))
 		function _save_term_meta($term_id,$term_taxonomy_id=FALSE,$taxonomy=FALSE)
 		{
 			$fields=array();
+
+			// Get all fields from metabox
+
 			if(!empty($this->metabox_array) and !empty($this->metabox_array[$taxonomy])){
 				foreach($this->metabox_array[$taxonomy] as $metabox){
 					if(!empty($metabox['fields'])){
@@ -48,7 +51,29 @@ if(!class_exists('WPBooking_Taxonomy_Metabox'))
 					if(empty($field['id'])) continue;
 					$field_id='wb-'.$field['id'];
 					if(isset($_POST[$field_id]) and $value=WPBooking_Input::post($field_id)){
-						WPBooking_Taxonomy_Meta_Model::inst()->update_meta($term_id,$field['id'],$value);
+						$model=WPBooking_Taxonomy_Meta_Model::inst();
+						switch($field['type']){
+							case "service-type-checkbox":
+								$model->where(array(
+									'term_id'=>$term_id,
+									'meta_key'=>$field['id']
+								))->delete();
+								if(is_array($value) and !empty($value)){
+									foreach($value as $val){
+										$model->add_meta($term_id,$field['id'],$val);
+									}
+								}else{
+
+									$model->add_meta($term_id,$field['id'],$value);
+								}
+
+								break;
+
+							default:
+								$model->update_meta($term_id,$field['id'],$value);
+								break;
+
+						}
 					}
 
 				}

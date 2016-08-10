@@ -803,6 +803,9 @@ img.settings-demo-gallery {
   font-weight: 300;
   margin-left: 20px;
 }
+.st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .wb-radio-button {
+  margin-right: 15px;
+}
 @media (max-width: 1100px) {
   .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
     width: 100%;

@@ -22,6 +22,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			$loader->load_library(array(
 				'service-types/abstract-service-type',
 				'service-types/room',
+				'service-types/car',
 			));
 
 			//add_filter('comment_form_field_comment', array($this, 'add_review_field'));

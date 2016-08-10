@@ -53,6 +53,24 @@ if (!class_exists('WPBooking_Taxonomy_Meta_Model')) {
 				));
 			}
 		}
+		function add_meta($term_id, $meta_key, $meta_value)
+		{
+			$check = $this->where(array(
+				'term_id'  => $term_id,
+				'meta_key' => $meta_key,
+				'meta_value'=>$meta_value
+			))->get(1)->row();
+
+			if (is_object($meta_value) or is_array($meta_value)) $meta_value = serialize($meta_value);
+
+			if (!$check) {
+				$this->insert(array(
+					'term_id'    => $term_id,
+					'meta_key'   => $meta_key,
+					'meta_value' => $meta_value
+				));
+			}
+		}
 
 		function get_meta($term_id, $meta_key)
 		{

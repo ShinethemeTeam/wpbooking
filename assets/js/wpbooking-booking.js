@@ -338,19 +338,16 @@ jQuery(document).ready(function($){
     order_start_date.datepicker({
         minDate:0,
         onSelect:function(selected) {
-            console.log(1);
             order_end_date.datepicker("option","minDate", selected);
             //order_end_date.focus();
             window.setTimeout(function(){
                 order_end_date.datepicker( "show" );
             },100);
 
-
         },
 
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-
             for(i=0;i<wpbooking_checkin_enable_dates.length;i++){
                 if(string==wpbooking_checkin_enable_dates[i]['date'] && wpbooking_checkin_enable_dates[i]['can_check_in']) return [1,'wpbooking-enable-date',wpbooking_checkin_enable_dates[i]['tooltip_content']];
             }
@@ -358,6 +355,7 @@ jQuery(document).ready(function($){
             return [0,'wpbooking-disable-date'];
         },
         onChangeMonthYear:function(year,month,obj){
+            console.log('xx');
             loadCalendarMonth(year,month);
         },
         onClose:function(){
@@ -402,8 +400,8 @@ jQuery(document).ready(function($){
         var currentMonth=false;
         var currentYear=false;
         var key=false;
-        wpbooking_checkin_enable_dates=[];
-        wpbooking_checkout_enable_dates=[];
+        wpbooking_checkin_enable_dates.length=0;
+        wpbooking_checkout_enable_dates.length=0;
 
         if(typeof  year=='undefined' && typeof month=='undefined'){
             var date=new Date();
@@ -419,36 +417,38 @@ jQuery(document).ready(function($){
         key=currentMonth+'_'+currentYear;
         // check in exists calendar month
         //if($.inArray(key,wpbooking_calendar_months)==-1){
-            $.ajax({
-                url:wpbooking_params.ajax_url,
-                type:'post',
-                dataType:'json',
-                data:{
-                    post_id:$('[name=post_id]').val(),
-                    currentMonth:currentMonth,
-                    currentYear:currentYear,
-                    action:'wpbooking_calendar_months'
-                },
-                success:function(res){
-                    if(typeof res.months!='undefined'){
+        $.ajax({
+            url:wpbooking_params.ajax_url,
+            type:'post',
+            dataType:'json',
+            data:{
+                post_id:$('[name=post_id]').val(),
+                currentMonth:currentMonth,
+                currentYear:currentYear,
+                action:'wpbooking_calendar_months'
+            },
+            success:function(res){
+                if(typeof res.months!='undefined'){
 
-                        for(var k in res.months){
-                            wpbooking_calendar_months.push(k);
-                            wpbooking_enable_dates= $.merge(wpbooking_enable_dates,res.months[k]);
-                        }
-                       // order_start_date.datepicker('refresh');
-                       // order_end_date.datepicker('refresh');
+                    for(var k in res.months){
+                        wpbooking_calendar_months.push(k);
+                        wpbooking_enable_dates= $.merge(wpbooking_enable_dates,res.months[k]);
                     }
-                    if(typeof res.dates!='undefined'){
-                        for(var k in res.dates){
-                            if(res.dates[k].can_check_in==1)
-                            wpbooking_checkin_enable_dates.push(res.dates[k]);
-                            if(res.dates[k].can_check_out==1)
-                            wpbooking_checkout_enable_dates.push(res.dates[k]);
-                        }
+                   // order_start_date.datepicker('refresh');
+                   // order_end_date.datepicker('refresh');
+                }
+                if(typeof res.dates!='undefined'){
+                    for(var k in res.dates){
+                        if(res.dates[k].can_check_in==1)
+                        wpbooking_checkin_enable_dates.push(res.dates[k]);
+                        if(res.dates[k].can_check_out==1)
+                        wpbooking_checkout_enable_dates.push(res.dates[k]);
                     }
                 }
-            });
+                order_start_date.datepicker('refresh');
+                //order_end_date.datepicker('refresh');
+            }
+        });
        // }
     }
     if(order_start_date.length || order_end_date.length){

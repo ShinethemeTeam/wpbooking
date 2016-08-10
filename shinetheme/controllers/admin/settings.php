@@ -21,7 +21,6 @@ if(!class_exists('WPBooking_Admin_Setting'))
             // add script and style
             add_action('admin_enqueue_scripts',array($this,"_add_scripts"));
 
-			add_action('wp_ajax_wpbooking_add_extra_service',array($this,'_ajax_add_extra_service'));
 
         }
 

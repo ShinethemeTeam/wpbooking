@@ -16,6 +16,7 @@ $taxs = get_object_taxonomies( 'wpbooking_service', 'objects' );
 
 if( count( $taxs ) ){
 	unset( $taxs['wpbooking_location'] );
+	unset($taxs['wpbooking_extra_service']);
 }
 
 if(empty($taxs)) return FALSE;

@@ -21,7 +21,7 @@ switch($layout_type) {
 					if (empty($metabox_field['type'])) continue;
 
 					?>
-					<tr class="form-field wb-tax-field wb-field-type-<? echo esc_attr($metabox_field['type']) ?> wb-field-<? echo esc_attr($metabox_field['id']) ?>">
+					<tr class="form-field wb-tax-field wb-field-type-<?php echo esc_attr($metabox_field['type']) ?> wb-field-<?php echo esc_attr($metabox_field['id']) ?>">
 						<th scope="row">
 							<?php if ($metabox_field['label']) {
 								printf('<label for="wb-field-%s" class="wb-tax-field-title">%s</label>', $metabox_field['id'], $metabox_field['label']);
@@ -53,7 +53,7 @@ switch($layout_type) {
 
 				?>
 				<div
-					class="form-field wb-tax-field wb-field-type-<? echo esc_attr($metabox_field['type']) ?> wb-field-<? echo esc_attr($metabox_field['id']) ?>">
+					class="form-field wb-tax-field wb-field-type-<?php echo esc_attr($metabox_field['type']) ?> wb-field-<?php echo esc_attr($metabox_field['id']) ?>">
 					<?php if ($metabox_field['label']) {
 						printf('<label for="wb-field-%s" class="wb-tax-field-title">%s</label>', $metabox_field['id'], $metabox_field['label']);
 					} ?>

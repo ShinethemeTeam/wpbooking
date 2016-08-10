@@ -18,6 +18,7 @@ jQuery(document).ready(function( $ ){
             var passed;
             var conditions = get_match_condition( $( this ).data( 'condition' ) );
             var operator = ( $( this ).data( 'operator' ) || 'and' ).toLowerCase();
+
             $.each( conditions, function( index, condition ) {
 
                 var target   = $(  '#'+ condition.check );
@@ -27,6 +28,7 @@ jQuery(document).ready(function( $ ){
                 if ( ! target.length || ( ! targetEl.length && condition.value.toString() != '' ) ) {
                     return;
                 }
+
 
                 var v1 = targetEl.length ? targetEl.val().toString() : '';
                 var v2 = condition.value.toString();

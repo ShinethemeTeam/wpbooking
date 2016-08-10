@@ -24,7 +24,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 			// Ajax save property
 
 			// Merge Data
-			add_action('admin_init',array($this,'_merge_data'));
+			add_action('admin_init', array($this, '_merge_data'));
 		}
 
 
@@ -118,18 +118,59 @@ if (!class_exists('WPBooking_Admin_Service')) {
 
 			WPBooking_Assets::add_css("#wpbooking_amenitydiv{display:none!important}");
 
-
 			WPBooking_Taxonomy_Metabox::inst()->add_metabox(array(
-				'id'=>'amenity_information',
-				'taxonomy'=>array('wpbooking_amenity'),
-				'fields'=>array(
+				'id'       => 'amenity_information',
+				'taxonomy' => array('wpbooking_amenity'),
+				'fields'   => array(
 					array(
-						'type'=>'icon',
-						'id'=>'icon',
-						'label'=>esc_html__('Icon','wpbooking')
+						'type'  => 'icon',
+						'id'    => 'icon',
+						'label' => esc_html__('Icon', 'wpbooking')
 					)
 				)
 			));
+
+			// Extra Services
+			$labels = array(
+				'name'              => _x('Extra Services', 'taxonomy general name', 'wpbooking'),
+				'singular_name'     => _x('Extra Service', 'taxonomy singular name', 'wpbooking'),
+				'search_items'      => __('Search Extra Services', 'wpbooking'),
+				'all_items'         => __('All Extra Services', 'wpbooking'),
+				'parent_item'       => __('Parent Extra Service', 'wpbooking'),
+				'parent_item_colon' => __('Parent Extra Service:', 'wpbooking'),
+				'edit_item'         => __('Edit Extra Service', 'wpbooking'),
+				'update_item'       => __('Update Extra Service', 'wpbooking'),
+				'add_new_item'      => __('Add New Extra Service', 'wpbooking'),
+				'new_item_name'     => __('New Extra Service Name', 'wpbooking'),
+				'menu_name'         => __('Extra Service', 'wpbooking'),
+			);
+
+			$args = array(
+				'hierarchical'      => TRUE,
+				'labels'            => $labels,
+				'show_ui'           => TRUE,
+				'show_admin_column' => TRUE,
+				'query_var'         => TRUE,
+			);
+			$args = apply_filters('wpbooking_register_extra_services_taxonomy', $args);
+
+			register_taxonomy('wpbooking_extra_service', array('wpbooking_service'), $args);
+
+			WPBooking_Assets::add_css("#wpbooking_extra_servicediv{display:none!important}");
+
+			WPBooking_Taxonomy_Metabox::inst()->add_metabox(array(
+				'id'       => 'extra_services_info',
+				'taxonomy' => array('wpbooking_extra_service'),
+				'fields'   => array(
+					array(
+						'type'     => 'service-type-checkbox',
+						'id'       => 'service_type',
+						'label'    => esc_html__('Extra Service', 'wpbooking'),
+						'add_meta' => TRUE // ,
+					)
+				)
+			));
+
 		}
 
 		function _add_metabox()
@@ -322,10 +363,10 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'class' => 'small'
 					),
 					array(
-						'label'   => __('Property Size', 'wpbooking'),
-						'id'      => 'property_size',
-						'type'    => 'property_size',
-						'unit_id' => 'property_unit',
+						'label'           => __('Property Size', 'wpbooking'),
+						'id'              => 'property_size',
+						'type'            => 'property_size',
+						'unit_id'         => 'property_unit',
 						'container_class' => 'mb35'
 					),
 					array(
@@ -351,9 +392,9 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'type'  => 'title',
 					),
 					array(
-						'label'          => __('Deposit Type', 'wpbooking'),
-						'id'             => 'deposit_type',
-						'type'           => 'dropdown',
+						'label' => __('Deposit Type', 'wpbooking'),
+						'id'    => 'deposit_type',
+						'type'  => 'dropdown',
 						'value' => array(
 							'value'   => __('Value', 'wpbooking'),
 							'percent' => __('Percent', 'wpbooking'),
@@ -371,16 +412,16 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'id'    => 'minimum_stay',
 						'type'  => 'dropdown',
 						'value' => array(
-							1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,21,22,23,24,25,26,27,28,29,30
+							1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
 						),
 						'class' => 'small'
 					),
 					array(
-						'label' => __('Cancellation Allowed', 'wpbooking'),
-						'id'    => 'cancellation_allowed',
-						'type'  => 'on-off',
-						'std'=>1,
-						'container_class'=>'mb35'
+						'label'           => __('Cancellation Allowed', 'wpbooking'),
+						'id'              => 'cancellation_allowed',
+						'type'            => 'on-off',
+						'std'             => 1,
+						'container_class' => 'mb35'
 					),
 					array(
 						'label' => __('Terms & Conditions', 'wpbooking'),
@@ -391,16 +432,16 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'label' => __("Host's Regulations", 'wpbooking'),
 						'id'    => 'host_regulations',
 						'type'  => 'list-item',
-						'value'=>array(
+						'value' => array(
 //							array(
 //								'id'=>'icon',
 //								'label'=>esc_html__('Visual Icon','wpbooking'),
 //								'type'=>'icon_select'
 //							),
 							array(
-								'id'=>'content',
-								'label'=>esc_html__('Content','wpbooking'),
-								'type'=>'textarea'
+								'id'    => 'content',
+								'label' => esc_html__('Content', 'wpbooking'),
+								'type'  => 'textarea'
 							),
 						)
 					),
@@ -428,7 +469,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'type'  => 'title',
 					),
 					array(
-						'type'  => 'cancellation_policies_text',
+						'type' => 'cancellation_policies_text',
 					),
 					array(
 						'type' => 'section_navigation',
@@ -444,9 +485,9 @@ if (!class_exists('WPBooking_Admin_Service')) {
 					),
 					array(
 						'label' => __("Gallery", 'wpbooking'),
-						'id'=>'gallery',
-						'type'=>'gallery',
-						'desc'=>__('Picture recommendations
+						'id'    => 'gallery',
+						'type'  => 'gallery',
+						'desc'  => __('Picture recommendations
 
 				We recommend having pictures in the following order (if available):
 
@@ -457,7 +498,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				Exterior of apartment/building
 				Please no generic pictures of the city
 				Pictures showing animals, people, watermarks, logos and images composed of multiple
-				smaller images will be removed.','wpbooking')
+				smaller images will be removed.', 'wpbooking')
 					),
 
 					array(
@@ -469,12 +510,12 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'type'  => 'tab',
 					),
 					array(
-						'type'=>'title',
-						'label'=>esc_html__('Availability Template','wpbooking')
+						'type'  => 'title',
+						'label' => esc_html__('Availability Template', 'wpbooking')
 					),
 					array(
-						'id'=>'calendar',
-						'type'=>'calendar'
+						'id'   => 'calendar',
+						'type' => 'calendar'
 					)
 				)
 			);
@@ -482,14 +523,15 @@ if (!class_exists('WPBooking_Admin_Service')) {
 			$metabox->register_meta_box($settings);
 		}
 
-		function _merge_data(){
-			if($this->get('wb_merge_data')){
-				$query=new WP_Query(array(
-					'post_type'=>'wpbooking_service',
-					'posts_per_page'=>1000
+		function _merge_data()
+		{
+			if ($this->get('wb_merge_data')) {
+				$query = new WP_Query(array(
+					'post_type'      => 'wpbooking_service',
+					'posts_per_page' => 1000
 				));
 
-				while($query->have_posts()){
+				while ($query->have_posts()) {
 					$query->the_post();
 					WPBooking_Service_Model::inst()->save_extra(get_the_ID());
 				}

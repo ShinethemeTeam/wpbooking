@@ -64,12 +64,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					)
 				),
 				array(
-					'id'    => 'extra_services',
-					'label' => esc_html__('Extra Services', 'wpbooking'),
-					'type'  => 'list-item',
-					'value' => array()
-				),
-				array(
 					'id'    => 'review_stats',
 					'label' => __("Review Stats", 'wpbooking'),
 					'type'  => 'list-item',
@@ -192,6 +186,8 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			$args = apply_filters('wpbooking_register_room_type_taxonomy', $args);
 
 			register_taxonomy('wpbooking_room_type', array('wpbooking_service'), $args);
+
+			WPBooking_Assets::add_css("#wpbooking_room_typediv{display:none!important}");
 
 		}
 
