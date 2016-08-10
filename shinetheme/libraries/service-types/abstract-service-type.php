@@ -387,7 +387,18 @@ if(!class_exists('WPBooking_Abstract_Service_Type'))
 		 */
 		function _add_related_query_hook($post_id,$service_type)
 		{
+			global $wpdb;
+			
 			$rate=WPBooking_Comment_Model::inst()->get_avg_review($post_id);
+			$table=WPBooking_Service_Model::inst()->get_table_name(FALSE);
+			$table_prefix=WPBooking_Service_Model::inst()->get_table_name();
+
+			$injection=WPBooking_Query_Inject::inst();
+
+			$injection->join($table,$table_prefix.'.post_id='.$wpdb->posts.'.ID');
+			$injection->groupby($wpdb->posts.'.ID');
+			$injection->where($table_prefix.'.enable_property','on');
+
 			if($rate){
 				if(is_float($rate)){
 					// Check if Avg is Decimal: example 4.3
