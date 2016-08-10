@@ -245,6 +245,7 @@ jQuery(document).ready(function($){
                         $('.wpbooking-date-end').datepicker('show');
                     },100);
                 }
+                $(this).trigger('change');
             }
         })
         .datepicker('widget');//.wrap('<div class="ll-skin-melon"/>');
@@ -543,12 +544,19 @@ jQuery(document).ready(function($){
 
         form_filter.find('.wb-required').each(function(){
             if($(this).val()==false){
+                console.log($(this));
                 is_validated=false;
                 $(this).addClass('wb-error');
                 $(this).closest('.item-search').addClass('wb-error');
 
+                if($(this).closest('.wpbooking-search-form-more').length){
+                    $(this).closest('.wpbooking-search-form-wrap').find('.wpbooking-show-more-fields').trigger('click');
+                }
+
                 // Scroll to first error input
-                if(!scrollTo) scrollTo=$(this).offset().top-200;
+                if(!scrollTo){
+                    scrollTo=$(this).offset().top-200;
+                }
             }
         });
 
