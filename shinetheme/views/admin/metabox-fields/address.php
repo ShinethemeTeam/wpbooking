@@ -34,8 +34,9 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
 							'taxonomy'        => 'wpbooking_location',
 							'class'           => 'widefat form-control',
 							'name'            => 'location_id',
-							'selected'         => get_post_meta(get_the_ID(), 'location_id', TRUE),
-							'hide_empty'      => FALSE
+							'selected'        => get_post_meta(get_the_ID(), 'location_id', TRUE),
+							'hide_empty'      => FALSE,
+							'hierarchical'    => 1
 						)) ?>
 					</div>
 					<div class="wpbooking-col-sm-4">

@@ -370,6 +370,21 @@ if (!class_exists('WB_Service')) {
 		}
 
 		/**
+		 * Get Number of Minimum Stay
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return mixed
+		 */
+		function get_minimum_stay()
+		{
+			if($this->ID){
+				return get_post_meta($this->ID,'minimum_stay',TRUE);
+			}
+		}
+
+		/**
 		 * Get Terms array of current Post by Taxonomy
 		 *
 		 * @since 1.0
