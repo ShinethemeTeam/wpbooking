@@ -87,7 +87,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			 * @since 1.0
 			 * @author dungdt
 			 */
-			add_action('template_redirect',array($this,'_redirect_disable_property'));
+			add_action('template_redirect', array($this, '_redirect_disable_property'));
 		}
 
 		/**
@@ -98,9 +98,9 @@ if (!class_exists('WPBooking_Service_Controller')) {
 		 */
 		function _redirect_disable_property()
 		{
-			if(is_singular('wpbooking_service')){
-				$service=new WB_Service(get_the_ID());
-				if(!$service->is_enable()){
+			if (is_singular('wpbooking_service')) {
+				$service = new WB_Service(get_the_ID());
+				if (!$service->is_enable()) {
 					wp_safe_redirect(home_url('/'));
 				}
 			}
@@ -172,8 +172,8 @@ if (!class_exists('WPBooking_Service_Controller')) {
 				$res['html'] .= wpbooking_load_view('archive/pagination', array('my_query' => $my_query, 'service_type' => $service_type));
 
 				$res['updated_element'] = array(
-					'.post-query-desc' => wpbooking_post_query_desc(WPBooking_Input::post()),
-					'.post-found-count'=>sprintf(esc_html__('Found %d room(s)','wpbooking'),$my_query->found_posts)
+					'.post-query-desc'  => wpbooking_post_query_desc(WPBooking_Input::post()),
+					'.post-found-count' => sprintf(esc_html__('Found %d room(s)', 'wpbooking'), $my_query->found_posts)
 				);
 
 				echo json_encode($res);
@@ -197,17 +197,17 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			$post_id = WPBooking_Input::post('post_id');
 			$currentMonth = WPBooking_Input::post('currentMonth');
 			$currentYear = WPBooking_Input::post('currentYear');
-			$today=new Datetime();
+			$today = new Datetime();
 			$start_date = new DateTime($currentYear . '-' . $currentMonth . '-1');
-			if($start_date<$today) $start_date=$today;
-			$start=$start_date->getTimestamp();
+			if ($start_date < $today) $start_date = $today;
+			$start = $start_date->getTimestamp();
 			$end = strtotime($start_date->format('Y-m-t'));
-			$end_date=new DateTime();
+			$end_date = new DateTime();
 			$end_date->setTimestamp($end);
 
 			$raw_data = WPBooking_Calendar_Model::inst()->calendar_months($post_id, $start, $end);
 			$calendar_months = array();
-			$calendar_dates=array();
+			$calendar_dates = array();
 
 			// Default Months
 //			for ($i = 0; $i < 3; $i++) {
@@ -235,7 +235,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 						'can_check_out'   => $v['can_check_out'],
 					);
 
-					$calendar_dates[]=array(
+					$calendar_dates[] = array(
 						'date'            => date('Y-m-d', $v['start']),
 						'price'           => WPBooking_Currency::format_money($v['price']),
 						//'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked']),
@@ -254,29 +254,29 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			foreach ($period as $dt) {
 				if (get_post_meta($post_id, 'property_available_for', TRUE) != 'specific_periods') {
 					$all_days[$dt->format('Y-m-d')] = array(
-						'date'          => $dt->format('Y-m-d'),
-						'status'        => 'available',
-						'price'         => WPBooking_Currency::format_money(get_post_meta($post_id,'price',true)),
-						'tooltip_content' => WPBooking_Currency::format_money(get_post_meta($post_id,'price',true)),
-						'can_check_in'  => 1,
-						'can_check_out' => 1
+						'date'            => $dt->format('Y-m-d'),
+						'status'          => 'available',
+						'price'           => WPBooking_Currency::format_money(get_post_meta($post_id, 'price', TRUE)),
+						'tooltip_content' => WPBooking_Currency::format_money(get_post_meta($post_id, 'price', TRUE)),
+						'can_check_in'    => 1,
+						'can_check_out'   => 1
 					);
 				}
 
 			}
 			// Foreach Data
-			if(!empty($calendar_dates)){
-				foreach($calendar_dates as $day){
-					if(array_key_exists($day['date'],$all_days)){
+			if (!empty($calendar_dates)) {
+				foreach ($calendar_dates as $day) {
+					if (array_key_exists($day['date'], $all_days)) {
 						unset($all_days[$day['date']]);
 					}
 				}
 			}
 
 			// Now append the exsits
-			if(!empty($all_days)){
-				foreach($all_days as $day){
-					$calendar_dates[]=$day;
+			if (!empty($all_days)) {
+				foreach ($all_days as $day) {
+					$calendar_dates[] = $day;
 				}
 			}
 
@@ -303,13 +303,13 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
 		function query($args = array(), $service_type = FALSE)
 		{
-			do_action('wpbooking_before_default_query_'.$service_type);
+			do_action('wpbooking_before_default_query_' . $service_type);
 
 			$args = wp_parse_args($args, array(
 				'post_type' => 'wpbooking_service'
 			));
 
-			$query = wpbooking_query('default',$args);
+			$query = wpbooking_query('default', $args);
 
 
 			return $query;
@@ -359,10 +359,14 @@ if (!class_exists('WPBooking_Service_Controller')) {
 							"taxonomy"            => __("Taxonomy", "wpbooking"),
 							"review_rate"         => __("Review Rate", "wpbooking"),
 							"price"               => __("Price", "wpbooking"),
-							"bed"                 => __("Beds", "wpbooking"),
 							"bedroom"             => __("Bedrooms", "wpbooking"),
 							"bathroom"            => __("Bathrooms", "wpbooking"),
 							"guest"               => __("Guest", "wpbooking"),
+							"double_bed"          => __("Double Bed", "wpbooking"),
+							"single_bed"          => __("Single Bed", "wpbooking"),
+							"sofa_bed"            => __("Sofa Bed", "wpbooking"),
+							"property_floor"      => __("Property Floor", "wpbooking"),
+							"property_size"       => __("Property Size", "wpbooking"),
 //							"customer_confirm"    => __("Require Customer Confirm?", "wpbooking"),
 //							"partner_confirm"     => __("Require Partner Confirm?", "wpbooking"),
 						)

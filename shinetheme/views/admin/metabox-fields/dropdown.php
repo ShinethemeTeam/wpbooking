@@ -26,12 +26,15 @@ if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 
 	$field .= '<div style="margin-bottom: 7px;"><select name="'. $name .'" id="'. esc_html( $data['id'] ) .'" class="widefat form-control '. esc_html( $data['class'] ).'">';
 	foreach( $data['value'] as $key => $value ){
+		$compare=$key;
+		if($array_with_out_key) $compare=$value;
+
 		$checked = '';
 		if( !empty( $data['std'] ) && ( esc_html( $key ) == esc_html( $data['std'] ) ) ){
 			$checked = ' selected ';
 		}
 		if( $old_data && !empty( $old_data ) ){
-			if( esc_html( $key ) == esc_html( $old_data ) ){
+			if( esc_html( $compare ) == esc_html( $old_data ) ){
 				$checked = ' selected ';
 			}else{
 				$checked = '';

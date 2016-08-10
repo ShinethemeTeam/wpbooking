@@ -286,8 +286,12 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					</div>
 					<?php
 					break;
+
 				case "bathroom":
-				case "bed":
+				case "double_bed":
+				case "single_bed":
+				case "sofa_bed":
+				case "property_floor":
 				case "bedroom":
 					?>
 					<div class="item-search <?php if(!$v['title']) echo 'no_title'; ?>">
@@ -335,6 +339,20 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 							</div>
 						</div>
 						<?php if($v['title']) { ?><div class="wb-collapse"></div> <?php } ?>
+					</div>
+					<?php
+					break;
+				case "property_size":
+					?>
+					<div class="item-search  property_size">
+						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+
+						<div class="item-search-content">
+							<label >
+								<input class="<?php if($v['required']=='yes') echo 'wb-required' ?>" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+							</label>
+						</div>
+						<div class="wb-collapse"></div>
 					</div>
 					<?php
 					break;

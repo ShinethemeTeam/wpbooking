@@ -89,6 +89,8 @@ if (!class_exists('WPBooking_Order')) {
 				$res['message'] = wpbooking_get_message(TRUE);
 
 			} else {
+				$service = new WB_Service($post_id);
+
 				if (!empty($fields)) {
 					foreach ($fields as $key => $value) {
 						$fields[$key]['value'] = WPBooking_Input::post($key);
@@ -107,8 +109,29 @@ if (!class_exists('WPBooking_Order')) {
 					'need_customer_confirm' => apply_filters('wpbooking_service_need_customer_confirm', 0, $post_id, $service_type),
 					'need_partner_confirm'  => apply_filters('wpbooking_service_need_partner_confirm', 0, $post_id, $service_type),
 					'sub_total'             => get_post_meta($post_id, 'price', TRUE), // Subtotal of item, without extra price,
-					'extra_prices'          => WPBooking_Input::post('extra_prices')
+					'extra_prices'          => WPBooking_Input::post('extra_services')
 				);
+
+				// Extra Services
+				$extra_prices = WPBooking_Input::post('extra_services');
+				if (empty($extra_prices)) {
+					// Get Default
+					$all_extra = $service->get_extra_services();
+					if (!empty($all_extra) and is_array($all_extra)) {
+						foreach ($all_extra as $key => $value) {
+							if ($value['require'] == 'yes' and $value['money'])
+								$extra_prices[] = array(
+									'title'   => $value['title'],
+									'money'   => $value['money'],
+									'require' => 'yes',
+									'number'  => 1
+								);
+						}
+					}
+				}else{
+					// If _POST is not empty
+
+				}
 
 				// Convert Check In and Check Out to Timstamp if available
 				if (!empty($fields['check_in']['value'])) {
@@ -236,7 +259,7 @@ if (!class_exists('WPBooking_Order')) {
 					// Check user want to create account
 					if ($fields['wpbooking_create_account']) {
 
-						$customer_id=WPBooking_User::inst()->order_create_user(array(
+						$customer_id = WPBooking_User::inst()->order_create_user(array(
 							'user_email' => $email,
 							'first_name' => $fields['user_first_name'],
 							'last_name'  => $fields['user_last_name'],
@@ -813,8 +836,8 @@ if (!class_exists('WPBooking_Order')) {
 
 		function generate_username()
 		{
-			$prefix=apply_filters('wpbooking_generated_username_prefix','wpbooking_');
-			$user_name = $prefix.time() . rand(0, 999);
+			$prefix = apply_filters('wpbooking_generated_username_prefix', 'wpbooking_');
+			$user_name = $prefix . time() . rand(0, 999);
 			if (username_exists($user_name)) return $this->generate_username();
 
 			return $user_name;

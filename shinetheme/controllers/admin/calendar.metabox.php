@@ -71,10 +71,13 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 							//'backgroundColor'=>'#dce0e0'
 							'status'=>'available',
 							'can_check_in'=>1,
-							'can_check_out'=>1
+							'can_check_out'=>1,
+
 						);
 						if(get_post_meta($post_id,'property_available_for',true)=='specific_periods'){
 							$all_days[$dt->format('Y-m-d')]['status']='wb-disable';
+						}else{
+							$all_days[$dt->format('Y-m-d')]['price_text']=WPBooking_Currency::format_money(get_post_meta($post_id,'price',true));
 						}
 
 					}
