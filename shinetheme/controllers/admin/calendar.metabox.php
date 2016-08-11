@@ -451,7 +451,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 		}
 
-		public function wpbooking_insert_availability( $post_id = '', $base_id = '', $check_in = '', $check_out = '', $price = '', $status = '', $group_day = '',$weekly=FALSE,$monthly=FALSE,$can_check_in=FALSE,$can_check_out=FALSE){
+		public function wpbooking_insert_availability( $post_id = '', $base_id = '', $check_in = '', $check_out = '', $price = '', $status = '', $group_day = '',$weekly=FALSE,$monthly=FALSE,$can_check_in=1,$can_check_out=1){
 			global $wpdb;
 
 			$table = $wpdb->prefix. 'wpbooking_availability';
