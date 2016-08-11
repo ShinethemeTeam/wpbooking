@@ -533,7 +533,7 @@ jQuery(document).ready(function($){
     });
 
     // Ajax Search in Archive page
-    var form_filter=$('.wpbooking-search-form');
+    var form_filter=$('.wpbooking-search-form.is_search_form');
     form_filter.submit(function(){
 
         // Validate Required Field

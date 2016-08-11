@@ -28,10 +28,11 @@ if(!$my_query->have_posts()) return;
 								if(is_array($get)){
 									if(!empty($get)){
 										foreach($get as $key2=>$val2){
+											if($val2)
 											printf('<input type="hidden" name="%s[%s]" value="%s">',$key,$key2,$val2);
 										}
 									}
-								}else{
+								}elseif($get){
 									printf('<input type="hidden" name="%s" value="%s">',$key,$get);
 								}
 

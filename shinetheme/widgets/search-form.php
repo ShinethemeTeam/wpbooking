@@ -34,19 +34,33 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 			$search_more_fields=array();
             ?>
             <form class="wpbooking-search-form <?php echo ($instance['is_filter_form'])?'is_filter_form':'is_search_form' ?>" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
+
             	<?php
 					if ( ! empty( $instance['title'] ) ) {
 						echo $widget_args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $widget_args['after_title'];
 					}
+					$hidden_fields=$_GET;
              	?>
-				<?php if(!get_option('permalink_structure')){
-					printf("<input type='hidden' name='page_id' value='%d'>",$id_page);
-				} ?>
+				<?php
+					if(!get_option('permalink_structure')){
+						printf("<input type='hidden' name='page_id' value='%d'>",$id_page);
+					}
+
+				 ?>
 				<input type="hidden" name="wpbooking_action" value="archive_filter">
 				<div class="wpbooking-search-form-wrap" >
 					<?php
 					if(!empty($field_search[$service_type])){
 						foreach($field_search[$service_type] as $k=>$v){
+
+							// Calculate Hidden Fields
+							if(!empty($hidden_fields[$v['field_type']])){
+								unset($hidden_fields[$v['field_type']]);
+							}
+							if($v['field_type']=='location_suggestion'){
+								unset($hidden_fields['location_id']);
+							}
+
 							$v=wp_parse_args($v,array(
 								'in_more_filter'=>''
 							));
@@ -76,7 +90,21 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					<div class="search-button-wrap">
 						<button class="wb-button" type="submit"><?php _e("Search",'wpbooking') ?></button>
 					</div>
-					<?php }?>
+					<?php }else{
+					// Show Hidden fields Filter Form
+						if(!empty($hidden_fields)){
+							foreach($hidden_fields as $field=>$value){
+								if(is_array($value) and !empty($value)){
+									foreach($value as $k=>$v){
+										if($v)
+										printf('<input type="hidden" name="%s[%s]" value="%s">',$field,$k,$v);
+									}
+								}elseif($value){
+									printf('<input type="hidden" name="%s" value="%s">',$field,$value);
+								}
+							}
+						}
+					}?>
 				</div>
             </form>
             <?php
