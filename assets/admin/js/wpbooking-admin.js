@@ -21,7 +21,7 @@ jQuery(document).ready(function( $ ){
 
             $.each( conditions, function( index, condition ) {
 
-                var target   = $(  '#'+ condition.check );
+                var target   = $( '[name='+ condition.check+']' );
 
                 var targetEl = !! target.length && target.first();
 
@@ -812,7 +812,7 @@ jQuery(document).ready(function( $ ){
                 if(res.status){
 
                     var input_name=me.data('name');
-                    var html=wrap.find('.extra-item-default .extra-item');
+                    var html=wrap.find('.extra-item-default .extra-item').clone();
                     var count=list_terms.find('.extra-item').length;
                     html.find('.title input').attr('name',id+'['+service_type+']'+'['+(count)+'][is_selected]');
                     html.find('.title input').val(term_name);

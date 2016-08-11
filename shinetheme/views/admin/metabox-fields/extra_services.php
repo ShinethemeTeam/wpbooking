@@ -8,8 +8,9 @@ if(!empty($service_types)){
 	foreach($service_types as $type_id=>$type){
 		$class=FALSE;
 		$class.=$type_id;
+
 		?>
-		<div class="form-table wpbooking-settings  wpbooking-form-group wpbooking_extra_service_type <?php echo esc_html( $class ); ?>" data-condition="service_type:is(<?php echo esc_attr($type_id) ?>)">
+		<div class="form-table wpbooking-settings  wpbooking-form-group wpbooking_extra_service_type wpbooking-condition <?php echo esc_html( $class ); ?>" data-condition="service_type:is(<?php echo esc_attr($type_id) ?>)">
 			<div class="st-metabox-left">
 				<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
 			</div>
