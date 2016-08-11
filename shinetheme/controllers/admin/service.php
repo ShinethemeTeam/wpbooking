@@ -80,7 +80,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				'query_var'          => TRUE,
 				'rewrite'            => array('slug' => 'service'),
 				'capability_type'    => 'post',
-				'has_archive'        => TRUE,
+				'has_archive'        => ($page_id=wpbooking_get_option('archive-page')) && get_post( $page_id )?get_page_uri($page_id):'all-services',
 				'hierarchical'       => FALSE,
 				//'menu_position'      => '59.9',
 				'supports'           => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments')

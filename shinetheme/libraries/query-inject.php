@@ -24,6 +24,44 @@ if(!class_exists('WPBooking_Query_Inject')){
 
 		protected $_query_args=array();
 
+		function __construct()
+		{
+			// Default Query Hook
+			if(!is_admin())
+			add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
+		}
+
+		/**
+		 * Filer for Default Query
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $q
+		 */
+		function pre_get_posts($q)
+		{
+			if($q->is_main_query()){
+
+				// Only Modify Archive, Tax page
+
+				if(!$q->is_post_type_archive( 'wpbooking_service' ) && ! $q->is_tax( get_object_taxonomies( 'wpbooking_service' ) )) return;
+
+
+				$this->inject();
+
+				// Apply Args Change
+				if(!empty($this->_query_args)){
+					foreach($this->_query_args as $key=>$value){
+						$q->set($key,$value);
+					}
+				}
+
+				remove_action( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
+				add_filter('wp',array($this,'clear'));
+			}
+
+		}
 		function inject()
 		{
 			add_filter('posts_join',array($this,'posts_join'));
@@ -31,7 +69,6 @@ if(!class_exists('WPBooking_Query_Inject')){
 			add_filter('posts_fields',array($this,'posts_fields'));
 			add_filter('posts_groupby',array($this,'posts_groupby'));
 			add_filter('posts_orderby',array($this,'posts_orderby'));
-
 			add_filter('wpbooking_wb_query_arg',array($this,'apply_query_args'));
 
 		}
@@ -183,7 +220,8 @@ if(!class_exists('WPBooking_Query_Inject')){
 			}
 
 			if (is_string($table)) {
-				$this->_join_query[] = array('table' => $table, 'on' => $on_clause, 'keyword' => $join_key);
+				if(!array_key_exists($table,$this->_join_query))
+				$this->_join_query[$table] = array('table' => $table, 'on' => $on_clause, 'keyword' => $join_key);
 			}
 
 			return $this;

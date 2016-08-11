@@ -23,12 +23,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
 			echo $widget_args['before_widget'];
 
-            $page_search = "";
-            switch($service_type){
-                case "room":
-                    $id_page = wpbooking_get_option('service_type_room_archive_page');
-                    $page_search = get_permalink($id_page);
-            }
+            $page_search = get_post_type_archive_link('wpbooking_service');
 
 
 			$search_more_fields=array();
@@ -41,13 +36,8 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					}
 					$hidden_fields=$_GET;
              	?>
-				<?php
-					if(!get_option('permalink_structure')){
-						printf("<input type='hidden' name='page_id' value='%d'>",$id_page);
-					}
-
-				 ?>
 				<input type="hidden" name="wpbooking_action" value="archive_filter">
+				<input type="hidden" name="service_type" value="<?php echo esc_attr($service_type)?>">
 				<div class="wpbooking-search-form-wrap" >
 					<?php
 					if(!empty($field_search[$service_type])){
@@ -197,6 +187,9 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 												foreach( $terms as $key2 => $value2 ) {
 													$check ="";
 													if(in_array($value2->term_id,explode(',',$value_item))){
+														$check = "checked";
+													}
+													if(is_tax($v['taxonomy']) and get_queried_object()->term_id==$value2->term_id){
 														$check = "checked";
 													}
 													$class=FALSE;

@@ -14,7 +14,7 @@
 		while ( $my_query->have_posts() ) {
 			$my_query->the_post();
 			$service=new WB_Service();
-			switch($service_type){
+			switch($service_type=$service->get_type()){
 				case "room":
 					?>
 					<li <?php post_class('loop-item') ?>>

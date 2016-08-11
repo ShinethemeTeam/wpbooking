@@ -366,6 +366,13 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 				, admin_url('admin.php')
 			));
 		}
+		function set_tax_service_type(){
+
+		}
+		function get_tax_service_type()
+		{
+
+		}
 
 		static function inst()
 		{

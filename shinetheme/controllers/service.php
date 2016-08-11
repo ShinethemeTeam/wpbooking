@@ -291,13 +291,13 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
 		function _add_body_class($class)
 		{
-			if (is_singular()) {
-				$is_page = get_the_ID();
-				$list_page_search = apply_filters("wpbooking_add_page_archive_search", array());
-				if (!empty($list_page_search[$is_page])) {
-					$class[] = 'wpbooking-archive-page';
-				}
-			}
+//			if (is_singular()) {
+//				$is_page = get_the_ID();
+//				$list_page_search = apply_filters("wpbooking_add_page_archive_search", array());
+//				if (!empty($list_page_search[$is_page])) {
+//					$class[] = 'wpbooking-archive-page';
+//				}
+//			}
 
 			return $class;
 		}
@@ -317,17 +317,16 @@ if (!class_exists('WPBooking_Service_Controller')) {
 		}
 
 		/**
+		 * Filter to load template
+		 *
 		 * @param $template
 		 * @return string
 		 */
 		public function template_loader($template)
 		{
-			$is_page = get_the_ID();
-			$list_page_search = apply_filters("wpbooking_add_page_archive_search", array());
-			if (!empty($list_page_search[$is_page])) {
+			// check tax
+			if(is_post_type_archive('wpbooking_service') or is_tax(get_object_taxonomies('wpbooking_service'))){
 				$template = wpbooking_view_path('archive-service');
-
-
 			}
 
 			return $template;

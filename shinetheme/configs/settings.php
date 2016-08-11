@@ -77,6 +77,11 @@ $config['settings'] = array(
 						)
 					),
 					array(
+						'label' => esc_html__('Archive Page', 'wpbooking'),
+						'type'  => 'page-select',
+						'id'    => 'archive-page'
+					),
+					array(
 						'label' => esc_html__('Accounts', 'wpbooking'),
 						'type'  => 'title'
 					),
