@@ -86,6 +86,16 @@ if (!class_exists('WPBooking_Taxonomy_Meta_Model')) {
 				else return $res['meta_value'];
 			}
 		}
+		function check_exist($term_id,$meta_key,$meta_value)
+		{
+			$check = $this->where(array(
+				'term_id'  => $term_id,
+				'meta_key' => $meta_key,
+				'meta_value'=>$meta_value
+			))->get(1)->row();
+
+			return $check;
+		}
 
 		static function inst()
 		{

@@ -162,6 +162,8 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 										if($tax){
 											$terms = get_terms(  $v['taxonomy'] , array('hide_empty' => FALSE,) );
 
+											$show_number=5;
+
 											if(!empty($value[$v['taxonomy']])) $value_item=$value[$v['taxonomy']];else $value_item=FALSE;
 											if(!empty( $terms )) {
 												foreach( $terms as $key2 => $value2 ) {
@@ -170,7 +172,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 														$check = "checked";
 													}
 													$class=FALSE;
-													if($key2>=4){
+													if($key2>=$show_number){
 														$class='hidden_term';
 													}
 													?>
@@ -179,10 +181,10 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 														<?php echo esc_html( $value2->name ) ?></label>
 													</div>
 													<?php
-													if($key2==3 and count($terms)>4){
+													if($key2==($show_number-1) and count($terms)>$show_number){
 													?>
 														<div class="">
-															<label class="show-more-terms" ><b><?php printf(esc_html__('More %s ...','wpbooking'),$tax->label) ?></b></label>
+															<label class="show-more-terms" ><?php esc_html_e('More...','wpbooking') ?></label>
 														</div>
 														<?php
 													}

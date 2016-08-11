@@ -45,6 +45,10 @@
   padding-top: 8px;
   padding-bottom: 8px;
 }
+.wb-btn.wb-btn-primary:active,
+.wb-btn.wb-btn-primary:visited {
+  background: #ff9933;
+}
 .wb-btn.wb-btn-blue {
   background: #31b0d5;
   border: 1px solid #269abc;
@@ -127,6 +131,10 @@
 .wpbooking-search-form .item-search .list-checkbox label {
   display: block;
   margin-bottom: 8px;
+}
+.wpbooking-search-form .item-search .list-checkbox .show-more-terms {
+  font-size: 13px;
+  font-style: italic;
 }
 .wpbooking-search-form .item-search input[type=text],
 .wpbooking-search-form .item-search select {
@@ -219,6 +227,10 @@
   color: white;
   padding: 8px 35px;
   font-weight: normal;
+}
+.wpbooking-search-form .search-button-wrap .wb-button:active,
+.wpbooking-search-form .search-button-wrap .wb-button:visited {
+  background: #269abc;
 }
 .wpbooking-search-form .wpbooking-show-more-fields {
   border: 1px solid #333333;

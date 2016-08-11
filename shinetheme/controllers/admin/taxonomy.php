@@ -46,12 +46,19 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 		function _ajax_add_extra_service()
 		{
 			$res=array('status'=>0);
-
+			$model=WPBooking_Taxonomy_Meta_Model::inst();
 			if(current_user_can('manage_options') and $service_type=WPBooking_Input::post('service_type') and $service_name=WPBooking_Input::post('service_name')){
 				$tax='wpbooking_extra_service';
 				$parent_term = term_exists( $service_name, $tax ); // array is returned if taxonomy is given
 				if($parent_term){
-					$res['message']=esc_html__('Term exists','wpbooking');
+					//$res['message']=esc_html__('Term exists','wpbooking');
+					$check=$model->check_exist($parent_term['term_id'],'service_type',$service_type);
+					if(!$check){
+						$res['status']=1;
+						WPBooking_Taxonomy_Meta_Model::inst()->add_meta($parent_term['term_id'],'service_type',$service_type);
+					}else{
+						$res['message']=esc_html__('Term exists','wpbooking');
+					}
 				}else{
 					$q=wp_insert_term($service_name,$tax);
 					if(!is_wp_error($q)){
