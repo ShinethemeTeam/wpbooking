@@ -629,6 +629,7 @@
   border: 1px solid #999999;
   border-radius: 3px;
   padding: 2px 5px;
+  display: inline-block;
 }
 .wpbooking-loop-wrap .wpbooking-loop-items .loop-item .content-item .service-content .wpbooking-room-type a:hover,
 .wpbooking-loop-wrap .wpbooking-loop-items .loop-item .content-item .service-content .wpbooking-room-type a:focus {
