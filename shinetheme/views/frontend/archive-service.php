@@ -23,7 +23,7 @@ if(!empty($list_page_search[$is_page]))
 }
 $my_query = WPBooking_Service_Controller::inst()->query($args,$service_type);
 if(WPBooking_Input::get('wb_test'))
-var_dump($my_query);
+var_dump($my_query->request);
 echo wpbooking_load_view('wrap/start');
 ?>
 <div class="wpbooking-container">

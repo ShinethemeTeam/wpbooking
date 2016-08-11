@@ -515,6 +515,8 @@ jQuery(document).ready(function( $ ){
 
     load_gmap();
 
+    $('.wpbooking_extra_service-checklist,.wpbooking_location-checklist').prev().prev().hide();
+
      //$( ".st-metabox-tabs" ).tabs({
      //   activate: function( event, ui ) {
      //       setTimeout(function(){

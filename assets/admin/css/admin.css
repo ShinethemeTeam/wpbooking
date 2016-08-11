@@ -2119,3 +2119,9 @@ a.ui-datepicker-next {
 .wpbooking-taxonomy-metabox .input-group input[type=text] {
   width: auto;
 }
+.wpbooking_extra_service-checklist {
+  display: none;
+}
+.wpbooking_location-checklist {
+  display: none;
+}

@@ -343,6 +343,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			if (!empty($taxonomy)) {
 				foreach ($taxonomy as $k => $v) {
 					if ($k == 'wpbooking_location') continue;
+					if ($k == 'wpbooking_extra_service') continue;
 					$list_taxonomy[$k] = $v->label;
 				}
 			}

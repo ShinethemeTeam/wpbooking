@@ -541,12 +541,10 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			if ($sortby = WPBooking_Input::request('wb_sort_by')) {
 				switch ($sortby) {
 					case "price_asc":
-						$injection->add_arg('orderby', 'price');
-						$injection->add_arg('order', 'asc');
+						$injection->orderby($table_prefix.'.price', 'asc');
 						break;
 					case "price_desc":
-						$injection->add_arg('orderby', $table_prefix.'.price');
-						$injection->add_arg('order', 'desc');
+						$injection->orderby($table_prefix.'.price', 'desc');
 						break;
 					case "date_asc":
 						$injection->add_arg('orderby', 'date');
@@ -559,12 +557,10 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					case "rate_asc":
 					case "rate_desc":
 						$rate_calculate = 1;
-
-						$injection->add_arg('orderby', 'avg_rate');
 						if ($sortby == 'rate_asc') {
-							$injection->add_arg('order', 'asc');
+							$injection->orderby('avg_rate', 'asc');
 						} else {
-							$injection->add_arg('order', 'desc');
+							$injection->orderby('avg_rate', 'desc');
 						}
 
 						break;

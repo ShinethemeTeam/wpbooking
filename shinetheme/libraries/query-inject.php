@@ -30,6 +30,7 @@ if(!class_exists('WPBooking_Query_Inject')){
 			add_filter('posts_where',array($this,'posts_where'));
 			add_filter('posts_fields',array($this,'posts_fields'));
 			add_filter('posts_groupby',array($this,'posts_groupby'));
+			add_filter('posts_orderby',array($this,'posts_orderby'));
 
 			add_filter('wpbooking_wb_query_arg',array($this,'apply_query_args'));
 
@@ -420,6 +421,32 @@ if(!class_exists('WPBooking_Query_Inject')){
 		}
 
 		/**
+		 * Add Order By clause to the Query
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $orderby_default
+		 * @return bool|string
+		 */
+		function posts_orderby($orderby_default)
+		{
+			$order = FALSE;
+			if (!empty($this->_order_query)) {
+				foreach ($this->_order_query as $k => $v) {
+					$order .= ' ' . $k . ' ' . $v . ',';
+				}
+
+				$order = substr($order, 0, -1);
+			}
+
+			if($order)
+				$orderby_default=$order;
+
+			return $orderby_default;
+		}
+
+		/**
 		 * Add Select Clause to the Query
 		 *
 		 * @since 1.0
@@ -476,6 +503,7 @@ if(!class_exists('WPBooking_Query_Inject')){
 			remove_filter('posts_where',array($this,'posts_where'));
 			remove_filter('posts_groupby',array($this,'posts_groupby'));
 			remove_filter('posts_fields',array($this,'posts_fields'));
+			remove_filter('posts_orderby',array($this,'posts_orderby'));
 			remove_filter('wpbooking_wb_query_arg',array($this,'apply_query_args'));
 		}
 
