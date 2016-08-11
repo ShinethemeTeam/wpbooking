@@ -2122,6 +2122,10 @@ a.ui-datepicker-next {
 .wpbooking_extra_service-checklist {
   display: none;
 }
-.wpbooking_location-checklist {
+.wpbooking_location-checklist,
+label[for=wpbooking_extra_servicediv-hide],
+label[for=wpbooking_amenitydiv-hide],
+label[for=wpbooking_room_typediv-hide],
+label[for=wpbooking_locationdiv-hide] {
   display: none;
 }
