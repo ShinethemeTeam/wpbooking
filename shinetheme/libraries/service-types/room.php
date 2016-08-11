@@ -23,10 +23,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					'id'    => 'title',
 					'label' => __('General Options', 'wpbooking'),
 					'type'  => 'title',
-				), array(
-					'id'    => 'archive_page',
-					'label' => __('Archive Page', 'wpbooking'),
-					'type'  => 'page-select',
 				),
 				array(
 					'id'    => 'review',
@@ -137,10 +133,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			add_filter('comments_open', array($this, '_comments_open'), 10, 2);
 			add_action('pre_comment_on_post', array($this, '_validate_comment'));
 			add_filter('pre_comment_approved', array($this, '_pre_comment_approved'));
-
-			// wpbooking_archive_posts_per_page
-
-			add_filter('wpbooking_archive_posts_per_page', array($this, '_change_posts_per_page'), 10, 2);
 
 			//wpbooking_archive_loop_image_size
 			add_filter('wpbooking_archive_loop_image_size', array($this, '_apply_thumb_size'), 10, 3);
@@ -533,7 +525,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			}
 
 			// Posts Per page
-			if ($posts_per_page = $this->get_option('posts_per_page')) {
+			if ($posts_per_page = $this->posts_per_page()) {
 				$injection->add_arg('posts_per_page', $posts_per_page);
 			}
 
@@ -825,14 +817,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			return $this->get_option('posts_per_page');
 		}
 
-		function _change_posts_per_page($posts_per_page, $template_id = FALSE)
-		{
-			if ($template_id and $this->get_option('archive_page') == $template_id) {
-				$posts_per_page = $this->posts_per_page();
-			}
-
-			return $posts_per_page;
-		}
 
 		function thumb_size($default = FALSE)
 		{

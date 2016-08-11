@@ -57,10 +57,15 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 
 			/**
 			 * Change Default Query Search
+			 *
 			 * @since 1.0
 			 * @author dungdt
 			 */
-			add_action('init', array($this, '_add_default_query_hook'));
+			// Check current service type
+			if($service_type=WPBooking_Input::get('service_type') and  $service_type==$this->type_id){
+				add_action('init', array($this, '_add_default_query_hook'));
+			}
+
 
 		}
 
@@ -479,8 +484,16 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 
 		}
 
+		/**
+		 * Add Query Hook in Archive Page
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 */
 		function _add_default_query_hook()
 		{
+
 			global $wpdb;
 
 			$table = WPBooking_Service_Model::inst()->get_table_name(FALSE);
