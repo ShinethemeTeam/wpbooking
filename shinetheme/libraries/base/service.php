@@ -359,8 +359,13 @@ if (!class_exists('WB_Service')) {
 
 					if (!empty($res) and is_array($res)) {
 						foreach ($res as $key => $value) {
-							$res[$key]['title'] = $value['is_selected'];
-							unset($res[$key]['is_selected']);
+							if(term_exists($key,'wpbooking_extra_service')){
+								$res[$key]['title'] = $value['is_selected'];
+								unset($res[$key]['is_selected']);
+							}else{
+								unset($res[$key]);
+							}
+
 						}
 					}
 
