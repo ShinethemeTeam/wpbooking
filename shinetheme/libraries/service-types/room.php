@@ -507,6 +507,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 						} else {
 							$operator = "OR";
 						}
+						if($operator=='OR')$operator='IN';
 						$value = explode(',', $value);
 						if (!empty($value) and is_array($value)) {
 							foreach ($value as $k => $v) {
@@ -526,6 +527,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					}
 				}
 
+
 				if (!empty($tax_query_child))
 					$tax_query[] = $tax_query_child;
 			}
@@ -539,11 +541,11 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			if ($sortby = WPBooking_Input::request('wb_sort_by')) {
 				switch ($sortby) {
 					case "price_asc":
-						$injection->add_arg('orderby', $table_prefix.'price');
+						$injection->add_arg('orderby', 'price');
 						$injection->add_arg('order', 'asc');
 						break;
 					case "price_desc":
-						$injection->add_arg('orderby', $table_prefix.'price');
+						$injection->add_arg('orderby', $table_prefix.'.price');
 						$injection->add_arg('order', 'desc');
 						break;
 					case "date_asc":

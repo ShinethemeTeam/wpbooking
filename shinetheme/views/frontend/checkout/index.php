@@ -38,7 +38,7 @@ if(empty($cart))
 				<?php echo wpbooking_load_view('checkout/gateways') ?>
 			</div>
 			<div class="checkout-submit-button">
-				<button type="submit" class="wb-btn wb-btn-blue submit-button"><?php _e('Place Your Order','wpbooking') ?></button>
+				<button type="submit" class="wb-btn wb-btn-blue submit-button"><?php _e('Checkout Now','wpbooking') ?></button>
 			</div>
 		</div>
 		<div class="wpbooking-checkout-review-order">

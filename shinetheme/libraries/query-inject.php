@@ -310,7 +310,6 @@ if(!class_exists('WPBooking_Query_Inject')){
 		 * @return mixed
 		 */
 		function posts_join($join_default){
-
 			global $wpdb;
 
 			$join = FALSE;
@@ -439,8 +438,9 @@ if(!class_exists('WPBooking_Query_Inject')){
 			return $select;
 		}
 
+
 		/**
-		 * Apply Filter For Query Args
+		 * Filter For Query Args
 		 *
 		 * @since 1.0
 		 * @author dungdt
@@ -450,7 +450,10 @@ if(!class_exists('WPBooking_Query_Inject')){
 		 */
 		function apply_query_args($args)
 		{
-			if(empty($this->_query_args)) return $args; return array_merge($args,$this->_query_args);
+			if(empty($this->_query_args)) return $args;
+
+			$query=array_merge($args,$this->_query_args);
+			return $query;
 		}
 
 		/**

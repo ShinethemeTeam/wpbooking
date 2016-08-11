@@ -393,6 +393,7 @@ if (!class_exists('WPBooking_Model')) {
 
 			$query .= $where;
 
+			$this->_clear_query();
 			return $wpdb->query($query);
 
 		}
@@ -424,6 +425,7 @@ if (!class_exists('WPBooking_Model')) {
 
 			$wpdb->query($query);
 
+			$this->_clear_query();
 			return $wpdb->insert_id;
 
 		}
@@ -475,7 +477,7 @@ if (!class_exists('WPBooking_Model')) {
 			$query = "DELETE FROM " . $table_name . " ";
 
 			$query .= $where;
-
+			$this->_clear_query();
 			return $wpdb->query($query);
 		}
 
