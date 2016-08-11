@@ -30,6 +30,7 @@ if(!class_exists('WPBooking_Taxonomy_Metabox'))
 
 		}
 
+
 		function _save_term_meta($term_id,$term_taxonomy_id=FALSE,$taxonomy=FALSE)
 		{
 			$fields=array();
@@ -99,6 +100,35 @@ if(!class_exists('WPBooking_Taxonomy_Metabox'))
 			}
 		}
 
+		/**
+		 * Check if Taxonomy has meta field id
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $field_id
+		 * @param $taxonomy
+		 * @return bool
+		 */
+		function check_field_exists($field_id,$taxonomy){
+
+			$fields=array();
+			if(!empty($this->metabox_array) and !empty($this->metabox_array[$taxonomy])){
+				foreach($this->metabox_array[$taxonomy] as $metabox){
+					if(!empty($metabox['fields'])){
+						foreach($metabox['fields'] as $field){
+							$fields[]=$field;
+						}
+					}
+				}
+			}
+			if(!empty($fields)){
+				foreach($fields as $field){
+					if($field['id']==$field_id) return true;
+				}
+			}
+			return FALSE;
+		}
 		/**
 		 * @since 1.0
 		 * @author dungdt

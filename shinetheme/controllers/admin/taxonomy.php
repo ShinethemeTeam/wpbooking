@@ -101,6 +101,29 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 						$res['data']=array(
 							'term_id'=>$q['term_id'],
 							'name'=>$term_name);
+
+						// Extra Fields
+						$other_data_raw=WPBooking_Input::post('other_data');
+						parse_str(urldecode($other_data_raw),$other_data);
+
+						$fields=array('icon');
+						if(!empty($other_data['_add_term']) and is_array($other_data['_add_term'])){
+							foreach($fields as $field){
+								if(array_key_exists($field,$other_data['_add_term'])){
+									WPBooking_Taxonomy_Meta_Model::inst()->update_meta($q['term_id'],$field,$other_data['_add_term'][$field]);
+
+									switch($field){
+										case "icon":
+											$res['extra_fields'][$field]=wpbooking_icon_class_handler($other_data['_add_term'][$field]);
+											break;
+										default:
+											$res['extra_fields'][$field]=$other_data['_add_term'][$field];
+											break;
+									}
+								}
+							}
+						}
+
 					}
 				}
 

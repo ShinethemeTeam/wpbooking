@@ -755,14 +755,20 @@ jQuery(document).ready(function( $ ){
             data:{
                 action:'wpbooking_add_term',
                 term_name:term_name,
-                taxonomy:tax_name
+                taxonomy:tax_name,
+                other_data:parent.find('input').serialize()
             },
             success:function(res){
                 parent.removeClass('loading');
                 if(res.status){
                     if(res.data.term_id && res.data.name){
                         var input_name=me.data('name');
-                        list_terms.append('<div class="term-checkbox"><label><input type="checkbox" name="'+input_name+'['+tax_name+'][]" value="'+res.data.term_id+'"><span>'+res.data.name+'</span></label></div>')
+                        // Icon
+                        var extra_html='';
+                        if(typeof res.extra_fields.icon !='undefined'){
+                            extra_html+='<span class="icon"><i class="'+res.extra_fields.icon+'"></i></span>';
+                        }
+                        list_terms.append('<div class="term-checkbox"><label><input type="checkbox" name="'+input_name+'['+tax_name+'][]" value="'+res.data.term_id+'">'+extra_html+'<span>'+res.data.name+'</span></label></div>')
                     }
                     parent.find('.term-name').val('');
                 }
