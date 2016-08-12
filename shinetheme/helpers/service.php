@@ -55,7 +55,13 @@ if(!function_exists('wpbooking_service_rate_to_html'))
 		}
 		$html.='</span>';
 
-		$count=get_comments_number($post_id);
+		$res=WPBooking_Comment_Model::inst()->select('count(comment_ID) as total')->where(array(
+			'comment_post_ID'=>$post_id,
+			'comment_parent'=>0,
+			'comment_approved'=>1
+		))->get()->row();
+		$count=!empty($res['total'])?$res['total']:0;
+		
 		$html.='<span class="rating-count">';
 		if($count==0){
 			$html.=esc_html__('0 review','wpbooking');
