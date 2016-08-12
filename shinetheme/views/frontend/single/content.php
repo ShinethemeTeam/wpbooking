@@ -216,13 +216,25 @@ $service = new WB_Service();
 							class="service-detail-title"><?php esc_html_e('Additional Guests / Taxes / Misc', 'wpbooking') ?></div>
 						<div class="service-detail-content">
 							<?php $array = array(
-								'rate_based_on'          => esc_html__('Rates are based on occupancy of: <strong>%s</strong>', 'wpbooking'),
-								'additional_guest_money' => esc_html__('Each additional guest will pay : %s / night', 'wpbooking'),
-								'tax'                    => esc_html__('Tax: <strong>%s</strong>', 'wpbooking'),
+								'rate_based_on'          => sprintf(esc_html__('Rates are based on occupancy of: %s', 'wpbooking'),'<strong>%s</strong><br>'),
+								'additional_guest_money' => sprintf(esc_html__('Each additional guest will pay : %s / night', 'wpbooking').'<br>','<strong>%s</strong>'),
+								'tax'                    => sprintf(esc_html__('Tax: %s', 'wpbooking'),'<strong>%s</strong><br>'),
 							);
 							foreach ($array as $key => $val) {
 								if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
-									printf($val, WPBooking_Currency::format_money($value) . '<br>');
+									switch($key){
+										case "rate_based_on":
+											printf($val,$value);
+											break;
+										case "tax":
+											printf($val,$value.'%');
+											break;
+										case "additional_guest_money":
+											printf($val, WPBooking_Currency::format_money($value));
+											break;
+
+									}
+
 								}
 							}
 							?>
@@ -241,6 +253,7 @@ $service = new WB_Service();
 							<ul class="service-extra-price">
 								<?php
 								foreach ($extra_services as $key => $val) {
+									if(!$val['money']) continue;
 									$price = WPBooking_Currency::format_money($val['money']);
 									if ($val['require']=='yes') $price .= '<span class="required">' . esc_html__('required', 'wpbooking') . '</span>';
 									printf('<li>+ %s: %s</li>', wpbooking_get_translated_string($val['title']), $price);

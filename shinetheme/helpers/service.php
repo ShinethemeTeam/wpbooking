@@ -61,7 +61,7 @@ if(!function_exists('wpbooking_service_rate_to_html'))
 			'comment_approved'=>1
 		))->get()->row();
 		$count=!empty($res['total'])?$res['total']:0;
-		
+
 		$html.='<span class="rating-count">';
 		if($count==0){
 			$html.=esc_html__('0 review','wpbooking');

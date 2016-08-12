@@ -233,7 +233,7 @@ if(!function_exists('wpbooking_user_liked_review')){
 		if(!$user_id) $user_id=get_current_user_id();
 		if(!$user_id) return FALSE;
 
-		return WPBooking_Review_Helpful_Model::inst()->count($review_id);
+		return WPBooking_Review_Helpful_Model::inst()->count($review_id,$user_id);
 
 	}
 }

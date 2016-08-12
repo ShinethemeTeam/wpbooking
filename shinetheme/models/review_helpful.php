@@ -69,12 +69,19 @@ if (!class_exists('WPBooking_Review_Helpful_Model')) {
 		 * @author dungdt
 		 *
 		 * @param $review_id
+		 * @param $user_id
 		 * @return int
 		 */
-		function count($review_id){
-			$res= $this->select('count(id) as total')->where(array(
-				'review_id'=>$review_id
-			))->get(1)->row();
+		function count($review_id,$user_id=FALSE){
+			$this->select('count(id) as total')->where(array(
+				'review_id'=>$review_id,
+
+			));
+			if($user_id){
+				$this->where('user_id',$user_id);
+			}
+
+			$res=$this->get(1)->row();
 
 			if(!empty($res['total'])) return $res['total'];
 			return 0;
