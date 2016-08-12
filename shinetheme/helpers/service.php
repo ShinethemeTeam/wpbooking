@@ -226,7 +226,7 @@ if(!function_exists('wpbooking_review_allow_reply')){
 			$post_id = $review->comment_post_ID;
 			$service = new WB_Service($post_id);
 			$count_child=WPBooking_Comment_Model::inst()->count_child($review_id);
-			if(!$count_child and !$review->comment_parent and $service->get_author('id') == get_current_user_id()) $allow=true;
+			if(!$count_child and !$review->comment_parent and $service->get_author('id') == get_current_user_id() and $review->user_id!=get_current_user_id()) $allow=true;
 		}
 
 		return apply_filters('wpbooking_review_allow_reply',$allow);
