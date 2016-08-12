@@ -935,7 +935,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 				// room_maximum_review
 				if ($max = $this->room_maximum_review() and is_user_logged_in()) {
 					$comment = WPBooking_Comment_Model::inst();
-					$count = $comment->select('count(comment_ID) as total')->where(array('comment_post_ID' => $post_id, 'user_id' => get_current_user_id()))->get()->row();
+					$count = $comment->select('count(comment_ID) as total')->where(array('comment_post_ID' => $post_id,'comment_parent'=>0, 'user_id' => get_current_user_id()))->get()->row();
 					if (!empty($count['total']) and $count['total'] >= $max) {
 
 						wpbooking_set_message(sprintf(esc_html__('Maximum number of review you can post is %d', 'wpbooking'), $max));
