@@ -390,6 +390,21 @@ if (!class_exists('WB_Service')) {
 		}
 
 		/**
+		 * Get Max Guests of Service
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return mixed
+		 */
+		function get_max_guests()
+		{
+			if($this->ID){
+				return get_post_meta($this->ID,'max_guests',TRUE);
+			}
+		}
+
+		/**
 		 * Get Terms array of current Post by Taxonomy
 		 *
 		 * @since 1.0
@@ -549,6 +564,13 @@ if (!class_exists('WB_Service')) {
 			}
 
 			return apply_filters('wpbooking_service_check_availability',$return,$this,$start,$end);
+		}
+
+		function get_meta($key)
+		{
+			if($this->ID){
+				return get_post_meta($this->ID,$key,TRUE);
+			}
 		}
 	}
 }

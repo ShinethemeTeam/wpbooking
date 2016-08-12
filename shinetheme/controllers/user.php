@@ -925,7 +925,7 @@ if (!class_exists('WPBooking_User')) {
 		{
 			if(!$author_email) $author_email=get_comment_author_email();
 			global $wpdb;
-			return $count = $wpdb->get_var('SELECT COUNT(comment_ID) FROM ' . $wpdb->comments. ' WHERE comment_author_email = "' . $author_email . '"');
+			return $count = $wpdb->get_var('SELECT COUNT(comment_ID) FROM ' . $wpdb->comments. ' WHERE comment_approved=1 and  comment_author_email = "' . $author_email . '"');
 		}
 
 		function generate_username()

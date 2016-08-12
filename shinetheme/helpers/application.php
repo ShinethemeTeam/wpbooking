@@ -256,3 +256,14 @@ if(!function_exists('wpbooking_query')){
 		return $query;
 	}
 }
+
+if(!function_exists('wpbooking_date_diff')){
+	function wpbooking_date_diff($start_timestamp,$end_timestamp)
+	{
+		$dStart = new DateTime();
+		$dStart->setTimestamp($start_timestamp);
+		$dEnd = new DateTime();
+		$dEnd->setTimestamp($end_timestamp);
+		return $dStart->diff($dEnd)->days;
+	}
+}

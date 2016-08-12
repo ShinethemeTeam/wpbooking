@@ -71,7 +71,7 @@ if (!class_exists('WPBooking_Form_Extra_Service_Field')) {
 
 				if(!empty($extra_services) and is_array($extra_services)){
 					if(!empty($data['title'])){
-						$list_item[]=sprintf('<p><label>%s</label></p>',$data['title']);
+						$list_item[]=sprintf('<p><label>%s</label></p>',wpbooking_get_translated_string($data['title']));
 					}
 					$list_item[]='<div class="wb-field wb-extra-fields">';
 					$i=1;

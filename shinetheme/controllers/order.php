@@ -99,28 +99,26 @@ if (!class_exists('WPBooking_Order')) {
 				$cart = WPBooking_Session::get('wpbooking_cart', array());
 
 				$cart_params = array(
-					'post_id'               => $post_id,
-					'service_type'          => $service_type,
-					'order_form'            => $fields,
-					'base_price'            => get_post_meta($post_id, 'price', TRUE),
-					'currency'              => WPBooking_Currency::get_current_currency('currency'),
-					'deposit'               => get_post_meta($post_id, 'deposit', TRUE),
-					'deposit_amount'        => get_post_meta($post_id, 'deposit_amount', TRUE),
-					'need_customer_confirm' => apply_filters('wpbooking_service_need_customer_confirm', 0, $post_id, $service_type),
-					'need_partner_confirm'  => apply_filters('wpbooking_service_need_partner_confirm', 0, $post_id, $service_type),
-					'sub_total'             => get_post_meta($post_id, 'price', TRUE), // Subtotal of item, without extra price,
-					'extra_prices'          => WPBooking_Input::post('extra_services')
+					'post_id'              => $post_id,
+					'service_type'         => $service_type,
+					'order_form'           => $fields,
+					'base_price'           => get_post_meta($post_id, 'price', TRUE),
+					'currency'             => WPBooking_Currency::get_current_currency('currency'),
+					'deposit_amount'       => $service->get_meta('deposit_amount'),
+					'deposit_type'         => $service->get_meta('deposit_type'),
+					'sub_total'            => 0,
+					'cancellation_allowed' => $service->get_meta('cancellation_allowed')
 				);
 
 				// Extra Services
-				$extra_prices = WPBooking_Input::post('extra_services');
-				if (empty($extra_prices)) {
+				$extra_services = WPBooking_Input::post('extra_services');
+				if (empty($extra_services)) {
 					// Get Default
 					$all_extra = $service->get_extra_services();
-					if (!empty($all_extra) and is_array($all_extra)) {
+					if (!empty($extra_services) and is_array($all_extra)) {
 						foreach ($all_extra as $key => $value) {
 							if ($value['require'] == 'yes' and $value['money'])
-								$extra_prices[] = array(
+								$extra_services[] = array(
 									'title'   => $value['title'],
 									'money'   => $value['money'],
 									'require' => 'yes',
@@ -128,10 +126,22 @@ if (!class_exists('WPBooking_Order')) {
 								);
 						}
 					}
-				}else{
-					// If _POST is not empty
+				} else {
+					// Get Default
+					$all_extra = $service->get_extra_services();
 
+					// If _POST is not empty
+					foreach($extra_services as $key=>$value){
+
+						// Remove Un exists from defaults
+						if(!array_key_exists($key,$all_extra)) unset($extra_services[$key]);
+
+						// Add Required
+						if($all_extra[$key]['require']=='yes') $extra_services[$key]['require']='yes';
+					}
 				}
+				$cart_params['extra_services']=$extra_services;
+
 
 				// Convert Check In and Check Out to Timstamp if available
 				if (!empty($fields['check_in']['value'])) {
@@ -427,7 +437,7 @@ if (!class_exists('WPBooking_Order')) {
 		function get_cart_item_total($cart_item, $need_convert = FALSE)
 		{
 
-			$item_price = $cart_item['sub_total'];
+			$item_price = $cart_item['base_price'];
 			$item_price = apply_filters('wpbooking_cart_item_price', $item_price, $cart_item);
 			$item_price = apply_filters('wpbooking_cart_item_price_' . $cart_item['service_type'], $item_price, $cart_item);
 

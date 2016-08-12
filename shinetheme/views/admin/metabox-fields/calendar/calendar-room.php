@@ -56,11 +56,11 @@ $property_available_for=get_post_meta(get_the_ID(),'property_available_for',true
 							<label class="calendar-label" for="calendar-price"><?php echo __('Nightly Price', 'wpbooking'); ?></label>
 							<input class="calendar-input" type="text" id="calendar-price" name="calendar-price" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
 						</div>
-						<div class="calendar-room-form-item full-width" >
+						<div class="calendar-room-form-item full-width hidden" >
 							<label class="calendar-label" for="calendar-price-week"><?php echo __('Weekly Price', 'wpbooking'); ?></label>
 							<input class="calendar-input-week" type="text" id="calendar-price-week" name="calendar-price-week" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
 						</div>
-						<div class="calendar-room-form-item full-width" >
+						<div class="calendar-room-form-item full-width hidden" >
 							<label class="calendar-label" for="calendar-price-month"><?php echo __('Montly Price', 'wpbooking'); ?></label>
 							<input class="calendar-input-month" type="text" id="calendar-price-month" name="calendar-price-month" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
 						</div>

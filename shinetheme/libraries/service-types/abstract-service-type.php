@@ -119,7 +119,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 				$key = 0;
 				foreach ($terms as $term) {
 					$html = sprintf('<a href="%s">%s</a>', get_term_link($term, 'wpbooking_room_type'), $term->name);
-					if ($key < count($term)) {
+					if ($key < count($term)-1) {
 						$html .= ',';
 					}
 					$output[] = $html;

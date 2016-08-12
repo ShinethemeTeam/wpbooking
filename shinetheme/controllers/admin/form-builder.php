@@ -64,6 +64,7 @@ if(!class_exists( 'WPBooking_Admin_Form_Build' )) {
               	'shortcodes/form-build-default/submit-button',
               	'shortcodes/form-build-default/check-in',
               	'shortcodes/form-build-default/check-out',
+              	'shortcodes/form-build-default/guest',
               	'shortcodes/form-build-default/first-name',
               	'shortcodes/form-build-default/last-name',
               	'shortcodes/form-build-default/user-email',

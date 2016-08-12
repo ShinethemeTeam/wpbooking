@@ -1268,7 +1268,7 @@ jQuery(document).ready(function($){
             dataType:'json',
             success:function(res){
                 if(res.status){
-                    $('.review-vote-count').html(res.vote_count);
+                    me.closest('.wpbooking-vote-for-review').find('.review-vote-count').html(res.vote_count);
                 }
                 if(res.voted){
                     me.addClass('active');
