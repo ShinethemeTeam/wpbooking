@@ -361,7 +361,7 @@ $service = new WB_Service();
 
 		<div class="service-content-section comment-section">
 			<?php
-			if (comments_open() || get_comments_number()) :
+			if (comments_open(get_the_ID()) || get_comments_number()) :
 				comments_template();
 			endif;
 			?>

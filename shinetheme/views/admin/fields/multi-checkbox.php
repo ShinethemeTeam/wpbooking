@@ -1,7 +1,7 @@
 <?php
 $custom_value = $data['value'];
 ?>
-<tr class="wpbooking-setting-<?php echo esc_html($data['id']) ?>">
+<tr class="wpbooking-setting-<?php echo esc_html($data['id']) ?> wpbooking-form-group">
     <th scope="row">
         <label for="<?php echo esc_html($data['id']) ?>"><?php echo esc_html($data['label']) ?>:</label>
     </th>
@@ -17,8 +17,14 @@ $custom_value = $data['value'];
                         if($data_value == 'on') {
                             $is_check = "checked";
                         }
+						$class=FALSE;
+						$data_class=FALSE;
+						if(!empty($value['condition'])){
+							$class='wpbooking-condition';
+							$data_class = ' data-condition=wpbooking_'.$value['condition'].' ' ;
+						}
                         ?>
-                        <li>
+                        <li class="<?php echo esc_attr($class) ?>" <?php echo esc_attr($data_class) ?>>
                             <label>
                                 <input type="checkbox" class="form-control min-width-500" <?php echo esc_html($is_check) ?>   name="wpbooking_<?php echo esc_html($value['id']) ?>">
                                 <?php echo esc_html($value['label']) ?>

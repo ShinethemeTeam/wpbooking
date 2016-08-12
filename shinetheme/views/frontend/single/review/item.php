@@ -18,8 +18,8 @@ $reply_allow=wpbooking_review_allow_reply(get_comment_ID());
 
 		<footer class="comment-meta">
 			<div class="comment-author vcard">
-				<?php if ( 0 != $args['avatar_size'] ) echo get_avatar( $comment, $args['avatar_size'] ); ?>
-				<?php printf( '<b class="review-author-name">%s</b>', get_comment_author_link( $comment ) ); ?>
+				<?php if ( 0 != $args['avatar_size'] ) echo get_avatar( $comment->comment_author_email, $args['avatar_size'] ); ?>
+				<?php printf( '<b class="review-author-name">%s</b>', get_comment_author_link( $comment->comment_ID ) ); ?>
 				<?php $count=WPBooking_User::inst()->count_reviews();
 				if($count){
 					printf('<span class="review-count">'._n('1 review','%d reviews',$count,'wpbooking').'</span>',$count);
@@ -30,7 +30,7 @@ $reply_allow=wpbooking_review_allow_reply(get_comment_ID());
 
 		<div class="comment-content-wrap">
 			<?php if ( '0' == $comment->comment_approved ) : ?>
-				<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.' ); ?></p>
+				<p class="comment-awaiting-moderation"><?php _e( 'This review is waiting for approval.' ); ?></p>
 			<?php else:
 				if($comment_title=get_comment_meta(get_comment_ID(),'wpbooking_title',true)){
 					printf('<span class="comnent-title">%s</span>',$comment_title);

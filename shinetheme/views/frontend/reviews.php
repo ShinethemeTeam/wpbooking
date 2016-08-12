@@ -59,13 +59,7 @@ if ( post_password_required() ) {
 		}
 		?>
 	<?php endif; // have_comments() ?>
-	
-	<?php
-	// If comments are closed and there are comments, let's leave a little note, shall we?
-	if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) :
-		?>
-		<p class="no-comments"><?php _e( 'Comments are closed.', 'wpbooking' ); ?></p>
-	<?php endif; ?>
+
 
 	<?php
 	$field_review = apply_filters('wpbooking_review_field', wpbooking_load_view('single/review/review-field'));
@@ -92,8 +86,7 @@ if ( post_password_required() ) {
 						<p class="comment-form-comment"><label for="comment">' . esc_html__( 'Review Text', 'wpbooking' ) . '</label> <textarea id="comment" name="comment" cols="45" rows="8"  aria-required="true" required="required"></textarea></p></div>'.$field_review,
 		'label_submit'=>esc_html__('SEND','wpbooking')
 	));
-
-	if(!comments_open() and !is_user_logged_in()){
+	if(!comments_open(get_the_ID()) and !is_user_logged_in()){
 		printf('<p class="alert alert-danger">%s</p>',esc_html__('Please Login To Write Review','wpbooking'));
 	}
 	?>

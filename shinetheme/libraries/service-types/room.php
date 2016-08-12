@@ -34,12 +34,13 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 							'label' => __('Enable Review', 'wpbooking')
 						),
 						array(
-							'id'    => 'service_type_' . $this->type_id . '_allow_guest_review',
-							'label' => __('Allow guest can write review', 'wpbooking')
-						),
-						array(
 							'id'    => 'service_type_' . $this->type_id . '_review_without_booking',
 							'label' => __('Allow user to review without booking', 'wpbooking')
+						),
+						array(
+							'id'    => 'service_type_' . $this->type_id . '_allow_guest_review',
+							'label' => __('Allow guest can write review', 'wpbooking'),
+							'condition'=>'service_type_' . $this->type_id . '_review_without_booking:is(on)'
 						),
 						array(
 							'id'    => 'service_type_' . $this->type_id . '_show_rate_review_button',
@@ -924,7 +925,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		function _comments_open($open, $post_id)
 		{
 			$service_type = get_post_meta($post_id, 'service_type', TRUE);
-			if ($service_type == $this->type_id) {
+			if ($post_id and $service_type == $this->type_id) {
 				$open = $this->get_option('enable_review');
 
 				if(is_user_logged_in()){
@@ -965,10 +966,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 				}
 
 
-
-				if ($open) $open = 'open';
 			}
-
 
 			return $open;
 		}

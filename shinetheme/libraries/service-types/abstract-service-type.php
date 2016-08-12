@@ -463,9 +463,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 				$ids=array($location_id);
 
 				if(!empty($childs) and !is_wp_error($childs)){
-					foreach($childs as $key=>$value){
-						$ids[]=$value->term_id;
-					}
+					$ids=array_merge($ids,$childs);
 				}
 				if(!empty($ids)){
 					$injection->where_in($table_prefix . '.location_id', $ids);
