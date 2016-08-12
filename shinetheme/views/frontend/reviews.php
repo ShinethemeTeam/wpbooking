@@ -91,6 +91,11 @@ if ( post_password_required() ) {
 						</p>
 						<p class="comment-form-comment"><label for="comment">' . esc_html__( 'Review Text', 'wpbooking' ) . '</label> <textarea id="comment" name="comment" cols="45" rows="8"  aria-required="true" required="required"></textarea></p></div>'.$field_review,
 		'label_submit'=>esc_html__('SEND','wpbooking')
-	)); ?>
+	));
+
+	if(!comments_open() and !is_user_logged_in()){
+		printf('<p class="alert alert-danger">%s</p>',esc_html__('Please Login To Write Review','wpbooking'));
+	}
+	?>
 
 </div><!-- .comments-area -->

@@ -35,11 +35,11 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 						),
 						array(
 							'id'    => 'service_type_' . $this->type_id . '_allow_guest_review',
-							'label' => __('Allow Guest Review', 'wpbooking')
+							'label' => __('Allow guest can write review', 'wpbooking')
 						),
 						array(
 							'id'    => 'service_type_' . $this->type_id . '_review_without_booking',
-							'label' => __('Review Without Booking', 'wpbooking')
+							'label' => __('Allow user to review without booking', 'wpbooking')
 						),
 						array(
 							'id'    => 'service_type_' . $this->type_id . '_show_rate_review_button',
@@ -927,40 +927,44 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			if ($service_type == $this->type_id) {
 				$open = $this->get_option('enable_review');
 
-				if (!$this->allow_guest_review() and !is_user_logged_in()) {
-					wpbooking_set_message(esc_html__('You need login to write review', 'wpbooking'));
-					$open = FALSE;
-				}
+				if(is_user_logged_in()){
+					// room_maximum_review
+					if ($max = $this->room_maximum_review()) {
+						$comment = WPBooking_Comment_Model::inst();
+						$count = $comment->select('count(comment_ID) as total')->where(array('comment_post_ID' => $post_id,'comment_parent'=>0, 'user_id' => get_current_user_id()))->get()->row();
+						if (!empty($count['total']) and $count['total'] >= $max) {
 
-				// room_maximum_review
-				if ($max = $this->room_maximum_review() and is_user_logged_in()) {
-					$comment = WPBooking_Comment_Model::inst();
-					$count = $comment->select('count(comment_ID) as total')->where(array('comment_post_ID' => $post_id,'comment_parent'=>0, 'user_id' => get_current_user_id()))->get()->row();
-					if (!empty($count['total']) and $count['total'] >= $max) {
+							wpbooking_set_message(sprintf(esc_html__('Maximum number of review you can post is %d', 'wpbooking'), $max));
+							$open = FALSE;
+						}
+					}
 
-						wpbooking_set_message(sprintf(esc_html__('Maximum number of review you can post is %d', 'wpbooking'), $max));
+					// review_without_booking
+					if (!$this->review_without_booking()) {
+						$order_item = WPBooking_Order_Model::inst();
+						$count = $order_item->select('count(id) as total')->where(array('post_id' => $post_id, 'customer_id' => get_current_user_id()))->get()->row();
+						if (empty($count['total']) or $count['total'] < 1) {
+
+							wpbooking_set_message(esc_html__('This Room required booking before writing review', 'wpbooking'));
+							$open = FALSE;
+						}
+					}
+
+					// Review in their own posts
+					if (!$this->get_option('allowed_review_on_own_listing')) {
+						$author_id = get_post_field('post_author', $post_id);
+						if ($author_id == get_current_user_id()) {
+							$open = FALSE;
+						}
+					}
+				}else{
+					if (!$this->allow_guest_review() or !$this->review_without_booking()) {
+						wpbooking_set_message(esc_html__('You need login to write review', 'wpbooking'));
 						$open = FALSE;
 					}
 				}
 
-				// review_without_booking
-				if (!$this->review_without_booking() and is_user_logged_in()) {
-					$order_item = WPBooking_Order_Model::inst();
-					$count = $order_item->select('count(id) as total')->where(array('post_id' => $post_id, 'customer_id' => get_current_user_id()))->get()->row();
-					if (empty($count['total']) or $count['total'] < 1) {
 
-						wpbooking_set_message(esc_html__('This Room required booking before writing review', 'wpbooking'));
-						$open = FALSE;
-					}
-				}
-
-				// Review in their own posts
-				if (!$this->get_option('allowed_review_on_own_listing') and is_user_logged_in()) {
-					$author_id = get_post_field('post_author', $post_id);
-					if ($author_id == get_current_user_id()) {
-						$open = FALSE;
-					}
-				}
 
 				if ($open) $open = 'open';
 			}
