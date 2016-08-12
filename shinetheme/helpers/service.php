@@ -232,3 +232,16 @@ if(!function_exists('wpbooking_review_allow_reply')){
 		return apply_filters('wpbooking_review_allow_reply',$allow);
 	}
 }
+if(!function_exists('wpbooking_count_review')){
+	function wpbooking_count_review($post_id){
+		$model=WPBooking_Comment_Model::inst();
+
+		$res= $model->select('count(comment_ID) as total')->where(array(
+			'comment_post_ID'=>$post_id,
+			'comment_parent'=>0,
+			'comment_approved'=>1
+		))->get()->row();
+
+		return !empty($res['total'])?$res['total']:0;
+	}
+}

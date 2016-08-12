@@ -132,9 +132,12 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 				echo implode(' ', $output);
 			}
 
+			// Extra price and taxs
+			$extra_price_html=array();
+
 			// Show Order Form Field
 			$order_form = $cart_item['order_form'];
-			if (!empty($order_form) and is_array($order_form)) {
+			if ((!empty($order_form) and is_array($order_form)) or !empty($extra_price_html)) {
 				echo '<div class="cart-item-order-form-fields-wrap">';
 				echo '<span class="booking-detail-label">' . esc_html__('Booking Details:', 'wpbooking') . '</span>';
 				echo "<ul class='cart-item-order-form-fields'>";
@@ -157,20 +160,15 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 					do_action('wpbooking_form_field_to_html', $value);
 					do_action('wpbooking_form_field_to_html_' . $value['field_type'], $value);
 				}
+
+				if($extra_price_html){
+					echo implode("\r\n",$extra_price_html);
+				}
 				echo "</ul>";
 				echo '<span class="show-more-less"><span class="more">' . esc_html__('More', 'wpbooking') . ' <i class="fa fa-angle-double-down"></i></span><span class="less">' . esc_html__('Less', 'wpbooking') . ' <i class="fa fa-angle-double-up"></i></span></span>';
 				echo "</div>";
 			}
 
-			// Show Need Confirm Notification
-//			if($cart_item['need_customer_confirm'])
-//			{
-//				echo "<div class='label label-warning'>".__("Need Confirmation ",'wpbooking')."</div>";
-//			}
-//			if($cart_item['need_partner_confirm'])
-//			{
-//				echo "<div class='label label-warning'>".__("Need Approval",'wpbooking')."</div>";
-//			}
 		}
 
 		/**

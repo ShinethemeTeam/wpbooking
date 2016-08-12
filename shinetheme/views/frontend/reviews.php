@@ -40,7 +40,7 @@ if ( post_password_required() ) {
 		<?php wpbooking_comment_nav(); ?>
 
 		<?php
-		$count=get_comments_number();
+		$count=wpbooking_count_review(get_the_ID());
 		$limit=get_option('comments_per_page');
 		if($count){
 			$page = get_query_var('cpage');
@@ -55,7 +55,7 @@ if ( post_password_required() ) {
 			{
 				$to=$count;
 			}
-			printf('<div class="wpbooking-review-total"><span class="count-total">%s</span><span class="show-from">%s</span></div>',_n('1 review on this room','% reviews on this room',$count,'wpbooking'),sprintf(esc_html__('Showing %d to %d','wpbooking'),($limit*$page)+1,$to));
+			printf('<div class="wpbooking-review-total"><span class="count-total">%s</span><span class="show-from">%s</span></div>',sprintf(_n('1 review on this room','%d reviews on this room',$count,'wpbooking'),$count),sprintf(esc_html__('Showing %d to %d','wpbooking'),($limit*$page)+1,$to));
 		}
 		?>
 	<?php endif; // have_comments() ?>
