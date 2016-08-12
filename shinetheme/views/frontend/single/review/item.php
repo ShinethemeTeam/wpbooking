@@ -75,7 +75,7 @@ $reply_allow=wpbooking_review_allow_reply(get_comment_ID());
 					echo "<span class='wp-show-detail-review'><span class='more'>".esc_html__('More','wpbooking')." <i class='fa fa-angle-double-down'></i></span><span class='less'>".esc_html__('Less','wpbooking')." <i class='fa fa-angle-double-up'></i></span></span>";
 					echo "</div>";
 				}
-				if($service->enable_vote_for_review() and !$comment->comment_parent){
+				if($service->enable_vote_for_review(get_comment_ID()) and !$comment->comment_parent){
 					$count=wpbooking_count_review_vote(get_comment_ID());
 					$liked=wpbooking_user_liked_review(get_comment_ID())?'active':FALSE;
 

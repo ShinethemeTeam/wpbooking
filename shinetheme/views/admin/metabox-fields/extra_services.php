@@ -30,6 +30,7 @@ if(!empty($service_types)){
 									$current=FALSE;
 									$is_required=FALSE;
 									if(!empty($old[$k])){
+										$current=$old[$k];
 										if($old[$k]['is_selected']) {
 											$checked='checked';
 											if($old[$k]['require']=='yes') $is_required=TRUE;

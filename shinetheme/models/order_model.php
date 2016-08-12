@@ -109,8 +109,6 @@ if (!class_exists('WPBooking_Order_Model')) {
 				'child_number'          => 0,
 				'infant_number'         => 0,
 				'customer_id'           => 0,
-				'need_customer_confirm' => 0,
-				'need_partner_confirm'  => 0,
 				'deposit'               => '',
 				'deposit_amount'        => '',
 				'created_at'            => FALSE
@@ -133,15 +131,10 @@ if (!class_exists('WPBooking_Order_Model')) {
 				'deposit'               => $cart_item['deposit'],
 				'deposit_amount'        => $cart_item['deposit_amount'],
 				'partner_id'            => get_post_field('post_author', $cart_item['post_id']),
-				'need_customer_confirm' => $cart_item['need_customer_confirm'] ? 1 : 0,
-				'need_partner_confirm'  => $cart_item['need_partner_confirm'] ? 1 : 0,
 				'payment_status'        => 0,
 				'status'                => 'on-hold',
 				'created_at'            => $cart_item['created_at']
 			);
-
-			if ($insert['need_customer_confirm']) $insert['customer_confirm_code'] = $this->generate_random_code();
-			if ($insert['need_partner_confirm']) $insert['partner_confirm_code'] = $this->generate_random_code();
 
 			return $this->insert($insert);
 		}

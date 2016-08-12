@@ -48,7 +48,7 @@ if(!class_exists('WB_Order_Item')){
 		function get_total($need_convert=FALSE)
 		{
 			if($this->item_id){
-				$item_price = $this->item_data['sub_total'];
+				$item_price = $this->item_data['base_price'];
 				$item_price = apply_filters('wpbooking_order_item_total', $item_price, $this->item_data, $this->item_data['service_type']);
 				$item_price = apply_filters('wpbooking_order_item_total_' . $this->item_data['service_type'], $item_price, $this->item_data);
 

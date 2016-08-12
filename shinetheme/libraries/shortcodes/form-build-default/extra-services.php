@@ -76,13 +76,14 @@ if (!class_exists('WPBooking_Form_Extra_Service_Field')) {
 					$list_item[]='<div class="wb-field wb-extra-fields">';
 					$i=1;
 					foreach($extra_services as $key=>$value){
+						if(!$value['money']) continue;
 						$title='#'.($i).' '.wpbooking_get_translated_string($value['title']);
 						if($value['money']){
 							$title.='<br><span class="extra-service-money">'.WPBooking_Currency::format_money($value['money']).'</span>';
 						}
 						$checked=FALSE;
 						$class=FALSE;
-						$start_from=0;
+						$start_from=1;
 						if(!empty($value['require']) and $value['require']=='yes'){
 							$checked='checked disable';
 							$class='disable';
@@ -111,35 +112,31 @@ if (!class_exists('WPBooking_Form_Extra_Service_Field')) {
 
 		}
 
-		function get_value($value)
+		function get_value($form_value,$post_id=FALSE)
 		{
+			$form_value=wp_parse_args($form_value,array(
+				'value'=>array()
+			));
+			$service=new WB_Service($post_id);
+			$default = $service->get_extra_services();
+			$extra_services=$form_value['value'];
+			$html=array();
 
-			if (is_array($value['value']) and !empty($value['data']['options']) and !empty($value['value'])) {
-				$options_array = explode('|', $value['data']['options']);
-				$options = array();
-				if (!empty($options_array)) {
-					foreach ($options_array as $k => $v) {
-						$ex = explode(':', $v);
-						if (!empty($ex)) {
-							$options[$ex[1]] = $ex[0];
-						}
+			if(!empty($default)){
+				foreach($default as $k=>$v){
+					if(!array_key_exists($k,$default)) continue;
+					if(!$v['money']) continue;
+
+					$number=!empty($extra_services[$k]['number'])?$extra_services[$k]['number']:1;
+					$money=WPBooking_Currency::format_money($v['money']*$number);
+
+					if($v['require']=='yes' or !empty($extra_services[$k])) {
+						$html[]=sprintf('<div class="extra-item"><span class="extra-name">%s:</span> <span class="extra-number">(%s x %s) = </span><span class="extra-total">%s</span></div>',$v['title'],WPBooking_Currency::format_money($v['money']),$number,$money);
 					}
 				}
-
-				$value_string = array();
-
-				if (!empty($options)) {
-					foreach ($value['value'] as $v2) {
-						if (array_key_exists($v2, $options)) {
-							$value_string[] = $options[$v2];
-						}
-					}
-				}
-
-				if (!empty($value_string))
-					return implode(', ', $value_string);
-
-
+			}
+			if(!empty($html)){
+				return implode("\r\n",$html);
 			}
 		}
 

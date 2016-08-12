@@ -98,7 +98,7 @@ if(!class_exists('WPBooking_Form_Radio_Field')){
 			if($this->is_hidden($attr)) return FALSE;
 			return $list_item;
 		}
-		function get_value($form_item_data)
+		function get_value($form_item_data,$post_id)
 		{
 			return isset($form_item_data['value']) ? $form_item_data['value'] : FALSE;
 		}

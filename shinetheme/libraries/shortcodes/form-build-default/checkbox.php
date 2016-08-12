@@ -99,7 +99,7 @@ if(!class_exists('WPBooking_Form_Checkbox_Field')){
 			return $list_item;
 		}
 
-		function get_value($value){
+		function get_value($value,$post_id){
 
 			if(is_array($value['value']) and !empty($value['data']['options']) and !empty($value['value'])){
 				$options_array=explode('|',$value['data']['options']);

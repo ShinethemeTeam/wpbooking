@@ -278,12 +278,12 @@ if(!class_exists( 'WPBooking_Admin_Form_Build' )) {
             register_post_type( 'wpbooking_form' , $args );
         }
 
-		function get_form_field_data($form_item_data){
+		function get_form_field_data($form_item_data,$post_id=FALSE){
 
 			if(!empty($form_item_data['field_id']))
 			{
 				$return= apply_filters('wpbooking_get_form_field_data',FALSE,$form_item_data);
-				return apply_filters('wpbooking_get_form_field_data_'.$form_item_data['field_id'],$return,$form_item_data);
+				return apply_filters('wpbooking_get_form_field_data_'.$form_item_data['field_id'],$return,$form_item_data,$post_id);
 			}
 		}
 

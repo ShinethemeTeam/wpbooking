@@ -25,7 +25,7 @@ if(!class_exists('WPBooking_Abstract_Formbuilder_Field') )
 			if(!$this->field_id) return;
 
 			add_action('init',array($this,'_register_field'));
-			add_filter('wpbooking_get_form_field_data_'.$this->field_id,array($this,'_get_form_data_value'),10,2);
+			add_filter('wpbooking_get_form_field_data_'.$this->field_id,array($this,'_get_form_data_value'),10,3);
 		}
 
 		/**
@@ -111,9 +111,10 @@ if(!class_exists('WPBooking_Abstract_Formbuilder_Field') )
 		 * @author dungdt
 		 *
 		 * @param array $form_item_data
+		 * @param $post_id
 		 * @return string
 		 */
-		abstract function get_value($form_item_data);
+		abstract function get_value($form_item_data,$post_id);
 
 		/**
 		 *
@@ -124,11 +125,12 @@ if(!class_exists('WPBooking_Abstract_Formbuilder_Field') )
 		 *
 		 * @param string $result Default Result String
 		 * @param array $form_item_data
+		 * @param $post_id
 		 * @return string
 		 */
-		function _get_form_data_value($result,$form_item_data)
+		function _get_form_data_value($result,$form_item_data,$post_id)
 		{
-			return $this->get_value($form_item_data);
+			return $this->get_value($form_item_data,$post_id);
 		}
 
 		/**

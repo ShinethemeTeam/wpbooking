@@ -124,7 +124,7 @@ if (!class_exists('WPBooking_First_Name_Field')) {
 			return '<div class="wb-field"><input type="text" '.$a.' /></div>';
 		}
 
-		function get_value($form_item_data)
+		function get_value($form_item_data,$post_id)
 		{
 			return isset($form_item_data['value']) ? $form_item_data['value'] : FALSE;
 		}

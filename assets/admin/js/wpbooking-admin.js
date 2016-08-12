@@ -708,13 +708,10 @@ jQuery(document).ready(function( $ ){
         var checkbox=$(this).closest('.wpbooking-switch-wrap').find('.checkbox');
 
         if($(this).hasClass('switchOn')){
-            checkbox.prop('checked',true);
             checkbox.val('on');
         }else{
             checkbox.val('off');
-            checkbox.prop('checked',false);
         }
-
     });
 
     //Popover

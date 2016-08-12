@@ -19,7 +19,7 @@ if(!function_exists('wpbooking_email_checkout_form_field_func'))
 			$form_data=WPBooking_Order::inst()->get_order_form_datas($order_id);
 
 			if(array_key_exists($attr['name'],$form_data)){
-				return WPBooking_Admin_Form_Build::inst()->get_form_field_data($form_data[$attr['name']]);
+				return WPBooking_Admin_Form_Build::inst()->get_form_field_data($form_data[$attr['name']],$order_id);
 			}
 
 		}else{

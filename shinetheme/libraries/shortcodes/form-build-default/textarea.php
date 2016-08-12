@@ -114,7 +114,7 @@ if(!class_exists('WPBooking_Form_Textarea_Field')){
 			if($this->is_hidden($attr)) return FALSE;
 			return '<textarea name="' . $name . '" id="' . $id . '" class="' . $class . '" rows="' . $rows . '" cols="' . $columns . '" ' . $required . ' >' . $value . '</textarea>';
 		}
-		function get_value($form_item_data)
+		function get_value($form_item_data,$post_id)
 		{
 			return isset($form_item_data['value']) ? $form_item_data['value'] : FALSE;
 		}

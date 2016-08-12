@@ -33,7 +33,10 @@ $class.=' width-'.$data['width'];
 		<div class="st-metabox-content-wrapper">
 			<div class="form-group">
 				<label class="wpbooking-switch-wrap">
-					<input type="checkbox" name="<?php echo esc_html($data['id']) ?>" <?php checked($old_data,'on') ?>  class="checkbox">
+					<select id="<?php echo esc_html($data['id']) ?>"  name="<?php echo esc_html($data['id']) ?>" <?php checked($old_data,'on') ?>  class="checkbox">
+						<option <?php selected($old_data,'on') ?>  value="on">on</option>
+						<option <?php selected($old_data,'on') ?> value="off">off</option>
+					</select>
 					<div class="wpbooking-switch <?php echo ($old_data=='on')?'switchOn':FALSE ?>"></div>
 				</label>
 			</div>

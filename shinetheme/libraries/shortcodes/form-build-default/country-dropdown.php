@@ -417,7 +417,7 @@ if (!class_exists('WPBooking_Country_Dropdown_Field')) {
 			return apply_filters('wpbooking_country_lists', $countryList);
 		}
 
-		function get_value($form_item_data)
+		function get_value($form_item_data,$post_id)
 		{
 			$form_item_data=wp_parse_args($form_item_data,array(
 				'value'=>FALSE

@@ -138,7 +138,7 @@ if (!class_exists('WPBooking_Form_Check_Out_Field')) {
 			return '<div class="wb-field-datepicker wb-field"><label><input readonly type="text" '.$a.' /><i class="fa fa-calendar"></i></label></div>';
 		}
 
-		function get_value($form_item_data)
+		function get_value($form_item_data,$post_id)
 		{
 			return isset($form_item_data['value']) ? $form_item_data['value'] : FALSE;
 		}

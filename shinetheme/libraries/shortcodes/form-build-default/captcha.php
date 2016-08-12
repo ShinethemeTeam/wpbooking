@@ -256,7 +256,7 @@ if (!class_exists('WPBooking_Captcha_Field')) {
 		}
 
 
-		function get_value($form_item_data)
+		function get_value($form_item_data,$post_id)
 		{
 			return FALSE;
 		}

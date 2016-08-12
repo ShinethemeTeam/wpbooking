@@ -430,14 +430,15 @@ if (!class_exists('WB_Service')) {
 		 * @since 1.0
 		 * @author dungdt
 		 *
+		 * @param $review_id int
 		 * @return bool|mixed|void
 		 */
-		function enable_vote_for_review()
+		function enable_vote_for_review($review_id)
 		{
 			$enable = FALSE;
 			if ($this->ID and is_user_logged_in()) {
-				$enable = apply_filters('wpbooking_enable_vote_for_review', $enable, $this->ID, $this->service_type);
-				$enable = apply_filters('wpbooking_enable_vote_for_review_' . $this->service_type, $enable, $this->ID, $this->service_type);
+				$enable = apply_filters('wpbooking_enable_vote_for_review', $enable, $this->ID, $this->service_type,$review_id);
+				$enable = apply_filters('wpbooking_enable_vote_for_review_' . $this->service_type, $enable, $this->ID, $this->service_type,$review_id);
 			}
 
 			return $enable;

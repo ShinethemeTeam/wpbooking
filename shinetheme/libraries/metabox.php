@@ -29,7 +29,6 @@ if (!class_exists('WPBooking_Metabox')) {
 			wp_enqueue_media();
 			global $wp_styles, $wp_scripts;
 
-			$styles = $wp_styles->queue;
 			$scripts = $wp_scripts->queue;
 
 			if (!in_array('gmap3.js', $scripts)) {
@@ -191,9 +190,9 @@ if (!class_exists('WPBooking_Metabox')) {
 
 		function save_meta_box($post_id, $post_object)
 		{
-			if (empty($this->metabox['pages'])) return;
+			if (empty($this->metabox['pages'])) return FALSE;
 
-			if (!in_array(get_post_type($post_id), $this->metabox['pages'])) return;
+			if (!in_array(get_post_type($post_id), $this->metabox['pages'])) return FALSE;
 
 			global $pagenow;
 
@@ -284,6 +283,7 @@ if (!class_exists('WPBooking_Metabox')) {
 								update_post_meta($post_id,$name,WPBooking_Input::post($name));
 							}
 						}
+
 
 						break;
 

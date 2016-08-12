@@ -129,7 +129,7 @@ if(!class_exists('WPBooking_Form_Email_Field')){
 
 			return '<div class="wb-field"><input type="text" name="' . $name . '" id="' . $id . '" class="' . $class . '" value="' . $value . '" placeholder="' . $placeholder . '"  maxlength="' . $maxlength . '" size="' . $size . '"  ' . $required . ' /></div>';
 		}
-		function get_value($form_item_data)
+		function get_value($form_item_data,$post_id)
 		{
 			return isset($form_item_data['value']) ? $form_item_data['value'] : FALSE;
 		}
