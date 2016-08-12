@@ -37,11 +37,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 							'id'    => 'service_type_' . $this->type_id . '_review_without_booking',
 							'label' => __('Allow user to review without booking', 'wpbooking')
 						),
-						array(
-							'id'    => 'service_type_' . $this->type_id . '_allow_guest_review',
-							'label' => __('Allow guest can write review', 'wpbooking'),
-							'condition'=>'service_type_' . $this->type_id . '_review_without_booking:is(on)'
-						),
+
 						array(
 							'id'    => 'service_type_' . $this->type_id . '_show_rate_review_button',
 							'label' => __('Show Rate (Help-full) button in each review?', 'wpbooking')
@@ -133,7 +129,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 			add_filter('comments_open', array($this, '_comments_open'), 10, 2);
 			add_action('pre_comment_on_post', array($this, '_validate_comment'));
-			add_filter('pre_comment_approved', array($this, '_pre_comment_approved'));
 
 			//wpbooking_archive_loop_image_size
 			add_filter('wpbooking_archive_loop_image_size', array($this, '_apply_thumb_size'), 10, 3);
@@ -850,10 +845,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					$is_validated = FALSE;
 				}
 
-				if (!$this->allow_guest_review() and !is_user_logged_in()) {
-					wpbooking_set_message(esc_html__('You need login to write review', 'wpbooking'));
-					$is_validated = FALSE;
-				}
 
 				// room_maximum_review
 				if ($max = $this->room_maximum_review() and is_user_logged_in()) {
@@ -886,31 +877,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			}
 		}
 
-		/**
-		 * Change Default of Comment Approved
-		 *
-		 * @since 1.0
-		 * @author dungdt
-		 *
-		 * @param $approved
-		 * @param $commentdata
-		 * @return bool
-		 */
-		function _pre_comment_approved($approved, $commentdata)
-		{
-			if (!empty($commentdata['comment_post_ID'])) {
-				$service_type = get_post_meta($commentdata['comment_post_ID'], 'service_type', TRUE);
-
-				if ($service_type == $this->type_id) {
-					if (!empty($commentdata['user_id'])) {
-						$approved = 0;
-					}
-				}
-
-			}
-
-			return $approved;
-		}
 
 		/**
 		 * Hook Filter To Show Review Form for Room
@@ -932,9 +898,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					// room_maximum_review
 					if ($max = $this->room_maximum_review()) {
 						$comment = WPBooking_Comment_Model::inst();
-						$count = $comment->select('count(comment_ID) as total')->where(array('comment_post_ID' => $post_id,'comment_parent'=>0, 'user_id' => get_current_user_id()))->get()->row();
-						if (!empty($count['total']) and $count['total'] >= $max) {
+						$count = $comment->select('count(comment_ID) as total')
+							->where(array('comment_post_ID' => $post_id,'comment_parent'=>0, 'user_id' => get_current_user_id()))
+							->get()->row();
+						$count=!empty($count['total'])?$count['total']:0;
 
+						if ($count >= $max) {
 							wpbooking_set_message(sprintf(esc_html__('Maximum number of review you can post is %d', 'wpbooking'), $max));
 							$open = FALSE;
 						}
@@ -958,11 +927,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 							$open = FALSE;
 						}
 					}
-				}else{
-					if (!$this->allow_guest_review() or !$this->review_without_booking()) {
-						wpbooking_set_message(esc_html__('You need login to write review', 'wpbooking'));
-						$open = FALSE;
-					}
 				}
 
 
@@ -971,17 +935,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			return $open;
 		}
 
-		/**
-		 *
-		 * @since 1.0
-		 * @author dungdt
-		 *
-		 * @return bool|mixed|void
-		 */
-		function allow_guest_review()
-		{
-			return $this->get_option('allow_guest_review', FALSE);
-		}
 
 
 		/**
