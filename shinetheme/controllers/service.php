@@ -488,9 +488,18 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			$validate = apply_filters('wpbooking_save_review_stats_validate', TRUE, $post_id, $comment_id);
 
 			if ($validate) {
+				$wpbooking_review=$this->post('wpbooking_review');
+				$details=$this->post('wpbooking_review_detail');
+				if(!empty($details) and is_array($details)){
+					$total=0;
+					foreach($details as $val){
+						$total+=$val['rate'];
+					}
+					$wpbooking_review=($total)/count($details);
+				}
 
-				update_comment_meta($comment_id, 'wpbooking_review', $this->post('wpbooking_review'));
-				update_comment_meta($comment_id, 'wpbooking_review_detail', $this->post('wpbooking_review_detail'));
+				update_comment_meta($comment_id, 'wpbooking_review', $wpbooking_review);
+				update_comment_meta($comment_id, 'wpbooking_review_detail', $details);
 				update_comment_meta($comment_id, 'wpbooking_title', $this->post('wpbooking_title'));
 			}
 

@@ -84,8 +84,9 @@ if(!class_exists('WPBooking_Form_Guest_Field')){
 				}
 			}
 
+
 			for($i=1;$i<=$max_guest;$i++){
-				$list_item.=sprintf('<option value="%s">%s</option>',$i,$i);
+				$list_item.=sprintf('<option value="%s" %s>%s</option>',$i,selected($i,WPBooking_Input::get('guest'),FALSE),$i);
 			}
 
 			if($this->is_hidden($attr)) return FALSE;

@@ -119,6 +119,12 @@ if (!class_exists('WPBooking_Form_Check_In_Field')) {
 			if($this->is_hidden($attr)) return FALSE;
 
 			$a = FALSE;
+			if($check_in=WPBooking_Input::get('check_in')){
+				$array['value']=$check_in;
+			}
+			if($check_out=WPBooking_Input::get('check_out')){
+				$array['value']=$check_out;
+			}
 
 			foreach ($array as $key => $val) {
 				if ($val) {

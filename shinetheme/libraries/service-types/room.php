@@ -901,7 +901,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 				$service_type = get_post_meta($commentdata['comment_post_ID'], 'service_type', TRUE);
 
 				if ($service_type == $this->type_id) {
-					if ($this->required_partner_approved_review()) {
+					if (!empty($commentdata['user_id'])) {
 						$approved = 0;
 					}
 				}
