@@ -35,7 +35,7 @@ $class.=' width-'.$data['width'];
 				<label class="wpbooking-switch-wrap">
 					<select id="<?php echo esc_html($data['id']) ?>"  name="<?php echo esc_html($data['id']) ?>" <?php checked($old_data,'on') ?>  class="checkbox">
 						<option <?php selected($old_data,'on') ?>  value="on">on</option>
-						<option <?php selected($old_data,'on') ?> value="off">off</option>
+						<option <?php selected($old_data,'off') ?> value="off">off</option>
 					</select>
 					<div class="wpbooking-switch <?php echo ($old_data=='on')?'switchOn':FALSE ?>"></div>
 				</label>

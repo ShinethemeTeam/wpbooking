@@ -54,11 +54,20 @@
   border: 1px solid #269abc;
   color: white;
 }
+.wb-btn.wb-btn-blue:active {
+  background: #269abc;
+}
+.wb-btn.wb-btn-md {
+  height: 31px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
 .alert {
   padding: 10px;
   margin: 20px 0px;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 0px;
+  font-size: 14px;
 }
 .alert.alert-information,
 .alert.alert-info {
@@ -2483,4 +2492,51 @@
 .wpbooking-order-detail-page .checkout-form-list {
   list-style: none;
   padding-left: 20px;
+}
+.wpbooking-myaccount-wrap .required {
+  color: red;
+}
+.wpbooking-myaccount-wrap .login-register-form .form-title {
+  margin: 0px;
+  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: normal;
+}
+.wpbooking-myaccount-wrap .login-register-form .form-group-wrap {
+  border-bottom: 2px solid rgba(216, 216, 216, 0.7);
+  background: #f2f2f2;
+  padding: 20px 15px;
+}
+.wpbooking-myaccount-wrap .login-register-form .form-group {
+  margin-bottom: 20px;
+}
+.wpbooking-myaccount-wrap .login-register-form .form-group .control-label {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.wpbooking-myaccount-wrap .login-register-form .form-group .form-control {
+  border-radius: 0px;
+  border: 1px solid #e6e6e6;
+  height: 30px;
+  line-height: 31px;
+}
+.wpbooking-myaccount-wrap .login-register-form .remember-me {
+  margin-left: 20px;
+  font-size: 14px;
+}
+.wpbooking-myaccount-wrap .login-register-form .remember-me input {
+  margin-right: 10px;
+}
+.wpbooking-myaccount-wrap .login-register-form .lost-password {
+  color: #f0ad4e;
+  text-decoration: underline;
+  border: none;
+  font-size: 14px;
+}
+.wpbooking-myaccount-wrap .login-register-form .accept-term {
+  font-size: 14px;
+  display: block;
+}
+.wpbooking-myaccount-wrap .login-register-form .accept-term input {
+  margin-right: 10px;
 }

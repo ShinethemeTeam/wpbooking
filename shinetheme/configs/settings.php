@@ -82,6 +82,11 @@ $config['settings'] = array(
 						'id'    => 'archive-page'
 					),
 					array(
+						'label' => esc_html__('Term & Condition Page', 'wpbooking'),
+						'type'  => 'page-select',
+						'id'    => 'term-page'
+					),
+					array(
 						'label' => esc_html__('Accounts', 'wpbooking'),
 						'type'  => 'title'
 					),

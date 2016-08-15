@@ -928,6 +928,21 @@ if (!class_exists('WPBooking_User')) {
 			return $count = $wpdb->get_var('SELECT COUNT(comment_ID) FROM ' . $wpdb->comments. ' WHERE comment_approved=1 and comment_parent=0 and  comment_author_email = "' . $author_email . '"');
 		}
 
+		/**
+		 * Get Term & Condition Page Permalink
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return false|string
+		 */
+		function get_term_condition_link()
+		{
+			if($page=wpbooking_get_option('term-page') and get_post($page)){
+				return get_permalink($page);
+			}
+		}
+
 		function generate_username()
 		{
 			$prefix=apply_filters('wpbooking_generated_username_prefix','wpbooking_');

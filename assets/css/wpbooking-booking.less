@@ -59,6 +59,14 @@
         background: #31b0d5;
         border: 1px solid #269abc;
         color: white;
+        &:active{
+            background: #269abc;
+        }
+    }
+    &.wb-btn-md{
+        height: 31px;
+        padding-left: 15px;
+        padding-right: 15px;
     }
 }
 // Alert
@@ -66,7 +74,8 @@
     padding:10px;
     margin: 20px 0px;
     border: 1px solid transparent;
-    border-radius: 4px;
+    border-radius: 0px;
+    font-size: 14px;
     &.alert-information,
     &.alert-info{
         background-color: rgba(52, 211, 235, 0.2);
@@ -2615,4 +2624,64 @@
         list-style: none;
         padding-left: 20px;
     }
+}
+
+// My Account page
+.wpbooking-myaccount-wrap
+{
+    .required{
+        color: red;
+    }
+    .login-register-form{
+        .form-title{
+            margin: 0px;
+            margin-bottom: 20px;
+            font-size: 30px;
+            font-weight: normal;
+        }
+
+        .form-group-wrap{
+            border-bottom: 2px solid rgba(216, 216, 216, 0.7);
+            background: #f2f2f2;
+            padding: 20px 15px;
+
+        }
+
+        .form-group{
+            margin-bottom: 20px;
+            .control-label{
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .form-control{
+                border-radius: 0px;
+                border:1px solid #e6e6e6;
+                height: 30px;
+                line-height: 31px;
+            }
+
+        }
+        .remember-me{
+            margin-left: 20px;
+            font-size: 14px;
+            input{
+                margin-right: 10px;
+            }
+        }
+        .lost-password{
+            color: @maincolor;
+            text-decoration: underline;
+            border:none;
+            font-size: 14px;
+        }
+        .accept-term{
+            font-size: 14px;
+            display: block;
+            input{
+                margin-right: 10px;
+            }
+        }
+    }
+
 }
