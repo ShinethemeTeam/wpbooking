@@ -478,17 +478,23 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 						$price *= $days;
 
 					} else {
+
+						$tmp_calendar=array();
+						foreach ($calendar_prices as $key => $value) {
+							$tmp_calendar[$value['start']]=$value;
+						}
+
 						// Use Calendar Data
 						$price = 0;
 						$check_in_temp = $cart_item['check_in_timestamp'];
 						while ($check_in_temp <= $cart_item['check_out_timestamp']) {
 
-							foreach ($calendar_prices as $key => $value) {
-								if ($value['start'] == $check_in_temp) {
-									if ($value['status'] == 'available') {
-										$price += $value['price'];
-									}
-								}
+							// If in calendar
+							if(array_key_exists($check_in_temp,$tmp_calendar)){
+								$price += $tmp_calendar[$check_in_temp]['price'];
+							}else{
+								// Not in calendar data, get from base price
+								$price+=$cart_item['base_price'];
 							}
 
 							$check_in_temp = strtotime('+1 day', $check_in_temp);
