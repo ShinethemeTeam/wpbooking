@@ -333,11 +333,15 @@ jQuery(document).ready(function($){
     var wpbooking_checkout_enable_dates=[];// Enable for Checkout
     var order_start_date=$('.wpbooking_order_form .wpbooking-field-date-start');
     var order_end_date=$('.wpbooking_order_form .wpbooking-field-date-end');
+    var minimum_stay=$('.minimum_stay').val();
 
     // Init Datepicker
     order_start_date.datepicker({
         minDate:0,
         onSelect:function(selected) {
+            var m=new moment(selected,'MM/DD/YYYY');
+            m.add(parseInt(minimum_stay),'days');
+            selected= m.format('MM/DD/YYYY');
             order_end_date.datepicker("option","minDate", selected);
             //order_end_date.focus();
             window.setTimeout(function(){
@@ -368,6 +372,9 @@ jQuery(document).ready(function($){
         },
         onSelect:function(selected) {
             if(selected){
+                var m=new moment(selected,'MM/DD/YYYY');
+                m.subtract(parseInt(minimum_stay),'days');
+                selected= m.format('MM/DD/YYYY');
                 order_start_date.datepicker("option","maxDate", selected);
             }
         },
