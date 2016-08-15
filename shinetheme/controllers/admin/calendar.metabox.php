@@ -30,7 +30,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 			// Validate Permission
 			$post=get_post($post_id);
-			if(!$post or $post->post_author!=get_current_user_id() or !current_user_can('manage_options')){
+			if(!$post or ($post->post_author!=get_current_user_id() and !current_user_can('manage_options'))){
 				return FALSE;
 			}
 

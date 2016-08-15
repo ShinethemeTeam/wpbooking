@@ -608,7 +608,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 							$price *= $days;
 
 						} else {
-							
+
 							$tmp_calendar=array();
 							foreach ($calendar_prices as $key => $value) {
 								$tmp_calendar[$value['start']]=$value;
