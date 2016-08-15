@@ -491,9 +491,11 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 							// If in calendar
 							if(array_key_exists($check_in_temp,$tmp_calendar)){
+								var_dump($tmp_calendar[$check_in_temp]['price']);
 								$price += $tmp_calendar[$check_in_temp]['price'];
 							}else{
 								// Not in calendar data, get from base price
+								var_dump($cart_item['base_price']);
 								$price+=$cart_item['base_price'];
 							}
 
