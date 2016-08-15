@@ -220,32 +220,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
 //					$calendar_months[$date->format('m_Y')] = array();
 //				}
 //			}
-
-			if (!empty($raw_data)) {
-				foreach ($raw_data as $k => $v) {
-					// Ignore Not Available Date
-					if ($v['status'] == 'not_available') continue;
-
-					$key = date('m', $v['start']) . '_' . date('Y', $v['start']);
-					$calendar_months[$key][] = array(
-						'date'            => date('Y-m-d', $v['start']),
-						'price'           => WPBooking_Currency::format_money($v['price']),
-						//'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked']),
-						'tooltip_content' => WPBooking_Currency::format_money($v['price']),
-						'can_check_in'    => $v['can_check_in'],
-						'can_check_out'   => $v['can_check_out'],
-					);
-
-					$calendar_dates[] = array(
-						'date'            => date('Y-m-d', $v['start']),
-						'price'           => WPBooking_Currency::format_money($v['price']),
-						//'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked']),
-						'can_check_in'    => $v['can_check_in'],
-						'can_check_out'   => $v['can_check_out'],
-						'tooltip_content' => WPBooking_Currency::format_money($v['price']),
-					);
-				}
-			}
 			// All day data
 			$all_days = array();
 
@@ -265,6 +239,37 @@ if (!class_exists('WPBooking_Service_Controller')) {
 				}
 
 			}
+
+			if (!empty($raw_data)) {
+				foreach ($raw_data as $k => $v) {
+					// Ignore Not Available Date or full booked
+					if ($v['status'] == 'not_available' or $v['total_booked']>=$v['number']){
+						// Ignore Allday not available or full booked
+						unset($all_days[date('Y-m-d', $v['start'])]);
+						continue;
+					}
+
+					$key = date('m', $v['start']) . '_' . date('Y', $v['start']);
+//					$calendar_months[$key][] = array(
+//						'date'            => date('Y-m-d', $v['start']),
+//						'price'           => WPBooking_Currency::format_money($v['price']),
+//						//'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked']),
+//						'tooltip_content' => WPBooking_Currency::format_money($v['price']),
+//						'can_check_in'    => $v['can_check_in'],
+//						'can_check_out'   => $v['can_check_out'],
+//					);
+
+					$calendar_dates[] = array(
+						'date'            => date('Y-m-d', $v['start']),
+						'price'           => WPBooking_Currency::format_money($v['price']),
+						//'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked']),
+						'can_check_in'    => $v['can_check_in'],
+						'can_check_out'   => $v['can_check_out'],
+						'tooltip_content' => WPBooking_Currency::format_money($v['price']),
+					);
+				}
+			}
+
 			// Foreach Data
 			if (!empty($calendar_dates)) {
 				foreach ($calendar_dates as $day) {

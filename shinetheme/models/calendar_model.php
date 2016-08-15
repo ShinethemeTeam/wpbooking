@@ -84,7 +84,7 @@ if (!class_exists('WPBooking_Calendar_Model')) {
 					'end<='                                          => $end_date
 				))
 				->groupby($wpdb->prefix . 'wpbooking_availability.id')
-				->having($wpdb->prefix . 'wpbooking_service.number>total_booked')
+				//->having($wpdb->prefix . 'wpbooking_service.number>total_booked')
 				->orderby('start', 'asc')->get()->result();
 
 			return $res;
