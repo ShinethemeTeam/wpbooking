@@ -1091,7 +1091,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 											</li>",
 							'additional_guest_money',
 							esc_html__('Additional Guests', 'wpbooking'),
-							WPBooking_Currency::format_money($addition_money * $days)
+							WPBooking_Currency::format_money(($cart_item['guest'] - $cart_item['rate_based_on'])*$addition_money * $days)
 						);
 					}
 				}
@@ -1191,7 +1191,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 											</li>",
 								'additional_guest_money',
 								esc_html__('Additional Guests', 'wpbooking'),
-								WPBooking_Currency::format_money($addition_money * $days)
+								WPBooking_Currency::format_money(($cart_item['guest'] - $cart_item['rate_based_on'])*$addition_money * $days)
 							);
 						}
 					}
