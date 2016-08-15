@@ -410,6 +410,8 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			$cart_item['rate_based_on'] = $service->get_meta('rate_based_on');
 			$cart_item['additional_guest_money'] = $service->get_meta('additional_guest_money');
 			$cart_item['tax'] = $service->get_meta('tax');
+			$cart_item['deposit_type']=$service->get_meta('deposit_type');
+			$cart_item['deposit_amount']=$service->get_meta('deposit_amount');
 
 			if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
 				$cart_item['calendar_prices'] = $calendar->get_prices($cart_item['post_id'], $cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
@@ -548,6 +550,27 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			}
 
 
+			/**
+			 * Calculate Deposit
+			 */
+			if(!empty($cart_item['deposit_amount'])){
+
+				switch($cart_item['deposit_type'])
+				{
+					case "percent":
+						if($cart_item['deposit_amount']>100) $cart_item['deposit_amount']=100;
+						$price=$price*$cart_item['deposit_amount']/100;
+						break;
+					case "value":
+					default:
+						if($cart_item['deposit_amount']<$price)
+						$price=$cart_item['deposit_amount'];
+						break;
+
+				}
+			}
+
+
 			return $price;
 		}
 
@@ -677,6 +700,25 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 						$price += $price * ($tax / 100);
 				}
 
+				/**
+				 * Calculate Deposit
+				 */
+				if(!empty($cart_item['deposit_amount'])){
+
+					switch($cart_item['deposit_type'])
+					{
+						case "percent":
+							if($cart_item['deposit_amount']>100) $cart_item['deposit_amount']=100;
+							$price=$price*$cart_item['deposit_amount']/100;
+							break;
+						case "value":
+						default:
+							if($cart_item['deposit_amount']<$price)
+								$price=$cart_item['deposit_amount'];
+							break;
+
+					}
+				}
 
 				return $price;
 			}
@@ -1121,6 +1163,38 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 			}
 
+			/**
+			 * Calculate Deposit
+			 */
+			if(!empty($cart_item['deposit_amount'])){
+
+				switch($cart_item['deposit_type'])
+				{
+					case "percent":
+						$extra_html[] = sprintf("<li class='field-item %s'>
+												<span class='field-title'>%s:</span>
+												<span class='field-value'>%s</span>
+											</li>",
+							'tax',
+							esc_html__('Deposit', 'wpbooking'),
+							$cart_item['deposit_amount'] . '%'
+						);
+						break;
+					case "value":
+					default:
+						$extra_html[] = sprintf("<li class='field-item %s'>
+													<span class='field-title'>%s:</span>
+													<span class='field-value'>%s</span>
+												</li>",
+							'tax',
+							esc_html__('Deposit', 'wpbooking'),
+							WPBooking_Currency::format_money($cart_item['deposit_amount'])
+						);
+						break;
+
+				}
+			}
+
 
 			// Show Order Form Field
 			$order_form = $cart_item['order_form'];
@@ -1218,6 +1292,38 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 							$tax . '%'
 						);
 					}
+
+				}
+			}
+
+			/**
+			 * Calculate Deposit
+			 */
+			if(!empty($cart_item['deposit_amount'])){
+
+				switch($cart_item['deposit_type'])
+				{
+					case "percent":
+						$extra_html[] = sprintf("<li class='field-item %s'>
+												<span class='field-title'>%s:</span>
+												<span class='field-value'>%s</span>
+											</li>",
+							'tax',
+							esc_html__('Deposit', 'wpbooking'),
+							$cart_item['deposit_amount'] . '%'
+						);
+						break;
+					case "value":
+					default:
+						$extra_html[] = sprintf("<li class='field-item %s'>
+													<span class='field-title'>%s:</span>
+													<span class='field-value'>%s</span>
+												</li>",
+							'tax',
+							esc_html__('Deposit', 'wpbooking'),
+							WPBooking_Currency::format_money($cart_item['deposit_amount'])
+						);
+						break;
 
 				}
 			}
