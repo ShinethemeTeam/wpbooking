@@ -130,7 +130,7 @@ if (!class_exists('WPBooking_Form_Extra_Service_Field')) {
 					$number=!empty($extra_services[$k]['number'])?$extra_services[$k]['number']:1;
 					$money=WPBooking_Currency::format_money($v['money']*$number);
 
-					if($v['require']=='yes' or !empty($extra_services[$k])) {
+					if($v['require']=='yes' or !empty($extra_services[$k]['selected'])) {
 						$html[]=sprintf('<div class="extra-item"><span class="extra-name">%s:</span> <span class="extra-number">(%s x %s) = </span><span class="extra-total">%s</span></div>',$v['title'],WPBooking_Currency::format_money($v['money']),$number,$money);
 					}
 				}
