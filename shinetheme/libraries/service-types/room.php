@@ -120,7 +120,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 			add_filter('wpbooking_add_to_cart_validate_' . $this->type_id, array($this, '_add_to_cart_validate'), 10, 3);
 
-			add_filter('wpbooking_cart_item_price_' . $this->type_id, array($this, '_change_cart_item_price'), 10, 2);
+			add_filter('wpbooking_cart_item_price_' . $this->type_id, array($this, '_change_cart_item_price'), 10, 3);
 
 			add_filter('wpbooking_order_item_total_' . $this->type_id, array($this, '_change_order_item_price'), 10, 2);
 
@@ -427,10 +427,15 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		 * @since 1.0
 		 *
 		 * @param $price
+		 * @param $cart_item
+		 * @param $args
 		 * @return float
 		 */
-		function _change_cart_item_price($price, $cart_item)
+		function _change_cart_item_price($price, $cart_item,$args=array())
 		{
+			$args=wp_parse_args($args,array(
+				'without_deposit'=>FALSE
+			));
 			$cart_item = wp_parse_args($cart_item, array(
 				'extra_services'              => array(),
 				'check_in_timestamp'          => FALSE,
@@ -553,7 +558,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			/**
 			 * Calculate Deposit
 			 */
-			if(!empty($cart_item['deposit_amount'])){
+			if(!empty($cart_item['deposit_amount']) and !$args['without_deposit']){
 
 				switch($cart_item['deposit_type'])
 				{
@@ -722,6 +727,310 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 				return $price;
 			}
+
+		}
+
+
+		/**
+		 * Show Cart Item Information Based on Service Type ID
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $cart_item
+		 */
+		function _show_cart_item_information($cart_item)
+		{
+			$cart_item = wp_parse_args($cart_item, array(
+				'check_in_timestamp'          => FALSE,
+				'check_out_timestamp'         => FALSE,
+				'order_form'                  => array(),
+				'post_id'                     => FALSE,
+				'extra_services'              => array(),
+				'guest'                       => 0,
+				'enable_additional_guest_tax' => FALSE,
+				'rate_based_on'               => FALSE,
+				'additional_guest_money'      => FALSE,
+				'tax'                         => FALSE
+			));
+			$service = new WB_Service($cart_item['post_id']);
+			$days = FALSE;
+
+			if (!$cart_item['guest'] and !empty($cart_item['order_form']['guest']['value'])) {
+				$cart_item['guest'] = $cart_item['order_form']['guest']['value'];
+			}
+
+			if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
+				$days = wpbooking_timestamp_diff_day($cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
+			}
+
+			$terms = wp_get_post_terms($cart_item['post_id'], 'wpbooking_room_type');
+			if (!empty($terms) and !is_wp_error($terms)) {
+				$output[] = '<div class="wpbooking-room-type">';
+				$key = 0;
+				foreach ($terms as $term) {
+					$html = sprintf('<a href="%s">%s</a>', get_term_link($term, 'wpbooking_room_type'), $term->name);
+					if ($key < count($term) - 1) {
+						$html .= ',';
+					}
+					$output[] = $html;
+					$key++;
+				}
+
+				$output[] = '</div>';
+
+				$output = apply_filters('wpbooking_room_show_room_type', $output);
+				echo implode(' ', $output);
+			}
+			$extra_html = array();
+
+			if ($cart_item['enable_additional_guest_tax'] == 'on') {
+
+				// Addition Guest
+				if ($cart_item['guest'] and $addition_money = $cart_item['additional_guest_money'] and $cart_item['rate_based_on'] and $days) {
+					if ($cart_item['guest'] > $cart_item['rate_based_on']) {
+						$extra_html[] = sprintf("<li class='field-item %s'>
+												<span class='field-title'>%s:</span>
+												<span class='field-value'>%s</span>
+											</li>",
+							'additional_guest_money',
+							esc_html__('Additional Guests', 'wpbooking'),
+							WPBooking_Currency::format_money(($cart_item['guest'] - $cart_item['rate_based_on'])*$addition_money * $days)
+						);
+					}
+				}
+				// Tax
+				if ($tax = $cart_item['tax']) {
+					$extra_html[] = sprintf("<li class='field-item %s'>
+												<span class='field-title'>%s:</span>
+												<span class='field-value'>%s</span>
+											</li>",
+						'tax',
+						esc_html__('Tax', 'wpbooking'),
+						$tax . '%'
+					);
+				}
+
+			}
+
+
+
+			/**
+			 * Calculate Deposit
+			 */
+			if(!empty($cart_item['deposit_amount'])){
+
+				/**
+				 * Calculate Total Price without Deposit
+				 */
+				$extra_html[] = sprintf("<li class='field-item %s'>
+												<span class='field-title'>%s:</span>
+												<span class='field-value'>%s</span>
+											</li>",
+					'tax',
+					esc_html__('Total', 'wpbooking'),
+					WPBooking_Order::inst()->get_cart_item_total_html($cart_item,array(
+						'without_deposit'=>TRUE
+					))
+				);
+
+				switch($cart_item['deposit_type'])
+				{
+					case "percent":
+						$extra_html[] = sprintf("<li class='field-item %s'>
+												<span class='field-title'>%s:</span>
+												<span class='field-value'>%s</span>
+											</li>",
+							'tax',
+							esc_html__('Deposit', 'wpbooking'),
+							$cart_item['deposit_amount'] . '%'
+						);
+						break;
+					case "value":
+					default:
+						$extra_html[] = sprintf("<li class='field-item %s'>
+													<span class='field-title'>%s:</span>
+													<span class='field-value'>%s</span>
+												</li>",
+							'tax',
+							esc_html__('Deposit', 'wpbooking'),
+							WPBooking_Currency::format_money($cart_item['deposit_amount'])
+						);
+						break;
+
+				}
+			}
+
+
+			// Show Order Form Field
+			$order_form = $cart_item['order_form'];
+			if ((!empty($order_form) and is_array($order_form)) or !empty($extra_price_html)) {
+				echo '<div class="cart-item-order-form-fields-wrap">';
+				echo '<span class="booking-detail-label">' . esc_html__('Booking Details:', 'wpbooking') . '</span>';
+				echo "<ul class='cart-item-order-form-fields'>";
+				foreach ($order_form as $key => $value) {
+
+					$value = wp_parse_args($value, array(
+						'data'       => '',
+						'field_type' => ''
+					));
+
+					$value_html = WPBooking_Admin_Form_Build::inst()->get_form_field_data($value, $cart_item['post_id']);
+
+					if ($value_html) {
+						printf("<li class='field-item %s'>
+								<span class='field-title'>%s:</span>
+								<span class='field-value'>%s</span>
+							</li>", $key, $value['title'], $value_html);
+					}
+
+					do_action('wpbooking_form_field_to_html', $value);
+					do_action('wpbooking_form_field_to_html_' . $value['field_type'], $value);
+				}
+
+				if ($extra_html) {
+					echo implode("\r\n", $extra_html);
+				}
+				echo "</ul>";
+				echo '<span class="show-more-less"><span class="more">' . esc_html__('More', 'wpbooking') . ' <i class="fa fa-angle-double-down"></i></span><span class="less">' . esc_html__('Less', 'wpbooking') . ' <i class="fa fa-angle-double-up"></i></span></span>';
+				echo "</div>";
+			}
+
+		}
+
+		/**
+		 * Show Order Item Information Based on Service Type ID
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $order_item
+		 */
+		function _show_order_item_information($order_item)
+		{
+			$order_item = wp_parse_args($order_item, array(
+				'check_in_timestamp'          => '',
+				'check_out_timestamp'         => '',
+				'order_form'                  => '',
+				'payment_status'              => '',
+				'status'                      => '',
+				'post_id'                     => FALSE,
+				'enable_additional_guest_tax' => FALSE,
+				'rate_based_on'               => FALSE,
+				'additional_guest_money'      => FALSE,
+				'tax'                         => FALSE,
+				'raw_data'                    => FALSE
+			));
+
+
+			$extra_html = array();
+			$days = 0;
+
+			if($order_item['raw_data'] and $cart_item=unserialize($order_item['raw_data'])){
+
+				if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
+					$days = wpbooking_timestamp_diff_day($cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
+				}
+
+				if ($cart_item['enable_additional_guest_tax'] == 'on') {
+
+					// Addition Guest
+					if ($cart_item['guest'] and $addition_money = $cart_item['additional_guest_money'] and $cart_item['rate_based_on'] and $days) {
+						if ($cart_item['guest'] > $cart_item['rate_based_on']) {
+							$extra_html[] = sprintf("<li class='field-item %s'>
+												<span class='field-title'>%s:</span>
+												<span class='field-value'>%s</span>
+											</li>",
+								'additional_guest_money',
+								esc_html__('Additional Guests', 'wpbooking'),
+								WPBooking_Currency::format_money(($cart_item['guest'] - $cart_item['rate_based_on'])*$addition_money * $days)
+							);
+						}
+					}
+					// Tax
+					if ($tax = $cart_item['tax']) {
+						$extra_html[] = sprintf("<li class='field-item %s'>
+												<span class='field-title'>%s:</span>
+												<span class='field-value'>%s</span>
+											</li>",
+							'tax',
+							esc_html__('Tax', 'wpbooking'),
+							$tax . '%'
+						);
+					}
+
+				}
+			}
+
+			/**
+			 * Calculate Deposit
+			 */
+			if(!empty($cart_item['deposit_amount'])){
+
+				switch($cart_item['deposit_type'])
+				{
+					case "percent":
+						$extra_html[] = sprintf("<li class='field-item %s'>
+												<span class='field-title'>%s:</span>
+												<span class='field-value'>%s</span>
+											</li>",
+							'tax',
+							esc_html__('Deposit', 'wpbooking'),
+							$cart_item['deposit_amount'] . '%'
+						);
+						break;
+					case "value":
+					default:
+						$extra_html[] = sprintf("<li class='field-item %s'>
+													<span class='field-title'>%s:</span>
+													<span class='field-value'>%s</span>
+												</li>",
+							'tax',
+							esc_html__('Deposit', 'wpbooking'),
+							WPBooking_Currency::format_money($cart_item['deposit_amount'])
+						);
+						break;
+
+				}
+			}
+
+
+
+			// Show Order Form Field
+			$order_form_string = $order_item['order_form'];
+
+			if ($order_form_string and $order_form = unserialize($order_form_string) and !empty($order_form) and is_array($order_form)) {
+
+				echo '<div class="order-item-form-fields-wrap">';
+				echo '<span class="booking-detail-label">' . esc_html__('Booking Details:', 'wpbooking') . '</span>';
+				echo "<ul class='order-item-form-fields'>";
+				foreach ($order_form as $key => $value) {
+
+					$value = wp_parse_args($value, array(
+						'data'       => '',
+						'field_type' => ''
+					));
+
+					$value_html = WPBooking_Admin_Form_Build::inst()->get_form_field_data($value,$order_item['post_id']);
+
+					if ($value_html) {
+						printf("<li class='field-item %s'>
+								<span class='field-title'>%s:</span>
+								<span class='field-value'>%s</span>
+							</li>", $key, $value['title'], $value_html);
+					}
+
+					do_action('wpbooking_form_field_to_html', $value);
+					do_action('wpbooking_form_field_to_html_' . $value['field_type'], $value);
+				}
+				if ($extra_html) {
+					echo implode("\r\n", $extra_html);
+				}
+				echo "</ul>";
+				echo '<span class="show-more-less"><span class="more">' . esc_html__('More', 'wpbooking') . ' <i class="fa fa-angle-double-down"></i></span><span class="less">' . esc_html__('Less', 'wpbooking') . ' <i class="fa fa-angle-double-up"></i></span></span>';
+				echo "</div>";
+			}
+
 
 		}
 
@@ -1084,292 +1393,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			return $size;
 		}
 
-		/**
-		 * Show Cart Item Information Based on Service Type ID
-		 *
-		 * @since 1.0
-		 * @author dungdt
-		 *
-		 * @param $cart_item
-		 */
-		function _show_cart_item_information($cart_item)
-		{
-			$cart_item = wp_parse_args($cart_item, array(
-				'check_in_timestamp'          => FALSE,
-				'check_out_timestamp'         => FALSE,
-				'order_form'                  => array(),
-				'post_id'                     => FALSE,
-				'extra_services'              => array(),
-				'guest'                       => 0,
-				'enable_additional_guest_tax' => FALSE,
-				'rate_based_on'               => FALSE,
-				'additional_guest_money'      => FALSE,
-				'tax'                         => FALSE
-			));
-			$service = new WB_Service($cart_item['post_id']);
-			$days = FALSE;
-
-			if (!$cart_item['guest'] and !empty($cart_item['order_form']['guest']['value'])) {
-				$cart_item['guest'] = $cart_item['order_form']['guest']['value'];
-			}
-
-			if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
-				$days = wpbooking_timestamp_diff_day($cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
-			}
-
-			$terms = wp_get_post_terms($cart_item['post_id'], 'wpbooking_room_type');
-			if (!empty($terms) and !is_wp_error($terms)) {
-				$output[] = '<div class="wpbooking-room-type">';
-				$key = 0;
-				foreach ($terms as $term) {
-					$html = sprintf('<a href="%s">%s</a>', get_term_link($term, 'wpbooking_room_type'), $term->name);
-					if ($key < count($term) - 1) {
-						$html .= ',';
-					}
-					$output[] = $html;
-					$key++;
-				}
-
-				$output[] = '</div>';
-
-				$output = apply_filters('wpbooking_room_show_room_type', $output);
-				echo implode(' ', $output);
-			}
-			$extra_html = array();
-
-			if ($cart_item['enable_additional_guest_tax'] == 'on') {
-
-				// Addition Guest
-				if ($cart_item['guest'] and $addition_money = $cart_item['additional_guest_money'] and $cart_item['rate_based_on'] and $days) {
-					if ($cart_item['guest'] > $cart_item['rate_based_on']) {
-						$extra_html[] = sprintf("<li class='field-item %s'>
-												<span class='field-title'>%s:</span>
-												<span class='field-value'>%s</span>
-											</li>",
-							'additional_guest_money',
-							esc_html__('Additional Guests', 'wpbooking'),
-							WPBooking_Currency::format_money(($cart_item['guest'] - $cart_item['rate_based_on'])*$addition_money * $days)
-						);
-					}
-				}
-				// Tax
-				if ($tax = $cart_item['tax']) {
-					$extra_html[] = sprintf("<li class='field-item %s'>
-												<span class='field-title'>%s:</span>
-												<span class='field-value'>%s</span>
-											</li>",
-						'tax',
-						esc_html__('Tax', 'wpbooking'),
-						$tax . '%'
-					);
-				}
-
-			}
-
-			/**
-			 * Calculate Deposit
-			 */
-			if(!empty($cart_item['deposit_amount'])){
-
-				switch($cart_item['deposit_type'])
-				{
-					case "percent":
-						$extra_html[] = sprintf("<li class='field-item %s'>
-												<span class='field-title'>%s:</span>
-												<span class='field-value'>%s</span>
-											</li>",
-							'tax',
-							esc_html__('Deposit', 'wpbooking'),
-							$cart_item['deposit_amount'] . '%'
-						);
-						break;
-					case "value":
-					default:
-						$extra_html[] = sprintf("<li class='field-item %s'>
-													<span class='field-title'>%s:</span>
-													<span class='field-value'>%s</span>
-												</li>",
-							'tax',
-							esc_html__('Deposit', 'wpbooking'),
-							WPBooking_Currency::format_money($cart_item['deposit_amount'])
-						);
-						break;
-
-				}
-			}
-
-
-			// Show Order Form Field
-			$order_form = $cart_item['order_form'];
-			if ((!empty($order_form) and is_array($order_form)) or !empty($extra_price_html)) {
-				echo '<div class="cart-item-order-form-fields-wrap">';
-				echo '<span class="booking-detail-label">' . esc_html__('Booking Details:', 'wpbooking') . '</span>';
-				echo "<ul class='cart-item-order-form-fields'>";
-				foreach ($order_form as $key => $value) {
-
-					$value = wp_parse_args($value, array(
-						'data'       => '',
-						'field_type' => ''
-					));
-
-					$value_html = WPBooking_Admin_Form_Build::inst()->get_form_field_data($value, $cart_item['post_id']);
-
-					if ($value_html) {
-						printf("<li class='field-item %s'>
-								<span class='field-title'>%s:</span>
-								<span class='field-value'>%s</span>
-							</li>", $key, $value['title'], $value_html);
-					}
-
-					do_action('wpbooking_form_field_to_html', $value);
-					do_action('wpbooking_form_field_to_html_' . $value['field_type'], $value);
-				}
-
-				if ($extra_html) {
-					echo implode("\r\n", $extra_html);
-				}
-				echo "</ul>";
-				echo '<span class="show-more-less"><span class="more">' . esc_html__('More', 'wpbooking') . ' <i class="fa fa-angle-double-down"></i></span><span class="less">' . esc_html__('Less', 'wpbooking') . ' <i class="fa fa-angle-double-up"></i></span></span>';
-				echo "</div>";
-			}
-
-		}
-
-		/**
-		 * Show Order Item Information Based on Service Type ID
-		 *
-		 * @since 1.0
-		 * @author dungdt
-		 *
-		 * @param $order_item
-		 */
-		function _show_order_item_information($order_item)
-		{
-			$order_item = wp_parse_args($order_item, array(
-				'check_in_timestamp'          => '',
-				'check_out_timestamp'         => '',
-				'order_form'                  => '',
-				'payment_status'              => '',
-				'status'                      => '',
-				'post_id'                     => FALSE,
-				'enable_additional_guest_tax' => FALSE,
-				'rate_based_on'               => FALSE,
-				'additional_guest_money'      => FALSE,
-				'tax'                         => FALSE,
-				'raw_data'                    => FALSE
-			));
-
-
-			$extra_html = array();
-			$days = 0;
-
-			if($order_item['raw_data'] and $cart_item=unserialize($order_item['raw_data'])){
-
-				if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
-					$days = wpbooking_timestamp_diff_day($cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
-				}
-
-				if ($cart_item['enable_additional_guest_tax'] == 'on') {
-
-					// Addition Guest
-					if ($cart_item['guest'] and $addition_money = $cart_item['additional_guest_money'] and $cart_item['rate_based_on'] and $days) {
-						if ($cart_item['guest'] > $cart_item['rate_based_on']) {
-							$extra_html[] = sprintf("<li class='field-item %s'>
-												<span class='field-title'>%s:</span>
-												<span class='field-value'>%s</span>
-											</li>",
-								'additional_guest_money',
-								esc_html__('Additional Guests', 'wpbooking'),
-								WPBooking_Currency::format_money(($cart_item['guest'] - $cart_item['rate_based_on'])*$addition_money * $days)
-							);
-						}
-					}
-					// Tax
-					if ($tax = $cart_item['tax']) {
-						$extra_html[] = sprintf("<li class='field-item %s'>
-												<span class='field-title'>%s:</span>
-												<span class='field-value'>%s</span>
-											</li>",
-							'tax',
-							esc_html__('Tax', 'wpbooking'),
-							$tax . '%'
-						);
-					}
-
-				}
-			}
-
-			/**
-			 * Calculate Deposit
-			 */
-			if(!empty($cart_item['deposit_amount'])){
-
-				switch($cart_item['deposit_type'])
-				{
-					case "percent":
-						$extra_html[] = sprintf("<li class='field-item %s'>
-												<span class='field-title'>%s:</span>
-												<span class='field-value'>%s</span>
-											</li>",
-							'tax',
-							esc_html__('Deposit', 'wpbooking'),
-							$cart_item['deposit_amount'] . '%'
-						);
-						break;
-					case "value":
-					default:
-						$extra_html[] = sprintf("<li class='field-item %s'>
-													<span class='field-title'>%s:</span>
-													<span class='field-value'>%s</span>
-												</li>",
-							'tax',
-							esc_html__('Deposit', 'wpbooking'),
-							WPBooking_Currency::format_money($cart_item['deposit_amount'])
-						);
-						break;
-
-				}
-			}
-
-
-
-			// Show Order Form Field
-			$order_form_string = $order_item['order_form'];
-
-			if ($order_form_string and $order_form = unserialize($order_form_string) and !empty($order_form) and is_array($order_form)) {
-
-				echo '<div class="order-item-form-fields-wrap">';
-				echo '<span class="booking-detail-label">' . esc_html__('Booking Details:', 'wpbooking') . '</span>';
-				echo "<ul class='order-item-form-fields'>";
-				foreach ($order_form as $key => $value) {
-
-					$value = wp_parse_args($value, array(
-						'data'       => '',
-						'field_type' => ''
-					));
-
-					$value_html = WPBooking_Admin_Form_Build::inst()->get_form_field_data($value,$order_item['post_id']);
-
-					if ($value_html) {
-						printf("<li class='field-item %s'>
-								<span class='field-title'>%s:</span>
-								<span class='field-value'>%s</span>
-							</li>", $key, $value['title'], $value_html);
-					}
-
-					do_action('wpbooking_form_field_to_html', $value);
-					do_action('wpbooking_form_field_to_html_' . $value['field_type'], $value);
-				}
-				if ($extra_html) {
-					echo implode("\r\n", $extra_html);
-				}
-				echo "</ul>";
-				echo '<span class="show-more-less"><span class="more">' . esc_html__('More', 'wpbooking') . ' <i class="fa fa-angle-double-down"></i></span><span class="less">' . esc_html__('Less', 'wpbooking') . ' <i class="fa fa-angle-double-up"></i></span></span>';
-				echo "</div>";
-			}
-
-
-		}
 
 		static function inst()
 		{

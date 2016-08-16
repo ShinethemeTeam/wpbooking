@@ -431,15 +431,16 @@ if (!class_exists('WPBooking_Order')) {
 		 * @since 1.0
 		 *
 		 * @param $cart_item
-		 * @param bool @need_convert Need Convert To Currency
+		 * @param bool $need_convert Need Convert To Currency
+		 * @param array $args
 		 * @return mixed|void
 		 */
-		function get_cart_item_total($cart_item, $need_convert = FALSE)
+		function get_cart_item_total($cart_item, $need_convert = FALSE,$args=array())
 		{
 
 			$item_price = $cart_item['base_price'];
-			$item_price = apply_filters('wpbooking_cart_item_price', $item_price, $cart_item);
-			$item_price = apply_filters('wpbooking_cart_item_price_' . $cart_item['service_type'], $item_price, $cart_item);
+			$item_price = apply_filters('wpbooking_cart_item_price', $item_price, $cart_item,$args);
+			$item_price = apply_filters('wpbooking_cart_item_price_' . $cart_item['service_type'], $item_price, $cart_item,$args);
 
 			// Convert to current currency
 			if ($need_convert) {
@@ -459,11 +460,12 @@ if (!class_exists('WPBooking_Order')) {
 		 * @author dungdt
 		 *
 		 * @param $cart_item
+		 * @param $args array
 		 * @return string
 		 */
-		function get_cart_item_total_html($cart_item)
+		function get_cart_item_total_html($cart_item,$args=array())
 		{
-			$item_price = $this->get_cart_item_total($cart_item, TRUE);
+			$item_price = $this->get_cart_item_total($cart_item, TRUE,$args);
 
 			return $price_html = WPBooking_Currency::format_money($item_price);
 		}
