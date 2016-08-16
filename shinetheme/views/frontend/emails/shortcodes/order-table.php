@@ -29,8 +29,8 @@ $items=$order->get_items();
 			<td class="small-td" width="5"><?php echo esc_html($i) ?></td>
 			<td class="review-order-item-info">
 				<h4 class="service-name"><a href="<?php echo get_permalink($value['post_id'])?>" target="_blank"><?php echo get_the_title($value['post_id'])?></a></h4>
-				<?php do_action('wpbooking_order_item_information',$value) ?>
-				<?php do_action('wpbooking_order_item_information_'.$service_type,$value) ?>
+				<?php do_action('wpbooking_order_item_information',$value,array('for_email'=>TRUE)) ?>
+				<?php do_action('wpbooking_order_item_information_'.$service_type,$value,array('for_email'=>TRUE)) ?>
 				<?php do_action('wpbooking_email_order_item_information_'.$service_type,$value) ?>
 			</td>
 			<td class="review-order-item-total">
