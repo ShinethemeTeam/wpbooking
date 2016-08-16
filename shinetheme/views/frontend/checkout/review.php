@@ -28,7 +28,7 @@ $cart=$booking->get_cart();
 				} ?>
 				<p class="review-order-item-price"><?php echo ($booking->get_cart_item_total_html($value)) ?></p>
 				<?php do_action('wpbooking_review_order_item_information',$value) ?>
-				<?php do_action('wpbooking_review_order_item_information_'.$service_type,$value) ?>
+				<?php do_action('wpbooking_review_order_item_information_'.$service_type,$value,array('for_email'=>TRUE)) ?>
 			</div>
 			<a class="delete-cart-item" onclick="return confirm('<?php esc_html_e('Do you want to delete it?','wpbooking') ?>')" href="<?php echo esc_url(add_query_arg(array('delete_cart_item'=>$key),$booking->get_checkout_url())) ?>">
 				<i class="fa fa-times"></i>

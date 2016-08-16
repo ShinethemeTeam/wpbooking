@@ -738,9 +738,13 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		 * @author dungdt
 		 *
 		 * @param $cart_item
+		 * @param $options array
 		 */
-		function _show_cart_item_information($cart_item)
+		function _show_cart_item_information($cart_item,$options=array())
 		{
+			$options=wp_parse_args($options,array(
+				'for_email'=>FALSE
+			));
 			$cart_item = wp_parse_args($cart_item, array(
 				'check_in_timestamp'          => FALSE,
 				'check_out_timestamp'         => FALSE,
@@ -892,7 +896,9 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					echo implode("\r\n", $extra_html);
 				}
 				echo "</ul>";
-				echo '<span class="show-more-less"><span class="more">' . esc_html__('More', 'wpbooking') . ' <i class="fa fa-angle-double-down"></i></span><span class="less">' . esc_html__('Less', 'wpbooking') . ' <i class="fa fa-angle-double-up"></i></span></span>';
+				if(!$options['for_email']){
+					echo '<span class="show-more-less"><span class="more">' . esc_html__('More', 'wpbooking') . ' <i class="fa fa-angle-double-down"></i></span><span class="less">' . esc_html__('Less', 'wpbooking') . ' <i class="fa fa-angle-double-up"></i></span></span>';
+				}
 				echo "</div>";
 			}
 
@@ -905,9 +911,13 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		 * @author dungdt
 		 *
 		 * @param $order_item
+		 * @param $options array
 		 */
-		function _show_order_item_information($order_item)
+		function _show_order_item_information($order_item,$options=array())
 		{
+			$options=wp_parse_args($options,array(
+				'for_email'=>FALSE
+			));
 			$order_item = wp_parse_args($order_item, array(
 				'check_in_timestamp'          => '',
 				'check_out_timestamp'         => '',
@@ -923,7 +933,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			));
 
 			if($order_item['raw_data'] and $cart_item=unserialize($order_item['raw_data'])){
-				$this->_show_cart_item_information($cart_item);
+				$this->_show_cart_item_information($cart_item,$options);
 
 			}
 
