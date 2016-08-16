@@ -2305,6 +2305,7 @@
   margin-right: 2%;
 }
 .wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap {
+  font-size: 14px;
   background: #f2f2f2;
   border-bottom: 2px solid rgba(216, 216, 216, 0.7);
   margin-bottom: 30px;
@@ -2327,6 +2328,9 @@
 .wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap input[type=text].input-error,
 .wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap select.input-error {
   border: 1px solid red;
+}
+.wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap textarea {
+  font-size: 14px;
 }
 .wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap .wb-field {
   margin-bottom: 15px;

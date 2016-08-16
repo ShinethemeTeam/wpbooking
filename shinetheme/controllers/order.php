@@ -254,6 +254,10 @@ if (!class_exists('WPBooking_Order')) {
 
 				// Register User
 				$customer_id = FALSE;
+				if(is_user_logged_in()){
+					$customer_id=get_current_user_id();
+				}
+
 				// Default Fields
 				$fields = wp_parse_args($fields, array(
 					'user_first_name'          => FALSE,
