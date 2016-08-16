@@ -52,46 +52,6 @@ if (!class_exists('WPBooking_Order_Model')) {
 			parent::__construct();
 		}
 
-		function create($cart, $checkout_form_data = array(), $selected_gateway = FALSE, $customer_id = FALSE)
-		{
-			$created = time();
-			$order_data = array(
-				'post_title'  => sprintf(__('New Order In %s', 'wpbooking'), date(get_option('date_format') . ' @' . get_option('time_format'))),
-				'post_type'   => 'wpbooking_order',
-				'post_status' => 'publish'
-			);
-			$order_id = wp_insert_post($order_data);
-
-			if ($order_id) {
-				update_post_meta($order_id, 'checkout_form_data', $checkout_form_data);
-				update_post_meta($order_id, 'wpbooking_selected_gateway', $selected_gateway);
-				update_post_meta($order_id, 'customer_id', $customer_id);
-
-				//User Fields in case of customer dont want to create new account
-				$f = array('user_email', 'user_first_name', 'user_last_name');
-				foreach ($f as $v) {
-					if (array_key_exists($v, $checkout_form_data))
-						update_post_meta($order_id, $v, $checkout_form_data[$v]);
-				}
-
-
-				if (!empty($checkout_form_data)) {
-					foreach ($checkout_form_data as $key => $value) {
-						update_post_meta($order_id, 'wpbooking_form_' . $key, $value['value']);
-					}
-				}
-			}
-
-			if (!empty($cart) and is_array($cart)) {
-				foreach ($cart as $key => $value) {
-					$value['created_at'] = $created;
-					$this->save_order_item($value, $order_id, $customer_id);
-				}
-			}
-
-			return $order_id;
-		}
-
 		function save_order_item($cart_item, $order_id, $customer_id = FALSE)
 		{
 			if (!$customer_id) $customer_id = is_user_logged_in() ? get_current_user_id() : FALSE;
@@ -196,46 +156,14 @@ if (!class_exists('WPBooking_Order_Model')) {
 
 
 		/**
-		 * Get Payable order items at current time
-		 * @param $order_id
-		 * @return bool|array
-		 */
-		function prepare_paying($order_id, $payment_id)
-		{
-			$items = $this->get_order_items($order_id);
-			if (!empty($items)) {
-				$on_paying = array();
-				foreach ($items as $key => $value) {
-					// Payment Completed -> Ignore
-					if ($value['payment_status'] == 'completed') continue;
-
-					// Payment processing -> Ignore
-					if ($value['payment_status'] == 'processing') continue;
-
-					// Customer does not confirm the booking -> Ignore
-					if ($value['need_customer_confirm'] === 1) continue;
-
-					// Partner does not confirm the booking -> Ignore
-					if ($value['need_partner_confirm'] === 1) continue;
-
-					$on_paying[] = $value['id'];
-					$this->where('id', $value['id'])->update(array('payment_status' => 'processing', 'payment_id' => $payment_id));
-				}
-
-				return $on_paying;
-			}
-		}
-
-		/**
-		 * Update Payment Status of Items by Payment ID
+		 * Update Payment Status of Items by Order ID
 		 *
-		 * @param $payment_id
+		 * @param $order_id
 		 * @since 1.0
 		 */
-		function complete_purchase($payment_id)
+		function complete_purchase($order_id)
 		{
-
-			$this->where('payment_id', $payment_id)->update(array('payment_status' => 'completed', 'status' => 'completed'));
+			$this->where('order_id', $order_id)->update(array('payment_status' => 'completed', 'status' => 'completed'));
 		}
 
 		/**
@@ -249,6 +177,23 @@ if (!class_exists('WPBooking_Order_Model')) {
 		function onhold_purchase($payment_id)
 		{
 			$this->where('payment_id', $payment_id)->update(array('status' => 'completed'));
+		}
+
+		/**
+		 * Update Status of Order Item to Cancelled by Admin or Customer
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $order_id
+		 */
+		function cancel_purchase($order_id){
+			$this->where('order_id', $order_id)->update(array('payment_status' => 'completed', 'status' => 'cancelled'));
+		}
+
+		function payment_failed()
+		{
+
 		}
 
 		static function inst()

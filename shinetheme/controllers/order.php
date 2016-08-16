@@ -281,8 +281,8 @@ if (!class_exists('WPBooking_Order')) {
 					}
 				}
 
-				$order_model = WPBooking_Order_Model::inst();
-				$order_id = $order_model->create($cart, $fields, $selected_gateway, $customer_id);
+				$order=new WB_Order(FALSE);
+				$order_id = $order->create($cart, $fields, $selected_gateway, $customer_id);
 				if ($order_id) {
 					$data = array(
 						'status' => 1
@@ -367,14 +367,31 @@ if (!class_exists('WPBooking_Order')) {
 		{
 			if (is_singular('wpbooking_order')) {
 				$action = WPBooking_Input::get('action');
-				$payment_id = WPBooking_Input::get('payment_id');
+				$gateway = WPBooking_Input::get('gateway');
 				$order_id = get_the_ID();
+				$order=new WB_Order($order_id);
 				switch ($action) {
 					case "cancel_purchase":
+						wpbooking_set_message(esc_html__('You cancelled the payment','wpbooking'),'info');
+						$order->cancel_purchase();
 
 						break;
 					case "complete_purchase":
-						WPBooking_Payment_Gateways::inst()->complete_purchase($payment_id, $order_id);
+						$return=WPBooking_Payment_Gateways::inst()->complete_purchase($gateway, $order_id);
+
+						if($return){
+
+							// Update the Order Items
+							$order->complete_purchase();
+							wpbooking_set_message(__('Thank you! Your booking is completed','wpbooking'),'success');
+
+						}else{
+
+							$order->payment_failed();
+							wpbooking_set_message(__('Sorry! Can not complete your payment','wpbooking'),'danger');
+						}
+
+
 						break;
 				}
 			}
@@ -525,97 +542,7 @@ if (!class_exists('WPBooking_Order')) {
 			return wpbooking_get_option('checkout_form');
 		}
 
-		/**
-		 * Get total price by the given order id
-		 * @author dungdt
-		 * @since 1.0
-		 *
-		 * @param $order_id
-		 * @return int|mixed|void
-		 */
-		function get_order_total($order_id)
-		{
-			$total = 0;
 
-			$order_items = $this->get_order_items($order_id);
-
-			if (!empty($order_id)) {
-				foreach ($order_items as $key => $value) {
-					$total += $this->get_order_item_total($value, TRUE);
-				}
-			}
-
-			$total = apply_filters('wpbooking_get_order_total', $total);
-
-			return $total;
-		}
-
-		/**
-		 * Get total order item price by the given item object
-		 *
-		 * @author dungdt
-		 * @since 1.0
-		 *
-		 * @param $item mixed
-		 * @param bool $need_convert Need convert to currency
-		 * @return int|mixed|void
-		 */
-		function get_order_item_total($item, $need_convert = FALSE)
-		{
-			$item_price = $item['sub_total'];
-			$item_price = apply_filters('wpbooking_order_item_total', $item_price, $item, $item['service_type']);
-			$item_price = apply_filters('wpbooking_order_item_total_' . $item['service_type'], $item_price, $item);
-
-			// Convert to current currency
-			if ($need_convert) {
-				$item_price = WPBooking_Currency::convert_money($item_price, array(
-					'currency' => $item['currency']
-				));
-			}
-
-			return $item_price;
-		}
-
-		function get_order_item_total_html($item)
-		{
-
-			$item_price = $this->get_order_item_total($item, TRUE);
-
-			return WPBooking_Currency::format_money($item_price);
-		}
-
-		/**
-		 * Get total of Order only with Instant Booking
-		 * @param $order_id
-		 * @return int|mixed|void
-		 */
-		function get_order_pay_amount($order_id)
-		{
-			$total = 0;
-
-			$order_model = WPBooking_Order_Model::inst();
-
-			$order_items = $order_model->get_order_items($order_id);
-
-			if (!empty($order_items)) {
-				foreach ($order_items as $key => $value) {
-
-					// Payment Completed -> Ignore
-					if ($value['payment_status'] == 'completed') continue;
-
-					// Payment processing -> Ignore
-					if ($value['payment_status'] == 'processing') continue;
-
-					if ($value['need_customer_confirm'] == 1 or $value['need_partner_confirm'] == 1) continue;
-
-					$total += $this->get_order_item_total($value, TRUE);
-				}
-			}
-
-			$total = apply_filters('wpbooking_get_order_pay_amount', $total);
-
-			return $total;
-		}
 
 		/**
 		 * Get all cart items

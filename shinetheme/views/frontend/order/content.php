@@ -66,7 +66,7 @@ do_action('wpbooking_before_order_content');
 			<td >&nbsp;</td>
 			<td colspan="2" class="text-right">
 				<div class="order-total">
-					<?php printf(esc_html__('Total: %s','wpbooking'),'<span class="price">'.WPBooking_Currency::format_money($booking->get_order_total(get_the_ID())).'</span>');?>
+					<?php printf(esc_html__('Total: %s','wpbooking'),'<span class="price">'.WPBooking_Currency::format_money($order->get_total()).'</span>');?>
 				</div>
 			</td>
 		</tr>

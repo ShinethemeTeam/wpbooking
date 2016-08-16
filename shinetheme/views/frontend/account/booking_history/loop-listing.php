@@ -63,6 +63,7 @@ $rows=$order_model->get()->result();
 		foreach($rows as $row){
 			$url=get_permalink(wpbooking_get_option('myaccount-page')).'order-detail/'.$row['id'];
 			$service_type=$row['service_type'];
+			$order=new WB_Order($row['order_id']);
 			?>
 			<tr>
 				<th class="manage-column column-cb check-column ">
@@ -119,7 +120,7 @@ $rows=$order_model->get()->result();
 				</td>
 				<td class="manage-column column-date asc">
 					<?php
-					echo WPBooking_Order::inst()->get_order_item_total_html($row);
+					echo $order->get_item_total_html($row);
 					?>
 				</td>
 			</tr>

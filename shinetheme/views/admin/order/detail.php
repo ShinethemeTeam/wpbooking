@@ -8,9 +8,8 @@
 
 $booking=WPBooking_Order::inst();
 $value=$order_item;
-$items=$booking->get_order_items($order_id);
-$checkout_form_data=$booking->get_order_form_datas($order_id);
-
+$order=new WB_Order($order_id);
+$checkout_form_data=$order->get_checkout_form_data();
 ?>
 
 <div class="wrap">
@@ -31,7 +30,7 @@ $checkout_form_data=$booking->get_order_form_datas($order_id);
 						<?php do_action('wpbooking_order_item_information_'.$service_type,$value) ?>
 					</div>
 					<div class="review-order-item-total">
-						<p class="cart-item-price"><?php esc_html_e('Total','wpbooking'); echo WPBooking_Currency::format_money($booking->get_order_item_total($value)); ?></p>
+						<p class="cart-item-price"><?php esc_html_e('Total','wpbooking'); echo WPBooking_Currency::format_money($order->get_item_total($value)); ?></p>
 					</div>
 					<?php
 					do_action('wpbooking_before_checkout_form_data');
@@ -39,7 +38,7 @@ $checkout_form_data=$booking->get_order_form_datas($order_id);
 					if(!empty($checkout_form_data) and is_array($checkout_form_data)){?>
 						<hr>
 						<div class="checkout-form-data">
-							<h3><?php _e('Checkout Information','wpbooking')?></h3>
+							<h3><?php _e('Billing Details','wpbooking')?></h3>
 
 							<ul class="checkout-form-list">
 								<?php foreach($checkout_form_data as $key=>$value){

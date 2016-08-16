@@ -61,7 +61,7 @@ if(!class_exists('WPBooking_BankTransfer_Gateway') and class_exists('WPBooking_A
 			echo nl2br($bank_account);
 		}
 
-		function do_checkout($order_id,$payment_id){
+		function do_checkout($order_id){
 			return array(
 				'status'=>1
 			);

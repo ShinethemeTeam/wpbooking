@@ -5,10 +5,10 @@
  * Date: 4/21/2016
  * Time: 4:33 PM
  */
-$booking=WPBooking_Order::inst();
 $order_id=WPBooking()->get('order_id');
 if(!$order_id) return;
-$items=$booking->get_order_items($order_id);
+$order=new WB_Order($order_id);
+$items=$order->get_items();
 ?>
 <table width="100%" cellpadding="0" cellspacing="0">
 	<thead>
@@ -34,7 +34,7 @@ $items=$booking->get_order_items($order_id);
 				<?php do_action('wpbooking_email_order_item_information_'.$service_type,$value) ?>
 			</td>
 			<td class="review-order-item-total">
-				<p class="cart-item-price"><?php echo WPBooking_Currency::format_money($booking->get_order_item_total($value)); ?></p>
+				<p class="cart-item-price"><?php echo WPBooking_Currency::format_money($order->get_item_total($value)); ?></p>
 			</td>
 		</tr>
 		<?php
@@ -44,11 +44,7 @@ $items=$booking->get_order_items($order_id);
 	<tfoot>
 		<tr>
 			<td colspan="2"><?php _e('Total','wpbooking')?></td>
-			<td><?php echo WPBooking_Currency::format_money($booking->get_order_total($order_id));?></td>
-		</tr>
-		<tr>
-			<td colspan="2"><?php _e('Pay Amount','wpbooking')?></td>
-			<td><?php echo WPBooking_Currency::format_money($booking->get_order_pay_amount($order_id));?></td>
+			<td><?php echo WPBooking_Currency::format_money($order->get_total());?></td>
 		</tr>
 		<?php do_action('wpbooking_review_order_footer') ?>
 	</tfoot>

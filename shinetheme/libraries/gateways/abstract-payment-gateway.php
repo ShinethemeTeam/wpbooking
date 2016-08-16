@@ -32,8 +32,8 @@ if (!class_exists('WPBooking_Abstract_Payment_Gateway')) {
 			$settings = $this->get_settings_fields();
 			if (!empty($settings)) {
 				foreach ($settings as $key => $value) {
-					if(!empty($value['id']))
-					$settings[$key]['id'] = 'gateway_' . $this->gateway_id . '_' . $value['id'];
+					if (!empty($value['id']))
+						$settings[$key]['id'] = 'gateway_' . $this->gateway_id . '_' . $value['id'];
 				}
 			}
 			$sections['payment_' . $this->gateway_id] = array(
@@ -79,23 +79,23 @@ if (!class_exists('WPBooking_Abstract_Payment_Gateway')) {
 			return $this->get_option('enable') ? TRUE : FALSE;
 		}
 
-		function get_cancel_url($order_id, $payment_id)
+		function get_cancel_url($order_id)
 		{
 
 			$array = array(
-				'payment_id' => $payment_id,
-				'action'     => 'cancel_purchase'
+				'action'     => 'cancel_purchase',
+				'gateway' => $this->gateway_id
 			);
 
 			return add_query_arg($array, get_permalink($order_id));
 		}
 
-		function get_return_url($order_id, $payment_id)
+		function get_return_url($order_id)
 		{
 
 			$array = array(
-				'payment_id' => $payment_id,
-				'action'     => 'complete_purchase'
+				'action'  => 'complete_purchase',
+				'gateway' => $this->gateway_id
 			);
 
 			return add_query_arg($array, get_permalink($order_id));
@@ -125,25 +125,22 @@ if (!class_exists('WPBooking_Abstract_Payment_Gateway')) {
 		/**
 		 * Do Complete Purchase Action
 		 *
-		 * @param $payment_id
+		 * @param $order_id
 		 * @return bool
 		 * @since 1.0
 		 */
-		function complete_purchase($payment_id,$order_id)
+		function complete_purchase( $order_id)
 		{
-			return true;
+			return TRUE;
 		}
 
 		/**
 		 * Check out functions
 		 * @param $order_id
-		 * @param $payment_id
 		 */
-		function do_checkout($order_id,$payment_id)
+		function do_checkout($order_id)
 		{
-			// On-hold for Offline Gateways
-			$order=WPBooking_Order_Model::inst();
-			$order->onhold_purchase($payment_id);
+
 		}
 
 		function _register_gateway($gateways = array())

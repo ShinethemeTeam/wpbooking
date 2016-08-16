@@ -117,7 +117,7 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 
 			return true;
 		}
-		function do_checkout($order_id,$payment_id)
+		function do_checkout($order_id)
 		{
 
 			if(!$this->validate())
@@ -126,7 +126,7 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 					'status'=>0
 				);
 			}
-			$payment=WPBooking_Payment_Model::inst();
+			$order=new WB_Order($order_id);
 
 			$gateway=$this->gatewayObject;
 			if ($this->get_option('test_mode') == 'on') {
@@ -141,14 +141,14 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 				$gateway->setSignature($this->get_option('api_signature'));
 			}
 
-			$total=$payment->get_payment_amount($payment_id);
+			$total=$order->get_total();
 
 			$purchase = array(
 				'amount'      => (float)$total,
 				'currency'    => WPBooking_Currency::get_current_currency('name'),
 				'description' => __('WPBooking','wpbooking'),
-				'returnUrl'   => $this->get_return_url($order_id,$payment_id),
-				'cancelUrl'   => $this->get_cancel_url($order_id,$payment_id),
+				'returnUrl'   => $this->get_return_url($order_id),
+				'cancelUrl'   => $this->get_cancel_url($order_id),
 			);
 
 			$response = $gateway->purchase(
@@ -170,15 +170,22 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 			}
 		}
 
-		function complete_purchase($payment_id,$order_id)
+		/**
+		 * Validate Return Data from PayPal
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $order_id
+		 * @return bool
+		 */
+		function complete_purchase($order_id)
 		{
 			if(!$this->validate())
 			{
-				return array(
-					'status'=>0
-				);
+				return FALSE;
 			}
-			$payment=WPBooking_Payment_Model::inst();
+			$order=new WB_Order($order_id);
 
 			$gateway=$this->gatewayObject;
 			if ($this->get_option('test_mode') == 'on') {
@@ -193,14 +200,14 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 				$gateway->setSignature($this->get_option('api_signature'));
 			}
 
-			$total=$payment->get_payment_amount($payment_id);
+			$total=$order->get_total();
 
 			$purchase = array(
 				'amount'      => (float)$total,
 				'currency'    => WPBooking_Currency::get_current_currency('name'),
 				'description' => __('WPBooking','wpbooking'),
-				'returnUrl'   => $this->get_return_url($order_id,$payment_id),
-				'cancelUrl'   => $this->get_cancel_url($order_id,$payment_id),
+				'returnUrl'   => $this->get_return_url($order_id),
+				'cancelUrl'   => $this->get_cancel_url($order_id),
 			);
 
 			$response = $gateway->completePurchase(
