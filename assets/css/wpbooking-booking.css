@@ -1944,14 +1944,11 @@
   display: none;
 }
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .wpbooking-more-review-detail.active .wpbooking-rating-review-result {
-  display: block;
+  display: table-row;
 }
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .wpbooking-more-review-detail .review-stats {
   display: table;
   width: 100%;
-}
-.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .wpbooking-more-review-detail .review-stats .wpbooking-rating-review-result {
-  display: table-row;
 }
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .wpbooking-more-review-detail .review-stats .wpbooking-rating-review-result .rating-stars {
   display: table-cell;

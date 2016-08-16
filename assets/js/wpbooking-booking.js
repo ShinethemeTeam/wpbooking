@@ -334,6 +334,7 @@ jQuery(document).ready(function($){
     var order_start_date=$('.wpbooking_order_form .wpbooking-field-date-start');
     var order_end_date=$('.wpbooking_order_form .wpbooking-field-date-end');
     var minimum_stay=$('.minimum_stay').val();
+    var last_calendar_open=false;
 
     // Init Datepicker
     order_start_date.datepicker({
@@ -359,7 +360,7 @@ jQuery(document).ready(function($){
             return [0,'wpbooking-disable-date'];
         },
         onChangeMonthYear:function(year,month,obj){
-            console.log('xx');
+            last_calendar_open=1;
             loadCalendarMonth(year,month);
         },
         onClose:function(){
@@ -388,6 +389,7 @@ jQuery(document).ready(function($){
             return [0,'wpbooking-disable-date'];
         },
         onChangeMonthYear:function(year,month){
+            last_calendar_open=2;
             loadCalendarMonth(year,month);
         },
         onClose:function(){
@@ -452,8 +454,12 @@ jQuery(document).ready(function($){
                         wpbooking_checkout_enable_dates.push(res.dates[k]);
                     }
                 }
-                order_start_date.datepicker('refresh');
-                order_end_date.datepicker('refresh');
+                if(last_calendar_open==1){
+                    order_start_date.datepicker('refresh');
+                }
+                if(last_calendar_open==2){
+                    order_end_date.datepicker('refresh');
+                }
             }
         });
        // }
