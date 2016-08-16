@@ -374,7 +374,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			// Max Guest
 			$guest = WPBooking_Input::post('guest');
 			$max_guests = $service->get_max_guests();
-			if ($guest > $max_guests) {
+			if ($max_guests and $guest > $max_guests) {
 				$is_validated = FALSE;
 				wpbooking_set_message(sprintf(esc_html__('Maximum Guests is %s', 'wpbooking'), $max_guests), 'error');
 			}
@@ -922,115 +922,10 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 				'raw_data'                    => FALSE
 			));
 
-
-			$extra_html = array();
-			$days = 0;
-
 			if($order_item['raw_data'] and $cart_item=unserialize($order_item['raw_data'])){
+				$this->_show_cart_item_information($cart_item);
 
-				if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
-					$days = wpbooking_timestamp_diff_day($cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
-				}
-
-				if ($cart_item['enable_additional_guest_tax'] == 'on') {
-
-					// Addition Guest
-					if ($cart_item['guest'] and $addition_money = $cart_item['additional_guest_money'] and $cart_item['rate_based_on'] and $days) {
-						if ($cart_item['guest'] > $cart_item['rate_based_on']) {
-							$extra_html[] = sprintf("<li class='field-item %s'>
-												<span class='field-title'>%s:</span>
-												<span class='field-value'>%s</span>
-											</li>",
-								'additional_guest_money',
-								esc_html__('Additional Guests', 'wpbooking'),
-								WPBooking_Currency::format_money(($cart_item['guest'] - $cart_item['rate_based_on'])*$addition_money * $days)
-							);
-						}
-					}
-					// Tax
-					if ($tax = $cart_item['tax']) {
-						$extra_html[] = sprintf("<li class='field-item %s'>
-												<span class='field-title'>%s:</span>
-												<span class='field-value'>%s</span>
-											</li>",
-							'tax',
-							esc_html__('Tax', 'wpbooking'),
-							$tax . '%'
-						);
-					}
-
-				}
 			}
-
-			/**
-			 * Calculate Deposit
-			 */
-			if(!empty($cart_item['deposit_amount'])){
-
-				switch($cart_item['deposit_type'])
-				{
-					case "percent":
-						$extra_html[] = sprintf("<li class='field-item %s'>
-												<span class='field-title'>%s:</span>
-												<span class='field-value'>%s</span>
-											</li>",
-							'tax',
-							esc_html__('Deposit', 'wpbooking'),
-							$cart_item['deposit_amount'] . '%'
-						);
-						break;
-					case "value":
-					default:
-						$extra_html[] = sprintf("<li class='field-item %s'>
-													<span class='field-title'>%s:</span>
-													<span class='field-value'>%s</span>
-												</li>",
-							'tax',
-							esc_html__('Deposit', 'wpbooking'),
-							WPBooking_Currency::format_money($cart_item['deposit_amount'])
-						);
-						break;
-
-				}
-			}
-
-
-
-			// Show Order Form Field
-			$order_form_string = $order_item['order_form'];
-
-			if ($order_form_string and $order_form = unserialize($order_form_string) and !empty($order_form) and is_array($order_form)) {
-
-				echo '<div class="order-item-form-fields-wrap">';
-				echo '<span class="booking-detail-label">' . esc_html__('Booking Details:', 'wpbooking') . '</span>';
-				echo "<ul class='order-item-form-fields'>";
-				foreach ($order_form as $key => $value) {
-
-					$value = wp_parse_args($value, array(
-						'data'       => '',
-						'field_type' => ''
-					));
-
-					$value_html = WPBooking_Admin_Form_Build::inst()->get_form_field_data($value,$order_item['post_id']);
-
-					if ($value_html) {
-						printf("<li class='field-item %s'>
-								<span class='field-title'>%s:</span>
-								<span class='field-value'>%s</span>
-							</li>", $key, $value['title'], $value_html);
-					}
-
-					do_action('wpbooking_form_field_to_html', $value);
-					do_action('wpbooking_form_field_to_html_' . $value['field_type'], $value);
-				}
-				if ($extra_html) {
-					echo implode("\r\n", $extra_html);
-				}
-				echo "</ul>";
-				echo '<span class="show-more-less"><span class="more">' . esc_html__('More', 'wpbooking') . ' <i class="fa fa-angle-double-down"></i></span><span class="less">' . esc_html__('Less', 'wpbooking') . ' <i class="fa fa-angle-double-up"></i></span></span>';
-				echo "</div>";
-			}
-
 
 		}
 

@@ -2598,44 +2598,56 @@
                 border: none;
             }
         }
-        .order-item-form-fields-wrap{
-            .booking-detail-label{
-                margin-bottom: 10px;
-                display: block;
+
+        .wpbooking-room-type{
+            a{
+                font-size: 14px;
+                color: #333;
+                border-radius: 4px;
+                border:1px solid #999999;
+                padding:1px 3px;
+                &:hover{
+                    text-decoration: none;
+                }
+
             }
-            ul{
+        }
+        .cart-item-order-form-fields-wrap{
+            margin-top: 15px;
+            .booking-detail-label{
+                display: block;
+                padding-bottom: 10px;
+                border-bottom: 1px solid white;
+            }
+            .cart-item-order-form-fields{
                 display: none;
-                list-style: none;
-                margin: 0px;
-                padding: 0px;
                 li{
-                    margin-bottom: 10px;
+                    padding:10px 0px;
+                    border-bottom: 1px solid white;
+                    display: block;
                     .field-title{
                         font-weight: bold;
                     }
                 }
             }
-
             .show-more-less{
-                cursor: pointer;;
                 color: #eea236;
+                cursor: pointer;
                 text-decoration: underline;
                 .less{
                     display: none;
                 }
             }
-
             &.active{
-                ul{
+                .cart-item-order-form-fields{
                     display: block;
                 }
                 .show-more-less{
-                    .more{
-                        display: none;
-
-                    }
                     .less{
                         display: inline-block;
+                    }
+                    .more{
+                        display: none;
                     }
                 }
             }
