@@ -27,7 +27,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
 			//add_filter('comment_form_field_comment', array($this, 'add_review_field'));
 			add_action('comment_post', array($this, '_save_review_stats'));
-			//add_filter('get_comment_text', array($this, '_show_review_stats'), 100);
 
 			add_filter('template_include', array($this, '_show_single_service'));
 
@@ -461,22 +460,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			return $template;
 		}
 
-		/**
-		 * Add Review Stats in End of the Content Text
-		 * @param $content
-		 * @return string
-		 */
-		function _show_review_stats($content)
-		{
-			$comnent_id = get_comment_ID();
-			$comemntObj = get_comment($comnent_id);
-			$post_id = $comemntObj->comment_post_ID;
-			if (get_post_type($post_id) != 'wpbooking_service') return $content;
-
-			$content = wpbooking_load_view('single/review/review-item-stats') . $content;
-
-			return $content;
-		}
 
 		/**
 		 * Save Comment Stats Data

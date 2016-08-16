@@ -872,6 +872,7 @@
     padding: 4px;
     background: white;
     position: relative;
+    margin-bottom: 10px;
     .review-order-item-img{
         float: left;
         margin-right: 7px;
@@ -2068,6 +2069,22 @@
                                     display: block;
                                 }
                             }
+                            .review-stats{
+                                display: table;
+                                width: 100%;
+                                .wpbooking-rating-review-result{
+                                    display: table-row;
+                                    .rating-stars{
+                                        display: table-cell;
+                                    }
+                                    .rating-title{
+                                        display: table-cell;
+                                        width: 1px;
+                                        white-space: nowrap;
+                                        padding-right: 10px;
+                                    }
+                                }
+                            }
                         }
                         .wpbooking-vote-for-review{
                             font-size: 13px;
@@ -2209,12 +2226,24 @@
                         label.form-label{
                             margin-bottom: 26px;
                         }
-                        .wpbooking-rating-review{
-                            margin-bottom: 10px;
-                            .rating-title{
-                               width: 110px;
+                        .review-stats{
+                            display: table;
+                            width: 100%;
+                            .wpbooking-rating-review{
+                                margin-bottom: 10px;
+                                display: table-row;
+                                .rating-title{
+                                    display: table-cell;
+                                    width: 1px;
+                                    white-space: nowrap;
+                                    padding-right: 10px;
+                                }
+                                .rating-stars{
+                                    display: table-cell;
+                                }
                             }
                         }
+
                         .rating-stars{
                             a{
                                 color: @maincolor;

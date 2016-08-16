@@ -453,7 +453,7 @@ jQuery(document).ready(function($){
                     }
                 }
                 order_start_date.datepicker('refresh');
-                //order_end_date.datepicker('refresh');
+                order_end_date.datepicker('refresh');
             }
         });
        // }

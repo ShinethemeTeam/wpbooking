@@ -56,22 +56,26 @@ $reply_allow=wpbooking_review_allow_reply(get_comment_ID());
 				$wpbooking_review_details=get_comment_meta(get_comment_ID(),'wpbooking_review_detail',true);
 				if(!empty($wpbooking_review_details)){
 					echo "<div class='wpbooking-more-review-detail'>";
-					foreach($wpbooking_review_details as $key=> $value){
-						if(!isset($value['title'])) return;
-						if(!isset($value['rate'])) return;
-						?>
-						<label class="wpbooking-rating-review-result">
-							<?php echo esc_attr($value['title'])?>
-							<span class="rating-stars">
-							<a class="<?php if($value['rate']>=1) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
-							<a class="<?php if($value['rate']>=2) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
-							<a class="<?php if($value['rate']>=3) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
-							<a class="<?php if($value['rate']>=4) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
-							<a class="<?php if($value['rate']>=5) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
-						</span>
-						</label>
-						<?php
-					}
+						echo "<div class='review-stats'>";
+						foreach($wpbooking_review_details as $key=> $value){
+							if(!isset($value['title'])) return;
+							if(!isset($value['rate'])) return;
+							?>
+							<label class="wpbooking-rating-review-result">
+								<span class="rating-title">
+									<?php echo esc_attr($value['title'])?>
+								</span>
+								<span class="rating-stars">
+								<a class="<?php if($value['rate']>=1) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+								<a class="<?php if($value['rate']>=2) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+								<a class="<?php if($value['rate']>=3) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+								<a class="<?php if($value['rate']>=4) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+								<a class="<?php if($value['rate']>=5) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+							</span>
+							</label>
+							<?php
+						}
+						echo "</div>";
 					echo "<span class='wp-show-detail-review'><span class='more'>".esc_html__('More','wpbooking')." <i class='fa fa-angle-double-down'></i></span><span class='less'>".esc_html__('Less','wpbooking')." <i class='fa fa-angle-double-up'></i></span></span>";
 					echo "</div>";
 				}

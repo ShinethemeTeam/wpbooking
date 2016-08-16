@@ -123,6 +123,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			wp_enqueue_script('google-map-js','//maps.googleapis.com/maps/api/js?libraries=places&sensor=false',array('jquery'),null,true);
 			wp_enqueue_script('gmap3.min-js',wpbooking_assets_url('js/gmap3.min.js'),array('jquery'),null,true);
 
+
 			/**
 			 * Moment Js
 			 */
