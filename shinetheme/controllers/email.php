@@ -228,21 +228,9 @@ if (!class_exists('WPBooking_Email')) {
 
 			WPBooking()->set('order_id', $order_id);
 
-			$order_model = WPBooking_Order_Model::inst();
+			$order=new WB_Order($order_id);
 
-			$items = $order_model->get_order_items($order_id);
-
-			// Send Booking Information to Customer
-			$customer = FALSE;
-			if (!empty($items)) {
-				foreach ($items as $key => $value) {
-					if (!empty($value['customer_id'])) {
-						$customer = $value;
-					}
-				}
-			}
-
-			$to = $user_email = get_the_author_meta('user_email', $customer['customer_id']);
+			$to = $order->get_customer_email();
 
 			$subject = sprintf(__("New Order from %s", 'wpbooking'), get_bloginfo('title'));
 
