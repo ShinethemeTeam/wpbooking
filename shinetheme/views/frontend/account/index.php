@@ -10,7 +10,7 @@
 	<?php
 	if(is_user_logged_in()){
 		echo wpbooking_load_view('account/nav');
-		if(!$tab=get_query_var('tab')) $tab='profile';
+		if(!$tab=get_query_var('tab')) $tab='dashboard';
 		echo "<div class='wpbooking-account-tab ".$tab."'>";
 		echo wpbooking_load_view('account/tabs/'.$tab);
 		echo "</div>";

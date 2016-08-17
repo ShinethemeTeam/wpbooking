@@ -113,7 +113,7 @@ if (!class_exists('WPBooking_Inbox')) {
 			$model = WPBooking_Inbox_Model::inst();
 			$current_user = get_current_user_id();
 
-			return $model->limit(30)
+			return $model->limit(5)
 				->where('from_user', $current_user)
 				->or_where('to_user', $current_user)
 				->where('from_user!=to_user', FALSE,true)

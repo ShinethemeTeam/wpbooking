@@ -9,7 +9,7 @@ $tabs=WPBooking_User::inst()->get_tabs();
 
 ?>
 <!-- Nav tabs -->
-<ul class="nav nav-tabs" role="tablist">
+<ul class="wb-account-nav" role="tablist">
 	<?php
 	if(!empty($tabs)){
 		$i=1;
@@ -21,6 +21,12 @@ $tabs=WPBooking_User::inst()->get_tabs();
 			if(!get_query_var('tab') and $i==1) $class='active';
 
 			$url=get_permalink(wpbooking_get_option('myaccount-page')).'tab/'.$k;
+
+			switch($k){
+				case "logout":
+					$url=wp_logout_url();
+					break;
+			}
 
 			printf('<li role="presentation" class="%s"><a href="%s">%s</a></li>',$class,$url,$tab);
 			$i++;

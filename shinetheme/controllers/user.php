@@ -59,7 +59,7 @@ if (!class_exists('WPBooking_User')) {
 			 * @since 1.0
 			 * @author dungdt
 			 */
-			add_action('wp_ajax_wpbooking_register_email_preview',array($this,'_preview_email'));
+			add_action('wp_ajax_wpbooking_register_email_preview', array($this, '_preview_email'));
 
 			/**
 			 * Handle Action in My Account Page eg Insert/Update Service
@@ -67,7 +67,7 @@ if (!class_exists('WPBooking_User')) {
 			 * @since 1.0
 			 * @author dungdt
 			 */
-			add_action('init',array($this,'_myaccount_page_handler'),20);
+			add_action('init', array($this, '_myaccount_page_handler'), 20);
 
 			/**
 			 * Add Endpoints to My Account Page
@@ -76,7 +76,7 @@ if (!class_exists('WPBooking_User')) {
 			 * @author dungdt
 			 *
 			 */
-			add_action( 'init', array( $this, 'add_endpoints' ) );
+			add_action('init', array($this, 'add_endpoints'));
 
 		}
 
@@ -128,6 +128,7 @@ if (!class_exists('WPBooking_User')) {
 			echo json_encode($res);
 			die;
 		}
+
 		/**
 		 * Upload Certificate Ajax Handler
 		 *
@@ -204,9 +205,10 @@ if (!class_exists('WPBooking_User')) {
 					if ($redirect = WPBooking_Input::post('url')) {
 						wp_redirect($redirect);
 						die;
-					}else{
+					} else {
 						// redirect to account page
-						wp_redirect(get_permalink(wpbooking_get_option('myaccount-page')));die;
+						wp_redirect(get_permalink(wpbooking_get_option('myaccount-page')));
+						die;
 
 					}
 				}
@@ -248,7 +250,6 @@ if (!class_exists('WPBooking_User')) {
 				wpbooking_set_message($validate->error_string(), 'danger');
 				$is_validated = FALSE;
 			}
-
 
 
 			// Allow to add filter before register
@@ -316,7 +317,7 @@ if (!class_exists('WPBooking_User')) {
 
 				if (!$is_select_service) {
 					$is_validated = FALSE;
-					$validate->set_error_message('service_type',esc_html__('Please select at lease one Service Type!','wpbooking'));
+					$validate->set_error_message('service_type', esc_html__('Please select at lease one Service Type!', 'wpbooking'));
 				}
 
 
@@ -457,7 +458,7 @@ if (!class_exists('WPBooking_User')) {
 				foreach ($all_shortcodes as $k => $v) {
 					$v = apply_filters('wpbooking_registration_email_shortcode', FALSE, $k, $user_id);
 					$v = apply_filters('wpbooking_registration_email_shortcode_' . $k, $v, $user_id);
-					$content = str_replace('['.$k.']', $v, $content);
+					$content = str_replace('[' . $k . ']', $v, $content);
 				}
 			}
 
@@ -475,10 +476,10 @@ if (!class_exists('WPBooking_User')) {
 		function get_email_shortcodes()
 		{
 			$all_shortcodes = array(
-				'user_login'      => esc_html__('Your Username','wpbooking'),// Default Value for Preview
-				'user_email'     => esc_html__('email@domain.com','wpbooking'),
+				'user_login'     => esc_html__('Your Username', 'wpbooking'),// Default Value for Preview
+				'user_email'     => esc_html__('email@domain.com', 'wpbooking'),
 				'profile_button' => '',
-				'profile_url'    => esc_html__('http://domain.com/profile.php','wpbooking'),
+				'profile_url'    => esc_html__('http://domain.com/profile.php', 'wpbooking'),
 			);
 
 			$all_shortcodes = apply_filters('wpbooking_registration_email_shortcodes', $all_shortcodes);
@@ -530,15 +531,15 @@ if (!class_exists('WPBooking_User')) {
 		 */
 		function _preview_email()
 		{
-			$allowed=array(
+			$allowed = array(
 				'registration_email_customer',
 				'registration_email_admin',
 				'registration_partner_email_to_partner',
 				'registration_partner_email_to_admin',
 			);
-			if(in_array(WPBooking_Input::get('email'),$allowed)){
+			if (in_array(WPBooking_Input::get('email'), $allowed)) {
 
-				$content=wpbooking_get_option(WPBooking_Input::get('email'));
+				$content = wpbooking_get_option(WPBooking_Input::get('email'));
 				$content = do_shortcode($content);
 
 				// Apply Default Shortcode Content
@@ -546,12 +547,12 @@ if (!class_exists('WPBooking_User')) {
 
 				if (!empty($all_shortcodes)) {
 					foreach ($all_shortcodes as $k => $v) {
-						$content = str_replace('['.$k.']', $v, $content);
+						$content = str_replace('[' . $k . ']', $v, $content);
 					}
 				}
 
-				$content=WPBooking_Email::inst()->apply_css($content);
-				echo ($content);
+				$content = WPBooking_Email::inst()->apply_css($content);
+				echo($content);
 				die;
 			}
 		}
@@ -564,27 +565,27 @@ if (!class_exists('WPBooking_User')) {
 		 */
 		function _add_scripts()
 		{
-			if(get_query_var('service')){
-				wp_enqueue_style('full-calendar',wpbooking_admin_assets_url('/css/fullcalendar.min.css'),FALSE,'1.1.6');
+			if (get_query_var('service')) {
+				wp_enqueue_style('full-calendar', wpbooking_admin_assets_url('/css/fullcalendar.min.css'), FALSE, '1.1.6');
 
-				wp_enqueue_script('moment-js',wpbooking_admin_assets_url('js/moment.min.js'),array('jquery'),null,true);
+				wp_enqueue_script('moment-js', wpbooking_admin_assets_url('js/moment.min.js'), array('jquery'), null, TRUE);
 
-				wp_enqueue_script('full-calendar',wpbooking_admin_assets_url('js/fullcalendar.min.js'),array('jquery', 'moment-js'),null,true);
+				wp_enqueue_script('full-calendar', wpbooking_admin_assets_url('js/fullcalendar.min.js'), array('jquery', 'moment-js'), null, TRUE);
 
-				wp_enqueue_script('fullcalendar-lang', wpbooking_admin_assets_url('/js/lang-all.js'), array('jquery'), null, true);
+				wp_enqueue_script('fullcalendar-lang', wpbooking_admin_assets_url('/js/lang-all.js'), array('jquery'), null, TRUE);
 
-				wp_enqueue_script('wpbooking-calendar-room',wpbooking_admin_assets_url('js/wpbooking-calendar-room.js'),array('jquery','jquery-ui-datepicker'),null,true);
+				wp_enqueue_script('wpbooking-calendar-room', wpbooking_admin_assets_url('js/wpbooking-calendar-room.js'), array('jquery', 'jquery-ui-datepicker'), null, TRUE);
 			}
 
-			if(in_array(get_query_var('tab'),array('orders','booking_history')) and WPBooking_Input::get('subtab')=='calendar'){
+			if (in_array(get_query_var('tab'), array('orders', 'booking_history')) and WPBooking_Input::get('subtab') == 'calendar') {
 
-				wp_enqueue_style('full-calendar',wpbooking_admin_assets_url('/css/fullcalendar.min.css'),FALSE,'1.1.6');
+				wp_enqueue_style('full-calendar', wpbooking_admin_assets_url('/css/fullcalendar.min.css'), FALSE, '1.1.6');
 
-				wp_enqueue_script('moment-js',wpbooking_admin_assets_url('js/moment.min.js'),array('jquery'),null,true);
+				wp_enqueue_script('moment-js', wpbooking_admin_assets_url('js/moment.min.js'), array('jquery'), null, TRUE);
 
-				wp_enqueue_script('full-calendar',wpbooking_admin_assets_url('js/fullcalendar.min.js'),array('jquery', 'moment-js'),null,true);
+				wp_enqueue_script('full-calendar', wpbooking_admin_assets_url('js/fullcalendar.min.js'), array('jquery', 'moment-js'), null, TRUE);
 
-				wp_enqueue_script('fullcalendar-lang', wpbooking_admin_assets_url('/js/lang-all.js'), array('jquery'), null, true);
+				wp_enqueue_script('fullcalendar-lang', wpbooking_admin_assets_url('/js/lang-all.js'), array('jquery'), null, TRUE);
 
 			}
 		}
@@ -598,56 +599,56 @@ if (!class_exists('WPBooking_User')) {
 		 */
 		function _myaccount_page_handler()
 		{
-			$action=WPBooking_Input::post('action');
-			switch($action){
+			$action = WPBooking_Input::post('action');
+			switch ($action) {
 				case "wpbooking_save_service":
-					if(is_user_logged_in()){
-						$validate=$this->validate_service();
-						if($validate){
-							if($service_id=get_query_var('service')){
-								$service=get_post($service_id);
+					if (is_user_logged_in()) {
+						$validate = $this->validate_service();
+						if ($validate) {
+							if ($service_id = get_query_var('service')) {
+								$service = get_post($service_id);
 								// Update
 								wp_update_post(array(
-									'ID'=>$service_id,
-									'post_title'=>WPBooking_Input::post('service_title'),
-									'post_content'=>WPBooking_Input::post('service_content'),
-									'post_author'=>$service->post_author
+									'ID'           => $service_id,
+									'post_title'   => WPBooking_Input::post('service_title'),
+									'post_content' => WPBooking_Input::post('service_content'),
+									'post_author'  => $service->post_author
 								));
 
-								wpbooking_set_message(esc_html__('Update Successful','wpbooking'),'success');
+								wpbooking_set_message(esc_html__('Update Successful', 'wpbooking'), 'success');
 
 								// Save Metabox
 								//WPBooking_Metabox::inst()->do_save_metabox($service_id);
 
-								do_action('wpbooking_after_user_update_service',$service_id);
+								do_action('wpbooking_after_user_update_service', $service_id);
 
-							}else{
+							} else {
 								// Insert
-								$service_id=wp_insert_post(array(
-									'post_title'=>WPBooking_Input::post('service_title'),
-									'post_content'=>WPBooking_Input::post('service_content'),
+								$service_id = wp_insert_post(array(
+									'post_title'   => WPBooking_Input::post('service_title'),
+									'post_content' => WPBooking_Input::post('service_content'),
 								));
 
-								if(!is_wp_error($service_id)){
+								if (!is_wp_error($service_id)) {
 									// Success
-									wpbooking_set_message(esc_html__('Create Successful','wpbooking'),'success');
+									wpbooking_set_message(esc_html__('Create Successful', 'wpbooking'), 'success');
 
 									// Save Metabox
 									//WPBooking_Metabox::inst()->do_save_metabox($service_id);
 
-									do_action('wpbooking_after_user_insert_service_success',$service_id);
+									do_action('wpbooking_after_user_insert_service_success', $service_id);
 
 									// Redirect To Edit Page
-									$myaccount_page=get_permalink(wpbooking_get_option('myaccount-page'));
-									$edit_url=$myaccount_page.'service/'.$service_id;
+									$myaccount_page = get_permalink(wpbooking_get_option('myaccount-page'));
+									$edit_url = $myaccount_page . 'service/' . $service_id;
 									wp_redirect(esc_url_raw($edit_url));
 									die;
 
-								}else{
+								} else {
 									// Create Error
-									wpbooking_set_message($service_id->get_error_message(),'danger');
+									wpbooking_set_message($service_id->get_error_message(), 'danger');
 
-									do_action('wpbooking_after_user_insert_service_error',$service_id);
+									do_action('wpbooking_after_user_insert_service_error', $service_id);
 								}
 
 
@@ -656,99 +657,99 @@ if (!class_exists('WPBooking_User')) {
 						}
 					}
 
-				break;
+					break;
 
 				// Update Profile
 				case "wpbooking_update_profile":
-					if(is_user_logged_in()){
+					if (is_user_logged_in()) {
 
 						do_action('wpbooking_before_update_profile');
 
-						$validate=new WPBooking_Form_Validator();
-						$validate->set_rules('u_avatar',esc_html__('Avatar','wpbooking'),'max_length[500]');
-						$validate->set_rules('u_display_name',esc_html__('Display Name','wpbooking'),'required|max_length[255]');
-						$validate->set_rules('u_email',esc_html__('Email','wpbooking'),'required|max_length[255]|valid_email');
-						$validate->set_rules('u_phone',esc_html__('Phone Number','wpbooking'),'required|max_length[255]');
+						$validate = new WPBooking_Form_Validator();
+						$validate->set_rules('u_avatar', esc_html__('Avatar', 'wpbooking'), 'max_length[500]');
+						$validate->set_rules('u_display_name', esc_html__('Display Name', 'wpbooking'), 'required|max_length[255]');
+						$validate->set_rules('u_email', esc_html__('Email', 'wpbooking'), 'required|max_length[255]|valid_email');
+						$validate->set_rules('u_phone', esc_html__('Phone Number', 'wpbooking'), 'required|max_length[255]');
 
-						$is_validate=true;
-						$is_updated=FALSE;
+						$is_validate = TRUE;
+						$is_updated = FALSE;
 
-						if(!$validate->run()){
-							$is_validate=FALSE;
-							wpbooking_set_message($validate->error_string(),'danger');
+						if (!$validate->run()) {
+							$is_validate = FALSE;
+							wpbooking_set_message($validate->error_string(), 'danger');
 						}
 
-						$is_validate=apply_filters('wpbooking_update_profile_validate',$is_validate);
+						$is_validate = apply_filters('wpbooking_update_profile_validate', $is_validate);
 
-						if($is_validate){
+						if ($is_validate) {
 							// Start Update
-							$is_updated=wp_update_user(array(
-								'ID'=>get_current_user_id(),
-								'display_name'=>WPBooking_Input::post('u_display_name'),
-								'user_email'=>WPBooking_Input::post('u_email')
+							$is_updated = wp_update_user(array(
+								'ID'           => get_current_user_id(),
+								'display_name' => WPBooking_Input::post('u_display_name'),
+								'user_email'   => WPBooking_Input::post('u_email')
 							));
 
-							if(is_wp_error($is_updated)){
-								wpbooking_set_message($is_updated->get_error_message(),'danger');
-							}else{
-								wpbooking_set_message(esc_html__('Updated Successfully','wpbooking'),'success');
+							if (is_wp_error($is_updated)) {
+								wpbooking_set_message($is_updated->get_error_message(), 'danger');
+							} else {
+								wpbooking_set_message(esc_html__('Updated Successfully', 'wpbooking'), 'success');
 								// Update Success
-								update_user_meta(get_current_user_id(),'phone_number',WPBooking_Input::post('u_phone'));
-								update_user_meta(get_current_user_id(),'avatar',WPBooking_Input::post('u_avatar'));
+								update_user_meta(get_current_user_id(), 'phone_number', WPBooking_Input::post('u_phone'));
+								update_user_meta(get_current_user_id(), 'avatar', WPBooking_Input::post('u_avatar'));
 							}
 						}
 
 
-						do_action('wpbooking_after_update_profile',$is_validate,$is_updated);
+						do_action('wpbooking_after_update_profile', $is_validate, $is_updated);
 					}
 					break;
 
 				// Change Password
 				case "wpbooking_change_password":
-					if(is_user_logged_in()){
+					if (is_user_logged_in()) {
 
 						do_action('wpbooking_before_change_password');
 
-						$validate=new WPBooking_Form_Validator();
-						$validate->set_rules('u_password',esc_html__('Password','wpbooking'),'required|max_length[255]');
-						$validate->set_rules('u_new_password',esc_html__('New Password','wpbooking'),'required|max_length[255]');
-						$validate->set_rules('u_re_new_password',esc_html__('New Password Again','wpbooking'),'required|max_length[255]|matches[u_new_password]');
+						$validate = new WPBooking_Form_Validator();
+						$validate->set_rules('u_password', esc_html__('Password', 'wpbooking'), 'required|max_length[255]');
+						$validate->set_rules('u_new_password', esc_html__('New Password', 'wpbooking'), 'required|max_length[255]');
+						$validate->set_rules('u_re_new_password', esc_html__('New Password Again', 'wpbooking'), 'required|max_length[255]|matches[u_new_password]');
 
-						$is_validate=true;
-						$is_updated=FALSE;
+						$is_validate = TRUE;
+						$is_updated = FALSE;
 
-						if(!$validate->run()){
-							$is_validate=FALSE;
-							wpbooking_set_message($validate->error_string(),'danger');
+						if (!$validate->run()) {
+							$is_validate = FALSE;
+							wpbooking_set_message($validate->error_string(), 'danger');
 						}
 
 						global $current_user;
 						get_currentuserinfo();
 
-						if(!wp_check_password( WPBooking_Input::post('u_password'), $current_user->user_pass)){
-							$is_validate=FALSE;
-							wpbooking_set_message(esc_html__('Your Current Password is not correct','wpbooking'),'danger');
+						if (!wp_check_password(WPBooking_Input::post('u_password'), $current_user->user_pass)) {
+							$is_validate = FALSE;
+							wpbooking_set_message(esc_html__('Your Current Password is not correct', 'wpbooking'), 'danger');
 						}
 
-						$is_validate=apply_filters('wpbooking_change_password_validate',$is_validate);
+						$is_validate = apply_filters('wpbooking_change_password_validate', $is_validate);
 
-						if($is_validate){
+						if ($is_validate) {
 							// Start Update
-							$is_updated=wp_update_user(array(
-								'ID'=>get_current_user_id(),
-								'user_pass'=>WPBooking_Input::post('u_new_password'),
+							$is_updated = wp_update_user(array(
+								'ID'        => get_current_user_id(),
+								'user_pass' => WPBooking_Input::post('u_new_password'),
 							));
 
-							if(is_wp_error($is_updated)){
-								wpbooking_set_message($is_updated->get_error_message(),'danger');
-							}else{
+							if (is_wp_error($is_updated)) {
+								wpbooking_set_message($is_updated->get_error_message(), 'danger');
+							} else {
 
-								wpbooking_set_message(esc_html__('Password Changed Successfully','wpbooking'),'success');
+								wpbooking_set_message(esc_html__('Password Changed Successfully', 'wpbooking'), 'success');
 							}
 						}
 
 
-						do_action('wpbooking_after_change_password',$is_validate,$is_updated);
+						do_action('wpbooking_after_change_password', $is_validate, $is_updated);
 					}
 					break;
 
@@ -765,27 +766,27 @@ if (!class_exists('WPBooking_User')) {
 		function validate_service()
 		{
 			// Is Logged In?
-			if(!is_user_logged_in()) return FALSE;
+			if (!is_user_logged_in()) return FALSE;
 
-			$service=get_post(get_query_var('service'));
+			$service = get_post(get_query_var('service'));
 
-			$myaccount_page=get_permalink(wpbooking_get_option('myaccount-page'));
+			$myaccount_page = get_permalink(wpbooking_get_option('myaccount-page'));
 
 			// Service Exists
-			if(!$service or $service->post_type!='wpbooking_service'){
-				wpbooking_set_message(esc_html__('Service does not exists','wpbooking'),'danger');
-				wp_redirect(add_query_arg(array('tab'=>'services'),$myaccount_page));
+			if (!$service or $service->post_type != 'wpbooking_service') {
+				wpbooking_set_message(esc_html__('Service does not exists', 'wpbooking'), 'danger');
+				wp_redirect(add_query_arg(array('tab' => 'services'), $myaccount_page));
 				die;
 			}
 
 			// Permission
-			if($service->post_author!=get_current_user_id() or !current_user_can( 'manage_options' )){
-				wpbooking_set_message(esc_html__('You do not have permission to access this page','wpbooking'),'danger');
-				wp_redirect(add_query_arg(array('tab'=>'services'),$myaccount_page));
+			if ($service->post_author != get_current_user_id() or !current_user_can('manage_options')) {
+				wpbooking_set_message(esc_html__('You do not have permission to access this page', 'wpbooking'), 'danger');
+				wp_redirect(add_query_arg(array('tab' => 'services'), $myaccount_page));
 				die;
 			}
 
-			$validate=apply_filters('wpbooking_user_validate_service',true,$service);
+			$validate = apply_filters('wpbooking_user_validate_service', TRUE, $service);
 
 			return $validate;
 
@@ -800,21 +801,20 @@ if (!class_exists('WPBooking_User')) {
 		function add_endpoints()
 		{
 			// Tab
-			add_rewrite_endpoint('tab',EP_PAGES);
+			add_rewrite_endpoint('tab', EP_PAGES);
 
 			// Edit, Create Service
-			add_rewrite_endpoint('service',EP_PAGES);
+			add_rewrite_endpoint('service', EP_PAGES);
 
 			// Detail Order
-			add_rewrite_endpoint('order-detail',EP_PAGES);
+			add_rewrite_endpoint('order-detail', EP_PAGES);
 
 			// update-profile
-			add_rewrite_endpoint('update-profile',EP_PAGES);
+			add_rewrite_endpoint('update-profile', EP_PAGES);
 
 			flush_rewrite_rules();
 
 		}
-
 
 
 		/**
@@ -825,33 +825,35 @@ if (!class_exists('WPBooking_User')) {
 		 */
 		function get_tabs()
 		{
-			$tabs=array(
-				'profile'=>esc_html__('Profile','wpbooking'),
-				'services'=>esc_html__('Services','wpbooking'),
-				'booking_history'=>esc_html__('Booking History','wpbooking'),
-
+			$tabs = array(
+				'dashboard'       => esc_html__('Dashboard', 'wpbooking'),
+				'booking_history' => esc_html__('Your booking', 'wpbooking'),
 			);
-			if(current_user_can('publish_posts')){
-				$tabs['orders']=esc_html__('Orders','wpbooking');
+			if (current_user_can('publish_posts')) {
+				//$tabs['orders'] = esc_html__('Orders', 'wpbooking');
+				$tabs['services']= esc_html__('Your listing', 'wpbooking');
 			}
+			$tabs['wishlist']= esc_html__('Your wishlist', 'wpbooking');
+			$tabs['inbox'] = esc_html__('Inbox', 'wpbooking');
+			$tabs['profile'] = esc_html__('Profile', 'wpbooking');
+			$tabs['change_password'] = esc_html__('Change Password', 'wpbooking');
+			$tabs['logout'] = esc_html__('Logout', 'wpbooking');
 
-			$tabs['inbox']=esc_html__('Inbox','wpbooking');
-
-			return apply_filters('wpbooking_myaccount_tabs',$tabs);
+			return apply_filters('wpbooking_myaccount_tabs', $tabs);
 		}
 
 		function _myaccount_shortcode($attr = array(), $content = FALSE)
 		{
 
 			// Set Page Tabs
-			if(get_query_var('order-detail')){
-				set_query_var('tab','orders');
+			if (get_query_var('order-detail')) {
+				set_query_var('tab', 'orders');
 			}
-			if(get_query_var('service')){
-				set_query_var('tab','services');
+			if (get_query_var('service')) {
+				set_query_var('tab', 'services');
 			}
-			if(get_query_var('update-profile')){
-				set_query_var('tab','profile');
+			if (get_query_var('update-profile')) {
+				set_query_var('tab', 'profile');
 			}
 
 			return wpbooking_load_view('account/index');
@@ -868,14 +870,14 @@ if (!class_exists('WPBooking_User')) {
 			//add_shortcode('wpbooking-partner-register', array($this, '_partner_register_shortcode'));
 		}
 
-		function order_create_user($data=array())
+		function order_create_user($data = array())
 		{
-			$data=wp_parse_args($data,array(
+			$data = wp_parse_args($data, array(
 				'user_email' => '',
 				'first_name' => '',
 				'last_name'  => '',
 			));
-			if(!$data['user_email']) return FALSE;
+			if (!$data['user_email']) return FALSE;
 
 			$user_name = $this->generate_username();
 			if ($user_name) {
@@ -890,7 +892,8 @@ if (!class_exists('WPBooking_User')) {
 
 				if (!is_wp_error($create_user)) {
 
-					do_action('wpbooking_register_success',$create_user);
+					do_action('wpbooking_register_success', $create_user);
+
 					return $create_user;
 				}
 			}
@@ -907,8 +910,10 @@ if (!class_exists('WPBooking_User')) {
 		 *
 		 * @return false|string
 		 */
-		function account_page_url(){
-			$myaccount_page=get_permalink(wpbooking_get_option('myaccount-page'));
+		function account_page_url()
+		{
+			$myaccount_page = get_permalink(wpbooking_get_option('myaccount-page'));
+
 			return $myaccount_page;
 		}
 
@@ -921,11 +926,12 @@ if (!class_exists('WPBooking_User')) {
 		 * @param $author_email bool|string
 		 * @return null|string
 		 */
-		function count_reviews($author_email=FALSE)
+		function count_reviews($author_email = FALSE)
 		{
-			if(!$author_email) $author_email=get_comment_author_email();
+			if (!$author_email) $author_email = get_comment_author_email();
 			global $wpdb;
-			return $count = $wpdb->get_var('SELECT COUNT(comment_ID) FROM ' . $wpdb->comments. ' WHERE comment_approved=1 and comment_parent=0 and  comment_author_email = "' . $author_email . '"');
+
+			return $count = $wpdb->get_var('SELECT COUNT(comment_ID) FROM ' . $wpdb->comments . ' WHERE comment_approved=1 and comment_parent=0 and  comment_author_email = "' . $author_email . '"');
 		}
 
 		/**
@@ -938,15 +944,15 @@ if (!class_exists('WPBooking_User')) {
 		 */
 		function get_term_condition_link()
 		{
-			if($page=wpbooking_get_option('term-page') and get_post($page)){
+			if ($page = wpbooking_get_option('term-page') and get_post($page)) {
 				return get_permalink($page);
 			}
 		}
 
 		function generate_username()
 		{
-			$prefix=apply_filters('wpbooking_generated_username_prefix','wpbooking_');
-			$user_name = $prefix.time() . rand(0, 999);
+			$prefix = apply_filters('wpbooking_generated_username_prefix', 'wpbooking_');
+			$user_name = $prefix . time() . rand(0, 999);
 			if (username_exists($user_name)) return $this->generate_username();
 
 			return $user_name;
