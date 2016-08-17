@@ -112,7 +112,7 @@ if (!class_exists('WPBooking_Email')) {
 		private function send_admin_email($order_id)
 		{
 
-			$to = get_option('admin_email');
+			$to = wpbooking_get_option('system_email');
 
 			WPBooking()->set('is_email_to_admin', 1);
 			WPBooking()->set('order_id',$order_id);
