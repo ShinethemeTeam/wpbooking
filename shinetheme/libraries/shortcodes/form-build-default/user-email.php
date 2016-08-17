@@ -117,6 +117,10 @@ if (!class_exists('WPBooking_User_Email_Field')) {
 			parent::add_field($name, array('data' => $data, 'rule' => implode('|', $rule)));
 			if($this->is_hidden($attr)) return FALSE;
 
+			if(is_user_logged_in()){
+				$array['readonly']='readonly';
+			}
+
 			$a = FALSE;
 
 			foreach ($array as $key => $val) {
