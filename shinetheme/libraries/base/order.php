@@ -121,10 +121,8 @@ if(!class_exists('WB_Order')){
 			if($this->order_id){
 				$order_items = $this->get_items();
 
-				if (!empty($order_id)) {
-					foreach ($order_items as $key => $value) {
-						$total += $this->get_item_total($value, TRUE);
-					}
+				foreach ($order_items as $key => $value) {
+					$total += $this->get_item_total($value, TRUE);
 				}
 
 				$total = apply_filters('wpbooking_get_order_total', $total);
