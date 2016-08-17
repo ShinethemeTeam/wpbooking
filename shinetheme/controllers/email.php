@@ -231,17 +231,18 @@ if (!class_exists('WPBooking_Email')) {
 			$order=new WB_Order($order_id);
 
 			$to = $order->get_customer_email();
+			if($to){
+				$subject = sprintf(__("New Order from %s", 'wpbooking'), get_bloginfo('title'));
 
-			$subject = sprintf(__("New Order from %s", 'wpbooking'), get_bloginfo('title'));
+				WPBooking()->set('is_email_to_customer', 1);
 
-			WPBooking()->set('is_email_to_customer', 1);
+				$message = $this->replaceShortcode(wpbooking_get_option('email_to_customer'));
+				$message = do_shortcode($message);
 
-			$message = $this->replaceShortcode(wpbooking_get_option('email_to_customer'));
-			$message = do_shortcode($message);
+				$this->send($to, $subject, $message);
 
-			$this->send($to, $subject, $message);
-
-			WPBooking()->set('is_email_to_customer', 0);
+				WPBooking()->set('is_email_to_customer', 0);
+			}
 
 			do_action('wpbooking_after_send_customer_email', $order_id);
 		}
