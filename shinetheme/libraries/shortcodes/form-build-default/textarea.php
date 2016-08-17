@@ -68,6 +68,13 @@ if(!class_exists('WPBooking_Form_Textarea_Field')){
 							'value'            => ""
 						) ,
 						array(
+							"type"             => "textarea" ,
+							"title"            => __( "Placeholder" , 'wpbooking' ) ,
+							"name"             => "placeholder" ,
+							'edit_field_class' => 'wpbooking-col-md-12' ,
+							'value'            => ""
+						) ,
+						array(
 							"type"             => "text" ,
 							"title"            => __( "Rows" , 'wpbooking' ) ,
 							"name"             => "rows" ,
@@ -102,6 +109,7 @@ if(!class_exists('WPBooking_Form_Textarea_Field')){
 					'value'       => '' ,
 					'rows'        => '' ,
 					'columns'     => '' ,
+					'placeholder'=>FALSE
 				) );
 			extract( $data );
 			$required = "";
@@ -112,7 +120,14 @@ if(!class_exists('WPBooking_Form_Textarea_Field')){
 			}
 			$this->add_field($name,array('data'=>$data,'rule'=>$rule));
 			if($this->is_hidden($attr)) return FALSE;
-			return '<textarea name="' . $name . '" id="' . $id . '" class="' . $class . '" rows="' . $rows . '" cols="' . $columns . '" ' . $required . ' >' . $value . '</textarea>';
+
+			$html=array();
+			if(!empty($data['title'])){
+				$html[]=sprintf('<p><label>%s</label></p>',wpbooking_get_translated_string($data['title']));
+			}
+			$html[]= '<div class="wb-field"><textarea placeholder="'.$data['placeholder'].'" name="' . $name . '" id="' . $id . '" class="' . $class . '" rows="' . $rows . '" cols="' . $columns . '" ' . $required . ' >' . $value . '</textarea></div>';
+
+			return implode("\r\n",$html);
 		}
 		function get_value($form_item_data,$post_id)
 		{

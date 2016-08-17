@@ -123,7 +123,13 @@ if(!class_exists('WPBooking_Form_Text_Field')){
 			parent::add_field($name,array('data'=>$data,'rule'=>implode('|',$rule)));
 			if($this->is_hidden($attr)) return FALSE;
 
-			return '<div class="wb-field"><input type="text" name="' . $name . '" id="' . $id . '" class="' . $class . '" value="' . $value . '" placeholder="' . $placeholder . '"  maxlength="' . $maxlength . '" size="' . $size . '"  ' . $required . ' /></div>';
+			$html=array();
+			if(!empty($data['title'])){
+				$html[]=sprintf('<p><label>%s</label></p>',wpbooking_get_translated_string($data['title']));
+			}
+			$html[]= '<div class="wb-field"><input type="text" name="' . $name . '" id="' . $id . '" class="' . $class . '" value="' . $value . '" placeholder="' . $placeholder . '"  maxlength="' . $maxlength . '" size="' . $size . '"  ' . $required . ' /></div>';
+
+			return implode("\r\n",$html);
 		}
 
 		function get_value($form_item_data,$post_id){

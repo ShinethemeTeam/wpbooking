@@ -124,8 +124,13 @@ if (!class_exists('WPBooking_User_Email_Field')) {
 					$a .= ' ' . $key . '="' . $val . '"';
 				}
 			}
+			$html=array();
+			if(!empty($data['title'])){
+				$html[]=sprintf('<p><label>%s</label></p>',wpbooking_get_translated_string($data['title']));
+			}
+			$html[]= '<div class="wb-field"><input type="text" '.$a.' /></div>';
 
-			return '<div class="wb-field"><input type="text" '.$a.' /></div>';
+			return implode("\r\n",$html);
 		}
 
 		function get_value($form_item_data,$post_id)

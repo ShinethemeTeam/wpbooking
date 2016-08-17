@@ -121,7 +121,13 @@ if (!class_exists('WPBooking_Last_Name_Field')) {
 				}
 			}
 
-			return '<div class="wb-field"><input type="text" '.$a.' /></div>';
+			$html=array();
+			if(!empty($data['title'])){
+				$html[]=sprintf('<p><label>%s</label></p>',wpbooking_get_translated_string($data['title']));
+			}
+			$html[]= '<div class="wb-field"><input type="text" '.$a.' /></div>';
+
+			return implode("\r\n",$html);
 		}
 
 		function get_value($form_item_data,$post_id)
