@@ -66,10 +66,6 @@ $service = new WB_Service();
 						?>
 					</div>
 				</div>
-				<?php if (is_user_logged_in() and get_current_user_id() != $post->post_author) { ?>
-					<a class="btn btn-primary" data-toggle="modal"
-					   data-target="#wb-send-message"><?php esc_html_e('Contact Host', 'wpbooking') ?></a>
-				<?php } ?>
 			</div>
 			<div class="col-sm-4 col-order-form">
 				<div class="service-order-form">

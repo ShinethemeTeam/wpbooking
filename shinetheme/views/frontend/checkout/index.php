@@ -30,7 +30,9 @@ if(empty($cart))
 				<input name="action" value="wpbooking_do_checkout" type="hidden">
 				<?php echo do_shortcode($form_id)?>
 				<?php if(!is_user_logged_in()): ?>
-				<label ><input type="checkbox" name="wpbooking_create_account" value="1"><?php printf(esc_html__('Create %s account','wpbooking'),get_bloginfo('name')) ?></label>
+				<p>
+				<label ><input type="checkbox" name="wpbooking_create_account" value="1"> <?php printf(esc_html__('Create %s account','wpbooking'),get_bloginfo('name')) ?></label>
+				</p>
 				<?php endif;?>
 			</div>
 			<div class="wpbooking-gateways">
@@ -38,7 +40,7 @@ if(empty($cart))
 				<?php echo wpbooking_load_view('checkout/gateways') ?>
 			</div>
 			<div class="checkout-submit-button">
-				<button type="submit" class="wb-btn wb-btn-blue submit-button"><?php _e('Checkout Now','wpbooking') ?></button>
+				<button type="submit" class="wb-btn wb-btn-blue wb-btn-md submit-button"><?php _e('Checkout Now','wpbooking') ?></button>
 			</div>
 		</div>
 		<div class="wpbooking-checkout-review-order">

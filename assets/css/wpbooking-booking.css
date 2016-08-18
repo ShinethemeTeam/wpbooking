@@ -1441,6 +1441,10 @@
 .single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content select.input-error {
   border: 1px solid red;
 }
+.single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content input[type=text].required,
+.single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content select.required {
+  color: inherit;
+}
 .single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content .wb-field {
   margin-bottom: 15px;
 }
@@ -2201,6 +2205,7 @@
 }
 .wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap input[type=text],
 .wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap select {
+  width: 100%;
   margin-top: 5px;
   line-height: 36px;
   height: 36px;
@@ -2213,6 +2218,10 @@
 .wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap input[type=text].input-error,
 .wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap select.input-error {
   border: 1px solid red;
+}
+.wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap input[type=text].required,
+.wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap select.required {
+  color: inherit;
 }
 .wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap textarea {
   font-size: 14px;
