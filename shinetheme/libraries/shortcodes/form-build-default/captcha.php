@@ -36,6 +36,13 @@ if (!class_exists('WPBooking_Captcha_Field')) {
 						'value'            => ""
 					),
 					array(
+						"type"             => "label",
+						"title"            => __("Name", 'wpbooking'),
+						'edit_field_class' => 'wpbooking-col-md-6',
+						'value'            => "captcha",
+						"desc"             => __("This is default attribute, you can not change it", 'wpbooking'),
+					),
+					array(
 						"type"             => "dropdown",
 						"title"            => __("Type", 'wpbooking'),
 						"name"             => "type",

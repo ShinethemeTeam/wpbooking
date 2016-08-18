@@ -266,7 +266,7 @@ if (!class_exists('WPBooking_Order')) {
 					'wpbooking_create_account' => FALSE
 				));
 
-				if ($email = $fields['user_email'] and !is_user_logged_in()) {
+				if ($email = $fields['user_email']) {
 					// Check User Exists
 					if ($user_id = email_exists($email)) $customer_id = $user_id;
 
@@ -278,7 +278,7 @@ if (!class_exists('WPBooking_Order')) {
 							'first_name' => $fields['user_first_name'],
 							'last_name'  => $fields['user_last_name'],
 						));
-						
+
 					}
 				}
 

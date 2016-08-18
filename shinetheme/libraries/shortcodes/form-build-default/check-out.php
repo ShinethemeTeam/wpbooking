@@ -35,8 +35,15 @@ if (!class_exists('WPBooking_Form_Check_Out_Field')) {
 						'value'            => ""
 					),
 					array(
+						"type"             => "label",
+						"title"            => __("Name", 'wpbooking'),
+						'edit_field_class' => 'wpbooking-col-md-6',
+						'value'            => "check_out",
+						"desc"             => __("This is default attribute, you can not change it", 'wpbooking'),
+					),
+					array(
 						"type"             => "text",
-						"title"            => __("ID", 'wpbooking'),
+						"title"            => __("CSS ID (optional)", 'wpbooking'),
 						"name"             => "id",
 						"desc"             => __("ID", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
@@ -44,7 +51,7 @@ if (!class_exists('WPBooking_Form_Check_Out_Field')) {
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("Class", 'wpbooking'),
+						"title"            => __("CSS Class (optional)", 'wpbooking'),
 						"name"             => "class",
 						"desc"             => __("Class", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
@@ -52,7 +59,7 @@ if (!class_exists('WPBooking_Form_Check_Out_Field')) {
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("Value", 'wpbooking'),
+						"title"            => __("Value (optional)", 'wpbooking'),
 						"name"             => "value",
 						"desc"             => __("Value", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
@@ -60,28 +67,12 @@ if (!class_exists('WPBooking_Form_Check_Out_Field')) {
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("Placeholder", 'wpbooking'),
+						"title"            => __("Placeholder (optional)", 'wpbooking'),
 						"name"             => "placeholder",
 						"desc"             => __("Placeholder", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'value'            => ""
 					),
-					array(
-						"type"             => "text",
-						"title"            => __("Size", 'wpbooking'),
-						"name"             => "size",
-						"desc"             => __("Size", 'wpbooking'),
-						'edit_field_class' => 'wpbooking-col-md-6',
-						'value'            => ""
-					),
-					array(
-						"type"             => "text",
-						"title"            => __("Maxlength", 'wpbooking'),
-						"name"             => "maxlength",
-						"desc"             => __("Maxlength", 'wpbooking'),
-						'edit_field_class' => 'wpbooking-col-md-6',
-						'value'            => ""
-					)
 				)
 			);
 			parent::__construct();

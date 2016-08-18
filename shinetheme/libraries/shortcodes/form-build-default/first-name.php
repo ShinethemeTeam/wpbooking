@@ -35,6 +35,13 @@ if (!class_exists('WPBooking_First_Name_Field')) {
 						'value'            => ""
 					),
 					array(
+						"type"             => "label",
+						"title"            => __("Name", 'wpbooking'),
+						'edit_field_class' => 'wpbooking-col-md-6',
+						'value'            => "user_first_name",
+						"desc"             => __("This is default attribute, you can not change it", 'wpbooking'),
+					),
+					array(
 						"type"             => "text",
 						"title"            => __("ID (optional)", 'wpbooking'),
 						"name"             => "id",

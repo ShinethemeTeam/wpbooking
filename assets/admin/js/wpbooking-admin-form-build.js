@@ -46,11 +46,14 @@ jQuery(document).ready(function( $ ){
             var shortcode = "["+name_shortcode;
             container.find('.div-content-control .item').each(function(){
                 var item_name =$(this).attr('name');
-                var item_value = $(this).val();
+                if(typeof item_name!='undefined'){
+                    var item_value = $(this).val();
 
-                if(item_value != ""){
-                    shortcode += ' '+item_name+'="'+item_value+'"';
+                    if(item_value != ""){
+                        shortcode += ' '+item_name+'="'+item_value+'"';
+                    }
                 }
+
             });
             shortcode += " ]";
             $("#wpbooking-shortcode-flied").val(shortcode);
@@ -69,17 +72,20 @@ jQuery(document).ready(function( $ ){
             var item_name =$(this).attr('name');
             var item_value = $(this).val();
             var item_type = $(this).data('type');
-            if(item_type == "content"){
-                content = item_value;
-            }else if(item_type == "is_required"){
-                if($(this).attr('checked')) {
-                    shortcode += ' '+item_name+'="'+item_value+'"';
-                }
-            }else{
-                if(item_value != ""){
-                    shortcode += ' '+item_name+'="'+item_value+'"';
+            if(typeof item_name!='undefined'){
+                if(item_type == "content"){
+                    content = item_value;
+                }else if(item_type == "is_required"){
+                    if($(this).attr('checked')) {
+                        shortcode += ' '+item_name+'="'+item_value+'"';
+                    }
+                }else{
+                    if(item_value != ""){
+                        shortcode += ' '+item_name+'="'+item_value+'"';
+                    }
                 }
             }
+
         });
         shortcode += " ]";
         if(content){

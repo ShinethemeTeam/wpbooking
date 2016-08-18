@@ -22,7 +22,21 @@ if (!class_exists('WPBooking_Form_Extra_Service_Field')) {
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("ID", 'wpbooking'),
+						"title"            => __("Title", 'wpbooking'),
+						"name"             => "title",
+						'edit_field_class' => 'wpbooking-col-md-6',
+						'value'            => ""
+					),
+					array(
+						"type"             => "label",
+						"title"            => __("Name", 'wpbooking'),
+						'edit_field_class' => 'wpbooking-col-md-6',
+						'value'            => "extra_services",
+						"desc"             => __("This is default attribute, you can not change it", 'wpbooking'),
+					),
+					array(
+						"type"             => "text",
+						"title"            => __("CSS ID (Optional)", 'wpbooking'),
 						"name"             => "id",
 						"desc"             => __("ID", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
@@ -30,14 +44,7 @@ if (!class_exists('WPBooking_Form_Extra_Service_Field')) {
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("Title", 'wpbooking'),
-						"name"             => "title",
-						'edit_field_class' => 'wpbooking-col-md-6',
-						'value'            => ""
-					),
-					array(
-						"type"             => "text",
-						"title"            => __("Class", 'wpbooking'),
+						"title"            => __("CSS Class (Optional)", 'wpbooking'),
 						"name"             => "class",
 						"desc"             => __("Class", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6 clear',
