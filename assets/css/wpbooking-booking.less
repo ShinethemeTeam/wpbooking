@@ -2555,6 +2555,8 @@
 // My Account page
 .wpbooking-myaccount-wrap
 {
+    margin-bottom: 20px;
+    .clearfix;
     .required{
         color: red;
     }
@@ -2880,5 +2882,31 @@
             }
         }
 
+    }
+}
+
+.wpbooking-account-table{
+
+    table-layout: auto;
+    td{
+        padding: 20px 5px;
+    }
+    .column-min{
+        width: 1px;
+        white-space: nowrap;
+    }
+
+    .order-number{
+        border: none;
+        color: @maincolor;
+    }
+
+    .order-items{
+        padding-left: 24px;
+        a{
+
+            border: none;
+            color: @maincolor;
+        }
     }
 }

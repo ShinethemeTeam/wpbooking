@@ -2429,6 +2429,17 @@
   list-style: none;
   padding-left: 20px;
 }
+.wpbooking-myaccount-wrap {
+  margin-bottom: 20px;
+}
+.wpbooking-myaccount-wrap:before,
+.wpbooking-myaccount-wrap:after {
+  display: table;
+  content: " ";
+}
+.wpbooking-myaccount-wrap:after {
+  clear: both;
+}
 .wpbooking-myaccount-wrap .required {
   color: red;
 }
@@ -2745,4 +2756,25 @@
   color: #f0ad4e;
   border: none;
   text-decoration: underline;
+}
+.wpbooking-account-table {
+  table-layout: auto;
+}
+.wpbooking-account-table td {
+  padding: 20px 5px;
+}
+.wpbooking-account-table .column-min {
+  width: 1px;
+  white-space: nowrap;
+}
+.wpbooking-account-table .order-number {
+  border: none;
+  color: #f0ad4e;
+}
+.wpbooking-account-table .order-items {
+  padding-left: 24px;
+}
+.wpbooking-account-table .order-items a {
+  border: none;
+  color: #f0ad4e;
 }

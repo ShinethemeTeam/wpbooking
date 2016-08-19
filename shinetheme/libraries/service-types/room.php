@@ -526,7 +526,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 						$number = !empty($extra_services[$key]['number']) ? $extra_services[$key]['number'] : 1;
 						$extra_service_price += ($number * $value['money']);
 
-					} elseif (array_key_exists($key, $extra_services) and $extra_services[$key]['number'] and !empty($extra_services[$key]['selected'])) {
+					} elseif ($extra_services and array_key_exists($key, $extra_services) and $extra_services[$key]['number'] and !empty($extra_services[$key]['selected'])) {
 						// If not required, check if user select it
 
 						$number = $extra_services[$key]['number'];
@@ -822,7 +822,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			/**
 			 * Calculate Deposit
 			 */
-			if(!empty($cart_item['deposit_amount'])){
+			if(!empty($cart_item['deposit_amount']) and !empty($cart_item['deposit_type'])){
 
 				/**
 				 * Calculate Total Price without Deposit
@@ -1109,7 +1109,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 				$is_validated = TRUE;
 
 				if (!$this->get_option('enable_review')) {
-					wpbooking_set_message(esc_html__('This service is not allowed to write review', 'wpbooking'));
+					//wpbooking_set_message(esc_html__('This service is not allowed to write review', 'wpbooking'));
 					$is_validated = FALSE;
 				}
 
@@ -1123,7 +1123,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 					if (!empty($count['total']) and $count['total'] >= $max) {
 
-						wpbooking_set_message(sprintf(esc_html__('Maximum number of review you can post is %d', 'wpbooking'), $max));
+						//wpbooking_set_message(sprintf(esc_html__('Maximum number of review you can post is %d', 'wpbooking'), $max));
 						$is_validated = FALSE;
 					}
 				}
@@ -1134,7 +1134,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 					$count = $order_item->select('count(id) as total')->where(array('post_id' => $comment_post_ID, 'customer_id' => get_current_user_id()))->get()->row();
 					if (empty($count['total']) or $count['total'] < 1) {
 
-						wpbooking_set_message(esc_html__('This Room required booking before writing review', 'wpbooking'));
+						//wpbooking_set_message(esc_html__('This Room required booking before writing review', 'wpbooking'));
 						$is_validated = FALSE;
 					}
 				}

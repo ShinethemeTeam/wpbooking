@@ -847,7 +847,7 @@ if (!class_exists('WPBooking_User')) {
 
 			// Set Page Tabs
 			if (get_query_var('order-detail')) {
-				set_query_var('tab', 'orders');
+				set_query_var('tab', 'booking_history');
 			}
 			if (get_query_var('service')) {
 				set_query_var('tab', 'services');
