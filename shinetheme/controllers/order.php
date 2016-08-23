@@ -259,7 +259,7 @@ if (!class_exists('WPBooking_Order')) {
 				}
 
 				// Default Fields
-				$fields = wp_parse_args($fields, array(
+				$fields = wp_parse_args(WPBooking_Input::post(), array(
 					'user_first_name'          => FALSE,
 					'user_last_name'           => FALSE,
 					'user_email'               => FALSE,

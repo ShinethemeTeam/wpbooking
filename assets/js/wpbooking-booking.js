@@ -71,6 +71,7 @@ jQuery(document).ready(function($){
                     me.addClass('error');
                 }
                 if(res.message){
+                    form.find('.wpbooking-message').remove();
                     var message=$('<div/>');
                     message.addClass('wpbooking-message');
                     message.html(res.message);
@@ -136,6 +137,7 @@ jQuery(document).ready(function($){
                 }
 
                 if(res.message){
+                    form.find('.wpbooking-message').remove();
                     var message=$('<div/>');
                     message.addClass('wpbooking-message');
                     message.html(res.message);

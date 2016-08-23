@@ -2330,104 +2330,108 @@
   color: #666666;
   float: right;
 }
-.wpbooking-order-detail-page {
+.single-wpbooking_order .entry-header,
+.single-wpbooking_order .post-navigation {
+  display: none;
+}
+.single-wpbooking_order .wpbooking-order-detail-page {
   font-size: 14px;
 }
-.wpbooking-order-detail-page .wpbooking-thankyou-message {
+.single-wpbooking_order .wpbooking-order-detail-page .wpbooking-thankyou-message {
   margin-bottom: 30px;
 }
-.wpbooking-order-detail-page .wpbooking-thankyou-message .success-icon {
+.single-wpbooking_order .wpbooking-order-detail-page .wpbooking-thankyou-message .success-icon {
   font-size: 60px;
   color: #4cae4c;
   margin-bottom: 30px;
 }
-.wpbooking-order-detail-page .wpbooking-thankyou-message h3 {
+.single-wpbooking_order .wpbooking-order-detail-page .wpbooking-thankyou-message h3 {
   margin-top: 0px;
   margin-bottom: 20px;
   font-size: 30px;
   line-height: 36px;
   color: #333;
 }
-.wpbooking-order-detail-page .section-title {
+.single-wpbooking_order .wpbooking-order-detail-page .section-title {
   color: #333;
   font-size: 18px;
   margin: 0px;
   margin-bottom: 20px;
   text-transform: uppercase;
 }
-.wpbooking-order-detail-page .order-information-table td,
-.wpbooking-order-detail-page .order-information-table th {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table td,
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table th {
   vertical-align: top;
 }
-.wpbooking-order-detail-page .order-information-table .review-order-item-type,
-.wpbooking-order-detail-page .order-information-table .review-order-item-total {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .review-order-item-type,
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .review-order-item-total {
   width: 19%;
   text-align: center;
 }
-.wpbooking-order-detail-page .order-information-table .service-name {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .service-name {
   color: #eea236;
   margin: 0px;
   font-size: 16px;
   font-weight: bold;
 }
-.wpbooking-order-detail-page .order-information-table .service-name a {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .service-name a {
   color: inherit;
   border: none;
 }
-.wpbooking-order-detail-page .order-information-table .wpbooking-room-type a {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .wpbooking-room-type a {
   font-size: 14px;
   color: #333;
   border-radius: 4px;
   border: 1px solid #999999;
   padding: 1px 3px;
 }
-.wpbooking-order-detail-page .order-information-table .wpbooking-room-type a:hover {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .wpbooking-room-type a:hover {
   text-decoration: none;
 }
-.wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap {
   margin-top: 15px;
 }
-.wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap .booking-detail-label {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap .booking-detail-label {
   display: block;
   padding-bottom: 10px;
   border-bottom: 1px solid white;
 }
-.wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap .cart-item-order-form-fields {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap .cart-item-order-form-fields {
   display: none;
 }
-.wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap .cart-item-order-form-fields li {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap .cart-item-order-form-fields li {
   padding: 10px 0px;
   border-bottom: 1px solid white;
   display: block;
 }
-.wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap .cart-item-order-form-fields li .field-title {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap .cart-item-order-form-fields li .field-title {
   font-weight: bold;
 }
-.wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap .show-more-less {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap .show-more-less {
   color: #eea236;
   cursor: pointer;
   text-decoration: underline;
 }
-.wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap .show-more-less .less {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap .show-more-less .less {
   display: none;
 }
-.wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap.active .cart-item-order-form-fields {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap.active .cart-item-order-form-fields {
   display: block;
 }
-.wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap.active .show-more-less .less {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap.active .show-more-less .less {
   display: inline-block;
 }
-.wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap.active .show-more-less .more {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .cart-item-order-form-fields-wrap.active .show-more-less .more {
   display: none;
 }
-.wpbooking-order-detail-page .order-information-table .order-total {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .order-total {
   font-size: 18px;
 }
-.wpbooking-order-detail-page .order-information-table .order-total .price {
+.single-wpbooking_order .wpbooking-order-detail-page .order-information-table .order-total .price {
   font-size: 20px;
   font-weight: bold;
 }
-.wpbooking-order-detail-page .checkout-form-list {
+.single-wpbooking_order .wpbooking-order-detail-page .checkout-form-list {
   list-style: none;
   padding-left: 20px;
 }
