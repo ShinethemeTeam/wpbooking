@@ -2421,6 +2421,32 @@
         border-bottom:2px solid rgba(216,216,216,0.7);
         margin-bottom: 30px;
         padding:15px 10px;
+        .is_more_order{
+            display: none;
+        }
+        .show_more_review_order{
+            cursor: pointer;
+            font-size: 14px;
+            color: @maincolor;
+            font-style: italic;
+            text-decoration: underline;
+            .less{
+                display: none;
+            }
+        }
+        &.active{
+            .show_more_review_order{
+                .less{
+                    display: inline;
+                }
+                .more{
+                    display: none;
+                }
+            }
+            .is_more_order{
+                display: block;
+            }
+        }
         .wpbooking-review-order{
             margin-bottom: 30px;
         }

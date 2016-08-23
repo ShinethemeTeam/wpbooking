@@ -2309,6 +2309,28 @@
   margin-bottom: 30px;
   padding: 15px 10px;
 }
+.wpbooking-checkout-wrap .wpbooking-checkout-review-order .is_more_order {
+  display: none;
+}
+.wpbooking-checkout-wrap .wpbooking-checkout-review-order .show_more_review_order {
+  cursor: pointer;
+  font-size: 14px;
+  color: #f0ad4e;
+  font-style: italic;
+  text-decoration: underline;
+}
+.wpbooking-checkout-wrap .wpbooking-checkout-review-order .show_more_review_order .less {
+  display: none;
+}
+.wpbooking-checkout-wrap .wpbooking-checkout-review-order.active .show_more_review_order .less {
+  display: inline;
+}
+.wpbooking-checkout-wrap .wpbooking-checkout-review-order.active .show_more_review_order .more {
+  display: none;
+}
+.wpbooking-checkout-wrap .wpbooking-checkout-review-order.active .is_more_order {
+  display: block;
+}
 .wpbooking-checkout-wrap .wpbooking-checkout-review-order .wpbooking-review-order {
   margin-bottom: 30px;
 }

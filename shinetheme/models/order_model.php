@@ -40,10 +40,10 @@ if (!class_exists('WPBooking_Order_Model')) {
 				'partner_id'            => array('type' => "INT"),
 				'deposit'               => array('type' => "varchar", 'length' => 50),
 				'deposit_amount'        => array('type' => "FLOAT"),
-				'need_customer_confirm' => array('type' => 'INT'),
-				'customer_confirm_code' => array('type' => "varchar", 'length' => 255),
-				'partner_confirm_code'  => array('type' => "varchar", 'length' => 255),
-				'need_partner_confirm'  => array('type' => 'INT'),
+				//'need_customer_confirm' => array('type' => 'INT'),
+				//'customer_confirm_code' => array('type' => "varchar", 'length' => 255),
+				//'partner_confirm_code'  => array('type' => "varchar", 'length' => 255),
+				//'need_partner_confirm'  => array('type' => 'INT'),
 				'created_at'            => array('type' => 'INT'),
 				'payment_status'        => array('type' => "varchar", 'length' => 50),
 				'payment_id'            => array('type' => "varchar", 'length' => 50),
@@ -194,6 +194,26 @@ if (!class_exists('WPBooking_Order_Model')) {
 		function payment_failed()
 		{
 
+		}
+		function get_calendar_booked($service_id,$checkin_timestamp=FALSE,$checkout_timestamp=FALSE){
+			global $wpdb;
+			$res=$this
+				->select(array(
+					$wpdb->prefix . 'wpbooking_order_item.*'
+				))
+				->join('wpbooking_service', 'wpbooking_service.post_id=wpbooking_order_item.post_id')
+				->where($wpdb->prefix.'wpbooking_order_item.post_id', $service_id)
+				->where($wpdb->prefix."wpbooking_order_item.status not in ('refunded','cancelled')",FALSE,true)
+				->where(
+					$wpdb->prepare(
+					"
+					(
+						({$wpdb->prefix}wpbooking_order_item.check_in_timestamp<=%d and {$wpdb->prefix}wpbooking_order_item.check_out_timestamp>=%d)
+						OR ({$wpdb->prefix}wpbooking_order_item.check_in_timestamp>=%d and {$wpdb->prefix}wpbooking_order_item.check_in_timestamp<=%d)
+					)
+				",$checkin_timestamp,$checkin_timestamp,$checkin_timestamp,$checkout_timestamp),FALSE,TRUE)
+				->get()->result();
+			return $res;
 		}
 
 		static function inst()

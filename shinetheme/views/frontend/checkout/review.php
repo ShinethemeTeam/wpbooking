@@ -10,14 +10,24 @@ $booking=WPBooking_Order::inst();
 $cart=$booking->get_cart();
 ?>
 <h5 class="checkout-form-title"><?php _e('Your Order','wpbooking')?></h5>
-	<?php foreach($cart as $key=>$value)
+	<?php
+	$i=1;
+	foreach($cart as $key=>$value)
 	{
 		$service_type=$value['service_type'];
 		$post_id=$value['post_id'];
 		$service=new WB_Service($value['post_id']);
 		$featured=$service->get_featured_image();
+		$class=FALSE;
+
+		if($i==3){
+			printf('<span class="show_more_review_order"><span class="more">%s</span><span class="less">%s</span></span>',esc_html__('More','wpbooking'),esc_html__('Less','wpbooking'));
+		}
+		if($i>=3){
+			$class.=' is_more_order';
+		}
 		?>
-		<div class="review-order-item">
+		<div class="review-order-item <?php echo esc_attr($class) ?>">
 			<div class="review-order-item-img">
 				<a href="<?php echo get_permalink($post_id)?>" target="_blank"><?php echo wp_kses($featured['thumb'],array('img'=>array('src'=>array(),'alt'=>array())))?></a>
 			</div>
@@ -35,5 +45,6 @@ $cart=$booking->get_cart();
 			</a>
 		</div>
 		<?php
+		$i++;
 	}?>
 <?php do_action('wpbooking_review_order_footer') ?>

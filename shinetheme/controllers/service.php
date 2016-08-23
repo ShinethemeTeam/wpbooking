@@ -205,6 +205,12 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			$end_date = new DateTime();
 			$end_date->setTimestamp($end);
 
+			$max_service_number = 1;
+
+			if ($max = WPBooking_Service_Model::inst()->find_by('post_id', $post_id)) {
+				$max_service_number = $max['number'];
+			}
+
 			$raw_data = WPBooking_Calendar_Model::inst()->calendar_months($post_id, $start, $end);
 			$calendar_months = array();
 			$calendar_dates = array();
@@ -233,7 +239,8 @@ if (!class_exists('WPBooking_Service_Controller')) {
 						'price'           => WPBooking_Currency::format_money(get_post_meta($post_id, 'price', TRUE)),
 						'tooltip_content' => WPBooking_Currency::format_money(get_post_meta($post_id, 'price', TRUE)),
 						'can_check_in'    => 1,
-						'can_check_out'   => 1
+						'can_check_out'   => 1,
+						'number'          => $max_service_number
 					);
 				}
 
@@ -241,9 +248,9 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
 			if (!empty($raw_data)) {
 				foreach ($raw_data as $k => $v) {
-					// Ignore Not Available Date or full booked
-					if ($v['status'] == 'not_available' or $v['total_booked']>=$v['number']){
-						// Ignore Allday not available or full booked
+					// Ignore Not Available Date
+					if ($v['status'] == 'not_available') {
+						// Ignore Allday not available
 						unset($all_days[date('Y-m-d', $v['start'])]);
 						continue;
 					}
@@ -258,13 +265,14 @@ if (!class_exists('WPBooking_Service_Controller')) {
 //						'can_check_out'   => $v['can_check_out'],
 //					);
 
-					$calendar_dates[] = array(
+					$calendar_dates[date('Y-m-d', $v['start'])] = array(
 						'date'            => date('Y-m-d', $v['start']),
 						'price'           => WPBooking_Currency::format_money($v['price']),
 						//'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked']),
 						'can_check_in'    => $v['can_check_in'],
 						'can_check_out'   => $v['can_check_out'],
 						'tooltip_content' => WPBooking_Currency::format_money($v['price']),
+						'number'          => $max_service_number
 					);
 				}
 			}
@@ -280,12 +288,33 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
 			// Now append the exsits
 			if (!empty($all_days)) {
-				foreach ($all_days as $day) {
-					$calendar_dates[] = $day;
+				foreach ($all_days as $k=>$day) {
+					$calendar_dates[$k] = $day;
 				}
 			}
 
-			//$res['months'] = $calendar_months;
+			// Finally Check Booked Data
+			$booked_data = WPBooking_Order_Model::inst()->get_calendar_booked($post_id, $start, $end);
+			if (!empty($booked_data)) {
+				foreach ($booked_data as $order_item) {
+					$check_in_temp=$order_item['check_in_timestamp'];
+					while ($check_in_temp <= $order_item['check_out_timestamp']) {
+
+						if(!empty($all_days[date('Y-m-d', $check_in_temp)])){
+							$calendar_dates[date('Y-m-d', $check_in_temp)]['number']=$calendar_dates[date('Y-m-d', $check_in_temp)]['number']-1;
+						}
+						$check_in_temp = strtotime('+1 day', $check_in_temp);
+					}
+
+				}
+
+				foreach($calendar_dates as $k=>$day){
+					if($day['number']<1) unset($calendar_dates[$k]);
+				}
+			}
+
+
+
 			$res['dates'] = $calendar_dates;
 
 			echo json_encode($res);
@@ -293,6 +322,9 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			die;
 		}
 
+		function get_days_from_range($start,$end){
+
+		}
 		function _add_body_class($class)
 		{
 //			if (is_singular()) {
@@ -329,7 +361,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 		public function template_loader($template)
 		{
 			// check tax
-			if(is_post_type_archive('wpbooking_service') or is_tax(get_object_taxonomies('wpbooking_service'))){
+			if (is_post_type_archive('wpbooking_service') or is_tax(get_object_taxonomies('wpbooking_service'))) {
 				$template = wpbooking_view_path('archive-service');
 			}
 
@@ -476,14 +508,14 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			$validate = apply_filters('wpbooking_save_review_stats_validate', TRUE, $post_id, $comment_id);
 
 			if ($validate) {
-				$wpbooking_review=$this->post('wpbooking_review');
-				$details=$this->post('wpbooking_review_detail');
-				if(!empty($details) and is_array($details)){
-					$total=0;
-					foreach($details as $val){
-						$total+=$val['rate'];
+				$wpbooking_review = $this->post('wpbooking_review');
+				$details = $this->post('wpbooking_review_detail');
+				if (!empty($details) and is_array($details)) {
+					$total = 0;
+					foreach ($details as $val) {
+						$total += $val['rate'];
 					}
-					$wpbooking_review=($total)/count($details);
+					$wpbooking_review = ($total) / count($details);
 				}
 
 				update_comment_meta($comment_id, 'wpbooking_review', $wpbooking_review);
