@@ -2214,6 +2214,7 @@
   background: white;
   padding: 0px 10px;
   font-size: 14px;
+  color: inherit;
 }
 .wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap input[type=text].input-error,
 .wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap select.input-error {
@@ -2225,6 +2226,7 @@
 }
 .wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap textarea {
   font-size: 14px;
+  background: white;
 }
 .wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap .wb-field {
   margin-bottom: 15px;
