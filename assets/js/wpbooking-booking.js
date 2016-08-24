@@ -1343,7 +1343,7 @@ jQuery(document).ready(function($){
 
     // show_more_review_order
     $('.show_more_review_order').click(function(){
-       $(this).closest('.wpbooking-review-order').toggleClass('active');
+       $(this).parent().toggleClass('active');
     });
 });
 
