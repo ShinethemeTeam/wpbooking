@@ -204,6 +204,22 @@ if (!class_exists('WPBooking_Order')) {
 				wpbooking_set_message(__("You need login to do this!", 'wpbooking'), 'error');
 			}
 
+
+			// Validate Form
+			$validator = new WPBooking_Form_Validator();
+			if (!empty($fields) and $is_validate) {
+				foreach ($fields as $key => $value) {
+					$validator->set_rules($key, $value['title'], $value['rule']);
+				}
+				if ($is_validate and !$validator->run()) {
+					$is_validate = FALSE;
+					wpbooking_set_message($validator->error_string(), 'error');
+					$res['error_type'] = 'form_validate';
+					$res['error_fields'] = $validator->get_error_fields();
+
+				}
+			}
+
 			// Require Payment Gateways
 			$gateway_manage = WPBooking_Payment_Gateways::inst();
 			$selected_gateway = WPBooking_Input::post('payment_gateway');
@@ -221,20 +237,6 @@ if (!class_exists('WPBooking_Order')) {
 
 			}
 
-			// Validate Form
-			$validator = new WPBooking_Form_Validator();
-			if (!empty($fields) and $is_validate) {
-				foreach ($fields as $key => $value) {
-					$validator->set_rules($key, $value['title'], $value['rule']);
-				}
-				if ($is_validate and !$validator->run()) {
-					$is_validate = FALSE;
-					wpbooking_set_message($validator->error_string(), 'error');
-					$res['error_type'] = 'form_validate';
-					$res['error_fields'] = $validator->get_error_fields();
-
-				}
-			}
 
 
 			$is_validate = apply_filters('wpbooking_do_checkout_validate', $is_validate, $cart);

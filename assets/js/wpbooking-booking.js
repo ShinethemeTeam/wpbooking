@@ -1345,6 +1345,50 @@ jQuery(document).ready(function($){
     $('.show_more_review_order').click(function(){
        $(this).parent().toggleClass('active');
     });
+
+    // On-off
+    $('.wpbooking-switch').click(function()
+    {
+        $(this).toggleClass("switchOn",function(){
+
+        });
+        var checkbox=$(this).closest('.wpbooking-switch-wrap').find('.checkbox');
+
+        if($(this).hasClass('switchOn')){
+            checkbox.val('on');
+            checkbox.trigger('change');
+        }else{
+            checkbox.val('off');
+            checkbox.trigger('change');
+        }
+    });
+
+    // Ajax Enable/Disable Property in Your Listing Page
+    $('.wpbooking_service_change_status').change(function(){
+        var me=$(this);
+        me.closest('.service-item').addClass('loading');
+
+        $.ajax({
+            type:'post',
+            url:wpbooking_params.ajax_url,
+            dataType:'json',
+            data:{
+                action:'wpbooking_enable_property',
+                status:me.val(),
+                post_id:me.data('id')
+            },
+            success:function(res) {
+                me.closest('.service-item').removeClass('loading');
+                if (res.message) {
+                    console.log(res.message);
+                }
+            },
+            error:function(e){
+                console.log(e.responseText);
+                me.closest('.service-item').removeClass('loading');
+            }
+        })
+    });
 });
 
 

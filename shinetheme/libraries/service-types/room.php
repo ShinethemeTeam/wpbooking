@@ -15,7 +15,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		function __construct()
 		{
 			$this->type_info = array(
-				'label' => __("Room", 'wpbooking')
+				'label' => __("Room", 'wpbooking'),
 			);
 			$this->settings = array(
 

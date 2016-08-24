@@ -109,9 +109,10 @@ if (!class_exists('WB_Service')) {
 		 * @since 1.0
 		 * @author dungdt
 		 *
+		 * @param $need bool|string
 		 * @return array
 		 */
-		function get_featured_image()
+		function get_featured_image($need=FALSE)
 		{
 			$res = array(
 				'thumb'       => sprintf('<img src="%s" alt="%s"/>', wpbooking_assets_url('images/default.png'), get_the_title($this->ID)),
@@ -134,7 +135,9 @@ if (!class_exists('WB_Service')) {
 					);
 				}
 			}
-
+			if($need){
+				return !empty($res[$need])?$res[$need]:FALSE;
+			}
 			return $res;
 		}
 
@@ -149,6 +152,7 @@ if (!class_exists('WB_Service')) {
 		 */
 		function get_author($need = FALSE)
 		{
+			$need=strtolower($need);
 			if ($this->ID) {
 				$author_id = get_post_field('post_author', $this->ID);
 				$udata = get_userdata($author_id);
@@ -568,10 +572,43 @@ if (!class_exists('WB_Service')) {
 			return apply_filters('wpbooking_service_check_availability',$return,$this,$start,$end);
 		}
 
+		/**
+		 * Get Meta Value by Key
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $key
+		 * @return mixed
+		 */
 		function get_meta($key)
 		{
 			if($this->ID){
 				return get_post_meta($this->ID,$key,TRUE);
+			}
+		}
+
+		/**
+		 * Update Meta Field and Value of Extra Table
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param $key
+		 * @param $value
+		 */
+		function update_meta($key,$value)
+		{
+			if($this->ID){
+				$model=WPBooking_Service_Model::inst();
+				update_post_meta($this->ID,$key,$value);
+				$columns=$model->get_columns();
+
+				if(array_key_exists($key,$columns)){
+					$model->where('post_id',$this->ID)->update(array(
+						$key=>$value
+					));
+				}
 			}
 		}
 	}

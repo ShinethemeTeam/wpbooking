@@ -78,6 +78,47 @@ if (!class_exists('WPBooking_User')) {
 			 */
 			add_action('init', array($this, 'add_endpoints'));
 
+			/**
+			 * Ajax Handler for Enable Property in Your Listing Page
+			 *
+			 * @since 1.0
+			 * @author dungdt
+			 */
+			add_action('wp_ajax_wpbooking_enable_property',array($this,'_ajax_enable_property'));
+
+		}
+
+		/**
+		 * Ajax Handler for Enable Property
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 */
+		function _ajax_enable_property()
+		{
+			$res=array(
+				'status'=>0
+			);
+			$validator=new WPBooking_Form_Validator();
+			$validator->set_rules('post_id',esc_html__('Post ID','wpbooking'),'required');
+			$validator->set_rules('status',esc_html__('Status','wpbooking'),'required');
+
+			$service=new WB_Service(WPBooking_Input::post('post_id'));
+
+			if($validator->run()){
+				if(current_user_can('manage_options') or get_current_user_id()==$service->get_author('ID')){
+					$service->update_meta('enable_property',WPBooking_Input::post('status'));
+					$res['status']=1;
+				}else{
+					$res['message']=esc_html__('You don not have permission to do that','wpbooking');
+				}
+			}else{
+				$res['message']=$validator->error_string();
+			}
+
+			echo json_encode($res);
+			die;
 		}
 
 		/**
@@ -130,7 +171,7 @@ if (!class_exists('WPBooking_User')) {
 		}
 
 		/**
-		 * Upload Certificate Ajax Handler
+		 * Upload Avatar Ajax Handler
 		 *
 		 * @since 1.0
 		 * @author dungdt
@@ -826,18 +867,30 @@ if (!class_exists('WPBooking_User')) {
 		function get_tabs()
 		{
 			$tabs = array(
-				'dashboard'       => esc_html__('Dashboard', 'wpbooking'),
-				'booking_history' => esc_html__('Your booking', 'wpbooking'),
+				'dashboard' => array(
+					'label' => esc_html__('Dashboard', 'wpbooking'),
+				),
+			);
+			$tabs['services'] = array(
+				'label'    => esc_html__('Your listing', 'wpbooking'),
+				'children' => array(
+					'booking_history' => array(
+						'label' => esc_html__('Your Booking', 'wpbooking')
+					),
+				)
 			);
 			if (current_user_can('publish_posts')) {
-				//$tabs['orders'] = esc_html__('Orders', 'wpbooking');
-				$tabs['services']= esc_html__('Your listing', 'wpbooking');
+				$tabs['services']['children']['your_property_booking'] = array(
+					'label' => esc_html__('Your Property Booking', 'wpbooking')
+				);
 			}
-			$tabs['wishlist']= esc_html__('Your wishlist', 'wpbooking');
-			$tabs['inbox'] = esc_html__('Inbox', 'wpbooking');
-			$tabs['profile'] = esc_html__('Profile', 'wpbooking');
-			$tabs['change_password'] = esc_html__('Change Password', 'wpbooking');
-			$tabs['logout'] = esc_html__('Logout', 'wpbooking');
+			$tabs['services']['children']['your_wishlist'] = array(
+				'label' => esc_html__('Your wishlist', 'wpbooking')
+			);
+			$tabs['inbox'] = array('label' => esc_html__('Inbox', 'wpbooking'));
+			$tabs['profile'] = array('label' => esc_html__('Profile', 'wpbooking'));
+			$tabs['change_password'] = array('label' => esc_html__('Change Password', 'wpbooking'));
+			$tabs['logout'] = array('label' => esc_html__('Logout', 'wpbooking'));
 
 			return apply_filters('wpbooking_myaccount_tabs', $tabs);
 		}

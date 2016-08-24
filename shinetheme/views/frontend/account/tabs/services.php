@@ -5,87 +5,91 @@
  * Date: 6/27/2016
  * Time: 10:45 AM
  */
-if(get_query_var('service')){
-	echo wpbooking_load_view('account/service/update');
-	return;
+$args = array(
+	'posts_per_page' => 10,
+	'post_type'      => 'wpbooking_service',
+	'paged'          => WPBooking_Input::get('page_number',1),
+	'author'         => get_current_user_id()
+
+);
+//if(!current_user_can('manage_options')){
+//	$args['author']=get_current_user_id();
+//}
+if ($service_type = WPBooking_Input::get('service_type')) {
+	$args['meta_key'] = 'service_type';
+	$args['meta_value'] = $service_type;
 }
-$query=new WP_Query(array(
-	'posts_per_page'=>10,
-	'post_type'=>'wpbooking_service',
-	'author'=>get_current_user_id(),
-	'paged'=>get_query_var('paged')
-));
+$query = new WP_Query($args);
+
+$types = WPBooking_Service_Controller::inst()->get_service_types();
 ?>
-<div class="wpbooking-account-services">
-	<form action="" method="get">
-		<table class="wpbooking-service-table" cellspacing="0" cellpadding="0">
-			<thead>
-				<tr>
-					<th class="select-all"><input type="checkbox" class="wpbooking-check-all"></th>
-					<th class="service-image"><?php esc_html_e('Image','wpbooking') ?></th>
-					<th class="service-name"><?php esc_html_e('Name','wpbooking') ?></th>
-					<th class="service-price"><?php esc_html_e('Price','wpbooking') ?></th>
-					<th class="service-status"><?php esc_html_e('Status','wpbooking') ?></th>
-				</tr>
-			</thead>
-			<tbody>
-
-			<?php
-			if(!$query->have_posts()){
-				?>
-				<tr>
-					<td colspan="5"><div class="alert alert-danger"><?php esc_html_e('No Items Found','wpbooking') ?></div></td>
-				</tr>
-
-				<?php
-			}
-			else{
-				while($query->have_posts()){
-					$query->the_post();
-					$service_type=get_post_meta(get_the_ID(),'service_type',true);
-					$edit_url=get_permalink(wpbooking_get_option('myaccount-page')).'service/'.get_the_ID();
-					?>
-					<tr class="wpbooking-account-service">
-						<td class="select-all"><input type="checkbox" name="service_ids[]" value="<?php get_the_ID() ?>"></td>
-						<td><?php if(has_post_thumbnail() and get_the_post_thumbnail()){
-								the_post_thumbnail( array( 200, 150 ) );
-							}?></td>
-						<td>
-							<h5 class="booking-item-title"><a href="<?php echo esc_url($edit_url) ?>" class=""><?php the_title(); ?></a></h5>
-						</td>
-						<td>
-							<?php echo wpbooking_service_price_html() ?>
-						</td>
-						<td>
-							<?php echo get_post_status() ?>
-						</td>
-					</tr>
-
-					<?php
-
-				}
-				?>
-				<?php
+	<h3 class="tab-page-title">
+		<?php
+		echo esc_html__('Your Listing', 'wpbooking');
+		?>
+	</h3>
+<?php if (!empty($types) and count($types) > 1) { ?>
+	<ul class="service-filters">
+		<?php
+		$class = FALSE;
+		if (!WPBooking_Input::get('service_type')) $class = 'active';
+		printf('<li class="%s"><a href="%s">%s</a></li>', $class, get_permalink(wpbooking_get_option('myaccount-page') ). 'tab/services', esc_html__('All', 'wpbooking'));
+		foreach ($types as $type_id => $type) {
+			$class = FALSE;
+			if(WPBooking_Input::get('service_type')==$type_id) $class='active';
+			$url = esc_url(add_query_arg(array('service_type' => $type_id), get_permalink(wpbooking_get_option('myaccount-page')).'tab/services'));
+			printf('<li class="%s"><a href="%s">%s</a></li>', $class, $url, $type['label']);
+		}
+		?>
+	</ul>
+<?php } ?>
+	<div class="wpbooking-account-services">
+		<?php if ($query->have_posts()) {
+			$title = sprintf('You have %d service(s)',$query->found_posts);
+			if($service_type and $service_type_object=WPBooking_Service_Controller::inst()->get_service_type($service_type)){
+				$title=sprintf('You have %d %s(s)',$query->found_posts,strtolower($service_type_object['label']));
 			}
 
+			while($query->have_posts()){
+				$query->the_post();
+				$service=new WB_Service();
+				?>
+				<div class="service-item">
+					<div class="service-img">
+						<?php echo ($service->get_featured_image('thumb')) ?>
+					</div>
+					<div class="service-info">
+						<h5 class="service-title">
+							<a href="<?php the_permalink()?>" target="_blank"><?php the_title()?></a>
+						</h5>
+						<p class="service-price"><?php $service->get_price_html(TRUE) ?></p>
+						<div class="service-status">
+							<label class="wpbooking-switch-wrap">
+								<select data-id="<?php the_ID() ?>"   class="checkbox wpbooking_service_change_status">
+									<option <?php selected($service->get_meta('enable_property'),'on') ?>  value="on">on</option>
+									<option <?php selected($service->get_meta('enable_property'),'off') ?> value="off">off</option>
+								</select>
+								<div class="wpbooking-switch <?php echo ($service->get_meta('enable_property')=='on')?'switchOn':FALSE ?>"></div>
+							</label>
+						</div>
+					</div>
+				</div>
+				<?php
+			}
+		} else {
+			printf('<div class="alert alert-danger">%s</div>', esc_html__('No Service(s) Found', 'wpbooking'));
+		}
 
-			?>
-			</tbody>
-		</table>
-		<div class="row">
-			<div class="col-sm-6">
-					<select class="wpbooking_action">
-						<option name=""><?php esc_html_e('Bulk Edit','wpbooking') ?></option>
-						<option name="trash"><?php esc_html_e('Trash','wpbooking') ?></option>
-						<option name="draft"><?php esc_html_e('Draft','wpbooking') ?></option>
-					</select>
-					<button type="submit" class="btn btn-primary"><?php esc_html_e('Apply','wpbooking') ?></button>
-				</label>
-			</div>
-			<div class="col-sm-6">
-				<?php echo wpbooking_load_view('archive/pagination',array('my_query'=>$query)) ?>
-			</div>
+
+		?>
+		<div class="wpbooking-pagination">
+			<?php  echo paginate_links(array(
+						'total'=>$query->max_num_pages,
+						'current'  => WPBooking_Input::get('page_number', 1),
+						'format'   => '?page_number=%#%',
+						'add_args' => array()
+					));?>
 		</div>
-	</form>
-</div>
-<?php wp_reset_postdata();?>
+
+	</div>
+<?php wp_reset_postdata(); ?>

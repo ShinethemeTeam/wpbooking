@@ -32,11 +32,8 @@ if(!class_exists('WPBooking_Widget_Cart'))
 		 */
 		public function widget( $args, $instance ) {
 			echo $args['before_widget'];
-			if ( ! empty( $instance['title'] ) ) {
-				echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
-			}
 
-			echo wpbooking_load_view('cart/cart-widget');
+			echo wpbooking_load_view('cart/cart-widget',array('args'=>$args,'instance'=>$instance));
 
 			echo $args['after_widget'];
 		}
