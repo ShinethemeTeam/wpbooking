@@ -101,8 +101,8 @@ if (!class_exists('WPBooking_Form_Extra_Service_Field')) {
 						$list_item[]=sprintf('<label class="field-title"><input  name="extra_services[%s][selected]" data-style="icheckbox_square-orange" class="wb-icheck %s" %s  type="checkbox" value="%s"> %s</label>',$key,$class,$checked,$value['title'],$title);
 						$list_item[]='<label class="field-number">';
 							$list_item[]=sprintf("<select name='extra_services[%s][number]'>",$key);
-							for($i=$start_from;$i<=20;$i++){
-								$list_item[]=sprintf('<option value="%d">%d</option>',$i,$i);
+							for($k=$start_from;$k<=20;$k++){
+								$list_item[]=sprintf('<option value="%d">%d</option>',$k,$k);
 							}
 							$list_item[]='</select>';
 						$list_item[]='</label>';
