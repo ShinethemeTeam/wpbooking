@@ -416,6 +416,7 @@ if (!class_exists('WPBooking_Model')) {
 			$set = FALSE;
 			$set_data = array();
 			foreach ($data as $key => $value) {
+				if(!array_key_exists($key,$this->columns)) continue;
 				$set .= "%s,";
 				$set_data[] = $value;
 			}
