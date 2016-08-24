@@ -415,24 +415,15 @@ if (!class_exists('WPBooking_Model')) {
 
 			$set = FALSE;
 			$set_data = array();
+			$set_columns = FALSE;
+
 			foreach ($data as $key => $value) {
 				if(!array_key_exists($key,$this->columns)) continue;
 				$set .= "%s,";
 				$set_data[] = $value;
-			}
-			$set_columns = FALSE;
-			foreach ($data as $key => $value) {
-				if(!array_key_exists($key,$this->columns)) continue;
-				$prepare='%s';
-
-				if(is_float($value)){
-					$prepare='%f';
-				}elseif(is_integer($value)){
-					$prepare='%d';
-				}
-				$set .= $wpdb->prepare("{$prepare},",$value);
 				$set_columns.=$key.',';
 			}
+
 			$set = substr($set, 0, -1);
 			$set_columns = substr($set_columns, 0, -1);
 
