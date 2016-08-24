@@ -1340,6 +1340,11 @@ jQuery(document).ready(function($){
     $('.order-item-form-fields-wrap .show-more-less').click(function(){
        $(this).closest('.order-item-form-fields-wrap').toggleClass('active');
     });
+
+    // show_more_review_order
+    $('.show_more_review_order').click(function(){
+       $(this).closest('.wpbooking-review-order').toggleClass('active');
+    });
 });
 
 
