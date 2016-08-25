@@ -2150,6 +2150,7 @@ label[for=wpbooking_locationdiv-hide] {
   display: none;
 }
 .cart-item-order-form-fields-wrap .show-more-less {
+  display: block;
   color: #ec8223;
   font-style: italic;
 }

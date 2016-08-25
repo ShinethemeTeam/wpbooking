@@ -53,7 +53,6 @@ $rows=$order_model->get()->result();
 			<?php esc_html_e('Booking Data','wpbooking') ?>
 		</td>
 		<td class="manage-column column-date asc"> <?php esc_html_e('Status','wpbooking') ?></td>
-		<td class="manage-column column-date asc"> <?php esc_html_e('Payment','wpbooking') ?></td>
 		<td class="manage-column column-date asc"> <?php esc_html_e('Service Type','wpbooking') ?></td>
 		<td class="manage-column column-date asc"> <?php esc_html_e('Booking Date','wpbooking') ?></td>
 		<td class="manage-column column-date asc"> <?php esc_html_e('Total','wpbooking') ?></td>
