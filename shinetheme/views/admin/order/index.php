@@ -82,14 +82,6 @@ $payment_status=WPBooking_Config::inst()->item('payment_status');
 						} ?>
 					</optgroup>
 				</select>
-				<select name="payment_status" class="postform">
-					<optgroup label="<?php esc_html_e('Payment Status','wpbooking') ?>">
-						<option value="0"><?php esc_html_e('All Payment Status','wpbooking') ?></option>
-						<?php foreach($payment_status as $k=>$v){
-							printf('<option value="%s" %s>%s</option>',$k,selected(WPBooking_Input::get('payment_status'),$k,FALSE),$v['label']);
-						} ?>
-					</optgroup>
-				</select>
 				<input type="submit" id="doaction" class="button action" value="<?php esc_html_e('Filter','wpbooking') ?>">
 			</div>
 <!--			End .actions-->

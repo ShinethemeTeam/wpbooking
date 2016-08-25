@@ -2131,3 +2131,28 @@ label[for=wpbooking_locationdiv-hide]
 {
     display: none;
 }
+
+.cart-item-order-form-fields-wrap{
+    .cart-item-order-form-fields{
+        display: none;
+    }
+    .show-more-less{
+        color:@maincolor;
+        font-style: italic;
+        .less{
+            display: none;
+        }
+    }
+
+    &.active{
+        .cart-item-order-form-fields{
+            display: block;
+        }
+        .more{
+            display: none;
+        }
+        .less{
+            display: inline-block;
+        }
+    }
+}

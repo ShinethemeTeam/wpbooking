@@ -845,5 +845,10 @@ jQuery(document).ready(function( $ ){
         });
     });
 
+    // Show More Less
+    $('.cart-item-order-form-fields-wrap .show-more-less').click(function(){
+        $(this).parent().toggleClass('active');
+    })
+
 
 });

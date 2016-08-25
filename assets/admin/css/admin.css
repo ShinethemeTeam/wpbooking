@@ -1513,9 +1513,9 @@ a.ui-datepicker-next {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0, 0, 0, 0.08);
-  -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0, 0, 0, 0.08);
-  box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: inset 0 1px 0 #ffffff, 0 1px 0 rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: inset 0 1px 0 #ffffff, 0 1px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 1px 0 #ffffff, 0 1px 0 rgba(0, 0, 0, 0.08);
 }
 .ui-datepicker .ui-datepicker-buttonpane button::-moz-focus-inner {
   border-width: 1px 0;
@@ -2145,4 +2145,23 @@ label[for=wpbooking_amenitydiv-hide],
 label[for=wpbooking_room_typediv-hide],
 label[for=wpbooking_locationdiv-hide] {
   display: none;
+}
+.cart-item-order-form-fields-wrap .cart-item-order-form-fields {
+  display: none;
+}
+.cart-item-order-form-fields-wrap .show-more-less {
+  color: #ec8223;
+  font-style: italic;
+}
+.cart-item-order-form-fields-wrap .show-more-less .less {
+  display: none;
+}
+.cart-item-order-form-fields-wrap.active .cart-item-order-form-fields {
+  display: block;
+}
+.cart-item-order-form-fields-wrap.active .more {
+  display: none;
+}
+.cart-item-order-form-fields-wrap.active .less {
+  display: inline-block;
 }

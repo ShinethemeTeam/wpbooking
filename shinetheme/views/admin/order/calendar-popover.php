@@ -33,15 +33,4 @@ $service_type=$item['service_type'];
 		printf(esc_html__('Status: %s','wpbooking'),wpbooking_order_item_status_html($item['status']));
 		?>
 	</li>
-	<li class="payment-status">
-		<?php
-		printf(esc_html__('Payment: %s','wpbooking'),wpbooking_payment_status_html($item['payment_status']));
-		if($gateway_label= wpbooking_get_order_item_used_gateway($item['payment_id'])){
-			?>
-			-
-			<?php
-			echo ($gateway_label);
-		}
-		?>
-	</li>
 </ul>

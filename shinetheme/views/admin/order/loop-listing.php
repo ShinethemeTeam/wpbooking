@@ -102,17 +102,6 @@ $rows=$order_model->get()->result();
 				</td>
 				<td>
 					<?php
-					echo wpbooking_payment_status_html($row['payment_status']);
-					?>
-					<?php if($gateway_label= wpbooking_get_order_item_used_gateway($row['payment_id'])){
-						?>
-						<br>-
-						<?php
-						echo ($gateway_label);
-					}?>
-				</td>
-				<td>
-					<?php
 					$service_type_obj=WPBooking_Service_Controller::inst()->get_service_type($service_type);
 					if($service_type_obj){
 						echo ($service_type_obj['label']);
