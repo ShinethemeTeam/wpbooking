@@ -158,7 +158,8 @@ if (!class_exists('WB_Service')) {
 				$udata = get_userdata($author_id);
 				$contact_now_url = FALSE;
 				if (is_user_logged_in()) {
-					$contact_now_url = WPBooking_User::inst()->account_page_url() . 'start-chat/' . $author_id;
+					$url=WPBooking_User::inst()->account_page_url().'tab/inbox/';
+					$contact_now_url=add_query_arg(array('user_id'=>$author_id),$url);
 				}
 				$author_info = array(
 					'id'              => $author_id,

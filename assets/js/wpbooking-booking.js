@@ -482,61 +482,61 @@ jQuery(document).ready(function($){
 
     $(window).load(function(){
         var ctx=$('#wpbooking-price-chart2');
-        var myLineChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ["1", "2", "3", "4", "5", "6", "7",8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28],
-                datasets: [{
-                    label: "My First dataset",
-                    fill: false,
-                    lineTension: 0.1,
-                    borderWidth:1,
-                    //backgroundColor: "red",
-                    borderColor: "#c1c1c1",
-                    borderCapStyle: 'butt',
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    borderJoinStyle: 'miter',
-                    pointBorderColor: "transparent",
-                    pointBackgroundColor: "#fff",
-                    pointBorderWidth: 0,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "transparent",
-                    pointHoverBorderColor: "transparent",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 0,
-                    pointHitRadius: 10,
-                    data: ctx.data('chart'),
-                    spanGaps: false,
-                }]
-            },
-            options: {
-                scaleShowLabels:false,
-                tooltips:{
+        if(ctx.length){
+            var myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["1", "2", "3", "4", "5", "6", "7",8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28],
+                    datasets: [{
+                        label: "My First dataset",
+                        fill: false,
+                        lineTension: 0.1,
+                        borderWidth:1,
+                        //backgroundColor: "red",
+                        borderColor: "#c1c1c1",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "transparent",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 0,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "transparent",
+                        pointHoverBorderColor: "transparent",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 0,
+                        pointHitRadius: 10,
+                        data: ctx.data('chart'),
+                        spanGaps: false,
+                    }]
+                },
+                options: {
+                    scaleShowLabels:false,
+                    tooltips:{
                         enabled:false
                     },
-                legend:{
-                    display:false
-                },
-                scales: {
-                    xAxes: [{
-                        display: false,
-                        gridLines: {
-                            color: "white"
-                        }
-                    }],
-                    yAxes: [{
-                        display: false,
-                        gridLines: {
-                            color: "white"
-                        }
-                    }]
+                    legend:{
+                        display:false
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: false,
+                            gridLines: {
+                                color: "white"
+                            }
+                        }],
+                        yAxes: [{
+                            display: false,
+                            gridLines: {
+                                color: "white"
+                            }
+                        }]
+                    }
+
                 }
-
-            }
-        });
-
-
+            });
+        }
     });
 
     /**
@@ -1091,7 +1091,11 @@ jQuery(document).ready(function($){
     }
     function appendNewMessage(messageHtml)
     {
-        $('.old-messages').prepend(messageHtml);
+        $('.old-messages').append(messageHtml);
+        window.setTimeout(function(){
+            $('.old-messages').animate({ scrollTop: $('.old-messages').height()}, 'fast');
+
+        },100);
     }
 
     $('.wb-send-message-form').submit(function(){

@@ -973,7 +973,7 @@
   margin-bottom: 15px;
 }
 .wpbooking-service-edit #wp-service_content-editor-container {
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
 }
 .wpbooking-service-edit .wpbooking-service-metabox {
   font-size: 14px;
@@ -994,7 +994,7 @@
 }
 .wpbooking-service-edit .wpbooking-service-metabox .col-tab-content .tab-content {
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
 }
 .wpbooking-service-edit .wpbooking-service-metabox h4 {
   font-size: initial;
@@ -2880,6 +2880,130 @@
   color: #f0ad4e;
   border: none;
   text-decoration: underline;
+}
+.wpbooking-myaccount-wrap .reply-inbox .old-messages {
+  max-height: 755px;
+  overflow-y: auto;
+  background: #fafafa;
+  padding: 10px 15px 10px 0px;
+  margin-bottom: 20px;
+}
+.wpbooking-myaccount-wrap .reply-inbox .old-messages .message {
+  margin-bottom: 30px;
+}
+.wpbooking-myaccount-wrap .reply-inbox .old-messages .message:last-child {
+  margin-bottom: 0px;
+}
+.wpbooking-myaccount-wrap .reply-inbox .old-messages .message:before,
+.wpbooking-myaccount-wrap .reply-inbox .old-messages .message:after {
+  display: table;
+  content: " ";
+}
+.wpbooking-myaccount-wrap .reply-inbox .old-messages .message:after {
+  clear: both;
+}
+.wpbooking-myaccount-wrap .reply-inbox .old-messages .message .avatar {
+  float: left;
+  width: 8%;
+  margin-right: 2%;
+  box-sizing: border-box;
+}
+.wpbooking-myaccount-wrap .reply-inbox .old-messages .message .avatar img {
+  width: 100%;
+  height: auto;
+  border: 3px solid #e6e6e6;
+  border-radius: 50%;
+}
+.wpbooking-myaccount-wrap .reply-inbox .old-messages .message .info {
+  float: left;
+  width: 88%;
+  box-sizing: border-box;
+  font-size: 14px;
+  background: #e6e6e6;
+  border-bottom: 1px solid #c0c0c0;
+  line-height: 18px;
+  color: #666;
+  padding: 15px;
+}
+.wpbooking-myaccount-wrap .reply-inbox .old-messages .message .info:after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: -10px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7.5px 0 7.5px 10px;
+  border-color: transparent transparent transparent #e6e6e6;
+}
+.wpbooking-myaccount-wrap .reply-inbox .old-messages .message .info .time {
+  color: #999999;
+  font-size: 13px;
+}
+.wpbooking-myaccount-wrap .reply-inbox .old-messages .message .user-displayname {
+  display: none;
+}
+.wpbooking-myaccount-wrap .reply-inbox .old-messages .message.current .avatar {
+  float: right;
+  margin-left: 2%;
+  margin-right: 0px;
+}
+.wpbooking-myaccount-wrap .reply-inbox .old-messages .message.current .info {
+  background: white;
+  border: 1px solid #e6e6e6;
+}
+.wpbooking-myaccount-wrap .reply-inbox .old-messages .message.current .info:after {
+  left: auto;
+  right: -10px;
+}
+.wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form:before,
+.wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form:after {
+  display: table;
+  content: " ";
+}
+.wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form:after {
+  clear: both;
+}
+.wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form .user-avatar {
+  float: right;
+  width: 8%;
+  margin-left: 2%;
+  box-sizing: border-box;
+}
+.wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form .user-avatar img {
+  width: 50px;
+  height: auto;
+  border-radius: 50%;
+  border: 3px solid #e6e6e6;
+}
+.wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form .message-input {
+  float: left;
+  box-sizing: border-box;
+  width: 88%;
+  position: relative;
+}
+.wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form .message-input textarea {
+  font-size: 14px;
+  background: white;
+  border: 1px solid #e6e6e6;
+  padding: 15px;
+}
+.wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form .message-input:after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  right: -10px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7.5px 0 7.5px 10px;
+  border-color: transparent transparent transparent #e6e6e6;
+}
+.wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form .message-input .wb-btn .loading {
+  display: none;
+}
+.wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form.loading .wb-btn .loading {
+  display: inline-block;
 }
 .wpbooking-account-table {
   table-layout: auto;

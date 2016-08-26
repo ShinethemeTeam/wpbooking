@@ -163,7 +163,7 @@ if (!class_exists('WPBooking_Inbox')) {
 			return $model->limit(30, $offset)
 				->where(' (from_user=' . $current . ' and to_user=' . $user_id . ' )', FALSE, TRUE)
 				->or_where(' (to_user=' . $current . ' and from_user=' . $user_id . ' )', FALSE, TRUE)
-				->orderby('created_at', 'desc')
+				->orderby('id', 'desc')
 				->get()->result();
 		}
 

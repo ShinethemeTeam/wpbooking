@@ -7,6 +7,10 @@
  */
 $inbox=WPBooking_Inbox::inst();
 $users=$inbox->get_latest_message();
+if(WPBooking_Input::get('user_id')){
+	echo wpbooking_load_view('account/inbox/reply');
+	return;
+}
 ?>
 <h3 class="tab-page-title">
 	<?php
