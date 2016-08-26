@@ -260,56 +260,62 @@ $service = new WB_Service();
 					</div>
 				<?php } ?>
 
+				<?php
+				$rule_html=array();
+				if ($deposit_amount = get_post_meta(get_the_ID(), 'deposit_amount', TRUE)) {
+					if (get_post_meta(get_the_ID(), 'deposit_type', TRUE) == 'percent') {
+						$rule_html[]=sprintf(esc_html__('Deposit: %s ', 'wpbooking'), $deposit_amount . '% <span class="required">' . esc_html__('required', 'wpbooking') . '</span>');
+					} else {
+						$rule_html[]=sprintf(esc_html__('Deposit: %s ', 'wpbooking'), WPBooking_Currency::format_money($deposit_amount) . ' <span class="required">' . esc_html__('required', 'wpbooking') . '</span>');
+					}
+				}
+
+				$array = array(
+					'check_in_time'  => esc_html__('Check In Time: %s', 'wpbooking'),
+					'check_out_time' => esc_html__('Check Out Time: %s', 'wpbooking'),
+				);
+				foreach ($array as $key => $val) {
+					if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
+						$rule_html[]=sprintf($val, '<strong>' . $value . '</strong> <i class="fa fa-clock" ></i>	<br>');
+					}
+				}
+				$array = array(
+					'minimum_stay' => esc_html__('Minimum Stay: %s', 'wpbooking'),
+				);
+				foreach ($array as $key => $val) {
+					if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
+						$rule_html[]=sprintf($val, $value . '<br>');
+					}
+				}
+
+				$array = array(
+					'cancellation_allowed' => esc_html__('Cancellation Allowed: %s', 'wpbooking'),
+				);
+
+				foreach ($array as $key => $val) {
+					if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
+						$rule_html[]=sprintf($val, $value ? esc_html__('Yes', 'wpbooking') : esc_html__('No', 'wpbooking') . '<br>');
+					}
+				}
+
+				$host_regulations = get_post_meta(get_the_ID(), 'host_regulations', TRUE);
+				if (!empty($host_regulations)) {
+					foreach ($host_regulations as $key => $value) {
+						if ($value['title'] or $value['content'])
+							$rule_html[]= (wpbooking_get_translated_string($value['title']) . ': ' . wpbooking_get_translated_string($value['content']) . '<br>');
+					}
+				}
+				?>
+				<?php if(!empty($rule_html)){ ?>
 				<div class="service-detail-item">
 					<div class="service-detail-title"><?php esc_html_e('Rule', 'wpbooking') ?></div>
 					<div class="service-detail-content">
 						<?php
-						if ($deposit_amount = get_post_meta(get_the_ID(), 'deposit_amount', TRUE)) {
-							if (get_post_meta(get_the_ID(), 'deposit_type', TRUE) == 'percent') {
-								printf(esc_html__('Deposit: %s ', 'wpbooking'), $deposit_amount . '% <span class="required">' . esc_html__('required', 'wpbooking') . '</span>');
-							} else {
-								printf(esc_html__('Deposit: %s ', 'wpbooking'), WPBooking_Currency::format_money($deposit_amount) . ' <span class="required">' . esc_html__('required', 'wpbooking') . '</span>');
-							}
-						}
-
-						$array = array(
-							'check_in_time'  => esc_html__('Check In Time: %s', 'wpbooking'),
-							'check_out_time' => esc_html__('Check Out Time: %s', 'wpbooking'),
-						);
-						foreach ($array as $key => $val) {
-							if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
-								printf($val, '<strong>' . $value . '</strong> <i class="fa fa-clock" ></i>	<br>');
-							}
-						}
-						$array = array(
-							'minimum_stay' => esc_html__('Minimum Stay: %s', 'wpbooking'),
-						);
-						foreach ($array as $key => $val) {
-							if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
-								printf($val, $value . '<br>');
-							}
-						}
-
-						$array = array(
-							'cancellation_allowed' => esc_html__('Cancellation Allowed: %s', 'wpbooking'),
-						);
-
-						foreach ($array as $key => $val) {
-							if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
-								printf($val, $value ? esc_html__('Yes', 'wpbooking') : esc_html__('No', 'wpbooking') . '<br>');
-							}
-						}
-
-						$host_regulations = get_post_meta(get_the_ID(), 'host_regulations', TRUE);
-						if (!empty($host_regulations)) {
-							foreach ($host_regulations as $key => $value) {
-								if ($value['title'] or $value['content'])
-									echo(wpbooking_get_translated_string($value['title']) . ': ' . wpbooking_get_translated_string($value['content']) . '<br>');
-							}
-						}
+						echo implode("\r\n",$rule_html);
 						?>
 					</div>
 				</div>
+				<?php }?>
 
 			</div>
 		</div>
