@@ -346,7 +346,7 @@ $service = new WB_Service();
 						<?php if ($desc = $service->get_author('description')) {
 							printf('<div class="author-desc">%s</div>', $desc);
 						} ?>
-						<?php if (is_user_logged_in()) {
+						<?php if (is_user_logged_in() and $service->get_author('id')!=get_current_user_id()) {
 							printf('<a href="%s" class="wb-btn wb-btn-success">%s</a>', $service->get_author('contact_now_url'), esc_html__('Contact Now', 'wpbooking'));
 						} ?>
 					</div>
