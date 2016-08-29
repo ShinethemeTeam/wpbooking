@@ -46,8 +46,11 @@ $users=$inbox->get_latest_message();
 							<div class="avatar"><?php echo get_avatar($user_id) ?></div>
 							<div class="info">
 								<h4 class="user-displayname"><?php echo esc_html($user_info->display_name)?></h4>
-								<div class="message-content"><?php echo esc_html($user['content']) ?></div>
-								<p class="time"><?php printf(esc_html__('%s ago','wpbooking'),human_time_diff($user['created_at'],current_time('timestamp')));  ?></p>
+								<div class="message"><?php echo wpbooking_cutnchar(stripcslashes($user['content']),60) ?></div>
+								<p class="time"><?php printf(esc_html__('%s ago','wpbooking'),human_time_diff($user['created_at'],time())) ?></p>
+								<?php if($user['unread_number']){
+									printf('<p class="unread_number">%s</p>',sprintf(esc_html__('%d new message(s)','wpbooking'),$user['unread_number']));
+								} ?>
 							</div>
 						</a>
 					</li>
