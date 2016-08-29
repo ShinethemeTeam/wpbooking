@@ -1093,13 +1093,12 @@ jQuery(document).ready(function($){
     {
         $('.old-messages').append(messageHtml);
         window.setTimeout(function(){
-            $('.old-messages').animate({ scrollTop: $('.old-messages').height()}, 'fast');
+            $('.old-messages').animate({ scrollTop: $('.old-messages')[0].scrollHeight}, 'fast');
 
         },100);
     }
 
     $('.wb-send-message-form').submit(function(){
-        console.log(1);
         var me=$(this);
         $(this).addClass('loading');
         $(this).find('.message-box').html('');
@@ -1124,6 +1123,8 @@ jQuery(document).ready(function($){
 
                     // Clear the Form
                     me.find('textarea').val('');
+
+                    var scroll_item=me.closest('ul');
                 }
 
             },
@@ -1467,7 +1468,7 @@ jQuery(document).ready(function($){
     $('.wb-scroll-bottom').each(function(){
         var me=$(this);
         window.setTimeout(function(){
-            $(me).animate({ scrollTop: me.height()}, 'fast');
+            me.animate({ scrollTop: me[0].scrollHeight}, 'fast');
 
         },100);
     })

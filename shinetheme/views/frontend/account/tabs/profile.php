@@ -15,6 +15,19 @@ get_currentuserinfo();
 ?>
 <h3 class="tab-page-title">
 	<?php
+	echo sprintf(esc_html__("Hello I'm %s",'wpbooking'),$current_user->first_name);
+	?>
+</h3>
+<div class="user-detail">
+	<div class="avatar">
+
+	</div>
+	<div class="info">
+		<h5 class="user-name"><?php echo esc_html($current_user->display_name) ?></h5>
+	</div>
+</div>
+<h3 class="tab-page-title">
+	<?php
 	echo esc_html__('Your Profile','wpbooking');
 	?>
 	<ul class="information">

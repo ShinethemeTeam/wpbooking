@@ -1387,6 +1387,9 @@
     .clearfix;
     .wpbooking-inbox-user{
         .inbox-user-item{
+            a{
+                .clearfix;
+            }
             padding:10px 15px;
             border: 1px solid #f0f0f0;
             border-bottom: none;
@@ -1396,7 +1399,6 @@
             &.not_read{
                 background: #f7f7f7;
             }
-            .clearfix;
             &:hover,
             &.active{
                 background:#f2f2f2;
@@ -1415,6 +1417,7 @@
             }
             .info{
                 display: table;
+                padding-right: 105px;
                 .user-displayname{
                     margin:0px;
                     color:#333;
@@ -1430,8 +1433,17 @@
             }
             .time{
                 position: absolute;
-                top:20px;
+                top:13px;
                 right:15px;
+            }
+            .unread_number{
+                color: @maincolor;
+                font-style: italic;
+                font-size: 13px;
+                position: absolute;
+                top:36px;
+                right:15px;
+
             }
         }
         .wb-load-more-message{
@@ -3012,7 +3024,7 @@
          }
          .old-messages{
              max-height: 450px;
-             overflow-y: scroll;
+             overflow-y: auto;
              margin-bottom: 20px;
              margin-right: -10px;
              padding-right: 10px;
@@ -3090,6 +3102,8 @@
                          color: #999999;
                          font-size: 13px;
                          margin-bottom: 0px;
+                         margin-top: 5px;
+                         font-style: italic;
                      }
                  }
                  &.current{

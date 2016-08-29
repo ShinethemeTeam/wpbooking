@@ -267,3 +267,15 @@ if(!function_exists('wpbooking_date_diff')){
 		return $dStart->diff($dEnd)->days;
 	}
 }
+
+
+if(!function_exists('wpbooking_cutnchar')) {
+	function wpbooking_cutnchar($str, $n)
+	{
+		if (strlen($str) < $n) return $str;
+		$html = substr($str, 0, $n);
+		$html = substr($html, 0, strrpos($html, ' '));
+
+		return $html . '...';
+	}
+}

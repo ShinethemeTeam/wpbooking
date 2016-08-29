@@ -1280,16 +1280,16 @@
   position: relative;
   background: white;
 }
-.inbox-wrap .wpbooking-inbox-user .inbox-user-item.not_read {
-  background: #f7f7f7;
-}
-.inbox-wrap .wpbooking-inbox-user .inbox-user-item:before,
-.inbox-wrap .wpbooking-inbox-user .inbox-user-item:after {
+.inbox-wrap .wpbooking-inbox-user .inbox-user-item a:before,
+.inbox-wrap .wpbooking-inbox-user .inbox-user-item a:after {
   display: table;
   content: " ";
 }
-.inbox-wrap .wpbooking-inbox-user .inbox-user-item:after {
+.inbox-wrap .wpbooking-inbox-user .inbox-user-item a:after {
   clear: both;
+}
+.inbox-wrap .wpbooking-inbox-user .inbox-user-item.not_read {
+  background: #f7f7f7;
 }
 .inbox-wrap .wpbooking-inbox-user .inbox-user-item:hover,
 .inbox-wrap .wpbooking-inbox-user .inbox-user-item.active {
@@ -1309,6 +1309,7 @@
 }
 .inbox-wrap .wpbooking-inbox-user .inbox-user-item .info {
   display: table;
+  padding-right: 105px;
 }
 .inbox-wrap .wpbooking-inbox-user .inbox-user-item .info .user-displayname {
   margin: 0px;
@@ -1321,7 +1322,15 @@
 }
 .inbox-wrap .wpbooking-inbox-user .inbox-user-item .time {
   position: absolute;
-  top: 20px;
+  top: 13px;
+  right: 15px;
+}
+.inbox-wrap .wpbooking-inbox-user .inbox-user-item .unread_number {
+  color: #f0ad4e;
+  font-style: italic;
+  font-size: 13px;
+  position: absolute;
+  top: 36px;
   right: 15px;
 }
 .inbox-wrap .wpbooking-inbox-user .wb-load-more-message {
@@ -2895,7 +2904,7 @@
 }
 .wpbooking-myaccount-wrap .reply-inbox .old-messages {
   max-height: 450px;
-  overflow-y: scroll;
+  overflow-y: auto;
   margin-bottom: 20px;
   margin-right: -10px;
   padding-right: 10px;
@@ -2979,6 +2988,8 @@
   color: #999999;
   font-size: 13px;
   margin-bottom: 0px;
+  margin-top: 5px;
+  font-style: italic;
 }
 .wpbooking-myaccount-wrap .reply-inbox .old-messages .message.current .avatar {
   float: right;

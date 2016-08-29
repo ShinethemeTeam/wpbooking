@@ -54,7 +54,7 @@ if (!class_exists('WPBooking_Inbox')) {
 
 
 				$validator = new WPBooking_Form_Validator();
-				$validator->set_rules('wb-message-input', esc_html__('Message', 'wpbooking'), 'required');
+				$validator->set_rules('wb-message-input', esc_html__('Message', 'wpbooking'), 'required|max_length[500]|min_length[10]');
 
 				if (!$validator->run()) {
 					$is_validate = FALSE;
@@ -114,6 +114,9 @@ if (!class_exists('WPBooking_Inbox')) {
 		function get_latest_message($offset = 0, $limit = 10)
 		{
 			global $wpdb;
+			$inbox=WPBooking_Inbox_Model::inst();
+
+
 			$sql = "select SQL_CALC_FOUND_ROWS * from (
 						select * from(
 							(
@@ -134,7 +137,24 @@ if (!class_exists('WPBooking_Inbox')) {
 			$user_id = get_current_user_id();
 			$sql = $wpdb->prepare($sql, array($user_id, $user_id, $user_id, $offset, $limit));
 
-			return $wpdb->get_results($sql, ARRAY_A);
+			$message=$wpdb->get_results($sql, ARRAY_A);
+
+			if(!empty($message)){
+				foreach($message as $key=>$mess){
+					if($mess['to_user']==$user_id){
+						$count=$inbox->select('count(id) as total')->where('(is_read=0 or is_read is NULL )',FALSE,TRUE)
+							->where('to_user',$user_id)
+							->where('from_user',$mess['from_user'])
+							->get()->row();
+						$message[$key]['unread_number']=$count['total'];
+					}else{
+						$message[$key]['unread_number']=0;
+					}
+
+				}
+			}
+
+			return $message;
 		}
 
 
@@ -176,8 +196,11 @@ if (!class_exists('WPBooking_Inbox')) {
 							<div class="info">
 								<h4 class="user-displayname"><?php echo esc_html($user_info->display_name) ?></h4>
 
-								<div class="message"><?php echo stripcslashes($user['content']) ?></div>
+								<div class="message"><?php echo wpbooking_cutnchar(stripcslashes($user['content']),60) ?></div>
 								<p class="time"><?php printf(esc_html__('%s ago', 'wpbooking'), human_time_diff($user['created_at'], time())) ?></p>
+								<?php if($user['unread_number']){
+									printf('<p class="unread_number">%s</p>',sprintf(esc_html__('%d new message(s)','wpbooking'),$user['unread_number']));
+								} ?>
 							</div>
 						</a>
 					</div>
