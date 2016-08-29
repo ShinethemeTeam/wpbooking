@@ -111,7 +111,7 @@ if (!class_exists('WPBooking_Inbox')) {
 		 * @param $limit 20
 		 * @return bool|array
 		 */
-		function get_latest_message($offset = 0, $limit = 1)
+		function get_latest_message($offset = 0, $limit = 10)
 		{
 			global $wpdb;
 			$sql = "select SQL_CALC_FOUND_ROWS * from (
@@ -147,7 +147,7 @@ if (!class_exists('WPBooking_Inbox')) {
 		 */
 		function _load_message()
 		{
-			$limit = 1;
+			$limit = 10;
 			$res = array(
 				'status' => 1,
 				'html'   => FALSE,
@@ -248,8 +248,8 @@ if (!class_exists('WPBooking_Inbox')) {
 			$current = get_current_user_id();
 
 			$model
-				->where(' (from_user=' . $current . ' and to_user=' . $user_id . ' )', FALSE, TRUE)
-				->or_where(' (to_user=' . $current . ' and from_user=' . $user_id . ' )', FALSE, TRUE)
+				->where(' ( (from_user=' . $current . ' and to_user=' . $user_id . ' ) or (to_user=' . $current . ' and from_user=' . $user_id . ' ) )', FALSE, TRUE)
+				->where('(is_read=0 or is_read is NULL )',FALSE,TRUE)
 				->update(array('is_read'=>1));
 
 			return $model->select('SQL_CALC_FOUND_ROWS *')->limit($limit, $offset)

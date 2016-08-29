@@ -32,7 +32,7 @@ if(WPBooking_Input::get('user_id')){
 
 				$user_info = get_userdata($user_id);
 				?>
-				<div class="inbox-user-item <?php echo ($user['is_read']==FALSE)?'not_read':FALSE ?> ">
+				<div class="inbox-user-item <?php echo ($user['to_user']==get_current_user_id() and $user['is_read']==FALSE)?'not_read':FALSE ?> ">
 					<a href="<?php echo esc_url($url) ?>">
 						<div class="avatar"><?php echo get_avatar($user_id) ?></div>
 						<div class="info">
@@ -45,7 +45,7 @@ if(WPBooking_Input::get('user_id')){
 				<?php
 			}
 		}
-		if($total>=2){
+		if($total>=11){
 			?>
 				<div class="inbox-user-item ">
 					<a data-offset="0" class="wb-load-more-message"><?php esc_html_e('More','wpbooking') ?> <i class=" loading fa fa-spinner fa-pulse"></i></a>

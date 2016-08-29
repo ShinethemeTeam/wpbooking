@@ -86,8 +86,32 @@ if (!class_exists('WPBooking_User')) {
 			 */
 			add_action('wp_ajax_wpbooking_enable_property',array($this,'_ajax_enable_property'));
 
+			/**
+			 * Check If Current User Can Access My Account page
+			 *
+			 * @since 1.0
+			 * @author dungdt
+			 *
+			 */
+			add_action('template_redirect',array($this,'_check_myaccount_page_permisison'));
+
 		}
 
+		/**
+		 * Check If Current User Can Access My Account page
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 */
+		function _check_myaccount_page_permisison(){
+
+			// Check Profile Tabs, check is not author, can't view profile
+			if(is_user_logged_in() and get_query_var('tab')=='profile' and current_user_can('publish_posts')){
+				wp_safe_redirect(get_permalink(wpbooking_get_option('myaccount-page')));
+				die;
+			}
+		}
 		/**
 		 * Ajax Handler for Enable Property
 		 *
@@ -853,6 +877,7 @@ if (!class_exists('WPBooking_User')) {
 			// update-profile
 			add_rewrite_endpoint('update-profile', EP_PAGES);
 
+
 			flush_rewrite_rules();
 
 		}
@@ -888,7 +913,9 @@ if (!class_exists('WPBooking_User')) {
 				'label' => esc_html__('Your wishlist', 'wpbooking')
 			);
 			$tabs['inbox'] = array('label' => esc_html__('Inbox', 'wpbooking'));
-			$tabs['profile'] = array('label' => esc_html__('Profile', 'wpbooking'));
+			if(current_user_can('publish_posts')){
+				$tabs['profile'] = array('label' => esc_html__('Profile', 'wpbooking'));
+			}
 			$tabs['change_password'] = array('label' => esc_html__('Change Password', 'wpbooking'));
 			$tabs['logout'] = array('label' => esc_html__('Logout', 'wpbooking'));
 
