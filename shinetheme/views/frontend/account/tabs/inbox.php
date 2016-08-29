@@ -33,7 +33,7 @@ if(WPBooking_Input::get('user_id')){
 
 				$user_info = get_userdata($user_id);
 				?>
-				<div class="inbox-user-item <?php echo ($user['to_user']==get_current_user_id() and $user['is_read']==FALSE)?'not_read':FALSE ?> ">
+				<div class="inbox-user-item ">
 					<a href="<?php echo esc_url($url) ?>">
 						<div class="avatar"><?php echo get_avatar($user_id) ?></div>
 						<div class="info">
