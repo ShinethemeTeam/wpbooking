@@ -12,7 +12,7 @@ if(empty($user) or is_wp_error($user)){
 }
 
 $inbox=WPBooking_Inbox::inst();
-
+global $wpdb;
 ?>
 <div class="reply-inbox">
 <h3 class="tab-page-title">
@@ -32,8 +32,12 @@ $inbox=WPBooking_Inbox::inst();
 		$user_info = get_userdata($user_id);
 
 		?>
-		<div class="old-messages" data-user-id="<?php echo esc_attr($user_id) ?>">
+		<div class="old-messages wb-scroll-bottom" data-user-id="<?php echo esc_attr($user_id) ?>">
 			<?php $old_messages=$inbox->get_user_message($user_id);
+			$total=$inbox->count_user_message($user_id);
+			if($total>10){
+				printf('<div class="text-center"><a class="wb-btn wb-btn-default wb-btn-md wb-load-more-reply" data-user-id="%s" data-offset="0">%s</a></div>',$user_id,esc_html__('Old Message','wpbooking').' <i class=" loading fa fa-spinner fa-pulse"></i>');
+			}
 			if(!empty($old_messages)){
 				for($i=count($old_messages)-1;$i>=0;$i--){
 					$message=$old_messages[$i];

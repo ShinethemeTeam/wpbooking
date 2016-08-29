@@ -1393,6 +1393,84 @@ jQuery(document).ready(function($){
             }
         })
     });
+
+    // AJax loax more inbox list
+    $('.wb-load-more-message').click(function(){
+        var me=$(this);
+        me.addClass('loading');
+        $.ajax({
+            type:'post',
+            url:wpbooking_params.ajax_url,
+            dataType:'json',
+            data:{
+                action:'wpbooking_load_message',
+                offset:me.data('offset')
+            },
+            success:function(res) {
+                me.removeClass('loading');
+                if (res.message) {
+                    alert.log(res.message);
+                }
+                if(res.html){
+                    me.parent().before(res.html);
+                }
+                if(res.offset){
+                    me.data('offset',res.offset);
+                }else{
+                    me.parent().remove();
+                }
+
+            },
+            error:function(e){
+                console.log(e.responseText);
+                me.removeClass('loading');
+            }
+        });
+    });
+
+    // AJax loax more reply
+    $('.wb-load-more-reply').click(function(){
+        var me=$(this);
+        me.addClass('loading');
+        $.ajax({
+            type:'post',
+            url:wpbooking_params.ajax_url,
+            dataType:'json',
+            data:{
+                action:'wpbooking_load_reply',
+                user_id:me.data('user-id'),
+                offset:me.data('offset')
+            },
+            success:function(res) {
+                me.removeClass('loading');
+                if (res.message) {
+                    alert.log(res.message);
+                }
+                if(res.html){
+                    me.parent().after(res.html);
+                }
+                if(res.offset){
+                    me.data('offset',res.offset);
+                }else{
+                    me.parent().remove();
+                }
+
+            },
+            error:function(e){
+                console.log(e.responseText);
+                me.removeClass('loading');
+            }
+        });
+    });
+
+    // Scroll Bottom Div
+    $('.wb-scroll-bottom').each(function(){
+        var me=$(this);
+        window.setTimeout(function(){
+            $(me).animate({ scrollTop: me.height()}, 'fast');
+
+        },100);
+    })
 });
 
 

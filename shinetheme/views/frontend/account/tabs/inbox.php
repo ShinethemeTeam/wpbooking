@@ -7,7 +7,7 @@
  */
 $inbox=WPBooking_Inbox::inst();
 $users=$inbox->get_latest_message();
-echo WPBooking_Inbox_Model::inst()->last_query();
+$total=$inbox->count_total_message();
 if(WPBooking_Input::get('user_id')){
 	echo wpbooking_load_view('account/inbox/reply');
 	return;
@@ -32,9 +32,9 @@ if(WPBooking_Input::get('user_id')){
 
 				$user_info = get_userdata($user_id);
 				?>
-				<div class="inbox-user-item ">
+				<div class="inbox-user-item <?php echo ($user['is_read']==FALSE)?'not_read':FALSE ?> ">
 					<a href="<?php echo esc_url($url) ?>">
-						<div class="avatar"><?php echo get_avatar($user['from_user']) ?></div>
+						<div class="avatar"><?php echo get_avatar($user_id) ?></div>
 						<div class="info">
 							<h4 class="user-displayname"><?php echo esc_html($user_info->display_name)?></h4>
 							<div class="message"><?php echo stripcslashes($user['content']) ?></div>
@@ -44,6 +44,13 @@ if(WPBooking_Input::get('user_id')){
 				</div>
 				<?php
 			}
+		}
+		if($total>=2){
+			?>
+				<div class="inbox-user-item ">
+					<a data-offset="0" class="wb-load-more-message"><?php esc_html_e('More','wpbooking') ?> <i class=" loading fa fa-spinner fa-pulse"></i></a>
+				</div>
+			<?php
 		}
 		?>
 	</div>

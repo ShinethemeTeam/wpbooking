@@ -15,12 +15,13 @@ if (!class_exists('WPBooking_Inbox')) {
 			add_action('init', array($this, '_handle_send_message'));
 
 			/**
-			 * Ajax Handle for reload old messages
+			 * Ajax Handle for load old inbox conversation
 			 *
 			 * @since 1.0
 			 * @author dungdt
 			 */
-			add_action('wp_ajax_wpbooking_reload_old_message', array($this, '_reload_old_message'));
+			add_action('wp_ajax_wpbooking_load_message', array($this, '_load_message'));
+
 
 			/**
 			 * Ajax handle for Load More User Message
@@ -28,7 +29,7 @@ if (!class_exists('WPBooking_Inbox')) {
 			 * @since 1.0
 			 * @author dungdt
 			 */
-			add_action('wp_ajax_wpbooking_load_more_user_message', array($this, '_load_more_user_message'));
+			add_action('wp_ajax_wpbooking_load_reply', array($this, '_load_more_user_message'));
 		}
 
 		/**
@@ -106,21 +107,107 @@ if (!class_exists('WPBooking_Inbox')) {
 		 * @since 1.0
 		 * @author dungdt
 		 *
+		 * @param $offset int
+		 * @param $limit 20
 		 * @return bool|array
 		 */
-		function get_latest_message()
+		function get_latest_message($offset = 0, $limit = 1)
 		{
-			$model = WPBooking_Inbox_Model::inst();
-			$current_user = get_current_user_id();
+			global $wpdb;
+			$sql = "select SQL_CALC_FOUND_ROWS * from (
+						select * from(
+							(
+								SELECT *,from_user as user_id FROM {$wpdb->prefix}wpbooking_message where to_user=%d
+							)
+							UNION
+							(
+								SELECT *,to_user as user_id FROM {$wpdb->prefix}wpbooking_message where from_user=%d
+							)
 
-			return $model->limit(5)
-				->where('from_user', $current_user)
-				->or_where('to_user', $current_user)
-				->where('from_user!=to_user', FALSE,true)
-				->orderby('created_at', 'desc')
-				->groupby('from_user')
-				->having('from_user!=to_user')
-				->get()->result();
+							order by id desc
+							)as table_desc
+						group by user_id desc) as table_group
+						where user_id!=%d
+					order by id desc
+					LIMIT %d,%d
+				";
+			$user_id = get_current_user_id();
+			$sql = $wpdb->prepare($sql, array($user_id, $user_id, $user_id, $offset, $limit));
+
+			return $wpdb->get_results($sql, ARRAY_A);
+		}
+
+
+		/**
+		 * Ajax Load More Conversation
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 */
+		function _load_message()
+		{
+			$limit = 1;
+			$res = array(
+				'status' => 1,
+				'html'   => FALSE,
+			);
+			$offset = WPBooking_Input::post('offset');
+			$offset += $limit;
+
+			$messages = $this->get_latest_message($offset, $limit);
+			$total=$this->count_total_message();
+
+			if (!empty($messages)) {
+				foreach ($messages as $key => $user) {
+					if ($user['from_user'] != get_current_user_id()) $user_id = $user['from_user'];
+					else $user_id = $user['to_user'];
+
+					$myaccount_page = get_permalink(wpbooking_get_option('myaccount-page'));
+					$url = $myaccount_page . 'tab/inbox/';
+					$url = add_query_arg(array('user_id' => $user_id), $url);
+
+					$user_info = get_userdata($user_id);
+					@ob_start();
+					?>
+					<div class="inbox-user-item ">
+						<a href="<?php echo esc_url($url) ?>">
+							<div class="avatar"><?php echo get_avatar($user_id) ?></div>
+							<div class="info">
+								<h4 class="user-displayname"><?php echo esc_html($user_info->display_name) ?></h4>
+
+								<div class="message"><?php echo stripcslashes($user['content']) ?></div>
+								<p class="time"><?php printf(esc_html__('%s ago', 'wpbooking'), human_time_diff($user['created_at'], time())) ?></p>
+							</div>
+						</a>
+					</div>
+					<?php
+					$res['html'] .= @ob_get_clean();
+				}
+			}
+			if ($offset + $limit < $total) {
+				$res['offset'] = $offset;
+				$res['total']=$total;
+			} else {
+				$res['offset'] = 0;
+			}
+
+			echo json_encode($res);
+			die;
+		}
+
+		/**
+		 * Please only call right after method @get_latest_message
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return array|null|object|void
+		 */
+		function count_total_message()
+		{
+			global $wpdb;
+
+			return $wpdb->get_row("SELECT FOUND_ROWS() as total")->total;
 		}
 
 		/**
@@ -155,17 +242,23 @@ if (!class_exists('WPBooking_Inbox')) {
 		 * @param $offset int
 		 * @return mixed
 		 */
-		function get_user_message($user_id, $offset = 0)
+		function get_user_message($user_id, $offset = 0, $limit = 10)
 		{
 			$model = WPBooking_Inbox_Model::inst();
 			$current = get_current_user_id();
 
-			return $model->limit(30, $offset)
+			$model
+				->where(' (from_user=' . $current . ' and to_user=' . $user_id . ' )', FALSE, TRUE)
+				->or_where(' (to_user=' . $current . ' and from_user=' . $user_id . ' )', FALSE, TRUE)
+				->update(array('is_read'=>1));
+
+			return $model->select('SQL_CALC_FOUND_ROWS *')->limit($limit, $offset)
 				->where(' (from_user=' . $current . ' and to_user=' . $user_id . ' )', FALSE, TRUE)
 				->or_where(' (to_user=' . $current . ' and from_user=' . $user_id . ' )', FALSE, TRUE)
 				->orderby('id', 'desc')
 				->get()->result();
 		}
+
 
 		/**
 		 * Hook Callback of Ajax Load More User Message
@@ -177,48 +270,34 @@ if (!class_exists('WPBooking_Inbox')) {
 		 */
 		function _load_more_user_message()
 		{
+			$limit = 10;
 			$res = array(
-				'status' => 1,
-				'data'   => FALSE,
-				'load_more'=>FALSE
+				'status'    => 1,
+				'data'      => FALSE,
+				'load_more' => FALSE
 			);
 			$user_id = WPBooking_Input::post('user_id');
 			$offset = WPBooking_Input::post('offset');
+			$offset += $limit;
 
 			$messages = $this->get_user_message($user_id, $offset);
 
 			if (!empty($messages)) {
-				foreach($messages as $message){
-					$res['data'].= wpbooking_load_view('account/inbox/loop-message', array('message' => $message));
+				foreach ($messages as $message) {
+					$res['html'] .= wpbooking_load_view('account/inbox/loop-message', array('message' => $message));
 				}
 			}
 
-			if($offset+30<=$this->count_user_message($user_id)){
-				$res['load_more']=true;
+			if ($offset + $limit <= $this->count_user_message($user_id)) {
+				$res['offset'] = $offset;
+			} else {
+				$res['offset'] = 0;
 			}
 
 			echo json_encode($res);
 			die;
 		}
 
-		/**
-		 * Hook Callback for Ajax Get Old Messages
-		 *
-		 * @since 1.0
-		 * @author dungdt
-		 */
-		function _reload_old_message()
-		{
-			if (!is_user_logged_in()) return;
-
-			if (!$user_id = WPBooking_Input::post('user_id')) {
-				echo esc_html__('User ID must be not empty', 'wpbooking');
-				die;
-			}
-
-			$old_messages = $this->get_user_message($user_id);
-
-		}
 
 		static function inst()
 		{

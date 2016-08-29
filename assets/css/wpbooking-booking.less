@@ -1393,6 +1393,10 @@
             font-size: 14px;
             position: relative;
             background: white;
+            &.not_read{
+                background: #f7f7f7;
+            }
+            .clearfix;
             &:hover,
             &.active{
                 background:#f2f2f2;
@@ -1428,6 +1432,21 @@
                 position: absolute;
                 top:20px;
                 right:15px;
+            }
+        }
+        .wb-load-more-message{
+            color: @maincolor;
+            font-style:italic;
+            border:none;
+            text-decoration: underline;
+            cursor: pointer;
+            .loading{
+                display: none;
+            }
+            &.loading{
+                .loading{
+                    display: inline-block;
+                }
             }
         }
     }
@@ -2987,12 +3006,34 @@
     }
 
      .reply-inbox{
+         .inbox-messages{
+             background: rgba(230,230,230,0.2);
+             padding:10px
+         }
          .old-messages{
-             max-height: 755px;
-             overflow-y: auto;
-             background: #fafafa;
-             padding: 10px 15px 10px 0px;
+             max-height: 450px;
+             overflow-y: scroll;
              margin-bottom: 20px;
+             margin-right: -10px;
+             padding-right: 10px;
+             .wb-load-more-reply{
+                 margin-bottom: 15px;
+                 text-transform: none;
+                 color: #666;
+                 font-size: 14px;
+                 cursor: pointer;
+                 .loading{
+                     display: none;
+                 }
+                 &.loading{
+                     .loading{
+                         display: inline-block;
+                     }
+                 }
+                 &:hover{
+                     border: 1px solid #d5d5d5;
+                 }
+             }
              .message{
                  margin-bottom: 30px;
                  &:last-child{
@@ -3021,25 +3062,35 @@
                      line-height: 18px;
                      color: #666;
                      padding:15px;
+                     position: relative;
                      &:after{
                          content: "";
                          position: absolute;
                          top:15px;
-                         left:-10px;
+                         left:-7px;
                          width: 0;
                          height: 0;
                          border-style: solid;
-                         border-width: 7.5px 0 7.5px 10px;
-                         border-color: transparent transparent transparent #e6e6e6;
+                         border-width: 10px 7px 10px 0;
+                         border-color: transparent #e6e6e6 transparent transparent;
+
+                     }
+                     .message-content{
+                         color: #666;
+                     }
+                     .author{
+                         color:@maincolor;
+                         font-size: 16px;
+                         margin:0px;
+                         margin-bottom: 7px;
+                         font-weight: 700;
 
                      }
                      .time{
                          color: #999999;
                          font-size: 13px;
+                         margin-bottom: 0px;
                      }
-                 }
-                 .user-displayname{
-                     display: none;
                  }
                  &.current{
                     .avatar{
@@ -3049,11 +3100,14 @@
                     }
                      .info
                      {
+
                          background: white;
                          border:1px solid #e6e6e6;
                          &:after{
                              left: auto;
-                             right: -10px;
+                             right: -7px;
+                             border-width: 10px 0 10px 7px;
+                             border-color: transparent  transparent transparent #e6e6e6;
                          }
                      }
                  }
@@ -3091,11 +3145,11 @@
                      content: "";
                      position: absolute;
                      top:15px;
-                     right:-10px;
+                     right:-7px;
                      width: 0;
                      height: 0;
                      border-style: solid;
-                     border-width: 7.5px 0 7.5px 10px;
+                     border-width: 10px 0 10px 7px;
                      border-color: transparent transparent transparent #e6e6e6;
 
                  }

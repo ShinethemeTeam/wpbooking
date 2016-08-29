@@ -13,13 +13,14 @@ if (!class_exists('WPBooking_Inbox_Model')) {
 
 		function __construct()
 		{
-			$this->table_version = '1.0.1';
+			$this->table_version = '1.0.2';
 			$this->table_name = 'wpbooking_message';
 			$this->columns = array(
 				'id'         => array(
 					'type'           => "int",
 					'AUTO_INCREMENT' => TRUE
 				),
+				'is_parent'  => array('type' => "INT"),
 				'from_user'  => array('type' => "INT"),
 				'post_id'    => array('type' => "INT"),
 				'to_user'    => array('type' => "FLOAT"),
@@ -54,8 +55,15 @@ if (!class_exists('WPBooking_Inbox_Model')) {
 					'content'    => wp_kses_post($content),
 					'created_at' => time(),
 					'ip_address' => WPBooking_Input::ip_address(),
-					'post_id'    => $post_id
+					'post_id'    => $post_id,
+					'is_read'    => 0,
+					'is_parent'=>0
 				);
+//				$count=$this->select('count(id) as total')->where(array(
+//					'from_user'=>get_current_user_id(),
+//					'to_user'=>$to_user,
+//				));
+
 				return $this->insert($insert);
 			}
 
