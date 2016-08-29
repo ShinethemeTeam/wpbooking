@@ -1272,62 +1272,46 @@
 .inbox-wrap:after {
   clear: both;
 }
-.inbox-wrap .inbox-user {
-  width: 30%;
+.inbox-wrap .wpbooking-inbox-user .inbox-user-item {
+  padding: 10px 15px;
+  border: 1px solid #f0f0f0;
+  border-bottom: none;
+  font-size: 14px;
+  position: relative;
+  background: white;
+}
+.inbox-wrap .wpbooking-inbox-user .inbox-user-item:hover,
+.inbox-wrap .wpbooking-inbox-user .inbox-user-item.active {
+  background: #f2f2f2;
+}
+.inbox-wrap .wpbooking-inbox-user .inbox-user-item:last-child {
+  border-bottom: 1px solid #f0f0f0;
+}
+.inbox-wrap .wpbooking-inbox-user .inbox-user-item .avatar {
   float: left;
-  border-right: 1px solid #ddd;
+  margin-right: 15px;
 }
-.inbox-wrap .inbox-user .inbox-user-item {
-  padding: 5px;
-  border-bottom: 1px solid #ddd;
-}
-.inbox-wrap .inbox-user .inbox-user-item:hover,
-.inbox-wrap .inbox-user .inbox-user-item.active {
-  background: #365899;
-}
-.inbox-wrap .inbox-user .inbox-user-item .avatar {
-  float: left;
-}
-.inbox-wrap .inbox-user .inbox-user-item .avatar img {
+.inbox-wrap .wpbooking-inbox-user .inbox-user-item .avatar img {
   max-width: 50px;
-  margin-right: 8px;
+  border-radius: 50%;
+  border: 3px solid #e6e6e6;
 }
-.inbox-wrap .inbox-user .inbox-user-item .info {
+.inbox-wrap .wpbooking-inbox-user .inbox-user-item .info {
   display: table;
 }
-.inbox-wrap .inbox-user .inbox-user-item .info .user-displayname {
+.inbox-wrap .wpbooking-inbox-user .inbox-user-item .info .user-displayname {
   margin: 0px;
-  font-size: 15px;
+  color: #333;
+  font-size: 14px;
+  font-weight: bold;
 }
-.inbox-wrap .inbox-messages {
-  width: 70%;
-  float: left;
-  padding: 10px;
+.inbox-wrap .wpbooking-inbox-user .inbox-user-item a:hover {
+  text-decoration: none;
 }
-.inbox-wrap .inbox-messages .send-messag-to {
-  margin: 0px;
-}
-.inbox-wrap .inbox-messages .wb-send-message-form {
-  margin: 20px 0px;
-}
-.inbox-wrap .inbox-messages .message {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 20px;
-}
-.inbox-wrap .inbox-messages .message .avatar {
-  float: left;
-}
-.inbox-wrap .inbox-messages .message .avatar img {
-  max-width: 50px;
-  margin-right: 8px;
-}
-.inbox-wrap .inbox-messages .message .info {
-  display: table;
-}
-.inbox-wrap .inbox-messages .message .info .user-displayname {
-  margin: 0px;
-  font-size: 15px;
+.inbox-wrap .wpbooking-inbox-user .inbox-user-item .time {
+  position: absolute;
+  top: 20px;
+  right: 15px;
 }
 .calendar-order-popover-information {
   list-style: none;

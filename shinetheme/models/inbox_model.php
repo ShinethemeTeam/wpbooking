@@ -26,7 +26,8 @@ if (!class_exists('WPBooking_Inbox_Model')) {
 				'created_at' => array('type' => "INT"),
 				'delete_at'  => array('type' => "FLOAT"),
 				'content'    => array('type' => "text"),
-				'ip_address' => array('type' => "VARCHAR", 'length' => 20)
+				'ip_address' => array('type' => "VARCHAR", 'length' => 20),
+				'is_read'    => array('type' => "INT"),
 			);
 			parent::__construct();
 		}
