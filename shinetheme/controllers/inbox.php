@@ -139,6 +139,13 @@ if (!class_exists('WPBooking_Inbox')) {
 
 			$message=$wpdb->get_results($sql, ARRAY_A);
 
+
+			return $message;
+		}
+
+		function filter_latest_message($message){
+			$inbox=WPBooking_Inbox_Model::inst();;
+			$user_id = get_current_user_id();
 			if(!empty($message)){
 				foreach($message as $key=>$mess){
 					if($mess['to_user']==$user_id){
@@ -153,7 +160,6 @@ if (!class_exists('WPBooking_Inbox')) {
 
 				}
 			}
-
 			return $message;
 		}
 
@@ -177,6 +183,7 @@ if (!class_exists('WPBooking_Inbox')) {
 
 			$messages = $this->get_latest_message($offset, $limit);
 			$total=$this->count_total_message();
+			$messages=$this->filter_latest_message($messages);
 
 			if (!empty($messages)) {
 				foreach ($messages as $key => $user) {

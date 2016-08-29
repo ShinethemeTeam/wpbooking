@@ -8,6 +8,7 @@
 $inbox=WPBooking_Inbox::inst();
 $users=$inbox->get_latest_message();
 $total=$inbox->count_total_message();
+$users=$inbox->filter_latest_message($users);
 if(WPBooking_Input::get('user_id')){
 	echo wpbooking_load_view('account/inbox/reply');
 	return;
