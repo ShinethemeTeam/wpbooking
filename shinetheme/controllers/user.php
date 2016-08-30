@@ -452,7 +452,7 @@ if (!class_exists('WPBooking_User')) {
 		{
 			$user_data = get_userdata($user_id);
 			$title = $user_data->user_nicename . " - " . $user_data->user_email . " - " . $user_data->user_registered;
-			$subject = sprintf(esc_html__('New Customer Partner: %s', 'wpbooking'), $title);
+			$subject = sprintf(esc_html__('New Registration: %s', 'wpbooking'), $title);
 
 			// Send To Admin
 			if (wpbooking_get_option('on_registration_email_admin') and wpbooking_get_option('registration_email_admin')) {
