@@ -342,11 +342,14 @@ if (!class_exists('WPBooking_User')) {
 
 					wpbooking_set_message(esc_html__('Your account is registered successfully. You can login now', 'wpbooking'), 'success');
 
+					WPBooking_Session::set('wpbooking_user_pass',$password);
 					// Hook after Register Success, maybe sending some email...etc
 					/**
 					 * @see WPBooking_User::_send_registration_email()
 					 */
 					do_action('wpbooking_register_success', $user_id);
+
+					WPBooking_Session::destroy('wpbooking_user_pass');
 				}
 			}
 		}
@@ -588,9 +591,8 @@ if (!class_exists('WPBooking_User')) {
 					break;
 
 				case "user_pass":
-					$created_data=WPBooking()->get('created_user_data');
-					var_dump($created_data);die;
-					if(!empty($created_data['user_pass'])) return $created_data['user_pass'];
+					$user_pass=WPBooking_Session::get('wpbooking_user_pass');
+					return $user_pass;
 					break;
 			}
 
@@ -995,11 +997,11 @@ if (!class_exists('WPBooking_User')) {
 				if (!is_wp_error($create_user)) {
 
 					// Set Global for Email Shortcode Access
-					WPBooking()->set('created_user_data', $create_user);
-					var_dump($create_user);
+					WPBooking_Session::set('wpbooking_user_pass',$data['user_pass']);
 
 					do_action('wpbooking_register_success', $create_user);
 
+					WPBooking_Session::destroy('wpbooking_user_pass');
 
 					return $create_user;
 				}
