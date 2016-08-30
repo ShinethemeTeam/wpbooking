@@ -984,10 +984,11 @@ if (!class_exists('WPBooking_User')) {
 
 				if (!is_wp_error($create_user)) {
 
-					do_action('wpbooking_register_success', $create_user);
-
 					// Set Global for Email Shortcode Access
 					WPBooking()->set('created_user_data', $create_user);
+
+					do_action('wpbooking_register_success', $create_user);
+
 
 					return $create_user;
 				}
