@@ -10,7 +10,6 @@ $booking=WPBooking_Order::inst();
 $value=$order_item;
 $order=new WB_Order($order_id);
 $checkout_form_data=$order->get_checkout_form_data();
-var_dump($checkout_form_data);
 ?>
 
 <div class="wrap">
