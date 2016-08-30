@@ -5,7 +5,7 @@
  * Date: 6/14/2016
  * Time: 8:46 AM
  */
-$limit=20;
+$limit=10;
 $offset=$limit*(WPBooking_Input::get('page_number',1)-1);
 $order_model=WPBooking_Order_Model::inst();
 // Filter
@@ -133,6 +133,7 @@ $rows=$order_model->get()->result();
 <div class="wpbooking-paginate">
 <?php
 echo paginate_links(array(
+	'base'=>admin_url('admin.php').'%_%',
 	'total'=>ceil($total['total']/$limit),
 	'current'=>WPBooking_Input::get('page_number',1),
 	'format'=>'?page_number=%#%',
