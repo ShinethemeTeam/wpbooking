@@ -666,6 +666,7 @@ jQuery(document).ready(function( $ ){
             });
         },
         eventMouseover: function(event, element, view){
+            $('.popover').remove();
             var html = event.tooltipContent;
             $(this).popover({
                 content:html,
@@ -677,7 +678,7 @@ jQuery(document).ready(function( $ ){
 
         },
         eventMouseout:function(){
-            $(this).popover('hide');
+            //$(this).popover('hide');
         }
 
     });

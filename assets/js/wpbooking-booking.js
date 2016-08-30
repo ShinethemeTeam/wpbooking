@@ -1050,7 +1050,7 @@ jQuery(document).ready(function($){
 
             },
             eventMouseout:function(){
-                $(this).popover('hide');
+                //$(this).popover('hide');
             }
 
         });
