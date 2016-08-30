@@ -261,14 +261,14 @@ if (!class_exists('WPBooking_Order')) {
 				}
 
 				// Default Fields
-				$fields = wp_parse_args(WPBooking_Input::post(), array(
+				$post_data = wp_parse_args(WPBooking_Input::post(), array(
 					'user_first_name'          => FALSE,
 					'user_last_name'           => FALSE,
 					'user_email'               => FALSE,
 					'wpbooking_create_account' => FALSE
 				));
 
-				if ($email = $fields['user_email']) {
+				if ($email = $post_data['user_email']) {
 					// Check User Exists
 					if ($user_id = email_exists($email)) $customer_id = $user_id;
 
@@ -277,8 +277,8 @@ if (!class_exists('WPBooking_Order')) {
 
 						$customer_id = WPBooking_User::inst()->order_create_user(array(
 							'user_email' => $email,
-							'first_name' => $fields['user_first_name'],
-							'last_name'  => $fields['user_last_name'],
+							'first_name' => $post_data['user_first_name'],
+							'last_name'  => $post_data['user_last_name'],
 						));
 
 					}
