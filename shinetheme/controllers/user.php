@@ -589,6 +589,7 @@ if (!class_exists('WPBooking_User')) {
 
 				case "user_pass":
 					$created_data=WPBooking()->get('created_user_data');
+					var_dump($created_data);die;
 					if(!empty($created_data['user_pass'])) return $created_data['user_pass'];
 					break;
 			}
@@ -959,6 +960,15 @@ if (!class_exists('WPBooking_User')) {
 			//add_shortcode('wpbooking-partner-register', array($this, '_partner_register_shortcode'));
 		}
 
+		/**
+		 * Create an User in Checkout Step
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param array $data
+		 * @return bool|int|WP_Error
+		 */
 		function order_create_user($data = array())
 		{
 			$data = wp_parse_args($data, array(
@@ -986,6 +996,7 @@ if (!class_exists('WPBooking_User')) {
 
 					// Set Global for Email Shortcode Access
 					WPBooking()->set('created_user_data', $create_user);
+					var_dump($create_user);
 
 					do_action('wpbooking_register_success', $create_user);
 
