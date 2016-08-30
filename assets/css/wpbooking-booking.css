@@ -2174,6 +2174,8 @@
   border-radius: 4px;
   border: 1px solid #999999;
   padding: 1px 3px;
+  display: inline-block;
+  margin: 2px 0px;
 }
 .wpbooking-cart-wrap .wpbooking-cart-table-col .col-cart-item-info .wpbooking-room-type a:hover {
   text-decoration: none;
