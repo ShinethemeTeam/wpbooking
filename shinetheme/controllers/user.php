@@ -84,7 +84,7 @@ if (!class_exists('WPBooking_User')) {
 			 * @since 1.0
 			 * @author dungdt
 			 */
-			add_action('wp_ajax_wpbooking_enable_property',array($this,'_ajax_enable_property'));
+			add_action('wp_ajax_wpbooking_enable_property', array($this, '_ajax_enable_property'));
 
 			/**
 			 * Check If Current User Can Access My Account page
@@ -93,7 +93,7 @@ if (!class_exists('WPBooking_User')) {
 			 * @author dungdt
 			 *
 			 */
-			add_action('template_redirect',array($this,'_check_myaccount_page_permisison'));
+			add_action('template_redirect', array($this, '_check_myaccount_page_permisison'));
 
 		}
 
@@ -104,14 +104,16 @@ if (!class_exists('WPBooking_User')) {
 		 * @author dungdt
 		 *
 		 */
-		function _check_myaccount_page_permisison(){
+		function _check_myaccount_page_permisison()
+		{
 
 			// Check Profile Tabs, check is not author, can't view profile
-			if(is_user_logged_in() and get_query_var('tab')=='profile' and !current_user_can('publish_posts')){
+			if (is_user_logged_in() and get_query_var('tab') == 'profile' and !current_user_can('publish_posts')) {
 				wp_safe_redirect(get_permalink(wpbooking_get_option('myaccount-page')));
 				die;
 			}
 		}
+
 		/**
 		 * Ajax Handler for Enable Property
 		 *
@@ -121,24 +123,24 @@ if (!class_exists('WPBooking_User')) {
 		 */
 		function _ajax_enable_property()
 		{
-			$res=array(
-				'status'=>0
+			$res = array(
+				'status' => 0
 			);
-			$validator=new WPBooking_Form_Validator();
-			$validator->set_rules('post_id',esc_html__('Post ID','wpbooking'),'required');
-			$validator->set_rules('status',esc_html__('Status','wpbooking'),'required');
+			$validator = new WPBooking_Form_Validator();
+			$validator->set_rules('post_id', esc_html__('Post ID', 'wpbooking'), 'required');
+			$validator->set_rules('status', esc_html__('Status', 'wpbooking'), 'required');
 
-			$service=new WB_Service(WPBooking_Input::post('post_id'));
+			$service = new WB_Service(WPBooking_Input::post('post_id'));
 
-			if($validator->run()){
-				if(current_user_can('manage_options') or get_current_user_id()==$service->get_author('ID')){
-					$service->update_meta('enable_property',WPBooking_Input::post('status'));
-					$res['status']=1;
-				}else{
-					$res['message']=esc_html__('You don not have permission to do that','wpbooking');
+			if ($validator->run()) {
+				if (current_user_can('manage_options') or get_current_user_id() == $service->get_author('ID')) {
+					$service->update_meta('enable_property', WPBooking_Input::post('status'));
+					$res['status'] = 1;
+				} else {
+					$res['message'] = esc_html__('You don not have permission to do that', 'wpbooking');
 				}
-			}else{
-				$res['message']=$validator->error_string();
+			} else {
+				$res['message'] = $validator->error_string();
 			}
 
 			echo json_encode($res);
@@ -545,6 +547,7 @@ if (!class_exists('WPBooking_User')) {
 				'user_email'     => esc_html__('email@domain.com', 'wpbooking'),
 				'profile_button' => '',
 				'profile_url'    => esc_html__('http://domain.com/profile.php', 'wpbooking'),
+				'user_pass'      => esc_html__('Default Password', 'wpbooking')
 			);
 
 			$all_shortcodes = apply_filters('wpbooking_registration_email_shortcodes', $all_shortcodes);
@@ -582,6 +585,11 @@ if (!class_exists('WPBooking_User')) {
 
 				case "profile_url":
 					return get_edit_profile_url($user_id);
+					break;
+
+				case "user_pass":
+					$created_data=WPBooking()->get('created_user_data');
+					if(!empty($created_data['user_pass'])) return $created_data['user_pass'];
 					break;
 			}
 
@@ -913,7 +921,7 @@ if (!class_exists('WPBooking_User')) {
 				'label' => esc_html__('Your wishlist', 'wpbooking')
 			);
 			$tabs['inbox'] = array('label' => esc_html__('Inbox', 'wpbooking'));
-			if(current_user_can('publish_posts')){
+			if (current_user_can('publish_posts')) {
 				$tabs['profile'] = array('label' => esc_html__('Profile', 'wpbooking'));
 			}
 			$tabs['change_password'] = array('label' => esc_html__('Change Password', 'wpbooking'));
@@ -957,8 +965,11 @@ if (!class_exists('WPBooking_User')) {
 				'user_email' => '',
 				'first_name' => '',
 				'last_name'  => '',
+				'user_pass'  => ''
 			));
 			if (!$data['user_email']) return FALSE;
+
+			if (!$data['user_pass']) $data['user_pass'] = $this->generate_password();
 
 			$user_name = $this->generate_username();
 			if ($user_name) {
@@ -968,12 +979,15 @@ if (!class_exists('WPBooking_User')) {
 					'user_email' => $data['user_email'],
 					'first_name' => $data['first_name'],
 					'last_name'  => $data['last_name'],
-
+					'user_pass'  => $data['user_pass']
 				));
 
 				if (!is_wp_error($create_user)) {
 
 					do_action('wpbooking_register_success', $create_user);
+
+					// Set Global for Email Shortcode Access
+					WPBooking()->set('created_user_data', $create_user);
 
 					return $create_user;
 				}
@@ -1030,13 +1044,42 @@ if (!class_exists('WPBooking_User')) {
 			}
 		}
 
+		/**
+		 * Generate Username
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return string
+		 */
 		function generate_username()
 		{
-			$prefix = apply_filters('wpbooking_generated_username_prefix', 'wpbooking_');
+			$prefix = apply_filters('wpbooking_generated_username_prefix', esc_html__('wpbooking_', 'wpbooking'));
 			$user_name = $prefix . time() . rand(0, 999);
 			if (username_exists($user_name)) return $this->generate_username();
 
 			return $user_name;
+		}
+
+		/**
+		 * Generate Random Password
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @param int $length
+		 * @return string
+		 */
+		function generate_password($length = 10)
+		{
+			$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			$charactersLength = strlen($characters);
+			$randomString = '';
+			for ($i = 0; $i < $length; $i++) {
+				$randomString .= $characters[rand(0, $charactersLength - 1)];
+			}
+
+			return strtolower($randomString);
 		}
 
 		static function inst()
