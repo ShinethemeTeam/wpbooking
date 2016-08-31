@@ -9,6 +9,7 @@ global $current_user;
 get_currentuserinfo();
 $inbox=WPBooking_Inbox::inst();
 $users=$inbox->get_latest_message();
+$users=$inbox->filter_latest_message($users);
 ?>
 <div class="wb-profile-box">
 	<div class="profile-avatar">
@@ -48,7 +49,7 @@ $users=$inbox->get_latest_message();
 								<h4 class="user-displayname"><?php echo esc_html($user_info->display_name)?></h4>
 								<div class="message"><?php echo wpbooking_cutnchar(stripcslashes($user['content']),60) ?></div>
 								<p class="time"><?php printf(esc_html__('%s ago','wpbooking'),human_time_diff($user['created_at'],time())) ?></p>
-								<?php if($user['unread_number']){
+								<?php if(!empty($user['unread_number'])){
 									printf('<p class="unread_number">%s</p>',sprintf(esc_html__('%d new message(s)','wpbooking'),$user['unread_number']));
 								} ?>
 							</div>

@@ -382,8 +382,29 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			return $is_validated;
 		}
 
-		function validate_cart_duplicator(){
+		function validate_cart_duplicate($cart_item){
+		    $cart_item=wp_parse_args($cart_item,
+                array(
+                    'check_in_timestamp'=>0,
+                    'check_out_timestamp'=>0,
+                ));
 
+            if(!$cart_item['check_in_timestamp'] or !$cart_item['check_out_timestamp']) return true; // If, somehow, its dose not contain check in and checkout time -> return true
+
+            $carts=WPBooking_Order::inst()->get_cart();
+            if(!empty($carts)){
+                foreach($carts as $cart){
+                    $cart=wp_parse_args($cart,
+                        array(
+                            'check_in_timestamp'=>0,
+                            'check_out_timestamp'=>0,
+                        ));
+                    if($cart['check_in_timestamp'] and $cart['check_out_timestamp']){
+
+                    }
+
+                }
+            }
         }
 
 		/**
