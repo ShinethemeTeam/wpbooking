@@ -410,8 +410,8 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
 		    if($is_validated){
 		        if(!empty($cart)){
-		            foreach($cart as $cart_item){
-		                if(!$this->validate_cart_duplicate($cart_item)){
+		            foreach($cart as $key=>$cart_item){
+		                if(!$this->validate_cart_duplicate($cart_item,$key)){
                             wpbooking_set_message(sprintf(esc_html__('Item: %s is duplicate. Please check your cart again', 'wpbooking'),'<i>'.get_the_title($cart_item['post_id']).'</i>'), 'error');
 		                    return false;
                         }
@@ -422,7 +422,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		    return $is_validated;
         }
 
-		function validate_cart_duplicate($cart_item){
+		function validate_cart_duplicate($cart_item,$cart_item_key=false){
 		    $cart_item=wp_parse_args($cart_item,
                 array(
                     'check_in_timestamp'=>0,
@@ -433,12 +433,15 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
             $carts=WPBooking_Order::inst()->get_cart();
             if(!empty($carts)){
-                foreach($carts as $cart){
+                foreach($carts as $key=>$cart){
                     $cart=wp_parse_args($cart,
                         array(
                             'check_in_timestamp'=>0,
                             'check_out_timestamp'=>0,
                         ));
+
+                    if($cart_item_key and $cart_item_key==$key) continue;
+
                     if($cart['check_in_timestamp'] and $cart['check_out_timestamp']){
                         if($cart['post_id']==$cart_item['post_id'] and $cart['check_in_timestamp']==$cart_item['check_in_timestamp'] and $cart['check_out_timestamp']==$cart_item['check_out_timestamp']){
 

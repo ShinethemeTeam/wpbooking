@@ -792,6 +792,9 @@
   color: #666666;
   font-size: 14px;
 }
+.widget_wpbooking_cart .wpbooking-cart-widget-wrap .wpbooking-cart-widget-content .show_more_review_order {
+  display: none;
+}
 .widget_wpbooking_cart .wpbooking-cart-widget-wrap .cart-total {
   color: #666666;
   font-size: 14px;
