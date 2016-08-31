@@ -587,7 +587,7 @@ if (!class_exists('WPBooking_User')) {
                     break;
 
                 case "edit_user_url":
-                    return get_edit_user_link($user_id).'_test_'.$user_id;
+                    return add_query_arg( 'user_id', $user_id, self_admin_url( 'user-edit.php' ) );
                     break;
 
                 case "user_pass":
