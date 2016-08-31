@@ -42,7 +42,7 @@ if (!class_exists('WPBooking_User')) {
              * @since 1.0
              * @author dungdt
              */
-            add_action('wpbooking_register_success', array($this, '_send_registration_email'));
+            add_action('wpbooking_register_success', array($this, '_send_registration_email'),10,1);
             add_action('wpbooking_partner_register_success', array($this, '_send_partner_registration_email'));
 
             /**
@@ -587,7 +587,7 @@ if (!class_exists('WPBooking_User')) {
                     break;
 
                 case "edit_user_url":
-                    return get_edit_user_link($user_id);
+                    return get_edit_user_link($user_id).'_test_'.$user_id;
                     break;
 
                 case "user_pass":
