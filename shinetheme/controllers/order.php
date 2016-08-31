@@ -79,9 +79,75 @@ if (!class_exists('WPBooking_Order')) {
 				}
 			}
 
+            $service = new WB_Service($post_id);
+            if (!empty($fields)) {
+                foreach ($fields as $key => $value) {
+                    $fields[$key]['value'] = WPBooking_Input::post($key);
+                }
+            }
 
-			$is_validate = apply_filters('wpbooking_add_to_cart_validate', $is_validate, $service_type, $post_id);
-			$is_validate = apply_filters('wpbooking_add_to_cart_validate_' . $service_type, $is_validate, $service_type, $post_id);
+            $cart_params = array(
+                'post_id'              => $post_id,
+                'service_type'         => $service_type,
+                'order_form'           => $fields,
+                'base_price'           => get_post_meta($post_id, 'price', TRUE),
+                'currency'             => WPBooking_Currency::get_current_currency('currency'),
+                'deposit_amount'       => $service->get_meta('deposit_amount'),
+                'deposit_type'         => $service->get_meta('deposit_type'),
+                'sub_total'            => 0,
+                'cancellation_allowed' => $service->get_meta('cancellation_allowed')
+            );
+
+
+            // Extra Services
+            $extra_services = WPBooking_Input::post('extra_services');
+            if (empty($extra_services)) {
+                // Get Default
+                $all_extra = $service->get_extra_services();
+                if (!empty($extra_services) and is_array($all_extra)) {
+                    foreach ($all_extra as $key => $value) {
+                        if ($value['require'] == 'yes' and $value['money'])
+                            $extra_services[] = array(
+                                'title'   => $value['title'],
+                                'money'   => $value['money'],
+                                'require' => 'yes',
+                                'number'  => 1
+                            );
+                    }
+                }
+            } else {
+                // Get Default
+                $all_extra = $service->get_extra_services();
+
+                // If _POST is not empty
+                foreach($extra_services as $key=>$value){
+
+                    // Remove Un exists from defaults
+                    if(!array_key_exists($key,$all_extra)) unset($extra_services[$key]);
+
+                    // Add Required
+                    if($all_extra[$key]['require']=='yes') $extra_services[$key]['require']='yes';
+                }
+            }
+            $cart_params['extra_services']=$extra_services;
+
+            // Convert Check In and Check Out to Timstamp if available
+            if (!empty($fields['check_in']['value'])) {
+                $cart_params['check_in_timestamp'] = strtotime($fields['check_in']['value']);
+
+                if (!empty($fields['check_out']['value'])) {
+                    $cart_params['check_out_timestamp'] = strtotime($fields['check_out']['value']);
+                } else {
+                    $cart_params['check_out_timestamp'] = $cart_params['check_in_timestamp'];
+                }
+            }
+
+            $cart_params = apply_filters('wpbooking_cart_item_params', $cart_params, $post_id, $service_type);
+            $cart_params = apply_filters('wpbooking_cart_item_params_' . $service_type, $cart_params, $post_id);
+
+
+            $is_validate = apply_filters('wpbooking_add_to_cart_validate', $is_validate, $service_type, $post_id,$cart_params);
+			$is_validate = apply_filters('wpbooking_add_to_cart_validate_' . $service_type, $is_validate, $service_type, $post_id,$cart_params);
 
 
 			if (!$is_validate) {
@@ -89,73 +155,8 @@ if (!class_exists('WPBooking_Order')) {
 				$res['message'] = wpbooking_get_message(TRUE);
 
 			} else {
-				$service = new WB_Service($post_id);
 
-				if (!empty($fields)) {
-					foreach ($fields as $key => $value) {
-						$fields[$key]['value'] = WPBooking_Input::post($key);
-					}
-				}
 				$cart = WPBooking_Session::get('wpbooking_cart', array());
-
-				$cart_params = array(
-					'post_id'              => $post_id,
-					'service_type'         => $service_type,
-					'order_form'           => $fields,
-					'base_price'           => get_post_meta($post_id, 'price', TRUE),
-					'currency'             => WPBooking_Currency::get_current_currency('currency'),
-					'deposit_amount'       => $service->get_meta('deposit_amount'),
-					'deposit_type'         => $service->get_meta('deposit_type'),
-					'sub_total'            => 0,
-					'cancellation_allowed' => $service->get_meta('cancellation_allowed')
-				);
-
-				// Extra Services
-				$extra_services = WPBooking_Input::post('extra_services');
-				if (empty($extra_services)) {
-					// Get Default
-					$all_extra = $service->get_extra_services();
-					if (!empty($extra_services) and is_array($all_extra)) {
-						foreach ($all_extra as $key => $value) {
-							if ($value['require'] == 'yes' and $value['money'])
-								$extra_services[] = array(
-									'title'   => $value['title'],
-									'money'   => $value['money'],
-									'require' => 'yes',
-									'number'  => 1
-								);
-						}
-					}
-				} else {
-					// Get Default
-					$all_extra = $service->get_extra_services();
-
-					// If _POST is not empty
-					foreach($extra_services as $key=>$value){
-
-						// Remove Un exists from defaults
-						if(!array_key_exists($key,$all_extra)) unset($extra_services[$key]);
-
-						// Add Required
-						if($all_extra[$key]['require']=='yes') $extra_services[$key]['require']='yes';
-					}
-				}
-				$cart_params['extra_services']=$extra_services;
-
-
-				// Convert Check In and Check Out to Timstamp if available
-				if (!empty($fields['check_in']['value'])) {
-					$cart_params['check_in_timestamp'] = strtotime($fields['check_in']['value']);
-
-					if (!empty($fields['check_out']['value'])) {
-						$cart_params['check_out_timestamp'] = strtotime($fields['check_out']['value']);
-					} else {
-						$cart_params['check_out_timestamp'] = $cart_params['check_in_timestamp'];
-					}
-				}
-
-				$cart_params = apply_filters('wpbooking_cart_item_params', $cart_params, $post_id, $service_type);
-				$cart_params = apply_filters('wpbooking_cart_item_params_' . $service_type, $cart_params, $post_id);
 
 				$cart[md5($post_id . time() . rand(0, 999))] = $cart_params;
 

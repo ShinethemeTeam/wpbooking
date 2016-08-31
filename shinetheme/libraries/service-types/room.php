@@ -118,7 +118,15 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 			add_filter('wpbooking_model_table_wpbooking_service_columns', array($this, '_add_meta_table_column'));
 
 
-			add_filter('wpbooking_add_to_cart_validate_' . $this->type_id, array($this, '_add_to_cart_validate'), 10, 3);
+			add_filter('wpbooking_add_to_cart_validate_' . $this->type_id, array($this, '_add_to_cart_validate'), 10, 4);
+
+            /**
+             * Validate Duplicate Item in Cart
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_filter('wpbooking_do_checkout_validate',array($this,'_validate_checkout'),10,2);
 
 			add_filter('wpbooking_cart_item_price_' . $this->type_id, array($this, '_change_cart_item_price'), 10, 3);
 
@@ -317,7 +325,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		 * @param $post_id
 		 * @return mixed
 		 */
-		function _add_to_cart_validate($is_validated, $service_type, $post_id)
+		function _add_to_cart_validate($is_validated, $service_type, $post_id,$cart_params)
 		{
 
 			$service = new WB_Service($post_id);
@@ -379,8 +387,40 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 				wpbooking_set_message(sprintf(esc_html__('Maximum Guests is %s', 'wpbooking'), $max_guests), 'error');
 			}
 
+			if(!$this->validate_cart_duplicate($cart_params)){
+                $is_validated = FALSE;
+                wpbooking_set_message(esc_html__('You already added this to cart', 'wpbooking'), 'error');
+
+            }
+
 			return $is_validated;
 		}
+
+        /**
+         * Validate Cart before checkout
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $is_validated
+         * @param $cart
+         * @return mixed
+         */
+		function _validate_checkout($is_validated,$cart=array()){
+
+		    if($is_validated){
+		        if(!empty($cart)){
+		            foreach($cart as $cart_item){
+		                if(!$this->validate_cart_duplicate($cart_item)){
+                            wpbooking_set_message(sprintf(esc_html__('Item: %s is duplicate. Please check your cart again', 'wpbooking'),'<i>'.get_the_title($cart_item['post_id']).'</i>'), 'error');
+		                    return false;
+                        }
+                    }
+                }
+            }
+
+		    return $is_validated;
+        }
 
 		function validate_cart_duplicate($cart_item){
 		    $cart_item=wp_parse_args($cart_item,
@@ -400,11 +440,16 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                             'check_out_timestamp'=>0,
                         ));
                     if($cart['check_in_timestamp'] and $cart['check_out_timestamp']){
+                        if($cart['post_id']==$cart_item['post_id'] and $cart['check_in_timestamp']==$cart_item['check_in_timestamp'] and $cart['check_out_timestamp']==$cart_item['check_out_timestamp']){
 
+                            return false;
+                        }
                     }
 
                 }
             }
+
+            return true;
         }
 
 		/**
