@@ -103,7 +103,7 @@ $rows=$order_model->get()->result();
 					<?php
 					$service_type_obj=WPBooking_Service_Controller::inst()->get_service_type($service_type);
 					if($service_type_obj){
-						echo ($service_type_obj['label']);
+						echo ($service_type_obj->get_info('label'));
 					}
 
 					?>

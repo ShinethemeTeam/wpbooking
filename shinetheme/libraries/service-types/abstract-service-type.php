@@ -5,6 +5,10 @@
  * Date: 3/23/2016
  * Time: 2:35 PM
  */
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+
 if (!class_exists('WPBooking_Abstract_Service_Type')) {
 	abstract class WPBooking_Abstract_Service_Type
 	{
@@ -20,7 +24,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 				'description' => ''
 			));
 
-			add_filter('wpbooking_service_types', array($this, '_register_type'));
+			add_filter('init', array($this, '_register_type'));
 			add_filter('wpbooking_service_setting_sections', array($this, '_add_setting_section'));
 			add_filter('wpbooking_review_stats', array($this, '_filter_get_review_stats'));
 			add_filter('wpbooking_get_order_form_' . $this->type_id, array($this, '_get_order_form'));
@@ -356,14 +360,16 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 			return $extra_services;
 		}
 
-		function _register_type($service_types = array())
+        /**
+         * Hook Callback Init to register Type
+         *
+         * @since 1.0
+         * @author dungdt
+         */
+		function _register_type()
 		{
-			$service_types[$this->type_id] = array(
-				'label'  => $this->get_info('label'),
-				'object' => $this
-			);
+		    WPBooking_Service_Controller::inst()->register_type($this->type_id,$this);
 
-			return $service_types;
 		}
 
 		function _add_page_archive_search($args)

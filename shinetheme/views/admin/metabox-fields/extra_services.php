@@ -23,7 +23,7 @@ if(!empty($service_types)){
 							if(isset($old[$type_id])) $old=$old[$type_id]; else $old=array();
 
 
-							$extras=$type['object']->get_extra_services();
+							$extras=$type->get_extra_services();
 							if(!empty($extras)){
 								foreach($extras as $k=>$value){
 									$checked=FALSE;

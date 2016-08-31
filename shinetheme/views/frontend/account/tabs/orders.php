@@ -62,7 +62,7 @@ if(get_query_var('order-detail')){
 					<optgroup label="<?php esc_html_e('Service Type','wpbooking') ?>">
 						<option value="0"><?php esc_html_e('All Service Types','wpbooking') ?></option>
 						<?php foreach($types as $k=>$v){
-							printf('<option value="%s" %s>%s</option>',$k,selected(WPBooking_Input::get('service_type'),$k,FALSE),$v['label']);
+							printf('<option value="%s" %s>%s</option>',$k,selected(WPBooking_Input::get('service_type'),$k,FALSE),$v->get_info('label'));
 						} ?>
 					</optgroup>
 				</select>
@@ -71,14 +71,6 @@ if(get_query_var('order-detail')){
 						<option value="0"><?php esc_html_e('All Status','wpbooking') ?></option>
 						<?php foreach($status as $k=>$v){
 							printf('<option value="%s" %s>%s</option>',$k,selected(WPBooking_Input::get('status'),$k,FALSE),$v['label']);
-						} ?>
-					</optgroup>
-				</select>
-				<select name="payment_status" class="postform">
-					<optgroup label="<?php esc_html_e('Payment Status','wpbooking') ?>">
-						<option value="0"><?php esc_html_e('All Payment Status','wpbooking') ?></option>
-						<?php foreach($payment_status as $k=>$v){
-							printf('<option value="%s" %s>%s</option>',$k,selected(WPBooking_Input::get('payment_status'),$k,FALSE),$v['label']);
 						} ?>
 					</optgroup>
 				</select>

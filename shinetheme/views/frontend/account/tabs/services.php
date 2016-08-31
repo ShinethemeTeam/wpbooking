@@ -38,7 +38,7 @@ $types = WPBooking_Service_Controller::inst()->get_service_types();
 			$class = FALSE;
 			if(WPBooking_Input::get('service_type')==$type_id) $class='active';
 			$url = esc_url(add_query_arg(array('service_type' => $type_id), get_permalink(wpbooking_get_option('myaccount-page')).'tab/services'));
-			printf('<li class="%s"><a href="%s">%s</a></li>', $class, $url, $type['label']);
+			printf('<li class="%s"><a href="%s">%s</a></li>', $class, $url, $type->get_info('label'));
 		}
 		?>
 	</ul>
@@ -47,7 +47,7 @@ $types = WPBooking_Service_Controller::inst()->get_service_types();
 		<?php if ($query->have_posts()) {
 			$title = sprintf('You have %d service(s)',$query->found_posts);
 			if($service_type and $service_type_object=WPBooking_Service_Controller::inst()->get_service_type($service_type)){
-				$title=sprintf('You have %d %s(s)',$query->found_posts,strtolower($service_type_object['label']));
+				$title=sprintf('You have %d %s(s)',$query->found_posts,strtolower($service_type_object->get_info('label')));
 			}
 
 			while($query->have_posts()){

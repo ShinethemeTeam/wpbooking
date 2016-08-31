@@ -2171,16 +2171,20 @@ label[for=wpbooking_locationdiv-hide] {
 .popover.bottom.in {
   margin-top: -18px;
 }
-.calendar-order-popover-information .booking-detail-label {
+.calendar-order-popover-information .booking-detail-label,
+.wpbooking-order-detail .booking-detail-label {
   font-weight: bold;
 }
-.calendar-order-popover-information .cart-item-order-form-fields {
+.calendar-order-popover-information .cart-item-order-form-fields,
+.wpbooking-order-detail .cart-item-order-form-fields {
   display: block;
 }
-.calendar-order-popover-information .cart-item-order-form-fields .field-title {
+.calendar-order-popover-information .cart-item-order-form-fields .field-title,
+.wpbooking-order-detail .cart-item-order-form-fields .field-title {
   font-weight: bold;
 }
-.calendar-order-popover-information .wpbooking-room-type a {
+.calendar-order-popover-information .wpbooking-room-type a,
+.wpbooking-order-detail .wpbooking-room-type a {
   font-size: 14px;
   color: #333;
   border-radius: 4px;
@@ -2190,6 +2194,7 @@ label[for=wpbooking_locationdiv-hide] {
   text-decoration: none;
   margin: 3px 0px;
 }
-.calendar-order-popover-information .show-more-less {
+.calendar-order-popover-information .show-more-less,
+.wpbooking-order-detail .show-more-less {
   display: none;
 }

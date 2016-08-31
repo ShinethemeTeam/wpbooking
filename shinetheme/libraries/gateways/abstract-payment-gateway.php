@@ -27,6 +27,15 @@ if (!class_exists('WPBooking_Abstract_Payment_Gateway')) {
 			add_filter('wpbooking_payment_settings_sections', array($this, '_add_setting_section'));
 		}
 
+        /**
+         * Hook Callback for Create Setting Section
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param array $sections
+         * @return array
+         */
 		function _add_setting_section($sections = array())
 		{
 			$settings = $this->get_settings_fields();
@@ -45,11 +54,28 @@ if (!class_exists('WPBooking_Abstract_Payment_Gateway')) {
 			return $sections;
 		}
 
+        /**
+         * Get all settings fields
+         *
+         * @sicne 1.0
+         * @author dungdt
+         *
+         * @return mixed|void
+         */
 		function get_settings_fields()
 		{
 			return apply_filters('wpbooking_payment_' . $this->gateway_id . '_settings_fields', $this->settings);
 		}
 
+        /**
+         * Get Gateway Information by Key
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param bool $key
+         * @return bool|mixed|void
+         */
 		function get_info($key = FALSE)
 		{
 			$info = apply_filters('wpbooking_gateway_info', $this->gateway_info);
@@ -68,17 +94,43 @@ if (!class_exists('WPBooking_Abstract_Payment_Gateway')) {
 			return $info;
 		}
 
+        /**
+         * Get Data from Gateway Settings
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $key
+         * @param bool $default
+         * @return bool|mixed|void
+         */
 		function get_option($key, $default = FALSE)
 		{
-
 			return wpbooking_get_option('gateway_' . $this->gateway_id . '_' . $key, $default);
 		}
 
+        /**
+         * Return Status of current Gateway
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return bool
+         */
 		function is_available()
 		{
 			return $this->get_option('enable') ? TRUE : FALSE;
 		}
 
+        /**
+         * Get default cancel url
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $order_id
+         * @return string
+         */
 		function get_cancel_url($order_id)
 		{
 
@@ -90,6 +142,15 @@ if (!class_exists('WPBooking_Abstract_Payment_Gateway')) {
 			return add_query_arg($array, get_permalink($order_id));
 		}
 
+        /**
+         * Get default return url
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $order_id
+         * @return string
+         */
 		function get_return_url($order_id)
 		{
 
@@ -102,6 +163,15 @@ if (!class_exists('WPBooking_Abstract_Payment_Gateway')) {
 
 		}
 
+        /**
+         * Redirect form for gateway using POST Method
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $res
+         * @return string
+         */
 		function getRedirectForm($res)
 		{
 			$hiddenFields = '';
@@ -143,6 +213,15 @@ if (!class_exists('WPBooking_Abstract_Payment_Gateway')) {
 
 		}
 
+        /**
+         * Hook callback for register Gateway Sections
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param array $gateways
+         * @return array
+         */
 		function _register_gateway($gateways = array())
 		{
 			$gateways[$this->gateway_id] = $this;

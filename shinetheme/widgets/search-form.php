@@ -429,7 +429,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                                 if($service_type == $k ){
                                     $select = "selected";
                                 }
-                                echo '<option '.$select.' value="'.$k.'">'.$v['label'].'</option>';
+                                echo '<option '.$select.' value="'.$k.'">'.$v->get_info('label').'</option>';
                             }
                         }
                         ?>

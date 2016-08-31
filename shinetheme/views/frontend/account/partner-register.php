@@ -42,7 +42,7 @@ $types=WPBooking_Service_Controller::inst()->get_service_types();
 				$old=isset($value[$k]['name'])?isset($value[$k]['name']):FALSE;
 				?>
 					<div class="service-type-item">
-						<label ><input type="checkbox" <?php checked($old,1)?> class="service_type_checkbox" name="service_type[<?php echo esc_attr($k) ?>][name]" value="<?php esc_attr_e($k) ?>"> <?php echo ($v['label']) ?></label>
+						<label ><input type="checkbox" <?php checked($old,1)?> class="service_type_checkbox" name="service_type[<?php echo esc_attr($k) ?>][name]" value="<?php esc_attr_e($k) ?>"> <?php echo ($v->get_info('label')) ?></label>
 						<div class="upload-certificate <?php echo ($old)?'active':FALSE ?>">
 							<div class="input-group">
 								<span class="input-group-btn">

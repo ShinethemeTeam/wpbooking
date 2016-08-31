@@ -43,7 +43,7 @@
 					if(!empty($types))
 					{
 						foreach($types as $key=>$value){
-							printf('<label><input type="checkbox" name="%s" value="%s" %s>%s</label><br>','taxonomy_service_type[]',$key,(isset($row['service_type']) and is_array($row['service_type']) and in_array($key,$row['service_type']))?'checked="checked"':false,$value['label']);
+							printf('<label><input type="checkbox" name="%s" value="%s" %s>%s</label><br>','taxonomy_service_type[]',$key,(isset($row['service_type']) and is_array($row['service_type']) and in_array($key,$row['service_type']))?'checked="checked"':false,$value->get_info('label'));
 						}
 					}
 					?>

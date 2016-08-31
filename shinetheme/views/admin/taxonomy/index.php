@@ -86,7 +86,7 @@
 							if(!empty($types))
 							{
 								foreach($types as $key=>$value){
-									printf('<label><input type="checkbox" name="%s" value="%s">%s</label>','taxonomy_service_type[]',$key,$value['label']);
+									printf('<label><input type="checkbox" name="%s" value="%s">%s</label>','taxonomy_service_type[]',$key,$value->get_info('label'));
 								}
 							}
 							?>

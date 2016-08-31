@@ -13,6 +13,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 	{
 
 		private static $_inst;
+        private $service_types=array();
 
 		function __construct()
 		{
@@ -535,6 +536,19 @@ if (!class_exists('WPBooking_Service_Controller')) {
 //			return $field_review . $fields;
 		}
 
+        /**
+         * Register Default Service Type Object
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $id
+         * @param $object
+         */
+		function register_type($id,$object){
+		    $this->service_types[$id]=$object;
+        }
+
 		/**
 		 * Get All Registered Service Types
 		 *
@@ -545,7 +559,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 		 */
 		function get_service_types()
 		{
-			$default = array();
+			$default = $this->service_types;
 
 			return apply_filters('wpbooking_service_types', $default);
 		}

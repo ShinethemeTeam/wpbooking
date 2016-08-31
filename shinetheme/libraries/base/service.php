@@ -264,7 +264,7 @@ if (!class_exists('WB_Service')) {
 		{
 			if($this->ID){
 				$type_object=WPBooking_Service_Controller::inst()->get_service_type($this->get_type());
-				if(!empty($type_object['label'])) return $type_object['label'];
+				if($type_object) return $type_object->get_info('label');
 
 			}
 		}
