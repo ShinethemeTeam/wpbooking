@@ -2451,6 +2451,18 @@
   list-style: none;
   padding-left: 20px;
 }
+.single-wpbooking_order .wpbooking-order-detail-page .checkout-form-list .form-item-title {
+  font-weight: bold;
+}
+.single-wpbooking_order .checkout-form-list,
+.wpbooking-order-detail-page .checkout-form-list {
+  list-style: none;
+  padding-left: 20px;
+}
+.single-wpbooking_order .checkout-form-list .form-item-title,
+.wpbooking-order-detail-page .checkout-form-list .form-item-title {
+  font-weight: bold;
+}
 .order-information-table td,
 .order-information-table th {
   vertical-align: top;

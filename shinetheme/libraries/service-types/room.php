@@ -379,9 +379,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 				wpbooking_set_message(sprintf(esc_html__('Maximum Guests is %s', 'wpbooking'), $max_guests), 'error');
 			}
 
-
 			return $is_validated;
 		}
+
+		function validate_cart_duplicator(){
+
+        }
 
 		/**
 		 * Add Specific params to cart item before adding to cart
