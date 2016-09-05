@@ -2716,6 +2716,132 @@
   right: 15px;
   top: 10px;
 }
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail {
+  padding-top: 10px;
+  box-sizing: border-box;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail:before,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail:after {
+  clear: both;
+  content: " ";
+  display: table;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail .overlay {
+  background-color: #e6e6e6;
+  box-sizing: border-box;
+  padding: 16px 26px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail .overlay img {
+  border: 5px solid #fff;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .avatar {
+  width: 27%;
+  float: left;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info {
+  color: #666666;
+  width: 73%;
+  float: left;
+  padding-left: 30px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info .user-name {
+  margin-top: 10px;
+  text-transform: none;
+  margin-bottom: 12px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info .user-share {
+  padding-bottom: 5px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info .user-share a {
+  border: none;
+  color: #666666;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info .user-share a:hover {
+  color: #000;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info .user-share .fa {
+  border: 1px solid;
+  border-radius: 50%;
+  box-sizing: border-box;
+  font-size: 15px;
+  padding: 6px 5px 5px;
+  text-align: center;
+  width: 28px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info .text-info {
+  margin-top: 7px;
+  color: #666666;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info .quote {
+  margin-top: 10px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info .quote:before,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info .quote:after {
+  clear: both;
+  content: " ";
+  display: table;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info .quote .icon {
+  float: left;
+  width: 6%;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info .quote .icon .fa {
+  font-size: 16px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info .quote .text {
+  float: left;
+  width: 94%;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info .quote .contact {
+  clear: both;
+  padding-top: 10px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info .quote .contact a {
+  border: 1px solid #ccc;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item {
+  box-sizing: border-box;
+  margin-left: -7px;
+  margin-right: -5px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item:before,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item:after {
+  clear: both;
+  content: " ";
+  display: table;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item {
+  box-sizing: border-box;
+  float: left;
+  padding-left: 7px;
+  padding-right: 7px;
+  width: 25%;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item:nth-child(4n+1) {
+  clear: both;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item .item_thumbnail img {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  display: inline-block;
+  height: auto;
+  line-height: 1.42857;
+  max-width: 100%;
+  padding: 4px;
+  transition: all 0.2s ease-in-out 0s;
+  width: 100%;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item .item_title {
+  text-align: center;
+  padding: 10px 0px;
+  font-size: 16px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item .item_control {
+  text-align: center;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item .item_control a {
+  text-transform: none;
+}
 .wpbooking-myaccount-wrap .wpbooking-account-tab .subsubsub {
   margin: 0px;
   padding: 0px;

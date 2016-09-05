@@ -2839,6 +2839,136 @@
                 }
             }
         }
+        &.profile{
+            .user-detail{
+                &:before,&:after{
+                    clear: both;
+                    content: " ";
+                    display: table;
+                }
+                padding-top: 10px;
+                box-sizing: border-box;
+                .overlay{
+                    background-color: #e6e6e6;
+                    box-sizing: border-box;
+                    padding: 16px 26px;
+                    img{
+                        border: 5px solid #fff;
+                    }
+                }
+                > .avatar{
+                    width: 27%;
+                    float: left;
+                }
+                > .info{
+                    color: #666666;
+                    width: 73%;
+                    float: left;
+                    padding-left: 30px;
+
+                    .user-name{
+                        margin-top: 10px;
+                        text-transform: none;
+                        margin-bottom: 12px;
+                    }
+                    .user-share{
+                        padding-bottom: 5px;
+                        a{
+                            &:hover{
+                                color: #000;
+                            }
+                            border: none;
+                            color: #666666;
+                        }
+                        .fa{
+                            border: 1px solid;
+                            border-radius: 50%;
+                            box-sizing: border-box;
+                            font-size: 15px;
+                            padding: 6px 5px 5px;
+                            text-align: center;
+                            width: 28px;
+                        }
+                    }
+                    .text-info{
+                        margin-top: 7px;
+                        color: #666666;
+                    }
+                    .quote{
+                        &:before,&:after{
+                            clear: both;
+                            content: " ";
+                            display: table;
+                        }
+                        margin-top: 10px;
+                        .icon{
+                            float: left;
+                            width: 6%;
+                            .fa{
+                                font-size: 16px;
+                            }
+                        }
+                        .text{
+                            float: left;
+                            width: 94%;
+                        }
+                        .contact{
+                            clear: both;
+                            padding-top: 10px;
+                            a{
+                                border: 1px solid #ccc;
+                            }
+                        }
+                    }
+                }
+            }
+            .user-listing{
+                .list-item{
+                    &:before,&:after{
+                        clear: both;
+                        content: " ";
+                        display: table;
+                    }
+                    box-sizing: border-box;
+                    margin-left: -7px;
+                    margin-right: -5px;
+                    .item{
+                        box-sizing: border-box;
+                        float: left;
+                        padding-left: 7px;
+                        padding-right: 7px;
+                        width: 25%;
+                        &:nth-child(4n+1){
+                            clear: both;
+                        }
+                        .item_thumbnail{
+                            img{
+                                background-color: #fff;
+                                border: 1px solid #ddd;
+                                display: inline-block;
+                                height: auto;
+                                line-height: 1.42857;
+                                max-width: 100%;
+                                padding: 4px;
+                                transition: all 0.2s ease-in-out 0s;
+                                width: 100%;
+                            }
+                        }
+                        .item_title{
+                            text-align: center;
+                            padding: 10px 0px;
+                            font-size: 16px;
+                        }
+                        .item_control{
+                            text-align: center;
+                            a{
+                                text-transform: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         .subsubsub{
             margin:0px;
