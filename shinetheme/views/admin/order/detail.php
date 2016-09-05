@@ -18,7 +18,7 @@ $checkout_form_data=$order->get_checkout_form_data();
 	<?php echo wpbooking_get_admin_message() ?>
 	<div id="poststuff">
 
-		<div class="wpbooking-order-information postbox ">
+		<div class="wpbooking-order-information wpbooking-order-detail postbox ">
 			<h3 class="hndle"><?php esc_html_e('Order Items','wpbooking') ?></h3>
 				<div class="inside">
 					<?php
@@ -64,7 +64,13 @@ $checkout_form_data=$order->get_checkout_form_data();
 					<h3><?php esc_html_e('Payment Method','wpbooking') ?></h3>
 					<?php
 					$selected_gateway=get_post_meta($order_id,'wpbooking_selected_gateway',true);
-
+                    $selected_gateway=WPBooking_Payment_Gateways::inst()->get_gateway($selected_gateway);
+                    if($selected_gateway){
+                        echo esc_html($selected_gateway->get_info('label'));
+                    }else
+                    {
+                        echo esc_html($selected_gateway);
+                    }
 					?>
 
 

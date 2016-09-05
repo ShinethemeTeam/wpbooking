@@ -20,9 +20,7 @@ $cart=$booking->get_cart();
 		$featured=$service->get_featured_image();
 		$class=FALSE;
 
-		if($i==4){
-			printf('<span class="show_more_review_order"><span class="more">%s</span><span class="less">%s</span></span>',esc_html__('More','wpbooking'),esc_html__('Less','wpbooking'));
-		}
+
 		if($i>3){
 			$class.=' is_more_order';
 		}
@@ -46,5 +44,10 @@ $cart=$booking->get_cart();
 		</div>
 		<?php
 		$i++;
-	}?>
+	}
+	if(count($cart)>3){
+		printf('<span class="show_more_review_order"><span class="more">%s <i class="fa fa-angle-double-down"></i></span><span class="less">%s <i class="fa fa-angle-double-up"></i></span></span>',esc_html__('More','wpbooking'),esc_html__('Less','wpbooking'));
+	}
+
+	?>
 <?php do_action('wpbooking_review_order_footer') ?>

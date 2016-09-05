@@ -206,37 +206,40 @@ $service = new WB_Service();
 						?>
 					</div>
 				</div>
-				<?php if (get_post_meta(get_the_ID(), 'enable_additional_guest_tax', TRUE)) { ?>
-					<div class="service-detail-item">
-						<div
-							class="service-detail-title"><?php esc_html_e('Additional Guests / Taxes / Misc', 'wpbooking') ?></div>
-						<div class="service-detail-content">
-							<?php $array = array(
-								'rate_based_on'          => sprintf(esc_html__('Rates are based on occupancy of: %s', 'wpbooking'),'<strong>%s</strong><br>'),
-								'additional_guest_money' => sprintf(esc_html__('Each additional guest will pay : %s / night', 'wpbooking').'<br>','<strong>%s</strong>'),
-								'tax'                    => sprintf(esc_html__('Tax: %s', 'wpbooking'),'<strong>%s</strong><br>'),
-							);
-							foreach ($array as $key => $val) {
-								if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
-									switch($key){
-										case "rate_based_on":
-											printf($val,$value);
-											break;
-										case "tax":
-											printf($val,$value.'%');
-											break;
-										case "additional_guest_money":
-											printf($val, WPBooking_Currency::format_money($value));
-											break;
-
-									}
+				<?php if (get_post_meta(get_the_ID(), 'enable_additional_guest_tax', TRUE)) {
+						$addition_html=array();
+						$array = array(
+							'rate_based_on'          => sprintf(esc_html__('Rates are based on occupancy of: %s', 'wpbooking'),'<strong>%s</strong><br>'),
+							'additional_guest_money' => sprintf(esc_html__('Each additional guest will pay : %s / night', 'wpbooking').'<br>','<strong>%s</strong>'),
+							'tax'                    => sprintf(esc_html__('Tax: %s', 'wpbooking'),'<strong>%s</strong><br>'),
+						);
+						foreach ($array as $key => $val) {
+							if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
+								switch($key){
+									case "rate_based_on":
+										$addition_html[]=sprintf($val,$value);
+										break;
+									case "tax":
+										$addition_html[]=sprintf($val,$value.'%');
+										break;
+									case "additional_guest_money":
+										$addition_html[]=sprintf($val, WPBooking_Currency::format_money($value));
+										break;
 
 								}
+
 							}
+						}
+						if(!empty($addition_html)){
 							?>
-						</div>
-					</div>
-				<?php } ?>
+							<div class="service-detail-item">
+								<div
+									class="service-detail-title"><?php esc_html_e('Additional Guests / Taxes / Misc', 'wpbooking') ?></div>
+								<div class="service-detail-content">
+
+								</div>
+							</div>
+						<?php } } ?>
 
 
 

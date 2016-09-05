@@ -204,7 +204,7 @@ if(!class_exists('WB_Order')){
 				$f = array('user_email', 'user_first_name', 'user_last_name');
 				foreach ($f as $v) {
 					if (array_key_exists($v, $checkout_form_data))
-						update_post_meta($order_id, $v, $checkout_form_data[$v]);
+						update_post_meta($order_id, $v, $checkout_form_data[$v]['value']);
 				}
 
 

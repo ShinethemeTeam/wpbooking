@@ -24,7 +24,7 @@ $array=array();
 			?>
 			<label class="type-<?php echo esc_attr($type_id)?>">
 				<input <?php echo esc_attr($checked) ?> name="wb-<?php echo ($field['id']) ?>[]" class="form-control" value="<?php echo esc_html($type_id) ?>" type="checkbox"  >
-				<span class="type-name"><?php echo esc_html($type['label']) ?></span>
+				<span class="type-name"><?php echo esc_html($type->get_info('label')) ?></span>
 			</label>
 			<?php
 		}

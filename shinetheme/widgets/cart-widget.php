@@ -76,7 +76,7 @@ if(!class_exists('WPBooking_Widget_Cart'))
 
 		static function _add_cart_update_content($sections=array())
 		{
-			$sections['.wpbooking-cart-widget-content']=wpbooking_load_view('cart/cart-widget');
+			$sections['.wpbooking-cart-widget-wrap']=wpbooking_load_view('cart/cart-widget');
 			return $sections;
 		}
 		static function  widget_init()

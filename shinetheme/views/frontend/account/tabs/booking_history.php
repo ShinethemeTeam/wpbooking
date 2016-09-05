@@ -5,7 +5,6 @@
  * Date: 7/4/2016
  * Time: 3:06 PM
  */
-$types=WPBooking_Service_Controller::inst()->get_service_types();
 $status=WPBooking_Config::inst()->item('order_item_status');
 $payment_status=WPBooking_Config::inst()->item('payment_status');
 

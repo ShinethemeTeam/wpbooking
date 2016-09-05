@@ -29,9 +29,6 @@ $cart=$booking->get_cart();
 			$service=new WB_Service($value['post_id']);
 			$featured=$service->get_featured_image();
 			$class=FALSE;
-			if($i==4){
-				printf('<span class="show_more_review_order"><span class="more">%s</span><span class="less">%s</span></span>',esc_html__('More','wpbooking'),esc_html__('Less','wpbooking'));
-			}
 			if($i>3){
 				$class.=' is_more_order';
 			}
@@ -54,6 +51,10 @@ $cart=$booking->get_cart();
 				</a>
 			</div>
 			<?php
+		}
+
+		if(count($cart)>3){
+			printf('<span class="show_more_review_order"><span class="more">%s <i class="fa fa-angle-double-down"></i></span><span class="less">%s <i class="fa fa-angle-double-up"></i></span></span>',esc_html__('More','wpbooking'),esc_html__('Less','wpbooking'));
 		}
 	}
 	?>

@@ -70,7 +70,7 @@ $payment_status=WPBooking_Config::inst()->item('payment_status');
 					<optgroup label="<?php esc_html_e('Service Type','wpbooking') ?>">
 						<option value="0"><?php esc_html_e('All Service Types','wpbooking') ?></option>
 						<?php foreach($types as $k=>$v){
-							printf('<option value="%s" %s>%s</option>',$k,selected(WPBooking_Input::get('service_type'),$k,FALSE),$v['label']);
+							printf('<option value="%s" %s>%s</option>',$k,selected(WPBooking_Input::get('service_type'),$k,FALSE),$v->get_info('label'));
 						} ?>
 					</optgroup>
 				</select>

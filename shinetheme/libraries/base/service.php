@@ -168,7 +168,7 @@ if (!class_exists('WB_Service')) {
 					'user_registered' => $udata->user_registered,
 					'description'     => $udata->user_description,
 					'address'         => get_user_meta($author_id, 'wb_address', TRUE),
-					'profile_url'     => WPBooking_User::inst()->account_page_url() . '/tab/profile/' . $author_id,
+					'profile_url'     => WPBooking_User::inst()->account_page_url() . '/tab/profile?user_id=' . $author_id,
 					'contact_now_url' => $contact_now_url,
 					'email'           => $udata->user_email
 				);
@@ -264,7 +264,7 @@ if (!class_exists('WB_Service')) {
 		{
 			if($this->ID){
 				$type_object=WPBooking_Service_Controller::inst()->get_service_type($this->get_type());
-				if(!empty($type_object['label'])) return $type_object['label'];
+				if($type_object) return $type_object->get_info('label');
 
 			}
 		}

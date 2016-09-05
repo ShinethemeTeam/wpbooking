@@ -33,7 +33,7 @@ $class.=' width-'.$data['width'];
 						}elseif($i==0){
 							$check='checked="checked"';
 						}
-						printf('<label class="wb-radio-button"><input type="radio" name="%s" value="%s" %s> %s</label>',$data['id'],$key,$check,$value['label']);
+						printf('<label class="wb-radio-button"><input type="radio" name="%s" value="%s" %s> %s</label>',$data['id'],$key,$check,$value->get_info('label'));
 						$i++;
 					}
 				} ?>

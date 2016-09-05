@@ -12,6 +12,7 @@ $order_items=$order->get_items();
 
 $checkout_form_data=$order->get_checkout_form_data();
 do_action('wpbooking_before_order_content');
+
 ?>
 <div class="wpbooking-order-detail-page">
 	<div class="wpbooking-thankyou-message text-center">
