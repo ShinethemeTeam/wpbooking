@@ -2198,3 +2198,102 @@ label[for=wpbooking_locationdiv-hide] {
 .wpbooking-order-detail .show-more-less {
   display: none;
 }
+.st-metabox-tab-content-wrap.coupon-metabox {
+  padding: 25px;
+  display: block;
+  box-sizing: border-box;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .inline-input {
+  margin-top: -1px;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wpbooking-form-group.wb-coupon-services-field .form-group select {
+  margin-bottom: 7px;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wpbooking-form-group.wb-coupon-services-field .form-group .wb-autocomplete-wrap .form-control {
+  width: 80%;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wpbooking-form-group.wb-datetime-field .wb-date {
+  width: 150px;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wpbooking-form-group.wb-datetime-field .wb-time {
+  display: inline-block;
+  width: 80px;
+  margin-left: 10px;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .coupon-submit {
+  margin-left: 30px;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table {
+  width: 100%;
+  border-left: 1px solid #e6e6e6;
+  border-top: 1px solid #e6e6e6;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table th,
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table td {
+  padding: 6px;
+  text-align: center;
+  border-right: 2px solid rgba(204, 204, 204, 0.5);
+  border-bottom: 1px solid #cccccc;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table th.text-left,
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table td.text-left {
+  text-align: left;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table th.text-right,
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table td.text-right {
+  text-align: right;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table th {
+  font-weight: bold;
+  color: #666666;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table th.pagination a {
+  text-decoration: none;
+  color: #666;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table th.pagination a:hover {
+  color: #ec8223;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table th.pagination a,
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table th.pagination span {
+  padding: 0px 6px;
+  border-right: 1px solid #ccc;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table th.pagination a:last-child,
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table th.pagination span:last-child {
+  border-right: 0px;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table th.pagination a.current,
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table th.pagination span.current {
+  color: #ec8223;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table tr {
+  border-left: 1px solid #e6e6e6;
+  border-top: 1px solid #e6e6e6;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table tr .edit_url {
+  color: #ec8223;
+  margin-right: 10px;
+  text-decoration: none;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table tr td {
+  padding: 15px;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table tr td.col-row-actions a {
+  visibility: hidden;
+  opacity: 0;
+  font-style: italic;
+  color: #ec8223;
+  margin-right: 10px;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table tr td:hover.col-row-actions a {
+  visibility: visible;
+  opacity: 1;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table tr:nth-child(2n) {
+  background: #f7f7f7;
+}
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table thead tr,
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table tfoot tr {
+  background: #e6e6e6;
+}

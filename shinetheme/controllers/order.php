@@ -131,7 +131,7 @@ if (!class_exists('WPBooking_Order')) {
             }
             $cart_params['extra_services']=$extra_services;
 
-            // Convert Check In and Check Out to Timstamp if available
+            // Convert Check In and Check Out to Timestamp if available
             if (!empty($fields['check_in']['value'])) {
                 $cart_params['check_in_timestamp'] = strtotime($fields['check_in']['value']);
 

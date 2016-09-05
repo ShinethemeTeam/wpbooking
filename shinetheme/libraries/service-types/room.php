@@ -414,6 +414,8 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 		                if(!$this->validate_cart_duplicate($cart_item,$key)){
                             wpbooking_set_message(sprintf(esc_html__('Item: %s is duplicate. Please check your cart again', 'wpbooking'),'<i>'.get_the_title($cart_item['post_id']).'</i>'), 'error');
 		                    return false;
+                        }else{
+                            // Validate Again
                         }
                     }
                 }

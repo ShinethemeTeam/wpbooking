@@ -80,7 +80,7 @@ if(!function_exists('wpbooking_get_admin_message'))
 					$type='notice-warning';
 					break;
 			}
-			return sprintf('<div class="notice %s" ><p>%s</p></div>',$type,$message['content']);
+			return sprintf('<div class="notice %s" >%s</div>',$type,$message['content']);
 		}
 	}
 }
