@@ -140,7 +140,7 @@ $current_user = get_userdata( $user_id );
 		<?php
 		if(!empty($res)){
 			foreach($res as $k=>$v){
-				echo '<li id="'.$data['comment_ID'].'">';
+				echo '<li id="'.$v['comment_ID'].'">';
 				echo wpbooking_load_view('/single/review/item-2',array('data'=>$v));
 				$children_comment=$comment->join('posts','posts.ID=comments.comment_post_ID')
 					->where(array(
