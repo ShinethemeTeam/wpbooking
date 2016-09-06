@@ -5,19 +5,120 @@
  * Date: 8/31/2016
  * Time: 4:27 PM
  */
-if(!defined( 'ABSPATH' )) {
+if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
-if(!class_exists('WPBooking_Admin_Coupon'))
-{
-    class WPBooking_Admin_Coupon extends WPBooking_Controller {
+if (!class_exists('WPBooking_Admin_Coupon')) {
+    class WPBooking_Admin_Coupon extends WPBooking_Controller
+    {
 
         private static $_inst;
+
         function __construct()
         {
 
             add_action('init', array($this, '_register_post_type'));
             add_action('admin_menu', array($this, '_add_booking_menupage'));
+
+            /**
+             * Coupon Form Add/Edit Handler
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('admin_init', array($this, '_coupon_form_submit'));
+
+            /**
+             * Coupon Delete
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('admin_init', array($this, '_coupon_delete'));
+        }
+
+        /**
+         * Coupon Form Add/Edit Handler
+         *
+         * @since 1.0
+         * @author dungdt
+         */
+        function _coupon_form_submit()
+        {
+            if (
+                isset($_POST['wpbooking_save_coupon'])
+                and wp_verify_nonce($_POST['wpbooking_save_coupon'], 'wpbooking_save_coupon')
+            ) {
+                $is_validated = true;
+                $validator = new WPBooking_Form_Validator();
+
+                $validator->set_rules('coupon_code', esc_html__('Coupon Code', 'wpbooking'), 'required|max_length[255]|is_unique[posts.post_name]');
+                $validator->set_rules('coupon_value', esc_html__('Coupon Value', 'wpbooking'), 'required|max_length[255]');
+
+                if (!$validator->run()) {
+                    $is_validated = false;
+                    wpbooking_set_admin_message($validator->error_string(), 'error');
+                }
+
+                if ($is_validated) {
+                    $coupon = wp_insert_post(array(
+                        'post_title' => WPBooking_Input::post('coupon_code'),
+                        'post_name'  => WPBooking_Input::post('coupon_code'),
+                        'post_type'  => 'wpbooking_coupon'
+                    ));
+
+
+                    if($coupon and !is_wp_error($coupon)){
+
+                        // Update Meta
+                        $meta=array('coupon_type','services_ids','coupon_value','coupon_value_type','start_date','start_time','start_ampm','end_date','end_time','emd_ampm','minimum_spend','usage_limit');
+
+                        foreach($meta as $key){
+
+                            switch ($key){
+                                case "start_date":
+                                    $start_time=WPBooking_Input::post('start_time','00:00');
+                                    if(!$start_time)$start_time='12:00';
+                                    $start_date=WPBooking_Input::post($key).' '.$start_time.' '.WPBooking_Input::post('start_ampm');
+                                    update_post_meta($coupon,'start_date_timestamp',strtotime($start_date));
+                                    break;
+                                case "end_date":
+                                    $start_time=WPBooking_Input::post('end_time','00:00');
+                                    if(!$start_time)$start_time='12:00';
+                                    $start_date=WPBooking_Input::post($key).' '.$start_time.' '.WPBooking_Input::post('end_ampm');
+                                    update_post_meta($coupon,'end_date_timestamp',strtotime($start_date));
+                                    break;
+                            }
+
+                            update_post_meta($coupon,$key,WPBooking_Input::post($key));
+
+                        }
+
+
+                        do_action('wpbooking_after_insert_coupon',$coupon);
+
+
+                        wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Create New Coupon Successfully','wpbooking')), 'success');
+
+
+                    }else{
+                        wpbooking_set_admin_message($coupon->get_error_message(), 'error');
+                    }
+                }
+            }
+        }
+
+        function _coupon_delete()
+        {
+            switch(WPBooking_Input::post('wb_action'))
+            {
+                case "delete_coupon":
+                    $item_id=WPBooking_Input::get('item_id');
+                    if(current_user_can('manage_options')){
+                        
+                    }
+                    break;
+            }
         }
 
         /**
@@ -137,7 +238,7 @@ if(!class_exists('WPBooking_Admin_Coupon'))
 
         static function inst()
         {
-            if(!self::$_inst) self::$_inst=new self();
+            if (!self::$_inst) self::$_inst = new self();
 
             return self::$_inst;
         }

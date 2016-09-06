@@ -852,4 +852,7 @@ jQuery(document).ready(function( $ ){
     })
 
 
+    // Datepicker Field
+    $('.wb-date').datepicker();
+
 });
