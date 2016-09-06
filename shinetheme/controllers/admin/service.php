@@ -25,7 +25,35 @@ if (!class_exists('WPBooking_Admin_Service')) {
 
 			// Merge Data
 			add_action('admin_init', array($this, '_merge_data'));
+
+            add_action('wp_ajax_wpbooking_autocomplete_post',array($this,'_autocomplete_post'));
 		}
+
+		function _autocomplete_post()
+        {
+            $res=array();
+
+            $type=$this->post('type');
+            $args['post_type']=$type;
+            $args['s']=$this->post('q');
+            $args['posts_per_page']=10;
+
+            $query=new WP_Query($args);
+
+            while ($query->have_posts()){
+                $query->the_post();
+                $res[]=array(
+                    'id'=>get_the_ID(),
+                    'text'=>get_the_title(),
+                    'thumb'=>get_the_post_thumbnail(),
+                    'address'=>get_post_meta(get_the_ID(),'address',true)
+                );
+            }
+
+            wp_reset_postdata();
+
+            echo json_encode($res);die;
+        }
 
 
 		function _save_extra_field($post_id = FALSE)

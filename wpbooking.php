@@ -175,6 +175,13 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			wp_register_script('icheck',wpbooking_assets_url('icheck/icheck.min.js'),array('jquery'),null,true);
 			wp_register_style('icheck',wpbooking_assets_url('icheck/skins/square/_all.css'));
 
+
+            /**
+             * Select2 Jquery
+             */
+            wp_enqueue_script('wpbooking-select2',wpbooking_assets_url('select2/js/select2.full.min.js'),array('jquery'),null,true);
+            wp_enqueue_style('wpbooking-select2',wpbooking_assets_url('select2/css/select2.min.css'));
+
 			/**
 			 * wbCalendar
 			 */
