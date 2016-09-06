@@ -2836,6 +2836,7 @@
   padding-left: 7px;
   padding-right: 7px;
   width: 25%;
+  margin-bottom: 15px;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item:nth-child(4n+1) {
   clear: both;
@@ -3157,6 +3158,7 @@
   font-size: 20px;
   margin: 0px;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab .tablenav {
   font-size: 15px;
