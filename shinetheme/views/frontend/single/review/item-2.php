@@ -76,7 +76,7 @@ $reply_allow=wpbooking_review_allow_reply($data['comment_ID']);
 					?>
 
 					<div class="item_count_like <?php if($count == 0) echo 'hide'; ?>">
-						<span class="icon-like <?php echo esc_html($liked) ?>"><i class="fa fa-thumbs-o-up"></i></span>
+						<span class="icon-like active"><i class="fa fa-thumbs-o-up"></i></span>
 											<span class="count_like">
 													<?php echo esc_html($count) ?>
 													<?php if($count > 1) esc_html_e('likes','wpbooking'); else esc_html_e('like','wpbooking') ?>
