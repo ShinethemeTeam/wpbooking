@@ -620,9 +620,17 @@ if (!class_exists('WPBooking_Service_Controller')) {
 				$res['status'] = 1;
 				if ($count = $model->count($review_id)) {
 					$res['vote_count'] = sprintf(esc_html__('%d like this', 'wpbooking'), $count);
+					if($count>1)
+						$res['vote_count_2'] = sprintf(esc_html__('%d likes', 'wpbooking'), $count);
+					else
+						$res['vote_count_2'] = sprintf(esc_html__('%d like', 'wpbooking'), $count);
+					$res['count'] = $count;
 				} else {
 					$res['vote_count'] = '';
+					$res['vote_count_2'] = '';
+					$res['count'] = 0;
 				}
+
 
 			}
 
@@ -678,7 +686,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
 											<div class="comment-content-wrap">
 												<div class="comment-text">
-													' . $message . '
+													<p>' . $message . '</p>
 												</div>
 											</div><!-- .comment-content -->
 										</div>

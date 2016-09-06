@@ -1298,6 +1298,35 @@ jQuery(document).ready(function($){
             }
         })
     });
+    $('.wpbooking-account-tab .user-reviews .review-do-vote').click(function(){
+        var me=$(this);
+
+        $.ajax({
+            data:{
+                action:'wpbooking_vote_review',
+                review_id:$(this).data('review-id'),
+            },
+            type:'post',
+            url:wpbooking_params.ajax_url,
+            dataType:'json',
+            success:function(res){
+                if(res.status){
+                    if(res.count > 0 ){
+                        me.closest('.comment_container').find('.count_like').html(res.vote_count_2);
+                        me.closest('.comment_container').find('.item_count_like').removeClass('hide');
+                    }else{
+                        me.closest('.comment_container').find('.count_like').html('');
+                        me.closest('.comment_container').find('.item_count_like').addClass('hide');
+                    }
+                }
+                if(res.voted){
+                    me.addClass('active');
+                }else{
+                    me.removeClass('active');
+                }
+            }
+        })
+    });
 
     $('.wb-btn-reply-comment').click(function(){
        var parent=$(this).closest('li');

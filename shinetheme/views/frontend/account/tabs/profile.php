@@ -10,13 +10,18 @@ if(get_query_var('update-profile')){
 	return;
 }
 $update_profile=get_permalink(wpbooking_get_option('myaccount-page')).'update-profile/'.get_current_user_id();
+$link_my_profile=get_permalink(wpbooking_get_option('myaccount-page')).'/tab/profile/';
 $my_id = get_the_author_meta( 'ID' );
 $user_id = WPBooking_Input::request('user_id',get_the_author_meta( 'ID' ));
 $current_user = get_userdata( $user_id );
 ?>
 <h3 class="tab-page-title">
 	<?php
-	echo sprintf(esc_html__("Hello I'm %s",'wpbooking'),$current_user->first_name);
+	$name = $current_user->first_name;
+	if(empty($name)) $name = $current_user->last_name;
+	if(empty($name)) $name = $current_user->display_name;
+	if(!empty($name))
+	echo sprintf(esc_html__("Hello I'm %s",'wpbooking'),$name);
 	?>
 </h3>
 <div class="user-detail">
@@ -73,7 +78,6 @@ $current_user = get_userdata( $user_id );
 			'post_type'=> 'wpbooking_service',
 			'author' => $user_id,
 		);
-
 		query_posts( $args );
 		while(have_posts()){
 			the_post();
@@ -88,27 +92,79 @@ $current_user = get_userdata( $user_id );
 					<?php the_title() ?>
 				</div>
 				<div class="item_control">
-					<a href="<?php the_permalink() ?>" class="wb-btn wb-btn-blue">View </a>
+					<a href="<?php the_permalink() ?>" class="wb-btn wb-btn-blue"><?php esc_html_e("View","wpbooking") ?> </a>
 				</div>
 			</div>
 		<?php
 		}
 		wp_reset_query();
 		?>
-
 	</div>
 </div>
-
-
-<!--<h3 class="tab-page-title">
+<div class="user-reviews">
 	<?php
-/*	echo esc_html__('Your Profile','wpbooking');
-	*/?>
-	<ul class="information">
-		<li><strong><?php /*esc_html_e('Avatar:','wpbooking') */?></strong> <?php /*if($avatar=get_user_meta(get_current_user_id(),'avatar',true)){ printf('<img class="avatar-preview" src="%s">',$avatar);}  */?></li>
-		<li><strong><?php /*esc_html_e('Display Name:','wpbooking') */?></strong> <?php /*echo esc_attr($current_user->display_name)  */?></li>
-		<li><strong><?php /*esc_html_e('Email:','wpbooking') */?></strong> <?php /*echo esc_attr($current_user->user_email)  */?></li>
-		<li><strong><?php /*esc_html_e('Phone Number:','wpbooking') */?></strong> <?php /*echo get_user_meta(get_current_user_id(),'phone_number',true)  */?></li>
-	</ul>
-</h3>
-<a href="<?php /*echo esc_url($update_profile)*/?>"><?php /*esc_html_e('Update Profile','wpbooking')*/?></a>-->
+	global $wpdb;
+	$page=WPBooking_Input::request('wp_paged',1);
+	$limit=5;
+	$offset=($page-1)*$limit;
+	$comment=WPBooking_Comment_Model::inst();
+	$res=$comment->select('SQL_CALC_FOUND_ROWS *');
+	$res=$comment->join('posts','posts.ID=comments.comment_post_ID')
+		->where(array(
+			$wpdb->prefix.'posts.post_author'=>$user_id,
+			$wpdb->prefix.'posts.post_type'=>'wpbooking_service',
+			$wpdb->prefix.'comments.comment_parent'=>0,
+		))
+		->limit($limit,$offset)
+		->orderby($wpdb->prefix.'comments.comment_ID',"DESC")
+		->get()
+		->result();
+	$total_item=$wpdb->get_var('SELECT FOUND_ROWS()');
+	//echo $comment->last_query();
+	$total=ceil($total_item/$limit);
+	$paging=array();
+	$paging['base']=$link_my_profile.'%_%';
+	$paging['format']='?wp_paged=%#%';
+	$paging['total']=$total;
+	$paging['current']=$page;
+	?>
+	<h3 class="tab-page-title">
+		<?php
+		if($total_item > 1)
+			echo sprintf(esc_html__("Reviews (%d)",'wpbooking'),$total_item);
+		else
+			echo sprintf(esc_html__("Review (%d)",'wpbooking'),$total_item)
+		?>
+	</h3>
+	<ol class="comment-list">
+		<?php
+		if(!empty($res)){
+			foreach($res as $k=>$v){
+				echo '<li id="'.$v['comment_ID'].'">';
+				echo wpbooking_load_view('/single/review/item-2',array('data'=>$v));
+				$children_comment=$comment->join('posts','posts.ID=comments.comment_post_ID')
+					->where(array(
+						$wpdb->prefix.'posts.post_author'=>$user_id,
+						$wpdb->prefix.'posts.post_type'=>'wpbooking_service',
+						$wpdb->prefix.'comments.comment_parent'=>$v['comment_ID'],
+					))
+					->orderby($wpdb->prefix.'comments.comment_ID',"DESC")
+					->get()
+					->result();
+				if(!empty($children_comment)){
+					foreach($children_comment as $key=>$value){
+						echo '<ol class="comment-list children">';
+						$value['children'] = $v['comment_ID'];
+						echo wpbooking_load_view('/single/review/item-2',array('data'=>$value));
+						echo "</ol>";
+					}
+				}
+				echo "</li>";
+			}
+		}
+		?>
+ 	</ol>
+	<div class="user-paginate">
+		<?php echo paginate_links($paging); ?>
+	</div>
+</div>

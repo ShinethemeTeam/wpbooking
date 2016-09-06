@@ -1927,7 +1927,7 @@
   height: 20px;
   text-align: center;
   display: inline-block;
-  line-height: 20px;
+  line-height: 18px;
   border-radius: 50%;
   border: 1px solid #333;
   color: #333;
@@ -2836,6 +2836,7 @@
   padding-left: 7px;
   padding-right: 7px;
   width: 25%;
+  margin-bottom: 15px;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item:nth-child(4n+1) {
   clear: both;
@@ -2862,6 +2863,283 @@
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item .item_control a {
   text-transform: none;
 }
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .tab-page-title {
+  margin-top: 20px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .icon-like {
+  border: 1px solid #333;
+  border-radius: 50%;
+  color: #333;
+  cursor: pointer;
+  display: inline-block;
+  height: 20px;
+  line-height: 18px;
+  text-align: center;
+  width: 20px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .icon-like.active {
+  background: #f0ad4e none repeat scroll 0 0;
+  border-color: #f0ad4e;
+  color: white;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  margin-bottom: 30px;
+  color: #666666;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment_container {
+  margin-bottom: 20px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment_container:before,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment_container:after {
+  display: table;
+  content: " ";
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment_container:after {
+  clear: both;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-meta {
+  float: left;
+  width: 17%;
+  font-size: 13px;
+  text-align: center;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-meta .comment-author {
+  text-align: center;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-meta img {
+  max-width: 48px;
+  height: auto;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 50%;
+  border: 3px solid #e6e6e6;
+  margin: 0px;
+  margin-bottom: 11px;
+  display: inline-block;
+  float: none;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-meta .review-author-name {
+  display: block;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-meta .review-author-name a {
+  border-bottom: none;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-meta .review-count {
+  display: block;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap {
+  width: 83%;
+  border: 1px solid #e6e6e6;
+  padding: 13px;
+  float: left;
+  position: relative;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8.5px 9px 8.5px 0;
+  border-color: transparent #e6e6e6 transparent transparent;
+  top: 20px;
+  left: -9px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-review-summary {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-review-summary a {
+  color: #f0ad4e;
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: none;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-review-summary a:hover {
+  text-decoration: none;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .comment-text {
+  font-size: 14px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .comment-text p {
+  line-height: 24px;
+  margin-bottom: 10px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-more-review-detail {
+  margin: 5px 0px 10px;
+  font-size: 14px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-more-review-detail a {
+  color: #f0ad4e;
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: none;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-more-review-detail .wpbooking-rating-review-result {
+  display: none;
+  font-size: 14px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-more-review-detail .less {
+  display: none;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-more-review-detail .more,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-more-review-detail .less {
+  color: #f0ad4e;
+  font-style: italic;
+  cursor: pointer;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-more-review-detail.active .less {
+  display: block;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-more-review-detail.active .more {
+  display: none;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-more-review-detail.active .wpbooking-rating-review-result {
+  display: table-row;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-more-review-detail .review-stats {
+  display: table;
+  width: 100%;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-more-review-detail .review-stats .wpbooking-rating-review-result .rating-stars {
+  display: table-cell;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-more-review-detail .review-stats .wpbooking-rating-review-result .rating-title {
+  display: table-cell;
+  width: 1px;
+  white-space: nowrap;
+  padding-right: 10px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-vote-for-review {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-vote-for-review .review-vote-count {
+  font-weight: bold;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-vote-for-review .review-do-vote {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  display: inline-block;
+  line-height: 18px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  color: #333;
+  cursor: pointer;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-vote-for-review .review-do-vote.active {
+  color: white;
+  background: #f0ad4e;
+  border-color: #f0ad4e;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wb-btn-reply-comment {
+  font-size: 13px;
+  font-style: italic;
+  color: #f0ad4e;
+  border: none;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ul,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ol {
+  padding-left: 17%;
+  list-style: none;
+  margin-left: 0px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ul li,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ol li {
+  padding-left: 0px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ul .reply-comment-form,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ol .reply-comment-form {
+  display: none;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ul .reply-comment-form.active,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ol .reply-comment-form.active {
+  display: block;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ul .wpbooking-add-reply:before,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ol .wpbooking-add-reply:before,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ul .wpbooking-add-reply:after,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ol .wpbooking-add-reply:after {
+  display: table;
+  content: " ";
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ul .wpbooking-add-reply:after,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ol .wpbooking-add-reply:after {
+  clear: both;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ul .wpbooking-add-reply .reply-input,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ol .wpbooking-add-reply .reply-input {
+  width: 85%;
+  float: left;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ul .wpbooking-add-reply .reply-input textarea,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ol .wpbooking-add-reply .reply-input textarea {
+  border: none;
+  height: 120px;
+  background: #f2f2f2;
+  font-size: 14px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ul .wpbooking-add-reply .reply-submit,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ol .wpbooking-add-reply .reply-submit {
+  float: left;
+  width: 13%;
+  margin-left: 2%;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ul .wpbooking-add-reply .reply-submit .wb-btn,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ol .wpbooking-add-reply .reply-submit .wb-btn {
+  text-align: center;
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ul .wpbooking-add-reply .reply-submit .wb-btn i,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ol .wpbooking-add-reply .reply-submit .wb-btn i {
+  display: none;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ul .wpbooking-add-reply .reply-submit .wb-btn.loading i,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li ol .wpbooking-add-reply .reply-submit .wb-btn.loading i {
+  display: inline-block;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li hr {
+  margin-bottom: 10px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-control {
+  font-size: 13px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-control > div {
+  display: inline-block;
+  margin-right: 15px;
+  cursor: pointer;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-control .review-do-vote.active {
+  color: #f0ad4e;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-control .wb-btn-reply-comment {
+  color: #666666;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .user-paginate {
+  text-align: center;
+  color: #666666;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .user-paginate a:hover {
+  color: #000;
+  border-color: #000;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .user-paginate span,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .user-paginate a {
+  border: 1px solid #b8b8b8;
+  padding: 5px 10px;
+  color: #666666 ;
+  text-decoration: none;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .user-paginate .current {
+  background: #e6e6e6;
+}
 .wpbooking-myaccount-wrap .wpbooking-account-tab .subsubsub {
   margin: 0px;
   padding: 0px;
@@ -2880,6 +3158,7 @@
   font-size: 20px;
   margin: 0px;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab .tablenav {
   font-size: 15px;
