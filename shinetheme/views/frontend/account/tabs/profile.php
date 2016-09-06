@@ -17,7 +17,11 @@ $current_user = get_userdata( $user_id );
 ?>
 <h3 class="tab-page-title">
 	<?php
-	echo sprintf(esc_html__("Hello I'm %s",'wpbooking'),$current_user->first_name);
+	$name = $current_user->first_name;
+	if(empty($name)) $name = $current_user->last_name;
+	if(empty($name)) $name = $current_user->display_name;
+	if(!empty($name))
+	echo sprintf(esc_html__("Hello I'm %s",'wpbooking'),$name);
 	?>
 </h3>
 <div class="user-detail">
