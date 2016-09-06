@@ -2032,7 +2032,7 @@
                                 height: 20px;
                                 text-align: center;
                                 display: inline-block;
-                                line-height: 20px;
+                                line-height: 18px;
                                 border-radius: 50%;
                                 border:1px solid #333;
                                 color: #333;
@@ -2989,6 +2989,278 @@
                                 text-transform: none;
                             }
                         }
+                    }
+                }
+            }
+            .user-reviews{
+
+                .tab-page-title{
+                    margin-top: 20px;
+                }
+                .icon-like{
+                    &.active{
+                        background: #f0ad4e none repeat scroll 0 0;
+                        border-color: #f0ad4e;
+                        color: white;
+                    }
+                    border: 1px solid #333;
+                    border-radius: 50%;
+                    color: #333;
+                    cursor: pointer;
+                    display: inline-block;
+                    height: 20px;
+                    line-height: 18px;
+                    text-align: center;
+                    width: 20px;
+                }
+                .comment-list{
+                    list-style: none;
+                    margin:0px;
+                    padding: 0px;
+                    margin-bottom: 30px;
+                    color: #666666;
+                    >li{
+                        .comment_container{
+                            .clearfix;
+                            margin-bottom: 20px;
+                        }
+                        .comment-meta{
+                            float: left;
+                            width: 17%;
+                            font-size: 13px;
+                            text-align: center;
+                            .comment-author{
+                                text-align: center;
+                            }
+                            img{
+                                max-width: 48px;
+                                height: auto;
+                                -webkit-border-radius: 1px;
+                                -moz-border-radius: 1px;
+                                border-radius: 50%;
+                                border:3px solid #e6e6e6;
+                                margin: 0px;
+                                margin-bottom: 11px;
+                                display: inline-block;
+                                float: none;
+                            }
+                            .review-author-name{
+                                a{
+                                    border-bottom: none;
+                                }
+                                display: block;
+                            }
+                            .review-count{
+                                display: block;
+                            }
+                        }
+                        .comment-content-wrap{
+                            width: 83%;
+                            border:1px solid #e6e6e6;
+                            padding:13px;
+                            float: left;
+                            position: relative;
+                            &:before{
+                                content: "";
+                                position: absolute;
+                                width: 0;
+                                height: 0;
+                                border-style: solid;
+                                border-width: 8.5px 9px 8.5px 0;
+                                border-color: transparent #e6e6e6 transparent transparent;
+                                top:20px;
+                                left: -9px;
+                            }
+
+                            .wpbooking-review-summary{
+                                position: absolute;
+                                top:13px;
+                                right: 13px;
+                                a{
+                                    color: @maincolor;
+                                    font-size: 14px;
+                                    //margin-left: px;
+                                    text-decoration: none;
+                                    border-bottom: none;
+                                    &:hover{
+                                        text-decoration: none;
+                                    }
+                                }
+                            }
+                            .comment-text{
+                                font-size: 14px;
+                                p{
+                                    line-height: 24px;
+                                    margin-bottom: 10px;
+                                }
+                            }
+
+                            .wpbooking-more-review-detail{
+                                margin: 5px 0px 10px;
+                                font-size: 14px;
+                                a{
+                                    color: @maincolor;
+                                    //margin-left: px;
+                                    font-size: 14px;
+                                    text-decoration: none;
+                                    border-bottom: none;
+                                }
+                                .wpbooking-rating-review-result{
+                                    display: none;
+                                    font-size: 14px;
+                                }
+                                .less{
+                                    display:none;
+                                }
+                                .more,.less{
+                                    color: @maincolor;
+                                    font-style: italic;
+                                    cursor: pointer;
+                                }
+                                &.active{
+                                    .less{
+                                        display: block;
+
+                                    }
+                                    .more{
+                                        display: none;
+                                    }
+                                    .wpbooking-rating-review-result{
+                                        display: table-row;
+                                    }
+                                }
+                                .review-stats{
+                                    display: table;
+                                    width: 100%;
+                                    .wpbooking-rating-review-result{
+                                        .rating-stars{
+                                            display: table-cell;
+                                        }
+                                        .rating-title{
+                                            display: table-cell;
+                                            width: 1px;
+                                            white-space: nowrap;
+                                            padding-right: 10px;
+                                        }
+                                    }
+                                }
+                            }
+                            .wpbooking-vote-for-review{
+                                font-size: 13px;
+                                margin-bottom:10px;
+                                .review-vote-count{
+                                    font-weight: bold;
+                                }
+                                .review-do-vote{
+                                    width: 20px;
+                                    height: 20px;
+                                    text-align: center;
+                                    display: inline-block;
+                                    line-height: 18px;
+                                    border-radius: 50%;
+                                    border:1px solid #333;
+                                    color: #333;
+                                    cursor: pointer;
+                                    &.active{
+                                        color: white;
+                                        background: @maincolor;
+                                        border-color: @maincolor;
+                                    }
+                                }
+                            }
+                            .wb-btn-reply-comment{
+                                font-size: 13px;
+                                font-style: italic;
+                                color: @maincolor;
+                                border:none;
+                            }
+                        }
+
+                        ul,ol{
+                            li {
+                                padding-left: 0px;
+                            }
+
+                            padding-left: 17%;
+                            list-style: none;
+                            margin-left: 0px;
+                            .reply-comment-form{
+                                display: none;
+                                &.active{
+                                    display: block;
+                                }
+                            }
+                            .wpbooking-add-reply{
+                                .clearfix;
+                                .reply-input{
+                                    width: 85%;
+                                    float: left;
+                                    textarea{
+                                        border:none;
+                                        height: 120px;
+                                        background: #f2f2f2;
+                                        font-size: 14px;
+                                    }
+                                }
+                                .reply-submit{
+                                    float: left;
+                                    width: 13%;
+                                    margin-left: 2%;
+                                    .wb-btn{
+                                        text-align: center;
+                                        width: 100%;
+                                        padding-top: 5px;
+                                        padding-bottom: 5px;
+
+                                        i{
+                                            display: none;
+                                        }
+
+                                        &.loading{
+                                            i{
+                                                display: inline-block;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        hr{
+                            margin-bottom: 10px;
+                        }
+                        .comment-control{
+                            font-size: 13px;
+                            &>div{
+                                display: inline-block;
+                                margin-right: 15px;
+                                cursor: pointer;
+                            }
+                            .review-do-vote.active{
+                                color: @maincolor;
+                            }
+                            .wb-btn-reply-comment{
+                                color: #666666;
+                            }
+                        }
+                    }
+                }
+
+                .user-paginate{
+                    text-align: center;
+                    color: #666666;
+                    a:hover{
+                        color: #000;
+                        border-color: #000;
+                    }
+                    span,a{
+                        border: 1px solid #b8b8b8;
+                        padding: 5px 10px;
+                        color: #666666 ;
+                        text-decoration: none;
+                    }
+
+                    .current{
+                        background: #e6e6e6;
                     }
                 }
             }
