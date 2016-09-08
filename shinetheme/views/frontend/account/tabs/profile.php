@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 7/7/2016
- * Time: 9:41 AM
- */
 if(get_query_var('update-profile')){
 	echo wpbooking_load_view('account/update-profile');
 	return;
@@ -17,8 +11,7 @@ $current_user = get_userdata( $user_id );
 ?>
 <h3 class="tab-page-title">
 	<?php
-	$name = $current_user->first_name;
-	if(empty($name)) $name = $current_user->last_name;
+	$name = $current_user->last_name;
 	if(empty($name)) $name = $current_user->display_name;
 	if(!empty($name))
 	echo sprintf(esc_html__("Hello I'm %s",'wpbooking'),$name);
@@ -31,7 +24,13 @@ $current_user = get_userdata( $user_id );
 		</div>
 	</div>
 	<div class="info">
-		<h5 class="user-name"><?php echo esc_html($current_user->display_name) ?></h5>
+		<h5 class="user-name">
+			<?php
+			$name_full = $current_user->first_name.' '.$current_user->last_name;
+			if(empty($name_full)) $name_full = $current_user->display_name;
+			if(!empty($name_full))
+				 echo esc_html($name_full) ?>
+		</h5>
 		<div class="user-share">
 			<?php if(!empty($facebook = get_user_meta($user_id,'profile_facebook',true))){ ?>
 				<a href="<?php echo esc_url($facebook) ?>"><span class="fa fa-facebook"></span></a>
@@ -43,7 +42,7 @@ $current_user = get_userdata( $user_id );
 				<a href="<?php echo esc_url($google) ?>"><span class="fa fa-google-plus"></span></a>
 			<?php } ?>
 		</div>
-		<?php if(!empty($profile_address = get_user_meta($user_id,'profile_address',true))){ ?>
+		<?php if(!empty($profile_address = get_user_meta($user_id,'address',true))){ ?>
 			<div class="text-info"><?php echo esc_html($profile_address) ?></div>
 		<?php } ?>
 
@@ -62,7 +61,7 @@ $current_user = get_userdata( $user_id );
 				$url=WPBooking_User::inst()->account_page_url().'tab/inbox/';
 				$contact_now_url=add_query_arg(array('user_id'=>$user_id),$url);
 				?>
-				<a href="<?php echo esc_html($contact_now_url) ?>" class="btn btn-default">Contact</a>
+				<a href="<?php echo esc_html($contact_now_url) ?>" class="btn btn-default"><?php esc_html_e("Contact","wpbooking") ?></a>
 				<?php } ?>
 			</div>
 		</div>
