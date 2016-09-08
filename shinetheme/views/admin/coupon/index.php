@@ -20,9 +20,9 @@ $item_id = WPBooking_Input::get('item_id');
                             printf('<input type="hidden" name="item_id" value="%d">', $item_id);
                         } ?>
                         <div class="st-metabox-tab-content-wrap coupon-metabox">
-                            <?php if (WPBooking_Input::post('wpbooking_save_coupon')) {
+                            <?php
                                 echo wpbooking_get_admin_message();
-                            } ?>
+                             ?>
                             <div class="wpbooking-field-title">
                                 <h4 class="field-title"><?php if ($item_id) printf(esc_html__('Edit Coupon: %s', 'wpbooking'), get_the_title($item_id)); else esc_html_e('Add New Discount Coupon', 'wpbooking'); ?></h4>
                             </div>
@@ -65,11 +65,16 @@ $item_id = WPBooking_Input::get('item_id');
                                             </select>
                                             <div class="wb-autocomplete-wrap wpbooking-condition"
                                                  data-condition="coupon_type:is(specific_services)">
-                                                <input id="services_ids" type="text" name="services_ids"
-                                                       placeholder="<?php esc_html_e('Type to search', 'wpbooking') ?>"
-                                                       value="<?php $default = ($item_id) ? get_post_meta($item_id, 'services_ids', true) : false;
-                                                       echo WPBooking_Input::post('services_ids', $default) ?>"
-                                                       class="widefat form-control wb-autocomplete" data-type="wpbooking_service">
+                                                <select name="services_ids[]" class="wb-autocomplete" multiple="multiple" data-type="wpbooking_service">
+                                                    <?php $default=($item_id)?get_post_meta($item_id,'services_ids',true):false;
+                                                    $value=WPBooking_Input::post('services_ids', $default);
+                                                    if(is_array($value) and !empty($value)){
+                                                        foreach($value as $k){
+                                                            printf('<option value="%s" data-title="%s" selected="selected">%s</option>',$k,get_the_title($k),get_the_title($k));
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -125,7 +130,7 @@ $item_id = WPBooking_Input::get('item_id');
                                                    value="<?php $default = ($item_id) ? get_post_meta($item_id, 'start_time', true) : false;
                                                    echo WPBooking_Input::post('start_time', $default) ?>"
                                                    class="widefat form-control wb-time">
-                                            <?php $default = ($item_id) ? get_post_meta($item_id, 'start_date', true) : 0;
+                                            <?php $default = ($item_id) ? get_post_meta($item_id, 'start_ampm', true) : 0;
                                             $value = WPBooking_Input::post('start_ampm', $default) ?>
                                             <select class="form-control wb-time" name="start_ampm">
                                                 <option value="am"><?php esc_html_e('am', 'wpbooking') ?></option>
@@ -153,7 +158,7 @@ $item_id = WPBooking_Input::get('item_id');
                                                    value="<?php $default = ($item_id) ? get_post_meta($item_id, 'end_date', true) : false;
                                                    echo WPBooking_Input::post('end_date', $default) ?>"
                                                    class="widefat form-control wb-date">
-                                            <input id="end_time" type="text" name="start_time"
+                                            <input id="end_time" type="text" name="end_time"
                                                    placeholder="12:00"
                                                    value="<?php $default = ($item_id) ? get_post_meta($item_id, 'end_time', true) : false;
                                                    echo WPBooking_Input::post('end_time', $default) ?>"
@@ -161,7 +166,7 @@ $item_id = WPBooking_Input::get('item_id');
 
                                             <?php $default = ($item_id) ? get_post_meta($item_id, 'end_ampm', true) : 0;
                                             $value = WPBooking_Input::post('end_ampm', $default) ?>
-                                            <select class="form-control wb-time" name="start_ampm">
+                                            <select class="form-control wb-time" name="end_ampm">
                                                 <option value="am"><?php esc_html_e('am', 'wpbooking') ?></option>
                                                 <option <?php selected($value, 'pm') ?>
                                                     value="pm"><?php esc_html_e('pm', 'wpbooking') ?></option>
@@ -282,7 +287,7 @@ $item_id = WPBooking_Input::get('item_id');
                                             <td>
                                                 <?php echo esc_html($coupon->get_meta('usage_limit')) ?>
                                             </td>
-                                            <td>
+                                            <td class="text-left">
                                                 <?php $services = $coupon->get_services();
                                                 switch ($coupon->get_type()) {
                                                     case "specific_services":

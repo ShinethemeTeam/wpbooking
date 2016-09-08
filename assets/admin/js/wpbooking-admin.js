@@ -855,4 +855,60 @@ jQuery(document).ready(function( $ ){
     // Datepicker Field
     $('.wb-date').datepicker();
 
+    $(window).load(function(){
+        // Auto Complete Post Type
+        $('.wb-autocomplete').each(function() {
+                var me = $(this);
+                me.select2({
+                    ajax: {
+                        url: wpbooking_params.ajax_url,
+                        dataType: 'json',
+                        type:'post',
+                        data: function (params) {
+                            return {
+                                q: params.term, // search term
+                                action: 'wpbooking_autocomplete_post',
+                                page: params.page,
+                                type:me.data('type')
+                            };
+                        },
+                        processResults: function (data, params) {
+                            // parse the results into the format expected by Select2
+                            // since we are using custom formatting functions we do not need to
+                            // alter the remote JSON data, except to indicate that infinite
+                            // scrolling can be used
+                            params.page = params.page || 1;
+
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    minimumInputLength:3,
+                    escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+                    templateResult:  function (post) {
+                        if(post.loading) return post.text;
+                        var markup = "<div class='select2-result-repository clearfix'>" +
+                            "<div class='select2-result-repository__avatar'>"+post.thumb+"</div>" +
+                            "<div class='select2-result-repository__meta'>" +
+                            "<div class='select2-result-repository__title'>" + post.text + "</div>";
+
+                        if (post.address) {
+                            markup += "<div class='select2-result-repository__description'>" + post.address + "</div>";
+                        }
+                        markup+='</div>';
+
+                        return markup;
+                    },
+                    templateSelection:function(post){
+                        return post.text;
+                    }
+                });
+
+            });
+
+    })
+
+
 });

@@ -93,10 +93,7 @@ if (!class_exists('WB_Coupon')) {
 
             if ($this->item_id) {
                 $ids = $this->get_meta('services_ids');
-                $ids = explode(',', $ids);
-                if (!empty($ids)) {
-                    $res = $ids;
-                }
+                $res=$ids;
 
             }
 
@@ -132,11 +129,13 @@ if (!class_exists('WB_Coupon')) {
          */
         function get_delete_url()
         {
+
             if ($this->item_id) {
                 return add_query_arg(array(
                     'page'    => 'wpbooking_page_coupon',
                     'item_id' => $this->item_id,
-                    'wb_action'  => 'delete_coupon'
+                    'wb_action'  => 'delete_coupon',
+                    'wb_nonce'=>wp_create_nonce( 'delete_coupon_' .$this->item_id )
                 ), admin_url('admin.php'));
             }
         }

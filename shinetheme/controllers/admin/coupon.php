@@ -52,7 +52,7 @@ if (!class_exists('WPBooking_Admin_Coupon')) {
                 $is_validated = true;
                 $validator = new WPBooking_Form_Validator();
 
-                $validator->set_rules('coupon_code', esc_html__('Coupon Code', 'wpbooking'), 'required|max_length[255]|is_unique[posts.post_name]');
+                $validator->set_rules('coupon_code', esc_html__('Coupon Code', 'wpbooking'), 'required|max_length[255]|alpha_numeric');
                 $validator->set_rules('coupon_value', esc_html__('Coupon Value', 'wpbooking'), 'required|max_length[255]');
 
                 if (!$validator->run()) {
@@ -60,13 +60,25 @@ if (!class_exists('WPBooking_Admin_Coupon')) {
                     wpbooking_set_admin_message($validator->error_string(), 'error');
                 }
 
+
                 if ($is_validated) {
-                    $coupon = wp_insert_post(array(
+                    $post=array(
                         'post_title' => WPBooking_Input::post('coupon_code'),
                         'post_name'  => WPBooking_Input::post('coupon_code'),
                         'post_type'  => 'wpbooking_coupon'
-                    ));
+                    );
 
+                    $action='insert';
+
+                    if($item_id=WPBooking_Input::post('item_id')){
+                        // Update
+                        $post['ID']=$item_id;
+                        $coupon=wp_update_post($post);
+                        $action='update';
+                    }else{
+                        // Insert
+                        $coupon = wp_insert_post($post);
+                    }
 
                     if($coupon and !is_wp_error($coupon)){
 
@@ -81,24 +93,34 @@ if (!class_exists('WPBooking_Admin_Coupon')) {
                                     if(!$start_time)$start_time='12:00';
                                     $start_date=WPBooking_Input::post($key).' '.$start_time.' '.WPBooking_Input::post('start_ampm');
                                     update_post_meta($coupon,'start_date_timestamp',strtotime($start_date));
+
+                                    update_post_meta($coupon,$key,WPBooking_Input::post($key));
                                     break;
                                 case "end_date":
                                     $start_time=WPBooking_Input::post('end_time','00:00');
                                     if(!$start_time)$start_time='12:00';
                                     $start_date=WPBooking_Input::post($key).' '.$start_time.' '.WPBooking_Input::post('end_ampm');
                                     update_post_meta($coupon,'end_date_timestamp',strtotime($start_date));
+
+                                    update_post_meta($coupon,$key,WPBooking_Input::post($key));
                                     break;
+                                default:
+                                    update_post_meta($coupon,$key,WPBooking_Input::post($key));
+                                    break;
+
                             }
 
-                            update_post_meta($coupon,$key,WPBooking_Input::post($key));
+
 
                         }
 
 
-                        do_action('wpbooking_after_insert_coupon',$coupon);
+                        do_action('wpbooking_after_'.$action.'_coupon',$coupon);
 
-
-                        wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Create New Coupon Successfully','wpbooking')), 'success');
+                        if($action=='insert')
+                            wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Create New Coupon Successfully','wpbooking')), 'success');
+                        else
+                            wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Update Coupon Successfully','wpbooking')), 'success');
 
 
                     }else{
@@ -110,12 +132,19 @@ if (!class_exists('WPBooking_Admin_Coupon')) {
 
         function _coupon_delete()
         {
-            switch(WPBooking_Input::post('wb_action'))
+            switch(WPBooking_Input::get('wb_action'))
             {
                 case "delete_coupon":
                     $item_id=WPBooking_Input::get('item_id');
                     if(current_user_can('manage_options')){
-                        
+
+                        if(wp_verify_nonce( $this->get('wb_nonce'), 'delete_coupon_' . $item_id )){
+                            wp_delete_post($item_id);
+                            wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Delete Coupon Successfully','wpbooking')), 'success');
+                        }
+
+                        wp_redirect(add_query_arg(array('page'=>'wpbooking_page_coupon'),admin_url('admin.php')));
+                        die;
                     }
                     break;
             }

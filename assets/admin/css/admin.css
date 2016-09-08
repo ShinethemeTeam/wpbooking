@@ -619,6 +619,55 @@ img.settings-demo-gallery {
 .postbox .hndle > span label {
   margin-left: 15px;
 }
+.select2-result-repository {
+  padding-top: 4px;
+  padding-bottom: 3px;
+}
+.select2-result-repository__avatar {
+  float: left;
+  width: 60px;
+  margin-right: 10px;
+}
+.select2-result-repository__avatar img {
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+.select2-result-repository__meta {
+  margin-left: 70px;
+}
+.select2-result-repository__title {
+  color: black;
+  font-weight: bold;
+  word-wrap: break-word;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.select2-result-repository__forks,
+.select2-result-repository__stargazers {
+  margin-right: 1em;
+}
+.select2-result-repository__forks,
+.select2-result-repository__stargazers,
+.select2-result-repository__watchers {
+  display: inline-block;
+  color: #aaa;
+  font-size: 11px;
+}
+.select2-result-repository__description {
+  font-size: 13px;
+  color: #777;
+  margin-top: 4px;
+}
+.select2-results__option--highlighted .select2-result-repository__title {
+  color: white;
+}
+.select2-results__option--highlighted .select2-result-repository__forks,
+.select2-results__option--highlighted .select2-result-repository__stargazers,
+.select2-results__option--highlighted .select2-result-repository__description,
+.select2-results__option--highlighted .select2-result-repository__watchers {
+  color: #c6dcef;
+}
 .st-metabox-tabs .st-metabox-nav {
   padding: .2em .1em .2em .2em;
 }
@@ -2286,7 +2335,7 @@ label[for=wpbooking_locationdiv-hide] {
   color: #ec8223;
   margin-right: 10px;
 }
-.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table tr td:hover.col-row-actions a {
+.st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table tr:hover .col-row-actions a {
   visibility: visible;
   opacity: 1;
 }
@@ -2296,4 +2345,19 @@ label[for=wpbooking_locationdiv-hide] {
 .st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table thead tr,
 .st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table tfoot tr {
   background: #e6e6e6;
+}
+.wb-autocomplete-wrap .select2-selection {
+  border: 1px solid #ccc;
+  border-radius: 0px;
+  min-width: 300px;
+  height: 30px;
+}
+.wb-autocomplete-wrap .select2-container {
+  min-width: 300px;
+}
+.wb-autocomplete-wrap .select2-selection__choice {
+  border-radius: 0px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  padding: 2px 5px;
 }
