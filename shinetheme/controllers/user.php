@@ -116,10 +116,11 @@ if (!class_exists('WPBooking_User')) {
         {
 
             // Check Profile Tabs, check is not author, can't view profile
-            if( get_query_var('tab') == "profile"){
+            if(get_query_var('tab') == "profile" and WPBooking_Input::request('user_id'))
+            {
 
-            }else{
-                if (is_user_logged_in() and !current_user_can('publish_posts')) {
+            } else {
+                if (is_user_logged_in() and get_query_var('tab') == 'profile' and !current_user_can('publish_posts')) {
                     wp_safe_redirect(get_permalink(wpbooking_get_option('myaccount-page')));
                     die;
                 }
