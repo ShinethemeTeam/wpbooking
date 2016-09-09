@@ -6,8 +6,8 @@ if(get_query_var('update-profile')){
 }
 $update_profile=get_permalink(wpbooking_get_option('myaccount-page')).'update-profile/'.get_current_user_id();
 $link_my_profile=get_permalink(wpbooking_get_option('myaccount-page')).'/tab/profile/';
-$my_id = $current_user->ID;
-$user_id = WPBooking_Input::request('user_id',$my_id);
+$my_user_id = $current_user->ID;
+$user_id = WPBooking_Input::request('user_id',$my_user_id);
 $current_user = get_userdata( $user_id );
 ?>
 <h3 class="tab-page-title">
@@ -58,7 +58,7 @@ $current_user = get_userdata( $user_id );
 
 			<div class="contact">
 				<?php
-				if($my_id != $user_id){
+				if($my_user_id != $user_id){
 				$url=WPBooking_User::inst()->account_page_url().'tab/inbox/';
 				$contact_now_url=add_query_arg(array('user_id'=>$user_id),$url);
 				?>
@@ -141,6 +141,8 @@ $current_user = get_userdata( $user_id );
 		if(!empty($res)){
 			foreach($res as $k=>$v){
 				echo '<li id="'.$v['comment_ID'].'">';
+				$v['my_user_id'] = $my_user_id;
+				$v['user_id'] = $user_id;
 				echo wpbooking_load_view('/single/review/item-2',array('data'=>$v));
 				$children_comment=$comment->join('posts','posts.ID=comments.comment_post_ID')
 					->where(array(
@@ -155,6 +157,8 @@ $current_user = get_userdata( $user_id );
 					foreach($children_comment as $key=>$value){
 						echo '<ol class="comment-list children">';
 						$value['children'] = $v['comment_ID'];
+						$value['my_user_id'] = $my_user_id;
+						$value['user_id'] = $user_id;
 						echo wpbooking_load_view('/single/review/item-2',array('data'=>$value));
 						echo "</ol>";
 					}

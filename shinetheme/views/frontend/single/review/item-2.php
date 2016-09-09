@@ -3,7 +3,6 @@ if(empty($data['comment_ID'])) return;
 $service=new WB_Service($data['comment_post_ID']);
 $reply_allow=wpbooking_review_allow_reply($data['comment_ID']);
 ?>
-
 	<div class="comment_container" id="comment-<?php echo esc_attr($data['comment_ID']) ?>">
 		<footer class="comment-meta">
 			<div class="comment-author vcard">
@@ -70,7 +69,7 @@ $reply_allow=wpbooking_review_allow_reply($data['comment_ID']);
 					echo "<span class='wp-show-detail-review'><span class='more'>".esc_html__('More','wpbooking')." <i class='fa fa-angle-double-down'></i></span><span class='less'>".esc_html__('Less','wpbooking')." <i class='fa fa-angle-double-up'></i></span></span>";
 					echo "</div>";
 				}
-				if($service->enable_vote_for_review($data['comment_ID']) and !$data['comment_parent']){
+				if($service->enable_vote_for_review($data['comment_ID']) and !$data['comment_parent'] AND $data['user_id'] == $data['my_user_id']){
 					$count=wpbooking_count_review_vote($data['comment_ID']);
 					$liked=wpbooking_user_liked_review($data['comment_ID'])?'active':FALSE;
 					?>
@@ -87,7 +86,7 @@ $reply_allow=wpbooking_review_allow_reply($data['comment_ID']);
 					//printf('<div class="wpbooking-vote-for-review">%s <span class="review-vote-count">%s</span> <a data-review-id="%s" class="review-do-vote %s"><i class="fa fa-thumbs-o-up"></i></a></div>',esc_html__('Was this review helpful?','wpbooking'),($count)?sprintf(esc_html__('%d like this','wpbooking'),$count):FALSE,$data['comment_ID'],$liked);
 				}
 				?>
-				<?php if(empty($data['children'])){ ?>
+				<?php if(empty($data['children']) AND $data['user_id'] == $data['my_user_id']){ ?>
 					<hr>
 					<div class="comment-control">
 						<?php if($service->enable_vote_for_review($data['comment_ID']) and !$data['comment_parent']){
@@ -96,7 +95,7 @@ $reply_allow=wpbooking_review_allow_reply($data['comment_ID']);
 							<div data-review-id="<?php echo esc_html($data['comment_ID']) ?>" class="review-do-vote <?php echo esc_html($liked) ?>"> <i class="fa fa-thumbs-up "></i> <?php esc_html_e('Like','wpbooking'); ?></div>
 						<?php } ?>
 
-						<?php if($reply_allow){ ?>
+						<?php if($reply_allow AND $data['user_id'] == $data['my_user_id']){ ?>
 							<div onclick="return false" class="wb-btn-reply-comment"> <i class="fa fa-comment "></i> <?php esc_html_e('Reply','wpbooking'); ?></div>
 						<?php } ?>
 					</div>
@@ -105,7 +104,7 @@ $reply_allow=wpbooking_review_allow_reply($data['comment_ID']);
 			endif; ?>
 		</div><!-- .comment-content -->
 	</div>
-	<?php if($reply_allow) {?>
+	<?php if($reply_allow AND $data['user_id'] == $data['my_user_id']) {?>
 		<ul>
 			<li class="reply-comment-form">
 				<div class="comment_container">
