@@ -103,7 +103,7 @@ $current_user = get_userdata( $user_id );
 <div class="user-reviews">
 	<?php
 	global $wpdb;
-	$page=WPBooking_Input::request('wp_paged',1);
+	$page=WPBooking_Input::request('page_number',1);
 	$limit=5;
 	$offset=($page-1)*$limit;
 	$comment=WPBooking_Comment_Model::inst();
@@ -123,7 +123,7 @@ $current_user = get_userdata( $user_id );
 	$total=ceil($total_item/$limit);
 	$paging=array();
 	$paging['base']=$link_my_profile.'%_%';
-	$paging['format']='?wp_paged=%#%';
+	$paging['format']='?page_number=%#%';
 	$paging['total']=$total;
 	$paging['current']=$page;
 	?>

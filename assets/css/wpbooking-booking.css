@@ -3284,12 +3284,26 @@
   background: #f2f2f2;
   padding: 40px 15px;
 }
+.wpbooking-myaccount-wrap .wpbooking-account-tab.your_wishlist .wpbooking-account-services .lable {
+  margin-bottom: 20px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.your_wishlist .wpbooking-account-services .service-fav {
+  border: none;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.your_wishlist .wpbooking-account-services .service-fav.active i {
+  color: #f0ad4e;
+}
 .wpbooking-myaccount-wrap .wpbooking-account-tab.your_wishlist .wpbooking-account-services .service-fav i {
   color: #e6e6e6;
   font-size: 24px;
   left: 3px;
   text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;
   top: 2px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.your_wishlist .wpbooking-account-services .service-fav i:hover,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.your_wishlist .wpbooking-account-services .service-fav i:focus,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.your_wishlist .wpbooking-account-services .service-fav i.active {
+  color: #f0ad4e;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.your_wishlist .wpbooking-account-services .service-item {
   margin-bottom: 15px;
