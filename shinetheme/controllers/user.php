@@ -1144,8 +1144,10 @@ if (!class_exists('WPBooking_User')) {
          */
         function _change_profile_avatar($avatar, $id_or_email, $args ){
             if ( ! is_numeric( $id_or_email ) ) {
-                $id_or_email = get_user_by('email',$id_or_email);
-                $id_or_email = $id_or_email->ID;
+                $data = get_user_by('email',$id_or_email);
+                if(!empty($data->ID)){
+                    $id_or_email = $data->ID;
+                }
             }
             $gravatar_pic_url = get_user_meta($id_or_email, 'avatar', true);
             if(!empty($gravatar_pic_url)){
