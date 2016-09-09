@@ -6,7 +6,7 @@
  * Time: 11:11 AM
  */
 global $current_user;
-$user_id = WPBooking_Input::request('user_id',get_the_author_meta( 'ID' ));
+$user_id = $current_user->ID;
 ?>
 <form action="" method="post">
 	<input type="hidden" name="action" value="wpbooking_update_profile">

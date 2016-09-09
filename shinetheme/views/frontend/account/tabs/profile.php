@@ -1,12 +1,13 @@
 <?php
+global $current_user;
 if(get_query_var('update-profile')){
 	echo wpbooking_load_view('account/update-profile');
 	return;
 }
 $update_profile=get_permalink(wpbooking_get_option('myaccount-page')).'update-profile/'.get_current_user_id();
 $link_my_profile=get_permalink(wpbooking_get_option('myaccount-page')).'/tab/profile/';
-$my_id = get_the_author_meta( 'ID' );
-$user_id = WPBooking_Input::request('user_id',get_the_author_meta( 'ID' ));
+$my_id = $current_user->ID;
+$user_id = WPBooking_Input::request('user_id',$my_id);
 $current_user = get_userdata( $user_id );
 ?>
 <h3 class="tab-page-title">

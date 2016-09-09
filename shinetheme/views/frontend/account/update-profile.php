@@ -6,7 +6,6 @@
  * Time: 11:11 AM
  */
 global $current_user;
-get_currentuserinfo();
 ?>
 <div class="row">
 

@@ -1,6 +1,6 @@
 <?php
 global $current_user;
-$user_id = WPBooking_Input::request('user_id',get_the_author_meta( 'ID' ));
+$user_id = $current_user->ID;
 global $wpdb;
 $page=WPBooking_Input::request('page_number',1);
 $limit=2;
