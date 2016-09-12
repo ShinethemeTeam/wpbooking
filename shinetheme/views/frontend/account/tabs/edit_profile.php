@@ -196,25 +196,25 @@ $user_id = $current_user->ID;
 				<div class="col-sm-12">
 					<div class="form-group">
 						<label for="u_facebook"><?php esc_html_e('Facebook','wpbooking') ?></label>
-						<input type="text"  class="form-control" id="u_facebook" name="u_facebook" value="<?php echo WPBooking_Input::post('u_facebook',get_user_meta(get_current_user_id(),'facebook',true)) ?>" >
+						<input type="text"  class="form-control" id="u_facebook" name="u_facebook" value="<?php echo WPBooking_Input::post('u_facebook',get_user_meta(get_current_user_id(),'profile_facebook',true)) ?>" >
 					</div>
 				</div>
 				<div class="col-sm-12">
 					<div class="form-group">
 						<label for="u_twitter"><?php esc_html_e('Twitter','wpbooking') ?></label>
-						<input type="text"  class="form-control" id="u_twitter" name="u_twitter" value="<?php echo WPBooking_Input::post('u_twitter',get_user_meta(get_current_user_id(),'twitter',true)) ?>" >
+						<input type="text"  class="form-control" id="u_twitter" name="u_twitter" value="<?php echo WPBooking_Input::post('u_twitter',get_user_meta(get_current_user_id(),'profile_twitter',true)) ?>" >
 					</div>
 				</div>
 				<div class="col-sm-12">
 					<div class="form-group">
 						<label for="u_google_plus"><?php esc_html_e('Google +','wpbooking') ?></label>
-						<input type="text"  class="form-control" id="u_google_plus" name="u_google_plus" value="<?php echo WPBooking_Input::post('u_google_plus',get_user_meta(get_current_user_id(),'google_plus',true)) ?>" >
+						<input type="text"  class="form-control" id="u_google_plus" name="u_google_plus" value="<?php echo WPBooking_Input::post('u_google_plus',get_user_meta(get_current_user_id(),'profile_google_plus',true)) ?>" >
 					</div>
 				</div>
 				<div class="col-sm-12">
 					<div class="form-group">
 						<label for="u_about_me"><?php esc_html_e('About me','wpbooking') ?></label>
-						<textarea name="u_about_me"  class="form-control" id=u_about_me" cols="30" rows="4" placeholder="<?php esc_html_e("Notes about your property or yourself",'wpbooking') ?>"><?php echo WPBooking_Input::post('u_about_me',get_user_meta(get_current_user_id(),'about_me',true)) ?></textarea>
+						<textarea name="u_about_me"  class="form-control" id=u_about_me" cols="30" rows="4" placeholder="<?php esc_html_e("Notes about your property or yourself",'wpbooking') ?>"><?php echo WPBooking_Input::post('u_about_me',get_user_meta(get_current_user_id(),'description',true)) ?></textarea>
 					</div>
 				</div>
 				<div class="col-md-12">
