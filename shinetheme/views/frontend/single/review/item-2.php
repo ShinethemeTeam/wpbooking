@@ -87,7 +87,7 @@ $reply_allow=wpbooking_review_allow_reply($data['comment_ID']);
 						//printf('<div class="wpbooking-vote-for-review">%s <span class="review-vote-count">%s</span> <a data-review-id="%s" class="review-do-vote %s"><i class="fa fa-thumbs-o-up"></i></a></div>',esc_html__('Was this review helpful?','wpbooking'),($count)?sprintf(esc_html__('%d like this','wpbooking'),$count):FALSE,$data['comment_ID'],$liked);
 					}
 					?>
-					<?php if(empty($data['children']) AND $data['user_id'] == $data['my_user_id']){ ?>
+					<?php if(empty($data['children'])){ ?>
 					<hr>
 					<div class="comment-control">
 						<?php if($service->enable_vote_for_review($data['comment_ID']) and !$data['comment_parent']){
