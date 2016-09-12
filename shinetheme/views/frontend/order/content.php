@@ -44,6 +44,10 @@ do_action('wpbooking_before_order_content');
 			<span class="head-info-content"><?php echo esc_html($order->get_booking_date()) ?></span>
 		</div>
 		<div class="head-info">
+			<span class="head-info-title"><?php  esc_html_e('Total:','wpbooking')?></span>
+			<span class="head-info-content"><?php echo WPBooking_Currency::format_money($order->get_total(array('without_deposit'=>true))) ?></span>
+		</div>
+		<div class="head-info">
 			<span class="head-info-title"><?php  esc_html_e('Payment method:','wpbooking')?></span>
 			<span class="head-info-content"><?php echo esc_html($order->get_payment_gateway()) ?></span>
 		</div>

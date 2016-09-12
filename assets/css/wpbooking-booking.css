@@ -3900,3 +3900,20 @@
 .twentythirteen .order-information-table th {
   text-transform: none;
 }
+.twentythirteen .wb-btn:hover {
+  color: white;
+}
+.twentythirteen .wpbooking-account-table {
+  border-right: 1px solid #ededed;
+}
+.twentythirteen .wpbooking-account-table td,
+.twentythirteen .wpbooking-account-table th {
+  border-top: 1px solid #ededed;
+  border-left: 1px solid #ededed;
+}
+.twentythirteen .user-reviews .comment-list > li:after {
+  display: none;
+}
+.twentythirteen .wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form .message-input textarea {
+  width: 100%;
+}

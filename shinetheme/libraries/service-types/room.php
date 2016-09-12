@@ -426,6 +426,16 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
             return $is_validated;
         }
 
+        /**
+         * Validate Duplicate Cart Item -  Checkin - Checkout Validate
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $cart_item
+         * @param bool $cart_item_key
+         * @return bool
+         */
         function validate_cart_duplicate($cart_item, $cart_item_key = false)
         {
             $cart_item = wp_parse_args($cart_item,
@@ -438,6 +448,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
             $carts = WPBooking_Order::inst()->get_cart();
             if (!empty($carts)) {
+
                 foreach ($carts as $key => $cart) {
                     $cart = wp_parse_args($cart,
                         array(
@@ -448,7 +459,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                     if ($cart_item_key and $cart_item_key == $key) continue;
 
                     if ($cart['check_in_timestamp'] and $cart['check_out_timestamp']) {
-                        if ($cart['post_id'] == $cart_item['post_id'] and $cart['check_in_timestamp'] == $cart_item['check_in_timestamp'] and $cart['check_out_timestamp'] == $cart_item['check_out_timestamp']) {
+                        if ($cart['post_id'] == $cart_item['post_id'] and
+                                (
+                                    ($cart['check_in_timestamp'] >= $cart_item['check_in_timestamp'] and $cart['check_in_timestamp'] >= $cart_item['check_out_timestamp']) or
+                                    ($cart['check_in_timestamp']<$cart_item['check_in_timestamp']  and  $cart_item['check_in_timestamp']<=$cart['check_out_timestamp'])
+                                )
+                            ) {
 
                             return false;
                         }
@@ -902,25 +918,25 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
             }
 
+            /**
+             * Calculate Total Price without Deposit
+             */
+            $extra_html[] = sprintf("<li class='field-item %s'>
+												<span class='field-title'>%s:</span>
+												<span class='field-value'>%s</span>
+											</li>",
+                'tax',
+                esc_html__('Total', 'wpbooking'),
+                WPBooking_Order::inst()->get_cart_item_total_html($cart_item, array(
+                    'without_deposit' => TRUE
+                ))
+            );
 
             /**
              * Calculate Deposit
              */
             if (!empty($cart_item['deposit_amount']) and !empty($cart_item['deposit_type'])) {
 
-                /**
-                 * Calculate Total Price without Deposit
-                 */
-                $extra_html[] = sprintf("<li class='field-item %s'>
-												<span class='field-title'>%s:</span>
-												<span class='field-value'>%s</span>
-											</li>",
-                    'tax',
-                    esc_html__('Total', 'wpbooking'),
-                    WPBooking_Order::inst()->get_cart_item_total_html($cart_item, array(
-                        'without_deposit' => TRUE
-                    ))
-                );
 
                 switch ($cart_item['deposit_type']) {
                     case "percent":
