@@ -11,7 +11,7 @@ if(!function_exists('wpbooking_email_order_status_func'))
 	{
 		$order_id=WPBooking()->get('order_id');
 		if(!$order_id){
-			return '<label class="alert alert-information">'.esc_html_e('Status','wpbooking').'</label>';
+			return '<label class="alert alert-information">'.esc_html__('Status','wpbooking').'</label>';
 		}
 		$order=new WB_Order($order_id);
         return $order->get_status_html();

@@ -56,7 +56,7 @@ if (!class_exists('WPBooking_Email')) {
                 'order_form_field'      => esc_html__('Form Value', 'wpbooking'),
                 'checkout_form_field'   => esc_html__('Form Value', 'wpbooking'),
                 'order_id'              => '#111',
-                'order_status'          => '<label class="alert alert-information">' . esc_html_e('Status', 'wpbooking') . '</label>',
+                'order_status'          => '<label class="alert alert-information">' . esc_html__('Status', 'wpbooking') . '</label>',
                 'order_total'           => '100$',
                 'order_payment_gateway' => 'PayPal',
                 'order_date'            => date(get_option('date_format'))
