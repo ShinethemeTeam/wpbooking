@@ -5,10 +5,11 @@
  * Date: 6/22/2016
  * Time: 3:32 PM
  */
+$full_url =  $current_url="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 ?>
 <form action="" method="post" id="wpbooking-login-form" class="login-register-form">
 	<input type="hidden"  name="action" value="wpbooking_do_login">
-
+	<input type="hidden" name="url" value="<?php echo esc_url($full_url) ?>">
 	<h3 class="form-title"><?php esc_html_e('Login','wpbooking') ?></h3>
 	<div class="form-group-wrap">
 		<div class="form-group">
