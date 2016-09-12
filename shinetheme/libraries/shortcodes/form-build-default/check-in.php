@@ -121,11 +121,11 @@ if (!class_exists('WPBooking_Form_Check_In_Field')) {
 			}
 
 
-			$html=array();
+			$html=array('<div class="wb-field-datepicker wb-field">');
 			if(!empty($data['title'])){
 				$html[]=sprintf('<p><label>%s</label></p>',wpbooking_get_translated_string($data['title']));
 			}
-			$html[]= '<div class="wb-field-datepicker wb-field"><label><input readonly type="text" '.$a.' /><i class="fa fa-calendar"></i></label></div>';
+			$html[]= '<label><input readonly type="text" '.$a.' /><i class="fa fa-calendar"></i></label></div>';
 
 			return implode("\r\n",$html);
 		}

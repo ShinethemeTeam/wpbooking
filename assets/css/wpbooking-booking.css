@@ -210,6 +210,9 @@
 .wpbooking-search-form .item-search.datepicker-field .item-search-content {
   position: relative;
 }
+.wpbooking-search-form .item-search.datepicker-field .item-search-content label {
+  display: block;
+}
 .wpbooking-search-form .item-search.datepicker-field .item-search-content label i {
   position: absolute;
   top: 8px;
@@ -3822,4 +3825,66 @@
 }
 .wpbooking-switch-wrap .wpbooking-switch.switchOn:after {
   left: 30px !important;
+}
+.twentythirteen .wpbooking-container {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.twentythirteen .wpbooking-loop-items {
+  padding-left: 0px;
+}
+.twentythirteen .wpbooking-loop-items .loop-item .content-item .service-content .wpbooking-room-type a {
+  margin: 2px 0px;
+}
+.twentythirteen .comment-section .comment-reply-title {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.twentythirteen .comment-section .comment-respond .comment-form {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.twentythirteen .comment-section .comment-respond .comment-form label {
+  display: block;
+}
+.twentythirteen .col-service-title {
+  width: 100%;
+  margin-bottom: 30px;
+}
+.twentythirteen .col-order-form {
+  width: 100%;
+  margin-bottom: 30px;
+}
+.twentythirteen .col-order-form .service-order-form .order-form-content .wpbooking_order_form:before,
+.twentythirteen .col-order-form .service-order-form .order-form-content .wpbooking_order_form:after {
+  display: table;
+  content: " ";
+}
+.twentythirteen .col-order-form .service-order-form .order-form-content .wpbooking_order_form:after {
+  clear: both;
+}
+.twentythirteen .col-order-form .service-order-form .order-form-content input[type=text] {
+  width: 100%;
+}
+.twentythirteen .col-order-form .service-order-form .order-form-content .wb-field {
+  width: 50%;
+  float: left;
+  padding: 0px 10px;
+}
+.twentythirteen .col-order-form .service-order-form .order-form-content .wb-field label {
+  position: relative;
+}
+.twentythirteen .col-order-form .service-order-form .order-form-content [type=submit] {
+  clear: both;
+  display: block;
+  margin-left: 10px;
+}
+.twentythirteen .order-information-table {
+  border-right: 1px solid #ededed;
+}
+.twentythirteen .order-information-table td,
+.twentythirteen .order-information-table th {
+  padding: 10px;
+  border-top: 1px solid #ededed;
+  border-left: 1px solid #ededed;
 }
