@@ -105,6 +105,7 @@ $data_current_user = get_userdata( $user_id );
 	<?php
 	global $wpdb;
 	$page=WPBooking_Input::request('page_number',1);
+	if($page < 1)$page=1;
 	$limit=5;
 	$offset=($page-1)*$limit;
 	$comment=WPBooking_Comment_Model::inst();
