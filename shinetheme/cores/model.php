@@ -299,7 +299,18 @@ if (!class_exists('WPBooking_Model')) {
 			return $this;
 		}
 
-		function get($limit=FALSE,$offset=FALSE)
+        /**
+         * Run Get Query and store the result
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param bool $limit
+         * @param bool $offset
+         * @param string $result_type
+         * @return $this
+         */
+		function get($limit=FALSE,$offset=FALSE,$result_type=ARRAY_A)
 		{
 			if($limit){
 				$this->limit($limit,$offset);
@@ -307,10 +318,23 @@ if (!class_exists('WPBooking_Model')) {
 			global $wpdb;
 			$query = $this->_get_query();
 			$this->_last_query = $query;
-			$this->_last_result = $wpdb->get_results($query, ARRAY_A);
+			$this->_last_result = $wpdb->get_results($query, $result_type);
 
 			return $this;
 		}
+
+        /**
+         * Change Table Name of Current Model
+         *
+         * @param bool $table_name
+         */
+		function table($table_name=false){
+		    if($table_name){
+		        $this->table_name=$table_name;
+            }
+
+            return $this;
+        }
 
 		/**
 		 * Return first row of last query result

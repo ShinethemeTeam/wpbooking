@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
 if (!class_exists('WPBooking_Order')) {
-	class WPBooking_Order
+	class WPBooking_Order extends WPBooking_Controller
 	{
 		static $_inst;
 
@@ -36,6 +36,14 @@ if (!class_exists('WPBooking_Order')) {
 			 * @since 1.0
 			 */
 			add_action('init', array($this, '_handle_confirmation'));
+
+            /**
+             * Register Ajax Apply Coupon
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('wp_ajax_wpbooking_apply_coupon',array($this,'_apply_coupon'));
 		}
 
 
@@ -355,6 +363,94 @@ if (!class_exists('WPBooking_Order')) {
 			die;
 		}
 
+        /**
+         * Ajax Apply Coupon Code
+         *
+         * @since 1.0
+         * @author dungdt
+         */
+		function _apply_coupon()
+        {
+            $res=array('status'=>0);
+            if($coupon=$this->post('coupon')){
+                $is_validate=true;
+
+                $post=get_page_by_title($coupon,OBJECT,'wpbooking_coupon');
+
+                if($post){
+                    // Validate Start end End Date
+                    $coupon=new WB_Coupon($post->ID);
+
+                    $is_validate=$this->check_coupon_valid($coupon);
+
+                }else{
+                    $is_validate=false;
+                    wpbooking_set_message(__('<b>Error!</b> Your coupon is invalid.','wpbooking'),'error');
+                }
+
+                $is_validate=apply_filters('wpbooking_apply_coupon_validate',$is_validate,$coupon);
+
+                if($is_validate){
+                    $res['status']=1;
+                    wpbooking_set_message(__('<b>Successful!</b> Your coupon is applied.','wpbooking'),'success');
+
+                    $res['message']=wpbooking_get_message();
+
+                    // Store to Session
+                    WPBooking_Session::set('wpbooking_cart_coupon',$post->ID);
+
+                    do_action('wpbooking_after_apply_coupon',$coupon);
+
+                    $res['updated_content']=apply_filters('wpbooking_coupon_updated_content',array(
+                        '.review-cart-total'=>wpbooking_load_view('cart/cart-total-box')
+                    ));
+
+                }else{
+                    $res['message']=wpbooking_get_message();
+                }
+
+                $res=apply_filters('wpbooking_apply_coupon_result',$res,$is_validate,$coupon);
+            }
+            echo json_encode($res);
+            die;
+        }
+
+        /**
+         * Validate Coupon Object
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $coupon WB_Coupon
+         * @return bool
+         */
+        function check_coupon_valid($coupon){
+
+            $is_validate=true;
+            if(!$coupon->is_date_available()){
+                $is_validate=false;
+                wpbooking_set_message(__('<b>Error!</b> Your coupon is unavailable at this time.','wpbooking'),'error');
+            }
+
+            if(!$coupon->check_minimum_spend()){
+                $is_validate=false;
+                wpbooking_set_message(sprintf(__('<b>Error!</b> Minimum spend must be %s.','wpbooking'),WPBooking_Currency::format_money($coupon->get_meta('minimum_spend'))),'error');
+            }
+
+            if(!$coupon->check_usage_limit()){
+                $is_validate=false;
+                wpbooking_set_message(__('<b>Error!</b> Your coupon is reach the limit usage.','wpbooking'),'error');
+            }
+
+            return $is_validate;
+        }
+
+        /**
+         * Handler Action Delete Cart Item
+         *
+         * @since 1.0
+         * @author dungdt
+         */
 		function _delete_cart_item()
 		{
 			if (isset($_GET['delete_cart_item'])) {
@@ -403,44 +499,25 @@ if (!class_exists('WPBooking_Order')) {
 
 
 		/**
-		 * Get Total Pay Amount. Only for Instant Booking
+		 * Get Total amount of Cart Without Coupon
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $args array to filter the result
 		 * @return int|mixed|void
 		 */
-		function get_cart_pay_amount()
+		function get_cart_total($args=array())
 		{
-//			$price = 0;
-//			$cart = WPBooking_Session::get('wpbooking_cart', array());
-//			if (!empty($cart)) {
-//				foreach ($cart as $key => $value) {
-//
-//					if ($value['need_customer_confirm'] or $value['need_partner_confirm']) continue;
-//
-//					$item_price = $value['sub_total'];
-//					$item_price = apply_filters('wpbooking_cart_item_pay_amount', $item_price, $value);
-//					$item_price = apply_filters('wpbooking_cart_item_pay_amount_' . $value['service_type'], $item_price, $value);
-//
-//					$item_price = WPBooking_Currency::convert_money($item_price, array('currency' => $value['currency']));
-//
-//					$price += $item_price;
-//				}
-//			}
-//
-//			$price = apply_filters('wpbooking_get_cart_pay_amount', $price, $cart);
-//
-//			return $price;
-		}
+            $args=wp_parse_args($args,array(
+                'without_discount'=>true
+            ));
 
-		/**
-		 * Get Total amount of Cart
-		 * @return int|mixed|void
-		 */
-		function get_cart_total()
-		{
 			$price = 0;
 			$cart = WPBooking_Session::get('wpbooking_cart', array());
 			if (!empty($cart)) {
 				foreach ($cart as $key => $value) {
-					$price += $this->get_cart_item_total($value, TRUE);
+					$price += $this->get_cart_item_total($value, TRUE,$args);
 				}
 			}
 
@@ -473,8 +550,6 @@ if (!class_exists('WPBooking_Order')) {
 					'currency' => $cart_item['currency']
 				));
 			}
-
-
 			return $item_price;
 		}
 
@@ -494,6 +569,302 @@ if (!class_exists('WPBooking_Order')) {
 
 			return $price_html = WPBooking_Currency::format_money($item_price);
 		}
+
+        /**
+         * Get Cart Extra Price
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return double
+         */
+		function get_cart_extra_price(){
+            $price = 0;
+            $cart = $this->get_cart();
+            if (!empty($cart)) {
+                foreach ($cart as $key => $value) {
+                    $price += $this->get_cart_item_extra_price($value);
+                }
+            }
+
+            $price = apply_filters('wpbooking_get_cart_extra_price', $price, $cart);
+
+            return $price;
+        }
+
+        /**
+         * Get Cart Item Extra Price
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $cart_item
+         * @return int
+         */
+        function get_cart_item_extra_price($cart_item)
+        {
+
+            $service=new WB_Service($cart_item['post_id']);
+
+            $extra_services = $cart_item['extra_services'];
+            $default = $service->get_extra_services();
+            $extra_service_price = 0;
+            if (!empty($default)) {
+                foreach ($default as $key => $value) {
+                    if (!$value['money']) continue; // Ignore Money is empty
+                    // Check is required?
+                    if ($value['require'] == 'yes') {
+                        // Default Number is 1
+                        $number = !empty($extra_services[$key]['number']) ? $extra_services[$key]['number'] : 1;
+                        $extra_service_price += ($number * $value['money']);
+
+                    } elseif ($extra_services and array_key_exists($key, $extra_services) and $extra_services[$key]['number'] and !empty($extra_services[$key]['selected'])) {
+                        // If not required, check if user select it
+
+                        $number = $extra_services[$key]['number'];
+                        $extra_service_price += ($number * $value['money']);
+                    }
+
+
+                }
+            }
+
+            $extra_service_price=apply_filters('wpbooking_get_cart_item_extra_price',$extra_service_price,$cart_item,$service);
+
+
+            return $extra_service_price;
+        }
+
+        /**
+         * Get Cart Addition People Price
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return double
+         */
+        function get_cart_addition_price()
+        {
+            $price = 0;
+            $cart = $this->get_cart();
+            if (!empty($cart)) {
+                foreach ($cart as $key => $value) {
+                    $price += $this->get_cart_item_addition($value);
+                }
+            }
+
+            $price = apply_filters('wpbooking_get_cart_addition_price', $price, $cart);
+
+            return $price;
+        }
+
+        /**
+         * Get Cart Item Addition People Price
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $cart_item
+         * @return double
+         */
+        function get_cart_item_addition($cart_item){
+
+            $cart_item=wp_parse_args($cart_item,array(
+                'check_in_timestamp'=>false,
+                'check_out_timestamp'=>false,
+            ));
+            $days=0;
+            if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
+
+                $days = wpbooking_timestamp_diff_day($cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
+                if (!$days) $days = 1;
+
+            }
+            $price=0;
+
+            /**
+             * Calculate Additional Guest
+             */
+            if ($cart_item['enable_additional_guest_tax'] == 'on') {
+
+                //Additional Guest
+                if ($cart_item['guest'] and $cart_item['rate_based_on'] and $addition_money = $cart_item['additional_guest_money'] and $days) {
+                    $addition = ($cart_item['guest'] - $cart_item['rate_based_on']) * $addition_money * $days;
+
+                    if ($addition > 0) $price += $addition;
+                }
+
+            }
+
+            return $price;
+        }
+
+        /**
+         * Get Cart Discount Price
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return double
+         */
+        function get_cart_discount_price()
+        {
+           $cart = $this->get_cart();
+
+           $price = 0;
+            // Check if Coupon is for all services, only discount for cart
+           if($coupon_code=WPBooking_Order::inst()->get_cart_coupon()) {
+               $coupon = new WB_Coupon($coupon_code);
+               if ($coupon->get_type() == false or $coupon->get_type() == 'all') {
+                   if ($coupon_value = $coupon->get_value()) {
+                       switch ($coupon->get_value_type()) {
+                           case "percentage":
+                               $total_price = $this->get_cart_total();
+
+                               if ($coupon_value > 100) $coupon_value = 100;
+                               if ($coupon_value < 0) $coupon_value = 0;
+
+                               $price = $total_price * $coupon_value / 100;
+                               break;
+                           case "fixed_amount":
+                           default:
+                               $price = $coupon_value;
+                               break;
+                       }
+                   }
+
+               } else {
+
+                   if (!empty($cart)) {
+                       foreach ($cart as $key => $value) {
+                           $price += $this->get_cart_item_discount($value);
+                       }
+                   }
+               }
+           }
+
+
+            $price = apply_filters('wpbooking_get_cart_discount_price', $price, $cart);
+
+            return $price;
+        }
+
+
+        /**
+         * Get Cart Item Discount Price
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $cart_item
+         * @param $cart_item_price
+         * @return float|int|mixed
+         */
+        function get_cart_item_discount($cart_item,$cart_item_price=null)
+        {
+            $price=0;
+            if($coupon_code=WPBooking_Order::inst()->get_cart_coupon()){
+                $coupon=new WB_Coupon($coupon_code);
+
+                $possible=false;
+
+                if($coupon->get_type()=='specific_services'){
+                    $services=$coupon->get_services();
+                    if(!empty($services) and in_array($cart_item['post_id'],$services)){
+                        $possible=true;
+                    }
+                }
+
+                if($possible  and $coupon_value=$coupon->get_value()){
+                    switch ($coupon->get_value_type()){
+                        case "percentage":
+                            if($cart_item_price===null)
+                                $total_price=$this->get_cart_item_total($cart_item,false,array('without_discount'=>true));
+                            else $total_price=$cart_item_price;
+
+                            if($coupon_value>100) $coupon_value=100;
+                            if($coupon_value<0) $coupon_value=0;
+
+                            $price=$total_price*$coupon_value/100;
+                            break;
+                        case "fixed_amount":
+                        default:
+                            $price=$coupon_value;
+                            break;
+                    }
+                }
+            }
+
+            return $price;
+        }
+
+        /**
+         * Get Cart Tax Total
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return int|mixed|void
+         */
+        function get_cart_tax_price(){
+            $price = 0;
+            $cart = $this->get_cart();
+            if (!empty($cart)) {
+                foreach ($cart as $key => $value) {
+                    $price += $this->get_cart_item_tax($value);
+                }
+            }
+
+            $price = apply_filters('wpbooking_get_cart_tax_price', $price, $cart);
+
+            return $price;
+         }
+
+
+        /**
+         * Get Car Item Tax Price
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $cart_item
+         * @return int|mixed|void
+         */
+        function get_cart_item_tax($cart_item)
+        {
+            $cart_item=wp_parse_args($cart_item,array(
+                'enable_additional_guest_tax'=>false
+            ));
+            $price=0;
+
+            /**
+             * Calculate Additional Guest and Tax
+             */
+            if ($cart_item['enable_additional_guest_tax'] == 'on') {
+
+                $item_price=$this->get_cart_item_total($cart_item,true,array('without_tax'=>true,'without_deposit'=>true));
+                // Tax
+                if ($tax = $cart_item['tax'])
+                    $price = $item_price * ($tax / 100);
+            }
+
+            return $price;
+        }
+
+        function get_cart_paynow_price(){
+            $price = 0;
+            $cart = $this->get_cart();
+            if (!empty($cart)) {
+                foreach ($cart as $key => $value) {
+                    $price += $this->get_cart_item_total($value);
+                }
+            }
+            $price-=$this->get_cart_discount_price();
+
+            $price = apply_filters('wpbooking_get_cart_paynow_price', $price, $cart);
+
+            return $price;
+        }
 
 		/**
 		 * Get Order Form HTML based on Service Type ID
@@ -541,12 +912,31 @@ if (!class_exists('WPBooking_Order')) {
 			}
 		}
 
+        /**
+         * Get Checkout Form ID
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return bool|mixed|void
+         */
 		function get_checkout_form_id()
 		{
 			return wpbooking_get_option('checkout_form');
 		}
 
 
+        /**
+         * Get Applied Cart Coupon
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return null
+         */
+		function get_cart_coupon(){
+            return WPBooking_Session::get('wpbooking_cart_coupon');
+        }
 
 		/**
 		 * Get all cart items

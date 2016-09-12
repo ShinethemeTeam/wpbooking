@@ -36,13 +36,54 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="2"><?php _e('Total','wpbooking')?></td>
-			<td>$ 100.00</td>
+			<td colspan="3">
+				<div class="review-cart-total">
+				<span class="total-title">
+					<?php _e('Total Price:', 'wpbooking') ?>
+				</span>
+					<span class="total-amount">100$</span>
+
+					<span class="total-title">
+						<?php _e('Extra Price:', 'wpbooking') ?>
+					</span>
+					<span class="total-amount">50$</span>
+
+					<span class="total-title">
+						<?php _e('Addition:', 'wpbooking') ?>
+					</span>
+					<span class="total-amount">40$</span>
+
+					<span class="total-title">
+						<?php _e('Discount:', 'wpbooking') ?>
+					</span>
+					<span class="total-amount">-20$</span>
+
+					<span class="total-title">
+						<?php _e('Tax:', 'wpbooking') ?>
+					</span>
+					<span class="total-amount">80$</span>
+
+					<span class="total-line"></span>
+					<span class="total-title">
+					<?php _e('Total Amount:', 'wpbooking') ?>
+				</span>
+					<span class="total-amount big">250$</span>
+
+					<span class="total-title">
+						<?php _e('Deposit:', 'wpbooking') ?>
+					</span>
+					<span class="total-amount big">100$</span>
+
+					<span class="total-title">
+					<?php _e('Remain:', 'wpbooking') ?>
+					</span>
+					<span class="total-amount big">150$
+					</span>
+
+				</div>
+			</td>
 		</tr>
 		<tr>
-			<td colspan="2"><?php _e('Pay Amount','wpbooking')?></td>
-			<td>$ 50.00</td>
-		</tr>
 		<?php do_action('wpbooking_review_order_footer_preview') ?>
 	</tfoot>
 </table>

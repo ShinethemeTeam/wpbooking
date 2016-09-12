@@ -67,7 +67,8 @@ $autoload['model']=array(
 	'comments_model',
 	'inbox_model',
 	'user_favorite_model',
-	'review_helpful'
+	'review_helpful',
+    'query_model'
 );
 
 $autoload['widget']=array(

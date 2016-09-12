@@ -70,7 +70,7 @@ if (!class_exists('WPBooking_Admin_Coupon')) {
 
                     $action='insert';
 
-                    if($item_id=WPBooking_Input::post('item_id')){
+                    if($item_id=$this->post('item_id')){
                         // Update
                         $post['ID']=$item_id;
                         $coupon=wp_update_post($post);
@@ -89,28 +89,38 @@ if (!class_exists('WPBooking_Admin_Coupon')) {
 
                             switch ($key){
                                 case "start_date":
-                                    $start_time=WPBooking_Input::post('start_time','00:00');
-                                    if(!$start_time)$start_time='12:00';
-                                    $start_date=WPBooking_Input::post($key).' '.$start_time.' '.WPBooking_Input::post('start_ampm');
-                                    update_post_meta($coupon,'start_date_timestamp',strtotime($start_date));
+                                    if($this->post('start_date')){
 
-                                    update_post_meta($coupon,$key,WPBooking_Input::post($key));
+                                        $start_time=$this->post('start_time','00:00');
+                                        if(!$start_time)$start_time='12:00';
+                                        $start_date=$this->post($key).' '.$start_time.' '.$this->post('start_ampm');
+                                        update_post_meta($coupon,'start_date_timestamp',strtotime($start_date));
+
+                                    }else{
+                                        update_post_meta($coupon,'start_date_timestamp',false);
+                                    }
+
+
+                                    update_post_meta($coupon,$key,$this->post($key));
                                     break;
                                 case "end_date":
-                                    $start_time=WPBooking_Input::post('end_time','00:00');
-                                    if(!$start_time)$start_time='12:00';
-                                    $start_date=WPBooking_Input::post($key).' '.$start_time.' '.WPBooking_Input::post('end_ampm');
-                                    update_post_meta($coupon,'end_date_timestamp',strtotime($start_date));
+                                    if($this->post($key)){
+                                        $start_time=$this->post('end_time','00:00');
+                                        if(!$start_time)$start_time='12:00';
+                                        $start_date=$this->post($key).' '.$start_time.' '.$this->post('end_ampm');
+                                        update_post_meta($coupon,'end_date_timestamp',strtotime($start_date));
+                                    }else{
+                                        update_post_meta($coupon,'end_date_timestamp',false);
+                                    }
 
-                                    update_post_meta($coupon,$key,WPBooking_Input::post($key));
+
+                                    update_post_meta($coupon,$key,$this->post($key));
                                     break;
                                 default:
-                                    update_post_meta($coupon,$key,WPBooking_Input::post($key));
+                                    update_post_meta($coupon,$key,$this->post($key));
                                     break;
 
                             }
-
-
 
                         }
 

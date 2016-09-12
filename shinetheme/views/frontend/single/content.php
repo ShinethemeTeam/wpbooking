@@ -236,7 +236,7 @@ $service = new WB_Service();
 								<div
 									class="service-detail-title"><?php esc_html_e('Additional Guests / Taxes / Misc', 'wpbooking') ?></div>
 								<div class="service-detail-content">
-
+									<?php echo implode("\r\n",$addition_html) ?>
 								</div>
 							</div>
 						<?php } } ?>

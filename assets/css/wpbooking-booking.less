@@ -907,8 +907,8 @@
 // Cart Item Mini Cart
 .review-order-item{
     .clearfix;
-    padding: 4px;
-    background: white;
+    padding-bottom: 4px;
+    background: #f8f8f8;
     position: relative;
     margin-bottom: 10px;
     .review-order-item-img{
@@ -944,8 +944,11 @@
         border:none;
         font-size: 12px;
         color: #999;
+        right: 0px;
         top:0px;
-        right: 5px;
+        background: #e6e6e6;
+        text-align: center;
+        width: 20px;
         &:hover{
             text-decoration: none;
         }
@@ -2214,16 +2217,14 @@
 .wpbooking-cart-wrap{
     font-size: 14px;
     .wpbooking-cart-table-col{
-        background: #f2f2f2;
-        border-bottom:2px solid rgba(216,216,216,0.7);
         margin-bottom: 30px;
         table,tr{
-            border-top:1px solid white;
-            border-left:1px solid white
+            border-top:1px solid #e8e8e8;
+            border-left:1px solid #e8e8e8
         }
         td,th{
-            border-right:1px solid white;
-            border-bottom:1px solid white;
+            border-right:1px solid #e8e8e8;
+            border-bottom:1px solid #e8e8e8;
             padding: 10px;
             vertical-align: top;
         }
@@ -2261,6 +2262,10 @@
                         text-decoration: underline;
                     }
                 }
+            }
+            .service-address{
+              font-style: italic;
+              font-size: 14px;
             }
 
             .wpbooking-room-type{
@@ -2325,20 +2330,29 @@
         }
 
     }
-    .wpbooking-cart-summary-col{
 
-        border-bottom:2px solid rgba(216,216,216,0.7);
-        background: #f2f2f2;
-        text-align: right;
+    .wpbooking-cart-summary-col{
+        .clearfix;
+        border:1px solid #e8e8e8;
         padding: 20px;
-        .cart-summary-details{
-            list-style: none;
-            margin: 0px;
-            padding: 0px;
-            color: #333333;
-            margin-bottom: 20px;
-            font-size: 18px;
+        .col-coupon-form{
+          float: left;
+          width: 45%;
         }
+        .col-cart-summary{
+            text-align: right;
+            float: right;
+            width: 45%;
+            .cart-summary-details{
+                list-style: none;
+                margin: 0px;
+                padding: 0px;
+                color: #333333;
+                margin-bottom: 20px;
+                font-size: 18px;
+            }
+        }
+
     }
 }
 
@@ -2361,8 +2375,6 @@
         margin-right: 2%;
         .checkout-form-wrap{
             font-size: 14px;
-            background: #f2f2f2;
-            border-bottom:2px solid rgba(216,216,216,0.7);
             margin-bottom: 30px;
             padding:20px 15px;
 
@@ -2476,8 +2488,6 @@
     .wpbooking-checkout-review-order{
         width: 38%;
         float: left;
-        background: #f2f2f2;
-        border-bottom:2px solid rgba(216,216,216,0.7);
         margin-bottom: 30px;
         padding:15px 10px;
         .is_more_order{
@@ -2510,22 +2520,62 @@
                 }
             }
         }
-        .review-order-total{
-            .clearfix;
-            .total-title{
-                font-size: 14px;
-                float: left;
-                margin-top: 10px;
-            }
-            .total-amount{
-                font-size: 24px;
-                color: #666666;
-                float: right;
-            }
-        }
+
     }
 }
+.review-cart-total{
+  .clearfix;
+  .total-title{
+    clear: both;
+    font-size: 14px;
+    float: left;
+    margin-top: 10px;
+  }
+  .total-amount{
+    font-size: 14px;
+    color: #666666;
+    float: right;
+    margin-top: 10px;
 
+    &.big{
+      font-size: 20px;
+      margin-top: 5px;
+    }
+  }
+  .total-line{
+    clear: both;
+    height: 1px;
+    width: 100%;
+    background: #333;
+    margin: 10px 0px;
+    display: block;
+    margin-top: 15px;
+  }
+}
+.wpbooking-coupon-form{
+  .form-control{
+    border-radius: 0px;
+  }
+  .wb-coupon-apply{
+    background: #e6e6e6;
+    border-color: #cccccc;
+    cursor:pointer;
+    margin-top: 10px;
+    .loading{
+      display: none;
+
+    }
+    &:hover{
+      border-bottom:1px solid #cccccc ;
+    }
+  }
+
+  &.loading{
+    .loading{
+      display: inline-block;
+    }
+  }
+}
 // Order Details
 .single-wpbooking_order{
     .entry-header,
