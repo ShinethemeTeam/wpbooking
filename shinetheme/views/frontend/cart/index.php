@@ -15,9 +15,9 @@ echo wpbooking_get_message();
 				<tr>
 					<th class="small-col text-center">&nbsp;</th>
 					<th colspan="2" class="col-cart-item-info">
-						<?php _e('Property items','wpbooking') ?>
+						<?php _e('Service items','wpbooking') ?>
 					</th>
-					<th class="col-cart-item-type text-center"><?php _e('Property type','wpbooking')?></th>
+					<th class="col-cart-item-type text-center"><?php _e('Service type','wpbooking')?></th>
 					<th class="col-cart-item-price text-center"><?php _e('Total','wpbooking')?></th>
 				</tr>
 
@@ -41,14 +41,17 @@ echo wpbooking_get_message();
 									<td class="col-cart-item-img"><a href="<?php echo get_permalink($post_id)?>" target="_blank"><?php echo wp_kses($featured['thumb'],array('img'=>array('src'=>array(),'alt'=>array())))?></a></td>
 									<td class="col-cart-item-info">
 										<h4 class="service-name"><a href="<?php echo get_permalink($post_id)?>" target="_blank"><?php echo get_the_title($post_id)?></a></h4>
-										<?php do_action('wpbooking_cart_item_information',$value) ?>
-										<?php do_action('wpbooking_cart_item_information_'.$service_type,$value) ?>
+										<?php if($service->get_address()){
+											printf('<p class="service-address"><i class="fa fa-map-marker"></i> %s</p>',$service->get_address());
+										} ?>
+										<?php do_action('wpbooking_cart_item_information',$value,array('current_page'=>'cart')) ?>
+										<?php do_action('wpbooking_cart_item_information_'.$service_type,$value,array('current_page'=>'cart')) ?>
 									</td>
 									<td class="col-cart-item-type text-center">
 										<?php echo esc_html($service->get_type_name()) ?>
 									</td>
 									<td class="col-cart-item-price text-center">
-										<?php echo $booking->get_cart_item_total_html($value); ?>
+										<?php echo ($booking->get_cart_item_total_html($value)); ?>
 									</td>
 								</tr>
 
@@ -68,14 +71,22 @@ echo wpbooking_get_message();
 	</div>
 	<?php if(!empty($carts)){?>
 	<div class="wpbooking-cart-summary-col">
-		<div class="wpbooking-cart-summary">
-			<ul class="cart-summary-details">
-				<li><?php printf(__('Total: %s','wpbooking'),'<strong>'.WPBooking_Currency::format_money($booking->get_cart_total()).'</strong>') ?></li>
-				<?php do_action('wpbooking_cart_summary_details',$carts) ?>
-			</ul>
+		<div class="col-coupon-form">
+			<div class="wpbooking-coupon-form">
+				<div class="wb-message"></div>
+				<input type="text" class="form-control wb-coupon-code"
+					   placeholder="<?php esc_html_e('Enter coupon code', 'wpbooking') ?>">
+				<a type="button" class="wb-btn wb-btn-default wb-coupon-apply"><?php esc_html_e('Apply', 'wpbooking') ?>
+					<i class="loading fa fa-spinner fa-pulse fa-fw"></i></a>
+			</div>
+		</div>
+		<div class="col-cart-summary">
 
-			<div class="cart-summary-actions">
-				<a href="<?php echo esc_url($booking->get_checkout_url())?>" class="wb-btn wb-btn-blue"><?php _e('Checkout Now','wpbooking')?> <i class="fa fa-long-arrow-right"></i></a>
+			<div class="wpbooking-cart-summary">
+				<?php echo wpbooking_load_view('cart/cart-total-box') ?>
+				<div class="cart-summary-actions">
+					<a href="<?php echo esc_url($booking->get_checkout_url())?>" class="wb-btn wb-btn-blue"><?php _e('Checkout Now','wpbooking')?> <i class="fa fa-long-arrow-right"></i></a>
+				</div>
 			</div>
 		</div>
 	</div>

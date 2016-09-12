@@ -43,8 +43,74 @@ $items=$order->get_items();
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="2"><?php _e('Total','wpbooking')?></td>
-			<td><?php echo WPBooking_Currency::format_money($order->get_total());?></td>
+			<td colspan="3" class="text-right">
+				<div class="review-cart-total">
+				<span class="total-title">
+					<?php _e('Total Price:', 'wpbooking') ?>
+				</span>
+					<span class="total-amount"><?php echo WPBooking_Currency::format_money($order->get_total(array(
+							'without_deposit'        => true,
+							'without_tax'            => true,
+							'without_extra_price'    => true,
+							'without_addition_price' => false,
+
+						))); ?></span>
+
+					<?php if ($price = $order->get_extra_price()) { ?>
+						<span class="total-title">
+					<?php _e('Extra Price:', 'wpbooking') ?>
+				</span>
+						<span class="total-amount"><?php echo WPBooking_Currency::format_money($price); ?></span>
+					<?php } ?>
+
+					<?php if ($price = $order->get_addition_price()) { ?>
+						<span class="total-title">
+					<?php _e('Addition:', 'wpbooking') ?>
+				</span>
+						<span class="total-amount"><?php echo WPBooking_Currency::format_money($price); ?></span>
+					<?php } ?>
+
+					<?php if ($price = $order->get_discount_price()) { ?>
+						<span class="total-title">
+					<?php _e('Discount:', 'wpbooking') ?>
+				</span>
+						<span class="total-amount">-<?php echo WPBooking_Currency::format_money($price); ?></span>
+					<?php } ?>
+
+					<?php if ($price = $order->get_tax_price()) { ?>
+						<span class="total-title">
+					<?php _e('Tax:', 'wpbooking') ?>
+				</span>
+						<span class="total-amount"><?php echo WPBooking_Currency::format_money($price); ?></span>
+					<?php } ?>
+
+					<span class="total-line"></span>
+					<?php $total_amount = $order->get_total(array('without_deposit'=>true)); $discount=$order->get_discount_price();
+					$total_amount-=$discount;
+					?>
+					<span class="total-title">
+					<?php _e('Total Amount:', 'wpbooking') ?>
+				</span>
+					<span class="total-amount big"><?php echo WPBooking_Currency::format_money($total_amount); ?></span>
+
+					<?php if ($price = $order->get_paynow_price()) { ?>
+						<span class="total-title">
+						<?php _e('Deposit:', 'wpbooking') ?>
+					</span>
+						<span class="total-amount big"><?php echo WPBooking_Currency::format_money($price); ?></span>
+
+						<?php if ($total_amount - $price > 0) {
+							?>
+							<span class="total-title">
+							<?php _e('Remain:', 'wpbooking') ?>
+						</span>
+							<span
+								class="total-amount big"><?php echo WPBooking_Currency::format_money($total_amount - $price); ?></span>
+							<?php
+						} ?>
+					<?php } ?>
+				</div>
+			</td>
 		</tr>
 		<?php do_action('wpbooking_review_order_footer') ?>
 	</tfoot>

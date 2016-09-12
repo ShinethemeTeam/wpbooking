@@ -42,7 +42,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 			add_filter('wpbooking_service_need_customer_confirm', array($this, '_get_customer_confirm'), 10, 3);
 			add_filter('wpbooking_service_need_partner_confirm', array($this, '_get_partner_confirm'), 10, 3);
 
-			add_action('wpbooking_cart_item_information_' . $this->type_id, array($this, '_show_cart_item_information'));
+			add_action('wpbooking_cart_item_information_' . $this->type_id, array($this, '_show_cart_item_information'),10,2);
 			add_action('wpbooking_order_item_information_' . $this->type_id, array($this, '_show_order_item_information'),10,2);
 
 
