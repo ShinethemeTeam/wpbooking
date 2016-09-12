@@ -307,7 +307,7 @@ if (!class_exists('WB_Service')) {
 		 */
 		function do_favorite()
 		{
-			if ($this->ID and $user_id = is_user_logged_in()) {
+			if ($this->ID and $user_id = get_current_user_id()) {
 				if ($this->check_favorite($user_id)) {
 					$model = WPBooking_User_Favorite_Model::inst();
 					$model->where(array(
