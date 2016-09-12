@@ -850,7 +850,6 @@ if (!class_exists('WPBooking_User')) {
                         }
 
                         global $current_user;
-                        get_currentuserinfo();
 
                         if (!wp_check_password(WPBooking_Input::post('u_password'), $current_user->user_pass)) {
                             $is_validate = FALSE;
