@@ -779,7 +779,7 @@ if (!class_exists('WPBooking_Order')) {
                     switch ($coupon->get_value_type()){
                         case "percentage":
                             if($cart_item_price===null)
-                                $total_price=$this->get_cart_item_total($cart_item,false,array('without_discount'=>true));
+                                $total_price=$this->get_cart_item_total($cart_item,false,array('without_discount'=>true,'without_deposit'=>true));
                             else $total_price=$cart_item_price;
 
                             if($coupon_value>100) $coupon_value=100;

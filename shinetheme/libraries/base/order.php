@@ -195,7 +195,7 @@ if (!class_exists('WB_Order')) {
             $order_data = array(
                 'post_title'  => sprintf(__('New Order In %s', 'wpbooking'), date(get_option('date_format') . ' @' . get_option('time_format'))),
                 'post_type'   => 'wpbooking_order',
-                'post_status' => 'publish'
+                'post_status' => 'on-hold'
             );
             $order_id = wp_insert_post($order_data);
 
@@ -255,6 +255,12 @@ if (!class_exists('WB_Order')) {
         {
             if ($this->order_id) {
 
+                // Update Current Order
+                wp_update_post(array(
+                    'ID'=>$this->order_id,
+                    'post_status'=>'cancelled'
+                ));
+
                 // Update Status of Order Item in database
                 $order_model = WPBooking_Order_Model::inst();
                 $order_model->cancel_purchase($this->order_id);
@@ -270,6 +276,11 @@ if (!class_exists('WB_Order')) {
         function complete_purchase()
         {
             if ($this->order_id) {
+                // Update Current Order
+                wp_update_post(array(
+                    'ID'=>$this->order_id,
+                    'post_status'=>'completed'
+                ));
 
                 // Update Status of Order Item in database
                 $order_model = WPBooking_Order_Model::inst();
@@ -535,10 +546,8 @@ if (!class_exists('WB_Order')) {
         function get_item_discount($cart_item, $cart_item_price = null)
         {
             $price = 0;
-            var_dump($this->get_coupon_code());
             if ($coupon_code = $this->get_coupon_code()) {
                 $coupon_data = $this->get_coupon_data();
-                var_dump($coupon_data);
 
                 $possible = false;
 
@@ -651,5 +660,106 @@ if (!class_exists('WB_Order')) {
 
             return $price;
         }
+
+        /**
+         * Get Status of Current Order
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return bool|false|string
+         */
+        function get_status()
+        {
+            if($this->order_id){
+                return get_post_status($this->order_id);
+            }
+
+            return false;
+        }
+
+        /**
+         * Get HTML of Order Status
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return string
+         */
+        function get_status_html()
+        {
+            $status=$this->get_status();
+
+            if($status){
+                $all_status=WPBooking_Config::inst()->item('order_item_status');
+                if(array_key_exists($status,$all_status)){
+                    switch($status){
+                        case "on-hold":
+                            return sprintf('<label class="label label-warning">%s</label>',$all_status[$status]['label']);
+                            break;
+                        case "completed":
+                            return sprintf('<label class="label label-success">%s</label>',$all_status[$status]['label']);
+                            break;
+                        case "cancelled":
+                        case "refunded":
+                            return sprintf('<label class="label label-danger">%s</label>',$all_status[$status]['label']);
+                            break;
+
+                        default:
+                            return sprintf('<label class="label label-default">%s</label>',$all_status[$status]['label']);
+                            break;
+                    }
+                }else{
+                    return sprintf('<label class="label label-default">%s</label>',esc_html__('Unknown','wpbooking'));
+                }
+            }
+        }
+
+        /**
+         * Get Booking Date
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param null $format
+         * @return false|string
+         */
+        function get_booking_date($format=NULL)
+        {
+            if($this->order_id){
+                if(!$format) $format=get_option('date_format');
+
+                return get_the_time($format);
+            }
+        }
+
+        /**
+         * Gate Gateway Info or Gateway Object
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param string $need
+         * @return bool|mixed|object|string
+         */
+        function get_payment_gateway($need='label'){
+
+            if($this->order_id){
+                $gateway=get_post_meta($this->order_id,'wpbooking_selected_gateway',true);
+
+                if($gateway){
+                    $gateway_object=WPBooking_Payment_Gateways::inst()->get_gateway($gateway);
+                    if($gateway_object){
+                        if($need) return $gateway_object->get_info($need); else return $gateway_object;
+                    }else{
+                        return $gateway;
+                    }
+                }else{
+                    return esc_html__('Unknow','wpbooking');
+                }
+
+            }
+        }
+
     }
 }
