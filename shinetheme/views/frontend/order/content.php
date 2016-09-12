@@ -30,13 +30,29 @@ do_action('wpbooking_before_order_content');
 				printf(esc_html__('Booking details has been send to %s','wpbooking'),$email);
 			} ?></p>
 	</div>
-
-	<h3 class="section-title"><?php _e('BOOKING DETAIL','wpbooking')?></h3>
+	<div class="order-head-info">
+		<div class="head-info">
+			<span class="head-info-title"><?php  esc_html_e('ID:','wpbooking')?></span>
+			<span class="head-info-content hl">#<?php the_ID() ?></span>
+		</div>
+		<div class="head-info">
+			<span class="head-info-title"><?php  esc_html_e('Booking Status:','wpbooking')?></span>
+			<span class="head-info-content"><?php echo ($order->get_status_html()) ?></span>
+		</div>
+		<div class="head-info">
+			<span class="head-info-title"><?php  esc_html_e('Booking Date:','wpbooking')?></span>
+			<span class="head-info-content"><?php echo esc_html($order->get_booking_date()) ?></span>
+		</div>
+		<div class="head-info">
+			<span class="head-info-title"><?php  esc_html_e('Payment method:','wpbooking')?></span>
+			<span class="head-info-content"><?php echo esc_html($order->get_payment_gateway()) ?></span>
+		</div>
+	</div>
 <table class="order-information-table">
 	<thead>
 	<tr>
-		<th class="review-order-item-info" valign="top"><?php _e('Property Items','wpbooking')?></th>
-		<th class="review-order-item-type"><?php _e('Property Type','wpbooking')?></th>
+		<th class="review-order-item-info" valign="top"><?php _e('Service Items','wpbooking')?></th>
+		<th class="review-order-item-type"><?php _e('Service Type','wpbooking')?></th>
 		<th class="review-order-item-total"><?php _e('Total','wpbooking')?></th>
 	</tr>
 	</thead>
@@ -142,7 +158,7 @@ do_action('wpbooking_before_order_content');
 
 	if(!empty($checkout_form_data) and is_array($checkout_form_data)){?>
 	<div class="checkout-form-data">
-		<h3 class="section-title"><?php _e('Billing Details','wpbooking')?></h3>
+		<h3 class="section-title"><?php _e('Customer Information','wpbooking')?></h3>
 
 		<ul class="checkout-form-list">
 			<?php foreach($checkout_form_data as $key=>$value){

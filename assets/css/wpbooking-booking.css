@@ -2495,6 +2495,15 @@
   line-height: 36px;
   color: #333;
 }
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info {
+  margin-bottom: 30px;
+}
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .head-info {
+  padding: 5px 0px;
+}
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .head-info .hl {
+  color: #f0ad4e;
+}
 .single-wpbooking_order .wpbooking-order-detail-page .section-title {
   color: #333;
   font-size: 18px;
@@ -3887,4 +3896,7 @@
   padding: 10px;
   border-top: 1px solid #ededed;
   border-left: 1px solid #ededed;
+}
+.twentythirteen .order-information-table th {
+  text-transform: none;
 }
