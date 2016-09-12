@@ -2902,6 +2902,10 @@
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item:nth-child(4n+1) {
   clear: both;
 }
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item .item_thumbnail {
+  width: 150px;
+  height: 150px;
+}
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item .item_thumbnail img {
   background-color: #fff;
   border: 1px solid #ddd;
