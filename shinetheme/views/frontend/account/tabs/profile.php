@@ -1,24 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 7/7/2016
- * Time: 9:41 AM
- */
+global $current_user;
 if(get_query_var('update-profile')){
 	echo wpbooking_load_view('account/update-profile');
 	return;
 }
 $update_profile=get_permalink(wpbooking_get_option('myaccount-page')).'update-profile/'.get_current_user_id();
 $link_my_profile=get_permalink(wpbooking_get_option('myaccount-page')).'/tab/profile/';
-$my_id = get_the_author_meta( 'ID' );
-$user_id = WPBooking_Input::request('user_id',get_the_author_meta( 'ID' ));
+$my_user_id = $current_user->ID;
+$user_id = WPBooking_Input::request('user_id',$my_user_id);
 $current_user = get_userdata( $user_id );
 ?>
 <h3 class="tab-page-title">
 	<?php
-	$name = $current_user->first_name;
-	if(empty($name)) $name = $current_user->last_name;
+	$name = $current_user->last_name;
 	if(empty($name)) $name = $current_user->display_name;
 	if(!empty($name))
 	echo sprintf(esc_html__("Hello I'm %s",'wpbooking'),$name);
@@ -31,7 +25,13 @@ $current_user = get_userdata( $user_id );
 		</div>
 	</div>
 	<div class="info">
-		<h5 class="user-name"><?php echo esc_html($current_user->display_name) ?></h5>
+		<h5 class="user-name">
+			<?php
+			$name_full = $current_user->first_name.' '.$current_user->last_name;
+			if(empty($name_full)) $name_full = $current_user->display_name;
+			if(!empty($name_full))
+				 echo esc_html($name_full) ?>
+		</h5>
 		<div class="user-share">
 			<?php if(!empty($facebook = get_user_meta($user_id,'profile_facebook',true))){ ?>
 				<a href="<?php echo esc_url($facebook) ?>"><span class="fa fa-facebook"></span></a>
@@ -43,7 +43,7 @@ $current_user = get_userdata( $user_id );
 				<a href="<?php echo esc_url($google) ?>"><span class="fa fa-google-plus"></span></a>
 			<?php } ?>
 		</div>
-		<?php if(!empty($profile_address = get_user_meta($user_id,'profile_address',true))){ ?>
+		<?php if(!empty($profile_address = get_user_meta($user_id,'address',true))){ ?>
 			<div class="text-info"><?php echo esc_html($profile_address) ?></div>
 		<?php } ?>
 
@@ -58,11 +58,11 @@ $current_user = get_userdata( $user_id );
 
 			<div class="contact">
 				<?php
-				if($my_id != $user_id){
+				if($my_user_id != $user_id){
 				$url=WPBooking_User::inst()->account_page_url().'tab/inbox/';
 				$contact_now_url=add_query_arg(array('user_id'=>$user_id),$url);
 				?>
-				<a href="<?php echo esc_html($contact_now_url) ?>" class="btn btn-default">Contact</a>
+				<a href="<?php echo esc_html($contact_now_url) ?>" class="btn btn-default"><?php esc_html_e("Contact","wpbooking") ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -104,7 +104,7 @@ $current_user = get_userdata( $user_id );
 <div class="user-reviews">
 	<?php
 	global $wpdb;
-	$page=WPBooking_Input::request('wp_paged',1);
+	$page=WPBooking_Input::request('page_number',1);
 	$limit=5;
 	$offset=($page-1)*$limit;
 	$comment=WPBooking_Comment_Model::inst();
@@ -124,7 +124,7 @@ $current_user = get_userdata( $user_id );
 	$total=ceil($total_item/$limit);
 	$paging=array();
 	$paging['base']=$link_my_profile.'%_%';
-	$paging['format']='?wp_paged=%#%';
+	$paging['format']='?page_number=%#%';
 	$paging['total']=$total;
 	$paging['current']=$page;
 	?>
@@ -141,6 +141,8 @@ $current_user = get_userdata( $user_id );
 		if(!empty($res)){
 			foreach($res as $k=>$v){
 				echo '<li id="'.$v['comment_ID'].'">';
+				$v['my_user_id'] = $my_user_id;
+				$v['user_id'] = $user_id;
 				echo wpbooking_load_view('/single/review/item-2',array('data'=>$v));
 				$children_comment=$comment->join('posts','posts.ID=comments.comment_post_ID')
 					->where(array(
@@ -155,6 +157,8 @@ $current_user = get_userdata( $user_id );
 					foreach($children_comment as $key=>$value){
 						echo '<ol class="comment-list children">';
 						$value['children'] = $v['comment_ID'];
+						$value['my_user_id'] = $my_user_id;
+						$value['user_id'] = $user_id;
 						echo wpbooking_load_view('/single/review/item-2',array('data'=>$value));
 						echo "</ol>";
 					}

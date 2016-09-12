@@ -1175,6 +1175,7 @@ jQuery(document).ready(function($){
     $('.upload-avatar').each(function(){
         var me=$(this);
         me.find('.upload_input').change(function(){
+            var container = $(this).closest('.item_avatar');
             var formData = new FormData();
             formData.append('action','wpbooking_upload_avatar');
             formData.append('image',$(this)[0].files[0]);
@@ -1195,8 +1196,10 @@ jQuery(document).ready(function($){
                         me.find('.upload-message').html(data.message);
                     }
                     if(data.status && data.image){
-                        me.find('.image_url').val(data.image.url);
-                        me.append('<img class="uploaded_image_preview" alt="" src="'+data.image.url+'">');
+                        container.find(".image_url").val(data.image.url);
+                        container.find(".avatar img").attr("src",data.image.url);
+                        //me.find('.image_url').val(data.image.url);
+                        //me.append('<img class="uploaded_image_preview" alt="" src="'+data.image.url+'">');
                     }
                 },
                 error:function(e){

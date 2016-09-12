@@ -1041,7 +1041,7 @@
             right: 0;
             min-width: 100%;
             min-height: 100%;
-            font-size: 100px;
+           /* font-size: 100px;*/
             text-align: right;
             filter: alpha(opacity=0);
             opacity: 0;
@@ -3315,6 +3315,229 @@
                     }
                 }
             }
+        }
+
+        &.edit_profile{
+            .btn{
+                border-radius: 0px;
+            }
+            .dark_bg{
+                background: #f2f2f2;
+                padding: 13px 0px;
+            }
+            .item_profile{
+                &.item_avatar{
+                    .avatar{
+                        background: #d6d6d6 none repeat scroll 0 0;
+                        border-radius: 0;
+                        text-align: center;
+                        img{
+                            border: 2px solid #fff;
+                            border-radius: 50%;
+                            margin: 5px;
+                            width: 123px;
+                            height: 123px;
+                        }
+                    }
+                }
+                .text-info{
+                    color: #666666;
+                    font-size: 13px;
+                }
+                .avatar-control{
+                    margin-top: 10px;
+                    .btn{
+                        text-transform: none;
+                        margin-right: 20px;
+                    }
+                    .text-color{
+                        color: @maincolor;
+                        text-decoration: underline;
+                        border: none;
+                        font-style:italic
+                    }
+                    .upload-avatar{
+                        display: inline-block;
+                        position: relative;
+                    }
+                }
+                label{
+                    margin-bottom: 10px;
+                }
+                .form-control{
+                    border-radius: 0px;
+                }
+                select.form-control{
+                    width: auto;
+                }
+                select.form-control.country{
+                    width: 100%;
+                }
+                .birthday{
+                    select{
+                        display: inline-block;
+                    }
+                }
+                .btn-primary {
+                    background-color: #31b0d5;
+                    border-color: #31b0d5;
+                    text-transform: none;
+                }
+                .btn-primary.focus, .btn-primary:focus {
+                    background-color: #286090;
+                    border-color: #122b40;
+                    color: #fff;
+                }
+                .btn-primary:hover {
+                    background-color: #286090;
+                    border-color: #204d74;
+                    color: #fff;
+                }
+            }
+        }
+        &.change_password{
+            .tab-page-title {
+                font-size: 20px;
+                margin: 20px 0 25px;
+            }
+            .border{
+                color: #666666;
+                border: 1px solid #ebebeb;
+                padding: 15px 5px;
+            }
+            label{
+                padding-bottom: 7px;
+            }
+            .text-info{
+                padding-top: 15px;
+                padding-bottom: 20px;
+                color: #666666;
+            }
+            .btn{
+                text-transform: none;
+                border-radius: 0px;
+            }
+            .form-control{
+                border-radius: 0px;
+            }
+            .btn-primary {
+                background-color: #31b0d5;
+                border-color: #31b0d5;
+            }
+            .btn-primary.focus, .btn-primary:focus {
+                background-color: #286090;
+                border-color: #122b40;
+                color: #fff;
+            }
+            .btn-primary:hover {
+                background-color: #286090;
+                border-color: #204d74;
+                color: #fff;
+            }
+
+
+        }
+        &.your_wishlist{
+            .dark_bg{
+                background: #f2f2f2;
+                padding: 20px;
+            }
+
+            .service-filters{
+                margin:0px;
+                list-style: none;
+                padding:0px;
+                margin-bottom: 10px;
+                li{
+                    display: inline-block;
+                    margin-right: 1px;
+                    a{
+                        display: inline-block;
+                        background: white;
+                        padding:4px 15px;
+                        color: #333;
+                        border:1px solid #e9e9e9;
+                        &:hover{
+                            text-decoration: none;
+                        }
+                    }
+                    &.active,&:hover{
+                        a{
+                            background: #e6e6e6;
+                            border-color: #e6e6e6;
+                            border-bottom-color: #b8b8b8;
+                        }
+                    }
+                }
+            }
+            // Your Listing
+            .wpbooking-account-services{
+                background: #f2f2f2;
+                padding:40px 15px;
+                .lable{
+                    margin-bottom: 20px;
+                }
+                .service-fav {
+                    border: none;
+                    &.active i{
+                        color: @maincolor
+                    }
+                    i{
+                        color: #e6e6e6;
+                        font-size: 24px;
+                        left: 3px;
+                        text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;
+                        top: 2px;
+                        &:hover,&:focus,&.active{
+                            color: @maincolor
+                        }
+                    }
+                }
+                .service-item{
+                    margin-bottom: 15px;
+                    background: white;
+                    padding:5px 8px;
+                    position: relative;
+                    .clearfix;
+                    .service-img{
+                        float: left;
+                        margin-right: 10px;
+                        img{
+                            width: 90px;
+                            height: auto;
+                        }
+                    }
+                    .service-info{
+                        display: table;
+                        .service-title{
+                            margin:0px;
+                            margin-bottom: 5px;
+                            font-weight: normal;
+                            text-transform: none;
+                            font-size: 16px;
+                            a{
+                                border:none;
+                                &:hover{
+                                    text-decoration: none;
+                                    color: @maincolor;
+                                }
+                            }
+                        }
+                        .service-price{
+                            br{
+                                display: none;
+                            }
+                        }
+                    }
+                    .service-status
+                    {
+                        position: absolute;
+                        right:15px;
+                        top:10px;
+                    }
+                }
+            }
+
         }
 
         .subsubsub{

@@ -6,7 +6,6 @@
  * Time: 2:45 PM
  */
 global $current_user;
-get_currentuserinfo();
 $inbox=WPBooking_Inbox::inst();
 $users=$inbox->get_latest_message();
 $users=$inbox->filter_latest_message($users);

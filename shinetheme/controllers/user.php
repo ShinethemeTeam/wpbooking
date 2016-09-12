@@ -94,6 +94,14 @@ if (!class_exists('WPBooking_User')) {
              *
              */
             add_action('template_redirect', array($this, '_check_myaccount_page_permisison'));
+            /**
+             * Change avatar
+             *
+             * @since 1.0
+             * @author quandq
+             *
+             */
+            add_filter("pre_get_avatar",array($this, '_change_profile_avatar'),10,3);
 
         }
 
@@ -108,10 +116,16 @@ if (!class_exists('WPBooking_User')) {
         {
 
             // Check Profile Tabs, check is not author, can't view profile
-            if (is_user_logged_in() and get_query_var('tab') == 'profile' and !current_user_can('publish_posts')) {
-                wp_safe_redirect(get_permalink(wpbooking_get_option('myaccount-page')));
-                die;
+            if(get_query_var('tab') == "profile" and WPBooking_Input::request('user_id'))
+            {
+
+            } else {
+                if (is_user_logged_in() and get_query_var('tab') == 'profile' and !current_user_can('publish_posts')) {
+                    wp_safe_redirect(get_permalink(wpbooking_get_option('myaccount-page')));
+                    die;
+                }
             }
+
         }
 
         /**
@@ -743,10 +757,14 @@ if (!class_exists('WPBooking_User')) {
                         do_action('wpbooking_before_update_profile');
 
                         $validate = new WPBooking_Form_Validator();
-                        $validate->set_rules('u_avatar', esc_html__('Avatar', 'wpbooking'), 'max_length[500]');
-                        $validate->set_rules('u_display_name', esc_html__('Display Name', 'wpbooking'), 'required|max_length[255]');
+                        $validate->set_rules('u_fist_name', esc_html__('Fist name', 'wpbooking'), 'required|max_length[500]');
+                        $validate->set_rules('u_last_name', esc_html__('Fist name', 'wpbooking'), 'required|max_length[500]');
+
                         $validate->set_rules('u_email', esc_html__('Email', 'wpbooking'), 'required|max_length[255]|valid_email');
                         $validate->set_rules('u_phone', esc_html__('Phone Number', 'wpbooking'), 'required|max_length[255]');
+                        $validate->set_rules('u_country', esc_html__('Country', 'wpbooking'), 'required');
+                        $validate->set_rules('u_address', esc_html__('Address', 'wpbooking'), 'required');
+
 
                         $is_validate = TRUE;
                         $is_updated = FALSE;
@@ -762,17 +780,42 @@ if (!class_exists('WPBooking_User')) {
                             // Start Update
                             $is_updated = wp_update_user(array(
                                 'ID'           => get_current_user_id(),
-                                'display_name' => WPBooking_Input::post('u_display_name'),
-                                'user_email'   => WPBooking_Input::post('u_email')
+                                //'display_name' => WPBooking_Input::post('u_display_name'),
+                                'first_name' => WPBooking_Input::post('u_fist_name'),
+                                'last_name' => WPBooking_Input::post('u_last_name'),
+                                'user_email'   => WPBooking_Input::post('u_email'),
+                                'description'   => WPBooking_Input::post('u_about_me')
                             ));
 
                             if (is_wp_error($is_updated)) {
                                 wpbooking_set_message($is_updated->get_error_message(), 'danger');
                             } else {
                                 wpbooking_set_message(esc_html__('Updated Successfully', 'wpbooking'), 'success');
-                                // Update Success
-                                update_user_meta(get_current_user_id(), 'phone_number', WPBooking_Input::post('u_phone'));
-                                update_user_meta(get_current_user_id(), 'avatar', WPBooking_Input::post('u_avatar'));
+                                // Update meta user
+                                update_user_meta(get_current_user_id(), 'gender', WPBooking_Input::post('u_gender'));
+
+                                update_user_meta(get_current_user_id(), 'company_name', WPBooking_Input::post('u_company_name'));
+                                update_user_meta(get_current_user_id(), 'phone', WPBooking_Input::post('u_phone'));
+                                update_user_meta(get_current_user_id(), 'country', WPBooking_Input::post('u_country'));
+                                update_user_meta(get_current_user_id(), 'address', WPBooking_Input::post('u_address'));
+                                update_user_meta(get_current_user_id(), 'postcode', WPBooking_Input::post('u_postcode'));
+                                update_user_meta(get_current_user_id(), 'apt_unit', WPBooking_Input::post('u_apt_unit'));
+                                update_user_meta(get_current_user_id(), 'preferred_language', WPBooking_Input::post('u_preferred_language'));
+                                update_user_meta(get_current_user_id(), 'preferred_currency', WPBooking_Input::post('u_preferred_currency'));
+                                update_user_meta(get_current_user_id(), 'profile_facebook', WPBooking_Input::post('u_facebook'));
+                                update_user_meta(get_current_user_id(), 'profile_twitter', WPBooking_Input::post('u_twitter'));
+                                update_user_meta(get_current_user_id(), 'profile_google_plus', WPBooking_Input::post('u_google_plus'));
+                                //update_user_meta(get_current_user_id(), 'about_me', WPBooking_Input::post('u_about_me'));
+
+                                $u_birth_date_day = WPBooking_Input::post('u_birth_date_day');
+                                $u_birth_date_month = WPBooking_Input::post('u_birth_date_month');
+                                $u_birth_date_year = WPBooking_Input::post('u_birth_date_year');
+                                if(!empty($u_birth_date_day) and !empty($u_birth_date_month) and !empty($u_birth_date_year)){
+                                    $date = $u_birth_date_day."-".$u_birth_date_month."-".$u_birth_date_year;
+                                    update_user_meta(get_current_user_id(), 'birth_date', $date);
+                                }
+
+
                             }
                         }
 
@@ -1097,7 +1140,175 @@ if (!class_exists('WPBooking_User')) {
 
             return strtolower($randomString);
         }
-
+        /**
+         * Generate Change Avatar
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @return string
+         */
+        function _change_profile_avatar($avatar, $id_or_email, $args ){
+            if ( ! is_numeric( $id_or_email ) ) {
+                $data = get_user_by('email',$id_or_email);
+                if(!empty($data->ID)){
+                    $id_or_email = $data->ID;
+                }
+            }
+            $gravatar_pic_url = get_user_meta($id_or_email, 'avatar', true);
+            if(!empty($gravatar_pic_url)){
+                return '<img alt="avatar" width='.$args['width'].' height='.$args['height'].' src="'.$gravatar_pic_url.'" class="avatar" >';
+            }
+            return $avatar;
+        }
+        /**
+         * List Preferred Language
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @return array
+         */
+        function _get_list_preferred_language(){
+            $language_codes = array(
+                'en' => 'English' ,
+                'aa' => 'Afar' ,
+                'ab' => 'Abkhazian' ,
+                'af' => 'Afrikaans' ,
+                'am' => 'Amharic' ,
+                'ar' => 'Arabic' ,
+                'as' => 'Assamese' ,
+                'ay' => 'Aymara' ,
+                'az' => 'Azerbaijani' ,
+                'ba' => 'Bashkir' ,
+                'be' => 'Byelorussian' ,
+                'bg' => 'Bulgarian' ,
+                'bh' => 'Bihari' ,
+                'bi' => 'Bislama' ,
+                'bn' => 'Bengali/Bangla' ,
+                'bo' => 'Tibetan' ,
+                'br' => 'Breton' ,
+                'ca' => 'Catalan' ,
+                'co' => 'Corsican' ,
+                'cs' => 'Czech' ,
+                'cy' => 'Welsh' ,
+                'da' => 'Danish' ,
+                'de' => 'German' ,
+                'dz' => 'Bhutani' ,
+                'el' => 'Greek' ,
+                'eo' => 'Esperanto' ,
+                'es' => 'Spanish' ,
+                'et' => 'Estonian' ,
+                'eu' => 'Basque' ,
+                'fa' => 'Persian' ,
+                'fi' => 'Finnish' ,
+                'fj' => 'Fiji' ,
+                'fo' => 'Faeroese' ,
+                'fr' => 'French' ,
+                'fy' => 'Frisian' ,
+                'ga' => 'Irish' ,
+                'gd' => 'Scots/Gaelic' ,
+                'gl' => 'Galician' ,
+                'gn' => 'Guarani' ,
+                'gu' => 'Gujarati' ,
+                'ha' => 'Hausa' ,
+                'hi' => 'Hindi' ,
+                'hr' => 'Croatian' ,
+                'hu' => 'Hungarian' ,
+                'hy' => 'Armenian' ,
+                'ia' => 'Interlingua' ,
+                'ie' => 'Interlingue' ,
+                'ik' => 'Inupiak' ,
+                'in' => 'Indonesian' ,
+                'is' => 'Icelandic' ,
+                'it' => 'Italian' ,
+                'iw' => 'Hebrew' ,
+                'ja' => 'Japanese' ,
+                'ji' => 'Yiddish' ,
+                'jw' => 'Javanese' ,
+                'ka' => 'Georgian' ,
+                'kk' => 'Kazakh' ,
+                'kl' => 'Greenlandic' ,
+                'km' => 'Cambodian' ,
+                'kn' => 'Kannada' ,
+                'ko' => 'Korean' ,
+                'ks' => 'Kashmiri' ,
+                'ku' => 'Kurdish' ,
+                'ky' => 'Kirghiz' ,
+                'la' => 'Latin' ,
+                'ln' => 'Lingala' ,
+                'lo' => 'Laothian' ,
+                'lt' => 'Lithuanian' ,
+                'lv' => 'Latvian/Lettish' ,
+                'mg' => 'Malagasy' ,
+                'mi' => 'Maori' ,
+                'mk' => 'Macedonian' ,
+                'ml' => 'Malayalam' ,
+                'mn' => 'Mongolian' ,
+                'mo' => 'Moldavian' ,
+                'mr' => 'Marathi' ,
+                'ms' => 'Malay' ,
+                'mt' => 'Maltese' ,
+                'my' => 'Burmese' ,
+                'na' => 'Nauru' ,
+                'ne' => 'Nepali' ,
+                'nl' => 'Dutch' ,
+                'no' => 'Norwegian' ,
+                'oc' => 'Occitan' ,
+                'om' => '(Afan)/Oromoor/Oriya' ,
+                'pa' => 'Punjabi' ,
+                'pl' => 'Polish' ,
+                'ps' => 'Pashto/Pushto' ,
+                'pt' => 'Portuguese' ,
+                'qu' => 'Quechua' ,
+                'rm' => 'Rhaeto-Romance' ,
+                'rn' => 'Kirundi' ,
+                'ro' => 'Romanian' ,
+                'ru' => 'Russian' ,
+                'rw' => 'Kinyarwanda' ,
+                'sa' => 'Sanskrit' ,
+                'sd' => 'Sindhi' ,
+                'sg' => 'Sangro' ,
+                'sh' => 'Serbo-Croatian' ,
+                'si' => 'Singhalese' ,
+                'sk' => 'Slovak' ,
+                'sl' => 'Slovenian' ,
+                'sm' => 'Samoan' ,
+                'sn' => 'Shona' ,
+                'so' => 'Somali' ,
+                'sq' => 'Albanian' ,
+                'sr' => 'Serbian' ,
+                'ss' => 'Siswati' ,
+                'st' => 'Sesotho' ,
+                'su' => 'Sundanese' ,
+                'sv' => 'Swedish' ,
+                'sw' => 'Swahili' ,
+                'ta' => 'Tamil' ,
+                'te' => 'Tegulu' ,
+                'tg' => 'Tajik' ,
+                'th' => 'Thai' ,
+                'ti' => 'Tigrinya' ,
+                'tk' => 'Turkmen' ,
+                'tl' => 'Tagalog' ,
+                'tn' => 'Setswana' ,
+                'to' => 'Tonga' ,
+                'tr' => 'Turkish' ,
+                'ts' => 'Tsonga' ,
+                'tt' => 'Tatar' ,
+                'tw' => 'Twi' ,
+                'uk' => 'Ukrainian' ,
+                'ur' => 'Urdu' ,
+                'uz' => 'Uzbek' ,
+                'vi' => 'Vietnamese' ,
+                'vo' => 'Volapuk' ,
+                'wo' => 'Wolof' ,
+                'xh' => 'Xhosa' ,
+                'yo' => 'Yoruba' ,
+                'zh' => 'Chinese' ,
+                'zu' => 'Zulu' ,
+            );
+            return $language_codes;
+        }
         static function inst()
         {
             if (!self::$_inst) self::$_inst = new self();

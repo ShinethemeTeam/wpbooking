@@ -12,9 +12,6 @@ $args = array(
 	'author'         => get_current_user_id()
 
 );
-//if(!current_user_can('manage_options')){
-//	$args['author']=get_current_user_id();
-//}
 if ($service_type = WPBooking_Input::get('service_type')) {
 	$args['meta_key'] = 'service_type';
 	$args['meta_value'] = $service_type;
