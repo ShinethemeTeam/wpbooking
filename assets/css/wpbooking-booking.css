@@ -884,8 +884,8 @@
   text-decoration: none;
 }
 .site-main.twentyfifteen {
-  margin-left: 19.3333%;
-  margin-right: 1.3333%;
+  margin-left: 8.3333%;
+  margin-right: 8.3333%;
   padding: 10%;
   margin-bottom: 7.6923%;
   margin-top: 8.3332%;
@@ -2902,6 +2902,10 @@
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item:nth-child(4n+1) {
   clear: both;
 }
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item .item_thumbnail {
+  width: 150px;
+  height: 150px;
+}
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item .item_thumbnail img {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -3916,4 +3920,23 @@
 }
 .twentythirteen .wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form .message-input textarea {
   width: 100%;
+}
+body.twentyfourteen .site-main.twentyfourteen {
+  margin-left: 19.3333%;
+  margin-right: 1.3333%;
+  margin-bottom: 7.6923%;
+  margin-top: 8.3332%;
+  background: #fff;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+}
+body.twentyfourteen .hentry {
+  max-width: none;
+}
+body.twentyfourteen .site-content .entry-header,
+body.twentyfourteen .site-content .entry-content,
+body.twentyfourteen .site-content .entry-summary,
+body.twentyfourteen .site-content .entry-meta,
+body.twentyfourteen .page-content {
+  max-width: none;
+  margin-right: 0;
 }
