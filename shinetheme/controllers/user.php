@@ -116,9 +116,14 @@ if (!class_exists('WPBooking_User')) {
         {
 
             // Check Profile Tabs, check is not author, can't view profile
-            if(get_query_var('tab') == "profile" and WPBooking_Input::request('user_id'))
+            if(get_query_var('tab') == "profile" and $user_id = WPBooking_Input::request('user_id'))
             {
-
+                $current_user = get_userdata( $user_id );
+                $allowed_roles = array('editor', 'administrator', 'author');
+                if( ! array_intersect($allowed_roles, $current_user->roles ) ) {
+                    wp_safe_redirect(home_url("/"));
+                    die;
+                }
             } else {
                 if (is_user_logged_in() and get_query_var('tab') == 'profile' and !current_user_can('publish_posts')) {
                     wp_safe_redirect(get_permalink(wpbooking_get_option('myaccount-page')));
