@@ -798,6 +798,7 @@ if (!class_exists('WPBooking_User')) {
                                 wpbooking_set_message(esc_html__('Updated Successfully', 'wpbooking'), 'success');
                                 // Update meta user
                                 update_user_meta(get_current_user_id(), 'gender', WPBooking_Input::post('u_gender'));
+                                update_user_meta(get_current_user_id(), 'avatar', WPBooking_Input::post('u_avatar'));
 
                                 update_user_meta(get_current_user_id(), 'company_name', WPBooking_Input::post('u_company_name'));
                                 update_user_meta(get_current_user_id(), 'phone', WPBooking_Input::post('u_phone'));
@@ -1174,7 +1175,7 @@ if (!class_exists('WPBooking_User')) {
          *
          * @return array
          */
-        function _get_list_preferred_language(){
+        static function _get_list_preferred_language(){
             $language_codes = array(
                 'en' => 'English' ,
                 'aa' => 'Afar' ,
