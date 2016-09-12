@@ -8,9 +8,6 @@
 $template = get_option( 'template' );
 switch($template){
 
-	case 'twentyfifteen' :
-		echo '</main></div>';
-		break;
 	default :
 		echo '</main></div>';
 		break;
