@@ -1394,6 +1394,7 @@ jQuery(document).ready(function($){
                 me.removeClass('loading');
                 if(res.status){
                     me.closest('.comment').find('.wb-btn-reply-comment').hide();
+                    me.closest('.content_comment_profile').find('.wb-btn-reply-comment').hide();
                     me.closest('ul').html(res.html);
                 }
             },

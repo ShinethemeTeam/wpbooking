@@ -3,7 +3,7 @@ global $current_user;
 $user_id = $current_user->ID;
 global $wpdb;
 $page=WPBooking_Input::request('page_number',1);
-$limit=2;
+$limit=10;
 $offset=($page-1)*$limit;
 $join = $where = "";
 if ($service_type = WPBooking_Input::get('service_type')) {

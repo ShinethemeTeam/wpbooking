@@ -116,9 +116,14 @@ if (!class_exists('WPBooking_User')) {
         {
 
             // Check Profile Tabs, check is not author, can't view profile
-            if(get_query_var('tab') == "profile" and WPBooking_Input::request('user_id'))
+            if(get_query_var('tab') == "profile" and $user_id = WPBooking_Input::request('user_id'))
             {
-
+                $current_user = get_userdata( $user_id );
+                $allowed_roles = array('editor', 'administrator', 'author');
+                if( ! array_intersect($allowed_roles, $current_user->roles ) ) {
+                    wp_safe_redirect(home_url("/"));
+                    die;
+                }
             } else {
                 if (is_user_logged_in() and get_query_var('tab') == 'profile' and !current_user_can('publish_posts')) {
                     wp_safe_redirect(get_permalink(wpbooking_get_option('myaccount-page')));
@@ -793,6 +798,7 @@ if (!class_exists('WPBooking_User')) {
                                 wpbooking_set_message(esc_html__('Updated Successfully', 'wpbooking'), 'success');
                                 // Update meta user
                                 update_user_meta(get_current_user_id(), 'gender', WPBooking_Input::post('u_gender'));
+                                update_user_meta(get_current_user_id(), 'avatar', WPBooking_Input::post('u_avatar'));
 
                                 update_user_meta(get_current_user_id(), 'company_name', WPBooking_Input::post('u_company_name'));
                                 update_user_meta(get_current_user_id(), 'phone', WPBooking_Input::post('u_phone'));
@@ -844,7 +850,6 @@ if (!class_exists('WPBooking_User')) {
                         }
 
                         global $current_user;
-                        get_currentuserinfo();
 
                         if (!wp_check_password(WPBooking_Input::post('u_password'), $current_user->user_pass)) {
                             $is_validate = FALSE;
@@ -1157,7 +1162,7 @@ if (!class_exists('WPBooking_User')) {
             }
             $gravatar_pic_url = get_user_meta($id_or_email, 'avatar', true);
             if(!empty($gravatar_pic_url)){
-                return '<img alt="avatar" width='.$args['width'].' height='.$args['height'].' src="'.$gravatar_pic_url.'" class="avatar" >';
+                return '<img alt="avatar"  style="height: auto; width: '.$args['width'].'px;"  width='.$args['width'].' height='.$args['height'].' src="'.$gravatar_pic_url.'" class="avatar" >';
             }
             return $avatar;
         }
@@ -1169,7 +1174,7 @@ if (!class_exists('WPBooking_User')) {
          *
          * @return array
          */
-        function _get_list_preferred_language(){
+        static function _get_list_preferred_language(){
             $language_codes = array(
                 'en' => 'English' ,
                 'aa' => 'Afar' ,

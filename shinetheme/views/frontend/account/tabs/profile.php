@@ -8,12 +8,12 @@ $update_profile=get_permalink(wpbooking_get_option('myaccount-page')).'update-pr
 $link_my_profile=get_permalink(wpbooking_get_option('myaccount-page')).'/tab/profile/';
 $my_user_id = $current_user->ID;
 $user_id = WPBooking_Input::request('user_id',$my_user_id);
-$current_user = get_userdata( $user_id );
+$data_current_user = get_userdata( $user_id );
 ?>
 <h3 class="tab-page-title">
 	<?php
-	$name = $current_user->last_name;
-	if(empty($name)) $name = $current_user->display_name;
+	$name = $data_current_user->last_name;
+	if(empty($name)) $name = $data_current_user->display_name;
 	if(!empty($name))
 	echo sprintf(esc_html__("Hello I'm %s",'wpbooking'),$name);
 	?>
@@ -27,8 +27,8 @@ $current_user = get_userdata( $user_id );
 	<div class="info">
 		<h5 class="user-name">
 			<?php
-			$name_full = $current_user->first_name.' '.$current_user->last_name;
-			if(empty($name_full)) $name_full = $current_user->display_name;
+			$name_full = $data_current_user->first_name.' '.$data_current_user->last_name;
+			if(empty($name_full)) $name_full = $data_current_user->display_name;
 			if(!empty($name_full))
 				 echo esc_html($name_full) ?>
 		</h5>
@@ -47,7 +47,7 @@ $current_user = get_userdata( $user_id );
 			<div class="text-info"><?php echo esc_html($profile_address) ?></div>
 		<?php } ?>
 
-		<div class="text-info"><?php esc_html_e("Member since",'wpbooking') ?> <?php echo date_i18n(' Y M',strtotime($current_user->data->user_registered)) ?></div>
+		<div class="text-info"><?php esc_html_e("Member since",'wpbooking') ?> <?php echo date_i18n(' Y M',strtotime($data_current_user->data->user_registered)) ?></div>
 		<div class="quote">
 			<?php if(!empty($description = get_user_meta($user_id,'description',true))){ ?>
 				<div class="icon"> <i class="fa fa-quote-left"></i></div>
@@ -105,6 +105,7 @@ $current_user = get_userdata( $user_id );
 	<?php
 	global $wpdb;
 	$page=WPBooking_Input::request('page_number',1);
+	if($page < 1)$page=1;
 	$limit=5;
 	$offset=($page-1)*$limit;
 	$comment=WPBooking_Comment_Model::inst();
