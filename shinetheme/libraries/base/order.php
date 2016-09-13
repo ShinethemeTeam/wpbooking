@@ -502,7 +502,7 @@ if (!class_exists('WB_Order')) {
                     if ($coupon_value = $coupon_data['coupon_value']) {
                         switch ($coupon_data['coupon_value_type']) {
                             case "percentage":
-                                $total_price = $this->get_total();
+                                $total_price = $this->get_total(array('without_discount'=>true,'without_deposit'=>true));
 
                                 if ($coupon_value > 100) $coupon_value = 100;
                                 if ($coupon_value < 0) $coupon_value = 0;
@@ -562,7 +562,7 @@ if (!class_exists('WB_Order')) {
                     switch ($coupon_data['value_type']) {
                         case "percentage":
                             if ($cart_item_price === null)
-                                $total_price = $this->get_item_total($cart_item, false, array('without_discount' => true));
+                                $total_price = $this->get_item_total($cart_item, false, array('without_discount' => true,'without_deposit'=>true));
                             else $total_price = $cart_item_price;
 
                             if ($coupon_value > 100) $coupon_value = 100;
@@ -648,13 +648,7 @@ if (!class_exists('WB_Order')) {
         function get_paynow_price()
         {
             $price = 0;
-            $cart = $this->get_items();
-            if (!empty($cart)) {
-                foreach ($cart as $key => $value) {
-                    $price += $this->get_item_total($value);
-                }
-            }
-            $price -= $this->get_discount_price();
+            $cart = $this->get_total();
 
             $price = apply_filters('wpbooking_get_order_paynow_price', $price, $cart);
 
