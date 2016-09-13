@@ -880,17 +880,18 @@ if (!class_exists('WPBooking_Order')) {
             return $price;
         }
 
+        /**
+         * Get Cart Paynow Price (Deposit Price)
+         * 
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return int|mixed|void
+         */
         function get_cart_paynow_price(){
-            $price = 0;
-            $cart = $this->get_cart();
-            if (!empty($cart)) {
-                foreach ($cart as $key => $value) {
-                    $price += $this->get_cart_item_total($value);
-                }
-            }
-            $price-=$this->get_cart_discount_price();
+            $price = $this->get_cart_total(array('without_deposit'=>true));
 
-            $price = apply_filters('wpbooking_get_cart_paynow_price', $price, $cart);
+            $price = apply_filters('wpbooking_get_cart_paynow_price', $price);
 
             return $price;
         }
