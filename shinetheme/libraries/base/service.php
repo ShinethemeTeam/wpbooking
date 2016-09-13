@@ -164,7 +164,7 @@ if (!class_exists('WB_Service')) {
 				$author_info = array(
 					'id'              => $author_id,
 					'name'            => $udata->display_name,
-					'avatar'          => get_avatar($author_id),
+					'avatar'          => get_avatar($author_id,46),
 					'user_registered' => $udata->user_registered,
 					'description'     => $udata->user_description,
 					'address'         => get_user_meta($author_id, 'wb_address', TRUE),
