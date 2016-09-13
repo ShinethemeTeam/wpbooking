@@ -17,18 +17,13 @@ $service = new WB_Service();
 <div itemscope itemtype="http://schema.org/Product" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<meta itemprop="url" content="<?php the_permalink(); ?>"/>
-	<div class="container-fluid wpbooking-single-content">
-		<div class="row">
-			<div class="col-md-12">
-				<?php if (has_post_thumbnail() and get_the_post_thumbnail()) {
-					echo "<div class=single-thumbnai>";
-					the_post_thumbnail("full");
-					echo "</div>";
+	<div class="container-fluid wpbooking-single-content entry-header">
+		<?php if (has_post_thumbnail() and get_the_post_thumbnail()) {
+			echo "<div class=single-thumbnai>";
+			the_post_thumbnail("full");
+			echo "</div>";
 
-				} ?>
-			</div>
-
-		</div>
+		} ?>
 
 		<div class="service-title-gallery">
 			<h1 class="service-title" itemprop="name"><?php the_title(); ?></h1>

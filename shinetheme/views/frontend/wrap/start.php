@@ -10,11 +10,11 @@ switch($template){
 
 	case 'twentyfifteen' :
 		echo '<div id="primary" class="content-area">
-				<main id="main" class="site-main twentyfifteen" role="main">';
+				<main id="main" class="site-main" role="main">';
 		break;
     case "twentythirteen":
         echo '<div id="primary" class="content-area">
-				<main id="content" class="entry-content twentythirteen" role="main">';
+				<main id="content" class="entry-content" role="main">';
         break;
 	default :
 		echo '<div id="primary" class="content-area">
