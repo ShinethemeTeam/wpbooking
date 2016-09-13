@@ -184,7 +184,6 @@ if (!class_exists('WB_Coupon')) {
         function check_minimum_spend(){
             if($this->item_id){
                 $cart_total=WPBooking_Order::inst()->get_cart_total(array('without_deposit'=>true,'without_discount'=>true));
-                var_dump($cart_total);
                 $minimum_spend=$this->get_meta('minimum_spend');
                 if(!$minimum_spend or $cart_total>=$minimum_spend) return true;
             }
