@@ -1626,6 +1626,9 @@
                 }
                 .wb-field{
                     margin-bottom: 15px;
+                    label{
+                        position: relative;
+                    }
                 }
                 .wb-field-datepicker{
                     position: relative;
@@ -4079,6 +4082,30 @@
         };
     }
 
+    .wb-btn{
+        &:hover{
+            color: white;
+        }
+    }
+    .wpbooking-account-table{
+
+        border-right: 1px solid #ededed;
+        td,th{
+            border-top:1px solid #ededed;
+            border-left:1px solid #ededed;
+        }
+
+    }
+    .user-reviews .comment-list{
+        >li{
+            &:after{
+                display: none;
+            }
+        }
+    }
+    .wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form .message-input textarea{
+        width: 100%;
+    }
 
 }
 body{
