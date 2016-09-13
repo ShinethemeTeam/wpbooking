@@ -2425,6 +2425,9 @@
 .wpbooking-checkout-wrap .wpbooking-checkout-review-order .wpbooking-review-order.active .is_more_order {
   display: block;
 }
+.review-cart-total {
+  margin-bottom: 20px;
+}
 .review-cart-total:before,
 .review-cart-total:after {
   display: table;

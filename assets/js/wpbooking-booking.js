@@ -208,6 +208,40 @@ jQuery(document).ready(function($){
         });
     });
 
+    // Remove the Coupon
+    $(document).on('click','.wpbooking-remove-coupon',function(){
+        var me=$(this).parent();
+        me.find('.wb-message').html('');
+        if(me.hasClass('loading')) return false;
+
+        me.addClass('loading');
+        $.ajax({
+            dataType:'json',
+            type:'post',
+            url:wpbooking_params.ajax_url,
+            data:{
+                action:'wpbooking_remove_coupon',
+            },
+            success:function(res){
+                me.removeClass('loading');
+                if(res.message!=undefined){
+                    me.find('.wb-message').html(res.message);
+                }
+                if(typeof  res.updated_content!='undefined'){
+
+                    for (var k in res.updated_content){
+                        var element=$(k);
+                        element.replaceWith(res.updated_content[k]);
+                        $(window).trigger('wpbooking_event_cart_update_content',[k,res.updated_content[k]]);
+                    }
+                }
+            },
+            error:function(e){
+                me.removeClass('loading');
+                console.log(e.responseText);
+            }
+        });
+    });
 
 
     //////////////////////////////////

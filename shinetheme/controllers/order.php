@@ -45,6 +45,15 @@ if (!class_exists('WPBooking_Order')) {
              */
             add_action('wp_ajax_wpbooking_apply_coupon',array($this,'_apply_coupon'));
             add_action('wp_ajax_nopriv_wpbooking_apply_coupon',array($this,'_apply_coupon'));
+
+            /**
+             * Ajax Event Remove Coupon
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('wp_ajax_wpbooking_remove_coupon',array($this,'_remove_coupon'));
+            add_action('wp_ajax_nopriv_wpbooking_remove_coupon',array($this,'_remove_coupon'));
 		}
 
 
@@ -413,6 +422,24 @@ if (!class_exists('WPBooking_Order')) {
 
                 $res=apply_filters('wpbooking_apply_coupon_result',$res,$is_validate,$coupon);
             }
+            echo json_encode($res);
+            die;
+        }
+
+        /**
+         * Ajax Event Remove Coupon
+         *
+         * @since 1.0
+         * @author dungdt
+         */
+        function  _remove_coupon()
+        {
+            $res=array('status'=>1);
+            WPBooking_Session::set('wpbooking_cart_coupon',false);
+            $res['updated_content']=apply_filters('wpbooking_coupon_updated_content',array(
+                '.review-cart-total'=>wpbooking_load_view('cart/cart-total-box')
+            ));
+            $res=apply_filters('wpbooking_remove_coupon_result',$res);
             echo json_encode($res);
             die;
         }
