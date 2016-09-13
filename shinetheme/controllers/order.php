@@ -890,7 +890,7 @@ if (!class_exists('WPBooking_Order')) {
          */
         function get_cart_paynow_price(){
 
-            $price = $this->get_cart_total();
+            $price = $this->get_cart_total(array('without_discount'=>false));
 
             $price = apply_filters('wpbooking_get_cart_paynow_price', $price);
 
