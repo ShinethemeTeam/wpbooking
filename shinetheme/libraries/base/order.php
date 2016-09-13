@@ -552,7 +552,7 @@ if (!class_exists('WB_Order')) {
                 $possible = false;
 
                 if ($coupon_data['coupon_type'] == 'specific_services') {
-                    $services = $coupon_data['service_ids'];
+                    $services = $coupon_data['services_ids'];
                     if (!empty($services) and in_array($cart_item['post_id'], $services)) {
                         $possible = true;
                     }
