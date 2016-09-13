@@ -3851,6 +3851,9 @@
 .wpbooking-switch-wrap .wpbooking-switch.switchOn:after {
   left: 30px !important;
 }
+.wpbooking-remove-coupon {
+  border: none;
+}
 .twentythirteen.sidebar .wpbooking-single-content {
   padding: 0px;
 }

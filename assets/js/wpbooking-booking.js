@@ -204,6 +204,7 @@ jQuery(document).ready(function($){
             error:function(e){
                 me.removeClass('loading');
                 console.log(e.responseText);
+                me.find('.wb-message').html(e.responseText);
             }
         });
     });
@@ -239,6 +240,7 @@ jQuery(document).ready(function($){
             error:function(e){
                 me.removeClass('loading');
                 console.log(e.responseText);
+                me.find('.wb-message').html(e.responseText);
             }
         });
     });
