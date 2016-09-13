@@ -1521,6 +1521,9 @@
 .single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content .wb-field {
   margin-bottom: 15px;
 }
+.single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content .wb-field label {
+  position: relative;
+}
 .single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content .wb-field-datepicker {
   position: relative;
 }
