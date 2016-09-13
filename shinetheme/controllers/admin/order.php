@@ -337,6 +337,23 @@ if (!class_exists('WPBooking_Admin_Order')) {
 			);
 
 			register_post_type('wpbooking_order', $args);
+
+			// Register The Order Status
+			$all_status=WPBooking_Config::inst()->item('order_item_status');
+			if(!empty($all_status)){
+				foreach($all_status as $key=>$value){
+					register_post_status( $key, array(
+						'label'                     =>$value['label'],
+						'public'                    => true,
+						'exclude_from_search'       => true,
+						'show_in_admin_all_list'    => false,
+						'show_in_admin_status_list' => false,
+					) );
+				}
+
+			}
+
+
 		}
 
 
