@@ -44,6 +44,7 @@ if (!class_exists('WPBooking_Order')) {
              * @author dungdt
              */
             add_action('wp_ajax_wpbooking_apply_coupon',array($this,'_apply_coupon'));
+            add_action('wp_ajax_nopriv_wpbooking_apply_coupon',array($this,'_apply_coupon'));
 		}
 
 
