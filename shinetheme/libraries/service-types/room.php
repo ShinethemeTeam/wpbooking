@@ -408,16 +408,49 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
          */
         function _validate_checkout($is_validated, $cart = array())
         {
-
             if ($is_validated) {
                 if (!empty($cart)) {
                     foreach ($cart as $key => $cart_item) {
                         if (!$this->validate_cart_duplicate($cart_item, $key)) {
                             wpbooking_set_message(sprintf(esc_html__('Item: %s is duplicate. Please check your cart again', 'wpbooking'), '<i>' . get_the_title($cart_item['post_id']) . '</i>'), 'error');
-
                             return false;
-                        } else {
-                            // Validate Again
+                        }else{
+
+                            // Validate Availability last time
+                            $cart_item=wp_parse_args($cart_item,array(
+                                'check_out_timestamp'=>'',
+                                'check_in_timestamp'=>''
+                            ));
+                            if ($cart_item['check_out_timestamp']) {
+                                $cart_item['check_out_timestamp'] = $cart_item['check_in_timestamp'];
+                            }
+                            $check_in_timestamp= $cart_item['check_in_timestamp'];
+                            $check_out_timestamp= $cart_item['check_out_timestamp'];
+
+                            $service=new WB_Service($cart_item['post_id']);
+                            $res = $service->check_availability($check_in_timestamp, $check_out_timestamp);
+                            if (!$res['status']) {
+
+                                // If there are some day not available, return the message
+                                if (!empty($res['can_not_check_in'])) {
+                                    wpbooking_set_message(sprintf("You can not check-in at: %s", 'wpbooking'), date(get_option('date_format'), $check_in_timestamp));
+                                }
+                                if (!empty($res['can_not_check_out'])) {
+                                    wpbooking_set_message(sprintf("You can not check-out at: %s", 'wpbooking'), date(get_option('date_format'), $check_out_timestamp));
+                                }
+                                if (!empty($res['unavailable_dates'])) {
+                                    $message = esc_html__("Those dates are not available: %s", 'wpbooking');
+                                    $not_avai_string = FALSE;
+                                    foreach ($res['unavailable_dates'] as $k => $v) {
+                                        $not_avai_string .= date(get_option('date_format'), $v) . ', ';
+                                    }
+                                    $not_avai_string = substr($not_avai_string, 0, -2);
+
+                                    wpbooking_set_message(sprintf($message, $not_avai_string), 'error');
+                                }
+
+                                return false;
+                            }
                         }
                     }
                 }

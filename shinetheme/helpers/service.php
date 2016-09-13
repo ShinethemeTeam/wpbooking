@@ -64,7 +64,7 @@ if(!function_exists('wpbooking_service_rate_to_html'))
 
 		$html.='<span class="rating-count">';
 		if($count==0){
-			$html.=esc_html__('0 review','wpbooking');
+			//$html.=esc_html__('0 review','wpbooking');
 		}elseif($count>1){
 			$html.=sprintf(esc_html__('%d reviews','wpbooking'),$count);
 		}else{
