@@ -1166,7 +1166,7 @@ if (!class_exists('WPBooking_User')) {
             }
             $gravatar_pic_url = get_user_meta($id_or_email, 'avatar', true);
             if(!empty($gravatar_pic_url)){
-                return '<img alt="avatar"  style="height: auto; width: '.$args['width'].'px;"  width='.$args['width'].' height='.$args['height'].' src="'.$gravatar_pic_url.'" class="avatar" >';
+                return '<img alt="avatar"  style="height: '.$args['height'].'px; width: '.$args['width'].'px;"  width='.$args['width'].' height='.$args['height'].' src="'.$gravatar_pic_url.'" class="avatar" >';
             }
             return $avatar;
         }
