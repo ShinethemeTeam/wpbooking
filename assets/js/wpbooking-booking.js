@@ -172,8 +172,7 @@ jQuery(document).ready(function($){
     });
 
     // Coupon Apply
-    $('.wpbooking-coupon-form .wb-coupon-apply').click(function(){
-        var me=$(this).parent();
+    function do_apply_coupon(me){
         me.find('.wb-message').html('');
         if(me.hasClass('loading')) return false;
         if(!me.find('.form-control').val()) return false;
@@ -207,6 +206,19 @@ jQuery(document).ready(function($){
                 me.find('.wb-message').html(e.responseText);
             }
         });
+    }
+
+    $('.wpbooking-coupon-form .wb-coupon-code').keyup(function (event) {
+        if (event.keyCode == '13') {
+            var me=$(this).parent();
+            do_apply_coupon(me);
+        }
+        return false;
+    });
+
+    $('.wpbooking-coupon-form .wb-coupon-apply').click(function(){
+        var me=$(this).parent();
+        do_apply_coupon(me);
     });
 
     // Remove the Coupon

@@ -550,6 +550,10 @@ if (!class_exists('WPBooking_Order')) {
 				}
 			}
 
+			if(!$args['without_discount']){
+			    $price-=$this->get_cart_discount_price();
+            }
+
 			$price = apply_filters('wpbooking_get_cart_total', $price, $cart);
 
 			return $price;
@@ -568,7 +572,6 @@ if (!class_exists('WPBooking_Order')) {
 		 */
 		function get_cart_item_total($cart_item, $need_convert = FALSE,$args=array())
 		{
-
 			$item_price = $cart_item['base_price'];
 			$item_price = apply_filters('wpbooking_cart_item_price', $item_price, $cart_item,$args);
 			$item_price = apply_filters('wpbooking_cart_item_price_' . $cart_item['service_type'], $item_price, $cart_item,$args);

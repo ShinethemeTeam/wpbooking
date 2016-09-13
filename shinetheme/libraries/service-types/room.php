@@ -674,7 +674,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                 $price -= $discount;
             }
 
-
             /**
              * Calculate Deposit
              */
