@@ -203,8 +203,11 @@ if (!class_exists('WB_Coupon')) {
             if($this->item_id){
                 $limit=$this->get_meta('usage_limit');
                 if($limit){
+                    global $wpdb;
                     $query=WPBooking_Query_Model::inst();
-                    $used=$query->select('count(meta_id) as total')->where('meta_key','coupon_code')->where('meta_value',$this->item_id)->table('postmeta')->get(1,0,OBJECT)->row()->total;
+                    $used=$query->select('count(meta_id) as total')
+                        ->join('posts',$wpdb->prefix.'.posts.ID='.$wpdb->prefix.'.postmeta.post_ID and '.$wpdb->posts.".post_status not in ('cancelled','refunded','trash')")
+                        ->where('meta_key','coupon_code')->where('meta_value',$this->item_id)->table('postmeta')->get(1,0,OBJECT)->row()->total;
 
                     if($used<$limit) return $limit-$used;// Return the Remain
 

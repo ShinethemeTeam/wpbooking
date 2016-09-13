@@ -206,7 +206,7 @@ if (!class_exists('WPBooking_Order_Model')) {
                 ))
                 ->join('wpbooking_service', 'wpbooking_service.post_id=wpbooking_order_item.post_id')
                 ->where($wpdb->prefix . 'wpbooking_order_item.post_id', $service_id)
-                ->where($wpdb->prefix . "wpbooking_order_item.status not in ('refunded','cancelled')", FALSE, true)
+                ->where($wpdb->prefix . "wpbooking_order_item.status not in ('refunded','cancelled','trash')", FALSE, true)
                 ->where(
                     $wpdb->prepare(
                         "

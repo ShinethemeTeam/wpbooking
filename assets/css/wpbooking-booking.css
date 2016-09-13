@@ -3851,6 +3851,9 @@
 .wpbooking-switch-wrap .wpbooking-switch.switchOn:after {
   left: 30px !important;
 }
+.twentythirteen.sidebar .wpbooking-single-content {
+  padding: 0px;
+}
 .twentythirteen .wpbooking-container {
   padding-left: 0px;
   padding-right: 0px;
