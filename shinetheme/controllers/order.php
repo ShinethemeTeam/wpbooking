@@ -304,6 +304,7 @@ if (!class_exists('WPBooking_Order')) {
 
 					// Clear the Cart after create new order,
 					WPBooking_Session::set('wpbooking_cart', array());
+					WPBooking_Session::set('wpbooking_cart_coupon', false);
 
 					// Only work with Order Table bellow
 
@@ -720,7 +721,7 @@ if (!class_exists('WPBooking_Order')) {
                    if ($coupon_value = $coupon->get_value()) {
                        switch ($coupon->get_value_type()) {
                            case "percentage":
-                               $total_price = $this->get_cart_total();
+                               $total_price = $this->get_cart_total(array('without_deposit'=>true,'without_discount'=>true));
 
                                if ($coupon_value > 100) $coupon_value = 100;
                                if ($coupon_value < 0) $coupon_value = 0;
@@ -843,7 +844,7 @@ if (!class_exists('WPBooking_Order')) {
              */
             if ($cart_item['enable_additional_guest_tax'] == 'on') {
 
-                $item_price=$this->get_cart_item_total($cart_item,true,array('without_tax'=>true,'without_deposit'=>true));
+                $item_price=$this->get_cart_item_total($cart_item,true,array('without_tax'=>true,'without_deposit'=>true,'without_discount'=>true));
                 // Tax
                 if ($tax = $cart_item['tax'])
                     $price = $item_price * ($tax / 100);

@@ -33,18 +33,19 @@ $booking=WPBooking_Order::inst();
         <span class="total-amount"><?php echo WPBooking_Currency::format_money($price); ?></span>
     <?php } ?>
 
-    <?php if ($price = $booking->get_cart_discount_price()) { ?>
-        <span class="total-title">
-					<?php _e('Discount:', 'wpbooking') ?>
-				</span>
-        <span class="total-amount">-<?php echo WPBooking_Currency::format_money($price); ?></span>
-    <?php } ?>
 
     <?php if ($price = $booking->get_cart_tax_price()) { ?>
         <span class="total-title">
 					<?php _e('Tax:', 'wpbooking') ?>
 				</span>
         <span class="total-amount"><?php echo WPBooking_Currency::format_money($price); ?></span>
+    <?php } ?>
+
+    <?php if ($price = $booking->get_cart_discount_price()) { ?>
+        <span class="total-title">
+					<?php _e('Discount:', 'wpbooking') ?>
+				</span>
+        <span class="total-amount">-<?php echo WPBooking_Currency::format_money($price); ?></span>
     <?php } ?>
 
     <span class="total-line"></span>
