@@ -51,10 +51,11 @@ if(!function_exists( 'wpbooking_sc_booking_submit_buttom' )) {
                 'name'  => '' ,
                 'id'    => '' ,
                 'class' => ' ' ,
-            ) , $attr  );
+            )  );
         extract( $data );
 		$class.=' submit-button';
-        return '<button type="submit" name="' . $name . '" id="' . $id . '" class="' . $class . '" >' . $label . '</button>';
+        $checkout=WPBooking_Order::inst()->get_checkout_url();
+        return '<div class="wb-field clear"><button type="submit" name="' . $name . '" id="' . $id . '" class="' . $class . '" >' . $label . '</button><a class="wb-btn-to-checkout" href="'.$checkout.'">'.esc_html__('Checkout','wpbooking').'</a></div>';
     }
 }
 add_shortcode( 'wpbooking_form_submit_button' , 'wpbooking_sc_booking_submit_buttom' );

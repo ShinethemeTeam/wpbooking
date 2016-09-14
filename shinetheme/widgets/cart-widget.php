@@ -32,8 +32,19 @@ if(!class_exists('WPBooking_Widget_Cart'))
 		 */
 		public function widget( $args, $instance ) {
 			echo $args['before_widget'];
+			$html=array();
 
-			echo wpbooking_load_view('cart/cart-widget',array('args'=>$args,'instance'=>$instance));
+			$html[]='<div class="wpbooking-cart-widget-wrap">'
+
+			if ( ! empty( $instance['title'] ) ) {
+				$html[]= do_shortcode($args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title']);
+			}
+
+			$html[]= wpbooking_load_view('cart/cart-widget',array('args'=>$args,'instance'=>$instance));
+
+			$html[]='</div>';
+
+			echo implode("\r\n",$html);
 
 			echo $args['after_widget'];
 		}
@@ -76,7 +87,7 @@ if(!class_exists('WPBooking_Widget_Cart'))
 
 		static function _add_cart_update_content($sections=array())
 		{
-			$sections['.wpbooking-cart-widget-wrap']=wpbooking_load_view('cart/cart-widget');
+			$sections['.wpbooking-cart-widget-content']=wpbooking_load_view('cart/cart-widget');
 			return $sections;
 		}
 		static function  widget_init()

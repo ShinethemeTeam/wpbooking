@@ -98,6 +98,9 @@
 .mt20 {
   margin-top: 20px;
 }
+.clear {
+  clear: both;
+}
 /*
 // Rating Review
 */
@@ -1598,7 +1601,11 @@
 .single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content .wb-extra-field .icheckbox_square-orange.hover:not(.checked) .iCheck-helper {
   background: none!important;
 }
-.single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content .submit-button {
+.single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content .wb-btn-to-checkout {
+  display: none;
+}
+.single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content .submit-button,
+.single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content .wb-btn-to-checkout {
   text-transform: uppercase;
   background: #31b0d5;
   border: 1px solid #269abc;
@@ -3909,7 +3916,6 @@
 .twentythirteen .col-order-form .service-order-form .order-form-content [type=submit] {
   clear: both;
   display: block;
-  margin-left: 10px;
 }
 .twentythirteen .order-information-table {
   border-right: 1px solid #ededed;

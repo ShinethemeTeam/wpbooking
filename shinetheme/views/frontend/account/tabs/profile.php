@@ -125,7 +125,6 @@ $data_current_user = get_userdata( $user_id );
 		->get()
 		->result();
 	$total_item=$wpdb->get_var('SELECT FOUND_ROWS()');
-	//echo $comment->last_query();
 	$total=ceil($total_item/$limit);
 	$paging=array();
 	$paging['base']=$link_my_profile.'%_%';
