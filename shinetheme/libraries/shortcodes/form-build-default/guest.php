@@ -69,7 +69,7 @@ if(!class_exists('WPBooking_Form_Guest_Field')){
 			$required = "";
 			$rule = "";
 			if($this->is_required($attr)) {
-				//$required = "required";
+				$required = "required";
 				$rule .= "required";
 				$class.=" wb-required";
 			}
