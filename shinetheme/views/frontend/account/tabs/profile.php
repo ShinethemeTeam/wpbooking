@@ -78,6 +78,10 @@ $data_current_user = get_userdata( $user_id );
 			'post_type'=> 'wpbooking_service',
 			'author' => $user_id,
 		);
+		if($user_id != $my_user_id){
+			$args['meta_key'] = 'enable_property';
+			$args['meta_value'] = "on";
+		}
 		query_posts( $args );
 		while(have_posts()){
 			the_post();

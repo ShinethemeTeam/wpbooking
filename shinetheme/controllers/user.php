@@ -1155,9 +1155,9 @@ if (!class_exists('WPBooking_User')) {
          */
         function _change_profile_avatar($avatar, $id_or_email, $args ){
             if ( ! is_numeric( $id_or_email ) ) {
-                if(!empty($id_or_email->email)){
-                    $data = get_user_by('email',$id_or_email->email);
-                }else{
+                if(!empty($id_or_email->comment_author_email)){
+                    $data = get_user_by('email',$id_or_email->comment_author_email);
+                }else if(!is_object($id_or_email)){
                     $data = get_user_by('email',$id_or_email);
                 }
                 if(!empty($data->ID)){
