@@ -4036,3 +4036,8 @@ body.twentythirteen .user-reviews .comment-list > li:after {
 body.twentythirteen .wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form .message-input textarea {
   width: 100%;
 }
+body.twentysixteen .entry-content .wpbooking-myaccount-wrap a,
+body.twentysixteen .wpbooking-cart-wrap a,
+body.twentysixteen .wpbooking-checkout-wrap a {
+  box-shadow: none;
+}
