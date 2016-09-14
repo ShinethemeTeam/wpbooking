@@ -326,7 +326,11 @@ if (!class_exists('WPBooking_Model')) {
         /**
          * Change Table Name of Current Model
          *
+         * @since 1.0
+         * @author dungdt
+         *
          * @param bool $table_name
+         * @return $this
          */
 		function table($table_name=false){
 		    if($table_name){
@@ -369,6 +373,15 @@ if (!class_exists('WPBooking_Model')) {
 			return $data;
 		}
 
+        /**
+         * Run Update Query
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param array $data
+         * @return bool|false|int
+         */
 		function update($data = array())
 		{
 			if (empty($data)) {
@@ -429,6 +442,15 @@ if (!class_exists('WPBooking_Model')) {
 
 		}
 
+        /**
+         * Run Insert Query
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param array $data
+         * @return bool|int
+         */
 		function insert($data = array())
 		{
 			if (empty($data)) {
@@ -515,6 +537,10 @@ if (!class_exists('WPBooking_Model')) {
 
 		/**
 		 * Get single row by table key
+         *
+         * @since 1.0
+         * @author dungdt
+         *
 		 * @param $id
 		 * @return array|bool|null|object|void
 		 */
@@ -531,6 +557,10 @@ if (!class_exists('WPBooking_Model')) {
 
 		/**
 		 * Get single row by key and value
+         *
+         * @since 1.0
+         * @author dungdt
+         *
 		 * @param $key
 		 * @param $id
 		 * @return array|bool|null|object|void
@@ -557,6 +587,10 @@ if (!class_exists('WPBooking_Model')) {
 
 		/**
 		 * Get columns of the table
+         *
+         * @since 1.0
+         * @author dungdt
+         *
 		 * @return array
 		 */
 		function get_columns()
@@ -566,6 +600,10 @@ if (!class_exists('WPBooking_Model')) {
 
 		/**
 		 * Check Meta Table is ready
+         *
+         * @since 1.0
+         * @author dungdt
+         *
 		 * @since 1.0
 		 * @return bool
 		 */
@@ -578,6 +616,11 @@ if (!class_exists('WPBooking_Model')) {
 		}
 
 		/**
+         * Check Meta Table is Created
+         *
+         * @since 1.0
+         * @author dungdt
+         *
 		 * @since 1.0
 		 */
 		function _check_meta_table_is_working()
@@ -666,6 +709,9 @@ if (!class_exists('WPBooking_Model')) {
 
 		/**
 		 * Upgrade meta table
+         *
+         * @since 1.0
+         * @author dungdt
 		 *
 		 * @since 1.0
 		 */
@@ -779,6 +825,14 @@ if (!class_exists('WPBooking_Model')) {
 		}
 
 
+        /**
+         * Build the query
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return bool|string
+         */
 		protected function _get_query()
 		{
 			global $wpdb;
@@ -951,6 +1005,12 @@ if (!class_exists('WPBooking_Model')) {
 		}
 
 
+        /**
+         * Clear Query Condition after each query
+         *
+         * @since 1.0
+         * @author dungdt
+         */
 		protected function _clear_query()
 		{
 			$this->_where_query = array();
