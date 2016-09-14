@@ -2822,6 +2822,7 @@
   border: 5px solid #fff;
   height: 123px !important;
   width: 123px !important;
+  border-radius: 50%;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .avatar {
   width: 27%;
@@ -3957,4 +3958,10 @@ body.twentyfourteen .site-content .entry-meta,
 body.twentyfourteen .page-content {
   max-width: none;
   margin-right: 0;
+}
+body.twentyfourteen .user-reviews .comment-list > li .comment-meta {
+  width: 25% !important;
+}
+body.twentyfourteen .user-reviews .comment-list > li .comment-content-wrap {
+  width: 75% !important;
 }

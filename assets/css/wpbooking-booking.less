@@ -2944,6 +2944,7 @@
                         border: 5px solid #fff;
                         height: 123px !important;
                         width: 123px !important;
+                        border-radius: 50%;
                     }
                 }
                 > .avatar{
@@ -4118,8 +4119,6 @@
 }
 body{
     &.twentyfourteen{
-
-
         .site-main
         {
             &.twentyfourteen{
@@ -4130,16 +4129,19 @@ body{
                 background: #fff;
                 box-shadow: 0 0 1px rgba(0,0,0,.15);
             }
-
         }
-
         .hentry{
             max-width: none;
         }
-
         .site-content .entry-header, .site-content .entry-content, .site-content .entry-summary, .site-content .entry-meta, .page-content{
             max-width: none;
             margin-right: 0;
+        }
+        .user-reviews .comment-list > li .comment-meta{
+            width: 25% !important;
+        }
+        .user-reviews .comment-list > li .comment-content-wrap{
+            width: 75% !important;
         }
     }
 }
