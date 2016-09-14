@@ -183,7 +183,7 @@ if (!class_exists('WB_Coupon')) {
          */
         function check_minimum_spend(){
             if($this->item_id){
-                $cart_total=WPBooking_Order::inst()->get_cart_total();
+                $cart_total=WPBooking_Order::inst()->get_cart_total(array('without_deposit'=>true,'without_discount'=>true));
                 $minimum_spend=$this->get_meta('minimum_spend');
                 if(!$minimum_spend or $cart_total>=$minimum_spend) return true;
             }
@@ -203,8 +203,11 @@ if (!class_exists('WB_Coupon')) {
             if($this->item_id){
                 $limit=$this->get_meta('usage_limit');
                 if($limit){
+                    global $wpdb;
                     $query=WPBooking_Query_Model::inst();
-                    $used=$query->select('count(meta_id) as total')->where('meta_key','coupon_code')->where('meta_value',$this->item_id)->table('postmeta')->get(1,0,OBJECT)->row()->total;
+                    $used=$query->select('count(meta_id) as total')
+                        ->join('posts',"posts.ID=postmeta.post_ID and post_status not in ('cancelled','refunded','trash')")
+                        ->where('meta_key','coupon_code')->where('meta_value',$this->item_id)->table('postmeta')->get(1,0,OBJECT)->row()->total;
 
                     if($used<$limit) return $limit-$used;// Return the Remain
 

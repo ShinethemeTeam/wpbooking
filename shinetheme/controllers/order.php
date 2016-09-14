@@ -45,6 +45,15 @@ if (!class_exists('WPBooking_Order')) {
              */
             add_action('wp_ajax_wpbooking_apply_coupon',array($this,'_apply_coupon'));
             add_action('wp_ajax_nopriv_wpbooking_apply_coupon',array($this,'_apply_coupon'));
+
+            /**
+             * Ajax Event Remove Coupon
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('wp_ajax_wpbooking_remove_coupon',array($this,'_remove_coupon'));
+            add_action('wp_ajax_nopriv_wpbooking_remove_coupon',array($this,'_remove_coupon'));
 		}
 
 
@@ -418,6 +427,24 @@ if (!class_exists('WPBooking_Order')) {
         }
 
         /**
+         * Ajax Event Remove Coupon
+         *
+         * @since 1.0
+         * @author dungdt
+         */
+        function  _remove_coupon()
+        {
+            $res=array('status'=>1);
+            WPBooking_Session::set('wpbooking_cart_coupon',false);
+            $res['updated_content']=apply_filters('wpbooking_coupon_updated_content',array(
+                '.review-cart-total'=>wpbooking_load_view('cart/cart-total-box')
+            ));
+            $res=apply_filters('wpbooking_remove_coupon_result',$res);
+            echo json_encode($res);
+            die;
+        }
+
+        /**
          * Validate Coupon Object
          *
          * @since 1.0
@@ -523,6 +550,10 @@ if (!class_exists('WPBooking_Order')) {
 				}
 			}
 
+			if(!$args['without_discount']){
+			    $price-=$this->get_cart_discount_price();
+            }
+
 			$price = apply_filters('wpbooking_get_cart_total', $price, $cart);
 
 			return $price;
@@ -541,7 +572,6 @@ if (!class_exists('WPBooking_Order')) {
 		 */
 		function get_cart_item_total($cart_item, $need_convert = FALSE,$args=array())
 		{
-
 			$item_price = $cart_item['base_price'];
 			$item_price = apply_filters('wpbooking_cart_item_price', $item_price, $cart_item,$args);
 			$item_price = apply_filters('wpbooking_cart_item_price_' . $cart_item['service_type'], $item_price, $cart_item,$args);
@@ -853,17 +883,19 @@ if (!class_exists('WPBooking_Order')) {
             return $price;
         }
 
+        /**
+         * Get Cart Paynow Price (Deposit Price)
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return int|mixed|void
+         */
         function get_cart_paynow_price(){
-            $price = 0;
-            $cart = $this->get_cart();
-            if (!empty($cart)) {
-                foreach ($cart as $key => $value) {
-                    $price += $this->get_cart_item_total($value);
-                }
-            }
-            $price-=$this->get_cart_discount_price();
 
-            $price = apply_filters('wpbooking_get_cart_paynow_price', $price, $cart);
+            $price = $this->get_cart_total(array('without_discount'=>false,'without_deposit'=>false));
+
+            $price = apply_filters('wpbooking_get_cart_paynow_price', $price);
 
             return $price;
         }

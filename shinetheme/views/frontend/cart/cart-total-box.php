@@ -45,7 +45,7 @@ $booking=WPBooking_Order::inst();
         <span class="total-title">
 					<?php _e('Discount:', 'wpbooking') ?>
 				</span>
-        <span class="total-amount">-<?php echo WPBooking_Currency::format_money($price); ?></span>
+        <span class="total-amount">-<?php echo WPBooking_Currency::format_money($price); ?> <a href="#" onclick="return false" class="wpbooking-remove-coupon" title="<?php esc_html_e('Remove the coupon','wpbooking') ?>">(x)</a></span>
     <?php } ?>
 
     <span class="total-line"></span>
