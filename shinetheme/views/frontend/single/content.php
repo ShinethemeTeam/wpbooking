@@ -45,8 +45,8 @@ $service = new WB_Service();
 			<?php do_action('wpbooking_after_service_address_rate', get_the_ID(), $service->get_type(), $service) ?>
 
 		</div>
-		<div class="row">
-			<div class="col-sm-8 col-service-title">
+		<div class="row-service-order-form">
+			<div class="col-service-title">
 				<div class="service-title-gallery">
 
 
@@ -62,7 +62,7 @@ $service = new WB_Service();
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-4 col-order-form">
+			<div class="col-order-form">
 				<div class="service-order-form">
 					<div class="service-price"><?php $service->get_price_html(); ?></div>
 					<div class="order-form-content">

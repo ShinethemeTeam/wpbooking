@@ -1400,7 +1400,32 @@
   border-bottom: 1px solid #adadad;
 }
 .single-wpbooking_service .wpbooking-single-content {
+  padding-bottom: 50px;
   color: #666;
+}
+.single-wpbooking_service .wpbooking-single-content .row-service-order-form {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.single-wpbooking_service .wpbooking-single-content .row-service-order-form:before,
+.single-wpbooking_service .wpbooking-single-content .row-service-order-form:after {
+  display: table;
+  content: " ";
+}
+.single-wpbooking_service .wpbooking-single-content .row-service-order-form:after {
+  clear: both;
+}
+.single-wpbooking_service .wpbooking-single-content .row-service-order-form .col-service-title {
+  float: left;
+  width: 66%;
+  box-sizing: border-box;
+  padding: 0px 10px;
+}
+.single-wpbooking_service .wpbooking-single-content .row-service-order-form .col-order-form {
+  float: left;
+  width: 33%;
+  box-sizing: border-box;
+  padding: 0px 10px;
 }
 .single-wpbooking_service .wpbooking-single-content .service-title-gallery {
   margin-bottom: 30px;
