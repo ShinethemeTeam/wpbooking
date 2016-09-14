@@ -1527,7 +1527,7 @@
 .single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content .wb-field label {
   position: relative;
 }
-.single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content .wb-field label .required {
+.single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content .wb-field label span.required {
   color: red;
 }
 .single-wpbooking_service .wpbooking-single-content .service-order-form .order-form-content .wb-field-datepicker {
@@ -2334,7 +2334,7 @@
 .wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap .wb-field {
   margin-bottom: 15px;
 }
-.wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap .wb-field label .required {
+.wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-form-wrap .wb-field label span.required {
   color: red;
 }
 .wpbooking-checkout-wrap .wpbooking-checkout-form .wpbooking-gateways {
