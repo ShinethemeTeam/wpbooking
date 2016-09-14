@@ -123,7 +123,9 @@ if (!class_exists('WPBooking_Form_Check_In_Field')) {
 
 			$html=array('<div class="wb-field-datepicker wb-field">');
 			if(!empty($data['title'])){
-				$html[]=sprintf('<p><label>%s</label></p>',wpbooking_get_translated_string($data['title']));
+			    $title=wpbooking_get_translated_string($data['title']);
+                if($required) $title.=' <span class=required >*</span>';
+				$html[]=sprintf('<p><label>%s</label></p>',$title);
 			}
 			$html[]= '<label><input readonly type="text" '.$a.' /><i class="fa fa-calendar"></i></label></div>';
 

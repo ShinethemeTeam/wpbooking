@@ -93,7 +93,12 @@ if(!class_exists('WPBooking_Form_Guest_Field')){
 
 			$html='<div class="wb-field">';
 			if(!empty($data['title'])){
-				$html.=sprintf('<p><label>%s</label></p>',wpbooking_get_translated_string($data['title']));
+
+
+                $title=wpbooking_get_translated_string($data['title']);
+                if($required) $title.=' <span class=required >*</span>';
+
+				$html.=sprintf('<p><label>%s</label></p>',$title);
 			}
 
 			$html.= '<select name="' . $name . '" id="' . $id . '" class="' . $class . ' '.$required.'">

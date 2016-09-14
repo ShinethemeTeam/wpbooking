@@ -127,7 +127,17 @@ if(!class_exists('WPBooking_Form_Email_Field')){
 
 			if($this->is_hidden($attr)) return FALSE;
 
-			return '<div class="wb-field"><input type="text" name="' . $name . '" id="' . $id . '" class="' . $class . '" value="' . $value . '" placeholder="' . $placeholder . '"  maxlength="' . $maxlength . '" size="' . $size . '"  ' . $required . ' /></div>';
+            $label=false;
+
+            if(!empty($data['title'])){
+
+                $title=wpbooking_get_translated_string($data['title']);
+                if($required) $title.=' <span class=required >*</span>';
+
+                $label=sprintf('<p><label>%s</label></p>',$title);
+            }
+
+			return '<div class="wb-field">'.$label.'<input type="text" name="' . $name . '" id="' . $id . '" class="' . $class . '" value="' . $value . '" placeholder="' . $placeholder . '"  maxlength="' . $maxlength . '" size="' . $size . '"  ' . $required . ' /></div>';
 		}
 		function get_value($form_item_data,$post_id)
 		{

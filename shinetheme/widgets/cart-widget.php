@@ -34,7 +34,7 @@ if(!class_exists('WPBooking_Widget_Cart'))
 			echo $args['before_widget'];
 			$html=array();
 
-			$html[]='<div class="wpbooking-cart-widget-wrap">'
+			$html[]='<div class="wpbooking-cart-widget-wrap">';
 
 			if ( ! empty( $instance['title'] ) ) {
 				$html[]= do_shortcode($args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title']);
