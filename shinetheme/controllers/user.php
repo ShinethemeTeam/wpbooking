@@ -937,6 +937,9 @@ if (!class_exists('WPBooking_User')) {
             // update-profile
             add_rewrite_endpoint('update-profile', EP_PAGES);
 
+            // View Profile
+            add_rewrite_endpoint('profile', EP_PAGES);
+
 
             flush_rewrite_rules();
 
@@ -995,12 +998,16 @@ if (!class_exists('WPBooking_User')) {
             if (get_query_var('update-profile')) {
                 set_query_var('tab', 'profile');
             }
+            if (get_query_var('profile')) {
+                set_query_var('tab', 'profile');
+            }
 
             return wpbooking_load_view('account/index');
         }
 
         function _partner_register_shortcode()
         {
+
             return wpbooking_load_view('account/partner-register');
         }
 

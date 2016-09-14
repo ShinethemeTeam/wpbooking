@@ -92,6 +92,9 @@
 .alert a {
   text-decoration: underline;
 }
+.alert p {
+  margin-bottom: 0px;
+}
 .hidden {
   display: none;
 }
@@ -100,6 +103,15 @@
 }
 .clear {
   clear: both;
+}
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
+}
+.form-group {
+  margin-bottom: 15px;
 }
 /*
 // Rating Review
@@ -3759,6 +3771,7 @@
   box-sizing: border-box;
   width: 88%;
   position: relative;
+  margin-bottom: 15px;
 }
 .wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form .message-input textarea {
   font-size: 14px;
@@ -3937,6 +3950,9 @@
 }
 .twentythirteen .wb-btn:hover {
   color: white;
+}
+.twentythirteen .wb-btn.wb-btn-default:hover {
+  color: #333;
 }
 .twentythirteen .wpbooking-account-table {
   border-right: 1px solid #ededed;
