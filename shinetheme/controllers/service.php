@@ -97,6 +97,47 @@ if (!class_exists('WPBooking_Service_Controller')) {
              * @author dungdt
              */
             add_filter('body_class', array($this, '_body_class'));
+
+            /**
+             * Filter the Main Query
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('pre_get_posts',array($this,'_filter_main_query'));
+        }
+
+
+        /**
+         * Filter the Main Query
+         *
+         * @since 1.0
+         * @author dungdt
+         */
+        function _filter_main_query($q)
+        {
+            // We only want to affect the main query
+            if ( ! $q->is_main_query() ) {
+                return;
+            }
+
+            /**
+             * To allow archive page display in home page
+             */
+            if($q->is_page() && 'page' === get_option( 'show_on_front' ) && absint( $q->get( 'page_id' ) ) === wpbooking_get_option('archive-page')){
+                $q->set( 'post_type', 'wpbooking_service' );
+                $q->set( 'page_id', '' );
+
+                if ( isset( $q->query['paged'] ) ) {
+                    $q->set( 'paged', $q->query['paged'] );
+                }
+
+                // Fix conditional Functions like is_front_page
+                $q->is_singular          = false;
+                $q->is_post_type_archive = true;
+                $q->is_archive           = true;
+                $q->is_page              = true;
+            }
         }
 
         /**
