@@ -847,6 +847,49 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
             }
             $extra_html = array();
 
+
+            /**
+             * Calculate Base Price
+             */
+            $extra_html[] = sprintf("<li class='field-item %s'>
+												<span class='field-title'>%s:</span>
+												<span class='field-value'>%s</span>
+											</li>",
+                'tax',
+                esc_html__('Price', 'wpbooking'),
+                WPBooking_Order::inst()->get_cart_item_total_html($cart_item, array(
+                    'without_deposit' => TRUE,
+                    'without_discount'=>true
+                ))
+            );
+
+            /**
+             * Calculate Extra Price
+             */
+            if($extra_price=WB_Service_Helper::calculate_extra_price($cart_item,$cart_item['default_extra_services'])){
+                $extra_html[] = sprintf("<li class='field-item %s'>
+												<span class='field-title'>%s:</span>
+												<span class='field-value'>%s</span>
+											</li>",
+                    'extra_price',
+                    esc_html__('Extra Price', 'wpbooking'),
+                    WPBooking_Currency::format_money($extra_price)
+                );
+            }
+            /**
+             * Calculate Addition Price
+             */
+            if($extra_price=WB_Service_Helper::calculate_extra_price($cart_item,$cart_item['default_extra_services'])){
+                $extra_html[] = sprintf("<li class='field-item %s'>
+												<span class='field-title'>%s:</span>
+												<span class='field-value'>%s</span>
+											</li>",
+                    'extra_price',
+                    esc_html__('Extra Price', 'wpbooking'),
+                    WPBooking_Currency::format_money($extra_price)
+                );
+            }
+
             if ($cart_item['enable_additional_guest_tax'] == 'on') {
 
                 // Addition Guest
@@ -876,19 +919,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
             }
 
-            /**
-             * Calculate Total Price without Deposit
-             */
-            $extra_html[] = sprintf("<li class='field-item %s'>
-												<span class='field-title'>%s:</span>
-												<span class='field-value'>%s</span>
-											</li>",
-                'tax',
-                esc_html__('Total', 'wpbooking'),
-                WPBooking_Order::inst()->get_cart_item_total_html($cart_item, array(
-                    'without_deposit' => TRUE
-                ))
-            );
 
             /**
              * Calculate Deposit
@@ -902,7 +932,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 												<span class='field-title'>%s:</span>
 												<span class='field-value'>%s</span>
 											</li>",
-                            'tax',
+                            'deposit_amount',
                             esc_html__('Deposit', 'wpbooking'),
                             $cart_item['deposit_amount'] . '%'
                         );
@@ -913,13 +943,28 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 													<span class='field-title'>%s:</span>
 													<span class='field-value'>%s</span>
 												</li>",
-                            'tax',
+                            'deposit_amount',
                             esc_html__('Deposit', 'wpbooking'),
                             WPBooking_Currency::format_money($cart_item['deposit_amount'])
                         );
                         break;
 
                 }
+            }
+
+            /**
+             * Calculate Discount
+             */
+            if ($discount=WB_Service_Helper::calculate_discount($cart_item,WPBooking_Order::inst()->get_cart_item_total($cart_item,array('without_deposit'=>true,'without_discount'=>true)))) {
+
+                $extra_html[] = sprintf("<li class='field-item %s'>
+                                        <span class='field-title'>%s:</span>
+                                        <span class='field-value'>%s</span>
+                                    </li>",
+                    'discount',
+                    esc_html__('Discount', 'wpbooking'),
+                    WPBooking_Currency::format_money($discount)
+                );
             }
 
 

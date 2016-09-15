@@ -77,7 +77,7 @@ do_action('wpbooking_before_order_content');
 				<?php echo esc_html($order_item->get_type_name()) ?>
 			</td>
 			<td class="review-order-item-total">
-				<p class="cart-item-price"><?php echo ($order_item->get_total_html()) ?></p>
+				<p class="cart-item-price"><?php echo ($order_item->get_total_html(array('without_deposit'=>true))) ?></p>
 			</td>
 		</tr>
 		<?php

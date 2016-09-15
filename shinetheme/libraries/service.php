@@ -125,6 +125,7 @@ if (!class_exists('WB_Service_Helper')) {
 
             return $price;
         }
+
     }
 
 }
