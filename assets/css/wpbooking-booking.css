@@ -3716,7 +3716,7 @@
   border-radius: 50%;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .avatar {
-  width: 21%;
+  text-align: center;
   float: left;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-detail > .info {
