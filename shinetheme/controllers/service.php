@@ -117,8 +117,45 @@ if (!class_exists('WPBooking_Service_Controller')) {
         function _filter_main_query($q)
         {
             // We only want to affect the main query
-            if ( ! $q->is_main_query() ) {
+            if ( ! $q->is_main_query() or is_admin()) {
                 return;
+            }
+
+
+            // Fix for verbose page rules
+            if ( $GLOBALS['wp_rewrite']->use_verbose_page_rules && isset( $q->queried_object->ID ) && $q->queried_object->ID === wpbooking_get_option( 'archive-page' ) ) {
+                $q->set( 'post_type', 'wpbooking_service' );
+                $q->set( 'page', '' );
+                $q->set( 'pagename', '' );
+
+                // Fix conditional Functions
+                $q->is_archive           = true;
+                $q->is_post_type_archive = true;
+                $q->is_singular          = false;
+                $q->is_page              = false;
+            }
+
+            if ( $q->is_home() && 'page' === get_option( 'show_on_front' ) && absint( get_option( 'page_on_front' ) ) !== absint( $q->get( 'page_id' ) ) ) {
+                $_query = wp_parse_args( $q->query );
+                if ( ! empty( $_query ) && array_intersect( array_keys( $_query ), array_keys( $this->query_vars ) ) ) {
+                    $q->is_page     = true;
+                    $q->is_home     = false;
+                    $q->is_singular = true;
+                    $q->set( 'page_id', (int) get_option( 'page_on_front' ) );
+                    add_filter( 'redirect_canonical', '__return_false' );
+                }
+            }
+
+
+            // When orderby is set, WordPress shows posts. Get around that here.
+            if ( $q->is_home() && 'page' === get_option( 'show_on_front' ) && absint( get_option( 'page_on_front' ) ) === wpbooking_get_option( 'archive-page' ) ) {
+                $_query = wp_parse_args( $q->query );
+                if ( empty( $_query ) || ! array_diff( array_keys( $_query ), array( 'preview', 'page', 'paged', 'cpage', 'orderby' ) ) ) {
+                    $q->is_page = true;
+                    $q->is_home = false;
+                    $q->set( 'page_id', (int) get_option( 'page_on_front' ) );
+                    $q->set( 'post_type', 'wpbooking_service' );
+                }
             }
 
             /**
@@ -138,6 +175,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
                 $q->is_archive           = true;
                 $q->is_page              = true;
             }
+
         }
 
         /**

@@ -41,25 +41,25 @@ if(!class_exists('WPBooking_Query_Inject')){
 		 */
 		function pre_get_posts($q)
 		{
-			if($q->is_main_query()){
-
-				// Only Modify Archive, Tax page
-
-				if(!$q->is_post_type_archive( 'wpbooking_service' ) && ! $q->is_tax( get_object_taxonomies( 'wpbooking_service' ) )) return;
-
-
-				$this->inject();
-
-				// Apply Args Change
-				if(!empty($this->_query_args)){
-					foreach($this->_query_args as $key=>$value){
-						$q->set($key,$value);
-					}
-				}
-
-				remove_action( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
-				add_filter('wp',array($this,'clear'));
-			}
+//			if($q->is_main_query()){
+//
+//				// Only Modify Archive, Tax page
+//
+//				if(!$q->is_post_type_archive( 'wpbooking_service' ) && ! $q->is_tax( get_object_taxonomies( 'wpbooking_service' ) )) return;
+//
+//
+//				$this->inject();
+//
+//				// Apply Args Change
+//				if(!empty($this->_query_args)){
+//					foreach($this->_query_args as $key=>$value){
+//						$q->set($key,$value);
+//					}
+//				}
+//
+//				remove_action( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
+//				add_filter('wp',array($this,'clear'));
+//			}
 
 		}
 		function inject()

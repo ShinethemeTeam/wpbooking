@@ -54,7 +54,9 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			add_action('wp_enqueue_scripts',array($this,'_frontend_scripts'));
 
 			do_action('wpbooking_after_plugin_init');
+
 		}
+
 
 		function _frontend_scripts()
 		{

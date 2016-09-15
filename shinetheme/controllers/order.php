@@ -550,10 +550,6 @@ if (!class_exists('WPBooking_Order')) {
 				}
 			}
 
-			if(!$args['without_discount']){
-			    $price-=$this->get_cart_discount_price();
-            }
-
 			$price = apply_filters('wpbooking_get_cart_total', $price, $cart);
 
 			return $price;
@@ -746,37 +742,14 @@ if (!class_exists('WPBooking_Order')) {
            $price = 0;
             // Check if Coupon is for all services, only discount for cart
            if($coupon_code=WPBooking_Order::inst()->get_cart_coupon()) {
-               $coupon = new WB_Coupon($coupon_code);
-               if ($coupon->get_type() == false or $coupon->get_type() == 'all') {
-                   if ($coupon_value = $coupon->get_value()) {
-                       switch ($coupon->get_value_type()) {
-                           case "percentage":
-                               $total_price = $this->get_cart_total(array('without_deposit'=>true,'without_discount'=>true));
-
-                               if ($coupon_value > 100) $coupon_value = 100;
-                               if ($coupon_value < 0) $coupon_value = 0;
-
-                               $price = $total_price * $coupon_value / 100;
-                               break;
-                           case "fixed_amount":
-                           default:
-                               $price = $coupon_value;
-                               break;
-                       }
+               if (!empty($cart)) {
+                   foreach ($cart as $key => $value) {
+                       $price += $this->get_cart_item_discount($value);
                    }
-
-               } else {
-
-                   if (!empty($cart)) {
-                       foreach ($cart as $key => $value) {
-                           $price += $this->get_cart_item_discount($value);
-                       }
-                   }
-               }
+                 }
            }
 
-
-            $price = apply_filters('wpbooking_get_cart_discount_price', $price, $cart);
+           $price = apply_filters('wpbooking_get_cart_discount_price', $price, $cart);
 
             return $price;
         }
@@ -805,6 +778,8 @@ if (!class_exists('WPBooking_Order')) {
                     if(!empty($services) and in_array($cart_item['post_id'],$services)){
                         $possible=true;
                     }
+                }else{
+                    $possible=true;
                 }
 
                 if($possible  and $coupon_value=$coupon->get_value()){
