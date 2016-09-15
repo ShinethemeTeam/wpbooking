@@ -67,6 +67,8 @@ jQuery(document).ready(function($){
                 grecaptcha.reset();
                 if(res.status){
                     me.addClass('success');
+                    me.hide();
+                    me.parent().find('.wb-btn-to-checkout').show();
                 }else{
                     me.addClass('error');
                 }

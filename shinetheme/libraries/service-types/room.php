@@ -112,8 +112,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
             add_action('init', array($this, '_register_taxonomy'));
 
-            // add metabox
-            //add_filter('wpbooking_metabox_after_st_post_metabox_field_end_address_accordion',array($this,'_add_metabox'));
 
             add_filter('wpbooking_model_table_wpbooking_service_columns', array($this, '_add_meta_table_column'));
 
@@ -128,9 +126,22 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
              */
             add_filter('wpbooking_do_checkout_validate', array($this, '_validate_checkout'), 10, 2);
 
+            /**
+             * Change Cart Item Price
+             *
+             * @since 1.0
+             * @author dungdt
+             *
+             */
             add_filter('wpbooking_cart_item_price_' . $this->type_id, array($this, '_change_cart_item_price'), 10, 3);
 
-            add_filter('wpbooking_order_item_total_' . $this->type_id, array($this, '_change_order_item_price'), 10, 3);
+            /**
+             * Change Order Item Price
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_filter('wpbooking_order_item_total_' . $this->type_id, array($this, '_change_order_item_price'), 10, 4);
 
             // Add more params to cart items
             add_filter('wpbooking_cart_item_params_' . $this->type_id, array($this, '_change_cart_item_params'), 10, 2);
@@ -413,21 +424,22 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                     foreach ($cart as $key => $cart_item) {
                         if (!$this->validate_cart_duplicate($cart_item, $key)) {
                             wpbooking_set_message(sprintf(esc_html__('Item: %s is duplicate. Please check your cart again', 'wpbooking'), '<i>' . get_the_title($cart_item['post_id']) . '</i>'), 'error');
+
                             return false;
-                        }else{
+                        } else {
 
                             // Validate Availability last time
-                            $cart_item=wp_parse_args($cart_item,array(
-                                'check_out_timestamp'=>'',
-                                'check_in_timestamp'=>''
+                            $cart_item = wp_parse_args($cart_item, array(
+                                'check_out_timestamp' => '',
+                                'check_in_timestamp'  => ''
                             ));
                             if ($cart_item['check_out_timestamp']) {
                                 $cart_item['check_out_timestamp'] = $cart_item['check_in_timestamp'];
                             }
-                            $check_in_timestamp= $cart_item['check_in_timestamp'];
-                            $check_out_timestamp= $cart_item['check_out_timestamp'];
+                            $check_in_timestamp = $cart_item['check_in_timestamp'];
+                            $check_out_timestamp = $cart_item['check_out_timestamp'];
 
-                            $service=new WB_Service($cart_item['post_id']);
+                            $service = new WB_Service($cart_item['post_id']);
                             $res = $service->check_availability($check_in_timestamp, $check_out_timestamp);
                             if (!$res['status']) {
 
@@ -476,7 +488,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                     'check_in_timestamp'  => 0,
                     'check_out_timestamp' => 0,
                 ));
-
             if (!$cart_item['check_in_timestamp'] or !$cart_item['check_out_timestamp']) return true; // If, somehow, its dose not contain check in and checkout time -> return true
 
             $carts = WPBooking_Order::inst()->get_cart();
@@ -489,15 +500,18 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                             'check_out_timestamp' => 0,
                         ));
 
+
+
                     if ($cart_item_key and $cart_item_key == $key) continue;
+
 
                     if ($cart['check_in_timestamp'] and $cart['check_out_timestamp']) {
                         if ($cart['post_id'] == $cart_item['post_id'] and
-                                (
-                                    ($cart['check_in_timestamp'] >= $cart_item['check_in_timestamp'] and $cart['check_in_timestamp'] >= $cart_item['check_out_timestamp']) or
-                                    ($cart['check_in_timestamp']<$cart_item['check_in_timestamp']  and  $cart_item['check_in_timestamp']<=$cart['check_out_timestamp'])
-                                )
-                            ) {
+                            (
+                                ($cart['check_in_timestamp'] >= $cart_item['check_in_timestamp'] and $cart['check_in_timestamp'] <= $cart_item['check_out_timestamp']) or
+                                ($cart['check_in_timestamp'] < $cart_item['check_in_timestamp'] and $cart_item['check_in_timestamp'] <= $cart['check_out_timestamp'])
+                            )
+                        ) {
 
                             return false;
                         }
@@ -538,6 +552,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
             $cart_item['tax'] = $service->get_meta('tax');
             $cart_item['deposit_type'] = $service->get_meta('deposit_type');
             $cart_item['deposit_amount'] = $service->get_meta('deposit_amount');
+            $cart_item['default_extra_services'] = $service->get_extra_services();
 
             if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
                 $cart_item['calendar_prices'] = $calendar->get_prices($cart_item['post_id'], $cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
@@ -546,23 +561,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
             return $cart_item;
         }
 
-        function _get_cart_item_price($cart_item, $args = array())
-        {
-
-        }
-
-        /**
-         * Change Cart Item Price Hook Callback - Calculate Price Right-in-time
-         *
-         * @author dungdt
-         * @since 1.0
-         *
-         * @param $price
-         * @param $cart_item
-         * @param $args
-         * @return float
-         */
-        function _change_cart_item_price($price, $cart_item, $args = array())
+        function change_price($price, $cart_item, $args = array())
         {
             $args = wp_parse_args($args, array(
                 'without_deposit'        => FALSE,
@@ -573,6 +572,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
             ));
             $cart_item = wp_parse_args($cart_item, array(
                 'extra_services'              => array(),
+                'default_extra_services'      => array(),
                 'check_in_timestamp'          => FALSE,
                 'check_out_timestamp'         => FALSE,
                 'post_id'                     => FALSE,
@@ -583,7 +583,9 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                 'enable_additional_guest_tax' => '',
                 'rate_based_on'               => FALSE,
                 'additional_guest_money'      => FALSE,
-                'tax'                         => FALSE
+                'tax'                         => FALSE,
+                'coupon_code'                 => '',
+                'coupon_data'                 => array(),
             ));
 
             $days = 0; //Date Diff Checkin and Checkout in days
@@ -649,7 +651,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
              * Calculate Extra Services
              */
             if (!$args['without_extra_price']) {
-                $extra_service_price = WPBooking_Order::inst()->get_cart_item_extra_price($cart_item);
+                $extra_service_price = WB_Service_Helper::calculate_extra_price($cart_item, $cart_item['default_extra_services']);
                 if ($extra_service_price) $price += $extra_service_price;
             }
 
@@ -669,8 +671,11 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                     $price += $price * ($tax / 100);
             }
 
-            if (!$args['without_discount']) {
-                $discount = WPBooking_Order::inst()->get_cart_item_discount($cart_item, $price);
+            /**
+             * Discount Calculate
+             */
+            if (!$args['without_discount'] and !empty($cart_item['coupon_data']) and !empty($cart_item['coupon_code'])) {
+                $discount = WB_Service_Helper::calculate_discount($cart_item, $price);
                 $price -= $discount;
             }
 
@@ -679,27 +684,54 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
              */
             if (!empty($cart_item['deposit_amount']) and !$args['without_deposit']) {
 
-                switch ($cart_item['deposit_type']) {
-                    case "percent":
-                        if ($cart_item['deposit_amount'] > 100) $args['deposit_amount'] = 100;
-                        $price = $price * $cart_item['deposit_amount'] / 100;
-                        break;
-                    case "value":
-                    default:
-                        if ($cart_item['deposit_amount'] < $price)
-                            $price = $cart_item['deposit_amount'];
-                        break;
-
-                }
+                $price = WB_Service_Helper::calculate_deposit($cart_item, $price);
             }
-
 
             return $price;
         }
 
-
-        function _change_order_item_price($price, $order_item,$args=array())
+        /**
+         * Change Cart Item Price Hook Callback - Calculate Price Right-in-time
+         *
+         * @author dungdt
+         * @since 1.0
+         *
+         * @param $price
+         * @param $cart_item
+         * @param $args
+         * @return float
+         */
+        function _change_cart_item_price($price, $cart_item, $args = array())
         {
+
+            $cart_item = wp_parse_args($cart_item, array(
+                'extra_services'              => array(),
+                'check_in_timestamp'          => FALSE,
+                'check_out_timestamp'         => FALSE,
+                'post_id'                     => FALSE,
+                'guest'                       => FALSE,
+                'monthly_rate'                => FALSE,
+                'weekly_rate'                 => FALSE,
+                'calendar_prices'             => array(),
+                'enable_additional_guest_tax' => '',
+                'rate_based_on'               => FALSE,
+                'additional_guest_money'      => FALSE,
+                'tax'                         => FALSE
+            ));
+
+            if ($coupon_code = WPBooking_Order::inst()->get_cart_coupon()) {
+                $coupon = new WB_Coupon($coupon_code);
+                $cart_item['coupon_code'] = $coupon_code;
+                $cart_item['coupon_data'] = $coupon->get_full_data();
+            }
+
+            return $this->change_price($price, $cart_item, $args);
+        }
+
+
+        function _change_order_item_price($price, $order_item, $args = array())
+        {
+
             $args = wp_parse_args($args, array(
                 'without_deposit'        => FALSE,
                 'without_tax'            => false,
@@ -725,133 +757,21 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                     'enable_additional_guest_tax' => '',
                     'rate_based_on'               => FALSE,
                     'additional_guest_money'      => FALSE,
-                    'tax'                         => FALSE
+                    'tax'                         => FALSE,
+                    'coupon_code'                 => '',
+                    'coupon_data'                 => ''
                 ));
+                if ($coupon_code = get_post_meta($order_item['order_id'],'coupon_code',true)) {
 
-                $service = new WB_Service($cart_item['post_id']);
-                $days = 0; //Date Diff Checkin and Checkout in days
+                    $coupon_data = get_post_meta($order_item['order_id'],'coupon_data',true);
 
-                // try to get from order form
-                if (!$cart_item['guest'] and !empty($cart_item['order_form']['guest']['value'])) {
-                    $cart_item['guest'] = $cart_item['order_form']['guest']['value'];
+                    if(empty($cart_item['coupon_code'])) $cart_item['coupon_code']=  $coupon_code;
+                    if(empty($cart_item['coupon_data'])) $cart_item['coupon_data']=  $coupon_data;
                 }
 
-                // Calendar Price
-                if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
-
-                    $calendar_prices = $cart_item['calendar_prices'];
-
-                    $price = $cart_item['base_price'];
-
-                    $days = wpbooking_timestamp_diff_day($cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
-                    if (!$days) $days = 1;
-
-                    // Monthly Rate
-                    if ($days >= 30 and $monthly = $cart_item['monthly_rate']) {
-
-                        $price = ($monthly * $days) / 30;
-
-                    } elseif ($days >= 7 and $weekly = $cart_item['weekly_rate']) {
-
-                        // Weekly Rate
-                        $price = ($weekly * $days) / 7;
-
-                    } else {
-                        // If there is no price in the calendar, we use base price
-                        if (empty($calendar_prices)) {
-                            $price *= $days;
-
-                        } else {
-
-                            $tmp_calendar = array();
-                            foreach ($calendar_prices as $key => $value) {
-                                $tmp_calendar[$value['start']] = $value;
-                            }
-
-                            // Use Calendar Data
-                            $price = 0;
-                            $check_in_temp = $cart_item['check_in_timestamp'];
-                            while ($check_in_temp < $cart_item['check_out_timestamp']) {
-
-                                // If in calendar
-                                if (array_key_exists($check_in_temp, $tmp_calendar)) {
-                                    $price += $tmp_calendar[$check_in_temp]['price'];
-                                } else {
-                                    // Not in calendar data, get from base price
-                                    $price += $cart_item['base_price'];
-                                }
-
-                                $check_in_temp = strtotime('+1 day', $check_in_temp);
-                            }
-                        }
-                    }
-
-                }
-
-                /**
-                 * Calculate Extra Services
-                 */
-                $extra_services = $cart_item['extra_services'];
-                $default = $service->get_extra_services();
-                $extra_service_price = 0;
-                if (!empty($default) and !$args['without_extra_price']) {
-                    foreach ($default as $key => $value) {
-                        if (!$value['money']) continue; // Ignore Money is empty
-                        // Check is required?
-                        if ($value['require'] == 'yes') {
-                            // Default Number is 1
-                            $number = !empty($extra_services[$key]['number']) ? $extra_services[$key]['number'] : 1;
-                            $extra_service_price += ($number * $value['money']);
-
-                        } elseif (array_key_exists($key, $extra_services) and $extra_services[$key]['number'] and !empty($extra_services[$key]['selected'])) {
-                            // If not required, check if user select it
-
-                            $number = $extra_services[$key]['number'];
-                            $extra_service_price += ($number * $value['money']);
-                        }
-
-
-                    }
-                }
-                if ($extra_service_price) $price += $extra_service_price;
-
-                /**
-                 * Calculate Additional Guest and Tax
-                 */
-                if ($cart_item['enable_additional_guest_tax'] == 'on') {
-
-                    //Additional Guest
-                    if ($cart_item['guest'] and $cart_item['rate_based_on'] and $addition_money = $cart_item['additional_guest_money'] and $days and !$args['without_addition_price']) {
-                        $addition = ($cart_item['guest'] - $cart_item['rate_based_on']) * $addition_money * $days;
-
-                        if ($addition > 0) $price += $addition;
-                    }
-                    // Tax
-                    if ($tax = $cart_item['tax'] and !$args['without_tax'])
-                        $price += $price * ($tax / 100);
-                }
-
-                /**
-                 * Calculate Deposit
-                 */
-                if (!empty($cart_item['deposit_amount']) and !$args['without_deposit']) {
-
-                    switch ($cart_item['deposit_type']) {
-                        case "percent":
-                            if ($cart_item['deposit_amount'] > 100) $cart_item['deposit_amount'] = 100;
-                            $price = $price * $cart_item['deposit_amount'] / 100;
-                            break;
-                        case "value":
-                        default:
-                            if ($cart_item['deposit_amount'] < $price)
-                                $price = $cart_item['deposit_amount'];
-                            break;
-
-                    }
-                }
-
-
+                $price = $this->change_price($price, $cart_item, $args);
             }
+
             return $price;
 
         }

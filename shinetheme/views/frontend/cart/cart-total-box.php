@@ -16,6 +16,7 @@ $booking=WPBooking_Order::inst();
             'without_tax'            => true,
             'without_extra_price'    => true,
             'without_addition_price' => false,
+            'without_discount'=>true
 
         ))); ?></span>
 

@@ -59,7 +59,7 @@ global $wpdb;
 				<div class="message-box text-left"></div>
 			</div>
 			<div class="user-avatar">
-				<?php echo get_avatar(get_current_user_id(),100) ?>
+				<?php echo get_avatar(get_current_user_id(),45) ?>
 			</div>
 		</form>
 

@@ -135,7 +135,11 @@ if (!class_exists('WPBooking_Country_Dropdown_Field')) {
 
 			$html=array('<div class="wb-field">');
 			if(!empty($data['title'])){
-				$html[]=sprintf('<p><label>%s</label></p>',wpbooking_get_translated_string($data['title']));
+
+                $title=wpbooking_get_translated_string($data['title']);
+                if($required) $title.=' <span class=required >*</span>';
+
+				$html[]=sprintf('<p><label>%s</label></p>',$title);
 			}
 			$html[]= '<select ' . $a . ' >';
 			if (!empty($country)) {

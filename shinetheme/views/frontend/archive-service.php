@@ -6,20 +6,13 @@ if(WPBooking_Input::get('wb_test'))
 var_dump($my_query->request);
 echo wpbooking_load_view('wrap/start');
 ?>
-<div class="wpbooking-container">
-    <div class="row">
-        <!--<div class="col-md-3">
-            <?php /*echo get_sidebar(); */?>
-        </div>-->
-        <div class="col-md-12 ">
-
-			<?php echo wpbooking_load_view('archive/header',array('my_query'=>$my_query))?>
-			<div class="wpbooking-loop-wrap">
-				<?php echo wpbooking_load_view('archive/loop',array('my_query'=>$my_query))?>
-				<?php echo wpbooking_load_view('archive/pagination',array('my_query'=>$my_query))?>
-			</div>
-        </div>
+<div class="wpbooking-container hentry">
+    <?php echo wpbooking_load_view('archive/header',array('my_query'=>$my_query))?>
+    <div class="wpbooking-loop-wrap">
+        <?php echo wpbooking_load_view('archive/loop',array('my_query'=>$my_query))?>
+        <?php echo wpbooking_load_view('archive/pagination',array('my_query'=>$my_query))?>
     </div>
+
 </div>
 <?php
 echo wpbooking_load_view('wrap/end');

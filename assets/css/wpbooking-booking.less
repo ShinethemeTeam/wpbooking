@@ -100,6 +100,9 @@
     a{
         text-decoration: underline;
     }
+    p{
+        margin-bottom: 0px;
+    }
 }
 .hidden{
     display: none;
@@ -111,6 +114,21 @@
 
 .mt20{
     margin-top: 20px;
+}
+.clear{
+    clear: both;
+}
+.text-right{
+    text-align: right;
+}
+.text-left{
+    text-align: left;
+}
+.text-center{
+    text-align: center;
+}
+.form-group {
+    margin-bottom: 15px;
 }
 
 /*
@@ -490,51 +508,62 @@
 // Loop Header
 .wpbooking-loop-header{
     margin-bottom: 50px;
-    .post-found-count{
-        font-size: 30px;
-        color: #666666;
-        margin-bottom: 15px;
-        font-weight: normal;
-        margin-top: 0px;
-    }
-    .post-query-desc{
-        font-size: 14px;
-        color: #666;
-    }
-    .wpbooking-loop-order{
-        float: right;
-        select{
-            background: #f2f2f2;
-            border:1px solid #d5d5d5;
-            font-size: 14px;
+    .clearfix;
+    .col-post-found{
+        width: 66%;
+        float: left;
+        padding:0px 10px;
+        .post-found-count{
+            font-size: 30px;
             color: #666666;
-            height: 25px;
+            margin-bottom: 15px;
+            font-weight: normal;
+            margin-top: 0px;
+        }
+        .post-query-desc{
+            font-size: 14px;
+            color: #666;
         }
     }
-
-    .wpbooking-view-switch{
-        float: right;
-        margin-right: 20px;
-        a{
-            i{
-                font-size: 20px;
-                color: #999999;
-                padding:3px 4px;
-                border:1px solid transparent;
+    .col-loop-order{
+        width: 33%;
+        float: left;
+        padding:0px 10px;
+        .wpbooking-loop-order{
+            float: right;
+            select{
+                background: #f2f2f2;
+                border:1px solid #d5d5d5;
+                font-size: 14px;
+                color: #666666;
+                height: 25px;
             }
-
-            &.active{
+        }
+        .wpbooking-view-switch{
+            float: right;
+            margin-right: 20px;
+            a{
                 i{
-                    background: #e6e6e6;
-                    border:1px solid #d6d6d6;
+                    font-size: 20px;
+                    color: #999999;
+                    padding:3px 4px;
+                    border:1px solid transparent;
+                }
+
+                &.active{
+                    i{
+                        background: #e6e6e6;
+                        border:1px solid #d6d6d6;
+                    }
+                }
+
+                &:focus,&:active{
+                    outline: none;
                 }
             }
-
-            &:focus,&:active{
-                outline: none;
-            }
         }
     }
+
 }
 .wpbooking-loop-wrap{
     .wpbooking-loop-items{
@@ -698,8 +727,8 @@
                                 font-weight: normal;
                                 border:1px solid #ff9933;
                                 border-radius: 0px;
-                                padding-top: 8px;
-                                padding-bottom: 8px;
+                                padding-top: 5px;
+                                padding-bottom: 5px;
                             }
                         }
                     }
@@ -1498,7 +1527,26 @@
 // Single
 .single-wpbooking_service{
     .wpbooking-single-content{
+        padding-bottom: 50px;
         color: #666;
+
+        .row-service-order-form{
+            margin-left:-10px;
+            margin-right:-10px;
+            .clearfix;
+            .col-service-title{
+                float: left;
+                width: 66%;
+                box-sizing: border-box;
+                padding:0px 10px;
+            }
+            .col-order-form{
+                float: left;
+                width: 33%;
+                box-sizing: border-box;
+                padding:0px 10px;
+            }
+        }
         .service-title-gallery{
             margin-bottom: 30px;
             .service-title{
@@ -1629,6 +1677,9 @@
                     label{
                         position: relative;
                     }
+                    label span.required{
+                        color: red;
+                    }
                 }
                 .wb-field-datepicker{
                     position: relative;
@@ -1701,7 +1752,10 @@
                         }
                     }
                 }
-                .submit-button{
+                .wb-btn-to-checkout{
+                    display: none;
+                }
+                .submit-button,.wb-btn-to-checkout{
                     text-transform: uppercase;
                     background: #31b0d5;
                     border: 1px solid #269abc;
@@ -2410,6 +2464,9 @@
             }
             .wb-field{
                 margin-bottom: 15px;
+                label span.required{
+                    color: red;
+                }
             }
         }
 
@@ -3870,6 +3927,7 @@
                  box-sizing: border-box;
                  width: 88%;
                  position: relative;
+                 margin-bottom: 15px;
 
                  textarea{
                      font-size: 14px;
@@ -4004,118 +4062,7 @@
 .wpbooking-remove-coupon{
     border:none;
 }
-.twentythirteen{
-    &.sidebar{
-        .wpbooking-single-content{
-            padding:0px;
-        }
-    }
-    .wpbooking-container{
-        padding-left: 0px;
-        padding-right: 0px;
-    }
 
-    .wpbooking-loop-items
-    {
-        padding-left: 0px;
-
-        .loop-item .content-item
-        {
-            .service-content .wpbooking-room-type a{
-                margin: 2px 0px;
-            }
-        }
-    }
-
-    .comment-section{
-        .comment-reply-title{
-            padding-left: 0px;
-            padding-right: 0px;
-        }
-
-        .comment-respond{
-            .comment-form{
-                padding-left: 0px;
-                padding-right: 0px;
-                label{
-                    display: block;
-                }
-            }
-        }
-    }
-
-    .col-service-title{
-        width: 100%;
-        margin-bottom: 30px;
-    }
-    .col-order-form{
-        width: 100%;
-        margin-bottom: 30px;
-
-        .service-order-form .order-form-content{
-            .wpbooking_order_form{
-                .clearfix;
-            }
-            input[type=text]{
-                width: 100%;
-            }
-            .wb-field{
-                width: 50%;
-                float: left;
-                padding:0px 10px;
-                label{
-                    position: relative;
-                }
-            }
-
-            [type=submit]{
-                clear:both;
-                display: block;
-                margin-left: 10px;
-            }
-        }
-
-    }
-
-    .order-information-table{
-        border-right: 1px solid #ededed;
-
-        td,th{
-            padding:10px;
-            border-top:1px solid #ededed;
-            border-left:1px solid #ededed;
-        }
-        th{
-            text-transform: none;
-        };
-    }
-
-    .wb-btn{
-        &:hover{
-            color: white;
-        }
-    }
-    .wpbooking-account-table{
-
-        border-right: 1px solid #ededed;
-        td,th{
-            border-top:1px solid #ededed;
-            border-left:1px solid #ededed;
-        }
-
-    }
-    .user-reviews .comment-list{
-        >li{
-            &:after{
-                display: none;
-            }
-        }
-    }
-    .wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form .message-input textarea{
-        width: 100%;
-    }
-
-}
 body{
     &.twentyfourteen{
         .site-main
@@ -4141,6 +4088,129 @@ body{
         }
         .user-reviews .comment-list > li .comment-content-wrap{
             width: 75% !important;
+        }
+    }
+    &.twentythirteen{
+        &.sidebar{
+            .wpbooking-single-content{
+                padding:0px;
+            }
+        }
+        .wpbooking-container{
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        .wpbooking-loop-items
+        {
+            padding-left: 0px;
+
+            .loop-item .content-item
+            {
+                .service-content .wpbooking-room-type a{
+                    margin: 2px 0px;
+                }
+            }
+        }
+
+        .comment-section{
+            .comment-reply-title{
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+
+            .comment-respond{
+                .comment-form{
+                    padding-left: 0px;
+                    padding-right: 0px;
+                    label{
+                        display: block;
+                    }
+                }
+            }
+        }
+
+
+        .col-service-title{
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        .col-order-form{
+            width: 100%;
+            margin-bottom: 30px;
+
+            .service-order-form .order-form-content{
+                .wpbooking_order_form{
+                    .clearfix;
+                }
+                input[type=text]{
+                    width: 100%;
+                }
+                .wb-field{
+                    width: 50%;
+                    float: left;
+                    padding:0px 10px;
+                    label{
+                        position: relative;
+                    }
+                }
+
+                [type=submit]{
+                    clear:both;
+                    display: block;
+                }
+            }
+
+        }
+
+        .order-information-table{
+            border-right: 1px solid #ededed;
+
+            td,th{
+                padding:10px;
+                border-top:1px solid #ededed;
+                border-left:1px solid #ededed;
+            }
+            th{
+                text-transform: none;
+            };
+        }
+
+        .wb-btn{
+            &:hover{
+                color: white;
+            }
+            &.wb-btn-default:hover{
+                color: #333;
+            }
+        }
+        .wpbooking-account-table{
+
+            border-right: 1px solid #ededed;
+            td,th{
+                border-top:1px solid #ededed;
+                border-left:1px solid #ededed;
+            }
+
+        }
+        .user-reviews .comment-list{
+            >li{
+                &:after{
+                    display: none;
+                }
+            }
+        }
+        .wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form .message-input textarea{
+            width: 100%;
+        }
+
+    }
+    &.twentysixteen{
+        .entry-content
+        .wpbooking-myaccount-wrap,.wpbooking-cart-wrap,.wpbooking-checkout-wrap{
+            a{
+                box-shadow: none;
+            }
         }
     }
 }

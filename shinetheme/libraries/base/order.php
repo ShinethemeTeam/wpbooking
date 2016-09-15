@@ -150,8 +150,8 @@ if (!class_exists('WB_Order')) {
         function get_item_total($item, $need_convert = FALSE,$args=array())
         {
             $item_price = $item['sub_total'];
-            $item_price = apply_filters('wpbooking_order_item_total', $item_price, $item, $item['service_type'],$args);
-            $item_price = apply_filters('wpbooking_order_item_total_' . $item['service_type'], $item_price, $item,$args);
+            $item_price = apply_filters('wpbooking_order_item_total', $item_price, $item, $item['service_type'],$args,$this);
+            $item_price = apply_filters('wpbooking_order_item_total_' . $item['service_type'], $item_price, $item,$args,$this);
 
             // Convert to current currency
             if ($need_convert) {
@@ -497,31 +497,10 @@ if (!class_exists('WB_Order')) {
             $price = 0;
             // Check if Coupon is for all services, only discount for cart
             if ($coupon_code = $this->get_coupon_code()) {
-                $coupon_data = $this->get_coupon_data();
-                if (!empty($coupon_data) and ($coupon_data['coupon_type'] == false or $coupon_data['coupon_type'] == 'all')) {
-                    if ($coupon_value = $coupon_data['coupon_value']) {
-                        switch ($coupon_data['coupon_value_type']) {
-                            case "percentage":
-                                $total_price = $this->get_total(array('without_discount'=>true,'without_deposit'=>true));
 
-                                if ($coupon_value > 100) $coupon_value = 100;
-                                if ($coupon_value < 0) $coupon_value = 0;
-
-                                $price = $total_price * $coupon_value / 100;
-                                break;
-                            case "fixed_amount":
-                            default:
-                                $price = $coupon_value;
-                                break;
-                        }
-                    }
-
-                } else {
-
-                    if (!empty($cart)) {
-                        foreach ($cart as $key => $value) {
-                            $price += $this->get_item_discount($value);
-                        }
+                if (!empty($cart)) {
+                    foreach ($cart as $key => $value) {
+                        $price += $this->get_item_discount($value);
                     }
                 }
             }
@@ -548,34 +527,10 @@ if (!class_exists('WB_Order')) {
             $price = 0;
             if ($coupon_code = $this->get_coupon_code()) {
                 $coupon_data = $this->get_coupon_data();
+                $cart_item['coupon_code']=$coupon_code;
+                $cart_item['coupon_data']=$coupon_data;
 
-                $possible = false;
-
-                if ($coupon_data['coupon_type'] == 'specific_services') {
-                    $services = $coupon_data['services_ids'];
-                    if (!empty($services) and in_array($cart_item['post_id'], $services)) {
-                        $possible = true;
-                    }
-                }
-
-                if ($possible and $coupon_value = $coupon_data['coupon_value']) {
-                    switch ($coupon_data['value_type']) {
-                        case "percentage":
-                            if ($cart_item_price === null)
-                                $total_price = $this->get_item_total($cart_item, false, array('without_discount' => true,'without_deposit'=>true));
-                            else $total_price = $cart_item_price;
-
-                            if ($coupon_value > 100) $coupon_value = 100;
-                            if ($coupon_value < 0) $coupon_value = 0;
-
-                            $price = $total_price * $coupon_value / 100;
-                            break;
-                        case "fixed_amount":
-                        default:
-                            $price = $coupon_value;
-                            break;
-                    }
-                }
+                $price=WB_Service_Helper::calculate_discount($cart_item,$cart_item_price);
             }
 
             return $price;
@@ -627,7 +582,7 @@ if (!class_exists('WB_Order')) {
             if ($cart_item['raw_data'] and $cart_data = unserialize($cart_item['raw_data'])) {
                 if ($cart_data['enable_additional_guest_tax'] == 'on') {
 
-                    $item_price = $this->get_item_total($cart_item, true, array('without_tax' => true, 'without_deposit' => true));
+                    $item_price = $this->get_item_total($cart_item, true, array('without_tax' => true, 'without_deposit' => true,'without_discount'=>true));
                     // Tax
                     if ($tax = $cart_data['tax'])
                         $price = $item_price * ($tax / 100);
@@ -647,10 +602,9 @@ if (!class_exists('WB_Order')) {
          */
         function get_paynow_price()
         {
-            $price = 0;
-            $cart = $this->get_total();
+            $price = $this->get_total();
 
-            $price = apply_filters('wpbooking_get_order_paynow_price', $price, $cart);
+            $price = apply_filters('wpbooking_get_order_paynow_price', $price);
 
             return $price;
         }

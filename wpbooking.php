@@ -54,14 +54,16 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			add_action('wp_enqueue_scripts',array($this,'_frontend_scripts'));
 
 			do_action('wpbooking_after_plugin_init');
+
 		}
+
 
 		function _frontend_scripts()
 		{
 			/**
 			 * Css
 			 */
-            wp_enqueue_style('wpbooking-bootstrap-css',wpbooking_assets_url('bootstrap/css/bootstrap.min.css'));
+            //wp_enqueue_style('wpbooking-bootstrap-css',wpbooking_assets_url('bootstrap/css/bootstrap.min.css'));
 			wp_enqueue_style('font-awesome',wpbooking_assets_url('fa4.5/css/font-awesome.min.css'),FALSE,'4.5.0');
             wp_enqueue_style('fotorama',wpbooking_assets_url('fotorama4.6.4/fotorama.css'));
 //			wp_enqueue_style('plugin_name-admin-ui-css',
@@ -100,7 +102,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 				wp_enqueue_style('magnific');
 				wp_enqueue_script('magnific');
 			}
-			wp_enqueue_style('wpbooking-booking',wpbooking_assets_url('css/wpbooking-booking.css'),array('icheck','owlcarousel','wpbooking-icon'));
+			wp_enqueue_style('wpbooking',wpbooking_assets_url('css/wpbooking-booking.css'),array('icheck','owlcarousel','wpbooking-icon'));
 
 
 			/**
@@ -118,7 +120,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			/**
 			 * Javascripts
 			 */
-			wp_enqueue_script('bootstrap-js',wpbooking_assets_url('bootstrap/js/bootstrap.js'),array('jquery'),null,true);
+			//wp_enqueue_script('bootstrap-js',wpbooking_assets_url('bootstrap/js/bootstrap.js'),array('jquery'),null,true);
             wp_enqueue_script('fotorama-js',wpbooking_assets_url('fotorama4.6.4/fotorama.js'),array('jquery'),null,true);
 			wp_enqueue_script('google-map-js','//maps.googleapis.com/maps/api/js?libraries=places&sensor=false',array('jquery'),null,true);
 			wp_enqueue_script('gmap3.min-js',wpbooking_assets_url('js/gmap3.min.js'),array('jquery'),null,true);

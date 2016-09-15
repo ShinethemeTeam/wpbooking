@@ -7,7 +7,9 @@ if(get_query_var('update-profile')){
 $update_profile=get_permalink(wpbooking_get_option('myaccount-page')).'update-profile/'.get_current_user_id();
 $link_my_profile=get_permalink(wpbooking_get_option('myaccount-page')).'/tab/profile/';
 $my_user_id = $current_user->ID;
-$user_id = WPBooking_Input::request('user_id',$my_user_id);
+if($user_query = get_query_var('profile')){
+	$user_id=$user_query;
+}else $user_id=$my_user_id;
 $data_current_user = get_userdata( $user_id );
 ?>
 <h3 class="tab-page-title">
@@ -62,7 +64,7 @@ $data_current_user = get_userdata( $user_id );
 				$url=WPBooking_User::inst()->account_page_url().'tab/inbox/';
 				$contact_now_url=add_query_arg(array('user_id'=>$user_id),$url);
 				?>
-				<a href="<?php echo esc_html($contact_now_url) ?>" class="btn btn-default"><?php esc_html_e("Contact","wpbooking") ?></a>
+				<a href="<?php echo esc_html($contact_now_url) ?>" class="wb-btn wb-btn-default wb-btn-md"><?php esc_html_e("Contact","wpbooking") ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -125,7 +127,6 @@ $data_current_user = get_userdata( $user_id );
 		->get()
 		->result();
 	$total_item=$wpdb->get_var('SELECT FOUND_ROWS()');
-	//echo $comment->last_query();
 	$total=ceil($total_item/$limit);
 	$paging=array();
 	$paging['base']=$link_my_profile.'%_%';

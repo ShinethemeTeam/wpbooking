@@ -97,6 +97,85 @@ if (!class_exists('WPBooking_Service_Controller')) {
              * @author dungdt
              */
             add_filter('body_class', array($this, '_body_class'));
+
+            /**
+             * Filter the Main Query
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('pre_get_posts',array($this,'_filter_main_query'));
+        }
+
+
+        /**
+         * Filter the Main Query
+         *
+         * @since 1.0
+         * @author dungdt
+         */
+        function _filter_main_query($q)
+        {
+            // We only want to affect the main query
+            if ( ! $q->is_main_query() or is_admin()) {
+                return;
+            }
+
+
+            // Fix for verbose page rules
+            if ( $GLOBALS['wp_rewrite']->use_verbose_page_rules && isset( $q->queried_object->ID ) && $q->queried_object->ID === wpbooking_get_option( 'archive-page' ) ) {
+                $q->set( 'post_type', 'wpbooking_service' );
+                $q->set( 'page', '' );
+                $q->set( 'pagename', '' );
+
+                // Fix conditional Functions
+                $q->is_archive           = true;
+                $q->is_post_type_archive = true;
+                $q->is_singular          = false;
+                $q->is_page              = false;
+            }
+
+            if ( $q->is_home() && 'page' === get_option( 'show_on_front' ) && absint( get_option( 'page_on_front' ) ) !== absint( $q->get( 'page_id' ) ) ) {
+                $_query = wp_parse_args( $q->query );
+                if ( ! empty( $_query ) && array_intersect( array_keys( $_query ), array_keys( $this->query_vars ) ) ) {
+                    $q->is_page     = true;
+                    $q->is_home     = false;
+                    $q->is_singular = true;
+                    $q->set( 'page_id', (int) get_option( 'page_on_front' ) );
+                    add_filter( 'redirect_canonical', '__return_false' );
+                }
+            }
+
+
+            // When orderby is set, WordPress shows posts. Get around that here.
+            if ( $q->is_home() && 'page' === get_option( 'show_on_front' ) && absint( get_option( 'page_on_front' ) ) === wpbooking_get_option( 'archive-page' ) ) {
+                $_query = wp_parse_args( $q->query );
+                if ( empty( $_query ) || ! array_diff( array_keys( $_query ), array( 'preview', 'page', 'paged', 'cpage', 'orderby' ) ) ) {
+                    $q->is_page = true;
+                    $q->is_home = false;
+                    $q->set( 'page_id', (int) get_option( 'page_on_front' ) );
+                    $q->set( 'post_type', 'wpbooking_service' );
+                }
+            }
+
+            /**
+             * To allow archive page display in home page
+             */
+            if($q->is_page() && 'page' === get_option( 'show_on_front' ) && absint( $q->get( 'page_id' ) ) === wpbooking_get_option('archive-page')){
+                $q->set( 'post_type', 'wpbooking_service' );
+                $q->set( 'page_id', '' );
+
+                if ( isset( $q->query['paged'] ) ) {
+                    $q->set( 'paged', $q->query['paged'] );
+                }
+
+                // Fix conditional Functions like is_front_page
+                $q->is_singular          = false;
+                $q->is_post_type_archive = true;
+                $q->is_archive           = true;
+                $q->is_page              = true;
+            }
+
         }
 
         /**

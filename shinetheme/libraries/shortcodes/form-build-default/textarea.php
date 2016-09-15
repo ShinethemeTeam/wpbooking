@@ -121,11 +121,15 @@ if(!class_exists('WPBooking_Form_Textarea_Field')){
 			$this->add_field($name,array('data'=>$data,'rule'=>$rule));
 			if($this->is_hidden($attr)) return FALSE;
 
-			$html=array();
+			$html=array('<div class="wb-field">');
 			if(!empty($data['title'])){
-				$html[]=sprintf('<p><label>%s</label></p>',wpbooking_get_translated_string($data['title']));
+
+                $title=wpbooking_get_translated_string($data['title']);
+                if($required) $title.=' <span class=required >*</span>';
+
+				$html[]=sprintf('<p><label>%s</label></p>',$title);
 			}
-			$html[]= '<div class="wb-field"><textarea placeholder="'.$data['placeholder'].'" name="' . $name . '" id="' . $id . '" class="' . $class . '" rows="' . $rows . '" cols="' . $columns . '" ' . $required . ' >' . $value . '</textarea></div>';
+			$html[]= '<textarea placeholder="'.$data['placeholder'].'" name="' . $name . '" id="' . $id . '" class="' . $class . '" rows="' . $rows . '" cols="' . $columns . '" ' . $required . ' >' . $value . '</textarea></div>';
 
 			return implode("\r\n",$html);
 		}

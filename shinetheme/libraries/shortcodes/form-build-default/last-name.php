@@ -130,7 +130,12 @@ if (!class_exists('WPBooking_Last_Name_Field')) {
 
 			$html=array('<div class="wb-field">');
 			if(!empty($data['title'])){
-				$html[]=sprintf('<p><label>%s</label></p>',wpbooking_get_translated_string($data['title']));
+
+
+                $title=wpbooking_get_translated_string($data['title']);
+                if($required) $title.=' <span class=required >*</span>';
+
+				$html[]=sprintf('<p><label>%s</label></p>',$title);
 			}
 			$html[]= '<input type="text" '.$a.' /></div>';
 
