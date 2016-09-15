@@ -8,7 +8,7 @@
 ?>
 <div class="wpbooking-myaccount-wrap">
 	<?php
-	if(get_query_var('tab') == "profile" and WPBooking_Input::request("user_id")){
+	if(get_query_var('tab') == "profile" and $user_id = get_query_var('profile')){
 		if(!$tab=get_query_var('tab')) $tab='dashboard';
 		echo "<div class='wpbooking-account-tab ".$tab."'>";
 		echo wpbooking_load_view('account/tabs/'.$tab);

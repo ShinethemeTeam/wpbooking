@@ -15,7 +15,7 @@ $data_current_user = get_userdata( $user_id );
 <h3 class="tab-page-title">
 	<?php
 	$name = get_user_meta($user_id,"last_name",true);
-	if(empty($name)) $name = get_user_meta($user_id,"first_name",true);
+	if(empty($name)) $name = $data_current_user->data->display_name;
 	if(!empty($name))
 	echo sprintf(esc_html__("Hello I'm %s",'wpbooking'),$name);
 	?>
@@ -29,9 +29,8 @@ $data_current_user = get_userdata( $user_id );
 	<div class="info">
 		<h5 class="user-name">
 			<?php
-			$name = get_user_meta($user_id,"last_name",true);
-			if(empty($name)) $name = get_user_meta($user_id,"first_name",true);
-			if(!empty($name))
+			if(!empty($data_current_user->data->display_name)) $name_full = $data_current_user->data->display_name;
+			if(!empty($name_full))
 				 echo esc_html($name_full) ?>
 		</h5>
 		<div class="user-share">
