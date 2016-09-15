@@ -16,6 +16,10 @@
  * @author shinetheme
  * @since 1.0
  */
+
+
+
+
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
@@ -55,6 +59,18 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 
 			do_action('wpbooking_after_plugin_init');
 
+			add_action( 'activated_plugin', array($this,'_activation_redirect') );
+
+		}
+
+		function _activation_redirect( $plugin ) {
+			if( $plugin == plugin_basename( __FILE__ ) ) {
+				$is_setup_demo = get_option("wpbooking_setup_demo",'true');
+				if($is_setup_demo == "true"){
+					exit( wp_redirect( add_query_arg( array('page'=>'wpbooking_setup_page_settings') , admin_url("admin.php") ) ) );
+				}
+
+			}
 		}
 
 

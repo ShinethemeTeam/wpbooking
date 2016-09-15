@@ -97,7 +97,7 @@
             </table>
         </div>
         <div class="control">
-            <button name="wpbooking_save_setup" value="true" class="button-primary button button-large"><?php esc_html_e("Continue","wpbooking") ?></button>
+            <button name="wpbooking_save_setup" value="true" class="button-primary button button-large"><?php esc_html_e("Save & Continue","wpbooking") ?></button>
         </div>
     </div>
 </form>

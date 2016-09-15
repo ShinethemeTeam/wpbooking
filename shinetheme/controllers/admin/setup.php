@@ -16,27 +16,33 @@ if(!class_exists('WPBooking_Admin_Setup'))
             add_action( 'admin_menu', array($this,"register_wpbooking_sub_menu_page") );
 
             add_action( 'admin_init', array($this,"_save_setup_demo") );
+
         }
 
 
+
         function register_wpbooking_sub_menu_page() {
-            $menu_page=$this->get_menu_page();
-            add_submenu_page(
-                $menu_page['parent_slug'],
-                $menu_page['page_title'],
-                $menu_page['menu_title'],
-                $menu_page['capability'],
-                $menu_page['menu_slug'],
-                $menu_page['function']
-            );
+            $is_setup_demo = wpbooking_get_option("setup_demo",'true');
+            if($is_setup_demo == "true"){
+                $menu_page=$this->get_menu_page();
+                add_submenu_page(
+                    $menu_page['parent_slug'],
+                    $menu_page['page_title'],
+                    $menu_page['menu_title'],
+                    $menu_page['capability'],
+                    $menu_page['menu_slug'],
+                    $menu_page['function']
+                );
+            }
+
         }
         function get_menu_page()
         {
             $menu_page=WPBooking()->get_menu_page();
             $page=array(
                 'parent_slug'=>$menu_page['menu_slug'],
-                'page_title'=>__('Setup Demo','wpbooking'),
-                'menu_title'=>__('Setup Demo','wpbooking'),
+                'page_title'=>__('Setup','wpbooking'),
+                'menu_title'=>__('Setup','wpbooking'),
                 'capability'=>'manage_options',
                 'menu_slug'=>'wpbooking_setup_page_settings',
                 'function'=> array($this,'callback_wpbooking_sub_menu')
@@ -165,7 +171,6 @@ if(!class_exists('WPBooking_Admin_Setup'))
                         exit;
                         break;
                     case "wp_service":
-
                         ///////////////////
                         /////Room//////////
                         ///////////////////
@@ -214,6 +219,11 @@ if(!class_exists('WPBooking_Admin_Setup'))
                         exit;
                         break;
                     case "wp_payment":
+                        update_option("wpbooking_gateway_bank_transfer_enable",WPBooking_Input::request('wpbooking_gateway_bank_transfer_enable',0));
+                        update_option("wpbooking_gateway_paypal_enable",WPBooking_Input::request('wpbooking_gateway_paypal_enable',0));
+                        update_option("wpbooking_setup_demo","false");
+                        wp_redirect( add_query_arg( array('page'=>'wpbooking_page_settings') , admin_url("admin.php") ) );
+                        exit;
                         break;
                 }
 
