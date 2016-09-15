@@ -53,6 +53,7 @@ $autoload['controller']=array(
     'admin/settings',
 	'admin/taxonomy',
 	'admin/calendar.metabox',
+	'admin/setup',
 	'gateways',
 	'email',
 	'order',

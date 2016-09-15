@@ -2361,3 +2361,65 @@ label[for=wpbooking_locationdiv-hide] {
   margin-bottom: 2px;
   padding: 2px 5px;
 }
+.wp-setup-demo {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1024px;
+}
+.wp-setup-demo .setup-steps {
+  color: #ccc;
+  display: inline-flex;
+  list-style: outside none none;
+  margin: 0;
+  overflow: hidden;
+  padding: 0 0 24px;
+  width: 100%;
+}
+.wp-setup-demo .setup-steps li::before {
+  background: #fff none repeat scroll 0 0;
+  border: 4px solid #ccc;
+  border-radius: 100%;
+  bottom: 0;
+  content: "";
+  height: 4px;
+  left: 50%;
+  margin-bottom: -8px;
+  margin-left: -6px;
+  position: absolute;
+  width: 4px;
+}
+.wp-setup-demo .setup-steps li {
+  border-bottom: 4px solid #ccc;
+  float: left;
+  line-height: 1.4em;
+  margin: 0;
+  padding: 0 0 0.8em;
+  position: relative;
+  text-align: center;
+  width: 20%;
+}
+.wp-setup-demo .setup-steps li.active::before {
+  border-color: #a16696;
+}
+.wp-setup-demo .setup-steps li.active {
+  border-color: #a16696;
+  color: #a16696;
+}
+.wp-setup-demo .setup-steps li.done {
+  border-color: #a16696;
+  color: #a16696;
+}
+.wp-setup-demo .setup-content {
+  background: #fff none repeat scroll 0 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
+  overflow: hidden;
+  padding: 24px 24px 0;
+}
+.wp-setup-demo .control {
+  margin-bottom: 30px;
+  margin-top: 10px;
+  text-align: center;
+}
+.wp-setup-demo .wp_booking textarea {
+  width: 100%;
+}

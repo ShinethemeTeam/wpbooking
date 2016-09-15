@@ -2912,8 +2912,7 @@
   clear: both;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item .item_thumbnail {
-  width: 150px;
-  height: 150px;
+  height: 200px;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item .item_thumbnail img {
   background-color: #fff;
