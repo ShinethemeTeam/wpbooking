@@ -52,6 +52,7 @@ do_action('wpbooking_before_order_content');
 			<span class="head-info-content"><?php echo esc_html($order->get_payment_gateway()) ?></span>
 		</div>
 	</div>
+	<?php do_action('wpbooking_before_order_information_table',$order) ?>
 <table class="order-information-table">
 	<thead>
 	<tr>

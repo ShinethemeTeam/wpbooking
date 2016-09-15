@@ -326,6 +326,10 @@ if (!class_exists('WPBooking_Order')) {
 									'message' => wpbooking_get_message(TRUE),
 									'data'    => $data
 								);
+
+                                // If Payment Fail update the status
+                                $order->payment_failed();
+
 							}
 
 						}
