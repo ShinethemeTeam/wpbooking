@@ -116,7 +116,7 @@ if (!class_exists('WPBooking_User')) {
         {
 
             // Check Profile Tabs, check is not author, can't view profile
-            if(get_query_var('tab') == "profile" and $user_id = WPBooking_Input::request('user_id'))
+            if(get_query_var('tab') == "profile" and $user_id = get_query_var('profile'))
             {
                 $current_user = get_userdata( $user_id );
                 $allowed_roles = array('editor', 'administrator', 'author');
