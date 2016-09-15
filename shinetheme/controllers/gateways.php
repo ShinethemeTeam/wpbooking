@@ -18,6 +18,8 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 
 		function __construct()
 		{
+
+
 			// load abstract class
 			WPBooking_Loader::inst()->load_library('gateways/abstract-payment-gateway');
 
@@ -112,7 +114,6 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 
 		function do_checkout($gateway,$order_id)
 		{
-			$order_model=WPBooking_Order_Model::inst();
 
 			$data=array();
 			$all_gateways=$this->get_gateways();
@@ -146,8 +147,7 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 		function complete_purchase($gateway,$order_id)
 		{
 
-			$all_gateways=$this->get_gateways();
-			$selected_gateway=$all_gateways[$gateway];
+			$selected_gateway=$this->get_gateway($gateway);
 
 			$data=FALSE;
 

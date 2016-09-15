@@ -24,6 +24,10 @@ $config['order_item_status']=array(
 		'label'=>esc_html__('On Hold','wpbooking'),
 		'desc'=>esc_html__('Waiting for Payment','wpbooking'),
 	),
+	'payment-failed'=>array(
+		'label'=>esc_html__('Payment Failed','wpbooking'),
+		'desc'=>esc_html__('Payment Failed because of Gateway Problem or Wrong API data of Gateway','wpbooking'),
+	),
 	'completed'=>array(
 		'label'=>esc_html__('Completed','wpbooking'),
 	),

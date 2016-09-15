@@ -26,6 +26,11 @@ if (!class_exists('WB_Order')) {
             $this->customer_id = get_post_meta($this->order_id, 'customer_id', true);
         }
 
+        function get_order_id()
+        {
+            return $this->order_id;
+        }
+
         /**
          * IF $need is specific, return the single value of customer of the order. Otherwise, return the array
          *
@@ -298,6 +303,13 @@ if (!class_exists('WB_Order')) {
         function payment_failed()
         {
             if ($this->order_id) {
+
+                // Update Status
+                wp_update_post(array(
+                    'ID'=>$this->order_id,
+                    'post_status'=>'payment-failed'
+                ));
+
                 // Update Status of Order Item in database
                 $order_model = WPBooking_Order_Model::inst();
                 $order_model->where('order_id', $this->order_id)->update(array(
@@ -643,6 +655,7 @@ if (!class_exists('WB_Order')) {
                 if(array_key_exists($status,$all_status)){
                     switch($status){
                         case "on-hold":
+                        case "payment-failed":
                             return sprintf('<label class="label label-warning">%s</label>',$all_status[$status]['label']);
                             break;
                         case "completed":

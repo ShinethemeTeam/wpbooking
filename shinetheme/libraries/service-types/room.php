@@ -561,6 +561,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
             return $cart_item;
         }
 
+        /**
+         * @param $price
+         * @param $cart_item
+         * @param array $args
+         * @return float|int
+         */
         function change_price($price, $cart_item, $args = array())
         {
             $args = wp_parse_args($args, array(

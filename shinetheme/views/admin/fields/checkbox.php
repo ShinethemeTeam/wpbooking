@@ -11,7 +11,7 @@ if(!empty($data['element_list_item'])){
     $data_value = $data['custom_value'];
 }
 $is_check="";
-if($data_value == 1){
+if($data_value == 1 or $data_value=='on'){
     $is_check = "checked";
 }
 $class = $name;
