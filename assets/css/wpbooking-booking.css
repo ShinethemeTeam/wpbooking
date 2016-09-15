@@ -110,6 +110,9 @@
 .text-left {
   text-align: left;
 }
+.text-center {
+  text-align: center;
+}
 .form-group {
   margin-bottom: 15px;
 }

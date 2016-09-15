@@ -94,7 +94,8 @@ do_action('wpbooking_before_order_content');
 							'without_deposit'        => true,
 							'without_tax'            => true,
 							'without_extra_price'    => true,
-							'without_addition_price' => false,
+							'without_addition_price' => true,
+							'without_discount'=>true
 
 						))); ?></span>
 
@@ -112,23 +113,25 @@ do_action('wpbooking_before_order_content');
 						<span class="total-amount"><?php echo WPBooking_Currency::format_money($price); ?></span>
 					<?php } ?>
 
-					<?php if ($price = $order->get_discount_price()) { ?>
-						<span class="total-title">
-					<?php _e('Discount:', 'wpbooking') ?>
-				</span>
-						<span class="total-amount">-<?php echo WPBooking_Currency::format_money($price); ?></span>
-					<?php } ?>
 
 					<?php if ($price = $order->get_tax_price()) { ?>
 						<span class="total-title">
-					<?php _e('Tax:', 'wpbooking') ?>
-				</span>
+							<?php _e('Tax:', 'wpbooking') ?>
+						</span>
+
 						<span class="total-amount"><?php echo WPBooking_Currency::format_money($price); ?></span>
 					<?php } ?>
 
+
+					<?php if ($price = $order->get_discount_price()) { ?>
+						<span class="total-title">
+						<?php _e('Discount:', 'wpbooking') ?>
+					</span>
+						<span class="total-amount">-<?php echo WPBooking_Currency::format_money($price); ?></span>
+					<?php } ?>
+
 					<span class="total-line"></span>
-					<?php $total_amount = $order->get_total(array('without_deposit'=>true)); $discount=$order->get_discount_price();
-					$total_amount-=$discount;
+					<?php $total_amount = $order->get_total(array('without_deposit'=>true));
 					?>
 					<span class="total-title">
 					<?php _e('Total Amount:', 'wpbooking') ?>
