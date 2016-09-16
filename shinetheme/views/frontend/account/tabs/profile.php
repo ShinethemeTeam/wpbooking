@@ -127,6 +127,7 @@ $data_current_user = get_userdata( $user_id );
 			$wpdb->prefix.'posts.post_author'=>$user_id,
 			$wpdb->prefix.'posts.post_type'=>'wpbooking_service',
 			$wpdb->prefix.'comments.comment_parent'=>0,
+			$wpdb->prefix.'comments.comment_approved'=>1
 		))
 		->limit($limit,$offset)
 		->orderby($wpdb->prefix.'comments.comment_ID',"DESC")
