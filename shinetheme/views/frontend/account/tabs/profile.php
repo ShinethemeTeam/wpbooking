@@ -5,10 +5,12 @@ if(get_query_var('update-profile')){
 	return;
 }
 $update_profile=get_permalink(wpbooking_get_option('myaccount-page')).'update-profile/'.get_current_user_id();
-$link_my_profile=get_permalink(wpbooking_get_option('myaccount-page')).'/tab/profile/';
+$link_my_profile=get_permalink(wpbooking_get_option('myaccount-page')).'tab/profile/';
 $my_user_id = $current_user->ID;
 if($user_query = get_query_var('profile')){
 	$user_id=$user_query;
+	$link_my_profile = get_permalink(wpbooking_get_option('myaccount-page'))."profile/".$user_id;
+
 }else $user_id=$my_user_id;
 $data_current_user = get_userdata( $user_id );
 ?>
