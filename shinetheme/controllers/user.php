@@ -1334,7 +1334,7 @@ if (!class_exists('WPBooking_User')) {
          * @return number
          */
         static function get_detail_rate($user_id){
-            $rate = 0;
+            $data = array("rate"=>0,'total'=>0);
             global $wpdb;
             $sql = "SELECT SQL_CALC_FOUND_ROWS
                         SUM({$wpdb->prefix}commentmeta.meta_value) as rate,
@@ -1350,13 +1350,15 @@ if (!class_exists('WPBooking_User')) {
                     AND {$wpdb->prefix}comments.comment_parent = '0'
                     AND {$wpdb->prefix}commentmeta.meta_key = 'wpbooking_review'
                     AND {$wpdb->prefix}commentmeta.meta_value > 0
+                    AND {$wpdb->prefix}comments.comment_approved = 1
                     ORDER BY
                         {$wpdb->prefix}comments.comment_ID DESC";
             $rs=$wpdb->get_row($sql);
             if(!empty($rs)){
-                $rate = number_format(($rs->rate/$rs->total),1);
+                $data['rate'] = number_format(($rs->rate/$rs->total),1);
+                $data['total'] = $rs->total;
             }
-           return $rate;
+           return $data;
         }
         /**
          * Count Review By Rate
@@ -1386,6 +1388,7 @@ if (!class_exists('WPBooking_User')) {
                     (
                         {$wpdb->prefix}commentmeta.meta_value >= {$rate} and {$wpdb->prefix}commentmeta.meta_value < {$next_rate}
                     )
+                    AND {$wpdb->prefix}comments.comment_approved = 1
                     ORDER BY
                         {$wpdb->prefix}comments.comment_ID DESC
                     LIMIT 1";

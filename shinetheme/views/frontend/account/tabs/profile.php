@@ -154,7 +154,8 @@ $data_current_user = get_userdata( $user_id );
 				<div class="col-md-4 dark_bg text-center">
 					<div class="number_rate">
 						<?php
-						$wpbooking_review = WPBooking_User::get_detail_rate($user_id);
+						$data = WPBooking_User::get_detail_rate($user_id);
+						$wpbooking_review = $data['rate'];
 						echo esc_html($wpbooking_review);
 						?>
 					</div>
@@ -173,10 +174,10 @@ $data_current_user = get_userdata( $user_id );
 					</div>
 					<div class="number">
 						<?php
-						if($total_item > 1)
-							echo sprintf(esc_html__("%d Ratings",'wpbooking'),$total_item);
+						if($data['total'] > 1)
+							echo sprintf(esc_html__("%d Ratings",'wpbooking'),$data['total']);
 						else
-							echo sprintf(esc_html__("%d Rating",'wpbooking'),$total_item)
+							echo sprintf(esc_html__("%d Rating",'wpbooking'),$data['total'])
 						?>
 					</div>
 				</div>
