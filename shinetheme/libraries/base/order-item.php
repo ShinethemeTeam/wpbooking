@@ -45,12 +45,12 @@ if(!class_exists('WB_Order_Item')){
 		 * @param bool|FALSE $need_convert
 		 * @return float|mixed|void
 		 */
-		function get_total($need_convert=FALSE)
+		function get_total($need_convert=FALSE,$args=array())
 		{
 			if($this->item_id){
 				$item_price = $this->item_data['base_price'];
-				$item_price = apply_filters('wpbooking_order_item_total', $item_price, $this->item_data, $this->item_data['service_type']);
-				$item_price = apply_filters('wpbooking_order_item_total_' . $this->item_data['service_type'], $item_price, $this->item_data);
+				$item_price = apply_filters('wpbooking_order_item_total', $item_price, $this->item_data, $this->item_data['service_type'],$args);
+				$item_price = apply_filters('wpbooking_order_item_total_' . $this->item_data['service_type'], $item_price, $this->item_data,$args);
 
 				// Convert to current currency
 				if ($need_convert) {
@@ -70,12 +70,13 @@ if(!class_exists('WB_Order_Item')){
 		 * @since 1.0
 		 * @author dungdt
 		 *
+         * @param $args
 		 * @return string
 		 */
-		function get_total_html(){
+		function get_total_html($args=array()){
 
 			if($this->item_id){
-				$item_price = $this->get_total(TRUE);
+				$item_price = $this->get_total(TRUE,$args);
 
 				return WPBooking_Currency::format_money($item_price);
 			}

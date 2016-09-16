@@ -51,7 +51,7 @@ echo wpbooking_get_message();
 										<?php echo esc_html($service->get_type_name()) ?>
 									</td>
 									<td class="col-cart-item-price text-center">
-										<?php echo ($booking->get_cart_item_total_html($value)); ?>
+										<?php echo ($booking->get_cart_item_total_html($value,array('without_deposit'=>true))); ?>
 									</td>
 								</tr>
 

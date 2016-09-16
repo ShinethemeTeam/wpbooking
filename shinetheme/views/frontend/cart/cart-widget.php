@@ -36,7 +36,7 @@ $cart=$booking->get_cart();
 						<?php if($address=$service->get_address()){
 							printf('<p class="service-address">%s</p>',$address);
 						} ?>
-						<p class="review-order-item-price"><?php echo ($booking->get_cart_item_total_html($value)) ?></p>
+						<p class="review-order-item-price"><?php echo ($booking->get_cart_item_total_html($value,array('without_deposit'=>true))) ?></p>
 						<?php do_action('wpbooking_review_order_item_information',$value) ?>
 						<?php do_action('wpbooking_review_order_item_information_'.$service_type,$value) ?>
 					</div>
@@ -56,7 +56,7 @@ $cart=$booking->get_cart();
 		<?php if(!empty($cart)){ ?>
 			<p class="cart-total">
 				<span><?php esc_html_e('Cart Total:','wpbooking') ?></span>
-				<span class="total-amount"><?php echo WPBooking_Currency::format_money(WPBooking_Order::inst()->get_cart_total()) ?></span>
+				<span class="total-amount"><?php echo WPBooking_Currency::format_money(WPBooking_Order::inst()->get_cart_total(array('without_deposit'=>true))) ?></span>
 			</p>
 			<p class="cart-actions">
 				<a href="<?php echo esc_url($booking->get_cart_url()) ?>" class="wb-btn wb-btn-default"><?php esc_html_e('Cart','wpbooking')?></a>

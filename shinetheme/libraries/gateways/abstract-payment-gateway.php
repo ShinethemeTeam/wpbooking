@@ -120,7 +120,7 @@ if (!class_exists('WPBooking_Abstract_Payment_Gateway')) {
          */
         function is_available()
         {
-            return ($this->get_option('enable')=='on' or $this->get_option('enable')===1) ? TRUE : FALSE;
+            return ($this->get_option('enable')=='on' or $this->get_option('enable')==1) ? TRUE : FALSE;
         }
 
         /**
