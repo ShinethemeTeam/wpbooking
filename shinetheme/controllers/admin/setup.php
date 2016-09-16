@@ -16,11 +16,7 @@ if(!class_exists('WPBooking_Admin_Setup'))
             add_action( 'admin_menu', array($this,"register_wpbooking_sub_menu_page") );
 
             add_action( 'admin_init', array($this,"_save_setup_demo") );
-
         }
-
-
-
         function register_wpbooking_sub_menu_page() {
             $is_setup_demo = wpbooking_get_option("setup_demo",'true');
             if($is_setup_demo == "true"){
@@ -34,7 +30,6 @@ if(!class_exists('WPBooking_Admin_Setup'))
                     $menu_page['function']
                 );
             }
-
         }
         function get_menu_page()
         {
@@ -52,8 +47,6 @@ if(!class_exists('WPBooking_Admin_Setup'))
         function callback_wpbooking_sub_menu() {
             echo ($this->admin_load_view('setup_demo'));
         }
-
-
         function _save_setup_demo()
         {
             if(!empty( $_POST[ 'wpbooking_save_setup' ] ) and wp_verify_nonce( $_REQUEST[ 'wpbooking_save_setup_demo' ] , "wpbooking_action" )) {
@@ -158,8 +151,6 @@ if(!class_exists('WPBooking_Admin_Setup'))
                         update_option("wpbooking_on_booking_email_admin",WPBooking_Input::request('wpbooking_on_booking_email_admin',0));
                         update_option("wpbooking_on_registration_email_customer",WPBooking_Input::request('wpbooking_on_registration_email_customer',0));
                         update_option("wpbooking_on_registration_email_admin",WPBooking_Input::request('wpbooking_on_registration_email_admin',0));
-
-
                         update_option("wpbooking_email_stylesheet",self::_get_template_default("css"));
                         update_option("wpbooking_email_to_customer",self::_get_template_default("booking_email_customer"));
                         update_option("wpbooking_email_to_partner",self::_get_template_default("booking_email_author"));
@@ -226,7 +217,6 @@ if(!class_exists('WPBooking_Admin_Setup'))
                         exit;
                         break;
                 }
-
             }
         }
         static function _get_template_default($style){

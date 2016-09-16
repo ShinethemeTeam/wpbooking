@@ -39,13 +39,13 @@ if(!class_exists('WPBooking_Assets'))
 			self::$css.=$string;
 		}
 
-		static function build_css_class($css)
+		static function build_css_class($css,$need='')
 		{
-			$class='wpbooking_'.(self::$last_string_id+1);
+			$class='wpbooking_'.(self::$last_string_id+rand());
 
-			self::add_css(sprintf('%s{
+			self::add_css(sprintf('.%s%s{
 				%s
-			}',$class,$css));
+			}',$class,$need,$css));
 
 			return $class;
 		}

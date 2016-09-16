@@ -17,7 +17,9 @@ $users=$inbox->filter_latest_message($users);
 	</div>
 	<div class="profile-info">
 		<h5 class="user-display-name"><?php echo esc_attr($current_user->display_name)  ?></h5>
-		<a href="<?php echo get_permalink(wpbooking_get_option('myaccount-page')).'tab/profile'; ?>" class="wb-btn wb-btn-success"><?php esc_html_e('View Profile','wpbooking') ?></a>
+		<?php if(current_user_can('publish_posts')){?>
+			<a href="<?php echo get_permalink(wpbooking_get_option('myaccount-page')).'tab/profile'; ?>" class="wb-btn wb-btn-success"><?php esc_html_e('View Profile','wpbooking') ?></a>
+		<?php } ?>
 	</div>
 </div>
 

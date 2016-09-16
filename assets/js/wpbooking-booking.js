@@ -1592,6 +1592,25 @@ jQuery(document).ready(function($){
 
         },100);
     })
+    $('#comments input[type=submit]').click(function(){
+        var check = true;
+        $(".wpbooking_review_detail_rate").each(function(){
+            if($(this).val() < 1){
+                check = false
+            }
+        });
+        $("input[name=wpbooking_review]").each(function(){
+            if($(this).val() < 1){
+                check = false
+            }
+        });
+        if(check == false){
+            var msg = '<div class="alert alert-danger"><p>'+wpbooking_params.select_comment_review+'</p></div>';
+            $(this).closest('.form-submit').find('.alert').remove();
+            $(this).closest('.form-submit').append(msg);
+            return false;
+        }
+    });
 });
 
 

@@ -35,7 +35,9 @@ $user_id = $current_user->ID;
 					<?php
 					$link_my_profile=get_permalink(wpbooking_get_option('myaccount-page')).'/tab/profile/';
 					?>
-					<a href="<?php echo esc_url($link_my_profile) ?>" class="text-color"><?php esc_html_e("View profile","wpbooking") ?></a>
+					<?php if(current_user_can('publish_posts')){?>
+						<a href="<?php echo esc_url($link_my_profile) ?>" class="text-color"><?php esc_html_e("View profile","wpbooking") ?></a>
+					<?php } ?>
 				</div>
 			</div>
 		</div>

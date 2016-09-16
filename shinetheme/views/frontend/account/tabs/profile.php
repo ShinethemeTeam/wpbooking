@@ -147,6 +147,55 @@ $data_current_user = get_userdata( $user_id );
 				echo sprintf(esc_html__("Review (%d)",'wpbooking'),$total_item)
 			?>
 		</h3>
+		<div class="container-fluid detail-rate">
+			<div class="row ">
+				<div class="col-md-4 dark_bg text-center">
+					<div class="number_rate">
+						<?php
+						$wpbooking_review = WPBooking_User::get_detail_rate($user_id);
+						echo esc_html($wpbooking_review);
+						?>
+					</div>
+					<div class="star_rate">
+						<div class="wpbooking-review-summary">
+							<label class="wpbooking-rating-review-result">
+								<span class="rating-stars">
+									<a class="<?php if($wpbooking_review>=1) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+									<a class="<?php if($wpbooking_review>=2) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+									<a class="<?php if($wpbooking_review>=3) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+									<a class="<?php if($wpbooking_review>=4) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+									<a class="<?php if($wpbooking_review>=5) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+								</span>
+							</label>
+						</div>
+					</div>
+					<div class="number">
+						<?php
+						if($total_item > 1)
+							echo sprintf(esc_html__("%d Ratings",'wpbooking'),$total_item);
+						else
+							echo sprintf(esc_html__("%d Rating",'wpbooking'),$total_item)
+						?>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<?php for($i = 5 ;$i >= 1 ; $i--){?>
+						<div class="item_process">
+							<?php
+							$wpbooking_rate = WPBooking_User::count_review_by_rate($user_id,$i);
+							$width = ceil(($wpbooking_rate/$total_item)*100);
+							?>
+							<label><i class="fa fa-star-o icon-star"></i> <?php echo esc_html($i) ?></label>
+							<?php $class = WPBooking_Assets::build_css_class("width:{$width}%",'::before') ?>
+							<div class="process <?php echo esc_attr($class) ?>"></div>
+							<div class="info">
+								<?php echo esc_html($wpbooking_rate) ?>
+							</div>
+						</div>
+					<?php } ?>
+				</div>
+			</div>
+		</div>
 		<ol class="comment-list">
 			<?php
 			if(!empty($res)){

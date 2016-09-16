@@ -606,7 +606,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
                     }
                     $wpbooking_review = ($total) / count($details);
                 }
-
+                if($wpbooking_review < 1) $wpbooking_review = 1;
                 update_comment_meta($comment_id, 'wpbooking_review', $wpbooking_review);
                 update_comment_meta($comment_id, 'wpbooking_review_detail', $details);
                 update_comment_meta($comment_id, 'wpbooking_title', $this->post('wpbooking_title'));

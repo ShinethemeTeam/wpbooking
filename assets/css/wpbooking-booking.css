@@ -1892,11 +1892,12 @@ a.label:focus {
   text-align: center;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .service-map-contact .service-author-contact .author-meta img {
-  max-width: 88px;
-  border-radius: 50%;
   border: 5px solid white;
-  margin-top: -35px;
+  border-radius: 50%;
   margin-bottom: 13px;
+  margin-top: -35px;
+  height: 88px !important;
+  width: 88px !important;
   position: relative;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .service-map-contact .service-author-contact .author-details {
@@ -1957,7 +1958,7 @@ a.label:focus {
   text-align: center;
 }
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-meta img {
-  max-width: 48px;
+  /*max-width: 48px;*/
   height: auto;
   -webkit-border-radius: 1px;
   -moz-border-radius: 1px;
@@ -3683,6 +3684,9 @@ a.label:focus {
 .wpbooking-myaccount-wrap .wpbooking-account-tab {
   font-size: 14px;
 }
+.wpbooking-myaccount-wrap .wpbooking-account-tab .hide {
+  display: none;
+}
 .wpbooking-myaccount-wrap .wpbooking-account-tab.services .service-filters {
   margin: 0px;
   list-style: none;
@@ -3893,8 +3897,71 @@ a.label:focus {
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-listing .list-item .item .item_control a {
   text-transform: none;
 }
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews a {
+  border: none;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .dark_bg {
+  background: #f2f2f2 none repeat scroll 0 0;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .number_rate {
+  color: #666666;
+  font-size: 70px;
+  line-height: 102px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .number {
+  padding-bottom: 20px;
+  color: #999999;
+}
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .tab-page-title {
   margin-top: 20px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .detail-rate {
+  margin-bottom: 60px;
+  margin-top: 50px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .item_process {
+  margin-bottom: 5px;
+  margin-left: 25px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .item_process::before,
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .item_process::after {
+  clear: both;
+  content: " ";
+  display: table;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .item_process .fa::before {
+  content: "";
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .item_process label {
+  display: block;
+  float: left;
+  width: 10%;
+  color: #999999;
+  line-height: 30px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .item_process .process {
+  position: relative;
+  background: #f2f2f2 none repeat scroll 0 0;
+  float: left;
+  height: 30px;
+  width: 80%;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .item_process .process::before {
+  position: absolute;
+  content: " ";
+  height: 100%;
+  background: #f0ad4e;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .item_process .info {
+  float: left;
+  height: 30px;
+  width: 10%;
+  text-align: center;
+  color: #cccccc;
+  line-height: 30px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .wpbooking-rating-review-result a {
+  color: #f0ad4e;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .icon-like {
   border: 1px solid #333;
@@ -4201,8 +4268,16 @@ a.label:focus {
   margin-top: 10px;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.edit_profile .item_profile .avatar-control .btn {
-  text-transform: none;
+  background: #fff none repeat scroll 0 0;
+  color: #666;
   margin-right: 20px;
+  padding: 5px 10px;
+  text-transform: none;
+  cursor: pointer;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.edit_profile .item_profile .avatar-control .btn:hover {
+  border-radius: 5px;
+  background: #fafafa;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.edit_profile .item_profile .avatar-control .text-color {
   color: #f0ad4e;

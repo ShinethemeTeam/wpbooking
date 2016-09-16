@@ -162,7 +162,8 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 
 			wp_localize_script('jquery','wpbooking_params',array(
 				'ajax_url'=>admin_url('admin-ajax.php'),
-				'wpbooking_security' => wp_create_nonce( 'wpbooking-nonce-field' )
+				'wpbooking_security' => wp_create_nonce( 'wpbooking-nonce-field' ),
+				'select_comment_review'=>esc_html__('Please select the review criteria','wpbooking')
 			));
 		}
 		/**

@@ -1325,6 +1325,73 @@ if (!class_exists('WPBooking_User')) {
             );
             return $language_codes;
         }
+        /**
+         * Get Detail Rate
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @return number
+         */
+        static function get_detail_rate($user_id){
+            $rate = 0;
+            global $wpdb;
+            $sql = "SELECT SQL_CALC_FOUND_ROWS
+                        SUM({$wpdb->prefix}commentmeta.meta_value) as rate,
+                        count({$wpdb->prefix}comments.comment_ID) as total
+                    FROM
+                        {$wpdb->prefix}comments
+                    INNER JOIN {$wpdb->prefix}posts ON {$wpdb->prefix}posts.ID = {$wpdb->prefix}comments.comment_post_ID
+                    INNER JOIN {$wpdb->prefix}commentmeta ON {$wpdb->prefix}comments.comment_ID = {$wpdb->prefix}commentmeta.comment_id
+                    WHERE
+                        1 = 1
+                    AND {$wpdb->prefix}posts.post_author = '{$user_id}'
+                    AND {$wpdb->prefix}posts.post_type = 'wpbooking_service'
+                    AND {$wpdb->prefix}comments.comment_parent = '0'
+                    AND {$wpdb->prefix}commentmeta.meta_key = 'wpbooking_review'
+                    AND {$wpdb->prefix}commentmeta.meta_value > 0
+                    ORDER BY
+                        {$wpdb->prefix}comments.comment_ID DESC";
+            $rs=$wpdb->get_row($sql);
+            if(!empty($rs)){
+                $rate = number_format(($rs->rate/$rs->total),1);
+            }
+           return $rate;
+        }
+        /**
+         * Count Review By Rate
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @return number
+         */
+        static function count_review_by_rate($user_id,$rate){
+
+            $number = 0;
+            global $wpdb;
+            $sql = "SELECT SQL_CALC_FOUND_ROWS *
+                    FROM
+                        {$wpdb->prefix}comments
+                    INNER JOIN {$wpdb->prefix}posts ON {$wpdb->prefix}posts.ID = {$wpdb->prefix}comments.comment_post_ID
+                    INNER JOIN {$wpdb->prefix}commentmeta ON {$wpdb->prefix}comments.comment_ID = {$wpdb->prefix}commentmeta.comment_id
+                    WHERE
+                        1 = 1
+                    AND {$wpdb->prefix}posts.post_author = '{$user_id}'
+                    AND {$wpdb->prefix}posts.post_type = 'wpbooking_service'
+                    AND {$wpdb->prefix}comments.comment_parent = '0'
+                    AND {$wpdb->prefix}commentmeta.meta_key = 'wpbooking_review'
+                    AND {$wpdb->prefix}commentmeta.meta_value = '{$rate}'
+                    ORDER BY
+                        {$wpdb->prefix}comments.comment_ID DESC
+                    LIMIT 1";
+            $wpdb->get_row($sql);
+            $total_item=$wpdb->get_var('SELECT FOUND_ROWS()');
+            if(!empty($total_item)){
+                $number = $total_item;
+            }
+            return $number;
+        }
         static function inst()
         {
             if (!self::$_inst) self::$_inst = new self();

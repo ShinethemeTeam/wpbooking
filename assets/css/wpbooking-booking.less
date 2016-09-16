@@ -1907,11 +1907,12 @@
                         font-size: 13px;
                         text-align: center;
                         img{
-                            max-width: 88px;
+                            border: 5px solid white;
                             border-radius: 50%;
-                            border:5px solid white;
-                            margin-top: -35px;
                             margin-bottom: 13px;
+                            margin-top: -35px;
+                            height: 88px !important;
+                            width: 88px !important;
                             position: relative;
                         }
                     }
@@ -1975,7 +1976,7 @@
                             text-align: center;
                         }
                         img{
-                            max-width: 48px;
+                            /*max-width: 48px;*/
                             height: auto;
                             -webkit-border-radius: 1px;
                             -moz-border-radius: 1px;
@@ -3640,6 +3641,9 @@
         }
     }
     .wpbooking-account-tab{
+        .hide{
+            display: none;
+        }
         font-size: 14px;
         &.services{
             .service-filters{
@@ -3854,8 +3858,72 @@
             }
             .user-reviews{
 
+                a{
+                    border: none;
+                }
+                .dark_bg{
+                    background: #f2f2f2 none repeat scroll 0 0;
+                }
+                .number_rate{
+                    color: #666666;
+                    font-size: 70px;
+                    line-height: 102px;
+                }
+                .number{
+                    padding-bottom: 20px;
+                    color: #999999;
+                }
                 .tab-page-title{
                     margin-top: 20px;
+                }
+                .detail-rate{
+                    margin-bottom: 60px;
+                    margin-top: 50px;
+                }
+                .item_process{
+                    margin-bottom: 5px;
+                    margin-left: 25px;
+                    &::before,&::after{
+                        clear: both;
+                        content: " ";
+                        display: table;
+                    }
+                    .fa::before {
+                        content: "";
+                    }
+                    label{
+                        display: block;
+                        float: left;
+                        width: 10%;
+                        color: #999999;
+                        line-height: 30px;
+                    }
+                    .process{
+                        position: relative;
+                        &::before{
+                            position: absolute;
+                            content: " ";
+                            height: 100%;
+                            background: @maincolor;
+                        }
+                        background: #f2f2f2 none repeat scroll 0 0;
+                        float: left;
+                        height: 30px;
+                        width: 80%;
+                    }
+                    .info{
+                        float: left;
+                        height: 30px;
+                        width: 10%;
+                        text-align: center;
+                        color: #cccccc;
+                        line-height: 30px;
+                    }
+                }
+                .wpbooking-rating-review-result{
+                    a{
+                        color: @maincolor;
+                    }
                 }
                 .icon-like{
                     &.active{
@@ -4160,8 +4228,16 @@
                 .avatar-control{
                     margin-top: 10px;
                     .btn{
-                        text-transform: none;
+                        &:hover{
+                            border-radius: 5px;
+                            background: #fafafa;
+                        }
+                        background: #fff none repeat scroll 0 0;
+                        color: #666;
                         margin-right: 20px;
+                        padding: 5px 10px;
+                        text-transform: none;
+                        cursor: pointer;
                     }
                     .text-color{
                         color: @maincolor;
