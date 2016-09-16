@@ -114,9 +114,8 @@ if (!class_exists('WPBooking_User')) {
          */
         function _check_myaccount_page_permisison()
         {
-
             // Check Profile Tabs, check is not author, can't view profile
-            if(get_query_var('tab') == "profile" and $user_id = get_query_var('profile'))
+            if($user_id = get_query_var('profile'))
             {
                 $current_user = get_userdata( $user_id );
                 $allowed_roles = array('editor', 'administrator', 'author');
@@ -1354,13 +1353,6 @@ if (!class_exists('WPBooking_User')) {
                     ORDER BY
                         {$wpdb->prefix}comments.comment_ID DESC";
             $rs=$wpdb->get_row($sql);
-            $sql = "UPDATE {$wpdb->prefix}commentmeta
-                    SET {$wpdb->prefix}commentmeta.meta_value = '1'
-                    WHERE
-                    {$wpdb->prefix}commentmeta.meta_key = 'wpbooking_review'
-                    and
-                    {$wpdb->prefix}commentmeta.meta_value = 0";
-            $wpdb->get_row($sql);
             if(!empty($rs)){
                 $data['rate'] = number_format(($rs->rate/$rs->total),1);
                 $data['total'] = $rs->total;
