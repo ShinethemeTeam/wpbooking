@@ -3916,7 +3916,7 @@ a.label:focus {
   margin-top: 20px;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .detail-rate {
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   margin-top: 50px;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .item_process {
@@ -4240,6 +4240,10 @@ a.label:focus {
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .user-paginate .current {
   background: #e6e6e6;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .user-paginate-top {
+  margin-bottom: 20px;
+  text-align: right;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.edit_profile .btn {
   border-radius: 0px;

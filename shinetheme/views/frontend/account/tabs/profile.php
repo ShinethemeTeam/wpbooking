@@ -200,6 +200,9 @@ $data_current_user = get_userdata( $user_id );
 				</div>
 			</div>
 		</div>
+		<div class="user-paginate user-paginate-top">
+			<?php echo paginate_links($paging); ?>
+		</div>
 		<ol class="comment-list">
 			<?php
 			if(!empty($res)){
