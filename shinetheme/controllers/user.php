@@ -1370,6 +1370,7 @@ if (!class_exists('WPBooking_User')) {
 
             $number = 0;
             global $wpdb;
+            $next_rate = ($rate+1);
             $sql = "SELECT SQL_CALC_FOUND_ROWS *
                     FROM
                         {$wpdb->prefix}comments
@@ -1381,7 +1382,10 @@ if (!class_exists('WPBooking_User')) {
                     AND {$wpdb->prefix}posts.post_type = 'wpbooking_service'
                     AND {$wpdb->prefix}comments.comment_parent = '0'
                     AND {$wpdb->prefix}commentmeta.meta_key = 'wpbooking_review'
-                    AND {$wpdb->prefix}commentmeta.meta_value = '{$rate}'
+                    AND
+                    (
+                        {$wpdb->prefix}commentmeta.meta_value >= {$rate} and {$wpdb->prefix}commentmeta.meta_value < {$next_rate}
+                    )
                     ORDER BY
                         {$wpdb->prefix}comments.comment_ID DESC
                     LIMIT 1";
