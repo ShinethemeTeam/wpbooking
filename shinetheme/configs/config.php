@@ -5,21 +5,8 @@
  * Date: 3/16/2016
  * Time: 5:07 PM
  */
-$config['payment_status']=array(
-	'processing'=>array(
-		'label'=>esc_html__('Processing','wpbooking'),
-		'desc'=>esc_html__('Payment is on Processing','wpbooking'),
-	),
-	'completed'=>array(
-		'label'=>esc_html__('Completed','wpbooking'),
-	),
-	'failed'=>array(
-		'label'=>esc_html__('Failed','wpbooking'),
-		'desc'=>esc_html__('Error on payment or can not parse the response from selected Payment Gateway','wpbooking'),
-	),
-);
 
-$config['order_item_status']=array(
+$config['order_status']=array(
 	'on-hold'=>array(
 		'label'=>esc_html__('On Hold','wpbooking'),
 		'desc'=>esc_html__('Waiting for Payment','wpbooking'),

@@ -15,7 +15,8 @@ if (!class_exists('WPBooking_Car_Service_Type') and class_exists('WPBooking_Abst
 		function __construct()
 		{
 			$this->type_info = array(
-				'label' => __("Car", 'wpbooking')
+				'label' => __("Car", 'wpbooking'),
+                'desc'  => esc_html__('Thuê Xe Hơi', 'wpbooking')
 			);
 
 			parent::__construct();

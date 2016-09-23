@@ -79,7 +79,7 @@ if(!function_exists('wpbooking_service_rate_to_html'))
 
 if(!function_exists('wpbooking_order_item_status_html')){
 	function wpbooking_order_item_status_html($status){
-		$all_status=WPBooking_Config::inst()->item('order_item_status');
+		$all_status=WPBooking_Config::inst()->item('order_status');
 		if(array_key_exists($status,$all_status)){
 			switch($status){
 				case "on-hold":
@@ -104,7 +104,7 @@ if(!function_exists('wpbooking_order_item_status_html')){
 }
 if(!function_exists('wpbooking_order_item_status_color')){
 	function wpbooking_order_item_status_color($status){
-		$all_status=WPBooking_Config::inst()->item('order_item_status');
+		$all_status=WPBooking_Config::inst()->item('order_status');
 		if(array_key_exists($status,$all_status)){
 			switch($status){
 				case "on-hold":
@@ -133,7 +133,7 @@ if(!function_exists('wpbooking_payment_status_html')){
 		// Pre-handle for old
 		if($status=='on-paying') $status='processing';
 
-		$all_status=WPBooking_Config::inst()->item('order_item_status');
+		$all_status=WPBooking_Config::inst()->item('order_status');
 		if(array_key_exists($status,$all_status)){
 			switch($status){
 				case "processing":

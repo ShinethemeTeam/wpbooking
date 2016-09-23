@@ -1013,7 +1013,6 @@ if (!class_exists('WPBooking_User')) {
         function _add_shortcode()
         {
             add_shortcode('wpbooking-myaccount', array($this, '_myaccount_shortcode'));
-            add_shortcode('wpbooking_myaccount', array($this, '_myaccount_shortcode'));
             //add_shortcode('wpbooking-partner-register', array($this, '_partner_register_shortcode'));
         }
 

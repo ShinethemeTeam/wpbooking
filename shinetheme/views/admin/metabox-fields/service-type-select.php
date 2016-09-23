@@ -38,6 +38,21 @@ $class.=' width-'.$data['width'];
 					}
 				} ?>
 			</div>
+			<div class="service-type-desc">
+				<?php if( $service_type && !empty( $service_type ) ){
+					$i=0;
+					foreach( $service_type as $key => $value ){
+						$check=FALSE;
+						if($old_data){
+							$check=checked($old_data,$key,FALSE);
+						}elseif($i==0){
+							$check='checked="checked"';
+						}
+						printf('<div data-condition="service_type:is(%s)" class="wpbooking-condition desc-item service-type-%s">%s</div>',$key,$key,$value->get_info('desc'));
+						$i++;
+					}
+				} ?>
+			</div>
 		</div>
 		<div class="metabox-help"><?php echo balanceTags( $data['desc'] ) ?></div>
 	</div>

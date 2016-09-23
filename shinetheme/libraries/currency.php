@@ -197,7 +197,7 @@ if (!class_exists('WPBooking_Currency')) {
 		 * */
 		static function get_currency($theme_option = FALSE)
 		{
-			$all = apply_filters('wpbooking_get_list_currency', wpbooking_get_option('currency_list', array()));
+			$all = apply_filters('wpbooking_get_added_currency', wpbooking_get_option('currency_list', array()));
 
 			//return array for theme options choise
 			if ($theme_option) {
@@ -300,7 +300,7 @@ if (!class_exists('WPBooking_Currency')) {
 			$html .= "</select>";
 
 
-			return apply_filters('get_currency_dropdown', $html, $name, $selected, $atts);
+			return apply_filters('wpbooking_get_currency_dropdown', $html, $name, $selected, $atts);
 		}
 
 		/**
@@ -345,7 +345,7 @@ if (!class_exists('WPBooking_Currency')) {
 			$html .= "</select>";
 
 
-			return apply_filters('get_currency_dropdown', $html, $name, $selected, $atts);
+			return apply_filters('wpbooking_get_added_currency_dropdown', $html, $name, $selected, $atts);
 		}
 
 		/**
@@ -381,7 +381,7 @@ if (!class_exists('WPBooking_Currency')) {
 			}
 
 
-			return apply_filters('get_added_currency_array', $html, $type);
+			return apply_filters('wpbooking_get_added_currency_array', $html, $type);
 		}
 
 		/**

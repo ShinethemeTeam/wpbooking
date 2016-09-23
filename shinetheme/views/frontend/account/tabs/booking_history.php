@@ -5,7 +5,7 @@
  * Date: 7/4/2016
  * Time: 3:06 PM
  */
-$status=WPBooking_Config::inst()->item('order_item_status');
+$status=WPBooking_Config::inst()->item('order_status');
 $payment_status=WPBooking_Config::inst()->item('payment_status');
 
 if(get_query_var('order-detail')){

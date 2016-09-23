@@ -74,8 +74,8 @@ if(!class_exists( 'WPBooking_Admin_Form_Build' )) {
               	'shortcodes/form-build-default/term-dropdown',
               	'shortcodes/form-build-default/term-checkbox',
               	'shortcodes/form-build-default/country-dropdown',
-              	'shortcodes/form-build-default/current-datetime',
-              	'shortcodes/form-build-default/ip-address',
+              //	'shortcodes/form-build-default/current-datetime',
+              	//'shortcodes/form-build-default/ip-address',
               	'shortcodes/form-build-default/extra-services',
             ));
         }

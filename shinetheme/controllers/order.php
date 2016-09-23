@@ -70,7 +70,6 @@ if (!class_exists('WPBooking_Order')) {
 
 			$service_type = get_post_meta($post_id, 'service_type', TRUE);
 
-
 			$order_form_id = $this->get_order_form_id($service_type);
 			$fields = wpbooking_get_form_fields($order_form_id);
 
@@ -817,7 +816,7 @@ if (!class_exists('WPBooking_Order')) {
          *
          * @return int|mixed|void
          */
-        function get_cart_tax_price(){
+        public function get_cart_tax_price(){
             $price = 0;
             $cart = $this->get_cart();
             if (!empty($cart)) {
@@ -884,7 +883,7 @@ if (!class_exists('WPBooking_Order')) {
 		 * @param $service_type
 		 * @return mixed|void
 		 */
-		function get_order_form($service_type)
+		public function get_order_form($service_type)
 		{
 			$form = apply_filters('wpbooking_get_order_form', FALSE, $service_type);
 

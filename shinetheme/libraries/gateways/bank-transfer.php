@@ -5,6 +5,9 @@
  * Date: 3/23/2016
  * Time: 2:37 PM
  */
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
 if(!class_exists('WPBooking_BankTransfer_Gateway') and class_exists('WPBooking_Abstract_Payment_Gateway'))
 {
 	class WPBooking_BankTransfer_Gateway extends WPBooking_Abstract_Payment_Gateway
