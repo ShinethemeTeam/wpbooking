@@ -302,17 +302,20 @@ if (!class_exists('WPBooking_Order')) {
 					}
 				}
 
-				$order=new WB_Order(FALSE);
-				$order_id = $order->create($cart, $fields, $selected_gateway, $customer_id);
+				$order_id = WPBooking_Session::get('wpbooking_order_id');
+				if(!empty($order_id)){
+					$order=new WB_Order($order_id);
+				}else{
+					$order=new WB_Order(FALSE);
+					$order_id = $order->create($cart, $fields, $selected_gateway, $customer_id);
+				}
+
 				if ($order_id) {
+					WPBooking_Session::set('wpbooking_order_id',$order_id);
 					$data = array(
 						'status' => 1
 					);
 					$res['status'] = 1;
-
-					// Clear the Cart after create new order,
-					WPBooking_Session::set('wpbooking_cart', array());
-					WPBooking_Session::set('wpbooking_cart_coupon', false);
 
 					// Only work with Order Table bellow
 
@@ -325,15 +328,21 @@ if (!class_exists('WPBooking_Order')) {
 									'message' => wpbooking_get_message(TRUE),
 									'data'    => $data
 								);
-
                                 // If Payment Fail update the status
                                 $order->payment_failed();
-
 							}
-
+							if($data['status'] and isset($data['complete_purchase']) and $data['complete_purchase']){
+								$order->complete_purchase();
+							}
 						}
 
 						if ($res['status']) {
+							// Clear the Order Id after create new order,
+							WPBooking_Session::set('wpbooking_order_id','');
+							// Clear the Cart after create new order,
+							WPBooking_Session::set('wpbooking_cart', array());
+							WPBooking_Session::set('wpbooking_cart_coupon', false);
+
 							wpbooking_set_message(__('Booking Success', 'wpbooking'));
 							//do checkout
 							$res['data'] = $data;
@@ -357,6 +366,9 @@ if (!class_exists('WPBooking_Order')) {
 
 					if (!empty($data['redirect'])) {
 						$res['redirect'] = $data['redirect'];
+					}
+					if(isset($data['complete_purchase']) and !$data['complete_purchase']){
+						$res['redirect'] = "";
 					}
 
 					do_action('wpbooking_after_checkout_success', $order_id);
