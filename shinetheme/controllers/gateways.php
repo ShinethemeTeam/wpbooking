@@ -28,7 +28,7 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 				// default gateways
 				$defaults=array(
 					'bank-transfer',
-					'paypal',
+					'paypal'
 				);
 				foreach($defaults as $value){
 					WPBooking_Loader::inst()->load_library('gateways/'.$value);
