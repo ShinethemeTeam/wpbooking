@@ -524,7 +524,43 @@ img.settings-demo-gallery{
 //.st-metabox-content-right{ margin-left: 70% }
 //.st-metabox-tabs { width: 100%; }
 .st-metabox-tabs .st-metabox-nav { padding: .2em .1em .2em .2em; }
-.st-metabox-tabs .st-metabox-nav li { clear: left;  border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+.st-metabox-tabs .st-metabox-nav li {
+    cursor: pointer;
+    border: 1px solid #999999;
+    clear: left;
+    margin: 0 -1px 0.2em 0;
+    padding: 6px 12px !important;
+    color: #666666;
+    a{
+        color: #666666;
+    }
+    &:hover{
+        a{
+            color: @maincolor;
+        }
+        border-color: @maincolor;
+    }
+
+}
+.st-metabox-tabs .st-metabox-nav li.ui-tabs-active{
+    a{
+        color: #fff;
+    }
+    &::before{
+        border-style: solid;
+        border-width: 6px;
+        bottom: -12px;
+        content: "";
+        left: 37px;
+        position: absolute;
+        border-color: @maincolor transparent transparent transparent;
+
+    }
+    position: relative;
+    background-color: @maincolor;
+    border-color: @maincolor;
+}
+
 .st-metabox-tabs .st-metabox-nav li a {
     i{
         margin-right: 5px;

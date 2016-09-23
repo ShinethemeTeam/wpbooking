@@ -672,10 +672,38 @@ img.settings-demo-gallery {
   padding: .2em .1em .2em .2em;
 }
 .st-metabox-tabs .st-metabox-nav li {
+  cursor: pointer;
+  border: 1px solid #999999;
   clear: left;
-  border-bottom-width: 1px !important;
-  border-right-width: 0 !important;
   margin: 0 -1px 0.2em 0;
+  padding: 6px 12px !important;
+  color: #666666;
+}
+.st-metabox-tabs .st-metabox-nav li a {
+  color: #666666;
+}
+.st-metabox-tabs .st-metabox-nav li:hover {
+  border-color: #ec8223;
+}
+.st-metabox-tabs .st-metabox-nav li:hover a {
+  color: #ec8223;
+}
+.st-metabox-tabs .st-metabox-nav li.ui-tabs-active {
+  position: relative;
+  background-color: #ec8223;
+  border-color: #ec8223;
+}
+.st-metabox-tabs .st-metabox-nav li.ui-tabs-active a {
+  color: #fff;
+}
+.st-metabox-tabs .st-metabox-nav li.ui-tabs-active::before {
+  border-style: solid;
+  border-width: 6px;
+  bottom: -12px;
+  content: "";
+  left: 37px;
+  position: absolute;
+  border-color: #ec8223 transparent transparent transparent;
 }
 .st-metabox-tabs .st-metabox-nav li a i {
   margin-right: 5px;
