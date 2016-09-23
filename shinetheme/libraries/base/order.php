@@ -651,7 +651,7 @@ if (!class_exists('WB_Order')) {
             $status=$this->get_status();
 
             if($status){
-                $all_status=WPBooking_Config::inst()->item('order_item_status');
+                $all_status=WPBooking_Config::inst()->item('order_status');
                 if(array_key_exists($status,$all_status)){
                     switch($status){
                         case "on-hold":

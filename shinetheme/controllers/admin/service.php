@@ -213,6 +213,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				'context'  => 'normal',
 				'priority' => 'high',
 				'fields'   => array(
+
 					array(
 						'label' => __('1. About /', 'wpbooking'),
 						'id'    => 'general_tab',
@@ -222,11 +223,6 @@ if (!class_exists('WPBooking_Admin_Service')) {
 					array(
 						'label' => __("About Your Property", 'wpbooking'),
 						'type'  => 'title',
-					),
-					array(
-						'id'    => 'service_type',
-						'label' => __("Service Type", 'wpbooking'),
-						'type'  => 'service-type-select',
 					),
 					array(
 						'id'    => 'enable_property',

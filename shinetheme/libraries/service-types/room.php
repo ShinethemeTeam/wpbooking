@@ -16,6 +16,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
         {
             $this->type_info = array(
                 'label' => __("Room", 'wpbooking'),
+                'desc'  => esc_html__('Thuê phòng riêng', 'wpbooking')
             );
             $this->settings = array(
 
@@ -859,7 +860,9 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                 esc_html__('Price', 'wpbooking'),
                 WPBooking_Order::inst()->get_cart_item_total_html($cart_item, array(
                     'without_deposit' => TRUE,
-                    'without_discount'=>true
+                    'without_discount'=>true,
+                    'without_extra_price'=>true,
+                    'without_tax'=>true
                 ))
             );
 
@@ -885,7 +888,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 												<span class='field-value'>%s</span>
 											</li>",
                     'extra_price',
-                    esc_html__('Extra Price', 'wpbooking'),
+                    esc_html__('Addition', 'wpbooking'),
                     WPBooking_Currency::format_money($extra_price)
                 );
             }

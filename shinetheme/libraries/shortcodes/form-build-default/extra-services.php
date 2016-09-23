@@ -15,7 +15,7 @@ if (!class_exists('WPBooking_Form_Extra_Service_Field')) {
 						"type"             => "checkbox",
 						'name'             => 'hide_when_logged_in',
 						'options'          => array(
-							__("Hide with <strong>Logged in use</strong>", 'wpbooking') => 1
+							__("Hide with <strong>Logged in user</strong>", 'wpbooking') => 1
 						),
 						'single_checkbox'  => 1,
 						'edit_field_class' => 'wpbooking-col-md-12',

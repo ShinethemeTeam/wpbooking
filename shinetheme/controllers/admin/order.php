@@ -339,7 +339,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
 			register_post_type('wpbooking_order', $args);
 
 			// Register The Order Status
-			$all_status=WPBooking_Config::inst()->item('order_item_status');
+			$all_status=WPBooking_Config::inst()->item('order_status');
 			if(!empty($all_status)){
 				foreach($all_status as $key=>$value){
 					register_post_status( $key, array(

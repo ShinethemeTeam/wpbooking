@@ -5,6 +5,9 @@
  * Date: 3/23/2016
  * Time: 2:37 PM
  */
+if (!defined('ABSPATH')) {
+	exit; // Exit if accessed directly
+}
 use Omnipay\Omnipay;
 if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstract_Payment_Gateway'))
 {
@@ -276,7 +279,6 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 			} elseif ($response->isRedirect()) {
 				return FALSE;
 			} else {
-			    var_dump($response->getMessage());
 				return FALSE;
 
 			}

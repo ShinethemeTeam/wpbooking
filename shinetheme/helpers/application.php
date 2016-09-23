@@ -22,7 +22,7 @@ if(!function_exists('wpbooking_load_view')) {
 	function wpbooking_load_view($view, $data = array())
 	{
 		$file=locate_template(array(
-			'wpbooking/'.$view.'.php'
+			'wpbooking/frontend/'.$view.'.php'
 		),FALSE);
 
 		if(!file_exists($file)){

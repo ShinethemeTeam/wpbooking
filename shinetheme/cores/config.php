@@ -54,7 +54,7 @@ if(!class_exists('WPBooking_Config'))
 			if(!$config) return $this->configs;
 			elseif(isset($this->configs[$config]))
 			{
-				return $this->configs[$config];
+				return apply_filters('wpbooking_config_'.$config,$this->configs[$config]);
 			}
 			return FALSE;
 

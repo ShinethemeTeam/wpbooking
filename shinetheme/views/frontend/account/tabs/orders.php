@@ -6,7 +6,7 @@
  * Time: 2:01 PM
  */
 $types=WPBooking_Service_Controller::inst()->get_service_types();
-$status=WPBooking_Config::inst()->item('order_item_status');
+$status=WPBooking_Config::inst()->item('order_status');
 $payment_status=WPBooking_Config::inst()->item('payment_status');
 
 if(get_query_var('order-detail')){
