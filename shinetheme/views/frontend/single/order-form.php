@@ -12,6 +12,4 @@ printf('<form onsubmit="return false" class="wpbooking_order_form">
 			<input name="post_id" value="%d" type="hidden">
 			<input type="hidden" class="minimum_stay" value="%s">
 		%s
-		<br>
-		%s
-		</form>',get_the_ID(),get_post_meta(get_the_ID(),'minimum_stay',true),$extra_price,$form);
+		</form>',get_the_ID(),get_post_meta(get_the_ID(),'minimum_stay',true),$form);
