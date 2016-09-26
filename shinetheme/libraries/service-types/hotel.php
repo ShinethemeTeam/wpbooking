@@ -32,7 +32,10 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     'label'=>esc_html__('1. About','wpbooking'),
                     'fields'=>array(
                         array(
-                            'label' => __("About Your Property", 'wpbooking'),
+                            'type'  => 'open_section',
+                        ),
+                        array(
+                            'label' => __("About Your Hotel", 'wpbooking'),
                             'type'  => 'title',
                         ),
                         array(
@@ -47,41 +50,29 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'label' => __("Star Rating", 'wpbooking'),
                             'type'  => 'star-select',
                             'desc'  => esc_html__('Standard of hotel from 1 to 5 star.', 'wpbooking'),
-                        ),
-                        array(
-                            'label' => __('Bedrooms', 'wpbooking'),
-                            'id'    => 'bedroom',
-                            'type'  => 'dropdown',
-                            'value' => array(
-                                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-                            ),
                             'class' => 'small'
                         ),
                         array(
-                            'label' => __('Bathrooms', 'wpbooking'),
-                            'id'    => 'bathrooms',
-                            'type'  => 'dropdown',
-                            'value' => array(
-                                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-                            ),
+                            'label' => __('Total Room', 'wpbooking'),
+                            'id'    => 'total_room',
+                            'type'  => 'text',
+                            'value' => '1',
                             'class' => 'small'
                         ),
                         array(
-                            'label' => __('Max Guests', 'wpbooking'),
-                            'id'    => 'max_guests',
-                            'type'  => 'dropdown',
-                            'value' => array(
-                                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-                            ),
+                            'label' => __('Website', 'wpbooking'),
+                            'id'    => 'website',
+                            'type'  => 'text',
                             'class' => 'small'
                         ),
                         array(
-                            'label' => esc_html__('External Booking URL', 'wpbooking'),
-                            'id'    => 'external_booking_url',
-                            'type'  => 'text'
+                            'type'  => 'close_section',
                         ),
                         array(
-                            'label' => __("Property Location", 'wpbooking'),
+                            'type'  => 'open_section',
+                        ),
+                        array(
+                            'label' => __("Hotel Location", 'wpbooking'),
                             'type'  => 'title',
                         ),
                         array(
@@ -94,6 +85,9 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'id'              => 'address',
                             'type'            => 'address',
                             'container_class' => 'mb35'
+                        ),
+                        array(
+                            'type'  => 'close_section',
                         ),
                         array(
                             'label'        => __("Rate & Availability", 'wpbooking'),
@@ -149,6 +143,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'id'    => 'tax',
                             'class' => 'small'
                         ),
+
                         array(
                             'type' => 'section_navigation',
                             'prev' => FALSE

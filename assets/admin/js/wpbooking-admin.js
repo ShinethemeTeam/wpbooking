@@ -953,6 +953,10 @@ jQuery(document).ready(function( $ ){
 
         metabox_template.trigger('wpbooking_change_service_type_metabox');
 
+
+
+
+
     });
     $('[name=service_type][checked=checked]').trigger('change');
 

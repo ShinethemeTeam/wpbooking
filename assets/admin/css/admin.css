@@ -198,6 +198,7 @@ a.label:focus {
 }
 #poststuff .inside {
   background: #f7f7f7 none repeat scroll 0 0;
+  margin: 0;
 }
 .mb20 {
   margin-bottom: 20px;
@@ -349,6 +350,11 @@ img.settings-demo-gallery {
   padding: 5px;
   color: #808080;
   margin-bottom: 10px;
+}
+.wpbooking-settings .service-type-desc .desc-item {
+  color: #666;
+  font-style: italic;
+  padding-left: 10px;
 }
 .wpbooking-settings.wb-money-input-field .input-group {
   float: left;
@@ -679,15 +685,15 @@ img.settings-demo-gallery {
   color: #c6dcef;
 }
 .st-metabox-tabs .st-metabox-nav {
-  padding: .2em .1em .2em .2em;
+  padding: .2em .1em .2em 15px;
 }
 .st-metabox-tabs .st-metabox-nav li {
-  cursor: pointer;
   border: 1px solid #999999;
   clear: left;
-  margin: 0 -1px 0.2em 0;
-  padding: 6px 12px !important;
   color: #666666;
+  cursor: pointer;
+  margin: 0 0 0.2em;
+  padding: 10px 20px !important;
 }
 .st-metabox-tabs .st-metabox-nav li a {
   color: #666666;
@@ -790,6 +796,7 @@ img.settings-demo-gallery {
   margin-bottom: 25px;
   color: #ec8223;
   font-size: 14px;
+  font-style: italic;
 }
 .popover.wb-help-popover-el {
   background: #ed8323;
@@ -838,6 +845,7 @@ img.settings-demo-gallery {
 .st-metabox-tab-content-wrap .wpbooking-form-group {
   margin-bottom: 18px;
   margin-left: 15px;
+  margin-top: 20px;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group .wpbooking-form-group {
   margin-left: 0px;
