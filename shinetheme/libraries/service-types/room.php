@@ -253,6 +253,9 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                                 'type'  => 'close_section',
                             ),
                             array(
+                                'type'  => 'open_section',
+                            ),
+                            array(
                                 'label' => __("Property Location", 'wpbooking'),
                                 'type'  => 'title',
                             ),
@@ -292,6 +295,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                                 'container_class' => 'mb35'
                             ),
                             array(
+                                'type'  => 'close_section',
+                            ),
+                            array(
+                                'type'  => 'open_section',
+                            ),
+                            array(
                                 'label' => __("Additional Guests / Taxes/ Misc", 'wpbooking'),
                                 'type'  => 'title',
                             ),
@@ -322,10 +331,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                                 'class' => 'small'
                             ),
                             array(
+                                'type'  => 'close_section',
+                            ),
+                            array(
                                 'type' => 'section_navigation',
                                 'prev' => FALSE
                             ),
-
                         )
                     ),
                 'detail_tab'=>array(

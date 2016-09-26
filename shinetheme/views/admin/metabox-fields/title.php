@@ -13,8 +13,8 @@
 			printf('<span class="wb-help-popover" data-placement="bottom" data-toggle="popover" data-content="%s" data-trigger="hover"><i class="fa fa-question-circle"></i></span>',$data['help_popover']);
 		}?>
 	</h4>
-	<h5 class="field-desc">
+	<p class="field-desc">
 		<?php echo esc_html($data['desc']) ?>
-	</h5>
+	</p>
 </div>
 <div class="clear"></div>

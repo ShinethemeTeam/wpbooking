@@ -174,7 +174,8 @@ jQuery(document).ready(function( $ ){
     /////// MEDIA IMAGE ///////////////
     ///////////////////////////////////
     jQuery(document).ready(function($){
-        $(".btn_remove_demo_image").click(function(){
+        //$(".btn_remove_demo_image").click(function(){
+        $(document).on('click','.btn_remove_demo_image',function(){
             var container = $(this).parent();
             container.find('.demo-url-image').val('');
             container.find('.demo-image').hide();
@@ -299,7 +300,8 @@ jQuery(document).ready(function( $ ){
         });
         //dashicons
     });
-    $(".btn_add_new_list_item").click(function () {
+    //$(".btn_add_new_list_item").click(function () {
+    $(document).on('click','.btn_add_new_list_item',function(){
         var container = $(this).parent();
         var content_html = container.find(".content_list_item_hide").html();
         var number_list = container.find('.wpbooking_number_last_list_item').val();
@@ -343,6 +345,7 @@ jQuery(document).ready(function( $ ){
     function load_gmap(){
         if( $('.wpbooking-gmap-wrapper').length ){
             $('.wpbooking-gmap-wrapper').each(function(index, el) {
+                console.log('map load ...');
                 var t = $(this);
                 var gmap = $('.gmap-content', t);
                 var map_lat = parseFloat( $('input[name="map_lat"]', t).val() );
@@ -403,6 +406,7 @@ jQuery(document).ready(function( $ ){
                     map_options.options.zoom=map_zoom;
                 }
 
+                console.log(map_options);
                 gmap.gmap3({
                     map:map_options
                 });
@@ -513,7 +517,6 @@ jQuery(document).ready(function( $ ){
         }
     }
 
-    load_gmap();
 
     $('.wpbooking_extra_service-checklist,.wpbooking_location-checklist').prev().prev().hide();
 
@@ -536,7 +539,8 @@ jQuery(document).ready(function( $ ){
         cursor: "move"
     });
 
-    $('.wpbooking-add-item').click(function(event) {
+    //$('.wpbooking-add-item').click(function(event) {
+    $(document).on('click','.wpbooking-add-item',function(){
         /* Act on the event */
         if( $('#wpbooking-list-item-draft').length ){
             var content = $('#wpbooking-list-item-draft').html();
@@ -689,7 +693,8 @@ jQuery(document).ready(function( $ ){
 
     // Accordion
     //$('.wpbooking-metabox-accordion').accordion();
-    $('.wpbooking-accordion-title').click(function(){
+    //$('.wpbooking-accordion-title').click(function(){
+    $(document).on('click','.wpbooking-accordion-title',function(){
        if($(this).parent().hasClass('active')){
            $(this).parent().find('.wpbooking-metabox-accordion-content').slideUp('fast');
            $(this).parent().removeClass('active');
@@ -704,9 +709,12 @@ jQuery(document).ready(function( $ ){
        }
     });
 
+    $(document).on('keyup', '.wpbooking_image_thumb_height', function(event) {
+        var container = $(this).parent();
+        _save_data_image_thumb(container);
+    });
     // On-off
-    $('.wpbooking-switch').click(function()
-    {
+    $(document).on('click', '.wpbooking-switch', function(event) {
         $(this).toggleClass("switchOn",function(){
 
         });
@@ -726,13 +734,15 @@ jQuery(document).ready(function( $ ){
     });
 
     // Next, Prev Button
-    $('.wb-prev-section').click(function(){
+    //$('.wb-prev-section').click(function(){
+    $(document).on('click','.wb-prev-section',function(){
         var h=$('#st_post_metabox').offset().top;
         $('.st-metabox-nav li.ui-state-active').prev().find('a').trigger('click');
         $('html,body').animate('scrollTop',parseInt(h)+100);
         return false;
     });
-    $('.wb-next-section').click(function(){
+    //$('.wb-next-section').click(function(){
+    $(document).on('click','.wb-next-section',function(){
         var h=$('#st_post_metabox').offset().top;
         $('.st-metabox-nav li.ui-state-active').next().find('a').trigger('click');
 
@@ -741,12 +751,15 @@ jQuery(document).ready(function( $ ){
     });
 
     // Ajax Create Term
-    $('.wb-btn-add-term').click(function(){
+   // $('.wb-btn-add-term').click(function(){
+    $(document).on('click','.wb-btn-add-term',function(){
+
         var parent=$(this).parent();
         var me=$(this);
         var list_terms=$(this).closest('.st-metabox-right').find('.list-terms-checkbox');
         var term_name=parent.find('.term-name').val();
         var tax_name=me.data('tax');
+        console.log(term_name);
         if(!term_name) return false;
 
         parent.addClass('loading');
@@ -789,7 +802,8 @@ jQuery(document).ready(function( $ ){
 
 
     // Add Extra Services
-    $('.wb-btn-add-extra-service').click(function(){
+    //$('.wb-btn-add-extra-service').click(function(){
+    $(document).on('click','.wb-btn-add-extra-service',function(){
         var parent=$(this).parent();
         var wrap=$(this).closest('.add-new-extra-service');
         var me=$(this);
@@ -851,7 +865,8 @@ jQuery(document).ready(function( $ ){
     });
 
     // Show More Less
-    $('.cart-item-order-form-fields-wrap .show-more-less').click(function(){
+    //$('.cart-item-order-form-fields-wrap .show-more-less').click(function(){
+    $(document).on('click','.cart-item-order-form-fields-wrap .show-more-less',function(){
         $(this).parent().toggleClass('active');
     })
 
@@ -917,6 +932,16 @@ jQuery(document).ready(function( $ ){
     $('.wpbooking-metabox-template').on('wpbooking_change_service_type_metabox',function(){
         var me=$(this);
         me.find('.wpbooking-tabs').tabs();
+
+        //Popover
+        $('.wb-help-popover').popover({
+            //container:'body',
+            template:'<div class="popover wb-help-popover-el" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+        });
+
+        load_gmap();
+
+        $('.icp-auto').iconpicker();
     });
 
     $('[name=service_type]').change(function(){

@@ -772,21 +772,24 @@ img.settings-demo-gallery {
             right:0px;
             border-bottom: 1px solid #ececec;
         }*/
+  padding-left: 30px;
 }
 .st-metabox-tab-content-wrap .wpbooking-field-title .field-title {
   display: inline-block;
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 0px;
-  margin-top: 0;
-  padding-left: 30px;
+  margin-top: 10px;
+  position: relative;
   padding-right: 20px;
 }
 .st-metabox-tab-content-wrap .wpbooking-field-title .field-title .wb-help-popover i {
   color: #ed8323;
 }
 .st-metabox-tab-content-wrap .wpbooking-field-title .field-desc {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
+  color: #ec8223;
+  font-size: 14px;
 }
 .popover.wb-help-popover-el {
   background: #ed8323;
@@ -920,6 +923,7 @@ img.settings-demo-gallery {
 .st-metabox-tab-content-wrap .open_section_metabox {
   background: #fff;
   padding: 15px 0;
+  margin-bottom: 10px;
 }
 .st-metabox-content-wrapper .wpbooking-gmap-wrapper {
   margin-bottom: 7px;
@@ -2212,8 +2216,46 @@ a.ui-datepicker-next {
 .wpbooking-extra-html {
   margin-top: 20px;
 }
-.wb-section-navigation .wb-next-section {
-  margin-left: 20px;
+.wb-section-navigation {
+  padding-top: 10px;
+}
+.wb-section-navigation .button {
+  color: #fff;
+  border: solid 1px transparent;
+  border-radius: 0;
+  box-shadow: none;
+  text-align: center;
+  height: 38px;
+  line-height: 35px;
+  font-size: 15px;
+  font-weight: bold;
+}
+.wb-section-navigation .button.wb-next-section {
+  background: #ec8223;
+}
+.wb-section-navigation .button.wb-next-section:hover {
+  border: solid 1px transparent;
+  color: #fff;
+  background: #ec8223;
+}
+.wb-section-navigation .button.wb-prev-section {
+  background: #ddd;
+}
+.wb-section-navigation .button.wb-prev-section:hover {
+  color: #ec8223;
+  border: solid 1px #ec8223;
+}
+.wb-section-navigation .button.full {
+  width: 100%;
+}
+.wb-section-navigation .button.w50 {
+  width: 49%;
+}
+.wb-section-navigation .button.w50.wb-next-section {
+  float: right;
+}
+.wb-section-navigation .button.w50.wb-prev-section {
+  float: left;
 }
 .iconpicker .iconpicker-item {
   height: auto;
