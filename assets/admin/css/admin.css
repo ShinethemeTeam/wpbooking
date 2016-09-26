@@ -1894,6 +1894,18 @@ img.settings-demo-gallery {
 .demo-url-image.min-width-500 {
   min-width: 420px;
 }
+.wpbooking-settings input[name=service_type].active {
+  position: relative;
+}
+.wpbooking-settings input[name=service_type].active:before {
+  border-style: solid;
+  border-width: 6px;
+  bottom: -12px;
+  content: "";
+  left: 44%;
+  position: absolute;
+  border-color: #ec8223 transparent transparent transparent;
+}
 .wpbooking-settings .service-type-desc {
   background: #fff none repeat scroll 0 0;
   margin-top: 10px;

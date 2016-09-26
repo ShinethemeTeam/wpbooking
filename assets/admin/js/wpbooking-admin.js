@@ -954,6 +954,10 @@ jQuery(document).ready(function( $ ){
         metabox_template.trigger('wpbooking_change_service_type_metabox');
 
 
+        var container = $(this).closest('.list-radio');
+        container.find('[name=service_type]').closest('.wb-radio-button').removeClass('active');
+        $(this).closest('.wb-radio-button').addClass('active');
+
 
 
 
