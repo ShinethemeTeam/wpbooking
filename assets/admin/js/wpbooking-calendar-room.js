@@ -437,15 +437,6 @@ jQuery(document).ready(function($) {
             room_calendar.init();
         });
     }
-    if( $( ".st-metabox-tabs" ).length ){
-        $( ".st-metabox-tabs" ).tabs({
-            activate: function( event, ui ) {
-                if( room_calendar ){
-                    $('.wpbooking-calendar-wrapper .calendar-room').fullCalendar( 'today' );
-                }
-            }
-        });
-    }
 
 
 
