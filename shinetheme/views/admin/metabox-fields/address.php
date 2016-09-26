@@ -28,7 +28,7 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
 		<div class="st-metabox-content-wrapper">
 			<div class="form-group">
 				<div class="wpbooking-row">
-					<div class="wpbooking-col-sm-8">
+					<div class="wpbooking-col-sm-12">
 						<?php wp_dropdown_categories(array(
 							'show_option_all' => esc_html__('Please Select', 'wpbooking'),
 							'taxonomy'        => 'wpbooking_location',
@@ -38,24 +38,26 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
 							'hide_empty'      => FALSE,
 							'hierarchical'    => 1
 						)) ?>
+						<p class="help-block"><?php esc_html_e('Place, location, spot, site, locality','wpbooking') ?></p>
 					</div>
-					<div class="wpbooking-col-sm-4">
+					<div class="wpbooking-col-sm-12">
 						<input type="text" name="zip_code"
 							   placeholder="<?php esc_html_e('Zip/Postcode', 'wpbooking') ?>"
 							   value="<?php echo get_post_meta(get_the_ID(), 'zip_code', TRUE) ?>"
 							   class="widefat form-control">
+						<p class="help-block"><?php esc_html_e('Mã bưu điện, mã vùng','wpbooking') ?></p>
 					</div>
-				</div>
-				<div class="wpbooking-row">
-					<div class="wpbooking-col-sm-8">
+					<div class="wpbooking-col-sm-12">
 						<input type="text" name="address" placeholder="<?php esc_html_e('Address', 'wpbooking') ?>"
 							   value="<?php echo get_post_meta(get_the_ID(), 'address', TRUE) ?>"
 							   class="widefat form-control">
+						<p class="help-block"><?php esc_html_e('Địa chỉ khu phố, tổ , cụm','wpbooking') ?></p>
 					</div>
-					<div class="wpbooking-col-sm-4">
+					<div class="wpbooking-col-sm-12">
 						<input type="text" name="apt_unit" placeholder="<?php esc_html_e('Apt/Unit #', 'wpbooking') ?>"
 							   value="<?php echo get_post_meta(get_the_ID(), 'apt_unit', TRUE) ?>"
 							   class="widefat form-control">
+						<p class="help-block"><?php esc_html_e('Số nhà, tầng, tòa nhà','wpbooking') ?></p>
 					</div>
 				</div>
 			</div>
