@@ -203,8 +203,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                         'label'=>esc_html__('1. About','wpbooking'),
                         'fields'=>array(
                             array(
+                                'type'  => 'open_section',
+                            ),
+                            array(
                                 'label' => __("About Your Property", 'wpbooking'),
                                 'type'  => 'title',
+                                'desc'  => esc_html__('Thông tin room', 'wpbooking'),
                             ),
                             array(
                                 'id'    => 'enable_property',
@@ -244,6 +248,9 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                                 'label' => esc_html__('External Booking URL', 'wpbooking'),
                                 'id'    => 'external_booking_url',
                                 'type'  => 'text'
+                            ),
+                            array(
+                                'type'  => 'close_section',
                             ),
                             array(
                                 'label' => __("Property Location", 'wpbooking'),
