@@ -880,7 +880,6 @@ img.settings-demo-gallery {
   margin-left: 0px;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .st-metabox-content-wrapper {
-  float: left;
   margin-right: 40px;
   width: 53%;
 }
@@ -891,10 +890,10 @@ img.settings-demo-gallery {
   margin-left: 0px;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .metabox-help {
-  float: left;
   color: #999999;
   font-style: italic;
   font-weight: 300;
+  margin-top: 10px;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .help_inline {
   color: #999999;

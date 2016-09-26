@@ -16,7 +16,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
         {
             $this->type_info = array(
                 'label' => __("Room", 'wpbooking'),
-                'desc'  => esc_html__('Thuê phòng riêng', 'wpbooking')
+                'desc'  => __('<b>Hotel : </b> Thuê phòng riêng', 'wpbooking')
             );
             $this->settings = array(
 
