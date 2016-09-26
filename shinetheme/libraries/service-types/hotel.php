@@ -29,11 +29,13 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             // Metabox
             $this->set_metabox(array(
                 'general_tab'=>array(
-                    'label'=>esc_html__('1. About','wpbooking'),
+                    'label'=>esc_html__('1. Property Information','wpbooking'),
                     'fields'=>array(
+                        array( 'type'  => 'open_section'),
                         array(
-                            'label' => __("About Your Property", 'wpbooking'),
+                            'label' => __("About Your Hotel", 'wpbooking'),
                             'type'  => 'title',
+                            'desc'  => esc_html__('Thông tin chung của khách sạn', 'wpbooking'),
                         ),
                         array(
                             'id'    => 'enable_property',
@@ -63,6 +65,13 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'desc'  => esc_html__('Property website (optional)', 'wpbooking'),
                             'class' => 'small'
                         ),
+                        array( 'type'  => 'close_section'),
+                        array( 'type'  => 'open_section'),
+                        array(
+                            'label' => __("Hotel Location", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc'  => esc_html__('Phần này dành cho những thông tin cơ bản như địa chỉ khách sạn và số điện thoại liên lạc.', 'wpbooking'),
+                        ),
                         array(
                             'label' => __('Contact Name', 'wpbooking'),
                             'id'    => 'contact_name',
@@ -83,10 +92,6 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'type'  => 'text'
                         ),
                         array(
-                            'label' => __("Property Location", 'wpbooking'),
-                            'type'  => 'title',
-                        ),
-                        array(
                             'label'           => __('Address', 'wpbooking'),
                             'id'              => 'address',
                             'type'            => 'address',
@@ -98,60 +103,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'type'  => 'gmap',
                             'desc'=>esc_html__('Đây là vị trí chúng tôi sẽ cung cấp cho khách. Nhấp chuột và kéo điểm đánh dấu nếu như Quý vị cần di chuyển vị trí này.','wpbooking')
                         ),
-                        array(
-                            'label'        => __("Rate & Availability", 'wpbooking'),
-                            'type'         => 'title',
-                            'help_popover' => esc_html__('eg. If your nightly rate is 110USD, and your weekly rate is 700USD, a 3 night stay will cost 330USD, a 7 night stay will cost 700USD, and a 10 night stay will cost 1000USD (700 / 7 * 10).', 'wpbooking')
-                        ),
-                        array(
-                            'label' => __("Nightly Rate", 'wpbooking'),
-                            'type'  => 'money_input',
-                            'id'    => 'price',
-                            'class' => 'small'
-                        ),
-                        array(
-                            'label' => __("Weekly Rate", 'wpbooking'),
-                            'type'  => 'money_input',
-                            'id'    => 'weekly_rate',
-                            'class' => 'small'
-                        ),
-                        array(
-                            'label'           => __("Monthly Rate", 'wpbooking'),
-                            'type'            => 'money_input',
-                            'id'              => 'monthly_rate',
-                            'class'           => 'small',
-                            'container_class' => 'mb35'
-                        ),
-                        array(
-                            'label' => __("Additional Guests / Taxes/ Misc", 'wpbooking'),
-                            'type'  => 'title',
-                        ),
-                        array(
-                            'label' => __('Allowed', 'wpbooking'),
-                            'type'  => 'on-off',
-                            'id'    => 'enable_additional_guest_tax',
-                            'std'   => 'off'
-                        ),
-                        array(
-                            'label'       => __("Rates are based on occupancy of", 'wpbooking'),
-                            'type'        => 'text',
-                            'id'          => 'rate_based_on',
-                            'class'       => 'small',
-                            'help_inline' => esc_html__('guest(s)', 'wpbooking')
-                        ),
-                        array(
-                            'label'       => __("Each additional guest will pay", 'wpbooking'),
-                            'type'        => 'money_input',
-                            'id'          => 'additional_guest_money',
-                            'class'       => 'small',
-                            'help_inline' => esc_html__('/night', 'wpbooking')
-                        ),
-                        array(
-                            'label' => __("Tax (%)", 'wpbooking'),
-                            'type'  => 'text',
-                            'id'    => 'tax',
-                            'class' => 'small'
-                        ),
+
                         array(
                             'type' => 'section_navigation',
                             'prev' => FALSE
@@ -160,7 +112,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     )
                 ),
                 'detail_tab'=>array(
-                    'label' => __('2. Details', 'wpbooking'),
+                    'label' => __('2. Property Details', 'wpbooking'),
                     'fields'=>array(
 
                         array(
