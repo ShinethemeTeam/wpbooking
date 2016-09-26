@@ -1,0 +1,1 @@
+<div id="<?php echo esc_html($data['id']) ?>" class="open_section_metabox">

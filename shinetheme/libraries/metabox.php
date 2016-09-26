@@ -97,6 +97,7 @@ if (!class_exists('WPBooking_Metabox')) {
                                                     $class_extra = 'wpbooking-hndle-tag-input';
                                                 }
                                                 $file = 'metabox-fields/' . $field['type'];
+                                                //var_dump($file);
 
                                                 $field_html = apply_filters('wpbooking_metabox_field_html_' . $field['type'], FALSE, $field, get_the_ID());
                                                 if ($field_html) echo $field_html;
@@ -130,7 +131,7 @@ if (!class_exists('WPBooking_Metabox')) {
 
             if (!in_array('gmap3.js', $scripts)) {
 
-                wp_enqueue_script('maps.googleapis.js ', 'http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places', array('jquery'), null, TRUE);
+                wp_enqueue_script('google-map-js','//maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key=AIzaSyA1l5FlclOzqDpkx5jSH5WBcC0XFkqmYOY',array('jquery'),null,true);
 
                 wp_enqueue_script('gmap3.js ', wpbooking_admin_assets_url('js/gmap3.min.js'), array('jquery'), null, TRUE);
             }

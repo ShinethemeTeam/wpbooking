@@ -624,7 +624,6 @@ img.settings-demo-gallery{
 .st-metabox-tabs .st-metabox-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; }
 .st-metabox-tabs .ui-tabs-panel {
     padding: 1em;
-    background: #fff;
 }
 
 .st-metabox-tabs .st-metabox-nav li a:focus{
@@ -646,31 +645,33 @@ img.settings-demo-gallery{
     width: 100%;
     .wpbooking-field-title{
         position: relative;
-        &:before{
+        /*&:before{
             content: "";
             position: absolute;
             top:10px;
             left:0px;
             right:0px;
             border-bottom: 1px solid #ececec;
-        }
+        }*/
+        padding-left: 30px;
         .field-title{
-            margin-top: 0px;
-            margin-bottom: 30px;
-            padding-right: 20px;
-            background: white;
-            color: #666666;
+            display: inline-block;
             font-size: 22px;
             font-weight: bold;
+            margin-bottom: 0px;
+            margin-top: 10px;
             position: relative;
-            display: inline-block;
+            padding-right: 20px;
             .wb-help-popover{
                 i{
                   color:#ed8323;
                 }
             }
-
-
+        }
+        .field-desc{
+            margin-bottom: 25px;
+            color: @maincolor;
+            font-size: 14px;
         }
     }
 }
@@ -807,6 +808,11 @@ img.settings-demo-gallery{
     }
     .form-table:after{
         clear: both;
+    }
+    .open_section_metabox{
+        background: #fff;
+        padding: 15px 0;
+        margin-bottom: 10px;
     }
 }
 .st-metabox-content-wrapper{
@@ -2202,8 +2208,44 @@ a.ui-datepicker-next {
 
 }
 .wb-section-navigation{
-    .wb-next-section{
-        margin-left: 20px;
+    padding-top: 10px;
+    .button{
+        &.wb-next-section{
+            background: @maincolor;
+            &:hover{
+                border: solid 1px transparent;
+                color: #fff;
+                background: @maincolor;
+            }
+        }
+        &.wb-prev-section{
+            background: #ddd;
+            &:hover{
+                color: @maincolor;
+                border: solid 1px @maincolor;
+            }
+        }
+        &.full{
+            width: 100%;
+        }
+        &.w50{
+            &.wb-next-section{
+                float: right;
+            }
+            &.wb-prev-section{
+                float: left;
+            }
+            width: 49%;
+        }
+        color: #fff;
+        border: solid 1px transparent;
+        border-radius: 0;
+        box-shadow: none;
+        text-align: center;
+        height: 38px;
+        line-height: 35px;
+        font-size: 15px;
+        font-weight: bold;
     }
 }
 .iconpicker{

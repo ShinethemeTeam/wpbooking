@@ -212,6 +212,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				'pages'    => array('wpbooking_service'),
 				'context'  => 'normal',
 				'priority' => 'high',
+
 			);
 
 			$metabox->register_meta_box($settings);

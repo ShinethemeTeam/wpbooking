@@ -203,8 +203,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                         'label'=>esc_html__('1. About','wpbooking'),
                         'fields'=>array(
                             array(
+                                'type'  => 'open_section',
+                            ),
+                            array(
                                 'label' => __("About Your Property", 'wpbooking'),
                                 'type'  => 'title',
+                                'desc'  => esc_html__('Thông tin room', 'wpbooking'),
                             ),
                             array(
                                 'id'    => 'enable_property',
@@ -246,6 +250,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                                 'type'  => 'text'
                             ),
                             array(
+                                'type'  => 'close_section',
+                            ),
+                            array(
+                                'type'  => 'open_section',
+                            ),
+                            array(
                                 'label' => __("Property Location", 'wpbooking'),
                                 'type'  => 'title',
                             ),
@@ -285,6 +295,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                                 'container_class' => 'mb35'
                             ),
                             array(
+                                'type'  => 'close_section',
+                            ),
+                            array(
+                                'type'  => 'open_section',
+                            ),
+                            array(
                                 'label' => __("Additional Guests / Taxes/ Misc", 'wpbooking'),
                                 'type'  => 'title',
                             ),
@@ -315,10 +331,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                                 'class' => 'small'
                             ),
                             array(
+                                'type'  => 'close_section',
+                            ),
+                            array(
                                 'type' => 'section_navigation',
                                 'prev' => FALSE
                             ),
-
                         )
                     ),
                 'detail_tab'=>array(
