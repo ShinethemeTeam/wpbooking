@@ -196,6 +196,9 @@ a.label:focus {
   border-right-width: 0;
   border-left-color: #fff;
 }
+#poststuff .inside {
+  background: #f7f7f7 none repeat scroll 0 0;
+}
 .mb20 {
   margin-bottom: 20px;
 }
@@ -339,6 +342,13 @@ img.settings-demo-gallery {
 }
 .demo-url-image.min-width-500 {
   min-width: 420px;
+}
+.wpbooking-settings .service-type-desc {
+  background: #fff none repeat scroll 0 0;
+  margin-top: 10px;
+  padding: 5px;
+  color: #808080;
+  margin-bottom: 10px;
 }
 .wpbooking-settings.wb-money-input-field .input-group {
   float: left;
@@ -701,7 +711,7 @@ img.settings-demo-gallery {
   border-width: 6px;
   bottom: -12px;
   content: "";
-  left: 37px;
+  left: 44%;
   position: absolute;
   border-color: #ec8223 transparent transparent transparent;
 }
@@ -715,6 +725,7 @@ img.settings-demo-gallery {
 }
 .st-metabox-tabs .ui-tabs-panel {
   padding: 1em;
+  background: #fff;
 }
 .st-metabox-tabs .st-metabox-nav li a:focus {
   -webkit-box-shadow: none;

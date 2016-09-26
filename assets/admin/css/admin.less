@@ -1,6 +1,9 @@
 @import "label.less";
 @import "popovers.less";
 @maincolor:#ec8223;
+#poststuff .inside {
+    background: #f7f7f7 none repeat scroll 0 0;
+}
 .mb20{
     margin-bottom: 20px;
 }
@@ -155,6 +158,14 @@ img.settings-demo-gallery{
     min-width: 420px;
 }
 .wpbooking-settings {
+    .service-type-desc{
+
+        background: #fff none repeat scroll 0 0;
+        margin-top: 10px;
+        padding: 5px;
+        color: #808080;
+        margin-bottom: 10px;
+    }
     &.wb-money-input-field{
         .input-group{
             float: left;
@@ -551,7 +562,7 @@ img.settings-demo-gallery{
         border-width: 6px;
         bottom: -12px;
         content: "";
-        left: 37px;
+        left: 44%;
         position: absolute;
         border-color: @maincolor transparent transparent transparent;
 
@@ -567,7 +578,10 @@ img.settings-demo-gallery{
     }
 }
 .st-metabox-tabs .st-metabox-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; }
-.st-metabox-tabs .ui-tabs-panel { padding: 1em; }
+.st-metabox-tabs .ui-tabs-panel {
+    padding: 1em;
+    background: #fff;
+}
 
 .st-metabox-tabs .st-metabox-nav li a:focus{
     -webkit-box-shadow: none;

@@ -215,7 +215,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				'fields'   => array(
 
 					array(
-						'label' => __('1. About /', 'wpbooking'),
+						'label' => __('1. About ', 'wpbooking'),
 						'id'    => 'general_tab',
 						'type'  => 'tab',
 					),
@@ -337,7 +337,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'prev' => FALSE
 					),
 					array(
-						'label' => __('2. Details /', 'wpbooking'),
+						'label' => __('2. Details ', 'wpbooking'),
 						'id'    => 'detail_tab',
 						'type'  => 'tab',
 					),
@@ -408,7 +408,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'type' => 'section_navigation',
 					),
 					array(
-						'label' => __('3. Policies /', 'wpbooking'),
+						'label' => __('3. Policies ', 'wpbooking'),
 						'id'    => 'policies_tab',
 						'type'  => 'tab',
 					),
@@ -500,7 +500,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 						'type' => 'section_navigation',
 					),
 					array(
-						'label' => __('4. Photos /', 'wpbooking'),
+						'label' => __('4. Photos ', 'wpbooking'),
 						'id'    => 'photo_tab',
 						'type'  => 'tab',
 					),
