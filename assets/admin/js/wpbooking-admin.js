@@ -910,5 +910,12 @@ jQuery(document).ready(function( $ ){
 
     })
 
-
+    $('[name=service_type]').change(function(){
+        var v=$(this).val();
+        console.log(v);
+        var t=$('#tmpl-wpbooking-metabox-'+v).html();
+        $('.wpbooking-metabox-template').html(t);
+        if(t===undefined) $('.wpbooking-metabox-template').html('');
+    });
+    $('[name=service_type][checked=checked]').trigger('change');
 });

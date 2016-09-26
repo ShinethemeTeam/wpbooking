@@ -525,23 +525,6 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				Pictures showing animals, people, watermarks, logos and images composed of multiple
 				smaller images will be removed.', 'wpbooking')
 					),
-
-					array(
-						'type' => 'section_navigation',
-					),
-					array(
-						'label' => __('5. Calendar', 'wpbooking'),
-						'id'    => 'calendar_tab',
-						'type'  => 'tab',
-					),
-					array(
-						'type'  => 'title',
-						'label' => esc_html__('Availability Template', 'wpbooking')
-					),
-					array(
-						'id'   => 'calendar',
-						'type' => 'calendar'
-					)
 				)
 			);
 

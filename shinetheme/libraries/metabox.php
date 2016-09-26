@@ -22,6 +22,101 @@ if (!class_exists('WPBooking_Metabox')) {
             add_action('wpbooking_save_metabox', array($this, 'wpbooking_save_location'), 20, 2);
             add_action('wpbooking_save_metabox', array($this, 'wpbooking_save_taxonomies'), 20, 2);
 
+            add_action('admin_footer',array($this,'_add_js_template'));
+
+        }
+
+        function _add_js_template()
+        {
+            $service_types=WPBooking_Service_Controller::inst()->get_service_types();
+            if(!empty(($service_types))){
+                foreach ($service_types as $type_id=>$type){
+                    $sections=$type->get_metabox();
+                    if(empty($sections)) continue;
+                    ?>
+                    <script type="text/html" id="tmpl-wpbooking-metabox-<?php echo esc_html($type_id) ?>">
+                        <ul class="st-metabox-nav">
+                            <?php
+                            foreach ((array)$sections as $key => $field):
+                                $class = '';
+                                $data_class = '';
+                                if (!empty($field['condition'])) {
+                                    $class .= ' wpbooking-condition ';
+                                    $data_class .= ' data-condition=' . $field['condition'] . ' ';
+                                }
+                                ?>
+                                <li class=""><a
+                                        class="<?php echo esc_attr($class) ?>" <?php echo esc_attr($data_class) ?>
+                                        href="#<?php echo 'st-metabox-tab-item-' . esc_html($key); ?>"><?php echo($field['label']); ?></a>
+                                </li>
+                            <?php  endforeach; ?>
+                        </ul>
+
+                        <?php
+                        foreach ($sections as $key => $section):
+
+                                $class = '';
+                                $data_class = '';
+                                if (!empty($section['condition'])) {
+                                    $class .= ' wpbooking-condition ';
+                                    $data_class .= ' data-condition=' . $section['condition'] . ' ';
+                                }
+                                ?>
+                                <div id="<?php echo 'st-metabox-tab-item-' . esc_html($key); ?>"
+                                     class="st-metabox-tabs-content ">
+                                    <div
+                                        class="st-metabox-tab-content-wrap <?php echo esc_attr($class) ?> row" <?php echo esc_attr($data_class) ?>>
+
+                                        <?php
+                                        $fields=$section['fields'];
+
+                                        foreach ((array)$fields as $field_id=> $field):
+
+                                            if (empty($field['type'])) continue;
+
+                                                $default = array(
+                                                    'id'          => '',
+                                                    'label'       => '',
+                                                    'type'        => '',
+                                                    'desc'        => '',
+                                                    'std'         => '',
+                                                    'class'       => '',
+                                                    'location'    => FALSE,
+                                                    'map_lat'     => '',
+                                                    'map_long'    => '',
+                                                    'map_zoom'    => 13,
+                                                    'server_type' => '',
+                                                    'width'       => ''
+                                                );
+
+                                                $field = wp_parse_args($field, $default);
+
+                                                $class_extra = FALSE;
+                                                if ($field['location'] == 'hndle-tag') {
+                                                    $class_extra = 'wpbooking-hndle-tag-input';
+                                                }
+                                                $file = 'metabox-fields/' . $field['type'];
+
+                                                $field_html = apply_filters('wpbooking_metabox_field_html_' . $field['type'], FALSE, $field, get_the_ID());
+                                                if ($field_html) echo $field_html;
+                                                else
+                                                    echo wpbooking_admin_load_view($file, array('data' => $field, 'class_extra' => $class_extra, 'post_id' => get_the_ID()));
+
+                                                ?>
+                                            <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            <?php
+                            endforeach; ?>
+
+                    </script>
+                    <?php
+                }
+            }
+        }
+
+        function generate_metabox_section($section){
+
         }
 
         public function _add_scripts()
@@ -93,14 +188,13 @@ if (!class_exists('WPBooking_Metabox')) {
 
         public function build_metabox($post, $metabox)
         {
-            $fields = $this->metabox['fields'];
             ?>
             <div class="st-metabox-wrapper">
                 <input type="hidden" name="<?php echo $this->metabox['id'] . '_nonce'; ?>"
                        value="<?php echo wp_create_nonce($this->metabox['id']); ?>">
 
                 <div id="<?php echo 'st-metabox-tabs-' . $this->metabox['id']; ?>" class="st-metabox-tabs">
-                    
+
                     <div class="st-metabox-tab-content-wrap  row">
                         <?php
                         // Service Type fields
@@ -117,91 +211,9 @@ if (!class_exists('WPBooking_Metabox')) {
                             echo wpbooking_admin_load_view('metabox-fields/service-type-select', array('data' => $service_type_field, 'post_id' => get_the_ID()));
                         ?>
                     </div>
-                    <ul class="st-metabox-nav">
-                        <?php
-                        foreach ((array)$fields as $key => $field):
-                            if ($field['type'] === 'tab'):
+                    <div class="wpbooking-metabox-template">
 
-                                $class = '';
-                                $data_class = '';
-                                if (!empty($field['condition'])) {
-                                    $class .= ' wpbooking-condition ';
-                                    $data_class .= ' data-condition=' . $field['condition'] . ' ';
-                                }
-                                ?>
-                                <li class=""><a
-                                        class="<?php echo esc_attr($class) ?>" <?php echo esc_attr($data_class) ?>
-                                        href="#<?php echo 'st-metabox-tab-item-' . esc_html($field['id']); ?>"><?php echo($field['label']); ?></a>
-                                </li>
-                            <?php endif; endforeach; ?>
-                    </ul>
-                    <?php
-                    foreach ((array)$fields as $key => $field):
-
-                        if (isset($fields[$key]['type']) && $fields[$key]['type'] === 'tab'):
-                            $class = '';
-                            $data_class = '';
-                            if (!empty($field['condition'])) {
-                                $class .= ' wpbooking-condition ';
-                                $data_class .= ' data-condition=' . $field['condition'] . ' ';
-                            }
-                            ?>
-                            <div id="<?php echo 'st-metabox-tab-item-' . esc_html($field['id']); ?>"
-                                 class="st-metabox-tabs-content ">
-                                <div
-                                    class="st-metabox-tab-content-wrap <?php echo esc_attr($class) ?> row" <?php echo esc_attr($data_class) ?>>
-
-                                    <?php
-
-                                    $current_tab = (int)$key;
-                                    foreach ((array)$fields as $key_sub => $field_sub):
-
-                                        if (empty($fields[$key_sub]['type'])) continue;
-
-                                        if ($fields[$key_sub]['type'] === 'tab') {
-
-                                            if ((int)$current_tab != (int)$key_sub) {
-                                                break;
-                                            }
-                                        }
-
-                                        if ($fields[$key_sub]['type'] !== 'tab'):
-
-                                            $default = array(
-                                                'id'          => '',
-                                                'label'       => '',
-                                                'type'        => '',
-                                                'desc'        => '',
-                                                'std'         => '',
-                                                'class'       => '',
-                                                'location'    => FALSE,
-                                                'map_lat'     => '',
-                                                'map_long'    => '',
-                                                'map_zoom'    => 13,
-                                                'server_type' => '',
-                                                'width'       => ''
-                                            );
-
-                                            $field_sub = wp_parse_args($field_sub, $default);
-
-                                            $class_extra = FALSE;
-                                            if ($field_sub['location'] == 'hndle-tag') {
-                                                $class_extra = 'wpbooking-hndle-tag-input';
-                                            }
-                                            $file = 'metabox-fields/' . $field_sub['type'];
-
-                                            $field_html = apply_filters('wpbooking_metabox_field_html_' . $field_sub['type'], FALSE, $field_sub, get_the_ID());
-                                            if ($field_html) echo $field_html;
-                                            else
-                                                echo wpbooking_admin_load_view($file, array('data' => $field_sub, 'class_extra' => $class_extra, 'post_id' => get_the_ID()));
-
-                                            unset($fields[$key_sub]);
-                                            ?>
-                                        <?php endif; endforeach; ?>
-                                </div>
-                            </div>
-                        <?php endif;
-                        unset($fields[$key]); endforeach; ?>
+                    </div>
                 </div>
             </div>
             <?php

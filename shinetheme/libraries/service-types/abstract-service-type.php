@@ -15,6 +15,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 		protected $type_id = FALSE;
 		protected $type_info = array();
 		protected $settings = array();
+        protected $metabox=array();
 
 		function __construct()
 		{
@@ -68,7 +69,13 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 
 		}
 
+		function set_metabox($metabox){
+		    $this->metabox=$metabox;
+        }
 
+        function get_metabox(){
+            return $this->metabox;
+        }
 		/**
 		 * Show Cart Item Information Based on Service Type ID
 		 *
