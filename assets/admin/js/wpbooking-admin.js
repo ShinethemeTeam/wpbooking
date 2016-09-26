@@ -517,13 +517,17 @@ jQuery(document).ready(function( $ ){
 
     $('.wpbooking_extra_service-checklist,.wpbooking_location-checklist').prev().prev().hide();
 
-     //$( ".st-metabox-tabs" ).tabs({
-     //   activate: function( event, ui ) {
-     //       setTimeout(function(){
-     //           load_gmap();
-     //       }, 500);
-     //   }
-     //});
+
+
+    if( $( ".st-metabox-tabs" ).length ){
+        $( ".st-metabox-tabs" ).tabs({
+            activate: function( event, ui ) {
+                if( room_calendar ){
+                    $('.wpbooking-calendar-wrapper .calendar-room').fullCalendar( 'today' );
+                }
+            }
+        });
+    }
 
     /////////////////////////////////
     /////// List item //////////////
@@ -908,14 +912,26 @@ jQuery(document).ready(function( $ ){
 
             });
 
-    })
+    });
+
+    $('.wpbooking-metabox-template').on('wpbooking_change_service_type_metabox',function(){
+        var me=$(this);
+        me.find('.wpbooking-tabs').tabs();
+    });
 
     $('[name=service_type]').change(function(){
         var v=$(this).val();
-        console.log(v);
+        var metabox_template=$('.wpbooking-metabox-template');
         var t=$('#tmpl-wpbooking-metabox-'+v).html();
-        $('.wpbooking-metabox-template').html(t);
+        metabox_template.html(t);
         if(t===undefined) $('.wpbooking-metabox-template').html('');
+
+        metabox_template.trigger('wpbooking_change_service_type_metabox');
+
     });
     $('[name=service_type][checked=checked]').trigger('change');
+
+
+
+
 });

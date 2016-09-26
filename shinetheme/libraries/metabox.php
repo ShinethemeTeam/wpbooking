@@ -35,6 +35,7 @@ if (!class_exists('WPBooking_Metabox')) {
                     if(empty($sections)) continue;
                     ?>
                     <script type="text/html" id="tmpl-wpbooking-metabox-<?php echo esc_html($type_id) ?>">
+                        <div class="wpbooking-tabs">
                         <ul class="st-metabox-nav">
                             <?php
                             foreach ((array)$sections as $key => $field):
@@ -109,6 +110,7 @@ if (!class_exists('WPBooking_Metabox')) {
                                 </div>
                             <?php
                             endforeach; ?>
+                        </div>
 
                     </script>
                     <?php
