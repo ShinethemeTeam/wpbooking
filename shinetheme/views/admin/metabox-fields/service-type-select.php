@@ -48,7 +48,7 @@ $class.=' width-'.$data['width'];
 						}elseif($i==0){
 							$check='checked="checked"';
 						}
-						printf('<div data-condition="service_type:is(%s)" class="wpbooking-condition desc-item service-type-%s">%s</div>',$key,$key,$value->get_info('desc'));
+						printf('<div data-condition="service_type:is(%s)" class="wpbooking-condition desc-item service-type-%s">%s</div>',$key,$key,'<strong>'.$value->get_info('label').':</strong> '.$value->get_info('desc'));
 						$i++;
 					}
 				} ?>
