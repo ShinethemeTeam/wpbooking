@@ -34,9 +34,9 @@ $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
                 $checked = '';
             }
         }
-        $star='';
+        $star=' ';
         for($k=1;$k<=$i; $k++){
-            $star.='<i class="fa fa-star"></i>';
+            $star.='✯';
         }
 
         $field .= '<option value="'. esc_html( $i ).'" '. $checked .'>'. $i.$star .'</option>';
