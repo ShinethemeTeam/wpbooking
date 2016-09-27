@@ -766,6 +766,8 @@ jQuery(document).ready(function( $ ){
 
         var data=section.find('input,select,textarea').serialize();
 
+        data+='&action=wpbooking_save_metabox_section';
+
         $.ajax({
             url:wpbooking_params.ajax_url,
             data:data,

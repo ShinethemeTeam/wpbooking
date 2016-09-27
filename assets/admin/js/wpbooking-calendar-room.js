@@ -87,152 +87,15 @@ jQuery(document).ready(function($) {
                     }
                 }
             );
-			//self.calendar.fullCalendar({
-			//	firstDay: 1,
-			//	customButtons: {
-			//        reloadButton: {
-             //           text: 'Refresh',
-			//            click: function() {
-			//                self.calendar.fullCalendar( 'refetchEvents' );
-			//            }
-			//        }
-			//    },
-			//	header : {
-			//	    left:   'today,reloadButton',
-             //       center: 'title',
-             //       right:  'prev, next'
-			//	},
-             //   //defaultView: 'year',
-             //   //yearColumns: 3,
-			//	selectable: true,
-			//	select : function(start, end, jsEvent, view){
-             //       self.last_start_date=moment(start.format('YYYY-MM-DD'));
-             //       self.last_end_date=end;
-             //       var today_object=moment();
-             //       today_object=moment(today_object.format('YYYY-MM-DD'));
-             //       // Check Past Date
-             //       if(self.last_end_date.diff(today_object)<0){
-             //           return false;
-             //       }
-			//		var zone = moment(start._d).format('Z');
-			//				zone = zone.split(':');
-			//				zone = "" + parseInt(zone[0]) + ":00";
-            //
-			//		var start_date = moment(start._d).utcOffset(zone).format("MM");
-			//		var end_date = moment(end._d).utcOffset(zone).format("MM");
-            //
-			//		var start_year = moment(start._d).utcOffset(zone).format("YYYY");
-			//		var end_year = moment(end._d).utcOffset(zone).format("YYYY");
-            //
-			//		var today = moment().format("MM");
-            //
-			//		var today_year = moment().format("YYYY");
-            //
-			//		//if((start_date < today && start_year <= today_year) || (end_date < today && end_year <= today_year)){
-			//		//	self.calendar.fullCalendar('unselect');
-			//		//	setCheckInOut('', '', self.form_container);
-			//		//}else{
-			//		//	var check_in = moment(start._d).format("MM/DD/YYYY");
-			//		//	var	check_out = moment(end._d).subtract(1, 'day').format("MM/DD/YYYY");
-			//		//	setCheckInOut(check_in, check_out, self.form_container);
-			//		//}
-             //       setCheckInOut(self.last_start_date.format('MM/DD/YYYY'), self.last_end_date.format('MM/DD/YYYY'), self.form_container);
-             //       //Highlight
-             //       // Check not allow past date
-             //       if(self.last_start_date.diff(today_object)<0){
-             //           self.last_start_date=today_object;
-             //       }
-             //       self.showDateRange();
-            //
-			//	},
-             //   events:function(start, end, timezone, callback) {
-             //       $.ajax({
-             //           url: wpbooking_params.ajax_url,
-             //           dataType: 'json',
-             //           type:'post',
-             //           data: {
-             //               action: 'wpbooking_load_availability',
-             //               post_id: self.container.data('post-id'),
-             //               post_encrypt: self.container.data('post-encrypt'),
-             //               start: start.unix(),
-             //               end: end.unix(),
-             //               security: wpbooking_params.wpbooking_security
-             //           },
-             //           success: function(doc){
-             //           	if(typeof doc == 'object'){
-             //               	callback(doc.data);
-             //           	}
-             //               self.clearDateRange();
-             //           },
-             //           error:function(e){
-             //               alert('Can not get the availability slot. Lost connect with your sever');
-             //               self.clearDateRange();
-            //
-             //           }
-             //       });
-             //   },
-			//	eventClick: function(event, element, view){
-            //
-             //       setCheckInOut(self.last_start_date.format('MM/DD/YYYY'), self.last_end_date.format('MM/DD/YYYY'), self.form_container);
-            //
-             //       $('#calendar-price').val(event.price);
-            //
-             //       $('#calendar-status option[value='+event.status+']').prop('selected',true);
-            //
-             //       $('#calendar-price-week').val(event.weekly);
-             //       $('#calendar-price-month').val(event.monthly);
-             //       if(event.can_check_in){
-             //           $('.calendar-can-check-in').iCheck('check');
-             //       }else{
-             //           $('.calendar-can-check-in').iCheck('uncheck');
-             //       }
-            //
-             //       if(event.can_check_out){
-             //           $('.calendar-can-check-out').iCheck('check');
-             //       }else{
-             //           $('.calendar-can-check-out').iCheck('uncheck');
-             //       }
-            //
-             //       // Show Date Range
-             //       self.last_start_date=moment(event.start);
-             //       self.last_end_date=moment(event.end);
-            //
-             //       self.showDateRange();
-            //
-             //       return false;
-			//	},
-			//	eventRender: function(event, element, view){
-			//		var html = '';
-			//		if(event.status == 'available'){
-             //           if(typeof event.price_text!='undefined'){
-             //               html += '<div class="price"><div class="price-title">'+event.price_text+'</div></div>';
-             //           }
-             //           self.calendar.find('.fc-bg [data-date='+ event.start.format('YYYY-MM-DD')+']').removeClass('bg-disable');
-            //
-			//		}
-			//		if(typeof event.status == 'undefined' || event.status != 'available'){
-			//			html += '<div class="not_available"></div>';
-            //
-             //           self.calendar.find('.fc-bg [data-date='+ event.start.format('YYYY-MM-DD')+']').addClass('bg-disable');
-			//		}
-			//		$('.fc-content', element).html(html);
-			//	},
-             //   loading: function(isLoading, view){
-             //       if(isLoading){
-             //       	$('.overlay', self.container).addClass('open');
-             //       }else{
-             //       	$('.overlay', self.container).removeClass('open');
-             //       }
-             //   },
-            //
-			//});
 
 		}
 
         this.bindEvent=function(){
-            //$('.st-metabox-nav li>a[href=#st-metabox-tab-item-calendar_tab]').click(function(){
-                //self.calendar.fullCalendar( 'refetchEvents' );
-           // });
+
+            // Reload Calendar
+            $('.wpbooking-metabox-template').on('wpbooking_change_service_type_metabox',function(){
+               self.initCalendar();
+            });
 
             if( $('#form-bulk-edit').length ){
                 $('#calendar-bulk-close').click(function(event) {
