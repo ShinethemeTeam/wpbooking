@@ -738,17 +738,53 @@ jQuery(document).ready(function( $ ){
     $(document).on('click','.wb-prev-section',function(){
         var h=$('#st_post_metabox').offset().top;
         $('.st-metabox-nav li.ui-state-active').prev().find('a').trigger('click');
-        $('html,body').animate('scrollTop',parseInt(h)+100);
+        $('html,body').animate({'scrollTop':parseInt(h)-200});
         return false;
     });
     //$('.wb-next-section').click(function(){
     $(document).on('click','.wb-next-section',function(){
-        var h=$('#st_post_metabox').offset().top;
-        $('.st-metabox-nav li.ui-state-active').next().find('a').trigger('click');
+        var next_a,section;
+        next_a=$('.st-metabox-nav li.ui-state-active').next().find('a');
+        section=$(this).closest('.st-metabox-tabs-content');
+        saveMetaboxSection(section,$(this),function(){
+            next_a.trigger('click');
+            var h=$('#st_post_metabox').offset().top;
+            $('html,body').animate({'scrollTop':parseInt(h)-200});
+        });
 
-        $('html,body').animate('scrollTop',parseInt(h)+100);
         return false;
     });
+
+    function saveMetaboxSection(section,button,success_callback){
+
+        if(section.hasClass('active')) return;
+        section.addClass('loading');
+
+        var data=section.find('input,select,textarea').serialize();
+
+        $.ajax({
+            url:wpbooking_params.ajax_url,
+            data:data,
+            dataType:'json',
+            type:'post',
+            success:function(res){
+                if(res.status){
+                    success_callback(res);
+                }
+
+                if(res.message){
+                    alert(message);
+                }
+
+                section.removeClass('loading');
+            },
+            error:function(e){
+                alert('Can not save section data, please reload page and try again');
+                console.log(e.responseText);
+                section.removeClass('loading');
+            }
+        })
+    }
 
     // Ajax Create Term
    // $('.wb-btn-add-term').click(function(){

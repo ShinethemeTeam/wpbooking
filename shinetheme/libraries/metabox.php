@@ -15,14 +15,78 @@ if (!class_exists('WPBooking_Metabox')) {
         {
             add_action('admin_enqueue_scripts', array($this, '_add_scripts'));
 
-            add_action('save_post', array($this, 'save_meta_box'), 10, 2);
 
-            add_action('wpbooking_save_metabox', array($this, 'wpbooking_save_list_item'), 20, 2);
-            add_action('wpbooking_save_metabox', array($this, 'wpbooking_save_gmap'), 20, 2);
-            add_action('wpbooking_save_metabox', array($this, 'wpbooking_save_location'), 20, 2);
-            add_action('wpbooking_save_metabox', array($this, 'wpbooking_save_taxonomies'), 20, 2);
+            add_action('wpbooking_save_metabox', array($this, 'wpbooking_save_list_item'), 20, 3);
+            add_action('wpbooking_save_metabox', array($this, 'wpbooking_save_gmap'), 20, 3);
+            add_action('wpbooking_save_metabox', array($this, 'wpbooking_save_location'), 20, 3);
+            add_action('wpbooking_save_metabox', array($this, 'wpbooking_save_taxonomies'), 20, 3);
 
             add_action('admin_footer',array($this,'_add_js_template'));
+
+            /**
+             * Ajax Handler Save Metabox Section
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('wp_ajax_wpbooking_save_metabox_section',array($this,'_save_metabox_section'));
+
+        }
+
+        /**
+         * Ajax Handler Save Metabox Section
+         *
+         * @since 1.0
+         * @author dungdt
+         */
+        function _save_metabox_section()
+        {
+            $res=array('status'=>0);
+
+            $section=WPBooking_Input::post('wpbooking_meta_section');
+            if($section){
+                check_ajax_referer("wpbooking_meta_section_".$section,'security');
+                $service_type=WPBooking_Input::post('_service_type');
+                $service_type_object=WPBooking_Service_Controller::inst()->get_service_type($service_type);
+
+                $post_id=WPBooking_Input::post('_post_id');
+                $post_type=get_post_type($post_id);
+
+                if($service_type and is_object($service_type_object)){
+
+                    /* check permissions */
+                    $permission=true;
+                    if ('page' == $post_type) {
+                        if (!current_user_can('edit_page', $post_id))
+                            $permission=false;
+                    } else {
+                        if (!current_user_can('edit_post', $post_id))
+                            $permission=false;
+                    }
+
+
+                    if(!$permission){
+                        $res['message']=esc_html__('You don not have permission to do that','wpbooking');
+                    }else{
+                        $metabox=$service_type_object->get_metabox();
+
+                        if(isset($metabox[$section])){
+                            $this->do_save_metabox($post_id,$metabox[$section]['fields'],$section);
+                        }
+
+                        $res['status']=1;
+                    }
+
+                }else{
+                    $res['message']=esc_html__('Please specific Service Type','wpbooking');
+                }
+            }
+
+            echo json_encode($res);
+            wp_die();
+        }
+
+        function _do_save_section($post_data){
 
         }
 
@@ -63,10 +127,13 @@ if (!class_exists('WPBooking_Metabox')) {
                                     $data_class .= ' data-condition=' . $section['condition'] . ' ';
                                 }
                                 ?>
-                                <div id="<?php echo 'st-metabox-tab-item-' . esc_html($key); ?>"
-                                     class="st-metabox-tabs-content ">
-                                    <div
-                                        class="st-metabox-tab-content-wrap <?php echo esc_attr($class) ?> row" <?php echo esc_attr($data_class) ?>>
+                                <div id="<?php echo 'st-metabox-tab-item-' . esc_html($key); ?>" class="st-metabox-tabs-content ">
+                                    <div class="st-metabox-tab-content-wrap <?php echo esc_attr($class) ?> row" <?php echo esc_attr($data_class) ?> >
+                                        <input type="hidden" name="wpbooking_meta_section" value="<?php echo esc_attr($key) ?>">
+                                        <input type="hidden" name="action" value="wpbooking_save_metabox_section">
+                                        <input type="hidden" name="security" value="<?php echo wp_create_nonce( "wpbooking_meta_section_".$key ) ?>">
+                                        <input type="hidden" name="_service_type" value="<?php echo esc_attr($type_id) ?>">
+                                        <input type="hidden" name="_post_id" value="<?php echo get_the_ID() ?>">
 
                                         <?php
                                         $fields=$section['fields'];
@@ -224,62 +291,27 @@ if (!class_exists('WPBooking_Metabox')) {
 
         function save_meta_box($post_id, $post_object)
         {
-            if (empty($this->metabox['pages'])) return FALSE;
-
-            if (!in_array(get_post_type($post_id), $this->metabox['pages'])) return FALSE;
-
-            global $pagenow;
-
-            /* don't save if $_POST is empty */
-            if (empty($_POST))
-                return $post_id;
-
-            /* don't save during quick edi
-            t */
-            if ($pagenow == 'admin-ajax.php')
-                return $post_id;
-
-            /* don't save during autosave */
-            if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-                return $post_id;
-
-            /* don't save if viewing a revision */
-            if ($post_object->post_type == 'revision' || $pagenow == 'revision.php')
-                return $post_id;
-
-            /* verify nonce */
-            if (isset($_POST[$this->metabox['id'] . '_nonce']) && !wp_verify_nonce($_POST[$this->metabox['id'] . '_nonce'], $this->metabox['id']))
-                return $post_id;
-
-            /* check permissions */
-            if (isset($_POST['post_type']) && 'page' == $_POST['post_type']) {
-                if (!current_user_can('edit_page', $post_id))
-                    return $post_id;
-            } else {
-                if (!current_user_can('edit_post', $post_id))
-                    return $post_id;
-            }
-
-
-            $this->do_save_metabox($post_id);
+            return;
 
         }
 
         /**
-         * Start Save Metabox after Validate in method save_meta_box(). That also used to save Service in Frontend
+         * Start Save Metabox for specific Section
          *
          * @since 1.0
          * @author dungdt
          *
          * @param $post_id INT Post ID
-         * @param $post_object bool|object Only Available in Backend
+         * @param $sections array List Fields of one Sections
+         * @param $section_id int ID of Section
+         *
          *
          */
-        public function do_save_metabox($post_id, $post_object = FALSE)
+        public function do_save_metabox($post_id,$sections,$section_id)
         {
-            if (empty($this->metabox)) return;
+            if (empty($sections)) return;
 
-            foreach ($this->metabox['fields'] as $field) {
+            foreach ($sections as $field) {
                 if (empty($field['id'])) continue;
 
                 if ($field['type'] == 'list-item') {
@@ -337,7 +369,7 @@ if (!class_exists('WPBooking_Metabox')) {
                 }
             }
 
-            do_action('wpbooking_save_metabox', $post_id, $post_object);
+            do_action('wpbooking_save_metabox_section', $post_id,$section_id, $sections);
         }
 
         public function wpbooking_save_gmap($post_id, $post_object)
