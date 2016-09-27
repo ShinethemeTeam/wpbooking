@@ -207,6 +207,14 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 			wp_enqueue_script('wbCalendar',wpbooking_assets_url('js/wb-calendar.js'),array('jquery'),null,true);
 			wp_enqueue_style('wbCalendar',wpbooking_assets_url('css/wb-calendar.css'));
 
+            /**
+             * Flag icon
+             * @since 1.0
+             * @author dungdt
+             *
+             */
+            wp_register_style('flag-icon',wpbooking_assets_url('lag/less/flag-icon.css'));
+
 			wp_enqueue_script('wpbooking-admin',wpbooking_admin_assets_url('js/wpbooking-admin.js'),array('jquery','bootstrap','icheck', 'jquery-ui-core','iconpicker', 'jquery-ui-datepicker','jquery-ui-accordion'),null,true);
 			wp_enqueue_script('wpbooking-admin-form-build',wpbooking_admin_assets_url('js/wpbooking-admin-form-build.js'),array('jquery'),null,true);
 			
