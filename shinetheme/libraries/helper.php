@@ -38,7 +38,7 @@ if(!function_exists('WB_Helpers'))
                 array (
                     'code' => '+7 840',
                     'name' => esc_html__('Abkhazia','wpbooking'),
-                    'flag'=>''
+                    'flag'=>'AF'
                 ),
                 array (
                     'code' => '+93',
