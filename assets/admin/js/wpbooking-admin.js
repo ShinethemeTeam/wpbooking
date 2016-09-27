@@ -30,10 +30,14 @@ jQuery(document).ready(function( $ ){
                 }
 
 
+
                 var v1 = targetEl.length ? targetEl.val().toString() : '';
                 var v2 = condition.value.toString();
                 var result;
 
+                if(targetEl.length && targetEl.attr('type')=='radio'){
+                    v1 = $( '[name='+ condition.check+']:checked').val();
+                }
                 if(targetEl.length && targetEl.attr('type')=='checkbox'){
                     v1=targetEl.is(':checked')?v1:'';
                 }
@@ -965,6 +969,10 @@ jQuery(document).ready(function( $ ){
     $('[name=service_type][checked=checked]').trigger('change');
 
 
+    $(document).on('click','.open_section_metabox',function(){
+        $('.open_section_metabox').removeClass('active');
+        $(this).addClass("active");
+    });
 
 
 });

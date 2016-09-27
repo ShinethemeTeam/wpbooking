@@ -342,7 +342,9 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                 'detail_tab'=>array(
                     'label' => __('2. Details', 'wpbooking'),
                     'fields'=>array(
-
+                        array(
+                            'type'  => 'open_section',
+                        ),
                         array(
                             'label' => __("More About Your Property", 'wpbooking'),
                             'type'  => 'title',
@@ -397,6 +399,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                             'container_class' => 'mb35'
                         ),
                         array(
+                            'type'  => 'close_section',
+                        ),
+                        array(
+                            'type'  => 'open_section',
+                        ),
+                        array(
                             'label' => __("Extra Services:", 'wpbooking'),
                             'type'  => 'title',
                         ),
@@ -405,7 +413,9 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                             'type'  => 'extra_services',
                             'id'    => 'extra_services'
                         ),
-
+                        array(
+                            'type'  => 'close_section',
+                        ),
                         array(
                             'type' => 'section_navigation',
                         ),
@@ -414,6 +424,9 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                 'policies_tab'=>array(
                     'label' => __('3. Policies', 'wpbooking'),
                     'fields'=>array(
+                        array(
+                            'type'  => 'open_section',
+                        ),
                         array(
                             'label' => __("Property Policies", 'wpbooking'),
                             'type'  => 'title',
@@ -468,6 +481,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                             )
                         ),
                         array(
+                            'type'  => 'close_section',
+                        ),
+                        array(
+                            'type'  => 'open_section',
+                        ),
+                        array(
                             'label' => __("Check In & Check Out", 'wpbooking'),
                             'type'  => 'title',
                         ),
@@ -487,6 +506,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                             'type'  => 'time_select',
                         ),
                         array(
+                            'type'  => 'close_section',
+                        ),
+                        array(
+                            'type'  => 'open_section',
+                        ),
+                        array(
                             'label' => __("Cancellation Policies", 'wpbooking'),
                             'type'  => 'title',
                         ),
@@ -494,13 +519,19 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                             'type' => 'cancellation_policies_text',
                         ),
                         array(
+                            'type'  => 'close_section',
+                        ),
+                        array(
                             'type' => 'section_navigation',
                         ),
                     )
                 ),
                 'photo_tab'=>array(
-                    'label' => __('4. Photos /', 'wpbooking'),
+                    'label' => __('4. Photos', 'wpbooking'),
                     'fields'=>array(
+                        array(
+                            'type'  => 'open_section',
+                        ),
                         array(
                             'label' => __("Pictures", 'wpbooking'),
                             'type'  => 'title',
@@ -522,7 +553,9 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 				Pictures showing animals, people, watermarks, logos and images composed of multiple
 				smaller images will be removed.', 'wpbooking')
                         ),
-
+                        array(
+                            'type'  => 'close_section',
+                        ),
                         array(
                             'type' => 'section_navigation',
                         ),
@@ -531,7 +564,9 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                 'calendar_tab'=>array(
                     'label' => __('5. Calendar', 'wpbooking'),
                     'fields'=>array(
-
+                        array(
+                            'type'  => 'open_section',
+                        ),
                         array(
                             'type'  => 'title',
                             'label' => esc_html__('Availability Template', 'wpbooking')
@@ -539,7 +574,11 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                         array(
                             'id'   => 'calendar',
                             'type' => 'calendar'
-                        )
+                        ),
+                        array(
+                            'type'  => 'close_section',
+                        ),
+
                     )
                 )
             ));

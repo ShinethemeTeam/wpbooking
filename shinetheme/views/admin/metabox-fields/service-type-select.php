@@ -28,12 +28,17 @@ $class.=' width-'.$data['width'];
 					$i=0;
 					foreach( $service_type as $key => $value ){
 						$check=FALSE;
+						$active = '';
 						if($old_data){
 							$check=checked($old_data,$key,FALSE);
+							if(!empty($check)){
+								$active = 'active';
+							}
 						}elseif($i==0){
 							$check='checked="checked"';
+							$active = 'active';
 						}
-						printf('<label class="wb-radio-button"><input type="radio" name="%s" value="%s" %s> %s</label>',$data['id'],$key,$check,$value->get_info('label'));
+						printf('<label class="wb-radio-button service_type %s"><input type="radio" name="%s" value="%s" %s> %s</label>',$active,$data['id'],$key,$check,$value->get_info('label'));
 						$i++;
 					}
 				} ?>
