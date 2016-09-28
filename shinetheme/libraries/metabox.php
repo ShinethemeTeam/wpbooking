@@ -41,15 +41,16 @@ if (!class_exists('WPBooking_Metabox')) {
          */
         function _save_metabox_section()
         {
+
             $res=array('status'=>0);
 
-            $section=WPBooking_Input::post('wpbooking_meta_section');
+            $section=WPBooking_Input::post('wb_meta_section');
             if($section){
-                check_ajax_referer("wpbooking_meta_section_".$section,'security');
-                $service_type=WPBooking_Input::post('_service_type');
+                check_ajax_referer("wpbooking_meta_section_".$section,'wb_security');
+                $service_type=WPBooking_Input::post('wb_service_type');
                 $service_type_object=WPBooking_Service_Controller::inst()->get_service_type($service_type);
 
-                $post_id=WPBooking_Input::post('_post_id');
+                $post_id=WPBooking_Input::post('wb_post_id');
                 $post_type=get_post_type($post_id);
 
                 if($service_type and is_object($service_type_object)){
@@ -68,6 +69,10 @@ if (!class_exists('WPBooking_Metabox')) {
                     if(!$permission){
                         $res['message']=esc_html__('You don not have permission to do that','wpbooking');
                     }else{
+
+                        // Change Service Type
+                        update_post_meta(get_the_ID(),'service_type',$service_type);
+
                         $metabox=$service_type_object->get_metabox();
 
                         if(isset($metabox[$section])){
@@ -84,6 +89,7 @@ if (!class_exists('WPBooking_Metabox')) {
 
             echo json_encode($res);
             wp_die();
+
         }
 
         function _do_save_section($post_data){
@@ -129,11 +135,10 @@ if (!class_exists('WPBooking_Metabox')) {
                                 ?>
                                 <div id="<?php echo 'st-metabox-tab-item-' . esc_html($key); ?>" class="st-metabox-tabs-content ">
                                     <div class="st-metabox-tab-content-wrap <?php echo esc_attr($class) ?> row" <?php echo esc_attr($data_class) ?> >
-                                        <input type="hidden" name="wpbooking_meta_section" value="<?php echo esc_attr($key) ?>">
-                                        <input type="hidden" name="action" value="wpbooking_save_metabox_section">
-                                        <input type="hidden" name="security" value="<?php echo wp_create_nonce( "wpbooking_meta_section_".$key ) ?>">
-                                        <input type="hidden" name="_service_type" value="<?php echo esc_attr($type_id) ?>">
-                                        <input type="hidden" name="_post_id" value="<?php echo get_the_ID() ?>">
+                                        <input type="hidden" name="wb_meta_section" value="<?php echo esc_attr($key) ?>">
+                                        <input type="hidden" name="wb_security" value="<?php echo wp_create_nonce( "wpbooking_meta_section_".$key ) ?>">
+                                        <input type="hidden" name="wb_service_type" value="<?php echo esc_attr($type_id) ?>">
+                                        <input type="hidden" name="wb_post_id" value="<?php echo get_the_ID() ?>">
 
                                         <?php
                                         $fields=$section['fields'];
@@ -260,9 +265,6 @@ if (!class_exists('WPBooking_Metabox')) {
         {
             ?>
             <div class="st-metabox-wrapper">
-                <input type="hidden" name="<?php echo $this->metabox['id'] . '_nonce'; ?>"
-                       value="<?php echo wp_create_nonce($this->metabox['id']); ?>">
-
                 <div id="<?php echo 'st-metabox-tabs-' . $this->metabox['id']; ?>" class="st-metabox-tabs">
 
                     <div class="st-metabox-tab-content-wrap  row">
@@ -289,11 +291,6 @@ if (!class_exists('WPBooking_Metabox')) {
             <?php
         }
 
-        function save_meta_box($post_id, $post_object)
-        {
-            return;
-
-        }
 
         /**
          * Start Save Metabox for specific Section

@@ -1396,7 +1396,7 @@ input.gmap-search {
   float: left;
   width: 50%;
 }
-.wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-room-form-item input,
+.wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-room-form-item input[type=text],
 .wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-room-form-item select {
   width: 100%;
 }
@@ -1408,7 +1408,7 @@ input.gmap-search {
 .wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-input-icon {
   position: relative;
 }
-.wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-input-icon input {
+.wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-input-icon input[type=text] {
   background: white;
   width: 100%;
 }
