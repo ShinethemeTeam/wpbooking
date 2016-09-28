@@ -20,7 +20,7 @@
 		if(!isset($data['prev']) or $data['prev']){
 			$class = 'w50';
 		}
-		printf('<a href="#" class="button wb-next-section %s">%s <i class="fa fa-spinner fa-pulse"></i></a>',$class,esc_html__('Next Step','wpbooking'));
+		printf('<a href="#" class="button wb-next-section %s">%s <i class="fa fa-spinner fa-pulse"></i></a>',$class,esc_html__('Save & Next Step','wpbooking'));
 	}
 
 	?>

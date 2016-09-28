@@ -984,6 +984,13 @@ jQuery(document).ready(function( $ ){
         load_gmap();
 
         $('.icp-auto').iconpicker();
+
+        // Load Condition
+        $('.wpbooking-form-group').on( 'change.conditionals', condition_object, function(e) {
+            run_condition_engine();
+        });
+
+
     });
 
     $('[name=service_type]').change(function(){
@@ -999,9 +1006,6 @@ jQuery(document).ready(function( $ ){
         var container = $(this).closest('.list-radio');
         container.find('[name=service_type]').closest('.wb-radio-button').removeClass('active');
         $(this).closest('.wb-radio-button').addClass('active');
-
-
-
 
     });
     $('[name=service_type][checked=checked]').trigger('change');
@@ -1032,6 +1036,17 @@ jQuery(document).ready(function( $ ){
         var $container = $(this).closest('.st-metabox-content-wrapper');
         $container.find('.radio_pro').removeClass('checked');
         $(this).closest('.radio_pro').addClass('checked');
+    // Report dropdown
+    });
+    $(document).on('click','.wb-repeat-dropdown-add',function(){
+        var parent=$(this).closest('.form-group');
+        var item=parent.find('.default-item').html();
+        parent.find('.add-more-box').append('<div class="more-item">'+item+'<span class="wb-repeat-dropdown-remove"><i class="fa fa-trash"></i> '+wpbooking_params.delete_string+'</span></div>');
+
+    });
+    $(document).on('click','.wb-repeat-dropdown-remove',function(){
+        $(this).closest('.more-item').remove();
+
     });
 
 });

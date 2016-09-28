@@ -21,17 +21,18 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
 
             parent::__construct();
 
-            add_action('init',array($this,'_add_init_action'));
+            add_action('init', array($this, '_add_init_action'));
         }
 
 
-        public function _add_init_action(){
+        public function _add_init_action()
+        {
             // Metabox
             $this->set_metabox(array(
-                'general_tab'=>array(
-                    'label'=>esc_html__('1. Property Information','wpbooking'),
-                    'fields'=>array(
-                        array( 'type'  => 'open_section'),
+                'general_tab'  => array(
+                    'label'  => esc_html__('1. Property Information', 'wpbooking'),
+                    'fields' => array(
+                        array('type' => 'open_section'),
                         array(
                             'label' => __("About Your Hotel", 'wpbooking'),
                             'type'  => 'title',
@@ -66,8 +67,8 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'desc'  => esc_html__('Property website (optional)', 'wpbooking'),
                             'class' => 'small'
                         ),
-                        array( 'type'  => 'close_section'),
-                        array( 'type'  => 'open_section'),
+                        array('type' => 'close_section'),
+                        array('type' => 'open_section'),
                         array(
                             'label' => __("Hotel Location", 'wpbooking'),
                             'type'  => 'title',
@@ -114,6 +115,239 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'prev' => FALSE
                         ),
 
+                    )
+                ),
+                'detail_tab'=>array(
+                    'label' => __('2. Property Details', 'wpbooking'),
+                    'fields'=>array(
+                        array('type' => 'open_section'),
+                        array(
+                            'label' => __("Check In & Check Out", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc'  => esc_html__('Time to check in, out in your property', 'wpbooking')
+                        ),
+                        array(
+                            'label'  => esc_html__('Check In time', 'wpbooking'),
+                            'desc'   => esc_html__('Check In time', 'wpbooking'),
+                            'type'   => 'check_in',
+                            'fields' => array('checkin_from', 'checkin_to'),// Fields to save
+                        ),
+                        array(
+                            'label'  => esc_html__('Check Out time', 'wpbooking'),
+                            'desc'   => esc_html__('Check Out time', 'wpbooking'),
+                            'type'   => 'check_out',
+                            'fields' => array('checkout_from', 'checkout_to'),// Fields to save
+                        ),
+                        array('type' => 'close_section'),
+                        array('type' => 'open_section'),
+                        array(
+                            'label' => __("Internet", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc'  => esc_html__('Internet access is important for many travellers. Free WiFi is a huge selling point, too!', 'wpbooking')
+                        ),
+                        array(
+                            'label' => __('Is internet available to guests?', 'wpbooking'),
+                            'id'    => 'internet_status',
+                            'type'  => 'dropdown',
+                            'value' => array(
+                                'no_internet'   => esc_html__('No', 'wpbooking'),
+                                'free_internet' => esc_html__('Yes, Free', 'wpbooking'),
+                                'paid_internet' => esc_html__('Yes, Paid', 'wpbooking'),
+                            ),
+                            'class' => 'small'
+                        ),
+                        array(
+                            'label'     => __('Connection type', 'wpbooking'),
+                            'id'        => 'internet_connection_type',
+                            'type'      => 'dropdown',
+                            'value'     => array(
+                                'cable' => esc_html__('Cable', 'wpbooking'),
+                                'wifi'  => esc_html__('Wifi', 'wpbooking'),
+                            ),
+                            'class' => 'small',
+                            'condition' => 'internet_status:not(no_internet)'
+                        ),
+                        array(
+                            'label'     => __('Connection location', 'wpbooking'),
+                            'id'        => 'internet_connection_location',
+                            'type'      => 'dropdown',
+                            'value'     => array(
+                                'public_area' => esc_html__('Public areas', 'wpbooking'),
+                                'some_rooms' => esc_html__('Some rooms', 'wpbooking'),
+                                'all_rooms' => esc_html__('All rooms', 'wpbooking'),
+                                'entire_property' => esc_html__('Entire Property', 'wpbooking'),
+                            ),
+                            'class' => 'small',
+                            'condition' => 'internet_status:not(no_internet)'
+                        ),
+                        array(
+                            'label'     => __('Price for internet (per day)', 'wpbooking'),
+                            'id'        => 'internet_price',
+                            'type'      => 'money_input',
+                            'class' => 'small',
+                            'condition' => 'internet_status:not(no_internet)'
+                        ),
+                        array('type' => 'close_section'),
+                        array('type' => 'open_section'),
+                        array(
+                            'label' => __("Parking lot", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc'  => esc_html__('This information is especially important for those travelling to your accommodation by car.', 'wpbooking')
+                        ),
+                        array(
+                            'label' => __('Is parking available to guests?', 'wpbooking'),
+                            'id'    => 'parking_status',
+                            'type'  => 'dropdown',
+                            'value' => array(
+                                'no_parking'   => esc_html__('No', 'wpbooking'),
+                                'free_parking' => esc_html__('Yes, Free', 'wpbooking'),
+                                'paid_parking' => esc_html__('Yes, Paid', 'wpbooking'),
+                            ),
+                            'class' => 'small'
+                        ),
+                        array(
+                            'label' => __('Parking lot type', 'wpbooking'),
+                            'id'    => 'parking_lot_type',
+                            'type'  => 'dropdown',
+                            'value' => array(
+                                'private'   => esc_html__('Private', 'wpbooking'),
+                                'public'   => esc_html__('Public', 'wpbooking'),
+                            ),
+                            'condition' => 'parking_status:not(no_parking)',
+                            'class' => 'small'
+                        ),
+                        array(
+                            'label' => __('Parking lot area', 'wpbooking'),
+                            'id'    => 'parking_lot_area',
+                            'type'  => 'dropdown',
+                            'value' => array(
+                                'onside'   => esc_html__('On Side', 'wpbooking'),
+                                'outside'   => esc_html__('Out Side', 'wpbooking'),
+                            ),
+                            'condition' => 'parking_status:not(no_parking)',
+                            'class' => 'small'
+                        ),
+                        array(
+                            'label' => __('Do guests need to reserve a parking space?', 'wpbooking'),
+                            'id'    => 'parking_need_reserve',
+                            'type'  => 'dropdown',
+                            'value' => array(
+                                'need_reservation'   => esc_html__('Reservation Needed', 'wpbooking'),
+                                'no_need_reservation'   => esc_html__('No Reservation Needed', 'wpbooking'),
+                            ),
+                            'condition' => 'parking_status:not(no_parking)',
+                            'class' => 'small'
+                        ),
+                        array(
+                            'label'     => __('Price for parking (per day)', 'wpbooking'),
+                            'id'        => 'parking_price',
+                            'type'      => 'money_input',
+                            'class' => 'small',
+                            'condition' => 'parking_status:not(no_internet)'
+                        ),
+                        array('type' => 'close_section'),
+
+                        array('type' => 'open_section'),
+                        array(
+                            'label' => __("Breakfast", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc'  => esc_html__('Indicate if breakfast is included in the price, or if it\'s an optional add-on.', 'wpbooking')
+                        ),
+                        array(
+                            'label' => __('Is breakfast available to guests?', 'wpbooking'),
+                            'id'    => 'breakfast_status',
+                            'type'  => 'dropdown',
+                            'value' => array(
+                                'no_breakfast'   => esc_html__('No', 'wpbooking'),
+                                'yes_included' => esc_html__("Yes, it's included in the price", 'wpbooking'),
+                                'no_optional' => esc_html__("Yes, it's optional", 'wpbooking'),
+                            ),
+                            'class' => 'small'
+                        ),
+                        array(
+                            'label' => __('Price for breakfast (per person, per day)', 'wpbooking'),
+                            'id'    => 'breakfast_price',
+                            'type'  => 'money_input',
+                            'class' => 'small',
+                            'condition' => 'breakfast_status:not(no_breakfast)'
+                        ),
+                        array(
+                            'label' => __('What kind of breakfast is available?', 'wpbooking'),
+                            'id'    => 'breakfast_types',
+                            'type'  => 'repeat_dropdown',
+                            'value'=>WPBooking_Config::inst()->item('breakfast_types'),
+                            'class' => 'small',
+                            'condition' => 'breakfast_status:not(no_breakfast)',
+                            'add_new_label'=>esc_html__('Add another breakfast type','wpbooking')
+                        ),
+                        array('type' => 'close_section'),
+
+                        array('type' => 'open_section'),
+                        array(
+                            'label' => __("Children", 'wpbooking'),
+                            'type'  => 'title',
+                        ),
+                        array(
+                            'id'=>'children_allowed',
+                            'label'=>esc_html__('Can you accommodate children?','wpbooking'),
+                            'type'=>'on-off',
+                        ),
+                        array('type' => 'close_section'),
+
+                        array('type' => 'open_section'),
+                        array(
+                            'label' => __("Pet", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc'=>esc_html__('Some guests like to travel with their furry friends. Indicate if you allow pets and if any charges apply.','wpbooking')
+                        ),
+
+                        array(
+                            'label' => __('Do you allow pets', 'wpbooking'),
+                            'id'    => 'pets_allowed',
+                            'type'  => 'dropdown',
+                            'value' => array(
+                                'no'   => esc_html__('No', 'wpbooking'),
+                                'yes' => esc_html__("Yes", 'wpbooking'),
+                                'request' => esc_html__("Upon request", 'wpbooking'),
+                            ),
+                            'class' => 'small'
+                        ),
+                        array(
+                            'label' => __('Are there additional charges for pets?', 'wpbooking'),
+                            'id'    => 'pets_fee',
+                            'type'  => 'dropdown',
+                            'value' => array(
+                                'free'   => esc_html__('Pets can stay for free', 'wpbooking'),
+                                'paid' => esc_html__("Charges may apply", 'wpbooking'),
+                            ),
+                            'class' => 'small',
+                            'condition'=>'pets_allowed:not(no)'
+                        ),
+
+                        array('type' => 'close_section'),
+
+                        // Languages
+                        array('type' => 'open_section'),
+                        array(
+                            'label' => __("Languages", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc'=>esc_html__('Select the language(s) in which you or your staff can help guests.','wpbooking')
+                        ),
+                        array(
+                            'label' => __('Languages', 'wpbooking'),
+                            'id'    => 'lang_spoken_by_staff',
+                            'type'  => 'repeat_dropdown',
+                            'value'=>WPBooking_Config::inst()->item('lang_spoken_by_staff'),
+                            'class' => 'small',
+                            'add_new_label'=>esc_html__('Add another language','wpbooking')
+                        ),
+                        array('type' => 'close_section'),
+
+                        // End Languages
+
+                        array(
+                            'type' => 'section_navigation',
+                        ),
                     )
                 ),
                 'facilities_tab'=>array(
@@ -178,81 +412,9 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ),
                     )
                 ),
-                'detail_tab'=>array(
-                    'label' => __('2. Property Details', 'wpbooking'),
-                    'fields'=>array(
-
-                        array(
-                            'label' => __("More About Your Property", 'wpbooking'),
-                            'type'  => 'title',
-                        ),
-
-                        array(
-                            'label' => __('Amenities', 'wpbooking'),
-                            'id'    => 'wpb_taxonomy',
-                            'type'  => 'taxonomies',
-                        ),
-                        array(
-                            'label' => __('Double Bed', 'wpbooking'),
-                            'id'    => 'double_bed',
-                            'type'  => 'dropdown',
-                            'value' => array(
-                                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-                            ),
-                            'class' => 'small'
-                        ),
-                        array(
-                            'label' => __('Single Bed', 'wpbooking'),
-                            'id'    => 'single_bed',
-                            'type'  => 'dropdown',
-                            'value' => array(
-                                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-                            ),
-                            'class' => 'small'
-                        ),
-                        array(
-                            'label' => __('Sofa Bed', 'wpbooking'),
-                            'id'    => 'sofa_bed',
-                            'type'  => 'dropdown',
-                            'value' => array(
-                                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-                            ),
-                            'class' => 'small'
-                        ),
-                        array(
-                            'label' => __('Property Floor', 'wpbooking'),
-                            'id'    => 'property_floor',
-                            'type'  => 'dropdown',
-                            'value' => array(
-                                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-                            ),
-                            'class' => 'small'
-                        ),
-                        array(
-                            'label'           => __('Property Size', 'wpbooking'),
-                            'id'              => 'property_size',
-                            'type'            => 'property_size',
-                            'unit_id'         => 'property_unit',
-                            'container_class' => 'mb35'
-                        ),
-                        array(
-                            'label' => __("Extra Services:", 'wpbooking'),
-                            'type'  => 'title',
-                        ),
-                        array(
-                            'label' => __("Extra Services:", 'wpbooking'),
-                            'type'  => 'extra_services',
-                            'id'    => 'extra_services'
-                        ),
-
-                        array(
-                            'type' => 'section_navigation',
-                        ),
-                    )
-                ),
-                'policies_tab'=>array(
-                    'label' => __('3. Policies', 'wpbooking'),
-                    'fields'=>array(
+                'policies_tab' => array(
+                    'label'  => __('3. Policies', 'wpbooking'),
+                    'fields' => array(
                         array(
                             'label' => __("Property Policies", 'wpbooking'),
                             'type'  => 'title',
@@ -337,9 +499,9 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ),
                     )
                 ),
-                'photo_tab'=>array(
-                    'label' => __('4. Photos /', 'wpbooking'),
-                    'fields'=>array(
+                'photo_tab'    => array(
+                    'label'  => __('4. Photos /', 'wpbooking'),
+                    'fields' => array(
                         array(
                             'label' => __("Pictures", 'wpbooking'),
                             'type'  => 'title',
@@ -367,9 +529,9 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ),
                     )
                 ),
-                'calendar_tab'=>array(
-                    'label' => __('5. Calendar', 'wpbooking'),
-                    'fields'=>array(
+                'calendar_tab' => array(
+                    'label'  => __('5. Calendar', 'wpbooking'),
+                    'fields' => array(
 
                         array(
                             'type'  => 'title',
@@ -383,6 +545,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 )
             ));
         }
+
         static function inst()
         {
             if (!self::$_inst) self::$_inst = new self();

@@ -16,10 +16,10 @@ if (!class_exists('WPBooking_Metabox')) {
             add_action('admin_enqueue_scripts', array($this, '_add_scripts'));
 
 
-            add_action('wpbooking_save_metabox', array($this, 'wpbooking_save_list_item'), 20, 3);
-            add_action('wpbooking_save_metabox', array($this, 'wpbooking_save_gmap'), 20, 3);
-            add_action('wpbooking_save_metabox', array($this, 'wpbooking_save_location'), 20, 3);
-            add_action('wpbooking_save_metabox', array($this, 'wpbooking_save_taxonomies'), 20, 3);
+            add_action('wpbooking_save_metabox_section', array($this, 'wpbooking_save_list_item'), 20, 3);
+            add_action('wpbooking_save_metabox_section', array($this, 'wpbooking_save_gmap'), 20, 3);
+            add_action('wpbooking_save_metabox_section', array($this, 'wpbooking_save_location'), 20, 3);
+            add_action('wpbooking_save_metabox_section', array($this, 'wpbooking_save_taxonomies'), 20, 3);
 
             add_action('admin_footer',array($this,'_add_js_template'));
 
@@ -71,7 +71,7 @@ if (!class_exists('WPBooking_Metabox')) {
                     }else{
 
                         // Change Service Type
-                        update_post_meta(get_the_ID(),'service_type',$service_type);
+                        update_post_meta($post_id,'service_type',$service_type);
 
                         $metabox=$service_type_object->get_metabox();
 
@@ -364,6 +364,14 @@ if (!class_exists('WPBooking_Metabox')) {
                         update_post_meta($post_id, $field['id'], $new);
                         break;
                 }
+
+                // Fields to Save
+                if(!empty($field['fields'])){
+                    foreach($field['fields'] as $f){
+                        if(isset($_POST[$f]))
+                        update_post_meta($post_id,$f,$_POST[$f]);
+                    }
+                }
             }
 
             do_action('wpbooking_save_metabox_section', $post_id,$section_id, $sections);
@@ -385,9 +393,22 @@ if (!class_exists('WPBooking_Metabox')) {
 
         }
 
-        public function wpbooking_save_location($post_id, $post_object)
+        /**
+         * Save Location Metabox
+         *
+         * @since 1.0
+         * @author haint
+         *
+         * @contributor dungdt
+         *
+         * @param $post_id
+         * @param $section_id
+         * @param $fields
+         * @return mixed
+         */
+        public function wpbooking_save_location($post_id, $section_id,$fields)
         {
-            foreach ($this->metabox['fields'] as $field) {
+            foreach ($fields as $field) {
                 if ($field['type'] == 'address' and isset($_POST['location_od'])) {
 
                     $new = WPBooking_Input::post('location_id', '');
@@ -404,9 +425,22 @@ if (!class_exists('WPBooking_Metabox')) {
             return $post_id;
         }
 
-        public function wpbooking_save_taxonomies($post_id, $post_object)
+        /**
+         * Save Taxonomy Metabox
+         *
+         * @since 1.0
+         * @author haint
+         *
+         * @contributor dungdt
+         *
+         * @param $post_id
+         * @param $section_id
+         * @param $fields
+         * @return mixed
+         */
+        public function wpbooking_save_taxonomies($post_id, $section_id,$fields)
         {
-            foreach ($this->metabox['fields'] as $field) {
+            foreach ($fields as $field) {
                 if ($field['type'] == 'taxonomies') {
 
                     $terms = WPBooking_Input::post($field['id'], '');
@@ -439,9 +473,9 @@ if (!class_exists('WPBooking_Metabox')) {
             return $post_id;
         }
 
-        public function wpbooking_save_list_item($post_id, $post_object)
+        public function wpbooking_save_list_item($post_id, $post_object,$fields)
         {
-            foreach ($this->metabox['fields'] as $field) {
+            foreach ($fields as $field) {
 
                 if ($field['type'] == 'list-item') {
                     if (isset($_POST[$field['id']]) && is_array($_POST[$field['id']])) {

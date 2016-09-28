@@ -22,8 +22,8 @@ if (!class_exists('WPBooking_Service_Controller')) {
             $loader = WPBooking_Loader::inst();
             $loader->load_library(array(
                 'service-types/abstract-service-type',
-                'service-types/room',
                 'service-types/hotel',
+                'service-types/room',
                 'service-types/car',
             ));
 
