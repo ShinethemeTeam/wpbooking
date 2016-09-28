@@ -33,7 +33,7 @@ if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 				$checked = '';
 			}
 		}
-		$field .= '<div style="margin-bottom: 7px;"><label><input type="radio" name="'. $name .'" class="'. esc_html( $data['class'] ) . '" value="'. esc_html( $key ) .'" ' . $checked .'> <span>'. esc_html( $value ) .'</span></label></div>';
+		$field .= '<div class="'. esc_html( $data['class'] ).' '.$checked. '"><label><input type="radio" name="'. $name .'"  value="'. esc_html( $key ) .'" ' . $checked .'> <span>'. esc_html( $value ) .'</span></label></div>';
 	}
 }
 
@@ -42,11 +42,11 @@ $field .= '</div></div>';
 ?>
 
 <div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
-<div class="st-metabox-left">
-	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
-</div>
-<div class="st-metabox-right">
-	<?php echo $field; ?>
-	<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
-</div>
+	<div class="st-metabox-left">
+		<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
+	</div>
+	<div class="st-metabox-right">
+		<?php echo $field; ?>
+		<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+	</div>
 </div>

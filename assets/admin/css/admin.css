@@ -623,6 +623,19 @@ img.settings-demo-gallery {
   color: #666666;
   font-style: italic;
 }
+.st-metabox-tabs-content .st-metabox-content-wrapper .radio_pro {
+  background: #f7f7f7 none repeat scroll 0 0;
+  border: 1px solid #e1e1e1;
+  float: left;
+  margin-right: 10px;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .radio_pro.checked {
+  border: 1px solid #ec8223;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .radio_pro label {
+  padding: 5px 10px ;
+  display: block;
+}
 .st-metabox-tabs-content .st-metabox-content-wrapper .phone_country_number .input-group-addon {
   padding: 0 0 0 10px;
   position: relative;

@@ -1028,5 +1028,10 @@ jQuery(document).ready(function( $ ){
         $container.find('.list_phone_country_number').hide();
 
     });
+    $(document).on('click','.radio_pro input',function(){
+        var $container = $(this).closest('.st-metabox-content-wrapper');
+        $container.find('.radio_pro').removeClass('checked');
+        $(this).closest('.radio_pro').addClass('checked');
+    });
 
 });
