@@ -45,19 +45,19 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
 							   placeholder="<?php esc_html_e('Zip/Postcode', 'wpbooking') ?>"
 							   value="<?php echo get_post_meta(get_the_ID(), 'zip_code', TRUE) ?>"
 							   class="widefat form-control">
-						<p class="help-block"><?php esc_html_e('Mã bưu điện, mã vùng','wpbooking') ?></p>
+						<p class="help-block"><?php esc_html_e('Zip/ postcode','wpbooking') ?></p>
 					</div>
 					<div class="wpbooking-col-sm-12">
 						<input type="text" name="address" placeholder="<?php esc_html_e('Address', 'wpbooking') ?>"
 							   value="<?php echo get_post_meta(get_the_ID(), 'address', TRUE) ?>"
 							   class="widefat form-control">
-						<p class="help-block"><?php esc_html_e('Địa chỉ khu phố, tổ , cụm','wpbooking') ?></p>
+						<p class="help-block"><?php esc_html_e('Address neighborhood, organization and clusters','wpbooking') ?></p>
 					</div>
 					<div class="wpbooking-col-sm-12">
 						<input type="text" name="apt_unit" placeholder="<?php esc_html_e('Apt/Unit #', 'wpbooking') ?>"
 							   value="<?php echo get_post_meta(get_the_ID(), 'apt_unit', TRUE) ?>"
 							   class="widefat form-control">
-						<p class="help-block"><?php esc_html_e('Số nhà, tầng, tòa nhà','wpbooking') ?></p>
+						<p class="help-block"><?php esc_html_e('House number, floor, building','wpbooking') ?></p>
 					</div>
 				</div>
 			</div>
