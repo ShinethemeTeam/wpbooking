@@ -71,7 +71,7 @@ if (!class_exists('WPBooking_Metabox')) {
                     }else{
 
                         // Change Service Type
-                        update_post_meta(get_the_ID(),'service_type',$service_type);
+                        update_post_meta($post_id,'service_type',$service_type);
 
                         $metabox=$service_type_object->get_metabox();
 
