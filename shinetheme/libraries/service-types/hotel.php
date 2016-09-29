@@ -85,7 +85,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 'query_var'         => true,
                 'rewrite'           => array( 'slug' => 'hotel-amenity' ),
             );
-            register_taxonomy('wb_hotel_room_amenity',array('wpbooking_hotel_room'),$args);
+            register_taxonomy('wb_hotel_room_amenity',array('wpbooking_service'),$args);
             // Metabox
             $this->set_metabox(array(
                 'general_tab'  => array(
@@ -588,7 +588,8 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'desc' =>esc_html__("Room amenities","wpbooking")
                         ),
                         array(
-                            'id'    => 'lang_spoken_by_staff',
+                            'id'    => 'hotel_room_amenity',
+                            'label' => __("Select amenities", 'wpbooking'),
                             'type'  => 'taxonomy_room_select',
                             'taxonomy'=>'wb_hotel_room_amenity'
                         ),

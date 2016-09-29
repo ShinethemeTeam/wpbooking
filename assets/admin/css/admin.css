@@ -1124,6 +1124,24 @@ img.settings-demo-gallery {
 .st-metabox-tab-content-wrap .open_section_metabox.active {
   border: solid 1px #ec8223;
 }
+.st-metabox-content-wrapper .wpbooking-row {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 7px !important;
+  padding-bottom: 10px;
+}
+.st-metabox-content-wrapper .wpbooking-col-sm-4 {
+  padding-left: 0px;
+}
+.st-metabox-content-wrapper .wpbooking-col-sm-4 p {
+  margin: 7px 0;
+}
+.st-metabox-content-wrapper .wpbooking-col-sm-4 .list_post {
+  display: none;
+}
+.st-metabox-content-wrapper .wpbooking-col-sm-4 .item_base {
+  opacity: 0.6;
+  cursor: default;
+}
 .st-metabox-content-wrapper .wpbooking-gmap-wrapper {
   margin-bottom: 7px;
 }
