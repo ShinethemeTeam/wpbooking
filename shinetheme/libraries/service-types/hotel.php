@@ -22,6 +22,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             parent::__construct();
 
             add_action('init', array($this, '_add_init_action'));
+            add_action('wpbooking_do_setup',array($this,'_add_default_term'));
         }
 
 
@@ -342,8 +343,24 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'add_new_label'=>esc_html__('Add another language','wpbooking')
                         ),
                         array('type' => 'close_section'),
-
                         // End Languages
+
+
+                        // Activities
+                        array('type' => 'open_section'),
+                        array(
+                            'label' => __("Activities", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc'=>esc_html__('Indicate activities which you offer on-site.','wpbooking')
+                        ),
+                        array(
+                            'id'    => 'lang_spoken_by_staff',
+                            'type'  => 'taxonomy_fee_select',
+                            'taxonomy'=>'wb_hotel_activity'
+                        ),
+                        array('type' => 'close_section'),
+                        // End Activities
+
 
                         array(
                             'type' => 'section_navigation',
@@ -564,6 +581,438 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     )
                 )
             ));
+
+            // Register Taxonomy
+            $labels = array(
+                'name'              => _x( 'Hotel Activities', 'taxonomy general name', 'textdomain' ),
+                'singular_name'     => _x( 'Hotel Activities', 'taxonomy singular name', 'textdomain' ),
+                'search_items'      => __( 'Search Hotel Activities', 'textdomain' ),
+                'all_items'         => __( 'All Hotel Activities', 'textdomain' ),
+                'parent_item'       => __( 'Parent Hotel Activities', 'textdomain' ),
+                'parent_item_colon' => __( 'Parent Hotel Activities:', 'textdomain' ),
+                'edit_item'         => __( 'Edit Hotel Activities', 'textdomain' ),
+                'update_item'       => __( 'Update Hotel Activities', 'textdomain' ),
+                'add_new_item'      => __( 'Add New Hotel Activity', 'textdomain' ),
+                'new_item_name'     => __( 'New Hotel Activity Name', 'textdomain' ),
+                'menu_name'         => __( 'Hotel Activities', 'textdomain' ),
+            );
+
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-activity' ),
+            );
+            register_taxonomy('wb_hotel_activity',array('wpbooking_service'),$args);
+
+            $labels = array(
+                'name'              => _x( 'Hotel Food & Drinks', 'taxonomy general name', 'textdomain' ),
+                'singular_name'     => _x( 'Hotel Food & Drinks', 'taxonomy singular name', 'textdomain' ),
+                'search_items'      => __( 'Search Hotel Food & Drinks', 'textdomain' ),
+                'all_items'         => __( 'All Hotel Food & Drinks', 'textdomain' ),
+                'parent_item'       => __( 'Parent Hotel Food & Drinks', 'textdomain' ),
+                'parent_item_colon' => __( 'Parent Hotel Food & Drinks:', 'textdomain' ),
+                'edit_item'         => __( 'Edit Hotel Food & Drinks', 'textdomain' ),
+                'update_item'       => __( 'Update Hotel Food & Drinks', 'textdomain' ),
+                'add_new_item'      => __( 'Add New Hotel Food & Drinks', 'textdomain' ),
+                'new_item_name'     => __( 'New Hotel Food & Drinks Name', 'textdomain' ),
+                'menu_name'         => __( 'Hotel Food & Drinks', 'textdomain' ),
+            );
+
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-food-drinks' ),
+            );
+            register_taxonomy('wb_hotel_food',array('wpbooking_service'),$args);
+
+            // Pool and wellness
+            $labels = array(
+                'name'              => _x( 'Hotel Pool & wellness', 'taxonomy general name', 'textdomain' ),
+                'singular_name'     => _x( 'Hotel Pool & wellness', 'taxonomy singular name', 'textdomain' ),
+                'search_items'      => __( 'Search Hotel Pool & wellness', 'textdomain' ),
+                'all_items'         => __( 'All Hotel Pool & wellnesss', 'textdomain' ),
+                'parent_item'       => __( 'Parent Hotel Pool & wellness', 'textdomain' ),
+                'parent_item_colon' => __( 'Parent Hotel Pool & wellness:', 'textdomain' ),
+                'edit_item'         => __( 'Edit Hotel Pool & wellness', 'textdomain' ),
+                'update_item'       => __( 'Update Hotel Pool & wellness', 'textdomain' ),
+                'add_new_item'      => __( 'Add New Hotel Pool & wellness', 'textdomain' ),
+                'new_item_name'     => __( 'New Hotel Pool & wellness Name', 'textdomain' ),
+                'menu_name'         => __( 'Hotel Pool & wellness', 'textdomain' ),
+            );
+
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-pool-wellness' ),
+            );
+            register_taxonomy('wb_hotel_pool',array('wpbooking_service'),$args);
+
+            // Transport
+            $labels = array(
+                'name'              => _x( 'Hotel Transport', 'taxonomy general name', 'textdomain' ),
+                'singular_name'     => _x( 'Hotel Transport', 'taxonomy singular name', 'textdomain' ),
+                'search_items'      => __( 'Search Hotel Transport', 'textdomain' ),
+                'all_items'         => __( 'All Hotel Transport', 'textdomain' ),
+                'parent_item'       => __( 'Parent Hotel Transport', 'textdomain' ),
+                'parent_item_colon' => __( 'Parent Hotel Transport:', 'textdomain' ),
+                'edit_item'         => __( 'Edit Hotel Transport', 'textdomain' ),
+                'update_item'       => __( 'Update Hotel Transport', 'textdomain' ),
+                'add_new_item'      => __( 'Add New Hotel Transport', 'textdomain' ),
+                'new_item_name'     => __( 'New Hotel Transport Name', 'textdomain' ),
+                'menu_name'         => __( 'Hotel Transport', 'textdomain' ),
+            );
+
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-transport' ),
+            );
+            register_taxonomy('wb_hotel_transport',array('wpbooking_service'),$args);
+
+
+            // Reception services
+            $labels = array(
+                'name'              => _x( 'Hotel Reception services', 'taxonomy general name', 'textdomain' ),
+                'singular_name'     => _x( 'Hotel Reception services', 'taxonomy singular name', 'textdomain' ),
+                'search_items'      => __( 'Search Hotel Reception services', 'textdomain' ),
+                'all_items'         => __( 'All Hotel Reception services', 'textdomain' ),
+                'parent_item'       => __( 'Parent Hotel Reception services', 'textdomain' ),
+                'parent_item_colon' => __( 'Parent Hotel Reception services:', 'textdomain' ),
+                'edit_item'         => __( 'Edit Hotel Reception services', 'textdomain' ),
+                'update_item'       => __( 'Update Hotel Reception services', 'textdomain' ),
+                'add_new_item'      => __( 'Add New Hotel Reception services', 'textdomain' ),
+                'new_item_name'     => __( 'New Hotel Reception services Name', 'textdomain' ),
+                'menu_name'         => __( 'Hotel Reception services', 'textdomain' ),
+            );
+
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-reception-services' ),
+            );
+            register_taxonomy('wb_hotel_recep_serv',array('wpbooking_service'),$args);
+
+
+            // Common areas
+            $labels = array(
+                'name'              => _x( 'Hotel Common areas', 'taxonomy general name', 'textdomain' ),
+                'singular_name'     => _x( 'Hotel Common areas', 'taxonomy singular name', 'textdomain' ),
+                'search_items'      => __( 'Search Hotel Common areas', 'textdomain' ),
+                'all_items'         => __( 'All Hotel Common areas', 'textdomain' ),
+                'parent_item'       => __( 'Parent Hotel Common areas', 'textdomain' ),
+                'parent_item_colon' => __( 'Parent Hotel Common areas:', 'textdomain' ),
+                'edit_item'         => __( 'Edit Hotel Common areas', 'textdomain' ),
+                'update_item'       => __( 'Update Hotel Common area', 'textdomain' ),
+                'add_new_item'      => __( 'Add New Hotel Common area', 'textdomain' ),
+                'new_item_name'     => __( 'New Hotel Common area Name', 'textdomain' ),
+                'menu_name'         => __( 'Hotel Common areas', 'textdomain' ),
+            );
+
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-common-areas' ),
+            );
+            register_taxonomy('wb_hotel_common_area',array('wpbooking_service'),$args);
+
+            // Entertainment and family services
+            $labels = array(
+                'name'              => _x( 'Hotel Family services', 'taxonomy general name', 'textdomain' ),
+                'singular_name'     => _x( 'Hotel Family services', 'taxonomy singular name', 'textdomain' ),
+                'search_items'      => __( 'Search Hotel Family services', 'textdomain' ),
+                'all_items'         => __( 'All Hotel Family services', 'textdomain' ),
+                'parent_item'       => __( 'Parent Hotel Family services', 'textdomain' ),
+                'parent_item_colon' => __( 'Parent Hotel Family services:', 'textdomain' ),
+                'edit_item'         => __( 'Edit Hotel Family services', 'textdomain' ),
+                'update_item'       => __( 'Update Hotel Family services', 'textdomain' ),
+                'add_new_item'      => __( 'Add New Hotel Family services', 'textdomain' ),
+                'new_item_name'     => __( 'New Hotel Family services Name', 'textdomain' ),
+                'menu_name'         => __( 'Hotel Entertainment & Family services', 'textdomain' ),
+            );
+
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-family-services' ),
+            );
+            register_taxonomy('wb_hotel_family_services',array('wpbooking_service'),$args);
+
+            // Cleaning services
+            $labels = array(
+                'name'              => _x( 'Hotel Cleaning services', 'taxonomy general name', 'textdomain' ),
+                'singular_name'     => _x( 'Hotel Cleaning services', 'taxonomy singular name', 'textdomain' ),
+                'search_items'      => __( 'Search Hotel Cleaning services', 'textdomain' ),
+                'all_items'         => __( 'All Hotel Cleaning services', 'textdomain' ),
+                'parent_item'       => __( 'Parent Hotel Cleaning services', 'textdomain' ),
+                'parent_item_colon' => __( 'Parent Hotel Cleaning services:', 'textdomain' ),
+                'edit_item'         => __( 'Edit Hotel Cleaning services', 'textdomain' ),
+                'update_item'       => __( 'Update Hotel Cleaning services', 'textdomain' ),
+                'add_new_item'      => __( 'Add New Hotel Cleaning services', 'textdomain' ),
+                'new_item_name'     => __( 'New Hotel Cleaning services Name', 'textdomain' ),
+                'menu_name'         => __( 'Hotel Cleaning services', 'textdomain' ),
+            );
+
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-cleaning-service' ),
+            );
+            register_taxonomy('wb_hotel_cleaning_service',array('wpbooking_service'),$args);
+
+            // Business facilities
+            $labels = array(
+                'name'              => _x( 'Hotel Business facilities', 'taxonomy general name', 'textdomain' ),
+                'singular_name'     => _x( 'Hotel Business facilities', 'taxonomy singular name', 'textdomain' ),
+                'search_items'      => __( 'Search Hotel Business facilities', 'textdomain' ),
+                'all_items'         => __( 'All Hotel Business facilities', 'textdomain' ),
+                'parent_item'       => __( 'Parent Hotel Business facilities', 'textdomain' ),
+                'parent_item_colon' => __( 'Parent Hotel Business facilities:', 'textdomain' ),
+                'edit_item'         => __( 'Edit Hotel Business facilities', 'textdomain' ),
+                'update_item'       => __( 'Update Hotel Business facilities', 'textdomain' ),
+                'add_new_item'      => __( 'Add New Hotel Business facilities', 'textdomain' ),
+                'new_item_name'     => __( 'New Hotel Business facilities Name', 'textdomain' ),
+                'menu_name'         => __( 'Hotel Business facilities', 'textdomain' ),
+            );
+
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-business-facility' ),
+            );
+            register_taxonomy('wb_hotel_business_facility',array('wpbooking_service'),$args);
+
+            // Business facilities
+            $labels = array(
+                'name'              => _x( 'Hotel Business facilities', 'taxonomy general name', 'textdomain' ),
+                'singular_name'     => _x( 'Hotel Business facilities', 'taxonomy singular name', 'textdomain' ),
+                'search_items'      => __( 'Search Hotel Business facilities', 'textdomain' ),
+                'all_items'         => __( 'All Hotel Business facilities', 'textdomain' ),
+                'parent_item'       => __( 'Parent Hotel Business facilities', 'textdomain' ),
+                'parent_item_colon' => __( 'Parent Hotel Business facilities:', 'textdomain' ),
+                'edit_item'         => __( 'Edit Hotel Business facilities', 'textdomain' ),
+                'update_item'       => __( 'Update Hotel Business facilities', 'textdomain' ),
+                'add_new_item'      => __( 'Add New Hotel Business facilities', 'textdomain' ),
+                'new_item_name'     => __( 'New Hotel Business facilities Name', 'textdomain' ),
+                'menu_name'         => __( 'Hotel Business facilities', 'textdomain' ),
+            );
+
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-business-facility' ),
+            );
+            register_taxonomy('wb_hotel_business_facility',array('wpbooking_service'),$args);
+
+
+            // Shop
+            $labels = array(
+                'name'              => _x( 'Hotel Miscellaneous', 'taxonomy general name', 'textdomain' ),
+                'singular_name'     => _x( 'Hotel Miscellaneous', 'taxonomy singular name', 'textdomain' ),
+                'search_items'      => __( 'Search Hotel Miscellaneous', 'textdomain' ),
+                'all_items'         => __( 'All Hotel Miscellaneous', 'textdomain' ),
+                'parent_item'       => __( 'Parent Hotel Miscellaneous', 'textdomain' ),
+                'parent_item_colon' => __( 'Parent Hotel Miscellaneous:', 'textdomain' ),
+                'edit_item'         => __( 'Edit Hotel Miscellaneous', 'textdomain' ),
+                'update_item'       => __( 'Update Hotel Miscellaneous', 'textdomain' ),
+                'add_new_item'      => __( 'Add New Hotel Miscellaneous', 'textdomain' ),
+                'new_item_name'     => __( 'New Hotel Miscellaneous Name', 'textdomain' ),
+                'menu_name'         => __( 'Hotel Miscellaneous', 'textdomain' ),
+            );
+
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-miscellaneous' ),
+            );
+            register_taxonomy('wb_hotel_miscellaneous',array('wpbooking_service'),$args);
+        }
+
+        function _add_default_term()
+        {
+            $terms=array(
+                'wb_hotel_activity'=>array(
+                    array(
+                        'term'=>'Tennis court',
+                    ),
+                    array('term'=>'Billiards',),
+                    array('term'=>'Table tennis',),
+                    array('term'=>'Darts',),
+                    array('term'=>'Squash',),
+                    array('term'=>'Bowling',),
+                    array('term'=>'Mini golf',),
+                    array('term'=>'Golf course (within 3 km)',),
+                    array('term'=>'Water park',),
+                    array('term'=>'Water sport facilities (on site)',),
+                    array('term'=>'Windsurfing',),
+                    array('term'=>'Diving',),
+                    array('term'=>'Snorkelling',),
+                    array('term'=>'Canoeing',),
+                    array('term'=>'Fishing',),
+                    array('term'=>'Horse riding',),
+                    array('term'=>'Cycling',),
+                    array('term'=>'Hiking',),
+                    array('term'=>'Skiing',),
+                    array('term'=>'Ski storage',),
+                    array('term'=>'Ski equipment hire (on site)',),
+                    array('term'=>'Ski pass vendor',),
+                    array('term'=>'Ski-to-door access',),
+                    array('term'=>'Ski school',),
+
+                ),
+                'wb_hotel_food'=>array(
+                    array('term'=>'Restaurant',),
+                    array('term'=>'Restaurant (à la carte)',),
+                    array('term'=>'Restaurant (buffet)',),
+                    array('term'=>'Bar',),
+                    array('term'=>'Snack bar',),
+                    array('term'=>'Grocery deliveries',),
+                    array('term'=>'Packed lunches',),
+                    array('term'=>'BBQ facilities',),
+                    array('term'=>'Vending machine (drinks)',),
+                    array('term'=>'Vending machine (snacks)',),
+                    array('term'=>'Special diet menus (on request)',),
+                    array('term'=>'Room service',),
+                    array('term'=>'Breakfast in the room',),
+                ),
+                'wb_hotel_pool'=>array(
+                    array('term'=>'Indoor pool',),
+                    array('term'=>'Indoor pool (seasonal)',),
+                    array('term'=>'Indoor pool (all year)',),
+                    array('term'=>'Outdoor pool',),
+                    array('term'=>'Outdoor pool (seasonal)',),
+                    array('term'=>'Outdoor pool (all year)',),
+                    array('term'=>'Private beach area',),
+                    array('term'=>'Beachfront',),
+                    array('term'=>'Spa and wellness centre',),
+                    array('term'=>'Sauna',),
+                    array('term'=>'Hammam',),
+                    array('term'=>'Hot tub/jacuzzi',),
+                    array('term'=>'Fitness centre',),
+                    array('term'=>'Solarium',),
+                    array('term'=>'Hot spring bath',),
+                    array('term'=>'Massage',),
+                ),
+                'wb_hotel_transport'=>array(
+                    array('term'=>'Bikes available (free)',),
+                    array('term'=>'Bicycle rental',),
+                    array('term'=>'Car hire',),
+                    array('term'=>'Airport shuttle (surcharge)',),
+                    array('term'=>'Airport shuttle (free)',),
+                    array('term'=>'Shuttle service (free)',),
+                    array('term'=>'Shuttle service (surcharge)',),
+                ),
+                'wb_hotel_recep_serv'=>array(
+                    array('term'=>'24-hour front desk',),
+                    array('term'=>'Private check-in/check-out',),
+                    array('term'=>'Private check-in/check-out',),
+                    array('term'=>'Concierge service',),
+                    array('term'=>'Ticket service',),
+                    array('term'=>'Tour desk',),
+                    array('term'=>'Currency exchange',),
+                    array('term'=>'ATM/cash machine on site',),
+                    array('term'=>'Valet parking',),
+                    array('term'=>'Luggage storage',),
+                    array('term'=>'Lockers',),
+                    array('term'=>'Safety deposit box',),
+                    array('term'=>'Newspapers',),
+                ),
+                'wb_hotel_common_area'=>array(
+                    array('term'=>'Garden',),
+                    array('term'=>'Terrace',),
+                    array('term'=>'Sun terrace',),
+                    array('term'=>'Shared kitchen',),
+                    array('term'=>'Shared lounge/TV area',),
+                    array('term'=>'Games room',),
+                    array('term'=>'Library',),
+                    array('term'=>'Chapel/shrine',),
+                ),
+                'wb_hotel_family_services'=>array(
+                    array('term'=>'Evening entertainment',),
+                    array('term'=>'Nightclub/DJ',),
+                    array('term'=>'Casino',),
+                    array('term'=>'Karaoke',),
+                    array('term'=>'Entertainment staff',),
+                    array('term'=>"Kids' club",),
+                    array('term'=>"Children's playground",),
+                    array('term'=>"Babysitting/child services",),
+                ),
+                'wb_hotel_cleaning_service'=>array(
+                    array('term'=>"Dry cleaning",),
+                    array('term'=>"Ironing service",),
+                    array('term'=>"Laundry",),
+                    array('term'=>"Daily maid service",),
+                    array('term'=>"Shoeshine",),
+                    array('term'=>"Trouser press",),
+                ),
+                'wb_hotel_business_facility'=>array(
+                    array('term'=>'Meeting/banquet facilities'),
+                    array('term'=>'Business centre'),
+                    array('term'=>'Fax/photocopying'),
+                ),
+                'wb_hotel_shop'=>array(
+                    array('term'=>'Shops (on site)'),
+                    array('term'=>'Mini-market on site'),
+                    array('term'=>'Barber/beauty shop'),
+                    array('term'=>'Gift shop'),
+                ),
+                'wb_hotel_miscellaneous'=>array(
+                    array('term'=>'Adult only'),
+                    array('term'=>'Allergy-free room'),
+                    array('term'=>'Non-smoking throughout'),
+                    array('term'=>'Designated smoking area'),
+                    array('term'=>'Non-smoking rooms'),
+                    array('term'=>'Facilities for disabled guests'),
+                    array('term'=>'Lift'),
+                    array('term'=>'Soundproof rooms'),
+                    array('term'=>'Bridal suite'),
+                    array('term'=>'VIP room facilities'),
+                    array('term'=>'Air conditioning'),
+                    array('term'=>'Heating'),
+                )
+            );
+
+            foreach($terms as $tax=>$term){
+
+                foreach($term as $item){
+                    $item=wp_parse_args($item,array('parent'=>'','term'=>''));
+                    if($item['term']){
+                        wp_insert_term($item['term'],$tax,$item);
+                    }
+                }
+            }
         }
 
         static function inst()

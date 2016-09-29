@@ -217,6 +217,8 @@ if(!class_exists('WPBooking_Admin_Setup'))
                         exit;
                         break;
                 }
+
+                do_action('wpbooking_do_setup',$tab);
             }
         }
         static function _get_template_default($style){

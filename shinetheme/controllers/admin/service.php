@@ -27,6 +27,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 			add_action('admin_init', array($this, '_merge_data'));
 
             add_action('wp_ajax_wpbooking_autocomplete_post',array($this,'_autocomplete_post'));
+
 		}
 
 		function _autocomplete_post()
@@ -233,6 +234,10 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				wp_reset_postdata();
 				echo 'done';
 				die;
+			}
+
+			if ($this->get('wb_setup_term')) {
+				do_action('wpbooking_do_setup');
 			}
 		}
 
