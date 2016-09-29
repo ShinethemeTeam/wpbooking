@@ -354,7 +354,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'desc'=>esc_html__('Indicate activities which you offer on-site.','wpbooking')
                         ),
                         array(
-                            'id'    => 'lang_spoken_by_staff',
+                            'id'    => 'hotel_activity',
                             'type'  => 'taxonomy_fee_select',
                             'taxonomy'=>'wb_hotel_activity'
                         ),

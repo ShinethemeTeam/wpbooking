@@ -1049,4 +1049,12 @@ jQuery(document).ready(function( $ ){
 
     });
 
+    $(document).on('change','.taxonomy_fee_select .term-checkbox',function(){
+        if($(this).attr('checked')){
+            $(this).closest('.term-item').addClass('active');
+        }else{
+            $(this).closest('.term-item').removeClass('active');
+        }
+    });
+
 });
