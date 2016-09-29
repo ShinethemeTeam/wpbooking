@@ -1089,4 +1089,13 @@ jQuery(document).ready(function( $ ){
             container.find('.item_base').prop('checked', false);
         }
     });
+
+    $(document).on('change','.taxonomy_fee_select .term-checkbox',function(){
+        if($(this).attr('checked')){
+            $(this).closest('.term-item').addClass('active');
+        }else{
+            $(this).closest('.term-item').removeClass('active');
+        }
+    });
+
 });

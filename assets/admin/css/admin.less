@@ -947,6 +947,41 @@ img.settings-demo-gallery{
                 margin-right: 15px;
             }
         }
+
+        &.taxonomy_fee_select{
+            .st-metabox-content-wrapper{
+                width: 80%;
+            }
+            .term-item{
+                width: 320px;
+                float: left;
+                margin-right: 30px;
+                padding:10px 0px;
+                border-bottom: 1px solid #f1f1f1;
+                .clearfix;
+                label{
+                    float: left;
+                    padding: 6px 0px;
+                }
+                select{
+                    display: none;
+                    border:1px solid #999999;
+                    background: white;
+                    float: right;
+                }
+
+                &.active{
+                    select{
+                        display: block;
+                    }
+                }
+
+                &:nth-child(2n+1){
+                    clear: both;
+                }
+            }
+        }
+
         @media(max-width: 1100px){
             .st-metabox-left{
                 width: 100%;
