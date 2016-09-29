@@ -498,8 +498,22 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'label' => __('Room sizes', 'wpbooking'),
                             'id'    => 'room_size',
                             'type'  => 'room_size',
+                            'fields'=>array(
+                                'deluxe_queen_studio',
+                                'queen_room',
+                                'double_room',
+                                'single_room',
+                            )
                         ),
                         array( 'type'  => 'close_section'),
+                        array( 'type'  => 'open_section'),
+                        array(
+                            'label' => __("Room amenities", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc' =>esc_html__("Room amenities","wpbooking")
+                        ),
+                        array( 'type'  => 'close_section'),
+                        //Room amenities
                         array(
                             'type' => 'section_navigation',
                         ),
