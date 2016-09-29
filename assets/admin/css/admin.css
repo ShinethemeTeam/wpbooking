@@ -1091,6 +1091,37 @@ img.settings-demo-gallery {
 .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .wb-radio-button {
   margin-right: 15px;
 }
+.st-metabox-tab-content-wrap .wpbooking-form-group.taxonomy_fee_select .st-metabox-content-wrapper {
+  width: 80%;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.taxonomy_fee_select .term-item {
+  width: 320px;
+  float: left;
+  margin-right: 30px;
+  padding: 10px 0px;
+  border-bottom: 1px solid #f1f1f1;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.taxonomy_fee_select .term-item:after {
+  clear: both;
+  content: " ";
+  display: table;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.taxonomy_fee_select .term-item label {
+  float: left;
+  padding: 6px 0px;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.taxonomy_fee_select .term-item select {
+  display: none;
+  border: 1px solid #999999;
+  background: white;
+  float: right;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.taxonomy_fee_select .term-item.active select {
+  display: block;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.taxonomy_fee_select .term-item:nth-child(2n+1) {
+  clear: both;
+}
 @media (max-width: 1100px) {
   .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
     width: 100%;
