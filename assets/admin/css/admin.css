@@ -364,8 +364,8 @@ img.settings-demo-gallery {
 .wpbooking-settings .service_type.active:before {
   border-color: transparent transparent #fff;
   border-style: solid;
-  border-width: 6px;
-  bottom: -9px;
+  border-width: 10px;
+  bottom: -12px;
   content: "";
   left: 0;
   position: absolute;
@@ -598,6 +598,97 @@ img.settings-demo-gallery {
 }
 .st-metabox-tabs-content textarea.form-control {
   min-height: 300px !important;
+}
+.st-metabox-tabs-content .desc_section_metabox {
+  border: 1px solid #d3d3d3;
+  padding: 45px;
+  position: absolute;
+  right: 40px;
+  text-align: center;
+  bottom: 30%;
+  width: 30%;
+}
+.st-metabox-tabs-content .desc_section_metabox .border_section_metabox {
+  /* -moz-border-bottom-colors: none;
+            -moz-border-left-colors: none;
+            -moz-border-right-colors: none;
+            -moz-border-top-colors: none;
+            border-color: #d3d3d3 #d3d3d3 #fff #fff;
+            border-image: none;
+            border-style: solid;
+            border-width: 1px;
+            bottom: -1px;
+            height: 60px;
+            left: -1px;
+            position: absolute;
+            width: 40px;*/
+}
+.st-metabox-tabs-content .desc_section_metabox .fa {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+.st-metabox-tabs-content .desc_section_metabox .title {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.st-metabox-tabs-content .desc_section_metabox .content {
+  color: #666666;
+  font-style: italic;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .radio_pro {
+  background: #f7f7f7 none repeat scroll 0 0;
+  border: 1px solid #e1e1e1;
+  float: left;
+  margin-right: 10px;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .radio_pro.checked {
+  border: 1px solid #ec8223;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .radio_pro label {
+  padding: 5px 10px ;
+  display: block;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .phone_country_number .input-group-addon {
+  padding: 0 0 0 10px;
+  position: relative;
+  cursor: pointer;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .phone_country_number .input-group-addon:hover,
+.st-metabox-tabs-content .st-metabox-content-wrapper .phone_country_number .input-group-addon.focus {
+  border: 1px solid #ec8223;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .phone_country_number .btn-default {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  margin: 0;
+  padding: 0 0 0 5px;
+  position: absolute;
+  right: 7px;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .phone_country_number .flag-icon {
+  font-size: 20px;
+  margin-right: 20px;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .phone_country_number .list_phone_country_number {
+  max-height: 202px;
+  overflow-y: scroll;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+  padding-top: 5px !important;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .phone_country_number .list_phone_country_number li {
+  border: 1px solid transparent;
+  padding: 5px;
+  cursor: pointer;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .phone_country_number .list_phone_country_number li:hover {
+  border: 1px solid #ec8223;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .phone_country_number .list_phone_country_number li.active {
+  border: 1px solid #ec8223;
+  background: #ec8223;
 }
 .st-metabox-tabs-content .st-metabox-content-wrapper .st-metabox-content-right {
   font-style: italic;
@@ -1025,6 +1116,7 @@ img.settings-demo-gallery {
   padding: 15px 0;
   margin-bottom: 10px;
   border: solid 1px #fff;
+  position: relative;
 }
 .st-metabox-tab-content-wrap .open_section_metabox.active {
   border: solid 1px #ec8223;

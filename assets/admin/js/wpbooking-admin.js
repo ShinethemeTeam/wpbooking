@@ -1016,7 +1016,28 @@ jQuery(document).ready(function( $ ){
         $(this).addClass("active");
     });
 
+    $(document).on('mouseenter', '.phone_country_number .input-group-addon', function() {
+        $(this).find('.list_phone_country_number').show();
+    });
+    $(document).on('mouseleave', '.phone_country_number .input-group-addon', function() {
+        var $this = $(this);
+        $this.find('.list_phone_country_number').hide();
+    });
+    $(document).on('click','.phone_country_number .list_phone_country_number li',function(){
+        var $value = $(this).data('code');
+        var $country = $(this).data('country');
+        var $container = $(this).closest('.phone_country_number');
+        $container.find('.phone_code').val($value);
+        $container.find('.demo-flag').attr("class","demo-flag flag-icon flag-icon-"+$country);
+        $container.find('.list_phone_country_number').hide();
+
+    });
+    $(document).on('click','.radio_pro input',function(){
+        var $container = $(this).closest('.st-metabox-content-wrapper');
+        $container.find('.radio_pro').removeClass('checked');
+        $(this).closest('.radio_pro').addClass('checked');
     // Report dropdown
+    });
     $(document).on('click','.wb-repeat-dropdown-add',function(){
         var parent=$(this).closest('.form-group');
         var item=parent.find('.default-item').html();

@@ -37,7 +37,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         array(
                             'label' => __("About Your Hotel", 'wpbooking'),
                             'type'  => 'title',
-                            'desc'  => esc_html__('Thông tin chung của khách sạn', 'wpbooking'),
+                            'desc'  => esc_html__('Basic information', 'wpbooking'),
                         ),
                         array(
                             'id'    => 'enable_property',
@@ -58,7 +58,8 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'id'    => 'total_room',
                             'desc'  => esc_html__('Number of rooms in your hotel.', 'wpbooking'),
                             'type'  => 'text',
-                            'class' => 'small'
+                            'class' => 'small',
+                            'std' => 1
                         ),
                         array(
                             'label' => __('Website', 'wpbooking'),
@@ -72,19 +73,19 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         array(
                             'label' => __("Hotel Location", 'wpbooking'),
                             'type'  => 'title',
-                            'desc'  => esc_html__('Phần này dành cho những thông tin cơ bản như địa chỉ khách sạn và số điện thoại liên lạc.', 'wpbooking'),
+                            'desc'  => esc_html__("Hotel's address and your contact number", 'wpbooking'),
                         ),
                         array(
                             'label' => __('Contact Name', 'wpbooking'),
                             'id'    => 'contact_name',
-                            'desc'  => esc_html__('Ai sẽ là người nhận liên lạc?', 'wpbooking'),
+                            'desc'  => esc_html__('Who will receive the litter', 'wpbooking'),
                             'type'  => 'text',
                             'class' => 'small'
                         ),
                         array(
                             'label' => __('Contact Number', 'wpbooking'),
                             'id'    => 'contact_number',
-                            'desc'  => esc_html__('Số điện thoại liên hệ', 'wpbooking'),
+                            'desc'  => esc_html__('The contact phone', 'wpbooking'),
                             'type'  => 'phone_number',
                             'class' => 'small'
                         ),
@@ -92,15 +93,24 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'label'           => __('Address', 'wpbooking'),
                             'id'              => 'address',
                             'type'            => 'address',
-                            'container_class' => 'mb35'
+                            'container_class' => 'mb35',
+                            'fields'=>array(
+                                'rom',
+                                ''
+                            )
                         ),
                         array(
                             'label' => __('Map Lat & Long', 'wpbooking'),
                             'id'    => 'gmap',
                             'type'  => 'gmap',
-                            'desc'  => esc_html__('Đây là vị trí chúng tôi sẽ cung cấp cho khách. Nhấp chuột và kéo điểm đánh dấu nếu như Quý vị cần di chuyển vị trí này.', 'wpbooking')
+                            'desc'=>esc_html__('This is the location we will provide guests. Click and drag the','wpbooking')
                         ),
-                        array('type' => 'close_section'),
+                        array(
+                            'type' => 'desc_section',
+                            'title' => esc_html__('Your address matters! ', 'wpbooking'),
+                            'content'  => esc_html__('Please make sure to enter your full address including building name, apartment number, etc.', 'wpbooking')
+                        ) ,
+                        array( 'type'  => 'close_section'),
                         array(
                             'type' => 'section_navigation',
                             'prev' => FALSE
@@ -108,9 +118,9 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
 
                     )
                 ),
-                'detail_tab'   => array(
-                    'label'  => __('2. Property Details', 'wpbooking'),
-                    'fields' => array(
+                'detail_tab'=>array(
+                    'label' => __('2. Property Details', 'wpbooking'),
+                    'fields'=>array(
                         array('type' => 'open_section'),
                         array(
                             'label' => __("Check In & Check Out", 'wpbooking'),
@@ -357,6 +367,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ),
                     )
                 ),
+
                 'policies_tab' => array(
                     'label'  => __('3. Policies', 'wpbooking'),
                     'fields' => array(
@@ -444,8 +455,75 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ),
                     )
                 ),
+                'facilities_tab'=>array(
+                    'label' => __('4. Facilities', 'wpbooking'),
+                    'fields'=>array(
+                        array( 'type'  => 'open_section'),
+                        array(
+                            'label' => __("Extra bed optional", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc' =>esc_html__("These are the bed options that can be added upon request.","wpbooking")
+                        ),
+                        array(
+                            'label' => __('Can you provide extra beds?', 'wpbooking'),
+                            'id'    => 'extra_bed',
+                            'type'  => 'radio',
+                            'value' => array(
+                                "yes"=>esc_html__("Yes",'wpbooking'),
+                                "no"=>esc_html__("No",'wpbooking'),
+                            ),
+                            'class' => 'radio_pro',
+                            'desc' =>esc_html__("Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium","wpbooking")
+                        ),
+                        array(
+                            'label' => __('Select the number of extra beds that can be added.', 'wpbooking'),
+                            'id'    => 'double_bed',
+                            'type'  => 'dropdown',
+                            'value' => array(
+                                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+                            ),
+                            'class' => 'small',
+                            'desc' =>esc_html__("Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium","wpbooking")
+                        ),
+                        array(
+                            'label'       => __("Price for each extra beds", 'wpbooking'),
+                            'type'        => 'money_input',
+                            'id'          => 'price_for_extra_bed',
+                            'class'       => 'small',
+                            'std'           => '0',
+                            'desc' => esc_html__('Example: 2 extra bed and price is 10.00, total cost is 20.00', 'wpbooking')
+                        ),
+                        array( 'type'  => 'close_section'),
+                        array( 'type'  => 'open_section'),
+                        array(
+                            'label' => __("Space", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc' =>esc_html__("We display your room size to guests on your Booking.com propert","wpbooking")
+                        ),
+                        array(
+                            'label' => __('What is your preferred  unit of measure?', 'wpbooking'),
+                            'id'    => 'room_measunit',
+                            'type'  => 'radio',
+                            'value' => array(
+                                "metres"=>esc_html__("Square metres",'wpbooking'),
+                                "feed"=>esc_html__("Square feet",'wpbooking'),
+                            ),
+                            'class' => 'radio_pro',
+                            'desc' =>esc_html__("Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium","wpbooking")
+                        ),
+                        array(
+                            'label' => __('Room sizes', 'wpbooking'),
+                            'id'    => 'room_size',
+                            'type'  => 'room_size',
+                        ),
+                        array( 'type'  => 'close_section'),
+                        array(
+                            'type' => 'section_navigation',
+                        ),
+                    )
+                ),
                 'photo_tab'    => array(
-                    'label'  => __('4. Photos /', 'wpbooking'),
+                    'label'  => __('5. Photos', 'wpbooking'),
                     'fields' => array(
                         array(
                             'label' => __("Pictures", 'wpbooking'),
