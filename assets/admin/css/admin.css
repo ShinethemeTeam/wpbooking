@@ -637,6 +637,9 @@ img.settings-demo-gallery {
   color: #666666;
   font-style: italic;
 }
+.st-metabox-tabs-content .st-metabox-content-wrapper .zoom_size .input-group-addon {
+  padding: 5px;
+}
 .st-metabox-tabs-content .st-metabox-content-wrapper .radio_pro {
   background: #f7f7f7 none repeat scroll 0 0;
   border: 1px solid #e1e1e1;
