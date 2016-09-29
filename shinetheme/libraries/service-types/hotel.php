@@ -28,6 +28,64 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
 
         public function _add_init_action()
         {
+            $labels = array(
+                'name'               => _x('Hotel Room', 'post type general name', 'wpbooking'),
+                'singular_name'      => _x('Hotel Room', 'post type singular name', 'wpbooking'),
+                'menu_name'          => _x('Hotel Room', 'admin menu', 'wpbooking'),
+                'name_admin_bar'     => _x('Hotel Room', 'add new on admin bar', 'wpbooking'),
+                'add_new'            => _x('Add New', 'Hotel Room', 'wpbooking'),
+                'add_new_item'       => __('Add New Hotel Room', 'wpbooking'),
+                'new_item'           => __('New Hotel Room', 'wpbooking'),
+                'edit_item'          => __('Edit Hotel Room', 'wpbooking'),
+                'view_item'          => __('View Hotel Room', 'wpbooking'),
+                'all_items'          => __('All Hotel Room', 'wpbooking'),
+                'search_items'       => __('Search Hotel Room', 'wpbooking'),
+                'parent_item_colon'  => __('Parent Hotel Room:', 'wpbooking'),
+                'not_found'          => __('No Hotel Room found.', 'wpbooking'),
+                'not_found_in_trash' => __('No Hotel Room found in Trash.', 'wpbooking')
+            );
+
+            $args = array(
+                'labels'             => $labels,
+                'description'        => __('Description.', 'wpbooking'),
+                'public'             => TRUE,
+                'publicly_queryable' => TRUE,
+                'show_ui'            => TRUE,
+                'show_in_menu'       => TRUE,
+                'query_var'          => TRUE,
+                'rewrite'            => array('slug' => 'service'),
+                'capability_type'    => 'post',
+                'has_archive'        => ($page_id = wpbooking_get_option('archive-page')) && get_post($page_id) ? get_page_uri($page_id) : 'all-services',
+                'hierarchical'       => FALSE,
+                //'menu_position'      => '59.9',
+                'supports'           => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments')
+            );
+
+            register_post_type('wpbooking_hotel_room', $args);
+
+            // Register Taxonomy
+            $labels = array(
+                'name'              => _x( 'Room Amenities', 'taxonomy general name', 'wpbooking' ),
+                'singular_name'     => _x( 'Room Amenities', 'taxonomy singular name', 'wpbooking' ),
+                'search_items'      => __( 'Search Room Amenities', 'wpbooking' ),
+                'all_items'         => __( 'All Room Amenities', 'wpbooking' ),
+                'parent_item'       => __( 'Parent Room Amenities', 'wpbooking' ),
+                'parent_item_colon' => __( 'Parent Room Amenities:', 'wpbooking' ),
+                'edit_item'         => __( 'Edit Room Amenities', 'wpbooking' ),
+                'update_item'       => __( 'Update Room Amenities', 'wpbooking' ),
+                'add_new_item'      => __( 'Add New Room Amenity', 'wpbooking' ),
+                'new_item_name'     => __( 'New Room Amenity Name', 'wpbooking' ),
+                'menu_name'         => __( 'Room Amenities', 'wpbooking' ),
+            );
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-amenity' ),
+            );
+            register_taxonomy('wb_hotel_room_amenity',array('wpbooking_hotel_room'),$args);
             // Metabox
             $this->set_metabox(array(
                 'general_tab'  => array(
@@ -529,6 +587,11 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'type'  => 'title',
                             'desc' =>esc_html__("Room amenities","wpbooking")
                         ),
+                        array(
+                            'id'    => 'lang_spoken_by_staff',
+                            'type'  => 'taxonomy_room_select',
+                            'taxonomy'=>'wb_hotel_room_amenity'
+                        ),
                         array( 'type'  => 'close_section'),
                         //Room amenities
                         array(
@@ -1001,7 +1064,54 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     array('term'=>'VIP room facilities'),
                     array('term'=>'Air conditioning'),
                     array('term'=>'Heating'),
-                )
+                ),
+                'wb_hotel_room_amenity'=>array(
+                    array(
+                        'term'=>'Clothes rack',
+                    ),
+                    array('term'=>'Drying rack for clothing'),
+                    array('term'=>'Fold-up bed'),
+                    array('term'=>'Sofa bed'),
+                    array('term'=>'Air Conditioning'),
+                    array('term'=>'Wardrobe/Closet'),
+                    array('term'=>'Carpeted'),
+                    array('term'=>'Dressing Room'),
+                    array('term'=>'Extra Long Beds (> 2 metres)'),
+                    array('term'=>'Fan'),
+                    array('term'=>'Fireplace'),
+                    array('term'=>'Heating'),
+                    array('term'=>'Interconnected room(s)  available'),
+                    array('term'=>'Iron'),
+                    array('term'=>'Ironing Facilities'),
+                    array('term'=>'Mosquito net'),
+                    array('term'=>'Private entrance'),
+                    array('term'=>'Safety Deposit Box'),
+                    array('term'=>'Sofa'),
+                    array('term'=>'Soundproof'),
+                    array('term'=>'Sitting area'),
+                    array('term'=>'Tile/Marble floor'),
+                    array('term'=>'Suit press'),
+                    array('term'=>'Hardwood/Parquet floors'),
+                    array('term'=>'Desk'),
+                    array('term'=>'Hypoallergenic'),
+                    array('term'=>'Cleaning products'),
+                    array('term'=>'Electric blankets'),
+                    array('term'=>'Bathroom'),
+                    array('term'=>'Toilet paper'),
+                    array('term'=>'Toilet With Grab Rails'),
+                    array('term'=>'Bathtub'),
+                    array('term'=>'Bidet'),
+                    array('term'=>'Bathtub or shower'),
+                    array('term'=>'Bathrobe'),
+                    array('term'=>'Bathroom'),
+                    array('term'=>'Free toiletries'),
+                    array('term'=>'Hairdryer'),
+                    array('term'=>'Spa tub'),
+                    array('term'=>'Shared bathroom'),
+                    array('term'=>'Shower'),
+                    array('term'=>'Slippers'),
+                    array('term'=>'Toilet'),
+                ),
             );
 
             foreach($terms as $tax=>$term){
