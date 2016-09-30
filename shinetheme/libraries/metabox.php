@@ -368,7 +368,7 @@ if (!class_exists('WPBooking_Metabox')) {
                         update_post_meta($post_id, $field['id'], $new);
                         break;
                     case "taxonomy_room_select":
-                        self::wpbooking_save_taxonomy_room($post_id,$field['id']);
+                        $this->wpbooking_save_taxonomy_room($post_id,$field['id']);
                         break;
                     case "taxonomy_fee_select":
                         $this->wpbooking_save_taxonomy_fee($post_id,$field['id'],$field);
@@ -421,17 +421,13 @@ if (!class_exists('WPBooking_Metabox')) {
         }
 
         /**
-         * Save Location Metabox
+         * Save Taxonomy Room Metabox
          *
          * @since 1.0
-         * @author haint
-         *
-         * @contributor dungdt
+         * @author quandq
          *
          * @param $post_id
-         * @param $section_id
-         * @param $fields
-         * @return mixed
+         * @param $field_id
          */
         public function wpbooking_save_taxonomy_room($post_id,$field_id)
         {
