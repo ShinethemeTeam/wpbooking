@@ -56,7 +56,7 @@ if( !empty( $value ) ){
                                 <div class="term-item <?php echo ($checked)?'active':false?>">
                                     <label><input <?php ?> class="term-checkbox" <?php echo esc_attr($checked) ?> name="<?php echo esc_attr($data['id']) ?>[<?php echo esc_html($term->term_id) ?>][selected]"
                                                   type="checkbox"><?php echo esc_html($term->name) ?></label>
-                                    <select class="" name="<?php echo esc_attr($data['id']) ?>[<?php echo esc_html($term->slug) ?>][fee_type]">
+                                    <select class="" name="<?php echo esc_attr($data['id']) ?>[<?php echo esc_html($term->term_id) ?>][fee_type]">
                                         <option value="no_select"><?php echo esc_html__('Please select', 'wpbooking') ?></option>
                                         <option <?php if(!empty($old_data[$term->term_id]['fee_type']) and $old_data[$term->term_id]['fee_type']=='free')echo 'selected';  ?> value="free"><?php echo esc_html__('Yes, free', 'wpbooking') ?></option>
                                         <option <?php if(!empty($old_data[$term->term_id]['fee_type']) and $old_data[$term->term_id]['fee_type']=='paid')echo 'selected';  ?> value="paid"><?php esc_html_e('Yes, paid', 'wpbooking') ?></option>

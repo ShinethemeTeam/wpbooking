@@ -326,18 +326,19 @@ if (!class_exists('WPBooking_Metabox')) {
                 }
 
 
-                if (isset($new) && $new !== $old) {
-                    update_post_meta($post_id, $field['id'], $new);
 
-                } else if ('' == $new && $old) {
-                    delete_post_meta($post_id, $field['id'], $old);
-                }
 
                 // Property Size
                 //var_dump($field);
                 switch ($field['type']) {
                     case "property_size":
                         if (!empty($field['unit_id'])) update_post_meta($post_id, $field['unit_id'], WPBooking_Input::post($field['unit_id']));
+                        if (isset($new) && $new !== $old) {
+                            update_post_meta($post_id, $field['id'], $new);
+
+                        } else if ('' == $new && $old) {
+                            delete_post_meta($post_id, $field['id'], $old);
+                        }
                         break;
                     case "address":
                         $array = array('zip_code', 'address', 'apt_unit', 'location_id');
@@ -346,6 +347,12 @@ if (!class_exists('WPBooking_Metabox')) {
 
                                 update_post_meta($post_id, $name, WPBooking_Input::post($name));
                             }
+                        }
+                        if (isset($new) && $new !== $old) {
+                            update_post_meta($post_id, $field['id'], $new);
+
+                        } else if ('' == $new && $old) {
+                            delete_post_meta($post_id, $field['id'], $old);
                         }
                         break;
                     case "extra_services":
@@ -363,6 +370,19 @@ if (!class_exists('WPBooking_Metabox')) {
                     case "taxonomy_room_select":
                         self::wpbooking_save_taxonomy_room($post_id,$field['id']);
                         break;
+                    case "taxonomy_fee_select":
+                        $this->wpbooking_save_taxonomy_fee($post_id,$field['id'],$field);
+
+                        break;
+
+                    default :
+                        if (isset($new) && $new !== $old) {
+                            update_post_meta($post_id, $field['id'], $new);
+
+                        } else if ('' == $new && $old) {
+                            delete_post_meta($post_id, $field['id'], $old);
+                        }
+                        break;
                 }
 
                 // Fields to Save
@@ -375,6 +395,29 @@ if (!class_exists('WPBooking_Metabox')) {
             }
 
             do_action('wpbooking_save_metabox_section', $post_id,$section_id, $sections);
+        }
+
+        function wpbooking_save_taxonomy_fee($post_id,$field_id,$field)
+        {
+            $data=WPBooking_Input::post($field_id);
+
+            $post_terms=array();
+
+            if(!empty($data)){
+                foreach($data as $term_id=>$item){
+                    if(!empty($item['selected'])){
+                        $post_terms[]=$term_id;
+                    }else{
+                        unset($data[$term_id]);
+                    }
+
+                }
+            }
+
+            if(!empty($post_terms) and !empty($field['taxonomy'])){
+                wp_set_object_terms( $post_id, $post_terms, $field['taxonomy'] );
+            }
+            update_post_meta($post_id,$field_id,$data);
         }
 
         /**
