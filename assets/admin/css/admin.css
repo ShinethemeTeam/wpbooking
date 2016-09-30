@@ -1169,6 +1169,9 @@ img.settings-demo-gallery {
 .st-metabox-content-wrapper .wpbooking-col-sm-4 .list_post {
   display: none;
 }
+.st-metabox-content-wrapper .wpbooking-col-sm-4 .list_post.active {
+  display: block;
+}
 .st-metabox-content-wrapper .wpbooking-col-sm-4 .item_base {
   opacity: 0.6;
   cursor: default;
