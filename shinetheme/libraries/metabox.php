@@ -334,6 +334,7 @@ if (!class_exists('WPBooking_Metabox')) {
                 }
 
                 // Property Size
+                //var_dump($field);
                 switch ($field['type']) {
                     case "property_size":
                         if (!empty($field['unit_id'])) update_post_meta($post_id, $field['unit_id'], WPBooking_Input::post($field['unit_id']));
@@ -346,10 +347,7 @@ if (!class_exists('WPBooking_Metabox')) {
                                 update_post_meta($post_id, $name, WPBooking_Input::post($name));
                             }
                         }
-
-
                         break;
-
                     case "extra_services":
                         if (!empty($new)) {
                             foreach ($new as $new_key => $new_item) {
@@ -360,8 +358,10 @@ if (!class_exists('WPBooking_Metabox')) {
                                 }
                             }
                         }
-
                         update_post_meta($post_id, $field['id'], $new);
+                        break;
+                    case "taxonomy_room_select":
+                        self::wpbooking_save_taxonomy_room($post_id,$field['id']);
                         break;
                 }
 
@@ -375,6 +375,82 @@ if (!class_exists('WPBooking_Metabox')) {
             }
 
             do_action('wpbooking_save_metabox_section', $post_id,$section_id, $sections);
+        }
+
+        /**
+         * Save Location Metabox
+         *
+         * @since 1.0
+         * @author haint
+         *
+         * @contributor dungdt
+         *
+         * @param $post_id
+         * @param $section_id
+         * @param $fields
+         * @return mixed
+         */
+        public function wpbooking_save_taxonomy_room($post_id,$field_id)
+        {
+            $list = WPBooking_Input::post($field_id);
+            $list_base = WPBooking_Input::post($field_id.'_base');
+            $terms = array();
+            $terms_meta = array();
+            if(!empty($list)){
+                foreach($list as $k=>$v){
+                    $key_term = '';
+                    $term = '';
+                    foreach($v as $key=>$value){
+                        if($key != "post_id"){
+                            $terms[] = $value;
+                            $term = $value;
+                            $key_term = $key;
+                            if(!empty($list_base[$key])){
+                                $list_base[$key] = true;
+                            }
+                        }
+                        if($key == "post_id"){
+                            foreach($value as $key_2 => $value2){
+                                $terms_meta[$value2][$key_term][] = $term;
+                            }
+                        }
+                    }
+                }
+            }
+            $list_room = WPBooking_Hotel_Service_Type::_get_room_by_hotel($post_id);
+            if(!empty($list_base)){
+                foreach($list_base as $k=>$v){
+                    if($v == 'true'){
+                        wp_set_post_terms($post_id, $terms, $k);
+                        foreach($list_room as $key_room => $value_room){
+                            if(!empty($terms_meta)){
+                                foreach($terms_meta as $k2=>$v2){
+                                    $key = key($v2);
+                                    $data_meta = get_post_meta($k2,'taxonomy_room',true);
+                                    if(empty($data_meta)) $data_meta = array();
+                                    $data_meta[$key] = $v2[$key];
+                                    update_post_meta($k2,'taxonomy_room',$data_meta);
+                                }
+                            }else{
+                                foreach($list_room as $k2=>$v2){
+                                    $data_meta = get_post_meta($v2->ID,'taxonomy_room',true);
+                                    if(empty($data_meta)) $data_meta = array();
+                                    $data_meta[$k] = '';
+                                    update_post_meta($v2->ID,'taxonomy_room',$data_meta);
+                                }
+                            }
+                        }
+                    }else{
+                        wp_set_post_terms($post_id, array(0), $k);
+                        foreach($list_room as $k2=>$v2){
+                            $data_meta = get_post_meta($v2->ID,'taxonomy_room',true);
+                            if(empty($data_meta)) $data_meta = array();
+                            $data_meta[$k] = '';
+                            update_post_meta($v2->ID,'taxonomy_room',$data_meta);
+                        }
+                    }
+                }
+            }
         }
 
         public function wpbooking_save_gmap($post_id, $post_object)

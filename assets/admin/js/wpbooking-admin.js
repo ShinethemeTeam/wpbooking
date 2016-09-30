@@ -1066,12 +1066,12 @@ jQuery(document).ready(function( $ ){
         if ($(this).is(":checked"))
         {
             container.find('.list_post').show();
-            container.find('.item_base').prop('checked', false);
             container.find('.item_all').prop('checked', false);
         }else{
+            container.find('.item_post').prop('checked', false);
             container.find('.list_post').hide();
-            container.find('.item_base').prop('checked', false);
         }
+        container.find('.item_base').prop('checked', false);
     });
     $(document).on('change','.taxonomy_room_select .item_post',function(){
         var container = $(this).closest('.wpbooking-row');
