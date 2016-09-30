@@ -85,7 +85,31 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 'query_var'         => true,
                 'rewrite'           => array( 'slug' => 'hotel-amenity' ),
             );
-            register_taxonomy('wb_hotel_room_amenity',array('wpbooking_hotel_room'),$args);
+            register_taxonomy('wb_hotel_room_amenity',array('wpbooking_service'),$args);
+
+            // Register Taxonomy
+            $labels = array(
+                'name'              => _x( 'Bathroom', 'taxonomy general name', 'wpbooking' ),
+                'singular_name'     => _x( 'Bathroom', 'taxonomy singular name', 'wpbooking' ),
+                'search_items'      => __( 'Search Bathroom', 'wpbooking' ),
+                'all_items'         => __( 'All Bathroom', 'wpbooking' ),
+                'parent_item'       => __( 'Parent Bathroom', 'wpbooking' ),
+                'parent_item_colon' => __( 'Parent Bathroom:', 'wpbooking' ),
+                'edit_item'         => __( 'Edit Bathroom', 'wpbooking' ),
+                'update_item'       => __( 'Update Bathroom', 'wpbooking' ),
+                'add_new_item'      => __( 'Add New Bathroom', 'wpbooking' ),
+                'new_item_name'     => __( 'New Bathroom Name', 'wpbooking' ),
+                'menu_name'         => __( 'Bathroom', 'wpbooking' ),
+            );
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-room-bathroom' ),
+            );
+            register_taxonomy('wb_hotel_room_bathroom',array('wpbooking_service'),$args);
             // Metabox
             $this->set_metabox(array(
                 'general_tab'  => array(
@@ -589,9 +613,16 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'desc' =>esc_html__("Room amenities","wpbooking")
                         ),
                         array(
-                            'id'    => 'lang_spoken_by_staff',
+                            'id'    => 'hotel_room_amenity',
+                            'label' => __("Select amenities", 'wpbooking'),
                             'type'  => 'taxonomy_room_select',
                             'taxonomy'=>'wb_hotel_room_amenity'
+                        ),
+                        array(
+                            'id'    => 'hotel_room_bathroom',
+                            'label' => __("Select bathroom", 'wpbooking'),
+                            'type'  => 'taxonomy_room_select',
+                            'taxonomy'=>'wb_hotel_room_bathroom'
                         ),
                         array( 'type'  => 'close_section'),
                         //Room amenities
@@ -1125,6 +1156,21 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 }
             }
         }
+
+        static function _get_room_by_hotel($post_id){
+            if(empty($post_id)) return;
+            global $wpdb;
+            $sql = "SELECT ID,post_title
+                    FROM
+                    {$wpdb->posts}
+                    WHERE 
+                    1=1
+                    AND {$wpdb->posts}.post_parent = {$post_id} 
+                    AND {$wpdb->posts}.post_status = 'publish'";
+            $rs = $wpdb->get_results($sql);
+            return $rs;
+        }
+
 
         static function inst()
         {
