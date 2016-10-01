@@ -1098,5 +1098,17 @@ jQuery(document).ready(function( $ ){
             $(this).closest('.term-item').removeClass('active');
         }
     });
+    $(document).on('click','.st-metabox-wrapper .content-accodition',function(){
+        var container = $(this).closest('.open_section_metabox');
+        if($(this).hasClass('active')){
+            $(this).removeClass('active');
+            $(this).find('.fa ').attr('class','fa fa-arrow-down');
+            container.find('.content-metabox').addClass('no-active');
+        }else{
+            $(this).addClass('active');
+            $(this).find('.fa ').attr('class','fa fa-arrow-up');
+            container.find('.content-metabox').removeClass('no-active');
+        }
+    });
 
 });
