@@ -248,7 +248,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 'query_var'         => true,
                 'rewrite'           => array( 'slug' => 'hotel-room-entertainment-services' ),
             );
-            register_taxonomy('wb_hotel_room_entertainment_services',array('wpbooking_service'),$args);
+            register_taxonomy('wb_hotel_room_entertainment',array('wpbooking_service'),$args);
 
 
             // Metabox
@@ -256,7 +256,9 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 'general_tab'  => array(
                     'label'  => esc_html__('1. Property Information', 'wpbooking'),
                     'fields' => array(
-                        array('type' => 'open_section'),
+                        array(
+                            'type' => 'open_section',
+                        ) ,
                         array(
                             'label' => __("About Your Hotel", 'wpbooking'),
                             'type'  => 'title',
@@ -899,7 +901,9 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'desc' => esc_html__('Example: 2 extra bed and price is 10.00, total cost is 20.00', 'wpbooking')
                         ),
                         array( 'type'  => 'close_section'),
-                        array( 'type'  => 'open_section'),
+                        array(
+                            'type' => 'open_section',
+                        ) ,
                         array(
                             'label' => __("Space", 'wpbooking'),
                             'type'  => 'title',
@@ -928,7 +932,11 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             )
                         ),
                         array( 'type'  => 'close_section'),
-                        array( 'type'  => 'open_section'),
+                        array(
+                            'type' => 'open_section',
+                            'control' => true,
+                            'open_section' => false,
+                        ) ,
                         array(
                             'label' => __("Room amenities", 'wpbooking'),
                             'type'  => 'title',
@@ -941,7 +949,11 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'taxonomy'=>'wb_hotel_room_amenity'
                         ),
                         array( 'type'  => 'close_section'),
-                        array( 'type'  => 'open_section'),
+                        array(
+                            'type' => 'open_section',
+                            'control' => true,
+                            'open_section' => false,
+                        ) ,
                         array(
                             'label' => __("Bathroom", 'wpbooking'),
                             'type'  => 'title',
@@ -954,7 +966,11 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'taxonomy'=>'wb_hotel_room_bathroom'
                         ),
                         array( 'type'  => 'close_section'),
-                        array( 'type'  => 'open_section'),
+                        array(
+                            'type' => 'open_section',
+                            'control' => true,
+                            'open_section' => false,
+                        ) ,
                         array(
                             'label' => __("Media & technology", 'wpbooking'),
                             'type'  => 'title',
@@ -967,6 +983,97 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'taxonomy'=>'wb_hotel_room_media_technology'
                         ),
                         array( 'type'  => 'close_section'),
+                        array(
+                            'type' => 'open_section',
+                            'control' => true,
+                            'open_section' => false,
+                        ) ,
+                        array(
+                            'label' => __("Food and Drink", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc' =>esc_html__("Food and Drink","wpbooking")
+                        ),
+                        array(
+                            'id'    => 'hotel_room_food_drink',
+                            'label' => __("Food and Drink", 'wpbooking'),
+                            'type'  => 'taxonomy_room_select',
+                            'taxonomy'=>'wb_hotel_room_food_drink'
+                        ),
+                        array( 'type'  => 'close_section'),
+                        array(
+                            'type' => 'open_section',
+                            'control' => true,
+                            'open_section' => false,
+                        ) ,
+                        array(
+                            'label' => __("Services & extras", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc' =>esc_html__("Services & extras","wpbooking")
+                        ),
+                        array(
+                            'id'    => 'hotel_room_services_extra',
+                            'label' => __("Services & extras", 'wpbooking'),
+                            'type'  => 'taxonomy_room_select',
+                            'taxonomy'=>'wb_hotel_room_services_extra'
+                        ),
+                        array( 'type'  => 'close_section'),
+                        array(
+                            'type' => 'open_section',
+                            'control' => true,
+                            'open_section' => false,
+                        ) ,
+                        array(
+                            'label' => __("Outdoor & view", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc' =>esc_html__("Outdoor & view","wpbooking")
+                        ),
+                        array(
+                            'id'    => 'hotel_room_outdoor_view',
+                            'label' => __("Outdoor & view", 'wpbooking'),
+                            'type'  => 'taxonomy_room_select',
+                            'taxonomy'=>'wb_hotel_room_outdoor_view'
+                        ),
+                        array( 'type'  => 'close_section'),
+
+
+                        array(
+                            'type' => 'open_section',
+                            'control' => true,
+                            'open_section' => false,
+                        ) ,
+                        array(
+                            'label' => __("Accessibility", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc' =>esc_html__("Accessibility","wpbooking")
+                        ),
+                        array(
+                            'id'    => 'hotel_room_accessibility',
+                            'label' => __("Accessibility", 'wpbooking'),
+                            'type'  => 'taxonomy_room_select',
+                            'taxonomy'=>'wb_hotel_room_accessibility'
+                        ),
+                        array( 'type'  => 'close_section'),
+
+
+                        array(
+                            'type' => 'open_section',
+                            'control' => true,
+                            'open_section' => false,
+                        ) ,
+                        array(
+                            'label' => __("Entertainment & Family Services", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc' =>esc_html__("Entertainment & Family Services","wpbooking")
+                        ),
+                        array(
+                            'id'    => 'hotel_room_entertainment',
+                            'label' => __("Entertainment & Family Services", 'wpbooking'),
+                            'type'  => 'taxonomy_room_select',
+                            'taxonomy'=>'wb_hotel_room_entertainment'
+                        ),
+                        array( 'type'  => 'close_section'),
+
+
                         //Room amenities
                         array(
                             'type' => 'section_navigation',
@@ -1526,6 +1633,59 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     array('term'=>'Video'),
                     array('term'=>'Video games'),
                     array('term'=>'Blu-ray player'),
+                ),
+                'wb_hotel_room_food_drink'=>array(
+                    array('term'=>'Dining area'),
+                    array('term'=>'Dining table'),
+                    array('term'=>'Barbecue'),
+                    array('term'=>'Stovetop'),
+                    array('term'=>'Toaster'),
+                    array('term'=>'Electric kettle'),
+                    array('term'=>'Outdoor dining area'),
+                    array('term'=>'Outdoor furniture'),
+                    array('term'=>'Minibar'),
+                    array('term'=>'Kitchenette'),
+                    array('term'=>'Kitchenware'),
+                    array('term'=>'Microwave'),
+                    array('term'=>'Refrigerator'),
+                    array('term'=>'Tea/Coffee maker'),
+                    array('term'=>'Coffee machine'),
+                    array('term'=>'High chair'),
+                ),
+                'wb_hotel_room_services_extra'=>array(
+                    array('term'=>'Executive Lounge Access'),
+                    array('term'=>'Alarm clock'),
+                    array('term'=>'Wake-up service'),
+                    array('term'=>'Wake up service/Alarm clock'),
+                    array('term'=>'Linens'),
+                    array('term'=>'Towels'),
+                    array('term'=>'Towels/Sheets (extra fee)'),
+                ),
+                'wb_hotel_room_outdoor_view'=>array(
+                    array('term'=>'Balcony'),
+                    array('term'=>'Patio'),
+                    array('term'=>'View'),
+                    array('term'=>'Terrace'),
+                    array('term'=>'City view'),
+                    array('term'=>'Garden view'),
+                    array('term'=>'Lake view'),
+                    array('term'=>'Landmark view'),
+                    array('term'=>'Mountain view'),
+                    array('term'=>'Pool view'),
+                    array('term'=>'River view'),
+                    array('term'=>'Sea view'),
+                ),
+                'wb_hotel_room_accessibility'=>array(
+                    array('term'=>'Room is located on the ground floor'),
+                    array('term'=>'Room is completely wheelchair accessible'),
+                    array('term'=>'Upper floors accessible by elevator'),
+                    array('term'=>'Upper floors accessible by stairs only'),
+                ),
+                'wb_hotel_room_entertainment'=>array(
+                    array('term'=>'Baby safety gates'),
+                    array('term'=>'Board games/puzzles'),
+                    array('term'=>'Books, DVDs or music for children'),
+                    array('term'=>'Child safety socket covers'),
                 ),
             );
 
