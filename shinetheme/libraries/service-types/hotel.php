@@ -110,6 +110,29 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 'rewrite'           => array( 'slug' => 'hotel-room-bathroom' ),
             );
             register_taxonomy('wb_hotel_room_bathroom',array('wpbooking_service'),$args);
+            // Register Taxonomy
+            $labels = array(
+                'name'              => _x( 'Media & technology', 'taxonomy general name', 'wpbooking' ),
+                'singular_name'     => _x( 'Media & technology', 'taxonomy singular name', 'wpbooking' ),
+                'search_items'      => __( 'Search Media & technology', 'wpbooking' ),
+                'all_items'         => __( 'All Media & technology', 'wpbooking' ),
+                'parent_item'       => __( 'Parent Media & technology', 'wpbooking' ),
+                'parent_item_colon' => __( 'Parent Media & technology:', 'wpbooking' ),
+                'edit_item'         => __( 'Edit Media & technology', 'wpbooking' ),
+                'update_item'       => __( 'Update Media & technology', 'wpbooking' ),
+                'add_new_item'      => __( 'Add New Media & technology', 'wpbooking' ),
+                'new_item_name'     => __( 'New Media & technology Name', 'wpbooking' ),
+                'menu_name'         => __( 'Media & technology', 'wpbooking' ),
+            );
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-room-media-technology' ),
+            );
+            register_taxonomy('wb_hotel_room_media_technology',array('wpbooking_service'),$args);
             // Metabox
             $this->set_metabox(array(
                 'general_tab'  => array(
@@ -791,19 +814,39 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         array(
                             'label' => __("Room amenities", 'wpbooking'),
                             'type'  => 'title',
-                            'desc' =>esc_html__("Room amenities","wpbooking")
+                            'desc' =>esc_html__("Room Amenities","wpbooking")
                         ),
                         array(
                             'id'    => 'hotel_room_amenity',
-                            'label' => __("Select amenities", 'wpbooking'),
+                            'label' => __("Select Amenities", 'wpbooking'),
                             'type'  => 'taxonomy_room_select',
                             'taxonomy'=>'wb_hotel_room_amenity'
                         ),
+                        array( 'type'  => 'close_section'),
+                        array( 'type'  => 'open_section'),
+                        array(
+                            'label' => __("Bathroom", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc' =>esc_html__("Amenities in Bathroom","wpbooking")
+                        ),
                         array(
                             'id'    => 'hotel_room_bathroom',
-                            'label' => __("Select bathroom", 'wpbooking'),
+                            'label' => __("Select Bathroom", 'wpbooking'),
                             'type'  => 'taxonomy_room_select',
                             'taxonomy'=>'wb_hotel_room_bathroom'
+                        ),
+                        array( 'type'  => 'close_section'),
+                        array( 'type'  => 'open_section'),
+                        array(
+                            'label' => __("Media & technology", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc' =>esc_html__("Media & technology amenities","wpbooking")
+                        ),
+                        array(
+                            'id'    => 'hotel_room_media_technology',
+                            'label' => __("Select Media & technology", 'wpbooking'),
+                            'type'  => 'taxonomy_room_select',
+                            'taxonomy'=>'wb_hotel_room_media_technology'
                         ),
                         array( 'type'  => 'close_section'),
                         //Room amenities
@@ -1324,6 +1367,47 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     array('term'=>'Shower'),
                     array('term'=>'Slippers'),
                     array('term'=>'Toilet'),
+                ),
+                'wb_hotel_room_bathroom'=>array(
+                    array('term'=>'Toilet paper'),
+                    array('term'=>'Toilet With Grab Rails'),
+                    array('term'=>'Bathtub'),
+                    array('term'=>'Bidet'),
+                    array('term'=>'Bathtub or shower'),
+                    array('term'=>'Bathrobe'),
+                    array('term'=>'Bathroom'),
+                    array('term'=>'Free toiletries'),
+                    array('term'=>'Hairdryer'),
+                    array('term'=>'Spa tub'),
+                    array('term'=>'Shared bathroom'),
+                    array('term'=>'Shower'),
+                    array('term'=>'Slippers'),
+                    array('term'=>'Toilet'),
+                ),
+                'wb_hotel_room_media_technology'=>array(
+                    array('term'=>'Computer'),
+                    array('term'=>'Game console'),
+                    array('term'=>'Game console - Nintendo Wii'),
+                    array('term'=>'Game console - PS2'),
+                    array('term'=>'Game console - PS3'),
+                    array('term'=>'Game console - Xbox 360'),
+                    array('term'=>'Laptop'),
+                    array('term'=>'iPad'),
+                    array('term'=>'Cable channels'),
+                    array('term'=>'CD Player'),
+                    array('term'=>'DVD Player'),
+                    array('term'=>'Fax'),
+                    array('term'=>'iPod dock'),
+                    array('term'=>'Laptop safe'),
+                    array('term'=>'Flat-screen TV'),
+                    array('term'=>'Pay-per-view channels'),
+                    array('term'=>'Radio'),
+                    array('term'=>'Satellite channels'),
+                    array('term'=>'Telephone'),
+                    array('term'=>'TV'),
+                    array('term'=>'Video'),
+                    array('term'=>'Video games'),
+                    array('term'=>'Blu-ray player'),
                 ),
             );
 

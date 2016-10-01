@@ -1075,8 +1075,9 @@ jQuery(document).ready(function( $ ){
     });
     $(document).on('change','.taxonomy_room_select .item_post',function(){
         var container = $(this).closest('.wpbooking-row');
+        var container2 = $(this).closest('.list_post');
         var check = false;
-        $(this).each(function(){
+        container2.find('.item_post').each(function(){
             if ($(this).is(":checked"))
             {
                 check = true;

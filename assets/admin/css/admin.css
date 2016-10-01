@@ -1155,24 +1155,24 @@ img.settings-demo-gallery {
 .st-metabox-tab-content-wrap .open_section_metabox.active {
   border: solid 1px #ec8223;
 }
-.st-metabox-content-wrapper .wpbooking-row {
+.st-metabox-content-wrapper .taxonomy_room_select .wpbooking-row {
   border-bottom: 1px solid #ccc;
   margin-bottom: 7px !important;
   padding-bottom: 10px;
 }
-.st-metabox-content-wrapper .wpbooking-col-sm-4 {
+.st-metabox-content-wrapper .taxonomy_room_select.wpbooking-col-sm-4 {
   padding-left: 0px;
 }
-.st-metabox-content-wrapper .wpbooking-col-sm-4 p {
+.st-metabox-content-wrapper .taxonomy_room_select p {
   margin: 7px 0;
 }
-.st-metabox-content-wrapper .wpbooking-col-sm-4 .list_post {
+.st-metabox-content-wrapper .taxonomy_room_select .list_post {
   display: none;
 }
-.st-metabox-content-wrapper .wpbooking-col-sm-4 .list_post.active {
+.st-metabox-content-wrapper .taxonomy_room_select .list_post.active {
   display: block;
 }
-.st-metabox-content-wrapper .wpbooking-col-sm-4 .item_base {
+.st-metabox-content-wrapper .taxonomy_room_select .item_base {
   opacity: 0.6;
   cursor: default;
 }
