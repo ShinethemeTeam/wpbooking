@@ -175,6 +175,80 @@ jQuery(document).ready(function( $ ){
         });
     });
     ///////////////////////////////////
+    /////// MEDIA GALLERY HOTEL/////////////
+    ///////////////////////////////////
+    jQuery(document).ready(function($){
+        $("body").on('click','.btn_remove_gallery_hotel',function(){
+            var container = $(this).parent().parent();
+            container.find('.fg_metadata').val('');
+            container.find('.gallery-item').hide();
+        });
+
+        $('.gallery-item-btn.gallery-item-remove').each(function(){
+            $(this).click(function(){
+                var wn = confirm('Do you want delete this image?');
+                if(wn == true) {
+                    $(this).parent().parent().hide();
+                }
+            });
+        });
+
+        var file_frame;
+        $('body').on('click','.btn_upload_gallery_hotel',function (event) {
+            var container = $(this).parent().parent();
+            console.log(container);
+            event.preventDefault();
+            // If the media frame already exists, reopen it.
+            if ( file_frame ) {
+                file_frame.open();
+                return;
+            }
+            // Create the media frame.
+            file_frame = wp.media.frame = wp.media({
+                frame: "post",
+                state: "gallery",
+                library : { type : 'image'},
+                // button: {text: "Edit Image Order"},
+                multiple: true
+            });
+            file_frame.on('open', function() {
+                var selection = file_frame.state().get('selection');
+                var ids = container.find('.fg_metadata').val();
+                if (ids) {
+                    idsArray = ids.split(',');
+                    idsArray.forEach(function(id) {
+                        attachment = wp.media.attachment(id);
+                        attachment.fetch();
+                        selection.add( attachment ? [ attachment ] : [] );
+                    });
+                }
+            });
+            // When an image is selected, run a callback.
+            file_frame.on('update', function() {
+                var imageIDArray = [];
+                var imageHTML = '';
+                var metadataString = '';
+                images = file_frame.state().get('library');
+                images.each(function(attachment) {
+                    imageIDArray.push(attachment.attributes.id);
+                    console.log(attachment.attributes);
+                    imageHTML += '<div class="gallery-item">';
+                    imageHTML += '<img class="demo-image-gallery settings-demo-image-gallery" src="'+attachment.attributes.sizes.thumbnail.url+'">';
+                    imageHTML += '<div class="gallery-item-control text-center"><a href="javascript:void(0)" class="gallery-item-btn gallery-item-edit"><i class="fa fa-pencil-square-o"></i></a><a href="javascript:void(0)" class="gallery-item-btn gallery-item-remove"><i class="fa fa-trash"></i></a></div>';
+                    imageHTML += '</div>';
+                });
+
+                metadataString = imageIDArray.join(",");
+                if (metadataString) {
+                    $('.fg_metadata',container).val(metadataString);
+                    $('.featuredgallerydiv',container).html(imageHTML).show();
+                    console.log($('.featuredgallerydiv',container).html());
+                }
+            });
+            file_frame.open();
+        });
+    });
+    ///////////////////////////////////
     /////// MEDIA IMAGE ///////////////
     ///////////////////////////////////
     jQuery(document).ready(function($){

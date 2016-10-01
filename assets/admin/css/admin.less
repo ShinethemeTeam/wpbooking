@@ -154,6 +154,60 @@ img.settings-demo-gallery{
 
     margin: 0 10px 10px 0;
     padding: 4px;
+
+}
+.gallery-row{
+    margin-left: -15px;
+    margin-right: -15px;
+    display: inline-block;
+    width: 100%;
+    clear: both;
+    .gallery-item{
+        width: 20%;
+        float: left;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 25px;
+        .gallery-item-control{
+            margin-top: 15px;
+            .gallery-item-btn{
+                padding: 2px 17px;
+                border: 1px solid #e9e9e9;
+                background: transparent;
+                margin: 0 10px;
+                color: #999999;
+                transition: all .2s;
+                &:hover{
+                    background: @maincolor;
+                    color: #FFFFFF;
+                    border-color: @maincolor;
+                }
+                cursor: pointer;
+            }
+        }
+    }
+    //.gallery-item:nth-child(5n+6){
+    //    clear: both;
+    //}
+}
+img.settings-demo-image-gallery{
+    width: 100%;
+    height: auto;
+}
+.button-gallery-primary{
+    background: transparent;
+    color: #666666;
+    border: 1px solid #CCCCCC;
+    padding: 8px 12px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: .1s;
+    &:hover, &:focus{
+        background: #FFFFFF;
+        color: @maincolor;
+        border-color: @maincolor;
+    }
 }
 .demo-url-image.min-width-500{
     min-width: 420px;
@@ -997,6 +1051,10 @@ img.settings-demo-gallery{
                 }
             }
         }
+    }
+    .wpbooking-form-group-gallery{
+        margin-bottom: 18px;
+        margin-top: 20px;
     }
     .form-table:after,
     .form-table:before{
@@ -2798,4 +2856,3 @@ label[for=wpbooking_locationdiv-hide]
         }
     }
 }
-
