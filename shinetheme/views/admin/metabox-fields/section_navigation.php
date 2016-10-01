@@ -5,6 +5,10 @@
  * Date: 7/18/2016
  * Time: 8:25 AM
  */
+$data=wp_parse_args($data,array(
+	'ajax_saving'=>1,
+	'next_label'=>esc_html__('Save & Next Step','wpbooking')
+))
 ?>
 <div class="text-right wb-section-navigation clear" style="clear: both">
 	<?php
@@ -20,7 +24,9 @@
 		if(!isset($data['prev']) or $data['prev']){
 			$class = 'w50';
 		}
-		printf('<a href="#" class="button wb-next-section %s">%s <i class="fa fa-spinner fa-pulse"></i></a>',$class,esc_html__('Save & Next Step','wpbooking'));
+
+		if($data['ajax_saving']) $class.=' ajax_saving';
+		printf('<a href="#" class="button wb-next-section %s">%s <i class="fa fa-spinner fa-pulse"></i></a>',$class,$data['next_label']);
 	}
 
 	?>

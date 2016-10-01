@@ -23,6 +23,17 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
 
             add_action('init', array($this, '_add_init_action'));
             add_action('wpbooking_do_setup',array($this,'_add_default_term'));
+
+            /**
+             * Add Room Metabox Fields Template
+             *
+             * @since 1.0
+             * @author dungdt
+             *
+             */
+            add_action('admin_footer',array($this,'_js_room_meta_template'));
+
+            add_action('wp_ajax_wpbooking_hotel_room_edit_html',array($this,'_ajax_room_edit_template'));
         }
 
 
@@ -183,7 +194,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         array(
                             'label' => __('Contact Name', 'wpbooking'),
                             'id'    => 'contact_name',
-                            'desc'  => esc_html__('Who will receive the litter', 'wpbooking'),
+                            'desc'  => esc_html__('Who will receive the letters', 'wpbooking'),
                             'type'  => 'text',
                             'class' => 'small'
                         ),
@@ -199,16 +210,12 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'id'              => 'address',
                             'type'            => 'address',
                             'container_class' => 'mb35',
-                            'fields'=>array(
-                                'rom',
-                                ''
-                            )
                         ),
                         array(
                             'label' => __('Map Lat & Long', 'wpbooking'),
                             'id'    => 'gmap',
                             'type'  => 'gmap',
-                            'desc'=>esc_html__('This is the location we will provide guests. Click and drag the','wpbooking')
+                            'desc'=>esc_html__('This is the location we will provide guests. Click and drag the marker if you need to move it','wpbooking')
                         ),
                         array(
                             'type' => 'desc_section',
@@ -651,7 +658,12 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'label'=>esc_html__('Your Rooms','wpbooking'),
                             'type'=>'hotel_room_list',
                             'desc'=>esc_html__('Here is an overview of your rooms','wpbooking')
-                        )
+                        ),
+                        array(
+                            'type' => 'section_navigation',
+                            'next_label'=>esc_html__('Next Step','wpbooking'),
+                            'ajax_saving'=>0
+                        ),
                     )
                 ),
 
@@ -1177,6 +1189,8 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 'rewrite'           => array( 'slug' => 'hotel-miscellaneous' ),
             );
             register_taxonomy('wb_hotel_miscellaneous',array('wpbooking_service'),$args);
+
+
         }
 
         function _add_default_term()
@@ -1436,6 +1450,98 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             return $rs;
         }
 
+        /**
+         * Get Hotel Room Metabox Fields
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return mixed|void
+         */
+        function get_room_meta_fields()
+        {
+            $fields=array(
+                array('type' => 'open_section'),
+                array(
+                    'label' => __("Deluxe Queen Studio", 'wpbooking'),
+                    'type'  => 'title',
+                    'desc'  => esc_html__('Select a room type : Single , double , twin, twin / double , triple, quadruple, family, suite, studio, apartment, dormitory room, bed in dormitory, ...', 'wpbooking')
+                ),
+                array(
+                    'label'  => esc_html__('Room Type', 'wpbooking'),
+                    'type'   => 'dropdown',
+                    'value'=>WPBooking_Config::inst()->item('hotel_room_type'),
+                    'id'=>'room_type'
+                ),
+                array(
+                    'label'  => esc_html__('Room name', 'wpbooking'),
+                    'type'   => 'dropdown',
+                    'value'=>WPBooking_Config::inst()->item('hotel_room_name')
+                ),
+                array('type' => 'close_section'),
+            );
+
+            return apply_filters('wpbooking_hotel_room_meta_fields',$fields);
+        }
+
+        /**
+         * Add Room Metabox Fields Template
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         */
+        function _js_room_meta_template()
+        {
+            ?>
+            <script type="text/html" id="tmpl-wpbooking-hotel-room-metabox">
+                <?php
+                $fields=$this->get_room_meta_fields();
+
+                foreach ((array)$fields as $field_id=> $field):
+
+                    if (empty($field['type'])) continue;
+
+                    $default = array(
+                        'id'          => '',
+                        'label'       => '',
+                        'type'        => '',
+                        'desc'        => '',
+                        'std'         => '',
+                        'class'       => '',
+                        'location'    => FALSE,
+                        'map_lat'     => '',
+                        'map_long'    => '',
+                        'map_zoom'    => 13,
+                        'server_type' => '',
+                        'width'       => ''
+                    );
+
+                    $field = wp_parse_args($field, $default);
+
+                    $class_extra = FALSE;
+                    if ($field['location'] == 'hndle-tag') {
+                        $class_extra = 'wpbooking-hndle-tag-input';
+                    }
+                    $file = 'metabox-fields/' . $field['type'];
+                    //var_dump($file);
+
+                    $field_html = apply_filters('wpbooking_metabox_field_html_' . $field['type'], FALSE, $field);
+                    if ($field_html) echo $field_html;
+                    else
+                        echo wpbooking_admin_load_view($file, array('data' => $field, 'class_extra' => $class_extra));
+
+                    ?>
+                <?php endforeach; ?>
+
+            </script>
+            <?php
+        }
+
+        function _ajax_room_edit_template()
+        {
+
+        }
 
         static function inst()
         {

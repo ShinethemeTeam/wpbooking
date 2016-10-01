@@ -750,11 +750,18 @@ jQuery(document).ready(function( $ ){
         var next_a,section;
         next_a=$('.st-metabox-nav li.ui-state-active').next().find('a');
         section=$(this).closest('.st-metabox-tabs-content');
-        saveMetaboxSection(section,$(this),function(){
-            next_a.trigger('click');
-            var h=$('#st_post_metabox').offset().top;
+
+
+        if($(this).hasClass('ajax_saving')){
+            saveMetaboxSection(section,$(this),function(){
+                next_a.trigger('click');
+                var h=$('#st_post_metabox').offset().top;
+                $('html,body').animate({'scrollTop':parseInt(h)-200});
+            });
+        }else{
             $('html,body').animate({'scrollTop':parseInt(h)-200});
-        });
+        }
+
 
         return false;
     });
