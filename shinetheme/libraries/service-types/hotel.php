@@ -64,9 +64,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 'show_ui'            => TRUE,
                 'show_in_menu'       => TRUE,
                 'query_var'          => TRUE,
-                'rewrite'            => array('slug' => 'service'),
                 'capability_type'    => 'post',
-                'has_archive'        => ($page_id = wpbooking_get_option('archive-page')) && get_post($page_id) ? get_page_uri($page_id) : 'all-services',
                 'hierarchical'       => FALSE,
                 //'menu_position'      => '59.9',
                 'supports'           => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments')
@@ -94,23 +92,23 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 'show_ui'           => true,
                 'show_admin_column' => false,
                 'query_var'         => true,
-                'rewrite'           => array( 'slug' => 'hotel-amenity' ),
+                'rewrite'           => array( 'slug' => 'hotel-room-amenity' ),
             );
             register_taxonomy('wb_hotel_room_amenity',array('wpbooking_service'),$args);
 
             // Register Taxonomy
             $labels = array(
-                'name'              => _x( 'Bathroom', 'taxonomy general name', 'wpbooking' ),
-                'singular_name'     => _x( 'Bathroom', 'taxonomy singular name', 'wpbooking' ),
-                'search_items'      => __( 'Search Bathroom', 'wpbooking' ),
-                'all_items'         => __( 'All Bathroom', 'wpbooking' ),
-                'parent_item'       => __( 'Parent Bathroom', 'wpbooking' ),
-                'parent_item_colon' => __( 'Parent Bathroom:', 'wpbooking' ),
-                'edit_item'         => __( 'Edit Bathroom', 'wpbooking' ),
-                'update_item'       => __( 'Update Bathroom', 'wpbooking' ),
-                'add_new_item'      => __( 'Add New Bathroom', 'wpbooking' ),
-                'new_item_name'     => __( 'New Bathroom Name', 'wpbooking' ),
-                'menu_name'         => __( 'Bathroom', 'wpbooking' ),
+                'name'              => _x( 'Room Bathroom', 'taxonomy general name', 'wpbooking' ),
+                'singular_name'     => _x( 'Room Bathroom', 'taxonomy singular name', 'wpbooking' ),
+                'search_items'      => __( 'Search Room Bathroom', 'wpbooking' ),
+                'all_items'         => __( 'All Room Bathroom', 'wpbooking' ),
+                'parent_item'       => __( 'Parent Room Bathroom', 'wpbooking' ),
+                'parent_item_colon' => __( 'Parent Room Bathroom:', 'wpbooking' ),
+                'edit_item'         => __( 'Edit Room Bathroom', 'wpbooking' ),
+                'update_item'       => __( 'Update Room Bathroom', 'wpbooking' ),
+                'add_new_item'      => __( 'Add Room New Bathroom', 'wpbooking' ),
+                'new_item_name'     => __( 'New Room Bathroom Name', 'wpbooking' ),
+                'menu_name'         => __( 'Room Bathroom', 'wpbooking' ),
             );
             $args = array(
                 'hierarchical'      => true,
@@ -123,17 +121,17 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             register_taxonomy('wb_hotel_room_bathroom',array('wpbooking_service'),$args);
             // Register Taxonomy
             $labels = array(
-                'name'              => _x( 'Media & technology', 'taxonomy general name', 'wpbooking' ),
-                'singular_name'     => _x( 'Media & technology', 'taxonomy singular name', 'wpbooking' ),
-                'search_items'      => __( 'Search Media & technology', 'wpbooking' ),
-                'all_items'         => __( 'All Media & technology', 'wpbooking' ),
-                'parent_item'       => __( 'Parent Media & technology', 'wpbooking' ),
-                'parent_item_colon' => __( 'Parent Media & technology:', 'wpbooking' ),
-                'edit_item'         => __( 'Edit Media & technology', 'wpbooking' ),
-                'update_item'       => __( 'Update Media & technology', 'wpbooking' ),
-                'add_new_item'      => __( 'Add New Media & technology', 'wpbooking' ),
-                'new_item_name'     => __( 'New Media & technology Name', 'wpbooking' ),
-                'menu_name'         => __( 'Media & technology', 'wpbooking' ),
+                'name'              => _x( 'Room Media & technology', 'taxonomy general name', 'wpbooking' ),
+                'singular_name'     => _x( 'Room Media & technology', 'taxonomy singular name', 'wpbooking' ),
+                'search_items'      => __( 'Search Room Media & technology', 'wpbooking' ),
+                'all_items'         => __( 'All Room Media & technology', 'wpbooking' ),
+                'parent_item'       => __( 'Parent Room Media & technology', 'wpbooking' ),
+                'parent_item_colon' => __( 'Parent Room Media & technology:', 'wpbooking' ),
+                'edit_item'         => __( 'Edit Room Media & technology', 'wpbooking' ),
+                'update_item'       => __( 'Update Room Media & technology', 'wpbooking' ),
+                'add_new_item'      => __( 'Add New Room Media & technology', 'wpbooking' ),
+                'new_item_name'     => __( 'NewRoom  Media & technology Name', 'wpbooking' ),
+                'menu_name'         => __( 'Room Media & technology', 'wpbooking' ),
             );
             $args = array(
                 'hierarchical'      => true,
@@ -144,6 +142,126 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 'rewrite'           => array( 'slug' => 'hotel-room-media-technology' ),
             );
             register_taxonomy('wb_hotel_room_media_technology',array('wpbooking_service'),$args);
+            // Register Taxonomy
+            $labels = array(
+                'name'              => _x( 'Room Food and Drink', 'taxonomy general name', 'wpbooking' ),
+                'singular_name'     => _x( 'Room Food and Drink', 'taxonomy singular name', 'wpbooking' ),
+                'search_items'      => __( 'Search Room Food and Drink', 'wpbooking' ),
+                'all_items'         => __( 'All Room Food and Drink', 'wpbooking' ),
+                'parent_item'       => __( 'Parent Room Food and Drink', 'wpbooking' ),
+                'parent_item_colon' => __( 'Parent Room Food and Drink:', 'wpbooking' ),
+                'edit_item'         => __( 'Edit Room Food and Drink', 'wpbooking' ),
+                'update_item'       => __( 'Update Room Food and Drink', 'wpbooking' ),
+                'add_new_item'      => __( 'Add New Room Food and Drink', 'wpbooking' ),
+                'new_item_name'     => __( 'New Room Food and Drink Name', 'wpbooking' ),
+                'menu_name'         => __( 'Room Food and Drink', 'wpbooking' ),
+            );
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-room-food-drink' ),
+            );
+            register_taxonomy('wb_hotel_room_food_drink',array('wpbooking_service'),$args);
+
+            // Register Taxonomy
+            $labels = array(
+                'name'              => _x( 'Room Services & extras', 'taxonomy general name', 'wpbooking' ),
+                'singular_name'     => _x( 'Room Services & extras', 'taxonomy singular name', 'wpbooking' ),
+                'search_items'      => __( 'Search Room Services & extras', 'wpbooking' ),
+                'all_items'         => __( 'All Room Services & extras', 'wpbooking' ),
+                'parent_item'       => __( 'Parent Room Services & extras', 'wpbooking' ),
+                'parent_item_colon' => __( 'Parent Room Services & extras:', 'wpbooking' ),
+                'edit_item'         => __( 'Edit Room Services & extras', 'wpbooking' ),
+                'update_item'       => __( 'Update Room Services & extras', 'wpbooking' ),
+                'add_new_item'      => __( 'Add New Room Services & extras', 'wpbooking' ),
+                'new_item_name'     => __( 'New Room Services & extras Name', 'wpbooking' ),
+                'menu_name'         => __( 'Room Services & extras', 'wpbooking' ),
+            );
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-room-services-extra' ),
+            );
+            register_taxonomy('wb_hotel_room_services_extra',array('wpbooking_service'),$args);
+
+            // Register Taxonomy
+            $labels = array(
+                'name'              => _x( 'Room Outdoor & view', 'taxonomy general name', 'wpbooking' ),
+                'singular_name'     => _x( 'Room Outdoor & view', 'taxonomy singular name', 'wpbooking' ),
+                'search_items'      => __( 'Search Room Outdoor & view', 'wpbooking' ),
+                'all_items'         => __( 'All Room Outdoor & view', 'wpbooking' ),
+                'parent_item'       => __( 'Parent Room Outdoor & view', 'wpbooking' ),
+                'parent_item_colon' => __( 'Parent Room Outdoor & view:', 'wpbooking' ),
+                'edit_item'         => __( 'Edit Room Outdoor & view', 'wpbooking' ),
+                'update_item'       => __( 'Update Room Outdoor & view', 'wpbooking' ),
+                'add_new_item'      => __( 'Add New Room Outdoor & view', 'wpbooking' ),
+                'new_item_name'     => __( 'New Room Outdoor & view Name', 'wpbooking' ),
+                'menu_name'         => __( 'Room Outdoor & view', 'wpbooking' ),
+            );
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-room-outdoor-view' ),
+            );
+            register_taxonomy('wb_hotel_room_outdoor_view',array('wpbooking_service'),$args);
+            // Register Taxonomy
+            $labels = array(
+                'name'              => _x( 'Room Accessibility', 'taxonomy general name', 'wpbooking' ),
+                'singular_name'     => _x( 'Room Accessibility', 'taxonomy singular name', 'wpbooking' ),
+                'search_items'      => __( 'Search Room Accessibility', 'wpbooking' ),
+                'all_items'         => __( 'All Room Accessibility', 'wpbooking' ),
+                'parent_item'       => __( 'Parent Room Accessibility', 'wpbooking' ),
+                'parent_item_colon' => __( 'Parent Room Accessibility:', 'wpbooking' ),
+                'edit_item'         => __( 'Edit Room Accessibility', 'wpbooking' ),
+                'update_item'       => __( 'Update Room Accessibility', 'wpbooking' ),
+                'add_new_item'      => __( 'Add New Room Accessibility', 'wpbooking' ),
+                'new_item_name'     => __( 'New Room Accessibility Name', 'wpbooking' ),
+                'menu_name'         => __( 'Room Accessibility', 'wpbooking' ),
+            );
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-room-accessibility' ),
+            );
+            register_taxonomy('wb_hotel_room_accessibility',array('wpbooking_service'),$args);
+
+            // Register Taxonomy
+            $labels = array(
+                'name'              => _x( 'Room Entertainment & Family Services', 'taxonomy general name', 'wpbooking' ),
+                'singular_name'     => _x( 'Room Entertainment & Family Services', 'taxonomy singular name', 'wpbooking' ),
+                'search_items'      => __( 'Search Room Entertainment & Family Services', 'wpbooking' ),
+                'all_items'         => __( 'All Room Entertainment & Family Services', 'wpbooking' ),
+                'parent_item'       => __( 'Parent Room Entertainment & Family Services', 'wpbooking' ),
+                'parent_item_colon' => __( 'Parent Room Entertainment & Family Services:', 'wpbooking' ),
+                'edit_item'         => __( 'Edit Room Entertainment & Family Services', 'wpbooking' ),
+                'update_item'       => __( 'Update Room Entertainment & Family Services', 'wpbooking' ),
+                'add_new_item'      => __( 'Add New Room Entertainment & Family Services', 'wpbooking' ),
+                'new_item_name'     => __( 'New Room Entertainment & Family Services Name', 'wpbooking' ),
+                'menu_name'         => __( 'Room Entertainment & Family Services', 'wpbooking' ),
+            );
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array( 'slug' => 'hotel-room-entertainment-services' ),
+            );
+            register_taxonomy('wb_hotel_room_entertainment_services',array('wpbooking_service'),$args);
+
+
             // Metabox
             $this->set_metabox(array(
                 'general_tab'  => array(
