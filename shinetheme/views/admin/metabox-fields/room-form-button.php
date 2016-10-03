@@ -10,14 +10,14 @@ $data=wp_parse_args($data,array(
 	'next_label'=>esc_html__('Save & Next Step','wpbooking')
 ))
 ?>
-<div class="text-right wb-section-navigation clear" style="clear: both">
+<div class="text-right wb-section-navigation wb-room-form clear" style="clear: both">
 	<?php
 	if(!isset($data['prev']) or $data['prev']){
 		$class = 'full';
 		if(!isset($data['next']) or $data['next']){
 			$class = 'w50';
 		}
-		printf('<a href="#" class="button wb-prev-section %s">%s</a>',$class,esc_html__('Previous','wpbooking'));
+		printf('<a href="#" class="button wb-all-rooms %s">%s</a>',$class,esc_html__('All Rooms','wpbooking'));
 	}
 	if(!isset($data['next']) or $data['next']){
 		$class = 'full';
@@ -26,7 +26,7 @@ $data=wp_parse_args($data,array(
 		}
 
 		if($data['ajax_saving']) $class.=' ajax_saving';
-		printf('<a href="#" class="button wb-next-section %s">%s <i class="fa fa-spinner fa-pulse"></i></a>',$class,$data['next_label']);
+		printf('<a href="#" class="button wb-save-room %s">%s <i class="fa fa-spinner fa-pulse"></i></a>',$class,$data['next_label']);
 	}
 
 	?>

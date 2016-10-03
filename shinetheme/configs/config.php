@@ -57,66 +57,114 @@ $config['breakfast_types'] = array(
  * @author dungdt
  *
  */
-$config['lang_spoken_by_staff']=array(
-    "af"=>"Afrikaans",
-    "ar"=>"Arabic",
-    "az"=>"Azerbaijani",
-    "be"=>"Belarusian",
-    "bs"=>"Bosnian",
-    "bg"=>"Bulgarian",
-    "ca"=>"Catalan",
-    "zh"=>"Chinese",
-    "hr"=>"Croatian",
-    "cs"=>"Czech",
-    "da"=>"Danish",
-    "nl"=>"Dutch",
-    "en"=>"English",
-    "et"=>"Estonian",
-    "fa"=>"Farsi",
-    "tl"=>"Filipino",
-    "fi"=>"Finnish",
-    "fr"=>"French",
-    "ka"=>"Georgian",
-    "de"=>"German",
-    "el"=>"Greek",
-    "ha"=>"Hausa",
-    "he"=>"Hebrew",
-    "hi"=>"Hindi",
-    "hu"=>"Hungarian",
-    "is"=>"Icelandic",
-    "id"=>"Indonesian",
-    "ga"=>"Irish",
-    "it"=>"Italian",
-    "ja"=>"Japanese",
-    "km"=>"Khmer",
-    "ko"=>"Korean",
-    "lo"=>"Lao",
-    "lv"=>"Latvian",
-    "lt"=>"Lithuanian",
-    "mk"=>"Macedonian",
-    "ms"=>"Malay",
-    "mt"=>"Maltese",
-    "mo"=>"Moldovan",
-    "mn"=>"Mongolian",
-    "no"=>"Norwegian",
-    "pl"=>"Polish",
-    "pt"=>"Portuguese",
-    "ro"=>"Romanian",
-    "ru"=>"Russian",
-    "sr"=>"Serbian",
-    "sk"=>"Slovak",
-    "sl"=>"Slovenian",
-    "es"=>"Spanish",
-    "sw"=>"Swahili",
-    "sv"=>"Swedish",
-    "th"=>"Thai",
-    "tr"=>"Turkish",
-    "uk"=>"Ukrainian",
-    "ur"=>"Urdu",
-    "vi"=> "Vietnamese",
-    "cy"=>"Welsh",
-    "xh"=>"Xhosa",
-    "yo"=>"Yoruba",
-    "zu"=>"Zulu",
+$config['lang_spoken_by_staff'] = array(
+    "af" => "Afrikaans",
+    "ar" => "Arabic",
+    "az" => "Azerbaijani",
+    "be" => "Belarusian",
+    "bs" => "Bosnian",
+    "bg" => "Bulgarian",
+    "ca" => "Catalan",
+    "zh" => "Chinese",
+    "hr" => "Croatian",
+    "cs" => "Czech",
+    "da" => "Danish",
+    "nl" => "Dutch",
+    "en" => "English",
+    "et" => "Estonian",
+    "fa" => "Farsi",
+    "tl" => "Filipino",
+    "fi" => "Finnish",
+    "fr" => "French",
+    "ka" => "Georgian",
+    "de" => "German",
+    "el" => "Greek",
+    "ha" => "Hausa",
+    "he" => "Hebrew",
+    "hi" => "Hindi",
+    "hu" => "Hungarian",
+    "is" => "Icelandic",
+    "id" => "Indonesian",
+    "ga" => "Irish",
+    "it" => "Italian",
+    "ja" => "Japanese",
+    "km" => "Khmer",
+    "ko" => "Korean",
+    "lo" => "Lao",
+    "lv" => "Latvian",
+    "lt" => "Lithuanian",
+    "mk" => "Macedonian",
+    "ms" => "Malay",
+    "mt" => "Maltese",
+    "mo" => "Moldovan",
+    "mn" => "Mongolian",
+    "no" => "Norwegian",
+    "pl" => "Polish",
+    "pt" => "Portuguese",
+    "ro" => "Romanian",
+    "ru" => "Russian",
+    "sr" => "Serbian",
+    "sk" => "Slovak",
+    "sl" => "Slovenian",
+    "es" => "Spanish",
+    "sw" => "Swahili",
+    "sv" => "Swedish",
+    "th" => "Thai",
+    "tr" => "Turkish",
+    "uk" => "Ukrainian",
+    "ur" => "Urdu",
+    "vi" => "Vietnamese",
+    "cy" => "Welsh",
+    "xh" => "Xhosa",
+    "yo" => "Yoruba",
+    "zu" => "Zulu",
 
+);
+
+/**
+ * Hotel Room Type
+ *
+ * @since 1.0
+ * @author dungdt
+ */
+$config['hotel_room_type'] = array(
+    "single"           => esc_html__("Single", 'wpbooking'),
+    "double"           => esc_html__("Double", 'wpbooking'),
+    "twin"             => esc_html__("Twin", 'wpbooking'),
+    "twin-double"      => esc_html__("Twin/Double"),
+    "triple"           => esc_html__("Triple", 'wpbooking'),
+    "quadruple"        => esc_html__("Quadruple", 'wpbooking'),
+    "family"           => esc_html__("Family", 'wpbooking'),
+    "suite"            => esc_html__("Suite", 'wpbooking'),
+    "ftudio"           => esc_html__("Studio", 'wpbooking'),
+    "apartment"        => esc_html__("Apartment", 'wpbooking'),
+    "dormitory room"   => esc_html__("Dormitory room", 'wpbooking'),
+    "bed-in-dormitory" => esc_html__("Bed in Dormitory", 'wpbooking'),
+);
+/**
+ * Hotel Smoking policy
+ *
+ * @since 1.0
+ * @author dungdt
+ */
+$config['smoking_policy'] = array(
+    "non-smoking" => esc_html__("Non-smoking", 'wpbooking'),
+    "smoking"     => esc_html__("Smoking", 'wpbooking'),
+    'both'        => esc_html__('I have both smoking and non-smoking options for this room type', 'wpbooking')
+);
+
+/**
+ * Hotel Bed Type
+ *
+ * @since 1.0
+ * @author dungdt
+ */
+$config['bed_type'] = array(
+    "single-bed" => esc_html__("Single bed   /  90-130 cm wide", 'wpbooking'),
+    "double-bed" => esc_html__("Double bed  /  131-150 cm wide", 'wpbooking'),
+    "large-bed" => esc_html__("Large bed (King size) / 151-180 cm wide", 'wpbooking'),
+    "extra-large-bed" => esc_html__("Extra-large double bed (Super-king size) / 181-210 cm wide", 'wpbooking'),
+    "bunk-bed" => esc_html__("Bunk bed / Variable Size", 'wpbooking'),
+    "sofa-bed" => esc_html__("Sofa bed / Variable Size", 'wpbooking'),
+    "futon-mat" => esc_html__("Futon Mat / Variable Size", 'wpbooking'),
 );

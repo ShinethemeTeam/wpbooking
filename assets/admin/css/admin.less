@@ -1143,6 +1143,136 @@ img.settings-demo-image-gallery{
             }
         }
 
+        &.hotel_room_list{
+            .st-metabox-tab-content-wrap{
+                &.on-create{
+
+                }
+            }
+            margin:0px;
+            .field-label{
+                color: #666666;
+                font-weight: bold;
+                margin-bottom: 10px;
+                padding:0px;
+                font-size: 16px;
+            }
+            .field-desc{
+                color: @maincolor;
+                font-style: italic;
+            }
+
+            .wb-room-list{
+                padding: 30px 0px;
+                margin: 0px -15px;
+                margin-bottom: 30px;
+
+                .room-item{
+                    box-sizing: border-box;
+                    width: 25%;
+                    padding: 0px 15px;
+                    float: left;
+                    margin-bottom: 30px;
+
+                    .room-item-wrap{
+                        padding:10px 15px 30px;
+                        box-sizing: border-box;
+                        background: white;
+                        border:1px solid white;
+                        &:hover{
+                            border-color:@maincolor;
+                        }
+                        .room-remain{
+                            text-align: center;
+                            margin-bottom: 30px;
+                            span{
+                                background: #f7f7f7;
+                                display: inline-block;
+                                margin: 0px 5px;
+                                border:1px solid #e9e9e9;
+                                padding: 5px 13px;
+                                color: #666666;
+                                &.room-remain-count{
+                                    color: white;
+                                    background: #0073aa;
+                                    border-color: #0073aa;
+                                }
+                                &.no-left{
+                                    color: white;
+                                    background: #cc6666;
+                                    border-color: #cc6666;
+                                }
+                            }
+                        }
+                        .room-image{
+                            margin-bottom: 17px;
+                            img{
+                                width: 100%;
+                                height: auto;
+                            }
+                        }
+                        .room-type{
+                            margin:0px;
+                            padding:0px;
+                            color:#666;
+                            text-align: center;
+                            display: block;
+                            margin-bottom: 10px;
+                            font-size: 14px;
+                            font-weight: bold;
+                        }
+                        .room-actions{
+                            text-align: center;
+                            a{
+                                display: inline-block;
+                                color: #999999;
+                                margin: 0px 10px;
+                                border:1px solid #e9e9e9;
+                                padding: 5px 13px;
+                                &:hover{
+                                    color:white;
+                                    background: @maincolor;
+                                    border-color: @maincolor;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .wp-room-actions{
+                margin-bottom: 30px;
+                display: table;
+                width: 100%;
+                >div{
+                    display: table-cell;
+                }
+                .room-create{
+                    width: 35%;
+                    padding-left: 30px;
+                    a{
+                        display: block;
+                        background: white;
+                        color: @maincolor;
+                        font-weight: bold;
+                        border:1px solid @maincolor;
+                        padding: 15px;
+                        text-align: center;
+                        text-decoration: none;
+                        &:hover{
+                            background: @maincolor;
+                            color: white;
+                        }
+                    }
+                }
+                .room-count{
+                    background: #f1f1f1;
+                    padding: 15px;
+                    color: #666666;
+                }
+            }
+        }
+
+
         @media(max-width: 1100px){
             .st-metabox-left{
                 width: 100%;
@@ -1159,6 +1289,28 @@ img.settings-demo-image-gallery{
             }
         }
     }
+
+
+    // Edit Room
+    position: relative;
+    &.on-create{
+        .hotel_room_list,>.wb-section-navigation{
+            display: none;
+        }
+        &.loading{
+            &:before{
+                content: "";
+                position: absolute;
+                top:0px;
+                left:0px;
+                right:0px;
+                bottom:0px;
+                z-index: 101;
+                background: rgba(0,0,0,0.6);
+            }
+        }
+    }
+
     .wpbooking-form-group-gallery{
         margin-bottom: 18px;
         margin-top: 20px;

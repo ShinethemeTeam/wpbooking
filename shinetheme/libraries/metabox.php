@@ -490,20 +490,20 @@ if (!class_exists('WPBooking_Metabox')) {
                                 }
                             }else{
                                 foreach($list_room as $k2=>$v2){
-                                    $data_meta = get_post_meta($v2->ID,'taxonomy_room',true);
+                                    $data_meta = get_post_meta($v2['ID'],'taxonomy_room',true);
                                     if(empty($data_meta)) $data_meta = array();
                                     $data_meta[$k] = '';
-                                    update_post_meta($v2->ID,'taxonomy_room',$data_meta);
+                                    update_post_meta($v2['ID'],'taxonomy_room',$data_meta);
                                 }
                             }
                         }
                     }else{
                         wp_set_post_terms($post_id, array(0), $k);
                         foreach($list_room as $k2=>$v2){
-                            $data_meta = get_post_meta($v2->ID,'taxonomy_room',true);
+                            $data_meta = get_post_meta($v2['ID'],'taxonomy_room',true);
                             if(empty($data_meta)) $data_meta = array();
                             $data_meta[$k] = '';
-                            update_post_meta($v2->ID,'taxonomy_room',$data_meta);
+                            update_post_meta($v2['ID'],'taxonomy_room',$data_meta);
                         }
                     }
                 }

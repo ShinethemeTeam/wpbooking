@@ -949,11 +949,18 @@ jQuery(document).ready(function( $ ){
         var next_a,section;
         next_a=$('.st-metabox-nav li.ui-state-active').next().find('a');
         section=$(this).closest('.st-metabox-tabs-content');
-        saveMetaboxSection(section,$(this),function(){
-            next_a.trigger('click');
-            var h=$('#st_post_metabox').offset().top;
+
+
+        if($(this).hasClass('ajax_saving')){
+            saveMetaboxSection(section,$(this),function(){
+                next_a.trigger('click');
+                var h=$('#st_post_metabox').offset().top;
+                $('html,body').animate({'scrollTop':parseInt(h)-200});
+            });
+        }else{
             $('html,body').animate({'scrollTop':parseInt(h)-200});
-        });
+        }
+
 
         return false;
     });
@@ -1309,5 +1316,95 @@ jQuery(document).ready(function( $ ){
             container.find('.content-metabox').removeClass('no-active');
         }
     });
+
+    // Create Room
+    $(document).on('click','.hotel_room_list .create-room',function(){
+        var parent=$(this).closest('.st-metabox-tab-content-wrap');
+        showRoomForm(parent,0,$(this).data('hotel-id'));
+        return false;
+    });
+
+    // Room Edit
+    $(document).on('click','.hotel_room_list .room-edit',function(){
+        var parent=$(this).closest('.st-metabox-tab-content-wrap');
+        var room_id=$(this).data('room_id');
+        showRoomForm(parent,room_id);
+        return false;
+    });
+
+    // To All Rooms
+    $(document).on('click','.wb-room-form .wb-all-rooms',function(){
+        var parent=$(this).closest('.st-metabox-tab-content-wrap');
+        var room_form=parent.find('.wpbooking-hotel-room-form');
+        room_form.html('');
+        parent.removeClass('on-create');
+        return false;
+    });
+
+    // Save Room Data
+    $(document).on('click','.wb-room-form .wb-save-room',function(){
+        var parent=$(this).closest('.st-metabox-tab-content-wrap');
+        var room_form=$(this).closest('.wpbooking-hotel-room-form');
+        var data=room_form.find('input,select,textarea').serialize();
+        data+='&action=wpbooking_save_hotel_room';
+        parent.addClass('on-loading');
+
+        $.ajax({
+            type:'post',
+            data:data,
+            dataType:'json',
+            url:wpbooking_params.ajax_url,
+            success:function(res){
+                parent.removeClass('on-loading');
+                if(res.status){
+                    // Go to All Rooms
+                    room_form.html('');
+                    parent.removeClass('on-create');
+                }else{
+                    alert(res.message);
+                }
+            },
+            error:function(e){
+                parent.removeClass('on-loading');
+                console.log(e.responseText);
+            }
+        });
+        return false;
+    });
+
+
+    function showRoomForm(parent,room_id,hotel_id) {
+        var room_form=parent.find('.wpbooking-hotel-room-form');
+        parent.addClass('on-loading');
+
+        if(room_id===undefined) room_id=0;
+        if(hotel_id===undefined) hotel_id=0;
+
+        $.ajax({
+            url:wpbooking_params.ajax_url,
+            dataType:'json',
+            type:'post',
+            data:{
+                action:'wpbooking_show_room_form',
+                room_id:room_id,
+                hotel_id:hotel_id
+            },
+            success:function(res){
+                parent.removeClass('on-loading');
+                if(res.status){
+                    room_form.html(res.html);
+                    parent.addClass('on-create');
+                    $(window).trigger('wpbooking_show_room_form',room_form);
+                }
+
+                if(res.message){ alert(res.message);}
+            },
+            error:function(e){
+                console.log(e.responseText);
+                parent.removeClass('on-loading');
+            }
+
+        })
+    }
 
 });
