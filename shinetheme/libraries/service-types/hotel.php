@@ -1700,9 +1700,25 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             }
         }
 
-        static function _get_room_by_hotel($post_id){
+        function _get_room_by_hotel($post_id){
             if(empty($post_id)) return;
             global $wpdb;
+            $list = array();
+            $args = array(
+                'post_type'=>'wpbooking_hotel_room',
+                'post_parent'=>$post_id,
+                'posts_per_page'=>200,
+                'post_status'=>array( 'pending', 'draft', 'future', 'publish' ),
+            );
+            $my_query = new WP_Query( $args );
+            if ( $my_query->have_posts() ) {
+                while ( $my_query->have_posts() ) {
+                    $my_query->the_post();
+                    $list[] = array('ID' => get_the_ID(),'post_title'=>get_the_title());
+                }
+            }
+            wp_reset_postdata();
+            return $list;
             $sql = "SELECT ID,post_title
                     FROM
                     {$wpdb->posts}

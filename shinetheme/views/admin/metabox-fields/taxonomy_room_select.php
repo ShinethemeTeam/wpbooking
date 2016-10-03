@@ -11,10 +11,8 @@ if(!empty($data['condition'])){
 }
 $class.=' width-'.$data['width'];
 if(!empty($data['container_class'])) $class.=' '.$data['container_class'];
-
-$list_room = WPBooking_Hotel_Service_Type::_get_room_by_hotel(get_the_ID());
-
-$my_term =wp_get_post_terms(get_the_ID(),$data['taxonomy']);
+$list_room = WPBooking_Hotel_Service_Type::inst()->_get_room_by_hotel($post_id);
+$my_term =wp_get_post_terms($post_id,$data['taxonomy']);
 ?>
 <div class="wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
     <div class="st-metabox-left">
@@ -39,8 +37,8 @@ $my_term =wp_get_post_terms(get_the_ID(),$data['taxonomy']);
                                         if($v->term_id == $term->term_id){
                                             $checked = 'checked="checked"';
                                             if(empty($checked_custom)){
-                                                foreach($list_room as $k=>$v){
-                                                    $data_taxonomy = get_post_meta($v->ID,'taxonomy_room',true);
+                                                foreach($list_room as $k2=>$v2){
+                                                    $data_taxonomy = get_post_meta($v2['ID'],'taxonomy_room',true);
                                                     if(!empty($data_taxonomy[$data['taxonomy']])){
                                                         if(in_array($term->term_id,$data_taxonomy[$data['taxonomy']])){
                                                             $checked_custom = 'checked="checked"';
@@ -68,7 +66,7 @@ $my_term =wp_get_post_terms(get_the_ID(),$data['taxonomy']);
                                                 <?php
                                                 if(!empty($list_room)){
                                                     foreach($list_room as $k=>$v){
-                                                        $data_taxonomy = get_post_meta($v->ID,'taxonomy_room',true);
+                                                        $data_taxonomy = get_post_meta($v['ID'],'taxonomy_room',true);
                                                         $checked_post = '';
                                                         if(!empty($data_taxonomy[$data['taxonomy']])){
                                                             if(in_array($term->term_id,$data_taxonomy[$data['taxonomy']])){
@@ -77,12 +75,14 @@ $my_term =wp_get_post_terms(get_the_ID(),$data['taxonomy']);
                                                         }
                                                         ?>
                                                         <p>
-                                                            <label><input class="item_post" <?php echo esc_html($checked_post) ?> name="<?php echo esc_attr($data['id']) ?>[<?php echo esc_attr($i) ?>][post_id][]" value="<?php echo esc_html($v->ID) ?>" type="checkbox"><?php echo esc_html($v->post_title) ?></label>
+                                                            <label><input class="item_post" <?php echo esc_html($checked_post) ?> name="<?php echo esc_attr($data['id']) ?>[<?php echo esc_attr($i) ?>][post_id][]" value="<?php echo esc_html($v['ID']) ?>" type="checkbox"><?php echo esc_html($v['post_title']) ?></label>
                                                         </p>
                                                         <?php
                                                     }
                                                 }else{
-                                                    esc_html_e("<p>No Data</p>",'wpbooking');
+                                                    ?>
+                                                    <p><?php esc_html_e("No Data",'wpbooking'); ?></p>
+                                                    <?php
                                                 }
                                                 ?>
                                             </div>
