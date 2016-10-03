@@ -175,6 +175,80 @@ jQuery(document).ready(function( $ ){
         });
     });
     ///////////////////////////////////
+    /////// MEDIA GALLERY HOTEL/////////////
+    ///////////////////////////////////
+    jQuery(document).ready(function($){
+        $("body").on('click','.btn_remove_gallery_hotel',function(){
+            var container = $(this).parent().parent();
+            container.find('.fg_metadata').val('');
+            container.find('.gallery-item').hide();
+        });
+
+        $('.gallery-item-btn.gallery-item-remove').each(function(){
+            $(this).click(function(){
+                var wn = confirm('Do you want delete this image?');
+                if(wn == true) {
+                    $(this).parent().parent().hide();
+                }
+            });
+        });
+
+        var file_frame;
+        $('body').on('click','.btn_upload_gallery_hotel',function (event) {
+            var container = $(this).parent().parent();
+            console.log(container);
+            event.preventDefault();
+            // If the media frame already exists, reopen it.
+            if ( file_frame ) {
+                file_frame.open();
+                return;
+            }
+            // Create the media frame.
+            file_frame = wp.media.frame = wp.media({
+                frame: "post",
+                state: "gallery",
+                library : { type : 'image'},
+                // button: {text: "Edit Image Order"},
+                multiple: true
+            });
+            file_frame.on('open', function() {
+                var selection = file_frame.state().get('selection');
+                var ids = container.find('.fg_metadata').val();
+                if (ids) {
+                    idsArray = ids.split(',');
+                    idsArray.forEach(function(id) {
+                        attachment = wp.media.attachment(id);
+                        attachment.fetch();
+                        selection.add( attachment ? [ attachment ] : [] );
+                    });
+                }
+            });
+            // When an image is selected, run a callback.
+            file_frame.on('update', function() {
+                var imageIDArray = [];
+                var imageHTML = '';
+                var metadataString = '';
+                images = file_frame.state().get('library');
+                images.each(function(attachment) {
+                    imageIDArray.push(attachment.attributes.id);
+                    console.log(attachment.attributes);
+                    imageHTML += '<div class="gallery-item">';
+                    imageHTML += '<img class="demo-image-gallery settings-demo-image-gallery" src="'+attachment.attributes.sizes.thumbnail.url+'">';
+                    imageHTML += '<div class="gallery-item-control text-center"><a href="javascript:void(0)" class="gallery-item-btn gallery-item-edit"><i class="fa fa-pencil-square-o"></i></a><a href="javascript:void(0)" class="gallery-item-btn gallery-item-remove"><i class="fa fa-trash"></i></a></div>';
+                    imageHTML += '</div>';
+                });
+
+                metadataString = imageIDArray.join(",");
+                if (metadataString) {
+                    $('.fg_metadata',container).val(metadataString);
+                    $('.featuredgallerydiv',container).html(imageHTML).show();
+                    console.log($('.featuredgallerydiv',container).html());
+                }
+            });
+            file_frame.open();
+        });
+    });
+    ///////////////////////////////////
     /////// MEDIA IMAGE ///////////////
     ///////////////////////////////////
     jQuery(document).ready(function($){
@@ -750,11 +824,18 @@ jQuery(document).ready(function( $ ){
         var next_a,section;
         next_a=$('.st-metabox-nav li.ui-state-active').next().find('a');
         section=$(this).closest('.st-metabox-tabs-content');
-        saveMetaboxSection(section,$(this),function(){
-            next_a.trigger('click');
-            var h=$('#st_post_metabox').offset().top;
+
+
+        if($(this).hasClass('ajax_saving')){
+            saveMetaboxSection(section,$(this),function(){
+                next_a.trigger('click');
+                var h=$('#st_post_metabox').offset().top;
+                $('html,body').animate({'scrollTop':parseInt(h)-200});
+            });
+        }else{
             $('html,body').animate({'scrollTop':parseInt(h)-200});
-        });
+        }
+
 
         return false;
     });
@@ -1110,5 +1191,95 @@ jQuery(document).ready(function( $ ){
             container.find('.content-metabox').removeClass('no-active');
         }
     });
+
+    // Create Room
+    $(document).on('click','.hotel_room_list .create-room',function(){
+        var parent=$(this).closest('.st-metabox-tab-content-wrap');
+        showRoomForm(parent,0,$(this).data('hotel-id'));
+        return false;
+    });
+
+    // Room Edit
+    $(document).on('click','.hotel_room_list .room-edit',function(){
+        var parent=$(this).closest('.st-metabox-tab-content-wrap');
+        var room_id=$(this).data('room_id');
+        showRoomForm(parent,room_id);
+        return false;
+    });
+
+    // To All Rooms
+    $(document).on('click','.wb-room-form .wb-all-rooms',function(){
+        var parent=$(this).closest('.st-metabox-tab-content-wrap');
+        var room_form=parent.find('.wpbooking-hotel-room-form');
+        room_form.html('');
+        parent.removeClass('on-create');
+        return false;
+    });
+
+    // Save Room Data
+    $(document).on('click','.wb-room-form .wb-save-room',function(){
+        var parent=$(this).closest('.st-metabox-tab-content-wrap');
+        var room_form=$(this).closest('.wpbooking-hotel-room-form');
+        var data=room_form.find('input,select,textarea').serialize();
+        data+='&action=wpbooking_save_hotel_room';
+        parent.addClass('on-loading');
+
+        $.ajax({
+            type:'post',
+            data:data,
+            dataType:'json',
+            url:wpbooking_params.ajax_url,
+            success:function(res){
+                parent.removeClass('on-loading');
+                if(res.status){
+                    // Go to All Rooms
+                    room_form.html('');
+                    parent.removeClass('on-create');
+                }else{
+                    alert(res.message);
+                }
+            },
+            error:function(e){
+                parent.removeClass('on-loading');
+                console.log(e.responseText);
+            }
+        });
+        return false;
+    });
+
+
+    function showRoomForm(parent,room_id,hotel_id) {
+        var room_form=parent.find('.wpbooking-hotel-room-form');
+        parent.addClass('on-loading');
+
+        if(room_id===undefined) room_id=0;
+        if(hotel_id===undefined) hotel_id=0;
+
+        $.ajax({
+            url:wpbooking_params.ajax_url,
+            dataType:'json',
+            type:'post',
+            data:{
+                action:'wpbooking_show_room_form',
+                room_id:room_id,
+                hotel_id:hotel_id
+            },
+            success:function(res){
+                parent.removeClass('on-loading');
+                if(res.status){
+                    room_form.html(res.html);
+                    parent.addClass('on-create');
+                    $(window).trigger('wpbooking_show_room_form',room_form);
+                }
+
+                if(res.message){ alert(res.message);}
+            },
+            error:function(e){
+                console.log(e.responseText);
+                parent.removeClass('on-loading');
+            }
+
+        })
+    }
 
 });
