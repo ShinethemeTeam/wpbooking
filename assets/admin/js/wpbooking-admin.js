@@ -177,6 +177,84 @@ jQuery(document).ready(function( $ ){
     ///////////////////////////////////
     /////// MEDIA GALLERY HOTEL/////////////
     ///////////////////////////////////
+    var modal = (function(){
+        var
+            method = {},
+            $overlay,
+            $modal,
+            $content,
+            $content_image,
+            $content_rooms,
+            $close,
+            $title;
+
+        // Center the modal in the viewport
+        method.center = function () {
+            var top, left;
+
+            top = Math.max($(window).height() - $modal.outerHeight(), 0) / 2;
+            left = Math.max($(window).width() - $modal.outerWidth(), 0) / 2;
+
+            $modal.css({
+                top:top + $(window).scrollTop(),
+                left:left + $(window).scrollLeft()
+            });
+        };
+
+        // Open the modal
+        method.open = function (settings) {
+            $title.empty().append(settings.title);
+            $content_image.children().empty().append(settings.content_image);
+            $content_rooms.find('.content_rooms').empty().append(settings.content_rooms);
+            $content.attr('data-id',settings.img_id);
+            $content.find('.del-image-perman').children().empty().append(settings.title_delete);
+
+            $modal.css({
+                width: settings.width || 'auto',
+                height: settings.height || 'auto'
+            });
+
+            method.center();
+            $(window).bind('resize.modal', method.center);
+            $modal.show();
+            $overlay.show();
+        };
+
+        // Close the modal
+        method.close = function () {
+            $modal.hide();
+            $overlay.hide();
+            $content_rooms.find('.content_rooms').empty();
+            $content.find('.del-image-perman').children().empty();
+            $(window).unbind('resize.modal');
+        };
+
+        // Generate the HTML and add it to the document
+        $overlay = $('<div id="overlay"></div>');
+        $modal = $('<div class="modal_image"></div>');
+        $content = $('<div class="content_detail"></div>');
+        $content_image = $('<div class="content_left"><div class="content_image"></div></div>');
+        $content_rooms = $('<div class="content_right" data-id=""><div class="content_rooms"></div><div class="del-image-perman"><a class="st_delete_attachment" href="javascript:void(0)"></a></div></div>');
+        $close = $('<a class="media-modal-close close_modal" href="#"><span class="media-modal-icon"></span></a>');
+        $title = $('<h3 class="title_popup"></h3>');
+
+        $modal.hide();
+        $overlay.hide();
+        $content.append($content_image ,$content_rooms);
+        $modal.append($title ,$content, $close);
+
+        $(document).ready(function(){
+            $('body').append($overlay, $modal);
+        });
+
+        $close.click(function(e){
+            e.preventDefault();
+            method.close();
+        });
+
+        return method;
+    }());
+
     jQuery(document).ready(function($){
         $("body").on('click','.btn_remove_gallery_hotel',function(){
             var container = $(this).parent().parent();
@@ -184,12 +262,59 @@ jQuery(document).ready(function( $ ){
             container.find('.gallery-item').hide();
         });
 
-        $('.gallery-item-btn.gallery-item-remove').each(function(){
-            $(this).click(function(){
-                var wn = confirm('Do you want delete this image?');
+        $("body").on('click','.st_delete_attachment',function(){
+            var img_id = $(this).closest('.content_detail').data('id');
+            console.log(img_id);
+            $.ajax({
+                url: wpbooking_params.ajax_url,
+                dataType: 'json',
+                type:'post',
+                data: {
+                    action: 'wpbooking_delete_attachment',
+                    img_id : img_id,
+                },
+                success: function(res){
+                    modal.close();
+                    console.log(res);
+                },
+                error:function(e){
+                    alert('Can not get the order data. Lost connect with your sever');
+                    console.log(e);
+                }
+            });
+        });
+
+        $("body").on('click','.gallery-item-btn.gallery-item-remove',function(){
+                var t = $(this);
+                var domain = t.parent().parent().parent().data('domain');
+                var domain_arr = domain.split(',');
+                var wn = confirm(domain_arr[0]);
                 if(wn == true) {
+                    var images = $('#fg_metadata').attr('value');
+                    var img_arr = images.split(',');
+                    img_arr = jQuery.grep(img_arr, function( a ) {
+                        return a != t.data('id');
+                    });
+                    t.parent().parent().parent().parent().find('.fg_metadata').val(img_arr.join(','));
                     $(this).parent().parent().hide();
                 }
+        });
+
+
+        $("body").on('click','.gallery-item-btn.gallery-item-edit',function(){
+            var domain = $(this).parent().parent().parent().data('domain');
+            var domain_arr = domain.split(',');
+            var title = domain_arr[1];
+            var url = $(this).data('url');
+            var list_room = "<div class='full-width mb10'><label><input type='checkbox' name='single-room'/> Single Room</label></div>";
+            list_room += "<div class='full-width mb10'><label><input type='checkbox' name='single-room'/> Double Room</label></div>";
+            modal.open({
+                width:1200,
+                title : title,
+                content_image: "<img data-id='' src='"+url+"' />",
+                content_rooms: "<h3 class='title_list_room'>"+domain_arr[2]+"</h3>"+list_room,
+                title_delete : domain_arr[3],
+                img_id :$(this).data('id')
             });
         });
 
@@ -234,7 +359,7 @@ jQuery(document).ready(function( $ ){
                     console.log(attachment.attributes);
                     imageHTML += '<div class="gallery-item">';
                     imageHTML += '<img class="demo-image-gallery settings-demo-image-gallery" src="'+attachment.attributes.sizes.thumbnail.url+'">';
-                    imageHTML += '<div class="gallery-item-control text-center"><a href="javascript:void(0)" class="gallery-item-btn gallery-item-edit"><i class="fa fa-pencil-square-o"></i></a><a href="javascript:void(0)" class="gallery-item-btn gallery-item-remove"><i class="fa fa-trash"></i></a></div>';
+                    imageHTML += '<div class="gallery-item-control text-center"><a href="javascript:void(0)" class="gallery-item-btn gallery-item-edit" data-url="'+attachment.attributes.sizes.full.url+'" data-id="'+attachment.attributes.id+'"><i class="fa fa-pencil-square-o"></i></a><a href="javascript:void(0)" class="gallery-item-btn gallery-item-remove" data-id="'+attachment.attributes.id+'"><i class="fa fa-trash"></i></a></div>';
                     imageHTML += '</div>';
                 });
 

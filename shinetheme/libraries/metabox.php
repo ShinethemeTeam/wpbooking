@@ -31,6 +31,14 @@ if (!class_exists('WPBooking_Metabox')) {
              */
             add_action('wp_ajax_wpbooking_save_metabox_section',array($this,'_save_metabox_section'));
 
+            /**
+             * Ajax Delete Permanently Attachment
+             *
+             * @since 1.0
+             *
+             */
+            add_action('wp_ajax_wpbooking_delete_attachment',array($this,'_delete_p_attachment'));
+
         }
 
         /**
@@ -90,6 +98,16 @@ if (!class_exists('WPBooking_Metabox')) {
             echo json_encode($res);
             wp_die();
 
+        }
+        function _delete_p_attachment(){
+            $res = array('status'=>0);
+            $img_id = WPBooking_Input::post('img_id');
+            if(!empty($img_id)){
+                wp_delete_attachment($img_id,true);
+                $res['status'] = 1;
+            }
+            echo json_encode($res);
+            wp_die();
         }
 
         function _do_save_section($post_data){

@@ -160,7 +160,7 @@ img.settings-demo-gallery{
     margin-left: -15px;
     margin-right: -15px;
     display: inline-block;
-    width: 100%;
+    width: ~"calc(100% + 15px)";
     clear: both;
     .gallery-item{
         width: 20%;
@@ -189,6 +189,88 @@ img.settings-demo-gallery{
     //.gallery-item:nth-child(5n+6){
     //    clear: both;
     //}
+}
+
+#overlay {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#000;
+    opacity:0.5;
+    filter:alpha(opacity=50);
+}
+
+.modal_image {
+    position:absolute;
+    background:rgba(0,0,0,0.2);
+
+    .title_popup{
+        background: #FFF;
+        font-size: 22px;
+        padding: 15px;
+        margin: 0;
+        color: #232323;
+        border-bottom: 1px solid #ccc;
+    }
+    .content_detail {
+        background:#fff;
+        display: inline-flex;
+        .content_left{
+            width: 70%;
+            float: left;
+            .content_image{
+                padding: 15px;
+                img{
+                    width: 100%;
+                }
+            }
+        }
+        .content_right{
+            width: 30%;
+            float: left;
+            background: #f3f3f3;
+            position: relative;
+            .content_rooms{
+                padding: 15px;
+            }
+            .del-image-perman a{
+                position: absolute;
+                bottom: 40px;
+                left: 15px;
+                color: #bc0b0b;
+                font-size: 12px;
+                text-decoration: none;
+            }
+        }
+    }
+
+    .close_modal {
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        display: block;
+        top: 0;
+        right: 0;
+        color: #232323;
+        text-align: center;
+        line-height: 3.4;
+        border-left: 1px solid #ccc;
+        text-decoration: none;
+        &:hover{
+            color: #000000;
+        }
+    }
+
+}
+
+
+
+
+.st-metabox-full{
+    padding-left: 15px;
+    padding-right: 15px;
 }
 img.settings-demo-image-gallery{
     width: 100%;

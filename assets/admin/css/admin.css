@@ -345,7 +345,7 @@ img.settings-demo-gallery {
   margin-left: -15px;
   margin-right: -15px;
   display: inline-block;
-  width: 100%;
+  width: calc(100% + 15px);
   clear: both;
 }
 .gallery-row .gallery-item {
@@ -371,6 +371,79 @@ img.settings-demo-gallery {
   background: #ec8223;
   color: #FFFFFF;
   border-color: #ec8223;
+}
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+.modal_image {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.2);
+}
+.modal_image .title_popup {
+  background: #FFF;
+  font-size: 22px;
+  padding: 15px;
+  margin: 0;
+  color: #232323;
+  border-bottom: 1px solid #ccc;
+}
+.modal_image .content_detail {
+  background: #fff;
+  display: inline-flex;
+}
+.modal_image .content_detail .content_left {
+  width: 70%;
+  float: left;
+}
+.modal_image .content_detail .content_left .content_image {
+  padding: 15px;
+}
+.modal_image .content_detail .content_left .content_image img {
+  width: 100%;
+}
+.modal_image .content_detail .content_right {
+  width: 30%;
+  float: left;
+  background: #f3f3f3;
+  position: relative;
+}
+.modal_image .content_detail .content_right .content_rooms {
+  padding: 15px;
+}
+.modal_image .content_detail .content_right .del-image-perman a {
+  position: absolute;
+  bottom: 40px;
+  left: 15px;
+  color: #bc0b0b;
+  font-size: 12px;
+  text-decoration: none;
+}
+.modal_image .close_modal {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  display: block;
+  top: 0;
+  right: 0;
+  color: #232323;
+  text-align: center;
+  line-height: 3.4;
+  border-left: 1px solid #ccc;
+  text-decoration: none;
+}
+.modal_image .close_modal:hover {
+  color: #000000;
+}
+.st-metabox-full {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 img.settings-demo-image-gallery {
   width: 100%;

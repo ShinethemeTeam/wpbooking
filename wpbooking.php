@@ -59,6 +59,8 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 
             add_action('activated_plugin', array($this, '_activation_redirect'));
 
+
+
         }
 
         function _activation_redirect($plugin)
@@ -68,7 +70,6 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
                 if ($is_setup_demo == "true") {
                     exit(wp_redirect(add_query_arg(array('page' => 'wpbooking_setup_page_settings'), admin_url("admin.php"))));
                 }
-
             }
         }
 
