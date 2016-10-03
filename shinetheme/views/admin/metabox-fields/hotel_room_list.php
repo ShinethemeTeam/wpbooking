@@ -31,7 +31,7 @@ $field = '';
 $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html($data['id']);
 
 $query = new WP_Query(array(
-    //'post_parent'    => get_the_ID(),
+    'post_parent'    => $post_id,
     'posts_per_page' => 200,
     'post_type'=>'wpbooking_hotel_room'
 ))
@@ -56,20 +56,23 @@ $query = new WP_Query(array(
                             </div>
                             <h3 class="room-type"><?php the_title()?></h3>
                             <div class="room-actions">
-                                <a href="#" class="room-edit"><i class="fa fa-pencil-square-o"></i></a>
+                                <a href="#" data-room_id="<?php the_ID()?>" class="room-edit"><i class="fa fa-pencil-square-o"></i></a>
                                 <a href="#" class="room-delete"><i class="fa fa-trash"></i></a>
                             </div>
                         </div>
                     </div>
                     <?php
-                } ?>
+                }
+                wp_reset_postdata();
+                ?>
             </div>
             <div class="wp-room-actions">
                 <div class="room-count"><?php printf(__('There are %s in your listing','wpbooking'),$query->found_posts?'<span class="n">'.$query->found_posts.'</span> <b>'.esc_html__('rooms','wpbooking').'</b>':'<b>'.esc_html__('no room','wpbooking').'</b>'); ?></div>
                 <div class="room-create">
-                    <a href="#" class="create-room"><?php esc_html_e('Create Room','wpbooking') ?></a>
+                    <a href="#" data-hotel-id="<?php echo esc_attr($post_id)?> " class="create-room"><?php esc_html_e('Create Room','wpbooking') ?></a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="wpbooking-hotel-room-form"></div>

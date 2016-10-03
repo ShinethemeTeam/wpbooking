@@ -1101,6 +1101,9 @@ img.settings-demo-image-gallery {
   height: 70px;
   overflow: hidden;
 }
+.st-metabox-tab-content-wrap {
+  position: relative;
+}
 .st-metabox-tab-content-wrap * {
   box-sizing: border-box;
 }
@@ -1220,6 +1223,8 @@ img.settings-demo-image-gallery {
   box-sizing: border-box;
   width: 25%;
   padding: 0px 15px;
+  float: left;
+  margin-bottom: 30px;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group.hotel_room_list .wb-room-list .room-item .room-item-wrap {
   padding: 10px 15px 30px;
@@ -1329,6 +1334,20 @@ img.settings-demo-image-gallery {
     width: 100%;
     margin-right: 0px;
   }
+}
+.st-metabox-tab-content-wrap.on-create .hotel_room_list,
+.st-metabox-tab-content-wrap.on-create > .wb-section-navigation {
+  display: none;
+}
+.st-metabox-tab-content-wrap.on-create.loading:before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 101;
+  background: rgba(0, 0, 0, 0.6);
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group-gallery {
   margin-bottom: 18px;

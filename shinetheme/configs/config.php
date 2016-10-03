@@ -128,17 +128,43 @@ $config['lang_spoken_by_staff'] = array(
  * @author dungdt
  */
 $config['hotel_room_type'] = array(
-    "single"           => esc_html__("Single",'wpbooking'),
-    "double"           => esc_html__("Double",'wpbooking'),
-    "twin"             => esc_html__("Twin",'wpbooking'),
+    "single"           => esc_html__("Single", 'wpbooking'),
+    "double"           => esc_html__("Double", 'wpbooking'),
+    "twin"             => esc_html__("Twin", 'wpbooking'),
     "twin-double"      => esc_html__("Twin/Double"),
-    "triple"           => esc_html__("Triple",'wpbooking'),
-    "quadruple"        => esc_html__("Quadruple",'wpbooking'),
-    "family"           => esc_html__("Family",'wpbooking'),
-    "suite"            => esc_html__("Suite",'wpbooking'),
-    "ftudio"           => esc_html__("Studio",'wpbooking'),
-    "apartment"        => esc_html__("Apartment",'wpbooking'),
-    "dormitory room"   => esc_html__("Dormitory room",'wpbooking'),
-    "bed-in-dormitory" => esc_html__("Bed in Dormitory",'wpbooking'),
+    "triple"           => esc_html__("Triple", 'wpbooking'),
+    "quadruple"        => esc_html__("Quadruple", 'wpbooking'),
+    "family"           => esc_html__("Family", 'wpbooking'),
+    "suite"            => esc_html__("Suite", 'wpbooking'),
+    "ftudio"           => esc_html__("Studio", 'wpbooking'),
+    "apartment"        => esc_html__("Apartment", 'wpbooking'),
+    "dormitory room"   => esc_html__("Dormitory room", 'wpbooking'),
+    "bed-in-dormitory" => esc_html__("Bed in Dormitory", 'wpbooking'),
+);
+/**
+ * Hotel Smoking policy
+ *
+ * @since 1.0
+ * @author dungdt
+ */
+$config['smoking_policy'] = array(
+    "non-smoking" => esc_html__("Non-smoking", 'wpbooking'),
+    "smoking"     => esc_html__("Smoking", 'wpbooking'),
+    'both'        => esc_html__('I have both smoking and non-smoking options for this room type', 'wpbooking')
 );
 
+/**
+ * Hotel Bed Type
+ *
+ * @since 1.0
+ * @author dungdt
+ */
+$config['bed_type'] = array(
+    "single-bed" => esc_html__("Single bed   /  90-130 cm wide", 'wpbooking'),
+    "double-bed" => esc_html__("Double bed  /  131-150 cm wide", 'wpbooking'),
+    "large-bed" => esc_html__("Large bed (King size) / 151-180 cm wide", 'wpbooking'),
+    "extra-large-bed" => esc_html__("Extra-large double bed (Super-king size) / 181-210 cm wide", 'wpbooking'),
+    "bunk-bed" => esc_html__("Bunk bed / Variable Size", 'wpbooking'),
+    "sofa-bed" => esc_html__("Sofa bed / Variable Size", 'wpbooking'),
+    "futon-mat" => esc_html__("Futon Mat / Variable Size", 'wpbooking'),
+);
