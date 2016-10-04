@@ -1397,6 +1397,7 @@ jQuery(document).ready(function( $ ){
                 parent.removeClass('on-loading');
                 if(res.status){
                     room_form.html(res.html);
+                    filterRoomName();
                     parent.addClass('on-create');
                     $(window).trigger('wpbooking_show_room_form',room_form);
                 }
@@ -1410,5 +1411,16 @@ jQuery(document).ready(function( $ ){
 
         })
     }
+    $(document).on('change','#room_type',function(){
+        filterRoomName();
+    });
+
+
+
+    function filterRoomName(){
+        var parent=$('#room_type').val();
+        $('#room_name option[parent='+parent+']').show().siblings().hide();
+    }
+
 
 });

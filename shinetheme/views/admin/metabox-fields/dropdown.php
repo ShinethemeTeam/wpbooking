@@ -19,10 +19,9 @@ $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
 if(!empty($data['taxonomy'])){
 	$args=array('taxonomy'=>$data['taxonomy'],'hide_empty'=>false);
-	if(!empty($data['parent'])) $args['parent']=$data['parent'];
+	if(isset($data['parent'])) $args['parent']=$data['parent'];
 
 	$terms=get_terms($args);
-	var_dump($terms);
 	if(!is_wp_error($terms) and !empty($terms)){
 		$data['value']=array();
 		foreach ($terms as $term){

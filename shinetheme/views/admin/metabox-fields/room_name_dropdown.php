@@ -27,9 +27,12 @@ if(!is_wp_error($terms) and   !empty( $terms ) ){
 	$field .= '<div style="margin-bottom: 7px;"><select name="'. $name .'" id="'. esc_html( $data['id'] ) .'" class="widefat form-control '. esc_html( $data['class'] ).'">';
 	foreach( $terms as $parent_key => $parent_term ){
 
+        $field .= '<option value="">'. esc_html__('Please Select','wpbooking').'</option>';
+
 	    $child=get_terms(array('taxonomy'=>'wb_hotel_room_type','hide_empty'=>false,'parent'=>$parent_term->term_id));
         if(!empty($child)){
             foreach($child as $term_id => $term){
+
                 $field .= '<option parent="'.$parent_term->term_id.'" value="'. esc_html( $term_id ).'" '. $checked .'>'. esc_html( $term->name ).'</option>';
             }
         }
@@ -41,7 +44,7 @@ if(!is_wp_error($terms) and   !empty( $terms ) ){
 $field .= '</div></div>';
 
 ?>
-<div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+<div class="form-table wpbooking-settings room_name_dropdown <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
 <div class="st-metabox-left">
 	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
 </div>
