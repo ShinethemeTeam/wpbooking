@@ -793,94 +793,6 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ),
                     )
                 ),
-
-                'policies_tab'   => array(
-                    'label'  => __('3. Policies', 'wpbooking'),
-                    'fields' => array(
-                        array(
-                            'label' => __("Property Policies", 'wpbooking'),
-                            'type'  => 'title',
-                        ),
-                        array(
-                            'label' => __('Deposit Type', 'wpbooking'),
-                            'id'    => 'deposit_type',
-                            'type'  => 'dropdown',
-                            'value' => array(
-                                'value'   => __('Value', 'wpbooking'),
-                                'percent' => __('Percent', 'wpbooking'),
-                            ),
-                            'class' => 'small'
-                        ),
-                        array(
-                            'label' => __('Deposit Amount', 'wpbooking'),
-                            'id'    => 'deposit_amount',
-                            'type'  => 'money_input',
-                            'class' => 'small'
-                        ),
-                        array(
-                            'label' => __('Minimum Stay', 'wpbooking'),
-                            'id'    => 'minimum_stay',
-                            'type'  => 'dropdown',
-                            'value' => array(
-                                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
-                            ),
-                            'class' => 'small'
-                        ),
-                        array(
-                            'label'           => __('Cancellation Allowed', 'wpbooking'),
-                            'id'              => 'cancellation_allowed',
-                            'type'            => 'on-off',
-                            'std'             => 1,
-                            'container_class' => 'mb35'
-                        ),
-                        array(
-                            'label' => __('Terms & Conditions', 'wpbooking'),
-                            'id'    => 'terms_conditions',
-                            'type'  => 'textarea',
-                        ),
-                        array(
-                            'label' => __("Host's Regulations", 'wpbooking'),
-                            'id'    => 'host_regulations',
-                            'type'  => 'list-item',
-                            'value' => array(
-                                array(
-                                    'id'    => 'content',
-                                    'label' => esc_html__('Content', 'wpbooking'),
-                                    'type'  => 'textarea'
-                                ),
-                            )
-                        ),
-                        array(
-                            'label' => __("Check In & Check Out", 'wpbooking'),
-                            'type'  => 'title',
-                        ),
-                        array(
-                            'label' => __('Instructions', 'wpbooking'),
-                            'id'    => 'check_in_out_instructions',
-                            'type'  => 'textarea',
-                        ),
-                        array(
-                            'label' => __('Check In Time', 'wpbooking'),
-                            'id'    => 'check_in_time',
-                            'type'  => 'time_select',
-                        ),
-                        array(
-                            'label' => __('Check Out Time', 'wpbooking'),
-                            'id'    => 'check_out_time',
-                            'type'  => 'time_select',
-                        ),
-                        array(
-                            'label' => __("Cancellation Policies", 'wpbooking'),
-                            'type'  => 'title',
-                        ),
-                        array(
-                            'type' => 'cancellation_policies_text',
-                        ),
-                        array(
-                            'type' => 'section_navigation',
-                        ),
-                    )
-                ),
                 'facilities_tab' => array(
                     'label'  => __('4. Facilities', 'wpbooking'),
                     'fields' => array(
@@ -1094,6 +1006,105 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
 
 
                         //Room amenities
+                        array(
+                            'type' => 'section_navigation',
+                        ),
+                    )
+                ),
+                'policies_tab'   => array(
+                    'label'  => __('5. Policies & Checkout' , 'wpbooking'),
+                    'fields' => array(
+                        array('type' => 'open_section'),
+                        array(
+                            'label' => __("Payment infomation", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc'  => esc_html__("We will show in website yourdomain.com", "wpbooking")
+                        ),
+                        array(
+                            'label' => __('We are accepted:', 'wpbooking'),
+                            'id'    => 'creditcard_accepted',
+                            'type'  => 'creditcard',
+                        ),
+                        array('type' => 'close_section'),
+                        array(
+                            'label' => __("Property Policies", 'wpbooking'),
+                            'type'  => 'title',
+                        ),
+                        array(
+                            'label' => __('Deposit Type', 'wpbooking'),
+                            'id'    => 'deposit_type',
+                            'type'  => 'dropdown',
+                            'value' => array(
+                                'value'   => __('Value', 'wpbooking'),
+                                'percent' => __('Percent', 'wpbooking'),
+                            ),
+                            'class' => 'small'
+                        ),
+                        array(
+                            'label' => __('Deposit Amount', 'wpbooking'),
+                            'id'    => 'deposit_amount',
+                            'type'  => 'money_input',
+                            'class' => 'small'
+                        ),
+                        array(
+                            'label' => __('Minimum Stay', 'wpbooking'),
+                            'id'    => 'minimum_stay',
+                            'type'  => 'dropdown',
+                            'value' => array(
+                                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+                            ),
+                            'class' => 'small'
+                        ),
+                        array(
+                            'label'           => __('Cancellation Allowed', 'wpbooking'),
+                            'id'              => 'cancellation_allowed',
+                            'type'            => 'on-off',
+                            'std'             => 1,
+                            'container_class' => 'mb35'
+                        ),
+                        array(
+                            'label' => __('Terms & Conditions', 'wpbooking'),
+                            'id'    => 'terms_conditions',
+                            'type'  => 'textarea',
+                        ),
+                        array(
+                            'label' => __("Host's Regulations", 'wpbooking'),
+                            'id'    => 'host_regulations',
+                            'type'  => 'list-item',
+                            'value' => array(
+                                array(
+                                    'id'    => 'content',
+                                    'label' => esc_html__('Content', 'wpbooking'),
+                                    'type'  => 'textarea'
+                                ),
+                            )
+                        ),
+                        array(
+                            'label' => __("Check In & Check Out", 'wpbooking'),
+                            'type'  => 'title',
+                        ),
+                        array(
+                            'label' => __('Instructions', 'wpbooking'),
+                            'id'    => 'check_in_out_instructions',
+                            'type'  => 'textarea',
+                        ),
+                        array(
+                            'label' => __('Check In Time', 'wpbooking'),
+                            'id'    => 'check_in_time',
+                            'type'  => 'time_select',
+                        ),
+                        array(
+                            'label' => __('Check Out Time', 'wpbooking'),
+                            'id'    => 'check_out_time',
+                            'type'  => 'time_select',
+                        ),
+                        array(
+                            'label' => __("Cancellation Policies", 'wpbooking'),
+                            'type'  => 'title',
+                        ),
+                        array(
+                            'type' => 'cancellation_policies_text',
+                        ),
                         array(
                             'type' => 'section_navigation',
                         ),
@@ -1720,21 +1731,33 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 }
             }
         }
-
-        static function _get_room_by_hotel($post_id)
-        {
-            if (empty($post_id)) return;
-            global $wpdb;
-            $sql = "SELECT ID,post_title
-                    FROM
-                    {$wpdb->posts}
-                    WHERE 
-                    1=1
-                    AND {$wpdb->posts}.post_parent = {$post_id} 
-                    AND {$wpdb->posts}.post_status = 'publish'";
-            $rs = $wpdb->get_results($sql);
-
-            return $rs;
+        /**
+         * Get Room by Hotel Metabox Fields
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @param $post_id
+         * @return array|void
+         */
+        function _get_room_by_hotel($post_id){
+            if(empty($post_id)) return;
+            $list = array();
+            $args = array(
+                'post_type'=>'wpbooking_hotel_room',
+                'post_parent'=>$post_id,
+                'posts_per_page'=>200,
+                'post_status'=>array( 'pending', 'draft', 'future', 'publish' ),
+            );
+            $my_query = new WP_Query( $args );
+            if ( $my_query->have_posts() ) {
+                while ( $my_query->have_posts() ) {
+                    $my_query->the_post();
+                    $list[] = array('ID' => get_the_ID(),'post_title'=>get_the_title());
+                }
+            }
+            wp_reset_postdata();
+            return $list;
         }
 
         /**

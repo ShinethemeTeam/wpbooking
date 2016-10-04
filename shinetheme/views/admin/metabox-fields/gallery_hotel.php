@@ -21,22 +21,29 @@ if(!empty($data['condition'])){
 
 $data_class.=' width-'.$data['width'];
 
+$text_domain = array();
+$text_domain[] = esc_html__('Do you want delete this image?','wpbooking');
+$text_domain[] = esc_html__('Attachment Detail','wpbooking');
+$text_domain[] = esc_html__("Choose list room's detail",'wpbooking');
+$text_domain[] = esc_html__("Delete Permanently",'wpbooking');
+
 $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
 
 $field = '<div class="st-metabox-content-wrapper wpbooking-settings"><div class="form-group">';
 
 $field .= '<input type="text" id="fg_metadata" class="fg_metadata none" value="'. esc_html( $old_data ) .'" name="'. $name .'">
 			<br>
-        <div class="featuredgallerydiv gallery-row">';
+        <div class="featuredgallerydiv gallery-row" data-domain="'.implode(',',$text_domain).'">';
 $tmp = explode( ',', $old_data );
 
 if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
  	foreach( $tmp as $k => $v ){
         $url = wp_get_attachment_image_src( $v,array(250,250) );
+        $url_full = wp_get_attachment_image_src( $v,'full' );
         if( !empty( $url ) ){
             $field .= '<div class="gallery-item">';
             $field .= '<img src="'.esc_url($url[0]).'" class="demo-image-gallery settings-demo-image-gallery" >';
-            $field .= '<div class="gallery-item-control text-center"><a href="javascript:void(0)" class="gallery-item-btn gallery-item-edit"><i class="fa fa-pencil-square-o"></i></a><a href="javascript:void(0)" class="gallery-item-btn gallery-item-remove"><i class="fa fa-trash"></i></a></div>';
+            $field .= '<div class="gallery-item-control text-center"><a href="javascript:void(0)" class="gallery-item-btn gallery-item-edit" data-url="'.$url_full[0].'" data-id="'.$v.'" ><i class="fa fa-pencil-square-o"></i></a><a href="javascript:void(0)" data-id="'.$v.'" class="gallery-item-btn gallery-item-remove"><i class="fa fa-trash"></i></a></div>';
             $field .= '</div>';
         }
     }
@@ -53,11 +60,12 @@ $field .= '</div></div></div>';
 
 ?>
 <div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
-<div class="st-metabox-full">
-	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
-</div>
-<div class="st-metabox-full">
-	<?php echo $field; ?>
-    <i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
-</div>
+    <div class="st-metabox-full">
+        <label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
+    </div>
+    <div class="st-metabox-full">
+        <?php echo $field; ?>
+        <i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+    </div>
+
 </div>
