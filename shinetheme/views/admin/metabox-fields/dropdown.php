@@ -17,6 +17,20 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
 
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
+if(!empty($data['taxonomy'])){
+	$args=array('taxonomy'=>$data['taxonomy'],'hide_empty'=>false);
+	if(!empty($data['parent'])) $args['parent']=$data['parent'];
+
+	$terms=get_terms($args);
+	var_dump($terms);
+	if(!is_wp_error($terms) and !empty($terms)){
+		$data['value']=array();
+		foreach ($terms as $term){
+			$data['value'][$term->term_id]=$term->name;
+		}
+	}
+}
+
 if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 	$array_with_out_key=FALSE;
 	$keys = array_keys( $data['value']);
