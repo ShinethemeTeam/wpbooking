@@ -33,6 +33,14 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
              */
             add_action('wp_ajax_wpbooking_show_room_form', array($this, '_ajax_room_edit_template'));
 
+            /**
+             * Ajax Save Room Data
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('wp_ajax_wpbooking_save_hotel_room', array($this, '_ajax_save_room'));
+
         }
 
 
@@ -70,6 +78,30 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             );
 
             register_post_type('wpbooking_hotel_room', $args);
+
+            // Register Taxonomy
+            $labels = array(
+                'name'              => _x('Room Type', 'taxonomy general name', 'wpbooking'),
+                'singular_name'     => _x('Room Type', 'taxonomy singular name', 'wpbooking'),
+                'search_items'      => __('Search Room Type', 'wpbooking'),
+                'all_items'         => __('All Room Type', 'wpbooking'),
+                'parent_item'       => __('Parent Room Type', 'wpbooking'),
+                'parent_item_colon' => __('Parent Room Type:', 'wpbooking'),
+                'edit_item'         => __('Edit Room Type', 'wpbooking'),
+                'update_item'       => __('Update Room Type', 'wpbooking'),
+                'add_new_item'      => __('Add New Room Type', 'wpbooking'),
+                'new_item_name'     => __('New Room Type Name', 'wpbooking'),
+                'menu_name'         => __('Room Type', 'wpbooking'),
+            );
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => false,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'rewrite'           => array('slug' => 'hotel-room-type'),
+            );
+            register_taxonomy('wb_hotel_room_type', array('wpbooking_hotel_room'), $args);
 
             // Register Taxonomy
             $labels = array(
@@ -785,7 +817,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ),
                     )
                 ),
-                'facilities_tab' => array(
+                'facilities_tab'  => array(
                     'label'  => __('4. Facilities', 'wpbooking'),
                     'fields' => array(
                         array('type' => 'open_section'),
@@ -1003,8 +1035,8 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ),
                     )
                 ),
-                'policies_tab'   => array(
-                    'label'  => __('5. Policies & Checkout' , 'wpbooking'),
+                'policies_tab'    => array(
+                    'label'  => __('5. Policies & Checkout', 'wpbooking'),
                     'fields' => array(
                         array('type' => 'open_section'),
                         array(
@@ -1126,7 +1158,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ),
                     )
                 ),
-                'photo_tab'      => array(
+                'photo_tab'       => array(
                     'label'  => __('5. Photos', 'wpbooking'),
                     'fields' => array(
                         array(
@@ -1156,7 +1188,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ),
                     )
                 ),
-                'calendar_tab'   => array(
+                'calendar_tab'    => array(
                     'label'  => __('5. Calendar', 'wpbooking'),
                     'fields' => array(
 
@@ -1735,18 +1767,561 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     array('term' => 'Books, DVDs or music for children'),
                     array('term' => 'Child safety socket covers'),
                 ),
+
+                // Room Type
+                'wb_hotel_room_type'             => array(
+                    array(
+                        "term"     => esc_html__("Single", 'wpbooking'),
+                        'children' => array(
+                            array("term" => esc_html__("Budget Single Room", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Single Room", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Single Room with Balcony", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Single Room with Sea View", 'wpbooking')),
+                            array("term" => esc_html__("Economy Single Room", 'wpbooking')),
+                            array("term" => esc_html__("Large Single Room", 'wpbooking')),
+                            array("term" => esc_html__("New Year's Eve Special - Single Room", 'wpbooking')),
+                            array("term" => esc_html__("Single Room", 'wpbooking')),
+                            array("term" => esc_html__("Single Room - Disability Access", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Balcony", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Bath", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Bathroom", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Garden View", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Lake View", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Mountain View", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Park View", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Pool View", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Private Bathroom", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Private External Bathroom", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Sea View", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Shared Bathroom", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Shared Shower and Toilet", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Shared Toilet", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Shower", 'wpbooking')),
+                            array("term" => esc_html__("Single Room with Terrace", 'wpbooking')),
+                            array("term" => esc_html__("Small Single Room", 'wpbooking')),
+                            array("term" => esc_html__("Standard Single Room", 'wpbooking')),
+                            array("term" => esc_html__("Standard Single Room with Mountain View", 'wpbooking')),
+                            array("term" => esc_html__("Standard Single Room with Sauna", 'wpbooking')),
+                            array("term" => esc_html__("Standard Single Room with Sea View", 'wpbooking')),
+                            array("term" => esc_html__("Standard Single Room with Shared Bathroom", 'wpbooking')),
+                            array("term" => esc_html__("Standard Single Room with Shower", 'wpbooking')),
+                            array("term" => esc_html__("Superior Single Room", 'wpbooking')),
+                            array("term" => esc_html__("Superior Single Room with Lake View", 'wpbooking')),
+                            array("term" => esc_html__("Superior Single Room with Sea View", 'wpbooking')),
+                        ),
+                    ),
+                    array(
+                        "term"     => esc_html__("Double", 'wpbooking'),
+                        'children' => array(
+                            array("term" => esc_html__("Budget Double Room", 'wpbooking')),
+                            array("term" => esc_html__("Business Double Room with Gym Access", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Double Room", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Double Room (1 adult + 1 child)", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Double Room (1 adult + 2 children)", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Double Room (2 Adults + 1 Child)", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Double Room with Balcony", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Double Room with Balcony and Sea View", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Double Room with Bath", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Double Room with Castle View", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Double Room with Extra Bed", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Double Room with Sea View", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Double Room with Shower", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Double Room with Side Sea View", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Double or Twin Room", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe King Room", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Queen Room", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Room", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Room (1 adult + 1 child)", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Room (1 adult + 2 children)", 'wpbooking')),
+                            array("term" => esc_html__("Deluxe Room (2 Adults + 1 Child)", 'wpbooking')),
+                            array("term" => esc_html__("Double Room", 'wpbooking')),
+                            array("term" => esc_html__("Double Room (1 Adult + 1 Child)", 'wpbooking')),
+                            array("term" => esc_html__("Double Room - Disability Access", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Balcony", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Balcony (2 Adults + 1 Child)", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Balcony (3 Adults)", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Balcony and Sea View", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Extra Bed", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Garden View", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Lake View", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Mountain View", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Patio", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Pool View", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Private Bathroom", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Private External Bathroom", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Sea View", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Shared Bathroom", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Shared Toilet", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Spa Bath", 'wpbooking')),
+                            array("term" => esc_html__("Double Room with Terrace", 'wpbooking')),
+                            array("term" => esc_html__("Economy Double Room", 'wpbooking')),
+                            array("term" => esc_html__("King Room", 'wpbooking')),
+                            array("term" => esc_html__("King Room - Disability Access", 'wpbooking')),
+                            array("term" => esc_html__("King Room with Balcony", 'wpbooking')),
+                            array("term" => esc_html__("King Room with Garden View", 'wpbooking')),
+                            array("term" => esc_html__("King Room with Lake View", 'wpbooking')),
+                            array("term" => esc_html__("King Room with Mountain View", 'wpbooking')),
+                            array("term" => esc_html__("King Room with Pool View", 'wpbooking')),
+                            array("term" => esc_html__("King Room with Roll-In Shower - Disability Access", 'wpbooking')),
+                            array("term" => esc_html__("King Room with Sea View", 'wpbooking')),
+                            array("term" => esc_html__("King Room with Spa Bath", 'wpbooking')),
+                            array("term" => esc_html__("Large Double Room", 'wpbooking')),
+                            array("term" => esc_html__("Queen Room", 'wpbooking')),
+                            array("term" => esc_html__("Queen Room - Disability Access", 'wpbooking')),
+                            array("term" => esc_html__("Queen Room with Balcony", 'wpbooking')),
+                            array("term" => esc_html__("Queen Room with Garden View", 'wpbooking')),
+                            array("term" => esc_html__("Queen Room with Pool View", 'wpbooking')),
+                            array("term" => esc_html__("Queen Room with Sea View", 'wpbooking')),
+                            array("term" => esc_html__("Queen Room with Shared Bathroom", 'wpbooking')),
+                            array("term" => esc_html__("Queen Room with Spa Bath", 'wpbooking')),
+                            array("term" => esc_html__("Small Double Room", 'wpbooking')),
+                            array("term" => esc_html__("Standard Double Room", 'wpbooking')),
+                            array("term" => esc_html__("Standard Double Room with Fan", 'wpbooking')),
+                            array("term" => esc_html__("Standard Double Room with Shared Bathroom", 'wpbooking')),
+                            array("term" => esc_html__("Standard King Room", 'wpbooking')),
+                            array("term" => esc_html__("Standard Queen Room", 'wpbooking')),
+                            array("term" => esc_html__("Superior Double Room", 'wpbooking')),
+                            array("term" => esc_html__("Superior King Room", 'wpbooking')),
+                            array("term" => esc_html__("Superior Queen Room", 'wpbooking')),
+                        ),
+                    ),
+                    array(
+                        "term"     => esc_html__("Twin", 'wpbooking'),
+                        'children' => array(
+                            array("term" => esc_html__("Budget Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Double Room with Two Double Beds", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Queen Room with Two Queen Beds", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Twin Room with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Double Room with Two Double Beds", "wpbooking")),
+                            array("term" => esc_html__("Economy Twin Room", "wpbooking")),
+                            array("term" => esc_html__("King Room with Two King Beds", "wpbooking")),
+                            array("term" => esc_html__("Large Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Queen Room with Two Queen Beds", "wpbooking")),
+                            array("term" => esc_html__("Queen Room with Two Queen Beds - Disability Access", "wpbooking")),
+                            array("term" => esc_html__("Small Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Standard Double Room with Two Double Beds", "wpbooking")),
+                            array("term" => esc_html__("Standard Queen Room with Two Queen Beds", "wpbooking")),
+                            array("term" => esc_html__("Standard Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Standard Twin Room with Garden View", "wpbooking")),
+                            array("term" => esc_html__("Standard Twin Room with Mountain View", "wpbooking")),
+                            array("term" => esc_html__("Standard Twin Room with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Standard Twin Room with Shared Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Standard Twin Room with Sofa", "wpbooking")),
+                            array("term" => esc_html__("Superior Double Room with Two Double Beds", "wpbooking")),
+                            array("term" => esc_html__("Superior King or Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Superior Queen Room with Two Queen Beds", "wpbooking")),
+                            array("term" => esc_html__("Superior Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Superior Twin Room with City View", "wpbooking")),
+                            array("term" => esc_html__("Superior Twin Room with Garden View", "wpbooking")),
+                            array("term" => esc_html__("Superior Twin Room with Sauna", "wpbooking")),
+                            array("term" => esc_html__("Superior Twin Room with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Twin Room - Disability Access", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with Balcony", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with Bath", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with City View", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with Extra Bed", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with Garden View", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with Lake View", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with Mountain View", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with Pool View", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with Private Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with Private External Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with Shared Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with Shared Toilet", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with Shower", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with Terrace", "wpbooking")),
+                            array("term" => esc_html__("Twin Room with View", "wpbooking")),
+                        ),
+                    ),
+                    array(
+                        "term"     => esc_html__("Twin/Double"),
+                        'children' => array(
+                            array("term" => esc_html__("Budget Double or Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Cabin on Boat", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Double or Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Double or Twin Room with Balcony", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Double or Twin Room with City View", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Double or Twin Room with Garden View", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Double or Twin Room with Lake View", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Double or Twin Room with Mountain View", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Double or Twin Room with Ocean View", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Double or Twin Room with Pool Access", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Double or Twin Room with Pool View", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Double or Twin Room with River View", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Double or Twin Room with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Double or Twin Room with Spa Bath", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room - Disability Access", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Balcony", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Canal View", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with City View", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Extra Bed", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Garden View", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Harbour View", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Lake View", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Mountain View", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Partial Sea View", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Pool View", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Private Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Private External Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Shared Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Shower", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Side Sea View", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Spa Access", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Swimming Pool Access", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with Terrace", "wpbooking")),
+                            array("term" => esc_html__("Double or Twin Room with View", "wpbooking")),
+                            array("term" => esc_html__("Economy Double or Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Large Double or Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Small Double or Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Standard Cabin on Boat", "wpbooking")),
+                            array("term" => esc_html__("Standard Double or Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Standard Double or Twin Room with Balcony", "wpbooking")),
+                            array("term" => esc_html__("Standard Double or Twin Room with Garden View", "wpbooking")),
+                            array("term" => esc_html__("Standard Double or Twin Room with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Superior Cabin on Boat", "wpbooking")),
+                            array("term" => esc_html__("Superior Deluxe Double or Twin Room ", "wpbooking")),
+                            array("term" => esc_html__("Superior Double or Twin Room", "wpbooking")),
+                            array("term" => esc_html__("Superior Double or Twin Room with City View", "wpbooking")),
+                            array("term" => esc_html__("Superior Double or Twin Room with Garden View", "wpbooking")),
+                            array("term" => esc_html__("Superior Double or Twin Room with Lake View", "wpbooking")),
+                            array("term" => esc_html__("Superior Double or Twin Room with Mountain View", "wpbooking")),
+                            array("term" => esc_html__("Superior Double or Twin Room with Pool View", "wpbooking")),
+                            array("term" => esc_html__("Superior Double or Twin Room with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Superior Double or Twin Room with Terrace", "wpbooking")),
+                        ),
+                    ),
+                    array(
+                        "term"     => esc_html__("Triple", 'wpbooking'),
+                        'children' => array(
+                            array("term" => esc_html__("Basic Triple Room", "wpbooking")),
+                            array("term" => esc_html__("Basic Triple Room with Shared Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Budget Triple Room", "wpbooking")),
+                            array("term" => esc_html__("Classic Triple Room", "wpbooking")),
+                            array("term" => esc_html__("Comfort Triple Room", "wpbooking")),
+                            array("term" => esc_html__("Comfort Triple Room with Shower", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Triple Room", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Triple Room with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Economy Triple Room", "wpbooking")),
+                            array("term" => esc_html__("Economy Triple Room with Shared Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Executive Triple Room", "wpbooking")),
+                            array("term" => esc_html__("Luxury Triple Room", "wpbooking")),
+                            array("term" => esc_html__("Standard Triple Room", "wpbooking")),
+                            array("term" => esc_html__("Standard Triple Room with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Superior Triple Room", "wpbooking")),
+                            array("term" => esc_html__("Superior Triple Room with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Triple Room", "wpbooking")),
+                            array("term" => esc_html__("Triple Room - Disability Access", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with Balcony", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with Bath", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with City View", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with Garden View", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with Lake View", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with Mountain View", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with Pool View", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with Private Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with Private External Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with Shared Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with Shared Toilet", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with Shower", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with Terrace", "wpbooking")),
+                            array("term" => esc_html__("Triple Room with View", "wpbooking")),
+                        ),
+                    ),
+                    array(
+                        "term"     => esc_html__("Quadruple", 'wpbooking'),
+                        'children' => array(
+                            array("term" => esc_html__("Classic Quadruple Room", "wpbooking")),
+                            array("term" => esc_html__("Comfort Quadruple Room", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Quadruple Room", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Queen Room with Two Queen Beds", "wpbooking")),
+                            array("term" => esc_html__("Duplex Quadruple Room", "wpbooking")),
+                            array("term" => esc_html__("Economy Quadruple Room", "wpbooking")),
+                            array("term" => esc_html__("Economy Quadruple Room with Shared Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Executive Queen Room with Two Queen Beds", "wpbooking")),
+                            array("term" => esc_html__("Japanese-Style Quadruple Room", "wpbooking")),
+                            array("term" => esc_html__("King Room with Two King Beds", "wpbooking")),
+                            array("term" => esc_html__("Luxury Quadruple Room", "wpbooking")),
+                            array("term" => esc_html__("Premium Quadruple Room", "wpbooking")),
+                            array("term" => esc_html__("Quadruple Room", "wpbooking")),
+                            array("term" => esc_html__("Quadruple Room - Disability Access", "wpbooking")),
+                            array("term" => esc_html__("Quadruple Room with Balcony", "wpbooking")),
+                            array("term" => esc_html__("Quadruple Room with Bath", "wpbooking")),
+                            array("term" => esc_html__("Quadruple Room with Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Quadruple Room with Garden View", "wpbooking")),
+                            array("term" => esc_html__("Quadruple Room with Lake View", "wpbooking")),
+                            array("term" => esc_html__("Quadruple Room with Mountain View", "wpbooking")),
+                            array("term" => esc_html__("Quadruple Room with Private Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Quadruple Room with Private External Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Quadruple Room with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Quadruple Room with Shared Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Quadruple Room with Shower", "wpbooking")),
+                            array("term" => esc_html__("Quadruple Room with Terrace", "wpbooking")),
+                            array("term" => esc_html__("Queen Room with Two Queen Beds", "wpbooking")),
+                            array("term" => esc_html__("Queen Room with Two Queen Beds - Disability Access", "wpbooking")),
+                            array("term" => esc_html__("Standard Quadruple Room", "wpbooking")),
+                            array("term" => esc_html__("Standard Queen Room with Two Queen Beds", "wpbooking")),
+                            array("term" => esc_html__("Superior Quadruple Room", "wpbooking")),
+                            array("term" => esc_html__("Superior Queen Room with Two Queen Beds", "wpbooking")),
+                        ),
+                    ),
+                    array(
+                        "term"     => esc_html__("Family", 'wpbooking'),
+                        'children' => array(
+                            array("term" => esc_html__("Deluxe Family Room", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Family Suite", "wpbooking")),
+                            array("term" => esc_html__("Family Bungalow", "wpbooking")),
+                            array("term" => esc_html__("Family Cabin on Boat", "wpbooking")),
+                            array("term" => esc_html__("Family Double Room", "wpbooking")),
+                            array("term" => esc_html__("Family Junior Suite", "wpbooking")),
+                            array("term" => esc_html__("Family Room", "wpbooking")),
+                            array("term" => esc_html__("Family Room - Disability Access", "wpbooking")),
+                            array("term" => esc_html__("Family Room with Balcony", "wpbooking")),
+                            array("term" => esc_html__("Family Room with Bath", "wpbooking")),
+                            array("term" => esc_html__("Family Room with Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Family Room with Garden View", "wpbooking")),
+                            array("term" => esc_html__("Family Room with Lake View", "wpbooking")),
+                            array("term" => esc_html__("Family Room with Mountain View", "wpbooking")),
+                            array("term" => esc_html__("Family Room with Private Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Family Room with Sauna", "wpbooking")),
+                            array("term" => esc_html__("Family Room with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Family Room with Shared Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Family Room with Shower", "wpbooking")),
+                            array("term" => esc_html__("Family Room with Side Sea View", "wpbooking")),
+                            array("term" => esc_html__("Family Room with Terrace", "wpbooking")),
+                            array("term" => esc_html__("Family Studio", "wpbooking")),
+                            array("term" => esc_html__("Family Suite", "wpbooking")),
+                            array("term" => esc_html__("Family Suite with Balcony", "wpbooking")),
+                            array("term" => esc_html__("Standard Family Room", "wpbooking")),
+                            array("term" => esc_html__("Superior Family Room", "wpbooking")),
+                        ),
+                    ),
+                    array(
+                        "term"     => esc_html__("Suite", 'wpbooking'),
+                        'children' => array(
+                            array("term" => esc_html__("Deluxe Double Studio", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Junior Suite", "wpbooking")),
+                            array("term" => esc_html__("Deluxe King Studio", "wpbooking")),
+                            array("term" => esc_html__("Deluxe King Suite", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Queen Studio ", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Queen Suite", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Studio", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Suite", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Suite with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Suite with Spa Bath", "wpbooking")),
+                            array("term" => esc_html__("Duplex Suite", "wpbooking")),
+                            array("term" => esc_html__("Executive Suite", "wpbooking")),
+                            array("term" => esc_html__("Family Studio", "wpbooking")),
+                            array("term" => esc_html__("Family Suite", "wpbooking")),
+                            array("term" => esc_html__("Junior Suite", "wpbooking")),
+                            array("term" => esc_html__("Junior Suite with Balcony", "wpbooking")),
+                            array("term" => esc_html__("Junior Suite with Canal View", "wpbooking")),
+                            array("term" => esc_html__("Junior Suite with Garden View", "wpbooking")),
+                            array("term" => esc_html__("Junior Suite with Mountain View", "wpbooking")),
+                            array("term" => esc_html__("Junior Suite with Ocean View", "wpbooking")),
+                            array("term" => esc_html__("Junior Suite with Pool View", "wpbooking")),
+                            array("term" => esc_html__("Junior Suite with Private Pool", "wpbooking")),
+                            array("term" => esc_html__("Junior Suite with Sauna", "wpbooking")),
+                            array("term" => esc_html__("Junior Suite with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Junior Suite with Terrace", "wpbooking")),
+                            array("term" => esc_html__("King Studio", "wpbooking")),
+                            array("term" => esc_html__("King Studio with Sofa Bed", "wpbooking")),
+                            array("term" => esc_html__("King Suite", "wpbooking")),
+                            array("term" => esc_html__("King Suite with Balcony", "wpbooking")),
+                            array("term" => esc_html__("King Suite with Ocean View", "wpbooking")),
+                            array("term" => esc_html__("King Suite with Pool View", "wpbooking")),
+                            array("term" => esc_html__("King Suite with Sea View", "wpbooking")),
+                            array("term" => esc_html__("King Suite with Spa Bath", "wpbooking")),
+                            array("term" => esc_html__("One-Bedroom Suite", "wpbooking")),
+                            array("term" => esc_html__("Presidential Suite", "wpbooking")),
+                            array("term" => esc_html__("Queen Studio", "wpbooking")),
+                            array("term" => esc_html__("Queen Studio - Disability Access", "wpbooking")),
+                            array("term" => esc_html__("Queen Suite", "wpbooking")),
+                            array("term" => esc_html__("Queen Suite with Pool View", "wpbooking")),
+                            array("term" => esc_html__("Queen Suite with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Queen Suite with Spa Bath", "wpbooking")),
+                            array("term" => esc_html__("Standard Double Suite", "wpbooking")),
+                            array("term" => esc_html__("Standard Studio", "wpbooking")),
+                            array("term" => esc_html__("Standard Suite", "wpbooking")),
+                            array("term" => esc_html__("Standard Triple Studio", "wpbooking")),
+                            array("term" => esc_html__("Studio", "wpbooking")),
+                            array("term" => esc_html__("Studio - Disability Access", "wpbooking")),
+                            array("term" => esc_html__("Studio with Balcony", "wpbooking")),
+                            array("term" => esc_html__("Studio with Garden View", "wpbooking")),
+                            array("term" => esc_html__("Studio with Ocean View", "wpbooking")),
+                            array("term" => esc_html__("Studio with Pool View", "wpbooking")),
+                            array("term" => esc_html__("Studio with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Studio with Sofa Bed", "wpbooking")),
+                            array("term" => esc_html__("Studio with Spa Bath", "wpbooking")),
+                            array("term" => esc_html__("Studio with Terrace", "wpbooking")),
+                            array("term" => esc_html__("Suite", "wpbooking")),
+                            array("term" => esc_html__("Suite with Balcony", "wpbooking")),
+                            array("term" => esc_html__("Suite with City View", "wpbooking")),
+                            array("term" => esc_html__("Suite with Garden View", "wpbooking")),
+                            array("term" => esc_html__("Suite with Hot Tub", "wpbooking")),
+                            array("term" => esc_html__("Suite with Lake View", "wpbooking")),
+                            array("term" => esc_html__("Suite with Mountain View", "wpbooking")),
+                            array("term" => esc_html__("Suite with Pool View", "wpbooking")),
+                            array("term" => esc_html__("Suite with Private Pool", "wpbooking")),
+                            array("term" => esc_html__("Suite with River View", "wpbooking")),
+                            array("term" => esc_html__("Suite with Sauna", "wpbooking")),
+                            array("term" => esc_html__("Suite with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Suite with Spa Access", "wpbooking")),
+                            array("term" => esc_html__("Suite with Spa Bath", "wpbooking")),
+                            array("term" => esc_html__("Suite with Terrace", "wpbooking")),
+                            array("term" => esc_html__("Superior King Suite", "wpbooking")),
+                            array("term" => esc_html__("Superior Studio", "wpbooking")),
+                            array("term" => esc_html__("Superior Suite", "wpbooking")),
+                            array("term" => esc_html__("Superior Suite with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Three-Bedroom Suite", "wpbooking")),
+                            array("term" => esc_html__("Two-Bedroom Suite", "wpbooking")),
+                        ),
+                    ),
+                    array(
+                        "term"     => esc_html__("Studio", 'wpbooking'),
+                        'children' => array(
+                            array("term" => esc_html__("Deluxe Double Studio", "wpbooking")),
+                            array("term" => esc_html__("Deluxe King Studio", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Queen Studio ", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Studio", "wpbooking")),
+                            array("term" => esc_html__("Duplex Studio", "wpbooking")),
+                            array("term" => esc_html__("Family Studio", "wpbooking")),
+                            array("term" => esc_html__("King Studio", "wpbooking")),
+                            array("term" => esc_html__("King Studio with Sofa Bed", "wpbooking")),
+                            array("term" => esc_html__("Queen Studio", "wpbooking")),
+                            array("term" => esc_html__("Queen Studio - Disability Access", "wpbooking")),
+                            array("term" => esc_html__("Standard Studio", "wpbooking")),
+                            array("term" => esc_html__("Standard Triple Studio", "wpbooking")),
+                            array("term" => esc_html__("Studio", "wpbooking")),
+                            array("term" => esc_html__("Studio - Disability Access", "wpbooking")),
+                            array("term" => esc_html__("Studio - Split Level", "wpbooking")),
+                            array("term" => esc_html__("Studio with Balcony", "wpbooking")),
+                            array("term" => esc_html__("Studio with Garden View", "wpbooking")),
+                            array("term" => esc_html__("Studio with Lake View", "wpbooking")),
+                            array("term" => esc_html__("Studio with Mountain View", "wpbooking")),
+                            array("term" => esc_html__("Studio with Ocean View", "wpbooking")),
+                            array("term" => esc_html__("Studio with Pool View", "wpbooking")),
+                            array("term" => esc_html__("Studio with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Studio with Sofa Bed", "wpbooking")),
+                            array("term" => esc_html__("Studio with Spa Bath", "wpbooking")),
+                            array("term" => esc_html__("Studio with Terrace", "wpbooking")),
+                            array("term" => esc_html__("Superior Studio", "wpbooking")),
+                        ),
+                    ),
+                    array(
+                        "term"     => esc_html__("Apartment", 'wpbooking'),
+                        'children' => array(
+                            array("term" => esc_html__("Apartment", "wpbooking")),
+                            array("term" => esc_html__("Apartment - Ground Floor", "wpbooking")),
+                            array("term" => esc_html__("Apartment - Split Level", "wpbooking")),
+                            array("term" => esc_html__("Apartment With Shared Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Apartment with Balcony", "wpbooking")),
+                            array("term" => esc_html__("Apartment with Garden View", "wpbooking")),
+                            array("term" => esc_html__("Apartment with Lake View", "wpbooking")),
+                            array("term" => esc_html__("Apartment with Mountain View", "wpbooking")),
+                            array("term" => esc_html__("Apartment with Pool View ", "wpbooking")),
+                            array("term" => esc_html__("Apartment with Sauna", "wpbooking")),
+                            array("term" => esc_html__("Apartment with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Apartment with Shower", "wpbooking")),
+                            array("term" => esc_html__("Apartment with Terrace", "wpbooking")),
+                            array("term" => esc_html__("Deluxe Apartment", "wpbooking")),
+                            array("term" => esc_html__("Duplex Apartment", "wpbooking")),
+                            array("term" => esc_html__("Loft", "wpbooking")),
+                            array("term" => esc_html__("Maisonette", "wpbooking")),
+                            array("term" => esc_html__("One-Bedroom Apartment", "wpbooking")),
+                            array("term" => esc_html__("Penthouse Apartment", "wpbooking")),
+                            array("term" => esc_html__("Standard Apartment", "wpbooking")),
+                            array("term" => esc_html__("Studio Apartment", "wpbooking")),
+                            array("term" => esc_html__("Studio Apartment with Sea View", "wpbooking")),
+                            array("term" => esc_html__("Superior Apartment", "wpbooking")),
+                            array("term" => esc_html__("Superior Apartment with Sauna", "wpbooking")),
+                            array("term" => esc_html__("Three-Bedroom Apartment", "wpbooking")),
+                            array("term" => esc_html__("Two-Bedroom Apartment", "wpbooking")),
+                        ),
+
+                    ),
+                    array(
+                        "term"     => esc_html__("Dormitory room", 'wpbooking'),
+                        'children' => array(
+                            array("term" => esc_html__("Bed in 10-Bed Female Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 10-Bed Male Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 10-Bed Mixed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 4-Bed Female Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 4-Bed Male Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 4-Bed Mixed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 6-Bed Female Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 6-Bed Male Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 6-Bed Mixed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 8-Bed Female Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 8-Bed Male Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 8-Bed Mixed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bunk Bed in Female Dormitory Room ", "wpbooking")),
+                            array("term" => esc_html__("Bunk Bed in Male Dormitory Room ", "wpbooking")),
+                            array("term" => esc_html__("Bunk Bed in Mixed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Single Bed in Female Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Single Bed in Male Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Single Bed in Mixed Dormitory Room", "wpbooking")),
+                        ),
+
+                    ),
+                    array(
+                        "term"     => esc_html__("Bed in Dormitory", 'wpbooking'),
+                        'children' => array(
+                            array("term" => esc_html__("Bed in 10-Bed Mixed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 4-Bed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 4-Bed Female Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 4-Bed Male Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 4-Bed Mixed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 6-Bed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 6-Bed Female Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 6-Bed Mixed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 8-Bed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in 8-Bed Mixed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bed in Male Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Bunk Bed in Female Dormitory Room ", "wpbooking")),
+                            array("term" => esc_html__("Bunk Bed in Male Dormitory Room ", "wpbooking")),
+                            array("term" => esc_html__("Bunk Bed in Mixed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Single Bed in 10-Bed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Single Bed in 4-Bed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Single Bed in 6-Bed Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Single Bed in Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Single Bed in Female Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Single Bed in Male Dormitory Room", "wpbooking")),
+                            array("term" => esc_html__("Single Bed in Male Dormitory Room with Shared Bathroom", "wpbooking")),
+                            array("term" => esc_html__("Single Bed in Mixed Dormitory Room", "wpbooking")),
+                        )
+                    )
+                )
+
             );
 
             foreach ($terms as $tax => $term) {
 
                 foreach ($term as $item) {
-                    $item = wp_parse_args($item, array('parent' => '', 'term' => ''));
+                    $item = wp_parse_args($item, array('parent' => '', 'term' => '', 'children'));
                     if ($item['term']) {
-                        wp_insert_term($item['term'], $tax, $item);
+                        $term_data = wp_insert_term($item['term'], $tax, $item);
+
+                        if (!is_wp_error($term_data) and !empty($item['children'])) {
+                            foreach ($item['children'] as $child) {
+                                wp_insert_term($child['term'], $tax, array('parent' => $term_data['term_id']));
+                            }
+                        }
                     }
+
                 }
             }
+
         }
+
         /**
          * Get Room by Hotel Metabox Fields
          *
@@ -1756,23 +2331,25 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
          * @param $post_id
          * @return array|void
          */
-        function _get_room_by_hotel($post_id){
-            if(empty($post_id)) return;
+        function _get_room_by_hotel($post_id)
+        {
+            if (empty($post_id)) return;
             $list = array();
             $args = array(
-                'post_type'=>'wpbooking_hotel_room',
-                'post_parent'=>$post_id,
-                'posts_per_page'=>200,
-                'post_status'=>array( 'pending', 'draft', 'future', 'publish' ),
+                'post_type'      => 'wpbooking_hotel_room',
+                'post_parent'    => $post_id,
+                'posts_per_page' => 200,
+                'post_status'    => array('pending', 'draft', 'future', 'publish'),
             );
-            $my_query = new WP_Query( $args );
-            if ( $my_query->have_posts() ) {
-                while ( $my_query->have_posts() ) {
+            $my_query = new WP_Query($args);
+            if ($my_query->have_posts()) {
+                while ($my_query->have_posts()) {
                     $my_query->the_post();
-                    $list[] = array('ID' => get_the_ID(),'post_title'=>get_the_title());
+                    $list[] = array('ID' => get_the_ID(), 'post_title' => get_the_title());
                 }
             }
             wp_reset_postdata();
+
             return $list;
         }
 
@@ -1794,16 +2371,16 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     'desc'  => esc_html__('Select a room type : Single , double , twin, twin / double , triple, quadruple, family, suite, studio, apartment, dormitory room, bed in dormitory, ...', 'wpbooking')
                 ),
                 array(
-                    'label' => esc_html__('Room Type', 'wpbooking'),
-                    'type'  => 'dropdown',
-                    'value' => WPBooking_Config::inst()->item('hotel_room_type'),
-                    'id'    => 'room_type'
+                    'label'    => esc_html__('Room Type', 'wpbooking'),
+                    'type'     => 'dropdown',
+                    'id'       => 'room_type',
+                    'taxonomy' => 'wb_hotel_room_type',
+                    'parent'   => 0
                 ),
                 array(
                     'id'    => 'room_name',
                     'label' => esc_html__('Room name', 'wpbooking'),
-                    'type'  => 'dropdown',
-                    'value' => WPBooking_Config::inst()->item('hotel_room_name')
+                    'type'  => 'room_name_dropdown',
                 ),
                 array(
                     'label' => esc_html__('Room name (optional)', 'wpbooking'),
@@ -1931,20 +2508,20 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             if (!$room_id) {
 
                 // Validate Permission
-                if(!$hotel_id){
-                    $res['message']=esc_html__('Please Specific Hotel ID','wpbooking');
+                if (!$hotel_id) {
+                    $res['message'] = esc_html__('Please Specific Hotel ID', 'wpbooking');
                     echo json_encode($res);
                     die;
-                }else{
-                    $hotel=get_post($hotel_id);
-                    if(!$hotel){
-                        $res['message']=esc_html__('Hotel is not exists','wpbooking');
+                } else {
+                    $hotel = get_post($hotel_id);
+                    if (!$hotel) {
+                        $res['message'] = esc_html__('Hotel is not exists', 'wpbooking');
                         echo json_encode($res);
                         die;
                     }
                     // Check Role
-                    if(!current_user_can('manage_options') and $hotel->post_parent!=get_current_user_id()){
-                        $res['message']=esc_html__('You do not have permission to do it','wpbooking');
+                    if (!current_user_can('manage_options') and $hotel->post_parent != get_current_user_id()) {
+                        $res['message'] = esc_html__('You do not have permission to do it', 'wpbooking');
                         echo json_encode($res);
                         die;
                     }
@@ -1960,18 +2537,18 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     'post_parent' => $hotel_id
                 ));
 
-                if(is_wp_error($room_id)){
-                    $res['message']=esc_html__('Can not create room, please check again','wpbooking');
+                if (is_wp_error($room_id)) {
+                    $res['message'] = esc_html__('Can not create room, please check again', 'wpbooking');
                     echo json_encode($res);
                     die;
                 }
             }
 
-            $res['status']=1;
-            $res['html']="
-                <input name='wb_room_id' type='hidden' value='".esc_attr($room_id)."'>
+            $res['status'] = 1;
+            $res['html'] = "
+                <input name='wb_room_id' type='hidden' value='" . esc_attr($room_id) . "'>
             ";
-            $res['html'].=sprintf('<input type="hidden" name="wb_hotel_room_security" value="%s">',wp_create_nonce( "wpbooking_hotel_room_".$room_id ));
+            $res['html'] .= sprintf('<input type="hidden" name="wb_hotel_room_security" value="%s">', wp_create_nonce("wpbooking_hotel_room_" . $room_id));
             $fields = $this->get_room_meta_fields();
             foreach ((array)$fields as $field_id => $field):
 
@@ -2005,12 +2582,39 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
 
                 if ($field_html) $res['html'] .= $field_html;
                 else
-                    $res['html'] .= wpbooking_admin_load_view($file, array('data' => $field, 'class_extra' => $class_extra,'post_id'=>$room_id));
+                    $res['html'] .= wpbooking_admin_load_view($file, array('data' => $field, 'class_extra' => $class_extra, 'post_id' => $room_id));
 
 
             endforeach;
 
-            $res['html'].=wpbooking_admin_load_view('metabox-fields/room-form-button');
+            $res['html'] .= wpbooking_admin_load_view('metabox-fields/room-form-button');
+
+            echo json_encode($res);
+            die;
+        }
+
+        /**
+         * Ajax Save Room Data
+         *
+         * @since 1.0
+         * @author dungdt
+         */
+        public function _ajax_save_room()
+        {
+            $res = array('status' => 0);
+
+            $room_id = WPBooking_Input::post('wb_room_id');
+
+            if ($room_id) {
+                // Validate
+                check_ajax_referer("wpbooking_hotel_room_" . $room_id, 'wb_hotel_room_security');
+
+                $fields = $this->get_room_meta_fields();
+                WPBooking_Metabox::inst()->do_save_metabox($room_id, $fields, 'wpbooking_hotel_room_form');
+
+                $res['status'] = 1;
+            }
+
 
             echo json_encode($res);
             die;

@@ -7,7 +7,7 @@
  */
 $data=wp_parse_args($data,array(
 	'ajax_saving'=>1,
-	'next_label'=>esc_html__('Save & Next Step','wpbooking')
+	'next_label'=>esc_html__('Save','wpbooking')
 ))
 ?>
 <div class="text-right wb-section-navigation wb-room-form clear" style="clear: both">

@@ -1427,7 +1427,7 @@ img.settings-demo-image-gallery {
 .st-metabox-tab-content-wrap.on-create > .wb-section-navigation {
   display: none;
 }
-.st-metabox-tab-content-wrap.on-create.loading:before {
+.st-metabox-tab-content-wrap.on-loading:before {
   content: "";
   position: absolute;
   top: 0px;
@@ -2840,18 +2840,22 @@ a.ui-datepicker-next {
   font-size: 15px;
   font-weight: bold;
 }
-.wb-section-navigation .button.wb-next-section {
+.wb-section-navigation .button.wb-next-section,
+.wb-section-navigation .button.wb-save-room {
   background: #ec8223;
 }
-.wb-section-navigation .button.wb-next-section:hover {
+.wb-section-navigation .button.wb-next-section:hover,
+.wb-section-navigation .button.wb-save-room:hover {
   border: solid 1px transparent;
   color: #fff;
   background: #ec8223;
 }
-.wb-section-navigation .button.wb-prev-section {
+.wb-section-navigation .button.wb-prev-section,
+.wb-section-navigation .button.wb-all-rooms {
   background: #ddd;
 }
-.wb-section-navigation .button.wb-prev-section:hover {
+.wb-section-navigation .button.wb-prev-section:hover,
+.wb-section-navigation .button.wb-all-rooms:hover {
   color: #ec8223;
   border: solid 1px #ec8223;
 }
@@ -2861,10 +2865,12 @@ a.ui-datepicker-next {
 .wb-section-navigation .button.w50 {
   width: 49%;
 }
-.wb-section-navigation .button.w50.wb-next-section {
+.wb-section-navigation .button.w50.wb-next-section,
+.wb-section-navigation .button.w50.wb-save-room {
   float: right;
 }
-.wb-section-navigation .button.w50.wb-prev-section {
+.wb-section-navigation .button.w50.wb-prev-section,
+.wb-section-navigation .button.w50.wb-all-rooms {
   float: left;
 }
 .iconpicker .iconpicker-item {
@@ -3117,4 +3123,46 @@ label[for=wpbooking_locationdiv-hide] {
 }
 .wp-setup-demo .wp_booking textarea {
   width: 100%;
+}
+#wb_hotel_room_amenitydiv,
+#wb_hotel_room_bathroomdiv,
+#wb_hotel_room_media_technologydiv,
+#wb_hotel_room_food_drinkdiv,
+#wb_hotel_room_services_extradiv,
+#wb_hotel_room_outdoor_viewdiv,
+#wb_hotel_room_accessibilitydiv,
+#wb_hotel_room_entertainmentdiv,
+#wb_hotel_activitydiv,
+#wb_hotel_fooddiv,
+#wb_hotel_pooldiv,
+#wb_hotel_transportdiv,
+#wb_hotel_recep_servdiv,
+#wb_hotel_common_areadiv,
+#wb_hotel_family_servicesdiv,
+#wb_hotel_cleaning_servicediv,
+#wb_hotel_business_facilitydiv,
+#wb_hotel_shopdiv,
+#wb_hotel_miscellaneousdiv,
+#wpbooking_room_typediv,
+label[for=wb_hotel_room_amenitydiv-hide],
+label[for=wb_hotel_room_bathroomdiv-hide],
+label[for=wb_hotel_room_media_technologydiv-hide],
+label[for=wb_hotel_room_food_drinkdiv-hide],
+label[for=wb_hotel_room_services_extradiv-hide],
+label[for=wb_hotel_room_outdoor_viewdiv-hide],
+label[for=wb_hotel_room_accessibilitydiv-hide],
+label[for=wb_hotel_room_entertainmentdiv-hide],
+label[for=wb_hotel_activitydiv-hide],
+label[for=wb_hotel_fooddiv-hide],
+label[for=wb_hotel_pooldiv-hide],
+label[for=wb_hotel_transportdiv-hide],
+label[for=wb_hotel_recep_servdiv-hide],
+label[for=wb_hotel_common_areadiv-hide],
+label[for=wb_hotel_family_servicesdiv-hide],
+label[for=wb_hotel_cleaning_servicediv-hide],
+label[for=wb_hotel_business_facilitydiv-hide],
+label[for=wb_hotel_shopdiv-hide],
+label[for=wb_hotel_miscellaneousdiv-hide],
+label[for=wpbooking_room_typediv-hide] {
+  display: none!important;
 }

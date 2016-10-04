@@ -1338,6 +1338,10 @@ jQuery(document).ready(function( $ ){
         var room_form=parent.find('.wpbooking-hotel-room-form');
         room_form.html('');
         parent.removeClass('on-create');
+
+        var h=$('#st_post_metabox').offset().top;
+        $('html,body').animate({'scrollTop':parseInt(h)-200});
+
         return false;
     });
 

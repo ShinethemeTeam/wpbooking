@@ -122,26 +122,6 @@ $config['lang_spoken_by_staff'] = array(
 );
 
 /**
- * Hotel Room Type
- *
- * @since 1.0
- * @author dungdt
- */
-$config['hotel_room_type'] = array(
-    "single"           => esc_html__("Single", 'wpbooking'),
-    "double"           => esc_html__("Double", 'wpbooking'),
-    "twin"             => esc_html__("Twin", 'wpbooking'),
-    "twin-double"      => esc_html__("Twin/Double"),
-    "triple"           => esc_html__("Triple", 'wpbooking'),
-    "quadruple"        => esc_html__("Quadruple", 'wpbooking'),
-    "family"           => esc_html__("Family", 'wpbooking'),
-    "suite"            => esc_html__("Suite", 'wpbooking'),
-    "ftudio"           => esc_html__("Studio", 'wpbooking'),
-    "apartment"        => esc_html__("Apartment", 'wpbooking'),
-    "dormitory room"   => esc_html__("Dormitory room", 'wpbooking'),
-    "bed-in-dormitory" => esc_html__("Bed in Dormitory", 'wpbooking'),
-);
-/**
  * Hotel Smoking policy
  *
  * @since 1.0
