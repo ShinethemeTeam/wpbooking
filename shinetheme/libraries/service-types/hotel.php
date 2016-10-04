@@ -33,6 +33,14 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
              */
             add_action('wp_ajax_wpbooking_show_room_form', array($this, '_ajax_room_edit_template'));
 
+            /**
+             * Ajax Save Room Data
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('wp_ajax_wpbooking_save_hotel_room',array($this,'_ajax_save_room'));
+
         }
 
 
@@ -1967,6 +1975,17 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
 
             echo json_encode($res);
             die;
+        }
+
+        /**
+         * Ajax Save Room Data
+         * 
+         * @since 1.0
+         * @author dungdt
+         */
+        public function _ajax_save_room()
+        {
+
         }
 
         static function inst()
