@@ -116,6 +116,7 @@ if (!class_exists('WPBooking_Metabox')) {
 
         function _add_js_template()
         {
+            $post_id=get_the_ID();
             $service_types=WPBooking_Service_Controller::inst()->get_service_types();
             if(!empty(($service_types))){
                 foreach ($service_types as $type_id=>$type){
@@ -156,9 +157,10 @@ if (!class_exists('WPBooking_Metabox')) {
                                         <input type="hidden" name="wb_meta_section" value="<?php echo esc_attr($key) ?>">
                                         <input type="hidden" name="wb_security" value="<?php echo wp_create_nonce( "wpbooking_meta_section_".$key ) ?>">
                                         <input type="hidden" name="wb_service_type" value="<?php echo esc_attr($type_id) ?>">
-                                        <input type="hidden" name="wb_post_id" value="<?php echo get_the_ID() ?>">
+                                        <input type="hidden" name="wb_post_id" value="<?php echo esc_attr($post_id) ?>">
 
                                         <?php
+
                                         $fields=$section['fields'];
 
                                         foreach ((array)$fields as $field_id=> $field):
@@ -189,10 +191,10 @@ if (!class_exists('WPBooking_Metabox')) {
                                                 $file = 'metabox-fields/' . $field['type'];
                                                 //var_dump($file);
 
-                                                $field_html = apply_filters('wpbooking_metabox_field_html_' . $field['type'], FALSE, $field, get_the_ID());
+                                                $field_html = apply_filters('wpbooking_metabox_field_html_' . $field['type'], FALSE, $field, $post_id);
                                                 if ($field_html) echo $field_html;
                                                 else
-                                                    echo wpbooking_admin_load_view($file, array('data' => $field, 'class_extra' => $class_extra, 'post_id' => get_the_ID()));
+                                                    echo wpbooking_admin_load_view($file, array('data' => $field, 'class_extra' => $class_extra, 'post_id' => $post_id));
 
                                                 ?>
                                             <?php endforeach; ?>
