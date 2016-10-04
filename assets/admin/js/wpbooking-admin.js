@@ -1308,11 +1308,11 @@ jQuery(document).ready(function( $ ){
         var container = $(this).closest('.open_section_metabox');
         if($(this).hasClass('active')){
             $(this).removeClass('active');
-            $(this).find('.fa ').attr('class','fa fa-arrow-down');
+            $(this).find('.fa ').attr('class','fa fa-chevron-down');
             container.find('.content-metabox').addClass('no-active');
         }else{
             $(this).addClass('active');
-            $(this).find('.fa ').attr('class','fa fa-arrow-up');
+            $(this).find('.fa ').attr('class','fa fa-chevron-up');
             container.find('.content-metabox').removeClass('no-active');
         }
     });
