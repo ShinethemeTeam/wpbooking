@@ -63,7 +63,7 @@ $query = new WP_Query(array(
                     </div>
                     <?php
                 }
-                wp_reset_postdata();
+
                 ?>
             </div>
             <div class="wp-room-actions">
@@ -76,3 +76,6 @@ $query = new WP_Query(array(
     </div>
 </div>
 <div class="wpbooking-hotel-room-form"></div>
+<?php
+wp_reset_postdata();
+?>

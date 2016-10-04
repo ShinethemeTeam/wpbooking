@@ -1041,9 +1041,25 @@ img.settings-demo-image-gallery{
     }
 
 }
+//content_meta_box
 .st-metabox-tab-content-wrap{
     *{
         box-sizing: border-box;
+    }
+    textarea.form-control{
+        min-height: inherit !important;
+        height: auto !important;
+    }
+    .content_tax_vat{
+        background: #f1f1f1 none repeat scroll 0 0;
+        padding: 10px 30px;
+        .field-title{
+            font-size: 18px;
+        }
+        .label_vat_unit{
+            padding-left: 30px;
+            padding-right: 10px;
+        }
     }
     .wpbooking-form-group{
         margin-bottom: 18px;
@@ -1146,11 +1162,7 @@ img.settings-demo-image-gallery{
         }
 
         &.hotel_room_list{
-            .st-metabox-tab-content-wrap{
-                &.on-create{
 
-                }
-            }
             margin:0px;
             .field-label{
                 color: #666666;
@@ -1299,17 +1311,18 @@ img.settings-demo-image-gallery{
         .hotel_room_list,>.wb-section-navigation{
             display: none;
         }
-        &.loading{
-            &:before{
-                content: "";
-                position: absolute;
-                top:0px;
-                left:0px;
-                right:0px;
-                bottom:0px;
-                z-index: 101;
-                background: rgba(0,0,0,0.6);
-            }
+
+    }
+    &.on-loading{
+        &:before{
+            content: "";
+            position: absolute;
+            top:0px;
+            left:0px;
+            right:0px;
+            bottom:0px;
+            z-index: 101;
+            background: rgba(0,0,0,0.6);
         }
     }
 
@@ -1341,8 +1354,42 @@ img.settings-demo-image-gallery{
 .st-metabox-content-wrapper{
 
     //padding-bottom: 20px;
-
-
+    .creditcard{
+        background: url(../../images/creditcard.png) no-repeat;
+        position: relative;
+        line-height: 30px;
+        padding-left: 55px;
+        &.americanexpress{
+            background-position:  0 -145px;
+        }
+        &.visa{
+            background-position: 0 1px
+        }
+        &.euromastercard{
+            background-position:   0 -24px;
+        }
+        &.dinersclub{
+            background-position: 0 -96px;
+        }
+        &.jcb{
+            background-position:  0 -121px;
+        }
+        &.maestro{
+            background-position: 0 -48px;
+        }
+        &.discover{
+            background-position: 0 -73px;
+        }
+        &.unionpaydebitcard{
+            background-position: 0 -194px;
+        }
+        &.unionpaycreditcard{
+            background-position: 0 -194px;
+        }
+        &.bankcard{
+            background-position: 0 -584px;
+        }
+    }
 
     .taxonomy_room_select .wpbooking-row{
         border-bottom: 1px solid #ccc;
@@ -2781,7 +2828,7 @@ a.ui-datepicker-next {
 .wb-section-navigation{
     padding-top: 10px;
     .button{
-        &.wb-next-section{
+        &.wb-next-section,&.wb-save-room{
             background: @maincolor;
             &:hover{
                 border: solid 1px transparent;
@@ -2789,7 +2836,7 @@ a.ui-datepicker-next {
                 background: @maincolor;
             }
         }
-        &.wb-prev-section{
+        &.wb-prev-section,&.wb-all-rooms{
             background: #ddd;
             &:hover{
                 color: @maincolor;
@@ -2800,10 +2847,10 @@ a.ui-datepicker-next {
             width: 100%;
         }
         &.w50{
-            &.wb-next-section{
+            &.wb-next-section,&.wb-save-room{
                 float: right;
             }
-            &.wb-prev-section{
+            &.wb-prev-section,&.wb-all-rooms{
                 float: left;
             }
             width: 49%;
@@ -3120,4 +3167,49 @@ label[for=wpbooking_locationdiv-hide]
             width: 100%;
         }
     }
+}
+
+#wb_hotel_room_amenitydiv,
+#wb_hotel_room_bathroomdiv,
+#wb_hotel_room_media_technologydiv,
+#wb_hotel_room_food_drinkdiv,
+#wb_hotel_room_services_extradiv,
+#wb_hotel_room_outdoor_viewdiv,
+#wb_hotel_room_accessibilitydiv,
+#wb_hotel_room_entertainmentdiv,
+#wb_hotel_activitydiv,
+#wb_hotel_fooddiv,
+#wb_hotel_pooldiv,
+#wb_hotel_transportdiv,
+#wb_hotel_recep_servdiv,
+#wb_hotel_common_areadiv,
+#wb_hotel_family_servicesdiv,
+#wb_hotel_cleaning_servicediv,
+#wb_hotel_business_facilitydiv,
+#wb_hotel_shopdiv,
+#wb_hotel_miscellaneousdiv,
+#wpbooking_room_typediv,
+
+label[for=wb_hotel_room_amenitydiv-hide],
+label[for=wb_hotel_room_bathroomdiv-hide],
+label[for=wb_hotel_room_media_technologydiv-hide],
+label[for=wb_hotel_room_food_drinkdiv-hide],
+label[for=wb_hotel_room_services_extradiv-hide],
+label[for=wb_hotel_room_outdoor_viewdiv-hide],
+label[for=wb_hotel_room_accessibilitydiv-hide],
+label[for=wb_hotel_room_entertainmentdiv-hide],
+label[for=wb_hotel_activitydiv-hide],
+label[for=wb_hotel_fooddiv-hide],
+label[for=wb_hotel_pooldiv-hide],
+label[for=wb_hotel_transportdiv-hide],
+label[for=wb_hotel_recep_servdiv-hide],
+label[for=wb_hotel_common_areadiv-hide],
+label[for=wb_hotel_family_servicesdiv-hide],
+label[for=wb_hotel_cleaning_servicediv-hide],
+label[for=wb_hotel_business_facilitydiv-hide],
+label[for=wb_hotel_shopdiv-hide],
+label[for=wb_hotel_miscellaneousdiv-hide],
+label[for=wpbooking_room_typediv-hide]
+{
+    display: none!important;
 }

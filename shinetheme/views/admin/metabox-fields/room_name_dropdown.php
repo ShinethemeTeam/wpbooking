@@ -17,33 +17,23 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
 
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
-if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
-	$array_with_out_key=FALSE;
-	$keys = array_keys( $data['value']);
-	if($keys[0]===0){
-		$array_with_out_key=true;
-	}
+$terms=get_terms(array('taxonomy'=>'wb_hotel_room_type','hide_empty'=>false,'parent'=>0));
+
+$selected_term=wp_get_object_terms($post_id,'wb_hotel_room_type',array('fields'=>'ids'));
+$checked=false;
+if(in_array($checked,$selected_term)) $checked='selected';
+if(!is_wp_error($terms) and   !empty( $terms ) ){
 
 	$field .= '<div style="margin-bottom: 7px;"><select name="'. $name .'" id="'. esc_html( $data['id'] ) .'" class="widefat form-control '. esc_html( $data['class'] ).'">';
-	foreach( $data['value'] as $key => $value ){
-		$compare=$key;
-		if($array_with_out_key) $compare=$value;
+	foreach( $terms as $parent_key => $parent_term ){
 
-		$checked = '';
-		if( !empty( $data['std'] ) && ( esc_html( $key ) == esc_html( $data['std'] ) ) ){
-			$checked = ' selected ';
-		}
-		if( $old_data && !empty( $old_data ) ){
-			if( esc_html( $compare ) == esc_html( $old_data ) ){
-				$checked = ' selected ';
-			}else{
-				$checked = '';
-			}
-		}
-		$option_val=$key;
-		if($array_with_out_key) $option_val=$value;
-		
-		$field .= '<option value="'. esc_html( $option_val ).'" '. $checked .'>'. esc_html( $value ).'</option>';
+	    $child=get_terms(array('taxonomy'=>'wb_hotel_room_type','hide_empty'=>false,'parent'=>$parent_term->term_id));
+        if(!empty($child)){
+            foreach($child as $term_id => $term){
+                $field .= '<option parent="'.$parent_term->term_id.'" value="'. esc_html( $term_id ).'" '. $checked .'>'. esc_html( $term->name ).'</option>';
+            }
+        }
+
 	}
 	$field .= '</select></div>';
 }

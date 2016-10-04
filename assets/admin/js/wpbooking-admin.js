@@ -1378,11 +1378,11 @@ jQuery(document).ready(function( $ ){
         var container = $(this).closest('.open_section_metabox');
         if($(this).hasClass('active')){
             $(this).removeClass('active');
-            $(this).find('.fa ').attr('class','fa fa-arrow-down');
+            $(this).find('.fa ').attr('class','fa fa-chevron-down');
             container.find('.content-metabox').addClass('no-active');
         }else{
             $(this).addClass('active');
-            $(this).find('.fa ').attr('class','fa fa-arrow-up');
+            $(this).find('.fa ').attr('class','fa fa-chevron-up');
             container.find('.content-metabox').removeClass('no-active');
         }
     });
@@ -1408,6 +1408,10 @@ jQuery(document).ready(function( $ ){
         var room_form=parent.find('.wpbooking-hotel-room-form');
         room_form.html('');
         parent.removeClass('on-create');
+
+        var h=$('#st_post_metabox').offset().top;
+        $('html,body').animate({'scrollTop':parseInt(h)-200});
+
         return false;
     });
 

@@ -3,9 +3,9 @@
         <div class="content-accodition <?php  if(!empty($data['open_section']) and $data['open_section'] == true){echo 'active';} ?>">
             <?php
             if(!empty($data['open_section']) and $data['open_section'] == true){
-                echo balanceTags('<i class="fa fa-arrow-up"></i>');
+                echo balanceTags('<i class="fa fa-chevron-up"></i>');
             } else {
-                echo balanceTags('<i class="fa fa-arrow-down"></i>');
+                echo balanceTags('<i class="fa fa-chevron-down"></i>');
             }
             ?>
         </div>
