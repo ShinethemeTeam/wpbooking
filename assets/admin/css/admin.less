@@ -1039,9 +1039,25 @@ img.settings-demo-image-gallery{
     }
 
 }
+//content_meta_box
 .st-metabox-tab-content-wrap{
     *{
         box-sizing: border-box;
+    }
+    textarea.form-control{
+        min-height: inherit !important;
+        height: auto !important;
+    }
+    .content_tax_vat{
+        background: #f1f1f1 none repeat scroll 0 0;
+        padding: 10px 30px;
+        .field-title{
+            font-size: 18px;
+        }
+        .label_vat_unit{
+            padding-left: 30px;
+            padding-right: 10px;
+        }
     }
     .wpbooking-form-group{
         margin-bottom: 18px;
@@ -1336,8 +1352,42 @@ img.settings-demo-image-gallery{
 .st-metabox-content-wrapper{
 
     //padding-bottom: 20px;
-
-
+    .creditcard{
+        background: url(../../images/creditcard.png) no-repeat;
+        position: relative;
+        line-height: 30px;
+        padding-left: 55px;
+        &.americanexpress{
+            background-position:  0 -145px;
+        }
+        &.visa{
+            background-position: 0 1px
+        }
+        &.euromastercard{
+            background-position:   0 -24px;
+        }
+        &.dinersclub{
+            background-position: 0 -96px;
+        }
+        &.jcb{
+            background-position:  0 -121px;
+        }
+        &.maestro{
+            background-position: 0 -48px;
+        }
+        &.discover{
+            background-position: 0 -73px;
+        }
+        &.unionpaydebitcard{
+            background-position: 0 -194px;
+        }
+        &.unionpaycreditcard{
+            background-position: 0 -194px;
+        }
+        &.bankcard{
+            background-position: 0 -584px;
+        }
+    }
 
     .taxonomy_room_select .wpbooking-row{
         border-bottom: 1px solid #ccc;

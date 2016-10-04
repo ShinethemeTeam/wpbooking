@@ -1050,25 +1050,92 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'type'  => 'creditcard',
                         ),
                         array('type' => 'close_section'),
+                        array('type' => 'open_section'),
                         array(
-                            'label' => __("Property Policies", 'wpbooking'),
+                            'label' => __("Pre-payment and cancellation policies", 'wpbooking'),
                             'type'  => 'title',
+                            'desc'  => esc_html__("Pre-payment and cancellation policies", "wpbooking")
                         ),
                         array(
-                            'label' => __('Deposit Type', 'wpbooking'),
-                            'id'    => 'deposit_type',
+                            'label' => __('Select deposit optional', 'wpbooking'),
+                            'id'    => 'deposit_payment_status',
                             'type'  => 'dropdown',
                             'value' => array(
-                                'value'   => __('Value', 'wpbooking'),
-                                'percent' => __('Percent', 'wpbooking'),
+                                ''   => __('Disallow Deposit', 'wpbooking'),
+                                'percent'   => __('Deposit by percent', 'wpbooking'),
+                                'amount'   => __('Deposit by amount', 'wpbooking'),
                             ),
+                            'desc'  => esc_html__("You can select Disallow Deposit, Deposit by percent, Deposit by amount", "wpbooking"),
                             'class' => 'small'
                         ),
                         array(
-                            'label' => __('Deposit Amount', 'wpbooking'),
-                            'id'    => 'deposit_amount',
-                            'type'  => 'money_input',
+                            'label' => __('Select deposit optional', 'wpbooking'),
+                            'id'    => 'deposit_payment_amount',
+                            'type'  => 'number',
+                            'desc'  => esc_html__("Leave empty for disallow deposit payment", "wpbooking"),
                             'class' => 'small'
+                        ),
+                        array(
+                            'label' => __('How many days in advance can guests cancel free of  charge?', 'wpbooking'),
+                            'id'    => 'cancel_free_days_prior',
+                            'type'  => 'dropdown',
+                            'value' => array(
+                                '0'   => __('Day of arrival (6 pm)', 'wpbooking'),
+                                '1'   => __('1 day', 'wpbooking'),
+                                '2'   => __('2 days', 'wpbooking'),
+                                '3'   => __('3 days', 'wpbooking'),
+                                '7'   => __('7 days', 'wpbooking'),
+                                '14'   => __('14 days', 'wpbooking'),
+                            ),
+                            'desc'  => esc_html__("Day of arrival ( 18: 00 ) , 1 day , 2 days, 3 days, 7 days, 14 days", "wpbooking"),
+                            'class' => 'small'
+                        ),
+                        array(
+                            'label' => __('Or guests will pay 100%', 'wpbooking'),
+                            'id'    => 'cancel_guest_payment',
+                            'type'  => 'dropdown',
+                            'value' => array(
+                                'first_night'   => __('of the first night', 'wpbooking'),
+                                'full_stay'   => __('of the full stay', 'wpbooking'),
+                            ),
+                            'desc'  => esc_html__("Of the first night, of the full stay", "wpbooking"),
+                            'class' => 'small'
+                        ),
+                        array('type' => 'close_section'),
+                        array('type' => 'open_section'),
+                        array(
+                            'label' => __("Tax", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc'  => esc_html__("Set your local VAT or city tax, so guests know what is included in the price of their stay.", "wpbooking")
+                        ),
+                        array(
+                            'label' => __('VAT', 'wpbooking'),
+                            'id'    => 'vat_different',
+                            'type'  => 'vat_different',
+                            'fields' => array(
+                                'vat_excluded',
+                                'vat_amount',
+                                'vat_unit',
+                            )
+                        ),
+                        array(
+                            'label' => __('City Tax', 'wpbooking'),
+                            'id'    => 'citytax_different',
+                            'type'  => 'citytax_different',
+                            'fields' => array(
+                                'citytax_excluded',
+                                'citytax_amount',
+                                'citytax_unit',
+                            )
+                        ),
+
+                        array('type' => 'close_section'),
+
+                        array('type' => 'open_section'),
+                        array(
+                            'label' => __("Term & condition", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc'  => esc_html__("We will show these information in checkout step.", "wpbooking")
                         ),
                         array(
                             'label' => __('Minimum Stay', 'wpbooking'),
@@ -1080,55 +1147,12 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'class' => 'small'
                         ),
                         array(
-                            'label'           => __('Cancellation Allowed', 'wpbooking'),
-                            'id'              => 'cancellation_allowed',
-                            'type'            => 'on-off',
-                            'std'             => 1,
-                            'container_class' => 'mb35'
-                        ),
-                        array(
                             'label' => __('Terms & Conditions', 'wpbooking'),
                             'id'    => 'terms_conditions',
                             'type'  => 'textarea',
+                            'rows'  => '5',
                         ),
-                        array(
-                            'label' => __("Host's Regulations", 'wpbooking'),
-                            'id'    => 'host_regulations',
-                            'type'  => 'list-item',
-                            'value' => array(
-                                array(
-                                    'id'    => 'content',
-                                    'label' => esc_html__('Content', 'wpbooking'),
-                                    'type'  => 'textarea'
-                                ),
-                            )
-                        ),
-                        array(
-                            'label' => __("Check In & Check Out", 'wpbooking'),
-                            'type'  => 'title',
-                        ),
-                        array(
-                            'label' => __('Instructions', 'wpbooking'),
-                            'id'    => 'check_in_out_instructions',
-                            'type'  => 'textarea',
-                        ),
-                        array(
-                            'label' => __('Check In Time', 'wpbooking'),
-                            'id'    => 'check_in_time',
-                            'type'  => 'time_select',
-                        ),
-                        array(
-                            'label' => __('Check Out Time', 'wpbooking'),
-                            'id'    => 'check_out_time',
-                            'type'  => 'time_select',
-                        ),
-                        array(
-                            'label' => __("Cancellation Policies", 'wpbooking'),
-                            'type'  => 'title',
-                        ),
-                        array(
-                            'type' => 'cancellation_policies_text',
-                        ),
+                        array('type' => 'close_section'),
                         array(
                             'type' => 'section_navigation',
                         ),
