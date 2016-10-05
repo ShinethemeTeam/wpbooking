@@ -1411,6 +1411,51 @@ img.settings-demo-image-gallery {
   padding: 15px;
   color: #666666;
 }
+.st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .default-item {
+  margin-bottom: 10px;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .default-item select,
+.st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .add-more-box select {
+  margin: 0px 10px;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .default-item select:first-child,
+.st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .add-more-box select:first-child {
+  margin-left: 0px;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .more-item {
+  margin-bottom: 10px;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .wb-repeat-dropdown-add {
+  margin-top: 10px;
+  display: inline-block;
+  text-decoration: none;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .wb-repeat-dropdown-remove {
+  color: #e06666;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .single-bed-option {
+  display: block;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .multi-bed-option {
+  display: none;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.bed_options.is-multi-room .single-bed-option {
+  display: none;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.bed_options.is-multi-room .multi-bed-option {
+  display: block;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .multi-item-row {
+  background: #f1f1f1;
+  margin-bottom: 10px;
+  padding: 20px 15px;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .multi-item-row .multi-item-title {
+  display: block;
+  color: #ec8223;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
 @media (max-width: 1100px) {
   .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
     width: 100%;

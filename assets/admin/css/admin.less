@@ -1108,6 +1108,7 @@ img.settings-demo-image-gallery{
                     margin-right: 0px;
                     margin-left: 0px;
                 }
+
             }
             .metabox-help{
                 //float: left;
@@ -1282,6 +1283,59 @@ img.settings-demo-image-gallery{
                     background: #f1f1f1;
                     padding: 15px;
                     color: #666666;
+                }
+            }
+        }
+
+        &.bed_options{
+            .default-item{
+                margin-bottom: 10px;
+            }
+            .default-item,.add-more-box{
+                select{
+                    margin: 0px 10px;
+                    &:first-child{
+                        margin-left: 0px;
+                    }
+                }
+            }
+            .more-item{
+                margin-bottom: 10px;
+            }
+            .wb-repeat-dropdown-add{
+                margin-top: 10px;
+                display: inline-block;
+                text-decoration: none;
+            }
+            .wb-repeat-dropdown-remove{
+                color: #e06666;
+            }
+            .single-bed-option{
+                display: block;
+
+            }
+            .multi-bed-option{
+                display: none;
+            }
+            &.is-multi-room{
+                .single-bed-option{
+                    display: none;
+
+                }
+                .multi-bed-option{
+                    display: block;
+                }
+            }
+            .multi-item-row{
+                background: #f1f1f1;
+                margin-bottom: 10px;
+                padding:20px 15px;
+                .multi-item-title{
+                    display: block;
+                    color: @maincolor;
+                    margin-bottom: 20px;
+                    font-size: 16px;
+
                 }
             }
         }

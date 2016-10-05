@@ -1317,7 +1317,7 @@ jQuery(document).ready(function( $ ){
     $(document).on('click','.wb-repeat-dropdown-add',function(){
         var parent=$(this).closest('.form-group');
         var item=parent.find('.default-item').html();
-        parent.find('.add-more-box').append('<div class="more-item">'+item+'<span class="wb-repeat-dropdown-remove"><i class="fa fa-trash"></i> '+wpbooking_params.delete_string+'</span></div>');
+        parent.find('.add-more-box').append('<div class="more-item">'+item+'<span class="wb-repeat-dropdown-remove"><i class="fa fa-trash"></i> </span></div>');
 
     });
     $(document).on('click','.wb-repeat-dropdown-remove',function(){
@@ -1482,14 +1482,23 @@ jQuery(document).ready(function( $ ){
         })
     }
     $(document).on('change','#room_type',function(){
-        filterRoomName();
+        var val=$(this).val();
+        filterRoomName(val);
+        changeBedRoomOption(val,$(this));
     });
 
 
+    function filterRoomName(parent){
+        $('#room_name option[parent='+parent+']').show();
+        $('#room_name option[parent!='+parent+']').hide();
+    }
 
-    function filterRoomName(){
-        var parent=$('#room_type').val();
-        $('#room_name option[parent='+parent+']').show().siblings().hide();
+    function changeBedRoomOption(val,el) {
+        if(el.find('option[value='+val+']').attr('muilti_bedroom')){
+            $('.wpbooking-settings.bed_options').addClass('is-multi-room');
+        }else{
+            $('.wpbooking-settings.bed_options').removeClass('is-multi-room');
+        }
     }
 
 

@@ -55,7 +55,18 @@ if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 		}
 		$option_val=$key;
 		if($array_with_out_key) $option_val=$value;
-		
+
+        // Check Taxonomy wpbooking_is_multi_bedroom
+        // Check Taxonomy wpbooking_is_multi_livingroom
+        if(!empty($data['taxonomy']) and function_exists('get_term_meta')){
+            if(get_term_meta($key,'wpbooking_is_multi_bedroom',true)){
+                $checked.=' muilti_bedroom=1';
+            }
+            if(get_term_meta($key,'wpbooking_is_multi_livingroom',true)){
+                $checked.=' muilti_livingroom=1';
+            }
+        }
+
 		$field .= '<option value="'. esc_html( $option_val ).'" '. $checked .'>'. esc_html( $value ).'</option>';
 	}
 	$field .= '</select></div>';
