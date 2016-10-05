@@ -372,7 +372,7 @@ img.settings-demo-gallery {
   color: #FFFFFF;
   border-color: #ec8223;
 }
-#overlay {
+#wb-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -381,10 +381,12 @@ img.settings-demo-gallery {
   background: #000;
   opacity: 0.5;
   filter: alpha(opacity=50);
+  z-index: 9991;
 }
 .modal_image {
   position: absolute;
   background: rgba(0, 0, 0, 0.2);
+  z-index: 9992;
 }
 .modal_image .title_popup {
   background: #FFF;
@@ -397,6 +399,7 @@ img.settings-demo-gallery {
 .modal_image .content_detail {
   background: #fff;
   display: inline-flex;
+  width: 100%;
 }
 .modal_image .content_detail .content_left {
   width: 70%;

@@ -99,12 +99,22 @@ if (!class_exists('WPBooking_Metabox')) {
             wp_die();
 
         }
+
+        /**
+         * Delete Permanently Attachment
+         *
+         * @author tienhd
+         * @version 1.0
+         */
         function _delete_p_attachment(){
-            $res = array('status'=>0);
+            $res = array('status' => 0);
             $img_id = WPBooking_Input::post('img_id');
             if(!empty($img_id)){
-                wp_delete_attachment($img_id,true);
-                $res['status'] = 1;
+                if(wp_delete_attachment($img_id,true) == false){
+                    $res['status'] = 0;
+                }else{
+                    $res['status'] = 1;
+                }
             }
             echo json_encode($res);
             wp_die();

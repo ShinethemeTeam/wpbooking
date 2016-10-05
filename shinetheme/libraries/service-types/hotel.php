@@ -1158,8 +1158,8 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ),
                     )
                 ),
-                'photo_tab'       => array(
-                    'label'  => __('5. Photos', 'wpbooking'),
+                'photo_tab'      => array(
+                    'label'  => __('6. Photos', 'wpbooking'),
                     'fields' => array(
                         array(
                             'label' => __("Pictures", 'wpbooking'),
@@ -1167,7 +1167,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ),
                         array(
                             'label' => __("Gallery", 'wpbooking'),
-                            'id'    => 'gallery',
+                            'id'    => 'gallery_hotel',
                             'type'  => 'gallery_hotel',
                             'desc'  => __('Picture recommendations
 
@@ -1185,6 +1185,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
 
                         array(
                             'type' => 'section_navigation',
+                            'next_label' => esc_html__('Save','wpbooking')
                         ),
                     )
                 ),

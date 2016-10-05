@@ -191,7 +191,7 @@ img.settings-demo-gallery{
     //}
 }
 
-#overlay {
+#wb-modal-overlay {
     position:fixed;
     top:0;
     left:0;
@@ -200,12 +200,13 @@ img.settings-demo-gallery{
     background:#000;
     opacity:0.5;
     filter:alpha(opacity=50);
+  z-index: 9991;
 }
 
 .modal_image {
     position:absolute;
     background:rgba(0,0,0,0.2);
-
+    z-index: 9992;
     .title_popup{
         background: #FFF;
         font-size: 22px;
@@ -217,6 +218,7 @@ img.settings-demo-gallery{
     .content_detail {
         background:#fff;
         display: inline-flex;
+        width: 100%;
         .content_left{
             width: 70%;
             float: left;
