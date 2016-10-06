@@ -3,7 +3,7 @@
 *@since 1.0.0
 **/
 
-$old_data = array('gallery' => array(),'gallery_list_room'=>array());
+$old_data = array('gallery' => '','gallery_list_room'=>array());
 
 $value = get_post_meta( $post_id, esc_html( $data['id'] ), true );
 
@@ -11,7 +11,7 @@ if( !empty( $value ) ){
 	$old_data = $value;
 }
 
-$class = ' wpbooking-form-group-gallery ';
+$class = ' wb-form-group-gallery ';
 $data_class = '';
 if(!empty($data['condition'])){
     $class .= ' wpbooking-condition ';
