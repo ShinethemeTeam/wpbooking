@@ -392,9 +392,9 @@ jQuery(document).ready(function( $ ){
         });
 
         var file_frame;
+
         $('body').on('click','.btn_upload_gallery_hotel',function (event) {
             var container = $(this).parent().parent();
-            console.log(container);
             event.preventDefault();
             // If the media frame already exists, reopen it.
             if ( file_frame ) {
@@ -402,7 +402,10 @@ jQuery(document).ready(function( $ ){
                 return;
             }
             // Create the media frame.
-            file_frame = wp.media.frame = wp.media({
+            file_frame = '';
+            console.log(file_frame);
+
+            file_frame = wp.media({
                 frame: "post",
                 state: "gallery",
                 library : { type : 'image'},
