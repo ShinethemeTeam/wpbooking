@@ -175,7 +175,7 @@ jQuery(document).ready(function( $ ){
         });
     });
     ///////////////////////////////////
-    /////// MEDIA GALLERY HOTEL/////////////
+    /////// MEDIA GALLERY HOTEL////////
     ///////////////////////////////////
     var modal = (function(){
         var
@@ -208,6 +208,7 @@ jQuery(document).ready(function( $ ){
             $content_rooms.find('.content_rooms').empty().append(settings.content_rooms);
             $content.attr('data-id',settings.img_id);
             $content.find('.del-image-perman').children().empty().append(settings.title_delete);
+            $content.find('.del-image-perman').children().attr('data-id',settings.img_id);
 
             $modal.css({
                 width: settings.width || 'auto',
@@ -230,9 +231,9 @@ jQuery(document).ready(function( $ ){
         };
 
         // Generate the HTML and add it to the document
-        $overlay = $('<div id="overlay"></div>');
+        $overlay = $('<div id="wb-modal-overlay"></div>');
         $modal = $('<div class="modal_image"></div>');
-        $content = $('<div class="content_detail"></div>');
+        $content = $('<div class="wb-modal content_detail"></div>');
         $content_image = $('<div class="content_left"><div class="content_image"></div></div>');
         $content_rooms = $('<div class="content_right" data-id=""><div class="content_rooms"></div><div class="del-image-perman"><a class="st_delete_attachment" href="javascript:void(0)"></a></div></div>');
         $close = $('<a class="media-modal-close close_modal" href="#"><span class="media-modal-icon"></span></a>');
@@ -247,67 +248,139 @@ jQuery(document).ready(function( $ ){
             $('body').append($overlay, $modal);
         });
 
-        $close.click(function(e){
-            e.preventDefault();
-            method.close();
-        });
-
         return method;
     }());
 
     jQuery(document).ready(function($){
-        $("body").on('click','.btn_remove_gallery_hotel',function(){
-            var container = $(this).parent().parent();
-            container.find('.fg_metadata').val('');
-            container.find('.gallery-item').hide();
+        $("body").on('click','.close_modal',function(e){
+            e.preventDefault();
+            modal.close();
         });
 
-        $("body").on('click','.st_delete_attachment',function(){
-            var img_id = $(this).closest('.content_detail').data('id');
-            console.log(img_id);
-            $.ajax({
-                url: wpbooking_params.ajax_url,
-                dataType: 'json',
-                type:'post',
-                data: {
-                    action: 'wpbooking_delete_attachment',
-                    img_id : img_id,
-                },
-                success: function(res){
-                    modal.close();
-                    console.log(res);
-                },
-                error:function(e){
-                    alert('Can not get the order data. Lost connect with your sever');
+        // Save
+        $(document).on('change','.wp_room_hotel',function(){
+            $(this).each(function(){
+                var old=$('.wb_hotel_gallery_data').val();
+                var selected_room=$('.content_rooms .wp_room_hotel');
+                var media_id=$(this).data('media-id');
+
+                if(!old) old='{}';
+
+                try{
+                    var json=JSON.parse(old);
+                    //console.log(json[media_id]);
+                    if(json[media_id]===undefined) json[media_id]=new Array();
+                    selected_room.each(function(){
+                        if($(this).is(":checked") && $.inArray($(this).val(),json[media_id]) == -1 ){
+                            json[media_id].push($(this).val());
+                        }
+                        if(!$(this).is(":checked") && $.inArray($(this).val(),json[media_id]) > -1){
+                            json[media_id].splice(json[media_id].indexOf($(this).val()),1);
+                        }
+                    });
+                    $('.wb_hotel_gallery_data').val(JSON.stringify(json));
+
+                }catch(e){
                     console.log(e);
                 }
             });
         });
 
+        $("body").on('click','.btn_remove_gallery_hotel',function(){
+            var container = $(this).parent().parent();
+            container.find('.wp_gallery_hotel').val('');
+            container.find('.wb_hotel_gallery_data').val('');
+            container.find('.gallery-item').hide();
+        });
+
+        $("body").on('click','.st_delete_attachment',function(){
+            var wn = confirm('You want delete permanently this image?');
+            if(wn == true) {
+                var img_id = $(this).attr('data-id');
+                console.log(img_id);
+                $.ajax({
+                    url: wpbooking_params.ajax_url,
+                    dataType: 'json',
+                    type: 'post',
+                    data: {
+                        action: 'wpbooking_delete_attachment',
+                        img_id: img_id,
+                    },
+                    success: function (res) {
+                        var images = $('#wp_gallery_hotel').attr('value');
+                        var img_arr = images.split(',');
+                        img_arr = jQuery.grep(img_arr, function (a) {
+                            return a != img_id;
+                        });
+                        $('.wp_gallery_hotel').val(img_arr.join(','));
+
+                        $('.featuredgallerydiv').find('.gallery-item').each(function () {
+                            var id = $(this).find('.gallery-item-remove').data('id');
+                            if (id == img_id) {
+                                $(this).hide();
+                            }
+                        });
+                        var old=$('.wb_hotel_gallery_data').val();
+                        if(!old) old='{}';
+                        var json=JSON.parse(old);
+                        if($.inArray(img_id,json) > -1){
+                            json.splice($.inArray(img_id,json),1);
+                        }
+                        $('.wb_hotel_gallery_data').val(JSON.stringify(json));
+
+                        modal.close();
+                    },
+                    error: function (e) {
+                        alert('Can not get the order data. Lost connect with your sever');
+                        console.log(e);
+                    }
+                });
+            }
+        });
+
         $("body").on('click','.gallery-item-btn.gallery-item-remove',function(){
                 var t = $(this);
-                var domain = t.parent().parent().parent().data('domain');
+                var domain = t.closest('.featuredgallerydiv').data('domain');
                 var domain_arr = domain.split(',');
                 var wn = confirm(domain_arr[0]);
                 if(wn == true) {
-                    var images = $('#fg_metadata').attr('value');
+                    var images = $('#wp_gallery_hotel').attr('value');
                     var img_arr = images.split(',');
                     img_arr = jQuery.grep(img_arr, function( a ) {
                         return a != t.data('id');
                     });
-                    t.parent().parent().parent().parent().find('.fg_metadata').val(img_arr.join(','));
+                    t.closest('.form-group').find('.wp_gallery_hotel').val(img_arr.join(','));
+                    var old=$('.wb_hotel_gallery_data').val();
+                    if(!old) old='{}';
+                    var json=JSON.parse(old);
+                    if($.inArray(t.data('id'),json) > -1){
+                        json.splice($.inArray(t.data('id'),json),1);
+                    }
+                    $('.wb_hotel_gallery_data').val(JSON.stringify(json));
                     $(this).parent().parent().hide();
                 }
         });
 
-
         $("body").on('click','.gallery-item-btn.gallery-item-edit',function(){
-            var domain = $(this).parent().parent().parent().data('domain');
+            var t = $(this);
+            var domain = $(this).closest('.featuredgallerydiv').data('domain');
             var domain_arr = domain.split(',');
             var title = domain_arr[1];
             var url = $(this).data('url');
-            var list_room = "<div class='full-width mb10'><label><input type='checkbox' name='single-room'/> Single Room</label></div>";
-            list_room += "<div class='full-width mb10'><label><input type='checkbox' name='single-room'/> Double Room</label></div>";
+            var data_room = $(this).data('room');
+            var list_room = '';
+            var old=$('.wb_hotel_gallery_data').val();
+            if(!old) old='{}';
+            var json = JSON.parse(old);
+            $.each(data_room,function(key, value){
+                var checked = '';
+                if(json[t.data('id')] != undefined) {
+                    if ($.inArray(value.ID.toString(), json[t.data('id')]) > -1) {
+                        checked = 'checked';
+                    }
+                }
+                list_room += "<div class='full-width mb10'><label><input type='checkbox' " + checked + " class='wp_room_hotel' data-media-id='"+ t.data('id')+"' name='wp_room_hotel' value='"+value.ID+"'/> "+value.post_title+"</label></div>";
+            });
             modal.open({
                 width:1200,
                 title : title,
@@ -338,7 +411,7 @@ jQuery(document).ready(function( $ ){
             });
             file_frame.on('open', function() {
                 var selection = file_frame.state().get('selection');
-                var ids = container.find('.fg_metadata').val();
+                var ids = container.find('.wp_gallery_hotel').val();
                 if (ids) {
                     idsArray = ids.split(',');
                     idsArray.forEach(function(id) {
@@ -365,7 +438,7 @@ jQuery(document).ready(function( $ ){
 
                 metadataString = imageIDArray.join(",");
                 if (metadataString) {
-                    $('.fg_metadata',container).val(metadataString);
+                    $('.wp_gallery_hotel',container).val(metadataString);
                     $('.featuredgallerydiv',container).html(imageHTML).show();
                     console.log($('.featuredgallerydiv',container).html());
                 }
@@ -411,7 +484,6 @@ jQuery(document).ready(function( $ ){
                         console.log(attachment);
                         container.find('#st_url_media').val(attachment.attributes.url);
                         container.find('#demo_img').attr("src",attachment.attributes.url).show();
-
                     });
                 });
                 frame.on('open',function() {
@@ -1247,7 +1319,7 @@ jQuery(document).ready(function( $ ){
     $(document).on('click','.wb-repeat-dropdown-add',function(){
         var parent=$(this).closest('.form-group');
         var item=parent.find('.default-item').html();
-        parent.find('.add-more-box').append('<div class="more-item">'+item+'<span class="wb-repeat-dropdown-remove"><i class="fa fa-trash"></i> '+wpbooking_params.delete_string+'</span></div>');
+        parent.find('.add-more-box').append('<div class="more-item">'+item+'<span class="wb-repeat-dropdown-remove"><i class="fa fa-trash"></i> </span></div>');
 
     });
     $(document).on('click','.wb-repeat-dropdown-remove',function(){
@@ -1397,6 +1469,7 @@ jQuery(document).ready(function( $ ){
                 parent.removeClass('on-loading');
                 if(res.status){
                     room_form.html(res.html);
+                    filterRoomName();
                     parent.addClass('on-create');
                     $(window).trigger('wpbooking_show_room_form',room_form);
                 }
@@ -1410,5 +1483,25 @@ jQuery(document).ready(function( $ ){
 
         })
     }
+    $(document).on('change','#room_type',function(){
+        var val=$(this).val();
+        filterRoomName(val);
+        changeBedRoomOption(val,$(this));
+    });
+
+
+    function filterRoomName(parent){
+        $('#room_name option[parent='+parent+']').show();
+        $('#room_name option[parent!='+parent+']').hide();
+    }
+
+    function changeBedRoomOption(val,el) {
+        if(el.find('option[value='+val+']').attr('muilti_bedroom')){
+            $('.wpbooking-settings.bed_options').addClass('is-multi-room');
+        }else{
+            $('.wpbooking-settings.bed_options').removeClass('is-multi-room');
+        }
+    }
+
 
 });

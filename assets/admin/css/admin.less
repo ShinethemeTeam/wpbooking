@@ -156,6 +156,13 @@ img.settings-demo-gallery{
     padding: 4px;
 
 }
+.wb-form-group-gallery{
+    margin-bottom: 18px;
+    margin-top: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+}
 .gallery-row{
     margin-left: -15px;
     margin-right: -15px;
@@ -191,7 +198,7 @@ img.settings-demo-gallery{
     //}
 }
 
-#overlay {
+#wb-modal-overlay {
     position:fixed;
     top:0;
     left:0;
@@ -200,12 +207,13 @@ img.settings-demo-gallery{
     background:#000;
     opacity:0.5;
     filter:alpha(opacity=50);
+  z-index: 9991;
 }
 
 .modal_image {
     position:absolute;
     background:rgba(0,0,0,0.2);
-
+    z-index: 9992;
     .title_popup{
         background: #FFF;
         font-size: 22px;
@@ -217,6 +225,7 @@ img.settings-demo-gallery{
     .content_detail {
         background:#fff;
         display: inline-flex;
+        width: 100%;
         .content_left{
             width: 70%;
             float: left;
@@ -1118,6 +1127,7 @@ img.settings-demo-image-gallery{
                     margin-right: 0px;
                     margin-left: 0px;
                 }
+
             }
             .metabox-help{
                 //float: left;
@@ -1292,6 +1302,59 @@ img.settings-demo-image-gallery{
                     background: #f1f1f1;
                     padding: 15px;
                     color: #666666;
+                }
+            }
+        }
+
+        &.bed_options{
+            .default-item{
+                margin-bottom: 10px;
+            }
+            .default-item,.add-more-box{
+                select{
+                    margin: 0px 10px;
+                    &:first-child{
+                        margin-left: 0px;
+                    }
+                }
+            }
+            .more-item{
+                margin-bottom: 10px;
+            }
+            .wb-repeat-dropdown-add{
+                margin-top: 10px;
+                display: inline-block;
+                text-decoration: none;
+            }
+            .wb-repeat-dropdown-remove{
+                color: #e06666;
+            }
+            .single-bed-option{
+                display: block;
+
+            }
+            .multi-bed-option{
+                display: none;
+            }
+            &.is-multi-room{
+                .single-bed-option{
+                    display: none;
+
+                }
+                .multi-bed-option{
+                    display: block;
+                }
+            }
+            .multi-item-row{
+                background: #f1f1f1;
+                margin-bottom: 10px;
+                padding:20px 15px;
+                .multi-item-title{
+                    display: block;
+                    color: @maincolor;
+                    margin-bottom: 20px;
+                    font-size: 16px;
+
                 }
             }
         }

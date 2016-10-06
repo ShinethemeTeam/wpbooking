@@ -1155,6 +1155,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'id'    => 'cancel_free_days_prior' ,
                             'type'  => 'dropdown' ,
                             'value' => array(
+
                                 '0'  => __( 'Day of arrival (6 pm)' , 'wpbooking' ) ,
                                 '1'  => __( '1 day' , 'wpbooking' ) ,
                                 '2'  => __( '2 days' , 'wpbooking' ) ,
@@ -1187,6 +1188,23 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'label'  => __( 'VAT' , 'wpbooking' ) ,
                             'id'     => 'vat_different' ,
                             'type'   => 'vat_different' ,
+                                'first_night' => __('of the first night', 'wpbooking'),
+                                'full_stay'   => __('of the full stay', 'wpbooking'),
+                            ),
+                            'desc'  => esc_html__("Of the first night, of the full stay", "wpbooking"),
+                            'class' => 'small'
+                        ),
+                        array('type' => 'close_section'),
+                        array('type' => 'open_section'),
+                        array(
+                            'label' => __("Tax", 'wpbooking'),
+                            'type'  => 'title',
+                            'desc'  => esc_html__("Set your local VAT or city tax, so guests know what is included in the price of their stay.", "wpbooking")
+                        ),
+                        array(
+                            'label'  => __('VAT', 'wpbooking'),
+                            'id'     => 'vat_different',
+                            'type'   => 'vat_different',
                             'fields' => array(
                                 'vat_excluded' ,
                                 'vat_amount' ,
@@ -1260,10 +1278,10 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         array(
                             'type' => 'section_navigation' ,
                         ) ,
-                    )
-                ) ,
+                    ),
                 'photo_tab'       => array(
-                    'label'  => __( '5. Photos' , 'wpbooking' ) ,
+
+                    'label'  => __('6. Photos', 'wpbooking'),
                     'fields' => array(
                         array(
                             'label' => __( "Pictures" , 'wpbooking' ) ,
@@ -1288,8 +1306,9 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ) ,
 
                         array(
-                            'type' => 'section_navigation' ,
-                        ) ,
+                            'type'       => 'section_navigation',
+                            'next_label' => esc_html__('Save', 'wpbooking')
+                        ),
                     )
                 ) ,
                 'calendar_tab'    => array(
@@ -2209,7 +2228,11 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ) ,
                     ) ,
                     array(
-                        "term"     => esc_html__( "Suite" , 'wpbooking' ) ,
+                        "term"     => esc_html__("Suite", 'wpbooking'),
+                        'term_meta'=>array(
+                            'wpbooking_is_multi_bedroom'=>1,
+                            'wpbooking_is_multi_livingroom'=>1,
+                        ),
                         'children' => array(
                             array( "term" => esc_html__( "Deluxe Double Studio" , "wpbooking" ) ) ,
                             array( "term" => esc_html__( "Deluxe Junior Suite" , "wpbooking" ) ) ,
@@ -2321,7 +2344,11 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ) ,
                     ) ,
                     array(
-                        "term"     => esc_html__( "Apartment" , 'wpbooking' ) ,
+                        "term"     => esc_html__("Apartment", 'wpbooking'),
+                        'term_meta'=>array(
+                            'wpbooking_is_multi_bedroom'=>1,
+                            'wpbooking_is_multi_livingroom'=>1,
+                        ),
                         'children' => array(
                             array( "term" => esc_html__( "Apartment" , "wpbooking" ) ) ,
                             array( "term" => esc_html__( "Apartment - Ground Floor" , "wpbooking" ) ) ,
@@ -2408,16 +2435,31 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             );
 
             foreach( $terms as $tax => $term ) {
-
-                foreach( $term as $item ) {
-                    $item = wp_parse_args( $item , array( 'parent' => '' , 'term' => '' , 'children' ) );
-                    if($item[ 'term' ]) {
-                        $term_data = wp_insert_term( $item[ 'term' ] , $tax , $item );
-
-                        if(!is_wp_error( $term_data ) and !empty( $item[ 'children' ] )) {
-                            foreach( $item[ 'children' ] as $child ) {
-                                wp_insert_term( $child[ 'term' ] , $tax , array( 'parent' => $term_data[ 'term_id' ] ) );
+                foreach ($term as $item) {
+                    $item = wp_parse_args($item, array('parent' => '', 'term' => '', 'children'=>array(),'term_meta'=>array()));
+                    if ($item['term']) {
+                        // Check Exists
+                        $old=term_exists($item['term'],$tax);
+                        if(!$old){
+                            $term_data = wp_insert_term($item['term'], $tax, $item);
+                        }else{
+                            $term_data=$old;
+                        }
+                        if (!is_wp_error($term_data) and !empty($item['children'])) {
+                            foreach ($item['children'] as $child) {
+                                if(!term_exists($child['term'],$tax,$term_data['term_id'])){
+                                    wp_insert_term($child['term'], $tax, array('parent' => $term_data['term_id']));
+                                }
                             }
+                        }
+
+                        // Term Meta
+                        if(!is_wp_error($term_data) and !empty($item['term_meta']) and function_exists('add_term_meta')){
+                            foreach($item['term_meta'] as $key=>$meta){
+                                $a=add_term_meta($term_data['term_id'],$key,$meta,true);
+                                var_dump($a);
+                            }
+
                         }
                     }
 
@@ -2476,115 +2518,65 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     'desc'  => esc_html__( 'Select a room type : Single , double , twin, twin / double , triple, quadruple, family, suite, studio, apartment, dormitory room, bed in dormitory, ...' , 'wpbooking' )
                 ) ,
                 array(
-                    'label'    => esc_html__( 'Room Type' , 'wpbooking' ) ,
-                    'type'     => 'dropdown' ,
-                    'id'       => 'room_type' ,
-                    'taxonomy' => 'wb_hotel_room_type' ,
-                    'parent'   => 0
-                ) ,
+                    'label'    => esc_html__('Room Type', 'wpbooking'),
+                    'type'     => 'dropdown',
+                    'id'       => 'room_type',
+                    'taxonomy' => 'wb_hotel_room_type',
+                    'parent'   => 0,
+                    'class'    => 'small'
+                ),
                 array(
-                    'id'    => 'room_name' ,
-                    'label' => esc_html__( 'Room name' , 'wpbooking' ) ,
-                    'type'  => 'room_name_dropdown' ,
-                ) ,
+                    'id'    => 'room_name',
+                    'label' => esc_html__('Room name', 'wpbooking'),
+                    'type'  => 'room_name_dropdown',
+                    'class' => 'small'
+                ),
                 array(
                     'label' => esc_html__( 'Room name (optional)' , 'wpbooking' ) ,
                     'type'  => 'text' ,
                     'id'    => 'room_name_custom' ,
                 ) ,
                 array(
-                    'label' => esc_html__( 'Smoke Allowed' , 'wpbooking' ) ,
-                    'type'  => 'dropdown' ,
-                    'id'    => 'smoke_allowed' ,
-                    'value' => WPBooking_Config::inst()->item( 'smoking_policy' )
-                ) ,
+                    'label' => esc_html__('Smoke Allowed', 'wpbooking'),
+                    'type'  => 'dropdown',
+                    'id'    => 'smoke_allowed',
+                    'value' => WPBooking_Config::inst()->item('smoking_policy'),
+                    'class' => 'small'
+                ),
                 array(
-                    'label' => esc_html__( 'Room Number' , 'wpbooking' ) ,
-                    'type'  => 'text' ,
-                    'id'    => 'room_number' ,
-                ) ,
+                    'label' => esc_html__('Room Number', 'wpbooking'),
+                    'type'  => 'text',
+                    'id'    => 'room_number',
+                    'class' => 'small'
+                ),
                 array(
                     'label' => esc_html__( 'Bed Rooms' , 'wpbooking' ) ,
                     'type'  => 'dropdown' ,
                     'id'    => 'bed_rooms' ,
                     'value' => array(
-                        1 ,
-                        2 ,
-                        3 ,
-                        4 ,
-                        5 ,
-                        6 ,
-                        7 ,
-                        8 ,
-                        9 ,
-                        10 ,
-                        11 ,
-                        12 ,
-                        13 ,
-                        14 ,
-                        15 ,
-                        16 ,
-                        17 ,
-                        18 ,
-                        19 ,
-                        20
-                    ) ,
-                ) ,
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+                    ),
+                    'class' => 'small'
+                ),
                 array(
                     'label' => esc_html__( 'Bath Rooms' , 'wpbooking' ) ,
                     'type'  => 'dropdown' ,
                     'id'    => 'bath_rooms' ,
                     'value' => array(
-                        1 ,
-                        2 ,
-                        3 ,
-                        4 ,
-                        5 ,
-                        6 ,
-                        7 ,
-                        8 ,
-                        9 ,
-                        10 ,
-                        11 ,
-                        12 ,
-                        13 ,
-                        14 ,
-                        15 ,
-                        16 ,
-                        17 ,
-                        18 ,
-                        19 ,
-                        20
-                    ) ,
-                ) ,
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+                    ),
+                    'class' => 'small'
+                ),
                 array(
                     'label' => esc_html__( 'Living Rooms' , 'wpbooking' ) ,
                     'type'  => 'dropdown' ,
                     'id'    => 'living_rooms' ,
                     'value' => array(
-                        1 ,
-                        2 ,
-                        3 ,
-                        4 ,
-                        5 ,
-                        6 ,
-                        7 ,
-                        8 ,
-                        9 ,
-                        10 ,
-                        11 ,
-                        12 ,
-                        13 ,
-                        14 ,
-                        15 ,
-                        16 ,
-                        17 ,
-                        18 ,
-                        19 ,
-                        20
-                    ) ,
-                ) ,
-                array( 'type' => 'close_section' ) ,
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+                    ),
+                    'class' => 'small'
+                ),
+                array('type' => 'close_section'),
 
                 // Bed Options
                 array( 'type' => 'open_section' ) ,
@@ -2593,40 +2585,20 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     'type'  => 'title' ,
                 ) ,
                 array(
-                    'id'    => 'bed_options' ,
-                    'label' => __( "What kind of beds are available in this room?" , 'wpbooking' ) ,
-                    'type'  => 'bed_options' ,
-                    'value' => WPBooking_Config::inst()->item( 'bed_type' )
-                ) ,
-                array(
-                    'id'    => 'num_guests' ,
-                    'label' => __( "Enter the Number of Guest that can sleep here" , 'wpbooking' ) ,
-                    'type'  => 'dropdown' ,
-                    'value' => array(
-                        1 ,
-                        2 ,
-                        3 ,
-                        4 ,
-                        5 ,
-                        6 ,
-                        7 ,
-                        8 ,
-                        9 ,
-                        10 ,
-                        11 ,
-                        12 ,
-                        13 ,
-                        14 ,
-                        15 ,
-                        16 ,
-                        17 ,
-                        18 ,
-                        19 ,
-                        20
-                    ) ,
-                ) ,
+                    'id'            => 'bed_room_options',
+                    'label'         => __("What kind of beds are available in this room?", 'wpbooking'),
+                    'type'          => 'bed_options',
+                    'value'         => WPBooking_Config::inst()->item('bed_type'),
+                    'add_new_label' => esc_html__('Add another bed', 'wpbooking'),
+                    'fields'=>array(
+                        'bed_options_single_',
+                        'bed_options_single_num_guests',
+                        'bed_options_single_private_bathroom',
+                        'bed_options_multi_',
+                    )
+                ),
 
-                array( 'type' => 'close_section' ) ,
+                array('type' => 'close_section'),
 
                 // Base Price
                 array( 'type' => 'open_section' ) ,
@@ -2635,23 +2607,25 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     'type'  => 'title' ,
                 ) ,
                 array(
-                    'id'    => 'room_price_x_persons' ,
-                    'label' => __( "Price for %d people" , 'wpbooking' ) ,
-                    'type'  => 'money_input' ,
-                    'desc'  => esc_html__( 'Please enter the price you want your guests to pay for this room. You can set custom prices later' , 'wpbooking' )
-                ) ,
+                    'id'    => 'room_price_x_persons',
+                    'label' => __("Price for %d people", 'wpbooking'),
+                    'type'  => 'money_input',
+                    'desc'  => esc_html__('Please enter the price you want your guests to pay for this room. You can set custom prices later', 'wpbooking'),
+                    'class' => 'small'
+                ),
                 array(
                     'id'    => 'addition_guest_allowed' ,
                     'label' => __( "Addition Guests" , 'wpbooking' ) ,
                     'type'  => 'on-off' ,
                 ) ,
                 array(
-                    'id'        => 'each_addition_pay' ,
-                    'label'     => __( "Each addition guest will pay" , 'wpbooking' ) ,
-                    'type'      => 'money_input' ,
-                    'condition' => 'addition_guest_allowed:is(on)'
-                ) ,
-                array( 'type' => 'close_section' ) ,
+                    'id'        => 'each_addition_pay',
+                    'label'     => __("Each addition guest will pay", 'wpbooking'),
+                    'type'      => 'money_input',
+                    'condition' => 'addition_guest_allowed:is(on)',
+                    'class'     => 'small'
+                ),
+                array('type' => 'close_section'),
 
 
                 // Calendar
