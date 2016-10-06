@@ -208,6 +208,7 @@ jQuery(document).ready(function( $ ){
             $content_rooms.find('.content_rooms').empty().append(settings.content_rooms);
             $content.attr('data-id',settings.img_id);
             $content.find('.del-image-perman').children().empty().append(settings.title_delete);
+            $content.find('.del-image-perman').children().attr('data-id',settings.img_id);
 
             $modal.css({
                 width: settings.width || 'auto',
@@ -232,7 +233,7 @@ jQuery(document).ready(function( $ ){
         // Generate the HTML and add it to the document
         $overlay = $('<div id="wb-modal-overlay"></div>');
         $modal = $('<div class="modal_image"></div>');
-        $content = $('<div class="content_detail"></div>');
+        $content = $('<div class="wb-modal content_detail"></div>');
         $content_image = $('<div class="content_left"><div class="content_image"></div></div>');
         $content_rooms = $('<div class="content_right" data-id=""><div class="content_rooms"></div><div class="del-image-perman"><a class="st_delete_attachment" href="javascript:void(0)"></a></div></div>');
         $close = $('<a class="media-modal-close close_modal" href="#"><span class="media-modal-icon"></span></a>');
@@ -295,7 +296,8 @@ jQuery(document).ready(function( $ ){
         $("body").on('click','.st_delete_attachment',function(){
             var wn = confirm('You want delete permanently this image?');
             if(wn == true) {
-                var img_id = $(this).closest('.content_detail').data('id');
+                var img_id = $(this).attr('data-id');
+                console.log(img_id);
                 $.ajax({
                     url: wpbooking_params.ajax_url,
                     dataType: 'json',
@@ -311,6 +313,7 @@ jQuery(document).ready(function( $ ){
                             return a != img_id;
                         });
                         $('.wp_gallery_hotel').val(img_arr.join(','));
+
                         $('.featuredgallerydiv').find('.gallery-item').each(function () {
                             var id = $(this).find('.gallery-item-remove').data('id');
                             if (id == img_id) {
