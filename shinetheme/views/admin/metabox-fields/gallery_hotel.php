@@ -39,7 +39,7 @@ $json_hotel = json_encode($list_hotel);
 
 if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
  	foreach( $tmp as $k => $v ){
-        $url = wp_get_attachment_image_src( $v,array(250,250) );
+        $url = wp_get_attachment_image_src( $v,array(200,200) );
         $url_full = wp_get_attachment_image_src( $v,'full' );
         if( !empty( $url ) ){
             $field .= '<div class="gallery-item">';

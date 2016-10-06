@@ -277,7 +277,6 @@ jQuery(document).ready(function( $ ){
                             json[media_id].splice(json[media_id].indexOf($(this).val()),1);
                         }
                     });
-
                     $('.wb_hotel_gallery_data').val(JSON.stringify(json));
 
                 }catch(e){
@@ -372,8 +371,8 @@ jQuery(document).ready(function( $ ){
             var json = JSON.parse(old);
             $.each(data_room,function(key, value){
                 var checked = '';
-                if(json[t.data('id')] !== undefined) {
-                    if ($.inArray(value.id, json[t.data('id')]) > -1) {
+                if(json[t.data('id')] != undefined) {
+                    if ($.inArray(value.ID.toString(), json[t.data('id')]) > -1) {
                         checked = 'checked';
                     }
                 }
