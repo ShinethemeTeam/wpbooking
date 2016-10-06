@@ -1280,7 +1280,6 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ) ,
                     ),
                 'photo_tab'       => array(
-
                     'label'  => __('6. Photos', 'wpbooking'),
                     'fields' => array(
                         array(
