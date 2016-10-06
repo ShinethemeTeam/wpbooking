@@ -3,7 +3,7 @@
 *@since 1.0.0
 **/
 
-$old_data = array('gallery' => '','room_data'=>array());
+$old_data = array('gallery' => '','room_data'=>'');
 
 $value = get_post_meta( $post_id, esc_html( $data['id'] ), true );
 
