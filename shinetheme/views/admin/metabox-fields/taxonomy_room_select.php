@@ -53,14 +53,17 @@ $my_term =wp_get_post_terms($post_id,$data['taxonomy']);
                                     }
                                 }
                                 ?>
-                                    <div class="wpbooking-row">
+                                    <div class="wpbooking-row  <?php if(count($list_room) == 1){ echo 'one_room';}?>">
                                         <div class="wpbooking-col-sm-4">
                                             <label><input class="item_base" <?php echo esc_html($checked) ?> onclick="return false" name="<?php echo esc_attr($data['id']) ?>[<?php echo esc_attr($i) ?>][<?php echo esc_attr($data['taxonomy']) ?>]" value="<?php echo esc_attr($term->term_id) ?>" type="checkbox"><?php echo esc_html($term->name) ?></label>
                                         </div>
-                                        <div class="wpbooking-col-sm-4">
-                                            <label><input class="item_all" name="type_data"  value="all" <?php echo esc_html($checked_all) ?>  type="checkbox"><?php echo esc_html_e("All","wpbooking") ?></label>
-                                        </div>
-                                        <div class="wpbooking-col-sm-4">
+                                         <?php if(count($list_room) != 1){?>
+                                            <div class="wpbooking-col-sm-4 class_item_all">
+                                                <label><input class="item_all" name="type_data"  value="all" <?php echo esc_html($checked_all) ?>  type="checkbox"><?php echo esc_html_e("All","wpbooking") ?></label>
+                                            </div>
+                                        <?php }?>
+                                        <?php if(!empty($list_room)){?>
+                                        <div class="wpbooking-col-sm-4 class_item_custom">
                                             <label><input class="item_custom"  name="type_data" value="custom" <?php echo esc_html($checked_custom) ?> type="checkbox"><?php echo esc_html_e("Some","wpbooking") ?></label>
                                             <div class="list_post <?php if(!empty($checked_custom)) echo 'active' ?>">
                                                 <?php
@@ -87,6 +90,7 @@ $my_term =wp_get_post_terms($post_id,$data['taxonomy']);
                                                 ?>
                                             </div>
                                         </div>
+                                        <?php } ?>
                                     </div>
                                 <?php
                                 $i++;

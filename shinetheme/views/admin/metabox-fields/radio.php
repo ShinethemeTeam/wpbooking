@@ -4,6 +4,11 @@
 **/
 
 $old_data = (isset( $data['custom_data'] ) ) ? esc_html( $data['custom_data'] ) : get_post_meta( $post_id, esc_html( $data['id'] ), true);
+if(empty($data['std']) and empty($old_data)){
+
+		$old_data = $data['std'];
+
+}
 
 
 $class = ' wpbooking-form-group ';

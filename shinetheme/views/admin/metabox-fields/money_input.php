@@ -45,7 +45,7 @@ $field .= '</div></div>';
 			<div class="form-group">
 				<div class="input-group <?php echo esc_attr($data['class']) ?>">
 					<span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-					<input type="text" class="form-control" id="<?php echo esc_html($data['id']) ?>" value="<?php echo esc_html($old_data)?>" name="<?php echo esc_html($name)?>"  >
+					<input type="number" class="form-control" id="<?php echo esc_html($data['id']) ?>" value="<?php echo esc_html($old_data)?>" name="<?php echo esc_html($name)?>"  >
 				</div>
 
 				<?php

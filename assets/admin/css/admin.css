@@ -1189,6 +1189,12 @@ img.settings-demo-image-gallery {
 .st-metabox-tab-content-wrap * {
   box-sizing: border-box;
 }
+.st-metabox-tab-content-wrap .taxonomy_room_select .wpbooking-row.one_room .class_item_custom > label {
+  display: none;
+}
+.st-metabox-tab-content-wrap .taxonomy_room_select .wpbooking-row.one_room .class_item_custom .list_post {
+  display: block;
+}
 .st-metabox-tab-content-wrap textarea.form-control {
   min-height: inherit !important;
   height: auto !important;
