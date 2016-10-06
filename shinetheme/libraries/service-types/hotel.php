@@ -1184,16 +1184,6 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'type'  => 'title' ,
                             'desc'  => esc_html__( "Set your local VAT or city tax, so guests know what is included in the price of their stay." , "wpbooking" )
                         ) ,
-                        array(
-                            'label'  => __( 'VAT' , 'wpbooking' ) ,
-                            'id'     => 'vat_different' ,
-                            'type'   => 'vat_different' ,
-                                'first_night' => __('of the first night', 'wpbooking'),
-                                'full_stay'   => __('of the full stay', 'wpbooking'),
-                            ),
-                            'desc'  => esc_html__("Of the first night, of the full stay", "wpbooking"),
-                            'class' => 'small'
-                        ),
                         array('type' => 'close_section'),
                         array('type' => 'open_section'),
                         array(
@@ -1279,6 +1269,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'type' => 'section_navigation' ,
                         ) ,
                     ),
+                ),
                 'photo_tab'       => array(
                     'label'  => __('6. Photos', 'wpbooking'),
                     'fields' => array(
