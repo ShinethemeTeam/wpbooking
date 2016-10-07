@@ -359,7 +359,8 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 			if(!empty($terms) and !is_wp_error($terms)){
 				foreach($terms as $key=>$value){
 					$extra_services[$value->term_id]=array(
-						'title'=>$value->name
+						'title'=>$value->name,
+						'description' => $value->description
 					);
 				}
 			}
