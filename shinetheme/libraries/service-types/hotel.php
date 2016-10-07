@@ -1279,7 +1279,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         ) ,
                         array(
                             'label' => __( "Gallery" , 'wpbooking' ) ,
-                            'id'    => 'gallery' ,
+                            'id'    => 'gallery_hotel' ,
                             'type'  => 'gallery_hotel' ,
                             'desc'  => __( 'Picture recommendations
 

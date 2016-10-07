@@ -402,10 +402,8 @@ jQuery(document).ready(function( $ ){
                 return;
             }
             // Create the media frame.
-            file_frame = '';
-            console.log(file_frame);
 
-            file_frame = wp.media({
+            file_frame = wp.media.frame = wp.media({
                 frame: "post",
                 state: "gallery",
                 library : { type : 'image'},

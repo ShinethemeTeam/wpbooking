@@ -632,19 +632,28 @@ img.settings-demo-image-gallery{
         bottom: 30%;
         width: 30%;
         .border_section_metabox{
-           /* -moz-border-bottom-colors: none;
-            -moz-border-left-colors: none;
-            -moz-border-right-colors: none;
-            -moz-border-top-colors: none;
-            border-color: #d3d3d3 #d3d3d3 #fff #fff;
-            border-image: none;
-            border-style: solid;
-            border-width: 1px;
-            bottom: -1px;
+            border: 1px solid #d3d3d3;
+            bottom: 0;
             height: 60px;
-            left: -1px;
+            left: 0;
             position: absolute;
-            width: 40px;*/
+            width: 27px;
+            &:after{
+                width: 30px;
+                height: 65px;
+                border-right: 1px solid #d3d3d3;
+                -webkit-transform: rotate(30deg);
+                -moz-transform: rotate(30deg);
+                -ms-transform: rotate(30deg);
+                -o-transform: rotate(30deg);
+                transform: rotate(-24deg);
+                content: '';
+                position: absolute;
+                left: -17px;
+                background: #FFF;
+                bottom: -10px;
+            }
+            background: #FFF;
         }
         .fa{
             font-size: 30px;

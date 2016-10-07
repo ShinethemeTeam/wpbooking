@@ -27,12 +27,24 @@ $text_domain[] = esc_html__("Choose list room's detail",'wpbooking');
 $text_domain[] = esc_html__("Delete Permanently",'wpbooking');
 
 $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
+$gallery = $room_data = "";
+if(!empty($old_data['gallery'])){
+    $gallery = $old_data['gallery'];
+}
+if(!empty($old_data['room_data'])){
+    $gallery = $old_data['room_data'];
+}
+
 $field = '<div class="st-metabox-content-wrapper wpbooking-settings"><div class="form-group">';
-$field .= '<input type="hidden" id="wp_gallery_hotel" class="wp_gallery_hotel none" value="'. esc_html( $old_data['gallery'] ) .'" name="'. $name .'[gallery]">';
-$field .= "<input type=\"hidden\" class=\"wb_hotel_gallery_data\" value='".  $old_data["room_data"] ."' name='". $name ."[room_data]' >
+$field .= '<input type="hidden" id="wp_gallery_hotel" class="wp_gallery_hotel none" value="'. $gallery .'" name="'. $name .'[gallery]">';
+$field .= "<input type=\"hidden\" class=\"wb_hotel_gallery_data\" value='".  $room_data ."' name='". $name ."[room_data]' >
 			<br>";
 $field .= '<div class="featuredgallerydiv gallery-row" data-domain="'.implode(',',$text_domain).'">';
-$tmp = explode( ',', $old_data['gallery'] );
+
+$tmp = '';
+if(!empty($old_data['gallery'])) {
+    $tmp = explode(',', $old_data['gallery']);
+}
 $list_hotel = WPBooking_Hotel_Service_Type::inst()->_get_room_by_hotel($post_id);
 
 $json_hotel = json_encode($list_hotel);
