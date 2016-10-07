@@ -1405,7 +1405,6 @@ jQuery(document).ready(function( $ ){
         var room_id=$(this).data('room_id');
         showRoomForm(parent,room_id);
         setTimeout(function(){
-            console.log('xxx');
             $('#room_type').trigger("change");
             $('#bed_rooms').trigger("change");
         },1000);
