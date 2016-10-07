@@ -2503,7 +2503,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             $fields = array(
                 array( 'type' => 'open_section' ) ,
                 array(
-                    'label' => __( "Please select" , 'wpbooking' ) ,
+                    'label' => __( "Deluxe Queen Studio" , 'wpbooking' ) ,
                     'type'  => 'title' ,
                     'desc'  => esc_html__( 'Select a room type : Single , double , twin, twin / double , triple, quadruple, family, suite, studio, apartment, dormitory room, bed in dormitory, ...' , 'wpbooking' )
                 ) ,
@@ -2546,6 +2546,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     'value' => array(
                         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
                     ),
+                   /* 'condition' => 'room_type:is(on)',*/
                     'class' => 'small'
                 ),
                 array(

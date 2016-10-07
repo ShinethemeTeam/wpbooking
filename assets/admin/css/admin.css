@@ -1451,6 +1451,9 @@ img.settings-demo-image-gallery {
 .st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .multi-bed-option {
   display: none;
 }
+.st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .multi-bed-option .multi-item-default {
+  display: none;
+}
 .st-metabox-tab-content-wrap .wpbooking-form-group.bed_options.is-multi-room .single-bed-option {
   display: none;
 }
