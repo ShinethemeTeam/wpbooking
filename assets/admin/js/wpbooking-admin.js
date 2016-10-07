@@ -1414,6 +1414,10 @@ jQuery(document).ready(function( $ ){
         var parent=$(this).closest('.st-metabox-tab-content-wrap');
         var room_id=$(this).data('room_id');
         showRoomForm(parent,room_id);
+        setTimeout(function(){
+            $('#room_type').trigger("change");
+            $('#bed_rooms').trigger("change");
+        },1000);
         return false;
     });
 
@@ -1516,6 +1520,41 @@ jQuery(document).ready(function( $ ){
             $('.wpbooking-settings.bed_options').removeClass('is-multi-room');
         }
     }
+
+
+    $(document).on('change','#bed_rooms',function(){
+        var parent=$('.multi-bed-option');
+        var number = parseInt($(this).val());
+
+        var item=parent.find('.multi-item-default').html();
+        var number_check = 1;
+        parent.find('.multi-item-row').each(function(){
+            if(number < number_check){
+                $(this).remove();
+            }
+            number_check++;
+        });
+
+
+
+
+        console.log(number);
+        console.log(number_check);
+        if(number > (number_check - 1)){
+            var n_item = number - (number_check - 1);
+            for ( var i=0 ; i < n_item ; i++){
+                console.log(i);
+                var n_item_next = number_check +i;
+                console.log(item);
+                var html = item.replace("__number_room__", n_item_next);
+
+                parent.append('<div class="multi-item-row number_'+n_item_next+'" data-number="'+n_item_next+'">'+html+'</div>');
+            }
+        }
+       // parent.append(item);
+       // console.log(item);
+    });
+
 
 
 });
