@@ -1130,6 +1130,8 @@ jQuery(document).ready(function( $ ){
         var me=$(this);
         var list_terms=$(this).closest('.st-metabox-right').find('.list-extra-services');
         var term_name=parent.find('.service-name ').val();
+        var term_desc=parent.find('.service-desc ').val();
+        var max_quantity=parent.find('.max-quantity-sv option:selected').val();
         var service_type=me.data('type');
         var id=me.data('id');
         if(!term_name) return false;
@@ -1142,6 +1144,7 @@ jQuery(document).ready(function( $ ){
             data:{
                 action:'wpbooking_add_extra_service',
                 service_name:term_name,
+                service_desc:term_desc,
                 service_type:service_type
             },
             success:function(res){
@@ -1153,13 +1156,22 @@ jQuery(document).ready(function( $ ){
                     var count=list_terms.find('.extra-item').length;
                     html.find('.title input').attr('name',id+'['+service_type+']'+'['+(count)+'][is_selected]');
                     html.find('.title input').val(term_name);
+                    html.find('.service_desc').html(term_desc);
                     html.find('.extra-item-name').html(term_name);
+                    html.find('.max-quantity-select option').each(function(){
+                        if($(this).val() == max_quantity){
+                            $(this).attr('selected','');
+                        }
+                    });
                     html.find('.money-number input').attr('name',id+'['+service_type+']'+'['+(count)+'][money]');
                     html.find('.require-options select').attr('name',id+'['+service_type+']'+'['+(count)+'][require]');
+                    html.find('.max-quantity .max-quantity-select').attr('name',id+'['+service_type+']'+'['+(count)+'][quantity]');
 
                     list_terms.append(html);
 
                     parent.find('.service-name').val('');
+                    parent.find('.service-desc').val('');
+                    parent.find('.max-quantity-sv option[value=""]').attr('selected','');
                 }
                 if(res.message){
                     alert(res.message);
@@ -1470,6 +1482,7 @@ jQuery(document).ready(function( $ ){
                 parent.removeClass('on-loading');
                 if(res.status){
                     room_form.html(res.html);
+                    run_condition_engine();
                     filterRoomName();
                     parent.addClass('on-create');
                     $(window).trigger('wpbooking_show_room_form',room_form);

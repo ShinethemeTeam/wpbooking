@@ -357,9 +357,7 @@ if (!class_exists('WPBooking_Metabox')) {
 
 
 
-
                 // Property Size
-                //var_dump($field);
 
                 switch ($field['type']) {
                     case "property_size":
@@ -456,7 +454,6 @@ if (!class_exists('WPBooking_Metabox')) {
 
         function wpbooking_save_bed_options($post_id,$field_id,$field)
         {
-            var_dump($field_id);
             $data=WPBooking_Input::post($field_id.'_multi_');
             if(!empty($data['__number_room__'])){
                 unset($data['__number_room__']);

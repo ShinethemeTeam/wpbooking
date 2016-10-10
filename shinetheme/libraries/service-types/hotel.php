@@ -867,6 +867,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'next_label'  => esc_html__( 'Next Step' , 'wpbooking' ) ,
                             'ajax_saving' => 0
                         ) ,
+
                     )
                 ) ,
                 'facilities_tab'  => array(
@@ -2618,6 +2619,50 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 ),
                 array('type' => 'close_section'),
 
+                // Guest information
+                array( 'type' => 'open_section' ),
+                array(
+                    'label' => __('Guest Information'),
+                    'type' => 'title',
+                    'desc' => esc_html__('Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium','wpbooking'),
+                ),
+                array(
+                    'id' => 'gi_max_adult',
+                    'type' => 'dropdown',
+                    'label' => __('Max adult','wpbooking'),
+                    'value' => array(
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+                    ),
+                    'class' => 'small'
+                ),
+                array(
+                    'id' => 'gi_max_children',
+                    'type' => 'dropdown',
+                    'label' => __('Max children','wpbooking'),
+                    'value' => array(
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+                    ),
+                    'class' => 'small'
+                ),
+                array( 'type' => 'close_section' ),
+
+                // Extra Service
+                array(
+                    'type' => 'open_section'
+                ),
+                array(
+                    'type' => 'title',
+                    'label' => __('Extra Services','wpbooking'),
+                    'desc' => esc_html__('Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium','wpbooking')
+                ),
+                array(
+                    'type' => 'extra_services',
+                    'label' => __('Choose extra services','wpbooking'),
+                    'id' => 'extra_services_hotel'
+                ),
+                array(
+                    'type' => 'close_section'
+                ),
 
                 // Calendar
                 array( 'type' => 'open_section' ) ,
