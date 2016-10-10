@@ -406,7 +406,9 @@ if (!class_exists('WPBooking_Metabox')) {
                     case "bed_options":
                         $this->wpbooking_save_bed_options($post_id,$field['id'],$field);
                         break;
-
+                    case "living_options":
+                        $this->wpbooking_save_living_options($post_id,$field['id'],$field);
+                        break;
                     default :
                         if (isset($new) && $new !== $old) {
                             update_post_meta($post_id, $field['id'], $new);
@@ -454,13 +456,32 @@ if (!class_exists('WPBooking_Metabox')) {
 
         function wpbooking_save_bed_options($post_id,$field_id,$field)
         {
-            $data=WPBooking_Input::post($field_id.'_multi_');
-            if(!empty($data['__number_room__'])){
-                unset($data['__number_room__']);
-                $data = array_values($data);
+
+            $data_single = WPBooking_Input::post($field_id.'_single_');
+            $data_single_guests = WPBooking_Input::post($field_id.'_single_num_guests');
+            $data_single_bathroom = WPBooking_Input::post($field_id.'_single_private_bathroom');
+            $list = array();
+            if(!empty($data_single['bed_type'])){
+                foreach($data_single['bed_type'] as $k=>$v){
+                    $list[] = array(
+                        'bed_type'=>$v,
+                        'number'=>$data_single['number'][$k],
+                    );
+
+                }
+            }
+            update_post_meta($post_id,$field_id.'_single_',$list);
+            update_post_meta($post_id,$field_id.'_single_num_guests',$data_single_guests);
+            update_post_meta($post_id,$field_id.'_single_private_bathroom',$data_single_bathroom);
 
 
-                foreach($data as $k=>$v){
+            $data_multi=WPBooking_Input::post($field_id.'_multi_');
+            if(!empty($data_multi['__number_room__'])){
+                unset($data_multi['__number_room__']);
+                $data_multi = array_values($data_multi);
+
+
+                foreach($data_multi as $k=>$v){
                     $list = array();
                     $lisst_bed_type = $v['bed_type']['bed_type'];
                     foreach($lisst_bed_type as $k2=>$v2){
@@ -469,12 +490,20 @@ if (!class_exists('WPBooking_Metabox')) {
                             'number' => $v['bed_type']['number'][$k2]
                         );
                     }
-                    $data[$k]['bed_type'] = $list;
+                    $data_multi[$k]['bed_type'] = $list;
                 }
 
             }
-
-            update_post_meta($post_id,$field_id.'_multi_',$data);
+            update_post_meta($post_id,$field_id.'_multi_',$data_multi);
+        }
+        function wpbooking_save_living_options($post_id,$field_id,$field)
+        {
+            $data_multi=WPBooking_Input::post($field_id);
+            if(!empty($data_multi['__number_living__'])){
+                unset($data_multi['__number_living__']);
+                $data_multi = array_values($data_multi);
+            }
+            update_post_meta($post_id,$field_id,$data_multi);
 
         }
 

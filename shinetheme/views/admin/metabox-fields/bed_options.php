@@ -27,6 +27,14 @@ $field = '';
                 <div class="form-group">
                     <div class="default-item">
                         <?php
+                        $single_meta = get_post_meta($post_id, $name . '_single_', true);
+
+                        if(empty($single_meta[0]))$single_meta[0] =  array();
+                        $data_single_meta = wp_parse_args($single_meta[0], array(
+                            'number'   => 1,
+                            'bed_type'     => ''
+                        ));
+
                         if (is_array($data['value']) && !empty($data['value'])) {
                             $array_with_out_key = FALSE;
                             $keys = array_keys($data['value']);
@@ -34,7 +42,7 @@ $field = '';
                                 $array_with_out_key = true;
                             }
 
-                            echo '<select name="' . $name . '_single_[][bed_type]"  class="widefat small form-control ' . esc_html($data['class']) . '">';
+                            echo '<select name="' . $name . '_single_[bed_type][]"  class="widefat small form-control ' . esc_html($data['class']) . '">';
                             if (!empty($data['select_label'])) $field .= sprintf('<option value="">%s</option>', $data['select_label']);
                             foreach ($data['value'] as $key => $value) {
                                 $compare = $key;
@@ -44,43 +52,45 @@ $field = '';
                                 if (!empty($data['std']) && (esc_html($key) == esc_html($data['std']))) {
                                     $checked = ' selected ';
                                 }
-                                if ($old_data && !empty($old_data)) {
-
-                                    if (esc_html($compare) == esc_html($old_data[0])) {
-                                        $checked = ' selected ';
-                                    } else {
-                                        $checked = '';
-                                    }
-                                }
                                 $option_val = $key;
                                 if ($array_with_out_key) $option_val = $value;
-
+                                if (!empty($data_single_meta['bed_type'])) {
+                                    if (esc_html($compare) == esc_html($data_single_meta['bed_type'])) {
+                                        $checked = ' selected ';
+                                    }
+                                }
                                 echo '<option value="' . esc_html($option_val) . '" ' . $checked . '>' . esc_html($value) . '</option>';
                             }
                             echo '</select> x ';
 
-                            echo sprintf('<select class="small form-control" name="%s_single_[][number]">', esc_html($name));
+                            echo sprintf('<select class="small form-control" name="%s_single_[number][]">', esc_html($name));
                             for ($i = 1; $i < 12; $i++) {
-                                echo '<option value="' . esc_attr($i) . '" >' . esc_html($i) . '</option>';
+                                $checked = '';
+                                if (!empty($data_single_meta['number'])) {
+                                    if (esc_html($i) == esc_html($data_single_meta['number'])) {
+                                        $checked = ' selected ';
+                                    }
+                                }
+                                echo '<option '.$checked.' value="' . esc_attr($i) . '" >' . esc_html($i) . '</option>';
                             }
                             echo '</select>';
 
                         } ?>
                     </div>
                     <div class="add-more-box">
-                        <?php if (!empty($old_data)) {
-                            foreach ($old_data as $k => $v) {
+                        <?php if (!empty($single_meta)) {
+                            foreach ($single_meta as $k => $v) {
                                 if (!$k) continue;
                                 ?>
                                 <div class="more-item">
-                                    <select name="<?php echo esc_attr($name) ?>_single_[][bed_type]"
+                                    <select name="<?php echo esc_attr($name) ?>_single_[bed_type][]"
                                             class="widefat small form-control <?php echo esc_attr($data['class']) ?>">
                                         <?php if (!empty($data['select_label'])) printf('<option value="">%s</option>', $data['select_label']); ?>
                                         <?php
                                         foreach ($data['value'] as $key => $value) {
 
 
-                                            if (esc_html($v) == esc_html($key)) {
+                                            if (esc_html($v['bed_type']) == esc_html($key)) {
                                                 $checked = ' selected ';
                                             } else {
                                                 $checked = '';
@@ -92,9 +102,14 @@ $field = '';
                                     </select> x
                                     <?php
 
-                                    printf('<select class="small form-control" name="%s_single_[][number]">', esc_html($name));
+                                    printf('<select class="small form-control" name="%s_single_[number][]">', esc_html($name));
                                     for ($i = 1; $i < 12; $i++) {
-                                        echo '<option value="' . esc_attr($i) . '" >' . esc_html($i) . '</option>';
+                                        if (esc_html($v['number']) == esc_html($i)) {
+                                            $checked = ' selected ';
+                                        } else {
+                                            $checked = '';
+                                        }
+                                        echo '<option '.$checked.' value="' . esc_attr($i) . '" >' . esc_html($i) . '</option>';
                                     }
                                     echo '</select>';
 
@@ -137,7 +152,7 @@ $field = '';
                 <div class="form-group">
                     <label>
                         <input type="checkbox" name="<?php echo esc_attr($name) ?>_single_private_bathroom"
-                               value="1" <?php checked(get_post_meta($post_id, $name . '_single_private_bathroom', true),0) ?> > <?php esc_html_e('Yes') ?>
+                               value="1" <?php checked(get_post_meta($post_id, $name . '_single_private_bathroom', true),1) ?> > <?php esc_html_e('Yes') ?>
                     </label>
                 </div>
             </div>

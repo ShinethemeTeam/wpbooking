@@ -1489,6 +1489,7 @@ jQuery(document).ready(function( $ ){
                 }
                 $('#room_type').trigger("change");
                 $('#bed_rooms').trigger("change");
+                $('#living_rooms').trigger("change");
 
                 if(res.message){ alert(res.message);}
             },
@@ -1521,7 +1522,7 @@ jQuery(document).ready(function( $ ){
 
 
     $(document).on('change','#bed_rooms',function(){
-        var parent=$('.multi-bed-option');
+        var parent=$('.bed_options');
         var number = parseInt($(this).val());
 
         var item=parent.find('.multi-item-default').html();
@@ -1544,6 +1545,29 @@ jQuery(document).ready(function( $ ){
         }
     });
 
+    $(document).on('change','#living_rooms',function(){
+        var parent=$('.living_options');
+        var number = parseInt($(this).val());
+
+        var item=parent.find('.multi-item-default').html();
+        var number_check = 1;
+        parent.find('.multi-item-row').each(function(){
+            if(number < number_check){
+                $(this).remove();
+            }
+            number_check++;
+        });
+        if(number > (number_check - 1)){
+            var n_item = number - (number_check - 1);
+            for ( var i=0 ; i < n_item ; i++){
+                console.log(i);
+                var n_item_next = number_check +i;
+                console.log(item);
+                var html = item.split('__number_living__').join(n_item_next);
+                parent.append('<div class="multi-item-row number_'+n_item_next+'" data-number="'+n_item_next+'">'+html+'</div>');
+            }
+        }
+    });
 
 
 });

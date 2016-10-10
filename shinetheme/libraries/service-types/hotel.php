@@ -2589,6 +2589,11 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         'bed_options_multi_',
                     )
                 ),
+                array(
+                    'id'            => 'living_room_options',
+                    'type'          => 'living_options',
+                    'class'     => 'small'
+                ),
 
                 array('type' => 'close_section'),
 
