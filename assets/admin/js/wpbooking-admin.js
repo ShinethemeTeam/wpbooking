@@ -1402,10 +1402,6 @@ jQuery(document).ready(function( $ ){
         var parent=$(this).closest('.st-metabox-tab-content-wrap');
         var room_id=$(this).data('room_id');
         showRoomForm(parent,room_id);
-        setTimeout(function(){
-            $('#room_type').trigger("change");
-            $('#bed_rooms').trigger("change");
-        },1000);
         return false;
     });
 
@@ -1478,6 +1474,8 @@ jQuery(document).ready(function( $ ){
                     parent.addClass('on-create');
                     $(window).trigger('wpbooking_show_room_form',room_form);
                 }
+                $('#room_type').trigger("change");
+                $('#bed_rooms').trigger("change");
 
                 if(res.message){ alert(res.message);}
             },
@@ -1521,25 +1519,16 @@ jQuery(document).ready(function( $ ){
             }
             number_check++;
         });
-
-
-
-
-        console.log(number);
-        console.log(number_check);
         if(number > (number_check - 1)){
             var n_item = number - (number_check - 1);
             for ( var i=0 ; i < n_item ; i++){
                 console.log(i);
                 var n_item_next = number_check +i;
                 console.log(item);
-                var html = item.replace("__number_room__", n_item_next);
-
+                var html = item.split('__number_room__').join(n_item_next);
                 parent.append('<div class="multi-item-row number_'+n_item_next+'" data-number="'+n_item_next+'">'+html+'</div>');
             }
         }
-       // parent.append(item);
-       // console.log(item);
     });
 
 

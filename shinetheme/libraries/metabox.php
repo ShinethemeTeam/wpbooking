@@ -360,6 +360,7 @@ if (!class_exists('WPBooking_Metabox')) {
 
                 // Property Size
                 //var_dump($field);
+
                 switch ($field['type']) {
                     case "property_size":
                         if (!empty($field['unit_id'])) update_post_meta($post_id, $field['unit_id'], WPBooking_Input::post($field['unit_id']));
@@ -403,6 +404,9 @@ if (!class_exists('WPBooking_Metabox')) {
                     case "taxonomy_fee_select":
                         $this->wpbooking_save_taxonomy_fee($post_id,$field['id'],$field);
 
+                        break;
+                    case "bed_options":
+                        $this->wpbooking_save_bed_options($post_id,$field['id'],$field);
                         break;
 
                     default :
@@ -448,6 +452,33 @@ if (!class_exists('WPBooking_Metabox')) {
                 wp_set_object_terms( $post_id, $post_terms, $field['taxonomy'] );
             }
             update_post_meta($post_id,$field_id,$data);
+        }
+
+        function wpbooking_save_bed_options($post_id,$field_id,$field)
+        {
+            var_dump($field_id);
+            $data=WPBooking_Input::post($field_id.'_multi_');
+            if(!empty($data['__number_room__'])){
+                unset($data['__number_room__']);
+                $data = array_values($data);
+
+
+                foreach($data as $k=>$v){
+                    $list = array();
+                    $lisst_bed_type = $v['bed_type']['bed_type'];
+                    foreach($lisst_bed_type as $k2=>$v2){
+                        $list[] = array(
+                            'bed_type'=>$v2,
+                            'number' => $v['bed_type']['number'][$k2]
+                        );
+                    }
+                    $data[$k]['bed_type'] = $list;
+                }
+
+            }
+
+            update_post_meta($post_id,$field_id.'_multi_',$data);
+
         }
 
         /**
