@@ -2589,6 +2589,11 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         'bed_options_multi_',
                     )
                 ),
+                array(
+                    'id'            => 'living_room_options',
+                    'type'          => 'living_options',
+                    'class'     => 'small'
+                ),
 
                 array('type' => 'close_section'),
 
@@ -2805,6 +2810,15 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             if($room_id) {
                 // Validate
                 check_ajax_referer( "wpbooking_hotel_room_" . $room_id , 'wb_hotel_room_security' );
+
+
+                if($name = WPBooking_Input::request('room_name_custom')){
+                    $my_post = array(
+                        'ID'           => $room_id,
+                        'post_title'   => $name,
+                    );
+                    wp_update_post( $my_post );
+                }
 
                 $fields = $this->get_room_meta_fields();
                 WPBooking_Metabox::inst()->do_save_metabox( $room_id , $fields , 'wpbooking_hotel_room_form' );

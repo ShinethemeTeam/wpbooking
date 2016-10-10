@@ -1324,6 +1324,66 @@ img.settings-demo-image-gallery{
             }
             .default-item,.add-more-box{
                 select{
+                   /* margin: 0px 10px;*/
+                    &:first-child{
+                        margin-left: 0px;
+                    }
+                }
+            }
+            .more-item{
+                margin-bottom: 10px;
+            }
+            .wb-repeat-dropdown-add{
+                margin-top: 10px;
+                display: inline-block;
+                display: inline-block;
+                text-decoration: none;
+            }
+            .wb-repeat-dropdown-remove{
+                color: #e06666;
+            }
+            .single-bed-option{
+                display: block;
+
+            }
+            .multi-bed-option{
+                display: none;
+                .multi-item-default{
+                    display: none;
+                }
+            }
+            &.is-multi-room{
+                .single-bed-option{
+                    display: none;
+
+                }
+                .multi-bed-option{
+                    display: block;
+                }
+            }
+            .multi-item-row{
+                background: #f1f1f1;
+                margin-bottom: 10px;
+                padding:20px 15px;
+                .multi-item-title{
+                    display: block;
+                    color: @maincolor;
+                    margin-bottom: 20px;
+                    font-size: 16px;
+
+                }
+            }
+
+        }
+        &.living_options{
+            .multi-item-default{
+                display: none;
+            }
+            .default-item{
+                margin-bottom: 10px;
+            }
+            .default-item,.add-more-box{
+                select{
                     margin: 0px 10px;
                     &:first-child{
                         margin-left: 0px;
@@ -1372,8 +1432,8 @@ img.settings-demo-image-gallery{
 
                 }
             }
-        }
 
+        }
 
         @media(max-width: 1100px){
             .st-metabox-left{
