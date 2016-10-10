@@ -1655,6 +1655,18 @@ input.gmap-search{
     }
 }
 //@import "calendar.less";
+.wp-core-ui {
+  .button.wb-button-primary {
+    background: @maincolor;
+    border-color: @maincolor;
+    color: #FFF;
+    text-shadow: none;
+    padding: 2px 15px;
+    height: auto;
+    border-radius: 0;
+    box-shadow: 0 1px 0 @maincolor;
+  }
+}
 .wpbooking-calendar-wrapper{
     margin-top: 20px;
     .wpbooking-calendar-content{
@@ -1662,8 +1674,11 @@ input.gmap-search{
         width: 100%;
         float: left;
         padding-left: 15px;
-        padding-right: 40px;
+        padding-right: 20px;
         z-index: 1;
+      .wb-heading{
+        padding-right: 15px;
+      }
         .fc-scroller{
             height: auto!important;
         }
@@ -1814,22 +1829,29 @@ input.gmap-search{
         width: 100%;
         float: left;
         .form-container{
-            border: 1px solid #CCC;
-            background: #f1f1f1;
+            border: 1px solid #e9e9e9;
+            background: #FFFFFF;
             padding:20px;
-            border-radius: 2px;
-            margin-bottom: 30px;
-            input[type=text]{
+            margin-bottom: 20px;
+            input[type=text],select{
                 padding:5px;
+              border-color: #999999;
+              border-radius: 0;
+              height: 31px;
             }
             .form-title{
-                color: @maincolor;
+                color: #666666;
                 margin: 0px;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
                 margin-top: 10px;
                 font-weight: bold;
                 font-size: 20px;
             }
+          .form-desc{
+            font-style: italic;
+            margin-top: 0;
+            margin-bottom: 20px;
+          }
             .calendar-label{
                 display: block;
                 margin-bottom: 10px;
@@ -1865,12 +1887,11 @@ input.gmap-search{
                 }
                 >.fa{
                     position: absolute;
-                    top: 5px;
-                    right: 3px;
-                    border: 1px solid #ccc;
+                    top: 2px;
+                    right: 0;
+                  border-left: 1px solid #999999;
                     background: #ebebeb;
-                    border-radius: 2px;
-                    padding: 4px 7px;
+                  padding: 8px 9px;
                 }
             }
             .button-success{
@@ -1878,6 +1899,18 @@ input.gmap-search{
                 color: white;
                 border-color: #66cc66;
             }
+        }
+      .calendar-price-df-form{
+        .form-group{
+          max-width: 215px;
+          input.form-control,span.input-group-addon{
+            border-color: #999999;
+          }
+        }
+      }
+        .property-form{
+            background-color: #f1f1f1;
+          padding-bottom: 0;
         }
         .calendar-help{
             .help-label{
@@ -2005,10 +2038,11 @@ input.gmap-search{
 @media( min-width: 1400px){
     .wpbooking-calendar-wrapper{
         .wpbooking-calendar-content{
-            width: 70%
+            width: 60%
         }
         .wpbooking-calendar-sidebar{
-            width: 30%
+            width: 40%;
+            padding-right: 30px;
         }
 
     }
@@ -2867,7 +2901,7 @@ a.ui-datepicker-next {
                 margin-bottom: 15px;
                 .service_detail{
                     float: left;
-                    width: 215px;
+                    width: 200px;
                     margin-right: 15px;
                   font-size: 15px;
                     .service_desc{
