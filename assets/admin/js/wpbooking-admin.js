@@ -367,7 +367,7 @@ jQuery(document).ready(function( $ ){
             var domain_arr = domain.split(',');
             var title = domain_arr[1];
             var url = $(this).data('url');
-            var data_room = $(this).data('room');
+            var data_room = $(this).closest('.featuredgallerydiv').data('room');
             var list_room = '';
             var old=$('.wb_hotel_gallery_data').val();
             if(!old) old='{}';

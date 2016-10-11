@@ -34,20 +34,20 @@ if(!empty($old_data['gallery'])){
 if(!empty($old_data['room_data'])){
     $room_data = $old_data['room_data'];
 }
+$list_hotel = WPBooking_Hotel_Service_Type::inst()->_get_room_by_hotel($post_id);
+
+$json_hotel = json_encode($list_hotel);
 
 $field = '<div class="st-metabox-content-wrapper wpbooking-settings"><div class="form-group">';
 $field .= '<input type="hidden" id="wp_gallery_hotel" class="wp_gallery_hotel none" value="'. $gallery .'" name="'. $name .'[gallery]">';
 $field .= "<input type=\"hidden\" class=\"wb_hotel_gallery_data\" value='".  $room_data ."' name='". $name ."[room_data]' >
 			<br>";
-$field .= '<div class="featuredgallerydiv gallery-row" data-domain="'.implode(',',$text_domain).'">';
+$field .= '<div class="featuredgallerydiv gallery-row" data-domain="'.implode(',',$text_domain).'" data-room=\''.$json_hotel.'\'>';
 
 $tmp = '';
 if(!empty($old_data['gallery'])) {
     $tmp = explode(',', $old_data['gallery']);
 }
-$list_hotel = WPBooking_Hotel_Service_Type::inst()->_get_room_by_hotel($post_id);
-
-$json_hotel = json_encode($list_hotel);
 
 if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
  	foreach( $tmp as $k => $v ){
@@ -57,7 +57,7 @@ if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
             $field .= '<div class="gallery-item">';
             $field .= '<img src="'.esc_url($url[0]).'" class="demo-image-gallery settings-demo-image-gallery" >';
             $field .= '<div class="gallery-item-control text-center">
-                        <a href="javascript:void(0)" class="gallery-item-btn gallery-item-edit" data-room-select="" data-room=\''.$json_hotel.'\' data-url="'.$url_full[0].'" data-id="'.$v.'" ><i class="fa fa-pencil-square-o"></i></a>
+                        <a href="javascript:void(0)" class="gallery-item-btn gallery-item-edit" data-room-select="" data-url="'.$url_full[0].'" data-id="'.$v.'" ><i class="fa fa-pencil-square-o"></i></a>
                         <a href="javascript:void(0)" data-id="'.$v.'" class="gallery-item-btn gallery-item-remove"><i class="fa fa-trash"></i></a></div>';
             $field .= '</div>';
         }
