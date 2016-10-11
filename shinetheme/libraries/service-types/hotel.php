@@ -1296,13 +1296,13 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
 				smaller images will be removed.' , 'wpbooking' )
                         ) ,
 
-                        array(
+                        /*array(
                             'type'       => 'section_navigation',
                             'next_label' => esc_html__('Save', 'wpbooking')
-                        ),
+                        ),*/
                     )
                 ) ,
-                'calendar_tab'    => array(
+                /*'calendar_tab'    => array(
                     'label'  => __( '5. Calendar' , 'wpbooking' ) ,
                     'fields' => array(
 
@@ -1315,7 +1315,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'type' => 'calendar'
                         )
                     )
-                )
+                )*/
             ) );
 
             // Register Taxonomy
