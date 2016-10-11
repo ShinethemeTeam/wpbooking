@@ -55,7 +55,7 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
                 <div class="metabox-help"><?php echo balanceTags( $data['desc'] ) ?></div>
             </div>
         </div>
-        <div class="multi-living-option">
+        <div class="multi-living-options">
             <?php foreach($old_data as $k=>$v){
                 $number = $k+1;
                 ?>
