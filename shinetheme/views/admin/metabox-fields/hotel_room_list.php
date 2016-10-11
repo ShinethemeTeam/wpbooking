@@ -35,9 +35,12 @@ $query = new WP_Query(array(
     'posts_per_page' => 200,
     'post_type'=>'wpbooking_hotel_room'
 ));
-
+$gallery_list_room = array();
 $gallery_hotel = get_post_meta($post_id , 'gallery_hotel',true);
-$gallery_list_room = json_decode($gallery_hotel['room_data']);
+if(!empty($gallery_hotel['room_data'])){
+    $gallery_list_room = json_decode($gallery_hotel['room_data']);
+}
+
 ?>
 <div class="wpbooking-settings hotel_room_list <?php echo esc_html($class); ?>" <?php echo esc_html($data_class); ?>>
     <div class="st-metabox-content-wrapper">
