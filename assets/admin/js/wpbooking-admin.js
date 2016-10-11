@@ -1423,6 +1423,7 @@ jQuery(document).ready(function( $ ){
         var room_form=parent.find('.wpbooking-hotel-room-form');
         room_form.html('');
         parent.removeClass('on-create');
+        parent.removeClass('wb-edit-room');
 
         var h=$('#st_post_metabox').offset().top;
         $('html,body').animate({'scrollTop':parseInt(h)-200});
@@ -1446,6 +1447,7 @@ jQuery(document).ready(function( $ ){
             success:function(res){
                 parent.removeClass('on-loading');
                 if(res.status){
+                    console.log(res.data);
                     // Go to All Rooms
                     room_form.html('');
                     parent.removeClass('on-create');
@@ -1466,8 +1468,12 @@ jQuery(document).ready(function( $ ){
         var room_form=parent.find('.wpbooking-hotel-room-form');
         parent.addClass('on-loading');
 
+        var edit_room_class = '';
         if(room_id===undefined) room_id=0;
-        if(hotel_id===undefined) hotel_id=0;
+        if(hotel_id===undefined){
+            edit_room_class = 'wb-edit-room';
+            hotel_id=0;
+        }
 
         $.ajax({
             url:wpbooking_params.ajax_url,
@@ -1485,6 +1491,7 @@ jQuery(document).ready(function( $ ){
                     run_condition_engine();
                     filterRoomName();
                     parent.addClass('on-create');
+                    parent.addClass(edit_room_class);
                     $(window).trigger('wpbooking_show_room_form',room_form);
                 }
                 $('#room_type').trigger("change");

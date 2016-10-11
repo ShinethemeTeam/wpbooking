@@ -301,7 +301,39 @@ jQuery(document).ready(function($) {
         });
     }
 
+    $(document).on('change', '[name=service_type]', function(){
+        if( $('.wpbooking-calendar-sidebar .calendar-room-form').length ){
+            $('.wpbooking-calendar-sidebar .calendar-room-form').each(function(index, el) {
+                var t = $(this).parents('.wpbooking-calendar-wrapper');
+                room_calendar = new RoomCalendar( t );
+                room_calendar.init();
+            });
+        }
+    });
 
+    $(document).on('click','.hotel_room_list .room-edit',function(){
+        window.setTimeout(function() {
+            if ($('.wpbooking-calendar-sidebar .calendar-room-form').length) {
+                $('.wpbooking-calendar-sidebar .calendar-room-form').each(function (index, el) {
+                    var t = $(this).parents('.wpbooking-calendar-wrapper');
+                    room_calendar = new RoomCalendar(t);
+                    room_calendar.init();
+                });
+            }
+        }, 1500);
+    });
+
+    $(document).on('click','.hotel_room_list .create-room',function(){
+        window.setTimeout(function() {
+        if( $('.wpbooking-calendar-sidebar .calendar-room-form').length ){
+            $('.wpbooking-calendar-sidebar .calendar-room-form').each(function(index, el) {
+                var t = $(this).parents('.wpbooking-calendar-wrapper');
+                room_calendar = new RoomCalendar( t );
+                room_calendar.init();
+            });
+        }
+        }, 1500);
+    });
 
 
     /////////////////////////////////

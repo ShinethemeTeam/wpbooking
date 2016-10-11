@@ -403,6 +403,20 @@ if (!class_exists('WPBooking_Metabox')) {
                         $this->wpbooking_save_taxonomy_fee($post_id,$field['id'],$field);
 
                         break;
+                    case "calendar":
+
+                        $old = get_post_meta($post_id, 'price-default', TRUE);
+                        if (isset($_POST['price-default'])) {
+
+                            $new = $_POST['price-default'];
+                        }
+                        if (isset($new) && $new !== $old) {
+                            update_post_meta($post_id, 'price-default', $new);
+                        } else if ('' == $new && $old) {
+                            delete_post_meta($post_id, 'price-default', $old);
+                        }
+                        break;
+
                     case "bed_options":
                         $this->wpbooking_save_bed_options($post_id,$field['id'],$field);
                         break;
