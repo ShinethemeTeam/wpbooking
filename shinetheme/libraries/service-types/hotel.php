@@ -1306,6 +1306,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
 
                         array(
                             'type'       => 'section_navigation',
+                            'next_label' => esc_html__('Save','wpbooking')
                         ),
                     )
                 ) ,
