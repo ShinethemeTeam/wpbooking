@@ -32,7 +32,7 @@ if(!empty($old_data['gallery'])){
     $gallery = $old_data['gallery'];
 }
 if(!empty($old_data['room_data'])){
-    $gallery = $old_data['room_data'];
+    $room_data = $old_data['room_data'];
 }
 
 $field = '<div class="st-metabox-content-wrapper wpbooking-settings"><div class="form-group">';

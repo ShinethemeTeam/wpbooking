@@ -1447,10 +1447,18 @@ jQuery(document).ready(function( $ ){
             success:function(res){
                 parent.removeClass('on-loading');
                 if(res.status){
-                    console.log(res.data);
                     // Go to All Rooms
                     room_form.html('');
+                    if(!parent.hasClass('wb-edit-room')){
+                        var html = parent.find('.room-item-default .room-item').clone();
+                        html.find('.room-remain-left').html(res.data.number+' room(s)');
+                        html.find('.room-image').html(res.data.thumbnail);
+                        html.find('.room-type').html(res.data.title);
+                        html.find('.room-edit').attr('data-room_id',res.data.room_id);
+                        parent.find('.hotel_room_list .wb-room-list').append(html);
+                    }
                     parent.removeClass('on-create');
+                    parent.removeClass('wb-edit-room');
                 }else{
                     alert(res.message);
                 }

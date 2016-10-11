@@ -72,6 +72,23 @@ $query = new WP_Query(array(
                     <a href="#" data-hotel-id="<?php echo esc_attr($post_id)?> " class="create-room"><?php esc_html_e('Create Room','wpbooking') ?></a>
                 </div>
             </div>
+            <div class="room-item-default hidden">
+                <div class="room-item">
+                    <div class="room-item-wrap">
+                        <div class="room-remain">
+                            <span class="room-remain-count">1 left</span>
+                            <span class="room-remain-left"><?php printf(esc_html__('%d room(s)','wpbooking'),get_post_meta(get_the_ID(),'number',true)) ?></span>
+                        </div>
+                        <div class="room-image">
+                        </div>
+                        <h3 class="room-type"></h3>
+                        <div class="room-actions">
+                            <a href="#" data-room_id="<?php the_ID()?>" class="room-edit"><i class="fa fa-pencil-square-o"></i></a>
+                            <a href="#" class="room-delete"><i class="fa fa-trash"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

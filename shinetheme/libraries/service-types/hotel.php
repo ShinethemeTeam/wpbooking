@@ -2823,7 +2823,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 $fields = $this->get_room_meta_fields();
                 WPBooking_Metabox::inst()->do_save_metabox( $room_id , $fields , 'wpbooking_hotel_room_form' );
 
-                $res['data']['number_room'] = get_post_meta($room_id, 'number', true);
+                $res['data']['number'] = get_post_meta($room_id, 'number', true);
                 $res['data']['thumbnail'] = '';
                 $res['data']['title'] = get_the_title($room_id);
                 $res['data']['room_id'] = $room_id;
