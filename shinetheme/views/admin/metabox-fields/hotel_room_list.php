@@ -49,7 +49,10 @@ $query = new WP_Query(array(
                         <div class="room-item-wrap">
                             <div class="room-remain">
                                 <span class="room-remain-count">1 left</span>
-                                <span class="room-remain-left"><?php printf(esc_html__('%d room(s)','wpbooking'),get_post_meta(get_the_ID(),'number',true)) ?></span>
+                                <?php $number = get_post_meta(get_the_ID(),'room_number',true);
+                                if(empty($number))$number = 0;
+                                ?>
+                                <span class="room-remain-left"><?php printf(esc_html__('%d room(s)','wpbooking'),$number) ?></span>
                             </div>
                             <div class="room-image">
                                 <?php the_post_thumbnail()?>
