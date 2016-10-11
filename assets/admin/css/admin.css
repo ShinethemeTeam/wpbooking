@@ -425,6 +425,8 @@ img.settings-demo-gallery {
 }
 .modal_image .content_detail .content_right .content_rooms {
   padding: 15px;
+  overflow: auto;
+  max-height: 400px;
 }
 .modal_image .content_detail .content_right .del-image-perman a {
   position: absolute;
