@@ -1187,13 +1187,6 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'class' => 'small'
                         ) ,
                         array( 'type' => 'close_section' ) ,
-                        array( 'type' => 'open_section' ) ,
-                        array(
-                            'label' => __( "Tax" , 'wpbooking' ) ,
-                            'type'  => 'title' ,
-                            'desc'  => esc_html__( "Set your local VAT or city tax, so guests know what is included in the price of their stay." , "wpbooking" )
-                        ) ,
-                        array('type' => 'close_section'),
                         array('type' => 'open_section'),
                         array(
                             'label' => __("Tax", 'wpbooking'),
