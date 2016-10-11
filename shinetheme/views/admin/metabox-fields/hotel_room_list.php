@@ -34,7 +34,13 @@ $query = new WP_Query(array(
     'post_parent'    => $post_id,
     'posts_per_page' => 200,
     'post_type'=>'wpbooking_hotel_room'
-))
+));
+$gallery_list_room = array();
+$gallery_hotel = get_post_meta($post_id , 'gallery_hotel',true);
+if(!empty($gallery_hotel['room_data'])){
+    $gallery_list_room = json_decode($gallery_hotel['room_data']);
+}
+
 ?>
 <div class="wpbooking-settings hotel_room_list <?php echo esc_html($class); ?>" <?php echo esc_html($data_class); ?>>
     <div class="st-metabox-content-wrapper">
@@ -44,9 +50,22 @@ $query = new WP_Query(array(
             <div class="wb-room-list">
                 <?php while ($query->have_posts()){
                     $query->the_post();
+                    $room_id = get_the_ID();
+                    $image_id = '';
+                    if(!empty($gallery_list_room)){
+                        foreach($gallery_list_room as $k=>$v){
+                            if(in_array($room_id,$v) and empty($image_id)){
+                                $image_id = $k;
+                            }
+                        }
+                    }
+                    $thumbnail = wp_get_attachment_image($image_id,array(220,120));
                     ?>
                     <div class="room-item">
                         <div class="room-item-wrap">
+                            <div class="thumbnail">
+
+                            </div>
                             <div class="room-remain">
                                 <span class="room-remain-count">1 left</span>
                                 <?php $number = get_post_meta(get_the_ID(),'room_number',true);
@@ -55,7 +74,7 @@ $query = new WP_Query(array(
                                 <span class="room-remain-left"><?php printf(esc_html__('%d room(s)','wpbooking'),$number) ?></span>
                             </div>
                             <div class="room-image">
-                                <?php the_post_thumbnail()?>
+                                <?php echo balanceTags($thumbnail) ?>
                             </div>
                             <h3 class="room-type"><?php the_title()?></h3>
                             <div class="room-actions">
