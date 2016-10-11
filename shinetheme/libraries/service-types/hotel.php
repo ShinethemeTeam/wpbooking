@@ -2597,7 +2597,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
 
                 array('type' => 'close_section'),
 
-                // Base Price
+               /* // Base Price
                 array( 'type' => 'open_section' ) ,
                 array(
                     'label' => __( "Bed options" , 'wpbooking' ) ,
@@ -2622,7 +2622,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     'condition' => 'addition_guest_allowed:is(on)',
                     'class'     => 'small'
                 ),
-                array('type' => 'close_section'),
+                array('type' => 'close_section'),*/
 
                 // Guest information
                 array( 'type' => 'open_section' ),
