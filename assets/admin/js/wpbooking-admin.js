@@ -1603,7 +1603,7 @@ jQuery(document).ready(function( $ ){
                 var n_item_next = number_check +i;
                 console.log(item);
                 var html = item.split('__number_room__').join(n_item_next);
-                parent.append('<div class="multi-item-row number_'+n_item_next+'" data-number="'+n_item_next+'">'+html+'</div>');
+                parent.find('.multi-bed-option').append('<div class="multi-item-row number_'+n_item_next+'" data-number="'+n_item_next+'">'+html+'</div>');
             }
         }
     });
@@ -1627,7 +1627,7 @@ jQuery(document).ready(function( $ ){
                 var n_item_next = number_check +i;
                 console.log(item);
                 var html = item.split('__number_living__').join(n_item_next);
-                parent.append('<div class="multi-item-row number_'+n_item_next+'" data-number="'+n_item_next+'">'+html+'</div>');
+                parent.find('.multi-living-options').append('<div class="multi-item-row number_'+n_item_next+'" data-number="'+n_item_next+'">'+html+'</div>');
             }
         }
     });
