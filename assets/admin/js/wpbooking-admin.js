@@ -1417,6 +1417,48 @@ jQuery(document).ready(function( $ ){
         return false;
     });
 
+    // Delete Room
+    $(document).on('click','.hotel_room_list .room-delete',function(){
+        var t = $(this);
+        var parent=$(this).closest('.st-metabox-tab-content-wrap');
+        var room_id=$(this).data('room_id');
+        var del_security = $(this).data('del-security');
+        var confirm_text = $(this).data('confirm');
+        var wn = confirm(confirm_text);
+        if(wn == true){
+            parent.addClass('on-loading');
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    action: 'wpbooking_del_room_item',
+                    wb_room_id: room_id,
+                    wb_del_security : del_security
+                },
+                url:wpbooking_params.ajax_url,
+                success:function(res){
+                    parent.removeClass('on-loading');
+                    var count_old = parent.find('.room-count .n').text();
+                    if(res.status == 1){
+                        var count_new = parseInt(count_old) - 1;
+                        parent.find('.room-count .n').text(count_new);
+                        if(count_new <= 1){
+                            parent.find('.room-count b').text('room');
+                        }
+                        t.closest('.room-item').remove();
+                    }else{
+                        alert(res.message);
+                    }
+                },
+                error:function(e){
+                    parent.removeClass('on-loading');
+                    console.log(e.responseText);
+                }
+            });
+        }
+        return false;
+    });
+
     // To All Rooms
     $(document).on('click','.wb-room-form .wb-all-rooms',function(){
         var parent=$(this).closest('.st-metabox-tab-content-wrap');
@@ -1446,10 +1488,16 @@ jQuery(document).ready(function( $ ){
             url:wpbooking_params.ajax_url,
             success:function(res){
                 parent.removeClass('on-loading');
+                var count_old = parent.find('.room-count .n').text();
                 if(res.status){
                     // Go to All Rooms
                     room_form.html('');
                     if(!parent.hasClass('wb-edit-room')){
+                        var count_new = parseInt(count_old) + 1;
+                        parent.find('.room-count .n').text(count_new);
+                        if(count_new > 1){
+                            parent.find('.room-count b').text('rooms');
+                        }
                         var html = parent.find('.room-item-default .room-item').clone();
                         html.find('.room-remain-left').html(res.data.number+' room(s)');
                         html.find('.room-image').html(res.data.thumbnail);

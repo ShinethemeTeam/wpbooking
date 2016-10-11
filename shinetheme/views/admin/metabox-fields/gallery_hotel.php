@@ -51,7 +51,7 @@ if(!empty($old_data['gallery'])) {
 
 if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
  	foreach( $tmp as $k => $v ){
-        $url = wp_get_attachment_image_src( $v,array(200,200) );
+        $url = wp_get_attachment_image_src( $v,'thumbnail' );
         $url_full = wp_get_attachment_image_src( $v,'full' );
         if( !empty( $url ) ){
             $field .= '<div class="gallery-item">';

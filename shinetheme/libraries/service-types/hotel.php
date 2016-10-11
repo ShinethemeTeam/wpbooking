@@ -42,6 +42,14 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             add_action( 'wp_ajax_wpbooking_save_hotel_room' , array( $this , '_ajax_save_room' ) );
 
             /**
+             * Ajax delete room item
+             *
+             * @since 1.0
+             * @author Tien37
+             */
+            add_action( 'wp_ajax_wpbooking_del_room_item' , array( $this , '_ajax_del_room_item' ) );
+
+            /**
              * Hide custom Taxonomy in admin menu
              *
              * @since 1.0
@@ -2834,6 +2842,28 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
 
             echo json_encode( $res );
             die;
+        }
+
+        /**
+         * Ajax delete room
+         *
+         * @since: 1.0
+         * @author: Tien37
+         */
+
+        public function _ajax_del_room_item(){
+            $res = array( 'status' => 0 );
+
+            $room_id = WPBooking_Input::post( 'wb_room_id' );
+            if($room_id){
+                check_ajax_referer('del_security_post_'.$room_id, 'wb_del_security');
+
+                if(wp_delete_post($room_id) !== false){
+                    $res['status'] = 1;
+                }
+            }
+            echo json_encode($res);
+            wp_die();
         }
 
         static function inst()

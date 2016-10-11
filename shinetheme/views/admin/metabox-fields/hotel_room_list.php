@@ -60,7 +60,8 @@ $query = new WP_Query(array(
                             <h3 class="room-type"><?php the_title()?></h3>
                             <div class="room-actions">
                                 <a href="#" data-room_id="<?php the_ID()?>" class="room-edit"><i class="fa fa-pencil-square-o"></i></a>
-                                <a href="#" class="room-delete"><i class="fa fa-trash"></i></a>
+                                <?php $del_security_post = wp_create_nonce('del_security_post_'.get_the_ID()); ?>
+                                <a href="javascript:void(0)" data-room_id="<?php the_ID(); ?>" data-del-security="<?php echo esc_attr($del_security_post); ?>" data-confirm="<?php echo esc_html__('Do you want delete this room?','wpbooking'); ?>" class="room-delete"><i class="fa fa-trash"></i></a>
                             </div>
                         </div>
                     </div>
