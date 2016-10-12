@@ -378,6 +378,21 @@ img.settings-demo-gallery {
   color: #FFFFFF;
   border-color: #ec8223;
 }
+@media (max-width: 1456px) {
+  .gallery-row .gallery-item {
+    width: 33.33%;
+  }
+}
+@media (max-width: 1112px) {
+  .gallery-row .gallery-item {
+    width: 50%;
+  }
+}
+@media (max-width: 479px) {
+  .gallery-row .gallery-item {
+    width: 100%;
+  }
+}
 #wb-modal-overlay {
   position: fixed;
   top: 0;
@@ -451,6 +466,29 @@ img.settings-demo-gallery {
 }
 .modal_image .close_modal:hover {
   color: #000000;
+}
+@media (max-width: 1200px) {
+  .modal_image {
+    width: 768px !important;
+  }
+}
+@media (max-width: 767px) {
+  .modal_image {
+    width: 480px !important;
+  }
+  .modal_image .content_detail {
+    display: block;
+  }
+  .modal_image .content_detail .content_left {
+    width: 100%;
+  }
+  .modal_image .content_detail .content_left .content_image {
+    background: #fff;
+  }
+  .modal_image .content_detail .content_right {
+    padding-bottom: 70px;
+    width: 100%;
+  }
 }
 .st-metabox-full {
   padding-left: 15px;
@@ -1272,7 +1310,7 @@ img.settings-demo-image-gallery {
   margin-left: 0px;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .wb-extra-services-wrapper {
-  width: 59%;
+  width: 100%;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .metabox-help {
   color: #999999;
@@ -2976,6 +3014,7 @@ a.ui-datepicker-next {
 .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .max-quantity {
   float: left;
   margin-right: 20px;
+  margin-bottom: 20px;
 }
 .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .max-quantity select {
   min-width: 44px;
@@ -2984,9 +3023,16 @@ a.ui-datepicker-next {
   float: left;
   width: 120px;
   margin-right: 20px;
+  margin-bottom: 20px;
 }
 .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .require-options {
   float: left;
+  margin-bottom: 20px;
+}
+@media (max-width: 1365px) {
+  .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item {
+    border-bottom: 1px solid #e6e6e6;
+  }
 }
 .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .add-new-extra-service .loading-icon {
   display: none;
@@ -2997,6 +3043,15 @@ a.ui-datepicker-next {
 .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .add-new-extra-service .button {
   height: 30px;
   line-height: 30px;
+}
+@media (max-width: 782px) {
+  .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .add-new-extra-service .button {
+    height: 30px;
+    line-height: 1;
+  }
+  .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .add-new-extra-service select {
+    height: 30px !important;
+  }
 }
 .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .service-desc {
   width: 260px;
