@@ -288,16 +288,18 @@ jQuery(document).ready(function( $ ){
 
         $("body").on('click','.btn_remove_gallery_hotel',function(){
             var container = $(this).parent().parent();
-            container.find('.wp_gallery_hotel').val('');
-            container.find('.wb_hotel_gallery_data').val('');
-            container.find('.gallery-item').hide();
+            var wn = confirm(wpbooking_params.delete_gallery);
+            if(wn == true) {
+                container.find('.wp_gallery_hotel').val('');
+                container.find('.wb_hotel_gallery_data').val('');
+                container.find('.gallery-item').hide();
+            }
         });
 
         $("body").on('click','.st_delete_attachment',function(){
-            var wn = confirm('You want delete permanently this image?');
+            var wn = confirm(wpbooking_params.delete_permanently_image);
             if(wn == true) {
                 var img_id = $(this).attr('data-id');
-                console.log(img_id);
                 $.ajax({
                     url: wpbooking_params.ajax_url,
                     dataType: 'json',
@@ -1443,7 +1445,7 @@ jQuery(document).ready(function( $ ){
                         var count_new = parseInt(count_old) - 1;
                         parent.find('.room-count .n').text(count_new);
                         if(count_new <= 1){
-                            parent.find('.room-count b').text('room');
+                            parent.find('.room-count b').text(wpbooking_params.room);
                         }
                         t.closest('.room-item').remove();
                     }else{
@@ -1496,7 +1498,7 @@ jQuery(document).ready(function( $ ){
                         var count_new = parseInt(count_old) + 1;
                         parent.find('.room-count .n').text(count_new);
                         if(count_new > 1){
-                            parent.find('.room-count b').text('rooms');
+                            parent.find('.room-count b').text(wpbooking_params.rooms);
                         }
                         var html = parent.find('.room-item-default .room-item').clone();
                         html.find('.room-remain-left').html(res.data.number+' room(s)');
@@ -1504,9 +1506,23 @@ jQuery(document).ready(function( $ ){
                         html.find('.room-type').html(res.data.title);
                         html.find('.room-edit').attr('data-room_id',res.data.room_id);
                         parent.find('.hotel_room_list .wb-room-list').append(html);
+
+
                     }
                     parent.removeClass('on-create');
                     parent.removeClass('wb-edit-room');
+
+                    if(typeof  res.updated_content!='undefined'){
+
+                        for (var k in res.updated_content){
+                            var element=$(k);
+                            element.replaceWith(res.updated_content[k]);
+                            $(window).trigger('wpbooking_event_hotel_room_update_content',[k,res.updated_content[k]]);
+                        }
+                    }
+
+                    $(window).trigger('wpbooking_event_hotel_room_saved');
+
                 }else{
                     alert(res.message);
                 }

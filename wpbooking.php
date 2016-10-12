@@ -253,7 +253,11 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
                 'ajax_url'           => admin_url('admin-ajax.php'),
                 'wpbooking_security' => wp_create_nonce('wpbooking-nonce-field'),
                 'delete_confirm'     => esc_html__('Are you want to delete?', 'wpbooking'),
-                'delete_string'      => esc_html__('delete', 'wpbooking')
+                'delete_string'      => esc_html__('delete', 'wpbooking'),
+                'delete_gallery'      => esc_html__('Do you want delete all image? ', 'wpbooking'),
+                'room' => esc_html__('room','wpbooking'),
+                'rooms' => esc_html__('rooms','wpbooking'),
+                'delete_permanently_image' => esc_html__('You want delete permanently this image?','wpbooking')
             ));
         }
 
