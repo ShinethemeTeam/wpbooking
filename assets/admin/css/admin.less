@@ -193,6 +193,21 @@ img.settings-demo-gallery{
             }
         }
     }
+    @media (max-width: 1456px) {
+        .gallery-item{
+            width: 33.33%;
+        }
+    }
+    @media (max-width: 1112px) {
+        .gallery-item{
+            width: 50%;
+        }
+    }
+    @media (max-width: 479px) {
+        .gallery-item{
+            width: 100%;
+        }
+    }
     //.gallery-item:nth-child(5n+6){
     //    clear: both;
     //}
@@ -276,7 +291,29 @@ img.settings-demo-gallery{
 
 }
 
-
+@media (max-width: 1200px){
+    .modal_image{
+        width: 768px !important;
+    }
+}
+@media (max-width: 767px){
+    .modal_image{
+        width: 480px !important;
+        .content_detail{
+            display: block;
+            .content_left{
+                width: 100%;
+                .content_image{
+                    background: #fff;
+                }
+            }
+            .content_right{
+                padding-bottom: 70px;
+                width: 100%;
+            }
+        }
+    }
+}
 
 
 .st-metabox-full{
@@ -1141,7 +1178,7 @@ img.settings-demo-image-gallery{
 
             }
           .wb-extra-services-wrapper{
-            width: 59%;
+            width: 100%;
           }
             .metabox-help{
                 //float: left;
@@ -2980,6 +3017,7 @@ a.ui-datepicker-next {
               .max-quantity{
                 float: left;
                 margin-right: 20px;
+                  margin-bottom: 20px;
                 select{
                   min-width: 44px;
                 }
@@ -2988,9 +3026,16 @@ a.ui-datepicker-next {
                     float: left;
                     width: 120px;
                     margin-right: 20px;
+                    margin-bottom: 20px;
                 }
                 .require-options{
                     float: left;
+                    margin-bottom: 20px;
+                }
+            }
+            @media (max-width: 1365px){
+                .extra-item{
+                    border-bottom: 1px solid #e6e6e6;
                 }
             }
             .add-new-extra-service{
@@ -3006,7 +3051,15 @@ a.ui-datepicker-next {
                     height: 30px;
                     line-height: 30px;
                 }
-
+                @media (max-width: 782px) {
+                    .button{
+                        height: 30px;
+                        line-height: 1;
+                    }
+                    select{
+                        height: 30px !important;
+                    }
+                }
 
             }
           .service-desc{
