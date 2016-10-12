@@ -1506,9 +1506,23 @@ jQuery(document).ready(function( $ ){
                         html.find('.room-type').html(res.data.title);
                         html.find('.room-edit').attr('data-room_id',res.data.room_id);
                         parent.find('.hotel_room_list .wb-room-list').append(html);
+
+
                     }
                     parent.removeClass('on-create');
                     parent.removeClass('wb-edit-room');
+
+                    if(typeof  res.updated_content!='undefined'){
+
+                        for (var k in res.updated_content){
+                            var element=$(k);
+                            element.replaceWith(res.updated_content[k]);
+                            $(window).trigger('wpbooking_event_hotel_room_update_content',[k,res.updated_content[k]]);
+                        }
+                    }
+
+                    $(window).trigger('wpbooking_event_hotel_room_saved');
+
                 }else{
                     alert(res.message);
                 }

@@ -2824,11 +2824,17 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 $fields = $this->get_room_meta_fields();
                 WPBooking_Metabox::inst()->do_save_metabox( $room_id , $fields , 'wpbooking_hotel_room_form' );
 
+                // Save Extra Fields
+                //property_available_for
+                if(isset($_POST['property_available_for'])) update_post_meta($room_id,'property_available_for',$_POST['property_available_for']);
+
                 $res['data']['number'] = get_post_meta($room_id, 'number', true);
                 $res['data']['thumbnail'] = '';
                 $res['data']['title'] = get_the_title($room_id);
                 $res['data']['room_id'] = $room_id;
 
+                $res['updated_content']=apply_filters('wpbooking_hotel_room_form_updated_content',array(),$room_id);
+                
                 $res[ 'status' ] = 1;
             }
 
