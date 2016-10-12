@@ -193,6 +193,11 @@ img.settings-demo-gallery{
             }
         }
     }
+    @media (min-width: 1457px){
+        .gallery-item:nth-child(5n+6){
+            clear: both;
+        }
+    }
     @media (max-width: 1456px) {
         .gallery-item{
             width: 33.33%;
@@ -208,9 +213,7 @@ img.settings-demo-gallery{
             width: 100%;
         }
     }
-    //.gallery-item:nth-child(5n+6){
-    //    clear: both;
-    //}
+
 }
 
 #wb-modal-overlay {
@@ -236,6 +239,9 @@ img.settings-demo-gallery{
         margin: 0;
         color: #232323;
         border-bottom: 1px solid #ccc;
+      box-shadow: 0 1px 2px #ccc;
+      z-index: 1;
+      position: relative;
     }
     .content_detail {
         background:#fff;

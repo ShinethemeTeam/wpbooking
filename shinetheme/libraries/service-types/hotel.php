@@ -2828,10 +2828,16 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 //property_available_for
                 if(isset($_POST['property_available_for'])) update_post_meta($room_id,'property_available_for',$_POST['property_available_for']);
 
-                $res['data']['number'] = get_post_meta($room_id, 'number', true);
+                $list_room_new = WPBooking_Hotel_Service_Type::inst()->_get_room_by_hotel(wp_get_post_parent_id($room_id));
+
+                $list_room_new = json_encode($list_room_new);
+                $res['data']['list_room'] = $list_room_new;
+
+                $res['data']['number'] = get_post_meta($room_id, 'room_number', true);
                 $res['data']['thumbnail'] = '';
                 $res['data']['title'] = get_the_title($room_id);
                 $res['data']['room_id'] = $room_id;
+                $res['data']['security'] = wp_create_nonce('del_security_post_'.$room_id);
 
                 $res['updated_content']=apply_filters('wpbooking_hotel_room_form_updated_content',array(),$room_id);
                 
@@ -2854,11 +2860,15 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             $res = array( 'status' => 0 );
 
             $room_id = WPBooking_Input::post( 'wb_room_id' );
+
             if($room_id){
                 check_ajax_referer('del_security_post_'.$room_id, 'wb_del_security');
-
+                $parent_id = wp_get_post_parent_id($room_id);
                 if(wp_delete_post($room_id) !== false){
                     $res['status'] = 1;
+                    $list_room_new = WPBooking_Hotel_Service_Type::inst()->_get_room_by_hotel($parent_id);
+                    $list_room_new = json_encode($list_room_new);
+                    $res['data']['list_room'] = $list_room_new;
                 }
             }
             echo json_encode($res);

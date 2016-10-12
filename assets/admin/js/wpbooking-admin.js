@@ -319,7 +319,7 @@ jQuery(document).ready(function( $ ){
                         $('.featuredgallerydiv').find('.gallery-item').each(function () {
                             var id = $(this).find('.gallery-item-remove').data('id');
                             if (id == img_id) {
-                                $(this).hide();
+                                $(this).remove();
                             }
                         });
                         var old=$('.wb_hotel_gallery_data').val();
@@ -359,7 +359,7 @@ jQuery(document).ready(function( $ ){
                         json.splice($.inArray(t.data('id'),json),1);
                     }
                     $('.wb_hotel_gallery_data').val(JSON.stringify(json));
-                    $(this).parent().parent().hide();
+                    $(this).parent().parent().remove();
                 }
         });
 
@@ -369,12 +369,12 @@ jQuery(document).ready(function( $ ){
             var domain_arr = domain.split(',');
             var title = domain_arr[1];
             var url = $(this).data('url');
-            var data_room = $(this).closest('.featuredgallerydiv').data('room');
+            var data_room = $(this).closest('.featuredgallerydiv').attr('data-room');
             var list_room = '';
             var old=$('.wb_hotel_gallery_data').val();
             if(!old) old='{}';
             var json = JSON.parse(old);
-            $.each(data_room,function(key, value){
+            $.each(JSON.parse(data_room),function(key, value){
                 var checked = '';
                 if(json[t.data('id')] != undefined) {
                     if ($.inArray(value.ID.toString(), json[t.data('id')]) > -1) {
@@ -1423,6 +1423,7 @@ jQuery(document).ready(function( $ ){
     $(document).on('click','.hotel_room_list .room-delete',function(){
         var t = $(this);
         var parent=$(this).closest('.st-metabox-tab-content-wrap');
+        var gallery_container = parent.closest('.wpbooking-tabs').find('.featuredgallerydiv');
         var room_id=$(this).data('room_id');
         var del_security = $(this).data('del-security');
         var confirm_text = $(this).data('confirm');
@@ -1442,6 +1443,7 @@ jQuery(document).ready(function( $ ){
                     parent.removeClass('on-loading');
                     var count_old = parent.find('.room-count .n').text();
                     if(res.status == 1){
+                        gallery_container.attr('data-room',res.data.list_room)
                         var count_new = parseInt(count_old) - 1;
                         parent.find('.room-count .n').text(count_new);
                         if(count_new <= 1){
@@ -1478,6 +1480,7 @@ jQuery(document).ready(function( $ ){
     // Save Room Data
     $(document).on('click','.wb-room-form .wb-save-room',function(){
         var parent=$(this).closest('.st-metabox-tab-content-wrap');
+        var gallery_container = parent.closest('.wpbooking-tabs').find('.featuredgallerydiv');
         var room_form=$(this).closest('.wpbooking-hotel-room-form');
         var data=room_form.find('input,select,textarea').serialize();
         data+='&action=wpbooking_save_hotel_room';
@@ -1505,6 +1508,9 @@ jQuery(document).ready(function( $ ){
                         html.find('.room-image').html(res.data.thumbnail);
                         html.find('.room-type').html(res.data.title);
                         html.find('.room-edit').attr('data-room_id',res.data.room_id);
+                        html.find('.room-delete').attr('data-room_id',res.data.room_id);
+                        html.find('.room-delete').attr('data-del-security',res.data.security);
+                        gallery_container.attr('data-room',res.data.list_room);
                         parent.find('.hotel_room_list .wb-room-list').append(html);
 
 
