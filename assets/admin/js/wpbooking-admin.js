@@ -215,10 +215,12 @@ jQuery(document).ready(function( $ ){
                 height: settings.height || 'auto'
             });
 
-            method.center();
-            $(window).bind('resize.modal', method.center);
-            $modal.show();
-            $overlay.show();
+            setTimeout(function() {
+                method.center();
+                $(window).bind('resize.modal', method.center);
+                $modal.show();
+                $overlay.show();
+            },100);
         };
 
         // Close the modal
