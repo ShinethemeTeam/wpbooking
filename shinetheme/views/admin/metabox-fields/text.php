@@ -2,7 +2,9 @@
 /**
 *@since 1.0.0
 **/
-
+$data=wp_parse_args($data,array(
+	'placeholder'=>false
+));
 $old_data = esc_html( $data['std'] );
 
 if(!empty($data['custom_name'])){
@@ -27,7 +29,7 @@ $field = '';
 
 $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
 
-$field .= '<input id="'. esc_html( $data['id'] ).'" type="text" name="'. $name .'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'">';
+$field .= '<input id="'. esc_html( $data['id'] ).'" type="text" placeholder="'.$data['placeholder'].'" name="'. $name .'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'">';
 
 ?>
 
