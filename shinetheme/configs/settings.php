@@ -10,9 +10,9 @@ $config['settings'] = array(
 
 					array(
 						'id'    => 'currency',
-						'label' => __('Currency', 'wpbooking'),
+						'label' => __('Currency Options', 'wpbooking'),
 						'desc'  => __('Currency', 'wpbooking'),
-						'type'  => 'list-item',
+						'type'  => 'currency',
 						'std'   => '',
 						'value' => array(
 							array(
