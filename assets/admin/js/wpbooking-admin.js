@@ -1577,6 +1577,7 @@ jQuery(document).ready(function( $ ){
                 $('#room_type').trigger("change");
                 $('#bed_rooms').trigger("change");
                 $('#living_rooms').trigger("change");
+                $('#room_name').trigger("keypress");
 
                 if(res.message){ alert(res.message);}
             },
@@ -1592,15 +1593,14 @@ jQuery(document).ready(function( $ ){
         filterRoomName(val);
         changeBedRoomOption(val,$(this));
 
-        var parent = $(this).closest('.content-metabox');
-        var title = parent.find( "#room_type option:selected" ).text();
-        parent.find('.field-title').html(title);
-        parent.find('#room_name option[value=""]').attr("selected",true);
     });
-    $(document).on('change','#room_name',function(){
-        var parent = $(this).closest('.content-metabox');
-        var title = parent.find( "#room_name option:selected" ).text();
-        parent.find('.field-title').html(title);
+    $(document).on('keypress','#room_name',function(){
+        var $this = $(this);
+        var parent = $this.closest('.content-metabox');
+        setTimeout(function(){
+            var title = $this.val();
+            parent.find('.field-title').html(title);
+        },100);
     });
 
 
@@ -1618,7 +1618,7 @@ jQuery(document).ready(function( $ ){
     }
 
 
-    $(document).on('change','#bed_rooms',function(){
+    /*$(document).on('change','#bed_rooms',function(){
         var parent=$('.bed_options');
         var number = parseInt($(this).val());
 
@@ -1664,7 +1664,7 @@ jQuery(document).ready(function( $ ){
                 parent.find('.multi-living-options').append('<div class="multi-item-row number_'+n_item_next+'" data-number="'+n_item_next+'">'+html+'</div>');
             }
         }
-    });
+    });*/
 
 
 });
