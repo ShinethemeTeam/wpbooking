@@ -384,6 +384,11 @@ img.settings-demo-gallery {
   color: #FFFFFF;
   border-color: #ec8223;
 }
+@media (min-width: 1457px) {
+  .gallery-row .gallery-item:nth-child(5n+6) {
+    clear: both;
+  }
+}
 @media (max-width: 1456px) {
   .gallery-row .gallery-item {
     width: 33.33%;
@@ -422,6 +427,9 @@ img.settings-demo-gallery {
   margin: 0;
   color: #232323;
   border-bottom: 1px solid #ccc;
+  box-shadow: 0 1px 2px #ccc;
+  z-index: 1;
+  position: relative;
 }
 .modal_image .content_detail {
   background: #fff;

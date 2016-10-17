@@ -10,6 +10,7 @@ if(!empty($data['condition'])){
     $data_class .= ' data-condition='.$data['condition'].' ' ;
 }
 $property_available_for=get_post_meta($post_id,'property_available_for',true);
+
 $df_price=get_post_meta($post_id,'price-default',true);
 
 ?>

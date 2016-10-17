@@ -341,23 +341,13 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 		 */
 		function get_extra_services()
 		{
-			$terms = WPBooking_Taxonomy_Meta_Model::inst()->select('distinct term_id')->where(array(
-				'meta_key'   => 'service_type',
-				'meta_value' => $this->type_id
-			))->get()->result();
 
-			$term_ids=array();
-			if(!empty($terms) and is_array($terms)){
-				foreach($terms as $term){
-					$term_ids[]=$term['term_id'];
-				}
-			}
-			if(empty($term_ids)) return array();
-
-			$terms=get_terms('wpbooking_extra_service',array('hide_empty'=>FALSE,'include'=>$term_ids));
+			$terms=get_terms('wpbooking_extra_service',array('hide_empty'=>FALSE));
 			$extra_services=array();
 			if(!empty($terms) and !is_wp_error($terms)){
 				foreach($terms as $key=>$value){
+
+				    if(get_term_meta($value->term_id,'service_type_'.$this->type_id,true))
 					$extra_services[$value->term_id]=array(
 						'title'=>$value->name,
 						'description' => $value->description

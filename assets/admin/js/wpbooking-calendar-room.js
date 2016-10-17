@@ -320,7 +320,7 @@ jQuery(document).ready(function($) {
                     room_calendar.init();
                 });
             }
-        }, 1500);
+        }, 2000);
     });
 
     $(document).on('click','.hotel_room_list .create-room',function(){
@@ -332,7 +332,7 @@ jQuery(document).ready(function($) {
                 room_calendar.init();
             });
         }
-        }, 1500);
+        }, 2000);
     });
 
 

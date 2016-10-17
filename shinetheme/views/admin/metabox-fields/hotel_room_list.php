@@ -107,7 +107,7 @@ if(!empty($gallery_hotel['room_data'])){
                         <h3 class="room-type"></h3>
                         <div class="room-actions">
                             <a href="#" data-room_id="<?php the_ID()?>" class="room-edit"><i class="fa fa-pencil-square-o"></i></a>
-                            <a href="#" class="room-delete"><i class="fa fa-trash"></i></a>
+                            <a href="javascript:void(0)" class="room-delete" data-confirm="<?php echo esc_html__('Do you want delete this room?','wpbooking'); ?>" ><i class="fa fa-trash"></i></a>
                         </div>
                     </div>
                 </div>
