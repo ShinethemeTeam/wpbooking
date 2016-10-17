@@ -202,7 +202,7 @@ if(!function_exists('wpbooking_get_translated_string')){
 }
 if(!function_exists('wpbooking_get_term_meta')){
 	function wpbooking_get_term_meta($term_id,$meta_key){
-		return WPBooking_Taxonomy_Meta_Model::inst()->get_meta($term_id,$meta_key);
+		return get_term_meta($term_id,$meta_key,true);
 	}
 }
 if(!function_exists('wpbooking_icon_class_handler')){
