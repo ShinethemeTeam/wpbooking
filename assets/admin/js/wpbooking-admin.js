@@ -1591,6 +1591,16 @@ jQuery(document).ready(function( $ ){
         var val=$(this).val();
         filterRoomName(val);
         changeBedRoomOption(val,$(this));
+
+        var parent = $(this).closest('.content-metabox');
+        var title = parent.find( "#room_type option:selected" ).text();
+        parent.find('.field-title').html(title);
+        parent.find('#room_name option[value=""]').attr("selected",true);
+    });
+    $(document).on('change','#room_name',function(){
+        var parent = $(this).closest('.content-metabox');
+        var title = parent.find( "#room_name option:selected" ).text();
+        parent.find('.field-title').html(title);
     });
 
 

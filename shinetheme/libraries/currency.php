@@ -238,7 +238,7 @@ if (!class_exists('WPBooking_Currency')) {
 			$add_currencies = self::get_added_currencies();
 			if (!empty($add_currencies)) {
 				// first item is default currency
-				$primary = $add_currencies[0];
+				$primary = $add_currencies;
 			}
 			$all = self::get_all_currency();
 			// Check currency exists and available in the system
@@ -397,7 +397,7 @@ if (!class_exists('WPBooking_Currency')) {
 
 			if (!empty($all_currency)) {
 				foreach ($all_currency as $key) {
-					if ($key[$compare_key] == $currency_name) {
+					if ($key == $currency_name) {
 						return $key;
 					}
 				}
