@@ -66,6 +66,12 @@ ul.padding-0 li{
 .max-width-500{
     max-width: 500px;
 }
+.min-width-250{
+    min-width: 250px;
+}
+.max-width-250{
+    max-width: 250px;
+}
 .none{
     display: none;
 }
@@ -458,6 +464,16 @@ img.settings-demo-image-gallery{
             .cancellation_text_content{
                 float: none;
             }
+        }
+    }
+
+    .wpbooking_currency{
+        td{
+            padding-left: 5px;
+        }
+        label{
+            display: block;
+            margin-bottom: 10px;
         }
     }
 }
@@ -1340,9 +1356,16 @@ img.settings-demo-image-gallery{
                 >div{
                     display: table-cell;
                 }
+                &.top{
+                    margin-bottom: 0px;
+                }
                 .room-create{
+                    &.top{
+                        display: block;
+                    }
                     width: 35%;
-                    padding-left: 30px;
+                    padding-right: 30px;
+                    font-size: 16px;
                     a{
                         display: block;
                         background: white;
@@ -1362,6 +1385,10 @@ img.settings-demo-image-gallery{
                     background: #f1f1f1;
                     padding: 15px;
                     color: #666666;
+                    text-align: right;
+                    .text-color{
+                        color: @maincolor;
+                    }
                 }
             }
         }
@@ -3460,6 +3487,7 @@ label[for=wpbooking_locationdiv-hide]
 #wb_hotel_shopdiv,
 #wb_hotel_miscellaneousdiv,
 #wpbooking_room_typediv,
+#wb_hotel_room_facilitiesdiv,
 
 label[for=wb_hotel_room_amenitydiv-hide],
 label[for=wb_hotel_room_bathroomdiv-hide],

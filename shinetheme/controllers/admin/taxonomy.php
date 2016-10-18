@@ -46,7 +46,6 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 		function _ajax_add_extra_service()
 		{
 			$res=array('status'=>0);
-			$model=WPBooking_Taxonomy_Meta_Model::inst();
 			if(current_user_can('manage_options') and $service_type=WPBooking_Input::post('service_type') and $service_name=WPBooking_Input::post('service_name')){
 				$tax='wpbooking_extra_service';
 				$parent_term = term_exists( $service_name, $tax ); // array is returned if taxonomy is given
@@ -57,10 +56,10 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 				}
 				if($parent_term){
 					//$res['message']=esc_html__('Term exists','wpbooking');
-					$check=$model->check_exist($parent_term['term_id'],'service_type',$service_type);
+                    $check=get_term_meta($parent_term['term_id'],'service_type',true);
 					if(!$check){
 						$res['status']=1;
-						WPBooking_Taxonomy_Meta_Model::inst()->add_meta($parent_term['term_id'],'service_type',$service_type);
+                        update_term_meta($parent_term['term_id'],'service_type',$service_type);
 					}else{
 						$res['message']=esc_html__('Term exists','wpbooking');
 					}
@@ -71,7 +70,7 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 						$res['data']=array(
 							'term_id'=>$q['term_id'],
 							'title'=>$service_name);
-						WPBooking_Taxonomy_Meta_Model::inst()->add_meta($q['term_id'],'service_type',$service_type);
+                        update_term_meta($q['term_id'],'service_type',$service_type);
 					}
 				}
 
@@ -115,7 +114,8 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 						if(!empty($other_data['_add_term']) and is_array($other_data['_add_term'])){
 							foreach($fields as $field){
 								if(array_key_exists($field,$other_data['_add_term'])){
-									WPBooking_Taxonomy_Meta_Model::inst()->update_meta($q['term_id'],$field,$other_data['_add_term'][$field]);
+
+                                    update_term_meta($q['term_id'],$field,$other_data['_add_term'][$field]);
 
 									switch($field){
 										case "icon":
@@ -176,10 +176,10 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 				$all = $this->get_taxonomies();
 				unset($all[$tax_name]);
 				update_option($this->_option_name, $all);
-				wpbooking_set_admin_message(__('Delete success', 'wpbooking'), 'success');
+                wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Delete Success','wpbooking')), 'success');
 
 			} else {
-				wpbooking_set_admin_message(__('Please select an Taxonomy', 'wpbooking'), 'error');
+                wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Please select an Taxonomy','wpbooking')), 'error');
 			}
 			wp_redirect($this->get_page_url());
 			die;
@@ -199,7 +199,7 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 			if ($action == 'add') {
 				$taxonomy_name = mb_strtolower($taxonomy_label);
 				$taxonomy_name = sanitize_title_with_dashes(stripslashes($taxonomy_name));
-				$taxonomy_name = 'wpbooking_' . str_replace('-', '_', $taxonomy_name);
+				$taxonomy_name = 'wb_tax_' . str_replace('-', '_', $taxonomy_name);
 			} else {
 				$taxonomy_name = WPBooking_Input::post('taxonomy_name');
 			}
@@ -326,9 +326,9 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 			update_option($this->_option_name, $all);
 			flush_rewrite_rules();
 			if ($action == 'add') {
-				wpbooking_set_admin_message('Create Success', 'success');
+				wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Create Success','wpbooking')), 'success');
 			} else {
-				wpbooking_set_admin_message('Saved Success', 'success');
+                wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Saved Success','wpbooking')), 'success');
 			}
 		}
 
@@ -397,9 +397,30 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 		function set_tax_service_type(){
 
 		}
-		function get_tax_service_type()
-		{
 
+        /**
+         * Get all tax by service type
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param string|bool $service_type
+         * @return array
+         */
+		function get_tax_service_type($service_type=false)
+		{
+            $all=$this->get_taxonomies();
+            if(!empty($all) and $service_type){
+                $res=array();
+
+                foreach($all as $key=>$v){
+                    if(!empty($v['service_type']) and in_array($service_type,$v['service_type'])){
+                        $res[]=$v;
+                    }
+                }
+
+                return $res;
+            }
 		}
 
 		static function inst()

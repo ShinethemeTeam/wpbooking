@@ -42,6 +42,15 @@ $df_price=get_post_meta($post_id,'price-default',true);
 							</div>
 						</div>
 					</div>
+                    <div class="form-container">
+                        <div class="calendar-room-form-item full-width" >
+                            <h4 class="form-title"><?php echo __('This Property is available:', 'wpbooking'); ?></h4>
+                            <div class="calendar-input-icon mt20">
+                                <label class="calendar-label wb-radio-input" ><input data-style="iradio_square-orange" class="wb-icheck property_available_forever" type="radio"  name="property_available_for" data-post-id="<?php echo esc_attr($post_id); ?>" value="forever" <?php if($property_available_for=='forever' or !$property_available_for) echo 'checked' ?> > <?php echo __('Forever', 'wpbooking'); ?></label>
+                                <label class="calendar-label wb-radio-input" ><input data-style="iradio_square-orange" class="wb-icheck property_available_specific" type="radio"  name="property_available_for" data-post-id="<?php echo esc_attr($post_id); ?>" value="specific_periods" <?php if($property_available_for=='specific_periods') echo 'checked' ?> > <?php echo __('For specific periods', 'wpbooking'); ?></label>
+                            </div>
+                        </div>
+                    </div>
 					<div class="form-container calendar-room-form">
 						<h4 class="form-title"><?php echo esc_html__('Set price by date arrange','wpbooking') ?></h4>
 						<p class="form-desc"><?php echo esc_html__('You can make room for any purpose ( like discount , high price , ... )','wpbooking'); ?></p>
@@ -78,14 +87,6 @@ $df_price=get_post_meta($post_id,'price-default',true);
 							<label class="calendar-label" for="calendar-price-month"><?php echo __('Montly Price', 'wpbooking'); ?></label>
 							<input class="calendar-input-month" type="text" id="calendar-price-month" name="calendar-price-month" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
 						</div>
-						<div class="calendar-room-form-item full-width " >
-							<label class="calendar-label" for="calendar-can-check-in"><input data-style="icheckbox_square-orange" class="wb-icheck calendar-can-check-in" type="checkbox" id="calendar-can-check-in" name="calendar-can-check-in" checked="checked" value="1" > <?php echo __('Can Check In?', 'wpbooking'); ?></label>
-
-						</div>
-						<div class="calendar-room-form-item full-width" >
-							<label class="calendar-label" for="calendar-can-check-out"><input data-style="icheckbox_square-orange" class="wb-icheck calendar-can-check-out" type="checkbox" id="calendar-can-check-out" name="calendar-can-check-out" checked="checked" value="1" > <?php echo __('Can Check Out?', 'wpbooking'); ?></label>
-
-						</div>
 						<div class="clear"></div>
 						<div class="clearfix mb10" >
 							<input type="hidden" id="calendar-post-id" name="post_id" value="<?php echo esc_attr($post_id); ?>">
@@ -99,16 +100,7 @@ $df_price=get_post_meta($post_id,'price-default',true);
 						<div class="form-message" style="margin-bottom: 10px;">
 						</div>
 					</div>
-					<div class="form-container property-form">
 
-						<div class="calendar-room-form-item full-width" >
-							<label class="calendar-label" ><?php echo __('This Property is available:', 'wpbooking'); ?></label>
-							<div class="calendar-input-icon mt20">
-								<label class="calendar-label wb-radio-input" ><input data-style="iradio_square-orange" class="wb-icheck property_available_forever" type="radio"  name="property_available_for" data-post-id="<?php echo esc_attr($post_id); ?>" value="forever" <?php if($property_available_for=='forever' or !$property_available_for) echo 'checked' ?> > <?php echo __('Forever', 'wpbooking'); ?></label>
-								<label class="calendar-label wb-radio-input" ><input data-style="iradio_square-orange" class="wb-icheck property_available_specific" type="radio"  name="property_available_for" data-post-id="<?php echo esc_attr($post_id); ?>" value="specific_periods" <?php if($property_available_for=='specific_periods') echo 'checked' ?> > <?php echo __('For specific periods', 'wpbooking'); ?></label>
-							</div>
-						</div>
-					</div>
 
 					<div class="calendar-help">
 						<div class="help-label"><?php esc_html_e('How to set Availability ?','wpbooking') ?></div>

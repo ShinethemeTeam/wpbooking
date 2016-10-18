@@ -1517,8 +1517,10 @@ jQuery(document).ready(function( $ ){
                         html.find('.room-delete').attr('data-del-security',res.data.security);
                         gallery_container.attr('data-room',res.data.list_room);
                         parent.find('.hotel_room_list .wb-room-list').append(html);
-
-
+                    }else{
+                        var item_html = parent.find('.item-hotel-room-'+res.data.room_id);
+                        item_html.find('.room-remain-left').html(res.data.number+' room(s)');
+                        item_html.find('.room-type').html(res.data.title);
                     }
                     parent.removeClass('on-create');
                     parent.removeClass('wb-edit-room');
@@ -1580,6 +1582,7 @@ jQuery(document).ready(function( $ ){
                 $('#room_type').trigger("change");
                 $('#bed_rooms').trigger("change");
                 $('#living_rooms').trigger("change");
+                $('#room_name').trigger("keypress");
 
                 if(res.message){ alert(res.message);}
             },
@@ -1594,6 +1597,15 @@ jQuery(document).ready(function( $ ){
         var val=$(this).val();
         filterRoomName(val);
         changeBedRoomOption(val,$(this));
+
+    });
+    $(document).on('keypress','#room_name',function(){
+        var $this = $(this);
+        var parent = $this.closest('.content-metabox');
+        setTimeout(function(){
+            var title = $this.val();
+            parent.find('.field-title').html(title);
+        },100);
     });
 
 
@@ -1611,7 +1623,7 @@ jQuery(document).ready(function( $ ){
     }
 
 
-    $(document).on('change','#bed_rooms',function(){
+    /*$(document).on('change','#bed_rooms',function(){
         var parent=$('.bed_options');
         var number = parseInt($(this).val());
 
@@ -1657,7 +1669,7 @@ jQuery(document).ready(function( $ ){
                 parent.find('.multi-living-options').append('<div class="multi-item-row number_'+n_item_next+'" data-number="'+n_item_next+'">'+html+'</div>');
             }
         }
-    });
+    });*/
 
 
 });

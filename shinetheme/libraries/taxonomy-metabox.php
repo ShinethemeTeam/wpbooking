@@ -52,26 +52,25 @@ if(!class_exists('WPBooking_Taxonomy_Metabox'))
 					if(empty($field['id'])) continue;
 					$field_id='wb-'.$field['id'];
 					if(isset($_POST[$field_id]) and $value=WPBooking_Input::post($field_id)){
-						$model=WPBooking_Taxonomy_Meta_Model::inst();
+						//$model=WPBooking_Taxonomy_Meta_Model::inst();
 						switch($field['type']){
 							case "service-type-checkbox":
-								$model->where(array(
+								/*$model->where(array(
 									'term_id'=>$term_id,
 									'meta_key'=>$field['id']
-								))->delete();
+								))->delete();*/
+                                delete_term_meta($term_id, $field['id']);
 								if(is_array($value) and !empty($value)){
 									foreach($value as $val){
-										$model->add_meta($term_id,$field['id'],$val);
+                                        add_term_meta($term_id, $field['id'], $val);
 									}
 								}else{
-
-									$model->add_meta($term_id,$field['id'],$value);
+                                    add_term_meta($term_id, $field['id'], $value);
 								}
-
 								break;
-
 							default:
-								$model->update_meta($term_id,$field['id'],$value);
+								//$model->update_meta($term_id,$field['id'],$value);
+                                update_term_meta($term_id, $field['id'], $value);
 								break;
 
 						}
