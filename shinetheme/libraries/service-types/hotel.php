@@ -114,17 +114,17 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
 
             // Register Taxonomy
             $labels = array(
-                'name'              => _x('Room Amenities', 'taxonomy general name', 'wpbooking'),
-                'singular_name'     => _x('Room Amenities', 'taxonomy singular name', 'wpbooking'),
-                'search_items'      => __('Search Room Amenities', 'wpbooking'),
-                'all_items'         => __('All Room Amenities', 'wpbooking'),
-                'parent_item'       => __('Parent Room Amenities', 'wpbooking'),
-                'parent_item_colon' => __('Parent Room Amenities:', 'wpbooking'),
-                'edit_item'         => __('Edit Room Amenities', 'wpbooking'),
-                'update_item'       => __('Update Room Amenities', 'wpbooking'),
-                'add_new_item'      => __('Add New Room Amenity', 'wpbooking'),
-                'new_item_name'     => __('New Room Amenity Name', 'wpbooking'),
-                'menu_name'         => __('Room Amenities', 'wpbooking'),
+                'name'              => _x('Room Facilities', 'taxonomy general name', 'wpbooking'),
+                'singular_name'     => _x('Room Facilities', 'taxonomy singular name', 'wpbooking'),
+                'search_items'      => __('Search Room Facilities', 'wpbooking'),
+                'all_items'         => __('All Room Facilities', 'wpbooking'),
+                'parent_item'       => __('Parent Room Facilities', 'wpbooking'),
+                'parent_item_colon' => __('Parent Room Facilities:', 'wpbooking'),
+                'edit_item'         => __('Edit Room Facilities', 'wpbooking'),
+                'update_item'       => __('Update Room Facilities', 'wpbooking'),
+                'add_new_item'      => __('Add New Room Facilities', 'wpbooking'),
+                'new_item_name'     => __('New Room Facilities Name', 'wpbooking'),
+                'menu_name'         => __('Room Facilities', 'wpbooking'),
             );
             $args = array(
                 'hierarchical'      => true,
@@ -132,9 +132,9 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 'show_ui'           => true,
                 'show_admin_column' => false,
                 'query_var'         => true,
-                'rewrite'           => array('slug' => 'hotel-room-amenity'),
+                'rewrite'           => array('slug' => 'hotel-room-facilities'),
             );
-            register_taxonomy('wb_hotel_room_amenity', array('wpbooking_service'), $args);
+            register_taxonomy('wb_hotel_room_facilities', array('wpbooking_service'), $args);
 
 
             // Hotel Extra Taxonomy
@@ -298,64 +298,6 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 'facilities_tab'  => array(
                     'label'  => __('4. Facilities', 'wpbooking'),
                     'fields' => array(
-                        array('type' => 'open_section'),
-                        array(
-                            'label' => __("Extra bed optional", 'wpbooking'),
-                            'type'  => 'title',
-                            'desc'  => esc_html__("These are the bed options that can be added upon request.", "wpbooking")
-                        ),
-                        array(
-                            'label' => __('Can you provide extra beds?', 'wpbooking'),
-                            'id'    => 'extra_bed',
-                            'type'  => 'radio',
-                            'value' => array(
-                                "yes" => esc_html__("Yes", 'wpbooking'),
-                                "no"  => esc_html__("No", 'wpbooking'),
-                            ),
-                            'std'   => 'yes',
-                            'class' => 'radio_pro',
-                            'desc'  => esc_html__("Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium", "wpbooking")
-                        ),
-                        array(
-                            'label'     => __('Select the number of extra beds that can be added.', 'wpbooking'),
-                            'id'        => 'double_bed',
-                            'type'      => 'dropdown',
-                            'value'     => array(
-                                1,
-                                2,
-                                3,
-                                4,
-                                5,
-                                6,
-                                7,
-                                8,
-                                9,
-                                10,
-                                11,
-                                12,
-                                13,
-                                14,
-                                15,
-                                16,
-                                17,
-                                18,
-                                19,
-                                20
-                            ),
-                            'class'     => 'small',
-                            'condition' => 'extra_bed:is(yes)',
-                            'desc'      => esc_html__("Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium", "wpbooking")
-                        ),
-                        array(
-                            'label'     => __("Price for each extra beds", 'wpbooking'),
-                            'type'      => 'money_input',
-                            'id'        => 'price_for_extra_bed',
-                            'class'     => 'small',
-                            'std'       => '0',
-                            'condition' => 'extra_bed:is(yes)',
-                            'desc'      => esc_html__('Example: 2 extra bed and price is 10.00, total cost is 20.00', 'wpbooking')
-                        ),
-                        array('type' => 'close_section'),
                         array(
                             'type' => 'open_section',
                         ),
@@ -390,144 +332,21 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         array('type' => 'close_section'),
                         array(
                             'type'         => 'open_section',
-                            'control'      => true,
-                            'open_section' => false,
                         ),
                         array(
-                            'label' => __("Room amenities", 'wpbooking'),
+                            'label' => __("Room facilities", 'wpbooking'),
                             'type'  => 'title',
-                            'desc'  => esc_html__("Room Amenities", "wpbooking")
                         ),
                         array(
-                            'id'       => 'hotel_room_amenity',
-                            'label'    => __("Select Amenities", 'wpbooking'),
+                            'id'       => 'hotel_room_facilities',
+                            'label'    => __("Facilities", 'wpbooking'),
                             'type'     => 'taxonomy_room_select',
-                            'taxonomy' => 'wb_hotel_room_amenity'
-                        ),
-                        array('type' => 'close_section'),
-                        array(
-                            'type'         => 'open_section',
-                            'control'      => true,
-                            'open_section' => false,
-                        ),
-                        array(
-                            'label' => __("Bathroom", 'wpbooking'),
-                            'type'  => 'title',
-                            'desc'  => esc_html__("Amenities in Bathroom", "wpbooking")
-                        ),
-                        array(
-                            'id'       => 'hotel_room_bathroom',
-                            'label'    => __("Select Bathroom", 'wpbooking'),
-                            'type'     => 'taxonomy_room_select',
-                            'taxonomy' => 'wb_hotel_room_bathroom'
-                        ),
-                        array('type' => 'close_section'),
-                        array(
-                            'type'         => 'open_section',
-                            'control'      => true,
-                            'open_section' => false,
-                        ),
-                        array(
-                            'label' => __("Media & technology", 'wpbooking'),
-                            'type'  => 'title',
-                            'desc'  => esc_html__("Media & technology amenities", "wpbooking")
-                        ),
-                        array(
-                            'id'       => 'hotel_room_media_technology',
-                            'label'    => __("Select Media & technology", 'wpbooking'),
-                            'type'     => 'taxonomy_room_select',
-                            'taxonomy' => 'wb_hotel_room_media_technology'
-                        ),
-                        array('type' => 'close_section'),
-                        array(
-                            'type'         => 'open_section',
-                            'control'      => true,
-                            'open_section' => false,
-                        ),
-                        array(
-                            'label' => __("Food and Drink", 'wpbooking'),
-                            'type'  => 'title',
-                            'desc'  => esc_html__("Food and Drink", "wpbooking")
-                        ),
-                        array(
-                            'id'       => 'hotel_room_food_drink',
-                            'label'    => __("Food and Drink", 'wpbooking'),
-                            'type'     => 'taxonomy_room_select',
-                            'taxonomy' => 'wb_hotel_room_food_drink'
-                        ),
-                        array('type' => 'close_section'),
-                        array(
-                            'type'         => 'open_section',
-                            'control'      => true,
-                            'open_section' => false,
-                        ),
-                        array(
-                            'label' => __("Services & extras", 'wpbooking'),
-                            'type'  => 'title',
-                            'desc'  => esc_html__("Services & extras", "wpbooking")
-                        ),
-                        array(
-                            'id'       => 'hotel_room_services_extra',
-                            'label'    => __("Services & extras", 'wpbooking'),
-                            'type'     => 'taxonomy_room_select',
-                            'taxonomy' => 'wb_hotel_room_services_extra'
-                        ),
-                        array('type' => 'close_section'),
-                        array(
-                            'type'         => 'open_section',
-                            'control'      => true,
-                            'open_section' => false,
-                        ),
-                        array(
-                            'label' => __("Outdoor & view", 'wpbooking'),
-                            'type'  => 'title',
-                            'desc'  => esc_html__("Outdoor & view", "wpbooking")
-                        ),
-                        array(
-                            'id'       => 'hotel_room_outdoor_view',
-                            'label'    => __("Outdoor & view", 'wpbooking'),
-                            'type'     => 'taxonomy_room_select',
-                            'taxonomy' => 'wb_hotel_room_outdoor_view'
+                            'taxonomy' => 'wb_hotel_room_facilities'
                         ),
                         array('type' => 'close_section'),
 
 
-                        array(
-                            'type'         => 'open_section',
-                            'control'      => true,
-                            'open_section' => false,
-                        ),
-                        array(
-                            'label' => __("Accessibility", 'wpbooking'),
-                            'type'  => 'title',
-                            'desc'  => esc_html__("Accessibility", "wpbooking")
-                        ),
-                        array(
-                            'id'       => 'hotel_room_accessibility',
-                            'label'    => __("Accessibility", 'wpbooking'),
-                            'type'     => 'taxonomy_room_select',
-                            'taxonomy' => 'wb_hotel_room_accessibility'
-                        ),
-                        array('type' => 'close_section'),
 
-
-                        array(
-                            'type'         => 'open_section',
-                            'control'      => true,
-                            'open_section' => false,
-                        ),
-                        array(
-                            'label' => __("Entertainment & Family Services", 'wpbooking'),
-                            'type'  => 'title',
-                            'desc'  => esc_html__("Entertainment & Family Services", "wpbooking")
-                        ),
-                        array(
-                            'id'       => 'hotel_room_entertainment',
-                            'label'    => __("Entertainment & Family Services", 'wpbooking'),
-                            'type'     => 'taxonomy_room_select',
-                            'taxonomy' => 'wb_hotel_room_entertainment'
-                        ),
-                        array('type' => 'close_section'),
 
 
                         //Room amenities
@@ -880,147 +699,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     array('term' => 'Air conditioning'),
                     array('term' => 'Heating'),
                 ),
-                'wb_hotel_room_amenity'          => array(
-                    array(
-                        'term' => 'Clothes rack',
-                    ),
-                    array('term' => 'Drying rack for clothing'),
-                    array('term' => 'Fold-up bed'),
-                    array('term' => 'Sofa bed'),
-                    array('term' => 'Air Conditioning'),
-                    array('term' => 'Wardrobe/Closet'),
-                    array('term' => 'Carpeted'),
-                    array('term' => 'Dressing Room'),
-                    array('term' => 'Extra Long Beds (> 2 metres)'),
-                    array('term' => 'Fan'),
-                    array('term' => 'Fireplace'),
-                    array('term' => 'Heating'),
-                    array('term' => 'Interconnected room(s)  available'),
-                    array('term' => 'Iron'),
-                    array('term' => 'Ironing Facilities'),
-                    array('term' => 'Mosquito net'),
-                    array('term' => 'Private entrance'),
-                    array('term' => 'Safety Deposit Box'),
-                    array('term' => 'Sofa'),
-                    array('term' => 'Soundproof'),
-                    array('term' => 'Sitting area'),
-                    array('term' => 'Tile/Marble floor'),
-                    array('term' => 'Suit press'),
-                    array('term' => 'Hardwood/Parquet floors'),
-                    array('term' => 'Desk'),
-                    array('term' => 'Hypoallergenic'),
-                    array('term' => 'Cleaning products'),
-                    array('term' => 'Electric blankets'),
-                    array('term' => 'Bathroom'),
-                    array('term' => 'Toilet paper'),
-                    array('term' => 'Toilet With Grab Rails'),
-                    array('term' => 'Bathtub'),
-                    array('term' => 'Bidet'),
-                    array('term' => 'Bathtub or shower'),
-                    array('term' => 'Bathrobe'),
-                    array('term' => 'Bathroom'),
-                    array('term' => 'Free toiletries'),
-                    array('term' => 'Hairdryer'),
-                    array('term' => 'Spa tub'),
-                    array('term' => 'Shared bathroom'),
-                    array('term' => 'Shower'),
-                    array('term' => 'Slippers'),
-                    array('term' => 'Toilet'),
-                ),
-                'wb_hotel_room_bathroom'         => array(
-                    array('term' => 'Toilet paper'),
-                    array('term' => 'Toilet With Grab Rails'),
-                    array('term' => 'Bathtub'),
-                    array('term' => 'Bidet'),
-                    array('term' => 'Bathtub or shower'),
-                    array('term' => 'Bathrobe'),
-                    array('term' => 'Bathroom'),
-                    array('term' => 'Free toiletries'),
-                    array('term' => 'Hairdryer'),
-                    array('term' => 'Spa tub'),
-                    array('term' => 'Shared bathroom'),
-                    array('term' => 'Shower'),
-                    array('term' => 'Slippers'),
-                    array('term' => 'Toilet'),
-                ),
-                'wb_hotel_room_media_technology' => array(
-                    array('term' => 'Computer'),
-                    array('term' => 'Game console'),
-                    array('term' => 'Game console - Nintendo Wii'),
-                    array('term' => 'Game console - PS2'),
-                    array('term' => 'Game console - PS3'),
-                    array('term' => 'Game console - Xbox 360'),
-                    array('term' => 'Laptop'),
-                    array('term' => 'iPad'),
-                    array('term' => 'Cable channels'),
-                    array('term' => 'CD Player'),
-                    array('term' => 'DVD Player'),
-                    array('term' => 'Fax'),
-                    array('term' => 'iPod dock'),
-                    array('term' => 'Laptop safe'),
-                    array('term' => 'Flat-screen TV'),
-                    array('term' => 'Pay-per-view channels'),
-                    array('term' => 'Radio'),
-                    array('term' => 'Satellite channels'),
-                    array('term' => 'Telephone'),
-                    array('term' => 'TV'),
-                    array('term' => 'Video'),
-                    array('term' => 'Video games'),
-                    array('term' => 'Blu-ray player'),
-                ),
-                'wb_hotel_room_food_drink'       => array(
-                    array('term' => 'Dining area'),
-                    array('term' => 'Dining table'),
-                    array('term' => 'Barbecue'),
-                    array('term' => 'Stovetop'),
-                    array('term' => 'Toaster'),
-                    array('term' => 'Electric kettle'),
-                    array('term' => 'Outdoor dining area'),
-                    array('term' => 'Outdoor furniture'),
-                    array('term' => 'Minibar'),
-                    array('term' => 'Kitchenette'),
-                    array('term' => 'Kitchenware'),
-                    array('term' => 'Microwave'),
-                    array('term' => 'Refrigerator'),
-                    array('term' => 'Tea/Coffee maker'),
-                    array('term' => 'Coffee machine'),
-                    array('term' => 'High chair'),
-                ),
-                'wb_hotel_room_services_extra'   => array(
-                    array('term' => 'Executive Lounge Access'),
-                    array('term' => 'Alarm clock'),
-                    array('term' => 'Wake-up service'),
-                    array('term' => 'Wake up service/Alarm clock'),
-                    array('term' => 'Linens'),
-                    array('term' => 'Towels'),
-                    array('term' => 'Towels/Sheets (extra fee)'),
-                ),
-                'wb_hotel_room_outdoor_view'     => array(
-                    array('term' => 'Balcony'),
-                    array('term' => 'Patio'),
-                    array('term' => 'View'),
-                    array('term' => 'Terrace'),
-                    array('term' => 'City view'),
-                    array('term' => 'Garden view'),
-                    array('term' => 'Lake view'),
-                    array('term' => 'Landmark view'),
-                    array('term' => 'Mountain view'),
-                    array('term' => 'Pool view'),
-                    array('term' => 'River view'),
-                    array('term' => 'Sea view'),
-                ),
-                'wb_hotel_room_accessibility'    => array(
-                    array('term' => 'Room is located on the ground floor'),
-                    array('term' => 'Room is completely wheelchair accessible'),
-                    array('term' => 'Upper floors accessible by elevator'),
-                    array('term' => 'Upper floors accessible by stairs only'),
-                ),
-                'wb_hotel_room_entertainment'    => array(
-                    array('term' => 'Baby safety gates'),
-                    array('term' => 'Board games/puzzles'),
-                    array('term' => 'Books, DVDs or music for children'),
-                    array('term' => 'Child safety socket covers'),
-                ),
+
 
                 // Room Type
                 'wb_hotel_room_type'             => array(
@@ -1858,7 +1537,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 check_ajax_referer("wpbooking_hotel_room_" . $room_id, 'wb_hotel_room_security');
 
 
-                if ($name = WPBooking_Input::request('room_name_custom')) {
+                if ($name = WPBooking_Input::request('room_name')) {
                     $my_post = array(
                         'ID'         => $room_id,
                         'post_title' => $name,

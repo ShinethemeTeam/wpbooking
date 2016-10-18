@@ -347,7 +347,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 			if(!empty($terms) and !is_wp_error($terms)){
 				foreach($terms as $key=>$value){
 
-				    if(get_term_meta($value->term_id,'service_type_'.$this->type_id,true))
+				    if(get_term_meta($value->term_id,'service_type',true))
 					$extra_services[$value->term_id]=array(
 						'title'=>$value->name,
 						'description' => $value->description

@@ -1514,8 +1514,10 @@ jQuery(document).ready(function( $ ){
                         html.find('.room-delete').attr('data-del-security',res.data.security);
                         gallery_container.attr('data-room',res.data.list_room);
                         parent.find('.hotel_room_list .wb-room-list').append(html);
-
-
+                    }else{
+                        var item_html = parent.find('.item-hotel-room-'+res.data.room_id);
+                        item_html.find('.room-remain-left').html(res.data.number+' room(s)');
+                        item_html.find('.room-type').html(res.data.title);
                     }
                     parent.removeClass('on-create');
                     parent.removeClass('wb-edit-room');

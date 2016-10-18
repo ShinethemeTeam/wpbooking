@@ -56,10 +56,10 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 				}
 				if($parent_term){
 					//$res['message']=esc_html__('Term exists','wpbooking');
-                    $check=get_term_meta($parent_term['term_id'],'service_type_'.$service_type,true);
+                    $check=get_term_meta($parent_term['term_id'],'service_type',true);
 					if(!$check){
 						$res['status']=1;
-                        update_term_meta($parent_term['term_id'],'service_type_'.$service_type,$service_type);
+                        update_term_meta($parent_term['term_id'],'service_type',$service_type);
 					}else{
 						$res['message']=esc_html__('Term exists','wpbooking');
 					}
@@ -70,7 +70,7 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 						$res['data']=array(
 							'term_id'=>$q['term_id'],
 							'title'=>$service_name);
-                        update_term_meta($q['term_id'],'service_type_'.$service_type,$service_type);
+                        update_term_meta($q['term_id'],'service_type',$service_type);
 					}
 				}
 
