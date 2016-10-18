@@ -137,22 +137,6 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             register_taxonomy('wb_hotel_room_facilities', array('wpbooking_service'), $args);
 
 
-            // Hotel Extra Taxonomy
-            $extra_tax = array();
-            $taxs = WPBooking_Admin_Taxonomy_Controller::inst()->get_tax_service_type($this->type_id);
-            if (!empty($taxs)) {
-                foreach ($taxs as $tax) {
-                    $tax_object = get_taxonomy($tax);
-                    if (!is_wp_error($tax_object)) {
-                        $extra_tax[] = array(
-                            'label' => $tax_object['label'],
-                            'id'    => $tax['name'],
-                            'type'  => 'taxonomy_fee_select',
-                            'taxonomy'=>$tax['name']
-                        );
-                    }
-                }
-            }
 
             // Metabox
             $this->set_metabox(array(
@@ -270,7 +254,10 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'taxonomy' => 'wpbooking_amenity',
                             'type'     => 'taxonomy_fee_select',
                         ),
-                        $extra_tax,
+                        array(
+                            'type'=>'custom-taxonomy',
+                            'service_type'=>$this->type_id
+                        ),
                         array('type' => 'close_section'),
                         // End Miscellaneous
 

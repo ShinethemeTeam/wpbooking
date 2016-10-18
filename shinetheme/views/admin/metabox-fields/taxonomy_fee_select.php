@@ -35,7 +35,6 @@ if(!empty($data['custom_name'])){
 if( !empty( $value ) ){
     $old_data = $value;
 }
-
 ?>
 <div
     class="wpbooking-settings taxonomy_fee_select <?php echo esc_html($class); ?>" <?php echo esc_html($data_class); ?>>
