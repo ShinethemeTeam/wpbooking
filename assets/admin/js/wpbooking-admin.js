@@ -357,10 +357,13 @@ jQuery(document).ready(function( $ ){
                     var old=$('.wb_hotel_gallery_data').val();
                     if(!old) old='{}';
                     var json=JSON.parse(old);
-                    if($.inArray(t.data('id'),json) > -1){
-                        json.splice($.inArray(t.data('id'),json),1);
+                    if(json.hasOwnProperty(t.data('id'))){
+                        delete json[t.data('id')];
                     }
                     $('.wb_hotel_gallery_data').val(JSON.stringify(json));
+                    if(Object.keys(json).length == 0){
+                        $('.wb_hotel_gallery_data').val('');
+                    }
                     $(this).parent().parent().remove();
                 }
         });
