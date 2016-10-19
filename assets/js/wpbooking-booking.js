@@ -354,6 +354,148 @@ jQuery(document).ready(function($){
     $('.wpbooking-select2').select2();
 
     /**
+     * Flied Check In Check Out Search Room
+     * @author quandq
+     * @since 1.0
+     */
+    $('.search-room-availablity .wpbooking-search-start').datepicker(
+        {
+            minDate:0,
+            onSelect:function(selected) {
+                var form=$(this).closest('form');
+                var date_end=$('.search-room-availablity .wpbooking-search-end',form);
+                date_end.datepicker("option","minDate", selected)
+                if($('.search-room-availablity .wpbooking-search-end').length){
+                    window.setTimeout(function(){
+                        $('.search-room-availablity .wpbooking-search-end').datepicker('show');
+                    },100);
+                }
+                $(this).trigger('change');
+            }
+        }).datepicker('widget');//.wrap('<div class="ll-skin-melon"/>');
+
+    $('.search-room-availablity .wpbooking-search-end').datepicker( {
+        minDate:0,
+        onSelect:function(selected) {
+            var form=$(this).closest('form');
+            var date_end=$('.search-room-availablity .wpbooking-search-start',form);
+            date_end.datepicker("option","maxDate", selected)
+        }
+    }).datepicker('widget');
+
+    $('.form-search-room .btn-do-search-room').click(function(){
+        var searchbox = $(this).closest('.form-search-room');
+        do_search_room(searchbox);
+    });
+    function do_search_room(searchbox){
+
+        var data = {
+            'nonce': searchbox.find('input[name=room_search]').val()
+        };
+        if (typeof searchbox != "undefined") {
+            data = searchbox.find('input,select,textarea').serializeArray();
+        }
+        var dataobj = {};
+        for (var i = 0; i < data.length; i++) {
+            dataobj[data[i].name] = data[i].value;
+        }
+        var holder = $('.search_room_alert');
+
+        holder.html('');
+        searchbox.find('.form-control').removeClass('error');
+
+        if (dataobj.check_in == "" && dataobj.check_out == "") {
+            if (dataobj.check_in == "") {
+                searchbox.find('[name=check_in]').addClass('error');
+            }
+            if (dataobj.check_out == "") {
+                searchbox.find('[name=check_out]').addClass('error');
+            }
+            setMessage(holder, wpbooking_hotel_localize.is_not_select_date, 'danger');
+            return false;
+        }
+        if (dataobj.check_in == "") {
+            if (dataobj.check_in == "") {
+                searchbox.find('[name=check_in]').addClass('error');
+            }
+            setMessage(holder, wpbooking_hotel_localize.is_not_select_check_in_date, 'danger');
+            return false;
+        }
+        if (dataobj.check_out == '') {
+            if (dataobj.check_out == "") {
+                searchbox.find('[name=check_out]').addClass('error');
+            }
+            setMessage(holder, wpbooking_hotel_localize.is_not_select_check_out_date, 'danger');
+            return false;
+        }
+        if (searchbox.hasClass('loading')) {
+            alert('Still loading');
+            return;
+        }
+        searchbox.addClass('loading');
+
+        console.log(data);
+
+        $.ajax({
+            'type': 'post',
+            'dataType': 'json',
+            'data': data,
+            'url':wpbooking_params.ajax_url,
+            'success': function(data) {
+                searchbox.removeClass('loading');
+                console.log(data);
+                /*if (data.status) {
+                    if (typeof data.data != "undefined" && data.data) {
+                        me.html(data.data);
+                    } else {
+                        me.html('');
+                    }
+                    $('body').tooltip({
+                        selector: '[rel=tooltip]'
+                    });
+                    $('.i-check, .i-radio').iCheck({
+                        checkboxClass: 'i-check',
+                        radioClass: 'i-radio'
+                    });
+
+                }
+                if (data.message) {
+                    setMessage(holder, data.message, 'danger');
+                    me.html('');
+                }*/
+
+
+            },
+            error: function(data) {
+                searchbox.removeClass('loading');
+            }
+        })
+
+
+    }
+    function setMessage(holder, message, type) {
+        if (typeof type == 'undefined') {
+            type = 'infomation';
+        }
+        var html = '<div class="alert alert-' + type + '">' + message + '</div>';
+        if (!holder.length) return;
+        holder.html('');
+        holder.html(html);
+        //do_scrollTo(holder);
+    }
+    function do_scrollTo(el) {
+        if (el.length) {
+            var top = el.offset().top;
+            if ($('#wpadminbar').length && $('#wpadminbar').css('position') == 'fixed') {
+                top -= 32;
+            }
+            top -= 50;
+            $('html,body').animate({
+                'scrollTop': top
+            }, 500);
+        }
+    }
+    /**
      * Show More Search Fields
      * @author dungdt
      * @since 1.0

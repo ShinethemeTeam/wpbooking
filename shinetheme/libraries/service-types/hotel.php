@@ -49,6 +49,14 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
              */
             add_action('wp_ajax_wpbooking_del_room_item', array($this, '_ajax_del_room_item'));
 
+            /**
+             * Ajax search room
+             *
+             * @since 1.0
+             * @author quandq
+             */
+            add_action('wp_ajax_ajax_search_room', array($this, 'ajax_search_room'));
+            add_action('wp_ajax_nopriv_ajax_search_room', array($this, 'ajax_search_room'));
 
         }
 
@@ -1599,6 +1607,107 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             echo json_encode($res);
             wp_die();
         }
+
+        /**
+         * Ajax search room
+         *
+         * @since: 1.0
+         * @author: quandq
+         */
+        function ajax_search_room()
+        {
+            if (WPBooking_Input::post('room_search')) {
+                if (!wp_verify_nonce(WPBooking_Input::post('room_search'), 'room_search')) {
+                    $result = array(
+                        'status' => 0,
+                        'data'   => "",
+                    );
+
+                    echo json_encode($result);
+                    die;
+                }
+
+
+                /*$result = array(
+                    'status' => 1,
+                    'data'   => "",
+                );
+
+                $hotel_id = get_the_ID();
+                $post = STInput::request();
+                $post['room_parent'] = $hotel_id;
+
+                //Check Date
+                $today = date('m/d/Y');
+
+                $check_in = TravelHelper::convertDateFormat($post['start']);
+
+                $check_out = TravelHelper::convertDateFormat($post['end']);
+
+                $date_diff = TravelHelper::dateDiff($check_in, $check_out);
+
+                $booking_period = intval(get_post_meta($hotel_id, 'hotel_booking_period', TRUE));
+
+                $period = TravelHelper::dateDiff($today, $check_in);
+
+                if ($booking_period && $period < $booking_period) {
+                    $result = array(
+                        'status'  => 0,
+                        'data'    => st()->load_template('hotel/elements/loop-room-none'),
+                        'message' => sprintf(__('This hotel allow minimum booking is %d day(s)', ST_TEXTDOMAIN), $booking_period)
+                    );
+                    echo json_encode($result);
+                    die;
+                }
+                if ($date_diff < 1) {
+                    $result = array(
+                        'status'    => 0,
+                        'data'      => "",
+                        'message'   => __('Make sure your check-out date is at least 1 day after check-in.', ST_TEXTDOMAIN),
+                        'more-data' => $date_diff
+                    );
+
+                    echo json_encode($result);
+                    die;
+                }
+
+
+                global $wp_query;
+                $this->search_room();
+
+                if (have_posts()) {
+                    while (have_posts()) {
+                        the_post();
+
+                        $result['data'] .= preg_replace( '/^\s+|\n|\r|\s+$/m' , '' ,st()->load_template('hotel/elements/loop-room-item'));
+
+                    }
+
+                } else {
+                    $result['data'] .= st()->load_template('hotel/elements/loop-room-none');
+
+                }
+                $result['paging'] = TravelHelper::paging_room();
+
+                wp_reset_query();
+
+                echo json_encode($result);*/
+
+                echo "nó chạy ajax rồi này :))";
+                die();
+            }
+        }
+        function search_room(){
+            $hotel_id= get_the_ID();
+            $arg =  array(
+                'post_type'      => 'wpbooking_hotel_room',
+                'posts_per_page' => '200',
+                'post_status' => 'publish',
+                'post_parent'=>$hotel_id
+            );
+            query_posts($arg);
+        }
+
 
         static function inst()
         {

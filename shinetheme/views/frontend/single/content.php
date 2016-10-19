@@ -87,6 +87,92 @@ $service = new WB_Service();
 			</div>
 		</div>
 		<div class="service-content-section">
+
+				<div class="search-room-availablity">
+					<form method="post" name="form-search-room" class="form-search-room">
+						<?php wp_nonce_field('room_search','room_search')?>
+						<input name="action" value="ajax_search_room" type="hidden">
+						<div class="search-room-form">
+							<h5 class="service-info-title"><?php esc_html_e('Check availablity', 'wpbooing') ?></h5>
+							<div class="form-search">
+								<div class="form-item w20 form-item-icon">
+									<label><?php esc_html_e('Check In', 'wpbooing') ?></label>
+									<input class="form-control wpbooking-search-start" name="check_in" placeholder="<?php esc_html_e('Check In', 'wpbooing') ?>">
+									<i class="fa fa-calendar"></i>
+								</div>
+								<div class="form-item w20 form-item-icon">
+									<label><?php esc_html_e('Check Out', 'wpbooing') ?></label>
+									<input class="form-control wpbooking-search-end" name="check_out" placeholder="<?php esc_html_e('Check Out', 'wpbooing') ?>">
+									<i class="fa fa-calendar"></i>
+								</div>
+								<div class="form-item w20">
+									<label><?php esc_html_e('Rooms', 'wpbooing') ?></label>
+									<select name="room_number" class="form-control">
+										<?php
+										for($i=1 ; $i<=20 ; $i++ ){
+											echo '<option value="'.$i.'">'.$i.'</option>';
+										}
+										?>
+									</select>
+								</div>
+								<div class="form-item w20">
+									<label><?php esc_html_e('Adults', 'wpbooing') ?></label>
+									<select name="adults" class="form-control">
+										<?php
+										for($i=1 ; $i<=20 ; $i++ ){
+											echo '<option value="'.$i.'">'.$i.'</option>';
+										}
+										?>
+									</select>
+								</div>
+								<div class="form-item w20">
+									<label><?php esc_html_e('Children', 'wpbooing') ?></label>
+									<select name="children" class="form-control">
+										<?php
+										for($i=0 ; $i<=20 ; $i++ ){
+											echo '<option value="'.$i.'">'.$i.'</option>';
+										}
+										?>
+									</select>
+								</div>
+								<button type="button" class="wb-button btn-do-search-room"><?php esc_html_e("CHECK AVAILABLITY","wpbooking") ?></button>
+							</div>
+						</div>
+					</form>
+					<div class="search_room_alert">xxx</div>
+					<div class="content-search-room">
+						<div class="content-loop-room">
+							<?php
+							global $wp_query;
+							WPBooking_Hotel_Service_Type::inst()->search_room();
+								var_dump($wp_query->request);
+							?>
+							<?php
+							if(have_posts()) {
+								while( have_posts() ) {
+									the_post();
+									?>
+									<div class="loop-room">
+										<div class="room-image">1</div>
+										<div class="room-content"><?php the_title() ?></div>
+										<div class="room-book">3</div>
+									</div>
+								<?php
+								}
+
+							} else {
+								esc_html_e("No Data","wpbooking");
+							}
+							?>
+
+							<?php wp_reset_query(); ?>
+						</div>
+						<div class="content-info"></div>
+					</div>
+				</div>
+
+		</div>
+		<div class="service-content-section">
 			<h5 class="service-info-title"><?php esc_html_e('About Property', 'wpbooing') ?></h5>
 
 			<div class="service-details">

@@ -7,16 +7,8 @@
  */
 $old_data=FALSE;
 if(is_object($taxonomy) and property_exists($taxonomy,'term_id')){
-	//$old_data=WPBooking_Taxonomy_Meta_Model::inst()->where(array('term_id'=>$taxonomy->term_id,$field['id']))->get()->result();
-
 	$old_data = get_term_meta($taxonomy->term_id,$field['id']);
-
-
 }
-
-
-
-
 $service_type=WPBooking_Service_Controller::inst()->get_service_types();
 $array=array();
 ?>

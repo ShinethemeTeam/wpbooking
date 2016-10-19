@@ -164,6 +164,14 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
                 'wpbooking_security'    => wp_create_nonce('wpbooking-nonce-field'),
                 'select_comment_review' => esc_html__('Please select the review criteria', 'wpbooking')
             ));
+            wp_localize_script('jquery', 'wpbooking_hotel_localize', array(
+                'booking_required_adult'          => __('Please select adult number', 'wpbooking'),
+                'booking_required_children'       => __('Please select children number', 'wpbooking'),
+                'booking_required_adult_children' => __('Please select Adult and  Children number', 'wpbooking'),
+                'is_not_select_date'              => __('Please select Check-in and Check-out date', 'wpbooking'),
+                'is_not_select_check_in_date'     => __('Please select Check-in date', 'wpbooking'),
+                'is_not_select_check_out_date'    => __('Please select Check-out date', 'wpbooking'),
+            ));
         }
 
         /**
@@ -259,6 +267,9 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
                 'rooms' => esc_html__('rooms','wpbooking'),
                 'delete_permanently_image' => esc_html__('You want delete permanently this image?','wpbooking')
             ));
+
+
+
         }
 
         function _load_cores()
