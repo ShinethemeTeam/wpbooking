@@ -1766,6 +1766,33 @@
         .service-content-section{
             margin-bottom: 30px;
             .search-room-availablity{
+                .form-control {
+                    &.error{
+                        border-color: rgba(240, 80, 80, 0.8);
+                    }
+                    display: block;
+                    width: 100%;
+                    height: 34px;
+                    padding: 6px 12px;
+                    font-size: 14px;
+                    line-height: 1.42857143;
+                    color: #555;
+                    background-color: #fff;
+                    background-image: none;
+                    border: 1px solid #ccc;
+                    border-radius: 0px;
+                    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+                    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+                    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+                }
+                .form-control:focus {
+                    border-color: #66afe9;
+                    outline: 0;
+                    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+                    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+                }
                 .service-info-title{
                     margin-bottom: 15px;
                 }
@@ -1780,15 +1807,55 @@
                     background: #fafafa;
                 }
                 .content-search-room{
-                    border-color: #f3f3f3 #e6e6e6 #e6e6e6;
+                    &:before,
+                    &:after{
+                        display: table;
+                        content: " ";
+                    }
+                    &:after{
+                        clear: both;
+                    }
+                    border-color: #cccccc;
                     border-style: solid;
-                    border-width: 2px 1px 1px;
+                    border-width: 1px;
                     color: #666666;
                     font-size: 14px;
                     line-height: 24px;
-                    padding: 15px;
-                    background: #fafafa;
                     margin-top: 20px;
+
+
+                    margin-top: 20px;
+                    .content-loop-room{
+                        float: left;
+                        width: 80%;
+                    }
+                    .content-info{
+                        float: left;
+                        width: 20%;
+                        .content-price{
+                            background: #f0f0f0 none repeat scroll 0 0;
+                            padding-bottom: 20px;
+                            padding-top: 20px;
+                            text-align: center;
+                            border-bottom: 1px solid #cccccc;
+                            .number{
+                                font-size: 11px;
+                                font-style: italic;
+                            }
+                            .price{
+                                font-size: 24px;
+                                font-weight: bold;
+                                margin-bottom: 20px;
+                                margin-top: 5px;
+                            }
+                            .wb-button{
+                                font-size: 12px;
+                                padding: 5px 10px;
+                                background: @maincolor;
+                                border-color: @maincolor;
+                            }
+                        }
+                    }
                 }
                 .form-search{
                     &:before,
@@ -1828,33 +1895,6 @@
                             right: 18px;
                             top: 35px;
                         }
-                        .form-control {
-                            &.error{
-                                border-color: rgba(240, 80, 80, 0.8);
-                            }
-                            display: block;
-                            width: 100%;
-                            height: 34px;
-                            padding: 6px 12px;
-                            font-size: 14px;
-                            line-height: 1.42857143;
-                            color: #555;
-                            background-color: #fff;
-                            background-image: none;
-                            border: 1px solid #ccc;
-                            border-radius: 0px;
-                            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-                            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-                            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-                            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-                            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-                        }
-                        .form-control:focus {
-                            border-color: #66afe9;
-                            outline: 0;
-                            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-                            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-                        }
                         &.form-item-icon{
                             .form-control {
                                 padding: 0 25px 0 8px;
@@ -1875,6 +1915,14 @@
                 }
                 .content-search-room{
                     .loop-room{
+                        padding: 10px;
+                        border-width: 1px;
+                        border-style: solid;
+                        border-color: transparent #cccccc #cccccc transparent;
+                        margin-top: -1px;
+                        &:last-child{
+                            margin-bottom: -1px;
+                        }
                         &:before,
                         &:after{
                             display: table;
@@ -1890,10 +1938,126 @@
                         .room-content{
                             float: left;
                             width: 50%;
+                            padding: 0 10px;
+                            .room-title{
+                                color: #333333;
+                                font-size: 16px;
+                                font-weight: bold;
+                            }
+                            .room-info{
+                                &:before,
+                                &:after{
+                                    display: table;
+                                    content: " ";
+                                }
+                                &:after{
+                                    clear: both;
+                                }
+                                .control{
+                                    float: left;
+                                    width: 45%;
+                                    margin:  10px 0px 10px 0;
+                                    background: #fafafa;
+                                    &.left{
+                                        margin-right: 10px;
+                                    }
+                                    .img{
+                                        border: 1px solid #cccccc;
+                                        color: #636363;
+                                        margin-right: 5px;
+                                        padding: 5px 10px;
+                                        display: inline-block;
+                                        img{
+                                            width: 20px;
+                                        }
+                                    }
+                                }
+                            }
+                            .room-facilities{
+                                .title{
+                                    color: #666666;
+                                    font-size: 15px;
+                                    font-weight: bold;
+                                }
+                                .facilities{
+                                    color: #747474;
+                                    font-size: 13px;
+                                }
+                            }
                         }
                         .room-book{
                             float: left;
                             width: 20%;
+                            .room-total-price{
+                                color: #666666;
+                                font-size: 17px;
+                                font-weight: bold;
+                                margin-bottom: 15px;
+                            }
+                            .form-control{
+                                display: block;
+                                width: 100%;
+                                height: 34px;
+                                padding: 6px 12px;
+                                font-size: 14px;
+                                line-height: 1.42857143;
+                                color: #555;
+                                background-color: #fff;
+                                background-image: none;
+                                border: 1px solid #ccc;
+                                border-radius: 0px;
+                                -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                                -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+                                -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+                                transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+                            }
+                            .form-control:focus {
+                                border-color: #66afe9;
+                                outline: 0;
+                                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+                                box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+                            }
+                            .room-extra{
+                                margin-top: 55px;
+                                .btn_extra{
+                                    font-size: 12px;
+                                    font-style: italic;
+                                    text-decoration: underline;
+                                    color: @maincolor;
+                                    cursor: pointer;
+                                }
+                            }
+
+                        }
+                        .more-extra{
+                            float: right;
+                            width: 70%;
+                            margin-top: 30px;
+                            display: none;
+                            table{
+                                border-color: #cfcfcf;
+                                thead{
+                                    background: #f0f0f0 none repeat scroll 0 0;
+                                }
+                                td{
+                                    position: relative;
+                                }
+                                .desc{
+                                    display: block;
+                                    font-size: 11px;
+                                }
+                                .form-control{
+                                    left: 7px;
+                                    position: absolute;
+                                    top: 12px;
+                                    width: 80%;
+                                }
+                                .text-color{
+                                    color: @maincolor;
+                                    font-size: 15px;
+                                }
+                            }
                         }
                     }
                 }

@@ -387,6 +387,18 @@ jQuery(document).ready(function($){
         var searchbox = $(this).closest('.form-search-room');
         do_search_room(searchbox);
     });
+    $(document).on('click','.content-search-room .btn_extra',function(){
+        var parent=$(this).closest('.loop-room');
+        var $extra = parent.find('.more-extra');
+        if($extra.hasClass('active')){
+            $extra.removeClass('active');
+            $extra.slideUp();
+        }else{
+            $extra.addClass('active');
+            $extra.slideDown();
+        }
+        return false;
+    });
     function do_search_room(searchbox){
 
         var data = {

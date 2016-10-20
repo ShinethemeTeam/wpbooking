@@ -1740,6 +1740,33 @@ a.label:focus {
 .single-wpbooking_service .wpbooking-single-content .service-content-section {
   margin-bottom: 30px;
 }
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-control {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 0px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-control.error {
+  border-color: rgba(240, 80, 80, 0.8);
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-control:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .service-info-title {
   margin-bottom: 15px;
 }
@@ -1754,15 +1781,52 @@ a.label:focus {
   background: #fafafa;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room {
-  border-color: #f3f3f3 #e6e6e6 #e6e6e6;
+  border-color: #cccccc;
   border-style: solid;
-  border-width: 2px 1px 1px;
+  border-width: 1px;
   color: #666666;
   font-size: 14px;
   line-height: 24px;
-  padding: 15px;
-  background: #fafafa;
   margin-top: 20px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room:before,
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room:after {
+  display: table;
+  content: " ";
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room:after {
+  clear: both;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .content-loop-room {
+  float: left;
+  width: 80%;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .content-info {
+  float: left;
+  width: 20%;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .content-info .content-price {
+  background: #f0f0f0 none repeat scroll 0 0;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  text-align: center;
+  border-bottom: 1px solid #cccccc;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .content-info .content-price .number {
+  font-size: 11px;
+  font-style: italic;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .content-info .content-price .price {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .content-info .content-price .wb-button {
+  font-size: 12px;
+  padding: 5px 10px;
+  background: #f0ad4e;
+  border-color: #f0ad4e;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search:before,
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search:after {
@@ -1802,7 +1866,99 @@ a.label:focus {
   right: 18px;
   top: 35px;
 }
-.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .form-item .form-control {
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .form-item.form-item-icon .form-control {
+  padding: 0 25px 0 8px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .wb-button {
+  background: #f0ad4e none repeat scroll 0 0;
+  border: 1px solid #f0ad4e;
+  color: white;
+  font-size: 15px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  margin-top: 25px;
+  padding: 5px 24px;
+  text-transform: uppercase;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room {
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent #cccccc #cccccc transparent;
+  margin-top: -1px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room:last-child {
+  margin-bottom: -1px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room:before,
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room:after {
+  display: table;
+  content: " ";
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room:after {
+  clear: both;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-image {
+  float: left;
+  width: 30%;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content {
+  float: left;
+  width: 50%;
+  padding: 0 10px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content .room-title {
+  color: #333333;
+  font-size: 16px;
+  font-weight: bold;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content .room-info:before,
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content .room-info:after {
+  display: table;
+  content: " ";
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content .room-info:after {
+  clear: both;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content .room-info .control {
+  float: left;
+  width: 45%;
+  margin: 10px 0px 10px 0;
+  background: #fafafa;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content .room-info .control.left {
+  margin-right: 10px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content .room-info .control .img {
+  border: 1px solid #cccccc;
+  color: #636363;
+  margin-right: 5px;
+  padding: 5px 10px;
+  display: inline-block;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content .room-info .control .img img {
+  width: 20px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content .room-facilities .title {
+  color: #666666;
+  font-size: 15px;
+  font-weight: bold;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content .room-facilities .facilities {
+  color: #747474;
+  font-size: 13px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book {
+  float: left;
+  width: 20%;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .room-total-price {
+  color: #666666;
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .form-control {
   display: block;
   width: 100%;
   height: 34px;
@@ -1820,48 +1976,50 @@ a.label:focus {
   -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
-.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .form-item .form-control.error {
-  border-color: rgba(240, 80, 80, 0.8);
-}
-.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .form-item .form-control:focus {
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .form-control:focus {
   border-color: #66afe9;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
-.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .form-item.form-item-icon .form-control {
-  padding: 0 25px 0 8px;
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .room-extra {
+  margin-top: 55px;
 }
-.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .wb-button {
-  background: #f0ad4e none repeat scroll 0 0;
-  border: 1px solid #f0ad4e;
-  color: white;
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .room-extra .btn_extra {
+  font-size: 12px;
+  font-style: italic;
+  text-decoration: underline;
+  color: #f0ad4e;
+  cursor: pointer;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .more-extra {
+  float: right;
+  width: 70%;
+  margin-top: 30px;
+  display: none;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .more-extra table {
+  border-color: #cfcfcf;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .more-extra table thead {
+  background: #f0f0f0 none repeat scroll 0 0;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .more-extra table td {
+  position: relative;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .more-extra table .desc {
+  display: block;
+  font-size: 11px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .more-extra table .form-control {
+  left: 7px;
+  position: absolute;
+  top: 12px;
+  width: 80%;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .more-extra table .text-color {
+  color: #f0ad4e;
   font-size: 15px;
-  font-weight: normal;
-  margin-bottom: 10px;
-  margin-top: 25px;
-  padding: 5px 24px;
-  text-transform: uppercase;
-}
-.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room:before,
-.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room:after {
-  display: table;
-  content: " ";
-}
-.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room:after {
-  clear: both;
-}
-.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-image {
-  float: left;
-  width: 30%;
-}
-.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content {
-  float: left;
-  width: 50%;
-}
-.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book {
-  float: left;
-  width: 20%;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .service-info-title {
   font-size: 20px;
