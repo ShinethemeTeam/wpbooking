@@ -66,7 +66,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					<?php if(!empty($search_more_fields)){
 						?>
 						<div class="wpbooking-search-form-more-wrap">
-							<a href="#" onclick="return false"  class="btn btn-link wpbooking-show-more-fields"><span class=""><?php esc_html_e('ADVANCE SEARCH','wpbooking') ?> </span></a>
+							<a href="#" onclick="return false"  class="btn btn-link wpbooking-show-more-fields"><span class=""><?php esc_html_e('Advance Search','wpbooking') ?> <i class="fa fa-caret-down" aria-hidden="true"></i></span></a>
 							<div class="wpbooking-search-form-more">
 								<?php
 									foreach($search_more_fields as $k=>$v){
@@ -198,7 +198,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 													}
 													?>
 													<div class="term-item <?php echo esc_attr($class)?>">
-														<label ><input class="wb-icheck" data-style="icheckbox_square-orange" type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$value2->term_id ?>" value="<?php echo esc_html( $value2->term_id ) ?>">
+														<label ><input class="wb-checkbox-search" type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$value2->term_id ?>" value="<?php echo esc_html( $value2->term_id ) ?>">
 														<?php echo esc_html( $value2->name ) ?></label>
 													</div>
 													<?php
@@ -235,11 +235,12 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 							<div class="list-checkbox">
 							<?php
 							$data = array(
-								"1" => '<span class="star-rating"><i class="fa fa-star"></i></span>' ,
-								"2" => '<span class="star-rating"><i class="fa fa-star"></i><i class="fa fa-star"></i></span>',
-								"3" => '<span class="star-rating"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>' ,
-								"4" => '<span class="star-rating"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>' ,
-								"5" => '<span class="star-rating"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>'
+								"5" => __('Excellent 4+','wpbooking') ,
+								"4" => __('Very Good 3+','wpbooking') ,
+								"3" => __('Average 2+','wpbooking') ,
+								"2" => __('Poor 1+','wpbooking') ,
+								"1" => __('Terrible','wpbooking') ,
+
 							);
 							if(!empty( $data )) {
 								foreach( $data as $key2 => $value2 ) {
@@ -248,7 +249,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 										$check = "checked";
 									}
 									?>
-										<label ><input class="wb-icheck" data-style="icheckbox_square-orange" type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
+										<label ><input class="wb-checkbox-search" type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
 										<?php echo ( $value2 ) ?></label>
 									<?php
 								}
@@ -339,9 +340,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					wp_enqueue_style('ion-range-slider');
 					wp_enqueue_style('ion-range-slider-html5');
 
-
 					$min_max_price=WPBooking_Service_Model::inst()->get_min_max_price(array('service_type'=>$service_type));
-					$price_chart=WPBooking_Service_Model::inst()->get_price_chart(array('service_type'=>$service_type));
 					$min_max_price=wp_parse_args($min_max_price,array(
 						'min'=>FALSE,
 						'max'=>FALSE
@@ -351,15 +350,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 						<?php if($v['title']) { ?><label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label> <?php } ?>
 
 						<div class="item-search-content">
-							<div class="wpbooking-price-chart" data-chart='<?php echo json_encode($price_chart)?>'></div>
-							<div class="price-chart-wrap">
-								<canvas id="wpbooking-price-chart2" data-chart='<?php echo json_encode($price_chart)?>' width="1200" height="200"></canvas>
-							</div>
 							<input type="text" data-type="double" data-min="<?php echo esc_attr($min_max_price['min']) ?>" data-max="<?php echo esc_attr($min_max_price['max']) ?>" class="wpbooking-ionrangeslider" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
-
-							<div class="search-button-wrap">
-								<button class="wb-button" type="submit"><?php _e("Filter",'wpbooking') ?></button>
-							</div>
 						</div>
 						<?php if($v['title']) { ?><div class="wb-collapse"></div> <?php } ?>
 					</div>

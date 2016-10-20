@@ -19,6 +19,7 @@
 				'check_out' => WPBooking_Input::get('check_out'),
 				'guest'     => WPBooking_Input::get('guest'),
 			), get_permalink());
+
 			switch ($service_type = $service->get_type()) {
 				case "room":
 					?>
@@ -79,6 +80,9 @@
 						</div>
 					</li>
 					<?php
+					break;
+				case 'hotel':
+
 					break;
 			}
 		}

@@ -178,8 +178,7 @@
 .wpbooking-search-form{
 
     padding:30px 15px;
-    background: #f0ad4e;
-    border: 1px solid #ff9933;
+    border: 1px solid #d5d5d5;
     color: #333333;
     .widget-title{
         text-transform: none;
@@ -188,11 +187,12 @@
         font-size: 30px;
     }
     .item-search{
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         >label{
             margin-bottom: 11px;
             display: block;
             font-size: 16px;
+            font-weight: bold;
         }
 
         .list-checkbox{
@@ -213,8 +213,9 @@
             height: 36px;
             line-height: 36px;
             border-radius: 0;
-            border:none;
+            border:1px solid #d5d5d5;
             padding:0px 10px;
+          background: #FFF;
             &.small-input{
                 width: auto;
             }
@@ -222,6 +223,16 @@
                 border:1px solid red;
             }
         }
+      .wb-checkbox-search{
+        width: 15px;
+        height: 15px;
+        margin-right: 10px;
+        position: relative;
+        top: 3px;
+        &:focus{
+          outline: none;
+        }
+      }
         &.wb-error{
             .select2-container{
                 border:1px solid red;
@@ -252,7 +263,7 @@
                 border:none;
             }
             .irs-bar{
-                background: #666666;
+                background: @maincolor;
                 height: 11px;
                 border:none;
             }
@@ -261,13 +272,20 @@
                 height: 11px;
                 background: white;
                 box-shadow: none;
-                border:1px solid #666666;
+                border:1px solid @maincolor;
                 border-radius: 0px;
                 top:13px;
             }
             .irs-from, .irs-to, .irs-single{
                 font-size: 11px;
             }
+          .irs-min, .irs-max{
+            background: none;
+          }
+          .irs-to, .irs-from{
+            background: @maincolor;
+            border-radius: 0;
+          }
 
         }
         &.datepicker-field{
@@ -305,8 +323,9 @@
         .wb-button{
             margin-top: 10px;
             text-transform: uppercase;
-            background: #31b0d5;
-            border:1px solid #269abc;
+            background: @maincolor;
+            border:1px solid @maincolor;
+          width: 100%;
             color: white;
             padding: 8px 35px;
             font-weight: normal;
@@ -315,65 +334,42 @@
             }
         }
     }
-    .wpbooking-show-more-fields{
-        border:1px solid #333333;
-        font-size: 14px;
-        color: #333;
-        margin-bottom:20px;
-        &:hover{
-            text-decoration: none;
+  .wpbooking-search-form-more-wrap {
+    //text-align: right;
+    margin-bottom: 20px;
+    .wpbooking-show-more-fields {
+      font-size: 14px;
+      color: #333;
+      display: block;
+      width: 100%;
+      text-align: right;
+      margin-bottom: 20px;
+      font-style: italic;
+      &:hover {
+        text-decoration: underline;
+      }
+      &:focus{
+        outline: none;
+      }
+      .for-less {
+        display: none;
+      }
+      &.active {
+        .for-more {
+          display: none;
         }
-        .for-less{
-            display: none;
+        .for-less {
+          display: inline;
         }
-        &.active{
-            .for-more{
-                display: none;
-            }
-            .for-less{
-                display: inline;
-            }
-        }
+      }
     }
+  }
     .star-rating{
         i{
            margin-right: 4px;
         }
     }
-    .icheckbox_square-orange{
-        margin-right: 10px;
-        border: 1px solid #666666;
-        background: white;
-        width: 14px;
-        height: 14px;
-        .iCheck-helper{
 
-            position: absolute;
-            top:1px!important;
-            right:1px;
-            bottom:1px;
-            left: 1px!important;
-            opacity: 1!important;
-            width: auto!important;
-            height: auto!important;
-            transition: all 0.2s;
-        }
-        &.hover,&.checked{
-            .iCheck-helper{
-                opacity: 1!important;
-                background: #333333!important;
-                &:after{
-                    content: "";
-                    width: 2px;
-                    height: 2px;
-                    position: absolute;
-                    background: white;
-                    top: 4px;
-                    left: 4px;
-                }
-            }
-        }
-    }
 
     .wb-collapse{
         display: none;

@@ -203,8 +203,7 @@ a.label:focus {
 }
 .wpbooking-search-form {
   padding: 30px 15px;
-  background: #f0ad4e;
-  border: 1px solid #ff9933;
+  border: 1px solid #d5d5d5;
   color: #333333;
 }
 .wpbooking-search-form .widget-title {
@@ -214,12 +213,13 @@ a.label:focus {
   font-size: 30px;
 }
 .wpbooking-search-form .item-search {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 .wpbooking-search-form .item-search > label {
   margin-bottom: 11px;
   display: block;
   font-size: 16px;
+  font-weight: bold;
 }
 .wpbooking-search-form .item-search .list-checkbox {
   font-size: 14px;
@@ -238,8 +238,9 @@ a.label:focus {
   height: 36px;
   line-height: 36px;
   border-radius: 0;
-  border: none;
+  border: 1px solid #d5d5d5;
   padding: 0px 10px;
+  background: #FFF;
 }
 .wpbooking-search-form .item-search input[type=text].small-input,
 .wpbooking-search-form .item-search select.small-input {
@@ -248,6 +249,16 @@ a.label:focus {
 .wpbooking-search-form .item-search input[type=text].wb-error,
 .wpbooking-search-form .item-search select.wb-error {
   border: 1px solid red;
+}
+.wpbooking-search-form .item-search .wb-checkbox-search {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  position: relative;
+  top: 3px;
+}
+.wpbooking-search-form .item-search .wb-checkbox-search:focus {
+  outline: none;
 }
 .wpbooking-search-form .item-search.wb-error .select2-container {
   border: 1px solid red;
@@ -273,7 +284,7 @@ a.label:focus {
   border: none;
 }
 .wpbooking-search-form .item-search.search-price .irs-bar {
-  background: #666666;
+  background: #f0ad4e;
   height: 11px;
   border: none;
 }
@@ -282,7 +293,7 @@ a.label:focus {
   height: 11px;
   background: white;
   box-shadow: none;
-  border: 1px solid #666666;
+  border: 1px solid #f0ad4e;
   border-radius: 0px;
   top: 13px;
 }
@@ -290,6 +301,15 @@ a.label:focus {
 .wpbooking-search-form .item-search.search-price .irs-to,
 .wpbooking-search-form .item-search.search-price .irs-single {
   font-size: 11px;
+}
+.wpbooking-search-form .item-search.search-price .irs-min,
+.wpbooking-search-form .item-search.search-price .irs-max {
+  background: none;
+}
+.wpbooking-search-form .item-search.search-price .irs-to,
+.wpbooking-search-form .item-search.search-price .irs-from {
+  background: #f0ad4e;
+  border-radius: 0;
 }
 .wpbooking-search-form .item-search.datepicker-field .item-search-content {
   position: relative;
@@ -321,8 +341,9 @@ a.label:focus {
 .wpbooking-search-form .search-button-wrap .wb-button {
   margin-top: 10px;
   text-transform: uppercase;
-  background: #31b0d5;
-  border: 1px solid #269abc;
+  background: #f0ad4e;
+  border: 1px solid #f0ad4e;
+  width: 100%;
   color: white;
   padding: 8px 35px;
   font-weight: normal;
@@ -331,59 +352,35 @@ a.label:focus {
 .wpbooking-search-form .search-button-wrap .wb-button:visited {
   background: #269abc;
 }
-.wpbooking-search-form .wpbooking-show-more-fields {
-  border: 1px solid #333333;
-  font-size: 14px;
-  color: #333;
+.wpbooking-search-form .wpbooking-search-form-more-wrap {
   margin-bottom: 20px;
 }
-.wpbooking-search-form .wpbooking-show-more-fields:hover {
-  text-decoration: none;
+.wpbooking-search-form .wpbooking-search-form-more-wrap .wpbooking-show-more-fields {
+  font-size: 14px;
+  color: #333;
+  display: block;
+  width: 100%;
+  text-align: right;
+  margin-bottom: 20px;
+  font-style: italic;
 }
-.wpbooking-search-form .wpbooking-show-more-fields .for-less {
+.wpbooking-search-form .wpbooking-search-form-more-wrap .wpbooking-show-more-fields:hover {
+  text-decoration: underline;
+}
+.wpbooking-search-form .wpbooking-search-form-more-wrap .wpbooking-show-more-fields:focus {
+  outline: none;
+}
+.wpbooking-search-form .wpbooking-search-form-more-wrap .wpbooking-show-more-fields .for-less {
   display: none;
 }
-.wpbooking-search-form .wpbooking-show-more-fields.active .for-more {
+.wpbooking-search-form .wpbooking-search-form-more-wrap .wpbooking-show-more-fields.active .for-more {
   display: none;
 }
-.wpbooking-search-form .wpbooking-show-more-fields.active .for-less {
+.wpbooking-search-form .wpbooking-search-form-more-wrap .wpbooking-show-more-fields.active .for-less {
   display: inline;
 }
 .wpbooking-search-form .star-rating i {
   margin-right: 4px;
-}
-.wpbooking-search-form .icheckbox_square-orange {
-  margin-right: 10px;
-  border: 1px solid #666666;
-  background: white;
-  width: 14px;
-  height: 14px;
-}
-.wpbooking-search-form .icheckbox_square-orange .iCheck-helper {
-  position: absolute;
-  top: 1px!important;
-  right: 1px;
-  bottom: 1px;
-  left: 1px!important;
-  opacity: 1!important;
-  width: auto!important;
-  height: auto!important;
-  transition: all 0.2s;
-}
-.wpbooking-search-form .icheckbox_square-orange.hover .iCheck-helper,
-.wpbooking-search-form .icheckbox_square-orange.checked .iCheck-helper {
-  opacity: 1!important;
-  background: #333333!important;
-}
-.wpbooking-search-form .icheckbox_square-orange.hover .iCheck-helper:after,
-.wpbooking-search-form .icheckbox_square-orange.checked .iCheck-helper:after {
-  content: "";
-  width: 2px;
-  height: 2px;
-  position: absolute;
-  background: white;
-  top: 4px;
-  left: 4px;
 }
 .wpbooking-search-form .wb-collapse {
   display: none;

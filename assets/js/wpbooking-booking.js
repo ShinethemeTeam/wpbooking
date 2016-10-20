@@ -304,11 +304,11 @@ jQuery(document).ready(function($){
     });
 
 
-    $('.item-search .wb-icheck').on('ifChanged',function(){
+    $('.item-search .wb-checkbox-search').on('change',function(){
 
         var list = "";
         var container=$(this).closest('.list-checkbox');
-        container.find(".wb-icheck").each(function(){
+        container.find(".wb-checkbox-search").each(function(){
             if($(this).attr('checked')) {
                 list +=  $(this).val()+',';
             }
@@ -506,6 +506,8 @@ jQuery(document).ready(function($){
             $('.wpbooking-search-form-wrap').addClass('show-more-active');
             parent.find('.wpbooking-search-form-more').slideDown('fast');
             $(this).addClass('active');
+            $(this).find('.fa').removeClass('fa-caret-down');
+            $(this).find('.fa').addClass('fa-caret-up');
         }else{
             var gr_parent=$(this).closest('.wpbooking-search-form-more-wrap');
             gr_parent.find('.wpbooking-search-form-more').slideUp('fast',function(){
@@ -513,6 +515,8 @@ jQuery(document).ready(function($){
             });
             $('.wpbooking-search-form-wrap').removeClass('show-more-active');
             $(this).removeClass('active');
+            $(this).find('.fa').removeClass('fa-caret-up');
+            $(this).find('.fa').addClass('fa-caret-down');
         }
 
 
