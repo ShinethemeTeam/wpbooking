@@ -221,6 +221,18 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
+        /**
+         * Get review score
+         *
+         * @since 1.0
+         */
+
+        function get_review_score(){
+            if(!$this->ID) return;
+            $score = wpbooking_service_review_score_html($this->ID);
+            return $score;
+        }
+
 		/**
 		 * Get Price in HTML format of current Service
 		 *

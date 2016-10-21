@@ -9,8 +9,22 @@ if(!$my_query->have_posts()) return;
 ?>
 
 <div class="wpbooking-loop-header">
+    <div class="search-title">
+        <?php
+        $action = WPBooking_Input::get('wpbooking_action');
+        if($action == 'archive_filter'){
+            echo '<h2>'.__('Search Result','wpbooking').'</h2>';
+        }?>
+    </div>
 	<div class="col-post-found">
-		<h2 class="post-found-count"><?php printf(esc_html__('Found %d room(s)','wpbooking'),$my_query->found_posts) ?></h2>
+		<h2 class="post-found-count"><?php
+            $service = new WB_Service();
+            if($service == 'room') {
+                printf(_n('Found %d room','Found %d rooms',$my_query->found_posts, 'wpbooking'), $my_query->found_posts);
+            }else{
+                printf(_n('Found %d hotel','Found %d hotels',$my_query->found_posts, 'wpbooking'), $my_query->found_posts);
+            }
+            ?></h2>
 		<p class="post-query-desc">
 			<?php
 				echo wpbooking_post_query_desc();
@@ -56,10 +70,6 @@ if(!$my_query->have_posts()) return;
 					} ?>
 				</select>
 			</form>
-		</div>
-		<div class="wpbooking-view-switch">
-			<a href="#" class="<?php if(empty($_COOKIE['wpbooking_view_type']) or $_COOKIE['wpbooking_view_type']=='grid') echo 'active'; ?>" data-view="grid"><i class="fa fa-th"></i></a>
-			<a href="#" class="<?php if(!empty($_COOKIE['wpbooking_view_type']) and $_COOKIE['wpbooking_view_type']=='list') echo 'active'; ?>" data-view="list"><i class="fa fa-list-ul"></i></a>
 		</div>
 	</div>
 </div>

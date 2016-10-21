@@ -58,6 +58,9 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             add_action('wp_ajax_ajax_search_room', array($this, 'ajax_search_room'));
             add_action('wp_ajax_nopriv_ajax_search_room', array($this, 'ajax_search_room'));
 
+            //wpbooking_archive_loop_image_size
+            add_filter('wpbooking_archive_loop_image_size', array($this, '_apply_thumb_size'), 10, 3);
+
         }
 
 
@@ -1684,6 +1687,95 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 die();
             }
         }
+
+        function _add_default_query_hook(){
+            global $wpdb;
+            $table_prefix = WPBooking_Service_Model::inst()->get_table_name();
+            $injection = WPBooking_Query_Inject::inst();
+            $tax_query = $injection->get_arg('tax_query');
+            $rate_calculate = FALSE;
+
+            // Taxonomy
+            $tax = WPBooking_Input::request('taxonomy');
+            if (!empty($tax) and is_array($tax)) {
+                $taxonomy_operator = WPBooking_Input::request('taxonomy_operator');
+                $tax_query_child = array();
+                foreach ($tax as $key => $value) {
+                    if ($value) {
+                        if (!empty($taxonomy_operator[$key])) {
+                            $operator = $taxonomy_operator[$key];
+                        } else {
+                            $operator = "OR";
+                        }
+                        if ($operator == 'OR') $operator = 'IN';
+                        $value = explode(',', $value);
+                        if (!empty($value) and is_array($value)) {
+                            foreach ($value as $k => $v) {
+                                if (!empty($v)) {
+                                    $ids[] = $v;
+                                }
+                            }
+                        }
+                        if (!empty($ids)) {
+                            $tax_query[] = array(
+                                'taxonomy' => $key,
+                                'terms'    => $ids,
+                                'operator' => $operator,
+                            );
+                        }
+                        $ids = array();
+                    }
+                }
+
+
+                if (!empty($tax_query_child))
+                    $tax_query[] = $tax_query_child;
+            }
+
+            // Star Rating
+            if($star_rating = WPBooking_Input::get('star_rating') and is_array(explode(',', $star_rating))){
+
+                $star_rating_arr = explode(',',$star_rating);
+                    $meta_query[] = array(
+                        'relation' => 'AND',
+                        array(
+                            'key' => 'star_rating',
+                            'type' => 'CHAR',
+                            'value' => $star_rating_arr,
+                            'compare' => 'IN'
+                        )
+                    );
+            }
+            // Review
+            if ($review_rate = WPBooking_Input::request('review_rate') and is_array(explode(',', $review_rate))) {
+
+                $rate_calculate = 1;
+
+
+                foreach (explode(',', $review_rate) as $k => $v) {
+                    $clause = 'AND';
+                    if ($k) $clause = 'OR';
+                    $injection->having("(avg_rate>=" . $v . ' and avg_rate<' . ($v + 1) . ') ', $clause);
+
+                }
+
+            }
+
+            if ($rate_calculate) {
+                $injection->select('avg(' . $wpdb->commentmeta . '.meta_value) as avg_rate')
+                    ->join('comments', $wpdb->prefix . 'comments.comment_post_ID=' . $wpdb->posts . '.ID and  ' . $wpdb->comments . '.comment_approved=1', 'LEFT')
+                    ->join('commentmeta', $wpdb->prefix . 'commentmeta.comment_id=' . $wpdb->prefix . 'comments.comment_ID and ' . $wpdb->commentmeta . ".meta_key='wpbooking_review'", 'LEFT');
+            }
+
+            if (!empty($tax_query))
+                $injection->add_arg('tax_query', $tax_query);
+
+            if(!empty($meta_query))
+                $injection->add_arg('meta_query',$meta_query);
+
+            parent::_add_default_query_hook();
+
+        }
         function search_room(){
             $hotel_id= get_the_ID();
             $arg =  array(
@@ -1695,6 +1787,26 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             query_posts($arg);
         }
 
+        function _apply_thumb_size($size, $service_type, $post_id)
+        {
+            if ($service_type == $this->type_id) {
+                $thumb = $this->thumb_size('150,150,off');
+                $thumb = explode(',', $thumb);
+                if (count($thumb) == 3) {
+                    if ($thumb[2] == 'off') $thumb[2] = FALSE;
+
+                    $size = array($thumb[0], $thumb[1]);
+                }
+
+            }
+
+            return $size;
+        }
+
+        function thumb_size($default = FALSE)
+        {
+            return $this->get_option('thumb_size_hotel', $default);
+        }
 
         static function inst()
         {

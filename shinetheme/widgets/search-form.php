@@ -240,7 +240,6 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 								"3" => __('Average 2+','wpbooking') ,
 								"2" => __('Poor 1+','wpbooking') ,
 								"1" => __('Terrible','wpbooking') ,
-
 							);
 							if(!empty( $data )) {
 								foreach( $data as $key2 => $value2 ) {
@@ -262,7 +261,43 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					</div>
 					<?php
 					break;
-				//
+				//Hotel star
+                case 'star_rating':
+                    ?>
+                    <div class="item-search">
+                        <label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+
+                        <div class="item-search-content">
+                            <div class="list-checkbox">
+                                <?php
+                                $data = array(
+                                    "5" => __('5 stars','wpbooking') ,
+                                    "4" => __('4 stars','wpbooking') ,
+                                    "3" => __('3 stars','wpbooking') ,
+                                    "2" => __('2 stars','wpbooking') ,
+                                    "1" => __('1 star','wpbooking') ,
+                                );
+                                if(!empty( $data )) {
+                                    foreach( $data as $key2 => $value2 ) {
+                                        $check ="";
+                                        if(in_array($key2,explode(',',$value))){
+                                            $check = "checked";
+                                        }
+                                        ?>
+                                        <label ><input class="wb-checkbox-search" type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
+                                            <?php echo ( $value2 ) ?></label>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                                <input type="hidden" value="<?php echo esc_attr($value) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v['field_type'] ) ?>">
+                            </div>
+                        </div>
+                        <div class="wb-collapse"></div>
+                    </div>
+                    <?php
+                    break;
+
 				case "check_in":
 					?>
 					<div class="item-search datepicker-field">

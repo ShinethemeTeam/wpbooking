@@ -504,28 +504,38 @@
 
 // Loop Header
 .wpbooking-loop-header{
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     .clearfix;
+  .search-title{
+    padding: 0 10px;
+    margin-bottom: 20px;
+    h2{
+      font-size: 32px;
+    }
+  }
     .col-post-found{
         width: 66%;
         float: left;
         padding:0px 10px;
         .post-found-count{
-            font-size: 30px;
+            font-size: 28px;
             color: #666666;
-            margin-bottom: 15px;
             font-weight: normal;
             margin-top: 0px;
         }
         .post-query-desc{
             font-size: 14px;
             color: #666;
+          font-style: italic;
+          span{
+            color: @maincolor;
+          }
         }
     }
     .col-loop-order{
         width: 33%;
         float: left;
-        padding:0px 10px;
+        padding:10px 10px 0;
         .wpbooking-loop-order{
             float: right;
             select{
@@ -533,7 +543,8 @@
                 border:1px solid #d5d5d5;
                 font-size: 14px;
                 color: #666666;
-                height: 25px;
+                height: 30px;
+              width: 180px;
             }
         }
         .wpbooking-view-switch{
@@ -585,8 +596,15 @@
                 border:1px solid #e6e6e6;
                 padding: 11px 13px;
                 &:hover{
-                    background: #f2f2f2;
+                    border-color: @maincolor;
+                  .service-title a{
+                    color: @maincolor;
+                  }
                 }
+
+              .service-thumbnail{
+                float: left;
+              }
 
                 .service-gallery{
                     position: relative;
@@ -655,13 +673,12 @@
 
                 .service-content{
                     .service-title{
-                        margin: 0px;
-                        font-size: 16px;
+                        margin: 0 0 5px;
+                        font-size: 18px;
                         font-weight: normal;
-                        margin-bottom: 10px;
                         a{
                             &:hover,&:focus{
-                                text-decoration: none;
+                                text-decoration: underline;
                             }
                         }
                     }
@@ -673,32 +690,31 @@
                             float: left;
                         }
 
-                        .service-rate{
-                            float: right;
-                            margin-top: 3px;
-                            .rating-stars{
-                                .clearfix;
-                                margin-top: 3px;
-                                a{
-                                    line-height: 12px;
-                                    height: 12px;
-                                    i{
-                                        float: left;
-                                    }
+                        .wb-hotel-star{
+                            font-size: 11px;
+                          margin-bottom: 5px;
+                          .icon-star{
+                            margin-right: 3px;
+                            color: #ff9966;
+                          }
+                            .active{
+                                .icon-star:before{
+                                  content: "\f005";
                                 }
-                            }
-                            .fa{
-                                font-size: 12px;
-                                color: #ffa980;
-                            }
-                            .rating-count{
-                                text-align: right;
-                                display: block;
-                                font-size: 11px;
-                                color: #666666;
                             }
                         }
                     }
+
+                  .wb-score-review{
+                      position: absolute;
+                      bottom: 15px;
+                      font-size: 15px;
+                      font-style: italic;
+                    span{
+                      font-size: 13px;
+                    }
+
+                  }
 
 
                     .service-price-book-now{
@@ -708,9 +724,13 @@
                             display: inline-block;
                             line-height: normal;
                             font-size: 13px;
-                            float: left;
                             .price{
-                                font-size: 20px;
+                                font-size: 23px;
+                              width: 100%;
+                              display: block;
+                              .symbol{
+                                font-size: 18px;
+                              }
                             }
                         }
                         .service-book-now{
@@ -763,12 +783,23 @@
                         float: left;
                         margin-bottom: 10px;
                     }
+                  .service-thumbnail{
+                    float: left;
+                    @media (min-width: 639px) {
+                      &{
+                        width: 150px;
+                        height: auto;
+                        min-height: 150px;
+                      }
+                    }
+                  }
+                  
                     .service-content{
-                        width:54%;
+                        width: ~"calc(100% - 170px)";
                         float: right;
                         .service-content-inner{
                             float: left;
-                            width: 50%;
+                            width: 70%;
                             .service-address{
                                 float: none;
                             }
@@ -786,11 +817,11 @@
                         .service-price-book-now{
                             margin-top: 0px;
                             float: right;
-                            width: 50%;
+                            width: 30%;
                             text-align: right;
                             .service-book-now{
                                 position: absolute;
-                                bottom:21px;
+                                bottom:40px;
                                 right:13px;
                             }
                         }

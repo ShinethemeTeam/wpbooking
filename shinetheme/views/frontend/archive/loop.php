@@ -7,7 +7,7 @@
  */
 ?>
 
-<ul class="wpbooking-loop-items <?php echo !empty($_COOKIE['wpbooking_view_type']) ? $_COOKIE['wpbooking_view_type'] : FALSE ?>">
+<ul class="wpbooking-loop-items list">
 	<?php
 	global $wp_query;
 	if ($my_query->have_posts()) {
@@ -23,33 +23,77 @@
 			switch ($service_type = $service->get_type()) {
 				case "room":
 					?>
+                    <li <?php post_class('loop-item') ?>>
+                        <div class="content-item">
+                            <div class="service-thumbnail">
+                                <?php
+                                echo $service->get_featured_image('thumb');
+                                ?>
+                            </div>
+                            <div class="service-content">
+                                <div class="service-content-inner">
+                                    <h3 class="service-title"><a
+                                            href="<?php echo esc_url($url) ?>"><strong><?php the_title() ?></strong></a></h3>
+
+                                    <div class="service-address-rate">
+
+                                        <?php $address = $service->get_address();
+                                        if ($address) {
+                                            ?>
+                                            <div class="service-address">
+                                                <i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                    <div class="wb-score-review">
+                                        <?php echo $service->get_review_score(); ?>
+                                    </div>
+                                    <?php do_action('wpbooking_after_service_address_rate', get_the_ID(), $service->get_type(), $service) ?>
+                                </div>
+                                <div class="service-price-book-now">
+                                    <div class="service-price">
+                                        <?php
+                                        $service->get_price_html();
+                                        ?>
+                                    </div>
+                                    <div class="service-book-now">
+                                        <a class="wb-btn wb-btn-primary"
+                                           href="<?php echo esc_url($url) ?>"><?php esc_html_e('Book Now', 'wpbooking') ?></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+					<?php
+					break;
+				case 'hotel':
+					?>
 					<li <?php post_class('loop-item') ?>>
 						<div class="content-item">
-							<div class="service-gallery">
-								<a href="#" data-post="<?php the_ID() ?>"
-								   class="service-fav <?php if ($service->check_favorite()) echo 'active'; ?>"><i
-										class="fa fa-heart"></i></a>
-
-								<div class="service-gallery-slideshow">
-									<?php
-									$gallery = $service->get_gallery();
-									if (!empty($gallery)) {
-										foreach ($gallery as $media) {
-											printf('<div class="slider-item">%s</div>', $media['gallery']);
-										}
-									}
-									?>
-								</div>
-								<div class="service-author">
-									<a href="#"><?php echo($service->get_author('avatar')) ?></a>
-								</div>
+							<div class="service-thumbnail">
+								<?php
+								echo $service->get_featured_image('thumb');
+								?>
 							</div>
 							<div class="service-content">
 								<div class="service-content-inner">
 									<h3 class="service-title"><a
-											href="<?php echo esc_url($url) ?>"><?php the_title() ?></a></h3>
+											href="<?php echo esc_url($url) ?>"><strong><?php the_title() ?></strong></a></h3>
 
 									<div class="service-address-rate">
+										<div class="wb-hotel-star">
+											<?php
+											$hotel_star = $service->get_meta('star_rating');
+											for($i=1; $i<=5; $i++){
+												$active=FALSE;
+												if($hotel_star >= $i) $active='active';
+												echo sprintf('<span class="%s"><i class="fa fa-star-o icon-star"></i></span>',$active);
+											}
+
+                                            echo '<span>'.$hotel_star.' '._n('star','stars',(int)$hotel_star,'wpbooking').'</span>';
+
+											?>
+										</div>
 										<?php $address = $service->get_address();
 										if ($address) {
 											?>
@@ -57,12 +101,10 @@
 												<i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
 											</div>
 										<?php } ?>
-										<div class="service-rate">
-											<?php
-											$service->get_rate_html();
-											?>
-										</div>
 									</div>
+                                    <div class="wb-score-review">
+                                        <?php echo $service->get_review_score(); ?>
+                                    </div>
 									<?php do_action('wpbooking_after_service_address_rate', get_the_ID(), $service->get_type(), $service) ?>
 								</div>
 								<div class="service-price-book-now">
@@ -80,9 +122,6 @@
 						</div>
 					</li>
 					<?php
-					break;
-				case 'hotel':
-
 					break;
 			}
 		}

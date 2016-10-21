@@ -513,6 +513,7 @@ if (!class_exists('WPBooking_Currency')) {
 
 			$money = (float)$money;
 			$symbol = self::get_current_currency('symbol');
+            $symbol = '<span class="symbol">'.$symbol.'</span>';
 			$precision = self::get_current_currency('decimal', 0);
 			$thousand_separator = self::get_current_currency('thousand_sep', '&nbsp;');
 			$decimal_separator = self::get_current_currency('decimal_sep', '&nbsp;');
