@@ -1041,6 +1041,8 @@ jQuery(document).ready(function( $ ){
                 $('html,body').animate({'scrollTop':parseInt(h)-200});
             });
         }else{
+            next_a.trigger('click');
+            var h=$('#st_post_metabox').offset().top;
             $('html,body').animate({'scrollTop':parseInt(h)-200});
         }
 
