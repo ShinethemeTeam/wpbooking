@@ -41,6 +41,9 @@ $field .= '<input id="'. esc_html( $data['id'] ).'" type="text" placeholder="'.$
 		<div class="st-metabox-content-wrapper">
 			<div class="form-group">
 				<?php echo ($field);
+				if(!empty($data['tooltip_desc'])){
+					printf('<div class="tooltip_desc" ><i class="fa fa-question-circle"></i><span class="tooltip_content">%s</span></div>',$data['tooltip_desc']);
+				}
 				if(!empty($data['help_inline'])){
 					printf('<span class="help_inline">%s</span>',$data['help_inline']);
 				}

@@ -722,19 +722,22 @@ jQuery(document).ready(function( $ ){
 
                 if(!map_lat || !map_long){
                      //Try to get current location
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(function(showPosition){
-                            var gmap_obj = gmap.gmap3('get');
-                            map_lat=showPosition.coords.latitude;
-                            map_long=showPosition.coords.longitude;
-                            gmap_obj.setCenter(new google.maps.LatLng(map_lat,map_long));
-                            gmap_obj.setZoom(11);
-                            $('input[name="map_lat"]', t).val( map_lat );
-                            $('input[name="map_long"]', t).val( map_long );
-                            $('input[name="map_zoom"]', t).val( 11);
-                        });
-
-                    }
+                    /**
+                     * Hide it since 21-10-2016 by Dungdt
+                     */
+                    // if (navigator.geolocation) {
+                    //     navigator.geolocation.getCurrentPosition(function(showPosition){
+                    //         var gmap_obj = gmap.gmap3('get');
+                    //         map_lat=showPosition.coords.latitude;
+                    //         map_long=showPosition.coords.longitude;
+                    //         gmap_obj.setCenter(new google.maps.LatLng(map_lat,map_long));
+                    //         gmap_obj.setZoom(11);
+                    //         $('input[name="map_lat"]', t).val( map_lat );
+                    //         $('input[name="map_long"]', t).val( map_long );
+                    //         $('input[name="map_zoom"]', t).val( 11);
+                    //     });
+                    //
+                    // }
                 }
 
 

@@ -177,8 +177,9 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'label' => __('Contact Number', 'wpbooking'),
                             'id'    => 'contact_number',
                             'desc'  => esc_html__('The contact phone', 'wpbooking'),
-                            'type'  => 'phone_number',
-                            'class' => 'small'
+                            'type'  => 'text',
+                            'class' => 'small',
+                            'tooltip_desc'=>esc_html__('The contact phone', 'wpbooking')
                         ),
                         array(
                             'label' => __('Contact Email', 'wpbooking'),
