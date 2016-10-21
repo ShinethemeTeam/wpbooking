@@ -178,8 +178,7 @@
 .wpbooking-search-form{
 
     padding:30px 15px;
-    background: #f0ad4e;
-    border: 1px solid #ff9933;
+    border: 1px solid #d5d5d5;
     color: #333333;
     .widget-title{
         text-transform: none;
@@ -188,11 +187,12 @@
         font-size: 30px;
     }
     .item-search{
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         >label{
             margin-bottom: 11px;
             display: block;
             font-size: 16px;
+            font-weight: bold;
         }
 
         .list-checkbox{
@@ -213,8 +213,9 @@
             height: 36px;
             line-height: 36px;
             border-radius: 0;
-            border:none;
+            border:1px solid #d5d5d5;
             padding:0px 10px;
+          background: #FFF;
             &.small-input{
                 width: auto;
             }
@@ -222,6 +223,16 @@
                 border:1px solid red;
             }
         }
+      .wb-checkbox-search{
+        width: 15px;
+        height: 15px;
+        margin-right: 10px;
+        position: relative;
+        top: 3px;
+        &:focus{
+          outline: none;
+        }
+      }
         &.wb-error{
             .select2-container{
                 border:1px solid red;
@@ -252,7 +263,7 @@
                 border:none;
             }
             .irs-bar{
-                background: #666666;
+                background: @maincolor;
                 height: 11px;
                 border:none;
             }
@@ -261,13 +272,20 @@
                 height: 11px;
                 background: white;
                 box-shadow: none;
-                border:1px solid #666666;
+                border:1px solid @maincolor;
                 border-radius: 0px;
                 top:13px;
             }
             .irs-from, .irs-to, .irs-single{
                 font-size: 11px;
             }
+          .irs-min, .irs-max{
+            background: none;
+          }
+          .irs-to, .irs-from{
+            background: @maincolor;
+            border-radius: 0;
+          }
 
         }
         &.datepicker-field{
@@ -305,8 +323,9 @@
         .wb-button{
             margin-top: 10px;
             text-transform: uppercase;
-            background: #31b0d5;
-            border:1px solid #269abc;
+            background: @maincolor;
+            border:1px solid @maincolor;
+          width: 100%;
             color: white;
             padding: 8px 35px;
             font-weight: normal;
@@ -315,65 +334,42 @@
             }
         }
     }
-    .wpbooking-show-more-fields{
-        border:1px solid #333333;
-        font-size: 14px;
-        color: #333;
-        margin-bottom:20px;
-        &:hover{
-            text-decoration: none;
+  .wpbooking-search-form-more-wrap {
+    //text-align: right;
+    margin-bottom: 20px;
+    .wpbooking-show-more-fields {
+      font-size: 14px;
+      color: #333;
+      display: block;
+      width: 100%;
+      text-align: right;
+      margin-bottom: 20px;
+      font-style: italic;
+      &:hover {
+        text-decoration: underline;
+      }
+      &:focus{
+        outline: none;
+      }
+      .for-less {
+        display: none;
+      }
+      &.active {
+        .for-more {
+          display: none;
         }
-        .for-less{
-            display: none;
+        .for-less {
+          display: inline;
         }
-        &.active{
-            .for-more{
-                display: none;
-            }
-            .for-less{
-                display: inline;
-            }
-        }
+      }
     }
+  }
     .star-rating{
         i{
            margin-right: 4px;
         }
     }
-    .icheckbox_square-orange{
-        margin-right: 10px;
-        border: 1px solid #666666;
-        background: white;
-        width: 14px;
-        height: 14px;
-        .iCheck-helper{
 
-            position: absolute;
-            top:1px!important;
-            right:1px;
-            bottom:1px;
-            left: 1px!important;
-            opacity: 1!important;
-            width: auto!important;
-            height: auto!important;
-            transition: all 0.2s;
-        }
-        &.hover,&.checked{
-            .iCheck-helper{
-                opacity: 1!important;
-                background: #333333!important;
-                &:after{
-                    content: "";
-                    width: 2px;
-                    height: 2px;
-                    position: absolute;
-                    background: white;
-                    top: 4px;
-                    left: 4px;
-                }
-            }
-        }
-    }
 
     .wb-collapse{
         display: none;
@@ -508,28 +504,38 @@
 
 // Loop Header
 .wpbooking-loop-header{
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     .clearfix;
+  .search-title{
+    padding: 0 10px;
+    margin-bottom: 20px;
+    h2{
+      font-size: 32px;
+    }
+  }
     .col-post-found{
         width: 66%;
         float: left;
         padding:0px 10px;
         .post-found-count{
-            font-size: 30px;
+            font-size: 28px;
             color: #666666;
-            margin-bottom: 15px;
             font-weight: normal;
             margin-top: 0px;
         }
         .post-query-desc{
             font-size: 14px;
             color: #666;
+          font-style: italic;
+          span{
+            color: @maincolor;
+          }
         }
     }
     .col-loop-order{
         width: 33%;
         float: left;
-        padding:0px 10px;
+        padding:10px 10px 0;
         .wpbooking-loop-order{
             float: right;
             select{
@@ -537,7 +543,8 @@
                 border:1px solid #d5d5d5;
                 font-size: 14px;
                 color: #666666;
-                height: 25px;
+                height: 30px;
+              width: 180px;
             }
         }
         .wpbooking-view-switch{
@@ -589,8 +596,15 @@
                 border:1px solid #e6e6e6;
                 padding: 11px 13px;
                 &:hover{
-                    background: #f2f2f2;
+                    border-color: @maincolor;
+                  .service-title a{
+                    color: @maincolor;
+                  }
                 }
+
+              .service-thumbnail{
+                float: left;
+              }
 
                 .service-gallery{
                     position: relative;
@@ -659,13 +673,12 @@
 
                 .service-content{
                     .service-title{
-                        margin: 0px;
-                        font-size: 16px;
+                        margin: 0 0 5px;
+                        font-size: 18px;
                         font-weight: normal;
-                        margin-bottom: 10px;
                         a{
                             &:hover,&:focus{
-                                text-decoration: none;
+                                text-decoration: underline;
                             }
                         }
                     }
@@ -677,32 +690,31 @@
                             float: left;
                         }
 
-                        .service-rate{
-                            float: right;
-                            margin-top: 3px;
-                            .rating-stars{
-                                .clearfix;
-                                margin-top: 3px;
-                                a{
-                                    line-height: 12px;
-                                    height: 12px;
-                                    i{
-                                        float: left;
-                                    }
+                        .wb-hotel-star{
+                            font-size: 11px;
+                          margin-bottom: 5px;
+                          .icon-star{
+                            margin-right: 3px;
+                            color: #ff9966;
+                          }
+                            .active{
+                                .icon-star:before{
+                                  content: "\f005";
                                 }
-                            }
-                            .fa{
-                                font-size: 12px;
-                                color: #ffa980;
-                            }
-                            .rating-count{
-                                text-align: right;
-                                display: block;
-                                font-size: 11px;
-                                color: #666666;
                             }
                         }
                     }
+
+                  .wb-score-review{
+                      position: absolute;
+                      bottom: 15px;
+                      font-size: 15px;
+                      font-style: italic;
+                    span{
+                      font-size: 13px;
+                    }
+
+                  }
 
 
                     .service-price-book-now{
@@ -712,9 +724,13 @@
                             display: inline-block;
                             line-height: normal;
                             font-size: 13px;
-                            float: left;
                             .price{
-                                font-size: 20px;
+                                font-size: 23px;
+                              width: 100%;
+                              display: block;
+                              .symbol{
+                                font-size: 18px;
+                              }
                             }
                         }
                         .service-book-now{
@@ -767,12 +783,23 @@
                         float: left;
                         margin-bottom: 10px;
                     }
+                  .service-thumbnail{
+                    float: left;
+                    @media (min-width: 639px) {
+                      &{
+                        width: 150px;
+                        height: auto;
+                        min-height: 150px;
+                      }
+                    }
+                  }
+                  
                     .service-content{
-                        width:54%;
+                        width: ~"calc(100% - 170px)";
                         float: right;
                         .service-content-inner{
                             float: left;
-                            width: 50%;
+                            width: 70%;
                             .service-address{
                                 float: none;
                             }
@@ -790,11 +817,11 @@
                         .service-price-book-now{
                             margin-top: 0px;
                             float: right;
-                            width: 50%;
+                            width: 30%;
                             text-align: right;
                             .service-book-now{
                                 position: absolute;
-                                bottom:21px;
+                                bottom:40px;
                                 right:13px;
                             }
                         }

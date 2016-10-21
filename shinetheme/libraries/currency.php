@@ -459,7 +459,7 @@ if (!class_exists('WPBooking_Currency')) {
 			if ($currency and $currency_obj = self::find_currency($currency)) {
 
 				// Default for fix Division by zero
-				if(!$currency_obj['rate'])  $currency_obj['rate']=1;
+				if(!empty($currency_obj['rate']) and !$currency_obj['rate'])  $currency_obj['rate']=1;
 
 				// If Current Currency is not the same with currency
 
@@ -513,6 +513,7 @@ if (!class_exists('WPBooking_Currency')) {
 
 			$money = (float)$money;
 			$symbol = self::get_current_currency('symbol');
+            $symbol = '<span class="symbol">'.$symbol.'</span>';
 			$precision = self::get_current_currency('decimal', 0);
 			$thousand_separator = self::get_current_currency('thousand_sep', '&nbsp;');
 			$decimal_separator = self::get_current_currency('decimal_sep', '&nbsp;');

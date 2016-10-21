@@ -58,7 +58,6 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             add_action('wp_ajax_ajax_search_room', array($this, 'ajax_search_room'));
             add_action('wp_ajax_nopriv_ajax_search_room', array($this, 'ajax_search_room'));
 
-
             /**
              * Filter List Room Size
              *
@@ -67,6 +66,9 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
              */
             add_filter('wpbooking_hotel_room_form_updated_content', array($this, '_get_list_room_size'),10,3);
 
+
+            //wpbooking_archive_loop_image_size
+            add_filter('wpbooking_archive_loop_image_size', array($this, '_apply_thumb_size'), 10, 3);
 
 
         }
@@ -188,8 +190,9 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'label' => __('Contact Number', 'wpbooking'),
                             'id'    => 'contact_number',
                             'desc'  => esc_html__('The contact phone', 'wpbooking'),
-                            'type'  => 'phone_number',
-                            'class' => 'small'
+                            'type'  => 'text',
+                            'class' => 'small',
+                            'tooltip_desc'=>esc_html__('The contact phone', 'wpbooking')
                         ),
                         array(
                             'label' => __('Contact Email', 'wpbooking'),
@@ -251,12 +254,14 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'label'  => esc_html__('Check In time', 'wpbooking'),
                             'desc'   => esc_html__('Check In time', 'wpbooking'),
                             'type'   => 'check_in',
+                            'id'   => 'check_in',
                             'fields' => array('checkin_from', 'checkin_to'),// Fields to save
                         ),
                         array(
                             'label'  => esc_html__('Check Out time', 'wpbooking'),
                             'desc'   => esc_html__('Check Out time', 'wpbooking'),
                             'type'   => 'check_out',
+                            'id'   => 'check_out',
                             'fields' => array('checkout_from', 'checkout_to'),// Fields to save
                         ),
                         array('type' => 'close_section'),
@@ -1660,6 +1665,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             }
         }
 
+
         /**
          *  Query Room
          *
@@ -1667,6 +1673,96 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
          * @author: quandq
          *
          */
+
+        function _add_default_query_hook(){
+            global $wpdb;
+            $table_prefix = WPBooking_Service_Model::inst()->get_table_name();
+            $injection = WPBooking_Query_Inject::inst();
+            $tax_query = $injection->get_arg('tax_query');
+            $rate_calculate = FALSE;
+
+            // Taxonomy
+            $tax = WPBooking_Input::request('taxonomy');
+            if (!empty($tax) and is_array($tax)) {
+                $taxonomy_operator = WPBooking_Input::request('taxonomy_operator');
+                $tax_query_child = array();
+                foreach ($tax as $key => $value) {
+                    if ($value) {
+                        if (!empty($taxonomy_operator[$key])) {
+                            $operator = $taxonomy_operator[$key];
+                        } else {
+                            $operator = "OR";
+                        }
+                        if ($operator == 'OR') $operator = 'IN';
+                        $value = explode(',', $value);
+                        if (!empty($value) and is_array($value)) {
+                            foreach ($value as $k => $v) {
+                                if (!empty($v)) {
+                                    $ids[] = $v;
+                                }
+                            }
+                        }
+                        if (!empty($ids)) {
+                            $tax_query[] = array(
+                                'taxonomy' => $key,
+                                'terms'    => $ids,
+                                'operator' => $operator,
+                            );
+                        }
+                        $ids = array();
+                    }
+                }
+
+
+                if (!empty($tax_query_child))
+                    $tax_query[] = $tax_query_child;
+            }
+
+            // Star Rating
+            if($star_rating = WPBooking_Input::get('star_rating') and is_array(explode(',', $star_rating))){
+
+                $star_rating_arr = explode(',',$star_rating);
+                    $meta_query[] = array(
+                        'relation' => 'AND',
+                        array(
+                            'key' => 'star_rating',
+                            'type' => 'CHAR',
+                            'value' => $star_rating_arr,
+                            'compare' => 'IN'
+                        )
+                    );
+            }
+            // Review
+            if ($review_rate = WPBooking_Input::request('review_rate') and is_array(explode(',', $review_rate))) {
+
+                $rate_calculate = 1;
+
+
+                foreach (explode(',', $review_rate) as $k => $v) {
+                    $clause = 'AND';
+                    if ($k) $clause = 'OR';
+                    $injection->having("(avg_rate>=" . $v . ' and avg_rate<' . ($v + 1) . ') ', $clause);
+
+                }
+
+            }
+
+            if ($rate_calculate) {
+                $injection->select('avg(' . $wpdb->commentmeta . '.meta_value) as avg_rate')
+                    ->join('comments', $wpdb->prefix . 'comments.comment_post_ID=' . $wpdb->posts . '.ID and  ' . $wpdb->comments . '.comment_approved=1', 'LEFT')
+                    ->join('commentmeta', $wpdb->prefix . 'commentmeta.comment_id=' . $wpdb->prefix . 'comments.comment_ID and ' . $wpdb->commentmeta . ".meta_key='wpbooking_review'", 'LEFT');
+            }
+
+            if (!empty($tax_query))
+                $injection->add_arg('tax_query', $tax_query);
+
+            if(!empty($meta_query))
+                $injection->add_arg('meta_query',$meta_query);
+
+            parent::_add_default_query_hook();
+
+        }
+
         function search_room(){
             $hotel_id= get_the_ID();
             $arg =  array(
@@ -1698,22 +1794,23 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
          * @param $data
          * @return mixed
          */
-        function _get_list_room_size($data,$room_id,$hotel_id){
+        function _get_list_room_size($data,$room_id,$hotel_id)
+        {
             $html = '<div class="wpbooking-row room_size_content">';
-            $arg =  array(
-                'post_type'      => 'wpbooking_hotel_room',
-                'posts_per_page' => '200',
-                'post_status' => array('publish','draft','pending','future','private','inherit'),
-                'post_parent'=>$hotel_id
+            $arg  = array(
+                'post_type'      => 'wpbooking_hotel_room' ,
+                'posts_per_page' => '200' ,
+                'post_status'    => array( 'publish' , 'draft' , 'pending' , 'future' , 'private' , 'inherit' ) ,
+                'post_parent'    => $hotel_id
             );
-            query_posts($arg);
-            while(have_posts()){
+            query_posts( $arg );
+            while( have_posts() ) {
                 the_post();
                 $html .= '<div class="wpbooking-col-sm-6">
                             <div class="form-group">
-                                <p>'.get_the_title().'</p>
+                                <p>' . get_the_title() . '</p>
                                 <div class="input-group">
-                                    <input class="form-control" id="room_size['.get_the_ID().']" name="room_size['.get_the_ID().']" type="number" value="'.get_post_meta(get_the_ID(), 'room_size', TRUE).'">
+                                    <input class="form-control" id="room_size[' . get_the_ID() . ']" name="room_size[' . get_the_ID() . ']" type="number" value="' . get_post_meta( get_the_ID() , 'room_size' , true ) . '">
                                     <span data-condition="room_measunit:is(metres)" class="input-group-addon wpbooking-condition" style="display: none;">m<sup>2</sup></span>
                                     <span data-condition="room_measunit:is(feed)" class="input-group-addon wpbooking-condition">ft<sup>2</sup></span>
                                 </div>
@@ -1722,8 +1819,29 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             }
             $html .= '</div>';
             wp_reset_query();
-            $data['.room_size_content'] = $html;
+            $data[ '.room_size_content' ] = $html;
             return $data;
+
+        }
+        function _apply_thumb_size($size, $service_type, $post_id)
+        {
+            if ($service_type == $this->type_id) {
+                $thumb = $this->thumb_size('150,150,off');
+                $thumb = explode(',', $thumb);
+                if (count($thumb) == 3) {
+                    if ($thumb[2] == 'off') $thumb[2] = FALSE;
+
+                    $size = array($thumb[0], $thumb[1]);
+                }
+
+            }
+
+            return $size;
+        }
+
+        function thumb_size($default = FALSE)
+        {
+            return $this->get_option('thumb_size_hotel', $default);
         }
 
         static function inst()

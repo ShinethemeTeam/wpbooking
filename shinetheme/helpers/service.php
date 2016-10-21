@@ -77,6 +77,32 @@ if(!function_exists('wpbooking_service_rate_to_html'))
 	}
 }
 
+if(!function_exists('wpbooking_service_review_score_html')){
+    function wpbooking_service_review_score_html($post_id = false){
+        if(!$post_id) $post_id = get_the_ID();
+
+        $score = WPBooking_Comment_Model::inst()->get_avg_review($post_id);
+
+        if($score > 4){
+            $rating = __('Excellent ','wpbooking').$score;
+        }elseif($score > 3){
+            $rating = __('Very Good ','wpbooking').$score;
+        }elseif($score > 2){
+            $rating = __('Average ','wpbooking').$score;
+        }elseif($score > 1){
+            $rating = __('Poor ','wpbooking').$score;
+        }else{
+            $rating = __('Terrible ','wpbooking').$score;
+        }
+
+        $rating .= ' <span>('.sprintf(_n('%d review','%d reviews',$score,'wpbooking'), $score).')</span>';
+
+        if($score == 0) $rating = '';
+
+        return $rating;
+    }
+}
+
 if(!function_exists('wpbooking_order_item_status_html')){
 	function wpbooking_order_item_status_html($status){
 		$all_status=WPBooking_Config::inst()->item('order_status');
@@ -177,18 +203,18 @@ if(!function_exists('wpbooking_post_query_desc'))
 		if(!empty($input['location_id']) and $location_id=$input['location_id']){
 			$location=get_term($location_id,'wpbooking_location');
 			if(!is_wp_error($location) and $location)
-			$q[]=sprintf(esc_html__('in %s','wpbooking'),'<strong>'.$location->name.'</strong>');
+			$q[]=sprintf(esc_html__('in %s','wpbooking'),'<span>'.$location->name.'</span>');
 		}
 		if(!empty($input['check_in']) and $check_in=$input['check_in']){
-			$q[]=sprintf(esc_html__('from %s','wpbooking'),'<strong>'.$check_in.'</strong>');
+			$q[]=sprintf(esc_html__('from %s','wpbooking'),'<span>'.$check_in.'</span>');
 
 			if(!empty($input['check_out']) and $check_out=$input['check_out']){
-				$q[]=sprintf(esc_html__('to %s','wpbooking'),'<strong>'.$check_out.'</strong>');
+				$q[]=sprintf(esc_html__('to %s','wpbooking'),'<span>'.$check_out.'</span>');
 			}
 		}
 
 		if(!empty($input['guest']) and $guest=$input['guest']){
-			$q[]=sprintf(esc_html__('%s guest(s)','wpbooking'),'<strong>'.$guest.'</strong>');
+			$q[]=sprintf(esc_html__('%s guest(s)','wpbooking'),'<span>'.$guest.'</span>');
 		}
 		$query_desc=FALSE;
 		if(!empty($q)){
