@@ -1254,7 +1254,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
             /**
              * Calculate Extra Price
              */
-            if($extra_price=WB_Service_Helper::calculate_extra_price($cart_item,$cart_item['default_extra_services'])){
+            if(!empty($cart_item['default_extra_services']) and $extra_price=WB_Service_Helper::calculate_extra_price($cart_item,$cart_item['default_extra_services'])){
                 $extra_html[] = sprintf("<li class='field-item %s'>
 												<span class='field-title'>%s:</span>
 												<span class='field-value'>%s</span>
@@ -1264,19 +1264,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                     WPBooking_Currency::format_money($extra_price)
                 );
             }
-            /**
-             * Calculate Addition Price
-             */
-            if($extra_price=WB_Service_Helper::calculate_extra_price($cart_item,$cart_item['default_extra_services'])){
-                $extra_html[] = sprintf("<li class='field-item %s'>
-												<span class='field-title'>%s:</span>
-												<span class='field-value'>%s</span>
-											</li>",
-                    'extra_price',
-                    esc_html__('Addition', 'wpbooking'),
-                    WPBooking_Currency::format_money($extra_price)
-                );
-            }
+           
 
             if ($cart_item['enable_additional_guest_tax'] == 'on') {
 

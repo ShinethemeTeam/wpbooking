@@ -3466,6 +3466,49 @@ label[for=wpbooking_locationdiv-hide]
         }
     }
 }
+.tooltip_desc{
+    position: relative;
+    display: inline-block;
+    >i{
+        font-size: 17px;
+    }
+    .tooltip_content{
+        position: absolute !important;
+        background: #333;
+        white-space: nowrap;
+        color: white;
+        padding: 8px 12px !important;
+        box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.2);
+        bottom: 100%;
+        font-weight: 300;
+        margin-bottom: 7px;
+        display: none;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 14px;
+    }
+    &:hover{
+        .tooltip_content{
+            display: block;
+        }
+        &:after{
+            display: block;
+        }
+    }
+    &:after{
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        display: none;
+        border: 5px solid transparent;
+        border-top: 5px solid #333;
+        margin-bottom: -3px;
+    }
+}
+
+.tooltip_desc{
+    margin-left: 20px;
+}
 
 #wb_hotel_room_amenitydiv,
 #wb_hotel_room_bathroomdiv,
