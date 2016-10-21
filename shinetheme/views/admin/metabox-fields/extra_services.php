@@ -44,7 +44,9 @@ if(!empty($service_types)){
                                         <div class="service_detail">
                                             <label class="title" ><input type="checkbox" value="<?php echo esc_html($value['title']) ?>" <?php echo esc_attr($checked) ?> name="<?php echo esc_attr($data['id'].'['.$type_id.']['.$k.'][is_selected]') ?>">
                                             <?php echo esc_html($value['title']) ?></label>
-                                            <span class="service_desc metabox-help"><?php echo balanceTags($value['description']); ?></span>
+                                            <span class="service_desc metabox-help"><?php echo balanceTags($value['description']); ?>
+                                                <input type="hidden" value="<?php echo esc_html($value['description']) ?>"  name="<?php echo esc_attr($data['id'].'['.$type_id.']['.$k.'][desc]') ?>"/>
+                                            </span>
                                         </div>
 										<div class="money-number">
 											<div class="input-group ">

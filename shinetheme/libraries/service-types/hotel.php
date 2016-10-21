@@ -58,6 +58,17 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
             add_action('wp_ajax_ajax_search_room', array($this, 'ajax_search_room'));
             add_action('wp_ajax_nopriv_ajax_search_room', array($this, 'ajax_search_room'));
 
+
+            /**
+             * Filter List Room Size
+             *
+             * @since 1.0
+             * @author quandq
+             */
+            add_filter('wpbooking_hotel_room_form_updated_content', array($this, '_get_list_room_size'),10,3);
+
+
+
         }
 
 
@@ -1368,6 +1379,15 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     ),
                     'class' => 'small'
                 ),
+                array(
+                    'label' => esc_html__('Max guests', 'wpbooking'),
+                    'type'  => 'dropdown',
+                    'id'    => 'max_guests',
+                    'value' => array(
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+                    ),
+                    'class' => 'small'
+                ),
                 array('type' => 'close_section'),
                 
 
@@ -1547,7 +1567,9 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 //property_available_for
                 if (isset($_POST['property_available_for'])) update_post_meta($room_id, 'property_available_for', $_POST['property_available_for']);
 
-                $list_room_new = WPBooking_Hotel_Service_Type::inst()->_get_room_by_hotel(wp_get_post_parent_id($room_id));
+                $hotel_id = wp_get_post_parent_id($room_id);
+                $list_room_new = WPBooking_Hotel_Service_Type::inst()->_get_room_by_hotel($hotel_id);
+
 
                 $list_room_new = json_encode($list_room_new);
                 $res['data']['list_room'] = $list_room_new;
@@ -1558,7 +1580,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 $res['data']['room_id'] = $room_id;
                 $res['data']['security'] = wp_create_nonce('del_security_post_' . $room_id);
 
-                $res['updated_content'] = apply_filters('wpbooking_hotel_room_form_updated_content', array(), $room_id);
+                $res['updated_content'] = apply_filters('wpbooking_hotel_room_form_updated_content', array(), $room_id , $hotel_id);
 
                 $res['status'] = 1;
             }
@@ -1578,9 +1600,8 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
         public function _ajax_del_room_item()
         {
             $res = array('status' => 0);
-
             $room_id = WPBooking_Input::post('wb_room_id');
-
+            $hotel_id = wp_get_post_parent_id($room_id);
             if ($room_id) {
                 check_ajax_referer('del_security_post_' . $room_id, 'wb_del_security');
                 $parent_id = wp_get_post_parent_id($room_id);
@@ -1591,6 +1612,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                     $res['data']['list_room'] = $list_room_new;
                 }
             }
+            $res['updated_content'] = apply_filters('wpbooking_hotel_room_form_updated_content', array(), $room_id , $hotel_id);
             echo json_encode($res);
             wp_die();
         }
@@ -1609,81 +1631,42 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                         'status' => 0,
                         'data'   => "",
                     );
-
                     echo json_encode($result);
                     die;
                 }
-
-
-                /*$result = array(
+                $result = array(
                     'status' => 1,
                     'data'   => "",
                 );
-
                 $hotel_id = get_the_ID();
-                $post = STInput::request();
-                $post['room_parent'] = $hotel_id;
-
-                //Check Date
-                $today = date('m/d/Y');
-
-                $check_in = TravelHelper::convertDateFormat($post['start']);
-
-                $check_out = TravelHelper::convertDateFormat($post['end']);
-
-                $date_diff = TravelHelper::dateDiff($check_in, $check_out);
-
-                $booking_period = intval(get_post_meta($hotel_id, 'hotel_booking_period', TRUE));
-
-                $period = TravelHelper::dateDiff($today, $check_in);
-
-                if ($booking_period && $period < $booking_period) {
+                self::search_room();
+                if(have_posts()) {
+                    while( have_posts() ) {
+                        the_post();
+                        $result['data'] .= wpbooking_load_view('single/loop-room',array('hotel_id'=>$hotel_id));
+                    }
+                }else{
                     $result = array(
                         'status'  => 0,
-                        'data'    => st()->load_template('hotel/elements/loop-room-none'),
-                        'message' => sprintf(__('This hotel allow minimum booking is %d day(s)', ST_TEXTDOMAIN), $booking_period)
+                        'data'    => '',
+                        'message'   => __('No Room.', 'wpbooking'),
                     );
                     echo json_encode($result);
                     die;
                 }
-                if ($date_diff < 1) {
-                    $result = array(
-                        'status'    => 0,
-                        'data'      => "",
-                        'message'   => __('Make sure your check-out date is at least 1 day after check-in.', ST_TEXTDOMAIN),
-                        'more-data' => $date_diff
-                    );
-
-                    echo json_encode($result);
-                    die;
-                }
-
-
-                global $wp_query;
-                $this->search_room();
-
-                if (have_posts()) {
-                    while (have_posts()) {
-                        the_post();
-
-                        $result['data'] .= preg_replace( '/^\s+|\n|\r|\s+$/m' , '' ,st()->load_template('hotel/elements/loop-room-item'));
-
-                    }
-
-                } else {
-                    $result['data'] .= st()->load_template('hotel/elements/loop-room-none');
-
-                }
-                $result['paging'] = TravelHelper::paging_room();
-
                 wp_reset_query();
-
-                echo json_encode($result);*/
-
-                echo "nó chạy ajax rồi này :))";
-                die();
+                echo json_encode($result);
+                wp_die();
             }
         }
+
+        /**
+         *  Query Room
+         *
+         * @since: 1.0
+         * @author: quandq
+         *
+         */
         function search_room(){
             $hotel_id= get_the_ID();
             $arg =  array(
@@ -1692,9 +1675,56 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 'post_status' => 'publish',
                 'post_parent'=>$hotel_id
             );
+            $adults = WPBooking_Input::request('adults');
+            $children = WPBooking_Input::request('children');
+            $max_guests = $adults+$children;
+            if(!empty($max_guests)){
+                $arg['meta_query'][] =   array(
+                    'key'       => 'max_guests',
+                    'value'     => $max_guests,
+                    'compare'   => '>',
+                );
+            }
+            global $wp_query;
             query_posts($arg);
         }
 
+        /**
+         * Filter List Room Size
+         *
+         * @since: 1.0
+         * @author: quandq
+         *
+         * @param $data
+         * @return mixed
+         */
+        function _get_list_room_size($data,$room_id,$hotel_id){
+            $html = '<div class="wpbooking-row room_size_content">';
+            $arg =  array(
+                'post_type'      => 'wpbooking_hotel_room',
+                'posts_per_page' => '200',
+                'post_status' => array('publish','draft','pending','future','private','inherit'),
+                'post_parent'=>$hotel_id
+            );
+            query_posts($arg);
+            while(have_posts()){
+                the_post();
+                $html .= '<div class="wpbooking-col-sm-6">
+                            <div class="form-group">
+                                <p>'.get_the_title().'</p>
+                                <div class="input-group">
+                                    <input class="form-control" id="room_size['.get_the_ID().']" name="room_size['.get_the_ID().']" type="number" value="'.get_post_meta(get_the_ID(), 'room_size', TRUE).'">
+                                    <span data-condition="room_measunit:is(metres)" class="input-group-addon wpbooking-condition" style="display: none;">m<sup>2</sup></span>
+                                    <span data-condition="room_measunit:is(feed)" class="input-group-addon wpbooking-condition">ft<sup>2</sup></span>
+                                </div>
+                            </div>
+                        </div>';
+            }
+            $html .= '</div>';
+            wp_reset_query();
+            $data['.room_size_content'] = $html;
+            return $data;
+        }
 
         static function inst()
         {

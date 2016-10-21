@@ -400,7 +400,7 @@ jQuery(document).ready(function($){
         return false;
     });
     function do_search_room(searchbox){
-
+        var parent = searchbox.closest('.search-room-availablity');
         var data = {
             'nonce': searchbox.find('input[name=room_search]').val()
         };
@@ -445,8 +445,12 @@ jQuery(document).ready(function($){
             return;
         }
         searchbox.addClass('loading');
+        searchbox.find('.img_loading').show();
 
         console.log(data);
+
+        var content_list_room = parent.find('.content-loop-room');
+        var content_search_room = parent.find('.content-search-room');
 
         $.ajax({
             'type': 'post',
@@ -455,28 +459,22 @@ jQuery(document).ready(function($){
             'url':wpbooking_params.ajax_url,
             'success': function(data) {
                 searchbox.removeClass('loading');
+                searchbox.find('.img_loading').hide();
                 console.log(data);
-                /*if (data.status) {
+                if (data.status) {
                     if (typeof data.data != "undefined" && data.data) {
-                        me.html(data.data);
+                        content_list_room.html(data.data);
+                        content_search_room.show();
                     } else {
-                        me.html('');
+                        content_list_room.html('');
+                        content_search_room.hide();
                     }
-                    $('body').tooltip({
-                        selector: '[rel=tooltip]'
-                    });
-                    $('.i-check, .i-radio').iCheck({
-                        checkboxClass: 'i-check',
-                        radioClass: 'i-radio'
-                    });
-
                 }
                 if (data.message) {
                     setMessage(holder, data.message, 'danger');
-                    me.html('');
-                }*/
-
-
+                    content_list_room.html('');
+                    content_search_room.hide();
+                }
             },
             error: function(data) {
                 searchbox.removeClass('loading');

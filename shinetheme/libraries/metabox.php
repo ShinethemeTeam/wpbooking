@@ -423,6 +423,14 @@ if (!class_exists('WPBooking_Metabox')) {
                     case "living_options":
                         $this->wpbooking_save_living_options($post_id,$field['id'],$field);
                         break;
+                    case "room_size":
+                        $data_multi=WPBooking_Input::post($field['id']);
+                        if(!empty($data_multi)){
+                            foreach($data_multi as $k=>$v){
+                                update_post_meta($k,'room_size',$v);
+                            }
+                        }
+                        break;
                     default :
                         if (isset($new) && $new !== $old) {
                             update_post_meta($post_id, $field['id'], $new);

@@ -1783,6 +1783,9 @@ a.label:focus {
   padding: 15px;
   background: #fafafa;
 }
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search-room .img_loading {
+  display: none;
+}
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room {
   border-color: #cccccc;
   border-style: solid;
@@ -1997,7 +2000,7 @@ a.label:focus {
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .more-extra {
   float: right;
-  width: 70%;
+  width: 85%;
   margin-top: 30px;
   display: none;
 }
@@ -2013,12 +2016,6 @@ a.label:focus {
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .more-extra table .desc {
   display: block;
   font-size: 11px;
-}
-.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .more-extra table .form-control {
-  left: 7px;
-  position: absolute;
-  top: 12px;
-  width: 80%;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .more-extra table .text-color {
   color: #f0ad4e;
