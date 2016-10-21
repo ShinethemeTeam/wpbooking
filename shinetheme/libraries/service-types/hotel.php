@@ -240,12 +240,14 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                             'label'  => esc_html__('Check In time', 'wpbooking'),
                             'desc'   => esc_html__('Check In time', 'wpbooking'),
                             'type'   => 'check_in',
+                            'id'   => 'check_in',
                             'fields' => array('checkin_from', 'checkin_to'),// Fields to save
                         ),
                         array(
                             'label'  => esc_html__('Check Out time', 'wpbooking'),
                             'desc'   => esc_html__('Check Out time', 'wpbooking'),
                             'type'   => 'check_out',
+                            'id'   => 'check_out',
                             'fields' => array('checkout_from', 'checkout_to'),// Fields to save
                         ),
                         array('type' => 'close_section'),
