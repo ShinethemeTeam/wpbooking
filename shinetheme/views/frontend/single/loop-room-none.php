@@ -1,0 +1,1 @@
+<?php esc_html_e("No Room","wpbooking");

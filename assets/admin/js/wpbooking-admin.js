@@ -1463,6 +1463,14 @@ jQuery(document).ready(function( $ ){
                     }else{
                         alert(res.message);
                     }
+                    if(typeof  res.updated_content!='undefined'){
+
+                        for (var k in res.updated_content){
+                            var element=$(k);
+                            element.replaceWith(res.updated_content[k]);
+                            $(window).trigger('wpbooking_event_hotel_room_update_content',[k,res.updated_content[k]]);
+                        }
+                    }
                 },
                 error:function(e){
                     parent.removeClass('on-loading');

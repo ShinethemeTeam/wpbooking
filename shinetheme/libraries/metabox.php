@@ -423,6 +423,14 @@ if (!class_exists('WPBooking_Metabox')) {
                     case "living_options":
                         $this->wpbooking_save_living_options($post_id,$field['id'],$field);
                         break;
+                    case "room_size":
+                        $data_multi=WPBooking_Input::post($field['id']);
+                        if(!empty($data_multi)){
+                            foreach($data_multi as $k=>$v){
+                                update_post_meta($k,'room_size',$v);
+                            }
+                        }
+                        break;
                     default :
                         if (isset($new) && $new !== $old) {
                             update_post_meta($post_id, $field['id'], $new);
@@ -557,7 +565,7 @@ if (!class_exists('WPBooking_Metabox')) {
                     }
                 }
             }
-            $list_room = WPBooking_Hotel_Service_Type::_get_room_by_hotel($post_id);
+            $list_room = WPBooking_Accommodation_Service_Type::_get_room_by_hotel($post_id);
             if(!empty($list_base)){
                 foreach($list_base as $k=>$v){
                     if($v == 'true'){

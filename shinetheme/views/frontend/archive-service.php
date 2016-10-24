@@ -7,10 +7,10 @@ var_dump($my_query->request);
 echo wpbooking_load_view('wrap/start');
 ?>
 <div class="wpbooking-container wb-archive-wrapper hentry">
-    <?php echo wpbooking_load_view('archive/header',array('my_query'=>$my_query))?>
+    <?php echo wpbooking_load_view('archive/header')?>
     <div class="wpbooking-loop-wrap">
-        <?php echo wpbooking_load_view('archive/loop',array('my_query'=>$my_query))?>
-        <?php echo wpbooking_load_view('archive/pagination',array('my_query'=>$my_query))?>
+        <?php echo wpbooking_load_view('archive/loop')?>
+        <?php echo wpbooking_load_view('archive/pagination')?>
     </div>
 
 </div>

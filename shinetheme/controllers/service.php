@@ -22,7 +22,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
             $loader = WPBooking_Loader::inst();
             $loader->load_library(array(
                 'service-types/abstract-service-type',
-                'service-types/hotel',
+                'service-types/accommodation',
                 'service-types/room',
                 'service-types/car',
             ));
@@ -45,12 +45,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
             add_action('wp_ajax_wpbooking_calendar_months', array($this, '_calendar_months'));
             add_action('wp_ajax_nopriv_wpbooking_calendar_months', array($this, '_calendar_months'));
 
-            /**
-             * Ajax Filter
-             * @author dungdt
-             * @since 1.0
-             */
-            add_action('template_redirect', array($this, '_ajax_filter_archivepage'), 100);
 
             /**
              * Ajax Add Favorite
@@ -222,54 +216,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
             die;
         }
 
-        /**
-         * Ajax Filter Service Type
-         *
-         * @author dungdt
-         * @since 1.0
-         *
-         */
-        function _ajax_filter_archivepage()
-        {
-
-            // Ajax Search Handle
-            if (WB_Helpers::is_ajax() and WPBooking_Input::get('wpbooking_action') == 'archive_filter') {
-                if (get_query_var('paged')) {
-                    $paged = get_query_var('paged');
-                } else if (get_query_var('page')) {
-                    $paged = get_query_var('page');
-                } else {
-                    $paged = 1;
-                }
-                $args = array(
-                    'post_type'      => 'wpbooking_service',
-                    's'              => '',
-                    'paged'          => $paged,
-                    'posts_per_page' => 3,
-                );
-                $service_type = '';
-                $is_page = get_the_ID();
-                $list_page_search = apply_filters("wpbooking_add_page_archive_search", array());
-                if (!empty($list_page_search[$is_page])) {
-                    $service_type = $list_page_search[$is_page];
-                }
-                $my_query = $this->query($args);
-
-                $res = array(
-                    'html' => wpbooking_load_view('archive/loop', array('my_query' => $my_query, 'service_type' => $service_type)),
-                );
-                $res['html'] .= wpbooking_load_view('archive/pagination', array('my_query' => $my_query, 'service_type' => $service_type));
-
-                $res['updated_element'] = array(
-                    '.post-query-desc'  => wpbooking_post_query_desc(WPBooking_Input::post()),
-                    '.post-found-count' => sprintf(esc_html__('Found %d room(s)', 'wpbooking'), $my_query->found_posts)
-                );
-
-                echo json_encode($res);
-                die;
-
-            }
-        }
 
         /**
          * Function Ajax Get Calendar Months
