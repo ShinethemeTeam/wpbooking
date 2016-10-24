@@ -23,7 +23,7 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
 <div class="form-table content_tax_vat wpbooking-settings <?php echo esc_html($class); ?>" <?php echo esc_html($data_class); ?>>
     <h4 class="field-title"> <?php echo esc_html($data['label']); ?> </h4>
     <div class="st-metabox-left">
-        <label for="<?php echo esc_html_e("Do you use V.A.T ?","wpbooking") ?>"><?php echo esc_html_e("Do you use V.A.T ?","wpbooking") ?></label>
+        <label for="<?php esc_html_e("Do you use V.A.T ?","wpbooking") ?>"><?php esc_html_e("Do you use V.A.T ?","wpbooking") ?></label>
     </div>
     <div class="st-metabox-right">
         <div class="st-metabox-content-wrapper">
@@ -39,7 +39,7 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
         <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
     </div>
     <div class="st-metabox-left">
-        <label for="<?php echo esc_html_e("VAT amount","wpbooking") ?>"><?php echo esc_html_e("VAT amount","wpbooking") ?></label>
+        <label for="<?php esc_html_e("VAT amount","wpbooking") ?>"><?php esc_html_e("VAT amount","wpbooking") ?></label>
     </div>
     <div class="st-metabox-right">
         <div class="st-metabox-content-wrapper">

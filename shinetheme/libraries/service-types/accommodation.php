@@ -5,17 +5,17 @@
  * Date: 8/10/2016
  * Time: 3:47 PM
  */
-if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Abstract_Service_Type')) {
-    class WPBooking_Hotel_Service_Type extends WPBooking_Abstract_Service_Type
+if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBooking_Abstract_Service_Type')) {
+    class WPBooking_Accommodation_Service_Type extends WPBooking_Abstract_Service_Type
     {
         static $_inst = false;
 
-        protected $type_id = 'hotel';
+        protected $type_id = 'accommodation';
 
         function __construct()
         {
             $this->type_info = array(
-                'label' => __("Hotel", 'wpbooking'),
+                'label' => __("Accommodation", 'wpbooking'),
                 'desc'  => esc_html__('Chỗ nghỉ cho khách du lịch, thường có nhà hàng, phòng họp và các dịch vụ khác dành cho khách', 'wpbooking')
             );
 
@@ -1322,7 +1322,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
         }
 
         /**
-         * Get Hotel Room Metabox Fields
+         * Get Room Metabox Fields
          *
          * @since 1.0
          * @author dungdt
@@ -1573,7 +1573,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 if (isset($_POST['property_available_for'])) update_post_meta($room_id, 'property_available_for', $_POST['property_available_for']);
 
                 $hotel_id = wp_get_post_parent_id($room_id);
-                $list_room_new = WPBooking_Hotel_Service_Type::inst()->_get_room_by_hotel($hotel_id);
+                $list_room_new = $this->_get_room_by_hotel($hotel_id);
 
 
                 $list_room_new = json_encode($list_room_new);
@@ -1612,7 +1612,7 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
                 $parent_id = wp_get_post_parent_id($room_id);
                 if (wp_delete_post($room_id) !== false) {
                     $res['status'] = 1;
-                    $list_room_new = WPBooking_Hotel_Service_Type::inst()->_get_room_by_hotel($parent_id);
+                    $list_room_new = $this->_get_room_by_hotel($parent_id);
                     $list_room_new = json_encode($list_room_new);
                     $res['data']['list_room'] = $list_room_new;
                 }
@@ -1853,5 +1853,5 @@ if (!class_exists('WPBooking_Hotel_Service_Type') and class_exists('WPBooking_Ab
         }
     }
 
-    WPBooking_Hotel_Service_Type::inst();
+    WPBooking_Accommodation_Service_Type::inst();
 }

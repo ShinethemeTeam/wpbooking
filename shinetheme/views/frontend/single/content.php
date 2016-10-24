@@ -145,7 +145,7 @@ $hotel_id = get_the_ID();
 						<div class="content-loop-room">
 							<?php
 							global $wp_query;
-							WPBooking_Hotel_Service_Type::inst()->search_room();
+							WPBooking_Accommodation_Service_Type::inst()->search_room();
 							?>
 							<?php
 							if(have_posts()) {

@@ -565,7 +565,7 @@ if (!class_exists('WPBooking_Metabox')) {
                     }
                 }
             }
-            $list_room = WPBooking_Hotel_Service_Type::_get_room_by_hotel($post_id);
+            $list_room = WPBooking_Accommodation_Service_Type::_get_room_by_hotel($post_id);
             if(!empty($list_base)){
                 foreach($list_base as $k=>$v){
                     if($v == 'true'){
