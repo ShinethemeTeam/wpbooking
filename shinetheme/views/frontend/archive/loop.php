@@ -10,9 +10,9 @@
 <ul class="wpbooking-loop-items list">
 	<?php
 	global $wp_query;
-	if ($my_query->have_posts()) {
-		while ($my_query->have_posts()) {
-			$my_query->the_post();
+	if ($query->have_posts()) {
+		while ($query->have_posts()) {
+			$query->the_post();
 			$service = new WB_Service();
 			$url = add_query_arg(array(
 				'check_in'  => WPBooking_Input::get('check_in'),

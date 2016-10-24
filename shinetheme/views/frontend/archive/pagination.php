@@ -23,7 +23,7 @@
 	$args = array(
 		'base'     => $pagenum_link,
 		'format'   => $format,
-		'total'    => $my_query->max_num_pages,
+		'total'    => $query->max_num_pages,
 		'current'  => $paged,
 		'add_args' =>$query_args,
 		'prev_text' => __( 'Previous', "wpbooking" ),

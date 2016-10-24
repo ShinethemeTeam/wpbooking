@@ -835,60 +835,6 @@ jQuery(document).ready(function($){
         }
     });
 
-    if($('.wpbooking-archive-page').length)
-    {
-
-        var me=$(this);
-        //form_filter.submit(function(){
-        //    var loop_wrap=$('.wpbooking-loop-wrap');
-        //    loop_wrap.addClass('loading');
-        //    // Ajax Search
-        //    $.ajax({
-        //        url:form_filter.attr('action'),
-        //        type:form_filter.attr('method'),
-        //        data:form_filter.serialize(),
-        //        dataType:'json',
-        //        beforeSend:function(){
-        //
-        //            $('body,html').animate({
-        //                scrollTop:($('.wpbooking-loop-header').offset().top-100)
-        //            },'fast');
-        //        },
-        //        success:function(res){
-        //            loop_wrap.removeClass('loading');
-        //            if(typeof res.html!='undefined'){
-        //                loop_wrap.html(res.html);
-        //            }
-        //            if(typeof res.updated_element!='undefined'){
-        //                for(var key in res.updated_element){
-        //                    $(''+key+'').html(res.updated_element[key]);
-        //                }
-        //
-        //            }
-        //            // Loop Grid Gallery
-        //            if(typeof $.fn.owlCarousel=='function')
-        //                $('.service-gallery-slideshow').owlCarousel(
-        //                    {
-        //                        items:1,
-        //                        nav:true,
-        //                        navText:['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>']
-        //                    }
-        //                );
-        //        },
-        //        error:function(){
-        //            loop_wrap.removeClass('loading');
-        //
-        //        }
-        //    });
-        //    return false;
-        //});
-
-        // Trigger Search
-        //$(this).find('input,select').change(function(){
-        //    form_filter.submit();
-        //});
-    }
-
     /**
      * Button Show More Terms in search fields
      */

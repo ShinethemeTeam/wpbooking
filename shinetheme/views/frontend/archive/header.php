@@ -5,7 +5,7 @@
  * Date: 7/27/2016
  * Time: 4:29 PM
  */
-if(!$my_query->have_posts()) return;
+if(!$query->have_posts()) return;
 ?>
 
 <div class="wpbooking-loop-header">
@@ -20,9 +20,9 @@ if(!$my_query->have_posts()) return;
 		<h2 class="post-found-count"><?php
             $service = new WB_Service();
             if($service == 'room') {
-                printf(_n('Found %d room','Found %d rooms',$my_query->found_posts, 'wpbooking'), $my_query->found_posts);
+                printf(_n('Found %d room','Found %d rooms',$query->found_posts, 'wpbooking'), $query->found_posts);
             }else{
-                printf(_n('Found %d hotel','Found %d hotels',$my_query->found_posts, 'wpbooking'), $my_query->found_posts);
+                printf(_n('Found %d hotel','Found %d hotels',$query->found_posts, 'wpbooking'), $query->found_posts);
             }
             ?></h2>
 		<p class="post-query-desc">
