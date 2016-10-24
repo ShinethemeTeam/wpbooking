@@ -405,15 +405,15 @@ if (!class_exists('WPBooking_Metabox')) {
                         break;
                     case "calendar":
 
-                        $old = get_post_meta($post_id, 'price-default', TRUE);
-                        if (isset($_POST['price-default'])) {
+                        $old = get_post_meta($post_id, 'base_price', TRUE);
+                        if (isset($_POST['base_price'])) {
 
-                            $new = $_POST['price-default'];
+                            $new = $_POST['base_price'];
                         }
                         if (isset($new) && $new !== $old) {
-                            update_post_meta($post_id, 'price-default', $new);
+                            update_post_meta($post_id, 'base_price', $new);
                         } else if ('' == $new && $old) {
-                            delete_post_meta($post_id, 'price-default', $old);
+                            delete_post_meta($post_id, 'base_price', $old);
                         }
                         break;
 

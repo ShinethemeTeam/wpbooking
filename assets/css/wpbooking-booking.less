@@ -169,6 +169,7 @@
 //.select2-container
 .select2-container{
     font-size: 14px;
+  width: 100% !important;
 }
 .ui-datepicker{
     font-size: 14px;
@@ -208,7 +209,7 @@
             }
         }
 
-        input[type=text],select{
+        input[type=text],select, .select2-container{
             width: 100%;
             height: 36px;
             line-height: 36px;
@@ -303,17 +304,27 @@
             }
         }
     }
+  .item-adult-search{
+    float: left;
+    width: 50%;
+    padding-right: 10px;
+  }
+  .item-child-search{
+    width: 50%;
+    float: left;
+    padding-left: 10px;
+  }
     .select2-container--default .select2-selection--single{
-        height: 36px;
+        height: 34px;
         border-radius: 0px;
         border:none;
     }
     .select2-container--default .select2-selection--single .select2-selection__rendered{
-        line-height: 36px;
+        line-height: 34px;
         font-size: 14px;
     }
     .select2-container--default .select2-selection--single .select2-selection__arrow{
-        height: 35px;
+        height: 33px;
     }
 
     .wpbooking-search-form-more{
@@ -373,132 +384,6 @@
 
     .wb-collapse{
         display: none;
-    }
-    &.is_filter_form{
-        background: white;
-        border-color:#d5d5d5;
-        padding-left: 0px;
-        padding-right: 0px;
-        .widget-title{
-            padding: 0px 15px 15px;
-            border-bottom: 1px solid #ededed;
-        }
-        input[type=select],select,.select2-selection.select2-selection--single{
-            border:1px solid #dddddd;
-            background: white;
-        }
-        .item-search{
-            padding: 0px 15px 15px;
-            border-bottom: 1px solid #ececec;
-            margin-bottom: 20px;
-            position: relative;
-
-            &:last-child{
-                border-bottom: 0px;
-                margin-bottom: 0px;
-                .item-search-content{
-                    margin-bottom: 0px;
-                }
-            }
-
-            >label{
-                color: #666;
-                cursor: pointer;
-                &:before{
-                    content: "\f0d7";
-                    font: normal normal normal 14px/1 FontAwesome;
-                    text-rendering: auto;
-                    -webkit-font-smoothing: antialiased;
-                    -moz-osx-font-smoothing: grayscale;
-                    margin-right: 3px;
-                    width: 8px;
-                    display: inline-block;
-                }
-
-
-            }
-
-            &.closed{
-                >label{
-                    &:before{
-                        content: "\f0da";
-                    }
-                }
-                .wb-collapse{
-                    display: none;
-                }
-                .item-search-content{
-                    display: none;
-                }
-            }
-            .item-search-content
-            {
-                margin-bottom: 20px;
-            }
-            .wb-collapse{
-                display: block;
-                cursor: pointer;
-                position: absolute;
-                height: 14px;
-                line-height: 11px;
-                bottom:0px;
-                left: 0px;
-                right: 0px;
-                &:before{
-                    content: "\f0d8";
-                    color: #cccccc;
-                    font: normal normal normal 14px/1 FontAwesome;
-                    text-rendering: auto;
-                    -webkit-font-smoothing: antialiased;
-                    -moz-osx-font-smoothing: grayscale;
-                    margin-right: 3px;
-                    width: 8px;
-                    display: inline-block;
-                }
-                text-align: center;
-                &:hover{
-                    background: #f5f5f5;
-                }
-            }
-            .list-checkbox{
-                >label,>.term-item{
-                    margin-left: -15px;
-                    margin-right: -15px;
-                    padding:0px 15px;
-                    height: 29px;
-                    line-height: 29px;
-                    margin-bottom: 0px;
-                    &:hover{
-                        background: #337ab7;
-                        .star-rating{
-                            i{
-                                color: #ffffff;
-                            }
-                        }
-                    }
-                    .icheckbox_square-orange{
-                        border-color: #e6e6e6;
-                        &.hover:not(.checked){
-                            .iCheck-helper{
-                                background: none!important;
-                            }
-                        }
-                        &.checked{
-                            border-color: #666666;
-                        }
-                    }
-                }
-
-            }
-            .star-rating{
-                i{
-                    color: #f0ad4e;
-                }
-            }
-        }
-        .wpbooking-show-more-fields{
-            margin-left: 15px;
-        }
     }
 }
 
@@ -724,6 +609,7 @@
                             display: inline-block;
                             line-height: normal;
                             font-size: 13px;
+                          margin-bottom: 20px;
                             .price{
                                 font-size: 23px;
                               width: 100%;
@@ -795,7 +681,7 @@
                   }
                   
                     .service-content{
-                        width: ~"calc(100% - 170px)";
+                        width: ~"calc(100% - 165px)";
                         float: right;
                         .service-content-inner{
                             float: left;
@@ -820,9 +706,7 @@
                             width: 30%;
                             text-align: right;
                             .service-book-now{
-                                position: absolute;
-                                bottom:40px;
-                                right:13px;
+                                position: relative;
                             }
                         }
                     }
@@ -854,6 +738,10 @@
     .info-item{
         font-size: 13px;
     }
+}
+.wb-archive-wrapper{
+  padding-left: 10%;
+  padding-right: 10%;
 }
 .wpbooking-single-content {
     margin: 0px;

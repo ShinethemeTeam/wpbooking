@@ -11,7 +11,7 @@ if(!empty($data['condition'])){
 }
 $property_available_for=get_post_meta($post_id,'property_available_for',true);
 
-$df_price=get_post_meta($post_id,'price-default',true);
+$df_price=get_post_meta($post_id,'base_price',true);
 
 ?>
 
@@ -38,7 +38,7 @@ $df_price=get_post_meta($post_id,'price-default',true);
 						<div class="form-group wb-default-price">
 							<div class="input-group">
 								<span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-								<input type="number" class="form-control" id="price-default" value="<?php echo esc_attr($df_price); ?>" name="price-default" placeholder="0" >
+								<input type="number" class="form-control" id="base_price" value="<?php echo esc_attr($df_price); ?>" name="base_price" placeholder="0" >
 							</div>
 						</div>
 					</div>

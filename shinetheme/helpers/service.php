@@ -13,6 +13,9 @@ if(!function_exists('wpbooking_service_price'))
 
 		$base_price= get_post_meta($post_id,'price',true);
 		$service_type= get_post_meta($post_id,'service_type',true);
+        if($service_type == 'hotel'){
+
+        }
 
 		$base_price= apply_filters('wpbooking_service_base_price',$base_price,$post_id,$service_type);
 		$base_price= apply_filters('wpbooking_service_base_price_'.$service_type,$base_price,$post_id,$service_type);
@@ -82,6 +85,7 @@ if(!function_exists('wpbooking_service_review_score_html')){
         if(!$post_id) $post_id = get_the_ID();
 
         $score = WPBooking_Comment_Model::inst()->get_avg_review($post_id);
+        $score = number_format($score,1,'.',' ');
 
         if($score > 4){
             $rating = __('Excellent ','wpbooking').$score;
@@ -95,7 +99,13 @@ if(!function_exists('wpbooking_service_review_score_html')){
             $rating = __('Terrible ','wpbooking').$score;
         }
 
-        $rating .= ' <span>('.sprintf(_n('%d review','%d reviews',$score,'wpbooking'), $score).')</span>';
+        $res=WPBooking_Comment_Model::inst()->select('count(comment_ID) as total')->where(array(
+            'comment_post_ID'=>$post_id,
+            'comment_parent'=>0,
+            'comment_approved'=>1
+        ))->get()->row();
+        $count=!empty($res['total'])?$res['total']:0;
+        $rating .= ' <span>('.sprintf(_n('%d review','%d reviews',$count,'wpbooking'), $count).')</span>';
 
         if($score == 0) $rating = '';
 

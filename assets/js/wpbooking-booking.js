@@ -1500,15 +1500,6 @@ jQuery(document).ready(function($){
         return false;
     });
 
-    //
-    $('.wpbooking-search-form.is_filter_form .item-search>label').click(function(){
-       $(this).closest('.item-search').toggleClass('closed');
-    });
-    $('.wpbooking-search-form.is_filter_form .item-search .wb-collapse').click(function(){
-       $(this).closest('.item-search').toggleClass('closed');
-    });
-
-
     // Lighbox gallery
     $('.service-gallery-single').each(function() {
         $(this).magnificPopup({

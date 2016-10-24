@@ -17,7 +17,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 				'before_title'=>'',
 				'after_title'=>'',
 			));
-            extract($instance=wp_parse_args($instance , array('title'=>'','is_filter_form'=>FALSE,'service_type'=>'','field_search'=>"",'before_widget'=>FALSE,'after_widget'=>FALSE)));
+            extract($instance=wp_parse_args($instance , array('title'=>'','service_type'=>'','field_search'=>"",'before_widget'=>FALSE,'after_widget'=>FALSE)));
 			$service_type=$instance['service_type'];
             $title = apply_filters( 'widget_title', empty( $title ) ? '' : $title, $instance, $this->id_base );
 
@@ -28,7 +28,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
 			$search_more_fields=array();
             ?>
-            <form class="wpbooking-search-form <?php echo ($instance['is_filter_form'])?'is_filter_form':'is_search_form' ?>" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
+            <form class="wpbooking-search-form" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
 
             	<?php
 					if ( ! empty( $instance['title'] ) ) {
@@ -76,25 +76,9 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 						</div>
 						<?php
 					} ?>
-					<?php if(!$instance['is_filter_form']){ ?>
 					<div class="search-button-wrap">
 						<button class="wb-button" type="submit"><?php _e("Search",'wpbooking') ?></button>
 					</div>
-					<?php }else{
-					// Show Hidden fields Filter Form
-						if(!empty($hidden_fields)){
-							foreach($hidden_fields as $field=>$value){
-								if(is_array($value) and !empty($value)){
-									foreach($value as $k=>$v){
-										if($v)
-										printf('<input type="hidden" name="%s[%s]" value="%s">',$field,$k,$v);
-									}
-								}elseif($value){
-									printf('<input type="hidden" name="%s" value="%s">',$field,$value);
-								}
-							}
-						}
-					}?>
 				</div>
             </form>
             <?php
@@ -328,6 +312,34 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					</div>
 					<?php
 					break;
+                case 'adult_child':
+                    ?>
+                    <div class="item-search item-adult-search">
+                        <label for="adult_s"><?php echo esc_html__('Adult','wpbooking'); ?></label>
+                        <div class="item-search-content">
+                            <select id="adult_s" name="adult_s" class="small-input <?php if($v['required']=='yes') echo 'wb-required' ?>">
+                                <option value=""><?php esc_html_e('- Select -','wpbooking') ?></option>
+                                <?php for($i=1;$i<=20;$i++){
+                                    printf('<option value="%s" %s>%s</option>',$i,selected(WPBooking_Input::get('adult_s'),$i,FALSE),$i);
+                                } ?>
+                            </select>
+                        </div>
+                        <div class="wb-collapse"></div>
+                    </div>
+                    <div class="item-search item-child-search">
+                        <label for="child_s"><?php echo esc_html__('Children','wpbooking'); ?></label>
+                        <div class="item-search-content">
+                            <select id="child_s" name="child_s" class="small-input <?php if($v['required']=='yes') echo 'wb-required' ?>">
+                                <option value=""><?php esc_html_e('- Select -','wpbooking') ?></option>
+                                <?php for($i=1;$i<=20;$i++){
+                                    printf('<option value="%s" %s>%s</option>',$i,selected(WPBooking_Input::get('child_s'),$i,FALSE),$i);
+                                } ?>
+                            </select>
+                        </div>
+                        <div class="wb-collapse"></div>
+                    </div>
+                    <?php
+                    break;
 				case "guest":
 					?>
 					<div class="item-search">
@@ -335,7 +347,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
 						<div class="item-search-content">
 							<select id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" class="small-input <?php if($v['required']=='yes') echo 'wb-required' ?>">
-								<option value=""><?php esc_html_e('- Select','wpbooking') ?></option>
+								<option value=""><?php esc_html_e('- Select -','wpbooking') ?></option>
 								<?php for($i=1;$i<=20;$i++){
 									printf('<option value="%s" %s>%s</option>',$i,selected(WPBooking_Input::get($v['field_type']),$i,FALSE),$i);
 								} ?>
@@ -422,12 +434,6 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                 $data = $new_instance['field_search'][$post_type];
                 $new_instance['field_search']  = array();
                 $new_instance['field_search'][$post_type] = $data;
-                //$new_instance['is_filter_form'] = ;
-            }
-            if(!empty($new_instance['is_filter_form']) and $new_instance['is_filter_form']=='on'){
-            	$new_instance['is_filter_form']=1;
-            } else{
-            	$new_instance['is_filter_form']=0;
             }
             return wp_parse_args($new_instance,$old_instance);
         }
@@ -435,8 +441,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
             $instance = wp_parse_args((array) $instance, array(
             'title' => '',
             'service_type'=> '',
-            'field_search'=>"",
-            'is_filter_form'=>FALSE
+            'field_search'=>""
             ));
             extract($instance);
             ?>
@@ -462,12 +467,6 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                     </select>
                 </label>
             </p>
-			<p>
-				<label>
-					<input type="checkbox" id="<?php echo esc_attr($this->get_field_id('is_filter_form')); ?>" name="<?php echo esc_attr($this->get_field_name('is_filter_form')); ?>" <?php checked($instance['is_filter_form'],1) ?>>
-					<?php esc_html_e('Use as Filter Form?','wpbooking') ?></label>
-				<p class="help"><?php esc_html_e('Filter form does not cotain search button and only visible at archive page','wpbooking') ?></p>
-			</p>
             <?php $all_list_field= WPBooking_Service_Controller::inst()->_get_list_field_search();
             if(!empty($all_list_field)) {
                 foreach( $all_list_field as $key => $value ) {

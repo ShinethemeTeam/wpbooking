@@ -194,7 +194,12 @@ jQuery(document).ready(function( $ ){
         }else{
             container.find(".div_review_operator").hide(500);;
         }
-    })
+        if(value == "adult_child"){
+            container.find(".div_title").fadeOut(500);
+        }else{
+            container.find(".div_title").fadeIn(500);
+        }
+    });
     $(document).on('click','.btn_edit_field_search_form',function(){
         $(this).parent().parent().find(".field_type").each(function(){
             var container  = $(this).parent().parent().parent().parent().parent().parent();

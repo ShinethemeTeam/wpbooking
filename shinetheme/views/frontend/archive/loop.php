@@ -17,7 +17,8 @@
 			$url = add_query_arg(array(
 				'check_in'  => WPBooking_Input::get('check_in'),
 				'check_out' => WPBooking_Input::get('check_out'),
-				'guest'     => WPBooking_Input::get('guest'),
+				'adult'     => WPBooking_Input::get('adult_s'),
+				'child'     => WPBooking_Input::get('child_s'),
 			), get_permalink());
 
 			switch ($service_type = $service->get_type()) {

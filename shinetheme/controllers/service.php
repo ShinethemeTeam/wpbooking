@@ -564,9 +564,10 @@ if (!class_exists('WPBooking_Service_Controller')) {
                             "location_suggestion" => __("Location Suggestion", "wpbooking"),
                             "check_in"            => __("Check In", "wpbooking"),
                             "check_out"           => __("Check Out", "wpbooking"),
+                            "adult_child"           => __("Adult And Children", "wpbooking"),
                             "taxonomy"            => __("Taxonomy", "wpbooking"),
                             "review_rate"         => __("Review Rate", "wpbooking"),
-                            "star_rating"         => __("Star of Hotel", "wpbooking"),
+                            "star_rating"         => __("Star Of Hotel", "wpbooking"),
                             "price"               => __("Price", "wpbooking"),
                         )
                     ),
