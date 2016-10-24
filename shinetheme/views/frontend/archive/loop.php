@@ -67,7 +67,7 @@
                     </li>
 					<?php
 					break;
-				case 'hotel':
+				case 'accommodation':
 					?>
 					<li <?php post_class('loop-item') ?>>
 						<div class="content-item">

@@ -20,28 +20,30 @@ if(!class_exists('WPBooking_Meta_Model')){
          * Get price for hotel
          * @since: 1.0
          */
-        function get_price_hotel($post_id){
+        function get_price_accommodation($post_id){
             global $wpdb;
 
-            if(!empty($post_id)) return;
+            if(empty($post_id)) return;
 
             $row = $this->select('MIN(meta_value) as min_price')
-                ->join('posts','postmeta.post_id=posts.ID')
+                ->join('posts','posts.ID=postmeta.post_id')
                 ->where('meta_key','base_price')
                 ->where($wpdb->posts.'.post_parent',$post_id)
                 ->get()->row();
 
-            return !empty($row['min_price'])?$row['min_price']:'';
+            return (!empty($row['min_price']))?$row['min_price']:'';
 
         }
 
-        static function _inst(){
+        static function inst()
+        {
             if(!self::$_inst){
-                self::$_inst = new self();
+                self::$_inst=new self();
             }
+
             return self::$_inst;
         }
     }
 
-    WPBooking_Meta_Model::_inst();
+    WPBooking_Meta_Model::inst();
 }

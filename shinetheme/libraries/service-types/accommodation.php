@@ -1759,6 +1759,36 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if(!empty($meta_query))
                 $injection->add_arg('meta_query',$meta_query);
 
+            // Order By
+            if ($sortby = WPBooking_Input::request('wb_sort_by')) {
+                switch ($sortby) {
+                    case "price_asc":
+                        $injection->orderby($table_prefix . '.price', 'asc');
+                        break;
+                    case "price_desc":
+                        $injection->orderby($table_prefix . '.price', 'desc');
+                        break;
+                    case "date_asc":
+                        $injection->add_arg('orderby', 'date');
+                        $injection->add_arg('order', 'asc');
+                        break;
+                    case "date_desc":
+                        $injection->add_arg('orderby', 'date');
+                        $injection->add_arg('order', 'desc');
+                        break;
+                    case "rate_asc":
+                    case "rate_desc":
+                        $rate_calculate = 1;
+                        if ($sortby == 'rate_asc') {
+                            $injection->orderby('avg_rate', 'asc');
+                        } else {
+                            $injection->orderby('avg_rate', 'desc');
+                        }
+
+                        break;
+                }
+            }
+
             parent::_add_default_query_hook();
 
         }
@@ -1842,6 +1872,93 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         function thumb_size($default = FALSE)
         {
             return $this->get_option('thumb_size_hotel', $default);
+        }
+
+        public function get_search_fields()
+        {
+            $taxonomy = get_object_taxonomies('wpbooking_service', 'array');
+            $list_taxonomy = array();
+            if (!empty($taxonomy)) {
+                foreach ($taxonomy as $k => $v) {
+                    if ($k == 'wpbooking_location') continue;
+                    if ($k == 'wpbooking_extra_service') continue;
+                    $list_taxonomy[$k] = $v->label;
+                }
+            }
+            // TODO: Implement get_search_fields() method.
+            return array(
+                array(
+                    'name'    => 'field_type',
+                    'label'   => __('Field Type', "wpbooking"),
+                    'type'    => "dropdown",
+                    'options' => array(
+                        ""                    => __("-- Select --", "wpbooking"),
+                        "location_id"         => __("Location Dropdown", "wpbooking"),
+                        "location_suggestion" => __("Location Suggestion", "wpbooking"),
+                        "check_in"            => __("Check In", "wpbooking"),
+                        "check_out"           => __("Check Out", "wpbooking"),
+                        "adult_child"           => __("Adult And Children", "wpbooking"),
+                        "taxonomy"            => __("Taxonomy", "wpbooking"),
+                        "review_rate"         => __("Review Rate", "wpbooking"),
+                        "star_rating"         => __("Star Of Hotel", "wpbooking"),
+                        "price"               => __("Price", "wpbooking"),
+                    )
+                ),
+                array(
+                    'name'  => 'title',
+                    'label' => __('Title', "wpbooking"),
+                    'type'  => "text",
+                    'value' => ""
+                ),
+                array(
+                    'name'  => 'placeholder',
+                    'label' => __('Placeholder', "wpbooking"),
+                    'desc'  => __('Placeholder', "wpbooking"),
+                    'type'  => 'text',
+                ),
+                array(
+                    'name'    => 'taxonomy',
+                    'label'   => __('- Taxonomy', "wpbooking"),
+                    'type'    => "dropdown",
+                    'class'   => "hide",
+                    'options' => $list_taxonomy
+                ),
+                array(
+                    'name'    => 'taxonomy_show',
+                    'label'   => __('- Display Style', "wpbooking"),
+                    'type'    => "dropdown",
+                    'class'   => "hide",
+                    'options' => array(
+                        "dropdown"  => __("Dropdown", "wpbooking"),
+                        "check_box" => __("Check Box", "wpbooking"),
+                    )
+                ),
+                array(
+                    'name'    => 'taxonomy_operator',
+                    'label'   => __('- Operator', "wpbooking"),
+                    'type'    => "dropdown",
+                    'class'   => "hide",
+                    'options' => array(
+                        "AND" => __("And", "wpbooking"),
+                        "OR"  => __("Or", "wpbooking"),
+                    )
+                ),
+                array(
+                    'name'    => 'required',
+                    'label'   => __('Required', "wpbooking"),
+                    'type'    => "dropdown",
+                    'options' => array(
+                        "no"  => __("No", "wpbooking"),
+                        "yes" => __("Yes", "wpbooking"),
+                    )
+                ),
+                array(
+                    'name'  => 'in_more_filter',
+                    'label' => __('In Advance Search?', "wpbooking"),
+                    'type'  => "checkbox",
+                ),
+
+            );
         }
 
         static function inst()

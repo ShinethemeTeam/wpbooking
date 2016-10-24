@@ -23,7 +23,7 @@ if(!$wp_query->have_posts()) return;
             if($service == 'room') {
                 printf(_n('Found %d room','Found %d rooms',$wp_query->found_posts, 'wpbooking'), $wp_query->found_posts);
             }else{
-                printf(_n('Found %d hotel','Found %d hotels',$wp_query->found_posts, 'wpbooking'), $wp_query->found_posts);
+                printf(_n('Found %d Accommodation','Found %d Accommodation',$wp_query->found_posts, 'wpbooking'), $wp_query->found_posts);
             }
             ?></h2>
 		<p class="post-query-desc">
