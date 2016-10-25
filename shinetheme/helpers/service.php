@@ -13,8 +13,8 @@ if(!function_exists('wpbooking_service_price'))
 
 		$base_price= get_post_meta($post_id,'price',true);
 		$service_type= get_post_meta($post_id,'service_type',true);
-        if($service_type == 'hotel'){
-
+        if($service_type == 'accommodation'){
+            $base_price = WPBooking_Meta_Model::inst()->get_price_accommodation($post_id);
         }
 
 		$base_price= apply_filters('wpbooking_service_base_price',$base_price,$post_id,$service_type);

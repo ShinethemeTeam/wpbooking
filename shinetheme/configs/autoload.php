@@ -70,7 +70,8 @@ $autoload['model']=array(
 	'inbox_model',
 	'user_favorite_model',
 	'review_helpful',
-    'query_model'
+    'query_model',
+    'meta_model'
 );
 
 $autoload['widget']=array(

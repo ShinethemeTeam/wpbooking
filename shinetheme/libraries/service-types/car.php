@@ -22,7 +22,13 @@ if (!class_exists('WPBooking_Car_Service_Type') and class_exists('WPBooking_Abst
 			parent::__construct();
 		}
 
-		static function inst()
+        public function get_search_fields()
+        {
+            // TODO: Implement get_search_fields() method.
+            return array();
+        }
+
+        static function inst()
 		{
 			if(!self::$_inst) self::$_inst=new self();
 

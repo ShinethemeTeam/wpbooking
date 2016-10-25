@@ -409,170 +409,18 @@ if (!class_exists('WPBooking_Service_Controller')) {
          */
         function _get_list_field_search()
         {
-            $taxonomy = get_object_taxonomies('wpbooking_service', 'array');
-            $list_taxonomy = array();
-            if (!empty($taxonomy)) {
-                foreach ($taxonomy as $k => $v) {
-                    if ($k == 'wpbooking_location') continue;
-                    if ($k == 'wpbooking_extra_service') continue;
-                    $list_taxonomy[$k] = $v->label;
+
+            $all_types=$this->get_service_types();
+            $list_filed=array();
+
+            if(!empty($all_types)){
+                foreach($all_types as $type_id=>$type_object){
+                    $fields=$type_object->get_search_fields();
+                    if(is_array($fields) and !empty($fields)){
+                        $list_filed[$type_id]=$fields;
+                    }
                 }
             }
-            $list_filed = array(
-                'room' => array(
-                    array(
-                        'name'    => 'field_type',
-                        'label'   => __('Field Type', "wpbooking"),
-                        'type'    => "dropdown",
-                        'options' => array(
-                            ""                    => __("-- Select --", "wpbooking"),
-                            "location_id"         => __("Location Dropdown", "wpbooking"),
-                            "location_suggestion" => __("Location Suggestion", "wpbooking"),
-                            "check_in"            => __("Check In", "wpbooking"),
-                            "check_out"           => __("Check Out", "wpbooking"),
-                            "taxonomy"            => __("Taxonomy", "wpbooking"),
-                            "review_rate"         => __("Review Rate", "wpbooking"),
-                            "price"               => __("Price", "wpbooking"),
-//                            "bedroom"             => __("Bedrooms", "wpbooking"),
-//                            "bathroom"            => __("Bathrooms", "wpbooking"),
-                            "guest"               => __("Guest", "wpbooking"),
-//                            "double_bed"          => __("Double Bed", "wpbooking"),
-//                            "single_bed"          => __("Single Bed", "wpbooking"),
-//                            "sofa_bed"            => __("Sofa Bed", "wpbooking"),
-//                            "property_floor"      => __("Property Floor", "wpbooking"),
-//                            "property_size"       => __("Property Size", "wpbooking"),
-//							"customer_confirm"    => __("Require Customer Confirm?", "wpbooking"),
-//							"partner_confirm"     => __("Require Partner Confirm?", "wpbooking"),
-                        )
-                    ),
-                    array(
-                        'name'  => 'title',
-                        'label' => __('Title', "wpbooking"),
-                        'type'  => "text",
-                        'value' => ""
-                    ),
-                    array(
-                        'name'  => 'placeholder',
-                        'label' => __('Placeholder', "wpbooking"),
-                        'desc'  => __('Placeholder', "wpbooking"),
-                        'type'  => 'text',
-                    ),
-                    array(
-                        'name'    => 'taxonomy',
-                        'label'   => __('- Taxonomy', "wpbooking"),
-                        'type'    => "dropdown",
-                        'class'   => "hide",
-                        'options' => $list_taxonomy
-                    ),
-                    array(
-                        'name'    => 'taxonomy_show',
-                        'label'   => __('- Display Style', "wpbooking"),
-                        'type'    => "dropdown",
-                        'class'   => "hide",
-                        'options' => array(
-                            "dropdown"  => __("Dropdown", "wpbooking"),
-                            "check_box" => __("Check Box", "wpbooking"),
-                        )
-                    ),
-                    array(
-                        'name'    => 'taxonomy_operator',
-                        'label'   => __('- Operator', "wpbooking"),
-                        'type'    => "dropdown",
-                        'class'   => "hide",
-                        'options' => array(
-                            "AND" => __("And", "wpbooking"),
-                            "OR"  => __("Or", "wpbooking"),
-                        )
-                    ),
-                    array(
-                        'name'    => 'required',
-                        'label'   => __('Required', "wpbooking"),
-                        'type'    => "dropdown",
-                        'options' => array(
-                            "no"  => __("No", "wpbooking"),
-                            "yes" => __("Yes", "wpbooking"),
-                        )
-                    ),
-                    array(
-                        'name'  => 'in_more_filter',
-                        'label' => __('In Advance Search?', "wpbooking"),
-                        'type'  => "checkbox",
-                    ),
-                ),
-                'hotel' => array(
-                    array(
-                        'name'    => 'field_type',
-                        'label'   => __('Field Type', "wpbooking"),
-                        'type'    => "dropdown",
-                        'options' => array(
-                            ""                    => __("-- Select --", "wpbooking"),
-                            "location_id"         => __("Location Dropdown", "wpbooking"),
-                            "location_suggestion" => __("Location Suggestion", "wpbooking"),
-                            "check_in"            => __("Check In", "wpbooking"),
-                            "check_out"           => __("Check Out", "wpbooking"),
-                            "adult_child"           => __("Adult And Children", "wpbooking"),
-                            "taxonomy"            => __("Taxonomy", "wpbooking"),
-                            "review_rate"         => __("Review Rate", "wpbooking"),
-                            "star_rating"         => __("Star Of Hotel", "wpbooking"),
-                            "price"               => __("Price", "wpbooking"),
-                        )
-                    ),
-                    array(
-                        'name'  => 'title',
-                        'label' => __('Title', "wpbooking"),
-                        'type'  => "text",
-                        'value' => ""
-                    ),
-                    array(
-                        'name'  => 'placeholder',
-                        'label' => __('Placeholder', "wpbooking"),
-                        'desc'  => __('Placeholder', "wpbooking"),
-                        'type'  => 'text',
-                    ),
-                    array(
-                        'name'    => 'taxonomy',
-                        'label'   => __('- Taxonomy', "wpbooking"),
-                        'type'    => "dropdown",
-                        'class'   => "hide",
-                        'options' => $list_taxonomy
-                    ),
-                    array(
-                        'name'    => 'taxonomy_show',
-                        'label'   => __('- Display Style', "wpbooking"),
-                        'type'    => "dropdown",
-                        'class'   => "hide",
-                        'options' => array(
-                            "dropdown"  => __("Dropdown", "wpbooking"),
-                            "check_box" => __("Check Box", "wpbooking"),
-                        )
-                    ),
-                    array(
-                        'name'    => 'taxonomy_operator',
-                        'label'   => __('- Operator', "wpbooking"),
-                        'type'    => "dropdown",
-                        'class'   => "hide",
-                        'options' => array(
-                            "AND" => __("And", "wpbooking"),
-                            "OR"  => __("Or", "wpbooking"),
-                        )
-                    ),
-                    array(
-                        'name'    => 'required',
-                        'label'   => __('Required', "wpbooking"),
-                        'type'    => "dropdown",
-                        'options' => array(
-                            "no"  => __("No", "wpbooking"),
-                            "yes" => __("Yes", "wpbooking"),
-                        )
-                    ),
-                    array(
-                        'name'  => 'in_more_filter',
-                        'label' => __('In Advance Search?', "wpbooking"),
-                        'type'  => "checkbox",
-                    ),
-
-                )
-            );
             $list_filed = apply_filters("wpbooking_list_fields_form_search", $list_filed);
 
             return $list_filed;

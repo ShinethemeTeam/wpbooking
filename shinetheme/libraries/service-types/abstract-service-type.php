@@ -512,5 +512,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 
 		}
 
+        abstract public function get_search_fields();
+
 	}
 }
