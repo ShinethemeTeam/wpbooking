@@ -84,15 +84,7 @@
 									<div class="service-address-rate">
 										<div class="wb-hotel-star">
 											<?php
-											$hotel_star = $service->get_meta('star_rating');
-											for($i=1; $i<=5; $i++){
-												$active=FALSE;
-												if($hotel_star >= $i) $active='active';
-												echo sprintf('<span class="%s"><i class="fa fa-star-o icon-star"></i></span>',$active);
-											}
-
-                                            echo '<span>'.$hotel_star.' '._n('star','stars',(int)$hotel_star,'wpbooking').'</span>';
-
+                                            $service->get_star_rating_html();
 											?>
 										</div>
 										<?php $address = $service->get_address();

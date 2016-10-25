@@ -71,7 +71,7 @@ if (!class_exists('WB_Service')) {
 				$res = array();
 
 				$gallery = get_post_meta($this->ID, 'gallery', TRUE);
-				if ($gallery) {
+				if ($gallery and !is_array($gallery)) {
 					$gallery = explode(',', $gallery);
 					if (!empty($gallery)) {
 						foreach ($gallery as $media) {
@@ -86,7 +86,24 @@ if (!class_exists('WB_Service')) {
 
 						}
 					}
-				}
+				}elseif(is_array($gallery)){
+                    if(!empty($gallery['gallery'])){
+                        $gallery_arr = explode(',', $gallery['gallery']);
+                        if(!empty($gallery_arr)) {
+                            foreach ($gallery_arr as $media) {
+                                $thumb = wp_get_attachment_image_src($media, $this->thumb_size);
+                                $gallery = wp_get_attachment_image_src($media, $this->gallery_size);
+                                $res[] = array(
+                                    'thumb' => wp_get_attachment_image($media, $this->thumb_size),
+                                    'thumb_url' => !empty($thumb[0]) ? $thumb[0] : FALSE,
+                                    'gallery' => wp_get_attachment_image($media, $this->gallery_size),
+                                    'gallery_url' => !empty($gallery[0]) ? $gallery[0] : FALSE,
+                                );
+
+                            }
+                        }
+                    }
+                }
 
 				if (empty($res)) {
 					// Default
@@ -220,6 +237,21 @@ if (!class_exists('WB_Service')) {
 				else return $rate;
 			}
 		}
+
+        /**
+         * Get hotel star
+         *
+         * @since 1.0
+         * @author tien
+         */
+
+        function get_star_rating_html($echo = true){
+            if($this->ID){
+                $star_rating = wpbooking_service_star_rating($this->ID);
+                if($echo) echo ($star_rating);
+                else return $star_rating;
+            }
+        }
 
         /**
          * Get review score

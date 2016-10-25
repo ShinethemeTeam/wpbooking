@@ -13,9 +13,6 @@ if(!function_exists('wpbooking_service_price'))
 
 		$base_price= get_post_meta($post_id,'price',true);
 		$service_type= get_post_meta($post_id,'service_type',true);
-        if($service_type == 'accommodation'){
-            $base_price = WPBooking_Meta_Model::inst()->get_price_accommodation($post_id);
-        }
 
 		$base_price= apply_filters('wpbooking_service_base_price',$base_price,$post_id,$service_type);
 		$base_price= apply_filters('wpbooking_service_base_price_'.$service_type,$base_price,$post_id,$service_type);
@@ -36,8 +33,8 @@ if(!function_exists('wpbooking_service_price_html'))
 		$price_html=WPBooking_Currency::format_money($price);
 		$price_html=sprintf(__('from %s/night','wpbooking'),'<br><span class="price">'.$price_html.'</span>');
 
-		$price_html= apply_filters('wpbooking_service_base_price',$price_html,$post_id,$service_type);
-		$price_html= apply_filters('wpbooking_service_base_price_'.$service_type,$price_html,$post_id,$service_type);
+		$price_html= apply_filters('wpbooking_service_base_price_html',$price_html,$post_id,$service_type);
+		$price_html= apply_filters('wpbooking_service_base_price_html_'.$service_type,$price_html,$post_id,$service_type);
 
 		return $price_html;
 	}
@@ -110,6 +107,25 @@ if(!function_exists('wpbooking_service_review_score_html')){
         if($score == 0) $rating = '';
 
         return $rating;
+    }
+}
+
+/**
+ * @return html
+ */
+if(!function_exists('wpbooking_service_star_rating')){
+    function wpbooking_service_star_rating($post_id){
+        if(empty($post_id)) $post_id = get_the_ID();
+
+        $hotel_star = get_post_meta($post_id, 'star_rating', true);
+        for($i=1; $i<=5; $i++){
+            $active=FALSE;
+            if($hotel_star >= $i) $active='active';
+            echo sprintf('<span class="%s"><i class="fa fa-star-o icon-star"></i></span>',$active);
+        }
+        $star_rating = '<span>'.$hotel_star.' '._n('star','stars',(int)$hotel_star,'wpbooking').'</span>';
+
+        return $star_rating;
     }
 }
 

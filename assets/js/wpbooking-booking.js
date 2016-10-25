@@ -264,28 +264,29 @@ jQuery(document).ready(function($){
     /////////// Google Gmap //////////
     //////////////////////////////////
 
-    $('.service-map-element').each(function(){
-        var map_lat = $(this).data('lat');
-        var map_lng = $(this).data('lng');
-        var map_zoom = $(this).data('zoom');
-        console.log(map_zoom);
-        $(this).gmap3({
-            map:{
-                options:{
-                    center:[map_lat,map_lng],
-                    zoom: map_zoom
+    function single_map() {
+        $('.service-map-element').each(function () {
+            var map_lat = $(this).data('lat');
+            var map_lng = $(this).data('lng');
+            var map_zoom = $(this).data('zoom');
+            $(this).gmap3({
+                map: {
+                    options: {
+                        center: [map_lat, map_lng],
+                        zoom: map_zoom
+                    }
+                },
+                marker: {
+                    values: [
+                        {latLng: [map_lat, map_lng]},
+                    ],
+                    options: {
+                        draggable: false
+                    }
                 }
-            },
-            marker:{
-                values:[
-                    {latLng:[map_lat, map_lng]},
-                ],
-                options:{
-                    draggable: false
-                }
-            }
+            });
         });
-    });
+    }
 
     // Gateway Items
     $('.wpbooking-gateway-item [name=payment_gateway]').change(function(){
@@ -1704,6 +1705,33 @@ jQuery(document).ready(function($){
             return false;
         }
     });
+
+    $.fn.wb_tabs = function(params){
+        var setting = params;
+        var t = $(this);
+        var tab_content = $(this).parent().find('.wp-tabs-content');
+        tab_content.find('.wp-tab-item').hide();
+        tab_content.find('.wp-tab-item:first').show();
+        $(this).find('li a').on('click' ,function(event) {
+            event.preventDefault();
+            single_map();
+            var id = $(this).attr('href');
+            t.find('li').each(function () {
+                $(this).removeClass('active');
+            });
+            $(this).parent().addClass('active');
+            tab_content.find('.wp-tab-item').each(function () {
+                $(this).hide();
+                id = id.replace('#', '');
+                if ($(this).attr('id') == id) {
+                    $(this).fadeIn('slow');
+                }
+            });
+        });
+    };
+
+    $('.wb-tabs').wb_tabs();
+
 });
 
 
