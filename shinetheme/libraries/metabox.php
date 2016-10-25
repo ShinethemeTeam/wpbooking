@@ -457,21 +457,8 @@ if (!class_exists('WPBooking_Metabox')) {
         {
             $data=WPBooking_Input::post($field_id);
 
-            $post_terms=array();
-
-            if(!empty($data)){
-                foreach($data as $term_id=>$item){
-                    if(!empty($item['selected'])){
-                        $post_terms[]=$term_id;
-                    }else{
-                        unset($data[$term_id]);
-                    }
-
-                }
-            }
-
-            if(!empty($post_terms) and !empty($field['taxonomy'])){
-                wp_set_object_terms( $post_id, $post_terms, $field['taxonomy'] );
+            if(!empty($data) and !empty($field['taxonomy'])){
+                wp_set_object_terms( $post_id, $data, $field['taxonomy'] );
             }
             update_post_meta($post_id,$field_id,$data);
         }

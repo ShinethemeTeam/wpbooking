@@ -54,7 +54,7 @@ if( !empty( $value ) ){
                                 ?>
                                 <div class="term-item <?php echo ($checked)?'active':false?>">
                                     <label><input <?php ?> class="term-checkbox" <?php echo esc_attr($checked) ?> name="<?php echo esc_attr($data['id']) ?>[]"
-                                                  type="checkbox"><?php echo esc_html($term->name) ?></label>
+                                                  type="checkbox" value="<?php echo esc_attr($term->term_id) ?>"><?php echo esc_html($term->name) ?></label>
 
                                 </div>
                                 <?php
