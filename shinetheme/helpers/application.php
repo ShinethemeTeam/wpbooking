@@ -9,6 +9,9 @@ if(!function_exists('wpbooking_admin_load_view')) {
 	function wpbooking_admin_load_view($view, $data = array())
 	{
 		$file=WPBooking()->get_dir('shinetheme/views/admin/'.$view.'.php');
+
+        $file=apply_filters('wpbooking_admin_load_view_'.$view,$file,$view,$data);
+
 		if(file_exists($file)){
 
 			extract($data);
@@ -29,6 +32,8 @@ if(!function_exists('wpbooking_load_view')) {
 
 			$file=WPBooking()->get_dir('shinetheme/views/frontend/'.$view.'.php');
 		}
+
+		$file=apply_filters('wpbooking_load_view_'.$view,$file,$view,$data);
 
 		if(file_exists($file)){
 
@@ -54,10 +59,15 @@ if(!function_exists('wpbooking_view_path')) {
 			$file=WPBooking()->get_dir('shinetheme/views/frontend/'.$view.'.php');
 		}
 
+
+        $file=apply_filters('wpbooking_load_view_'.$view,$file,$view);
+
 		if(file_exists($file)){
 
 			return $file;
 		}
+
+		return false;
 	}
 }
 
@@ -82,6 +92,8 @@ if(!function_exists('wpbooking_get_admin_message'))
 			}
 			return sprintf('<div class="notice %s" >%s</div>',$type,$message['content']);
 		}
+
+		return false;
 	}
 }
 if(!function_exists('wpbooking_get_message'))
@@ -99,6 +111,8 @@ if(!function_exists('wpbooking_get_message'))
 			}
 			return sprintf('<div class="alert alert-%s" >%s</div>',$type,$message['content']);
 		}
+
+		return false;
 	}
 }
 if(!function_exists('wpbooking_set_admin_message'))
@@ -130,8 +144,18 @@ if( !function_exists('wpbooking_encrypt_compare') ){
 	}
 }
 if( !function_exists('wpbooking_origin_id') ){
-	function wpbooking_origin_id( $post_id , $post_type = 'post', $return_origin ){
-		if(function_exists('icl_object_id')) {
+    /**
+     * Get Origin Post ID in case of use WPML plugin
+     *
+     * @since 1.0
+     * @author haint
+     *
+     * @param $post_id
+     * @param string $post_type
+     * @return int|NULL
+     */
+	function wpbooking_origin_id( $post_id , $post_type = 'post' ){
+		if(function_exists('wpml_object_id_filter')) {
 		    return wpml_object_id_filter( $post_id, $post_type, true );
 		} else {
 		    return $post_id;

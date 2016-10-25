@@ -1902,7 +1902,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'options' => array(
                         ""                    => __("-- Select --", "wpbooking"),
                         "location_id"         => __("Location Dropdown", "wpbooking"),
-                        "location_suggestion" => __("Location Suggestion", "wpbooking"),
                         "check_in"            => __("Check In", "wpbooking"),
                         "check_out"           => __("Check Out", "wpbooking"),
                         "adult_child"           => __("Adult And Children", "wpbooking"),
