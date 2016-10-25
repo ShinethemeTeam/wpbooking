@@ -10,8 +10,8 @@ if (post_password_required()) {
 	echo get_the_password_form();
 	return;
 }
-$service_type = get_post_meta(get_the_ID(), 'service_type', TRUE);
 $service = new WB_Service();
+$service_type=$service->get_type();
 $hotel_id = get_the_ID();
 ?>
 <div itemscope itemtype="http://schema.org/Product" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -143,6 +143,7 @@ $hotel_id = get_the_ID();
 					<div class="search_room_alert"></div>
 					<div class="content-search-room">
 						<div class="content-loop-room">
+
 							<?php
 							global $wp_query;
 							WPBooking_Accommodation_Service_Type::inst()->search_room();
