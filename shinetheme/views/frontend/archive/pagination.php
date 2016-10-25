@@ -5,6 +5,7 @@
  * Date: 6/20/2016
  * Time: 3:42 PM
  */
+global $wp_query;
 ?>
 
 <div class="wpbooking-pagination" >
@@ -23,7 +24,7 @@
 	$args = array(
 		'base'     => $pagenum_link,
 		'format'   => $format,
-		'total'    => $query->max_num_pages,
+		'total'    => $wp_query->max_num_pages,
 		'current'  => $paged,
 		'add_args' =>$query_args,
 		'prev_text' => __( 'Previous', "wpbooking" ),

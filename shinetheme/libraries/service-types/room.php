@@ -1796,22 +1796,12 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
                     'options' => array(
                         ""                    => __("-- Select --", "wpbooking"),
                         "location_id"         => __("Location Dropdown", "wpbooking"),
-                        "location_suggestion" => __("Location Suggestion", "wpbooking"),
                         "check_in"            => __("Check In", "wpbooking"),
                         "check_out"           => __("Check Out", "wpbooking"),
                         "taxonomy"            => __("Taxonomy", "wpbooking"),
                         "review_rate"         => __("Review Rate", "wpbooking"),
                         "price"               => __("Price", "wpbooking"),
-//                            "bedroom"             => __("Bedrooms", "wpbooking"),
-//                            "bathroom"            => __("Bathrooms", "wpbooking"),
                         "guest"               => __("Guest", "wpbooking"),
-//                            "double_bed"          => __("Double Bed", "wpbooking"),
-//                            "single_bed"          => __("Single Bed", "wpbooking"),
-//                            "sofa_bed"            => __("Sofa Bed", "wpbooking"),
-//                            "property_floor"      => __("Property Floor", "wpbooking"),
-//                            "property_size"       => __("Property Size", "wpbooking"),
-//							"customer_confirm"    => __("Require Customer Confirm?", "wpbooking"),
-//							"partner_confirm"     => __("Require Partner Confirm?", "wpbooking"),
                     )
                 ),
                 array(
