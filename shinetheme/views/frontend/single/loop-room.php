@@ -1,9 +1,7 @@
 <?php
 $list_extra = array();
-$list_extra_all = get_post_meta(get_the_ID(),'extra_services_hotel',true);
-if(!empty($list_extra_all['accommodation'])){
-    $list_extra = $list_extra_all['accommodation'];
-}
+$list_extra = get_post_meta(get_the_ID(),'extra_services',true);
+
 ?>
 <div class="loop-room post-<?php the_ID() ?>">
     <div class="room-image">
