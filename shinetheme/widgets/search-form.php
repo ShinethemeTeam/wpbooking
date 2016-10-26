@@ -129,6 +129,12 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					<?php
 					break;
 				case "taxonomy":
+                    if(!empty($v['taxonomy']))
+                        $tax=get_taxonomy($v['taxonomy']);
+                    if($tax)
+                        $terms = get_terms(  $v['taxonomy'] , array('hide_empty' => FALSE,) );
+                    if(empty($terms))
+                        continue;
 					?>
 					<div class="item-search">
 						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
@@ -451,7 +457,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                     <?php
                     $data = WPBooking_Service_Controller::inst()->get_service_types();
                     ?>
-                    <select name="<?php echo $this->get_field_name('service_type'); ?>" class="option_service_search_form" id="<?php echo $this->get_field_id('service_type'); ?>">
+                    <select name="<?php echo $this->get_field_name('service_type'); ?>" class="option_service_search_form widefat" id="<?php echo $this->get_field_id('service_type'); ?>">
                         <option value=""><?php _e("-- Select --",'wpbooking') ?></option>
                         <?php
                         if(!empty($data)){

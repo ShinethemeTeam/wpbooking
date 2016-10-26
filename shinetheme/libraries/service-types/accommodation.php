@@ -71,6 +71,14 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             add_filter('wpbooking_archive_loop_image_size', array($this, '_apply_thumb_size'), 10, 3);
 
 
+            /**
+             * Change Base Price
+             *
+             * @since 1.0
+             */
+            add_filter('wpbooking_service_base_price_'.$this->type_id,array($this,'_change_base_price'),10, 3);
+
+
         }
 
 
@@ -524,7 +532,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         ),
                         array(
                             'label' => __("Gallery", 'wpbooking'),
-                            'id'    => 'gallery_hotel',
+                            'id'    => 'gallery',
                             'type'  => 'gallery_hotel',
                             'desc'  => __('Picture recommendations
 
@@ -1962,6 +1970,25 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             );
         }
+
+        /**
+         * Hook Callback Change Base Price
+         *
+         * @since 1.0
+         * @author
+         *
+         * @param $base_price
+         * @param $post_id
+         * @param $service_type
+         * @return mixed
+         */
+        public function _change_base_price($base_price,$post_id,$service_type){
+
+            $base_price=WPBooking_Meta_Model::inst()->get_price_accommodation($post_id);
+
+            return $base_price;
+        }
+
 
         static function inst()
         {

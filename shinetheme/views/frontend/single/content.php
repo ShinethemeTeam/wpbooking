@@ -18,55 +18,67 @@ $hotel_id = get_the_ID();
 
 	<meta itemprop="url" content="<?php the_permalink(); ?>"/>
 	<div class="container-fluid wpbooking-single-content entry-header">
-		<?php if (has_post_thumbnail() and get_the_post_thumbnail()) {
-			echo "<div class=single-thumbnai>";
-			the_post_thumbnail("full");
-			echo "</div>";
-
-		} ?>
-
-		<div class="service-title-gallery">
-			<h1 class="service-title" itemprop="name"><?php the_title(); ?></h1>
-
-			<div class="service-address-rate">
-				<?php $address = $service->get_address();
-				if ($address) {
-					?>
-					<div class="service-address">
-						<i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
-					</div>
-				<?php } ?>
-				<div class="service-rate">
-					<?php
-					$service->get_rate_html();
-					?>
+        <div class="wb-service-title-address">
+            <h1 class="wb-service-title" itemprop="name"><?php the_title(); ?></h1>
+            <div class="wb-hotel-star">
+                <?php
+                $service->get_star_rating_html();
+                ?>
+            </div>
+            <?php $address = $service->get_address();
+            if ($address) {
+                ?>
+                <div class="service-address">
+                    <i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
+                </div>
+            <?php } ?>
+            <?php do_action('wpbooking_after_service_address_rate', get_the_ID(), $service->get_type(), $service) ?>
+        </div>
+        <div class="wb-price-html">
+            <?php $service->get_price_html(true); ?>
+        </div>
+		<div class="row-service-gallery-contact">
+			<div class="col-service-gallery">
+				<div class="wb-tabs-gallery-map">
+                    <ul class="wb-tabs">
+                        <li class="active"><a href="#photos"><i class="fa fa-camera"></i> &nbsp;<?php esc_html_e('Photos','wpbooking'); ?></a></li>
+                        <li ><a href="#map"><i class="fa fa-map-marker"></i> &nbsp;<?php esc_html_e('On the map','wpbooking'); ?></a></li>
+                    </ul>
+                    <div class="wp-tabs-content">
+                        <div class="wp-tab-item" id="photos">
+                            <div class="service-gallery-single">
+                                <div class="fotorama" data-allowfullscreen="true" data-nav="thumbs">
+                                    <?php
+                                    $gallery = $service->get_gallery();
+                                    if(!empty($gallery) and is_array($gallery)){
+                                        foreach($gallery as $k => $v){
+                                            echo ($v['gallery']);
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wp-tab-item" id="map">
+                            <div class="service-map">
+                                <?php
+                                $map_lat = get_post_meta(get_the_ID(), 'map_lat', TRUE);
+                                $map_lng = get_post_meta(get_the_ID(), 'map_long', TRUE);
+                                $map_zoom = get_post_meta(get_the_ID(), 'map_zoom', TRUE);
+                                if (!empty($map_lat) and !empty($map_lng)) { ?>
+                                    <div class="service-map-element" data-lat="<?php echo esc_attr($map_lat) ?>"
+                                         data-lng="<?php echo esc_attr($map_lng) ?>"
+                                         data-zoom="<?php echo esc_attr($map_zoom) ?>"></div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
 				</div>
 			</div>
-			<?php do_action('wpbooking_after_service_address_rate', get_the_ID(), $service->get_type(), $service) ?>
-
-		</div>
-		<div class="row-service-order-form">
-			<div class="col-service-title">
-				<div class="service-title-gallery">
-
-
-					<div class="service-gallery-single">
-						<?php
-						$gallery = $service->get_gallery();
-						if (!empty($gallery)) {
-							foreach ($gallery as $media) {
-								printf('<div class="gallery-item">%s<a class="hover-tag" data-effect="mfp-zoom-out" href="%s"><i class="fa fa-plus"></i></a></div>', $media['gallery'], $media['gallery_url']);
-							}
-						}
-						?>
-					</div>
-				</div>
-			</div>
-			<div class="col-order-form">
+			<div class="col-service-reviews-meta">
 				<div class="service-order-form">
-					<div class="service-price"><?php $service->get_price_html(); ?></div>
 					<div class="order-form-content">
-						<?php echo wpbooking_load_view('single/order-form') ?>
+						<?php echo wpbooking_load_view('single/reviews-meta') ?>
 					</div>
 				</div>
 			</div>
@@ -77,7 +89,6 @@ $hotel_id = get_the_ID();
 			<div class="service-content-wrap">
 				<?php
 				if (have_posts()) {
-
 					while (have_posts()) {
 						the_post();
 						the_content();
@@ -86,6 +97,15 @@ $hotel_id = get_the_ID();
 				?>
 			</div>
 		</div>
+        <div class="service-content-section">
+            <h5 class="service-info-title"><?php esc_html_e('Amenities', 'wpbooing') ?></h5>
+
+            <div class="service-content-wrap">
+                <?php
+
+                ?>
+            </div>
+        </div>
 		<div class="service-content-section">
 
 				<div class="search-room-availablity">
@@ -174,9 +194,27 @@ $hotel_id = get_the_ID();
 
 		</div>
 		<div class="service-content-section">
-			<h5 class="service-info-title"><?php esc_html_e('About Property', 'wpbooing') ?></h5>
+			<h5 class="service-info-title"><?php esc_html_e('Accommodation Policies', 'wpbooing') ?></h5>
 
 			<div class="service-details">
+                <?php
+                $array = array(
+                    'checkin_from'  => esc_html__('from %s', 'wpbooking'),
+                    'checkin_to' => esc_html__('to %s', 'wpbooking'),
+                    'checkout_from' => esc_html__('from %s', 'wpbooking'),
+                    'checkout_to' => esc_html__('to %s', 'wpbooking'),
+                );
+                foreach ($array as $key => $val) {
+
+                    if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
+                        var_dump($value);
+                        $rule_html[]=sprintf($val, '<strong>' . $value . '</strong> <i class="fa fa-clock" ></i>	<br>');
+                    }
+                }
+                ?>
+
+
+
 				<?php
 				$array = array(
 					'max_guests'     => array(
@@ -402,47 +440,6 @@ $hotel_id = get_the_ID();
 				</div>
 				<?php }?>
 
-			</div>
-		</div>
-
-		<div class="service-content-section">
-			<div class="service-map-contact">
-				<div class="service-map">
-					<?php
-					$map_lat = get_post_meta(get_the_ID(), 'map_lat', TRUE);
-					$map_lng = get_post_meta(get_the_ID(), 'map_long', TRUE);
-					$map_zoom = get_post_meta(get_the_ID(), 'map_zoom', TRUE);
-					if (!empty($map_lat) and !empty($map_lng)) { ?>
-						<div class="service-map-element" data-lat="<?php echo esc_attr($map_lat) ?>"
-							 data-lng="<?php echo esc_attr($map_lng) ?>"
-							 data-zoom="<?php echo esc_attr($map_zoom) ?>"></div>
-					<?php } ?>
-				</div>
-				<div class="service-author-contact">
-					<div class="author-meta">
-						<a href="<?php echo esc_url($service->get_author('profile_url')) ?>">
-							<?php echo($service->get_author('avatar')) ?>
-						</a>
-						<span class="author-since"><?php echo($service->get_author('since')) ?></span>
-					</div>
-					<div class="author-details">
-						<h5 class="author-name">
-							<a href="<?php echo esc_url($service->get_author('profile_url')) ?>">
-								<?php echo($service->get_author('name')) ?>
-							</a>
-						</h5>
-						<?php if ($address = $service->get_author('address')) {
-							printf('<p class="author-address">%s</p>', $address);
-						} ?>
-						<?php if ($desc = $service->get_author('description')) {
-							printf('<div class="author-desc">%s</div>', $desc);
-						} ?>
-						<?php if (is_user_logged_in() and $service->get_author('id')!=get_current_user_id()) {
-							printf('<a href="%s" class="wb-btn wb-btn-success">%s</a>', $service->get_author('contact_now_url'), esc_html__('Contact Now', 'wpbooking'));
-						} ?>
-					</div>
-
-				</div>
 			</div>
 		</div>
 

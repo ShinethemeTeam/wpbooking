@@ -458,6 +458,24 @@
     }
 
 }
+
+.wb-hotel-star{
+  font-size: 11px;
+  margin-bottom: 5px;
+  .icon-star{
+    margin-right: 3px;
+    color: #ff9966;
+  }
+  .active{
+    .icon-star:before{
+      content: "\f005";
+    }
+  }
+  span:last-child{
+    padding-left: 3px;
+  }
+}
+
 .wpbooking-loop-wrap{
     .wpbooking-loop-items{
         margin-left: -15px;
@@ -573,20 +591,6 @@
                             color: #666666;
                             font-size: 13px;
                             float: left;
-                        }
-
-                        .wb-hotel-star{
-                            font-size: 11px;
-                          margin-bottom: 5px;
-                          .icon-star{
-                            margin-right: 3px;
-                            color: #ff9966;
-                          }
-                            .active{
-                                .icon-star:before{
-                                  content: "\f005";
-                                }
-                            }
                         }
                     }
 
@@ -1440,30 +1444,97 @@
     }
 }
 
+.wb-tabs{
+  list-style: none;
+  display: inline-flex;
+  margin-bottom: 0;
+  li{
+    background: #f2f2f2;
+    display: inline-flex;
+    a{
+      padding:8px 10px;
+      font-size: 14px;
+      color: #333333;
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+  li.active{
+    background: #666666;
+    a{
+      color: #FFF;
+    }
+  }
+}
 // Single
 .single-wpbooking_service{
     .wpbooking-single-content{
-        padding-bottom: 50px;
-        color: #666;
+      padding: 10px 15px 50px;
+        color: #333;
 
-        .row-service-order-form{
+      .wb-service-title-address{
+        width: 66.66%;
+        float: left;
+        .wb-service-title{
+          margin: 40px 0 0px;
+          font-size: 32px;
+          font-weight: bold;
+          line-height: 1.4;
+        }
+        .wb-hotel-star{
+          font-size: 13px;
+        }
+        .service-address{
+          display: inline-block;
+          margin-right: 22px;
+          font-size: 14px;
+          color: #777;
+        }
+      }
+      .wb-price-html{
+        text-align: right;
+        font-size: 15px;
+        width: 33.33%;
+        float: left;
+        padding-top: 40px;
+        color: #777777;
+        br{
+          display: none;
+        }
+        .price{
+          color: #333;
+          font-size: 25px;
+          font-weight: bold;
+        }
+      }
+        .row-service-gallery-contact{
             margin-left:-10px;
             margin-right:-10px;
+          padding-top: 25px;
+          clear: both;
+          margin-bottom: 40px;
             .clearfix;
-            .col-service-title{
+            .col-service-gallery{
                 float: left;
-                width: 66%;
+                width: 66.66%;
                 box-sizing: border-box;
                 padding:0px 10px;
+              .wb-tabs-gallery-map{
+                .service-map-element{
+                  min-height: 420px;
+                }
+              }
             }
-            .col-order-form{
+            .col-service-reviews-meta{
                 float: left;
                 width: 33%;
                 box-sizing: border-box;
                 padding:0px 10px;
             }
         }
-        .service-title-gallery{
+
+        .wb-service-gallery-map{
             margin-bottom: 30px;
             .service-title{
                 font-size: 30px;
@@ -1475,11 +1546,6 @@
             .service-address-rate{
                 .clearfix;
                 margin-bottom: 10px;
-                .service-address{
-                    display: inline-block;
-                    margin-right: 22px;
-                    font-size: 14px;
-                }
                 .service-rate{
                     font-size: 13px;
                     display: inline-block;
@@ -1547,143 +1613,17 @@
             }
         }
 
-        .service-order-form{
-            .service-price{
-                background: @maincolor;
-                border:1px solid #eea236;
-                color: white;
-                font-size: 14px;
-                padding:0px 8px;
-                br {
-                    display: none;
-                }
-                .price{
-                    font-size: 30px;
-                }
-            }
+        .col-service-reviews-meta{
             .order-form-content{
-                background: #e6e6e6;
-                padding:0px 10px;
+                padding:0 10px 10px;
                 font-size: 14px;
-                padding-bottom: 10px;
-                div{
-                    max-width: 100%;
-                }
-                p{
-                    margin-bottom: 0px;
-                }
-                input[type=text],select{
-                    margin-top: 5px;
-                    line-height: 36px;
-                    height: 36px;
-                    border:none;
-                    border-radius: 0px;
-                    background: white;
-                    padding:0px 10px;
-                    font-size: 14px;
-                    &.input-error{
-                        border: 1px solid red;
-                    }
-                    &.required{
-                        color: inherit;
-                    }
-                }
-                .wb-field{
-                    margin-bottom: 15px;
-                    label{
-                        position: relative;
-                    }
-                    label span.required{
-                        color: red;
-                    }
-                }
-                .wb-field-datepicker{
-                    position: relative;
-                    label{
-                        display: block;
-                    }
-                    i{
-                        position: absolute;
-                        top: 14px;
-                        right: 13px;
-                        color: #333;
-                        font-size: 19px;
-                    }
-                }
-                .wb-extra-field{
-                    background: white;
-                    .clearfix;
-                    padding:10px 8px;
-                    margin-bottom: 10px;
-                    color: #333333;
-                    .field-number{
-                        float: right;
-                        select{
-                            background: #f2f2f2;
-                            height: 27px;
-                            line-height: 27px;
-                        }
-                    }
-                    .extra-service-money{
-                        margin-left: 24px;
-                    }
-                    .icheckbox_square-orange{
-                        margin-right: 5px;
-                        border: 1px solid #666666;
-                        background: white;
-                        width: 14px;
-                        height: 14px;
-                        .iCheck-helper{
 
-                            position: absolute;
-                            top:1px!important;
-                            right:1px;
-                            bottom:1px;
-                            left: 1px!important;
-                            opacity: 1!important;
-                            width: auto!important;
-                            height: auto!important;
-                            transition: all 0.2s;
-                        }
-                        &.hover,&.checked{
-                            .iCheck-helper{
-                                opacity: 1!important;
-                                background: #333333!important;
-                                &:after{
-                                    content: "";
-                                    width: 2px;
-                                    height: 2px;
-                                    position: absolute;
-                                    background: white;
-                                    top: 4px;
-                                    left: 4px;
-                                }
-                            }
-                        }
-
-                        &.hover:not(.checked){
-                            .iCheck-helper{
-                                background: none!important;
-                            }
-                        }
-                    }
-                }
-                .wb-btn-to-checkout{
-                    display: none;
-                }
-                .submit-button,.wb-btn-to-checkout{
-                    text-transform: uppercase;
-                    background: #31b0d5;
-                    border: 1px solid #269abc;
-                    color: white;
-                    padding: 6px 20px;
-                    font-weight: normal;
-                }
             }
         }
 
         .service-content-section{
             margin-bottom: 30px;
+          clear: both;
             .search-room-availablity{
                 .form-control {
                     &.error{
@@ -1984,18 +1924,15 @@
             .service-info-title{
                 font-size: 20px;
                 margin-top: 0px;
-                margin-bottom: 30px;
+                margin-bottom: 20px;
                 display: block;
                 font-weight: normal;
             }
             .service-content-wrap{
-                 border:1px solid #e6e6e6;
-                 border-top:2px solid #f3f3f3;
-                 padding:15px;
                  font-size: 14px;
                  line-height: 24px;
                  color: #666666;
-                 padding-bottom: 0px;
+              margin-bottom: 40px;
              }
             .service-detail-item{
                 font-size: 14px;
