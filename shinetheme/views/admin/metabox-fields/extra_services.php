@@ -14,7 +14,6 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 				<div class="list-extra-services">
 					<?php
 					$old=get_post_meta($post_id,$data['id'],true);
-					var_dump($old);
 
 					$extras=(!empty($data['extra_services']))?$data['extra_services']:array();
 					if(!empty($extras)){
