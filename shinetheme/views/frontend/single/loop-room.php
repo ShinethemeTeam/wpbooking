@@ -1,9 +1,7 @@
 <?php
 $list_extra = array();
-$list_extra_all = get_post_meta(get_the_ID(),'extra_services_hotel',true);
-if(!empty($list_extra_all['hotel'])){
-    $list_extra = $list_extra_all['hotel'];
-}
+$list_extra = get_post_meta(get_the_ID(),'extra_services',true);
+
 ?>
 <div class="loop-room post-<?php the_ID() ?>">
     <div class="room-image">
@@ -67,12 +65,12 @@ if(!empty($list_extra_all['hotel'])){
     <div class="room-book">
         <div class="room-total-price">
             <?php
-            $price = get_post_meta(get_the_ID(),'price-default',true);
+            $price = get_post_meta(get_the_ID(),'base_price',true);
             echo WPBooking_Currency::format_money($price);
             ?>
         </div>
         <div class="room-number">
-            <select class="form-control">
+            <select class="form-control option_number_room" name="option_number_room" data-price-base="<?php echo esc_attr($price) ?>">
                 <?php
                 for($i=0;$i<20;$i++){
                     echo "<option value='{$i}'>{$i}</option>";
@@ -110,14 +108,14 @@ if(!empty($list_extra_all['hotel'])){
                 <?php foreach($list_extra as $k=>$v){?>
                     <tr>
                         <td class="text-center">
-                            <input type="checkbox" <?php if($v['require'] == 'yes') echo 'checked onclick="return false"'; ?>  name="extra[<?php echo esc_attr($v['is_selected'])?>]">
+                            <input class="option_is_extra" type="checkbox" <?php if($v['require'] == 'yes') echo 'checked onclick="return false"'; ?>  name="extra[<?php echo esc_attr($v['is_selected'])?>]">
                         </td>
                         <td>
                             <span class="title"><?php echo  esc_html($v['is_selected'])?></span>
                             <span class="desc"><?php echo esc_html( $v['desc'] ) ?></span>
                         </td>
                         <td>
-                            <select class="form-control" name="extra[quantity]">
+                            <select class="form-control option_extra_quantity" name="extra[quantity]" data-price-extra="<?php echo esc_attr($v['money']) ?>">
                                 <?php
                                 $start = 0;
                                 if($v['require'] == 'yes') $start = 1;
