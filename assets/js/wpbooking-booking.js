@@ -400,6 +400,11 @@ jQuery(document).ready(function($){
         }
         return false;
     });
+    /**
+     * Do Search Room
+     * @param searchbox
+     * @returns {boolean}
+     */
     function do_search_room(searchbox){
         var parent = searchbox.closest('.search-room-availablity');
         var data = {
@@ -413,10 +418,8 @@ jQuery(document).ready(function($){
             dataobj[data[i].name] = data[i].value;
         }
         var holder = $('.search_room_alert');
-
         holder.html('');
         searchbox.find('.form-control').removeClass('error');
-
         if (dataobj.check_in == "" && dataobj.check_out == "") {
             if (dataobj.check_in == "") {
                 searchbox.find('[name=check_in]').addClass('error');
@@ -447,12 +450,8 @@ jQuery(document).ready(function($){
         }
         searchbox.addClass('loading');
         searchbox.find('.img_loading').show();
-
-        console.log(data);
-
         var content_list_room = parent.find('.content-loop-room');
         var content_search_room = parent.find('.content-search-room');
-
         $.ajax({
             'type': 'post',
             'dataType': 'json',
@@ -481,9 +480,61 @@ jQuery(document).ready(function($){
                 searchbox.removeClass('loading');
             }
         })
-
-
     }
+
+    $(document).on('change','.content-search-room .content-loop-room .loop-room .option_number_room',function(){
+        var container=$(this).closest('.content-search-room');
+        var total_number_room = 0;
+        var total_price = 0;
+        // Room Price
+        container.find('.loop-room').each(function(){
+            var number = $(this).find('.option_number_room').val();
+            var price = $(this).find('.option_number_room').data('price-base');
+            total_number_room += parseFloat(number);
+            if(!price){
+                price = 0;
+            }
+            total_price += parseFloat(price) * number;
+            console.log(price);
+            if(number>0){
+                // Extra Price
+                $(this).find('.option_is_extra').each(function(){
+                    if($(this).is(':checked')){
+                        var parent_extra  = $(this).closest('tr');
+                        var number_extra = parent_extra.find('.option_extra_quantity').val();
+                        var price_extra = parent_extra.find('.option_extra_quantity').data('price-extra');
+                        if(!price_extra){
+                            price_extra = 0;
+                        }
+                        total_price += parseFloat(price_extra) * number_extra;
+                    }
+                });
+            }
+        });
+
+
+        console.log(total_number_room);
+        console.log(total_price);
+
+        container.find('.info_number').html(total_number_room);
+        container.find('.info_price').html(format_money(total_price));
+    });
+    $(document).on('change','.content-search-room .content-loop-room .loop-room .option_extra_quantity',function(){
+        $('.content-search-room .content-loop-room .loop-room .option_number_room').trigger('change');
+    })
+    $(document).on('change','.content-search-room .content-loop-room .loop-room .option_is_extra',function(){
+        $('.content-search-room .content-loop-room .loop-room .option_number_room').trigger('change');
+    })
+    setTimeout(function(){
+        $('.content-search-room .content-loop-room .loop-room .option_number_room').trigger('change');
+    },500);
+    /**
+     * setMessage
+     * @author quadq
+     * @param holder
+     * @param message
+     * @param type
+     */
     function setMessage(holder, message, type) {
         if (typeof type == 'undefined') {
             type = 'infomation';
@@ -492,19 +543,74 @@ jQuery(document).ready(function($){
         if (!holder.length) return;
         holder.html('');
         holder.html(html);
-        //do_scrollTo(holder);
     }
-    function do_scrollTo(el) {
-        if (el.length) {
-            var top = el.offset().top;
-            if ($('#wpadminbar').length && $('#wpadminbar').css('position') == 'fixed') {
-                top -= 32;
-            }
-            top -= 50;
-            $('html,body').animate({
-                'scrollTop': top
-            }, 500);
+    /**
+     * Format money
+     * @author quadq
+     * @since 1.0
+     *
+     * @param $money
+     * @returns {*}
+     */
+    function format_money($money) {
+        $money = wpboooking_number_format($money, wpbooking_params.currency_precision, wpbooking_params.decimal_separator, wpbooking_params.thousand_separator);
+        var $symbol = wpbooking_params.currency_symbol;
+        var $money_string = '';
+
+        switch (wpbooking_params.currency_position) {
+            case "right":
+                $money_string = $money + $symbol;
+                break;
+            case "left_space":
+                $money_string = $symbol + " " + $money;
+                break;
+
+            case "right_space":
+                $money_string = $money + " " + $symbol;
+                break;
+            case "left":
+            default:
+                $money_string = $symbol + $money;
+                break;
         }
+        return $money_string;
+    }
+    /**
+     * convert number format
+     * @author quadq
+     * @since 1.0
+     * @param number
+     * @param decimals
+     * @param dec_point
+     * @param thousands_sep
+     * @returns {string|*}
+     */
+    function wpboooking_number_format(number, decimals, dec_point, thousands_sep) {
+        number = (number + '')
+            .replace(/[^0-9+\-Ee.]/g, '');
+        var n = !isFinite(+number) ? 0 : +number,
+            prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+            sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+            dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+            s = '',
+            toFixedFix = function(n, prec) {
+                var k = Math.pow(10, prec);
+                return '' + (Math.round(n * k) / k)
+                        .toFixed(prec);
+            };
+        // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+        s = (prec ? toFixedFix(n, prec) : '' + Math.round(n))
+            .split('.');
+        if (s[0].length > 3) {
+            s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+        }
+        if ((s[1] || '')
+                .length < prec) {
+            s[1] = s[1] || '';
+            s[1] += new Array(prec - s[1].length + 1)
+                .join('0');
+        }
+        return s.join(dec);
     }
     /**
      * Show More Search Fields

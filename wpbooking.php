@@ -170,8 +170,14 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             wp_localize_script('jquery', 'wpbooking_params', array(
                 'ajax_url'              => admin_url('admin-ajax.php'),
                 'wpbooking_security'    => wp_create_nonce('wpbooking-nonce-field'),
-                'select_comment_review' => esc_html__('Please select the review criteria', 'wpbooking')
+                'select_comment_review' => esc_html__('Please select the review criteria', 'wpbooking'),
+                'currency_symbol'=>WPBooking_Currency::get_current_currency('symbol'),
+                'currency_position'=> WPBooking_Currency::get_current_currency('position'),
+                'thousand_separator'=> WPBooking_Currency::get_current_currency('thousand_sep'),
+                'decimal_separator'=> WPBooking_Currency::get_current_currency('decimal_sep'),
+                'currency_precision'=>WPBooking_Currency::get_current_currency('decimal'),
             ));
+
             wp_localize_script('jquery', 'wpbooking_hotel_localize', array(
                 'booking_required_adult'          => __('Please select adult number', 'wpbooking'),
                 'booking_required_children'       => __('Please select children number', 'wpbooking'),
