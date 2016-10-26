@@ -53,8 +53,10 @@ if( !empty( $value ) ){
                                 $checked=in_array($term->term_id,$term_ids)?'checked':false;
                                 ?>
                                 <div class="term-item <?php echo ($checked)?'active':false?>">
-                                    <label><input <?php ?> class="term-checkbox" <?php echo esc_attr($checked) ?> name="<?php echo esc_attr($data['id']) ?>[]"
-                                                  type="checkbox" value="<?php echo esc_attr($term->term_id) ?>"><?php echo esc_html($term->name) ?></label>
+                                    <label>
+                                        <input class="term-checkbox" <?php echo esc_attr($checked) ?> name="<?php echo esc_attr($data['id']) ?>[]"
+                                                  type="checkbox" value="<?php echo esc_attr($term->term_id) ?>"><?php echo esc_html($term->name) ?>
+                                    </label>
 
                                 </div>
                                 <?php

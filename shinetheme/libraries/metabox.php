@@ -385,13 +385,9 @@ if (!class_exists('WPBooking_Metabox')) {
                         }
                         break;
                     case "extra_services":
-                        if (!empty($new)) {
-                            foreach ($new as $new_key => $new_item) {
-                                if (!empty($new_item)) {
-                                    foreach ($new_item as $key => $value) {
-                                        if (empty($value['is_selected'])) unset($new[$new_key][$key]);
-                                    }
-                                }
+                        if (!empty($new) and is_array($new)) {
+                            foreach ($new as $term_id => $new_item) {
+                                if(empty($new_item['is_selected'])) unset($new[$term_id]);
                             }
                         }
                         update_post_meta($post_id, $field['id'], $new);
