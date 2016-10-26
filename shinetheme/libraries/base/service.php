@@ -404,23 +404,20 @@ if (!class_exists('WB_Service')) {
 		{
 			if ($this->ID) {
 				$meta = get_post_meta($this->ID, 'extra_services', TRUE);
-				if (!empty($meta) and $this->service_type and array_key_exists($this->service_type, $meta)) {
-					$res = $meta[$this->service_type];
+                $res=$meta;
+                if (!empty($res) and is_array($res)) {
+                    foreach ($res as $key => $value) {
+                        if(term_exists($key,'wpbooking_extra_service')){
+                            $res[$key]['title'] = $value['is_selected'];
+                            unset($res[$key]['is_selected']);
+                        }else{
+                            unset($res[$key]);
+                        }
 
-					if (!empty($res) and is_array($res)) {
-						foreach ($res as $key => $value) {
-							if(term_exists($key,'wpbooking_extra_service')){
-								$res[$key]['title'] = $value['is_selected'];
-								unset($res[$key]['is_selected']);
-							}else{
-								unset($res[$key]);
-							}
+                    }
+                }
 
-						}
-					}
-
-					return $res;
-				}
+                return $res;
 			}
 		}
 
