@@ -64,6 +64,7 @@ if ( post_password_required() ) {
 	<?php
 	$field_review = apply_filters('wpbooking_review_field', wpbooking_load_view('single/review/review-field'));
 
+
 	if ( ! isset( $args['format'] ) )
 		$args['format'] = current_theme_supports( 'html5', 'comment-form' ) ? 'html5' : 'xhtml';
 	$req      = get_option( 'require_name_email' );
