@@ -487,18 +487,21 @@ jQuery(document).ready(function($){
         })
     }
     var my_modal;
-    $(document).on('click','.content-search-room .content-loop-room .loop-room .room-title',function(){
+    $(document).on('click','.content-search-room .content-loop-room .loop-room .room-title,.content-search-room .content-loop-room .loop-room .room-image',function(){
         var container=$(this).closest('.loop-room');
         my_modal = container.find('.modal');
         container.find('.modal').fadeIn(500);
+        container.find('.fotorama_room').fotorama();
     });
     $(document).on('click','.content-search-room .content-loop-room .loop-room .close',function(){
         var container=$(this).closest('.loop-room');
         container.find('.modal').fadeOut();
     });
     window.onclick = function(event) {
-        if ($(event.target).attr('class') == my_modal.attr('class')) {
-            $('.modal').fadeOut();
+        if(my_modal){
+            if ($(event.target).attr('class') == my_modal.attr('class')) {
+                $('.modal').fadeOut();
+            }
         }
     }
     $(document).on('change','.content-search-room .content-loop-room .loop-room .option_number_room',function(){
@@ -525,15 +528,11 @@ jQuery(document).ready(function($){
                         if(!price_extra){
                             price_extra = 0;
                         }
-                        total_price += parseFloat(price_extra) * number_extra;
+                        total_price += ( parseFloat(price_extra) * number_extra ) * number;
                     }
                 });
             }
         });
-
-
-        console.log(total_number_room);
-        console.log(total_price);
 
         container.find('.info_number').html(total_number_room);
         container.find('.info_price').html(format_money(total_price));

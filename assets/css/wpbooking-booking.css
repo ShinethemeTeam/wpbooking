@@ -1846,6 +1846,7 @@ a.label:focus {
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-image {
   float: left;
   width: 30%;
+  cursor: pointer;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content {
   float: left;
@@ -2018,6 +2019,7 @@ a.label:focus {
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .modal-content .col-33 {
   float: left;
   width: 33.333%;
+  margin-bottom: 10px;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .modal-content .title {
   font-size: 24px;
@@ -2029,6 +2031,13 @@ a.label:focus {
   color: #000;
   font-size: 21px;
   font-weight: bold;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .modal-content .price .small {
+  color: #494949;
+  font-size: 14px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .modal-content .info {
+  padding-left: 25px;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .modal-content .info .item.space {
   margin-bottom: 20px;
@@ -2043,6 +2052,10 @@ a.label:focus {
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .modal-content .info .item .img img {
   width: 25px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .modal-content .facilities {
+  width: 100%;
+  float: left;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .modal-content .facilities .title {
   color: #333333;

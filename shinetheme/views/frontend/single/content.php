@@ -279,7 +279,7 @@ $hotel_id = get_the_ID();
 					</form>
 					<div class="search_room_alert"></div>
 					<div class="content-search-room">
-						<form method="post" onclick="return false" class="wpbooking_order_form">
+						<form method="post" class="wpbooking_order_form">
 							<input name="action" value="wpbooking_add_to_cart" type="hidden">
 							<input name="post_id" value="<?php the_ID() ?>" type="hidden">
 							<div class="content-loop-room">
@@ -303,7 +303,7 @@ $hotel_id = get_the_ID();
 								<div class="content-price">
 									<div class="number"><span class="info_number">0</span> <?php esc_html_e('rooms selected','wpbooking') ?></div>
 									<div class="price"><span class="info_price">0</span></div>
-									<button type="submit" class="wb-button submit-button"><?php esc_html_e("BOOK NOW",'wpbooking') ?></button>
+									<button type="button" class="wb-button submit-button"><?php esc_html_e("BOOK NOW",'wpbooking') ?></button>
 								</div>
 							</div>
 						</form>
