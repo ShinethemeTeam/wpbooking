@@ -2455,11 +2455,12 @@ a.label:focus {
 }
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .form-submit .submit {
   display: inline-block;
-  background: #31b0d5;
+  background: #f0ad4e;
   font-weight: normal;
   font-size: 14px;
-  border: 1px solid #269abc;
+  border: 1px solid #f0ad4e;
   width: auto;
+  padding: 7px 12px;
 }
 .wpbooking-cart-wrap {
   font-size: 14px;
