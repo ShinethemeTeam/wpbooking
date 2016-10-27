@@ -9,6 +9,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 {
     class WPBooking_Checkout_Controller extends WPBooking_Controller
     {
+        static $_inst;
         function __construct()
         {
             if(!session_id())
