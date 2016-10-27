@@ -270,16 +270,17 @@ jQuery(document).ready(function( $ ){
 
                 try{
                     var json=JSON.parse(old);
-                    //console.log(json[media_id]);
-                    if(json[media_id]===undefined) json[media_id]=new Array();
+
                     selected_room.each(function(){
-                        if($(this).is(":checked") && $.inArray($(this).val(),json[media_id]) == -1 ){
-                            json[media_id].push($(this).val());
+                        if(json[$(this).val()] === undefined) json[$(this).val()] = new Array();
+                        if($(this).is(":checked") && $.inArray(media_id,json[$(this).val()]) == -1){
+                            json[$(this).val()].push(media_id);
                         }
-                        if(!$(this).is(":checked") && $.inArray($(this).val(),json[media_id]) > -1){
-                            json[media_id].splice(json[media_id].indexOf($(this).val()),1);
+                        if(!$(this).is(":checked") && $.inArray(media_id,json[$(this).val()]) > -1){
+                            json[$(this).val()].splice(json[$(this).val()].indexOf(media_id),1);
                         }
                     });
+
                     $('.wb_hotel_gallery_data').val(JSON.stringify(json));
 
                 }catch(e){
@@ -327,9 +328,11 @@ jQuery(document).ready(function( $ ){
                         var old=$('.wb_hotel_gallery_data').val();
                         if(!old) old='{}';
                         var json=JSON.parse(old);
-                        if($.inArray(img_id,json) > -1){
-                            json.splice($.inArray(img_id,json),1);
-                        }
+                        $.each(json, function(key, val){
+                            if($.inArray(parseInt(img_id),val) > -1){
+                                json[key].splice(val.indexOf(parseInt(img_id)),1);
+                            }
+                        });
                         $('.wb_hotel_gallery_data').val(JSON.stringify(json));
 
                         modal.close();
@@ -357,10 +360,14 @@ jQuery(document).ready(function( $ ){
                     var old=$('.wb_hotel_gallery_data').val();
                     if(!old) old='{}';
                     var json=JSON.parse(old);
-                    if(json.hasOwnProperty(t.data('id'))){
-                        delete json[t.data('id')];
-                    }
-                    $('.wb_hotel_gallery_data').val(JSON.stringify(json));
+                    $.each(json, function(key, val){
+                        if($.inArray( t.data('id'),val) > -1){
+                            json[key].splice($.inArray( t.data('id'),val),1);
+                        }
+                    });
+
+                    var str_json =JSON.stringify(json);
+                    $('.wb_hotel_gallery_data').val(str_json);
                     if(Object.keys(json).length == 0){
                         $('.wb_hotel_gallery_data').val('');
                     }
@@ -381,8 +388,8 @@ jQuery(document).ready(function( $ ){
             var json = JSON.parse(old);
             $.each(JSON.parse(data_room),function(key, value){
                 var checked = '';
-                if(json[t.data('id')] != undefined) {
-                    if ($.inArray(value.ID.toString(), json[t.data('id')]) > -1) {
+                if(json[value.ID.toString()] != undefined) {
+                    if ($.inArray(t.data('id'), json[value.ID.toString()]) > -1) {
                         checked = 'checked';
                     }
                 }
