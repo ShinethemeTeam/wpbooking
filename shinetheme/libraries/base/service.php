@@ -283,6 +283,18 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
+        /**
+         * get average of a rating
+         * @param $rating_title
+         * @return mixed|string|void
+         */
+		function get_avg_rating($rating_title){
+            if($this->ID){
+                $avg = wpbooking_service_get_avg_rating($this->ID,$rating_title);
+                return $avg;
+            }
+        }
+
 		/**
 		 * Get Service Type ID of current Service
 		 *

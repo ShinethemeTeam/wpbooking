@@ -97,36 +97,7 @@ $hotel_id = get_the_ID();
                             $str_rating = esc_html__('Terrible','wpbooking');
                         }
 
-                        $comments = get_comments(array(
-                            'post_id' => get_the_ID(),
-                            'publish' => 'approve'));
-
-                        $wpbooking_review_stats = apply_filters('wpbooking_review_stats',array(),get_the_ID());
-                        $bool = FALSE;
-                        if(!empty($wpbooking_review_stats)) $bool = TRUE;
-                        $avg = array();
-                        if($bool) {
-                            foreach ($comments as $key => $value) {
-                                $review_detail = get_comment_meta($value->comment_ID, 'wpbooking_review_detail', true);
-                                $review_number = get_comment_meta($value->comment_ID, 'wpbooking_review', true);
-
-                                foreach ($wpbooking_review_stats as $k2 => $v2) {
-                                    if (!empty($review_detail)) {
-                                        if (!empty($avg[$k2])) {
-                                            $avg[$k2] += (int)$review_detail[$k2]['rate'];
-                                        } else {
-                                            $avg[$k2] = (int)$review_detail[$k2]['rate'];
-                                        }
-                                    } else {
-                                        if (!empty($avg[$k2])) {
-                                            $avg[$k2] += (int)$review_number;
-                                        } else {
-                                            $avg[$k2] = (int)$review_number;
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        $wpbooking_review_stats=apply_filters('wpbooking_review_stats',array(),get_the_ID());
 
                         ?>
                        <div class="score-header">
@@ -134,20 +105,29 @@ $hotel_id = get_the_ID();
                            <span class="rating-str"><?php echo esc_attr($str_rating); ?></span>
                            <span class="review-score"><?php echo number_format($review_score,1,'.',''); ?></span> <span class="max-rating"><?php echo esc_html__('of 5 guest rating');?></span>
                        </div>
-                       <?php if($avg){ ?>
+                       <?php if($wpbooking_review_stats){ ?>
                        <ul class="list_review_fields">
-                           <?php foreach($avg as $key => $value){ ?>
-                           <li>
-                               <span>&nbsp;</span>
-                               <span>
-                                   <a class="<?php if($value/count($comments)>=0.5) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
-                                   <a class="<?php if($value/count($comments)>=1.5) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
-                                   <a class="<?php if($value/count($comments)>=2.5) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
-                                   <a class="<?php if($value/count($comments)>=3.5) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
-                                   <a class="<?php if($value/count($comments)>=4.5) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+                           <?php foreach($wpbooking_review_stats as $key => $value) {
+                               $rating_score = $service->get_avg_rating($value['title']);
+                               if ($rating_score) {
+                                   ?>
+                                   <li>
+                                       <span class="rating_title"><?php echo esc_attr($value['title']); ?>&nbsp;</span>
+                                       <span class="rating">
+                                   <span class="<?php if ($rating_score >= 0.5) echo 'active'; ?>"><i
+                                           class="fa fa-star-o icon-star"></i></span>
+                                   <span class="<?php if ($rating_score >= 1.5) echo 'active'; ?>"><i
+                                           class="fa fa-star-o icon-star"></i></span>
+                                   <span class="<?php if ($rating_score >= 2.5) echo 'active'; ?>"><i
+                                           class="fa fa-star-o icon-star"></i></span>
+                                   <span class="<?php if ($rating_score >= 3.5) echo 'active'; ?>"><i
+                                           class="fa fa-star-o icon-star"></i></span>
+                                   <span class="<?php if ($rating_score >= 4.5) echo 'active'; ?>"><i
+                                           class="fa fa-star-o icon-star"></i></span>
                                </span>
-                           </li>
-                           <?php } ?>
+                                   </li>
+                               <?php }
+                           }?>
                        </ul>
                        <?php } ?>
                    </div>
@@ -184,6 +164,13 @@ $hotel_id = get_the_ID();
                         <div class="wb-button-share">
                             <i class="fa fa-share-alt"></i><a href="#"><?php esc_html_e('Share','wpbooking'); ?></a>
                         </div>
+                        <ul class="wb-list-social">
+                            <li><a class="wb-facebook" href="https://www.facebook.com/sharer/sharer.php?u=<?php the_permalink() ?>&amp;title=<?php the_title()?>" target="_blank" original-title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                            <li><a class="wb-twitter" href="http://twitter.com/share?url=<?php the_permalink() ?>&amp;title=<?php the_title()?>" target="_blank" original-title="Twitter"><i class="fa fa-twitter fa-lg"></i></a></li>
+                            <li><a class="wb-google" href="https://plus.google.com/share?url=<?php the_permalink() ?>&amp;title=<?php the_title()?>" target="_blank" original-title="Google+"><i class="fa fa-google-plus fa-lg"></i></a></li>
+                            <li><a class="wb-pinterest" href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());" target="_blank" original-title="Pinterest"><i class="fa fa-pinterest fa-lg"></i></a></li>
+                            <li><a class="wb-linkedin" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?php the_permalink() ?>&amp;title=<?php the_title()?>" target="_blank" original-title="LinkedIn"><i class="fa fa-linkedin fa-lg"></i></a></li>
+                        </ul>
                     </div>
 				</div>
 			</div>
