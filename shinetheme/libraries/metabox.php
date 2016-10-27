@@ -395,8 +395,8 @@ if (!class_exists('WPBooking_Metabox')) {
                     case "taxonomy_room_select":
                         $this->wpbooking_save_taxonomy_room($post_id,$field['id']);
                         break;
-                    case "taxonomy_fee_select":
-                        $this->wpbooking_save_taxonomy_fee($post_id,$field['id'],$field);
+                    case "taxonomy_select":
+                        $this->wpbooking_save_taxonomy($post_id,$field['id'],$field);
 
                         break;
                     case "calendar":
@@ -449,7 +449,7 @@ if (!class_exists('WPBooking_Metabox')) {
             do_action('wpbooking_save_metabox_section', $post_id,$section_id, $sections);
         }
 
-        function wpbooking_save_taxonomy_fee($post_id,$field_id,$field)
+        function wpbooking_save_taxonomy($post_id,$field_id,$field)
         {
             $data=WPBooking_Input::post($field_id);
 

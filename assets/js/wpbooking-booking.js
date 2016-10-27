@@ -50,12 +50,17 @@ jQuery(document).ready(function($){
     // Order Form
     $('.wpbooking_order_form .submit-button').click(function(){
         var form=$(this).closest('.wpbooking_order_form');
-        form.find('[name]').removeClass('input-error');
+       /* form.find('[name]').removeClass('input-error');
         var me=$(this);
         me.addClass('loading').removeClass('error');
-        form.find('.wpbooking-message').remove();
+        form.find('.wpbooking-message').remove();*/
 
-        data=form.serialize();
+        var me=$(this);
+        me.addClass('loading');
+
+        var data=form.serialize();
+
+        console.log(data);
 
         $.ajax({
             url:wpbooking_params.ajax_url,

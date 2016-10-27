@@ -156,6 +156,7 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 						'show_tagcloud' 	 => FALSE,
 						'show_admin_column'  => FALSE,
 						'query_var'          => TRUE,
+                        'meta_box_cb'=>false,
 						'rewrite'            => array('slug' => $value['slug']),
 					);
 

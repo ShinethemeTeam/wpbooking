@@ -195,33 +195,32 @@ $hotel_id = get_the_ID();
 					</form>
 					<div class="search_room_alert"></div>
 					<div class="content-search-room">
-						<div class="content-loop-room">
-
-							<?php
-							global $wp_query;
-							WPBooking_Accommodation_Service_Type::inst()->search_room();
-							?>
-							<?php
-							if(have_posts()) {
-								while( have_posts() ) {
-									the_post();
-                                    echo wpbooking_load_view('single/loop-room',array('hotel_id'=>$hotel_id));
+						<form method="post" onclick="return false" class="wpbooking_order_form">
+							<div class="content-loop-room">
+								<?php
+								global $wp_query;
+								WPBooking_Accommodation_Service_Type::inst()->search_room();
+								?>
+								<?php
+								if(have_posts()) {
+									while( have_posts() ) {
+										the_post();
+										echo wpbooking_load_view('single/loop-room',array('hotel_id'=>$hotel_id));
+									}
+								} else {
+									echo wpbooking_load_view('single/loop-room-none');
 								}
-							} else {
-                                echo wpbooking_load_view('single/loop-room-none');
-							}
-							?>
-							<?php wp_reset_query(); ?>
-						</div>
-						<div class="content-info">
-							<form method="post">
-                                <div class="content-price">
-                                    <div class="number"><span class="info_number">0</span> <?php esc_html_e('rooms selected','wpbooking') ?></div>
-                                    <div class="price"><span class="info_price">0</span></div>
-                                    <button type="button" class="wb-button"><?php esc_html_e("BOOK NOW",'wpbooking') ?></button>
-                                </div>
-                            </form>
-						</div>
+								?>
+								<?php wp_reset_query(); ?>
+							</div>
+							<div class="content-info">
+								<div class="content-price">
+									<div class="number"><span class="info_number">0</span> <?php esc_html_e('rooms selected','wpbooking') ?></div>
+									<div class="price"><span class="info_price">0</span></div>
+									<button type="submit" class="wb-button submit-button"><?php esc_html_e("BOOK NOW",'wpbooking') ?></button>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 

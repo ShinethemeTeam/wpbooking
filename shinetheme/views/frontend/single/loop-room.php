@@ -70,7 +70,7 @@ $list_extra = get_post_meta(get_the_ID(),'extra_services',true);
             ?>
         </div>
         <div class="room-number">
-            <select class="form-control option_number_room" name="option_number_room" data-price-base="<?php echo esc_attr($price) ?>">
+            <select class="form-control option_number_room" name="option_number_room[]" data-price-base="<?php echo esc_attr($price) ?>">
                 <?php
                 for($i=0;$i<20;$i++){
                     echo "<option value='{$i}'>{$i}</option>";

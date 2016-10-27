@@ -167,7 +167,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              *
              * @since 1.0
              */
-            add_filter('wpbooking_service_base_price_'.$this->type_id,array($this,'_change_base_price'),10, 3);
+            add_filter('wpbooking_service_base_price_' . $this->type_id, array($this, '_change_base_price'), 10, 3);
 
             /**
              * Move name and email field to top in comment
@@ -233,6 +233,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'show_ui'           => false,
                 'show_admin_column' => false,
                 'query_var'         => true,
+                'meta_box_cb'       => false,
                 'rewrite'           => array('slug' => 'hotel-room-type'),
             );
             register_taxonomy('wb_hotel_room_type', array('wpbooking_hotel_room'), $args);
@@ -257,6 +258,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'show_ui'           => true,
                 'show_admin_column' => false,
                 'query_var'         => true,
+                'meta_box_cb'       => false,
                 'rewrite'           => array('slug' => 'hotel-room-facilities'),
             );
             register_taxonomy('wb_hotel_room_facilities', array('wpbooking_service'), $args);
@@ -379,7 +381,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'label'    => __("Amenity", 'wpbooking'),
                             'id'       => 'wpbooking_select_amenity',
                             'taxonomy' => 'wpbooking_amenity',
-                            'type'     => 'taxonomy_fee_select',
+                            'type'     => 'taxonomy_select',
                         ),
                         array(
                             'type'         => 'custom-taxonomy',
@@ -1663,6 +1665,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $my_post = array(
                         'ID'         => $room_id,
                         'post_title' => $name,
+                        'post_status' => 'publish',
                     );
                     wp_update_post($my_post);
                 }
@@ -2078,9 +2081,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          * @param $service_type
          * @return mixed
          */
-        public function _change_base_price($base_price,$post_id,$service_type){
+        public function _change_base_price($base_price, $post_id, $service_type)
+        {
 
-            $base_price=WPBooking_Meta_Model::inst()->get_price_accommodation($post_id);
+            $base_price = WPBooking_Meta_Model::inst()->get_price_accommodation($post_id);
 
             return $base_price;
         }
