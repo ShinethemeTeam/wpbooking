@@ -76,10 +76,43 @@ $hotel_id = get_the_ID();
 				</div>
 			</div>
 			<div class="col-service-reviews-meta">
-				<div class="service-order-form">
-					<div class="order-form-content">
-						<?php echo wpbooking_load_view('single/reviews-meta') ?>
-					</div>
+				<div class="wb-service-reviews-meta">
+                   <div class="wb-reviews-score-box wp-box-item">
+                        Reviews
+                   </div>
+                    <div class="wb-contact-box wp-box-item">
+                        <?php
+                        $contact_meta = array(
+                            'contact_number' => 'fa-phone',
+                            'contact_email' => 'fa-envelope',
+                            'website' => 'fa-home',
+                        );
+                        foreach($contact_meta as $key => $val) {
+                            if ($value = get_post_meta(get_the_ID(), $key, true)) {
+                                switch($key){
+                                    case 'contact_number':
+                                    case 'contact_email':
+                                        $value = ($value);
+                                        break;
+                                    case 'website';
+                                        $value = '<a href="'.$value.'">'.$value.'</a>';
+                                        break;
+                                }
+                                ?>
+                                <div class="wb-meta-contact">
+                                    <i class="fa <?php echo esc_attr($val); ?> wb-icon-contact"></i>
+                                    <span><?php echo ($value) ?></span>
+                                </div>
+                                <?php
+                            }
+                        }
+                        ?>
+                    </div>
+                    <div class="wb-share">
+                        <div class="wb-button-share">
+                            <i class="fa fa-share-alt"></i><a href="#"><?php esc_html_e('Share','wpbooking'); ?></a>
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</div>
@@ -197,247 +230,229 @@ $hotel_id = get_the_ID();
 
 			<div class="service-details">
                 <?php
-                $array = array(
-                    'checkin_from'  => esc_html__('from %s', 'wpbooking'),
-                    'checkin_to' => esc_html__('to %s', 'wpbooking'),
-                    'checkout_from' => esc_html__('from %s', 'wpbooking'),
-                    'checkout_to' => esc_html__('to %s', 'wpbooking'),
+                $check_in = array(
+                    'checkin_from'  => esc_html__('from %s ', 'wpbooking'),
+                    'checkin_to' => esc_html__('to %s', 'wpbooking')
                 );
-                foreach ($array as $key => $val) {
-
-                    if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
-                        var_dump($value);
-                        $rule_html[]=sprintf($val, '<strong>' . $value . '</strong> <i class="fa fa-clock" ></i>	<br>');
+                $check_out = array(
+                    'checkout_from'  => esc_html__('from %s ', 'wpbooking'),
+                    'checkout_to' => esc_html__('to %s', 'wpbooking')
+                );
+                $time_html = '';
+                $checkin_html = esc_html__('Check In: ','wpbooking');
+                $checkout_html = esc_html__('Check Out: ','wpbooking');
+                foreach ($check_in as $key => $val) {
+                    $value = get_post_meta(get_the_ID(),$key ,TRUE);
+                    if($key == 'checkin_from' && empty($value)){
+                        $checkin_html = '';
+                        break;
+                    }else{
+                        if(!empty($value)) {
+                            $checkin_html .= sprintf($val, $value);
+                        }
+                        if($key == 'checkin_to' && empty($value)){
+                            $checkin_html = str_replace('from ','',$checkin_html);
+                        }
                     }
                 }
-                ?>
+                $bool = false;
+                foreach ($check_out as $key => $val) {
+                    $value = get_post_meta(get_the_ID(),$key ,TRUE);
+                    if($key == 'checkout_to' && empty($value)){
+                        $checkout_html = '';
+                        break;
+                    }else{
+                        if(!empty($value)) {
+                            $checkout_html .= sprintf($val, $value);
+                            if($bool) $checkout_html = $value;
+                        }
+                        if($key == 'checkout_from' && empty($value)){
+                            $bool = true;
+                        }
+                    }
+                }
+                $time_html = $checkin_html.'<br>'.$checkout_html;
+                if(!empty($checkin_html) || !empty($checkout_html)) {
+                    ?>
+                    <div class="service-detail-item">
+                        <div class="service-detail-title"><?php esc_html_e('Time', 'wpbooking') ?></div>
+                        <div class="service-detail-content">
+                            <?php echo ($time_html) ?>
+                        </div>
+                    </div>
+                    <?php
+                }
+				$array = array(
+					'deposit_payment_status' => '',
+                    'deposit_payment_amount' => wp_kses(__('Deposit : %s &nbsp;&nbsp;<span class="enforced_red">required</span>','wpbooking'),array('span'=>array('class'=>array()))),
+                    'allow_cancel' => esc_html__('Cancelation allowed : Yes','wpbboking'),
+                    'cancel_free_days_prior' => esc_html__('Time allowed to free : %s','wpbooking'),
+                    'cancel_guest_payment' => esc_html__('Fee cancel booking : %s','wpbooking'),
+				);
+                $cancel_guest_payment = array(
+                    'first_night' => esc_html__('of the first night','wpbooking'),
+                    'full_stay' => esc_html__('of the full stay','wpbooking'),
+                );
+				$deposit_html = array();
+                $allow_deposit = '';
+				foreach ($array as $key => $val) {
+                    $meta = get_post_meta(get_the_ID(), $key, TRUE);
+                    if($key == 'deposit_payment_status'){
+                        $allow_deposit = $meta;
+                        continue;
+                    }
+					if (!empty($meta)) {
+                        if($key == 'deposit_payment_amount') {
+                            if(empty($allow_deposit)) {
+                                $deposit_html[] = '';
+                            }elseif($allow_deposit == 'amount'){
+                                $deposit_html[] = sprintf($val, WPBooking_Currency::format_money($meta));
+                            }else{
+                                $deposit_html[] = sprintf($val, $meta.'%');
+                            }
+                            continue;
+                        }
+                        if($key == 'cancel_guest_payment'){
+                            $deposit_html[] = sprintf($val, $cancel_guest_payment[$meta]);
+                            continue;
+                        }
+                        $deposit_html[] = sprintf($val, $meta);
+					}
+                    if($key == 'allow_cancel'){
+                        $deposit_html[] = $val;
+                        continue;
+                    }
+				}
 
+				if (!empty($deposit_html)) {
+					?>
+					<div class="service-detail-item">
+						<div class="service-detail-title"><?php esc_html_e('Prepayment / cancelation', 'wpbooking') ?></div>
+						<div class="service-detail-content">
+							<?php
+                            foreach($deposit_html as $value){
+                                if(!empty($value)) echo ($value).'<br>';
+                            }
+                            ?>
+						</div>
+					</div>
+				<?php } ?>
 
 
 				<?php
-				$array = array(
-					'max_guests'     => array(
-						'title' => esc_html__('Max Guests', 'wpbooking'),
-						'icon'  => 'flaticon-people',
-					),
-					'bedroom'        => array(
-						'title' => esc_html__('Bedrooms', 'wpbooking'),
-						'icon'  => 'flaticon-hotel-room'
-					),
-					'bathrooms'      => array(
-						'title' => esc_html__('Bathrooms', 'wpbooking'),
-						'icon'  => 'flaticon-bathtub'
-					),
-					'property_floor' => array(
-						'title' => esc_html__('Floors', 'wpbooking'),
-						'icon'  => 'flaticon-stairs'
-					),
-					'property_size'  => array(
-						'title' => esc_html__('Size (%s)', 'wpbooking'),
-						'icon'  => 'flaticon-full-size',
-					),
-					'double_bed'     => array(
-						'title' => esc_html__('Double beds', 'wpbooking'),
-						'icon'  => 'flaticon-double-bed'
-					),
-					'single_bed'     => array(
-						'title' => esc_html__('Single beds', 'wpbooking'),
-						'icon'  => 'flaticon-single-bed-outline'
-					),
-					'sofa_bed'       => array(
-						'title' => esc_html__('Sofa beds', 'wpbooking'),
-						'icon'  => 'flaticon-sofa'
-					)
-				);
-				$space_html = array();
-				foreach ($array as $key => $val) {
-					if ($meta = get_post_meta(get_the_ID(), $key, TRUE)) {
-						$space_html[] = '<li class="service-term">';
-						$space_html[] = '<span class="icon-data-wrap">x<span class="icon-data">' . $meta . '</span>';
-
-						if ($icon = $val['icon']) {
-							$space_html[] = sprintf('<span class="service-term-icon"><i class="%s"></i></span>', wpbooking_icon_class_handler($icon));
-						}
-						$space_html[] = '</span>';
-
-						switch ($key) {
-							case "property_size":
-								$space_html[] = '<a  class="sevice-term-name">' . sprintf($val['title'], get_post_meta(get_the_ID(), 'property_unit', TRUE)) . '</a>';
-								break;
-							default:
-								$space_html[] = '<a  class="sevice-term-name">' . $val['title'] . '</a>';
-								break;
-						}
-
-						$space_html[] = '</li>';
-					}
-				}
-				if (!empty($space_html)) {
-					?>
-					<div class="service-detail-item">
-						<div class="service-detail-title"><?php esc_html_e('The space', 'wpbooking') ?></div>
-						<div class="service-detail-content">
-							<ul class="service-list-terms icon_with_data">
-								<?php echo implode("\r\n", $space_html) ?>
-							</ul>
-						</div>
-					</div>
-				<?php } ?>
-
-				<?php if ($terms = $service->get_terms('wpbooking_amenity')) {
-					?>
-					<div class="service-detail-item">
-						<div class="service-detail-title"><?php esc_html_e('Amenities', 'wpbooking') ?></div>
-						<div class="service-detail-content">
-							<ul class="service-list-terms">
-								<?php foreach ($terms as $term) {
-									$html = array();
-									$html[] = '<li class="service-term">';
-									$icon = wpbooking_get_term_meta($term->term_id, 'icon');
-									if ($icon) $html[] = sprintf('<span class="service-term-icon"><i class="%s"></i></span>', wpbooking_icon_class_handler($icon));
-
-									$html[] = '<a  class="sevice-term-name">' . $term->name . '</a>';
-									$html[] = '</li>';
-
-									echo implode("\r\n", $html);
-								} ?>
-							</ul>
-
-						</div>
-					</div>
-				<?php } ?>
-				<?php do_action('wpbooking_after_service_detail_amenities', $service_type, $service) ?>
-
-				<div class="service-detail-item">
-					<div class="service-detail-title"><?php esc_html_e('Rate', 'wpbooking') ?>
-						<!--<span class="help-icon"><i class="fa fa-question"></i></span>--></div>
-					<div class="service-detail-content">
-						<?php $array = array(
-							'price'        => esc_html__('Nightly Rate: %s', 'wpbooking'),
-							'weekly_rate'  => esc_html__('Weekly Rate: %s', 'wpbooking'),
-							'monthly_rate' => esc_html__('Monthly Rate: %s', 'wpbooking'),
-						);
-						foreach ($array as $key => $val) {
-							if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
-								printf($val, WPBooking_Currency::format_money($value) . '<br>');
-							}
-						}
-						?>
-					</div>
-				</div>
-				<?php if (get_post_meta(get_the_ID(), 'enable_additional_guest_tax', TRUE)) {
-						$addition_html=array();
+						$tax_html=array();
 						$array = array(
-							'rate_based_on'          => sprintf(esc_html__('Rates are based on occupancy of: %s', 'wpbooking'),'<strong>%s</strong><br>'),
-							'additional_guest_money' => sprintf(esc_html__('Each additional guest will pay : %s / night', 'wpbooking').'<br>','<strong>%s</strong>'),
-							'tax'                    => sprintf(esc_html__('Tax: %s', 'wpbooking'),'<strong>%s</strong><br>'),
+							'vat_excluded'          => '',
+							'vat_amount' => esc_html__('V.A.T: %s &nbsp;&nbsp;'),
+							'citytax_excluded' => '',
+                            'citytax_unit' => '',
+							'citytax_amount' => esc_html__('City tax: %s '),
 						);
+                $citytax_unit = array(
+                    'stay' => esc_html__('stay','wpbooking'),
+                    'person_per_stay' => esc_html__('person per stay','wpbooking'),
+                    'night' => esc_html__('night','wpbooking'),
+                    'percent' => esc_html__('percent(%)','wpbooking'),
+                    'person_per_night' => esc_html__('person per night','wpbooking'),
+                );
+                $vat_excluded = '';
+                $citytax_excluded = '';
+                $ct_unit= '';
 						foreach ($array as $key => $val) {
-							if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
-								switch($key){
-									case "rate_based_on":
-										$addition_html[]=sprintf($val,$value);
-										break;
-									case "tax":
-										$addition_html[]=sprintf($val,$value.'%');
-										break;
-									case "additional_guest_money":
-										$addition_html[]=sprintf($val, WPBooking_Currency::format_money($value));
-										break;
-
-								}
-
+                            $value = get_post_meta(get_the_ID(), $key, TRUE);
+							if (!empty($value)) {
+                                switch($key){
+                                    case 'vat_excluded':
+                                        $vat_excluded = $value;
+                                        break;
+                                    case 'vat_amount':
+                                        if($vat_excluded == 'yes_included'){
+                                            $tax_html[] = sprintf($val, $value.'% &nbsp;&nbsp;'.wp_kses(__('<span class="enforced_red">include</span>','wpbooking'),array('span' => array('class' => array()))));
+                                        }elseif($vat_excluded != 'no'){
+                                            $tax_html[] = sprintf($val, $value.'%');
+                                        }
+                                        break;
+                                    case 'citytax_excluded':
+                                        $citytax_excluded = $value;
+                                        break;
+                                    case 'citytax_unit':
+                                        $ct_unit = $value;
+                                        break;
+                                    case 'citytax_amount':
+                                        if(!empty($ct_unit)) {
+                                            if ($ct_unit == 'percent') {
+                                                $str_citytax = sprintf($val, $value) . $citytax_unit[$ct_unit];
+                                            } else {
+                                                $str_citytax = sprintf($val, WPBooking_Currency::format_money($value)) . $citytax_unit[$ct_unit];
+                                            }
+                                        }
+                                        if($citytax_excluded != 'no') {
+                                            if ($citytax_excluded == 'yes_included') {
+                                                $tax_html[] = $str_citytax . '&nbsp;&nbsp; <span class="enforced_red">' . esc_html__('include', 'wpbooking') . '</span>';
+                                            } else {
+                                                $tax_html[] = $str_citytax;
+                                            }
+                                        }
+                                        break;
+                                }
 							}
 						}
-						if(!empty($addition_html)){
+
+						if(!empty($tax_html)){
 							?>
 							<div class="service-detail-item">
 								<div
-									class="service-detail-title"><?php esc_html_e('Additional Guests / Taxes / Misc', 'wpbooking') ?></div>
+									class="service-detail-title"><?php esc_html_e('Tax', 'wpbooking') ?></div>
 								<div class="service-detail-content">
-									<?php echo implode("\r\n",$addition_html) ?>
+									<?php foreach($tax_html as $value){
+                                        echo ($value).'<br>';
+                                    }?>
 								</div>
 							</div>
-						<?php } } ?>
+						<?php }  ?>
 
 
 
 				<?php
-				$extra_services = $service->get_extra_services();
-				if (is_array($extra_services) and !empty($extra_services)) { ?>
+				if ($terms_conditions = get_post_meta(get_the_ID(),'terms_conditions',true)) { ?>
 					<div class="service-detail-item">
-						<div class="service-detail-title"><?php esc_html_e('Extra services', 'wpbooking') ?></div>
+						<div class="service-detail-title"><?php esc_html_e('Term & Condition', 'wpbooking') ?></div>
 						<div class="service-detail-content">
-							<ul class="service-extra-price">
-								<?php
-								foreach ($extra_services as $key => $val) {
-									if(!$val['money']) continue;
-									$price = WPBooking_Currency::format_money($val['money']);
-									if ($val['require']=='yes') $price .= '<span class="required">' . esc_html__('required', 'wpbooking') . '</span>';
-									printf('<li>+ %s: %s</li>', wpbooking_get_translated_string($val['title']), $price);
-								}
-								?>
-							</ul>
+							<?php echo ($terms_conditions); ?>
 						</div>
 					</div>
 				<?php } ?>
 
 				<?php
-				$rule_html=array();
-				if ($deposit_amount = get_post_meta(get_the_ID(), 'deposit_amount', TRUE)) {
-					if (get_post_meta(get_the_ID(), 'deposit_type', TRUE) == 'percent') {
-						$rule_html[]=sprintf(esc_html__('Deposit: %s ', 'wpbooking'), $deposit_amount . '% <span class="required">' . esc_html__('required', 'wpbooking') . '</span>');
-					} else {
-						$rule_html[]=sprintf(esc_html__('Deposit: %s ', 'wpbooking'), WPBooking_Currency::format_money($deposit_amount) . ' <span class="required">' . esc_html__('required', 'wpbooking') . '</span>');
-					}
-				}
-
-				$array = array(
-					'check_in_time'  => esc_html__('Check In Time: %s', 'wpbooking'),
-					'check_out_time' => esc_html__('Check Out Time: %s', 'wpbooking'),
-				);
-				foreach ($array as $key => $val) {
-					if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
-						$rule_html[]=sprintf($val, '<strong>' . $value . '</strong> <i class="fa fa-clock" ></i>	<br>');
-					}
-				}
-				$array = array(
-					'minimum_stay' => esc_html__('Minimum Stay: %s', 'wpbooking'),
-				);
-				foreach ($array as $key => $val) {
-					if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
-						$rule_html[]=sprintf($val, $value . '<br>');
-					}
-				}
-
-				$array = array(
-					'cancellation_allowed' => esc_html__('Cancellation Allowed: %s', 'wpbooking'),
-				);
-
-				foreach ($array as $key => $val) {
-					if ($value = get_post_meta(get_the_ID(), $key, TRUE)) {
-						$rule_html[]=sprintf($val, $value ? esc_html__('Yes', 'wpbooking') : esc_html__('No', 'wpbooking') . '<br>');
-					}
-				}
-
-				$host_regulations = get_post_meta(get_the_ID(), 'host_regulations', TRUE);
-				if (!empty($host_regulations)) {
-					foreach ($host_regulations as $key => $value) {
-						if ($value['title'] or $value['content'])
-							$rule_html[]= (wpbooking_get_translated_string($value['title']) . ': ' . wpbooking_get_translated_string($value['content']) . '<br>');
-					}
-				}
-				?>
-				<?php if(!empty($rule_html)){ ?>
+                $card = get_post_meta(get_the_ID(),'creditcard_accepted',true);
+                $card_image = array(
+                    'americanexpress' => '0 -145px',
+                    'visa' => '0 1px',
+                    'euromastercard' => '0 -24px',
+                    'dinersclub' => '0 -96px',
+                    'jcb' => '0 -121px',
+                    'maestro' => '0 -48px',
+                    'discover' => '0 -73px',
+                    'unionpaydebitcard' => '0 -194px',
+                    'unionpaycreditcard' => '0 -194px',
+                    'bankcard' => '0 -584px',
+                );
+                if(!empty($card)) {
+                ?>
 				<div class="service-detail-item">
-					<div class="service-detail-title"><?php esc_html_e('Rule', 'wpbooking') ?></div>
+					<div class="service-detail-title"><?php esc_html_e('Cart Accepted', 'wpbooking') ?></div>
 					<div class="service-detail-content">
-						<?php
-						echo implode("\r\n",$rule_html);
-						?>
+                        <ul class="wb-list-card-acd">
+                            <?php foreach($card as $key => $val){
+                                if(!empty($val)){
+                                    echo '<li style="background-position: '.$card_image[$key].'">';
+                                    echo '</li>';
+                                }
+                            }?>
+                        </ul>
 					</div>
 				</div>
-				<?php }?>
+                <?php } ?>
 
 			</div>
 		</div>

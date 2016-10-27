@@ -19,6 +19,97 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'desc'  => esc_html__('Chỗ nghỉ cho khách du lịch, thường có nhà hàng, phòng họp và các dịch vụ khác dành cho khách', 'wpbooking')
             );
 
+            $this->settings = array(
+
+                array(
+                    'id'    => 'title',
+                    'label' => __('General Options', 'wpbooking'),
+                    'type'  => 'title',
+                ),
+                array(
+                    'id'    => 'review',
+                    'label' => __('Review', 'wpbooking'),
+                    'type'  => 'multi-checkbox',
+                    'value' => array(
+                        array(
+                            'id'    => 'service_type_' . $this->type_id . '_enable_review',
+                            'label' => __('Enable Review', 'wpbooking')
+                        ),
+                        array(
+                            'id'    => 'service_type_' . $this->type_id . '_review_without_booking',
+                            'label' => __('Allow user to review without booking', 'wpbooking')
+                        ),
+
+                        array(
+                            'id'    => 'service_type_' . $this->type_id . '_show_rate_review_button',
+                            'label' => __('Show Rate (Help-full) button in each review?', 'wpbooking')
+                        ),
+                        array(
+                            'id'    => 'service_type_' . $this->type_id . '_allowed_review_on_own_listing',
+                            'label' => __('User can write review on their own listing?', 'wpbooking')
+                        ),
+                        array(
+                            'id'    => 'service_type_' . $this->type_id . '_allowed_vote_for_own_review',
+                            'label' => __('User can vote for their own review?', 'wpbooking')
+                        ),
+//						array(
+//							'id'    => 'service_type_'.$this->type_id . '_required_partner_approved_review',
+//							'label' => __('Review require Partner Approved?', 'wpbooking')
+//						),
+                    )
+                ),
+                array(
+                    'id'    => 'review_stats',
+                    'label' => __("Review Stats", 'wpbooking'),
+                    'type'  => 'list-item',
+                    'value' => array()
+                ),
+                array(
+                    'id'    => 'maximum_review',
+                    'label' => __("Maximum review per user", 'wpbooking'),
+                    'type'  => 'number',
+                    'std'   => 1
+                ),
+                array(
+                    'type' => 'hr'
+                ),
+                array(
+                    'id'    => 'title',
+                    'label' => __('Booking Options', 'wpbooking'),
+                    'type'  => 'title',
+                ),
+                array(
+                    'id'        => 'order_form',
+                    'label'     => __('Order Form', 'wpbooking'),
+                    'type'      => 'post-select',
+                    'post_type' => array('wpbooking_form')
+                ),
+                array(
+                    'type' => 'hr'
+                ),
+                array(
+                    'id'    => 'title',
+                    'label' => __('Layout', 'wpbooking'),
+                    'type'  => 'title',
+                ),
+                array(
+                    'id'    => 'posts_per_page',
+                    'label' => __("Item per page", 'wpbooking'),
+                    'type'  => 'number',
+                    'std'   => 10
+                ),
+                array(
+                    'id'    => "thumb_size",
+                    'label' => __("Thumb Size", 'travel-booking'),
+                    'type'  => 'image-size'
+                ),
+                array(
+                    'id'    => "gallery_size",
+                    'label' => __("Gallery Size", 'travel-booking'),
+                    'type'  => 'image-size'
+                ),
+            );
+
             parent::__construct();
 
             add_action('init', array($this, '_add_init_action'));
@@ -76,8 +167,13 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              *
              * @since 1.0
              */
-            add_filter('wpbooking_service_base_price_'.$this->type_id,array($this,'_change_base_price'),10, 3);
+            add_filter('wpbooking_service_base_price_' . $this->type_id, array($this, '_change_base_price'), 10, 3);
 
+            /**
+             * Move name and email field to top in comment
+             */
+
+            add_filter('comment_form_fields',array($this,'_move_fields_comment_top'));
 
         }
 
@@ -137,6 +233,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'show_ui'           => false,
                 'show_admin_column' => false,
                 'query_var'         => true,
+                'meta_box_cb'       => false,
                 'rewrite'           => array('slug' => 'hotel-room-type'),
             );
             register_taxonomy('wb_hotel_room_type', array('wpbooking_hotel_room'), $args);
@@ -161,6 +258,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'show_ui'           => true,
                 'show_admin_column' => false,
                 'query_var'         => true,
+                'meta_box_cb'       => false,
                 'rewrite'           => array('slug' => 'hotel-room-facilities'),
             );
             register_taxonomy('wb_hotel_room_facilities', array('wpbooking_service'), $args);
@@ -281,9 +379,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         ),
                         array(
                             'label'    => __("Amenity", 'wpbooking'),
-                            'id'       => 'wpbooking_amenity',
+                            'id'       => 'wpbooking_select_amenity',
                             'taxonomy' => 'wpbooking_amenity',
-                            'type'     => 'taxonomy_fee_select',
+                            'type'     => 'taxonomy_select',
                         ),
                         array(
                             'type'         => 'custom-taxonomy',
@@ -1983,11 +2081,22 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          * @param $service_type
          * @return mixed
          */
-        public function _change_base_price($base_price,$post_id,$service_type){
+        public function _change_base_price($base_price, $post_id, $service_type)
+        {
 
-            $base_price=WPBooking_Meta_Model::inst()->get_price_accommodation($post_id);
+            $base_price = WPBooking_Meta_Model::inst()->get_price_accommodation($post_id);
 
             return $base_price;
+        }
+
+        /**
+         * Move fields in comment to top
+         */
+        public function _move_fields_comment_top($fields){
+            $comment_field = $fields['comment'];
+            unset($fields['comment']);
+            $fields['comment'] = $comment_field;
+            return $fields;
         }
 
 

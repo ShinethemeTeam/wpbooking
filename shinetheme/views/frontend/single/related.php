@@ -7,11 +7,16 @@
  */
 $service=new WB_Service();
 $service_type=$service->get_type();
-$related=$service->get_related_query();
+$location_id = get_post_meta(get_the_ID(),'location_id',true);
+$arg = array(
+    'meta_key' => 'location_id',
+    'meta_value' => $location_id
+);
+$related=$service->get_related_query($arg);
 if(!$related or !$related->have_posts()) return FALSE;
 ?>
 <div class="service-content-section">
-	<h5 class="service-info-title"><?php esc_html_e('Related Room','wpbooing')?></h5>
+	<h5 class="service-info-title"><?php echo esc_html__('Related ','wpbooing').$service_type; ?></h5>
 	<div class="wpbooking-loop-wrap">
 	<?php
 	echo wpbooking_load_view('archive/loop',array('my_query'=>$related,'service_type'=>$service_type));
