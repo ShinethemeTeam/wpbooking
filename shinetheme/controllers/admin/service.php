@@ -136,10 +136,11 @@ if (!class_exists('WPBooking_Admin_Service')) {
 			$args = array(
 				'hierarchical'      => TRUE,
 				'labels'            => $labels,
-				'show_ui'           => TRUE,
+				'show_ui'           => true,
 				'show_admin_column' => TRUE,
 				'query_var'         => TRUE,
 				'rewrite'           => array('slug' => 'amenities'),
+                'meta_box_cb'=>false
 			);
 			$args = apply_filters('wpbooking_register_amenity_taxonomy', $args);
 
