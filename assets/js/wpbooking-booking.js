@@ -487,10 +487,11 @@ jQuery(document).ready(function($){
         })
     }
     var my_modal;
-    $(document).on('click','.content-search-room .content-loop-room .loop-room .room-title',function(){
+    $(document).on('click','.content-search-room .content-loop-room .loop-room .room-title,.content-search-room .content-loop-room .loop-room .room-image',function(){
         var container=$(this).closest('.loop-room');
         my_modal = container.find('.modal');
         container.find('.modal').fadeIn(500);
+        container.find('.fotorama_room').fotorama();
     });
     $(document).on('click','.content-search-room .content-loop-room .loop-room .close',function(){
         var container=$(this).closest('.loop-room');

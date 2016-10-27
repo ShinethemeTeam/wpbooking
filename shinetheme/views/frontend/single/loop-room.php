@@ -4,7 +4,18 @@ $list_extra = get_post_meta(get_the_ID(),'extra_services',true);
 ?>
 <div class="loop-room post-<?php the_ID() ?>">
     <div class="room-image">
-        <img class="" src="http://localhost/shinetheme/traveler-booking/wp-content/uploads/2016/08/12122691_1656913957929210_758468824321059402_n-150x150.jpg">
+        <?php
+        $image_id = '';
+        $gallery = get_post_meta(get_the_ID(),'gallery_room',true);
+        if(!empty($gallery)){
+            foreach($gallery as $k=>$v){
+                if(empty($image_id)){
+                    $image_id = $v;
+                }
+            }
+        }
+        echo wp_get_attachment_image($image_id,array(150,150));
+        ?>
     </div>
     <div class="room-content">
         <div class="room-title">
@@ -145,13 +156,11 @@ $list_extra = get_post_meta(get_the_ID(),'extra_services',true);
             </div>
             <div class="gallery col-6">
                 <div class="service-gallery-single">
-                    <div class="fotorama" data-allowfullscreen="true" data-nav="thumbs">
+                    <div class="fotorama_room" data-allowfullscreen="true" data-nav="thumbs">
                         <?php
-                        $service = new WB_Service(get_the_ID());
-                        $gallery = $service->get_gallery();
                         if(!empty($gallery) and is_array($gallery)){
                             foreach($gallery as $k => $v){
-                                echo ($v['gallery']);
+                                echo wp_get_attachment_image($v,'full');
                             }
                         }
                         ?>

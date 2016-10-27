@@ -1924,7 +1924,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 $arg['meta_query'][] = array(
                     'key'     => 'max_guests',
                     'value'   => $max_guests,
-                    'compare' => '>',
+                    'compare' => '>=',
                 );
             }
             global $wp_query;
@@ -2156,10 +2156,22 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 $cart_item['calendar_prices'] = $calendar->get_prices($cart_item['post_id'], $cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
             }*/
 
+            $service = new WB_Service($cart_item['post_id']);
+
+            $cart_item['vat_excluded'] = $service->get_meta('vat_excluded');
+            if($service->get_meta('vat_excluded') != 'no'){
+                $cart_item['vat_amount'] = $service->get_meta('vat_amount');
+                $cart_item['vat_unit'] = $service->get_meta('vat_unit');
+            }
+            $cart_item['citytax_excluded'] = $service->get_meta('citytax_excluded');
+            if($service->get_meta('citytax_excluded') != 'no'){
+                $cart_item['citytax_amount'] = $service->get_meta('citytax_amount');
+                $cart_item['citytax_unit'] = $service->get_meta('citytax_unit');
+            }
+
             $wpbooking_option_number_room = WPBooking_Input::post('wpbooking_option_number_room');
             $extra_services = WPBooking_Input::post('wpbooking_extra');
-            var_dump($extra_services);
-            var_dump($wpbooking_option_number_room);
+
             if(!empty($wpbooking_option_number_room)){
                 foreach($wpbooking_option_number_room as $k=>$v){
                     if(!empty($v)){
@@ -2171,6 +2183,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                     $extra_service['data'][$key] = array(
                                         'title'=>$value['is_check'],
                                         'quantity'=>$value['quantity'],
+                                        'price'=>100,
                                     );
                                 }
                             }
@@ -2185,37 +2198,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 }
             }
 
-            // Extra Services
-            /*$extra_services = WPBooking_Input::post('wpbooking_extra');
-            if (empty($extra_services)) {
-                // Get Default
-                $all_extra = $service->get_extra_services();
-                if (!empty($extra_services) and is_array($all_extra)) {
-                    foreach ($all_extra as $key => $value) {
-                        if ($value['require'] == 'yes' and $value['money'])
-                            $extra_services[] = array(
-                                'title'   => $value['title'],
-                                'money'   => $value['money'],
-                                'require' => 'yes',
-                                'number'  => 1
-                            );
-                    }
-                }
-            } else {
-                // Get Default
-                $all_extra = $service->get_extra_services();
-
-                // If _POST is not empty
-                foreach($extra_services as $key=>$value){
-
-                    // Remove Un exists from defaults
-                    if(!array_key_exists($key,$all_extra)) unset($extra_services[$key]);
-
-                    // Add Required
-                    if($all_extra[$key]['require']=='yes') $extra_services[$key]['require']='yes';
-                }
-            }
-            $cart_params['extra_services']=$extra_services;*/
 
 
             var_dump($cart_item);
