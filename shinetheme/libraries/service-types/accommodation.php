@@ -1567,6 +1567,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $my_post = array(
                         'ID'         => $room_id,
                         'post_title' => $name,
+                        'post_status' => 'publish',
                     );
                     wp_update_post($my_post);
                 }

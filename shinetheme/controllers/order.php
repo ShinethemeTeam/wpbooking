@@ -1214,5 +1214,5 @@ if (!class_exists('WPBooking_Order')) {
 		}
 	}
 
-	WPBooking_Order::inst();
+	//WPBooking_Order::inst();
 }
