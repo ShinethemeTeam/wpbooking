@@ -2162,16 +2162,26 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             var_dump($wpbooking_option_number_room);
             if(!empty($wpbooking_option_number_room)){
                 foreach($wpbooking_option_number_room as $k=>$v){
-                    $extra_service = array();
-                    if(!empty($extra_services[$k])){
-
+                    if(!empty($v)){
+                        $extra_service = array();
+                        if(!empty($extra_services[$k])){
+                            $extra_service['title'] = esc_html__('Extra Service','wpbooking');
+                            foreach($extra_services[$k] as $key=>$value){
+                                if(!empty($value['is_check'])){
+                                    $extra_service['data'][$key] = array(
+                                        'title'=>$value['is_check'],
+                                        'quantity'=>$value['quantity'],
+                                    );
+                                }
+                            }
+                        }
+                        $cart_item['rooms'][$k] = array(
+                            'room_id'=>$k,
+                            'extra_fees'=>array(
+                                'extra_service'=>$extra_service
+                            )
+                        );
                     }
-                    $cart_item['rooms'][$k] = array(
-                        'room_id'=>$k,
-                        'extra_fees'=>array(
-                            'extra_service'=>array()
-                        )
-                    );
                 }
             }
 

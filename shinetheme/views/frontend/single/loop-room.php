@@ -108,7 +108,7 @@ $list_extra = get_post_meta(get_the_ID(),'extra_services',true);
                 <?php foreach($list_extra as $k=>$v){?>
                     <tr>
                         <td class="text-center">
-                            <input class="option_is_extra" type="checkbox" <?php if($v['require'] == 'yes') echo 'checked onclick="return false"'; ?>  name="wpbooking_extra[<?php the_ID() ?>][<?php echo esc_attr($k) ?>][is_check]">
+                            <input class="option_is_extra" type="checkbox" value="<?php echo esc_attr($v['is_selected']) ?>" <?php if($v['require'] == 'yes') echo 'checked onclick="return false"'; ?>  name="wpbooking_extra[<?php the_ID() ?>][<?php echo esc_attr($k) ?>][is_check]">
                         </td>
                         <td>
                             <span class="title"><?php echo  esc_html($v['is_selected'])?></span>
@@ -141,9 +141,23 @@ $list_extra = get_post_meta(get_the_ID(),'extra_services',true);
                 <?php the_title() ?>
             </div>
             <div class="price col-3 text-right">
-                <?php  echo WPBooking_Currency::format_money($price); ?>
+                <?php  echo WPBooking_Currency::format_money($price); ?> <span class="small"><?php esc_html_e("/night","wpbooking") ?></span>
             </div>
-            <div class="gallery col-6">xxx</div>
+            <div class="gallery col-6">
+                <div class="service-gallery-single">
+                    <div class="fotorama" data-allowfullscreen="true" data-nav="thumbs">
+                        <?php
+                        $service = new WB_Service(get_the_ID());
+                        $gallery = $service->get_gallery();
+                        if(!empty($gallery) and is_array($gallery)){
+                            foreach($gallery as $k => $v){
+                                echo ($v['gallery']);
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
             <div class="info col-4">
                 <div class="item ">
                     <?php
