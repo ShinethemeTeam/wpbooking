@@ -453,7 +453,9 @@ if (!class_exists('WPBooking_Metabox')) {
         {
             $data=WPBooking_Input::post($field_id);
 
-            if(!empty($data) and !empty($field['taxonomy'])){
+            if(!empty($data) and is_array($data) and !empty($field['taxonomy'])){
+
+                $data = array_map( 'intval', $data );
                 wp_set_object_terms( $post_id, $data, $field['taxonomy'] );
             }
             update_post_meta($post_id,$field_id,$data);

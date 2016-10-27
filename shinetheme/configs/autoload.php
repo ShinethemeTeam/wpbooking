@@ -35,7 +35,6 @@ $autoload['library']=array(
 	'query',
 	'base/service',
 	'base/order',
-	'base/order-item',
 	'base/coupon',
 	'taxonomy-metabox',
 	'query-inject',
@@ -57,7 +56,7 @@ $autoload['controller']=array(
 	'admin/setup',
 	'gateways',
 	'email',
-	'order',
+	'checkout',
 	'inbox'
 );
 
