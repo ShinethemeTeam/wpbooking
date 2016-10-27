@@ -57,6 +57,20 @@ if(!class_exists('WPBooking_Comment_Model'))
 
 			return $res['total'];
 		}
+
+        function count_parent($post_id = false){
+
+            if(!$post_id) return FALSE;
+
+            $row=$this->select('count(comment_ID) as total')
+                ->where(array(
+                    'comment_post_ID'=>$post_id,
+                    'comment_parent'=>0,
+                    'comment_approved'=>1
+                    ))->get()->row();
+            return !empty($row['total'])?$row['total']:FALSE;
+
+        }
 		static function inst()
 		{
 			if(!self::$_inst) self::$_inst=new self();
