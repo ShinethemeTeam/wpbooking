@@ -86,23 +86,70 @@ $hotel_id = get_the_ID();
                         <?php
 
                         if($review_score > 4){
-                            $str_rating = __('Excellent','wpbooking');
+                            $str_rating = esc_html__('Excellent','wpbooking');
                         }elseif($review_score > 3){
-                            $str_rating = __('Very Good','wpbooking');
+                            $str_rating = esc_html__('Very Good','wpbooking');
                         }elseif($review_score > 2){
-                            $str_rating = __('Average','wpbooking');
+                            $str_rating = esc_html__('Average','wpbooking');
                         }elseif($review_score > 1){
-                            $str_rating = __('Poor','wpbooking');
+                            $str_rating = esc_html__('Poor','wpbooking');
                         }else{
-                            $str_rating = __('Terrible','wpbooking');
+                            $str_rating = esc_html__('Terrible','wpbooking');
+                        }
+
+                        $comments = get_comments(array(
+                            'post_id' => get_the_ID(),
+                            'publish' => 'approve'));
+
+                        $wpbooking_review_stats = apply_filters('wpbooking_review_stats',array(),get_the_ID());
+                        $bool = FALSE;
+                        if(!empty($wpbooking_review_stats)) $bool = TRUE;
+                        $avg = array();
+                        if($bool) {
+                            foreach ($comments as $key => $value) {
+                                $review_detail = get_comment_meta($value->comment_ID, 'wpbooking_review_detail', true);
+                                $review_number = get_comment_meta($value->comment_ID, 'wpbooking_review', true);
+
+                                foreach ($wpbooking_review_stats as $k2 => $v2) {
+                                    if (!empty($review_detail)) {
+                                        if (!empty($avg[$k2])) {
+                                            $avg[$k2] += (int)$review_detail[$k2]['rate'];
+                                        } else {
+                                            $avg[$k2] = (int)$review_detail[$k2]['rate'];
+                                        }
+                                    } else {
+                                        if (!empty($avg[$k2])) {
+                                            $avg[$k2] += (int)$review_number;
+                                        } else {
+                                            $avg[$k2] = (int)$review_number;
+                                        }
+                                    }
+                                }
+                            }
                         }
 
                         ?>
                        <div class="score-header">
-                            <span class="reviews-count"><?php printf(_n('%s review','%s reviews',$count),$count); ?></span>
+                            <span class="reviews-count"><?php printf(_n('%s review','%s reviews',$count,'wpbooking'),$count); ?></span>
                            <span class="rating-str"><?php echo esc_attr($str_rating); ?></span>
-                           <span class="review-score"><?php echo esc_attr($review_score)?></span> <span class="max-rating"><?php echo esc_html__('of 5 guest rating');?></span>
+                           <span class="review-score"><?php echo number_format($review_score,1,'.',''); ?></span> <span class="max-rating"><?php echo esc_html__('of 5 guest rating');?></span>
                        </div>
+                       <?php if($avg){ ?>
+                       <ul class="list_review_fields">
+                           <?php foreach($avg as $key => $value){ ?>
+                           <li>
+                               <span>&nbsp;</span>
+                               <span>
+                                   <a class="<?php if($value/count($comments)>=0.5) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+                                   <a class="<?php if($value/count($comments)>=1.5) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+                                   <a class="<?php if($value/count($comments)>=2.5) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+                                   <a class="<?php if($value/count($comments)>=3.5) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+                                   <a class="<?php if($value/count($comments)>=4.5) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
+                               </span>
+                           </li>
+                           <?php } ?>
+                       </ul>
+                       <?php } ?>
                    </div>
                     <?php } ?>
                     <div class="wb-contact-box wp-box-item">
