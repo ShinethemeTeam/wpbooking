@@ -50,10 +50,10 @@ jQuery(document).ready(function($){
     // Order Form
     $('.wpbooking_order_form .submit-button').click(function(){
         var form=$(this).closest('.wpbooking_order_form');
-       /* form.find('[name]').removeClass('input-error');
+        //form.find('[name]').removeClass('input-error');
         var me=$(this);
         me.addClass('loading').removeClass('error');
-        form.find('.wpbooking-message').remove();*/
+        form.find('.wpbooking-message').remove();
 
         var me=$(this);
         me.addClass('loading');
@@ -486,7 +486,21 @@ jQuery(document).ready(function($){
             }
         })
     }
-
+    var my_modal;
+    $(document).on('click','.content-search-room .content-loop-room .loop-room .room-title',function(){
+        var container=$(this).closest('.loop-room');
+        my_modal = container.find('.modal');
+        container.find('.modal').fadeIn(500);
+    });
+    $(document).on('click','.content-search-room .content-loop-room .loop-room .close',function(){
+        var container=$(this).closest('.loop-room');
+        container.find('.modal').fadeOut();
+    });
+    window.onclick = function(event) {
+        if ($(event.target).attr('class') == my_modal.attr('class')) {
+            $('.modal').fadeOut();
+        }
+    }
     $(document).on('change','.content-search-room .content-loop-room .loop-room .option_number_room',function(){
         var container=$(this).closest('.content-search-room');
         var total_number_room = 0;

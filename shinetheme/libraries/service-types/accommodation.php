@@ -175,6 +175,13 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             add_filter('comment_form_fields',array($this,'_move_fields_comment_top'));
 
+            /**
+             * Add more params to cart items
+             *
+             * @since 1.0
+             * @author quandq
+             */
+            add_filter('wpbooking_cart_item_params_' . $this->type_id, array($this, '_change_cart_item_params'), 10, 2);
         }
 
 
@@ -513,8 +520,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'id'    => 'cancel_free_days_prior',
                             'type'  => 'dropdown',
                             'value' => array(
-
-                                '0'  => __('Day of arrival (6 pm)', 'wpbooking'),
+                                'day_of_arrival'  => __('Day of arrival (6 pm)', 'wpbooking'),
                                 '1'  => __('1 day', 'wpbooking'),
                                 '2'  => __('2 days', 'wpbooking'),
                                 '3'  => __('3 days', 'wpbooking'),
@@ -1899,6 +1905,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
         }
 
+        /**
+         *
+         */
         function search_room()
         {
             $hotel_id = get_the_ID();
@@ -1962,6 +1971,12 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
         }
 
+        /**
+         * @param $size
+         * @param $service_type
+         * @param $post_id
+         * @return array
+         */
         function _apply_thumb_size($size, $service_type, $post_id)
         {
             if ($service_type == $this->type_id) {
@@ -1978,11 +1993,18 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             return $size;
         }
 
+        /**
+         * @param bool $default
+         * @return bool|mixed|void
+         */
         function thumb_size($default = FALSE)
         {
             return $this->get_option('thumb_size_hotel', $default);
         }
 
+        /**
+         * @return array
+         */
         public function get_search_fields()
         {
             $taxonomy = get_object_taxonomies('wpbooking_service', 'array');
@@ -2097,6 +2119,98 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             unset($fields['comment']);
             $fields['comment'] = $comment_field;
             return $fields;
+        }
+
+        /**
+         * Add Specific params to cart item before adding to cart
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @param $cart_item
+         * @param bool|FALSE $post_id
+         * @return array
+         */
+        function _change_cart_item_params($cart_item, $post_id = FALSE)
+        {
+            /*$service = new WB_Service($cart_item['post_id']);
+            $calendar = WPBooking_Calendar_Model::inst();
+
+            $cart_item = wp_parse_args($cart_item, array(
+                'check_in_timestamp'  => FALSE,
+                'check_out_timestamp' => FALSE,
+            ));
+
+            $cart_item['guest'] = WPBooking_Input::post('guest');
+            $cart_item['monthly_rate'] = $service->get_meta('monthly_rate');
+            $cart_item['weekly_rate'] = $service->get_meta('weekly_rate');
+            $cart_item['enable_additional_guest_tax'] = $service->get_meta('enable_additional_guest_tax');
+            $cart_item['rate_based_on'] = $service->get_meta('rate_based_on');
+            $cart_item['additional_guest_money'] = $service->get_meta('additional_guest_money');
+            $cart_item['tax'] = $service->get_meta('tax');
+            $cart_item['deposit_type'] = $service->get_meta('deposit_type');
+            $cart_item['deposit_amount'] = $service->get_meta('deposit_amount');
+            $cart_item['default_extra_services'] = $service->get_extra_services();
+
+            if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
+                $cart_item['calendar_prices'] = $calendar->get_prices($cart_item['post_id'], $cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
+            }*/
+
+            $wpbooking_option_number_room = WPBooking_Input::post('wpbooking_option_number_room');
+            $extra_services = WPBooking_Input::post('wpbooking_extra');
+            var_dump($extra_services);
+            var_dump($wpbooking_option_number_room);
+            if(!empty($wpbooking_option_number_room)){
+                foreach($wpbooking_option_number_room as $k=>$v){
+                    $extra_service = array();
+                    if(!empty($extra_services[$k])){
+
+                    }
+                    $cart_item['rooms'][$k] = array(
+                        'room_id'=>$k,
+                        'extra_fees'=>array(
+                            'extra_service'=>array()
+                        )
+                    );
+                }
+            }
+
+            // Extra Services
+            /*$extra_services = WPBooking_Input::post('wpbooking_extra');
+            if (empty($extra_services)) {
+                // Get Default
+                $all_extra = $service->get_extra_services();
+                if (!empty($extra_services) and is_array($all_extra)) {
+                    foreach ($all_extra as $key => $value) {
+                        if ($value['require'] == 'yes' and $value['money'])
+                            $extra_services[] = array(
+                                'title'   => $value['title'],
+                                'money'   => $value['money'],
+                                'require' => 'yes',
+                                'number'  => 1
+                            );
+                    }
+                }
+            } else {
+                // Get Default
+                $all_extra = $service->get_extra_services();
+
+                // If _POST is not empty
+                foreach($extra_services as $key=>$value){
+
+                    // Remove Un exists from defaults
+                    if(!array_key_exists($key,$all_extra)) unset($extra_services[$key]);
+
+                    // Add Required
+                    if($all_extra[$key]['require']=='yes') $extra_services[$key]['require']='yes';
+                }
+            }
+            $cart_params['extra_services']=$extra_services;*/
+
+
+            var_dump($cart_item);
+
+            return $cart_item;
         }
 
 
