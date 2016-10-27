@@ -77,9 +77,34 @@ $hotel_id = get_the_ID();
 			</div>
 			<div class="col-service-reviews-meta">
 				<div class="wb-service-reviews-meta">
+                    <?php
+                    $review_score = WPBooking_Comment_Model::inst()->get_avg_review(get_the_ID());
+                    $count = WPBooking_Comment_Model::inst()->count_parent(get_the_ID());
+                    if($count > 0){
+                    ?>
                    <div class="wb-reviews-score-box wp-box-item">
-                        Reviews
+                        <?php
+
+                        if($review_score > 4){
+                            $str_rating = __('Excellent','wpbooking');
+                        }elseif($review_score > 3){
+                            $str_rating = __('Very Good','wpbooking');
+                        }elseif($review_score > 2){
+                            $str_rating = __('Average','wpbooking');
+                        }elseif($review_score > 1){
+                            $str_rating = __('Poor','wpbooking');
+                        }else{
+                            $str_rating = __('Terrible','wpbooking');
+                        }
+
+                        ?>
+                       <div class="score-header">
+                            <span class="reviews-count"><?php printf(_n('%s review','%s reviews',$count),$count); ?></span>
+                           <span class="rating-str"><?php echo esc_attr($str_rating); ?></span>
+                           <span class="review-score"><?php echo esc_attr($review_score)?></span> <span class="max-rating"><?php echo esc_html__('of 5 guest rating');?></span>
+                       </div>
                    </div>
+                    <?php } ?>
                     <div class="wb-contact-box wp-box-item">
                         <?php
                         $contact_meta = array(
@@ -130,15 +155,27 @@ $hotel_id = get_the_ID();
 				?>
 			</div>
 		</div>
+        <?php
+        $amenities = get_post_meta(get_the_ID(),'wpbooking_select_amenity',true);
+        if(!empty($amenities)){
+        ?>
         <div class="service-content-section">
             <h5 class="service-info-title"><?php esc_html_e('Amenities', 'wpbooing') ?></h5>
 
             <div class="service-content-wrap">
+                <ul class="wb-list-amenities">
                 <?php
-
+                foreach($amenities as $val){
+                    $amenity = get_term_by('id',$val,'wpbooking_amenity');
+                    if(!empty($amenity)){
+                        echo '<li><i class="fa fa-check-square-o"></i> &nbsp;'.$amenity->name.'</li>';
+                    }
+                }
                 ?>
+                </ul>
             </div>
         </div>
+        <?php } ?>
 		<div class="service-content-section">
 
 				<div class="search-room-availablity">
