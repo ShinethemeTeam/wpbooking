@@ -281,7 +281,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         ),
                         array(
                             'label'    => __("Amenity", 'wpbooking'),
-                            'id'       => 'wpbooking_amenity',
+                            'id'       => 'wpbooking_select_amenity',
                             'taxonomy' => 'wpbooking_amenity',
                             'type'     => 'taxonomy_fee_select',
                         ),
