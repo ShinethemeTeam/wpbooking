@@ -17,13 +17,19 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 session_start();
             }
 
-            add_action('wp_ajax_wpbooking_add_to_cart', array($this, 'add_to_cart'));
-            add_action('wp_ajax_nopriv_wpbooking_add_to_cart', array($this, 'add_to_cart'));
+            add_action('wp_ajax_wpbooking_add_to_cart', array($this, '_add_to_cart'));
+            add_action('wp_ajax_nopriv_wpbooking_add_to_cart', array($this, '_add_to_cart'));
 
             parent::__construct();
         }
 
+        /**
+         * Ajax Add To Cart Handler
+         * @since 1.0
+         * @return string
+         */
         function _add_to_cart(){
+
             $res = array();
 
             $post_id = WPBooking_Input::post('post_id');
@@ -43,18 +49,21 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $service = new WB_Service($post_id);
 
             $cart_params = array(
-                'post_id'              => $post_id,
-                'cart_key'              => md5($post_id . time() . rand(0, 999)),
-                'service_type'         => $service_type,
-                'price'           => get_post_meta($post_id, 'price', TRUE),
-                'currency'             => WPBooking_Currency::get_current_currency('currency'),
-                'deposit_amount'               => $service->get_meta('deposit_amount'),
-                'deposit_type'         => $service->get_meta('deposit_type'),
-                'sub_total'            => 0,
+                'post_id'                => $post_id ,
+                'cart_key'               => md5( $post_id . time() . rand( 0 , 999 ) ) ,
+                'service_type'           => $service_type ,
+                'price_base'                  => 0 ,
+                'currency'               => WPBooking_Currency::get_current_currency( 'currency' ) ,
+                'deposit_payment_status' => $service->get_meta( 'deposit_payment_status' ) ,
+                'deposit_payment_amount' => $service->get_meta( 'deposit_payment_amount' ) ,
+                'cancel_free_days_prior' => $service->get_meta( 'cancel_free_days_prior' ) ,
+                'cancel_guest_payment'   => $service->get_meta( 'cancel_guest_payment' ) ,
             );
 
+            var_dump($cart_params);
 
-            // Extra Services
+
+            /*// Extra Services
             $extra_services = WPBooking_Input::post('extra_services');
             if (empty($extra_services)) {
                 // Get Default
@@ -84,7 +93,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                     if($all_extra[$key]['require']=='yes') $extra_services[$key]['require']='yes';
                 }
             }
-            $cart_params['extra_services']=$extra_services;
+            $cart_params['extra_services']=$extra_services;*/
 
             // Convert Check In and Check Out to Timestamp if available
             if (!empty($fields['check_in']['value'])) {
@@ -129,7 +138,14 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
             die;
         }
-
+        /**
+         * Return permalink of the Cart Page
+         * @return false|string
+         */
+        function get_cart_url()
+        {
+            return get_permalink(wpbooking_get_option('cart_page'));
+        }
         static function inst()
         {
             if(!self::$_inst){

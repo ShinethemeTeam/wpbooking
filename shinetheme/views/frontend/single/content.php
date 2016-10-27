@@ -233,6 +233,8 @@ $hotel_id = get_the_ID();
 					<div class="search_room_alert"></div>
 					<div class="content-search-room">
 						<form method="post" onclick="return false" class="wpbooking_order_form">
+							<input name="action" value="wpbooking_add_to_cart" type="hidden">
+							<input name="post_id" value="<?php the_ID() ?>" type="hidden">
 							<div class="content-loop-room">
 								<?php
 								global $wp_query;
