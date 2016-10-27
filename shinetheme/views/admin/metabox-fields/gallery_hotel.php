@@ -68,7 +68,7 @@ if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
 $field .= '</div>';        
 
 $field .= '<div class="clearfix"><button style="margin-right: 10px;" id="" class="button-gallery-primary btn_upload_gallery_hotel mb10" type="button" name="">'. __("Add Gallery","wpbooking").'</button>';
-if( count( $tmp = explode(',', $old_data['gallery'] ) ) > 0 ){
+if(!empty($old_data['gallery']) and count( $tmp = explode(',', $old_data['gallery'] ) ) > 0 ){
     $field .= '<button class="btn_remove_gallery_hotel button-gallery-primary mb10" type="button" name="">'.__("Remove Gallery","wpbooking").'</button>';
 }
 

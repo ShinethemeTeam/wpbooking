@@ -1658,18 +1658,34 @@
               .wb-button-share{
                 font-size: 14px;
                 i{
-                  height: 27px;
+                  height: 29px;
                   width: 32px;
                   text-align: center;
                   padding-top: 7px;
                   background: @maincolor;
                   color: #FFFFFF;
+                  transition: all 0.3s;
+                  border: 1px solid @maincolor;
+                  border-right: none;
                 }
                 a{
                   border: 1px solid #cccccc;
                   border-left: none;
                   height: 27px;
-                  padding: 3px 15px;
+                  padding: 4px 15px;
+                  transition: all 0.3s;
+                }
+                &:hover{
+                  a{
+                    background: @maincolor;
+                    border-color: @maincolor;
+                    color: #FFF;
+                  }
+                  i{
+                    background: #FFF;
+                    border-color: #ccc;
+                    color: #333;
+                  }
                 }
               }
             }

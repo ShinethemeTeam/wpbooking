@@ -1624,18 +1624,32 @@ a.label:focus {
   font-size: 14px;
 }
 .single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-button-share i {
-  height: 27px;
+  height: 29px;
   width: 32px;
   text-align: center;
   padding-top: 7px;
   background: #f0ad4e;
   color: #FFFFFF;
+  transition: all 0.3s;
+  border: 1px solid #f0ad4e;
+  border-right: none;
 }
 .single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-button-share a {
   border: 1px solid #cccccc;
   border-left: none;
   height: 27px;
-  padding: 3px 15px;
+  padding: 4px 15px;
+  transition: all 0.3s;
+}
+.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-button-share:hover a {
+  background: #f0ad4e;
+  border-color: #f0ad4e;
+  color: #FFF;
+}
+.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-button-share:hover i {
+  background: #FFF;
+  border-color: #ccc;
+  color: #333;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section {
   margin-bottom: 30px;

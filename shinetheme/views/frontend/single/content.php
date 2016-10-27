@@ -253,7 +253,6 @@ $hotel_id = get_the_ID();
                         }
                         if($key == 'checkin_to' && empty($value)){
                             $checkin_html = str_replace('from ','',$checkin_html);
-                            $checkin_html = $checkin_html;
                         }
                     }
                 }
@@ -274,7 +273,7 @@ $hotel_id = get_the_ID();
                     }
                 }
                 $time_html = $checkin_html.'<br>'.$checkout_html;
-                if(!empty($time_html)) {
+                if(!empty($checkin_html) || !empty($checkout_html)) {
                     ?>
                     <div class="service-detail-item">
                         <div class="service-detail-title"><?php esc_html_e('Time', 'wpbooking') ?></div>
@@ -427,7 +426,7 @@ $hotel_id = get_the_ID();
 
 				<?php
                 $card = get_post_meta(get_the_ID(),'creditcard_accepted',true);
-                $cart_image = array(
+                $card_image = array(
                     'americanexpress' => '0 -145px',
                     'visa' => '0 1px',
                     'euromastercard' => '0 -24px',
@@ -447,7 +446,7 @@ $hotel_id = get_the_ID();
                         <ul class="wb-list-card-acd">
                             <?php foreach($card as $key => $val){
                                 if(!empty($val)){
-                                    echo '<li style="background-position: '.$cart_image[$key].'">';
+                                    echo '<li style="background-position: '.$card_image[$key].'">';
                                     echo '</li>';
                                 }
                             }?>
