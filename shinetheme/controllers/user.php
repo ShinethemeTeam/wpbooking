@@ -23,6 +23,14 @@ if (!class_exists('WPBooking_User')) {
             add_action('init', array($this, '_login_register_handler'));
 
             /**
+             * Do send email to retrieve password
+             *
+             * @since 1.0
+             * @author tienhd
+             */
+            add_action('init',array($this,'_retrieve_password'));
+
+            /**
              * Ajax Handler Upload Certificate before Register
              * @author dungdt
              * @since 1.0
@@ -126,14 +134,6 @@ if (!class_exists('WPBooking_User')) {
              * @author tienhd
              */
             add_filter('login_url',array($this,'redirect_login_url'));
-
-            /**
-             * Do send email to reset password
-             *
-             * @since 1.0
-             * @author tienhd
-             */
-            add_action('init',array($this,'_send_lost_password_email'));
 
         }
 
@@ -1212,12 +1212,17 @@ if (!class_exists('WPBooking_User')) {
         }
 
         /**
-         * Send email when lost password
+         * Retrieve password
+         *
+         * @since 1.0
+         * @author tienhd
          */
-        function _send_lost_password_email(){
-            if(is_user_logged_in()) return;
-            if(WPBooking_Input::post('wpbboking_lost_password') && wp_verify_nonce(WPBooking_Input::post('_wpnonce'),'wb-lost-password')){
-                echo 'ok';
+        function _retrieve_password(){
+            if(is_user_logged_in()) return false;
+            if(WPBooking_Input::post('action') == 'wpbooking_lost_pass' && wp_verify_nonce( WPBooking_Input::post('_wpnonce'), 'wb_lost_password' )){
+                $user_login = WPBooking_Input::post('user_login');
+
+
             }
         }
 
@@ -1244,7 +1249,6 @@ if (!class_exists('WPBooking_User')) {
             }else {
                 return $logouturl;
             }
-
         }
         /**
          * redirect login url
@@ -1258,7 +1262,6 @@ if (!class_exists('WPBooking_User')) {
             }else {
                 return $login_url;
             }
-
         }
         /**
          * List Preferred Language
