@@ -14,6 +14,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
         private static $_inst;
         private $service_types = array();
+        private $all_services_instance=array();
 
         function __construct()
         {
@@ -460,9 +461,9 @@ if (!class_exists('WPBooking_Service_Controller')) {
                 $details = $this->post('wpbooking_review_detail');
                 if (!empty($details) and is_array($details)) {
                     $total = 0;
-                    foreach ($details as $val) {
+                    foreach ($details as $key=>$val) {
                         $total += $val['rate'];
-                        update_comment_meta($comment_id, 'wpbooking_review_'.sanitize_title($val['title']), $val['rate']);
+                        update_comment_meta($comment_id, 'wpbooking_review_stats_'.$key, $val['rate']);
                     }
                     $wpbooking_review = ($total) / count($details);
                 }
@@ -520,7 +521,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
          * @author dungdt
          *
          * @param bool|FALSE $type
-         * @return bool|object
+         * @return WPBooking_Abstract_Service_Type
          */
         function get_service_type($type = FALSE)
         {
@@ -666,6 +667,27 @@ if (!class_exists('WPBooking_Service_Controller')) {
             $template=get_template();
             $class[]=$template;
             return $class;
+        }
+
+
+        /**
+         * Get Service Instance By ID, allow cached instance
+         *
+         * @author dungdt
+         * @since 1.0
+         *
+         * @param bool $post_id
+         * @return WB_Service
+         */
+        function get_service_instance($post_id=false){
+            if(!$post_id)$post_id =get_the_ID();
+
+            // Check Instance Exists
+            if(!array_key_exists($post_id,$this->all_services_instance)){
+                $this->all_services_instance[$post_id]=new WB_Service($post_id);
+            }
+
+            return $this->all_services_instance[$post_id];
         }
 
 		static function inst()

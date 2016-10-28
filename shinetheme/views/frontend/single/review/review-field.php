@@ -5,7 +5,8 @@
  * Date: 3/30/2016
  * Time: 4:01 PM
  */
-$wpbooking_review_stats=apply_filters('wpbooking_review_stats',array(),get_the_ID());
+$service=wpbooking_get_service();
+$wpbooking_review_stats=$service->get_review_stats();
 ?>
 <div class="wpbooking-comment-form-rating">
 	<p class="comment-form-review">
