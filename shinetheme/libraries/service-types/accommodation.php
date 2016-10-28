@@ -748,7 +748,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 ),
                 array(
                     'label' => esc_html__('Room Number', 'wpbooking'),
-                    'type'  => 'text',
+                    'type'  => 'number',
                     'id'    => 'room_number',
                     'class' => 'small',
                     'desc'  => __("Out of 2 rooms at your property", 'wpbooking'),

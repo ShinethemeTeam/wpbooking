@@ -295,7 +295,7 @@ $hotel_id = get_the_ID();
 							</div>
 							<div class="content-info">
 								<div class="content-price">
-									<div class="number"><span class="info_number">0</span> <?php esc_html_e('rooms selected','wpbooking') ?></div>
+									<div class="number"><span class="info_number">0</span> <?php esc_html_e('room(s) selected','wpbooking') ?></div>
 									<div class="price"><span class="info_price">0</span></div>
 									<button type="button" class="wb-button submit-button"><?php esc_html_e("BOOK NOW",'wpbooking') ?></button>
 								</div>

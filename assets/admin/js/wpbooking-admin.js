@@ -1624,6 +1624,7 @@ jQuery(document).ready(function( $ ){
                 $('#bed_rooms').trigger("change");
                 $('#living_rooms').trigger("change");
                 $('#room_name').trigger("keypress");
+                $('input[type=number]').trigger("change");
 
                 if(res.message){ alert(res.message);}
             },
@@ -1733,4 +1734,15 @@ jQuery(document).ready(function( $ ){
         form.find('[name=report_type]').val($(this).data('range'));
         form.submit();
     });
+
+    $(document).on('change','input[type=number]',function(){
+        var number = $(this).val();
+        number = parseFloat(number);
+        console.log(number);
+        if (isNaN(number)) {
+            number = 0;
+        }
+        $(this).val(number);
+    });
+
 });
