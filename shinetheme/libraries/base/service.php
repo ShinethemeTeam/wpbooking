@@ -284,14 +284,29 @@ if (!class_exists('WB_Service')) {
 		}
 
         /**
-         * get average of a rating
-         * @param $rating_title
+         * get average of a stats
+         *
+         * @author tien
+         * @since 1.0
+         *
+         * @param $term_id
          * @return mixed|string|void
          */
-		function get_avg_rating($rating_title){
+		function get_stats_avg_rating($term_id){
             if($this->ID){
-                $avg = wpbooking_service_get_avg_rating($this->ID,$rating_title);
-                return $avg;
+                global $wpdb;
+
+                $model=WPBooking_Comment_Model::inst();
+                $res= $model->select('AVG('.$wpdb->commentmeta.'.meta_value) as average')
+                    ->join('commentmeta','commentmeta.comment_id=comments.comment_ID')
+                    ->where(array(
+                        'comment_post_ID'=>$this->ID,
+                        'comment_parent'=>0,
+                        'comment_approved'=>1,
+                        $wpdb->commentmeta.'.meta_key'=>'wpbooking_review_stats_'.($term_id)
+                    ))->get()->row();
+
+                return (!empty($res['average']))?$res['average']:false;
             }
         }
 
@@ -666,6 +681,19 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
+        /**
+         * Get Reviews Stats Based on Service Type
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         */
+		function get_review_stats()
+        {
+            $wpbooking_review_stats=apply_filters('wpbooking_review_stats',array(),$this->ID);
+
+            return $wpbooking_review_stats;
+        }
 
 	}
 }

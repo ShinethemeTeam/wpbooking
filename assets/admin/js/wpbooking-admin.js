@@ -1124,8 +1124,7 @@ jQuery(document).ready(function( $ ){
                         if(typeof res.extra_fields!='undefined' && typeof res.extra_fields.icon !='undefined'){
                             extra_html+='<span class="icon"><i class="'+res.extra_fields.icon+'"></i></span>';
                         }
-
-                        list_terms.append('<div class="term-checkbox"><label><input type="checkbox" name="'+input_name+'['+tax_name+'][]" value="'+res.data.term_id+'">'+extra_html+'<span>'+res.data.name+'</span></label></div>')
+                        list_terms.append('<div class="term-checkbox"><label><input type="checkbox" name="'+input_name+'[]" value="'+res.data.term_id+'">'+extra_html+'<span>'+res.data.name+'</span></label></div>')
                     }
                     parent.find('.term-name').val('');
                 }

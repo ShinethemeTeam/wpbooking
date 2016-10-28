@@ -10,7 +10,7 @@ if (post_password_required()) {
 	echo get_the_password_form();
 	return;
 }
-$service = new WB_Service();
+$service = wpbooking_get_service();
 $service_type=$service->get_type();
 $hotel_id = get_the_ID();
 ?>
@@ -97,7 +97,7 @@ $hotel_id = get_the_ID();
                             $str_rating = esc_html__('Terrible','wpbooking');
                         }
 
-                        $wpbooking_review_stats=apply_filters('wpbooking_review_stats',array(),get_the_ID());
+                        $wpbooking_review_stats=$service->get_review_stats();
 
                         ?>
                        <div class="score-header">
@@ -108,7 +108,7 @@ $hotel_id = get_the_ID();
                        <?php if($wpbooking_review_stats){ ?>
                        <ul class="list_review_fields">
                            <?php foreach($wpbooking_review_stats as $key => $value) {
-                               $rating_score = $service->get_avg_rating($value['title']);
+                               $rating_score = $service->get_stats_avg_rating($key);
                                if ($rating_score) {
                                    ?>
                                    <li>

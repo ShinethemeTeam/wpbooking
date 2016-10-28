@@ -58,7 +58,7 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 		 * @author dungdt
 		 *
 		 * @param bool|FALSE $gateway_id
-		 * @return bool|object
+		 * @return WPBooking_Abstract_Payment_Gateway
 		 */
 		function get_gateway($gateway_id=FALSE)
 		{
