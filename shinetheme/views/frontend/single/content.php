@@ -132,13 +132,13 @@ $hotel_id = get_the_ID();
                        <?php } ?>
                    </div>
                     <?php } ?>
-                    <div class="wb-contact-box wp-box-item">
                         <?php
                         $contact_meta = array(
                             'contact_number' => 'fa-phone',
                             'contact_email' => 'fa-envelope',
                             'website' => 'fa-home',
                         );
+                        $html = '';
                         foreach($contact_meta as $key => $val) {
                             if ($value = get_post_meta(get_the_ID(), $key, true)) {
                                 switch($key){
@@ -150,16 +150,16 @@ $hotel_id = get_the_ID();
                                         $value = '<a href="'.$value.'">'.$value.'</a>';
                                         break;
                                 }
-                                ?>
-                                <div class="wb-meta-contact">
-                                    <i class="fa <?php echo esc_attr($val); ?> wb-icon-contact"></i>
-                                    <span><?php echo ($value) ?></span>
-                                </div>
-                                <?php
+                                $html .= '<div class="wb-meta-contact">
+                                    <i class="fa '.$val.' wb-icon-contact"></i>
+                                    <span>'.$value.'</span>
+                                </div>';
                             }
                         }
+                        if(!empty($html)){
+                            echo '<div class="wb-contact-box wp-box-item">'.$html.'</div>';
+                        }
                         ?>
-                    </div>
                     <div class="wb-share">
                         <div class="wb-button-share">
                             <i class="fa fa-share-alt"></i><a href="#"><?php esc_html_e('Share','wpbooking'); ?></a>

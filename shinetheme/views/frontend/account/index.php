@@ -5,6 +5,7 @@
  * Date: 6/22/2016
  * Time: 3:32 PM
  */
+global $wp_query;
 ?>
 <div class="wpbooking-myaccount-wrap">
 	<?php
@@ -19,7 +20,11 @@
 		echo "<div class='wpbooking-account-tab ".$tab."'>";
 		echo wpbooking_load_view('account/tabs/'.$tab);
 		echo "</div>";
-	}else{
+	}elseif(isset($wp_query->query_vars['lost-password'])){
+        echo '<div class="wb-account-reset-pass">';
+        echo wpbooking_load_view('account/lost-password');
+        echo '</div';
+    }else{
 		?>
 		<div class="row">
 			<div class="col-sm-6"><?php echo wpbooking_load_view('account/login') ?></div>
