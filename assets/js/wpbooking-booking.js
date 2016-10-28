@@ -1860,6 +1860,34 @@ jQuery(document).ready(function($){
 
     $('.wb-tabs').wb_tabs();
 
+    $.fn.extend({
+        slideRight: function() {
+            return this.each(function() {
+                jQuery(this).animate({width: 'show'});
+            });
+        },
+        slideLeft: function() {
+            return this.each(function() {
+                jQuery(this).animate({width: 'hide'});
+            });
+        },
+        slideToggleWidth: function() {
+            return this.each(function() {
+                var el = jQuery(this);
+                if (el.css('display') == 'none') {
+                    el.slideRight();
+                } else {
+                    el.slideLeft();
+                }
+            });
+        }
+    });
+
+    $('.wb-button-share a').click(function (e) {
+        $('.wb-list-social').toggleClass('move');
+        e.preventDefault();
+    });
+
 });
 
 
