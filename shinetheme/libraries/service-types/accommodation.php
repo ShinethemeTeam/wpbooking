@@ -800,7 +800,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 array(
                     'type'  => 'title',
                     'label' => __('Extra Services', 'wpbooking'),
-                    'desc'  => esc_html__('Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium', 'wpbooking')
+                    'desc'  => esc_html__('Thiết lập các dịch vụ mở rộng cho tài sản của bạn', 'wpbooking')
                 ),
                 array(
                     'type'           => 'extra_services',

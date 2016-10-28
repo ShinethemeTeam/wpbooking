@@ -44,7 +44,7 @@ $query = new WP_Query(array(
             <p class="field-desc"><?php echo esc_html($data['desc']) ?></p>
             <div class="wp-room-actions top">
                 <div class="room-create top">
-                    <a href="#" data-hotel-id="<?php echo esc_attr($post_id)?> " class="create-room"><?php esc_html_e('Create Room','wpbooking') ?></a>
+                    <a href="#" data-hotel-id="<?php echo esc_attr($post_id)?> " class="create-room"><?php esc_html_e('Create New Room','wpbooking') ?></a>
                 </div>
             </div>
             <div class="wb-room-list">
@@ -91,9 +91,17 @@ $query = new WP_Query(array(
             </div>
             <div class="wp-room-actions">
                 <div class="room-create">
-                    <a href="#" data-hotel-id="<?php echo esc_attr($post_id)?> " class="create-room"><?php esc_html_e('Create Room','wpbooking') ?></a>
+                    <a href="#" data-hotel-id="<?php echo esc_attr($post_id)?> " class="create-room"><?php esc_html_e('Create New Room','wpbooking') ?></a>
                 </div>
-                <div class="room-count"><?php printf(__('There are %s in your listing','wpbooking'),$query->found_posts?'<span class="n text-color">'.$query->found_posts.'</span> <b>'.esc_html__('rooms','wpbooking').'</b>':'<b>'.esc_html__('no room','wpbooking').'</b>'); ?></div>
+                <div class="room-count">
+                    <?php
+                    if($query->found_posts>1){
+                        printf(__('There are %s in your listing','wpbooking'),$query->found_posts?'<span class="n text-color">'.$query->found_posts.'</span> <b>'.esc_html__('rooms','wpbooking').'</b>':'<b>'.esc_html__('no room','wpbooking').'</b>');
+                    }else{
+                        printf(__('There is %s in your listing','wpbooking'),$query->found_posts?'<span class="n text-color">'.$query->found_posts.'</span> <b>'.esc_html__('rooms','wpbooking').'</b>':'<b>'.esc_html__('no room','wpbooking').'</b>');
+                    }
+                   ?>
+                </div>
             </div>
             <div class="room-item-default hidden">
                 <div class="room-item">
