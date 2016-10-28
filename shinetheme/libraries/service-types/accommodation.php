@@ -184,13 +184,13 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             add_filter('wpbooking_cart_item_params_' . $this->type_id, array($this, '_change_cart_item_params'), 10, 2);
 
             /**
-             * Change Cart Item Price
+             * validate add to cart
              *
              * @since 1.0
              * @author quandq
              *
              */
-            add_filter('wpbooking_cart_item_price_' . $this->type_id, array($this, '_change_cart_item_price'), 10, 3);
+            add_filter('wpbooking_add_to_cart_validate_' . $this->type_id, array($this, '_add_to_cart_validate'), 10, 4);
         }
 
 
@@ -2167,6 +2167,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             }*/
 
             $service = new WB_Service($cart_item['post_id']);
+            $calendar = WPBooking_Calendar_Model::inst();
+            $cart_item = wp_parse_args($cart_item, array(
+                'check_in_timestamp'  => FALSE,
+                'check_out_timestamp' => FALSE,
+            ));
 
             $wpbooking_option_number_room = WPBooking_Input::post('wpbooking_option_number_room');
             $extra_services = WPBooking_Input::post('wpbooking_extra');
@@ -2187,57 +2192,124 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                 }
                             }
                         }
+
                         $cart_item['rooms'][$k] = array(
                             'room_id'=>$k,
                             'extra_fees'=>array(
                                 'extra_service'=>$extra_service
                             )
                         );
+                        if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
+                            $cart_item['rooms'][$k]['calendar_prices'] = $calendar->get_prices( $k , $cart_item[ 'check_in_timestamp' ] , $cart_item[ 'check_out_timestamp' ] );
+                        }
+
                     }
                 }
             }
 
-
             return $cart_item;
         }
-
         /**
-         * Change Cart Item Price Hook Callback - Calculate Price Right-in-time
+         * Calendar Validate Before Add To Cart
          *
-         * @author quandq
+         * @author dungdt
          * @since 1.0
          *
-         * @param $price
-         * @param $cart_item
-         * @param $args
-         * @return float
+         * @param $is_validated
+         * @param $service_type
+         * @param $post_id
+         * @return mixed
          */
-        function _change_cart_item_price($price, $cart_item, $args = array())
+        function _add_to_cart_validate($is_validated, $service_type, $post_id, $cart_params)
         {
 
-            $cart_item = wp_parse_args($cart_item, array(
-                'extra_services'              => array(),
-                'check_in_timestamp'          => FALSE,
-                'check_out_timestamp'         => FALSE,
-                'post_id'                     => FALSE,
-                'guest'                       => FALSE,
-                'monthly_rate'                => FALSE,
-                'weekly_rate'                 => FALSE,
-                'calendar_prices'             => array(),
-                'enable_additional_guest_tax' => '',
-                'rate_based_on'               => FALSE,
-                'additional_guest_money'      => FALSE,
-                'tax'                         => FALSE
-            ));
 
-            if ($coupon_code = WPBooking_Order::inst()->get_cart_coupon()) {
-                $coupon = new WB_Coupon($coupon_code);
-                $cart_item['coupon_code'] = $coupon_code;
-                $cart_item['coupon_data'] = $coupon->get_full_data();
+            $service = new WB_Service($post_id);
+
+            $check_in = WPBooking_Input::post('wpbooking_check_in');
+            $check_out = WPBooking_Input::post('wpbooking_check_out');
+            $wpbooking_option_number_room = WPBooking_Input::post('wpbooking_option_number_room');
+            $check_number_room = false;
+            if(!empty($wpbooking_option_number_room)) {
+                foreach( $wpbooking_option_number_room as $k => $v ) {
+                    if(!empty( $v )) {
+                        $check_number_room = true;
+                    }
+                }
+            }
+            if(empty($check_number_room)){
+                wpbooking_set_message(esc_html__("Please select room","wpbooking"));
+                $is_validated = FALSE;
+                return $is_validated;
             }
 
-            return $this->change_price($price, $cart_item, $args);
+            if(empty($check_in) and empty($check_out)){
+                wpbooking_set_message(esc_html__("Please select Check-in and Check-out date","wpbooking"));
+                $is_validated = FALSE;
+                return $is_validated;
+            }
+            if(empty($check_in)){
+                wpbooking_set_message(esc_html__("Please select Check-in date","wpbooking"));
+                $is_validated = FALSE;
+                return $is_validated;
+            }
+            if(empty($check_out)){
+                wpbooking_set_message(esc_html__("Please select Check-out date","wpbooking"));
+                $is_validated = FALSE;
+                return $is_validated;
+            }
+
+            if ($check_in) {
+
+                $check_in_timestamp = strtotime($check_in);
+
+                if ($check_out) {
+                    $check_out_timestamp = strtotime($check_out);
+                } else {
+                    $check_out_timestamp = $check_in_timestamp;
+                }
+                $res = $service->check_availability($check_in_timestamp, $check_out_timestamp);
+
+                if (!$res['status']) {
+                    $is_validated = FALSE;
+
+                    // If there are some day not available, return the message
+                    if (!empty($res['can_not_check_in'])) {
+                        wpbooking_set_message(sprintf("You can not check-in at: %s", 'wpbooking'), date(get_option('date_format'), $check_in_timestamp));
+                    }
+                    if (!empty($res['can_not_check_out'])) {
+                        wpbooking_set_message(sprintf("You can not check-out at: %s", 'wpbooking'), date(get_option('date_format'), $check_out_timestamp));
+                    }
+
+                    if (!empty($res['unavailable_dates'])) {
+                        $message = esc_html__("Those dates are not available: %s", 'wpbooking');
+                        $not_avai_string = FALSE;
+                        foreach ($res['unavailable_dates'] as $k => $v) {
+                            $not_avai_string .= date(get_option('date_format'), $v) . ', ';
+                        }
+                        $not_avai_string = substr($not_avai_string, 0, -2);
+
+                        wpbooking_set_message(sprintf($message, $not_avai_string), 'error');
+                    }
+
+                }
+
+                // Validate Minimum Stay
+                if ($check_in_timestamp and $check_out_timestamp) {
+                    $minimum_stay = $service->get_minimum_stay();
+                    $dDiff = wpbooking_timestamp_diff_day($check_in_timestamp, $check_out_timestamp);
+                    if ($dDiff < $minimum_stay) {
+                        $is_validated = FALSE;
+                        wpbooking_set_message(sprintf(esc_html__('Minimum stay is %s day(s)', 'wpbooking'), $minimum_stay), 'error');
+                    }
+                }
+
+            }
+
+
+            return $is_validated;
         }
+
 
         static function inst()
         {

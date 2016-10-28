@@ -220,14 +220,15 @@ $hotel_id = get_the_ID();
 							<h5 class="service-info-title"><?php esc_html_e('Check availablity', 'wpbooing') ?></h5>
 							<div class="form-search">
 								<div class="form-item w20 form-item-icon">
-									<label><?php esc_html_e('Check In', 'wpbooing') ?></label>
-									<input class="form-control wpbooking-search-start" type="text" name="check_in" placeholder="<?php esc_html_e('Check In', 'wpbooing') ?>">
-									<i class="fa fa-calendar"></i>
+									<label><?php esc_html_e('Check In', 'wpbooing') ?><i class="fa fa-calendar"></i>
+                                        <input type="text" class="form-control wpbooking-search-start" value="<?php echo WPBooking_Input::request('check_in') ?>" name="check_in" placeholder="<?php esc_html_e('Check In', 'wpbooing') ?>">
+                                    </label>
 								</div>
 								<div class="form-item w20 form-item-icon">
-									<label><?php esc_html_e('Check Out', 'wpbooing') ?></label>
-									<input class="form-control wpbooking-search-end" type="text" name="check_out" placeholder="<?php esc_html_e('Check Out', 'wpbooing') ?>">
-									<i class="fa fa-calendar"></i>
+									<label><?php esc_html_e('Check Out', 'wpbooing') ?>
+                                        <input type="text" class="form-control wpbooking-search-end" value="<?php echo WPBooking_Input::request('check_out') ?>"  name="check_out" placeholder="<?php esc_html_e('Check Out', 'wpbooing') ?>">
+                                        <i class="fa fa-calendar"></i>
+                                    </label>
 								</div>
 								<div class="form-item w20">
 									<label><?php esc_html_e('Rooms', 'wpbooing') ?></label>

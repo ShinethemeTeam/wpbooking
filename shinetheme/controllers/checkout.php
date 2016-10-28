@@ -53,21 +53,19 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 'cart_key'               => md5( $post_id . time() . rand( 0 , 999 ) ) ,
                 'service_type'           => $service_type ,
                 'currency'               => WPBooking_Currency::get_current_currency( 'currency' ) ,
-                'cancel_free_days_prior' => $service->get_meta( 'cancel_free_days_prior' ) ,
-                'cancel_guest_payment'   => $service->get_meta( 'cancel_guest_payment' ) ,
                 'price_base'             => 0 ,
                 'discount'               => array() ,
             );
 
-            $cart_params['tax']['vat_excluded'] = $service->get_meta('vat_excluded');
+            $cart_params['tax']['vat']['vat_excluded'] = $service->get_meta('vat_excluded');
             if($service->get_meta('vat_excluded') != 'no'){
-                $cart_params['tax']['vat_amount'] = $service->get_meta('vat_amount');
-                $cart_params['tax']['vat_unit'] = $service->get_meta('vat_unit');
+                $cart_params['tax']['vat']['vat_amount'] = $service->get_meta('vat_amount');
+                $cart_params['tax']['vat']['vat_unit'] = $service->get_meta('vat_unit');
             }
-            $cart_params['tax']['citytax_excluded'] = $service->get_meta('citytax_excluded');
+            $cart_params['tax']['citytax']['citytax_excluded'] = $service->get_meta('citytax_excluded');
             if($service->get_meta('citytax_excluded') != 'no'){
-                $cart_params['tax']['citytax_amount'] = $service->get_meta('citytax_amount');
-                $cart_params['tax']['citytax_unit'] = $service->get_meta('citytax_unit');
+                $cart_params['tax']['citytax']['citytax_amount'] = $service->get_meta('citytax_amount');
+                $cart_params['tax']['citytax']['citytax_unit'] = $service->get_meta('citytax_unit');
             }
             $cart_params['deposit']['deposit_payment_status'] = $service->get_meta('deposit_payment_status');
             if($service->get_meta('deposit_payment_status') != ''){
@@ -129,7 +127,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $is_validate = apply_filters('wpbooking_add_to_cart_validate_' . $service_type, $is_validate, $service_type, $post_id,$cart_params);
 
 
-            //var_dump($cart_params);
+            var_dump($cart_params);
             if (!$is_validate) {
                 $res['status'] = FALSE;
                 $res['message'] = wpbooking_get_message(TRUE);
