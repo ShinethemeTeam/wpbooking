@@ -505,7 +505,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
          * @author dungdt
          * @since 1.0
          *
-         * @return mixed|void
+         * @return WPBooking_Abstract_Service_Type[]
          */
         function get_service_types()
         {

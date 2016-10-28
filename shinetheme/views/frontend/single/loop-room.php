@@ -17,6 +17,7 @@ $hotel_id = wp_get_post_parent_id(get_the_ID());
         }
         echo wp_get_attachment_image($image_id,array(150,150));
         ?>
+        &nbsp;
     </div>
     <div class="room-content">
         <div class="room-title">
@@ -61,10 +62,12 @@ $hotel_id = wp_get_post_parent_id(get_the_ID());
                     $html = '';
                     foreach($facilities as $taxonomy=>$term_ids){
                         $rental_features = get_taxonomy( $taxonomy );
-                        echo '<div class="title">'.$rental_features->labels->name.': </div>';
-                        foreach($term_ids as $key=>$value){
-                            $term = get_term($value,$taxonomy);
-                            $html .= $term->name.", ";
+                        if(!empty($term_ids)){
+                            echo '<div class="title">'.$rental_features->labels->name.': </div>';
+                            foreach($term_ids as $key=>$value){
+                                $term = get_term($value,$taxonomy);
+                                $html .= $term->name.", ";
+                            }
                         }
                     }
                     $html = substr($html,0,-2);
@@ -84,8 +87,14 @@ $hotel_id = wp_get_post_parent_id(get_the_ID());
         <div class="room-number">
             <select class="form-control option_number_room" name="wpbooking_option_number_room[<?php the_ID() ?>]" data-price-base="<?php echo esc_attr($price) ?>">
                 <?php
-                for($i=0;$i<20;$i++){
-                    echo "<option value='{$i}'>{$i}</option>";
+                $max_room = get_post_meta(get_the_ID(),'room_number',true);
+                if(empty($max_room))$max_room=20;
+                for($i=0;$i<=$max_room;$i++){
+                    if($i>1){
+                        echo "<option value='{$i}'>{$i} ".esc_html__("rooms","wpbooking")."</option>";
+                    }else{
+                        echo "<option value='{$i}'>{$i} ".esc_html__("room","wpbooking")."</option>";
+                    }
                 }
                 ?>
             </select>
@@ -209,15 +218,17 @@ $hotel_id = wp_get_post_parent_id(get_the_ID());
                     <?php
                     foreach($facilities as $taxonomy=>$term_ids){
                         $rental_features = get_taxonomy( $taxonomy );
-                        echo '<div class="title">'.$rental_features->labels->name.'</div>';
-                        foreach($term_ids as $key=>$value){
-                            $term = get_term($value,$taxonomy);
-                            ?>
-                            <div class="item col-33">
-                                <input type="checkbox" checked onclick="return false">
-                                <?php echo esc_html($term->name) ?>
-                            </div>
-                            <?php
+                        if(!empty($term_ids)){
+                            echo '<div class="title">'.$rental_features->labels->name.'</div>';
+                            foreach($term_ids as $key=>$value){
+                                $term = get_term($value,$taxonomy);
+                                ?>
+                                <div class="item col-33">
+                                    <input type="checkbox" checked onclick="return false">
+                                    <?php echo esc_html($term->name) ?>
+                                </div>
+                                <?php
+                            }
                         }
                     }
                 } ?>

@@ -211,7 +211,11 @@ $hotel_id = get_the_ID();
         </div>
         <?php } ?>
 		<div class="service-content-section">
-
+			<?php
+			global $wp_query;
+			WPBooking_Accommodation_Service_Type::inst()->search_room();
+			if(have_posts()) {
+			?>
 				<div class="search-room-availablity">
 					<form method="post" name="form-search-room" class="form-search-room">
 						<?php wp_nonce_field('room_search','room_search')?>
@@ -276,10 +280,7 @@ $hotel_id = get_the_ID();
 							<input name="wpbooking_adults" class="form_book_adults"  type="hidden">
 							<input name="wpbooking_children" class="form_book_children"  type="hidden">
 							<div class="content-loop-room">
-								<?php
-								global $wp_query;
-								WPBooking_Accommodation_Service_Type::inst()->search_room();
-								?>
+
 								<?php
 								if(have_posts()) {
 									while( have_posts() ) {
@@ -294,7 +295,7 @@ $hotel_id = get_the_ID();
 							</div>
 							<div class="content-info">
 								<div class="content-price">
-									<div class="number"><span class="info_number">0</span> <?php esc_html_e('rooms selected','wpbooking') ?></div>
+									<div class="number"><span class="info_number">0</span> <?php esc_html_e('room(s) selected','wpbooking') ?></div>
 									<div class="price"><span class="info_price">0</span></div>
 									<button type="button" class="wb-button submit-button"><?php esc_html_e("BOOK NOW",'wpbooking') ?></button>
 								</div>
@@ -302,7 +303,7 @@ $hotel_id = get_the_ID();
 						</form>
 					</div>
 				</div>
-
+			<?php } ?>
 		</div>
 		<div class="service-content-section">
 			<h5 class="service-info-title"><?php esc_html_e('Accommodation Policies', 'wpbooing') ?></h5>

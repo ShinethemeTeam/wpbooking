@@ -1079,6 +1079,9 @@ jQuery(document).ready(function( $ ){
                 if(res.message){
                     alert(message);
                 }
+                if(section.find('input[name=wb_meta_section]').val()=="photo_tab"){
+                    wpbooking_reload_image_room(section.find('input,select,textarea'));
+                }
 
                 section.removeClass('loading');
             },
@@ -1090,6 +1093,25 @@ jQuery(document).ready(function( $ ){
         })
     }
 
+    function wpbooking_reload_image_room(data) {
+        console.log(data.name);
+        data = data.serialize()
+        data+='&action=wpbooking_reload_image_list_room';
+        $.ajax({
+            url:wpbooking_params.ajax_url,
+            data:data,
+            dataType:'json',
+            type:'post',
+            success:function(res){
+                if(res){
+                    for(var room_id in res) {
+                        var image = res[room_id];
+                        $('.item-hotel-room-'+room_id).find('.room-image').html(image);
+                    }
+                }
+            },
+        })
+    }
     // Ajax Create Term
    // $('.wb-btn-add-term').click(function(){
     $(document).on('click','.wb-btn-add-term',function(){
@@ -1602,6 +1624,7 @@ jQuery(document).ready(function( $ ){
                 $('#bed_rooms').trigger("change");
                 $('#living_rooms').trigger("change");
                 $('#room_name').trigger("keypress");
+                $('input[type=number]').trigger("change");
 
                 if(res.message){ alert(res.message);}
             },
@@ -1690,5 +1713,36 @@ jQuery(document).ready(function( $ ){
         }
     });*/
 
+    $('.check_all_service_type').change(function(){
+
+       if($(this).attr('checked')=='checked'){
+           $(this).closest('li').siblings().find('input:checkbox').attr('checked','checked')
+       }else{
+           $(this).closest('li').siblings().find('input:checkbox').removeAttr('checked');
+       }
+    });
+
+    $('.datepicker_start').datepicker();
+    $('.datepicker_end').datepicker();
+
+    $('.do-search').click(function () {
+        $(this).closest('.report-form').submit();
+    });
+    $('.change-report').click(function () {
+        var form=$(this).closest('.report-form');
+        form.find('.filter-date input').val('');
+        form.find('[name=report_type]').val($(this).data('range'));
+        form.submit();
+    });
+
+    $(document).on('change','input[type=number]',function(){
+        var number = $(this).val();
+        number = parseFloat(number);
+        console.log(number);
+        if (isNaN(number)) {
+            number = 0;
+        }
+        $(this).val(number);
+    });
 
 });

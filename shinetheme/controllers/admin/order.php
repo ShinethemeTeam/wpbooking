@@ -36,54 +36,29 @@ if (!class_exists('WPBooking_Admin_Order')) {
 		function _apply_change_form()
 		{
 
-			// Validate Permission
-			if (!is_user_logged_in() or !current_user_can('manage_options')) return;
+		}
 
-			$order_model = WPBooking_Order_Model::inst();
-			if (WPBooking_Input::get('wpbooking_apply_changes') and $action = WPBooking_Input::get('action')) {
-				$items = WPBooking_Input::get('wpbooking_order_item');
-				if (empty($items)) {
-					wpbooking_set_message(esc_html__('You did not select any order item', 'wpbooking'), 'danger');
+		/**
+		 * Get Report Data for Report Tab
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return array
+		 */
+		function get_report_data(){
+			$res=array();
+			$date_from=$this->get('date_from');
+			$date_to=$this->get('date_to');
+			$res['chart_data']['labels']=array(esc_html__("January",'wpbooking'), esc_html__("February",'wpbooking'), esc_html__("March",'wpbooking'), esc_html__("April",'wpbooking'), esc_html__("May",'wpbooking'), esc_html__("June",'wpbooking'),esc_html__("July",'wpbooking'),esc_html__("August",'wpbooking'),esc_html__("September",'wpbooking'),esc_html__("October",'wpbooking'),esc_html__("November",'wpbooking'),esc_html__("December",'wpbooking'));
 
-					return;
-				}
-
-				switch ($action) {
-					case "cancel_booking":
-						foreach ($items as $item) {
-							$order_model->where('id', $item)->update(array('status' => 'cancelled'));
-						}
-						break;
-					case "complete_booking":
-						foreach ($items as $item) {
-							$order_model->where('id', $item)->update(array('status' => 'completed'));
-						}
-						break;
-					case "refunded_booking":
-						foreach ($items as $item) {
-							$order_model->where('id', $item)->update(array('status' => 'refunded'));
-						}
-						break;
-					case "onhold_booking":
-						foreach ($items as $item) {
-							$order_model->where('id', $item)->update(array('status' => 'on-hold'));
-						}
-						break;
-					case "trash":
-						foreach ($items as $item) {
-							$order_model->where('id', $item)->update(array('status' => 'trash'));
-						}
-						break;
-					case "permanently_delete":
-						foreach ($items as $item) {
-							$order_model->where('id', $item)->delete();
-						}
-						break;
-				}
-
-				wpbooking_set_admin_message(esc_html__('Saved successfully', 'wpbooking'), 'success');
+			if($date_from and $date_to){
 
 			}
+
+			$res['chart_data'];
+
+			return $res;
 		}
 
 		function _add_booking_menupage()

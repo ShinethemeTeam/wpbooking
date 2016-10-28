@@ -138,6 +138,15 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             add_action('wp_ajax_nopriv_ajax_search_room', array($this, 'ajax_search_room'));
 
             /**
+             * Ajax search room
+             *
+             * @since 1.0
+             * @author quandq
+             */
+            add_action('wp_ajax_wpbooking_reload_image_list_room', array($this, 'wpbooking_reload_image_list_room'));
+            add_action('wp_ajax_nopriv_wpbooking_reload_image_list_room', array($this, 'wpbooking_reload_image_list_room'));
+
+            /**
              * Filter List Room Size
              *
              * @since 1.0
@@ -424,10 +433,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         array(
                             'label' => __("Space", 'wpbooking'),
                             'type'  => 'title',
-                            'desc'  => esc_html__("We display your room size to guests on your Booking.com propert", "wpbooking")
+                            'desc'  => esc_html__("Chúng tôi hiển thị kích thước phòng cho khách", "wpbooking")
                         ),
                         array(
-                            'label' => __('What is your preferred  unit of measure?', 'wpbooking'),
+                            'label' => __('What is your preferred  unit of measurement?', 'wpbooking'),
                             'id'    => 'room_measunit',
                             'type'  => 'radio',
                             'value' => array(
@@ -442,12 +451,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'label'  => __('Room sizes', 'wpbooking'),
                             'id'     => 'room_size',
                             'type'   => 'room_size',
-                            'fields' => array(
-                                'deluxe_queen_studio',
-                                'queen_room',
-                                'double_room',
-                                'single_room',
-                            )
                         ),
                         array('type' => 'close_section'),
                         array(
@@ -720,12 +723,13 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 array('type' => 'open_section'),
                 array(
                     'label' => __("Room Name", 'wpbooking'),
-                    'type'  => 'title'
+                    'type'  => 'title',
                 ),
                 array(
                     'label' => esc_html__('Room name (optional)', 'wpbooking'),
                     'type'  => 'text',
                     'id'    => 'room_name',
+                    'desc'  => __("Create an optional, custom name for your reference.", 'wpbooking'),
                 ),
                 array(
                     'label'    => esc_html__('Room Type', 'wpbooking'),
@@ -733,13 +737,15 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'id'       => 'room_type',
                     'taxonomy' => 'wb_hotel_room_type',
                     'parent'   => 0,
-                    'class'    => 'small'
+                    'class'    => 'small',
+                    'desc'  => __("Dựa vào tiện nghi của phòng, hãy chọn 1 kiểu chính xác nhất.", 'wpbooking'),
                 ),
                 array(
                     'label' => esc_html__('Room Number', 'wpbooking'),
-                    'type'  => 'text',
+                    'type'  => 'number',
                     'id'    => 'room_number',
-                    'class' => 'small'
+                    'class' => 'small',
+                    'desc'  => __("Out of 2 rooms at your property", 'wpbooking'),
                 ),
                 array(
                     'label' => esc_html__('Bed Rooms', 'wpbooking'),
@@ -788,7 +794,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 array(
                     'type'  => 'title',
                     'label' => __('Extra Services', 'wpbooking'),
-                    'desc'  => esc_html__('Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium', 'wpbooking')
+                    'desc'  => esc_html__('Thiết lập các dịch vụ mở rộng cho tài sản của bạn', 'wpbooking')
                 ),
                 array(
                     'type'           => 'extra_services',
@@ -1578,6 +1584,38 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             return $is_validated;
         }
 
+        function wpbooking_reload_image_list_room(){
+            $post_id = WPBooking_Input::request('wb_post_id');
+            $tab = WPBooking_Input::request('wb_meta_section');
+            $service = new WB_Service($post_id);
+            if($service->get_type() == $this->type_id and $tab=='photo_tab'){
+                $arg = array(
+                    'post_type'      => 'wpbooking_hotel_room',
+                    'posts_per_page' => '200',
+                    'post_status'    => array('publish', 'draft', 'pending', 'future', 'private', 'inherit'),
+                    'post_parent'    => $post_id
+                );
+                $list_room = array();
+                global $wp_query;
+                query_posts($arg);
+                while(have_posts()){
+                    the_post();
+                    $image_id = '';
+                    $gallery = get_post_meta(get_the_ID(),'gallery_room',true);
+                    if(!empty($gallery)){
+                        foreach($gallery as $k=>$v){
+                            if(empty($image_id)){
+                                $image_id = $v;
+                            }
+                        }
+                    }
+                    $list_room[get_the_ID()] = wp_get_attachment_image($image_id,array(220,120));
+                }
+                wp_reset_query();
+            }
+            echo json_encode($list_room);
+            wp_die();
+        }
 
         static function inst()
         {

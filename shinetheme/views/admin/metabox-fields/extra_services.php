@@ -35,14 +35,11 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 								<div class="service_detail">
 									<label class="title" ><input type="checkbox" value="<?php echo esc_html($value['title']) ?>" <?php echo esc_attr($checked) ?> name="<?php echo esc_attr($data['id'].'['.$k.'][is_selected]') ?>">
 									<?php echo esc_html($value['title']) ?></label>
-									<span class="service_desc metabox-help"><?php echo balanceTags($value['description']); ?>
-										<input type="hidden" value="<?php echo esc_html($value['description']) ?>"  name="<?php echo esc_attr($data['id'].'['.$k.'][desc]') ?>"/>
-									</span>
 								</div>
 								<div class="money-number">
 									<div class="input-group ">
 										<span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-										<input type="text" class="form-control" value="<?php echo (!empty($current['money']))?$current['money']:FALSE; ?>" name="<?php echo esc_attr($data['id'].'['.$k.'][money]') ?>"  >
+										<input type="number" class="form-control" value="<?php echo (!empty($current['money']))?$current['money']:FALSE; ?>" name="<?php echo esc_attr($data['id'].'['.$k.'][money]') ?>"  >
 									</div>
 								</div>
 								<div class="max-quantity">
@@ -60,6 +57,11 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 										<option <?php echo ($is_required)?'selected':false; ?> value="yes"><?php esc_html_e('Yes','wpbooking') ?></option>
 									</select>
 									<span class="help_inline"><?php esc_html_e('Required','wpbooking') ?></span>
+								</div>
+								<div class="service_desc">
+									<span class="service_desc metabox-help"><?php echo balanceTags($value['description']); ?>
+										<input type="hidden" value="<?php echo esc_html($value['description']) ?>"  name="<?php echo esc_attr($data['id'].'['.$k.'][desc]') ?>"/>
+									</span>
 								</div>
 							</div>
 						<?php
