@@ -1934,6 +1934,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'key'     => 'max_guests',
                     'value'   => $max_guests,
                     'compare' => '>=',
+                    'type' => 'NUMERIC',
                 );
             }
             global $wp_query;

@@ -129,7 +129,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $is_validate = apply_filters('wpbooking_add_to_cart_validate_' . $service_type, $is_validate, $service_type, $post_id,$cart_params);
 
 
-            var_dump($cart_params);
+            //var_dump($cart_params);
             if (!$is_validate) {
                 $res['status'] = FALSE;
                 $res['message'] = wpbooking_get_message(TRUE);
