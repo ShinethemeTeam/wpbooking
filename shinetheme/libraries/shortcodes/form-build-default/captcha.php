@@ -59,10 +59,10 @@ if (!class_exists('WPBooking_Captcha_Field')) {
 			add_action('wp_enqueue_scripts',array($this,'_add_scripts'));
 
 			// Validate Captcha on Add To Cart
-			add_filter('wpbooking_add_to_cart_validate',array($this,'_validate_add_to_cart_captcha'),10,3);
+			//add_filter('wpbooking_add_to_cart_validate',array($this,'_validate_add_to_cart_captcha'),10,3);
 
 			// Validate Captcha on Do Check Out
-			add_filter('wpbooking_do_checkout_validate',array($this,'_validate_do_checkout_captcha'),10,2);
+			//add_filter('wpbooking_do_checkout_validate',array($this,'_validate_do_checkout_captcha'),10,2);
 		}
 
 		function shortcode($attr = array(), $content = FALSE)

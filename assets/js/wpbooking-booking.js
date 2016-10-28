@@ -417,6 +417,10 @@ jQuery(document).ready(function($){
         };
         if (typeof searchbox != "undefined") {
             data = searchbox.find('input,select,textarea').serializeArray();
+            var data_form_book = searchbox.find('input[type=text],select,textarea').serializeArray();
+            for (var i = 0; i < data_form_book.length; i++) {
+                parent.find('.form_book_'+data_form_book[i].name).val(data_form_book[i].value);
+            }
         }
         var dataobj = {};
         for (var i = 0; i < data.length; i++) {
@@ -487,10 +491,11 @@ jQuery(document).ready(function($){
         })
     }
     var my_modal;
-    $(document).on('click','.content-search-room .content-loop-room .loop-room .room-title',function(){
+    $(document).on('click','.content-search-room .content-loop-room .loop-room .room-title,.content-search-room .content-loop-room .loop-room .room-image',function(){
         var container=$(this).closest('.loop-room');
         my_modal = container.find('.modal');
         container.find('.modal').fadeIn(500);
+        container.find('.fotorama_room').fotorama();
     });
     $(document).on('click','.content-search-room .content-loop-room .loop-room .close',function(){
         var container=$(this).closest('.loop-room');
@@ -1854,6 +1859,34 @@ jQuery(document).ready(function($){
     };
 
     $('.wb-tabs').wb_tabs();
+
+    $.fn.extend({
+        slideRight: function() {
+            return this.each(function() {
+                jQuery(this).animate({width: 'show'});
+            });
+        },
+        slideLeft: function() {
+            return this.each(function() {
+                jQuery(this).animate({width: 'hide'});
+            });
+        },
+        slideToggleWidth: function() {
+            return this.each(function() {
+                var el = jQuery(this);
+                if (el.css('display') == 'none') {
+                    el.slideRight();
+                } else {
+                    el.slideLeft();
+                }
+            });
+        }
+    });
+
+    $('.wb-button-share a').click(function (e) {
+        $('.wb-list-social').toggleClass('move');
+        e.preventDefault();
+    });
 
 });
 

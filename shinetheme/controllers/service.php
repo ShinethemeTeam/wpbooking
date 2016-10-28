@@ -462,6 +462,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
                     $total = 0;
                     foreach ($details as $val) {
                         $total += $val['rate'];
+                        update_comment_meta($comment_id, 'wpbooking_review_'.sanitize_title($val['title']), $val['rate']);
                     }
                     $wpbooking_review = ($total) / count($details);
                 }

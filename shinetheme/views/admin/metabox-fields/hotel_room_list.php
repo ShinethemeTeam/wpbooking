@@ -35,11 +35,6 @@ $query = new WP_Query(array(
     'posts_per_page' => 200,
     'post_type'=>'wpbooking_hotel_room'
 ));
-$gallery_list_room = array();
-$gallery_hotel = get_post_meta($post_id , 'gallery_hotel',true);
-if(!empty($gallery_hotel['room_data'])){
-    $gallery_list_room = json_decode($gallery_hotel['room_data']);
-}
 
 ?>
 <div class="wpbooking-settings hotel_room_list <?php echo esc_html($class); ?>" <?php echo esc_html($data_class); ?>>
@@ -57,10 +52,11 @@ if(!empty($gallery_hotel['room_data'])){
                     $query->the_post();
                     $room_id = get_the_ID();
                     $image_id = '';
+                    $gallery_list_room = get_post_meta(get_the_ID(),'gallery_room',true);
                     if(!empty($gallery_list_room)){
                         foreach($gallery_list_room as $k=>$v){
-                            if(in_array($room_id,$v) and empty($image_id)){
-                                $image_id = $k;
+                            if(empty($image_id)){
+                                $image_id = $v;
                             }
                         }
                     }
