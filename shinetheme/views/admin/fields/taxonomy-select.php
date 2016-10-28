@@ -1,4 +1,5 @@
 <?php
+if(empty($data['taxonomy'])) return;
 $data_value = wpbooking_get_option($data['id'],$data['std']);
 $name = 'wpbooking_'.$data['id'];
 if(!empty($data['element_list_item'])){
@@ -8,6 +9,8 @@ if(!empty($data['element_list_item'])){
     $data_value = $data['custom_value'];
 }
 $terms = get_terms( $data['taxonomy'] ,array('hide_empty' => false));
+$tax=get_taxonomy($data['taxonomy']);
+
 $class = $name;
 $data_class = '';
 if(!empty($data['condition'])){

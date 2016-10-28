@@ -57,11 +57,14 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 //						),
                     )
                 ),
+
                 array(
                     'id'    => 'review_stats',
                     'label' => __("Review Stats", 'wpbooking'),
-                    'type'  => 'list-item',
-                    'value' => array()
+                    'type'  => 'taxonomy-checkbox',
+                    'taxonomy'=>'wpbooking_review_stats',
+                    'show_create'=>true,
+                    'show_only_selected'=>true
                 ),
                 array(
                     'id'    => 'maximum_review',
