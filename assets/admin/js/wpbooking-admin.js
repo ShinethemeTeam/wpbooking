@@ -1080,6 +1080,8 @@ jQuery(document).ready(function( $ ){
                     alert(message);
                 }
 
+                reload_image_room(data);
+
                 section.removeClass('loading');
             },
             error:function(e){
@@ -1090,6 +1092,24 @@ jQuery(document).ready(function( $ ){
         })
     }
 
+    function reload_image_room(data) {
+        data+='&action=wpbooking_reload_image_list_room';
+        $.ajax({
+            url:wpbooking_params.ajax_url,
+            data:data,
+            dataType:'json',
+            type:'post',
+            success:function(res){
+               console.log(res);
+                if(res){
+                    for(var room_id in res) {
+                        var image = res[room_id];
+                        $('.item-hotel-room-'+room_id).find('.room-image').html(image);
+                    }
+                }
+            },
+        })
+    }
     // Ajax Create Term
    // $('.wb-btn-add-term').click(function(){
     $(document).on('click','.wb-btn-add-term',function(){

@@ -138,6 +138,15 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             add_action('wp_ajax_nopriv_ajax_search_room', array($this, 'ajax_search_room'));
 
             /**
+             * Ajax search room
+             *
+             * @since 1.0
+             * @author quandq
+             */
+            add_action('wp_ajax_wpbooking_reload_image_list_room', array($this, 'wpbooking_reload_image_list_room'));
+            add_action('wp_ajax_nopriv_wpbooking_reload_image_list_room', array($this, 'wpbooking_reload_image_list_room'));
+
+            /**
              * Filter List Room Size
              *
              * @since 1.0
@@ -1578,6 +1587,38 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             return $is_validated;
         }
 
+        function wpbooking_reload_image_list_room(){
+            $post_id = WPBooking_Input::request('wb_post_id');
+            $tab = WPBooking_Input::request('wb_meta_section');
+            $service = new WB_Service($post_id);
+            if($service->get_type() == $this->type_id and $tab=='photo_tab'){
+                $arg = array(
+                    'post_type'      => 'wpbooking_hotel_room',
+                    'posts_per_page' => '200',
+                    'post_status'    => array('publish', 'draft', 'pending', 'future', 'private', 'inherit'),
+                    'post_parent'    => $post_id
+                );
+                $list_room = array();
+                global $wp_query;
+                query_posts($arg);
+                while(have_posts()){
+                    the_post();
+                    $image_id = '';
+                    $gallery = get_post_meta(get_the_ID(),'gallery_room',true);
+                    if(!empty($gallery)){
+                        foreach($gallery as $k=>$v){
+                            if(empty($image_id)){
+                                $image_id = $v;
+                            }
+                        }
+                    }
+                    $list_room[get_the_ID()] = wp_get_attachment_image($image_id,array(220,120));
+                }
+                wp_reset_query();
+            }
+            echo json_encode($list_room);
+            wp_die();
+        }
 
         static function inst()
         {

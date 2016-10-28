@@ -379,15 +379,7 @@ if (!class_exists('WPBooking_Metabox')) {
                             $new['room_data']=str_replace('\"','"',$new['room_data']);
                             $room_data = json_decode($new['room_data'],true);
                             foreach($room_data as $k => $v){
-                                if(!empty($old['room_data'][$k])){
-                                    if(isset($v) and $v != $old['room_data'][$k]){
-                                        update_post_meta($k, 'gallery_room', $v);
-                                    }elseif($v == '' || (is_array($k) and count($k) == 0)){
-                                        delete_post_meta($k, 'gallery_room', $old);
-                                    }
-                                }elseif(!empty($v)){
-                                    update_post_meta($k, 'gallery_room', $v);
-                                }
+                                update_post_meta($k, 'gallery_room', $v);
                             }
                         }
                         break;
