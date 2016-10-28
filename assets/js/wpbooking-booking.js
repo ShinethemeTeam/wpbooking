@@ -549,7 +549,10 @@ jQuery(document).ready(function($){
                         if(!price_extra){
                             price_extra = 0;
                         }
-                        total_price += ( parseFloat(price_extra) * number_extra ) * number;
+                        price_extra =  parseFloat(price_extra) * number_extra ;
+                        if(price_extra){
+                            total_price += price_extra * number;
+                        }
                     }
                 });
             }

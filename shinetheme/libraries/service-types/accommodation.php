@@ -729,12 +729,13 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 array('type' => 'open_section'),
                 array(
                     'label' => __("Room Name", 'wpbooking'),
-                    'type'  => 'title'
+                    'type'  => 'title',
                 ),
                 array(
                     'label' => esc_html__('Room name (optional)', 'wpbooking'),
                     'type'  => 'text',
                     'id'    => 'room_name',
+                    'desc'  => __("Create an optional, custom name for your reference.", 'wpbooking'),
                 ),
                 array(
                     'label'    => esc_html__('Room Type', 'wpbooking'),
@@ -742,13 +743,15 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'id'       => 'room_type',
                     'taxonomy' => 'wb_hotel_room_type',
                     'parent'   => 0,
-                    'class'    => 'small'
+                    'class'    => 'small',
+                    'desc'  => __("Dựa vào tiện nghi của phòng, hãy chọn 1 kiểu chính xác nhất.", 'wpbooking'),
                 ),
                 array(
                     'label' => esc_html__('Room Number', 'wpbooking'),
                     'type'  => 'text',
                     'id'    => 'room_number',
-                    'class' => 'small'
+                    'class' => 'small',
+                    'desc'  => __("Out of 2 rooms at your property", 'wpbooking'),
                 ),
                 array(
                     'label' => esc_html__('Bed Rooms', 'wpbooking'),

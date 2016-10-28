@@ -1079,8 +1079,9 @@ jQuery(document).ready(function( $ ){
                 if(res.message){
                     alert(message);
                 }
-
-                reload_image_room(data);
+                if(section.find('input[name=wb_meta_section]').val()=="photo_tab"){
+                    wpbooking_reload_image_room(section.find('input,select,textarea'));
+                }
 
                 section.removeClass('loading');
             },
@@ -1092,7 +1093,9 @@ jQuery(document).ready(function( $ ){
         })
     }
 
-    function reload_image_room(data) {
+    function wpbooking_reload_image_room(data) {
+        console.log(data.name);
+        data = data.serialize()
         data+='&action=wpbooking_reload_image_list_room';
         $.ajax({
             url:wpbooking_params.ajax_url,
@@ -1100,7 +1103,6 @@ jQuery(document).ready(function( $ ){
             dataType:'json',
             type:'post',
             success:function(res){
-               console.log(res);
                 if(res){
                     for(var room_id in res) {
                         var image = res[room_id];
