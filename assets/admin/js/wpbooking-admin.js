@@ -1690,5 +1690,12 @@ jQuery(document).ready(function( $ ){
         }
     });*/
 
+    $('.check_all_service_type').change(function(){
 
+       if($(this).attr('checked')=='checked'){
+           $(this).closest('li').siblings().find('input:checkbox').attr('checked','checked')
+       }else{
+           $(this).closest('li').siblings().find('input:checkbox').removeAttr('checked');
+       }
+    });
 });
