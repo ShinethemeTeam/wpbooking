@@ -433,10 +433,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         array(
                             'label' => __("Space", 'wpbooking'),
                             'type'  => 'title',
-                            'desc'  => esc_html__("We display your room size to guests on your Booking.com propert", "wpbooking")
+                            'desc'  => esc_html__("Chúng tôi hiển thị kích thước phòng cho khách", "wpbooking")
                         ),
                         array(
-                            'label' => __('What is your preferred  unit of measure?', 'wpbooking'),
+                            'label' => __('What is your preferred  unit of measurement?', 'wpbooking'),
                             'id'    => 'room_measunit',
                             'type'  => 'radio',
                             'value' => array(
@@ -451,12 +451,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'label'  => __('Room sizes', 'wpbooking'),
                             'id'     => 'room_size',
                             'type'   => 'room_size',
-                            'fields' => array(
-                                'deluxe_queen_studio',
-                                'queen_room',
-                                'double_room',
-                                'single_room',
-                            )
                         ),
                         array('type' => 'close_section'),
                         array(
