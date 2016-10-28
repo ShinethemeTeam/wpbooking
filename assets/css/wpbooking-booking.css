@@ -2039,6 +2039,7 @@ a.label:focus {
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .room-extra {
   margin-top: 55px;
+  text-align: right;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .room-extra .btn_extra {
   font-size: 12px;

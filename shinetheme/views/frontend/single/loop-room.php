@@ -63,9 +63,11 @@ $hotel_id = wp_get_post_parent_id(get_the_ID());
                     foreach($facilities as $taxonomy=>$term_ids){
                         $rental_features = get_taxonomy( $taxonomy );
                         echo '<div class="title">'.$rental_features->labels->name.': </div>';
-                        foreach($term_ids as $key=>$value){
-                            $term = get_term($value,$taxonomy);
-                            $html .= $term->name.", ";
+                        if(!empty($term_ids)){
+                            foreach($term_ids as $key=>$value){
+                                $term = get_term($value,$taxonomy);
+                                $html .= $term->name.", ";
+                            }
                         }
                     }
                     $html = substr($html,0,-2);
