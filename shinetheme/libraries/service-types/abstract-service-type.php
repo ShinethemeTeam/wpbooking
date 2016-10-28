@@ -287,7 +287,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
             if(!empty($stats)){
                 foreach($stats as $k=>$v){
                     $term=get_term($v,'wpbooking_review_stats');
-                    if(!is_wp_error($term) and $term)
+                    if(!is_wp_error($term) and !empty($term->term_id))
                     $review_stats[$term->term_id]=array(
                         'id'=>$term->term_id,
                         'title'=>$term->name

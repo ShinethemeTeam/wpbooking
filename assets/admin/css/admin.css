@@ -3515,6 +3515,7 @@ label[for=wpbooking_room_typediv-hide] {
 }
 .wb-tab-report-wrap .select-service-type {
   padding: 30px 15px;
+  border-bottom: 1px solid #cccccc;
 }
 .wb-tab-report-wrap .select-service-type:after {
   clear: both;
@@ -3536,4 +3537,86 @@ label[for=wpbooking_room_typediv-hide] {
 .wb-tab-report-wrap .select-service-type .service_types li {
   display: inline-block;
   margin-right: 30px;
+}
+.wb-tab-report-wrap .filter-by-tabs {
+  border-bottom: 1px solid #cccccc;
+  background: #f1f1f1;
+  font-size: 14px;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists {
+  margin: 0px;
+  font-weight: bold;
+  color: #666666;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists:after {
+  clear: both;
+  content: " ";
+  display: table;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li {
+  display: block;
+  float: left;
+  margin-bottom: -1px;
+  border-right: 1px solid #cccccc;
+  border-bottom: 1px solid transparent;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li:after {
+  clear: both;
+  content: " ";
+  display: table;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li:first-child {
+  font-weight: 600;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li.active {
+  background: white;
+  border-bottom-color: white;
+  font-weight: bold;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li .filter-date {
+  float: left;
+  padding: 6px 15px;
+  position: relative;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li .filter-date input {
+  height: 34px;
+  padding: 10px;
+  background: white;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none;
+  width: 165px;
+  color: inherit;
+  font-weight: normal;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li .filter-date i {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 15px;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li .do-search {
+  background: white;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li a {
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li > a,
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li > label {
+  padding: 15px 15px;
+}
+.wb-tab-report-wrap .report-content {
+  padding: 15px;
+  background: white;
+}
+.wb-tab-report-wrap .notice-error {
+  border: 1px solid #dedede;
+  border-left: 4px solid #dc3232;
+  padding-left: 10px;
+}
+.wb-tab-report-wrap .notice-error p {
+  margin: .5em 0;
+  padding: 2px;
 }
