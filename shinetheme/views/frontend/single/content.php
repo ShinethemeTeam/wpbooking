@@ -10,7 +10,7 @@ if (post_password_required()) {
 	echo get_the_password_form();
 	return;
 }
-$service = new WB_Service();
+$service = wpbooking_get_service();
 $service_type=$service->get_type();
 $hotel_id = get_the_ID();
 ?>
@@ -97,7 +97,7 @@ $hotel_id = get_the_ID();
                             $str_rating = esc_html__('Terrible','wpbooking');
                         }
 
-                        $wpbooking_review_stats=apply_filters('wpbooking_review_stats',array(),get_the_ID());
+                        $wpbooking_review_stats=$service->get_review_stats();
 
                         ?>
                        <div class="score-header">
@@ -108,7 +108,7 @@ $hotel_id = get_the_ID();
                        <?php if($wpbooking_review_stats){ ?>
                        <ul class="list_review_fields">
                            <?php foreach($wpbooking_review_stats as $key => $value) {
-                               $rating_score = $service->get_avg_rating($value['title']);
+                               $rating_score = $service->get_stats_avg_rating($key);
                                if ($rating_score) {
                                    ?>
                                    <li>
@@ -220,14 +220,15 @@ $hotel_id = get_the_ID();
 							<h5 class="service-info-title"><?php esc_html_e('Check availablity', 'wpbooing') ?></h5>
 							<div class="form-search">
 								<div class="form-item w20 form-item-icon">
-									<label><?php esc_html_e('Check In', 'wpbooing') ?></label>
-									<input class="form-control wpbooking-search-start" name="check_in" placeholder="<?php esc_html_e('Check In', 'wpbooing') ?>">
-									<i class="fa fa-calendar"></i>
+									<label><?php esc_html_e('Check In', 'wpbooing') ?><i class="fa fa-calendar"></i>
+                                        <input type="text" class="form-control wpbooking-search-start" value="<?php echo WPBooking_Input::request('check_in') ?>" name="check_in" placeholder="<?php esc_html_e('Check In', 'wpbooing') ?>">
+                                    </label>
 								</div>
 								<div class="form-item w20 form-item-icon">
-									<label><?php esc_html_e('Check Out', 'wpbooing') ?></label>
-									<input class="form-control wpbooking-search-end" name="check_out" placeholder="<?php esc_html_e('Check Out', 'wpbooing') ?>">
-									<i class="fa fa-calendar"></i>
+									<label><?php esc_html_e('Check Out', 'wpbooing') ?>
+                                        <input type="text" class="form-control wpbooking-search-end" value="<?php echo WPBooking_Input::request('check_out') ?>"  name="check_out" placeholder="<?php esc_html_e('Check Out', 'wpbooing') ?>">
+                                        <i class="fa fa-calendar"></i>
+                                    </label>
 								</div>
 								<div class="form-item w20">
 									<label><?php esc_html_e('Rooms', 'wpbooing') ?></label>
@@ -269,6 +270,11 @@ $hotel_id = get_the_ID();
 						<form method="post" class="wpbooking_order_form">
 							<input name="action" value="wpbooking_add_to_cart" type="hidden">
 							<input name="post_id" value="<?php the_ID() ?>" type="hidden">
+							<input name="wpbooking_check_in" class="form_book_check_in"  type="hidden">
+							<input name="wpbooking_check_out" class="form_book_check_out"  type="hidden">
+							<input name="wpbooking_room_number" class="form_book_room_number"  type="hidden">
+							<input name="wpbooking_adults" class="form_book_adults"  type="hidden">
+							<input name="wpbooking_children" class="form_book_children"  type="hidden">
 							<div class="content-loop-room">
 								<?php
 								global $wp_query;

@@ -281,7 +281,21 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 		 */
 		function get_review_stats()
 		{
-			return $this->get_option('review_stats', array());
+			$stats= $this->get_option('review_stats', array());
+            $review_stats=array();
+
+            if(!empty($stats)){
+                foreach($stats as $k=>$v){
+                    $term=get_term($v,'wpbooking_review_stats');
+                    if(!is_wp_error($term))
+                    $review_stats[$term->term_id]=array(
+                        'id'=>$term->term_id,
+                        'title'=>$term->name
+                    );
+                }
+            }
+
+            return $review_stats;
 		}
 
 		function _add_setting_section($sections = array())

@@ -110,27 +110,9 @@ if(!function_exists('wpbooking_service_review_score_html')){
     }
 }
 
-if(!function_exists('wpbooking_service_get_avg_rating')){
-    function wpbooking_service_get_avg_rating($post_id, $review_title){
-        global $wpdb;
-        if(!$post_id) $post_id = get_the_ID();
-
-        $model=WPBooking_Comment_Model::inst();
-        $res= $model->select('AVG('.$wpdb->commentmeta.'.meta_value) as average')
-            ->join('commentmeta','commentmeta.comment_id=comments.comment_ID')
-            ->where(array(
-                'comment_post_ID'=>$post_id,
-                'comment_parent'=>0,
-                'comment_approved'=>1,
-                $wpdb->commentmeta.'.meta_key'=>'wpbooking_review_'.sanitize_title($review_title)
-        ))->get()->row();
-
-        return (!empty($res['average']))?$res['average']:false;
-    }
-}
 
 /**
- * @return html
+ * @return string
  */
 if(!function_exists('wpbooking_service_star_rating')){
     function wpbooking_service_star_rating($post_id){
@@ -320,5 +302,10 @@ if(!function_exists('wpbooking_count_review')){
 		))->get()->row();
 
 		return !empty($res['total'])?$res['total']:0;
+	}
+}
+if(!function_exists('wpbooking_get_service')){
+	function wpbooking_get_service($post_id=false){
+		return WPBooking_Service_Controller::inst()->get_service_instance($post_id);
 	}
 }

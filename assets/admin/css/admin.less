@@ -32,9 +32,9 @@
     display: none;
 }
 i.wpbooking-desc{
-    color: #aaa;
+    color: #717070;
     display: block;
-    padding-top: 3px;
+    padding-top: 6px;
 }
 ul.padding-0{
     margin: 0px;
@@ -355,6 +355,39 @@ img.settings-demo-image-gallery{
     min-width: 420px;
 }
 .wpbooking-settings {
+    .list-terms-checkbox{
+        margin-bottom: 20px;
+    }
+    .add-new-terms{
+        .wb-btn-add-term{
+            margin-left: 10px;
+            .loading-icon{
+                display: none;
+            }
+        }
+        .small-input{
+            display: inline-block;
+            .icp{
+
+                width: 50px;
+                display: inline-block;
+            }
+            .input-group-addon{
+                height: 30px;
+                display: inline-block;
+                padding: 4px 8px;
+                line-height: 23px;
+                margin-top: 1px;
+            }
+        }
+        &.loading{
+            .wb-btn-add-term{
+                .loading-icon{
+                    display: inline-block;
+                }
+            }
+        }
+    }
     &.repeat_dropdown{
         .form-control{
             margin-bottom: 7px;

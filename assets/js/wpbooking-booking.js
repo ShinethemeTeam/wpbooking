@@ -47,6 +47,17 @@ jQuery(document).ready(function($){
     };
 
 
+
+    setTimeout(function(){
+        $('.form-search-room input').trigger('change');
+    },500);
+    $(document).on('change','.form-search-room input,.form-search-room select,.form-search-room textarea',function(){
+        var searchbox = $(this).closest('.form-search-room');
+        var data_form_book = searchbox.find('input[type=text],select,textarea').serializeArray();
+        for (var i = 0; i < data_form_book.length; i++) {
+            searchbox.closest('.search-room-availablity').find('.form_book_'+data_form_book[i].name).val(data_form_book[i].value);
+        }
+    });
     // Order Form
     $('.wpbooking_order_form .submit-button').click(function(){
         var form=$(this).closest('.wpbooking_order_form');
@@ -349,8 +360,9 @@ jQuery(document).ready(function($){
         minDate:0,
         onSelect:function(selected) {
             var form=$(this).closest('form');
-            var date_end=$('.wpbooking-date-start',form);
-            date_end.datepicker("option","maxDate", selected)
+            var date_start=$('.wpbooking-date-start',form);
+            date_start.datepicker("option","maxDate", selected);
+            date_start.trigger('change');
 
         }
     })
@@ -385,7 +397,8 @@ jQuery(document).ready(function($){
         onSelect:function(selected) {
             var form=$(this).closest('form');
             var date_end=$('.search-room-availablity .wpbooking-search-start',form);
-            date_end.datepicker("option","maxDate", selected)
+            date_end.datepicker("option","maxDate", selected);
+            $(this).trigger('change');
         }
     }).datepicker('widget');
 
@@ -417,6 +430,10 @@ jQuery(document).ready(function($){
         };
         if (typeof searchbox != "undefined") {
             data = searchbox.find('input,select,textarea').serializeArray();
+            var data_form_book = searchbox.find('input[type=text],select,textarea').serializeArray();
+            for (var i = 0; i < data_form_book.length; i++) {
+                parent.find('.form_book_'+data_form_book[i].name).val(data_form_book[i].value);
+            }
         }
         var dataobj = {};
         for (var i = 0; i < data.length; i++) {
@@ -480,6 +497,7 @@ jQuery(document).ready(function($){
                     content_list_room.html('');
                     content_search_room.hide();
                 }
+                $('.content-search-room .content-loop-room .loop-room .option_number_room').trigger('change');
             },
             error: function(data) {
                 searchbox.removeClass('loading');
@@ -517,7 +535,6 @@ jQuery(document).ready(function($){
                 price = 0;
             }
             total_price += parseFloat(price) * number;
-            console.log(price);
             if(number>0){
                 // Extra Price
                 $(this).find('.option_is_extra').each(function(){

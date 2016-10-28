@@ -97,7 +97,10 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 
 				$parent_term = term_exists( $term_name, $tax ); // array is returned if taxonomy is given
 				if($parent_term){
-					$res['message']=esc_html__('Term exists','wpbooking');
+				    $res['status']=1;
+                    $res['data']=array(
+                        'term_id'=>$parent_term['term_id'],
+                        'name'=>$term_name);
 				}else{
 					$q=wp_insert_term($term_name,$tax);
 					if(!is_wp_error($q)){

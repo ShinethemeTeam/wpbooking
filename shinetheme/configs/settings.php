@@ -108,21 +108,11 @@ $config['settings'] = array(
 				'fields' => array(
 
 					array(
-						'id'    => 'cart_page',
-						'label' => __("Cart Page", 'wpbooking'),
-						'type'  => 'page-select',
-					),
-					array(
 						'id'    => 'checkout_page',
 						'label' => __("Checkout Page", 'wpbooking'),
 						'type'  => 'page-select',
 					),
-					array(
-						'id'        => 'checkout_form',
-						'label'     => __("Checkout Form", 'wpbooking'),
-						'type'      => 'post-select',
-						'post_type' => array('wpbooking_form')
-					),
+
 					array(
 						'id'    => 'allow_guest_checkout',
 						'label' => __("Allow Guest Checkout?", 'wpbooking'),
@@ -159,6 +149,23 @@ $config['settings'] = array(
 						'type'        => 'text',
 						'placeholder' => 'system@domain.com'
 					),
+                    array(
+                        'id'          => 'email_header',
+                        'label'       => __("Email Header", 'wpbooking'),
+                        'type'        => 'texteditor',
+                        'editor_args' => array(
+                            'tinymce' => FALSE
+                        ),
+                    ),
+                    array(
+                        'id'          => 'email_footer',
+                        'label'       => __("Email Footer", 'wpbooking'),
+                        'type'        => 'texteditor',
+                        'editor_args' => array(
+                            'tinymce' => FALSE
+                        ),
+                    ),
+
 					array(
 						'id'    => 'email_stylesheet',
 						'label' => __("Email CSS Code", 'wpbooking'),
@@ -208,23 +215,6 @@ $config['settings'] = array(
 						'condition'   => 'on_booking_email_customer:is(1)'
 					),
 
-					array(
-						'id'    => 'on_booking_email_author',
-						'label' => __("Enable Email To Author", 'wpbooking'),
-						'type'  => 'checkbox',
-						'std'   => '1'
-					),
-					array(
-						'id'          => 'email_to_partner',
-						'label'       => __("For Author", 'wpbooking'),
-						'type'        => 'texteditor',
-						'desc'        => wpbooking_admin_load_view('email/document'),
-						'extra_html'=>'<a class="wpbooking-preview-modal thickbox button button-primary" href="'.add_query_arg(array('action'=>'wpbooking_booking_email_preview','email'=>'email_to_partner'),'admin-ajax.php').'">'.esc_html__('Preview','wpbooking').'</a>',
-						'editor_args' => array(
-							'tinymce' => FALSE
-						),
-						'condition'   => 'on_booking_email_author:is(1)'
-					),
 					array(
 						'id'    => 'on_booking_email_admin',
 						'label' => __("Enable Email To Admin", 'wpbooking'),

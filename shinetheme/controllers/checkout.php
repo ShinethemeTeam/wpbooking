@@ -52,15 +52,27 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 'post_id'                => $post_id ,
                 'cart_key'               => md5( $post_id . time() . rand( 0 , 999 ) ) ,
                 'service_type'           => $service_type ,
-                'price_base'                  => 0 ,
                 'currency'               => WPBooking_Currency::get_current_currency( 'currency' ) ,
-                'deposit_payment_status' => $service->get_meta( 'deposit_payment_status' ) ,
-                'deposit_payment_amount' => $service->get_meta( 'deposit_payment_amount' ) ,
-                'cancel_free_days_prior' => $service->get_meta( 'cancel_free_days_prior' ) ,
-                'cancel_guest_payment'   => $service->get_meta( 'cancel_guest_payment' ) ,
+                'price_base'             => 0 ,
+                'discount'               => array() ,
             );
 
-            var_dump($cart_params);
+            $cart_params['tax']['vat']['vat_excluded'] = $service->get_meta('vat_excluded');
+            if($service->get_meta('vat_excluded') != 'no'){
+                $cart_params['tax']['vat']['vat_amount'] = $service->get_meta('vat_amount');
+                $cart_params['tax']['vat']['vat_unit'] = $service->get_meta('vat_unit');
+            }
+            $cart_params['tax']['citytax']['citytax_excluded'] = $service->get_meta('citytax_excluded');
+            if($service->get_meta('citytax_excluded') != 'no'){
+                $cart_params['tax']['citytax']['citytax_amount'] = $service->get_meta('citytax_amount');
+                $cart_params['tax']['citytax']['citytax_unit'] = $service->get_meta('citytax_unit');
+            }
+            $cart_params['deposit']['deposit_payment_status'] = $service->get_meta('deposit_payment_status');
+            if($service->get_meta('deposit_payment_status') != ''){
+                $cart_params['deposit']['deposit_payment_amount'] = $service->get_meta('deposit_payment_amount');
+            }
+
+
 
 
             /*// Extra Services
@@ -95,12 +107,13 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             }
             $cart_params['extra_services']=$extra_services;*/
 
-            // Convert Check In and Check Out to Timestamp if available
-            if (!empty($fields['check_in']['value'])) {
-                $cart_params['check_in_timestamp'] = strtotime($fields['check_in']['value']);
 
-                if (!empty($fields['check_out']['value'])) {
-                    $cart_params['check_out_timestamp'] = strtotime($fields['check_out']['value']);
+            // Convert Check In and Check Out to Timestamp if available
+            if ($check_in = WPBooking_Input::post('wpbooking_check_in')) {
+                $cart_params['check_in_timestamp'] = strtotime($check_in);
+
+                if ($check_out = WPBooking_Input::post('wpbooking_check_out')) {
+                    $cart_params['check_out_timestamp'] = strtotime($check_out);
                 } else {
                     $cart_params['check_out_timestamp'] = $cart_params['check_in_timestamp'];
                 }
@@ -114,6 +127,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $is_validate = apply_filters('wpbooking_add_to_cart_validate_' . $service_type, $is_validate, $service_type, $post_id,$cart_params);
 
 
+            var_dump($cart_params);
             if (!$is_validate) {
                 $res['status'] = FALSE;
                 $res['message'] = wpbooking_get_message(TRUE);
