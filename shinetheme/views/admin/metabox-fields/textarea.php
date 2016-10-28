@@ -2,7 +2,7 @@
 /**
 *@since 1.0.0
 **/
-$post_id=get_the_ID();
+
 $old_data = esc_html( $data['std'] );
 
 $data=wp_parse_args($data,array(

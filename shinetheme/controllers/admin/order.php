@@ -38,6 +38,29 @@ if (!class_exists('WPBooking_Admin_Order')) {
 
 		}
 
+		/**
+		 * Get Report Data for Report Tab
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
+		 * @return array
+		 */
+		function get_report_data(){
+			$res=array();
+			$date_from=$this->get('date_from');
+			$date_to=$this->get('date_to');
+			$res['chart_data']['labels']=array(esc_html__("January",'wpbooking'), esc_html__("February",'wpbooking'), esc_html__("March",'wpbooking'), esc_html__("April",'wpbooking'), esc_html__("May",'wpbooking'), esc_html__("June",'wpbooking'),esc_html__("July",'wpbooking'),esc_html__("August",'wpbooking'),esc_html__("September",'wpbooking'),esc_html__("October",'wpbooking'),esc_html__("November",'wpbooking'),esc_html__("December",'wpbooking'));
+
+			if($date_from and $date_to){
+
+			}
+
+			$res['chart_data'];
+
+			return $res;
+		}
+
 		function _add_booking_menupage()
 		{
 			$menu_page = $this->get_menu_page();

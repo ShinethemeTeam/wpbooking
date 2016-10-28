@@ -77,7 +77,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 						if(get_post_meta($post_id,'property_available_for',true)=='specific_periods'){
 							$all_days[$dt->format('Y-m-d')]['status']='wb-disable';
 						}else{
-							$all_days[$dt->format('Y-m-d')]['price_text']=WPBooking_Currency::format_money(get_post_meta($post_id,'price',true));
+							$all_days[$dt->format('Y-m-d')]['price_text']=WPBooking_Currency::format_money(get_post_meta($post_id,'base_price',true));
 						}
 
 					}
