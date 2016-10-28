@@ -1,6 +1,7 @@
 <?php
 $list_extra = array();
 $list_extra = get_post_meta(get_the_ID(),'extra_services',true);
+$hotel_id = wp_get_post_parent_id(get_the_ID());
 ?>
 <div class="loop-room post-<?php the_ID() ?>">
     <div class="room-image">

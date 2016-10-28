@@ -152,9 +152,9 @@ if (!class_exists('WPBooking_Currency')) {
 		static function _reload_current_currency()
 		{
 			$current=WPBooking_Session::get('wpbooking_currency');
-			$new_data=self::find_currency($current['currency']);
-			if($new_data){
-				WPBooking_Session::set('wpbooking_currency',$new_data);
+
+			if($current){
+				WPBooking_Session::set('wpbooking_currency',$current);
 			}else{
 
 				// If Currency is deleted from list of added currencies, we remove the  session data
@@ -391,17 +391,10 @@ if (!class_exists('WPBooking_Currency')) {
 		 * */
 		static function find_currency($currency_name, $compare_key = 'currency')
 		{
-			$currency_name = esc_attr($currency_name);
 
-			$all_currency = self::get_added_currencies();
-
-			if (!empty($all_currency)) {
-				foreach ($all_currency as $key) {
-					if ($key == $currency_name) {
-						return $key;
-					}
-				}
-			}
+            if(!empty($all_currency)){
+                return $all_currency = self::get_added_currencies();
+            }
 
 			return FALSE;
 		}

@@ -103,6 +103,38 @@ if (!class_exists('WPBooking_User')) {
              */
             add_filter("pre_get_avatar",array($this, '_change_profile_avatar'),10,3);
 
+            /**
+             * redirect lost password url
+             *
+             * @since 1.0
+             * @author tienhd
+             */
+            add_filter('lostpassword_url',array($this,'redirect_password_url'));
+
+            /**
+             * redirect logout url
+             *
+             * @since 1.0
+             * @author tienhd
+             */
+            add_filter('logout_url',array($this,'redirect_logout_url'),10,2);
+
+            /**
+             * Redirect login url
+             *
+             * @since 1.0
+             * @author tienhd
+             */
+            add_filter('login_url',array($this,'redirect_login_url'));
+
+            /**
+             * Do send email to reset password
+             *
+             * @since 1.0
+             * @author tienhd
+             */
+            add_action('init',array($this,'_send_lost_password_email'));
+
         }
 
         /**
@@ -939,6 +971,9 @@ if (!class_exists('WPBooking_User')) {
             // View Profile
             add_rewrite_endpoint('profile', EP_PAGES);
 
+            // Lost Password
+            add_rewrite_endpoint('lost-password', EP_PAGES);
+
 
             flush_rewrite_rules();
 
@@ -1174,6 +1209,56 @@ if (!class_exists('WPBooking_User')) {
                 return '<img alt="avatar"  style="height: '.$args['height'].'px; width: '.$args['width'].'px;"  width='.$args['width'].' height='.$args['height'].' src="'.$gravatar_pic_url.'" class="avatar" >';
             }
             return $avatar;
+        }
+
+        /**
+         * Send email when lost password
+         */
+        function _send_lost_password_email(){
+            if(is_user_logged_in()) return;
+            if(WPBooking_Input::post('wpbboking_lost_password') && wp_verify_nonce(WPBooking_Input::post('_wpnonce'),'wb-lost-password')){
+                echo 'ok';
+            }
+        }
+
+        /**
+         * redirect lost pass url
+         * @return string
+         */
+        function redirect_password_url($url){
+            $account_page = wpbooking_get_option('myaccount-page');
+            if($account_page)
+                $url = get_permalink($account_page).'lost-password';
+
+            return $url;
+        }
+        /**
+         * redirect logout url
+         * @return string
+         */
+        function redirect_logout_url($logouturl,$redir){
+            $account_page = wpbooking_get_option('myaccount-page');
+            if($account_page) {
+                $redir = get_permalink($account_page);
+                return $logouturl . '&amp;redirect_to=' . urlencode($redir);
+            }else {
+                return $logouturl;
+            }
+
+        }
+        /**
+         * redirect login url
+         * @return string
+         */
+        function redirect_login_url($login_url){
+            $account_page = wpbooking_get_option('myaccount-page');
+            if($account_page) {
+                $redir = get_permalink($account_page);
+                return $redir;
+            }else {
+                return $login_url;
+            }
+
         }
         /**
          * List Preferred Language

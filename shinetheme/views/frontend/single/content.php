@@ -132,13 +132,13 @@ $hotel_id = get_the_ID();
                        <?php } ?>
                    </div>
                     <?php } ?>
-                    <div class="wb-contact-box wp-box-item">
                         <?php
                         $contact_meta = array(
                             'contact_number' => 'fa-phone',
                             'contact_email' => 'fa-envelope',
                             'website' => 'fa-home',
                         );
+                        $html = '';
                         foreach($contact_meta as $key => $val) {
                             if ($value = get_post_meta(get_the_ID(), $key, true)) {
                                 switch($key){
@@ -150,16 +150,16 @@ $hotel_id = get_the_ID();
                                         $value = '<a href="'.$value.'">'.$value.'</a>';
                                         break;
                                 }
-                                ?>
-                                <div class="wb-meta-contact">
-                                    <i class="fa <?php echo esc_attr($val); ?> wb-icon-contact"></i>
-                                    <span><?php echo ($value) ?></span>
-                                </div>
-                                <?php
+                                $html .= '<div class="wb-meta-contact">
+                                    <i class="fa '.$val.' wb-icon-contact"></i>
+                                    <span>'.$value.'</span>
+                                </div>';
                             }
                         }
+                        if(!empty($html)){
+                            echo '<div class="wb-contact-box wp-box-item">'.$html.'</div>';
+                        }
                         ?>
-                    </div>
                     <div class="wb-share">
                         <div class="wb-button-share">
                             <i class="fa fa-share-alt"></i><a href="#"><?php esc_html_e('Share','wpbooking'); ?></a>
@@ -220,14 +220,15 @@ $hotel_id = get_the_ID();
 							<h5 class="service-info-title"><?php esc_html_e('Check availablity', 'wpbooing') ?></h5>
 							<div class="form-search">
 								<div class="form-item w20 form-item-icon">
-									<label><?php esc_html_e('Check In', 'wpbooing') ?></label>
-									<input class="form-control wpbooking-search-start" type="text" name="check_in" placeholder="<?php esc_html_e('Check In', 'wpbooing') ?>">
-									<i class="fa fa-calendar"></i>
+									<label><?php esc_html_e('Check In', 'wpbooing') ?><i class="fa fa-calendar"></i>
+                                        <input type="text" class="form-control wpbooking-search-start" value="<?php echo WPBooking_Input::request('check_in') ?>" name="check_in" placeholder="<?php esc_html_e('Check In', 'wpbooing') ?>">
+                                    </label>
 								</div>
 								<div class="form-item w20 form-item-icon">
-									<label><?php esc_html_e('Check Out', 'wpbooing') ?></label>
-									<input class="form-control wpbooking-search-end" type="text" name="check_out" placeholder="<?php esc_html_e('Check Out', 'wpbooing') ?>">
-									<i class="fa fa-calendar"></i>
+									<label><?php esc_html_e('Check Out', 'wpbooing') ?>
+                                        <input type="text" class="form-control wpbooking-search-end" value="<?php echo WPBooking_Input::request('check_out') ?>"  name="check_out" placeholder="<?php esc_html_e('Check Out', 'wpbooing') ?>">
+                                        <i class="fa fa-calendar"></i>
+                                    </label>
 								</div>
 								<div class="form-item w20">
 									<label><?php esc_html_e('Rooms', 'wpbooing') ?></label>
