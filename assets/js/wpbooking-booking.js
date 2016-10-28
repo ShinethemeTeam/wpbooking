@@ -417,6 +417,10 @@ jQuery(document).ready(function($){
         };
         if (typeof searchbox != "undefined") {
             data = searchbox.find('input,select,textarea').serializeArray();
+            var data_form_book = searchbox.find('input[type=text],select,textarea').serializeArray();
+            for (var i = 0; i < data_form_book.length; i++) {
+                parent.find('.form_book_'+data_form_book[i].name).val(data_form_book[i].value);
+            }
         }
         var dataobj = {};
         for (var i = 0; i < data.length; i++) {

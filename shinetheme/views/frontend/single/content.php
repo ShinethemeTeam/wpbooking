@@ -187,12 +187,12 @@ $hotel_id = get_the_ID();
 							<div class="form-search">
 								<div class="form-item w20 form-item-icon">
 									<label><?php esc_html_e('Check In', 'wpbooing') ?></label>
-									<input class="form-control wpbooking-search-start" name="check_in" placeholder="<?php esc_html_e('Check In', 'wpbooing') ?>">
+									<input class="form-control wpbooking-search-start" type="text" name="check_in" placeholder="<?php esc_html_e('Check In', 'wpbooing') ?>">
 									<i class="fa fa-calendar"></i>
 								</div>
 								<div class="form-item w20 form-item-icon">
 									<label><?php esc_html_e('Check Out', 'wpbooing') ?></label>
-									<input class="form-control wpbooking-search-end" name="check_out" placeholder="<?php esc_html_e('Check Out', 'wpbooing') ?>">
+									<input class="form-control wpbooking-search-end" type="text" name="check_out" placeholder="<?php esc_html_e('Check Out', 'wpbooing') ?>">
 									<i class="fa fa-calendar"></i>
 								</div>
 								<div class="form-item w20">
@@ -235,6 +235,11 @@ $hotel_id = get_the_ID();
 						<form method="post" class="wpbooking_order_form">
 							<input name="action" value="wpbooking_add_to_cart" type="hidden">
 							<input name="post_id" value="<?php the_ID() ?>" type="hidden">
+							<input name="wpbooking_check_in" class="form_book_check_in"  type="hidden">
+							<input name="wpbooking_check_out" class="form_book_check_out"  type="hidden">
+							<input name="wpbooking_room_number" class="form_book_room_number"  type="hidden">
+							<input name="wpbooking_adults" class="form_book_adults"  type="hidden">
+							<input name="wpbooking_children" class="form_book_children"  type="hidden">
 							<div class="content-loop-room">
 								<?php
 								global $wp_query;
