@@ -72,42 +72,6 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 $cart_params['deposit']['deposit_payment_amount'] = $service->get_meta('deposit_payment_amount');
             }
 
-
-
-
-            /*// Extra Services
-            $extra_services = WPBooking_Input::post('extra_services');
-            if (empty($extra_services)) {
-                // Get Default
-                $all_extra = $service->get_extra_services();
-                if (!empty($extra_services) and is_array($all_extra)) {
-                    foreach ($all_extra as $key => $value) {
-                        if ($value['require'] == 'yes' and $value['money'])
-                            $extra_services[] = array(
-                                'title'   => $value['title'],
-                                'money'   => $value['money'],
-                                'require' => 'yes',
-                                'number'  => 1
-                            );
-                    }
-                }
-            } else {
-                // Get Default
-                $all_extra = $service->get_extra_services();
-
-                // If _POST is not empty
-                foreach($extra_services as $key=>$value){
-
-                    // Remove Un exists from defaults
-                    if(!array_key_exists($key,$all_extra)) unset($extra_services[$key]);
-
-                    // Add Required
-                    if($all_extra[$key]['require']=='yes') $extra_services[$key]['require']='yes';
-                }
-            }
-            $cart_params['extra_services']=$extra_services;*/
-
-
             // Convert Check In and Check Out to Timestamp if available
             if ($check_in = WPBooking_Input::post('wpbooking_check_in')) {
                 $cart_params['check_in_timestamp'] = strtotime($check_in);
@@ -127,7 +91,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $is_validate = apply_filters('wpbooking_add_to_cart_validate_' . $service_type, $is_validate, $service_type, $post_id,$cart_params);
 
 
-            var_dump($cart_params);
+            //var_dump($cart_params);
             if (!$is_validate) {
                 $res['status'] = FALSE;
                 $res['message'] = wpbooking_get_message(TRUE);
@@ -137,11 +101,13 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
                 WPBooking_Session::set('wpbooking_cart', $cart_params);
 
-                wpbooking_set_message(sprintf(__('Add to %s success', 'wpbooking'), sprintf('<a href="%s">%s</a>', $this->get_cart_url(), __('cart', 'wpbooking'))), 'success');
+               // wpbooking_set_message(sprintf(__('Add to %s success', 'wpbooking'), sprintf('<a href="%s">%s</a>', $this->get_checkout_url(), __('cart', 'wpbooking'))), 'success');
                 $res = array(
                     'status'  => 1,
-                    'message' => wpbooking_get_message(TRUE)
+                    'message' => '',
+                    'redirect' => $this->get_checkout_url(),
                 );
+
             }
             $res['updated_content'] = apply_filters('wpbooking_cart_updated_content', array());
 
@@ -156,9 +122,9 @@ if(!class_exists('WPBooking_Checkout_Controller'))
          * Return permalink of the Cart Page
          * @return false|string
          */
-        function get_cart_url()
+        function get_checkout_url()
         {
-            return get_permalink(wpbooking_get_option('cart_page'));
+            return get_permalink(wpbooking_get_option('checkout_page'));
         }
         static function inst()
         {

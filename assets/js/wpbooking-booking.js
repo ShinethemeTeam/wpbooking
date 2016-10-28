@@ -85,6 +85,10 @@ jQuery(document).ready(function($){
                     me.addClass('success');
                     me.hide();
                     me.parent().find('.wb-btn-to-checkout').show();
+                    if(res.redirect){
+                        window.location = res.redirect;
+                    }
+
                 }else{
                     me.addClass('error');
                 }
