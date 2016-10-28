@@ -3087,6 +3087,10 @@ a.ui-datepicker-next {
   float: left;
   margin-bottom: 20px;
 }
+.st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .service_desc {
+  width: 100%;
+  float: left;
+}
 @media (max-width: 1365px) {
   .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item {
     border-bottom: 1px solid #e6e6e6;

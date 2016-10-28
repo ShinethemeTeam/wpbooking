@@ -58,7 +58,7 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 									</select>
 									<span class="help_inline"><?php esc_html_e('Required','wpbooking') ?></span>
 								</div>
-								<div class="require-options">
+								<div class="service_desc">
 									<span class="service_desc metabox-help"><?php echo balanceTags($value['description']); ?>
 										<input type="hidden" value="<?php echo esc_html($value['description']) ?>"  name="<?php echo esc_attr($data['id'].'['.$k.'][desc]') ?>"/>
 									</span>
