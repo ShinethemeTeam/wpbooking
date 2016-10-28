@@ -24,7 +24,7 @@ $tabs=WPBooking_User::inst()->get_tabs();
 
 			switch($k){
 				case "logout":
-					$url=wp_logout_url();
+                    $url = wp_logout_url();
 					break;
 			}
 

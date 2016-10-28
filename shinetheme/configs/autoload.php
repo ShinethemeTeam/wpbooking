@@ -45,7 +45,7 @@ $autoload['controller']=array(
 	'user',
 	'service',
 	'admin/order',
-	'admin/coupon',
+	//'admin/coupon',
 	'admin/location',
 	'admin/taxonomy',
 	'admin/service',

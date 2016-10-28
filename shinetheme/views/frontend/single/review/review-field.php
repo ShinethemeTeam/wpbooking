@@ -10,7 +10,7 @@ $wpbooking_review_stats=$service->get_review_stats();
 ?>
 <div class="wpbooking-comment-form-rating">
 	<p class="comment-form-review">
-		<label for="wpbooking_review" class="form-label"><?php _e("Review Stars",'wpbooking') ?></label>
+		<label for="wpbooking_review" class="form-label"><strong><?php _e("Review Stars",'wpbooking') ?></strong></label>
 		<input type="hidden" class="" name="wpbooking_review" value="0">
 
 		<div class="review-stats">

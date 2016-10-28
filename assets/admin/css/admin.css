@@ -3509,3 +3509,31 @@ label[for=wb_hotel_miscellaneousdiv-hide],
 label[for=wpbooking_room_typediv-hide] {
   display: none!important;
 }
+.wb-tab-report-wrap {
+  clear: both;
+  border: 1px solid #cccccc;
+}
+.wb-tab-report-wrap .select-service-type {
+  padding: 30px 15px;
+}
+.wb-tab-report-wrap .select-service-type:after {
+  clear: both;
+  content: " ";
+  display: table;
+}
+.wb-tab-report-wrap .select-service-type > h4 {
+  font-size: 18px;
+  color: #666666;
+  margin: 0px;
+  display: inline-block;
+  float: left;
+}
+.wb-tab-report-wrap .select-service-type .service_types {
+  margin: 0px;
+  margin-left: 40px;
+  float: left;
+}
+.wb-tab-report-wrap .select-service-type .service_types li {
+  display: inline-block;
+  margin-right: 30px;
+}

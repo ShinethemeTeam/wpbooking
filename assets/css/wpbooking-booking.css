@@ -4050,49 +4050,73 @@ a.label:focus {
 .wpbooking-myaccount-wrap .required {
   color: red;
 }
-.wpbooking-myaccount-wrap .login-register-form .form-title {
+.wpbooking-myaccount-wrap .login-register-form .form-title,
+.wpbooking-myaccount-wrap .wb-form-lost-password .form-title {
   margin: 0px;
   margin-bottom: 20px;
-  font-size: 30px;
-  font-weight: normal;
+  font-size: 25px;
+  font-weight: bold;
 }
-.wpbooking-myaccount-wrap .login-register-form .form-group-wrap {
-  border-bottom: 2px solid rgba(216, 216, 216, 0.7);
-  background: #f2f2f2;
+.wpbooking-myaccount-wrap .login-register-form .form-group-wrap,
+.wpbooking-myaccount-wrap .wb-form-lost-password .form-group-wrap {
+  border: 1px solid #ccc;
   padding: 20px 15px;
 }
-.wpbooking-myaccount-wrap .login-register-form .form-group {
+.wpbooking-myaccount-wrap .login-register-form .form-group,
+.wpbooking-myaccount-wrap .wb-form-lost-password .form-group {
   margin-bottom: 20px;
 }
-.wpbooking-myaccount-wrap .login-register-form .form-group .control-label {
+.wpbooking-myaccount-wrap .login-register-form .form-group .control-label,
+.wpbooking-myaccount-wrap .wb-form-lost-password .form-group .control-label {
   font-size: 14px;
   margin-bottom: 10px;
+  line-height: 35px;
 }
-.wpbooking-myaccount-wrap .login-register-form .form-group .form-control {
+.wpbooking-myaccount-wrap .login-register-form .form-group .form-control,
+.wpbooking-myaccount-wrap .wb-form-lost-password .form-group .form-control {
   border-radius: 0px;
-  border: 1px solid #e6e6e6;
-  height: 30px;
+  border: 1px solid #ccc;
+  height: 32px;
   line-height: 31px;
 }
-.wpbooking-myaccount-wrap .login-register-form .remember-me {
+.wpbooking-myaccount-wrap .login-register-form .remember-me,
+.wpbooking-myaccount-wrap .wb-form-lost-password .remember-me {
   margin-left: 20px;
   font-size: 14px;
 }
-.wpbooking-myaccount-wrap .login-register-form .remember-me input {
+.wpbooking-myaccount-wrap .login-register-form .remember-me input,
+.wpbooking-myaccount-wrap .wb-form-lost-password .remember-me input {
   margin-right: 10px;
+  position: relative;
+  top: 2px;
 }
-.wpbooking-myaccount-wrap .login-register-form .lost-password {
+.wpbooking-myaccount-wrap .login-register-form .lost-password,
+.wpbooking-myaccount-wrap .wb-form-lost-password .lost-password,
+.wpbooking-myaccount-wrap .login-register-form .login-url,
+.wpbooking-myaccount-wrap .wb-form-lost-password .login-url {
   color: #f0ad4e;
   text-decoration: underline;
   border: none;
   font-size: 14px;
 }
-.wpbooking-myaccount-wrap .login-register-form .accept-term {
+.wpbooking-myaccount-wrap .login-register-form .accept-term,
+.wpbooking-myaccount-wrap .wb-form-lost-password .accept-term {
   font-size: 14px;
   display: block;
 }
-.wpbooking-myaccount-wrap .login-register-form .accept-term input {
+.wpbooking-myaccount-wrap .login-register-form .accept-term input,
+.wpbooking-myaccount-wrap .wb-form-lost-password .accept-term input {
+  position: relative;
+  top: 2px;
   margin-right: 10px;
+}
+.wpbooking-myaccount-wrap .login-register-form .wb-btn-default,
+.wpbooking-myaccount-wrap .wb-form-lost-password .wb-btn-default {
+  background: #f0ad4e;
+  border-color: #f0ad4e;
+  font-size: 14px;
+  font-weight: normal;
+  text-transform: capitalize;
 }
 .wpbooking-myaccount-wrap .wb-account-nav {
   margin: 0px;

@@ -74,17 +74,17 @@ if ( post_password_required() ) {
 	comment_form(array(
 		'comment_notes_before'=>FALSE,
 		'fields'=>array(
-			'author' => '<p class="comment-form-author">' . '<label for="author">' . __( 'Name','wpbooking' ) . ( $req ? ' <span class="required">*</span>' : '' ) . '</label> ' .
+			'author' => '<p class="comment-form-author">' . '<label for="author"><strong>' . __( 'Name','wpbooking' ) . ( $req ? ' </strong><span class="required">*</span>' : '' ) . '</label> ' .
 				'<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30"' . $aria_req . $html_req . ' /></p>',
-			'email'  => '<p class="comment-form-email"><label for="email">' . __( 'Your Email' ) . ( $req ? ' <span class="required">*</span>' : '' ) . '</label> ' .
+			'email'  => '<p class="comment-form-email"><label for="email"><strong>' . __( 'Your Email' ) . ( $req ? ' </strong><span class="required">*</span>' : '' ) . '</label> ' .
 				'<input id="email" name="email" ' . ( $html5 ? 'type="email"' : 'type="text"' ) . ' value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30" aria-describedby="email-notes"' . $aria_req . $html_req  . ' /></p>',
 		),
 		'comment_field'        => '<div class="wpbooking-comment-form-content">
 						<p class="comment-form-title">
-							<label for="wpbooking_title">'.esc_html__('Review Title','wpbooking').'</label>
+							<label for="wpbooking_title"><strong>'.esc_html__('Review Title','wpbooking').'</strong></label>
 							<input type="text" name="wpbooking_title" >
 						</p>
-						<p class="comment-form-comment"><label for="comment">' . esc_html__( 'Review Text', 'wpbooking' ) . '</label> <textarea id="comment" name="comment" cols="45" rows="8"  aria-required="true" required="required"></textarea></p></div>'.$field_review,
+						<p class="comment-form-comment"><label for="comment"><strong>' . esc_html__( 'Review Text', 'wpbooking' ) . '</strong></label> <textarea id="comment" name="comment" cols="45" rows="8"  aria-required="true" required="required"></textarea></p></div>'.$field_review,
 		'label_submit'=>esc_html__('SEND','wpbooking')
 	));
 	if(!comments_open(get_the_ID()) and !is_user_logged_in()){
