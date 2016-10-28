@@ -218,15 +218,17 @@ $hotel_id = wp_get_post_parent_id(get_the_ID());
                     <?php
                     foreach($facilities as $taxonomy=>$term_ids){
                         $rental_features = get_taxonomy( $taxonomy );
-                        echo '<div class="title">'.$rental_features->labels->name.'</div>';
-                        foreach($term_ids as $key=>$value){
-                            $term = get_term($value,$taxonomy);
-                            ?>
-                            <div class="item col-33">
-                                <input type="checkbox" checked onclick="return false">
-                                <?php echo esc_html($term->name) ?>
-                            </div>
-                            <?php
+                        if(!empty($term_ids)){
+                            echo '<div class="title">'.$rental_features->labels->name.'</div>';
+                            foreach($term_ids as $key=>$value){
+                                $term = get_term($value,$taxonomy);
+                                ?>
+                                <div class="item col-33">
+                                    <input type="checkbox" checked onclick="return false">
+                                    <?php echo esc_html($term->name) ?>
+                                </div>
+                                <?php
+                            }
                         }
                     }
                 } ?>
