@@ -1,3 +1,4 @@
+(node) util.print is deprecated. Use console.log instead.
 .label {
   display: inline;
   padding: .2em .6em .3em;
@@ -1005,7 +1006,7 @@ a.label:focus {
   margin-bottom: 15px;
 }
 .wpbooking-service-edit #wp-service_content-editor-container {
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
 }
 .wpbooking-service-edit .wpbooking-service-metabox {
   font-size: 14px;
@@ -1026,7 +1027,7 @@ a.label:focus {
 }
 .wpbooking-service-edit .wpbooking-service-metabox .col-tab-content .tab-content {
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
 }
 .wpbooking-service-edit .wpbooking-service-metabox h4 {
   font-size: initial;
@@ -1644,6 +1645,10 @@ a.label:focus {
 }
 .single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .list_review_fields .rating {
   padding-right: 10px;
+  color: #ccc;
+  text-align: right;
+}
+.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .list_review_fields .rating .active {
   color: #f0ad4e;
 }
 .single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .list_review_fields .rating .active i:before {
@@ -1735,6 +1740,7 @@ a.label:focus {
   border: 1px solid #ccc;
   transition: all 0.3s;
   border-right: none;
+  background: #FFF;
 }
 .single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-list-social li:last-child a {
   border-right: 1px solid #ccc;
@@ -2462,6 +2468,10 @@ a.label:focus {
   border-color: transparent #e6e6e6 transparent transparent;
   top: 20px;
   left: -9px;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .comment-title {
+  display: block;
+  padding-right: 85px;
 }
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .wpbooking-review-summary {
   position: absolute;
@@ -4543,6 +4553,10 @@ a.label:focus {
   border-color: transparent #e6e6e6 transparent transparent;
   top: 20px;
   left: -9px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .comment-title {
+  display: block;
+  padding-right: 85px;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .comment-list > li .comment-content-wrap .wpbooking-review-summary {
   position: absolute;

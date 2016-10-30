@@ -24,7 +24,7 @@ $reply_allow=wpbooking_review_allow_reply($data['comment_ID']);
 					$comment_title=get_comment_meta($data['comment_ID'],'wpbooking_title',true);
 					if(!$comment_title)$comment_title='&nbsp;';
 					if(empty($data['children']))
-						printf('<span class="comnent-title">%s</span>',$comment_title);
+						printf('<span class="comment-title">%s</span>',$comment_title);
 
 					if($wpbooking_review=get_comment_meta($data['comment_ID'],'wpbooking_review',true)){
 						?>
