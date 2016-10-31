@@ -3651,11 +3651,14 @@ label[for=wpbooking_room_typediv-hide]
                         padding:10px;
                         background: white;
                         box-sizing: border-box;
-                        border:none;
+                        border-color: #ccc;
                         box-shadow: none;
                         width: 165px;
                         color: inherit;
                         font-weight:normal;
+                        &.error{
+                            border-color: red;
+                        }
                     }
                     i{
                         position: absolute;
@@ -3676,6 +3679,14 @@ label[for=wpbooking_room_typediv-hide]
                 }
                 >a,>label{
                     padding:15px 15px;
+                }
+                >select{
+                    margin:10px 15px;
+                    padding: 0px 5px;
+                    background: none;
+                    border: none;
+                    box-shadow: none;
+                    color: inherit;
                 }
             }
         }

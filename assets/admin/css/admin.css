@@ -3587,11 +3587,14 @@ label[for=wpbooking_room_typediv-hide] {
   padding: 10px;
   background: white;
   box-sizing: border-box;
-  border: none;
+  border-color: #ccc;
   box-shadow: none;
   width: 165px;
   color: inherit;
   font-weight: normal;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li .filter-date input.error {
+  border-color: red;
 }
 .wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li .filter-date i {
   position: absolute;
@@ -3610,6 +3613,14 @@ label[for=wpbooking_room_typediv-hide] {
 .wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li > a,
 .wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li > label {
   padding: 15px 15px;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li > select {
+  margin: 10px 15px;
+  padding: 0px 5px;
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: inherit;
 }
 .wb-tab-report-wrap .report-content {
   padding: 15px;

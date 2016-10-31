@@ -1740,12 +1740,40 @@ jQuery(document).ready(function( $ ){
     $('.datepicker_end').datepicker();
 
     $('.do-search').click(function () {
-        $(this).closest('.report-form').submit();
+        var form=$(this).closest('.report-form');
+        form.find('[name=report_type]').val('date_range');
+        var is_validated=true,datepicker_start,datepicker_end;
+
+        datepicker_start=form.find('.datepicker_start');
+        datepicker_end=form.find('.datepicker_end');
+
+
+        if(datepicker_start.val()==''){
+            is_validated=false;
+            datepicker_start.addClass('error');
+        }
+
+        if(datepicker_end.val()==''){
+            is_validated=false;
+            datepicker_end.addClass('error');
+        }
+
+        if(is_validated){
+            form.submit();
+        }
+
     });
     $('.change-report').click(function () {
         var form=$(this).closest('.report-form');
         form.find('.filter-date input').val('');
         form.find('[name=report_type]').val($(this).data('range'));
+        form.submit();
+    });
+
+    $('.select-report-type').change(function () {
+        var form=$(this).closest('.report-form');
+        form.find('.filter-date input').val('');
+        form.find('[name=report_type]').val($(this).val());
         form.submit();
     });
 

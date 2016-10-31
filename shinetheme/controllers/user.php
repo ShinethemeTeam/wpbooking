@@ -993,27 +993,11 @@ if (!class_exists('WPBooking_User')) {
                     'label' => esc_html__('Dashboard', 'wpbooking'),
                 ),
             );
-            $tabs['services'] = array(
-                'label'    => esc_html__('Your listing', 'wpbooking'),
-                'children' => array(
-                    'booking_history' => array(
-                        'label' => esc_html__('Your Booking', 'wpbooking')
-                    ),
-                )
+            $tabs['booking_history'] = array(
+                'label'    => esc_html__('Your Booking', 'wpbooking'),
             );
-            if (current_user_can('publish_posts')) {
-                $tabs['services']['children']['your_property_booking'] = array(
-                    'label' => esc_html__('Your Property Booking', 'wpbooking')
-                );
-            }
-            $tabs['services']['children']['your_wishlist'] = array(
-                'label' => esc_html__('Your wishlist', 'wpbooking')
-            );
-            $tabs['inbox'] = array('label' => esc_html__('Inbox', 'wpbooking'));
-            if (current_user_can('publish_posts')) {
-                $tabs['profile'] = array('label' => esc_html__('Profile', 'wpbooking'));
-            }
-            $tabs['change_password'] = array('label' => esc_html__('Change Password', 'wpbooking'));
+            $tabs['edit_profile'] = array('label' => esc_html__('Edit Profile', 'wpbooking'));
+
             $tabs['logout'] = array('label' => esc_html__('Logout', 'wpbooking'));
 
             return apply_filters('wpbooking_myaccount_tabs', $tabs);
