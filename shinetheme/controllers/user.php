@@ -23,6 +23,14 @@ if (!class_exists('WPBooking_User')) {
             add_action('init', array($this, '_login_register_handler'));
 
             /**
+             * Do send email to retrieve password
+             *
+             * @since 1.0
+             * @author tienhd
+             */
+            add_action('init',array($this,'_retrieve_password'));
+
+            /**
              * Ajax Handler Upload Certificate before Register
              * @author dungdt
              * @since 1.0
@@ -126,14 +134,6 @@ if (!class_exists('WPBooking_User')) {
              * @author tienhd
              */
             add_filter('login_url',array($this,'redirect_login_url'));
-
-            /**
-             * Do send email to reset password
-             *
-             * @since 1.0
-             * @author tienhd
-             */
-            add_action('init',array($this,'_send_lost_password_email'));
 
         }
 
@@ -993,27 +993,11 @@ if (!class_exists('WPBooking_User')) {
                     'label' => esc_html__('Dashboard', 'wpbooking'),
                 ),
             );
-            $tabs['services'] = array(
-                'label'    => esc_html__('Your listing', 'wpbooking'),
-                'children' => array(
-                    'booking_history' => array(
-                        'label' => esc_html__('Your Booking', 'wpbooking')
-                    ),
-                )
+            $tabs['booking_history'] = array(
+                'label'    => esc_html__('Your Booking', 'wpbooking'),
             );
-            if (current_user_can('publish_posts')) {
-                $tabs['services']['children']['your_property_booking'] = array(
-                    'label' => esc_html__('Your Property Booking', 'wpbooking')
-                );
-            }
-            $tabs['services']['children']['your_wishlist'] = array(
-                'label' => esc_html__('Your wishlist', 'wpbooking')
-            );
-            $tabs['inbox'] = array('label' => esc_html__('Inbox', 'wpbooking'));
-            if (current_user_can('publish_posts')) {
-                $tabs['profile'] = array('label' => esc_html__('Profile', 'wpbooking'));
-            }
-            $tabs['change_password'] = array('label' => esc_html__('Change Password', 'wpbooking'));
+            $tabs['edit_profile'] = array('label' => esc_html__('Edit Profile', 'wpbooking'));
+
             $tabs['logout'] = array('label' => esc_html__('Logout', 'wpbooking'));
 
             return apply_filters('wpbooking_myaccount_tabs', $tabs);
@@ -1212,12 +1196,41 @@ if (!class_exists('WPBooking_User')) {
         }
 
         /**
-         * Send email when lost password
+         * Retrieve password
+         *
+         * @since 1.0
+         * @author tienhd
          */
-        function _send_lost_password_email(){
-            if(is_user_logged_in()) return;
-            if(WPBooking_Input::post('wpbboking_lost_password') && wp_verify_nonce(WPBooking_Input::post('_wpnonce'),'wb-lost-password')){
-                echo 'ok';
+        function _retrieve_password(){
+            global $user, $wp_hasher ;
+            if(is_user_logged_in()) return false;
+            if(WPBooking_Input::post('action') == 'wpbooking_lost_pass' && wp_verify_nonce( WPBooking_Input::post('_wpnonce'), 'wb_lost_password' )){
+                $login = WPBooking_Input::post('user_login');
+                if(empty($login)){
+                    wpbooking_set_message(esc_html__('Your username or email not correct, please try again!','wpbooking'),'danger');
+                    return false;
+                }
+                $user_arr = get_user_by('login',$login);
+                if(!$user_arr && is_email($login)){
+                    $user_arr = get_user_by('email',$login);
+                }
+                $user_login = $user_arr->user_login;
+                if(!$user_arr){
+                    wpbooking_set_message(esc_html__('Invalid username or email','wpbooking'),'danger');
+                    return false;
+                }
+                if(is_multisite() && !is_user_member_of_blog($user_arr->ID,get_current_blog_id())){
+                    wpbooking_set_message(esc_html__('Invalid username or email','wpbooking'),'danger');
+                    return false;
+                }
+                $g_pass = wp_generate_password( 20, false );
+                if(empty($wp_hasher)){
+                    require_once ABSPATH . 'wp-includes/class-phpass.php';
+                    $wp_hasher = new PasswordHash( 8, true );
+                }
+                $hashed = $wp_hasher->HashPassword( $g_pass );
+
+
             }
         }
 
@@ -1244,7 +1257,6 @@ if (!class_exists('WPBooking_User')) {
             }else {
                 return $logouturl;
             }
-
         }
         /**
          * redirect login url
@@ -1258,7 +1270,6 @@ if (!class_exists('WPBooking_User')) {
             }else {
                 return $login_url;
             }
-
         }
         /**
          * List Preferred Language

@@ -247,7 +247,7 @@ if(!function_exists('wpbooking_post_query_desc'))
 		if(!empty($q)){
 			foreach($q as $key=>$val){
 				if($key==count($q)-1 && count($q)>1){
-					$query_desc.='and ';
+					$query_desc.=' ';
 				}
 				$query_desc.=$val.' ';
 			}

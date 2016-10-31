@@ -1738,8 +1738,10 @@
                 }
                 .rating{
                   padding-right: 10px;
-                  color: @maincolor;
+                  color: #ccc;
+                  text-align: right;
                   .active{
+                    color: @maincolor;
                     i:before{
                       content: "\f005";
                     }
@@ -1832,6 +1834,7 @@
                     border: 1px solid #ccc;
                     transition: all 0.3s;
                     border-right: none;
+                    background: #FFF;
                   }
                   &:last-child{
                     a {
@@ -2576,6 +2579,10 @@
                             top:20px;
                             left: -9px;
                         }
+                      .comment-title{
+                        display: block;
+                        padding-right: 85px
+                      }
 
                         .wpbooking-review-summary{
                             position: absolute;
@@ -4635,6 +4642,10 @@
                                 top:20px;
                                 left: -9px;
                             }
+                          .comment-title{
+                            display: block;
+                            padding-right: 85px
+                          }
 
                             .wpbooking-review-summary{
                                 position: absolute;

@@ -254,6 +254,13 @@ jQuery(document).ready(function( $ ){
     }());
 
     jQuery(document).ready(function($){
+        //if empty will remove all data
+        if($('.featuredgallerydiv').html() == ''){
+            $('.wp_gallery_hotel').val('');
+            $('.wb_hotel_gallery_data').val('');
+            $('.btn_remove_gallery_hotel').hide();
+        }
+
         $("body").on('click','.close_modal',function(e){
             e.preventDefault();
             modal.close();
@@ -289,13 +296,14 @@ jQuery(document).ready(function( $ ){
             });
         });
 
-        $("body").on('click','.btn_remove_gallery_hotel',function(){
+        $("body").on('click','.btn_remove_gallery_hotel',function(e){
             var container = $(this).parent().parent();
             var wn = confirm(wpbooking_params.delete_gallery);
             if(wn == true) {
                 container.find('.wp_gallery_hotel').val('');
                 container.find('.wb_hotel_gallery_data').val('');
-                container.find('.gallery-item').hide();
+                container.find('.gallery-item').remove();
+                $(this).hide();
             }
         });
 
@@ -318,6 +326,9 @@ jQuery(document).ready(function( $ ){
                             return a != img_id;
                         });
                         $('.wp_gallery_hotel').val(img_arr.join(','));
+                        if(img_arr.length == 0){
+                            $('.btn_remove_gallery_hotel').hide();
+                        }
 
                         $('.featuredgallerydiv').find('.gallery-item').each(function () {
                             var id = $(this).find('.gallery-item-remove').data('id');
@@ -372,6 +383,9 @@ jQuery(document).ready(function( $ ){
                         $('.wb_hotel_gallery_data').val('');
                     }
                     $(this).parent().parent().remove();
+                    if($('#wp_gallery_hotel').val() == ''){
+                        $('.btn_remove_gallery_hotel').hide();
+                    }
                 }
         });
 
@@ -455,7 +469,7 @@ jQuery(document).ready(function( $ ){
                 if (metadataString) {
                     $('.wp_gallery_hotel',container).val(metadataString);
                     $('.featuredgallerydiv',container).html(imageHTML).show();
-                    console.log($('.featuredgallerydiv',container).html());
+                    $('.btn_remove_gallery_hotel').show();
                 }
             });
             file_frame.open();
@@ -1726,12 +1740,40 @@ jQuery(document).ready(function( $ ){
     $('.datepicker_end').datepicker();
 
     $('.do-search').click(function () {
-        $(this).closest('.report-form').submit();
+        var form=$(this).closest('.report-form');
+        form.find('[name=report_type]').val('date_range');
+        var is_validated=true,datepicker_start,datepicker_end;
+
+        datepicker_start=form.find('.datepicker_start');
+        datepicker_end=form.find('.datepicker_end');
+
+
+        if(datepicker_start.val()==''){
+            is_validated=false;
+            datepicker_start.addClass('error');
+        }
+
+        if(datepicker_end.val()==''){
+            is_validated=false;
+            datepicker_end.addClass('error');
+        }
+
+        if(is_validated){
+            form.submit();
+        }
+
     });
     $('.change-report').click(function () {
         var form=$(this).closest('.report-form');
         form.find('.filter-date input').val('');
         form.find('[name=report_type]').val($(this).data('range'));
+        form.submit();
+    });
+
+    $('.select-report-type').change(function () {
+        var form=$(this).closest('.report-form');
+        form.find('.filter-date input').val('');
+        form.find('[name=report_type]').val($(this).val());
         form.submit();
     });
 

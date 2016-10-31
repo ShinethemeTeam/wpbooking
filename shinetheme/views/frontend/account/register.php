@@ -13,19 +13,19 @@ $term_link=WPBooking_User::inst()->get_term_condition_link();
 	<h3 class="form-title"><?php esc_html_e('Register','wpbooking') ?></h3>
 	<div class="form-group-wrap">
 		<div class="form-group">
-			<label for="reg-login" class="control-label"><?php esc_html_e('Username','wpbooking') ?></label>
+			<label for="reg-login" class="control-label"><?php esc_html_e('Username','wpbooking') ?> <span class="required">*</span></label>
 			<input type="text" class="form-control" value="<?php echo WPBooking_Input::post('login') ?>" name="login" id="reg-login" ">
 		</div>
 		<div class="form-group">
-			<label for="input-email" class="control-label"><?php esc_html_e('Email','wpbooking') ?></label>
+			<label for="input-email" class="control-label"><?php esc_html_e('Email','wpbooking') ?> <span class="required">*</span></label>
 			<input type="text" class="form-control" value="<?php echo WPBooking_Input::post('email') ?>" name="email" id="input-email" ">
 		</div>
 		<div class="form-group">
-			<label for="input-password" class="control-label"><?php esc_html_e('Password','wpbooking') ?></label>
+			<label for="input-password" class="control-label"><?php esc_html_e('Password','wpbooking') ?> <span class="required">*</span></label>
 			<input type="password" class="form-control" id="input-password" name="password" ">
 		</div>
 		<div class="form-group">
-			<label for="input-repassword" class="control-label"><?php esc_html_e('Re-type Password','wpbooking') ?></label>
+			<label for="input-repassword" class="control-label"><?php esc_html_e('Re-type Password','wpbooking') ?> <span class="required">*</span></label>
 			<input type="password" class="form-control" id="input-repassword" name="repassword" ">
 		</div>
 		<div class="form-group">

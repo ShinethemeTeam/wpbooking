@@ -13,6 +13,7 @@ if (post_password_required()) {
 $service = wpbooking_get_service();
 $service_type=$service->get_type();
 $hotel_id = get_the_ID();
+$old_post = $post;
 ?>
 <div itemscope itemtype="http://schema.org/Product" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
 
@@ -40,9 +41,16 @@ $hotel_id = get_the_ID();
 		<div class="row-service-gallery-contact">
 			<div class="col-service-gallery">
 				<div class="wb-tabs-gallery-map">
+                    <?php
+                    $map_lat = get_post_meta(get_the_ID(), 'map_lat', TRUE);
+                    $map_lng = get_post_meta(get_the_ID(), 'map_long', TRUE);
+                    $map_zoom = get_post_meta(get_the_ID(), 'map_zoom', TRUE);
+                    ?>
                     <ul class="wb-tabs">
                         <li class="active"><a href="#photos"><i class="fa fa-camera"></i> &nbsp;<?php esc_html_e('Photos','wpbooking'); ?></a></li>
+                        <?php if (!empty($map_lat) and !empty($map_lng)) { ?>
                         <li ><a href="#map"><i class="fa fa-map-marker"></i> &nbsp;<?php esc_html_e('On the map','wpbooking'); ?></a></li>
+                        <?php } ?>
                     </ul>
                     <div class="wp-tabs-content">
                         <div class="wp-tab-item" id="photos">
@@ -59,19 +67,18 @@ $hotel_id = get_the_ID();
                                 </div>
                             </div>
                         </div>
+                        <?php
+                        if (!empty($map_lat) and !empty($map_lng)) { ?>
                         <div class="wp-tab-item" id="map">
                             <div class="service-map">
-                                <?php
-                                $map_lat = get_post_meta(get_the_ID(), 'map_lat', TRUE);
-                                $map_lng = get_post_meta(get_the_ID(), 'map_long', TRUE);
-                                $map_zoom = get_post_meta(get_the_ID(), 'map_zoom', TRUE);
-                                if (!empty($map_lat) and !empty($map_lng)) { ?>
+
                                     <div class="service-map-element" data-lat="<?php echo esc_attr($map_lat) ?>"
                                          data-lng="<?php echo esc_attr($map_lng) ?>"
                                          data-zoom="<?php echo esc_attr($map_zoom) ?>"></div>
-                                <?php } ?>
+
                             </div>
                         </div>
+                        <?php } ?>
                     </div>
 				</div>
 			</div>
@@ -214,6 +221,7 @@ $hotel_id = get_the_ID();
 			<?php
 			global $wp_query;
 			WPBooking_Accommodation_Service_Type::inst()->search_room();
+
 			if(have_posts()) {
 			?>
 				<div class="search-room-availablity">
@@ -303,7 +311,9 @@ $hotel_id = get_the_ID();
 						</form>
 					</div>
 				</div>
-			<?php } ?>
+			<?php }
+            $post = $old_post;
+            ?>
 		</div>
 		<div class="service-content-section">
 			<h5 class="service-info-title"><?php esc_html_e('Accommodation Policies', 'wpbooing') ?></h5>
