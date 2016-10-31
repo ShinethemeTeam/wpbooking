@@ -2,20 +2,12 @@
 $list_extra = array();
 $list_extra = get_post_meta(get_the_ID(),'extra_services',true);
 $hotel_id = wp_get_post_parent_id(get_the_ID());
+$service_room = new WB_Service(get_the_ID());
 ?>
 <div class="loop-room post-<?php the_ID() ?>">
     <div class="room-image">
         <?php
-        $image_id = '';
-        $gallery = get_post_meta(get_the_ID(),'gallery_room',true);
-        if(!empty($gallery)){
-            foreach($gallery as $k=>$v){
-                if(empty($image_id)){
-                    $image_id = $v;
-                }
-            }
-        }
-        echo wp_get_attachment_image($image_id,array(150,150));
+        echo $featured=$service_room->get_featured_image_room('thumb');
         ?>
         &nbsp;
     </div>

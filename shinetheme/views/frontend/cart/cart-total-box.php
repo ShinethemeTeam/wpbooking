@@ -1,77 +1,54 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 9/9/2016
- * Time: 9:30 AM
- */
-$booking=WPBooking_Order::inst();
+$booking=WPBooking_Checkout_Controller::inst();
+$cart=$booking->get_cart();
+$service_type = $cart['service_type'];
 ?>
+<h5 class="checkout-form-title"><?php esc_html_e("Total","wpbooking") ?></h5>
 <div class="review-cart-total">
-    <span class="total-title">
-        <?php _e('Total Price:', 'wpbooking') ?>
-    </span>
-    <span class="total-amount"><?php echo WPBooking_Currency::format_money($booking->get_cart_total(array(
-            'without_deposit'        => true,
-            'without_tax'            => true,
-            'without_extra_price'    => true,
-            'without_addition_price' => false,
-            'without_discount'=>true
+    <div class="review-cart-item">
 
-        ))); ?></span>
+        <?php do_action('wpbooking_other_total_item_information_'.$service_type,$cart) ?>
 
-    <?php if ($price = $booking->get_cart_extra_price()) { ?>
-        <span class="total-title">
+        <?php if ($price = $booking->get_cart_extra_price()) { ?>
+            <span class="total-title">
 					<?php _e('Extra Price:', 'wpbooking') ?>
 				</span>
-        <span class="total-amount"><?php echo WPBooking_Currency::format_money($price); ?></span>
-    <?php } ?>
+            <span class="total-amount"><?php echo WPBooking_Currency::format_money($price); ?></span>
+        <?php } ?>
 
-    <?php if ($price = $booking->get_cart_addition_price()) { ?>
-        <span class="total-title">
-					<?php _e('Addition:', 'wpbooking') ?>
-				</span>
-        <span class="total-amount"><?php echo WPBooking_Currency::format_money($price); ?></span>
-    <?php } ?>
-
-
-    <?php if ($price = $booking->get_cart_tax_price()) { ?>
-        <span class="total-title">
-					<?php _e('Tax:', 'wpbooking') ?>
-				</span>
-        <span class="total-amount"><?php echo WPBooking_Currency::format_money($price); ?></span>
-    <?php } ?>
-
-    <?php if ($price = $booking->get_cart_discount_price()) { ?>
-        <span class="total-title">
-					<?php _e('Discount:', 'wpbooking') ?>
-				</span>
-        <span class="total-amount">-<?php echo WPBooking_Currency::format_money($price); ?> <a href="#" onclick="return false" class="wpbooking-remove-coupon" title="<?php esc_html_e('Remove the coupon','wpbooking') ?>">(x)</a></span>
-    <?php } ?>
-
-    <span class="total-line"></span>
-    <?php $total_amount = $booking->get_cart_total(array('without_deposit'=>true)); $discount=$booking->get_cart_discount_price();
-    $total_amount-=$discount;
-    ?>
-    <span class="total-title">
-					<?php _e('Total Amount:', 'wpbooking') ?>
-				</span>
-    <span class="total-amount big"><?php echo WPBooking_Currency::format_money($total_amount); ?></span>
-
-    <?php if ($price = $booking->get_cart_paynow_price()) { ?>
-        <span class="total-title">
-						<?php _e('Deposit/Pay Now:', 'wpbooking') ?>
-					</span>
-        <span class="total-amount big"><?php echo WPBooking_Currency::format_money($price); ?></span>
-
-        <?php if ($total_amount - $price > 0) {
+        <?php if (!empty($cart['tax']['vat']['vat_excluded']) and $cart['tax']['vat']['vat_excluded'] != 'no') {
+            $vat_amount = $cart['tax']['vat']['vat_amount']."% ";
+            $vat_unit = $cart['tax']['vat']['vat_unit'];
+            if($vat_unit == 'fixed') $vat_amount = '';
             ?>
             <span class="total-title">
-							<?php _e('Remain:', 'wpbooking') ?>
-						</span>
-            <span
-                class="total-amount big"><?php echo WPBooking_Currency::format_money($total_amount - $price); ?></span>
-            <?php
-        } ?>
-    <?php } ?>
+					<?php  echo sprintf(esc_html__("%s V.A.T",'wpbookng'),$vat_amount); ?>
+				</span>
+            <span class="total-amount"><?php echo WPBooking_Currency::format_money(1000); ?></span>
+        <?php } ?>
+        <?php if (!empty($cart['tax']['citytax']['citytax_excluded']) and $cart['tax']['citytax']['citytax_excluded'] != 'no') {
+            $citytax_amount = $cart['tax']['citytax']['citytax_amount']."% ";
+            $citytax_unit = $cart['tax']['citytax']['citytax_unit'];
+            ?>
+            <span class="total-title">
+					<?php  esc_html_e("City Tax",'wpbookng'); ?>
+				</span>
+            <span class="total-amount"><?php echo WPBooking_Currency::format_money(1000); ?></span>
+        <?php } ?>
+
+
+    </div>
+    <span class="total-line"></span>
+    <div class="review-cart-item total">
+
+        <span class="total-title text-up text-bold"><?php _e('Total Amount', 'wpbooking') ?></span>
+        <span class="total-amount text-up text-bold"><?php echo WPBooking_Currency::format_money(1000); ?></span>
+
+        <span class="total-title text-color"> <?php _e('Deposit/Pay Now', 'wpbooking') ?></span>
+        <span class="total-amount text-color"><?php echo WPBooking_Currency::format_money(1000); ?></span>
+
+        <span class="total-title text-bold"><?php _e('You’ll pay at the property', 'wpbooking') ?></span>
+        <span class="total-amount text-bold"><?php echo WPBooking_Currency::format_money(1000); ?></span>
+
+    </div>
 </div>

@@ -188,6 +188,15 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              *
              */
             add_filter('wpbooking_add_to_cart_validate_' . $this->type_id, array($this, '_add_to_cart_validate'), 10, 4);
+
+            /**
+             * Add info room
+             *
+             * @since 1.0
+             * @author quandq
+             */
+            add_action('wpbooking_other_item_information_'.$this->type_id, array($this, '_add_info_item_room'),10,2);
+            add_action('wpbooking_other_total_item_information_'.$this->type_id, array($this, '_add_info_total_item_room'),10,2);
         }
 
 
@@ -1417,30 +1426,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          */
         function _change_cart_item_params($cart_item, $post_id = FALSE)
         {
-            /*$service = new WB_Service($cart_item['post_id']);
-            $calendar = WPBooking_Calendar_Model::inst();
 
-            $cart_item = wp_parse_args($cart_item, array(
-                'check_in_timestamp'  => FALSE,
-                'check_out_timestamp' => FALSE,
-            ));
-
-            $cart_item['guest'] = WPBooking_Input::post('guest');
-            $cart_item['monthly_rate'] = $service->get_meta('monthly_rate');
-            $cart_item['weekly_rate'] = $service->get_meta('weekly_rate');
-            $cart_item['enable_additional_guest_tax'] = $service->get_meta('enable_additional_guest_tax');
-            $cart_item['rate_based_on'] = $service->get_meta('rate_based_on');
-            $cart_item['additional_guest_money'] = $service->get_meta('additional_guest_money');
-            $cart_item['tax'] = $service->get_meta('tax');
-            $cart_item['deposit_type'] = $service->get_meta('deposit_type');
-            $cart_item['deposit_amount'] = $service->get_meta('deposit_amount');
-            $cart_item['default_extra_services'] = $service->get_extra_services();
-
-            if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
-                $cart_item['calendar_prices'] = $calendar->get_prices($cart_item['post_id'], $cart_item['check_in_timestamp'], $cart_item['check_out_timestamp']);
-            }*/
-
-            $service = new WB_Service($cart_item['post_id']);
             $calendar = WPBooking_Calendar_Model::inst();
             $cart_item = wp_parse_args($cart_item, array(
                 'check_in_timestamp'  => FALSE,
@@ -1466,9 +1452,15 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                 }
                             }
                         }
-
+                        $number_room = WPBooking_Input::request('wpbooking_option_number_room');
+                        if(!empty($number_room[$k])){
+                            $number_room = $number_room[$k];
+                        }else{
+                            $number_room = 0;
+                        }
                         $cart_item['rooms'][$k] = array(
                             'room_id'=>$k,
+                            'number'=>$number_room,
                             'extra_fees'=>array(
                                 'extra_service'=>$extra_service
                             )
@@ -1617,6 +1609,28 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             wp_die();
         }
 
+        /**
+         * @param $cart
+         */
+        function _add_info_item_room($cart){
+            echo wpbooking_load_view('checkout/other/other-item-room',array('cart'=>$cart));
+        }
+
+        /**
+         * @param $cart
+         */
+        function _add_info_total_item_room($cart){
+            if(!empty($cart['rooms'])) {
+                $number = count( $cart[ 'rooms' ] );
+                if($number>1){
+                    $html =  sprintf(esc_html__("%s rooms",'wpbookng'),$number);
+                }else{
+                    $html = sprintf(esc_html__("%s room",'wpbookng'),$number);
+                }
+                echo '<span class="total-title">'.$html.'</span>
+                      <span class="total-amount">'.WPBooking_Currency::format_money(2000).'</span>';
+            }
+        }
         static function inst()
         {
             if (!self::$_inst)

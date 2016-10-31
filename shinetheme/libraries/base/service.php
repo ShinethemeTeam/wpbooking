@@ -158,6 +158,50 @@ if (!class_exists('WB_Service')) {
 			return $res;
 		}
 
+        /**
+         * Get Featured Image
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $need bool|string
+         * @return array
+         */
+        function get_featured_image_room($need=FALSE)
+        {
+            $res = array(
+                'thumb'       => sprintf('<img src="%s" alt="%s"/>', wpbooking_assets_url('images/default.png'), get_the_title($this->ID)),
+                'thumb_url'   => wpbooking_assets_url('images/default.png'),
+                'gallery'     => sprintf('<img src="%s" alt="%s"/>', wpbooking_assets_url('images/default.png'), get_the_title($this->ID)),
+                'gallery_url' => wpbooking_assets_url('images/default.png'),
+
+            );
+            if($this->ID){
+                $image_id = '';
+                $gallery = get_post_meta($this->ID,'gallery_room',true);
+                if(!empty($gallery)){
+                    foreach($gallery as $k=>$v){
+                        if(empty($image_id)){
+                            $image_id = $v;
+                        }
+                    }
+                }
+                if(!empty($image_id)){
+                    $res = array(
+                        'thumb'       => wp_get_attachment_image($image_id,'thumbnail'),
+                        'thumb_url'   => wp_get_attachment_image_url($image_id,'thumbnail'),
+                        'gallery'     => $gallery,
+                        'gallery_url' => $gallery,
+
+                    );
+                }
+            }
+            if($need){
+                return !empty($res[$need])?$res[$need]:FALSE;
+            }
+            return $res;
+        }
+
 		/**
 		 * IF $need is specific, return the single value of author of the service. Otherwise, return the array
 		 *

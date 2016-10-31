@@ -38,7 +38,8 @@ $autoload['library']=array(
 	'base/coupon',
 	'taxonomy-metabox',
 	'query-inject',
-    'service'
+    'service',
+    'captcha'
 );
 
 $autoload['controller']=array(

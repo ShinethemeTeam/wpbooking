@@ -20,6 +20,10 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             add_action('wp_ajax_wpbooking_add_to_cart', array($this, '_add_to_cart'));
             add_action('wp_ajax_nopriv_wpbooking_add_to_cart', array($this, '_add_to_cart'));
 
+            add_action('init', array($this, '_register_shortcode'));
+
+            add_action('template_redirect', array($this, '_delete_cart_item'));
+
             parent::__construct();
         }
 
@@ -125,6 +129,215 @@ if(!class_exists('WPBooking_Checkout_Controller'))
         function get_checkout_url()
         {
             return get_permalink(wpbooking_get_option('checkout_page'));
+        }
+
+        /**
+         * register shortcode
+         */
+        function _register_shortcode()
+        {
+            add_shortcode('wpbooking_checkout_page', array($this, '_render_checkout_shortcode'));
+        }
+        function _render_checkout_shortcode($attr = array(), $content = FALSE)
+        {
+            return wpbooking_load_view('checkout/index');
+        }
+        /**
+         * Get Total amount of Cart Without Coupon
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $args array to filter the result
+         * @return int|mixed|void
+         */
+        function get_cart_total($args=array())
+        {
+            $args=wp_parse_args($args,array(
+                'without_discount'=>true
+            ));
+
+            $price = 0;
+            /*$cart = WPBooking_Session::get('wpbooking_cart', array());
+            if (!empty($cart)) {
+                foreach ($cart as $key => $value) {
+                    $price += $this->get_cart_item_total($value, TRUE,$args);
+                }
+            }
+
+            $price = apply_filters('wpbooking_get_cart_total', $price, $cart);*/
+
+            $price = 100;
+
+            return $price;
+        }
+
+        /**
+         * Get Price Amount for one Cart Item
+         *
+         * @author dungdt
+         * @since 1.0
+         *
+         * @param $cart_item
+         * @param bool $need_convert Need Convert To Currency
+         * @param array $args
+         * @return mixed|void
+         */
+        function get_cart_item_total($cart_item, $need_convert = FALSE,$args=array())
+        {
+            $item_price = $cart_item['base_price'];
+            $item_price = apply_filters('wpbooking_cart_item_price', $item_price, $cart_item,$args);
+            $item_price = apply_filters('wpbooking_cart_item_price_' . $cart_item['service_type'], $item_price, $cart_item,$args);
+
+            // Convert to current currency
+            if ($need_convert) {
+                $item_price = WPBooking_Currency::convert_money($item_price, array(
+                    'currency' => $cart_item['currency']
+                ));
+            }
+            return $item_price;
+        }
+        /**
+         * Get all cart items
+         *
+         * @author dungdt
+         * @since 1.0
+         *
+         * @return array
+         */
+        function get_cart()
+        {
+            return WPBooking_Session::get('wpbooking_cart');
+        }
+
+        /**
+         * Get Cart Extra Price
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @return double
+         */
+        function get_cart_extra_price(){
+            /*$price = 0;
+            $cart = $this->get_cart();
+            if (!empty($cart)) {
+                foreach ($cart as $key => $value) {
+                    $price += $this->get_cart_item_extra_price($value);
+                }
+            }
+
+            $price = apply_filters('wpbooking_get_cart_extra_price', $price, $cart);*/
+
+            $price = 100;
+            return $price;
+        }
+        function get_field_form_billing(){
+            $field_form = array(
+                array(
+                    'title'=>esc_html__("First name","wpbooking"),
+                    'placeholder'=>esc_html__("First name","wpbooking"),
+                    'type'=>'text',
+                    'name'=>'fist_name',
+                    'size'=>'6',
+                    'required'=>true,
+                ),
+                array(
+                    'title'=>esc_html__("Last name","wpbooking"),
+                    'placeholder'=>esc_html__("Last name","wpbooking"),
+                    'type'=>'text',
+                    'name'=>'last_name',
+                    'size'=>'6',
+                    'required'=>true,
+                ),
+                array(
+                    'title'=>esc_html__("Email","wpbooking"),
+                    'placeholder'=>esc_html__("Email","wpbooking"),
+                    'desc'=>esc_html__("Email to confirmation","wpbooking"),
+                    'type'=>'text',
+                    'name'=>'email',
+                    'size'=>'12',
+                    'required'=>true,
+                ),
+                array(
+                    'title'=>esc_html__("Telephone","wpbooking"),
+                    'placeholder'=>esc_html__("Telephone","wpbooking"),
+                    'type'=>'text',
+                    'name'=>'phone',
+                    'size'=>'12',
+                    'required'=>true,
+                ),
+                array(
+                    'title'=>esc_html__("Address","wpbooking"),
+                    'placeholder'=>esc_html__("Address","wpbooking"),
+                    'type'=>'text',
+                    'name'=>'address',
+                    'size'=>'12',
+                    'required'=>true,
+                ),
+                array(
+                    'title'=>esc_html__("Postcode / ZIP","wpbooking"),
+                    'placeholder'=>esc_html__("Postcode / ZIP","wpbooking"),
+                    'type'=>'text',
+                    'name'=>'postcode_zip',
+                    'size'=>'6',
+                    'required'=>false,
+                ),
+                array(
+                    'title'=>esc_html__("Apt/ Unit","wpbooking"),
+                    'placeholder'=>esc_html__("Apt/ Unit","wpbooking"),
+                    'type'=>'text',
+                    'name'=>'apt_unit',
+                    'size'=>'6',
+                    'required'=>false,
+                ),
+                array(
+                    'title'=>esc_html__("Special request","wpbooking"),
+                    'placeholder'=>esc_html__("Notes about your order, e.g. special notes for  delivery.","wpbooking"),
+                    'type'=>'textarea',
+                    'name'=>'special_request',
+                    'size'=>'12',
+                    'required'=>false,
+                ),
+            );
+
+            $field_form = apply_filters('wpbooking_get_field_form_billing', $field_form);
+
+            return $field_form;
+        }
+        /**
+         * Handler Action Delete Cart Item
+         *
+         * @since 1.0
+         * @author quandq
+         */
+        function _delete_cart_item()
+        {
+            if (isset($_GET['delete_cart_item'])) {
+                $index = WPBooking_Input::get('delete_cart_item');
+                $all = WPBooking_Session::get('wpbooking_cart');
+                if(!empty($all['service_type'])){
+                    $service_type=$all['service_type'];
+                    $redirect_to_home = false;
+                    switch($service_type){
+                        case 'accommodation':
+                            unset($all['rooms'][$index]);
+                            if(empty($all['rooms'])){
+                                WPBooking_Session::set('wpbooking_cart', array());
+                                $redirect_to_home = true;
+                            }
+                            break;
+                    }
+                    if($redirect_to_home){
+                        wp_redirect(home_url());
+                    }else{
+                        WPBooking_Session::set('wpbooking_cart', $all);
+                        wpbooking_set_message(__("Delete item successfully", 'wpbooking'), 'success');
+                    }
+                }
+
+            }
+
         }
         static function inst()
         {
