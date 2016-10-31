@@ -1943,6 +1943,10 @@ a.label:focus {
   background: #f0ad4e;
   border-color: #f0ad4e;
 }
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search {
+  margin-right: -10px;
+  margin-left: -10px;
+}
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search:before,
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search:after {
   display: table;
@@ -1951,12 +1955,19 @@ a.label:focus {
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search:after {
   clear: both;
 }
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .wb-button {
+  margin-left: 10px !important;
+}
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .form-item {
   float: left;
   padding-right: 10px;
+  padding-left: 10px;
   position: relative;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .form-item:last-child {
+  padding-right: 0px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .form-item:first-child {
   padding-right: 0px;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .form-item.w20 {
