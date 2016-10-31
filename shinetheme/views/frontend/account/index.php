@@ -22,9 +22,13 @@ global $wp_query;
 		echo "</div>";
 	}elseif(isset($wp_query->query_vars['lost-password'])){
         echo '<div class="wb-account-reset-pass">';
-            echo WPBooking_User::inst()->load_lost_password_form();
+		echo wpbooking_load_view('account/lost-password');
         echo '</div';
-    }else{
+    }elseif(isset($wp_query->query_vars['reset-password'])){
+		echo '<div class="wb-account-reset-pass">';
+		echo wpbooking_load_view('account/reset-password');
+		echo '</div';
+	}else{
 		?>
 		<div class="row">
 			<div class="col-sm-6"><?php echo wpbooking_load_view('account/login') ?></div>

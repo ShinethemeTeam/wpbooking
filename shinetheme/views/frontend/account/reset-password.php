@@ -5,9 +5,11 @@
  * Date: 10/31/2016
  * Version: 1.0
  */
+
 ?>
-<form class="wb-form-reset-password" method="post" action="">
-    <input type="hidden" name="action" value="wpbooking_reset_pass">
+<form class="wb-form-reset-password" method="post" action="<?php echo site_url( 'wp-login.php?action=resetpass' ); ?>">
+    <input type="hidden" id="user_login" name="rp_login" value="<?php echo esc_attr( WPBooking_Input::get('login') ); ?>" autocomplete="off" />
+    <input type="hidden" name="rp_key" value="<?php echo esc_attr( WPBooking_Input::get('key') ); ?>" />
     <h3 class="form-title"><?php esc_html_e('Reset Password','wpbooking'); ?></h3>
     <div class="form-group-wrap">
         <div class="form-group">
@@ -26,9 +28,7 @@
         </div>
     </div>
     <?php
-        wp_nonce_field('wb-reset-password');
-        if(WPBooking_Input::post('action') == 'wpbooking_reset_pass'){
-            echo wpbooking_get_message();
-        }
+    if(!empty(WPBooking_Input::get('error')))
+        echo wpbooking_get_message()
     ?>
 </form>

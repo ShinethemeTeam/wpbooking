@@ -1,3 +1,4 @@
+(node) util.print is deprecated. Use console.log instead.
 .label {
   display: inline;
   padding: .2em .6em .3em;
@@ -1068,7 +1069,7 @@ a.label:focus {
   margin-bottom: 15px;
 }
 .wpbooking-service-edit #wp-service_content-editor-container {
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
 }
 .wpbooking-service-edit .wpbooking-service-metabox {
   font-size: 14px;
@@ -1089,7 +1090,7 @@ a.label:focus {
 }
 .wpbooking-service-edit .wpbooking-service-metabox .col-tab-content .tab-content {
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
 }
 .wpbooking-service-edit .wpbooking-service-metabox h4 {
   font-size: initial;

@@ -14,11 +14,12 @@
             <input class="form-control" id="user_login" name="user_login" value="">
         </div>
         <div class="form-group">
-            <input name="submit" type="submit" class="wb-btn wb-btn-default wb-btn-lg" value="<?php echo esc_html__('Reset Password','wpbooking'); ?>">
+            <button type="submit" name="submit" class="wb-btn wb-btn-default wb-btn-lg" value="reset_pass_submit"><?php echo esc_html__('Reset Password','wpbooking'); ?></button>
         </div>
         <a class="login-url" href="<?php echo esc_url(wp_login_url()); ?>"><?php echo esc_html__('Login','wpbooking'); ?></a>
     </div>
-    <?php if(WPBooking_Input::post('action') == 'wpbooking_lost_pass'){
+    <?php
+    if(WPBooking_Input::get('errors')){
         echo wpbooking_get_message();
     }?>
 </form>
