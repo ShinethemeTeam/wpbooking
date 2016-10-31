@@ -1750,6 +1750,12 @@
                   }
                 }
               }
+              &:hover{
+                .wb-list-social{
+                  right: -28px;
+                  opacity: 1;
+                }
+              }
               .wb-list-social{
                 list-style: none;
                 position: absolute;
@@ -1818,10 +1824,6 @@
                   border-width: 7px 9px 7px 0;
                   border-color: transparent #ccc transparent transparent;
                 }
-              }
-              .wb-list-social.move{
-                right: -28px;
-                opacity: 1;
               }
             }
 
@@ -4040,7 +4042,7 @@
     .required{
         color: red;
     }
-    .login-register-form,.wb-form-lost-password{
+    .login-register-form,.wb-form-lost-password,.wb-form-reset-password{
         .form-title{
             margin: 0px;
             margin-bottom: 20px;
@@ -4100,6 +4102,11 @@
         font-size: 14px;
         font-weight: normal;
         text-transform: capitalize;
+      }
+      .note{
+        font-size: 12px;
+        font-style: italic;
+        width: 80%;
       }
     }
     .wb-account-nav{

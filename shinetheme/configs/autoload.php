@@ -69,7 +69,8 @@ $autoload['model']=array(
 	'user_favorite_model',
 	'review_helpful',
     'query_model',
-    'meta_model'
+    'meta_model',
+    'user_model'
 );
 
 $autoload['widget']=array(
