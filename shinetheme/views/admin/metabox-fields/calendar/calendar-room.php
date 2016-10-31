@@ -77,7 +77,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
 						</div>
 						<div class="calendar-room-form-item full-width" style="clear:both" >
 							<label class="calendar-label" for="calendar-price"><?php echo __('Nightly Price', 'wpbooking'); ?></label>
-							<input class="calendar-input" type="text" id="calendar-price" name="calendar-price" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
+							<input class="calendar-input" type="number" id="calendar-price" name="calendar-price" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
 						</div>
 						<div class="calendar-room-form-item full-width hidden" >
 							<label class="calendar-label" for="calendar-price-week"><?php echo __('Weekly Price', 'wpbooking'); ?></label>
