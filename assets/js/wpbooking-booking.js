@@ -309,6 +309,9 @@ jQuery(document).ready(function($){
     }
 
     // Gateway Items
+    setTimeout(function(){
+        $('.wpbooking-gateway-item [name=payment_gateway]:checked').trigger('change');
+    },500);
     $('.wpbooking-gateway-item [name=payment_gateway]').change(function(){
        var parent=$(this).closest('.wpbooking-gateway-item');
         if(!parent.hasClass('active'))
@@ -318,9 +321,9 @@ jQuery(document).ready(function($){
         }
 
         var name=$(this).val();
-        if(!$('.wpbooking-gateways-desc .gateway-desc.gateway-id-'+name).hasClass('active')){
-            $('.wpbooking-gateways-desc .gateway-desc').removeClass('active');
-            $('.wpbooking-gateways-desc .gateway-desc.gateway-id-'+name).addClass('active');
+        if(!$('.wpbooking-gateway-item .gateway-desc.gateway-id-'+name).hasClass('active')){
+            $('.wpbooking-gateway-item .gateway-desc').removeClass('active');
+            $('.wpbooking-gateway-item .gateway-desc.gateway-id-'+name).addClass('active');
         }
     });
 

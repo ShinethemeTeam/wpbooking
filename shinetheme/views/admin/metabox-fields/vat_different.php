@@ -48,7 +48,7 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
                 <label class="label_vat_unit" for="<?php esc_html_e("Unit","wpbooking") ?>"><?php  esc_html_e("Unit","wpbooking") ?></label>
                 <select class="form-control widefat small" name="vat_unit">
                     <option <?php selected("percent",get_post_meta($post_id, 'vat_unit', TRUE)) ?> value="percent"><?php esc_html_e("Percent (%)",'wpbooking') ?></option>
-                    <option <?php selected("fixed",get_post_meta($post_id, 'vat_unit', TRUE)) ?> value="fixed"><?php esc_html_e("Fixed (%)",'wpbooking') ?></option>
+                    <option <?php selected("fixed",get_post_meta($post_id, 'vat_unit', TRUE)) ?> value="fixed"><?php esc_html_e("Fixed",'wpbooking') ?></option>
                 </select>
                 <p class="help-block"><?php esc_html_e('Sed ut perspiciatis unde omnis ','wpbooking') ?></p>
             </div>

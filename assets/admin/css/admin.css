@@ -1364,6 +1364,7 @@ img.settings-demo-image-gallery {
   font-style: italic;
   font-weight: 300;
   margin-top: 10px;
+  font-size: 13px;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .help_inline {
   color: #999999;
@@ -2082,7 +2083,8 @@ input.gmap-search {
   width: 50%;
 }
 .wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-room-form-item input[type=text],
-.wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-room-form-item select {
+.wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-room-form-item select,
+.wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-room-form-item input[type=number] {
   width: 100%;
 }
 .wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-room-form-item.full-width {
@@ -3587,11 +3589,14 @@ label[for=wpbooking_room_typediv-hide] {
   padding: 10px;
   background: white;
   box-sizing: border-box;
-  border: none;
+  border-color: #ccc;
   box-shadow: none;
   width: 165px;
   color: inherit;
   font-weight: normal;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li .filter-date input.error {
+  border-color: red;
 }
 .wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li .filter-date i {
   position: absolute;
@@ -3610,6 +3615,14 @@ label[for=wpbooking_room_typediv-hide] {
 .wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li > a,
 .wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li > label {
   padding: 15px 15px;
+}
+.wb-tab-report-wrap .filter-by-tabs .filter-by-lists > li > select {
+  margin: 10px 15px;
+  padding: 0px 5px;
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: inherit;
 }
 .wb-tab-report-wrap .report-content {
   padding: 15px;

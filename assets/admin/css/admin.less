@@ -1244,6 +1244,7 @@ img.settings-demo-image-gallery{
                 font-style: italic;
                 font-weight: 300;
                 margin-top: 10px;
+                font-size: 13px;
             }
             .help_inline{
                 color: #999999;
@@ -2037,7 +2038,7 @@ input.gmap-search{
                 .mb20;
                 float: left;
                 width: 50%;
-                input[type=text],select{
+                input[type=text],select,input[type=number]{
                     width: 100%;
                 }
 
@@ -3651,11 +3652,14 @@ label[for=wpbooking_room_typediv-hide]
                         padding:10px;
                         background: white;
                         box-sizing: border-box;
-                        border:none;
+                        border-color: #ccc;
                         box-shadow: none;
                         width: 165px;
                         color: inherit;
                         font-weight:normal;
+                        &.error{
+                            border-color: red;
+                        }
                     }
                     i{
                         position: absolute;
@@ -3676,6 +3680,14 @@ label[for=wpbooking_room_typediv-hide]
                 }
                 >a,>label{
                     padding:15px 15px;
+                }
+                >select{
+                    margin:10px 15px;
+                    padding: 0px 5px;
+                    background: none;
+                    border: none;
+                    box-shadow: none;
+                    color: inherit;
                 }
             }
         }

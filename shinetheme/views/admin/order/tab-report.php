@@ -15,6 +15,18 @@ $query=new WP_Query($args);
 $service_types=WPBooking_Service_Controller::inst()->get_service_types();
 $report_data=WPBooking_Admin_Order::inst()->get_report_data();
 $report_type=WPBooking_Input::get('report_type','last_7_days');
+$type_array=array(
+	'today'=>esc_html__('Today','wpbooking'),
+	'yesterday'=>esc_html__('Yesterday','wpbooking'),
+	'this_week'=>esc_html__('This week','wpbooking'),
+	'last_week'=>esc_html__('Last week','wpbooking'),
+	'last_7days'=>esc_html__('Last 7 days','wpbooking'),
+	'last_30days'=>esc_html__('Last 30 days','wpbooking'),
+	'last_60days'=>esc_html__('Last 60 days','wpbooking'),
+	'last_90days'=>esc_html__('Last 90 days','wpbooking'),
+	'this_year'=>esc_html__('This Year','wpbooking'),
+	'last_year'=>esc_html__('Last Year','wpbooking'),
+)
 ?>
 <div class="wb-tab-report-wrap clear">
 	<form action="" class="report-form" method="get">
@@ -39,16 +51,20 @@ $report_type=WPBooking_Input::get('report_type','last_7_days');
 		<div class="filter-by-tabs">
 			<ul class="filter-by-lists">
 				<li><a ><?php esc_html_e('Filter by:','wpbooking') ?></a></li>
-				<li><a href="#" class="change-report" data-range="year"><?php esc_html_e('Year','wpbooking') ?></a></li>
-				<li><a href="#" class="change-report" data-range="last_month"><?php esc_html_e('Last month','wpbooking') ?></a></li>
-				<li><a href="#" class="change-report" data-range="this_month"><?php esc_html_e('This month','wpbooking') ?></a></li>
-				<li class="active"><a href="#" class="change-report" data-range="last_7_days"><?php esc_html_e('Last 7 days','wpbooking') ?></a></li>
-				<li>
+				<li <?php if(array_key_exists($report_type,$type_array) or $report_type=='today') echo 'class="active"'; ?> >
+					<select  class="select-report-type" name="">
+						<?php foreach($type_array as $type_id=>$type){
+							printf('<option value="%s" %s>%s</option>',$type_id,selected($report_type,$type_id,false),$type);
+						} ?>
+					</select>
+				</li>
+
+				<li <?php if($report_type=='date_range') echo "class='active'"; ?>>
 					<div class="filter-date">
-						<label ><?php esc_html_e('From','wpbooking')?> <input type="text" name="date_from" class="datepicker_start"> <i class="fa fa-calendar"></i></label>
+						<label ><?php esc_html_e('From','wpbooking')?> <input type="text" value="<?php echo ($report_type=='date_range')?WPBooking_Input::get('date_from'):false ?>" name="date_from" class="datepicker_start"> <i class="fa fa-calendar"></i></label>
 					</div>
 					<div class="filter-date">
-						<label ><?php esc_html_e('To','wpbooking')?> <input type="text" name="date_to" class="datepicker_end"> <i class="fa fa-calendar"></i></label>
+						<label ><?php esc_html_e('To','wpbooking')?> <input type="text" name="date_to" value="<?php echo ($report_type=='date_range')?WPBooking_Input::get('date_to'):false ?>" class="datepicker_end"> <i class="fa fa-calendar"></i></label>
 					</div>
 				</li>
 				<li class=""><a href="#" class="do-search" ><?php esc_html_e('Go','wpbooking') ?> <i class="fa fa-caret-right"></i></a></li>
