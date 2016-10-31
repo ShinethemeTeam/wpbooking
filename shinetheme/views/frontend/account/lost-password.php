@@ -20,7 +20,7 @@
         <a class="login-url" href="<?php echo esc_url(wp_login_url()); ?>"><?php echo esc_html__('Login','wpbooking'); ?></a>
     </div>
     <?php wp_nonce_field('wb_lost_password'); ?>
-    <?php if(WPBooking_Input::post('action') == 'wpbooking_lost_password'){
+    <?php if(WPBooking_Input::post('action') == 'wpbooking_lost_pass'){
         echo wpbooking_get_message();
     }?>
 </form>

@@ -13,6 +13,7 @@ if (post_password_required()) {
 $service = wpbooking_get_service();
 $service_type=$service->get_type();
 $hotel_id = get_the_ID();
+$old_post = $post;
 ?>
 <div itemscope itemtype="http://schema.org/Product" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
 
@@ -219,7 +220,7 @@ $hotel_id = get_the_ID();
 		<div class="service-content-section">
 			<?php
 			global $wp_query;
-//			WPBooking_Accommodation_Service_Type::inst()->search_room();
+			WPBooking_Accommodation_Service_Type::inst()->search_room();
 
 			if(have_posts()) {
 			?>
@@ -310,7 +311,9 @@ $hotel_id = get_the_ID();
 						</form>
 					</div>
 				</div>
-			<?php } ?>
+			<?php }
+            $post = $old_post;
+            ?>
 		</div>
 		<div class="service-content-section">
 			<h5 class="service-info-title"><?php esc_html_e('Accommodation Policies', 'wpbooing') ?></h5>

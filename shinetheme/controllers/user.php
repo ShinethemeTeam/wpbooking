@@ -1218,9 +1218,33 @@ if (!class_exists('WPBooking_User')) {
          * @author tienhd
          */
         function _retrieve_password(){
+            global $user, $wp_hasher ;
             if(is_user_logged_in()) return false;
             if(WPBooking_Input::post('action') == 'wpbooking_lost_pass' && wp_verify_nonce( WPBooking_Input::post('_wpnonce'), 'wb_lost_password' )){
-                $user_login = WPBooking_Input::post('user_login');
+                $login = WPBooking_Input::post('user_login');
+                if(empty($login)){
+                    wpbooking_set_message(esc_html__('Your username or email not correct, please try again!','wpbooking'),'danger');
+                    return false;
+                }
+                $user_arr = get_user_by('login',$login);
+                if(!$user_arr && is_email($login)){
+                    $user_arr = get_user_by('email',$login);
+                }
+                $user_login = $user_arr->user_login;
+                if(!$user_arr){
+                    wpbooking_set_message(esc_html__('Invalid username or email','wpbooking'),'danger');
+                    return false;
+                }
+                if(is_multisite() && !is_user_member_of_blog($user_arr->ID,get_current_blog_id())){
+                    wpbooking_set_message(esc_html__('Invalid username or email','wpbooking'),'danger');
+                    return false;
+                }
+                $g_pass = wp_generate_password( 20, false );
+                if(empty($wp_hasher)){
+                    require_once ABSPATH . 'wp-includes/class-phpass.php';
+                    $wp_hasher = new PasswordHash( 8, true );
+                }
+                $hashed = $wp_hasher->HashPassword( $g_pass );
 
 
             }
