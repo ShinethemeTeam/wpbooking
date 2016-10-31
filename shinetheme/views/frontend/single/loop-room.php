@@ -54,7 +54,7 @@ $service_room = new WB_Service(get_the_ID());
                     $html = '';
                     foreach($facilities as $taxonomy=>$term_ids){
                         $rental_features = get_taxonomy( $taxonomy );
-                        if(!empty($term_ids)){
+                        if(!empty($term_ids) and !empty($rental_features->labels->name)){
                             echo '<div class="title">'.$rental_features->labels->name.': </div>';
                             foreach($term_ids as $key=>$value){
                                 $term = get_term($value,$taxonomy);
