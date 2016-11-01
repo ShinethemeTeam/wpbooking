@@ -494,6 +494,52 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 
 		}
 
+        /**
+         * Quick method for get $_POST data
+         *
+         * @since 1.0
+         * @auhor dungdt
+         *
+         * @param $key
+         * @param null $default
+         * @return bool
+         */
+		function post($key,$default=null){
+		    return WPBooking_Input::post($key,$default);
+        }
+
+
+
+        /**
+         * Quick method for get $_GET data
+         *
+         * @since 1.0
+         * @auhor dungdt
+         *
+         * @param $key
+         * @param null $default
+         * @return bool
+         */
+		function get($key,$default=null){
+		    return WPBooking_Input::get($key,$default);
+        }
+
+        /**
+         * Quick method for get $_REQUEST data
+         *
+         * @since 1.0
+         * @auhor dungdt
+         *
+         * @param $key
+         * @param null $default
+         * @return bool
+         */
+		function request($key,$default=null){
+		    return WPBooking_Input::request($key,$default);
+        }
+
+
+
         abstract public function get_search_fields();
 
 	}

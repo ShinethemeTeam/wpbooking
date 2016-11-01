@@ -228,7 +228,7 @@ $hotel_id = get_the_ID();
 						<?php wp_nonce_field('room_search','room_search')?>
 						<input name="action" value="ajax_search_room" type="hidden">
 						<div class="search-room-form">
-							<h5 class="service-info-title"><?php esc_html_e('Check availablity', 'wpbooing') ?></h5>
+							<h5 class="service-info-title"><?php esc_html_e('Check availability', 'wpbooing') ?></h5>
 							<div class="form-search">
 								<div class="form-item w20 form-item-icon">
 									<label><?php esc_html_e('Check In', 'wpbooing') ?><i class="fa fa-calendar"></i>
@@ -271,7 +271,7 @@ $hotel_id = get_the_ID();
 										?>
 									</select>
 								</div>
-								<button type="button" class="wb-button btn-do-search-room"><?php esc_html_e("CHECK AVAILABLITY","wpbooking") ?></button>
+								<button type="button" class="wb-button btn-do-search-room"><?php esc_html_e("CHECK AVAILABILITY ","wpbooking") ?></button>
                                 <img class="img_loading" src="<?php echo admin_url('/images/wpspin_light.gif') ?>">
 							</div>
 						</div>

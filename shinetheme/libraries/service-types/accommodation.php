@@ -190,6 +190,15 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             add_filter('wpbooking_add_to_cart_validate_' . $this->type_id, array($this, '_add_to_cart_validate'), 10, 4);
 
             /**
+             * validate add to cart
+             *
+             * @since 1.0
+             * @author quandq
+             *
+             */
+            add_filter('wpbooking_get_cart_total_' . $this->type_id, array($this, '_get_cart_total_price'), 10, 4);
+
+            /**
              * Add info room
              *
              * @since 1.0
@@ -457,7 +466,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'desc'  => esc_html__("Chọn đơn vị đo lường ưa thích của bạn", "wpbooking")
                         ),
                         array(
-                            'label'  => __('Room sizes', 'wpbooking'),
+                            'label'  => __('Room size', 'wpbooking'),
                             'id'     => 'room_size',
                             'type'   => 'room_size',
                         ),
@@ -845,8 +854,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $res = array(
                 'status' => 0
             );
-            $room_id = WPBooking_Input::post('room_id');
-            $hotel_id = WPBooking_Input::post('hotel_id');
+            $room_id = $this->post('room_id');
+            $hotel_id = $this->post('hotel_id');
 
 
             if (!$room_id) {
@@ -952,14 +961,14 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         {
             $res = array('status' => 0);
 
-            $room_id = WPBooking_Input::post('wb_room_id');
+            $room_id = $this->post('wb_room_id');
 
             if ($room_id) {
                 // Validate
                 check_ajax_referer("wpbooking_hotel_room_" . $room_id, 'wb_hotel_room_security');
 
 
-                if ($name = WPBooking_Input::request('room_name')) {
+                if ($name = $this->request('room_name')) {
                     $my_post = array(
                         'ID'         => $room_id,
                         'post_title' => $name,
@@ -1008,7 +1017,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         public function _ajax_del_room_item()
         {
             $res = array('status' => 0);
-            $room_id = WPBooking_Input::post('wb_room_id');
+            $room_id = $this->post('wb_room_id');
             $hotel_id = wp_get_post_parent_id($room_id);
             if ($room_id) {
                 check_ajax_referer('del_security_post_' . $room_id, 'wb_del_security');
@@ -1033,8 +1042,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          */
         function ajax_search_room()
         {
-            if (WPBooking_Input::post('room_search')) {
-                if (!wp_verify_nonce(WPBooking_Input::post('room_search'), 'room_search')) {
+            if ($this->post('room_search')) {
+                if (!wp_verify_nonce($this->post('room_search'), 'room_search')) {
                     $result = array(
                         'status' => 0,
                         'data'   => "",
@@ -1086,9 +1095,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $rate_calculate = FALSE;
 
             // Taxonomy
-            $tax = WPBooking_Input::request('taxonomy');
+            $tax = $this->request('taxonomy');
             if (!empty($tax) and is_array($tax)) {
-                $taxonomy_operator = WPBooking_Input::request('taxonomy_operator');
+                $taxonomy_operator = $this->request('taxonomy_operator');
                 $tax_query_child = array();
                 foreach ($tax as $key => $value) {
                     if ($value) {
@@ -1123,7 +1132,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             }
 
             // Star Rating
-            if ($star_rating = WPBooking_Input::get('star_rating') and is_array(explode(',', $star_rating))) {
+            if ($star_rating = $this->get('star_rating') and is_array(explode(',', $star_rating))) {
 
                 $star_rating_arr = explode(',', $star_rating);
                 $meta_query[] = array(
@@ -1137,7 +1146,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 );
             }
             // Review
-            if ($review_rate = WPBooking_Input::request('review_rate') and is_array(explode(',', $review_rate))) {
+            if ($review_rate = $this->request('review_rate') and is_array(explode(',', $review_rate))) {
 
                 $rate_calculate = 1;
 
@@ -1164,7 +1173,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 $injection->add_arg('meta_query', $meta_query);
 
             // Order By
-            if ($sortby = WPBooking_Input::request('wb_sort_by')) {
+            if ($sortby = $this->request('wb_sort_by')) {
                 switch ($sortby) {
                     case "price_asc":
                         $injection->orderby($table_prefix . '.price', 'asc');
@@ -1209,8 +1218,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'post_status'    => 'publish',
                 'post_parent'    => $hotel_id
             );
-            $adults = WPBooking_Input::request('adults');
-            $children = WPBooking_Input::request('children');
+            $adults = $this->request('adults');
+            $children = $this->request('children');
             $max_guests = $adults + $children;
             if (!empty($max_guests)) {
                 $arg['meta_query'][] = array(
@@ -1433,8 +1442,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'check_out_timestamp' => FALSE,
             ));
 
-            $wpbooking_option_number_room = WPBooking_Input::post('wpbooking_option_number_room');
-            $extra_services = WPBooking_Input::post('wpbooking_extra');
+            $wpbooking_option_number_room = $this->post('wpbooking_option_number_room');
+            $extra_services = $this->post('wpbooking_extra');
             if(!empty($wpbooking_option_number_room)){
                 foreach($wpbooking_option_number_room as $k=>$v){
                     if(!empty($v)){
@@ -1452,7 +1461,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                 }
                             }
                         }
-                        $number_room = WPBooking_Input::request('wpbooking_option_number_room');
+                        $number_room = $this->request('wpbooking_option_number_room');
                         if(!empty($number_room[$k])){
                             $number_room = $number_room[$k];
                         }else{
@@ -1472,6 +1481,13 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     }
                 }
             }
+            $wpbooking_adults = WPBooking_Input::post('wpbooking_adults',1);
+            $cart_item['person'] = $wpbooking_adults;
+            $wpbooking_children = WPBooking_Input::post('wpbooking_children');
+            if(!empty($wpbooking_children)){
+                $cart_item['person']+=$wpbooking_children;
+            }
+
 
             return $cart_item;
         }
@@ -1492,9 +1508,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             $service = new WB_Service($post_id);
 
-            $check_in = WPBooking_Input::post('wpbooking_check_in');
-            $check_out = WPBooking_Input::post('wpbooking_check_out');
-            $wpbooking_option_number_room = WPBooking_Input::post('wpbooking_option_number_room');
+            $check_in = $this->post('wpbooking_check_in');
+            $check_out = $this->post('wpbooking_check_out');
+            $wpbooking_option_number_room = $this->post('wpbooking_option_number_room');
             $check_number_room = false;
             if(!empty($wpbooking_option_number_room)) {
                 foreach( $wpbooking_option_number_room as $k => $v ) {
@@ -1502,11 +1518,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         $check_number_room = true;
                     }
                 }
-            }
-            if(empty($check_number_room)){
-                wpbooking_set_message(esc_html__("Please select room","wpbooking"));
-                $is_validated = FALSE;
-                return $is_validated;
             }
 
             if(empty($check_in) and empty($check_out)){
@@ -1524,7 +1535,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 $is_validated = FALSE;
                 return $is_validated;
             }
-
+            if(empty($check_number_room)){
+                wpbooking_set_message(esc_html__("Please select room","wpbooking"));
+                $is_validated = FALSE;
+                return $is_validated;
+            }
 
 
             if ($check_in) {
@@ -1542,8 +1557,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $is_validated = FALSE;
                     return $is_validated;
                 }
-                $res = $service->check_availability($check_in_timestamp, $check_out_timestamp);
 
+
+                /*$res = $service->check_availability($check_in_timestamp, $check_out_timestamp);
                 if (!$res['status']) {
                     $is_validated = FALSE;
 
@@ -1566,7 +1582,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         wpbooking_set_message(sprintf($message, $not_avai_string), 'error');
                     }
 
-                }
+                    var_dump($res);
+                }*/
 
                 // Validate Minimum Stay
                 if ($check_in_timestamp and $check_out_timestamp) {
@@ -1585,8 +1602,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         }
 
         function wpbooking_reload_image_list_room(){
-            $post_id = WPBooking_Input::request('wb_post_id');
-            $tab = WPBooking_Input::request('wb_meta_section');
+            $post_id = $this->request('wb_post_id');
+            $tab = $this->request('wb_meta_section');
             $service = new WB_Service($post_id);
             if($service->get_type() == $this->type_id and $tab=='photo_tab'){
                 $arg = array(
@@ -1618,6 +1635,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         }
 
         /**
+         * @author quandq
+         * @since 1.0
          * @param $cart
          */
         function _add_info_item_room($cart){
@@ -1625,20 +1644,225 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         }
 
         /**
+         * @author quandq
+         * @since 1.0
          * @param $cart
          */
         function _add_info_total_item_room($cart){
             if(!empty($cart['rooms'])) {
                 $number = count( $cart[ 'rooms' ] );
                 if($number>1){
-                    $html =  sprintf(esc_html__("%s rooms",'wpbookng'),$number);
+                    $html =  sprintf(esc_html__("%s rooms",'wpbooking'),$number);
                 }else{
-                    $html = sprintf(esc_html__("%s room",'wpbookng'),$number);
+                    $html = sprintf(esc_html__("%s room",'wpbooking'),$number);
                 }
+                $price = $this->_get_total_price_all_room_in_cart($cart,false);
                 echo '<span class="total-title">'.$html.'</span>
-                      <span class="total-amount">'.WPBooking_Currency::format_money(2000).'</span>';
+                      <span class="total-amount">'.WPBooking_Currency::format_money($price).'</span>';
+
+                foreach($cart['rooms'] as $room_id=>$room){
+                    $number_room = $room['number'];
+                    if(!empty($room['extra_fees'])){
+                        $extra_fees = $cart['rooms'][$room_id]['extra_fees'];
+                        foreach($extra_fees as $extra_items){
+                            $price = 0;
+                            if(!empty($extra_items['data'])){
+                                echo '<span class="total-title">'.$extra_items['title'].'</span>';
+                                foreach($extra_items['data'] as $data){
+                                    $price += ( $data['price'] * $data['quantity'] ) * $number_room;
+                                }
+                                echo '<span class="total-amount">'.WPBooking_Currency::format_money($price).'</span>';
+                            }
+                        }
+                    }
+                }
             }
         }
+
+        /**
+         * Get Price Room In Cart
+         *
+         * @author quandq
+         * @since 1.0
+         *
+         * @param $room_id
+         * @return int
+         */
+        function _get_price_room_in_cart($cart,$room_id){
+            if(empty($room_id)) return 0 ;
+            $total_price = 0;
+            if(!empty($cart['rooms'][$room_id])){
+                $data_room = $cart['rooms'][$room_id];
+                $service = new WB_Service($data_room['room_id']);
+                $price_base = $service->get_meta('base_price');
+                $check_in = $cart['check_in_timestamp'];
+                $check_out = $cart['check_out_timestamp'];
+
+                if(!empty($cart['rooms'][$room_id]['calendar_prices'])){
+                    $custom_calendar = $cart['rooms'][$room_id]['calendar_prices'];
+                }
+                $groupday = self::getGroupDay($check_in, $check_out);
+                if(is_array($groupday) && count($groupday)) {
+                    foreach( $groupday as $date ) {
+                        $price_tmp = $price_base;
+                        if(!empty($custom_calendar)){
+                            foreach($custom_calendar as $date_calendar){
+                                if($date[0] >= $date_calendar['start'] && $date[0] <=  $date_calendar['end']){
+                                    $price_tmp = $date_calendar['price'];
+                                }
+                            }
+                        }
+                        $total_price +=$price_tmp;
+                    }
+                }
+            }
+            return $total_price;
+        }
+        /**
+         * Get Total Price Room In Cart
+         *
+         * @author quandq
+         * @since 1.0
+         *
+         * @param $room_id
+         * @return int
+         */
+        function _get_total_price_room_in_cart($cart,$room_id,$include_price_extra = true){
+            if(empty($room_id)) return 0 ;
+            $extra_price = 0;
+            $price_room = 0;
+            $number_room = 0;
+            if(!empty($cart['rooms'][$room_id])){
+                $data_room = $cart['rooms'][$room_id];
+                $service = new WB_Service($data_room['room_id']);
+                $price_base = $service->get_meta('base_price');
+                $check_in = $cart['check_in_timestamp'];
+                $check_out = $cart['check_out_timestamp'];
+                $number_room = $cart['rooms'][$room_id]['number'];
+                // Base Price
+                if(!empty($cart['rooms'][$room_id]['calendar_prices'])){
+                    $custom_calendar = $cart['rooms'][$room_id]['calendar_prices'];
+                }
+                $groupday = self::getGroupDay($check_in, $check_out);
+                if(is_array($groupday) && count($groupday)) {
+                    foreach( $groupday as $date ) {
+                        $price_tmp = $price_base;
+                        if(!empty($custom_calendar)){
+                            foreach($custom_calendar as $date_calendar){
+                                if($date[0] >= $date_calendar['start'] && $date[0] <=  $date_calendar['end']){
+                                    $price_tmp = $date_calendar['price'];
+                                }
+                            }
+                        }
+                        $price_room +=$price_tmp;
+                    }
+                }
+                // Extra Price
+                if(!empty($cart['rooms'][$room_id]['extra_fees'])){
+                    $extra_fees = $cart['rooms'][$room_id]['extra_fees'];
+                    foreach($extra_fees as $extra_items){
+                        if(!empty($extra_items['data'])){
+                            foreach($extra_items['data'] as $data){
+                                $extra_price += $data['price'] * $data['quantity'];
+                            }
+                        }
+                    }
+                }
+            }
+            if($include_price_extra){
+                $total_price = ($price_room + $extra_price) * $number_room;
+            }else{
+                $total_price = ($price_room) * $number_room;
+            }
+
+            return $total_price;
+        }
+        /**
+         * Get  Price Room with date
+         *
+         * @author quandq
+         * @since 1.0
+         *
+         * @param $room_id
+         * @return int
+         */
+        function _get_price_room_with_date($room_id,$check_in,$check_out){
+            if(empty($room_id)) $room_id = get_the_ID();
+            $calendar = WPBooking_Calendar_Model::inst();
+            $check_in_timestamp = strtotime($check_in);
+            $check_out_timestamp = strtotime($check_out);
+            $price_room=0;
+
+            $service = new WB_Service($room_id);
+            $price_base = $service->get_meta('base_price');
+            $custom_calendar = $calendar->get_prices( $room_id , $check_in_timestamp , $check_out_timestamp );
+
+            $groupday = self::getGroupDay($check_in_timestamp, $check_out_timestamp);
+            if(is_array($groupday) && count($groupday)) {
+                foreach( $groupday as $date ) {
+                    $price_tmp = $price_base;
+                    if(!empty($custom_calendar)){
+                        foreach($custom_calendar as $date_calendar){
+                            if($date[0] >= $date_calendar['start'] && $date[0] <=  $date_calendar['end']){
+                                $price_tmp = $date_calendar['price'];
+                            }
+                        }
+                    }
+                    $price_room +=$price_tmp;
+                }
+            }
+            return $price_room;
+        }
+
+        /**
+         * Get Total Price all Room in cart
+         *
+         * @author quandq
+         * @since 1.0
+         *
+         * @return int
+         */
+        function _get_total_price_all_room_in_cart($cart,$include_price_extra = true){
+            $price = 0;
+            if(!empty($cart['rooms'])) {
+                foreach($cart['rooms'] as $room_id=>$room){
+                    $price += $this->_get_total_price_room_in_cart($cart,$room_id,$include_price_extra);
+                }
+            }
+            return $price;
+        }
+        /**
+         *  getGroupDay
+         *  @author quandq
+         *  @since 1.0
+         *
+         * @param string $start
+         * @param string $end
+         * @return array
+         */
+        static function getGroupDay($start = '', $end = ''){
+            $list = array();
+            for($i = $start; $i <= $end; $i = strtotime('+1 day', $i)){
+                $next = strtotime('+1 day', $i);
+                if($next <= $end){
+                    $list[] = array($i, $next);
+                }
+            }
+            return $list;
+        }
+
+        function _get_cart_total_price($price,$cart){
+            if(!empty($cart['rooms'])) {
+                foreach($cart['rooms'] as $room_id=>$room){
+                    $price += $this->_get_total_price_room_in_cart($cart,$room_id);
+                }
+            }
+            return $price;
+        }
+
+
+
+
         static function inst()
         {
             if (!self::$_inst)

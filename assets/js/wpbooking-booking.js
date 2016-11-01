@@ -409,6 +409,13 @@ jQuery(document).ready(function($){
         }
     }).datepicker('widget');
 
+
+    setTimeout(function(){
+        if($('.search-room-availablity .wpbooking-search-start').val() != '' && $('.search-room-availablity .wpbooking-search-end').val() != ''){
+            $('.btn-do-search-room').click();
+        }
+    },500);
+    
     $('.form-search-room .btn-do-search-room').click(function(){
         var searchbox = $(this).closest('.form-search-room');
         do_search_room(searchbox);
@@ -503,6 +510,8 @@ jQuery(document).ready(function($){
                     setMessage(holder, data.message, 'danger');
                     content_list_room.html('');
                     content_search_room.hide();
+
+
                 }
                 $('.content-search-room .content-loop-room .loop-room .option_number_room').trigger('change');
             },
@@ -559,6 +568,8 @@ jQuery(document).ready(function($){
                     }
                 });
             }
+
+
         });
 
         container.find('.info_number').html(total_number_room);
