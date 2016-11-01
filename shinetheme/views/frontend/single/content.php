@@ -5,7 +5,7 @@
  * Date: 4/4/2016
  * Time: 3:23 PM
  */
-global $post;
+
 if (post_password_required()) {
 	echo get_the_password_form();
 	return;
@@ -13,7 +13,6 @@ if (post_password_required()) {
 $service = wpbooking_get_service();
 $service_type=$service->get_type();
 $hotel_id = get_the_ID();
-$old_post = $post;
 ?>
 <div itemscope itemtype="http://schema.org/Product" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
 
@@ -220,9 +219,9 @@ $old_post = $post;
 		<div class="service-content-section">
 			<?php
 			global $wp_query;
-			WPBooking_Accommodation_Service_Type::inst()->search_room();
+			$rooms=WPBooking_Accommodation_Service_Type::inst()->search_room();
 
-			if(have_posts()) {
+			if($rooms->have_posts()) {
 			?>
 				<div class="search-room-availablity">
 					<form method="post" name="form-search-room" class="form-search-room">
@@ -290,16 +289,15 @@ $old_post = $post;
 							<div class="content-loop-room">
 
 								<?php
-								if(have_posts()) {
-									while( have_posts() ) {
-										the_post();
+								if($rooms->have_posts()) {
+									while( $rooms->have_posts() ) {
+                                        $rooms->the_post();
 										echo wpbooking_load_view('single/loop-room',array('hotel_id'=>$hotel_id));
 									}
 								} else {
-									echo wpbooking_load_view('single/loop-room-none');
+                                    echo wpbooking_load_view('single/loop-room-none');
 								}
 								?>
-								<?php wp_reset_query(); ?>
 							</div>
 							<div class="content-info">
 								<div class="content-price">
@@ -312,7 +310,8 @@ $old_post = $post;
 					</div>
 				</div>
 			<?php }
-            $post = $old_post;
+            wp_reset_postdata();
+
             ?>
 		</div>
 		<div class="service-content-section">
@@ -516,16 +515,16 @@ $old_post = $post;
 				<?php
                 $card = get_post_meta(get_the_ID(),'creditcard_accepted',true);
                 $card_image = array(
-                    'americanexpress' => '0 -145px',
-                    'visa' => '0 1px',
-                    'euromastercard' => '0 -24px',
-                    'dinersclub' => '0 -96px',
-                    'jcb' => '0 -121px',
-                    'maestro' => '0 -48px',
-                    'discover' => '0 -73px',
-                    'unionpaydebitcard' => '0 -194px',
-                    'unionpaycreditcard' => '0 -194px',
-                    'bankcard' => '0 -584px',
+                    'americanexpress' => 'wb-americanexpress',
+                    'visa' => 'wb-visa',
+                    'euromastercard' => 'wb-euromastercard',
+                    'dinersclub' => 'wb-dinersclub',
+                    'jcb' => 'wb-jcb',
+                    'maestro' => 'wb-maestro',
+                    'discover' => 'wb-discover',
+                    'unionpaydebitcard' => 'wb-unionpaydebitcard',
+                    'unionpaycreditcard' => 'wb-unionpaycreditcard',
+                    'bankcard' => 'wb-bankcard',
                 );
                 if(!empty($card)) {
                 ?>
@@ -535,7 +534,7 @@ $old_post = $post;
                         <ul class="wb-list-card-acd">
                             <?php foreach($card as $key => $val){
                                 if(!empty($val)){
-                                    echo '<li style="background-position: '.$card_image[$key].'">';
+                                    echo '<li class="'.$card_image[$key].'">';
                                     echo '</li>';
                                 }
                             }?>

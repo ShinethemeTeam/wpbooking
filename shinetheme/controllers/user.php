@@ -323,8 +323,11 @@ if (!class_exists('WPBooking_User')) {
 
                 $user = wp_signon($creds, FALSE);
                 if (is_wp_error($user)) {
-                    wpbooking_set_message(esc_html__('Your Username or Password is not correct! Please try again', 'wpbooking'), 'danger');
-
+                    if(!empty($user->get_error_code())){
+                        wpbooking_set_message($this->get_error_message($user->get_error_code()), 'danger');
+                    }else{
+                        wpbooking_set_message(esc_html__('You need to enter a username and a password to login', 'wpbooking'), 'danger');
+                    }
                 } else {
                     // Login Success
                     // Redirect if url is exists
@@ -364,10 +367,10 @@ if (!class_exists('WPBooking_User')) {
         function _do_register()
         {
             $validate = new WPBooking_Form_Validator();
-            $validate->set_rules('rg-login', esc_html__('Username', 'wpbooking'), 'required|max_length[100]|is_unique[users.user_login]');
+            $validate->set_rules('rg-login', esc_html__('Username', 'wpbooking'), 'required|min_length[4]|max_length[50]|alpha_dash|is_unique[users.user_login]');
             $validate->set_rules('rg-email', esc_html__('Email', 'wpbooking'), 'required|max_length[100]|valid_email|is_unique[users.user_email]');
-            $validate->set_rules('rg-password', esc_html__('Password', 'wpbooking'), 'required|min_length[6]|max_length[100]');
-            $validate->set_rules('rg-repassword', esc_html__('Re-Type Password', 'wpbooking'), 'required|min_length[6]|max_length[100]|matches[rg-password]');
+            $validate->set_rules('rg-password', esc_html__('Password', 'wpbooking'), 'required|min_length[8]|max_length[50]');
+            $validate->set_rules('rg-repassword', esc_html__('Re-Type Password', 'wpbooking'), 'required|min_length[8]|max_length[50]|matches[rg-password]');
             $validate->set_rules('term_condition', esc_html__('Term & Condition', 'wpbooking'), 'required');
 
             $is_validated = TRUE;
@@ -377,10 +380,8 @@ if (!class_exists('WPBooking_User')) {
                 $is_validated = FALSE;
             }
 
-
             // Allow to add filter before register
             $is_validated = apply_filters('wpbooking_register_validate', $is_validated);
-
 
             if ($is_validated) {
                 // Start Create User
@@ -804,12 +805,9 @@ if (!class_exists('WPBooking_User')) {
                         $validate = new WPBooking_Form_Validator();
                         $validate->set_rules('u_fist_name', esc_html__('Fist name', 'wpbooking'), 'required|max_length[500]');
                         $validate->set_rules('u_last_name', esc_html__('Fist name', 'wpbooking'), 'required|max_length[500]');
-
                         $validate->set_rules('u_email', esc_html__('Email', 'wpbooking'), 'required|max_length[255]|valid_email');
                         $validate->set_rules('u_phone', esc_html__('Phone Number', 'wpbooking'), 'required|max_length[255]');
-                        $validate->set_rules('u_country', esc_html__('Country', 'wpbooking'), 'required');
                         $validate->set_rules('u_address', esc_html__('Address', 'wpbooking'), 'required');
-
 
                         $is_validate = TRUE;
                         $is_updated = FALSE;
@@ -825,11 +823,9 @@ if (!class_exists('WPBooking_User')) {
                             // Start Update
                             $is_updated = wp_update_user(array(
                                 'ID'           => get_current_user_id(),
-                                //'display_name' => WPBooking_Input::post('u_display_name'),
                                 'first_name' => WPBooking_Input::post('u_fist_name'),
                                 'last_name' => WPBooking_Input::post('u_last_name'),
                                 'user_email'   => WPBooking_Input::post('u_email'),
-                                'description'   => WPBooking_Input::post('u_about_me')
                             ));
 
                             if (is_wp_error($is_updated)) {
@@ -837,34 +833,13 @@ if (!class_exists('WPBooking_User')) {
                             } else {
                                 wpbooking_set_message(esc_html__('Updated Successfully', 'wpbooking'), 'success');
                                 // Update meta user
-                                update_user_meta(get_current_user_id(), 'gender', WPBooking_Input::post('u_gender'));
                                 update_user_meta(get_current_user_id(), 'avatar', WPBooking_Input::post('u_avatar'));
-
-                                update_user_meta(get_current_user_id(), 'company_name', WPBooking_Input::post('u_company_name'));
                                 update_user_meta(get_current_user_id(), 'phone', WPBooking_Input::post('u_phone'));
-                                update_user_meta(get_current_user_id(), 'country', WPBooking_Input::post('u_country'));
                                 update_user_meta(get_current_user_id(), 'address', WPBooking_Input::post('u_address'));
                                 update_user_meta(get_current_user_id(), 'postcode', WPBooking_Input::post('u_postcode'));
                                 update_user_meta(get_current_user_id(), 'apt_unit', WPBooking_Input::post('u_apt_unit'));
-                                update_user_meta(get_current_user_id(), 'preferred_language', WPBooking_Input::post('u_preferred_language'));
-                                update_user_meta(get_current_user_id(), 'preferred_currency', WPBooking_Input::post('u_preferred_currency'));
-                                update_user_meta(get_current_user_id(), 'profile_facebook', WPBooking_Input::post('u_facebook'));
-                                update_user_meta(get_current_user_id(), 'profile_twitter', WPBooking_Input::post('u_twitter'));
-                                update_user_meta(get_current_user_id(), 'profile_google_plus', WPBooking_Input::post('u_google_plus'));
-                                //update_user_meta(get_current_user_id(), 'about_me', WPBooking_Input::post('u_about_me'));
-
-                                $u_birth_date_day = WPBooking_Input::post('u_birth_date_day');
-                                $u_birth_date_month = WPBooking_Input::post('u_birth_date_month');
-                                $u_birth_date_year = WPBooking_Input::post('u_birth_date_year');
-                                if(!empty($u_birth_date_day) and !empty($u_birth_date_month) and !empty($u_birth_date_year)){
-                                    $date = $u_birth_date_day."-".$u_birth_date_month."-".$u_birth_date_year;
-                                    update_user_meta(get_current_user_id(), 'birth_date', $date);
-                                }
-
-
                             }
                         }
-
 
                         do_action('wpbooking_after_update_profile', $is_validate, $is_updated);
                     }
@@ -1254,20 +1229,17 @@ if (!class_exists('WPBooking_User')) {
             switch ( $error_code ) {
                 // Login errors
 
+                case 'empty_username':
+                    return esc_html__( 'You need to enter a username to login.', 'wpbooking' );
                 case 'empty_password':
                     return esc_html__( 'You need to enter a password to login.', 'wpbooking' );
-
                 case 'invalid_username':
                     return esc_html__(
                         "We don't have any users with that email address. Maybe you used a different one when signing up?",
                         'wpbooking'
                     );
                 case 'incorrect_password':
-                    $err = wp_kses(__(
-                        "The password you entered wasn't quite right. <a href='%s'>Did you forget your password</a>?",
-                        'wpbooking'
-                    ),array('a' => array('href' => array())));
-                    return sprintf( $err, wp_lostpassword_url() );
+                    return esc_html__('The password you entered wasn\'t quite right.','wpbooking');
 
                 case 'email':
                     return esc_html__( 'The email address you entered is not valid.', 'wpbooking' );
@@ -1343,64 +1315,53 @@ if (!class_exists('WPBooking_User')) {
         function _reset_password(){
             if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
                 $account_page = wpbooking_get_option('myaccount-page');
+
                 $rp_key = WPBooking_Input::request('rp_key');
                 $rp_login = WPBooking_Input::request('rp_login');
 
-                $user = check_password_reset_key( $rp_key, $rp_login );
 
-                if ( ! $user || is_wp_error( $user ) ) {
-                    if(!empty($account_page))
+                $user = check_password_reset_key($rp_key, $rp_login);
+
+                if (!$user || is_wp_error($user)) {
+                    if (!empty($account_page))
                         $redirect_url = get_permalink($account_page);
                     else
                         $redirect_url = wp_login_url();
 
-                    if ( $user && $user->get_error_code() === 'expired_key' ) {
-                        wpbooking_set_message(self::get_error_message('expiredkey'),'danger');
+                    if ($user && $user->get_error_code() === 'expired_key') {
+                        wpbooking_set_message(self::get_error_message('expiredkey'), 'danger');
                     } else {
-                        wpbooking_set_message(self::get_error_message('invalidkey'),'danger');
+                        wpbooking_set_message(self::get_error_message('invalidkey'), 'danger');
                     }
-                    $redirect_url = add_query_arg( 'reset', 'error', $redirect_url );
+                    $redirect_url = add_query_arg('reset', 'error', $redirect_url);
                     wp_redirect($redirect_url);
                     exit;
                 }
 
+                $validator = new WPBooking_Form_Validator();
 
-                if ( WPBooking_Input::post('new_password') != WPBooking_Input::post('confirm_password') ) {
-                    // Passwords don't match
-                    $redirect_url = get_permalink($account_page).'reset-password';
-                    wpbooking_set_message(self::get_error_message('password_reset_mismatch'),'danger');
+                $validator->set_rules('new_password',esc_html__('New password','wpbooking'),'required|min_length[8]|max_length[100]');
+                $validator->set_rules('confirm_password',esc_html__('Confirm password','wpbooking'),'required|min_length[8]|max_length[100]|matches[new_password]');
 
-                    $redirect_url = add_query_arg( 'key', $rp_key, $redirect_url );
-                    $redirect_url = add_query_arg( 'login', $rp_login, $redirect_url );
-                    $redirect_url = add_query_arg( 'error', 'password_reset_mismatch', $redirect_url );
-
-                    wp_redirect( $redirect_url );
+                if(!$validator->run()){
+                    wpbooking_set_message($validator->error_string(),'danger');
+                    $redirect_url = get_permalink($account_page) . 'reset-password';
+                    $redirect_url = add_query_arg('key', $rp_key, $redirect_url);
+                    $redirect_url = add_query_arg('login', $rp_login, $redirect_url);
+                    $redirect_url = add_query_arg('reset', 'error', $redirect_url);
+                    wp_redirect($redirect_url);
                     exit;
-                }
-
-                if ( empty( $_POST['new_password'] ) ) {
-                    // Password is empty
-                    $redirect_url = get_permalink($account_page).'reset-password';
-                    wpbooking_set_message(self::get_error_message('password_reset_empty'),'danger');
-
-                    $redirect_url = add_query_arg( 'key', $rp_key, $redirect_url );
-                    $redirect_url = add_query_arg( 'login', $rp_login, $redirect_url );
-                    $redirect_url = add_query_arg( 'error', 'password_reset_empty', $redirect_url );
-
-                    wp_redirect( $redirect_url );
-                    exit;
-
                 }
 
                 // Parameter checks OK, reset password
-                reset_password( $user, $_POST['new_password'] );
-                wpbooking_set_message(esc_html__('Your password has been changed. You can sign in now.','wpbooking'),'success');
+                reset_password($user, $_POST['new_password']);
+                wpbooking_set_message(esc_html__('Your password has been changed. You can sign in now.', 'wpbooking'), 'success');
                 $rd_after_reset = get_permalink($account_page);
-                $rd_after_reset = add_query_arg( 'password', 'changed', $rd_after_reset );
-                wp_redirect( $rd_after_reset);
-
+                $rd_after_reset = add_query_arg('password', 'changed', $rd_after_reset);
+                wp_redirect($rd_after_reset);
 
                 exit;
+
             }
         }
         /**

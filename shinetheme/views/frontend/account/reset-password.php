@@ -28,7 +28,7 @@
         </div>
     </div>
     <?php
-    if(!empty(WPBooking_Input::get('error')))
+    if(!empty(WPBooking_Input::get('reset') == 'error'))
         echo wpbooking_get_message()
     ?>
 </form>

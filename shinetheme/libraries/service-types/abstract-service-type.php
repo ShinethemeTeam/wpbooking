@@ -407,7 +407,6 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 		{
 			global $wpdb;
 
-			$rate = WPBooking_Comment_Model::inst()->get_avg_review($post_id);
 			$table = WPBooking_Service_Model::inst()->get_table_name(FALSE);
 			$table_prefix = WPBooking_Service_Model::inst()->get_table_name();
 
@@ -416,53 +415,22 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 			$injection->join($table, $table_prefix . '.post_id=' . $wpdb->posts . '.ID');
 			$injection->groupby($wpdb->posts . '.ID');
 			$injection->where($table_prefix . '.enable_property', 'on');
-
-			if ($rate) {
-				if (is_float($rate)) {
-					// Check if Avg is Decimal: example 4.3
-					$rate = (float)$rate;
-					$min = floor($rate);
-					$max = ceil($rate);
-				} else {
-					// If Avg is Integerl: Example 4 -> we will get 4->5 star
-					$min = $rate;
-					$max = $rate + 1;
-				}
-				global $wpdb;
-
-				$injection = WPBooking_Query_Inject::inst();
-				$injection->select('avg(' . $wpdb->commentmeta . '.meta_value) as avg_rate')
-					->groupby($wpdb->posts . '.ID')
-					->join('comments', $wpdb->prefix . 'comments.comment_post_ID=' . $wpdb->posts . '.ID')
-					->join('commentmeta', $wpdb->prefix . 'commentmeta.comment_id=' . $wpdb->prefix . 'comments.comment_ID and ' . $wpdb->commentmeta . ".meta_key='wpbooking_review'")
-					->where('comment_approved', 1)
-					->having("avg_rate>=" . $min)
-					->having("avg_rate<=" . $max);
-
-			}
+            $tax_query = $injection->get_arg('tax_query');
 
 			// Locations
 			if ($location_id = get_post_meta($post_id, 'location_id', TRUE)) {
-
-				$childs=get_term_children($location_id,'wpbooking_location');
-
-				$ids=array($location_id);
-
-				if(!empty($childs) and !is_wp_error($childs)){
-					$ids=array_merge($ids,$childs);
-				}
-				if(!empty($ids)){
-					$injection->where_in($table_prefix . '.location_id', $ids);
-				}
-
+                $tax_query[] = array(
+                    'relation' => 'AND',
+                    array(
+                        'taxonomy' => 'wpbooking_location',
+                        'field' => 'id',
+                        'terms' => $location_id,
+                        'include_children' => true,
+                        'operator' => 'IN'
+                    )
+                );
+				$injection->add_arg('tax_query',$tax_query);
 			}
-
-
-			// Price
-			if ($price = get_post_meta($post_id, 'price', TRUE)) {
-				$injection->where($table_prefix . '.price', $price);
-			}
-
 
 		}
 

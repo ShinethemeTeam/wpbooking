@@ -1221,7 +1221,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 );
             }
             global $wp_query;
-            query_posts($arg);
+            return new WP_Query($arg);
         }
 
         /**

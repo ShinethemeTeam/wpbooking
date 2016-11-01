@@ -387,6 +387,9 @@ if (!class_exists('WPBooking_Metabox')) {
                         $array = array('zip_code', 'address', 'apt_unit', 'location_id');
                         foreach ($array as $name) {
                             if (isset($_POST[$name])) {
+                                if($name == 'location_id'){
+                                    wp_set_object_terms($post_id, (int)WPBooking_Input::post($name), 'wpbooking_location');
+                                }
 
                                 update_post_meta($post_id, $name, WPBooking_Input::post($name));
                             }
@@ -411,8 +414,8 @@ if (!class_exists('WPBooking_Metabox')) {
                         break;
                     case "taxonomy_select":
                         $this->wpbooking_save_taxonomy($post_id,$field['id'],$field);
-
                         break;
+
                     case "calendar":
 
                         $old = get_post_meta($post_id, 'base_price', TRUE);
