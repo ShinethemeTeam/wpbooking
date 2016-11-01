@@ -1581,9 +1581,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
                         wpbooking_set_message(sprintf($message, $not_avai_string), 'error');
                     }
-                    wpbooking_set_message("Thử lỗi chỗ này ~", 'error');
-                }
 
+                }
+                wpbooking_set_message("Thử lỗi chỗ này ~", 'error');
                 // Validate Minimum Stay
                 if ($check_in_timestamp and $check_out_timestamp) {
                     $minimum_stay = $service->get_minimum_stay();
