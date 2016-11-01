@@ -380,6 +380,11 @@ if (!class_exists('WPBooking_User')) {
                 $is_validated = FALSE;
             }
 
+            if(!is_email(WPBooking_Input::post('rg-email'))){
+                $is_validated = FALSE;
+                wpbooking_set_message(esc_html__('The email field is invalid','wpbooking'), 'danger');
+            }
+
             // Allow to add filter before register
             $is_validated = apply_filters('wpbooking_register_validate', $is_validated);
 
