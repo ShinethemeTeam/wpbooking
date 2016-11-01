@@ -845,8 +845,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $res = array(
                 'status' => 0
             );
-            $room_id = WPBooking_Input::post('room_id');
-            $hotel_id = WPBooking_Input::post('hotel_id');
+            $room_id = $this->post('room_id');
+            $hotel_id = $this->post('hotel_id');
 
 
             if (!$room_id) {
@@ -952,14 +952,14 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         {
             $res = array('status' => 0);
 
-            $room_id = WPBooking_Input::post('wb_room_id');
+            $room_id = $this->post('wb_room_id');
 
             if ($room_id) {
                 // Validate
                 check_ajax_referer("wpbooking_hotel_room_" . $room_id, 'wb_hotel_room_security');
 
 
-                if ($name = WPBooking_Input::request('room_name')) {
+                if ($name = $this->request('room_name')) {
                     $my_post = array(
                         'ID'         => $room_id,
                         'post_title' => $name,
@@ -1008,7 +1008,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         public function _ajax_del_room_item()
         {
             $res = array('status' => 0);
-            $room_id = WPBooking_Input::post('wb_room_id');
+            $room_id = $this->post('wb_room_id');
             $hotel_id = wp_get_post_parent_id($room_id);
             if ($room_id) {
                 check_ajax_referer('del_security_post_' . $room_id, 'wb_del_security');
@@ -1033,8 +1033,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          */
         function ajax_search_room()
         {
-            if (WPBooking_Input::post('room_search')) {
-                if (!wp_verify_nonce(WPBooking_Input::post('room_search'), 'room_search')) {
+            if ($this->post('room_search')) {
+                if (!wp_verify_nonce($this->post('room_search'), 'room_search')) {
                     $result = array(
                         'status' => 0,
                         'data'   => "",
@@ -1086,9 +1086,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $rate_calculate = FALSE;
 
             // Taxonomy
-            $tax = WPBooking_Input::request('taxonomy');
+            $tax = $this->request('taxonomy');
             if (!empty($tax) and is_array($tax)) {
-                $taxonomy_operator = WPBooking_Input::request('taxonomy_operator');
+                $taxonomy_operator = $this->request('taxonomy_operator');
                 $tax_query_child = array();
                 foreach ($tax as $key => $value) {
                     if ($value) {
@@ -1123,7 +1123,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             }
 
             // Star Rating
-            if ($star_rating = WPBooking_Input::get('star_rating') and is_array(explode(',', $star_rating))) {
+            if ($star_rating = $this->get('star_rating') and is_array(explode(',', $star_rating))) {
 
                 $star_rating_arr = explode(',', $star_rating);
                 $meta_query[] = array(
@@ -1137,7 +1137,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 );
             }
             // Review
-            if ($review_rate = WPBooking_Input::request('review_rate') and is_array(explode(',', $review_rate))) {
+            if ($review_rate = $this->request('review_rate') and is_array(explode(',', $review_rate))) {
 
                 $rate_calculate = 1;
 
@@ -1164,7 +1164,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 $injection->add_arg('meta_query', $meta_query);
 
             // Order By
-            if ($sortby = WPBooking_Input::request('wb_sort_by')) {
+            if ($sortby = $this->request('wb_sort_by')) {
                 switch ($sortby) {
                     case "price_asc":
                         $injection->orderby($table_prefix . '.price', 'asc');
@@ -1209,8 +1209,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'post_status'    => 'publish',
                 'post_parent'    => $hotel_id
             );
-            $adults = WPBooking_Input::request('adults');
-            $children = WPBooking_Input::request('children');
+            $adults = $this->request('adults');
+            $children = $this->request('children');
             $max_guests = $adults + $children;
             if (!empty($max_guests)) {
                 $arg['meta_query'][] = array(
@@ -1433,8 +1433,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'check_out_timestamp' => FALSE,
             ));
 
-            $wpbooking_option_number_room = WPBooking_Input::post('wpbooking_option_number_room');
-            $extra_services = WPBooking_Input::post('wpbooking_extra');
+            $wpbooking_option_number_room = $this->post('wpbooking_option_number_room');
+            $extra_services = $this->post('wpbooking_extra');
             if(!empty($wpbooking_option_number_room)){
                 foreach($wpbooking_option_number_room as $k=>$v){
                     if(!empty($v)){
@@ -1452,7 +1452,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                 }
                             }
                         }
-                        $number_room = WPBooking_Input::request('wpbooking_option_number_room');
+                        $number_room = $this->request('wpbooking_option_number_room');
                         if(!empty($number_room[$k])){
                             $number_room = $number_room[$k];
                         }else{
@@ -1492,9 +1492,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             $service = new WB_Service($post_id);
 
-            $check_in = WPBooking_Input::post('wpbooking_check_in');
-            $check_out = WPBooking_Input::post('wpbooking_check_out');
-            $wpbooking_option_number_room = WPBooking_Input::post('wpbooking_option_number_room');
+            $check_in = $this->post('wpbooking_check_in');
+            $check_out = $this->post('wpbooking_check_out');
+            $wpbooking_option_number_room = $this->post('wpbooking_option_number_room');
             $check_number_room = false;
             if(!empty($wpbooking_option_number_room)) {
                 foreach( $wpbooking_option_number_room as $k => $v ) {
@@ -1585,8 +1585,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         }
 
         function wpbooking_reload_image_list_room(){
-            $post_id = WPBooking_Input::request('wb_post_id');
-            $tab = WPBooking_Input::request('wb_meta_section');
+            $post_id = $this->request('wb_post_id');
+            $tab = $this->request('wb_meta_section');
             $service = new WB_Service($post_id);
             if($service->get_type() == $this->type_id and $tab=='photo_tab'){
                 $arg = array(

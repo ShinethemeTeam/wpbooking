@@ -54,7 +54,6 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
             $cart_params = array(
                 'post_id'                => $post_id ,
-                'cart_key'               => md5( $post_id . time() . rand( 0 , 999 ) ) ,
                 'service_type'           => $service_type ,
                 'currency'               => WPBooking_Currency::get_current_currency( 'currency' ) ,
                 'price_base'             => 0 ,
@@ -113,10 +112,10 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 );
 
             }
-            $res['updated_content'] = apply_filters('wpbooking_cart_updated_content', array());
+            $res['updated_content'] = apply_filters('wpbooking_cart_updated_content', array(),$is_validate);
 
-            $res = apply_filters('wpbooking_ajax_add_to_cart', $res, $post_id);
-            $res = apply_filters('wpbooking_ajax_add_to_cart_' . $service_type, $res, $post_id);
+            $res = apply_filters('wpbooking_ajax_add_to_cart', $res, $post_id,$is_validate);
+            $res = apply_filters('wpbooking_ajax_add_to_cart_' . $service_type, $res, $post_id,$is_validate);
 
             echo json_encode($res);
 
