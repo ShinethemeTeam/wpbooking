@@ -454,7 +454,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             ),
                             'std'   => 'metres',
                             'class' => 'radio_pro',
-                            'desc'  => esc_html__("Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium", "wpbooking")
+                            'desc'  => esc_html__("Chọn đơn vị đo lường ưa thích của bạn", "wpbooking")
                         ),
                         array(
                             'label'  => __('Room sizes', 'wpbooking'),
@@ -1525,6 +1525,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 return $is_validated;
             }
 
+
+
             if ($check_in) {
 
                 $check_in_timestamp = strtotime($check_in);
@@ -1533,6 +1535,12 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $check_out_timestamp = strtotime($check_out);
                 } else {
                     $check_out_timestamp = $check_in_timestamp;
+                }
+
+                if($check_out_timestamp < $check_in_timestamp){
+                    wpbooking_set_message(esc_html__("Ngày check out phải sau ngày check in","wpbooking"));
+                    $is_validated = FALSE;
+                    return $is_validated;
                 }
                 $res = $service->check_availability($check_in_timestamp, $check_out_timestamp);
 

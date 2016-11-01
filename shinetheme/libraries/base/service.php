@@ -578,7 +578,7 @@ if (!class_exists('WB_Service')) {
 				do_action('wpbooking_before_related_query', $this->ID, $this->service_type);
 				do_action('wpbooking_before_related_query_' . $this->service_type, $this->ID, $this->service_type);
                 $posts_per_page = 4;
-                $posts_per_page = apply_filters('related_per_page',$posts_per_page,$this->ID, $this->service_type);
+                $posts_per_page = apply_filters('wb_related_per_page',$posts_per_page,$this->ID, $this->service_type);
 
 				$arg = wp_parse_args($arg, array(
 					'post_type'      => 'wpbooking_service',
