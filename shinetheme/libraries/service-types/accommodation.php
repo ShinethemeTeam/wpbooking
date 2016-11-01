@@ -1582,6 +1582,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         wpbooking_set_message(sprintf($message, $not_avai_string), 'error');
                     }
 
+                    var_dump($res);
                 }
                 wpbooking_set_message("Thử lỗi chỗ này ~", 'error');
                 // Validate Minimum Stay
