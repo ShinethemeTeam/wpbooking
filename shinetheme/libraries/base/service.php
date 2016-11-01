@@ -687,6 +687,8 @@ if (!class_exists('WB_Service')) {
 			return apply_filters('wpbooking_service_check_availability',$return,$this,$start,$end);
 		}
 
+
+
 		/**
 		 * Get Meta Value by Key
 		 *

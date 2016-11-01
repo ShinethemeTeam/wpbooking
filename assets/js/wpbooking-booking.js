@@ -134,6 +134,13 @@ jQuery(document).ready(function($){
         })
     });
 
+    $('.wpbooking_checkout_form input[name=term_condition]').change(function () {
+        if($(this).is(':checked')){
+            $('.wpbooking_checkout_form .submit-button').removeAttr('disabled');
+        }else{
+            $('.wpbooking_checkout_form .submit-button').attr('disabled','disabled');
+        }
+    })
     // Checkout Form
     $('.wpbooking_checkout_form .submit-button').click(function(){
         var form=$(this).closest('form');

@@ -44,7 +44,7 @@ if (empty($cart)) {
                             <div class="billing_information">
                                 <div class="row">
                                     <?php
-                                    $field_form_billing = $booking->get_field_form_billing();
+                                    $field_form_billing = $booking->get_billing_form_fields();
                                     if(!empty($field_form_billing)){?>
                                         <?php foreach($field_form_billing as $k=>$v) {
                                             $data = wp_parse_args($v, array(
@@ -59,7 +59,7 @@ if (empty($cart)) {
                                             ?>
                                             <div class="col-md-<?php echo esc_html($data['size']) ?>">
                                                 <div class="form-group">
-                                                    <label for="<?php echo esc_html($data['name']) ?>"><?php echo esc_html($data['title']) ?> <?php if($data['title']) echo '<span class="required">*</span>'; ?></label>
+                                                    <label for="<?php echo esc_html($data['name']) ?>"><?php echo esc_html($data['title']) ?> <?php if($data['required']) echo '<span class="required">*</span>'; ?></label>
                                                     <?php if($data['type'] == 'text'){ ?>
                                                         <input type="text" class="form-control"  id="<?php echo esc_html($data['name']) ?>" name="<?php echo esc_html($data['name']) ?>" placeholder="<?php echo esc_html($data['placeholder']) ?>" <?php if($data['title']) echo 'required'; ?>>
                                                         <span class="desc"><?php echo esc_html($data['desc']) ?></span>
@@ -94,7 +94,7 @@ if (empty($cart)) {
                         </div>
                         <div class="checkout-submit-button">
                             <button type="submit"
-                                    class="wb-btn wb-btn-primary wb-btn-md submit-button"><?php _e('CHECK OUT', 'wpbooking') ?></button>
+                                    class="wb-btn wb-btn-primary wb-btn-md submit-button" disabled><?php _e('CHECK OUT', 'wpbooking') ?></button>
                         </div>
                     </div>
                 </div>

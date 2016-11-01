@@ -128,7 +128,7 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
              * @since 1.0
              * @author dungdt
              */
-            add_filter('wpbooking_do_checkout_validate', array($this, '_validate_checkout'), 10, 2);
+            add_filter('wpbooking_do_checkout_validate_' . $this->type_id, array($this, '_validate_checkout'), 10, 2);
 
             /**
              * Change Cart Item Price

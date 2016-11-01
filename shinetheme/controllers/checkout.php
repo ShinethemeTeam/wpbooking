@@ -17,6 +17,9 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 session_start();
             }
 
+            add_action('wp_ajax_wpbooking_do_checkout', array($this, 'do_checkout'));
+            add_action('wp_ajax_nopriv_wpbooking_do_checkout', array($this, 'do_checkout'));
+
             add_action('wp_ajax_wpbooking_add_to_cart', array($this, '_add_to_cart'));
             add_action('wp_ajax_nopriv_wpbooking_add_to_cart', array($this, '_add_to_cart'));
 
@@ -25,6 +28,201 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             add_action('template_redirect', array($this, '_delete_cart_item'));
 
             parent::__construct();
+        }
+        /**
+         * Ajax Checkout Handler
+         * @since 1.0
+         */
+        function do_checkout()
+        {
+
+            $cart = WPBooking_Session::get('wpbooking_cart');
+            $service_type = $cart['service_type'];
+            $res = array();
+            $is_validate = TRUE;
+
+            if(empty(WPBooking_Input::request('term_condition'))){
+                $is_validate = FALSE;
+                wpbooking_set_message(__("ban chưa chấp nhận điều khoản của chúng tôi !", 'wpbooking'), 'error');
+            }
+
+            if (empty($cart)) {
+                $is_validate = FALSE;
+                wpbooking_set_message(__("Sorry! Your cart is currently empty", 'wpbooking'), 'error');
+            }
+
+            $fields = $this->get_billing_form_fields();
+            // Validate Form Billing
+            $validator = new WPBooking_Form_Validator();
+            if (!empty($fields) and $is_validate) {
+                foreach ($fields as $key => $value) {
+                    $validator->set_rules($value['name'], $value['title'], $value['rule']);
+                }
+                if ($is_validate and !$validator->run()) {
+                    $is_validate = FALSE;
+                    wpbooking_set_message($validator->error_string(), 'error');
+                    $res['error_type'] = 'form_validate';
+                    $res['error_fields'] = $validator->get_error_fields();
+                }
+            }
+
+            $pay_amount = $this->get_cart_total();
+            if (empty($pay_amount)) {
+                $is_validate = FALSE;
+                wpbooking_set_message(__("Giá giỏ hàng là 0. Bạn không thể thực hiện thanh toán này !", 'wpbooking'), 'error');
+            }
+
+            // Require Payment Gateways
+            $gateway_manage = WPBooking_Payment_Gateways::inst();
+            $selected_gateway = WPBooking_Input::post('payment_gateway');
+            $available_gateways = $gateway_manage->get_available_gateways();
+            if ($is_validate and $pay_amount) {
+                if (!empty($available_gateways) and !$selected_gateway) {
+                    $is_validate = FALSE;
+                    wpbooking_set_message(__("Please select at least one Payment Gateway", 'wpbooking'), 'error');
+                } elseif (empty($available_gateways) or !array_key_exists($selected_gateway, $available_gateways)) {
+                    $is_validate = FALSE;
+                    wpbooking_set_message(sprintf(__("Gateway: %s is not ready to use, please choose other gateway", 'wpbooking'), $selected_gateway), 'error');
+                }
+
+            }
+
+
+            $is_validate = apply_filters('wpbooking_do_checkout_validate', $is_validate, $cart);
+            $is_validate = apply_filters('wpbooking_do_checkout_validate_'.$service_type, $is_validate , $cart);
+
+
+            if (!$is_validate) {
+                $res ['status'] = 0;
+                $res['message'] = wpbooking_get_message(TRUE);
+            } else {
+
+
+
+                // Checkout form data
+
+                if (!empty($fields)) {
+                    foreach ($fields as $k => $v) {
+                        $fields[$k]['value'] = WPBooking_Input::post($k);
+                    }
+                }
+
+                // Register User
+                $customer_id = FALSE;
+                if(is_user_logged_in()){
+                    $customer_id=get_current_user_id();
+                }
+
+                // Default Fields
+                $post_data = wp_parse_args(WPBooking_Input::post(), array(
+                    'user_first_name'          => FALSE,
+                    'user_last_name'           => FALSE,
+                    'user_email'               => FALSE,
+                ));
+
+                if ($email = $post_data['user_email']) {
+                    // Check User Exists
+                    if ($user_id = email_exists($email)) $customer_id = $user_id;
+
+                    // Check user want to create account
+                    if (WPBooking_Input::post('wpbooking_create_account')) {
+
+                        $customer_id = WPBooking_User::inst()->order_create_user(array(
+                            'user_email' => $email,
+                            'first_name' => $post_data['user_first_name'],
+                            'last_name'  => $post_data['user_last_name'],
+                        ));
+
+                    }
+                }
+
+                die();
+
+                $order_id = WPBooking_Session::get('wpbooking_order_id');
+                if(!empty($order_id)){
+                    $order=new WB_Order($order_id);
+                }else{
+                    $order=new WB_Order(FALSE);
+                    $order_id = $order->create($cart, $fields, $selected_gateway, $customer_id);
+                }
+
+                if ($order_id) {
+                    WPBooking_Session::set('wpbooking_order_id',$order_id);
+                    $data = array(
+                        'status' => 1
+                    );
+                    $res['status'] = 1;
+
+                    // Only work with Order Table bellow
+
+                    try {
+                        if ($selected_gateway) {
+                            $data = WPBooking_Payment_Gateways::inst()->do_checkout($selected_gateway, $order_id);
+                            if (!$data['status']) {
+                                $res = array(
+                                    'status'  => 0,
+                                    'message' => wpbooking_get_message(TRUE),
+                                    'data'    => $data
+                                );
+                                // If Payment Fail update the status
+                                $order->payment_failed();
+                            }
+                            if($data['status'] and isset($data['complete_purchase']) and $data['complete_purchase']){
+                                $order->complete_purchase();
+                            }
+                        }
+
+                        if ($res['status']) {
+                            // Clear the Order Id after create new order,
+                            WPBooking_Session::set('wpbooking_order_id','');
+                            // Clear the Cart after create new order,
+                            WPBooking_Session::set('wpbooking_cart', array());
+                            WPBooking_Session::set('wpbooking_cart_coupon', false);
+
+                            wpbooking_set_message(__('Booking Success', 'wpbooking'));
+                            //do checkout
+                            $res['data'] = $data;
+                            $res['message'] = wpbooking_get_message(TRUE);
+                        }
+
+
+                    } catch (Exception $e) {
+                        wpbooking_set_message($e->getMessage(), 'error');
+                        //do checkout
+                        $res = array(
+                            'status'  => 0,
+                            'message' => wpbooking_get_message(TRUE),
+
+                        );
+                    }
+
+                    if (empty($data['redirect'])) {
+                        $res['redirect'] = get_permalink($order_id);
+                    }
+
+                    if (!empty($data['redirect'])) {
+                        $res['redirect'] = $data['redirect'];
+                    }
+                    if(isset($data['complete_purchase']) and !$data['complete_purchase']){
+                        $res['redirect'] = "";
+                    }
+
+                    do_action('wpbooking_after_checkout_success', $order_id);
+
+                } else {
+                    $res = array(
+                        'status'  => 0,
+                        'message' => __('Can not create the order. Please contact the Admin', 'wpbooking')
+                    );
+                }
+
+            }
+
+
+            $res = apply_filters('wpbooking_ajax_do_checkout', $res, $cart);
+
+            echo json_encode($res);
+            die;
         }
 
         /**
@@ -144,61 +342,44 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
         /**
          * Get Total Cart
-         * @author dungdt
+         * @author quandq
          * @since 1.0
          *
          * @return mixed|void
          */
-        function get_cart_total()
+        function get_cart_total($args=array())
         {
-            $cart = $this->get_cart();
-            $price = $cart['price'];
-            $service_type = $cart['service_type'];
-            $price = apply_filters('wpbooking_get_cart_total', $price, $cart);
-            $price = apply_filters('wpbooking_get_cart_total_'.$service_type, $price, $cart);
-            return $price;
-        }
-
-        /**
-         * Get Total Cart With Tax
-         * @author dungdt
-         * @since 1.0
-         *
-         * @return mixed|void
-         */
-        function get_cart_total_with_tax($args)
-        {
-            $cart = $this->get_cart();
             $args = wp_parse_args($args, array(
-                'without_deposit'        => true
+                'without_deposit'        => false,
+                'without_tax'            => false
             ));
-            $price_cart = $this->get_cart_total();
-            $tax = $this->get_cart_tax_price();
 
-            $total_price = $price_cart + $tax['total_price'];
+            $cart = $this->get_cart();
+            $total_price = $cart['price'];
+            $service_type = $cart['service_type'];
+            $total_price = apply_filters('wpbooking_get_cart_total', $total_price, $cart);
+            $total_price = apply_filters('wpbooking_get_cart_total_'.$service_type, $total_price, $cart);
 
-
-
+            if($args['without_tax']){
+                $tax = $this->get_cart_tax_price();
+                $total_price = $total_price + $tax['total_price'];
+            }
             if($args['without_deposit']){
-                var_dump($cart['deposit']);
                 if(!empty($cart['deposit']['status'])){
                     switch ($cart['deposit']['status']) {
                         case "percent":
                             if ($cart['deposit']['amount'] > 100) $cart['deposit']['amount'] = 100;
-                            $price = $total_price * $cart['deposit']['amount'] / 100;
+                            $price_deposit = $total_price * $cart['deposit']['amount'] / 100;
                             break;
                         case "amount":
                         default:
                             if ($cart['deposit']['amount'] < $total_price)
-                                $price = $cart['deposit']['amount'];
+                                $price_deposit = $cart['deposit']['amount'];
                             break;
 
                     }
-                    var_dump($price);
+                    $total_price = $price_deposit;
                 }
-
-
-
             }
             return $total_price;
         }
@@ -220,76 +401,84 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
 
 
-        function get_field_form_billing(){
+        function get_billing_form_fields(){
             $field_form = array(
-                array(
-                    'title'=>esc_html__("First name","wpbooking"),
-                    'placeholder'=>esc_html__("First name","wpbooking"),
-                    'type'=>'text',
-                    'name'=>'fist_name',
-                    'size'=>'6',
-                    'required'=>true,
-                ),
-                array(
-                    'title'=>esc_html__("Last name","wpbooking"),
-                    'placeholder'=>esc_html__("Last name","wpbooking"),
-                    'type'=>'text',
-                    'name'=>'last_name',
-                    'size'=>'6',
-                    'required'=>true,
-                ),
-                array(
-                    'title'=>esc_html__("Email","wpbooking"),
-                    'placeholder'=>esc_html__("Email","wpbooking"),
-                    'desc'=>esc_html__("Email to confirmation","wpbooking"),
-                    'type'=>'text',
-                    'name'=>'email',
-                    'size'=>'12',
-                    'required'=>true,
-                ),
-                array(
-                    'title'=>esc_html__("Telephone","wpbooking"),
-                    'placeholder'=>esc_html__("Telephone","wpbooking"),
-                    'type'=>'text',
-                    'name'=>'phone',
-                    'size'=>'12',
-                    'required'=>true,
-                ),
-                array(
-                    'title'=>esc_html__("Address","wpbooking"),
-                    'placeholder'=>esc_html__("Address","wpbooking"),
-                    'type'=>'text',
-                    'name'=>'address',
-                    'size'=>'12',
-                    'required'=>true,
-                ),
-                array(
-                    'title'=>esc_html__("Postcode / ZIP","wpbooking"),
-                    'placeholder'=>esc_html__("Postcode / ZIP","wpbooking"),
-                    'type'=>'text',
-                    'name'=>'postcode_zip',
-                    'size'=>'6',
-                    'required'=>false,
-                ),
-                array(
-                    'title'=>esc_html__("Apt/ Unit","wpbooking"),
-                    'placeholder'=>esc_html__("Apt/ Unit","wpbooking"),
-                    'type'=>'text',
-                    'name'=>'apt_unit',
-                    'size'=>'6',
-                    'required'=>false,
-                ),
-                array(
-                    'title'=>esc_html__("Special request","wpbooking"),
-                    'placeholder'=>esc_html__("Notes about your order, e.g. special notes for  delivery.","wpbooking"),
-                    'type'=>'textarea',
-                    'name'=>'special_request',
-                    'size'=>'12',
-                    'required'=>false,
-                ),
+                'user_fist_name'       => array(
+                    'title'       => esc_html__( "First name" , "wpbooking" ) ,
+                    'placeholder' => esc_html__( "First name" , "wpbooking" ) ,
+                    'type'        => 'text' ,
+                    'name'        => 'user_fist_name' ,
+                    'size'        => '6' ,
+                    'required'    => true ,
+                    'rule'        => 'required|max_length[100]' ,
+                ) ,
+                'user_last_name'       => array(
+                    'title'       => esc_html__( "Last name" , "wpbooking" ) ,
+                    'placeholder' => esc_html__( "Last name" , "wpbooking" ) ,
+                    'type'        => 'text' ,
+                    'name'        => 'user_last_name' ,
+                    'size'        => '6' ,
+                    'required'    => true ,
+                    'rule'        => 'required|max_length[100]' ,
+                ) ,
+                'user_email'           => array(
+                    'title'       => esc_html__( "Email" , "wpbooking" ) ,
+                    'placeholder' => esc_html__( "Email" , "wpbooking" ) ,
+                    'desc'        => esc_html__( "Email to confirmation" , "wpbooking" ) ,
+                    'type'        => 'text' ,
+                    'name'        => 'user_email' ,
+                    'size'        => '12' ,
+                    'required'    => true ,
+                    'rule'        => 'required|max_length[100]|valid_email' ,
+                ) ,
+                'user_phone'           => array(
+                    'title'       => esc_html__( "Telephone" , "wpbooking" ) ,
+                    'placeholder' => esc_html__( "Telephone" , "wpbooking" ) ,
+                    'type'        => 'text' ,
+                    'name'        => 'user_phone' ,
+                    'size'        => '12' ,
+                    'required'    => true ,
+                    'rule'        => 'required|max_length[100]' ,
+                ) ,
+                'user_address'         => array(
+                    'title'       => esc_html__( "Address" , "wpbooking" ) ,
+                    'placeholder' => esc_html__( "Address" , "wpbooking" ) ,
+                    'type'        => 'text' ,
+                    'name'        => 'user_address' ,
+                    'size'        => '12' ,
+                    'required'    => true ,
+                    'rule'        => 'required|max_length[100]' ,
+                ) ,
+                'user_postcode_zip'    => array(
+                    'title'       => esc_html__( "Postcode / ZIP" , "wpbooking" ) ,
+                    'placeholder' => esc_html__( "Postcode / ZIP" , "wpbooking" ) ,
+                    'type'        => 'text' ,
+                    'name'        => 'user_postcode_zip' ,
+                    'size'        => '6' ,
+                    'required'    => false ,
+                    'rule'        => '' ,
+                ) ,
+                'user_apt_unit'        => array(
+                    'title'       => esc_html__( "Apt/ Unit" , "wpbooking" ) ,
+                    'placeholder' => esc_html__( "Apt/ Unit" , "wpbooking" ) ,
+                    'type'        => 'text' ,
+                    'name'        => 'user_apt_unit' ,
+                    'size'        => '6' ,
+                    'required'    => false ,
+                    'rule'        => '' ,
+                ) ,
+                'user_special_request' => array(
+                    'title'       => esc_html__( "Special request" , "wpbooking" ) ,
+                    'placeholder' => esc_html__( "Notes about your order, e.g. special notes for  delivery." , "wpbooking" ) ,
+                    'type'        => 'textarea' ,
+                    'name'        => 'user_special_request' ,
+                    'size'        => '12' ,
+                    'required'    => false ,
+                    'rule'        => '' ,
+                ) ,
             );
 
-            $field_form = apply_filters('wpbooking_get_field_form_billing', $field_form);
+            $field_form = apply_filters('wpbooking_get_billing_form_fields', $field_form);
 
             return $field_form;
         }
@@ -340,7 +529,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $diff=$cart['check_out_timestamp'] - $cart['check_in_timestamp'];
             $date_diff = $diff / (60 * 60 * 24);
 
-            $total_price = $this->get_cart_total();
+            $total_price = $this->get_cart_total(array('without_tax'=>false));
             $total_tax = 0;
             if(!empty($cart['tax'])){
                 foreach($cart['tax'] as $key => $value){
@@ -373,7 +562,9 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                                 break;
                             default:
                         }
-                        $total_tax += $price;
+                        if($value['excluded'] == 'yes_not_included'){
+                            $total_tax += $price;
+                        }
                         $tax[$key]['price'] = floatval($price);
                     }
                 }

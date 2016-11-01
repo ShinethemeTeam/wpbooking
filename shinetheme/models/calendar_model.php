@@ -67,7 +67,7 @@ if (!class_exists('WPBooking_Calendar_Model')) {
 					//"count({$wpdb->prefix}wpbooking_order_item.id) as total_booked",
 					//$wpdb->prefix . 'wpbooking_service.number',
 				))
-				->join('wpbooking_service', 'wpbooking_service.post_id=wpbooking_availability.post_id')
+				->join('posts', 'posts.ID=wpbooking_availability.post_id')
 //				->join('wpbooking_order_item',
 //					"wpbooking_order_item.post_id=wpbooking_availability.post_id
 //					AND wpbooking_order_item.`status` not in ('refunded','cancelled')
@@ -86,6 +86,8 @@ if (!class_exists('WPBooking_Calendar_Model')) {
 				->groupby($wpdb->prefix . 'wpbooking_availability.id')
 				//->having($wpdb->prefix . 'wpbooking_service.number>total_booked')
 				->orderby('start', 'asc')->get()->result();
+
+
 
 			return $res;
 		}
