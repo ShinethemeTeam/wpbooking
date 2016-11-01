@@ -29,7 +29,7 @@ $full_url =  $current_url="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		<a href="<?php echo esc_url(wp_lostpassword_url()); ?>" class="lost-password"><?php esc_html_e('Lost your password?','wpbooking') ?></a>
 	</div>
 	<?php
-	if(WPBooking_Input::post('action')=='wpbooking_do_login')
+	if(WPBooking_Input::post('action')=='wpbooking_do_login' || WPBooking_Input::get('checkemail') == 'confirm' || WPBooking_Input::get('password') == 'changed' )
 		echo wpbooking_get_message()
 	?>
 </form>
