@@ -35,7 +35,6 @@ $cart=$booking->get_cart();
 						<span><?php esc_html_e("To:","wpbooking") ?> </span><?php echo date(get_option('date_format'),$cart['check_out_timestamp']) ?> &nbsp
 						<?php
 						$diff=$cart['check_out_timestamp'] - $cart['check_in_timestamp'];
-
 						$diff = $diff / (60 * 60 * 24);
 						if($diff > 1){
 							echo sprintf(esc_html__('(%s days)'),$diff);

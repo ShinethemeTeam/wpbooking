@@ -57,23 +57,23 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 'cart_key'               => md5( $post_id . time() . rand( 0 , 999 ) ) ,
                 'service_type'           => $service_type ,
                 'currency'               => WPBooking_Currency::get_current_currency( 'currency' ) ,
-                'price_base'             => 0 ,
+                'price'                  => 0 ,
                 'discount'               => array() ,
             );
 
-            $cart_params['tax']['vat']['vat_excluded'] = $service->get_meta('vat_excluded');
+            $cart_params['tax']['vat']['excluded'] = $service->get_meta('vat_excluded');
             if($service->get_meta('vat_excluded') != 'no'){
-                $cart_params['tax']['vat']['vat_amount'] = $service->get_meta('vat_amount');
-                $cart_params['tax']['vat']['vat_unit'] = $service->get_meta('vat_unit');
+                $cart_params['tax']['vat']['amount'] = $service->get_meta('vat_amount');
+                $cart_params['tax']['vat']['unit'] = $service->get_meta('vat_unit');
             }
-            $cart_params['tax']['citytax']['citytax_excluded'] = $service->get_meta('citytax_excluded');
+            $cart_params['tax']['citytax']['excluded'] = $service->get_meta('citytax_excluded');
             if($service->get_meta('citytax_excluded') != 'no'){
-                $cart_params['tax']['citytax']['citytax_amount'] = $service->get_meta('citytax_amount');
-                $cart_params['tax']['citytax']['citytax_unit'] = $service->get_meta('citytax_unit');
+                $cart_params['tax']['citytax']['amount'] = $service->get_meta('citytax_amount');
+                $cart_params['tax']['citytax']['unit'] = $service->get_meta('citytax_unit');
             }
-            $cart_params['deposit']['deposit_payment_status'] = $service->get_meta('deposit_payment_status');
+            $cart_params['deposit']['status'] = $service->get_meta('deposit_payment_status');
             if($service->get_meta('deposit_payment_status') != ''){
-                $cart_params['deposit']['deposit_payment_amount'] = $service->get_meta('deposit_payment_amount');
+                $cart_params['deposit']['amount'] = $service->get_meta('deposit_payment_amount');
             }
 
             // Convert Check In and Check Out to Timestamp if available
@@ -142,61 +142,69 @@ if(!class_exists('WPBooking_Checkout_Controller'))
         {
             return wpbooking_load_view('checkout/index');
         }
+
         /**
-         * Get Total amount of Cart Without Coupon
-         *
-         * @since 1.0
+         * Get Total Cart
          * @author dungdt
+         * @since 1.0
          *
-         * @param $args array to filter the result
-         * @return int|mixed|void
+         * @return mixed|void
          */
-        function get_cart_total($args=array())
+        function get_cart_total()
         {
-            $args=wp_parse_args($args,array(
-                'without_discount'=>true
-            ));
-
-            $price = 0;
-            /*$cart = WPBooking_Session::get('wpbooking_cart', array());
-            if (!empty($cart)) {
-                foreach ($cart as $key => $value) {
-                    $price += $this->get_cart_item_total($value, TRUE,$args);
-                }
-            }
-
-            $price = apply_filters('wpbooking_get_cart_total', $price, $cart);*/
-
-            $price = 100;
-
+            $cart = $this->get_cart();
+            $price = $cart['price'];
+            $service_type = $cart['service_type'];
+            $price = apply_filters('wpbooking_get_cart_total', $price, $cart);
+            $price = apply_filters('wpbooking_get_cart_total_'.$service_type, $price, $cart);
             return $price;
         }
 
         /**
-         * Get Price Amount for one Cart Item
-         *
+         * Get Total Cart With Tax
          * @author dungdt
          * @since 1.0
          *
-         * @param $cart_item
-         * @param bool $need_convert Need Convert To Currency
-         * @param array $args
          * @return mixed|void
          */
-        function get_cart_item_total($cart_item, $need_convert = FALSE,$args=array())
+        function get_cart_total_with_tax($args)
         {
-            $item_price = $cart_item['base_price'];
-            $item_price = apply_filters('wpbooking_cart_item_price', $item_price, $cart_item,$args);
-            $item_price = apply_filters('wpbooking_cart_item_price_' . $cart_item['service_type'], $item_price, $cart_item,$args);
+            $cart = $this->get_cart();
+            $args = wp_parse_args($args, array(
+                'without_deposit'        => true
+            ));
+            $price_cart = $this->get_cart_total();
+            $tax = $this->get_cart_tax_price();
 
-            // Convert to current currency
-            if ($need_convert) {
-                $item_price = WPBooking_Currency::convert_money($item_price, array(
-                    'currency' => $cart_item['currency']
-                ));
+            $total_price = $price_cart + $tax['total_price'];
+
+
+
+            if($args['without_deposit']){
+                var_dump($cart['deposit']);
+                if(!empty($cart['deposit']['status'])){
+                    switch ($cart['deposit']['status']) {
+                        case "percent":
+                            if ($cart['deposit']['amount'] > 100) $cart['deposit']['amount'] = 100;
+                            $price = $total_price * $cart['deposit']['amount'] / 100;
+                            break;
+                        case "amount":
+                        default:
+                            if ($cart['deposit']['amount'] < $total_price)
+                                $price = $cart['deposit']['amount'];
+                            break;
+
+                    }
+                    var_dump($price);
+                }
+
+
+
             }
-            return $item_price;
+            return $total_price;
         }
+
+
         /**
          * Get all cart items
          *
@@ -210,28 +218,9 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             return WPBooking_Session::get('wpbooking_cart');
         }
 
-        /**
-         * Get Cart Extra Price
-         *
-         * @since 1.0
-         * @author quandq
-         *
-         * @return double
-         */
-        function get_cart_extra_price(){
-            /*$price = 0;
-            $cart = $this->get_cart();
-            if (!empty($cart)) {
-                foreach ($cart as $key => $value) {
-                    $price += $this->get_cart_item_extra_price($value);
-                }
-            }
 
-            $price = apply_filters('wpbooking_get_cart_extra_price', $price, $cart);*/
 
-            $price = 100;
-            return $price;
-        }
+
         function get_field_form_billing(){
             $field_form = array(
                 array(
@@ -335,9 +324,64 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                         wpbooking_set_message(__("Delete item successfully", 'wpbooking'), 'success');
                     }
                 }
-
             }
+        }
+        /**
+         * Get Cart Tax Total
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return int|mixed|void
+         */
+        public function get_cart_tax_price(){
+            $tax = array();
+            $cart = $this->get_cart();
 
+            $diff=$cart['check_out_timestamp'] - $cart['check_in_timestamp'];
+            $date_diff = $diff / (60 * 60 * 24);
+
+            $total_price = $this->get_cart_total();
+            $total_tax = 0;
+            if(!empty($cart['tax'])){
+                foreach($cart['tax'] as $key => $value){
+                    if($value['excluded'] != 'no'){
+                        $unit = $value['unit'];
+                        $tax[$key] = $value;
+                        $price = 0;
+                        switch($unit){
+                            case "percent":
+                            case "stay":
+                                $price = $value['amount'];
+                                break;
+                            case "fixed":
+                                $price = $total_price * ($value['amount'] / 100);
+                                break;
+                            case "night":
+                                $price = $value['amount'] * $date_diff;
+                                break;
+                            case "person_per_stay":
+                                if(!empty($cart['person'] )){
+                                    $person = $cart['person'];
+                                    $price = $person *  $value['amount'];
+                                }
+                                break;
+                            case "person_per_night":
+                                if(!empty($cart['person'] )){
+                                    $person = $cart['person'];
+                                    $price =  ( $value['amount'] * $person ) * $date_diff;
+                                }
+                                break;
+                            default:
+                        }
+                        $total_tax += $price;
+                        $tax[$key]['price'] = floatval($price);
+                    }
+                }
+            }
+            $tax['total_price'] = $total_tax;
+            $tax = apply_filters('wpbooking_get_cart_tax_price', $tax, $cart);
+            return $tax;
         }
         static function inst()
         {

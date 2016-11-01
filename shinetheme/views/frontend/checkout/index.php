@@ -11,7 +11,7 @@ $cart = $booking->get_cart();
 if (empty($cart)) {
     wpbooking_set_message(__('Sorry! Your cart is currently empty', 'wpbooking'), 'danger');
 }
-//var_dump($cart);
+var_dump($cart);
 echo wpbooking_get_message();
 
 if (empty($cart)) {
