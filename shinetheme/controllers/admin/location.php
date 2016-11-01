@@ -44,6 +44,7 @@ if(!class_exists('WPBooking_Admin_Location'))
 				'show_ui'           => TRUE,
 				'show_admin_column' => true,
 				'query_var'         => true,
+                'meta_box_cb' => false,
 				'rewrite'           => array( 'slug' => 'location' ),
 			);
 			$args=apply_filters('wpbooking_register_location_taxonomy',$args);

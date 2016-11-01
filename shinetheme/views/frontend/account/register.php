@@ -22,11 +22,11 @@ $term_link=WPBooking_User::inst()->get_term_condition_link();
 		</div>
 		<div class="form-group">
 			<label for="input-password" class="control-label"><?php esc_html_e('Password','wpbooking') ?> <span class="required">*</span></label>
-			<input type="password" class="form-control" id="input-password" name="rg-password" ">
+			<input type="password" class="form-control" id="input-password" name="rg-password" value="<?php echo WPBooking_Input::post('rg-password') ?>">
 		</div>
 		<div class="form-group">
 			<label for="input-repassword" class="control-label"><?php esc_html_e('Re-type Password','wpbooking') ?> <span class="required">*</span></label>
-			<input type="password" class="form-control" id="input-repassword" name="rg-repassword" ">
+			<input type="password" class="form-control" id="input-repassword" name="rg-repassword" value="<?php echo WPBooking_Input::post('rg-repassword') ?>">
 		</div>
 		<div class="form-group">
 			<label class="accept-term">

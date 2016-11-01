@@ -8,24 +8,9 @@
 $service=new WB_Service();
 $service_type=$service->get_type();
 $location_id = get_post_meta(get_the_ID(),'location_id',true);
-$arg = array(
-	'meta_query' => array(
-		'relation' => 'AND',
-		array(
-			'key' => 'location_id',
-			'value' => $location_id,
-			'type' => 'CHAR',
-			'compare' => '='
-		),
-		array(
-			'key' => 'service_type',
-			'value' => $service_type,
-			'type' => 'CHAR',
-			'compare' => '='
-		)
-	)
-);
-$related=$service->get_related_query($arg);
+
+$related = $service->get_related_query();
+
 if(!$related or !$related->have_posts()) return FALSE;
 ?>
 <div class="service-content-section">

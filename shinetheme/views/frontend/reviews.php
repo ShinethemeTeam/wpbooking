@@ -82,10 +82,10 @@ if ( post_password_required() ) {
 		),
 		'comment_field'        => '<div class="wpbooking-comment-form-content">
 						<p class="comment-form-title">
-							<label for="wpbooking_title"><strong>'.esc_html__('Review Title','wpbooking').'</strong></label>
+							<label for="wpbooking_title"><strong>'.esc_html__('Review Title','wpbooking').'</strong> <span class="required">*</span></label>
 							<input type="text" name="wpbooking_title" >
 						</p>
-						<p class="comment-form-comment"><label for="comment"><strong>' . esc_html__( 'Review Text', 'wpbooking' ) . '</strong></label> <textarea id="comment" name="comment" cols="45" rows="8"  aria-required="true" required="required"></textarea></p></div>'.$field_review,
+						<p class="comment-form-comment"><label for="comment"><strong>' . esc_html__( 'Review Text', 'wpbooking' ) . '</strong> <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8"  aria-required="true" required="required"></textarea></p></div>'.$field_review,
 		'label_submit'=>esc_html__('SEND','wpbooking')
 	));
 	if(!comments_open(get_the_ID()) and !is_user_logged_in()){
