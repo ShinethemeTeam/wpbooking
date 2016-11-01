@@ -11,12 +11,16 @@ $config['order_status'] = array(
         'label' => esc_html__('On Hold', 'wpbooking'),
         'desc'  => esc_html__('Waiting for Payment', 'wpbooking'),
     ),
-    'payment-failed' => array(
+    'payment_failed' => array(
         'label' => esc_html__('Payment Failed', 'wpbooking'),
         'desc'  => esc_html__('Payment Failed because of Gateway Problem or Wrong API data of Gateway', 'wpbooking'),
     ),
     'completed'      => array(
         'label' => esc_html__('Completed', 'wpbooking'),
+    ),
+    'completed_a_part'      => array(
+        'label' => esc_html__('Completed a Part', 'wpbooking'),
+        'desc'  => esc_html__('Completed with deposit payment', 'wpbooking'),
     ),
     'cancelled'      => array(
         'label' => esc_html__('Cancelled', 'wpbooking'),
