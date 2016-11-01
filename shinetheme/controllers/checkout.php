@@ -90,7 +90,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $cart_params = apply_filters('wpbooking_cart_item_params_' . $service_type, $cart_params, $post_id);
 
 
-            //$is_validate = apply_filters('wpbooking_add_to_cart_validate', $is_validate, $service_type, $post_id,$cart_params);
+            $is_validate = apply_filters('wpbooking_add_to_cart_validate', $is_validate, $service_type, $post_id,$cart_params);
             //$is_validate = apply_filters('wpbooking_add_to_cart_validate_' . $service_type, $is_validate, $service_type, $post_id,$cart_params);
 
 
