@@ -1559,7 +1559,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 }
 
 
-                $res = $service->check_availability($check_in_timestamp, $check_out_timestamp);
+                /*$res = $service->check_availability($check_in_timestamp, $check_out_timestamp);
                 if (!$res['status']) {
                     $is_validated = FALSE;
 
@@ -1583,8 +1583,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     }
 
                     var_dump($res);
-                }
-                wpbooking_set_message("Thử lỗi chỗ này ~", 'error');
+                }*/
+
                 // Validate Minimum Stay
                 if ($check_in_timestamp and $check_out_timestamp) {
                     $minimum_stay = $service->get_minimum_stay();
