@@ -258,8 +258,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
          * @return string
          */
         function _add_to_cart(){
-
-            var_dump($_POST);die;
+            
             $res = array();
 
             $post_id = WPBooking_Input::post('post_id');
