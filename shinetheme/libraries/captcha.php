@@ -12,8 +12,8 @@ if(!class_exists('WPBooking_Captcha'))
         static $_inst;
         protected $_api_key=array(
             'recaptcha'=>array(
-                'key'=>'6LfmuAoUAAAAAOE-Ter8doCk8wHswR9709PCiMbH',
-                'secret_key'=>'6LfmuAoUAAAAAAh4prggz2KM-3jL-SSfo_CwgO60'
+                'key'=>'6Lc96QoUAAAAAFsJQAGm3cendkOdMaOjYic0g33H',
+                'secret_key'=>'6Lc96QoUAAAAAHpTMn_9UuwdbKQPDSq9XvBxNU7T'
             )
         );
         function __construct()
