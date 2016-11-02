@@ -81,7 +81,7 @@ if (empty($cart)) {
                         <div class="form-group">
 
                             <label for="term_condition">
-                                <input type="checkbox" name="term_condition"  value="1">
+                                <input type="checkbox" id="term_condition" name="term_condition"  value="1">
                                 <?php esc_html_e(" I have read and accept the terms and  conditions","wpbooking") ?>
                             </label>
                         </div>
