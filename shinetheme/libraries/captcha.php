@@ -68,7 +68,9 @@ if(!class_exists('WPBooking_Captcha'))
          */
         function _validate_do_checkout_captcha($is_validate,$cart=array())
         {
-            $is_validate =  $this->validate_recaptcha();
+            if($is_validate){
+                $is_validate =  $this->validate_recaptcha();
+            }
             return $is_validate;
         }
 

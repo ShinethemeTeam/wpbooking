@@ -99,7 +99,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             }
 
             $pay_amount = $this->get_cart_total();
-            if (empty($pay_amount)) {
+            if ($is_validate and empty($pay_amount)) {
                 $is_validate = FALSE;
                 wpbooking_set_message(__("Giá giỏ hàng là 0. Bạn không thể thực hiện thanh toán này !", 'wpbooking'), 'error');
             }
@@ -118,6 +118,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                     wpbooking_set_message(sprintf(__("Gateway: %s is not ready to use, please choose other gateway", 'wpbooking'), $selected_gateway), 'error');
                 }
             }
+
 
 
             $is_validate = apply_filters('wpbooking_do_checkout_validate', $is_validate, $cart);
