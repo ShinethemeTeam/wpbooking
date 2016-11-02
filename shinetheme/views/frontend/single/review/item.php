@@ -55,6 +55,7 @@ $reply_allow=wpbooking_review_allow_reply(get_comment_ID());
 					comment_text();
 				echo "</div>";
 				$wpbooking_review_details=get_comment_meta(get_comment_ID(),'wpbooking_review_detail',true);
+
 				if(!empty($wpbooking_review_details)){
 					echo "<div class='wpbooking-more-review-detail'>";
 						echo "<div class='review-stats'>";

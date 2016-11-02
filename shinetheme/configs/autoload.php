@@ -39,13 +39,15 @@ $autoload['library']=array(
 	'taxonomy-metabox',
 	'query-inject',
     'service',
-    'captcha'
+    'captcha',
+    'comments'
 );
 
 $autoload['controller']=array(
 	'user',
 	'service',
 	'admin/order',
+	'admin/comments',
 	//'admin/coupon',
 	'admin/location',
 	'admin/taxonomy',

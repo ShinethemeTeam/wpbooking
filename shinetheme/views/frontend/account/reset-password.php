@@ -14,7 +14,7 @@
     <div class="form-group-wrap">
         <div class="form-group">
             <label for="new_password" class="control-label"><?php esc_html_e('New Password')?> <span class="required">*</span></label>
-            <input type="password" name="new_password" id="new_password" class="form-control" value="">
+            <input type="password" name="new_password" id="new_password" class="form-control" value="<?php echo WPBooking_Input::post('new_password'); ?>">
         </div>
         <div class="form-group">
             <label for="confirm_password" class="control-label"><?php echo esc_html__('Confirm Password','wpbooking'); ?> <span class="required">*</span></label>

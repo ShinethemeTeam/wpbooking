@@ -370,7 +370,83 @@ if(!class_exists('WPBooking_Admin_Setup'))
                                 .label-danger[href]:hover,
                                 .label-danger[href]:focus {
                                     background-color: #c9302c;
-                                }';
+                                }
+                                .wp-email-content-wrap{
+                                    text-align: center;
+                                    padding: 20px 70px;
+                                    border-radius: 0;
+                                    color: #000;
+                                }
+                                .wp-email-content-wrap .title{
+                                    font-size: 25px;
+                                    color: #6aa84f;
+                                    margin-bottom: 17px;
+                                }
+                                .wp-email-content-wrap .title.disapproved{
+                                    color: #cc4125;
+                                }
+                                .wp-email-content-wrap .content-header{
+                                    margin-bottom: 40px;
+                                }
+                                .wp-email-content-wrap .content-header p{
+                                    line-height: 25px;
+                                }
+                                .wp-email-content-wrap .content-center{
+                                    background: #fafafa;
+                                    padding: 20px 15px;
+                                }
+                                .wp-email-content-wrap .content-center .icon{
+                                    font-size: 45px;
+                                    line-height: 1;
+                                }
+                                .wp-email-content-wrap .content-center .comment{
+                                    margin-top: 0px;
+                                    margin-bottom: 22px;
+                                    font-style: italic;
+                                    font-size: 15px;
+                                }
+                                .wp-email-content-wrap .content-center .review{
+                                    font-style: italic;
+                                    font-size: 15px;
+                                }
+                                .review-score{
+                                    display: table;
+                                    width: 50%;
+                                    list-style: none;
+                                    text-align: left;
+                                    margin: 0 auto;
+                                }
+                                .review-score li{
+                                    display: table-row;
+                                    line-height: 2;
+                                }
+                                .review-score li span{
+                                    display: table-cell;
+                                }
+                                .review-score li .score{
+                                    color: #F0AD4E;
+                                }
+                                .wp-email-content-wrap .content-footer{
+                                    margin: 30px;
+                                }
+                                .wp-email-content-wrap .content-footer .btn.btn-default{
+                                    padding: 15px;
+                                    background: #F0AD4E;
+                                    color: #FFF;
+                                    text-decoration: none;
+                                    font-size: 15px;
+                                    display: inline-block;
+                                }
+                                .wp-email-content-wrap .content-footer .comment_link{
+                                    display: block;
+                                    margin-top: 15px;
+                                    font-style: italic;
+                                    font-size: 15px;
+                                }
+                                .wp-email-content-wrap .content-footer .comment_link a{
+                                    color: #F0AD4E;
+                                }
+                                ';
                     break;
                 case "booking_email_customer":
                     $html = '<div class=template>

@@ -1235,7 +1235,7 @@ if (!class_exists('WPBooking_User')) {
                 // Login errors
 
                 case 'empty_username':
-                    return esc_html__( 'You need to enter a username to login.', 'wpbooking' );
+                    return esc_html__( 'The username field is not empty.', 'wpbooking' );
                 case 'empty_password':
                     return esc_html__( 'You need to enter a password to login.', 'wpbooking' );
                 case 'invalid_username':
