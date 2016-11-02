@@ -80,7 +80,7 @@ if (empty($cart)) {
 
                         <div class="form-group">
 
-                            <label for="special_request">
+                            <label for="term_condition">
                                 <input type="checkbox" name="term_condition"  value="1">
                                 <?php esc_html_e(" I have read and accept the terms and  conditions","wpbooking") ?>
                             </label>
