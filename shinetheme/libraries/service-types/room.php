@@ -1486,7 +1486,6 @@ if (!class_exists('WPBooking_Room_Service_Type') and class_exists('WPBooking_Abs
 
             // Order By
             if ($sortby = WPBooking_Input::request('wb_sort_by')) {
-                var_dump($sortby);
                 switch ($sortby) {
                     case "price_asc":
                         $injection->orderby($table_prefix . '.price', 'asc');

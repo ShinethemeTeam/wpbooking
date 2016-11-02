@@ -1036,7 +1036,7 @@ if (!class_exists('WPBooking_User')) {
          * @param array $data
          * @return bool|int|WP_Error
          */
-        function order_create_user($data = array())
+        function order_create_user($data = array(),$meta_fields = array())
         {
             $data = wp_parse_args($data, array(
                 'user_email' => '',
@@ -1060,6 +1060,14 @@ if (!class_exists('WPBooking_User')) {
                 ));
 
                 if (!is_wp_error($create_user)) {
+
+                    if(!empty($meta_fields) and is_array($meta_fields)){
+                        $f = array('user_email', 'user_first_name', 'user_last_name', 'user_phone' , 'user_address','user_postcode_zip','user_apt_unit');
+                        foreach($meta_fields as $key=>$value){
+                            if (array_key_exists($key, $f))
+                            update_user_meta($create_user, str_replace('user_','',$key) , $value['value']);
+                        }
+                    }
 
                     // Set Global for Email Shortcode Access
                     WPBooking_Session::set('wpbooking_user_pass', $data['user_pass']);

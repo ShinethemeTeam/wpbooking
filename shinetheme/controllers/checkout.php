@@ -27,8 +27,29 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
             add_action('template_redirect', array($this, '_delete_cart_item'));
 
+            add_action( 'init',  array($this, '_register_order_status') );
+
             parent::__construct();
         }
+
+        function _register_order_status(){
+            $order_status = WPBookingConfig()->item('order_status');
+            if(!empty($order_status)){
+                foreach($order_status as $k=>$v){
+                    register_post_status( $k, array(
+                        'label'                     => $v['label'],
+                        'public'                    => true,
+                        'exclude_from_search'       => false,
+                        'show_in_admin_all_list'    => true,
+                        'show_in_admin_status_list' => true,
+                        'label_count'               => _n_noop( $v['label'].' <span class="count">(%s)</span>', $v['label'].' <span class="count">(%s)</span>' ),
+                    ) );
+                }
+            }
+
+        }
+
+
         /**
          * Ajax Checkout Handler
          * @since 1.0
@@ -111,32 +132,26 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 $customer_id = FALSE;
                 if(is_user_logged_in()){
                     $customer_id=get_current_user_id();
-                }
-
-                // Default Fields
-                $post_data = wp_parse_args(WPBooking_Input::post(), array(
-                    'user_first_name'          => FALSE,
-                    'user_last_name'           => FALSE,
-                    'user_email'               => FALSE,
-                ));
-
-                if ($email = $post_data['user_email']) {
-                    // Check User Exists
-                    if ($user_id = email_exists($email)) $customer_id = $user_id;
-
-                    // Check user want to create account
-                    if (WPBooking_Input::post('wpbooking_create_account')) {
-
-                        $customer_id = WPBooking_User::inst()->order_create_user(array(
-                            'user_email' => $email,
-                            'first_name' => $post_data['user_first_name'],
-                            'last_name'  => $post_data['user_last_name'],
-                        ));
-
+                }else{
+                    // Default Fields
+                    $post_data = wp_parse_args(WPBooking_Input::post(), array(
+                        'user_first_name'          => FALSE,
+                        'user_last_name'           => FALSE,
+                        'user_email'               => FALSE,
+                    ));
+                    if ($email = $post_data['user_email']) {
+                        // Check User Exists
+                        if ($user_id = email_exists($email)) $customer_id = $user_id;
+                        if(empty($customer_id)){
+                            $customer_id = WPBooking_User::inst()->order_create_user(array(
+                                'user_email' => $email,
+                                'first_name' => $post_data['user_first_name'],
+                                'last_name'  => $post_data['user_last_name'],
+                            ),$fields);
+                        }
                     }
                 }
 
-                die();
 
                 $order_id = WPBooking_Session::get('wpbooking_order_id');
                 if(!empty($order_id)){
@@ -153,11 +168,13 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                     );
                     $res['status'] = 1;
 
-                    // Only work with Order Table bellow
 
+                    // Only work with Order Table bellow
                     try {
                         if ($selected_gateway) {
+
                             $data = WPBooking_Payment_Gateways::inst()->do_checkout($selected_gateway, $order_id);
+
                             if (!$data['status']) {
                                 $res = array(
                                     'status'  => 0,
@@ -176,8 +193,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                             // Clear the Order Id after create new order,
                             WPBooking_Session::set('wpbooking_order_id','');
                             // Clear the Cart after create new order,
-                            WPBooking_Session::set('wpbooking_cart', array());
-                            WPBooking_Session::set('wpbooking_cart_coupon', false);
+                           // WPBooking_Session::set('wpbooking_cart', array());
 
                             wpbooking_set_message(__('Booking Success', 'wpbooking'));
                             //do checkout
@@ -347,14 +363,16 @@ if(!class_exists('WPBooking_Checkout_Controller'))
          *
          * @return mixed|void
          */
-        function get_cart_total($args=array())
+        function get_cart_total($args=array(),$cart=false)
         {
             $args = wp_parse_args($args, array(
                 'without_deposit'        => false,
                 'without_tax'            => false
             ));
 
-            $cart = $this->get_cart();
+            if(empty($cart)){
+                $cart = $this->get_cart();
+            }
             $total_price = $cart['price'];
             $service_type = $cart['service_type'];
             $total_price = apply_filters('wpbooking_get_cart_total', $total_price, $cart);
@@ -403,11 +421,11 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
         function get_billing_form_fields(){
             $field_form = array(
-                'user_fist_name'       => array(
+                'user_first_name'       => array(
                     'title'       => esc_html__( "First name" , "wpbooking" ) ,
                     'placeholder' => esc_html__( "First name" , "wpbooking" ) ,
                     'type'        => 'text' ,
-                    'name'        => 'user_fist_name' ,
+                    'name'        => 'user_first_name' ,
                     'size'        => '6' ,
                     'required'    => true ,
                     'rule'        => 'required|max_length[100]' ,

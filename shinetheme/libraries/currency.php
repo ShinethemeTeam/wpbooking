@@ -13,10 +13,6 @@ if (!class_exists('WPBooking_Currency')) {
 
 		static function _init()
 		{
-			add_action('init', array(__CLASS__, '_location_session'), 1);
-			add_action('init', array(__CLASS__, '_change_current_currency'));
-
-
 			self::$all_currency = array(
 				'ALL' => 'Albania Lek',
 				'AFN' => 'Afghanistan Afghani',
@@ -139,46 +135,8 @@ if (!class_exists('WPBooking_Currency')) {
 			 */
 			add_filter('wpbooking_get_all_currency', array(__CLASS__, 'get_all_currency'));
 
-			// Update Session after Update Settings
-			add_action('wpbooking_after_admin_settings_saved',array(__CLASS__,'_reload_current_currency'));
-
 		}
 
-		/**
-		 * Hook function after Saving the List of Currencies, We Update Current Currency Information
-		 * @since 1.0
-		 * @author dungdt
-		 */
-		static function _reload_current_currency()
-		{
-			$current=WPBooking_Session::get('wpbooking_currency');
-
-			if($current){
-				WPBooking_Session::set('wpbooking_currency',$current);
-			}else{
-
-				// If Currency is deleted from list of added currencies, we remove the  session data
-				WPBooking_Session::destroy('wpbooking_currency');
-			}
-		}
-
-		static function _location_session()
-		{
-
-			if (!WPBooking_Session::get('wpbooking_currency')) {
-				WPBooking_Session::set('wpbooking_currency', self::get_default_currency());
-			}
-
-		}
-
-
-		static function _change_current_currency()
-		{
-
-			if (WPBooking_Input::get('currency') and $new_currency = self::find_currency($_GET['currency'])) {
-				WPBooking_Session::set('wpbooking_currency', $new_currency);
-			}
-		}
 
 		static function _list_currency()
 		{
@@ -244,15 +202,6 @@ if (!class_exists('WPBooking_Currency')) {
 			// Check currency exists and available in the system
 			if ($primary and array_key_exists($primary['currency'], $all)) {
 				// Default Currency Object Format
-//            array(
-//                'currency'=>'USD',
-//                'exchange_rate'=>1,
-//                'decimal'=>2,
-//                'decimal_sep'=>'.',
-//                'thousands_sep'=>',',
-//                'position'=>'left'
-//            ),
-
 
 				if ($need) {
 					return isset($primary[$need]) ? $primary[$need] : $default;
@@ -406,7 +355,7 @@ if (!class_exists('WPBooking_Currency')) {
 		 * */
 		static function get_current_currency($need = FALSE, $default = FALSE)
 		{
-			$current = WPBooking_Session::get('wpbooking_currency');
+			$current = self::get_currency();
 			//Check session of user first
 			if ($need and $current) {
 				if (isset($current[$need])) return $current[$need];

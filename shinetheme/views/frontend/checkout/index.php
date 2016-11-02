@@ -11,7 +11,7 @@ $cart = $booking->get_cart();
 if (empty($cart)) {
     wpbooking_set_message(__('Sorry! Your cart is currently empty', 'wpbooking'), 'danger');
 }
-var_dump($cart);
+
 echo wpbooking_get_message();
 
 if (empty($cart)) {
@@ -34,13 +34,6 @@ if (empty($cart)) {
                             <h5 class="checkout-form-title"><?php esc_html_e('Billing Information', 'wpbooking') ?></h5>
                             <h5 class="checkout-form-sub-title"><?php esc_html_e('Billing Information', 'wpbooking') ?></h5>
                             <input name="action" value="wpbooking_do_checkout" type="hidden">
-                            <?php if (!is_user_logged_in()): ?>
-                                <p>
-                                    <label><input type="checkbox" name="wpbooking_create_account"
-                                                  value="1"> <?php printf(esc_html__('Create %s account', 'wpbooking'), get_bloginfo('name')) ?>
-                                    </label>
-                                </p>
-                            <?php endif; ?>
                             <div class="billing_information">
                                 <div class="row">
                                     <?php

@@ -135,7 +135,7 @@ if(!function_exists('wpbooking_order_item_status_html')){
 		$all_status=WPBooking_Config::inst()->item('order_status');
 		if(array_key_exists($status,$all_status)){
 			switch($status){
-				case "on-hold":
+				case "on_hold":
 					return sprintf('<label class="label label-warning">%s</label>',$all_status[$status]['label']);
 				break;
 				case "completed":
@@ -160,7 +160,7 @@ if(!function_exists('wpbooking_order_item_status_color')){
 		$all_status=WPBooking_Config::inst()->item('order_status');
 		if(array_key_exists($status,$all_status)){
 			switch($status){
-				case "on-hold":
+				case "on_hold":
 					return '#f0ad4e';
 				break;
 				case "completed":
