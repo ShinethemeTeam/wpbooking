@@ -1457,53 +1457,64 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'check_in_timestamp'  => FALSE,
                 'check_out_timestamp' => FALSE,
             ));
-
-            $wpbooking_option_number_room = $this->post('wpbooking_option_number_room');
-            $extra_services = $this->post('wpbooking_extra');
-            if(!empty($wpbooking_option_number_room)){
-                foreach($wpbooking_option_number_room as $k=>$v){
-                    if(!empty($v)){
-                        $my_extra_services = get_post_meta($k,'extra_services',true);
+            $data_rooms = $this->post('wpbooking_room');
+            if(!empty($data_rooms)) {
+                foreach( $data_rooms as $room_id => $data_room ) {
+                    if(!empty($data_room['number_room'])){
                         $extra_service = array();
-                        if(!empty($extra_services[$k])){
-                            $extra_service['title'] = esc_html__('Extra Service','wpbooking');
-                            foreach($extra_services[$k] as $key=>$value){
-                                if(!empty($value['is_check']) and !empty($my_extra_services[$key])){
+                        $my_extra_services = get_post_meta($room_id,'extra_services',true);
+                        if(!empty($data_room['extra_service'])){
+                            $post_extras = $data_room['extra_service'];
+                            foreach($post_extras as $key=>$value){
+                                $extra_service['title'] = esc_html__('Extra Service','wpbooking');
+                                if(!empty($value['is_check'])){
+                                    $price = 0;
+                                    if(!empty($my_extra_services[$key]['money'])){
+                                        $price = $my_extra_services[$key]['money'];
+                                    }
                                     $extra_service['data'][$key] = array(
                                         'title'=>$value['is_check'],
                                         'quantity'=>$value['quantity'],
-                                        'price'=>$my_extra_services[$key]['money'],
+                                        'price'=>$price
+                                    );
+                                }
+
+                            }
+                        }
+                        // Check require
+                        if(!empty($my_extra_services)){
+                            foreach($my_extra_services as $key=>$value){
+                                if($value['require'] == 'yes' and empty($extra_service[$key])){
+                                    $extra_service['data'][$key] = array(
+                                        'title'=>$value['is_selected'],
+                                        'quantity'=>1,
+                                        'price'=>$value['money'],
                                     );
                                 }
                             }
                         }
-                        $number_room = $this->request('wpbooking_option_number_room');
-                        if(!empty($number_room[$k])){
-                            $number_room = $number_room[$k];
-                        }else{
-                            $number_room = 0;
-                        }
-                        $cart_item['rooms'][$k] = array(
-                            'room_id'=>$k,
-                            'number'=>$number_room,
+                        $cart_item['rooms'][$room_id] = array(
+                            'room_id'=>$room_id,
+                            'number'=>$data_room['number_room'],
                             'extra_fees'=>array(
                                 'extra_service'=>$extra_service
                             )
                         );
                         if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
-                            $cart_item['rooms'][$k]['calendar_prices'] = $calendar->get_prices( $k , $cart_item[ 'check_in_timestamp' ] , $cart_item[ 'check_out_timestamp' ] );
+                            $cart_item['rooms'][$room_id]['calendar_prices'] = $calendar->get_prices( $room_id , $cart_item[ 'check_in_timestamp' ] , $cart_item[ 'check_out_timestamp' ] );
                         }
-
                     }
+
                 }
             }
+
             $wpbooking_adults = WPBooking_Input::post('wpbooking_adults',1);
             $cart_item['person'] = $wpbooking_adults;
             $wpbooking_children = WPBooking_Input::post('wpbooking_children');
             if(!empty($wpbooking_children)){
                 $cart_item['person']+=$wpbooking_children;
             }
-
+            
 
             return $cart_item;
         }
@@ -1575,11 +1586,13 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $service = new WB_Service($post_id);
             $check_in = $this->post('wpbooking_check_in');
             $check_out = $this->post('wpbooking_check_out');
-            $wpbooking_option_number_room = $this->post('wpbooking_option_number_room');
+
+
+            $wpbooking_room = $this->post('wpbooking_room');
             $check_number_room = false;
-            if(!empty($wpbooking_option_number_room)) {
-                foreach( $wpbooking_option_number_room as $k => $v ) {
-                    if(!empty( $v )) {
+            if(!empty($wpbooking_room)) {
+                foreach( $wpbooking_room as $k => $v ) {
+                    if(!empty( $v['number_room'] )) {
                         $check_number_room = true;
                     }
                 }
@@ -1601,7 +1614,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 return $is_validated;
             }
             if(empty($check_number_room)){
-                wpbooking_set_message(esc_html__("Please select room","wpbooking"));
+                wpbooking_set_message(esc_html__("Please select one room","wpbooking"));
                 $is_validated = FALSE;
                 return $is_validated;
             }

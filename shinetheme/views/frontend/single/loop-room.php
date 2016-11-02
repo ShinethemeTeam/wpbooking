@@ -83,7 +83,7 @@ $service_room = new WB_Service(get_the_ID());
             ?>
         </div>
         <div class="room-number">
-            <select class="form-control option_number_room" name="wpbooking_option_number_room[<?php the_ID() ?>]" data-price-base="<?php echo esc_attr($price) ?>" >
+            <select class="form-control option_number_room" name="wpbooking_room[<?php the_ID() ?>][number_room]" data-price-base="<?php echo esc_attr($price) ?>" >
                 <?php
                 $max_room = get_post_meta(get_the_ID(),'room_number',true);
                 if(empty($max_room))$max_room=20;
@@ -127,14 +127,14 @@ $service_room = new WB_Service(get_the_ID());
                 <?php foreach($list_extra as $k=>$v){?>
                     <tr>
                         <td class="text-center">
-                            <input class="option_is_extra" type="checkbox" value="<?php echo esc_attr($v['is_selected']) ?>" <?php if($v['require'] == 'yes') echo 'checked onclick="return false"'; ?>  name="wpbooking_extra[<?php the_ID() ?>][<?php echo esc_attr($k) ?>][is_check]">
+                            <input class="option_is_extra" type="checkbox" value="<?php echo esc_attr($v['is_selected']) ?>" <?php if($v['require'] == 'yes') echo 'checked onclick="return false"'; ?>  name="wpbooking_room[<?php the_ID() ?>][extra_service][<?php echo esc_attr($k) ?>][is_check]">
                         </td>
                         <td>
                             <span class="title"><?php echo  esc_html($v['is_selected'])?></span>
                             <span class="desc"><?php echo esc_html( $v['desc'] ) ?></span>
                         </td>
                         <td>
-                            <select class="form-control option_extra_quantity" name="wpbooking_extra[<?php the_ID() ?>][<?php echo esc_attr($k) ?>][quantity]" data-price-extra="<?php echo esc_attr($v['money']) ?>">
+                            <select class="form-control option_extra_quantity" name="wpbooking_room[<?php the_ID() ?>][extra_service][<?php echo esc_attr($k) ?>][quantity]" data-price-extra="<?php echo esc_attr($v['money']) ?>">
                                 <?php
                                 $start = 0;
                                 if($v['require'] == 'yes') $start = 1;
