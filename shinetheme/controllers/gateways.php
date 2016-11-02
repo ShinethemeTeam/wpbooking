@@ -44,7 +44,7 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 
 		/**
 		 * Get all registered gateways
-		 * @return mixed|void
+		 * @return WPBooking_Abstract_Payment_Gateway[]
 		 */
 		function get_gateways()
 		{

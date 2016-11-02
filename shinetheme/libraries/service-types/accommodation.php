@@ -190,6 +190,14 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             add_filter('wpbooking_add_to_cart_validate_' . $this->type_id, array($this, '_add_to_cart_validate'), 10, 4);
 
             /**
+             * Validate Do Checkout
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_filter('wpbooking_do_checkout_validate_'. $this->type_id, array($this, '_validate_checkout'), 10, 2);
+
+            /**
              * validate add to cart
              *
              * @since 1.0
@@ -197,6 +205,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              *
              */
             add_filter('wpbooking_get_cart_total_' . $this->type_id, array($this, '_get_cart_total_price'), 10, 4);
+
 
             /**
              * Add info room
@@ -206,6 +215,13 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              */
             add_action('wpbooking_other_item_information_'.$this->type_id, array($this, '_add_info_item_room'),10,2);
             add_action('wpbooking_other_total_item_information_'.$this->type_id, array($this, '_add_info_total_item_room'),10,2);
+            add_action('wpbooking_save_order_'.$this->type_id, array($this, '_save_order_hotel_room_'),10,2);
+
+
+            /**
+             * Delete Item Room
+             */
+            add_action('template_redirect', array($this, '_delete_cart_item'));
         }
 
 
@@ -1056,10 +1072,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'data'   => "",
                 );
                 $hotel_id = get_the_ID();
-                self::search_room();
-                if (have_posts()) {
-                    while (have_posts()) {
-                        the_post();
+                $query=$this->search_room();
+                if ($query->have_posts()) {
+                    while ($query->have_posts()) {
+                        $query->the_post();
                         $result['data'] .= wpbooking_load_view('single/loop-room', array('hotel_id' => $hotel_id));
                     }
                 } else {
@@ -1211,6 +1227,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          */
         function search_room()
         {
+
             $hotel_id = get_the_ID();
             $arg = array(
                 'post_type'      => 'wpbooking_hotel_room',
@@ -1229,7 +1246,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'type' => 'NUMERIC',
                 );
             }
-            global $wp_query;
             return new WP_Query($arg);
         }
 
@@ -1441,55 +1457,118 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'check_in_timestamp'  => FALSE,
                 'check_out_timestamp' => FALSE,
             ));
-
-            $wpbooking_option_number_room = $this->post('wpbooking_option_number_room');
-            $extra_services = $this->post('wpbooking_extra');
-            if(!empty($wpbooking_option_number_room)){
-                foreach($wpbooking_option_number_room as $k=>$v){
-                    if(!empty($v)){
-                        $my_extra_services = get_post_meta($k,'extra_services',true);
+            $data_rooms = $this->post('wpbooking_room');
+            if(!empty($data_rooms)) {
+                foreach( $data_rooms as $room_id => $data_room ) {
+                    if(!empty($data_room['number_room'])){
                         $extra_service = array();
-                        if(!empty($extra_services[$k])){
-                            $extra_service['title'] = esc_html__('Extra Service','wpbooking');
-                            foreach($extra_services[$k] as $key=>$value){
-                                if(!empty($value['is_check']) and !empty($my_extra_services[$key])){
+                        $my_extra_services = get_post_meta($room_id,'extra_services',true);
+                        if(!empty($data_room['extra_service'])){
+                            $post_extras = $data_room['extra_service'];
+                            foreach($post_extras as $key=>$value){
+                                $extra_service['title'] = esc_html__('Extra Service','wpbooking');
+                                if(!empty($value['is_check'])){
+                                    $price = 0;
+                                    if(!empty($my_extra_services[$key]['money'])){
+                                        $price = $my_extra_services[$key]['money'];
+                                    }
                                     $extra_service['data'][$key] = array(
                                         'title'=>$value['is_check'],
                                         'quantity'=>$value['quantity'],
-                                        'price'=>$my_extra_services[$key]['money'],
+                                        'price'=>$price
+                                    );
+                                }
+
+                            }
+                        }
+                        // Check require
+                        if(!empty($my_extra_services)){
+                            foreach($my_extra_services as $key=>$value){
+                                if($value['require'] == 'yes' and empty($extra_service[$key])){
+                                    $extra_service['data'][$key] = array(
+                                        'title'=>$value['is_selected'],
+                                        'quantity'=>1,
+                                        'price'=>$value['money'],
                                     );
                                 }
                             }
                         }
-                        $number_room = $this->request('wpbooking_option_number_room');
-                        if(!empty($number_room[$k])){
-                            $number_room = $number_room[$k];
-                        }else{
-                            $number_room = 0;
-                        }
-                        $cart_item['rooms'][$k] = array(
-                            'room_id'=>$k,
-                            'number'=>$number_room,
+                        $cart_item['rooms'][$room_id] = array(
+                            'room_id'=>$room_id,
+                            'number'=>$data_room['number_room'],
                             'extra_fees'=>array(
                                 'extra_service'=>$extra_service
                             )
                         );
                         if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
-                            $cart_item['rooms'][$k]['calendar_prices'] = $calendar->get_prices( $k , $cart_item[ 'check_in_timestamp' ] , $cart_item[ 'check_out_timestamp' ] );
+                            $cart_item['rooms'][$room_id]['calendar_prices'] = $calendar->get_prices( $room_id , $cart_item[ 'check_in_timestamp' ] , $cart_item[ 'check_out_timestamp' ] );
                         }
-
                     }
+
                 }
             }
+
             $wpbooking_adults = WPBooking_Input::post('wpbooking_adults',1);
             $cart_item['person'] = $wpbooking_adults;
             $wpbooking_children = WPBooking_Input::post('wpbooking_children');
             if(!empty($wpbooking_children)){
                 $cart_item['person']+=$wpbooking_children;
             }
-
+            
 
             return $cart_item;
+        }
+        /**
+         *  Validate checkout
+         * @author quandq
+         * @since 1.0
+         *
+         * @param $is_validated
+         * @param array $cart
+         * @return bool
+         */
+        function _validate_checkout($is_validated, $cart = array())
+        {
+            if ($is_validated) {
+                if (!empty($cart)) {
+                    // Validate Availability last time
+                    $cart_item = wp_parse_args($cart, array(
+                        'check_out_timestamp' => '',
+                        'check_in_timestamp'  => ''
+                    ));
+                    if ($cart_item['check_out_timestamp']) {
+                        $cart_item['check_out_timestamp'] = $cart_item['check_in_timestamp'];
+                    }
+                    $check_in_timestamp = $cart_item['check_in_timestamp'];
+                    $check_out_timestamp = $cart_item['check_out_timestamp'];
+
+                    if(!empty( $cart_item['rooms'])){
+                        $list_room = $cart_item['rooms'];
+                        foreach($list_room as $room_id => $data){
+                            $res = $this->check_availability_room($room_id,$check_in_timestamp, $check_out_timestamp);
+                            if (!$res['status']) {
+                                $is_validated = FALSE;
+                                // If there are some day not available, return the message
+                                if (!empty($res['can_not_check_in'])) {
+                                    wpbooking_set_message(sprintf("You can not check-in at: %s", 'wpbooking'), date(get_option('date_format'), $check_in_timestamp));
+                                }
+                                if (!empty($res['can_not_check_out'])) {
+                                    wpbooking_set_message(sprintf("You can not check-out at: %s", 'wpbooking'), date(get_option('date_format'), $check_out_timestamp));
+                                }
+                                if (!empty($res['unavailable_dates'])) {
+                                    $message = esc_html__('Bạn không thể book "%s" vào ngày: %s', 'wpbooking');
+                                    $not_avai_string = FALSE;
+                                    $not_avai_string .= date(get_option('date_format'), $res['unavailable_dates']);
+                                    wpbooking_set_message(sprintf($message, get_the_title($room_id) , $not_avai_string), 'error');
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            return $is_validated;
         }
         /**
          * Calendar Validate Before Add To Cart
@@ -1504,17 +1583,16 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          */
         function _add_to_cart_validate($is_validated, $service_type, $post_id, $cart_params)
         {
-
-
             $service = new WB_Service($post_id);
-
             $check_in = $this->post('wpbooking_check_in');
             $check_out = $this->post('wpbooking_check_out');
-            $wpbooking_option_number_room = $this->post('wpbooking_option_number_room');
+
+
+            $wpbooking_room = $this->post('wpbooking_room');
             $check_number_room = false;
-            if(!empty($wpbooking_option_number_room)) {
-                foreach( $wpbooking_option_number_room as $k => $v ) {
-                    if(!empty( $v )) {
+            if(!empty($wpbooking_room)) {
+                foreach( $wpbooking_room as $k => $v ) {
+                    if(!empty( $v['number_room'] )) {
                         $check_number_room = true;
                     }
                 }
@@ -1536,7 +1614,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 return $is_validated;
             }
             if(empty($check_number_room)){
-                wpbooking_set_message(esc_html__("Please select room","wpbooking"));
+                wpbooking_set_message(esc_html__("Please select one room","wpbooking"));
                 $is_validated = FALSE;
                 return $is_validated;
             }
@@ -1558,32 +1636,30 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     return $is_validated;
                 }
 
+                if(!empty( $cart_params['rooms'])){
+                    $list_room = $cart_params['rooms'];
+                    foreach($list_room as $room_id => $data){
+                        $res = $this->check_availability_room($room_id,$check_in_timestamp, $check_out_timestamp);
+                        if (!$res['status']) {
+                            $is_validated = FALSE;
+                            // If there are some day not available, return the message
+                            if (!empty($res['can_not_check_in'])) {
+                                wpbooking_set_message(sprintf("You can not check-in at: %s", 'wpbooking'), date(get_option('date_format'), $check_in_timestamp));
+                            }
+                            if (!empty($res['can_not_check_out'])) {
+                                wpbooking_set_message(sprintf("You can not check-out at: %s", 'wpbooking'), date(get_option('date_format'), $check_out_timestamp));
+                            }
+                            if (!empty($res['unavailable_dates'])) {
+                                $message = esc_html__('Bạn không thể book "%s" vào ngày: %s', 'wpbooking');
+                                $not_avai_string = FALSE;
+                                $not_avai_string .= date(get_option('date_format'), $res['unavailable_dates']);
+                                wpbooking_set_message(sprintf($message, get_the_title($room_id) , $not_avai_string), 'error');
+                            }
 
-                /*$res = $service->check_availability($check_in_timestamp, $check_out_timestamp);
-                if (!$res['status']) {
-                    $is_validated = FALSE;
-
-                    // If there are some day not available, return the message
-                    if (!empty($res['can_not_check_in'])) {
-                        wpbooking_set_message(sprintf("You can not check-in at: %s", 'wpbooking'), date(get_option('date_format'), $check_in_timestamp));
-                    }
-                    if (!empty($res['can_not_check_out'])) {
-                        wpbooking_set_message(sprintf("You can not check-out at: %s", 'wpbooking'), date(get_option('date_format'), $check_out_timestamp));
-                    }
-
-                    if (!empty($res['unavailable_dates'])) {
-                        $message = esc_html__("Those dates are not available: %s", 'wpbooking');
-                        $not_avai_string = FALSE;
-                        foreach ($res['unavailable_dates'] as $k => $v) {
-                            $not_avai_string .= date(get_option('date_format'), $v) . ', ';
                         }
-                        $not_avai_string = substr($not_avai_string, 0, -2);
-
-                        wpbooking_set_message(sprintf($message, $not_avai_string), 'error');
                     }
+                }
 
-                    var_dump($res);
-                }*/
 
                 // Validate Minimum Stay
                 if ($check_in_timestamp and $check_out_timestamp) {
@@ -1599,6 +1675,72 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
 
             return $is_validated;
+        }
+
+        function check_availability_room($room_id,$start,$end){
+
+            $return=array(
+                'status'=>0,
+                'unavailable_dates'=>array()
+            );
+
+            if($room_id){
+                $calendar = WPBooking_Calendar_Model::inst();
+                $calendar_prices = $calendar->calendar_months($room_id, $start, $start);
+
+                // Reformat the res
+                if(!empty($calendar_prices)){
+                    foreach($calendar_prices as $key=>$value){
+                        $calendar_prices[$value['start']]=$value;
+                    }
+                }
+
+                $is_available_for = get_post_meta($room_id,'property_available_for',true);
+
+               
+                switch($is_available_for){
+                    case "specific_periods":
+                        if(!empty($calendar_prices)){
+                            $return['status']=1;
+                            $check_in_temp=$start;
+                            while ($check_in_temp <= $end) {
+                                if(!array_key_exists($check_in_temp,$calendar_prices) or $calendar_prices[$check_in_temp]['status']=='not_available'){
+                                    $return['unavailable_dates'] = $check_in_temp;
+                                    $return['status']=0;
+                                }
+                                $check_in_temp = strtotime('+1 day', $check_in_temp);
+                            }
+                        }
+                        break;
+                    case "forever":
+                    default:
+                        $return['status']=1;
+                        if(!empty($calendar_prices)){
+                            $check_in_temp=$start;
+                            while ($check_in_temp <= $end) {
+                                if(array_key_exists($check_in_temp,$calendar_prices) and $calendar_prices[$check_in_temp]['status']=='not_available'){
+                                    $return['unavailable_dates'] = $check_in_temp;
+                                    $return['status']=0;
+                                }
+                                $check_in_temp = strtotime('+1 day', $check_in_temp);
+                            }
+                        }
+                        break;
+                }
+                /*if(!empty($calendar_prices)){
+                    if(array_key_exists($start,$calendar_prices) and $calendar_prices[$start]['can_check_in']==FALSE){
+                        $return['status']=0;
+                        $return['can_not_check_in']=TRUE;
+                    }
+                    if(array_key_exists($end,$calendar_prices) and $calendar_prices[$end]['can_check_out']==FALSE){
+                        $return['status']=0;
+                        $return['can_not_check_out']=TRUE;
+                    }
+                }*/
+            }
+
+            return apply_filters('wpbooking_service_check_availability_room',$return,$this,$start,$end);
+
         }
 
         function wpbooking_reload_image_list_room(){
@@ -1851,6 +1993,14 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             return $list;
         }
 
+        /**
+         * @author quandq
+         * @since 1.0
+         *
+         * @param $price
+         * @param $cart
+         * @return int
+         */
         function _get_cart_total_price($price,$cart){
             if(!empty($cart['rooms'])) {
                 foreach($cart['rooms'] as $room_id=>$room){
@@ -1860,6 +2010,62 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             return $price;
         }
 
+
+        function _save_order_hotel_room_($cart,$order_id){
+            if(!empty($cart['rooms'])){
+                $hotel_id = $cart['post_id'];
+                foreach($cart['rooms'] as $room_id => $room ){
+                    $order = WPBooking_Order_Hotel_Order_Model::inst();
+                    $price_room = WPBooking_Accommodation_Service_Type::inst()->_get_price_room_in_cart($cart,$room_id);
+                    $price_total_room = WPBooking_Accommodation_Service_Type::inst()->_get_total_price_room_in_cart($cart,$room_id);
+                    $data = array(
+                        'order_id'=> $order_id,
+                        'hotel_id'=> $hotel_id,
+                        'room_id'=> $room_id,
+                        'price'=> $price_room,
+                        'price_total'=> $price_total_room,
+                        'number'=> $room['number'],
+                        'extra_fees'=> serialize($room['extra_fees']),
+                        'check_in_timestamp'=> $cart['check_in_timestamp'],
+                        'check_out_timestamp'=> $cart['check_out_timestamp'],
+                    );
+                    $order->save_order_hotel_room($data, $room_id , $order_id);
+                }
+            }
+        }
+        /**
+         * Handler Action Delete Cart Item
+         *
+         * @since 1.0
+         * @author quandq
+         */
+        function _delete_cart_item()
+        {
+            if (isset($_GET['delete_cart_item'])) {
+                $index = WPBooking_Input::get('delete_cart_item');
+                $booking = WPBooking_Checkout_Controller::inst();
+                $all = $booking->get_cart();
+                if(!empty($all['service_type'])){
+                    $service_type=$all['service_type'];
+                    $redirect_to_home = false;
+                    switch($service_type){
+                        case 'accommodation':
+                            unset($all['rooms'][$index]);
+                            if(empty($all['rooms'])){
+                                $booking->set_cart(array());
+                                $redirect_to_home = true;
+                            }
+                            break;
+                    }
+                    if($redirect_to_home){
+                        wp_redirect(home_url());
+                    }else{
+                        $booking->set_cart($all);
+                        wpbooking_set_message(__("Delete item successfully", 'wpbooking'), 'success');
+                    }
+                }
+            }
+        }
 
 
 

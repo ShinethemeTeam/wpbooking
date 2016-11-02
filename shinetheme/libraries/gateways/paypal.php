@@ -111,7 +111,7 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
             if($order_object->get_payment_gateway('id')==$this->gateway_id){
 
                 // Check Payment is not complete
-                if(in_array($order_object->get_status(),array('payment-failed'))){
+                if(in_array($order_object->get_status(),array('payment_failed'))){
                     // Now show the Paynow Button
                     $gateway=$this->gatewayObject;
 

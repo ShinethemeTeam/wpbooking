@@ -569,7 +569,16 @@ if (!class_exists('WPBooking_Model')) {
 		{
 			$this->_clear_query();
 			if (!$this->is_ready()) return FALSE;
-			$data = $this->where($key, $id)->limit(1)->get()->row();
+            if(is_array($key)){
+                foreach($key as $k=>$v){
+                    $this->where($k, $v);
+                }
+                $data = $this->limit(1)->get()->row();
+            }else{
+                $data = $this->where($key, $id)->limit(1)->get()->row();
+            }
+
+
 			$this->_clear_query();
 
 			return $data;
