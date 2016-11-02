@@ -216,6 +216,12 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             add_action('wpbooking_other_item_information_'.$this->type_id, array($this, '_add_info_item_room'),10,2);
             add_action('wpbooking_other_total_item_information_'.$this->type_id, array($this, '_add_info_total_item_room'),10,2);
             add_action('wpbooking_save_order_'.$this->type_id, array($this, '_save_order_hotel_room_'),10,2);
+
+
+            /**
+             * Delete Item Room
+             */
+            add_action('template_redirect', array($this, '_delete_cart_item'));
         }
 
 
@@ -2011,6 +2017,39 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         'check_out_timestamp'=> $cart['check_out_timestamp'],
                     );
                     $order->save_order_hotel_room($data, $room_id , $order_id);
+                }
+            }
+        }
+        /**
+         * Handler Action Delete Cart Item
+         *
+         * @since 1.0
+         * @author quandq
+         */
+        function _delete_cart_item()
+        {
+            if (isset($_GET['delete_cart_item'])) {
+                $index = WPBooking_Input::get('delete_cart_item');
+                $booking = WPBooking_Checkout_Controller::inst();
+                $all = $booking->get_cart();
+                if(!empty($all['service_type'])){
+                    $service_type=$all['service_type'];
+                    $redirect_to_home = false;
+                    switch($service_type){
+                        case 'accommodation':
+                            unset($all['rooms'][$index]);
+                            if(empty($all['rooms'])){
+                                $booking->set_cart(array());
+                                $redirect_to_home = true;
+                            }
+                            break;
+                    }
+                    if($redirect_to_home){
+                        wp_redirect(home_url());
+                    }else{
+                        $booking->set_cart($all);
+                        wpbooking_set_message(__("Delete item successfully", 'wpbooking'), 'success');
+                    }
                 }
             }
         }

@@ -16,17 +16,28 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             {
                 session_start();
             }
-
+            /**
+             * Do Check Out
+             */
             add_action('wp_ajax_wpbooking_do_checkout', array($this, 'do_checkout'));
             add_action('wp_ajax_nopriv_wpbooking_do_checkout', array($this, 'do_checkout'));
 
+            /**
+             * Ajax Add To Cart
+             */
             add_action('wp_ajax_wpbooking_add_to_cart', array($this, '_add_to_cart'));
             add_action('wp_ajax_nopriv_wpbooking_add_to_cart', array($this, '_add_to_cart'));
 
+            /**
+             * Register Page CheckOut
+             */
             add_action('init', array($this, '_register_shortcode'));
 
-            add_action('template_redirect', array($this, '_delete_cart_item'));
 
+
+            /**
+             * Register Order Status
+             */
             add_action( 'init',  array($this, '_register_order_status') );
 
             parent::__construct();
@@ -96,16 +107,16 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             // Require Payment Gateways
             $gateway_manage = WPBooking_Payment_Gateways::inst();
             $selected_gateway = WPBooking_Input::post('payment_gateway');
-            $available_gateways = $gateway_manage->get_available_gateways();
+            $gateway=$gateway_manage->get_gateway($selected_gateway);
+
             if ($is_validate and $pay_amount) {
-                if (!empty($available_gateways) and !$selected_gateway) {
+                if (empty($selected_gateway)) {
                     $is_validate = FALSE;
                     wpbooking_set_message(__("Please select at least one Payment Gateway", 'wpbooking'), 'error');
-                } elseif (empty($available_gateways) or !array_key_exists($selected_gateway, $available_gateways)) {
+                } elseif (!$gateway and !$gateway->is_available()) {
                     $is_validate = FALSE;
                     wpbooking_set_message(sprintf(__("Gateway: %s is not ready to use, please choose other gateway", 'wpbooking'), $selected_gateway), 'error');
                 }
-
             }
 
 
@@ -193,7 +204,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                             // Clear the Order Id after create new order,
                             WPBooking_Session::set('wpbooking_order_id','');
                             // Clear the Cart after create new order,
-                           // WPBooking_Session::set('wpbooking_cart', array());
+                            WPBooking_Session::set('wpbooking_cart', array());
 
                             wpbooking_set_message(__('Booking Success', 'wpbooking'));
                             //do checkout
@@ -384,6 +395,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             }
             if($args['without_deposit']){
                 if(!empty($cart['deposit']['status'])){
+                    $price_deposit = 0;
                     switch ($cart['deposit']['status']) {
                         case "percent":
                             if ($cart['deposit']['amount'] > 100) $cart['deposit']['amount'] = 100;
@@ -404,9 +416,9 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
 
         /**
-         * Get all cart items
+         * Get cart
          *
-         * @author dungdt
+         * @author quandq
          * @since 1.0
          *
          * @return array
@@ -416,6 +428,17 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             return WPBooking_Session::get('wpbooking_cart');
         }
 
+        /**
+         * Set cart
+         *
+         * @author quandq
+         * @since 1.0
+         *
+         */
+        function set_cart($cart)
+        {
+            return WPBooking_Session::set('wpbooking_cart',$cart);
+        }
 
 
 
@@ -500,38 +523,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
             return $field_form;
         }
-        /**
-         * Handler Action Delete Cart Item
-         *
-         * @since 1.0
-         * @author quandq
-         */
-        function _delete_cart_item()
-        {
-            if (isset($_GET['delete_cart_item'])) {
-                $index = WPBooking_Input::get('delete_cart_item');
-                $all = WPBooking_Session::get('wpbooking_cart');
-                if(!empty($all['service_type'])){
-                    $service_type=$all['service_type'];
-                    $redirect_to_home = false;
-                    switch($service_type){
-                        case 'accommodation':
-                            unset($all['rooms'][$index]);
-                            if(empty($all['rooms'])){
-                                WPBooking_Session::set('wpbooking_cart', array());
-                                $redirect_to_home = true;
-                            }
-                            break;
-                    }
-                    if($redirect_to_home){
-                        wp_redirect(home_url());
-                    }else{
-                        WPBooking_Session::set('wpbooking_cart', $all);
-                        wpbooking_set_message(__("Delete item successfully", 'wpbooking'), 'success');
-                    }
-                }
-            }
-        }
+
         /**
          * Get Cart Tax Total
          *
