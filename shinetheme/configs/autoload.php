@@ -45,6 +45,7 @@ $autoload['library']=array(
 $autoload['controller']=array(
 	'user',
 	'service',
+	'order',
 	'admin/order',
 	//'admin/coupon',
 	'admin/location',
@@ -63,6 +64,7 @@ $autoload['controller']=array(
 $autoload['model']=array(
 	'service_model',
 	'order_model',
+	'order_hotel_room_model',
 	'calendar_model',
 	'payment_model',
 	'comments_model',

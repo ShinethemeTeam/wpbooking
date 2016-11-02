@@ -18,6 +18,8 @@ if(!empty($cart['rooms'])){
             foreach($cart['rooms'] as $k=>$v){
                 $service_room=new WB_Service($k);
                 $featured=$service_room->get_featured_image_room();
+                $price_room = WPBooking_Accommodation_Service_Type::inst()->_get_price_room_in_cart($cart,$k);
+                $price_total_room = WPBooking_Accommodation_Service_Type::inst()->_get_total_price_room_in_cart($cart,$k);
                 ?>
                 <tr class="room-<?php echo esc_attr($k) ?> ">
                     <td width="5%"  class="text-center">
@@ -40,14 +42,14 @@ if(!empty($cart['rooms'])){
                                         <?php
                                         if(!empty($v['extra_fees'])){ ?>
                                             <?php
-                                            foreach($v['extra_fees'] as $k=>$extra_service){
+                                            foreach($v['extra_fees'] as $extra_service){
                                                 if(!empty($extra_service['data'])){
                                                     ?>
                                                     <div class="extra-service">
                                                         <div class="title"><?php echo esc_html($extra_service['title']) ?></div>
                                                         <div class="extra-item">
                                                             <?php
-                                                            foreach($extra_service['data'] as $key=>$value){
+                                                            foreach($extra_service['data'] as $value){
                                                                 echo balanceTags(" <div>+ ".$value['title']." x ".$value['quantity']."</div>");
                                                             }
                                                             ?>
@@ -67,19 +69,21 @@ if(!empty($cart['rooms'])){
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="room-info">
-                                        <div class="title price">$1000</div>
+                                        <div class="title price">
+                                            <?php echo WPBooking_Currency::format_money($price_room); ?>
+                                        </div>
                                         <div class="sub-title">&nbsp</div>
                                         <?php
                                         if(!empty($v['extra_fees'])){ ?>
                                             <?php
-                                            foreach($v['extra_fees'] as $k=>$extra_service){
+                                            foreach($v['extra_fees'] as $extra_service){
                                                 if(!empty($extra_service['data'])){
                                                     ?>
                                                     <div class="extra-service">
                                                         <div class="title">&nbsp</div>
                                                         <div class="extra-item price">
                                                             <?php
-                                                            foreach($extra_service['data'] as $key=>$value){
+                                                            foreach($extra_service['data'] as $value){
                                                                 echo "<div>".WPBooking_Currency::format_money($value['price'])."</div>";
                                                             }
                                                             ?>
@@ -104,7 +108,11 @@ if(!empty($cart['rooms'])){
                     <td class="text-center">
                         <div class="container-fluid td-inner">
                             <div class="row">
-                                <div class="col-md-12">$10000</div>
+                                <div class="col-md-12">
+                                    <?php
+                                    echo WPBooking_Currency::format_money($price_total_room);
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </td>

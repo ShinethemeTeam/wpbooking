@@ -3,6 +3,7 @@ $list_extra = array();
 $list_extra = get_post_meta(get_the_ID(),'extra_services',true);
 $hotel_id = wp_get_post_parent_id(get_the_ID());
 $service_room = new WB_Service(get_the_ID());
+
 ?>
 <div class="loop-room post-<?php the_ID() ?>">
     <div class="room-image">
@@ -73,11 +74,16 @@ $service_room = new WB_Service(get_the_ID());
         <div class="room-total-price">
             <?php
             $price = get_post_meta(get_the_ID(),'base_price',true);
+            $check_in = WPBooking_Input::request('check_in');
+            $check_out = WPBooking_Input::request('check_out');
+            if(!empty($check_in) and !empty($check_out)){
+                $price = WPBooking_Accommodation_Service_Type::inst()->_get_price_room_with_date(get_the_ID(),$check_in,$check_out);
+            }
             echo WPBooking_Currency::format_money($price);
             ?>
         </div>
         <div class="room-number">
-            <select class="form-control option_number_room" name="wpbooking_option_number_room[<?php the_ID() ?>]" data-price-base="<?php echo esc_attr($price) ?>">
+            <select class="form-control option_number_room" name="wpbooking_option_number_room[<?php the_ID() ?>]" data-price-base="<?php echo esc_attr($price) ?>" >
                 <?php
                 $max_room = get_post_meta(get_the_ID(),'room_number',true);
                 if(empty($max_room))$max_room=20;

@@ -573,12 +573,13 @@ if (!class_exists('WB_Service')) {
 		 */
 		function get_related_query($arg = array())
 		{
+
 			if ($this->ID) {
 
 				do_action('wpbooking_before_related_query', $this->ID, $this->service_type);
 				do_action('wpbooking_before_related_query_' . $this->service_type, $this->ID, $this->service_type);
                 $posts_per_page = 4;
-                $posts_per_page = apply_filters('wb_related_per_page',$posts_per_page,$this->ID, $this->service_type);
+                $posts_per_page = apply_filters('wpbooking_related_per_page',$posts_per_page,$this->ID, $this->service_type);
 
 				$arg = wp_parse_args($arg, array(
 					'post_type'      => 'wpbooking_service',
@@ -686,6 +687,8 @@ if (!class_exists('WB_Service')) {
 
 			return apply_filters('wpbooking_service_check_availability',$return,$this,$start,$end);
 		}
+
+
 
 		/**
 		 * Get Meta Value by Key

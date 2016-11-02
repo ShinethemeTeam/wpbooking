@@ -7,7 +7,7 @@
  */
 
 $config['order_status'] = array(
-    'on-hold'        => array(
+    'on_hold'        => array(
         'label' => esc_html__('On Hold', 'wpbooking'),
         'desc'  => esc_html__('Waiting for Payment', 'wpbooking'),
     ),

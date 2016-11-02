@@ -6,11 +6,17 @@
  * Time: 4:59 PM
  */
 echo wpbooking_get_message();
-$order=new WB_Order(get_the_ID());
-$booking=WPBooking_Order::inst();
-$order_items=$order->get_items();
 
-$checkout_form_data=$order->get_checkout_form_data();
+$order=new WB_Order(get_the_ID());
+
+$booking=WPBooking_Order::inst();
+
+$order_data=$order->get_order_data();
+$service_type = $order_data['service_type'];
+
+var_dump($order_data);
+
+$checkout_form_data=WPBooking_Checkout_Controller::inst()->get_billing_form_fields();
 do_action('wpbooking_before_order_content');
 
 ?>
@@ -62,26 +68,19 @@ do_action('wpbooking_before_order_content');
 	</tr>
 	</thead>
 	<tbody>
-	<?php foreach($order_items as $key=>$value)
-	{
-		$service_type=$value['service_type'];
-		$order_item=new WB_Order_Item($value['id']);
-		?>
 		<tr valign="top">
 			<td class="review-order-item-info">
-				<h4 class="service-name"><a href="<?php echo get_permalink($value['post_id'])?>" target="_blank"><?php echo get_the_title($value['post_id'])?></a></h4>
-				<?php do_action('wpbooking_order_item_information',$value) ?>
-				<?php do_action('wpbooking_order_item_information_'.$service_type,$value) ?>
+				<h4 class="service-name"><a href="<?php echo get_permalink($order_data['post_id'])?>" target="_blank"><?php echo get_the_title($order_data['post_id'])?></a></h4>
+				<?php do_action('wpbooking_order_item_information',$order_data) ?>
+				<?php do_action('wpbooking_order_item_information_'.$service_type,$order_data) ?>
 			</td>
 			<td class="review-order-item-type">
-				<?php echo esc_html($order_item->get_type_name()) ?>
+				<?php //echo esc_html($order_item->get_type_name()) ?>
 			</td>
 			<td class="review-order-item-total">
-				<p class="cart-item-price"><?php echo ($order_item->get_total_html(array('without_deposit'=>true))) ?></p>
+				<p class="cart-item-price"><?php //echo ($order_item->get_total_html(array('without_deposit'=>true))) ?></p>
 			</td>
 		</tr>
-		<?php
-	}?>
 	</tbody>
 	<tfoot>
 		<tr>
@@ -91,28 +90,10 @@ do_action('wpbooking_before_order_content');
 				<span class="total-title">
 					<?php _e('Total Price:', 'wpbooking') ?>
 				</span>
-					<span class="total-amount"><?php echo WPBooking_Currency::format_money($order->get_total(array(
-							'without_deposit'        => true,
-							'without_tax'            => true,
-							'without_extra_price'    => true,
-							'without_addition_price' => true,
-							'without_discount'=>true
+					<span class="total-amount"><?php echo WPBooking_Currency::format_money(999999999); ?></span>
 
-						))); ?></span>
 
-					<?php if ($price = $order->get_extra_price()) { ?>
-						<span class="total-title">
-					<?php _e('Extra Price:', 'wpbooking') ?>
-				</span>
-						<span class="total-amount"><?php echo WPBooking_Currency::format_money($price); ?></span>
-					<?php } ?>
 
-					<?php if ($price = $order->get_addition_price()) { ?>
-						<span class="total-title">
-					<?php _e('Addition:', 'wpbooking') ?>
-				</span>
-						<span class="total-amount"><?php echo WPBooking_Currency::format_money($price); ?></span>
-					<?php } ?>
 
 
 					<?php if ($price = $order->get_tax_price()) { ?>
@@ -120,16 +101,9 @@ do_action('wpbooking_before_order_content');
 							<?php _e('Tax:', 'wpbooking') ?>
 						</span>
 
-						<span class="total-amount"><?php echo WPBooking_Currency::format_money($price); ?></span>
+						<span class="total-amount"><?php echo WPBooking_Currency::format_money(999999999); ?></span>
 					<?php } ?>
 
-
-					<?php if ($price = $order->get_discount_price()) { ?>
-						<span class="total-title">
-						<?php _e('Discount:', 'wpbooking') ?>
-					</span>
-						<span class="total-amount">-<?php echo WPBooking_Currency::format_money($price); ?></span>
-					<?php } ?>
 
 					<span class="total-line"></span>
 					<?php $total_amount = $order->get_total(array('without_deposit'=>true));
@@ -169,21 +143,21 @@ do_action('wpbooking_before_order_content');
 		<h3 class="section-title"><?php _e('Customer Information','wpbooking')?></h3>
 
 		<ul class="checkout-form-list">
-			<?php foreach($checkout_form_data as $key=>$value){
+			<?php /*foreach($checkout_form_data as $key=>$value){
 				$value_html= WPBooking_Admin_Form_Build::inst()->get_form_field_data($value);
 				if($value_html){
-				?>
+				*/?><!--
 				<li class="form-item">
 					<span class="form-item-title">
-						<?php echo do_shortcode($value['title']) ?>:
+						<?php /*echo do_shortcode($value['title']) */?>:
 					</span>
 					<span class="form-item-value">
-						<?php echo do_shortcode($value_html) ?>
+						<?php /*echo do_shortcode($value_html) */?>
 					</span>
 				</li>
-				<?php
-				}
-			} ?>
+				--><?php
+/*				}
+			} */?>
 		</ul>
 	</div>
 	<?php }

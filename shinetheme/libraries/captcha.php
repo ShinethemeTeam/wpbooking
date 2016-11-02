@@ -68,38 +68,9 @@ if(!class_exists('WPBooking_Captcha'))
          */
         function _validate_do_checkout_captcha($is_validate,$cart=array())
         {
-            /*$form_id = WPBooking_Order::inst()->get_checkout_form_id();
-            $fields = wpbooking_get_form_fields($form_id);
-
-            if(!empty($fields))
-            {
-                // check if this form is contain a captcha field and captcha type is not empty
-                if(in_array('captcha',array_keys($fields)) and !empty($fields['captcha']['data']['type'])){
-                    $is_validate=$this->validate($fields['captcha']['data']['type']);
-                }
-            }*/
-
+            $is_validate =  $this->validate_recaptcha();
             return $is_validate;
         }
-
-        /**
-         * Validate Captcha by Captcha Type
-         *
-         * @since 1.0
-         * @autor dungdt
-         *
-         * @param bool|FALSE $captcha_type
-         * @return bool
-         */
-        function validate($captcha_type=FALSE){
-            switch($captcha_type){
-                case "recaptcha":
-                default:
-                    return $this->validate_recaptcha();
-                    break;
-            }
-        }
-
 
         /**
          * Validate Google reCAPTCHA
@@ -112,7 +83,6 @@ if(!class_exists('WPBooking_Captcha'))
         function validate_recaptcha()
         {
             $url='https://www.google.com/recaptcha/api/siteverify';
-
             $url=add_query_arg(array(
                 'secret'=>$this->_api_key['recaptcha']['secret_key'],
                 'response'=>WPBooking_Input::post('g-recaptcha-response'),
