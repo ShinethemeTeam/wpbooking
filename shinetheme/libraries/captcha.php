@@ -21,7 +21,7 @@ if(!class_exists('WPBooking_Captcha'))
             add_action('wp_enqueue_scripts',array($this,'_add_scripts'));
 
             // Validate Captcha on Do Check Out
-            //add_filter('wpbooking_do_checkout_validate',array($this,'_validate_do_checkout_captcha'),10,2);
+            add_filter('wpbooking_do_checkout_validate',array($this,'_validate_do_checkout_captcha'),10,2);
             //parent::__construct();
         }
 
