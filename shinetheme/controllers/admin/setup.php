@@ -157,6 +157,8 @@ if(!class_exists('WPBooking_Admin_Setup'))
                         update_option("wpbooking_email_to_admin",self::_get_template_default("booking_email_admin"));
                         update_option("wpbooking_registration_email_customer",self::_get_template_default("registration_email_customer"));
                         update_option("wpbooking_registration_email_admin",self::_get_template_default("registration_email_admin"));
+                        update_option("email_header",self::_get_template_default("email_header"));
+                        update_option("email_footer",self::_get_template_default("email_footer"));
 
                         wp_redirect( add_query_arg( array('page'=>'wpbooking_setup_page_settings','wp_step'=>'wp_service') , admin_url("admin.php") ) );
                         exit;
@@ -225,11 +227,39 @@ if(!class_exists('WPBooking_Admin_Setup'))
             $html = "";
             switch($style){
                 case "css":
-                    $html = '.template{
+                    $html = '    .template{
                                     background:#F1F1F1;
                                     font-family:tahoma;
                                     padding:50px 0px;
 
+                                }
+                                .email-template{
+                                    width: 100%;
+                                    text-align: center;
+                                    background: #f2f2f2;
+
+                                }
+                                .email-header{
+                                    padding-top: 50px;
+                                    padding-bottom: 25px;
+                                }
+                                .email-header h2{
+                                    font-size: 30px;
+                                }
+                                .email-footer{
+                                    padding-top: 50px;
+                                    padding-bottom: 60px;
+                                    font-size: 15px;
+                                    font-style: italic;
+                                    line-height: 25px;
+                                }
+                                .email-footer a{
+                                    margin-left: 10px;
+                                    margin-right: 10px;
+                                }
+                                .email-footer img{
+                                    width: 22px;
+                                    height: 22px;
                                 }
                                 .content{
                                     background:white;
@@ -237,7 +267,7 @@ if(!class_exists('WPBooking_Admin_Setup'))
                                     margin:0px auto;
                                     border-radius:4px;
                                     padding:20px;
-                                    border:1px solid #dcdcdc;
+
                                 }
                                 .header{
                                     margin:-20px;
@@ -273,7 +303,7 @@ if(!class_exists('WPBooking_Admin_Setup'))
                                 .review-cart-total:before,
                                 .review-cart-total:after {
                                   display: table;
-                                  content: \"\";
+
                                 }
                                 .review-cart-total:after {
                                   clear: both;
@@ -370,66 +400,86 @@ if(!class_exists('WPBooking_Admin_Setup'))
                                 .label-danger[href]:hover,
                                 .label-danger[href]:focus {
                                     background-color: #c9302c;
-                                }';
-                    break;
-                case "booking_email_customer":
-                    $html = '<div class=template>
-                               <div class=content>
-                                    <div class=header>
-                                       <h1>Order Information</h1>
-                                     </div>
-                            <h2>Dear <strong>[checkout_form_field name=first_name]</h2>
-                            <p>          Here are information of your booking</p>
-                            <p>Order ID: [order_id]</p>
-                            <p>Order Status:[order_status]</p>
-                            <p>Booking Date:[order_date]</p>
-                            <p>Payment Gateway:[order_payment_gateway]</p>
-                            <p>Total:[order_total]</p>
-                            <br><br>
-                                     [order_table]
-                                       <br>
-                                       <br>
-                                       [checkout_info]
-                                       <br>
-                                       <br>
-                                       <h3>Seperate Checkout Field</h3>
-                                     <p>Name: <strong>[checkout_form_field name=first_name]</strong></p>
-                            <p>Email: <strong>[checkout_form_field name=user_email]</strong></p>
-                            <p>Your Phone: <strong>[checkout_form_field name=phone]</strong></p>
-                                     <div class=footer>
-                                       <p>Generated by <a href="#">WPBooking</a> Plugin</p>
-                                     </div>
-                                </div>
-                            </div>';
-                    break;
-                case "booking_email_author":
-                    $html = '<div class=template>
-                               <div class=content>
-                                    <div class=header>
-                                       <h1>Order Information</h1>
-                                     </div>
-                            <h2>Dear shop manager<h2>
-                            <p>          You have received an order from [checkout_form_field name="first_name"]. This is booking information </p>
-                            <p>Order ID: [order_id]</p>
-                            <p>Order Status:[order_status]</p>
-                            <p>Booking Date:[order_date]</p>
-                            <p>Payment Gateway:[order_payment_gateway]</p>
-                            <p>Total:[order_total]</p>
-                                     [order_table]
-                                       <br>
-                                       <br>
-                                       [checkout_info]
-                                       <br>
-                                       <br>
-                                       <h3>Seperate Checkout Field</h3>
-                                     <p>Name: <strong>[checkout_form_field name=first_name] [checkout_form_field name=last_name]</strong></p>
-                            <p>Email: <strong>[checkout_form_field name=user_email]</strong></p>
-                            <p>Phone: <strong>[checkout_form_field name=phone]</strong></p>
-                                     <div class=footer>
-                                       <p>Generated by <a href="#">WPBooking</a> Plugin</p>
-                                     </div>
-                                </div>
-                            </div>';
+                                }
+                                /*email comment*/
+                                .wp-email-content-wrap{
+                                    padding: 20px 70px;
+                                    border-radius: 0;
+                                    color: #000;
+                                    font-size: 15px;
+                                    text-align: left;
+                                }
+                                .wp-email-content-wrap .title{
+                                    font-size: 28px;
+                                    color: #6aa84f;
+                                    margin-bottom: 17px;
+                                }
+                                .wp-email-content-wrap .title.disapproved{
+                                    color: #cc4125;
+                                }
+                                .wp-email-content-wrap .content-header{
+                                    margin-bottom: 40px;
+                                    text-align: center;
+                                }
+                                .wp-email-content-wrap .content-header p{
+                                    line-height: 25px;
+                                    font-style: italic;
+                                }
+                                .wp-email-content-wrap .content-center{
+                                    background: #fafafa;
+                                    padding: 20px 15px;
+                                    text-align: center;
+                                }
+                                .wp-email-content-wrap .content-center .icon{
+                                    font-size: 45px;
+                                    line-height: 1;
+                                }
+                                .wp-email-content-wrap .content-center .comment{
+                                    margin-top: 0px;
+                                    margin-bottom: 22px;
+                                    font-style: italic;
+                                }
+                                .wp-email-content-wrap .content-center .review{
+                                    font-style: italic;
+                                }
+                                .review-score{
+                                    display: table;
+                                    width: 50%;
+                                    list-style: none;
+                                    text-align: left;
+                                    margin: 0 auto;
+                                }
+                                .review-score li{
+                                    display: table-row;
+                                    line-height: 2;
+                                }
+                                .review-score li span{
+                                    display: table-cell;
+                                }
+                                .review-score li .score{
+                                    color: #F0AD4E;
+                                }
+                                .wp-email-content-wrap .content-footer{
+                                    margin: 30px;
+                                    text-align: center;
+                                }
+                                .wp-email-content-wrap .content-footer .btn.btn-default{
+                                    padding: 15px;
+                                    background: #F0AD4E;
+                                    color: #FFF;
+                                    text-decoration: none;
+                                    display: inline-block;
+                                }
+                                .wp-email-content-wrap .content-footer .comment_link{
+                                    display: block;
+                                    margin-top: 15px;
+                                    font-style: italic;
+                                }
+                                .wp-email-content-wrap .content-footer .comment_link a{
+                                    color: #F0AD4E;
+                                }
+
+                                ';
                     break;
                 case "booking_email_admin":
                     $html  = '<div class=template>
@@ -535,6 +585,26 @@ if(!class_exists('WPBooking_Admin_Setup'))
                             [wpbooking_form_guest is_required="on" title="Guest" ]
 
                             [wpbooking_form_submit_button label="Book Now" ]';
+                    break;
+                case "email_header":
+                    $html = '<div class="email-template">
+                                <div class="email-header">
+                                    <h2 class="email-title">WPBOOKING</h2>
+                                </div>
+
+                            ';
+                    break;
+                case "email_footer":
+                    $html = '<div class="email-footer">
+                                <a href="#"><img src="'.wpbooking_assets_url('images/facebook.png').'"/></a>
+                                <a href="#"><img src="'.wpbooking_assets_url('images/twitter.png').'"/></a>
+                                <a href="#"><img src="'.wpbooking_assets_url('images/google.png').'"/></a>
+                                <a href="#"><img src="'.wpbooking_assets_url('images/linkedin.png').'"/></a>
+                                <p>Copyright © WP Booking. All rights reserved.<br>
+                                   1000 Abcdefg Streets, Klmnopq , QW 9981</p>
+                            </div>
+                        </div>
+                            ';
                     break;
             }
             return $html;

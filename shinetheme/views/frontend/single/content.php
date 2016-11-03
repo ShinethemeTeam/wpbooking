@@ -379,9 +379,10 @@ $hotel_id = get_the_ID();
                     'cancel_guest_payment' => esc_html__('Fee cancel booking : %s','wpbooking'),
 				);
                 $cancel_guest_payment = array(
-                    'first_night' => esc_html__('of the first night','wpbooking'),
-                    'full_stay' => esc_html__('of the full stay','wpbooking'),
+                    'first_night' => esc_html__('100% of the first night','wpbooking'),
+                    'full_stay' => esc_html__('100% of the full stay','wpbooking'),
                 );
+
 				$deposit_html = array();
                 $allow_deposit = '';
 				foreach ($array as $key => $val) {
@@ -405,7 +406,15 @@ $hotel_id = get_the_ID();
                             $deposit_html[] = sprintf($val, $cancel_guest_payment[$meta]);
                             continue;
                         }
-                        $deposit_html[] = sprintf($val, $meta);
+                        if($key == 'cancel_free_days_prior'){
+                            if($meta == 'day_of_arrival')
+                                $deposit_html[] = sprintf($val, esc_html__('Day of arrival (6 pm)','wpbooking'));
+                            else
+                                $deposit_html[] = sprintf($val, $meta.esc_html__(' day','wpbooking'));
+
+                            continue;
+                        }
+
 					}
                     if($key == 'allow_cancel'){
                         $deposit_html[] = $val;
@@ -432,17 +441,18 @@ $hotel_id = get_the_ID();
 						$tax_html=array();
 						$array = array(
 							'vat_excluded'          => '',
+							'vat_unit'          => '',
 							'vat_amount' => esc_html__('V.A.T: %s &nbsp;&nbsp;'),
 							'citytax_excluded' => '',
                             'citytax_unit' => '',
-							'citytax_amount' => esc_html__('City tax: %s '),
+							'citytax_amount' => esc_html__('City tax: %s'),
 						);
                 $citytax_unit = array(
-                    'stay' => esc_html__('stay','wpbooking'),
-                    'person_per_stay' => esc_html__('person per stay','wpbooking'),
-                    'night' => esc_html__('night','wpbooking'),
-                    'percent' => esc_html__('percent(%)','wpbooking'),
-                    'person_per_night' => esc_html__('person per night','wpbooking'),
+                    'stay' => esc_html__(' /stay','wpbooking'),
+                    'person_per_stay' => esc_html__(' /person per stay','wpbooking'),
+                    'night' => esc_html__(' /night','wpbooking'),
+                    'percent' => esc_html__('%','wpbooking'),
+                    'person_per_night' => esc_html__(' /person per night','wpbooking'),
                 );
                 $vat_excluded = '';
                 $citytax_excluded = '';
@@ -454,11 +464,23 @@ $hotel_id = get_the_ID();
                                     case 'vat_excluded':
                                         $vat_excluded = $value;
                                         break;
+                                    case 'vat_unit':
+                                        $ct_unit = $value;
+                                        break;
                                     case 'vat_amount':
+                                        $amount = '';
+                                        if(!empty($ct_unit)) {
+                                            if ($ct_unit == 'percent') {
+                                                $amount = $value.'%';
+                                            } else {
+                                                $amount = WPBooking_Currency::format_money($value);
+                                            }
+                                        }
+
                                         if($vat_excluded == 'yes_included'){
-                                            $tax_html[] = sprintf($val, $value.'% &nbsp;&nbsp;'.wp_kses(__('<span class="enforced_red">include</span>','wpbooking'),array('span' => array('class' => array()))));
+                                            $tax_html[] = sprintf($val, $amount.' &nbsp;&nbsp;'.wp_kses(__('<span class="enforced_red">included</span>','wpbooking'),array('span' => array('class' => array()))));
                                         }elseif($vat_excluded != 'no'){
-                                            $tax_html[] = sprintf($val, $value.'%');
+                                            $tax_html[] = sprintf($val, $amount);
                                         }
                                         break;
                                     case 'citytax_excluded':
@@ -477,7 +499,7 @@ $hotel_id = get_the_ID();
                                         }
                                         if($citytax_excluded != 'no') {
                                             if ($citytax_excluded == 'yes_included') {
-                                                $tax_html[] = $str_citytax . '&nbsp;&nbsp; <span class="enforced_red">' . esc_html__('include', 'wpbooking') . '</span>';
+                                                $tax_html[] = $str_citytax . '&nbsp;&nbsp; <span class="enforced_red">' . esc_html__('included', 'wpbooking') . '</span>';
                                             } else {
                                                 $tax_html[] = $str_citytax;
                                             }

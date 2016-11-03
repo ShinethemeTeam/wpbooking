@@ -29,6 +29,7 @@ if(!class_exists('WPBooking_Meta_Model')){
                 ->join('posts','posts.ID=postmeta.post_id')
                 ->where('meta_key','base_price')
                 ->where($wpdb->posts.'.post_parent',$post_id)
+                ->where($wpdb->posts.'.post_status','publish')
                 ->get()->row();
 
             return (!empty($row['min_price']))?$row['min_price']:'';

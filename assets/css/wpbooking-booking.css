@@ -634,6 +634,7 @@ a.label:focus {
   line-height: normal;
   font-size: 13px;
   margin-bottom: 20px;
+  width: 100%;
 }
 .wpbooking-loop-wrap .wpbooking-loop-items .loop-item .content-item .service-content .service-price-book-now .service-price .price {
   font-size: 23px;
