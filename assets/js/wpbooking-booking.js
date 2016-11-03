@@ -24,8 +24,32 @@ jQuery(document).ready(function($){
             $('[name=wpbooking_review]').val(index+1);
         }
 
-
     });
+
+    if($('.wpbooking_review_detail_rate').length == 0) {
+        var rate = $('.wpbooking-comment-form-rating [name=wpbooking_review]').val();
+        if (rate != 0) {
+            $('.wpbooking-comment-form-rating .wpbooking-rating-review a').each(function () {
+                if (parseInt($(this).index()) < rate) {
+                    $(this).addClass('active');
+                }
+            });
+        }
+    }
+
+
+    $('.wpbooking-rating-review .wpbooking_review_detail_rate').each(function () {
+        var rate = $(this).val();
+        if (rate != 0) {
+            $(this).closest('.wpbooking-rating-review').find('a').each(function () {
+                if (parseInt($(this).index()) < rate) {
+                    $(this).addClass('active');
+                }
+            });
+        }
+    });
+
+
 
     // Single Services
     // Helper functions
