@@ -952,6 +952,9 @@
                 font-weight: normal;
             }
         }
+        .col-title{
+            padding-left: 15px;
+        }
         .extra-service{
             margin-left: 0;
             margin-top: 30px;
@@ -2026,9 +2029,6 @@
                         padding-left: 10px;
                         position: relative;
                         &:last-child{
-                            padding-right: 0px;
-                        }
-                        &:first-child{
                             padding-right: 0px;
                         }
                         &.w20{
@@ -3309,25 +3309,26 @@
 // Order Details
 .single-wpbooking_order{
     .entry-header,
+    .author-info,
     .post-navigation{
         display: none;
+    }
+    .wpbooking-title{
+        font-size: 39px;
+        font-weight: bold;
+        margin-bottom: 20px;
     }
     .wpbooking-order-detail-page{
         font-size: 14px;
         .wpbooking-thankyou-message{
-            margin-bottom: 30px;
+            color: #669966;
+            font-size: 15px;
             .success-icon{
                 font-size: 60px;
                 color: #4cae4c;
                 margin-bottom: 30px;
             }
-            h3{
-                margin-top: 0px;
-                margin-bottom: 20px;
-                font-size: 30px;
-                line-height: 36px;
-                color: #333;
-            }
+            margin-bottom: 20px;
 
         }
         .order-head-info{
@@ -3337,6 +3338,30 @@
                 .hl{
                     color: @maincolor;
                 }
+                &.total{
+                    margin-top: 30px;
+                    text-align: right;
+                    .head-info-title{
+                        color: #666666;
+                        display: block;
+                        font-size: 15px;
+                        text-transform: uppercase;
+                    }
+                    .head-info-content{
+                        color: #333333;
+                        display: block;
+                        font-size: 24px;
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            .bold{
+                font-weight: bold;
+
+            }
+            .text_up{
+                text-transform: uppercase;
             }
         }
         .section-title{
@@ -3368,7 +3393,52 @@
 
 // Order Information Table
 
-.order-information-table{
+.order-information-content{
+    .title{
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .review-order-item{
+        margin-top: 20px;
+    }
+    .total-info-order{
+        .review-cart-item{
+            float: right;
+            width: 50%;
+            margin-right: 10px;
+        }
+        .total-line{
+            float: right;
+        }
+        .review-cart-total{
+            margin: -1px;
+        }
+    }
+    &.customer{
+        margin-top: 30px;
+        .title{
+            margin-bottom: 20px;
+        }
+        label{
+            font-weight: bold;
+        }
+        p{
+            font-style: italic;
+        }
+        .wb-btn {
+            background: #f0ad4e none repeat scroll 0 0;
+            border: 1px solid #ff9933 !important;
+            border-radius: 0;
+            color: white;
+            font-size: 15px;
+            font-weight: normal;
+            padding: 5px 20px;
+            text-transform: none;
+        }
+    }
+}
+/*.order-information-table{
     td,th{
         vertical-align: top;
     }
@@ -3451,7 +3521,7 @@
             font-weight: bold;
         }
     }
-}
+}*/
 
 // My Account page
 .wpbooking-myaccount-wrap
@@ -6486,3 +6556,36 @@ body{
     }
 }
 #rc-imageselect, .g-recaptcha {transform:scale(0.85);-webkit-transform:scale(0.88ss);transform-origin:0 0;-webkit-transform-origin:0 0;}
+
+
+.tooltip_desc{
+    position: relative;
+    display: inline-block;
+    >i{
+        font-size: 17px;
+    }
+    .tooltip_content{
+        background: @maincolor none repeat scroll 0 0;
+        bottom: 100%;
+        box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2);
+        color: white;
+        display: none;
+        font-size: 13px;
+        font-weight: 300;
+        left: 50%;
+        margin-bottom: 7px;
+        padding: 5px 15px !important;
+        position: absolute !important;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+    &:hover{
+        .tooltip_content{
+            display: block;
+        }
+        &:after{
+            display: block;
+        }
+    }
+
+}

@@ -110,6 +110,12 @@ if (!class_exists('WB_Order')) {
                 if(!empty($order_data['deposit_price'])){
                     $total = $order_data['deposit_price'];
                 }
+                if(!empty($args)){
+                    $total = $order_data['price'];
+                    if(!empty($args['without_deposit'])){
+                        $total = $order_data['deposit_price'];
+                    }
+                }
                 $total = apply_filters('wpbooking_get_order_total', $total);
                 return $total;
             }
@@ -259,14 +265,6 @@ if (!class_exists('WB_Order')) {
         function get_tax_price()
         {
             $price = 0;
-            /*$cart = $this->get_items();
-            if (!empty($cart)) {
-                foreach ($cart as $key => $value) {
-                    $price += $this->get_item_tax($value);
-                }
-            }*/
-
-            //$price = apply_filters('wpbooking_get_order_tax_price', $price, $cart);
 
             return $price;
         }
@@ -326,22 +324,22 @@ if (!class_exists('WB_Order')) {
                     switch($status){
                         case "on_hold":
                         case "payment_failed":
-                            return sprintf('<label class="label label-warning">%s</label>',$all_status[$status]['label']);
+                            return sprintf('<label class="bold text_up">%s</label>',$all_status[$status]['label']);
                             break;
                         case "completed":
-                            return sprintf('<label class="label label-success">%s</label>',$all_status[$status]['label']);
+                            return sprintf('<label class="bold text_up">%s</label>',$all_status[$status]['label']);
                             break;
                         case "cancelled":
                         case "refunded":
-                            return sprintf('<label class="label label-danger">%s</label>',$all_status[$status]['label']);
+                            return sprintf('<label class="bold text_up">%s</label>',$all_status[$status]['label']);
                             break;
 
                         default:
-                            return sprintf('<label class="label label-default">%s</label>',$all_status[$status]['label']);
+                            return sprintf('<label class="bold text_up">%s</label>',$all_status[$status]['label']);
                             break;
                     }
                 }else{
-                    return sprintf('<label class="label label-default">%s</label>',esc_html__('Unknown','wpbooking'));
+                    return sprintf('<label class="bold text_up">%s</label>',esc_html__('Unknown','wpbooking'));
                 }
             }
         }
@@ -376,7 +374,7 @@ if (!class_exists('WB_Order')) {
         function get_payment_gateway($need='label'){
 
             if($this->order_id){
-                $gateway=get_post_meta($this->order_id,'wpbooking_selected_gateway',true);
+                $gateway=get_post_meta($this->order_id,'payment_method',true);
 
                 if($gateway){
                     $gateway_object=WPBooking_Payment_Gateways::inst()->get_gateway($gateway);

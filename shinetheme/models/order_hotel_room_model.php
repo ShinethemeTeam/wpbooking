@@ -56,6 +56,9 @@ if(!class_exists( 'WPBooking_Order_Hotel_Order_Model' )) {
             }
         }
 
+        function get_order($order_id){
+            return $this->where('order_id',$order_id)->get()->result();
+        }
 
         static function inst()
         {

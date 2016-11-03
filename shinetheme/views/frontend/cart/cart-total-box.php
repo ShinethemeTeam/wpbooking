@@ -6,7 +6,7 @@ $service_type = $cart['service_type'];
 <h5 class="checkout-form-title"><?php esc_html_e("Total","wpbooking") ?></h5>
 <div class="review-cart-total">
     <div class="review-cart-item">
-        <?php do_action('wpbooking_other_total_item_information_'.$service_type,$cart) ?>
+        <?php do_action('wpbooking_check_total_item_information_'.$service_type,$cart) ?>
         <?php
         $tax = $booking->get_cart_tax_price();
         if (!empty($tax['vat']['excluded']) and $tax['vat']['excluded'] != 'no') {

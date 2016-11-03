@@ -43,10 +43,9 @@ $cart=$booking->get_cart();
 						}
 						?>
 					</div>
-					<?php do_action('wpbooking_review_order_item_information',$cart) ?>
-					<?php do_action('wpbooking_review_order_item_information_'.$service_type,$cart,array('for_email'=>TRUE)) ?>
 				</div>
 			</div>
-			<?php do_action('wpbooking_other_item_information_'.$service_type,$cart) ?>
+            <?php do_action('wpbooking_review_checkout_item_information',$cart) ?>
+			<?php do_action('wpbooking_review_checkout_item_information_'.$service_type,$cart) ?>
 		</div>
 <?php do_action('wpbooking_review_order_footer') ?>

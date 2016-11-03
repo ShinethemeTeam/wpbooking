@@ -166,6 +166,7 @@ $service_room = new WB_Service(get_the_ID());
                 <div class="service-gallery-single">
                     <div class="fotorama_room" data-allowfullscreen="true" data-nav="thumbs">
                         <?php
+                        $gallery = get_post_meta(get_the_ID(),'gallery_room',true);
                         if(!empty($gallery) and is_array($gallery)){
                             foreach($gallery as $k => $v){
                                 echo wp_get_attachment_image($v,'full');
@@ -184,7 +185,7 @@ $service_room = new WB_Service(get_the_ID());
                         <div class="img">
                             <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0ODcuOTAxIDQ4Ny45MDEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQ4Ny45MDEgNDg3LjkwMTsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxnPgoJPGc+CgkJPHBhdGggZD0iTTQ3NC4yLDMwMy44MDFjLTM4LjktMzItODAuOS01My45LTkyLjYtNTkuN3YtNTguMmM4LjMtNi43LDEzLjItMTYuOCwxMy4yLTI3LjZ2LTY1LjVjMC0zNS44LTI5LjEtNjUtNjUtNjVoLTE0LjEgICAgYy0zNS44LDAtNjUsMjkuMS02NSw2NXY2NS41YzAsMTAuOCw0LjksMjAuOSwxMy4yLDI3LjZ2NTguMmMtMTEuNyw1LjgtNTMuNywyNy43LTkyLjYsNTkuN2MtOC43LDcuMi0xMy43LDE3LjgtMTMuNywyOS4ydjQ0LjkgICAgYzAsMy4zLDIuNyw2LDYsNmMzLjMsMCw2LTIuNyw2LTZ2LTQ0LjljMC03LjgsMy40LTE1LDkuMy0xOS45YzQwLjItMzMsODMuNy01NSw5Mi01OWMzLjEtMS41LDUtNC42LDUtOHYtNjMuMWMwLTItMS0zLjktMi43LTUgICAgYy02LjYtNC40LTEwLjUtMTEuNy0xMC41LTE5LjZ2LTY1LjVjMC0yOS4yLDIzLjgtNTMsNTMtNTNoMTQuMWMyOS4yLDAsNTMsMjMuOCw1Myw1M3Y2NS41YzAsNy45LTMuOSwxNS4yLTEwLjUsMTkuNiAgICBjLTEuNywxLjEtMi43LDMtMi43LDV2NjMuMWMwLDMuNCwxLjksNi41LDUsOGM4LjMsNC4xLDUxLjksMjYsOTIsNTljNS45LDQuOSw5LjMsMTIuMSw5LjMsMTkuOXY0NC45YzAsMy4zLDIuNyw2LDYsNnM2LTIuNyw2LTYgICAgdi00NC45QzQ4OCwzMjEuNjAxLDQ4MywzMTEuMDAxLDQ3NC4yLDMwMy44MDF6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8L2c+CjwvZz4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNMTQxLjQsOTIuMDAxaC0xMS41Yy0yOS44LDAtNTQsMjQuMi01NCw1NHY1My4zYzAsOC45LDQsMTcuMywxMC43LDIzdjQ2LjJjLTEwLjMsNS4yLTQzLjksMjIuOS03NSw0OC40ICAgIGMtNy40LDYuMS0xMS42LDE1LTExLjYsMjQuNnYzNi41YzAuMiwzLjIsMi45LDUuOSw2LjIsNS45YzMuMywwLDYtMi43LDYtNnYtMzYuNWMwLTYsMi42LTExLjYsNy4yLTE1LjMgICAgYzMyLjYtMjYuOCw2OC00NC42LDc0LjctNDcuOWMyLjktMS40LDQuNy00LjMsNC43LTcuNXYtNTEuNGMwLTItMS0zLjktMi43LTVjLTUtMy40LTguMS05LTguMS0xNXYtNTMuM2MwLTIzLjIsMTguOS00Miw0Mi00MiAgICBoMTEuNWMyMy4yLDAsNDIsMTguOSw0Miw0MnY1My4zYzAsNi0zLDExLjctOC4xLDE1Yy0xLjcsMS4xLTIuNywzLTIuNyw1djQyLjJjMCwzLjMsMi43LDYsNiw2YzMuMywwLDYtMi43LDYtNnYtMzkuMiAgICBjNi44LTUuNywxMC43LTE0LjEsMTAuNy0yM3YtNTMuM0MxOTUuNCwxMTYuMjAxLDE3MS4yLDkyLjAwMSwxNDEuNCw5Mi4wMDF6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8L2c+CjwvZz4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNMzUwLjUsMjY0LjMwMWMwLTMuNC0yLjctNi4xLTYtNi4xcy02LDIuNy02LDZjMCw4LjYtNywxNS43LTE1LjcsMTUuN2MtMy4zLDAtNi40LTEuMS05LTIuOGMtMC40LTAuNS0wLjktMC45LTEuNS0xLjIgICAgYy0zLjItMi45LTUuMi03LTUuMi0xMS42YzAtMy4zLTIuNy02LTYtNnMtNiwyLjctNiw2YzAsNy42LDMuMSwxNC41LDguMSwxOS41bC02LjgsMTUxYy0wLjEsMS44LDAuNiwzLjUsMiw0LjdsMjEuMSwxOS4xICAgIGMxLjEsMSwyLjYsMS41LDQsMS41YzEuNCwwLDIuOS0wLjUsNC0xLjVsMjAuOC0xOC44YzEuMy0xLjIsMi4xLTIuOSwyLTQuN2wtNi42LTE1Mi43QzM0Ny45LDI3Ny41MDEsMzUwLjUsMjcxLjIwMSwzNTAuNSwyNjQuMzAxICAgIHogTTMyMy41LDQ0Ni4wMDFsLTE1LTEzLjVsNi40LTE0MS43YzIuNSwwLjcsNS4xLDEuMiw3LjksMS4yYzMuMiwwLDYuMy0wLjYsOS4yLTEuNmw2LjEsMTQyLjVMMzIzLjUsNDQ2LjAwMXoiIGZpbGw9IiMwMDAwMDAiLz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" />
                         </div>
-                        <?php esc_html_e("Max Guest:","wpbooking") ?> <?php echo $max_guests; ?> <?php esc_html_e("guest","wpbooking") ?>
+                        <?php esc_html_e("Max Guest:","wpbooking") ?> <?php echo $max_guests; ?> <?php if($max_guests>1)esc_html_e("guests","wpbooking") ;else esc_html_e("guest","wpbooking") ?>
                     <?php } ?>
                 </div>
                 <div class="item space">
@@ -216,16 +217,19 @@ $service_room = new WB_Service(get_the_ID());
                     <?php
                     foreach($facilities as $taxonomy=>$term_ids){
                         $rental_features = get_taxonomy( $taxonomy );
-                        if(!empty($term_ids)){
+                        if(!empty($term_ids) and !empty($rental_features->labels->name)){
                             echo '<div class="title">'.$rental_features->labels->name.'</div>';
                             foreach($term_ids as $key=>$value){
                                 $term = get_term($value,$taxonomy);
+                                if(!is_wp_error($term)){
                                 ?>
                                 <div class="item col-33">
                                     <input type="checkbox" checked onclick="return false">
                                     <?php echo esc_html($term->name) ?>
                                 </div>
+
                                 <?php
+                                }
                             }
                         }
                     }

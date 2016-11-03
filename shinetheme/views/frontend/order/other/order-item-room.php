@@ -1,13 +1,12 @@
 <?php
-if(!empty($cart['rooms'])){
+if(!empty($order_data['rooms'])){
     $booking=WPBooking_Checkout_Controller::inst();
     ?>
     <div class="review-order-item-table wpbooking-bootstrap">
         <table>
             <thead>
             <tr>
-                <td width="5%"></td>
-                <td width="50%"><?php esc_html_e('Rooms','wpbooking') ?></td>
+                <td width="50%" class="col-title"><?php esc_html_e('Rooms','wpbooking') ?></td>
                 <td class="text-center"><?php esc_html_e('Price','wpbooking') ?> (<?php echo WPBooking_Currency::get_current_currency('currency') ?>)</td>
                 <td class="text-center" width="15%"><?php esc_html_e('Number','wpbooking') ?></td>
                 <td class="text-center"><?php esc_html_e('Total','wpbooking') ?> (<?php echo WPBooking_Currency::get_current_currency('currency') ?>)</td>
@@ -15,18 +14,15 @@ if(!empty($cart['rooms'])){
             </thead>
             <tbody>
             <?php
-            foreach($cart['rooms'] as $k=>$v){
-                $service_room=new WB_Service($k);
+            foreach($order_data['rooms'] as $k=>$v){
+                $room_id = $v['room_id'];
+                $service_room=new WB_Service($room_id);
                 $featured=$service_room->get_featured_image_room();
-                $price_room = WPBooking_Accommodation_Service_Type::inst()->_get_price_room_in_cart($cart,$k);
-                $price_total_room = WPBooking_Accommodation_Service_Type::inst()->_get_total_price_room_in_cart($cart,$k);
+                $price_room = $v['price'];
+                $price_total_room = $v['price_total'];
+                $v['extra_fees'] = unserialize($v['extra_fees']);
                 ?>
                 <tr class="room-<?php echo esc_attr($k) ?> ">
-                    <td width="5%"  class="text-center">
-                        <a class="delete-cart-item" onclick="return confirm('<?php esc_html_e('Do you want to delete it?','wpbooking') ?>')" href="<?php echo esc_url(add_query_arg(array('delete_cart_item'=>$k),$booking->get_checkout_url())) ?>">
-                            <i class="fa fa-trash-o"></i>
-                        </a>
-                    </td>
                     <td width="50%">
                         <div class="container-fluid">
                             <div class="row">
@@ -35,7 +31,7 @@ if(!empty($cart['rooms'])){
                                 </div>
                                 <div class="col-md-9">
                                     <div class="room-info">
-                                        <div class="title"><?php echo get_the_title($k) ?></div>
+                                        <div class="title"><?php echo get_the_title($room_id) ?></div>
                                         <?php if($max = $service_room->get_meta('max_guests')){ ?>
                                             <div class="sub-title"><?php esc_html_e("Max","wpbooking") ?> <?php echo esc_attr($max) ?> <?php esc_html_e("people","wpbooking") ?></div>
                                         <?php } ?>
