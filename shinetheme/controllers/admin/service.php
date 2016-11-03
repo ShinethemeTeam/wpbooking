@@ -28,6 +28,22 @@ if (!class_exists('WPBooking_Admin_Service')) {
 
             add_action('wp_ajax_wpbooking_autocomplete_post',array($this,'_autocomplete_post'));
 
+            /**
+             * Get header email template
+             *
+             * @author: tienhd
+             * @since: 1.0
+             */
+            add_filter('wpbooking_header_email_template_html',array($this,'_get_header_email_template'));
+
+            /**
+             * Get header email template
+             *
+             * @author: tienhd
+             * @since: 1.0
+             */
+            add_filter('wpbooking_footer_email_template_html',array($this,'_get_footer_email_template'));
+
 		}
 
 		function _autocomplete_post()
@@ -241,6 +257,28 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				do_action('wpbooking_do_setup');
 			}
 		}
+
+        /**
+         * Get header email html
+         *
+         * @since: 1.0
+         *
+         * @return bool|mixed|void
+         */
+        public function _get_header_email_template(){
+            return wpbooking_get_option('email_header','');
+        }
+
+        /**
+         * Get header email html
+         *
+         * @since: 1.0
+         *
+         * @return bool|mixed|void
+         */
+        public function _get_footer_email_template(){
+            return wpbooking_get_option('email_footer','');
+        }
 
 		static function inst()
 		{

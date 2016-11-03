@@ -144,7 +144,18 @@ if (!class_exists('WPBooking_User')) {
              * @author tienhd
              */
             add_action( 'login_form_resetpass', array( $this, '_reset_password' ) );
+
+            /**
+             * Email reset password
+             *
+             * @since 1.0
+             * @author tienhd
+             */
+            add_filter( 'retrieve_password_message', array( $this, '_email_retrieve_password_template' ), 10, 4 );
+
+
         }
+
 
         /**
          * Check If Current User Can Access My Account page
@@ -1213,6 +1224,7 @@ if (!class_exists('WPBooking_User')) {
             }
 
             if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
+                add_filter('wp_mail_content_type', array($this, 'set_html_content_type'));
                 $errors = retrieve_password();
                 if (is_wp_error($errors)) {
                     // Errors found
@@ -1233,11 +1245,28 @@ if (!class_exists('WPBooking_User')) {
                     wpbooking_set_message(esc_html__('Check your email for a link to reset your password.','wpbooking'),'info');
                     $redirect_url = add_query_arg( 'checkemail', 'confirm', $redirect_url );
                 }
+                remove_filter('wp_mail_content_type', array($this, 'set_html_content_type'));
                 wp_safe_redirect($redirect_url);
                 exit;
             }
         }
 
+        /**
+         * @return string
+         */
+        function set_html_content_type()
+        {
+            return 'text/html';
+        }
+
+        /**
+         * get error message
+         *
+         * @since 1.0
+         *
+         * @param $error_code
+         * @return string
+         */
         public function get_error_message( $error_code ) {
             switch ( $error_code ) {
                 // Login errors
@@ -1337,7 +1366,7 @@ if (!class_exists('WPBooking_User')) {
 
                 if (!$user || is_wp_error($user)) {
                     if (!empty($account_page))
-                        $redirect_url = get_permalink($account_page);
+                        $redirect_url = get_permalink($account_page).'reset-password';
                     else
                         $redirect_url = wp_login_url();
 
@@ -1346,6 +1375,8 @@ if (!class_exists('WPBooking_User')) {
                     } else {
                         wpbooking_set_message(self::get_error_message('invalidkey'), 'danger');
                     }
+                    $redirect_url = add_query_arg('key', $rp_key, $redirect_url);
+                    $redirect_url = add_query_arg('login', $rp_login, $redirect_url);
                     $redirect_url = add_query_arg('reset', 'error', $redirect_url);
                     wp_redirect($redirect_url);
                     exit;
@@ -1377,6 +1408,47 @@ if (!class_exists('WPBooking_User')) {
 
             }
         }
+
+        /**
+         * Email template for retrieve password
+         *
+         * @param $message
+         * @param $key
+         * @param $user_login
+         * @param $user_data
+         * @return mixed|string|void
+         */
+        public function _email_retrieve_password_template( $message, $key, $user_login, $user_data ) {
+            // add header and footer email template
+
+            $header = '';
+            $header = apply_filters('wpbooking_header_email_template_html', $header);
+            $message = str_replace('\"','"',$header);
+            $message .= '<div class="wp-email-content-wrap content">
+            '.wp_kses(__('Someone has requested a password reset for the following account:<br><br>Username: ','wpbooking'),array('br' => array())).$user_login.'<br><br>
+            '.wp_kses(__('If this was a mistake, just ignore this email and nothing will happen. <br><br>To reset your password, visit the following address:','wpbooking'),array('br' => array())).'<br>
+            <a href="'.site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' ).'">'.site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' ).'</a>
+            </div>';
+            $footer = '';
+            $footer = apply_filters('wpbooking_footer_email_template_html', $footer);
+            $message .= str_replace('\"','"',$footer);
+
+            // Apply CSS to Inline CSS
+            if (class_exists('Emogrifier') and $email_css = wpbooking_get_option('email_stylesheet')) {
+                try {
+                    $Emogrifier = new Emogrifier();
+                    $Emogrifier->setHtml($message);
+                    $Emogrifier->setCss($email_css);
+                    $message = $Emogrifier->emogrify();
+                } catch (Exception $e) {
+
+                }
+
+            }
+
+            return $message;
+        }
+
         /**
          * redirect logout url
          * @return string

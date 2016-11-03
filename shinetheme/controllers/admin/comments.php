@@ -15,14 +15,32 @@ if(!class_exists('WPBooking_Comments')){
 
         public function __construct()
         {
+
+            /**
+             * Add notification email when changed comment status
+             *
+             * @author: tienhd
+             * @since: 1.0
+             */
             add_action('transition_comment_status', array($this,'_notification_email'), 10, 3);
+
         }
 
+        /**
+         * Notification email when approved and disapproved comment
+         *
+         * @author: tienhd
+         * @since: 1.0
+         *
+         * @param $new_status
+         * @param $old_status
+         * @param $comment
+         */
         public function _notification_email( $new_status, $old_status, $comment ) {
 
             if($new_status != $old_status) {
                 //Send mail when approved
-                if (!empty($new_status)) {
+                if (!empty($new_status) && ($new_status == 'approved' || ($new_status != 'approved' && $old_status == 'approved'))) {
                     //Get email author
                     $send_to = $comment->comment_author_email;
                     //check mail
@@ -50,6 +68,16 @@ if(!class_exists('WPBooking_Comments')){
             }
         }
 
+        /**
+         * Email template for approved comment
+         *
+         * @author: tienhd
+         * @since: 1.0
+         *
+         * @param $status
+         * @param $comment_data
+         * @return mixed|string|void
+         */
         public function email_comment_template($status,$comment_data){
 
             $header = $footer = $html = '';
@@ -80,7 +108,7 @@ if(!class_exists('WPBooking_Comments')){
                 $desc = sprintf(wp_kses(__('Hello <strong>%s</strong>, Your review is %s by %s administrator.<br> at %s','wpbooking'),array('br'=>array(),'strong' => array())), $comment_data->comment_author,$approve_str, $blog_name, date('Y/m/d H:i a'));
 
                 $header = apply_filters('wpbooking_header_email_template_html', $header);
-                $html .= $header;
+                $html .= str_replace('\"','"',$header);
                 $html .= '<div class="wp-email-content-wrap content">
                         <div class="content-header">
                             <h3 class="title '.$approve_str.'">' . sprintf(esc_html__('Your review is %s','wpbooking'),$approve_str) . '</h3>
@@ -97,7 +125,7 @@ if(!class_exists('WPBooking_Comments')){
                         </div>
                     </div>';
                 $footer = apply_filters('wpbooking_footer_email_template_html', $header);
-                $html .= $footer;
+                $html .= str_replace('\"','"',$footer);
 
                 $html = apply_filters('wpbooking_email_template_approved_comment_html',$html,$comment_data,$status);
 
@@ -105,6 +133,7 @@ if(!class_exists('WPBooking_Comments')){
             return $html;
 
         }
+
 
         static function _inst(){
             if(!self::$_inst){
