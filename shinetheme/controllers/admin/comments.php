@@ -69,7 +69,7 @@ if(!class_exists('WPBooking_Comments')){
         }
 
         /**
-         * Email template for approved comment
+         * Email templates for approved comment
          *
          * @author: tienhd
          * @since: 1.0
@@ -80,60 +80,12 @@ if(!class_exists('WPBooking_Comments')){
          */
         public function email_comment_template($status,$comment_data){
 
-            $header = $footer = $html = '';
+            $html = wpbooking_load_view('emails/templates/approved_comment',array('status' => $status, 'comment_data' => $comment_data));
+            $html = apply_filters('wpbooking_email_template_approved_comment_html',$html,$comment_data,$status);
 
-            if(!empty($comment_data)) {
-                $review_html = '5 score';
-
-                $approve_str = 'approved';
-                if($status != 'approved') {
-                    $approve_str = 'disapproved';
-                }
-
-                //review score
-                $review_detail = get_comment_meta($comment_data->comment_ID,'wpbooking_review_detail',true);
-                if(!empty($review_detail) and is_array($review_detail)){
-                    $review_html = '<ul class="review-score">';
-                    foreach($review_detail as $key => $value){
-                        $review_html .= '<li><span class="rv-title">'.$value['title'].'</span><span class="score">'.$value['rate'].'/5 '.esc_html__('points').'</span></li>';
-                    }
-                    $review_html .= '</ul>';
-                }
-
-                if ( is_multisite() )
-                    $blog_name = $GLOBALS['current_site']->site_name;
-                else
-                    $blog_name = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
-
-                $desc = sprintf(wp_kses(__('Hello <strong>%s</strong>, Your review is %s by %s administrator.<br> at %s','wpbooking'),array('br'=>array(),'strong' => array())), $comment_data->comment_author,$approve_str, $blog_name, date('Y/m/d H:i a'));
-
-                $header = apply_filters('wpbooking_header_email_template_html', $header);
-                $html .= str_replace('\"','"',$header);
-                $html .= '<div class="wp-email-content-wrap content">
-                        <div class="content-header">
-                            <h3 class="title '.$approve_str.'">' . sprintf(esc_html__('Your review is %s','wpbooking'),$approve_str) . '</h3>
-                            <p class="description">' . $desc . '</p>
-                        </div>
-                        <div class="content-center">
-                            <i class="icon">&ldquo;</i>
-                            <p class="comment">'.$comment_data->comment_content.'</p>
-                            <div class="review">'.$review_html.'</div>
-                        </div>
-                        <div class="content-footer">
-                            <a class="btn btn-default" href="'.get_comment_link($comment_data->comment_ID).'">'.esc_html__('Show comment','wpbooking').'</a>
-                            <span class="comment_link">'.esc_html__('Can\'t see the button? Try this ').'<a href="'.get_comment_link($comment_data->comment_ID).'">'.esc_html__('Link','wpbooking').'</a></span>
-                        </div>
-                    </div>';
-                $footer = apply_filters('wpbooking_footer_email_template_html', $header);
-                $html .= str_replace('\"','"',$footer);
-
-                $html = apply_filters('wpbooking_email_template_approved_comment_html',$html,$comment_data,$status);
-
-            }
             return $html;
 
         }
-
 
         static function _inst(){
             if(!self::$_inst){

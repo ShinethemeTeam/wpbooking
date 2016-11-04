@@ -153,6 +153,14 @@ if (!class_exists('WPBooking_User')) {
              */
             add_filter( 'retrieve_password_message', array( $this, '_email_retrieve_password_template' ), 10, 4 );
 
+            /**
+             * Send email message when change password successful
+             *
+             * @since 1.0
+             * @author tienhd
+             */
+            add_action('send_password_change_email',array($this, '_send_email_changed_password'),10, 3);
+
 
         }
 
@@ -520,7 +528,7 @@ if (!class_exists('WPBooking_User')) {
         }
 
         /**
-         * Hook Callback for Send Email after Registration, using template in admin
+         * Hook Callback for Send Email after Registration, using templates in admin
          *
          * @since 1.0
          * @author dungdt
@@ -529,30 +537,46 @@ if (!class_exists('WPBooking_User')) {
          */
         function _send_registration_email($user_id)
         {
+            if ( is_multisite() )
+                $blog_name = $GLOBALS['current_site']->site_name;
+            else
+                $blog_name = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
             $user_data = get_userdata($user_id);
             $title = $user_data->user_nicename . " - " . $user_data->user_email . " - " . $user_data->user_registered;
-            $subject = sprintf(esc_html__('New Registration: %s', 'wpbooking'), $title);
+            $subject = sprintf('['.$blog_name.']'.esc_html__('New Registration: %s', 'wpbooking'), $title);
 
             // Send To Admin
             if (wpbooking_get_option('on_registration_email_admin') and wpbooking_get_option('registration_email_admin')) {
                 $to = wpbooking_get_option('system_email');
+
                 $content = do_shortcode(wpbooking_get_option('registration_email_admin'));
                 $content = $this->replace_email_shortcode($content, $user_id);
+
                 WPBooking_Email::inst()->send($to, $subject, $content);
             }
 
             // Send To Customer
             if (wpbooking_get_option('on_registration_email_customer') and wpbooking_get_option('registration_email_customer')) {
                 $to = $user_data->user_email;
-                $content = do_shortcode(wpbooking_get_option('registration_email_customer'));
+
+                $header = $footer = '';
+                $header = apply_filters('wpbooking_header_email_template_html',$header);
+                $header = str_replace('\"','"',$header);
+                $content = do_shortcode($header);
+
+                $content .= do_shortcode(wpbooking_get_option('registration_email_customer'));
                 $content = $this->replace_email_shortcode($content, $user_id);
+
+                $footer = apply_filters('wpbooking_footer_email_template_html',$footer);
+                $footer = str_replace('\"','"',$footer);
+                $content .= do_shortcode($footer);
 
                 WPBooking_Email::inst()->send($to, $subject, $content);
             }
         }
 
         /**
-         * Hook Callback for Send Email For PARTNER after Registration, using template in admin
+         * Hook Callback for Send Email For PARTNER after Registration, using templates in admin
          *
          * @since 1.0
          * @author dungdt
@@ -659,11 +683,11 @@ if (!class_exists('WPBooking_User')) {
                     break;
 
                 case "profile_url":
-                    return WPBooking_User::inst()->account_page_url();
+                    return '<a href="'.WPBooking_User::inst()->account_page_url().'">'.WPBooking_User::inst()->account_page_url().'</a>';
                     break;
 
                 case "edit_user_url":
-                    return add_query_arg( 'user_id', $user_id, self_admin_url( 'user-edit.php' ) );
+                    return '<a href="'.add_query_arg( 'user_id', $user_id, self_admin_url( 'user-edit.php' ) ).'">'.add_query_arg( 'user_id', $user_id, self_admin_url( 'user-edit.php' ) ).'</a>';
                     break;
 
                 case "user_pass":
@@ -897,8 +921,11 @@ if (!class_exists('WPBooking_User')) {
                             ));
 
                             if (is_wp_error($is_updated)) {
+
                                 wpbooking_set_message($is_updated->get_error_message(), 'danger');
+
                             } else {
+
 
                                 wpbooking_set_message(esc_html__('Password Changed Successfully', 'wpbooking'), 'success');
                             }
@@ -1410,7 +1437,7 @@ if (!class_exists('WPBooking_User')) {
         }
 
         /**
-         * Email template for retrieve password
+         * Email templates for retrieve password
          *
          * @param $message
          * @param $key
@@ -1419,19 +1446,10 @@ if (!class_exists('WPBooking_User')) {
          * @return mixed|string|void
          */
         public function _email_retrieve_password_template( $message, $key, $user_login, $user_data ) {
-            // add header and footer email template
+            // add header and footer email templates
 
-            $header = '';
-            $header = apply_filters('wpbooking_header_email_template_html', $header);
-            $message = str_replace('\"','"',$header);
-            $message .= '<div class="wp-email-content-wrap content">
-            '.wp_kses(__('Someone has requested a password reset for the following account:<br><br>Username: ','wpbooking'),array('br' => array())).$user_login.'<br><br>
-            '.wp_kses(__('If this was a mistake, just ignore this email and nothing will happen. <br><br>To reset your password, visit the following address:','wpbooking'),array('br' => array())).'<br>
-            <a href="'.site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' ).'">'.site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' ).'</a>
-            </div>';
-            $footer = '';
-            $footer = apply_filters('wpbooking_footer_email_template_html', $footer);
-            $message .= str_replace('\"','"',$footer);
+            $message = wpbooking_load_view('emails/templates/lost_password',array('key' => $key,'user_login' => $user_login));
+            $message = WPBooking_Email::inst()->insert_header_footer_email_template($message);
 
             // Apply CSS to Inline CSS
             if (class_exists('Emogrifier') and $email_css = wpbooking_get_option('email_stylesheet')) {
@@ -1450,7 +1468,73 @@ if (!class_exists('WPBooking_User')) {
         }
 
         /**
+         * send email when changed password successful
+         *
+         * @since 1.0
+         * @author tienhd
+         *
+         * @param $is_success
+         * @param $user
+         */
+        public function _send_email_changed_password($is_success, $user, $userdata){
+            if($is_success){
+                if(!empty($user)){
+                    $to = $user['user_email'];
+                    if(is_email($to)){
+
+                        if (is_multisite())
+                            $blog_name = $GLOBALS['current_site']->site_name;
+                        else
+                            $blog_name = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
+
+                        $subject = '['.$blog_name.'] '.esc_html__('Changed password successful','wpbooking');
+                        $subject = apply_filters('wpbooking_title_changed_password_email',$subject);
+
+                        $message = $this->email_changed_password_template($user);
+
+                        WPBooking_Email::inst()->send($to, $subject, $message);
+
+                    }
+                }
+            }
+        }
+
+        public function email_changed_password_template($user){
+            if(!empty($user)){
+                $html = $header = $footer = '';
+                $header = apply_filters('wpbooking_header_email_template_html',$header);
+                $html .= str_replace('\"','"',$header);
+                $html .= '<div class="content">
+                            <div class="content-header">
+                                <h3 class="title">'.esc_html__('Changed Password Successful','wpbooking').'</h3>
+                                <p class="description">'.sprintf(esc_html__('Hello %s, ','wpbooking'),$user['user_login']).
+                                    esc_html__('You have changed password a few minutes ago,','wpbooking').'<br>'.
+                                    esc_html__('Currently, here are your account information: ','wpbooking').'
+                                </p>
+                            </div>
+                            <div class="content-center">
+                                '.esc_html__('Username','wpbooking').': <strong>'.$user['user_login'].'</strong><br><br>
+                                '.esc_html__('Password','wpbooking').': ********<br><br>
+                                '.esc_html__('Email','wpbooking').': '.$user['user_email'].'<br><br>
+                                '.esc_html__('Profile URL','wpbooking').': <a href="'.WPBooking_User::inst()->account_page_url().'">'.WPBooking_User::inst()->account_page_url().'</a><br><br>
+                            </div>
+                        </div>
+                ';
+
+                $footer = apply_filters('wpbooking_footer_email_template_html',$footer);
+                $html .= str_replace('\"','"',$footer);
+                return $html;
+            }else{
+                return false;
+            }
+        }
+
+        /**
          * redirect logout url
+         *
+         * @since 1.0
+         * @author tienhd
+         *
          * @return string
          */
         function redirect_logout_url($logouturl,$redir){

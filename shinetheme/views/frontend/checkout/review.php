@@ -11,7 +11,7 @@ $cart=$booking->get_cart();
 <h5 class="checkout-form-title"><?php _e('Your booking details','wpbooking')?></h5>
 	<?php
 	$post_id=$cart['post_id'];
-	$service=new WB_Service($cart['post_id']);
+	$service=wpbooking_get_service($cart['post_id']);
 	$featured=$service->get_featured_image();
 	$service_type=$cart['service_type'];
 		?>
