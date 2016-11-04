@@ -151,14 +151,14 @@ if(!class_exists('WPBooking_Admin_Setup'))
                         update_option("wpbooking_on_booking_email_admin",WPBooking_Input::request('wpbooking_on_booking_email_admin',0));
                         update_option("wpbooking_on_registration_email_customer",WPBooking_Input::request('wpbooking_on_registration_email_customer',0));
                         update_option("wpbooking_on_registration_email_admin",WPBooking_Input::request('wpbooking_on_registration_email_admin',0));
+                        update_option("email_header",self::_get_template_default("email_header"));
+                        update_option("email_footer",self::_get_template_default("email_footer"));
                         update_option("wpbooking_email_stylesheet",self::_get_template_default("css"));
                         update_option("wpbooking_email_to_customer",self::_get_template_default("booking_email_customer"));
                         update_option("wpbooking_email_to_partner",self::_get_template_default("booking_email_author"));
                         update_option("wpbooking_email_to_admin",self::_get_template_default("booking_email_admin"));
                         update_option("wpbooking_registration_email_customer",self::_get_template_default("registration_email_customer"));
                         update_option("wpbooking_registration_email_admin",self::_get_template_default("registration_email_admin"));
-                        update_option("email_header",self::_get_template_default("email_header"));
-                        update_option("email_footer",self::_get_template_default("email_footer"));
 
                         wp_redirect( add_query_arg( array('page'=>'wpbooking_setup_page_settings','wp_step'=>'wp_service') , admin_url("admin.php") ) );
                         exit;
@@ -227,111 +227,129 @@ if(!class_exists('WPBooking_Admin_Setup'))
             $html = "";
             switch($style){
                 case "css":
-                    $html = '    .template{
-                                    background:#F1F1F1;
-                                    font-family:tahoma;
-                                    padding:50px 0px;
-
+                    $html = '    .template {
+                                    background: #F1F1F1;
+                                    font-family: tahoma;
+                                    padding: 50px 0px;
                                 }
-                                .email-template{
+
+                                .email-template {
                                     width: 100%;
                                     text-align: center;
                                     background: #f2f2f2;
-
                                 }
-                                .email-header{
+
+                                .email-header {
                                     padding-top: 50px;
                                     padding-bottom: 25px;
                                 }
-                                .email-header h2{
+
+                                .email-header h2 {
                                     font-size: 30px;
                                 }
-                                .email-footer{
+
+                                .email-footer {
                                     padding-top: 50px;
                                     padding-bottom: 60px;
                                     font-size: 15px;
                                     font-style: italic;
                                     line-height: 25px;
                                 }
-                                .email-footer a{
+
+                                .email-footer a {
                                     margin-left: 10px;
                                     margin-right: 10px;
                                 }
-                                .email-footer img{
+
+                                .email-footer img {
                                     width: 22px;
                                     height: 22px;
                                 }
-                                .content{
-                                    background:white;
-                                    width:600px;
-                                    margin:0px auto;
-                                    border-radius:4px;
-                                    padding:20px;
 
-                                }
-                                .header{
-                                    margin:-20px;
-                                    background:#0073aa;
-                                    padding:15px 25px;
-                                    margin-bottom:40px;
-                                }
-                                .header h1{
-                                    color:white;
-                                    text-transform:uppercase;
-                                    font-size:30px;
-                                }
-                                .footer{
-                                    margin:-20px;
-                                    background:#ECECEC;
-                                    padding:5px 10px;
-                                    margin-top:40px;
-                                    color:#737373;
-                                }
-                                table,tr{
-                                    border-top:1px solid #ccc;
-                                    border-left:1px solid #ccc;
-                                    background:white;
-                                }
-                                td,th{
-                                    border-right:1px solid #ccc;
-                                    border-bottom:1px solid #ccc;
-                                    color:#737373;
-                                    padding:12px;
+                                .content {
+                                    background: white;
+                                    width: 600px;
+                                    margin: 0px auto;
+                                    border-radius: 4px;
+                                    padding: 20px;
+                                    padding: 20px 70px 50px;
+                                    border-radius: 0;
+                                    color: #000;
+                                    font-size: 15px;
+                                    text-align: left;
                                 }
 
+                                .header {
+                                    margin: -20px;
+                                    background: #0073aa;
+                                    padding: 15px 25px;
+                                    margin-bottom: 40px;
+                                }
+
+                                .header h1 {
+                                    color: white;
+                                    text-transform: uppercase;
+                                    font-size: 30px;
+                                }
+
+                                .footer {
+                                    margin: -20px;
+                                    background: #ECECEC;
+                                    padding: 5px 10px;
+                                    margin-top: 40px;
+                                    color: #737373;
+                                }
+
+                                table, tr {
+                                    border-top: 1px solid #ccc;
+                                    border-left: 1px solid #ccc;
+                                    background: white;
+                                }
+
+                                td, th {
+                                    border-right: 1px solid #ccc;
+                                    border-bottom: 1px solid #ccc;
+                                    color: #737373;
+                                    padding: 12px;
+                                }
 
                                 .review-cart-total:before,
                                 .review-cart-total:after {
-                                  display: table;
+                                    display: table;
 
                                 }
+
                                 .review-cart-total:after {
-                                  clear: both;
+                                    clear: both;
                                 }
+
                                 .review-cart-total .total-title {
-                                  clear: both;
-                                  font-size: 14px;
-                                  float: left;
-                                  margin-top: 10px;
+                                    clear: both;
+                                    font-size: 14px;
+                                    float: left;
+                                    margin-top: 10px;
                                 }
+
                                 .review-cart-total .total-amount {
-                                  font-size: 14px;
-                                  color: #666666;
-                                  float: right;
-                                  margin-top: 10px;
+                                    font-size: 14px;
+                                    color: #666666;
+                                    float: right;
+                                    margin-top: 10px;
                                 }
+
                                 .review-cart-total .total-amount.big {
-                                  font-size: 20px;
-                                  margin-top: 5px;
+                                    font-size: 20px;
+                                    margin-top: 5px;
                                 }
+
                                 .review-cart-total .total-line {
-                                  clear: both;
-                                  height: 1px;
-                                  width: 100%;
-                                  background: #333;
-                                  margin: 10px 0px;
-                                  display: block;
-                                  margin-top: 15px;
+                                    clear: both;
+                                    height: 1px;
+                                    width: 100%;
+                                    background: #333;
+                                    margin: 10px 0px;
+                                    display: block;
+                                    margin-top: 15px;
                                 }
 
                                 .label {
@@ -346,136 +364,165 @@ if(!class_exists('WPBooking_Admin_Setup'))
                                     vertical-align: baseline;
                                     border-radius: .25em;
                                 }
-                                a.label:hover,
-                                a.label:focus {
+
+                                a.label:hover, a.label:focus {
                                     color: #fff;
                                     text-decoration: none;
                                     cursor: pointer;
                                 }
+
                                 .label:empty {
                                     display: none;
                                 }
+
                                 .btn .label {
                                     position: relative;
                                     top: -1px;
                                 }
+
                                 .label-default {
                                     background-color: #777;
                                 }
-                                .label-default[href]:hover,
-                                .label-default[href]:focus {
+
+                                .label-default[href]:hover, .label-default[href]:focus {
                                     background-color: #5e5e5e;
                                 }
+
                                 .label-primary {
                                     background-color: #337ab7;
                                 }
-                                .label-primary[href]:hover,
-                                .label-primary[href]:focus {
+
+                                .label-primary[href]:hover, .label-primary[href]:focus {
                                     background-color: #286090;
                                 }
+
                                 .label-success {
                                     background-color: #5cb85c;
                                 }
-                                .label-success[href]:hover,
-                                .label-success[href]:focus {
+
+                                .label-success[href]:hover, .label-success[href]:focus {
                                     background-color: #449d44;
                                 }
+
                                 .label-info {
                                     background-color: #5bc0de;
                                 }
-                                .label-info[href]:hover,
-                                .label-info[href]:focus {
+
+                                .label-info[href]:hover, .label-info[href]:focus {
                                     background-color: #31b0d5;
                                 }
+
                                 .label-warning {
                                     background-color: #f0ad4e;
                                 }
-                                .label-warning[href]:hover,
-                                .label-warning[href]:focus {
+
+                                .label-warning[href]:hover, .label-warning[href]:focus {
                                     background-color: #ec971f;
                                 }
+
                                 .label-danger {
                                     background-color: #d9534f;
                                 }
-                                .label-danger[href]:hover,
-                                .label-danger[href]:focus {
+
+                                .label-danger[href]:hover, .label-danger[href]:focus {
                                     background-color: #c9302c;
                                 }
+
                                 /*email comment*/
-                                .wp-email-content-wrap{
-                                    padding: 20px 70px;
-                                    border-radius: 0;
-                                    color: #000;
-                                    font-size: 15px;
-                                    text-align: left;
-                                }
-                                .wp-email-content-wrap .title{
+                                .title {
                                     font-size: 28px;
-                                    color: #6aa84f;
                                     margin-bottom: 17px;
                                 }
-                                .wp-email-content-wrap .title.disapproved{
-                                    color: #cc4125;
+
+                                .title-approved {
+                                    color: #6aa84f;
+                                    font-size: 28px;
+                                    margin-bottom: 17px;
                                 }
-                                .wp-email-content-wrap .content-header{
+
+                                .title-disapproved {
+                                    color: #cc4125;
+                                    font-size: 28px;
+                                    margin-bottom: 17px;
+                                }
+
+                                .content-header {
                                     margin-bottom: 40px;
                                     text-align: center;
                                 }
-                                .wp-email-content-wrap .content-header p{
+
+                                .content-header p {
                                     line-height: 25px;
                                     font-style: italic;
                                 }
-                                .wp-email-content-wrap .content-center{
+
+                                .content-center {
                                     background: #fafafa;
                                     padding: 20px 15px;
                                     text-align: center;
+                                    font-style: italic;
                                 }
-                                .wp-email-content-wrap .content-center .icon{
+
+                                .content .content-center a {
+                                    color: #F0AD4E;
+                                }
+
+                                .content-center .icon {
                                     font-size: 45px;
                                     line-height: 1;
                                 }
-                                .wp-email-content-wrap .content-center .comment{
+
+                                .content-center .comment {
                                     margin-top: 0px;
                                     margin-bottom: 22px;
                                     font-style: italic;
                                 }
-                                .wp-email-content-wrap .content-center .review{
+
+                                .content-center .review {
                                     font-style: italic;
                                 }
-                                .review-score{
+
+                                .review-score {
                                     display: table;
                                     width: 50%;
                                     list-style: none;
                                     text-align: left;
                                     margin: 0 auto;
                                 }
-                                .review-score li{
+
+                                .review-score li {
                                     display: table-row;
                                     line-height: 2;
                                 }
-                                .review-score li span{
+
+                                .review-score li span {
                                     display: table-cell;
                                 }
-                                .review-score li .score{
+
+                                .review-score li .score {
                                     color: #F0AD4E;
                                 }
-                                .wp-email-content-wrap .content-footer{
-                                    margin: 30px;
+
+                                .content-footer {
+                                    margin: 30px 30px 0;
                                     text-align: center;
                                 }
-                                .wp-email-content-wrap .content-footer .btn.btn-default{
+
+                                .content-footer .btn.btn-default {
                                     padding: 15px;
                                     background: #F0AD4E;
                                     color: #FFF;
                                     text-decoration: none;
                                     display: inline-block;
                                 }
-                                .wp-email-content-wrap .content-footer .comment_link{
+
+                                .content-footer .comment_link {
                                     display: block;
                                     margin-top: 15px;
                                     font-style: italic;
                                 }
-                                .wp-email-content-wrap .content-footer .comment_link a{
+
+                                .content-footer .comment_link a {
                                     color: #F0AD4E;
                                 }
 
@@ -511,45 +558,31 @@ if(!class_exists('WPBooking_Admin_Setup'))
                             </div>';
                     break;
                 case "registration_email_customer":
-                    $html = '<div class=template>
-                               <div class=content>
-                                    <div class=header>
-                                       <h1>New Registration<h1>
+                    $html = '<div class=content>
+                                    <div class=content-header>
+                                       <h3 class=title-approved >Registration Successful<h1>
+                                       <p class=description>Hello <strong>[user_login]</strong>, Thank you for registration.<br>Here are your account information:</p>
                                      </div>
-                            <h2>Dear Customer<h2>
-                            <p>          Thank you for registration. Here are your account information:</p>
-                                     <strong>Username</strong>: [user_login]
-                            <br>
-                                     <strong>Password</strong>: [user_pass]
-                            <br>
-                                     <strong>Email</strong>:[user_email]
-                            <br>
-                                     <strong>Profile URL</strong>:[profile_url]<br>
-                                     <div class=footer>
-                                       <p>Generated by <a href="#">WPBooking</a> Plugin</p>
+                                     <div class=content-center>
+                                         Username: <strong>[user_login]</strong><br><br>
+                                         Password: [user_pass]<br><br>
+                                         Email: [user_email]<br><br>
+                                         Profile URL: [profile_url]<br><br>
                                      </div>
-                                </div>
-                            </div>';
+                                </div>';
                     break;
                 case "registration_email_admin":
-                    $html = '<div class=template>
-                               <div class=content>
-                                    <div class=header>
-                                       <h1>New Registration<h1>
+                    $html = '<div class=content>
+                                    <div class=content-header>
+                                       <h3 class=title >New Registration<h1>
+                                       <p class=description>Hello <strong>Administrator</strong>, There is a new user on your system.<br>Here are his(her) account information:</p>
                                      </div>
-                            <h2>Dear Admin<h2>
-                            <p>          Thank you for registration. Here are your account information:</p>
-                                     <strong>Username</strong>: [user_login]
-                            <br>
-                                     <strong>Email</strong>:[user_email]
-                            <br>
-                                     <strong>Edit User URL</strong>:[edit_user_url]
-                            <br>
-                                     <div class=footer>
-                                       <p>Generated by <a href="#">WPBooking</a> Plugin</p>
+                                     <div class=content-center>
+                                         Username: <strong>[user_login]</strong><br><br>
+                                         Email: [user_email]<br><br>
+                                         Edit User URL: [edit_user_url]<br><br>
                                      </div>
-                                </div>
-                            </div>';
+                                </div>';
                     break;
                 case "check_out_form":
                     $html = '<div class="row">
@@ -587,15 +620,15 @@ if(!class_exists('WPBooking_Admin_Setup'))
                             [wpbooking_form_submit_button label="Book Now" ]';
                     break;
                 case "email_header":
-                    $html = '<div class="email-template">
-                                <div class="email-header">
-                                    <h2 class="email-title">WPBOOKING</h2>
+                    $html = '<div class=email-template>
+                                <div class=email-header>
+                                    <h2 class=email-title>WPBOOKING</h2>
                                 </div>
 
                             ';
                     break;
                 case "email_footer":
-                    $html = '<div class="email-footer">
+                    $html = '<div class=email-footer>
                                 <a href="#"><img src="'.wpbooking_assets_url('images/facebook.png').'"/></a>
                                 <a href="#"><img src="'.wpbooking_assets_url('images/twitter.png').'"/></a>
                                 <a href="#"><img src="'.wpbooking_assets_url('images/google.png').'"/></a>

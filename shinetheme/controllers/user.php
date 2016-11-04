@@ -549,17 +549,8 @@ if (!class_exists('WPBooking_User')) {
             if (wpbooking_get_option('on_registration_email_admin') and wpbooking_get_option('registration_email_admin')) {
                 $to = wpbooking_get_option('system_email');
 
-                $header = $footer = '';
-                $header = apply_filters('wpbooking_header_email_template_html',$header);
-                $header = str_replace('\"','"',$header);
-                $content = do_shortcode($header);
-
-                $content .= do_shortcode(wpbooking_get_option('registration_email_admin'));
+                $content = do_shortcode(wpbooking_get_option('registration_email_admin'));
                 $content = $this->replace_email_shortcode($content, $user_id);
-
-                $footer = apply_filters('wpbooking_footer_email_template_html',$footer);
-                $footer = str_replace('\"','"',$footer);
-                $content .= do_shortcode($footer);
 
                 WPBooking_Email::inst()->send($to, $subject, $content);
             }
@@ -1457,8 +1448,8 @@ if (!class_exists('WPBooking_User')) {
         public function _email_retrieve_password_template( $message, $key, $user_login, $user_data ) {
             // add header and footer email templates
 
-//            $message = wpbooking_load_view('emails/templates/lost_password',array('key' => $key,'user_login' => $user_login));
-//            $message = WPBooking_Email::inst()->insert_header_footer_email_template($message);
+            $message = wpbooking_load_view('emails/templates/lost_password',array('key' => $key,'user_login' => $user_login));
+            $message = WPBooking_Email::inst()->insert_header_footer_email_template($message);
 
             // Apply CSS to Inline CSS
             if (class_exists('Emogrifier') and $email_css = wpbooking_get_option('email_stylesheet')) {
