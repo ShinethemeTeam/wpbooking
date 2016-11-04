@@ -216,6 +216,13 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             add_action('wpbooking_review_checkout_item_information_'.$this->type_id, array($this, '_add_info_checkout_item_room'),10,2);
             add_action('wpbooking_check_total_item_information_'.$this->type_id, array($this, '_add_info_total_item_room'),10,2);
             add_action('wpbooking_save_order_'.$this->type_id, array($this, '_save_order_hotel_room'),10,2);
+            /**
+             * Change Tax Room CheckOut
+             *
+             * @since 1.0
+             * @author quandq
+             */
+            add_action('wpbooking_get_cart_tax_price_'.$this->type_id, array($this, '_change_tax_room_checkout'),10,2);
 
             /**
              * Add info Room Order Detail
@@ -2067,7 +2074,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          */
         function _add_info_total_item_room($cart){
             if(!empty($cart['rooms'])) {
-                $number = count( $cart[ 'rooms' ] );
+                $number =0;
+                foreach($cart['rooms'] as $room){
+                    $number += $room['number'];
+                }
                 if($number>1){
                     $html =  sprintf(esc_html__("%s rooms",'wpbooking'),$number);
                 }else{
@@ -2120,7 +2130,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $order = WPBooking_Order_Hotel_Order_Model::inst();
             $rooms= $order->get_order($order_data['order_id']);
             if(!empty($rooms)) {
-                $number = count( $rooms );
+                $number =0;
+                foreach($rooms as $room){
+                    $number += $room['number'];
+                }
                 if($number>1){
                     $html =  sprintf(esc_html__("%s rooms",'wpbooking'),$number);
                 }else{
@@ -2418,6 +2431,66 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             }
         }
 
+        /**
+         * Change Tax Room CheckOut
+         * @param $tax
+         * @param $cart
+         * @return mixed
+         */
+        function _change_tax_room_checkout($tax, $cart){
+
+            $tax = array();
+            $diff=$cart['check_out_timestamp'] - $cart['check_in_timestamp'];
+            $date_diff = $diff / (60 * 60 * 24);
+
+            $total_price = WPBooking_Checkout_Controller::inst()->get_cart_total(array('without_tax'=>false));
+            $total_tax = 0;
+
+            if(!empty($cart['tax']) and !empty($cart['rooms'])){
+                $number_room = 0;
+                foreach($cart['rooms'] as $room){
+                    $number_room += $room['number'];
+                }
+                foreach($cart['tax'] as $key => $value){
+                    if($value['excluded'] != 'no'){
+                        $unit = $value['unit'];
+                        $tax[$key] = $value;
+                        $price = 0;
+                        switch($unit){
+                            case "fixed":
+                            case "stay":
+                                $price = $value['amount'] * $number_room;
+                                break;
+                            case "percent":
+                                $price = $total_price * ($value['amount'] / 100);
+                                break;
+                            case "night":
+                                $price = $value['amount'] * $date_diff * $number_room;
+                                break;
+                            case "person_per_stay":
+                                if(!empty($cart['person'] )){
+                                    $person = $cart['person'];
+                                    $price = $person *  $value['amount'] * $number_room;
+                                }
+                                break;
+                            case "person_per_night":
+                                if(!empty($cart['person'] )){
+                                    $person = $cart['person'];
+                                    $price =  ( $value['amount'] * $person ) * $date_diff * $number_room;
+                                }
+                                break;
+                            default:
+                        }
+                        if($value['excluded'] == 'yes_not_included'){
+                            $total_tax += $price;
+                        }
+                        $tax[$key]['price'] = floatval($price);
+                    }
+                }
+            }
+            $tax['total_price'] = $total_tax;
+            return $tax;
+        }
 
         static function inst()
         {
