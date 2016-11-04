@@ -88,11 +88,7 @@ $service_room = new WB_Service(get_the_ID());
                 $max_room = get_post_meta(get_the_ID(),'room_number',true);
                 if(empty($max_room))$max_room=20;
                 for($i=0;$i<=$max_room;$i++){
-                    if($i>1){
-                        echo "<option value='{$i}'>{$i} ".esc_html__("rooms","wpbooking")."</option>";
-                    }else{
-                        echo "<option value='{$i}'>{$i} ".esc_html__("room","wpbooking")."</option>";
-                    }
+                    echo "<option value='{$i}'>{$i}</option>";
                 }
                 ?>
             </select>
@@ -112,7 +108,7 @@ $service_room = new WB_Service(get_the_ID());
                     <td width="10%">
 
                     </td>
-                    <td width="50%">
+                    <td width="48%">
                         <?php esc_html_e("Service name",'wpbooking') ?>
                     </td>
                     <td class="text-center">
@@ -120,7 +116,7 @@ $service_room = new WB_Service(get_the_ID());
                     </td>
                     <td class="text-center">
                         <?php
-                        echo sprintf(esc_html__("Price (%s)",'wpbooking'),WPBooking_Currency::get_current_currency('symbol'))
+                        echo sprintf(esc_html__("Price (%s)",'wpbooking'),WPBooking_Currency::get_current_currency('currency'))
                         ?>
                     </td>
                 </tr>
