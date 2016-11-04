@@ -77,9 +77,9 @@ do_action('wpbooking_before_order_content');
                             $diff=$order_data['check_out_timestamp'] - $order_data['check_in_timestamp'];
                             $diff = $diff / (60 * 60 * 24);
                             if($diff > 1){
-                                echo sprintf(esc_html__('(%s days)'),$diff);
+                                echo sprintf(esc_html__('(%s days)','wpbooking'),$diff);
                             }else{
-                                echo sprintf(esc_html__('(%s day)'),$diff);
+                                echo sprintf(esc_html__('(%s day)','wpbooking'),$diff);
                             }
                             ?>
                         </div>

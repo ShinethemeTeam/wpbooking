@@ -3153,6 +3153,9 @@ a.label:focus {
   margin-top: 20px;
   margin-bottom: 30px;
 }
+.wpbooking-checkout-wrap .wpbooking-checkout-form .checkout-submit-button .wb-btn {
+  padding-top: 7px;
+}
 .wpbooking-checkout-wrap .wpbooking-checkout-review-order .is_more_order {
   display: none;
 }

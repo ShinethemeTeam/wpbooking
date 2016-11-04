@@ -46,6 +46,16 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
 
         }
 
+        /**
+         * Save Order
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @param $cart
+         * @param $order_id
+         * @param $customer_id
+         */
         function save_order($cart, $order_id ,  $customer_id)
         {
             $columns = $this->get_columns();
@@ -95,31 +105,6 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
         {
             $this->where('order_id', $order_id)->update(array('status' => 'completed', 'status' => 'cancelled'));
         }
-
-
-        function get_calendar_booked($service_id, $checkin_timestamp = FALSE, $checkout_timestamp = FALSE)
-        {
-            global $wpdb;
-            $res = $this
-                ->select(array(
-                    $wpdb->prefix . 'wpbooking_order_item.*'
-                ))
-                ->join('wpbooking_service', 'wpbooking_service.post_id=wpbooking_order_item.post_id')
-                ->where($wpdb->prefix . 'wpbooking_order_item.post_id', $service_id)
-                ->where($wpdb->prefix . "wpbooking_order_item.status not in ('refunded','cancelled','trash')", FALSE, true)
-                ->where(
-                    $wpdb->prepare(
-                        "
-					(
-						({$wpdb->prefix}wpbooking_order_item.check_in_timestamp<=%d and {$wpdb->prefix}wpbooking_order_item.check_out_timestamp>=%d)
-						OR ({$wpdb->prefix}wpbooking_order_item.check_in_timestamp>=%d and {$wpdb->prefix}wpbooking_order_item.check_in_timestamp<=%d)
-					)
-				", $checkin_timestamp, $checkin_timestamp, $checkin_timestamp, $checkout_timestamp), FALSE, TRUE)
-                ->get()->result();
-
-            return $res;
-        }
-
 
         static function inst()
         {

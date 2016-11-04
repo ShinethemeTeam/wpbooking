@@ -119,7 +119,9 @@ $service_room = new WB_Service(get_the_ID());
                         <?php esc_html_e("Quantity",'wpbooking') ?>
                     </td>
                     <td class="text-center">
-                        <?php esc_html_e("Price $",'wpbooking') ?>
+                        <?php
+                        echo sprintf(esc_html__("Price (%s)",'wpbooking'),WPBooking_Currency::get_current_currency('symbol'))
+                        ?>
                     </td>
                 </tr>
                 </thead>

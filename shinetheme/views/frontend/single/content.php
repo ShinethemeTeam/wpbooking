@@ -220,13 +220,13 @@ $hotel_id = get_the_ID();
 			<?php
 			global $wp_query;
 			$rooms=WPBooking_Accommodation_Service_Type::inst()->search_room();
-
 			if($rooms->have_posts()) {
 			?>
 				<div class="search-room-availablity">
 					<form method="post" name="form-search-room" class="form-search-room">
 						<?php wp_nonce_field('room_search','room_search')?>
 						<input name="action" value="ajax_search_room" type="hidden">
+						<input name="hotel_id" value="<?php the_ID() ?>" type="hidden">
 						<div class="search-room-form">
 							<h5 class="service-info-title"><?php esc_html_e('Check availability', 'wpbooing') ?></h5>
 							<div class="form-search">

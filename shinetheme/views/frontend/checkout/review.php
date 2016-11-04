@@ -6,11 +6,9 @@
  * Time: 10:06 AM
  */
 $booking=WPBooking_Checkout_Controller::inst();
-
 $cart=$booking->get_cart();
-
 ?>
-<h5 class="checkout-form-title"><?php _e('Your booking detail','wpbooking')?></h5>
+<h5 class="checkout-form-title"><?php _e('Your booking details','wpbooking')?></h5>
 	<?php
 	$post_id=$cart['post_id'];
 	$service=new WB_Service($cart['post_id']);
@@ -37,9 +35,9 @@ $cart=$booking->get_cart();
 						$diff=$cart['check_out_timestamp'] - $cart['check_in_timestamp'];
 						$diff = $diff / (60 * 60 * 24);
 						if($diff > 1){
-							echo sprintf(esc_html__('(%s days)'),$diff);
+							echo sprintf(esc_html__('(%s days)','wpbooking'),$diff);
 						}else{
-							echo sprintf(esc_html__('(%s day)'),$diff);
+							echo sprintf(esc_html__('(%s day)','wpbooking'),$diff);
 						}
 						?>
 					</div>
