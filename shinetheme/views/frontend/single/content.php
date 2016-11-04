@@ -220,7 +220,6 @@ $hotel_id = get_the_ID();
 			<?php
 			global $wp_query;
 			$rooms=WPBooking_Accommodation_Service_Type::inst()->search_room();
-
 			if($rooms->have_posts()) {
 			?>
 				<div class="search-room-availablity">

@@ -1,23 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 4/5/2016
- * Time: 9:47 AM
- */
 $booking = WPBooking_Checkout_Controller::inst();
-
 $cart = $booking->get_cart();
 if (empty($cart)) {
     wpbooking_set_message(__('Sorry! Your cart is currently empty', 'wpbooking'), 'danger');
 }
-
 echo wpbooking_get_message();
-
 if (empty($cart)) {
     return;
 }
-
 ?>
 <div class="wpbooking-checkout-wrap">
     <div class="wpbooking_checkout_form">
@@ -81,7 +71,7 @@ if (empty($cart)) {
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <?php echo wpbooking_load_view('cart/cart-total-box') ?>
+                        <?php echo wpbooking_load_view('checkout/cart-total-box') ?>
                         <h5 class="checkout-form-title"><?php esc_html_e('Payment Method', 'wpbooking') ?></h5>
                         <div class="wpbooking-gateways">
                             <?php echo wpbooking_load_view('checkout/gateways') ?>

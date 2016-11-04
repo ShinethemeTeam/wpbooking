@@ -63,6 +63,12 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             parent::__construct();
         }
 
+        /**
+         * Register Order Status
+         *
+         * @since 1.0
+         * @author quandq
+         */
         function _register_order_status(){
             $order_status = WPBookingConfig()->item('order_status');
             if(!empty($order_status)){
@@ -83,7 +89,9 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
         /**
          * Ajax Checkout Handler
+         *
          * @since 1.0
+         * @author quandq
          */
         function do_checkout()
         {
@@ -275,7 +283,9 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
         /**
          * Ajax Add To Cart Handler
+         *
          * @since 1.0
+         * @author quandq
          * @return string
          */
         function _add_to_cart(){
@@ -367,8 +377,12 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
             die;
         }
+
         /**
          * Return permalink of the Cart Page
+         *
+         * @since 1.0
+         * @author quandq
          * @return false|string
          */
         function get_checkout_url()
@@ -377,12 +391,21 @@ if(!class_exists('WPBooking_Checkout_Controller'))
         }
 
         /**
-         * register shortcode
+         * Register shortcode
+         *
+         * @since 1.0
+         * @author quandq
          */
         function _register_shortcode()
         {
             add_shortcode('wpbooking_checkout_page', array($this, '_render_checkout_shortcode'));
         }
+        /**
+         * CheckOut shortcode
+         *
+         * @since 1.0
+         * @author quandq
+         */
         function _render_checkout_shortcode($attr = array(), $content = FALSE)
         {
             return wpbooking_load_view('checkout/index');
@@ -454,7 +477,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
          *
          * @author quandq
          * @since 1.0
-         *
+         * @param $cart
          */
         function set_cart($cart)
         {
@@ -562,42 +585,22 @@ if(!class_exists('WPBooking_Checkout_Controller'))
         public function get_cart_tax_price(){
             $tax = array();
             $cart = $this->get_cart();
-
-            $diff=$cart['check_out_timestamp'] - $cart['check_in_timestamp'];
-            $date_diff = $diff / (60 * 60 * 24);
-
             $total_price = $this->get_cart_total(array('without_tax'=>false));
             $total_tax = 0;
+            $service_type = $cart['service_type'];
             if(!empty($cart['tax'])){
                 foreach($cart['tax'] as $key => $value){
                     if($value['excluded'] != 'no'){
                         $unit = $value['unit'];
                         $tax[$key] = $value;
-                        $price = 0;
                         switch($unit){
                             case "percent":
-                            case "stay":
-                                $price = $value['amount'];
-                                break;
-                            case "fixed":
                                 $price = $total_price * ($value['amount'] / 100);
                                 break;
-                            case "night":
-                                $price = $value['amount'] * $date_diff;
-                                break;
-                            case "person_per_stay":
-                                if(!empty($cart['person'] )){
-                                    $person = $cart['person'];
-                                    $price = $person *  $value['amount'];
-                                }
-                                break;
-                            case "person_per_night":
-                                if(!empty($cart['person'] )){
-                                    $person = $cart['person'];
-                                    $price =  ( $value['amount'] * $person ) * $date_diff;
-                                }
-                                break;
+                            case "fixed":
                             default:
+                                $price = $value['amount'];
+                                break;
                         }
                         if($value['excluded'] == 'yes_not_included'){
                             $total_tax += $price;
@@ -608,6 +611,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             }
             $tax['total_price'] = $total_tax;
             $tax = apply_filters('wpbooking_get_cart_tax_price', $tax, $cart);
+            $tax = apply_filters('wpbooking_get_cart_tax_price_'.$service_type, $tax, $cart);
             return $tax;
         }
 

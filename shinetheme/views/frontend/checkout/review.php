@@ -6,9 +6,7 @@
  * Time: 10:06 AM
  */
 $booking=WPBooking_Checkout_Controller::inst();
-
 $cart=$booking->get_cart();
-
 ?>
 <h5 class="checkout-form-title"><?php _e('Your booking details','wpbooking')?></h5>
 	<?php

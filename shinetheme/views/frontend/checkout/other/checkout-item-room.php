@@ -23,7 +23,6 @@ if(!empty($cart['rooms'])){
                 ?>
                 <tr class="room-<?php echo esc_attr($k) ?> ">
                     <td width="5%"  class="text-center">
-
                         <a class="delete-cart-item tooltip_desc" onclick="return confirm('<?php esc_html_e('Do you want to delete it?','wpbooking') ?>')" href="<?php echo esc_url(add_query_arg(array('delete_item_hotel_room'=>$k),$booking->get_checkout_url())) ?>">
                             <i class="fa fa-trash-o"></i>
                             <span class="tooltip_content"><?php esc_html_e("Remove this room",'wpbooking') ?></span>
