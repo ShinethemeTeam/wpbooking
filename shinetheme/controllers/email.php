@@ -310,6 +310,9 @@ if (!class_exists('WPBooking_Email')) {
                 $headers[] = 'From:' . $from . ' <' . $from_address . '>';
             }
 
+            //Insert header and footer email templates
+            $message = $this->insert_header_footer_email_template($message);
+
             add_filter('wp_mail_content_type', array($this, 'set_html_content_type'));
 
             // Apply CSS to Inline CSS
@@ -391,7 +394,6 @@ if (!class_exists('WPBooking_Email')) {
             WPBooking_Loader::inst()->load_library('shortcodes/emails/checkout_form_field');
         }
 
-
         /**
          * Ajax Preview Booking Email
          *
@@ -415,6 +417,56 @@ if (!class_exists('WPBooking_Email')) {
                 echo($content);
                 die;
             }
+        }
+
+        /**
+         * Get header email templates html
+         *
+         * @since 1.0
+         * @author tienhd
+         *
+         * @return mixed|string|void
+         */
+        function get_header_email_template_html(){
+            $header = wpbooking_get_option('email_header','');
+            $header = apply_filters('wpbooking_header_email_template_html',$header);
+            return $header;
+        }
+        /**
+         * Get header email templates html
+         *
+         * @since 1.0
+         * @author tienhd
+         *
+         * @return mixed|string|void
+         */
+        function get_footer_email_template_html(){
+            $footer = wpbooking_get_option('email_footer','');
+            $footer = apply_filters('wpbooking_footer_email_template_html',$footer);
+            return $footer;
+        }
+
+        /**
+         * Insert header and footer for email templates
+         *
+         * @since 1.0
+         * @author tienhd
+         *
+         * @param $message
+         * @return mixed|string
+         */
+        function insert_header_footer_email_template($message){
+
+            $old_content = $message;
+
+            $message = str_replace('\"','"',$this->get_header_email_template_html());
+
+            $message .= $old_content;
+
+            $message .= str_replace('\"','"',$this->get_footer_email_template_html());
+
+            return $message;
+
         }
 
         static function inst()
