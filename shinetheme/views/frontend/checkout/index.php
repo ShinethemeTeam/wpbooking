@@ -27,7 +27,9 @@ if (empty($cart)) {
             </div>
         </div>
         <div class="wpbooking-checkout-form wpbooking-bootstrap">
+
             <form action="<?php echo home_url('/') ?>" onsubmit="return false" method="post" novalidate>
+                <input class="wpbooking_check_empty_cart" type="hidden" value="true">
                 <div class="row">
                     <div class="col-md-7">
                         <div class="checkout-form-wrap">
@@ -96,8 +98,7 @@ if (empty($cart)) {
                             </label>
                         </div>
                         <div class="checkout-submit-button">
-                            <button type="submit"
-                                    class="wb-btn wb-btn-primary wb-btn-md submit-button" disabled><?php _e('CHECK OUT', 'wpbooking') ?></button>
+                            <button type="submit" class="wb-btn wb-btn-primary wb-btn-md submit-button" disabled><?php _e('CHECK OUT', 'wpbooking') ?></button>
                         </div>
                     </div>
                 </div>

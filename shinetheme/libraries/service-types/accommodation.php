@@ -232,7 +232,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              * @since 1.0
              * @author quandq
              */
-            add_action('template_redirect', array($this, '_delete_cart_item'));
+            add_action('template_redirect', array($this, '_delete_cart_item_hotel_room'));
         }
 
 
@@ -2308,10 +2308,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          * @since 1.0
          * @author quandq
          */
-        function _delete_cart_item()
+        function _delete_cart_item_hotel_room()
         {
-            if (isset($_GET['delete_cart_item'])) {
-                $index = WPBooking_Input::get('delete_cart_item');
+            if (isset($_GET['delete_item_hotel_room'])) {
+                $index = WPBooking_Input::get('delete_item_hotel_room');
                 $booking = WPBooking_Checkout_Controller::inst();
                 $all = $booking->get_cart();
                 if(!empty($all['service_type'])){
