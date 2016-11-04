@@ -35,7 +35,7 @@ echo wpbooking_get_message();
 							?>
 								<tr>
 									<td class="text-center">
-										<a class="delete-cart-item" onclick="return confirm('<?php esc_html_e('Do you want to delete it?','wpbooking') ?>')" href="<?php echo esc_url(add_query_arg(array('delete_cart_item'=>$key),$booking->get_cart_url())) ?>">
+										<a class="delete-cart-item" onclick="return confirm('<?php esc_html_e('Do you want to delete it?','wpbooking') ?>')" href="<?php echo esc_url(add_query_arg(array('delete_item_hotel_room'=>$key),$booking->get_cart_url())) ?>">
 											<i class="fa fa-times"></i>
 										</a></td>
 									<td class="col-cart-item-img"><a href="<?php echo get_permalink($post_id)?>" target="_blank"><?php echo wp_kses($featured['thumb'],array('img'=>array('src'=>array(),'alt'=>array())))?></a></td>
