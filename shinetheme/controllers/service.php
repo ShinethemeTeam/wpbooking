@@ -43,8 +43,8 @@ if (!class_exists('WPBooking_Service_Controller')) {
              * @author dungdt
              * @since 1.0
              */
-            add_action('wp_ajax_wpbooking_calendar_months', array($this, '_calendar_months'));
-            add_action('wp_ajax_nopriv_wpbooking_calendar_months', array($this, '_calendar_months'));
+            //add_action('wp_ajax_wpbooking_calendar_months', array($this, '_calendar_months'));
+            //add_action('wp_ajax_nopriv_wpbooking_calendar_months', array($this, '_calendar_months'));
 
 
             /**

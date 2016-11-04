@@ -15,19 +15,16 @@ if (!class_exists('WPBooking_Order')) {
 
 		function __construct()
 		{
-
             add_action('template_redirect', array($this, '_complete_purchase_validate'));
-
             add_filter('the_content', array($this, '_show_order_information'));
-
-
-
 		}
 
-
-
-
-
+        /**
+         * Complete Purchase Validate
+         *
+         * @since 1.0
+         * @author quandq
+         */
 		function _complete_purchase_validate()
 		{
 			if (is_singular('wpbooking_order')) {
@@ -62,23 +59,20 @@ if (!class_exists('WPBooking_Order')) {
 			}
 		}
 
-
-
-
-
-
-
-
+        /**
+         * Get Content Order Information
+         * @since 1.0
+         * @author quandq
+         *
+         * @param $content
+         * @return string
+         */
 		function _show_order_information($content)
 		{
 			if (get_post_type() == 'wpbooking_order')
 				$content .= wpbooking_load_view('order/content');
-
 			return $content;
 		}
-
-
-
 
 		static function inst()
 		{

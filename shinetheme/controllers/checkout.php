@@ -63,6 +63,12 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             parent::__construct();
         }
 
+        /**
+         * Register Order Status
+         *
+         * @since 1.0
+         * @author quandq
+         */
         function _register_order_status(){
             $order_status = WPBookingConfig()->item('order_status');
             if(!empty($order_status)){
@@ -83,7 +89,9 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
         /**
          * Ajax Checkout Handler
+         *
          * @since 1.0
+         * @author quandq
          */
         function do_checkout()
         {
@@ -275,7 +283,9 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
         /**
          * Ajax Add To Cart Handler
+         *
          * @since 1.0
+         * @author quandq
          * @return string
          */
         function _add_to_cart(){
@@ -367,8 +377,12 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
             die;
         }
+
         /**
          * Return permalink of the Cart Page
+         *
+         * @since 1.0
+         * @author quandq
          * @return false|string
          */
         function get_checkout_url()
@@ -377,12 +391,21 @@ if(!class_exists('WPBooking_Checkout_Controller'))
         }
 
         /**
-         * register shortcode
+         * Register shortcode
+         *
+         * @since 1.0
+         * @author quandq
          */
         function _register_shortcode()
         {
             add_shortcode('wpbooking_checkout_page', array($this, '_render_checkout_shortcode'));
         }
+        /**
+         * CheckOut shortcode
+         *
+         * @since 1.0
+         * @author quandq
+         */
         function _render_checkout_shortcode($attr = array(), $content = FALSE)
         {
             return wpbooking_load_view('checkout/index');
@@ -454,7 +477,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
          *
          * @author quandq
          * @since 1.0
-         *
+         * @param $cart
          */
         function set_cart($cart)
         {

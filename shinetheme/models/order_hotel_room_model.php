@@ -9,10 +9,7 @@ if(!defined( 'ABSPATH' )) {
 if(!class_exists( 'WPBooking_Order_Hotel_Order_Model' )) {
     class WPBooking_Order_Hotel_Order_Model extends WPBooking_Model
     {
-
         static $_inst = false;
-
-
         public function __construct()
         {
             $this->table_version = '1.0.1';
@@ -36,6 +33,16 @@ if(!class_exists( 'WPBooking_Order_Hotel_Order_Model' )) {
 
         }
 
+        /**
+         * Save Order Hotel Room
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @param $data
+         * @param $room_id
+         * @param $order_id
+         */
         function save_order_hotel_room($data, $room_id , $order_id)
         {
             $columns = $this->get_columns();
@@ -56,6 +63,15 @@ if(!class_exists( 'WPBooking_Order_Hotel_Order_Model' )) {
             }
         }
 
+        /**
+         * Get Data Order
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @param $order_id
+         * @return array
+         */
         function get_order($order_id){
             return $this->where('order_id',$order_id)->get()->result();
         }
