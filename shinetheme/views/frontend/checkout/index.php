@@ -49,15 +49,25 @@ if (empty($cart)) {
                                                 'size'=>'12',
                                                 'required'=>false,
                                             ));
+                                            $value = '';
+                                            if(is_user_logged_in()) {
+                                                $customer_id = get_current_user_id();
+                                                $key = str_ireplace("user_","",$v['name']);
+                                                if($key == 'email'){
+                                                    $value = get_the_author_meta( 'email', $customer_id );
+                                                }else{
+                                                    $value= get_user_meta($customer_id,$key,true);
+                                                }
+                                            }
                                             ?>
                                             <div class="col-md-<?php echo esc_html($data['size']) ?>">
                                                 <div class="form-group">
                                                     <label for="<?php echo esc_html($data['name']) ?>"><?php echo esc_html($data['title']) ?> <?php if($data['required']) echo '<span class="required">*</span>'; ?></label>
-                                                    <?php if($data['type'] == 'text'){ ?>
-                                                        <input type="text" class="form-control"  id="<?php echo esc_html($data['name']) ?>" name="<?php echo esc_html($data['name']) ?>" placeholder="<?php echo esc_html($data['placeholder']) ?>" <?php if($data['title']) echo 'required'; ?>>
+                                                    <?php if($data['type'] != 'textarea'){ ?>
+                                                        <input type="<?php echo esc_attr($data['type']) ?>" class="form-control only_number"  id="<?php echo esc_html($data['name']) ?>" name="<?php echo esc_html($data['name']) ?>" placeholder="<?php echo esc_html($data['placeholder']) ?>" <?php if($data['required']) echo 'required'; ?> value="<?php echo esc_html($value) ?>">
                                                         <span class="desc"><?php echo esc_html($data['desc']) ?></span>
                                                     <?php }else{ ?>
-                                                        <textarea name="<?php echo esc_html($data['name']) ?>" class="form-control" rows="4" placeholder="<?php echo esc_html($data['placeholder']) ?>" <?php if($data['title']) echo 'required'; ?>></textarea>
+                                                        <textarea name="<?php echo esc_html($data['name']) ?>" class="form-control" rows="4" placeholder="<?php echo esc_html($data['placeholder']) ?>" <?php if($data['title']) echo 'required'; ?>><?php echo esc_html($value) ?></textarea>
                                                         <span class="desc"><?php echo esc_html($data['desc']) ?></span>
                                                     <?php } ?>
                                                 </div>
@@ -70,7 +80,7 @@ if (empty($cart)) {
                     </div>
                     <div class="col-md-5">
                         <?php echo wpbooking_load_view('cart/cart-total-box') ?>
-                        <h5 class="checkout-form-title"><?php esc_html_e('Payment method', 'wpbooking') ?></h5>
+                        <h5 class="checkout-form-title"><?php esc_html_e('Payment Method', 'wpbooking') ?></h5>
                         <div class="wpbooking-gateways">
                             <?php echo wpbooking_load_view('checkout/gateways') ?>
                         </div>

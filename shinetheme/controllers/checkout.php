@@ -446,7 +446,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
         function get_billing_form_fields(){
             $field_form = array(
                 'user_first_name'       => array(
-                    'title'       => esc_html__( "First name" , "wpbooking" ) ,
+                    'title'       => esc_html__( "First Name" , "wpbooking" ) ,
                     'placeholder' => esc_html__( "First name" , "wpbooking" ) ,
                     'type'        => 'text' ,
                     'name'        => 'user_first_name' ,
@@ -455,7 +455,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                     'rule'        => 'required|max_length[100]' ,
                 ) ,
                 'user_last_name'       => array(
-                    'title'       => esc_html__( "Last name" , "wpbooking" ) ,
+                    'title'       => esc_html__( "Last Name" , "wpbooking" ) ,
                     'placeholder' => esc_html__( "Last name" , "wpbooking" ) ,
                     'type'        => 'text' ,
                     'name'        => 'user_last_name' ,
@@ -494,7 +494,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 'user_postcode_zip'    => array(
                     'title'       => esc_html__( "Postcode / ZIP" , "wpbooking" ) ,
                     'placeholder' => esc_html__( "Postcode / ZIP" , "wpbooking" ) ,
-                    'type'        => 'text' ,
+                    'type'        => 'number' ,
                     'name'        => 'user_postcode_zip' ,
                     'size'        => '6' ,
                     'required'    => false ,
@@ -503,14 +503,14 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 'user_apt_unit'        => array(
                     'title'       => esc_html__( "Apt/ Unit" , "wpbooking" ) ,
                     'placeholder' => esc_html__( "Apt/ Unit" , "wpbooking" ) ,
-                    'type'        => 'text' ,
+                    'type'        => 'number' ,
                     'name'        => 'user_apt_unit' ,
                     'size'        => '6' ,
                     'required'    => false ,
                     'rule'        => '' ,
                 ) ,
                 'user_special_request' => array(
-                    'title'       => esc_html__( "Special request" , "wpbooking" ) ,
+                    'title'       => esc_html__( "Special Request" , "wpbooking" ) ,
                     'placeholder' => esc_html__( "Notes about your order, e.g. special notes for  delivery." , "wpbooking" ) ,
                     'type'        => 'textarea' ,
                     'name'        => 'user_special_request' ,

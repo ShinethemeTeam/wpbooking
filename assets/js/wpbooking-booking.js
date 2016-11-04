@@ -1925,6 +1925,17 @@ jQuery(document).ready(function($){
 
     $('.wb-tabs').wb_tabs();
 
+    $(document).on('change','input[type=number]',function(){
+        $(this).each(function(){
+            var number = $(this).val();
+            number = parseFloat(number);
+            console.log(number);
+            if (isNaN(number)) {
+                number = 0;
+            }
+            $(this).val(number);
+        });
+    });
 });
 
 

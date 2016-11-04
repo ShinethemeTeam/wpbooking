@@ -1778,13 +1778,15 @@ jQuery(document).ready(function( $ ){
     });
 
     $(document).on('change','input[type=number]',function(){
-        var number = $(this).val();
-        number = parseFloat(number);
-        console.log(number);
-        if (isNaN(number)) {
-            number = 0;
-        }
-        $(this).val(number);
+        $(this).each(function(){
+            var number = $(this).val();
+            number = parseFloat(number);
+            console.log(number);
+            if (isNaN(number)) {
+                number = 0;
+            }
+            $(this).val(number);
+        });
     });
 
 });
