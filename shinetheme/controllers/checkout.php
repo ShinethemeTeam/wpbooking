@@ -35,6 +35,15 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             add_action('wp_ajax_nopriv_wpbooking_add_to_cart', array($this, '_add_to_cart'));
 
             /**
+             * Ajax Check Empty Cart
+             *
+             * @since 1.0
+             * @author quandq
+             */
+            add_action('wp_ajax_wpbooking_check_empty_cart', array($this, '_check_empty_cart'));
+            add_action('wp_ajax_nopriv_wpbooking_check_empty_cart', array($this, '_check_empty_cart'));
+
+            /**
              * Register Page CheckOut
              *
              * @since 1.0
@@ -457,7 +466,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
          *
          * @author quandq
          * @since 1.0
-         * 
+         *
          * @return array|mixed|void
          */
         function get_billing_form_fields(){
@@ -600,6 +609,24 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $tax['total_price'] = $total_tax;
             $tax = apply_filters('wpbooking_get_cart_tax_price', $tax, $cart);
             return $tax;
+        }
+
+        /**
+         * Ajax Check Empty Cart
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @return mixed
+         */
+        function _check_empty_cart(){
+            $cart = $this->get_cart();
+            if(!empty($cart)){
+                echo json_encode(array('status'=>'true'));
+            }else{
+                echo json_encode(array('status'=>'false'));
+            }
+           wp_die();
         }
         static function inst()
         {

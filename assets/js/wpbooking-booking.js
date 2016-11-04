@@ -1932,6 +1932,22 @@ jQuery(document).ready(function($){
             $(this).val(number);
         });
     });
+
+   if( $('.wpbooking_check_empty_cart').val() == 'true'){
+       $.ajax({
+           url:wpbooking_params.ajax_url,
+           data:{
+               'action':'wpbooking_check_empty_cart'
+           },
+           dataType:'json',
+           type:'post',
+           success:function(res){
+               if(res.status == 'false'){
+                   location.reload();
+               }
+           }
+       })
+   }
 });
 
 
