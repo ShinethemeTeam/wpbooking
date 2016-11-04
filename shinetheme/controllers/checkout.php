@@ -17,26 +17,37 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 session_start();
             }
             /**
-             * Do Check Out
+             * Ajax Do Check Out
+             *
+             * @since 1.0
+             * @author quandq
              */
             add_action('wp_ajax_wpbooking_do_checkout', array($this, 'do_checkout'));
             add_action('wp_ajax_nopriv_wpbooking_do_checkout', array($this, 'do_checkout'));
 
             /**
              * Ajax Add To Cart
+             *
+             * @since 1.0
+             * @author quandq
              */
             add_action('wp_ajax_wpbooking_add_to_cart', array($this, '_add_to_cart'));
             add_action('wp_ajax_nopriv_wpbooking_add_to_cart', array($this, '_add_to_cart'));
 
             /**
              * Register Page CheckOut
+             *
+             * @since 1.0
+             * @author quandq
              */
             add_action('init', array($this, '_register_shortcode'));
 
 
-
             /**
              * Register Order Status
+             *
+             * @since 1.0
+             * @author quandq
              */
             add_action( 'init',  array($this, '_register_order_status') );
 
@@ -441,8 +452,14 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             return WPBooking_Session::set('wpbooking_cart',$cart);
         }
 
-
-
+        /**
+         * Billing Form Fields
+         *
+         * @author quandq
+         * @since 1.0
+         * 
+         * @return array|mixed|void
+         */
         function get_billing_form_fields(){
             $field_form = array(
                 'user_first_name'       => array(

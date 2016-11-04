@@ -84,11 +84,13 @@ jQuery(document).ready(function($){
     });
     // Order Form
     $('.wpbooking_order_form .submit-button').click(function(){
+        var container = $(this).closest('.search-room-availablity');
         var form=$(this).closest('.wpbooking_order_form');
         //form.find('[name]').removeClass('input-error');
         var me=$(this);
         me.addClass('loading').removeClass('error');
-        form.find('.wpbooking-message').remove();
+        //form.find('.wpbooking-message').remove();
+        container.find('.search_room_alert').html('');
 
         var me=$(this);
         me.addClass('loading');
@@ -117,11 +119,8 @@ jQuery(document).ready(function($){
                     me.addClass('error');
                 }
                 if(res.message){
-                    form.find('.wpbooking-message').remove();
-                    var message=$('<div/>');
-                    message.addClass('wpbooking-message');
-                    message.html(res.message);
-                    me.after(message);
+                    container.find('.search_room_alert').html('');
+                    container.find('.search_room_alert').html(res.message);
                 }
                 if(typeof  res.data!='undefined' && res.data.redirect){
                     window.location=res.data.redirect;
@@ -148,12 +147,9 @@ jQuery(document).ready(function($){
             error:function(e){
                 if(typeof grecaptcha !='undefined')
                     grecaptcha.reset();
-                var message=$('<div/>');
-                message.addClass('wpbooking-message');
-                message.html(e.responseText);
-                me.after(message);
+                container.find('.search_room_alert').html('');
+                container.find('.search_room_alert').html(e.responseText);
                 me.removeClass('loading').addClass('error');
-
             }
         })
     });
