@@ -1838,14 +1838,16 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     foreach($list_room as $room_id => $data){
                         $id = $this->check_availability_order_hotel_room($room_id,$check_in_timestamp, $check_out_timestamp,$data['number']);
                         if(!empty($id)){
-                            $ids_room_not_availability[] = get_the_title($id);
+                            $ids_room_not_availability[] = array('title'=>get_the_title($id),'number'=>$data['number']);
                         }
                     }
                     if(!empty($ids_room_not_availability)){
                         $is_validated = FALSE;
-                        $string = implode(',',$ids_room_not_availability);
-                        $message = esc_html__('Bạn không thể book "%s" ', 'wpbooking','error');
-                        wpbooking_set_message(sprintf($message, $string), 'error');
+                        $message = '';
+                        foreach($ids_room_not_availability as $k_not_availability=>$value_not_availability){
+                            $message .= sprintf(esc_html__('Bạn không thể book %s room "%s" ', 'wpbooking','error'), $value_not_availability['number'],$value_not_availability['title'])."</br>";
+                        }
+                        wpbooking_set_message($message, 'error');
                     }
 
                 }
