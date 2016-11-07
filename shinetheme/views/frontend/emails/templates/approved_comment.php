@@ -38,10 +38,12 @@ if(!empty($comment_data)) {
             <p class="comment"><?php echo do_shortcode($comment_data->comment_content); ?></p>
             <div class="review"><?php echo do_shortcode($review_html); ?></div>
         </div>
+        <?php if($status == 'approved'){ ?>
         <div class="content-footer">
             <a class="btn btn-default" href="<?php echo esc_attr(get_comment_link($comment_data->comment_ID)); ?>"><?php echo esc_html__('Show comment', 'wpbooking'); ?></a>
             <span class="comment_link"><?php echo esc_html__('Can\'t see the button? Try this '); ?><a href="<?php echo esc_url(get_comment_link($comment_data->comment_ID)); ?>"><?php echo esc_html__('Link', 'wpbooking'); ?></a></span>
         </div>
+        <?php } ?>
     </div>
 
 <?php

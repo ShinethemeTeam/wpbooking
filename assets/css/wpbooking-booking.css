@@ -2826,6 +2826,11 @@ a.label:focus {
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .wpbooking-comment-form-rating .rating-stars a {
   color: #f0ad4e;
 }
+@media (max-width: 640px) {
+  .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .wpbooking-comment-form-rating {
+    width: 100%;
+  }
+}
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .wpbooking-comment-form-content {
   clear: both;
   width: 60%;
@@ -2833,6 +2838,11 @@ a.label:focus {
 }
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .wpbooking-comment-form-content p {
   margin-bottom: 15px;
+}
+@media (max-width: 640px) {
+  .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .wpbooking-comment-form-content {
+    width: 100%;
+  }
 }
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .form-submit {
   clear: both;
