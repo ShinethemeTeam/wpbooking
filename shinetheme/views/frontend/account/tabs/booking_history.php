@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 7/4/2016
- * Time: 3:06 PM
- */
 $status=WPBooking_Config::inst()->item('order_status');
 $payment_status=WPBooking_Config::inst()->item('payment_status');
-
 ?>
 <h3 class="tab-page-title">
 	<?php
@@ -50,12 +43,10 @@ $payment_status=WPBooking_Config::inst()->item('payment_status');
 					<button type="submit" class="wb-button"><?php esc_html_e("Filter","wpbooking") ?></button>
 				</div>
 			</div>
-
 		</div>
 		<?php if(WPBooking_Input::get('subtab')){
 			printf('<input type="hidden" name=subtab value=%s>',WPBooking_Input::get('subtab'));
 		} ?>
-		
 		<div class="tablenav top">
 			<?php
 			if($current_tab=WPBooking_Input::get('subtab')){

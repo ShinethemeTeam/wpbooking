@@ -37,20 +37,15 @@ $inject->clear();
 		</td>
 	</tr>
 	</thead>
-
 	<tbody>
 	<?php if ($order_query->have_posts()) {
 		while($order_query->have_posts()) {
 			$order_query->the_post();
-
 			$order = new WB_Order(get_the_ID());
 			$order_data=$order->get_order_data();
-
 			$service=new WB_Service($order_data['post_id']);
-
 			$payment_method = $order_data['payment_method'];
 			$status = $order_data['status'];
-
 			?>
 			<tr>
 				<td class="manage-column column-min ">
@@ -84,7 +79,6 @@ $inject->clear();
 					$user = WPBooking_User::inst();
 					echo balanceTags($user->get_status_booking_history_html($status));
 					?>
-
 					<span class="payment_method"><?php echo balanceTags($user->get_payment_gateway($payment_method)) ?></span>
 				</td>
 				<td class="booking-price text-center">
