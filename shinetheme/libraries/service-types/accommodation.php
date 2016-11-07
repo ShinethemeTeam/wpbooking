@@ -1844,7 +1844,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     if(!empty($ids_room_not_availability)){
                         $is_validated = FALSE;
                         $string = implode(',',$ids_room_not_availability);
-                        $message = esc_html__('Bạn không thể book "%s"', 'wpbooking','error');
+                        $message = esc_html__('Bạn không thể book "%s" ', 'wpbooking','error');
                         wpbooking_set_message(sprintf($message, $string), 'error');
                     }
 

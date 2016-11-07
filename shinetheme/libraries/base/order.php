@@ -249,7 +249,7 @@ if (!class_exists('WB_Order')) {
                 // Update Status of Order Item in database
                 $order_model = WPBooking_Order_Model::inst();
                 $order_model->where('order_id', $this->order_id)->update(array(
-                    'status' => 'failed'
+                    'status' => 'payment_failed'
                 ));
             }
         }
