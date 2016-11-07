@@ -5447,6 +5447,38 @@ a.label:focus {
   border: none;
   text-decoration: underline;
 }
+.wpbooking-myaccount-wrap .wpbooking-account-tab.booking_history .wb-button {
+  background: #666666 none repeat scroll 0 0;
+  border: 1px solid #666666;
+  color: white;
+  font-size: 14px;
+  font-weight: normal;
+  padding: 6px 15px;
+  text-transform: uppercase;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.booking_history .control-filter {
+  margin-bottom: 25px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.dashboard .profile label {
+  font-weight: bold;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.dashboard .profile p {
+  font-style: italic;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.dashboard .profile .full_name p {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.dashboard .profile .content {
+  border: 1px solid #cccccc;
+  padding: 10px 20px 20px;
+}
+.wpbooking-myaccount-wrap .wpbooking-account-tab.dashboard .profile .change_pass {
+  color: #f0ad4e;
+  border-bottom: solid 1px #f0ad4e;
+}
 .wpbooking-myaccount-wrap .reply-inbox .inbox-messages {
   background: rgba(230, 230, 230, 0.2);
   padding: 10px;
@@ -5606,10 +5638,66 @@ a.label:focus {
   display: inline-block;
 }
 .wpbooking-account-table {
+  font-size: 14px;
   table-layout: auto;
 }
 .wpbooking-account-table td {
-  padding: 20px 5px;
+  padding: 20px 8px;
+  position: relative;
+  vertical-align: middle;
+}
+.wpbooking-account-table td .service-name {
+  margin: 0;
+  padding-bottom: 5px;
+  color: #f0ad4e;
+  font-size: 15px;
+}
+.wpbooking-account-table td .service-name a {
+  color: #f0ad4e;
+  border-bottom: 1px solid #f0ad4e;
+}
+.wpbooking-account-table td .item-form-to {
+  font-size: 13px;
+}
+.wpbooking-account-table td .item-form-to span {
+  font-weight: bold;
+}
+.wpbooking-account-table td .link-details {
+  padding-top: 5px;
+}
+.wpbooking-account-table td .link-details a {
+  border: medium none;
+  color: #666666;
+}
+.wpbooking-account-table .booking-data {
+  padding-left: 15px;
+}
+.wpbooking-account-table .booking-data .label {
+  color: #000;
+  border-radius: 0px;
+  border: solid 1px #000;
+  padding: 5px 10px;
+  text-transform: uppercase;
+}
+.wpbooking-account-table .booking-data .label.pay-on-hold {
+  color: #f0ad4e;
+  border: solid 1px #f0ad4e;
+}
+.wpbooking-account-table .booking-data .label.pay-completed {
+  color: #5cb85c;
+  border: solid 1px #5cb85c;
+}
+.wpbooking-account-table .booking-data .label.pay-failed {
+  color: #ff3333;
+  border: solid 1px #ff3333;
+}
+.wpbooking-account-table .booking-data .payment_method {
+  display: block;
+  margin-top: 10px;
+}
+.wpbooking-account-table .booking-price .total {
+  font-size: 17px;
+  font-weight: bold;
 }
 .wpbooking-account-table .column-min {
   width: 1px;
@@ -5625,6 +5713,21 @@ a.label:focus {
 .wpbooking-account-table .order-items a {
   border: none;
   color: #f0ad4e;
+}
+.wpbooking-paginate .page-numbers {
+  border: 1px solid #f0ad4e;
+  color: #f0ad4e;
+  margin-right: 5px;
+  padding: 2px 10px;
+}
+.wpbooking-paginate .page-numbers:hover {
+  background: #f0ad4e;
+  color: #fff;
+}
+.wpbooking-paginate .page-numbers.current {
+  background: transparent;
+  color: #666;
+  border: 1px solid #666;
 }
 .wpbooking-switch-wrap .checkbox {
   display: none;
@@ -5806,6 +5909,120 @@ body.twentysixteen .entry-content .wpbooking-myaccount-wrap a,
 body.twentysixteen .wpbooking-cart-wrap a,
 body.twentysixteen .wpbooking-checkout-wrap a {
   box-shadow: none;
+}
+.wpbooking-bootstrap.p10 .row {
+  margin-right: -10px;
+  margin-left: -10px;
+}
+.wpbooking-bootstrap.p10 .col-xs-1,
+.wpbooking-bootstrap.p10 .col-sm-1,
+.wpbooking-bootstrap.p10 .col-md-1,
+.wpbooking-bootstrap.p10 .col-lg-1,
+.wpbooking-bootstrap.p10 .col-xs-2,
+.wpbooking-bootstrap.p10 .col-sm-2,
+.wpbooking-bootstrap.p10 .col-md-2,
+.wpbooking-bootstrap.p10 .col-lg-2,
+.wpbooking-bootstrap.p10 .col-xs-3,
+.wpbooking-bootstrap.p10 .col-sm-3,
+.wpbooking-bootstrap.p10 .col-md-3,
+.wpbooking-bootstrap.p10 .col-lg-3,
+.wpbooking-bootstrap.p10 .col-xs-4,
+.wpbooking-bootstrap.p10 .col-sm-4,
+.wpbooking-bootstrap.p10 .col-md-4,
+.wpbooking-bootstrap.p10 .col-lg-4,
+.wpbooking-bootstrap.p10 .col-xs-5,
+.wpbooking-bootstrap.p10 .col-sm-5,
+.wpbooking-bootstrap.p10 .col-md-5,
+.wpbooking-bootstrap.p10 .col-lg-5,
+.wpbooking-bootstrap.p10 .col-xs-6,
+.wpbooking-bootstrap.p10 .col-sm-6,
+.wpbooking-bootstrap.p10 .col-md-6,
+.wpbooking-bootstrap.p10 .col-lg-6,
+.wpbooking-bootstrap.p10 .col-xs-7,
+.wpbooking-bootstrap.p10 .col-sm-7,
+.wpbooking-bootstrap.p10 .col-md-7,
+.wpbooking-bootstrap.p10 .col-lg-7,
+.wpbooking-bootstrap.p10 .col-xs-8,
+.wpbooking-bootstrap.p10 .col-sm-8,
+.wpbooking-bootstrap.p10 .col-md-8,
+.wpbooking-bootstrap.p10 .col-lg-8,
+.wpbooking-bootstrap.p10 .col-xs-9,
+.wpbooking-bootstrap.p10 .col-sm-9,
+.wpbooking-bootstrap.p10 .col-md-9,
+.wpbooking-bootstrap.p10 .col-lg-9,
+.wpbooking-bootstrap.p10 .col-xs-10,
+.wpbooking-bootstrap.p10 .col-sm-10,
+.wpbooking-bootstrap.p10 .col-md-10,
+.wpbooking-bootstrap.p10 .col-lg-10,
+.wpbooking-bootstrap.p10 .col-xs-11,
+.wpbooking-bootstrap.p10 .col-sm-11,
+.wpbooking-bootstrap.p10 .col-md-11,
+.wpbooking-bootstrap.p10 .col-lg-11,
+.wpbooking-bootstrap.p10 .col-xs-12,
+.wpbooking-bootstrap.p10 .col-sm-12,
+.wpbooking-bootstrap.p10 .col-md-12,
+.wpbooking-bootstrap.p10 .col-lg-12 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+.wpbooking-bootstrap.p5 .row {
+  margin-right: -5px;
+  margin-left: -5px;
+}
+.wpbooking-bootstrap.p5 .col-xs-1,
+.wpbooking-bootstrap.p5 .col-sm-1,
+.wpbooking-bootstrap.p5 .col-md-1,
+.wpbooking-bootstrap.p5 .col-lg-1,
+.wpbooking-bootstrap.p5 .col-xs-2,
+.wpbooking-bootstrap.p5 .col-sm-2,
+.wpbooking-bootstrap.p5 .col-md-2,
+.wpbooking-bootstrap.p5 .col-lg-2,
+.wpbooking-bootstrap.p5 .col-xs-3,
+.wpbooking-bootstrap.p5 .col-sm-3,
+.wpbooking-bootstrap.p5 .col-md-3,
+.wpbooking-bootstrap.p5 .col-lg-3,
+.wpbooking-bootstrap.p5 .col-xs-4,
+.wpbooking-bootstrap.p5 .col-sm-4,
+.wpbooking-bootstrap.p5 .col-md-4,
+.wpbooking-bootstrap.p5 .col-lg-4,
+.wpbooking-bootstrap.p5 .col-xs-5,
+.wpbooking-bootstrap.p5 .col-sm-5,
+.wpbooking-bootstrap.p5 .col-md-5,
+.wpbooking-bootstrap.p5 .col-lg-5,
+.wpbooking-bootstrap.p5 .col-xs-6,
+.wpbooking-bootstrap.p5 .col-sm-6,
+.wpbooking-bootstrap.p5 .col-md-6,
+.wpbooking-bootstrap.p5 .col-lg-6,
+.wpbooking-bootstrap.p5 .col-xs-7,
+.wpbooking-bootstrap.p5 .col-sm-7,
+.wpbooking-bootstrap.p5 .col-md-7,
+.wpbooking-bootstrap.p5 .col-lg-7,
+.wpbooking-bootstrap.p5 .col-xs-8,
+.wpbooking-bootstrap.p5 .col-sm-8,
+.wpbooking-bootstrap.p5 .col-md-8,
+.wpbooking-bootstrap.p5 .col-lg-8,
+.wpbooking-bootstrap.p5 .col-xs-9,
+.wpbooking-bootstrap.p5 .col-sm-9,
+.wpbooking-bootstrap.p5 .col-md-9,
+.wpbooking-bootstrap.p5 .col-lg-9,
+.wpbooking-bootstrap.p5 .col-xs-10,
+.wpbooking-bootstrap.p5 .col-sm-10,
+.wpbooking-bootstrap.p5 .col-md-10,
+.wpbooking-bootstrap.p5 .col-lg-10,
+.wpbooking-bootstrap.p5 .col-xs-11,
+.wpbooking-bootstrap.p5 .col-sm-11,
+.wpbooking-bootstrap.p5 .col-md-11,
+.wpbooking-bootstrap.p5 .col-lg-11,
+.wpbooking-bootstrap.p5 .col-xs-12,
+.wpbooking-bootstrap.p5 .col-sm-12,
+.wpbooking-bootstrap.p5 .col-md-12,
+.wpbooking-bootstrap.p5 .col-lg-12 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 .wpbooking-bootstrap .row:before,
 .wpbooking-bootstrap .row:after {

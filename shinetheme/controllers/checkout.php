@@ -540,11 +540,11 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                     'required'    => true ,
                     'rule'        => 'required|max_length[100]' ,
                 ) ,
-                'user_postcode_zip'    => array(
+                'user_postcode'    => array(
                     'title'       => esc_html__( "Postcode / ZIP" , "wpbooking" ) ,
                     'placeholder' => esc_html__( "Postcode / ZIP" , "wpbooking" ) ,
                     'type'        => 'number' ,
-                    'name'        => 'user_postcode_zip' ,
+                    'name'        => 'user_postcode' ,
                     'size'        => '6' ,
                     'required'    => false ,
                     'rule'        => '' ,

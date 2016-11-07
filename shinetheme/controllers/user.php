@@ -514,12 +514,14 @@ if (!class_exists('WPBooking_User')) {
 
                         if ($is_validate) {
                             // Start Update
-                            $is_updated = wp_update_user(array(
-                                'ID'           => get_current_user_id(),
-                                'first_name' => WPBooking_Input::post('u_fist_name'),
-                                'last_name' => WPBooking_Input::post('u_last_name'),
-                                'user_email'   => WPBooking_Input::post('u_email'),
-                            ));
+                            $full_name  = WPBooking_Input::post( 'u_fist_name' ) . " " . WPBooking_Input::post( 'u_last_name' );
+                            $is_updated = wp_update_user( array(
+                                'ID'           => get_current_user_id() ,
+                                'first_name'   => WPBooking_Input::post( 'u_fist_name' ) ,
+                                'last_name'    => WPBooking_Input::post( 'u_last_name' ) ,
+                                'user_email'   => WPBooking_Input::post( 'u_email' ) ,
+                                'display_name' => $full_name ,
+                            ) );
 
                             if (is_wp_error($is_updated)) {
                                 wpbooking_set_message($is_updated->get_error_message(), 'danger');
@@ -753,7 +755,7 @@ if (!class_exists('WPBooking_User')) {
                 if (!is_wp_error($create_user)) {
 
                     if(!empty($meta_fields) and is_array($meta_fields)){
-                        $f = array('user_email', 'user_first_name', 'user_last_name', 'user_phone' , 'user_address','user_postcode_zip','user_apt_unit');
+                        $f = array('user_email', 'user_first_name', 'user_last_name', 'user_phone' , 'user_address','user_postcode','user_apt_unit');
                         foreach($meta_fields as $key=>$value){
                             if (array_key_exists($key, $f))
                             update_user_meta($create_user, str_replace('user_','',$key) , $value['value']);
@@ -1297,6 +1299,62 @@ if (!class_exists('WPBooking_User')) {
                 $number = $total_item;
             }
             return $number;
+        }
+
+        /**
+         * Get HTML Status Booking History
+         * @param $status
+         * @return string
+         */
+        function get_status_booking_history_html($status)
+        {
+            if($status){
+                $all_status=WPBooking_Config::inst()->item('order_status');
+                if(array_key_exists($status,$all_status)){
+                    switch($status){
+                        case "on_hold":
+                            return sprintf('<label class="label pay-on-hold">%s</label>',$all_status[$status]['label']);
+                            break;
+                        case "payment_failed":
+                            return sprintf('<label class="label pay-failed">%s</label>',$all_status[$status]['label']);
+                            break;
+                        case "completed":
+                            return sprintf('<label class="label pay-completed">%s</label>',$all_status[$status]['label']);
+                            break;
+                        case "cancelled":
+                        case "refunded":
+                            return sprintf('<label class="label pay-danger">%s</label>',$all_status[$status]['label']);
+                            break;
+
+                        default:
+                            return sprintf('<label class="label label-default">%s</label>',$all_status[$status]['label']);
+                            break;
+                    }
+                }else{
+                    return sprintf('<label class="bold text_up">%s</label>',esc_html__('Unknown','wpbooking'));
+                }
+            }
+        }
+        /**
+         * Gate Gateway Info or Gateway Object
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @param string $need
+         * @return bool|mixed|object|string
+         */
+        function get_payment_gateway($gateway){
+            if($gateway){
+                $gateway_object=WPBooking_Payment_Gateways::inst()->get_gateway($gateway);
+                if($gateway_object){
+                    return $gateway_object->get_info('label');
+                }else{
+                    return $gateway;
+                }
+            }else{
+                return esc_html__('Unknow','wpbooking');
+            }
         }
         static function inst()
         {
