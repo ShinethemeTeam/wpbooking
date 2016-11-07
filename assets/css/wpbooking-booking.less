@@ -5236,7 +5236,6 @@
             }
 
         }
-
         .subsubsub{
             margin:0px;
             padding:0px;
@@ -5251,7 +5250,6 @@
                 }
             }
         }
-
         .tab-page-title{
             font-size: 20px;
             margin:0px;
@@ -5303,7 +5301,6 @@
 
 
         }
-
         .wb-profile-box{
             background: #f2f2f2;
             margin-bottom: 30px;
@@ -5337,7 +5334,6 @@
                 }
             }
         }
-
         .wb-profile-panel{
             margin-bottom: 30px;
             border:1px solid #e6e6e6;
@@ -5357,7 +5353,6 @@
                 padding: 0;
             }
         }
-
         .wb-list-new-messages{
             margin:0px;
             padding:0px;
@@ -5412,7 +5407,46 @@
                 }
             }
         }
-
+        &.booking_history{
+            .wb-button{
+                background: #666666 none repeat scroll 0 0;
+                border: 1px solid #666666;
+                color: white;
+                font-size: 14px;
+                font-weight: normal;
+                padding: 6px 15px;
+                text-transform: uppercase;
+            }
+            .control-filter{
+                margin-bottom: 25px;
+            }
+        }
+        &.dashboard{
+            .profile{
+                label{
+                    font-weight: bold;
+                }
+                p{
+                    font-style: italic;
+                }
+                .full_name{
+                    p{
+                        font-size: 24px;
+                        font-style: normal;
+                        font-weight: bold;
+                        margin-bottom: 30px;
+                    }
+                }
+                .content{
+                    border: 1px solid #cccccc;
+                    padding: 10px 20px 20px;
+                }
+                .change_pass{
+                    color: @maincolor;
+                    border-bottom: solid 1px @maincolor;
+                }
+            }
+        }
     }
 
      .reply-inbox{
@@ -5585,10 +5619,68 @@
 }
 
 .wpbooking-account-table{
-
+    font-size: 14px;
     table-layout: auto;
     td{
-        padding: 20px 5px;
+        padding: 20px 8px;
+        position: relative;
+        vertical-align:middle;
+        .service-name{
+            margin: 0;
+            padding-bottom: 5px;
+            color: @maincolor;
+            font-size: 15px;
+            a{
+                color: @maincolor;
+                border-bottom: 1px solid @maincolor;
+            }
+        }
+        .item-form-to{
+            font-size: 13px;
+            span{
+                font-weight: bold;
+            }
+        }
+        .link-details{
+            padding-top: 5px;
+            a{
+                border: medium none;
+                color: #666666;
+            }
+        }
+    }
+    .booking-data{
+        padding-left: 15px;
+        .label{
+            color: #000;
+            border-radius: 0px;
+            border: solid 1px #000;
+            padding: 5px 10px;
+            text-transform: uppercase;
+        }
+        .label.pay-on-hold{
+            color: @maincolor;
+            border: solid 1px @maincolor;
+        }
+        .label.pay-completed{
+            color: #5cb85c;
+            border: solid 1px #5cb85c;
+        }
+        .label.pay-failed{
+            color: #ff3333;
+            border: solid 1px #ff3333;
+        }
+        .payment_method{
+            display: block;
+            margin-top: 10px;
+        }
+
+    }
+    .booking-price{
+        .total{
+            font-size: 17px;
+            font-weight: bold;
+        }
     }
     .column-min{
         width: 1px;
@@ -5609,7 +5701,23 @@
         }
     }
 }
-
+.wpbooking-paginate{
+    .page-numbers{
+        border: 1px solid @maincolor;
+        color: @maincolor;
+        margin-right: 5px;
+        padding: 2px 10px;
+        &:hover{
+             background: @maincolor;
+             color: #fff;
+        }
+        &.current{
+            background: transparent;
+            color: #666;
+            border: 1px solid #666;
+        }
+    }
+}
 // On-OFF
 .wpbooking-switch-wrap{
     .checkbox{
@@ -5836,6 +5944,30 @@ body{
 // bootstrap custom
 
 .wpbooking-bootstrap{
+    &.p10{
+        .row {
+            margin-right: -10px;
+            margin-left: -10px;
+        }
+        .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+            position: relative;
+            min-height: 1px;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+    }
+    &.p5{
+        .row {
+            margin-right: -5px;
+            margin-left: -5px;
+        }
+        .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+            position: relative;
+            min-height: 1px;
+            padding-right: 5px;
+            padding-left: 5px;
+        }
+    }
     .row:before,
     .row:after{
         display: table;

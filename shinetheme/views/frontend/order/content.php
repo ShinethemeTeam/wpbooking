@@ -124,7 +124,6 @@ do_action('wpbooking_before_order_content');
                                 ?>
                                 <span class="total-title text-color"> <?php _e('Deposit/Pay Now', 'wpbooking') ?></span>
                                 <span class="total-amount text-color"><?php echo WPBooking_Currency::format_money($price_deposit); ?></span>
-
                                 <span class="total-title text-bold"><?php _e('You’ll pay at the property', 'wpbooking') ?></span>
                                 <span class="total-amount text-bold"><?php echo WPBooking_Currency::format_money($property); ?></span>
                             <?php } ?>
@@ -167,7 +166,7 @@ do_action('wpbooking_before_order_content');
                     <p><?php echo esc_html($address) ?></p>
                 </div>
             <?php } ?>
-            <?php if(!empty($postcode_zip = get_post_meta($order_id,'wpbooking_user_postcode_zip',true))){ ?>
+            <?php if(!empty($postcode_zip = get_post_meta($order_id,'wpbooking_user_postcode',true))){ ?>
                 <div class="col-md-6">
                     <label><?php esc_html_e("Postcode / Zip:","wpbooking") ?> </label>
                     <p><?php echo esc_html($postcode_zip) ?></p>

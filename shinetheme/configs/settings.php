@@ -7,7 +7,6 @@ $config['settings'] = array(
 				'id'     => 'general_option',
 				'label'  => __('General Options', 'wpbooking'),
 				'fields' => array(
-
 					array(
 						'id'    => 'currency',
 						'label' => __('Currency Options', 'wpbooking'),
@@ -118,6 +117,27 @@ $config['settings'] = array(
 						'label' => __("Allow Guest Checkout?", 'wpbooking'),
 						'type'  => 'checkbox',
 					),
+                    array(
+                        'label' => esc_html__('Captcha Google', 'wpbooking'),
+                        'type'  => 'title'
+                    ),
+                    array(
+                        'id'    => 'allow_captcha_google_checkout',
+                        'label' => __("Allow Captcha Google Checkout?", 'wpbooking'),
+                        'type'  => 'checkbox',
+                    ),
+                    array(
+                        'id'          => 'google_key_captcha',
+                        'label'       => __("Google key", 'wpbooking'),
+                        'type'        => 'text',
+                        'placeholder' => ''
+                    ),
+                    array(
+                        'id'          => 'google_secret_key_captcha',
+                        'label'       => __("Google secret key", 'wpbooking'),
+                        'type'        => 'text',
+                        'placeholder' => ''
+                    ),
 				)
 			)
 

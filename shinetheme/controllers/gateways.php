@@ -44,6 +44,10 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 
 		/**
 		 * Get all registered gateways
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
 		 * @return WPBooking_Abstract_Payment_Gateway[]
 		 */
 		function get_gateways()
@@ -69,6 +73,10 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 
 		/**
 		 * Return only enabled gateway in the Dashboard
+		 *
+		 * @since 1.0
+		 * @author dungdt
+		 *
 		 * @return array
 		 */
 		function get_available_gateways()

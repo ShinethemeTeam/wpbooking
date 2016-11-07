@@ -40,7 +40,6 @@ if (!class_exists('WPBooking_Order')) {
 						break;
 					case "complete_purchase":
 						$return=WPBooking_Payment_Gateways::inst()->complete_purchase($gateway, $order_id);
-
 						if($return){
 
 							// Update the Order Items

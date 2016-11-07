@@ -13,7 +13,6 @@ if (!class_exists('WPBooking_User')) {
         function __construct()
         {
             add_action('init', array($this, '_add_shortcode'));
-            add_action('wp_enqueue_scripts', array($this, '_add_scripts'));
             /**
              * Login & Register handler
              *
@@ -21,19 +20,6 @@ if (!class_exists('WPBooking_User')) {
              * @since 1.0
              */
             add_action('init', array($this, '_login_register_handler'));
-
-            /**
-             * Ajax Handler Upload Certificate before Register
-             * @author dungdt
-             * @since 1.0
-             */
-            add_action('wp_ajax_nopriv_wpbooking_upload_certificate', array($this, '_ajax_upload_certificate'));
-            /**
-             * Ajax Handler Upload Certificate before Register
-             * @author dungdt
-             * @since 1.0
-             */
-            add_action('wp_ajax_wpbooking_upload_avatar', array($this, '_ajax_upload_avatar'));
 
 
             /**
@@ -43,7 +29,6 @@ if (!class_exists('WPBooking_User')) {
              * @author dungdt
              */
             add_action('wpbooking_register_success', array($this, '_send_registration_email'),10,1);
-            add_action('wpbooking_partner_register_success', array($this, '_send_partner_registration_email'));
 
             /**
              * Get Email Shortcode Content
@@ -78,22 +63,6 @@ if (!class_exists('WPBooking_User')) {
              */
             add_action('init', array($this, 'add_endpoints'));
 
-            /**
-             * Ajax Handler for Enable Property in Your Listing Page
-             *
-             * @since 1.0
-             * @author dungdt
-             */
-            add_action('wp_ajax_wpbooking_enable_property', array($this, '_ajax_enable_property'));
-
-            /**
-             * Check If Current User Can Access My Account page
-             *
-             * @since 1.0
-             * @author dungdt
-             *
-             */
-            add_action('template_redirect', array($this, '_check_myaccount_page_permisison'));
             /**
              * Change avatar
              *
@@ -165,163 +134,6 @@ if (!class_exists('WPBooking_User')) {
         }
 
 
-        /**
-         * Check If Current User Can Access My Account page
-         *
-         * @since 1.0
-         * @author dungdt
-         *
-         */
-        function _check_myaccount_page_permisison()
-        {
-            // Check Profile Tabs, check is not author, can't view profile
-            if($user_id = get_query_var('profile'))
-            {
-                $current_user = get_userdata( $user_id );
-                $allowed_roles = array('editor', 'administrator', 'author');
-                if( ! array_intersect($allowed_roles, $current_user->roles ) ) {
-                    wp_safe_redirect(home_url("/"));
-                    die;
-                }
-            } else {
-                if (is_user_logged_in() and get_query_var('tab') == 'profile' and !current_user_can('publish_posts')) {
-                    wp_safe_redirect(get_permalink(wpbooking_get_option('myaccount-page')));
-                    die;
-                }
-            }
-
-        }
-
-        /**
-         * Ajax Handler for Enable Property
-         *
-         * @since 1.0
-         * @author dungdt
-         *
-         */
-        function _ajax_enable_property()
-        {
-            $res = array(
-                'status' => 0
-            );
-            $validator = new WPBooking_Form_Validator();
-            $validator->set_rules('post_id', esc_html__('Post ID', 'wpbooking'), 'required');
-            $validator->set_rules('status', esc_html__('Status', 'wpbooking'), 'required');
-
-            $service = new WB_Service(WPBooking_Input::post('post_id'));
-
-            if ($validator->run()) {
-                if (current_user_can('manage_options') or get_current_user_id() == $service->get_author('ID')) {
-                    $service->update_meta('enable_property', WPBooking_Input::post('status'));
-                    $res['status'] = 1;
-                } else {
-                    $res['message'] = esc_html__('You don not have permission to do that', 'wpbooking');
-                }
-            } else {
-                $res['message'] = $validator->error_string();
-            }
-
-            echo json_encode($res);
-            die;
-        }
-
-        /**
-         * Upload Certificate Ajax Handler
-         *
-         * @since 1.0
-         * @author dungdt
-         */
-        function _ajax_upload_certificate()
-        {
-            $res = array(
-                'status' => 1
-
-            );
-            if (!function_exists('wp_handle_upload')) {
-                require_once(ABSPATH . 'wp-admin/includes/file.php');
-            }
-
-            if (empty($_FILES['image'])) {
-                echo json_encode(array(
-                    'status'  => 0,
-                    'message' => esc_html__('You did not select any file', 'wpbooking')
-                ));
-                die;
-            }
-            $uploadedfile = $_FILES['image'];
-
-            $size_file = $uploadedfile["size"];
-
-            if ($size_file > (1024 * 1024 * 2)) {
-                $res['status'] = 0;
-                $res['message'] = esc_html__('Max upload size is 2mb', 'wpbooking');
-            } else {
-                $allowed_file_types = array('jpg' => 'image/jpg', 'jpeg' => 'image/jpeg', 'gif' => 'image/gif', 'png' => 'image/png');
-                $overrides = array('test_form' => FALSE, 'mimes' => $allowed_file_types);
-
-                $movefile = wp_handle_upload($uploadedfile, $overrides);
-
-                if ($movefile && !isset($movefile['error'])) {
-                    $res['image'] = $movefile;
-
-                } else {
-                    $res['status'] = FALSE;
-                    $res['message'] = $movefile['error'];
-                }
-            }
-
-            echo json_encode($res);
-            die;
-        }
-
-        /**
-         * Upload Avatar Ajax Handler
-         *
-         * @since 1.0
-         * @author dungdt
-         */
-        function _ajax_upload_avatar()
-        {
-            $res = array(
-                'status' => 1
-
-            );
-            if (!function_exists('wp_handle_upload')) {
-                require_once(ABSPATH . 'wp-admin/includes/file.php');
-            }
-
-            if (empty($_FILES['image'])) {
-                echo json_encode(array(
-                    'status'  => 0,
-                    'message' => esc_html__('You did not select any file', 'wpbooking')
-                ));
-                die;
-            }
-            $uploadedfile = $_FILES['image'];
-
-            $size_file = $uploadedfile["size"];
-
-            if ($size_file > (1024 * 1024 * 2)) {
-                $res['status'] = 0;
-                $res['message'] = esc_html__('Max upload size is 2mb', 'wpbooking');
-            } else {
-                $allowed_file_types = array('jpg' => 'image/jpg', 'jpeg' => 'image/jpeg', 'gif' => 'image/gif', 'png' => 'image/png');
-                $overrides = array('test_form' => FALSE, 'mimes' => $allowed_file_types);
-
-                $movefile = wp_handle_upload($uploadedfile, $overrides);
-
-                if ($movefile && !isset($movefile['error'])) {
-                    $res['image'] = $movefile;
-
-                } else {
-                    $res['status'] = FALSE;
-                    $res['message'] = $movefile['error'];
-                }
-            }
-
-            echo json_encode($res);
-            die;
-        }
 
         /**
          * Login & Register handler
@@ -363,17 +175,11 @@ if (!class_exists('WPBooking_User')) {
 
             }
 
-
             // Register
             if (WPBooking_Input::post('action') == 'wpbooking_do_register') {
                 $this->_do_register();
             }
 
-            // Partner Register
-            if (WPBooking_Input::post('action') == 'wpbooking_do_partner_register') {
-                $this->_do_partner_register();
-
-            }
         }
 
         /**
@@ -440,94 +246,6 @@ if (!class_exists('WPBooking_User')) {
             }
         }
 
-        /**
-         * Do Register for Partner
-         *
-         * @since 1.0
-         * @author dungdt
-         */
-        function _do_partner_register()
-        {
-            $validate = new WPBooking_Form_Validator();
-            $validate->set_rules('login', esc_html__('Username', 'wpbooking'), 'required|max_length[100]|is_unique[users.user_login]');
-            $validate->set_rules('email', esc_html__('Email', 'wpbooking'), 'required|max_length[100]|valid_email|is_unique[users.user_email]');
-            $validate->set_rules('password', esc_html__('Password', 'wpbooking'), 'required|min_length[6]|max_length[100]');
-            $validate->set_rules('repassword', esc_html__('Re-Type Password', 'wpbooking'), 'required|min_length[6]|max_length[100]|matches[password]');
-            $validate->set_rules('service_type[]', esc_html__('Certificate', 'wpbooking'), 'required');
-            $validate->set_rules('term_condition', esc_html__('Term & Condition', 'wpbooking'), 'required');
-
-            $is_validated = TRUE;
-
-            if (!$validate->run()) {
-
-                $is_validated = FALSE;
-
-                // Validate Certificate Upload
-                $is_select_service = FALSE;
-                $service_type = WPBooking_Input::post('service_type');
-                if (is_array($service_type) and !empty($service_type)) {
-                    foreach ($service_type as $k => $v) {
-                        if (!empty($v[$k]['name'])) $is_select_service = TRUE;
-                    }
-                }
-
-                if (!$is_select_service) {
-                    $is_validated = FALSE;
-                    $validate->set_error_message('service_type', esc_html__('Please select at lease one Service Type!', 'wpbooking'));
-                }
-
-
-                wpbooking_set_message($validate->error_string(), 'danger');
-            }
-
-
-            // Allow to add filter before register
-            $is_validated = apply_filters('wpbooking_partner_register_validate', $is_validated);
-
-
-            if ($is_validated) {
-                // Start Create User
-                $user_email = WPBooking_Input::post('email');
-                $user_name = WPBooking_Input::post('login');
-                $password = WPBooking_Input::post('password');
-                $user_id = wp_insert_user(array(
-                    'user_login' => $user_name,
-                    'user_pass'  => $password,
-                    'user_email' => $user_email,
-                    'role'       => 'author'
-                ));
-                if (is_wp_error($user_id)) {
-
-                    wpbooking_set_message(esc_html__('Can not create user. Please try it again later', 'wpbooking'), 'danger');
-                    do_action('wpbooking_partner_register_failed', $user_id);
-
-                } else {
-                    // Update Status
-                    update_user_meta($user_id, 'wpbooking_register_as_partner', 1);
-                    // Service Access
-                    $service_type = WPBooking_Input::post('service_type');
-                    if (is_array($service_type) and !empty($service_type)) {
-                        foreach ($service_type as $k => $v) {
-                            if ($v['name']) {
-                                update_user_meta($user_id, 'wpbooking_service_type_access_' . $k, 1);
-                                if ($v['certificate']) update_user_meta($user_id, 'wpbooking_service_type_certificate_' . $k, $v['certificate']);
-                            } else {
-                                update_user_meta($user_id, 'wpbooking_service_type_access_' . $k, 0);
-                            }
-
-                        }
-                    }
-
-                    wpbooking_set_message(esc_html__('Your account is registered successfully. You can login now', 'wpbooking'), 'success');
-
-                    // Hook after Register Success, maybe sending some email...etc
-                    /**
-                     * @see WPBooking_User::_send_partner_registration_email()
-                     */
-                    do_action('wpbooking_partner_register_success', $user_id);
-                }
-            }
-        }
 
         /**
          * Hook Callback for Send Email after Registration, using templates in admin
@@ -566,40 +284,6 @@ if (!class_exists('WPBooking_User')) {
 
                 WPBooking_Email::inst()->send($to, $subject, $content);
             }
-        }
-
-        /**
-         * Hook Callback for Send Email For PARTNER after Registration, using templates in admin
-         *
-         * @since 1.0
-         * @author dungdt
-         *
-         * @param $user_id
-         */
-        function _send_partner_registration_email($user_id)
-        {
-            $user_data = get_userdata($user_id);
-            $title = $user_data->user_nicename . " - " . $user_data->user_email . " - " . $user_data->user_registered;
-            $subject = sprintf(esc_html__('New Register Partner: %s', 'wpbooking'), $title);
-
-            // Send To Admin
-            if (wpbooking_get_option('on_registration_partner_email_admin') and wpbooking_get_option('registration_partner_email_to_admin')) {
-                $to = wpbooking_get_option('system_email');
-                $content = do_shortcode(wpbooking_get_option('registration_partner_email_to_admin'));
-                $content = $this->replace_email_shortcode($content, $user_id);
-
-                WPBooking_Email::inst()->send($to, $subject, $content);
-            }
-
-            // Send To Partner
-            if (wpbooking_get_option('on_registration_partner_email_partner') and wpbooking_get_option('registration_partner_email_to_partner')) {
-                $to = $user_data->user_email;
-                $content = do_shortcode(wpbooking_get_option('registration_partner_email_to_partner'));
-                $content = $this->replace_email_shortcode($content, $user_id);
-
-                WPBooking_Email::inst()->send($to, $subject, $content);
-            }
-
         }
 
         /**
@@ -726,38 +410,6 @@ if (!class_exists('WPBooking_User')) {
             }
         }
 
-        /**
-         * Add Js, CSS To Account Page
-         *
-         * @since 1.0
-         * @author dungdt
-         */
-        function _add_scripts()
-        {
-            if (get_query_var('service')) {
-                wp_enqueue_style('full-calendar', wpbooking_admin_assets_url('/css/fullcalendar.min.css'), FALSE, '1.1.6');
-
-                wp_enqueue_script('moment-js', wpbooking_admin_assets_url('js/moment.min.js'), array('jquery'), null, TRUE);
-
-                wp_enqueue_script('full-calendar', wpbooking_admin_assets_url('js/fullcalendar.min.js'), array('jquery', 'moment-js'), null, TRUE);
-
-                wp_enqueue_script('fullcalendar-lang', wpbooking_admin_assets_url('/js/lang-all.js'), array('jquery'), null, TRUE);
-
-                wp_enqueue_script('wpbooking-calendar-room', wpbooking_admin_assets_url('js/wpbooking-calendar-room.js'), array('jquery', 'jquery-ui-datepicker'), null, TRUE);
-            }
-
-            if (in_array(get_query_var('tab'), array('orders', 'booking_history')) and WPBooking_Input::get('subtab') == 'calendar') {
-
-                wp_enqueue_style('full-calendar', wpbooking_admin_assets_url('/css/fullcalendar.min.css'), FALSE, '1.1.6');
-
-                wp_enqueue_script('moment-js', wpbooking_admin_assets_url('js/moment.min.js'), array('jquery'), null, TRUE);
-
-                wp_enqueue_script('full-calendar', wpbooking_admin_assets_url('js/fullcalendar.min.js'), array('jquery', 'moment-js'), null, TRUE);
-
-                wp_enqueue_script('fullcalendar-lang', wpbooking_admin_assets_url('/js/lang-all.js'), array('jquery'), null, TRUE);
-
-            }
-        }
 
         /**
          * Hook callback for Handle My Account Page Actions
@@ -853,12 +505,14 @@ if (!class_exists('WPBooking_User')) {
 
                         if ($is_validate) {
                             // Start Update
-                            $is_updated = wp_update_user(array(
-                                'ID'           => get_current_user_id(),
-                                'first_name' => WPBooking_Input::post('u_fist_name'),
-                                'last_name' => WPBooking_Input::post('u_last_name'),
-                                'user_email'   => WPBooking_Input::post('u_email'),
-                            ));
+                            $full_name  = WPBooking_Input::post( 'u_fist_name' ) . " " . WPBooking_Input::post( 'u_last_name' );
+                            $is_updated = wp_update_user( array(
+                                'ID'           => get_current_user_id() ,
+                                'first_name'   => WPBooking_Input::post( 'u_fist_name' ) ,
+                                'last_name'    => WPBooking_Input::post( 'u_last_name' ) ,
+                                'user_email'   => WPBooking_Input::post( 'u_email' ) ,
+                                'display_name' => $full_name ,
+                            ) );
 
                             if (is_wp_error($is_updated)) {
                                 wpbooking_set_message($is_updated->get_error_message(), 'danger');
@@ -1092,7 +746,7 @@ if (!class_exists('WPBooking_User')) {
                 if (!is_wp_error($create_user)) {
 
                     if(!empty($meta_fields) and is_array($meta_fields)){
-                        $f = array('user_email', 'user_first_name', 'user_last_name', 'user_phone' , 'user_address','user_postcode_zip','user_apt_unit');
+                        $f = array('user_email', 'user_first_name', 'user_last_name', 'user_phone' , 'user_address','user_postcode','user_apt_unit');
                         foreach($meta_fields as $key=>$value){
                             if (array_key_exists($key, $f))
                             update_user_meta($create_user, str_replace('user_','',$key) , $value['value']);
@@ -1531,162 +1185,13 @@ if (!class_exists('WPBooking_User')) {
         }
 
 
-
-        /**
-         * List Preferred Language
-         *
-         * @since 1.0
-         * @author quandq
-         *
-         * @return array
-         */
-        static function _get_list_preferred_language(){
-            $language_codes = array(
-                'en' => 'English' ,
-                'aa' => 'Afar' ,
-                'ab' => 'Abkhazian' ,
-                'af' => 'Afrikaans' ,
-                'am' => 'Amharic' ,
-                'ar' => 'Arabic' ,
-                'as' => 'Assamese' ,
-                'ay' => 'Aymara' ,
-                'az' => 'Azerbaijani' ,
-                'ba' => 'Bashkir' ,
-                'be' => 'Byelorussian' ,
-                'bg' => 'Bulgarian' ,
-                'bh' => 'Bihari' ,
-                'bi' => 'Bislama' ,
-                'bn' => 'Bengali/Bangla' ,
-                'bo' => 'Tibetan' ,
-                'br' => 'Breton' ,
-                'ca' => 'Catalan' ,
-                'co' => 'Corsican' ,
-                'cs' => 'Czech' ,
-                'cy' => 'Welsh' ,
-                'da' => 'Danish' ,
-                'de' => 'German' ,
-                'dz' => 'Bhutani' ,
-                'el' => 'Greek' ,
-                'eo' => 'Esperanto' ,
-                'es' => 'Spanish' ,
-                'et' => 'Estonian' ,
-                'eu' => 'Basque' ,
-                'fa' => 'Persian' ,
-                'fi' => 'Finnish' ,
-                'fj' => 'Fiji' ,
-                'fo' => 'Faeroese' ,
-                'fr' => 'French' ,
-                'fy' => 'Frisian' ,
-                'ga' => 'Irish' ,
-                'gd' => 'Scots/Gaelic' ,
-                'gl' => 'Galician' ,
-                'gn' => 'Guarani' ,
-                'gu' => 'Gujarati' ,
-                'ha' => 'Hausa' ,
-                'hi' => 'Hindi' ,
-                'hr' => 'Croatian' ,
-                'hu' => 'Hungarian' ,
-                'hy' => 'Armenian' ,
-                'ia' => 'Interlingua' ,
-                'ie' => 'Interlingue' ,
-                'ik' => 'Inupiak' ,
-                'in' => 'Indonesian' ,
-                'is' => 'Icelandic' ,
-                'it' => 'Italian' ,
-                'iw' => 'Hebrew' ,
-                'ja' => 'Japanese' ,
-                'ji' => 'Yiddish' ,
-                'jw' => 'Javanese' ,
-                'ka' => 'Georgian' ,
-                'kk' => 'Kazakh' ,
-                'kl' => 'Greenlandic' ,
-                'km' => 'Cambodian' ,
-                'kn' => 'Kannada' ,
-                'ko' => 'Korean' ,
-                'ks' => 'Kashmiri' ,
-                'ku' => 'Kurdish' ,
-                'ky' => 'Kirghiz' ,
-                'la' => 'Latin' ,
-                'ln' => 'Lingala' ,
-                'lo' => 'Laothian' ,
-                'lt' => 'Lithuanian' ,
-                'lv' => 'Latvian/Lettish' ,
-                'mg' => 'Malagasy' ,
-                'mi' => 'Maori' ,
-                'mk' => 'Macedonian' ,
-                'ml' => 'Malayalam' ,
-                'mn' => 'Mongolian' ,
-                'mo' => 'Moldavian' ,
-                'mr' => 'Marathi' ,
-                'ms' => 'Malay' ,
-                'mt' => 'Maltese' ,
-                'my' => 'Burmese' ,
-                'na' => 'Nauru' ,
-                'ne' => 'Nepali' ,
-                'nl' => 'Dutch' ,
-                'no' => 'Norwegian' ,
-                'oc' => 'Occitan' ,
-                'om' => '(Afan)/Oromoor/Oriya' ,
-                'pa' => 'Punjabi' ,
-                'pl' => 'Polish' ,
-                'ps' => 'Pashto/Pushto' ,
-                'pt' => 'Portuguese' ,
-                'qu' => 'Quechua' ,
-                'rm' => 'Rhaeto-Romance' ,
-                'rn' => 'Kirundi' ,
-                'ro' => 'Romanian' ,
-                'ru' => 'Russian' ,
-                'rw' => 'Kinyarwanda' ,
-                'sa' => 'Sanskrit' ,
-                'sd' => 'Sindhi' ,
-                'sg' => 'Sangro' ,
-                'sh' => 'Serbo-Croatian' ,
-                'si' => 'Singhalese' ,
-                'sk' => 'Slovak' ,
-                'sl' => 'Slovenian' ,
-                'sm' => 'Samoan' ,
-                'sn' => 'Shona' ,
-                'so' => 'Somali' ,
-                'sq' => 'Albanian' ,
-                'sr' => 'Serbian' ,
-                'ss' => 'Siswati' ,
-                'st' => 'Sesotho' ,
-                'su' => 'Sundanese' ,
-                'sv' => 'Swedish' ,
-                'sw' => 'Swahili' ,
-                'ta' => 'Tamil' ,
-                'te' => 'Tegulu' ,
-                'tg' => 'Tajik' ,
-                'th' => 'Thai' ,
-                'ti' => 'Tigrinya' ,
-                'tk' => 'Turkmen' ,
-                'tl' => 'Tagalog' ,
-                'tn' => 'Setswana' ,
-                'to' => 'Tonga' ,
-                'tr' => 'Turkish' ,
-                'ts' => 'Tsonga' ,
-                'tt' => 'Tatar' ,
-                'tw' => 'Twi' ,
-                'uk' => 'Ukrainian' ,
-                'ur' => 'Urdu' ,
-                'uz' => 'Uzbek' ,
-                'vi' => 'Vietnamese' ,
-                'vo' => 'Volapuk' ,
-                'wo' => 'Wolof' ,
-                'xh' => 'Xhosa' ,
-                'yo' => 'Yoruba' ,
-                'zh' => 'Chinese' ,
-                'zu' => 'Zulu' ,
-            );
-            return $language_codes;
-        }
         /**
          * Get Detail Rate
          *
          * @since 1.0
          * @author quandq
          *
-         * @return number
+         * @return array
          */
         static function get_detail_rate($user_id){
             $data = array("rate"=>0,'total'=>0);
@@ -1753,6 +1258,62 @@ if (!class_exists('WPBooking_User')) {
                 $number = $total_item;
             }
             return $number;
+        }
+
+        /**
+         * Get HTML Status Booking History
+         * @param $status
+         * @return string
+         */
+        function get_status_booking_history_html($status)
+        {
+            if($status){
+                $all_status=WPBooking_Config::inst()->item('order_status');
+                if(array_key_exists($status,$all_status)){
+                    switch($status){
+                        case "on_hold":
+                            return sprintf('<label class="label pay-on-hold">%s</label>',$all_status[$status]['label']);
+                            break;
+                        case "payment_failed":
+                            return sprintf('<label class="label pay-failed">%s</label>',$all_status[$status]['label']);
+                            break;
+                        case "completed":
+                            return sprintf('<label class="label pay-completed">%s</label>',$all_status[$status]['label']);
+                            break;
+                        case "cancelled":
+                        case "refunded":
+                            return sprintf('<label class="label pay-danger">%s</label>',$all_status[$status]['label']);
+                            break;
+
+                        default:
+                            return sprintf('<label class="label label-default">%s</label>',$all_status[$status]['label']);
+                            break;
+                    }
+                }else{
+                    return sprintf('<label class="bold text_up">%s</label>',esc_html__('Unknown','wpbooking'));
+                }
+            }
+        }
+        /**
+         * Gate Gateway Info or Gateway Object
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @param string $need
+         * @return bool|mixed|object|string
+         */
+        function get_payment_gateway($gateway){
+            if($gateway){
+                $gateway_object=WPBooking_Payment_Gateways::inst()->get_gateway($gateway);
+                if($gateway_object){
+                    return $gateway_object->get_info('label');
+                }else{
+                    return $gateway;
+                }
+            }else{
+                return esc_html__('Unknow','wpbooking');
+            }
         }
         static function inst()
         {

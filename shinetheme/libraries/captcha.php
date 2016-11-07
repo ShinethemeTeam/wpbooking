@@ -12,20 +12,31 @@ if(!class_exists('WPBooking_Captcha'))
         static $_inst;
         protected $_api_key=array(
             'recaptcha'=>array(
-                'key'=>'6Lc96QoUAAAAAFsJQAGm3cendkOdMaOjYic0g33H',
-                'secret_key'=>'6Lc96QoUAAAAAHpTMn_9UuwdbKQPDSq9XvBxNU7T'
+                'key'=>'',
+                'secret_key'=>''
             )
         );
         function __construct()
         {
-            add_action('wp_enqueue_scripts',array($this,'_add_scripts'));
-
-            // Validate Captcha on Do Check Out
-            //add_filter('wpbooking_do_checkout_validate',array($this,'_validate_do_checkout_captcha'),10,2);
-            //parent::__construct();
+            add_action('init',array($this,'init'));
         }
-
-
+        function init(){
+            $this->_api_key = array(
+                'recaptcha'=>array(
+                    'key'=>wpbooking_get_option('google_key_captcha'),
+                    'secret_key'=>wpbooking_get_option('google_secret_key_captcha')
+                )
+            );
+            add_action('wp_enqueue_scripts',array($this,'_add_scripts'));
+            // Validate Captcha on Do Check Out
+            if($this->_is_check_allow_captcha()){
+                add_filter('wpbooking_do_checkout_validate',array($this,'_validate_do_checkout_captcha'),10,2);
+            }
+        }
+        function _is_check_allow_captcha(){
+            $allow = wpbooking_get_option('allow_captcha_google_checkout',false);
+            return $allow;
+        }
         /**
          * Add Some Scripts for captcha libraries
          *
@@ -52,8 +63,11 @@ if(!class_exists('WPBooking_Captcha'))
          */
         function get_recaptcha()
         {
-            wp_enqueue_script('recaptcha');
-            return '<div id="wpbooking_recaptcha_field" class="g-recaptcha" data-sitekey="'.$this->_api_key['recaptcha']['key'].'"></div>';
+            if($this->_is_check_allow_captcha()){
+                wp_enqueue_script('recaptcha');
+                return '<div id="wpbooking_recaptcha_field" class="g-recaptcha" data-sitekey="'.$this->_api_key['recaptcha']['key'].'"></div>';
+            }
+
         }
 
         /**
