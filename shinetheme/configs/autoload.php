@@ -60,7 +60,6 @@ $autoload['controller']=array(
 	'gateways',
 	'email',
 	'checkout',
-	'inbox'
 );
 
 $autoload['model']=array(
