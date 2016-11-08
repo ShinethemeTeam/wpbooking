@@ -1403,7 +1403,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         )as table_availability
                 )
             )";
-            if($check_out < $check_in){
+            if($check_out <= $check_in){
                 $sql = "
                         SELECT
                             {$wpdb->posts}.ID

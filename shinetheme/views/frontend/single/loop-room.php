@@ -81,6 +81,7 @@ $service_room = new WB_Service(get_the_ID());
             }
             echo WPBooking_Currency::format_money($price);
             ?>
+            <!--<button class="wb-button button_show_price"><?php /*esc_html_e("Hyperlink Show Price","wpbooking") */?></button>-->
         </div>
         <div class="room-number">
             <select class="form-control option_number_room" name="wpbooking_room[<?php the_ID() ?>][number_room]" data-price-base="<?php echo esc_attr($price) ?>" >
