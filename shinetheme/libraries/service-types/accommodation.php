@@ -1236,7 +1236,30 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         break;
                 }
             }
-
+            $sql = "
+            {$wpdb->posts}.ID IN (
+                    (
+                        SELECT
+                            hotel_id
+                        FROM
+                            (
+                                SELECT
+                                    {$wpdb->posts}.ID AS room_id,
+                                    {$wpdb->posts}.post_parent AS hotel_id
+                                FROM
+                                    {$wpdb->posts}
+                                JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id
+                                AND {$wpdb->postmeta}.meta_key = 'room_number'
+                                WHERE
+                                    {$wpdb->posts}.post_type = 'wpbooking_hotel_room'
+                                AND {$wpdb->postmeta}.meta_value > 0
+                                GROUP BY
+                                    hotel_id
+                            ) AS ID
+                    )
+                )
+            ";
+            $injection->where($sql,false,true);
             parent::_add_default_query_hook();
 
         }
