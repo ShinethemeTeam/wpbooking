@@ -87,9 +87,11 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
          * @param $order_id
          * @since 1.0
          */
-        function complete_purchase($order_id)
+        function complete_purchase($order_id,$status='completed')
         {
-            $this->where('order_id', $order_id)->update(array('status' => 'completed', 'status' => 'completed'));
+            $this->where( 'order_id' , $order_id )->update( array(
+                'status' => $status
+            ) );
         }
 
 

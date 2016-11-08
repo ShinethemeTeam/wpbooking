@@ -10,21 +10,25 @@ $payment_status=WPBooking_Config::inst()->item('payment_status');
 	<form action="" method="get">
 		<div class="control-filter wpbooking-bootstrap p5">
 			<div class="row">
+				<?php
+				$list_service_type = WPBooking_Service_Controller::inst()->get_service_types();
+				if(!empty($list_service_type) and count($list_service_type) > 1):
+				?>
+					<div class="col-md-3">
+						<?php
+						$wpbooking_service_type = WPBooking_Input::request('wpbooking_service_type');
+						?>
+						<select class="form-control" name="wpbooking_service_type">
+							<option value=""><?php esc_html_e("Service Type","wpbooking") ?></option>
+							<?php if(!empty($list_service_type)){
+								foreach($list_service_type as $k=>$v){
+									echo "<option ".selected($k,$wpbooking_service_type,false)." value='{$k}'>{$v->get_info('label')}</option>";
+								}
+							} ?>
+						</select>
+					</div>
+				<?php endif; ?>
 				<div class="col-md-3">
-					<?php
-					$list_service_type = WPBooking_Service_Controller::inst()->get_service_types();
-					$wpbooking_service_type = WPBooking_Input::request('wpbooking_service_type');
-					?>
-					<select class="form-control" name="wpbooking_service_type">
-						<option value=""><?php esc_html_e("Service Type","wpbooking") ?></option>
-						<?php if(!empty($list_service_type)){
-							foreach($list_service_type as $k=>$v){
-								echo "<option ".selected($k,$wpbooking_service_type,false)." value='{$k}'>{$v->get_info('label')}</option>";
-							}
-						} ?>
-					</select>
-				</div>
-				<div class="col-md-2">
 					<?php
 					$all_status=WPBooking_Config::inst()->item('order_status');
 					$status = WPBooking_Input::request('wpbooking_status');

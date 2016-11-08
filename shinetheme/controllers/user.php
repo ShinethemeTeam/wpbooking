@@ -402,6 +402,13 @@ if (!class_exists('WPBooking_User')) {
             if (in_array(WPBooking_Input::get('email'), $allowed)) {
 
                 $content = wpbooking_get_option(WPBooking_Input::get('email'));
+
+                $head =  wpbooking_get_option("email_header");
+
+                $footer = wpbooking_get_option("email_footer");
+
+                $content = $head.$content.$footer;
+
                 $content = do_shortcode($content);
 
                 // Apply Default Shortcode Content
@@ -1327,7 +1334,7 @@ if (!class_exists('WPBooking_User')) {
                             break;
 
                         default:
-                            return sprintf('<label class="label label-default">%s</label>',$all_status[$status]['label']);
+                            return sprintf('<label class="label pay-on-hold">%s</label>',$all_status[$status]['label']);
                             break;
                     }
                 }else{

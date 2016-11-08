@@ -97,9 +97,9 @@ if (!class_exists('WPBooking_Email')) {
                 $this->send_customer_email($order_id);
             }
 
-            if (wpbooking_get_option('on_booking_email_author')) {
+            /*if (wpbooking_get_option('on_booking_email_author')) {
                 $this->send_partner_email($order_id);
-            }
+            }*/
 
             if (wpbooking_get_option('on_booking_email_admin')) {
                 $this->send_admin_email($order_id);
@@ -410,8 +410,17 @@ if (!class_exists('WPBooking_Email')) {
             if (in_array(WPBooking_Input::get('email'), $allowed)) {
 
                 $content = wpbooking_get_option(WPBooking_Input::get('email'));
+
                 $content = $this->replaceShortcode($content);
+
+                $head =  wpbooking_get_option("email_header");
+
+                $footer = wpbooking_get_option("email_footer");
+
+                $content = $head.$content.$footer;
+
                 $content = do_shortcode($content);
+
 
                 $content = WPBooking_Email::inst()->apply_css($content);
                 echo($content);

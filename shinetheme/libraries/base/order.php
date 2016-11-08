@@ -218,14 +218,22 @@ if (!class_exists('WB_Order')) {
         {
             if ($this->order_id) {
                 // Update Current Order
+
+                $data = $this->get_order_data();
+
+                $status = 'completed';
+
+                if(!empty($data['deposit_price']) and $data['deposit_price'] > 0){
+                    $status = 'completed_a_part';
+                }
+
                 wp_update_post(array(
                     'ID'=>$this->order_id,
-                    'post_status'=>'completed'
+                    'post_status'=>$status
                 ));
-
                 // Update Status of Order Item in database
                 $order_model = WPBooking_Order_Model::inst();
-                $order_model->complete_purchase($this->order_id);
+                $order_model->complete_purchase($this->order_id,$status);
             }
         }
 
