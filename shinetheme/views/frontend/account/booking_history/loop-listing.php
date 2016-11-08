@@ -84,8 +84,8 @@ $inject->clear();
 				<td class="booking-price text-center">
 					<div class="total">
 						<?php
-						$total_price = WPBooking_Currency::format_money($order->get_total(array('without_deposit'=>false)));
-						echo balanceTags($total_price);
+						$total_price = $order->get_total(array('without_deposit'=>false));
+						echo balanceTags(WPBooking_Currency::format_money($total_price));
 						?>
 					</div>
 					<?php if(!empty($order_data['deposit_price'])){ ?>
