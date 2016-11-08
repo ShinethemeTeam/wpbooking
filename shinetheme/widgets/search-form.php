@@ -91,7 +91,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
 			$required = "";
 			if($v['required'] == "yes"){
-				$required = 'required';
+//				$required = 'required';
 			}
 			$value = WPBooking_Input::get($v['field_type'],'');
 			switch($v['field_type']){

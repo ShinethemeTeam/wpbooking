@@ -377,6 +377,9 @@ jQuery(document).ready(function($){
         {
             minDate:0,
             onSelect:function(selected) {
+                var arr = selected.split('-');
+                arr[2] = parseInt(arr[2])+1;
+                selected = arr[0] + '-' + arr[1] + '-' + arr[2]
                 var form=$(this).closest('form');
                 var date_end=$('.wpbooking-date-end',form);
                 date_end.datepicker("option","minDate", selected)
