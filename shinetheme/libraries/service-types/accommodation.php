@@ -1253,6 +1253,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                 WHERE
                                     {$wpdb->posts}.post_type = 'wpbooking_hotel_room'
                                 AND {$wpdb->postmeta}.meta_value > 0
+                                AND {$wpdb->posts}.post_status = 'publish'
                                 GROUP BY
                                     hotel_id
                             ) AS ID
