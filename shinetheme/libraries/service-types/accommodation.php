@@ -1311,6 +1311,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             }
             $check_in = strtotime($check_in);
             $check_out = strtotime($check_out);
+            if(empty($hotel_id) or empty($check_in)){
+                return array();
+            }
             global $wpdb;
             $sql = "
             SELECT
@@ -1849,6 +1852,17 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         }
                         wpbooking_set_message($message, 'error');
                     }
+
+                    //check number room and adult
+                    $adult = $this->post('wpbooking_adults');
+                    foreach($list_room as $room_id => $data){
+                        if($data['number'] > $adult){
+                            $is_validated = FALSE;
+                            $message = esc_html__('Bạn không thể book số phòng lớn hơn số người lớn !', 'wpbooking');
+                            wpbooking_set_message($message, 'error');
+                        }
+                    }
+
 
                 }
 
