@@ -540,7 +540,7 @@ if (!class_exists('WPBooking_User')) {
                         $validate = new WPBooking_Form_Validator();
                         $validate->set_rules('u_password', esc_html__('Password', 'wpbooking'), 'required|max_length[255]');
                         $validate->set_rules('u_new_password', esc_html__('New Password', 'wpbooking'), 'required|max_length[255]');
-                        $validate->set_rules('u_re_new_password', esc_html__('New Password Again', 'wpbooking'), 'required|max_length[255]|matches[u_new_password]');
+                        $validate->set_rules('u_re_new_password', esc_html__('Confirm New Password', 'wpbooking'), 'required|max_length[255]|matches[u_new_password]');
 
                         $is_validate = TRUE;
                         $is_updated = FALSE;

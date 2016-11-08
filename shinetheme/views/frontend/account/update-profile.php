@@ -65,7 +65,7 @@ global $current_user;
 				<input type="password" class="form-control" id="u_new_password" name="u_new_password" placeholder="<?php esc_html_e('Display Name','wpbooking') ?>" >
 			</div>
 			<div class="form-group">
-				<label for="u_re_new_password"><?php esc_html_e('New Password Again','wpbooking') ?></label>
+				<label for="u_re_new_password"><?php esc_html_e('Confirm New Password','wpbooking') ?></label>
 				<input type="password" class="form-control" id="u_re_new_password" name="u_re_new_password" placeholder="<?php esc_html_e('Display Name','wpbooking') ?>" >
 			</div>
 			<?php if(WPBooking_Input::post('action')=='wpbooking_change_password') echo wpbooking_get_message(); ?>
