@@ -9,7 +9,8 @@ $limit=10;
 $offset=$limit*(WPBooking_Input::get('page_number',1)-1);
 $args=array(
 	'post_type'=>'wpbooking_order',
-	'posts_per_page'=>20
+	'posts_per_page'=>20,
+    'status' => 'any'
 );
 $query=new WP_Query($args);
 ?>
@@ -71,21 +72,22 @@ $query=new WP_Query($args);
 				<td id="cb" class="manage-column column-cb check-column">
 					<input id="cb-select-all-1" type="checkbox">
 				</td>
-				<td class="manage-column column-title column-primary sortable">
-					<?php esc_html_e('ID - Customer','wpbooking') ?>
+				<td class="manage-column column-primary sortable">
+					<?php esc_html_e('ID','wpbooking') ?>
 				</td>
 				<td class="manage-column column-title column-primary sortable">
-					<?php esc_html_e('Booking Data','wpbooking') ?>
+					<?php esc_html_e('Status - Payment Method','wpbooking') ?>
 				</td>
-				<td class="manage-column column-date asc"> <?php esc_html_e('Status','wpbooking') ?></td>
+				<td class="manage-column asc"> <?php esc_html_e('Customer Information','wpbooking') ?></td>
+				<td class="manage-column asc"> <?php esc_html_e('Booking Information','wpbooking') ?></td>
+				<td class="manage-column asc"> <?php echo esc_html__('Total (Deposit/Remain) ','wpbooking').'('.WPBooking_Currency::get_current_currency('symbol').')'?></td>
+				<td class="manage-column asc"> <?php esc_html_e('Booking Date','wpbooking') ?></td>
 				<td class="manage-column column-date asc"> <?php esc_html_e('Service Type','wpbooking') ?></td>
-				<td class="manage-column column-date asc"> <?php esc_html_e('Booking Date','wpbooking') ?></td>
-				<td class="manage-column column-date asc"> <?php esc_html_e('Total','wpbooking') ?></td>
 			</tr>
 			</thead>
 
 			<tbody>
-			<?php if(!$query->have_posts()){
+			<?php if($query->have_posts()){
 				while($query->have_posts()){
 					$query->the_post();
 					$url=add_query_arg(array('page'=>'wpbooking_page_orders','order_item_id'=>get_the_ID()),admin_url('admin.php'));
@@ -98,19 +100,6 @@ $query=new WP_Query($args);
 						</th>
 						<td>
 							<a href="<?php echo esc_url($url)  ?>">#<?php echo esc_attr(get_the_ID()) ?></a>
-							-
-							<a class="service-name" href="<?php echo get_permalink($row['post_id'])?>" target="_blank"><?php echo get_the_title($row['post_id'])?></a>
-							- <?php esc_html_e('by','wpbooking') ?>
-							<?php if($row['customer_id']){
-								$user=get_userdata($row['customer_id']);
-								if(!$user){
-									printf('<label class="label label-warning">%s</label>',esc_html__('Unknown','wpbooking'));
-								}else{
-									printf('<label class="label label-info"><a href="%s" target="_blank"> %s</a></label>',get_edit_user_link($row['customer_id']),$user->display_name);
-								}
-							}else{
-								printf('<label class="label label-default">%s</label>',esc_html__('Guest','wpbooking'));
-							} ?>
 							<div class="row-actions">
 								<span class="edit"><a href="<?php echo esc_url($url)  ?>" title="<?php esc_html_e('View this item','wpbooking')?>"><?php esc_html_e('View','wpbooking')?></a> | </span>
 								<span class="move_trash trash"><a href="<?php echo add_query_arg(array('action'=>'trash','wpbooking_apply_changes'=>'1','wpbooking_order_item'=>array(get_the_ID()))) ?>" onclick="return confirm('<?php esc_html_e('Are you want to move to trash?','wpbooking') ?>')" title="<?php esc_html_e('Move to trash','wpbooking')?>"><?php esc_html_e('Trash','wpbooking')?></a> | </span>
@@ -141,7 +130,7 @@ $query=new WP_Query($args);
 						</td>
 						<td class="manage-column column-date asc">
 							<?php
-							echo $order->get_item_total_html($row);
+//							echo $order->get_item_total_html($row);
 							?>
 						</td>
 					</tr>
