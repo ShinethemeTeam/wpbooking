@@ -90,14 +90,12 @@ $inject->clear();
 					</div>
 					<?php if(!empty($order_data['deposit_price'])){ ?>
 					<div class="sub-total">
-						(
-						<?php echo WPBooking_Currency::format_money($order_data['deposit_price']); ?>
+						(<?php echo WPBooking_Currency::format_money($order_data['deposit_price']); ?>
 						/
 						<?php
 						$remain_price = $total_price - $order_data['deposit_price'];
 						echo WPBooking_Currency::format_money($remain_price);
-						?>
-						)
+						?>)
 					</div>
 					<?php } ?>
 				</td>
