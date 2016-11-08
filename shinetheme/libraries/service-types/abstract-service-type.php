@@ -445,7 +445,6 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 		{
 
 			global $wpdb;
-
 			$table = WPBooking_Service_Model::inst()->get_table_name(FALSE);
 			$table_prefix = WPBooking_Service_Model::inst()->get_table_name();
 

@@ -2087,13 +2087,22 @@ a.label:focus {
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book {
   float: right;
-  width: 15%;
+  width: 20%;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .room-total-price {
   color: #666666;
   font-size: 17px;
   font-weight: bold;
   margin-bottom: 15px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .room-total-price .button_show_price {
+  background: #f0ad4e none repeat scroll 0 0;
+  border-color: #f0ad4e;
+  font-size: 12px;
+  padding: 5px 10px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .room-number {
+  width: 60%;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .form-control {
   display: block;
