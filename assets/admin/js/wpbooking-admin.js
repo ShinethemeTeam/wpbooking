@@ -1789,4 +1789,36 @@ jQuery(document).ready(function( $ ){
         });
     });
 
+    $('.wb-button-customer').each(function(){
+        $(this).click(function(){
+            if($(this).parent().find('.wb-customer-detail').hasClass('none')){
+                $(this).parent().find('.wb-customer-detail').removeClass('none');
+            }else{
+                $(this).parent().find('.wb-customer-detail').addClass('none');
+            }
+        });
+    });
+
+    $('.wp-button-booking').each(function(){
+        $(this).click(function(){
+            var detail = $(this).closest('.wb-booking-information').find('.wb-booking-detail');
+            if(detail.hasClass('none')){
+                detail.removeClass('none');
+            }else{
+                detail.addClass('none');
+            }
+        });
+    });
+
+    $('.wb-column-action').each(function(){
+        $(this).hover(function () {
+            var elm = $(this).find('.wb-row-actions');
+            if(elm.hasClass('none')){
+                elm.removeClass('none');
+            }else{
+                elm.addClass('none');
+            }
+        });
+    });
+
 });

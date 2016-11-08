@@ -28,7 +28,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
 			$search_more_fields=array();
             ?>
-            <form class="wpbooking-search-form" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
+            <form class="wpbooking-search-form is_search_form" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
 
             	<?php
 					if ( ! empty( $instance['title'] ) ) {
@@ -88,9 +88,10 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
 		function get_field_html($v,$service_type)
 		{
+
 			$required = "";
 			if($v['required'] == "yes"){
-				//$required = 'required';
+				$required = 'required';
 			}
 			$value = WPBooking_Input::get($v['field_type'],'');
 			switch($v['field_type']){
@@ -141,13 +142,15 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
 						<div class="item-search-content">
 							<?php
+                            $class = '';
+                            if($v['required']=='yes') $class=' wb-required';
 							if($v['taxonomy_show'] =='dropdown'){
 								$args = array(
 									'show_option_none' => __( '-- Select --' , "wpbooking" ),
 									'option_none_value' => "",
 									'hierarchical'      => 1 ,
 									'name'              => $v['field_type'].'['.$v['taxonomy'].']' ,
-									'class'             => '' ,
+									'class'             => $class ,
 									'id'             => $v['field_type'].'['.$v['taxonomy'].']' ,
 									'taxonomy'          => $v['taxonomy'] ,
 									'hide_empty' => 0,
@@ -160,7 +163,8 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 								?>
 								<input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>" name="<?php echo esc_attr( "taxonomy_operator" . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
 								<?php
-							}else{ ?>
+							}else{
+                                ?>
 								<div class="item-search-content">
 									<div class="list-checkbox">
 									<?php
@@ -188,7 +192,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 													}
 													?>
 													<div class="term-item <?php echo esc_attr($class)?>">
-														<label ><input class="wb-checkbox-search" type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$value2->term_id ?>" value="<?php echo esc_html( $value2->term_id ) ?>">
+														<label ><input class="wb-checkbox-search item_taxonomy" type="checkbox" <?php echo esc_html($check) ?> id="<?php echo "item_".$value2->term_id ?>" value="<?php echo esc_html( $value2->term_id ) ?>">
 														<?php echo esc_html( $value2->name ) ?></label>
 													</div>
 													<?php
@@ -238,7 +242,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 										$check = "checked";
 									}
 									?>
-										<label ><input class="wb-checkbox-search" type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
+										<label ><input class="wb-checkbox-search <?php if($v['required']=='yes') echo 'wb-required' ?>" type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
 										<?php echo ( $value2 ) ?></label>
 									<?php
 								}
@@ -274,7 +278,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                                             $check = "checked";
                                         }
                                         ?>
-                                        <label ><input class="wb-checkbox-search" type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
+                                        <label ><input class="wb-checkbox-search <?php if($v['required']=='yes') echo 'wb-required' ?>" type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
                                             <?php echo ( $value2 ) ?></label>
                                         <?php
                                     }

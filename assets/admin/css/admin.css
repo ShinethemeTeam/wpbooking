@@ -3637,3 +3637,135 @@ label[for=wpbooking_room_typediv-hide] {
   margin: .5em 0;
   padding: 2px;
 }
+.wp-list-table .wb-column-action {
+  position: relative;
+  padding-bottom: 45px;
+}
+.wp-list-table .wb-column-action .wb-row-actions {
+  position: absolute;
+  bottom: 10px;
+}
+.wp-list-table .wb-column-action .wb-row-actions a {
+  display: inline-block;
+  text-decoration: none;
+  line-height: 20px;
+  height: 25px;
+  margin: 0;
+  padding: 0 10px 1px;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+  -webkit-appearance: none;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  white-space: nowrap;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #fafafa;
+  border-color: #999;
+  color: #23282d;
+  box-shadow: 0 1px 0 #ccc;
+  vertical-align: top;
+}
+.wp-list-table .wb-column-action .wb-row-actions a:hover {
+  border-color: #252525;
+}
+.wp-list-table .column-id {
+  width: 100%;
+  display: inline-flex;
+}
+.wp-list-table .column-id .id {
+  width: 10%;
+}
+.wp-list-table .column-id .status {
+  width: 40%;
+}
+.wp-list-table .column-id p {
+  margin: 0 !important;
+}
+.wp-list-table .wb-column-action .id {
+  width: 10%;
+  float: left;
+}
+.wp-list-table .wb-column-action .status {
+  width: 40%;
+  float: left;
+}
+.wp-list-table .wb-column-action .customer {
+  width: 50%;
+  float: left;
+}
+.wp-list-table .column-status {
+  width: 12%;
+}
+.wp-list-table .column-customer {
+  width: 20%;
+}
+.wp-list-table .column-service {
+  width: 10%;
+}
+.wp-list-table .wb-right-label {
+  float: right;
+}
+.wp-list-table .wb-price-total {
+  float: right;
+  width: 40%;
+  text-align: right;
+}
+.wp-list-table .wb-price-total .wb-deposit-remain {
+  color: #aaa;
+}
+.wp-list-table .wb-booking-info {
+  width: 60%;
+  float: left;
+}
+.wp-list-table .wb-column-empty {
+  width: 30px;
+}
+.wp-list-table .wb-button-customer,
+.wp-list-table .wp-button-booking {
+  cursor: pointer;
+}
+.wp-list-table .wb-button-customer .caret:before,
+.wp-list-table .wp-button-booking .caret:before {
+  content: '\f139';
+  font-family: dashicons;
+  font-size: 18px;
+  position: relative;
+  top: 4px;
+}
+.wp-list-table .wb-booking-detail {
+  clear: both;
+  padding-top: 20px;
+}
+.wp-list-table .wb-booking-detail .wb-room-price {
+  float: right;
+}
+.wp-list-table .wb-booking-detail .wb-room-item:before {
+  width: 100%;
+  border-bottom: 1px dotted #777;
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 4px;
+}
+.wp-list-table .wb-booking-detail .wb-room-name {
+  position: relative;
+  z-index: 1;
+  padding-right: 5px;
+  background: #FFF;
+}
+.wp-list-table .wb-booking-detail .wb-room-price {
+  position: relative;
+  z-index: 1;
+  padding-left: 5px;
+  background: #FFF;
+}
+.wp-list-table .wb-booking-detail .wb-room-item {
+  position: relative;
+}
+.wp-list-table > tbody > :nth-child(odd) .wb-room-name,
+.wp-list-table > tbody > :nth-child(odd) .wb-room-price {
+  background: #f9f9f9;
+}

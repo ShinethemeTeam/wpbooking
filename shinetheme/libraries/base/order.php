@@ -39,6 +39,12 @@ if (!class_exists('WB_Order')) {
             return $this->data;
         }
 
+        function get_order_room_data(){
+            if($this->order_id) {
+                $data = WPBooking_Order_Hotel_Order_Model::inst()->get_order($this->order_id);
+                return $data;
+            }else{ return FALSE; }
+        }
 
         /**
          * IF $need is specific, return the single value of customer of the order. Otherwise, return the array
@@ -63,6 +69,22 @@ if (!class_exists('WB_Order')) {
 
                 if ($need) {
                     switch ($need) {
+                        case 'full_name':
+                            $first_name = get_post_meta($this->order_id,'wpbooking_user_first_name',true);
+                            $last_name = get_post_meta($this->order_id,'wpbooking_user_last_name',true);
+                            if(!empty($first_name) && !empty($last_name)){
+                                $full_name = $first_name.' '.$last_name;
+                                return $full_name;
+                            }
+                            break;
+                        case 'phone':
+                            $phone = get_post_meta($this->order_id,'wpbooking_user_phone',true);
+                            return !empty($phone) ? $phone : FALSE;
+                            break;
+                        case 'address':
+                            $address = get_post_meta($this->order_id,'wpbooking_user_address',true);
+                            return !empty($address) ? $address : FALSE;
+                            break;
                         default:
                             return !empty($customer_info[$need]) ? $customer_info[$need] : FALSE;
                             break;
@@ -99,30 +121,35 @@ if (!class_exists('WB_Order')) {
          * @since 1.0
          * @author quandq
          *
-         * @param array $args
+         *
          * @return mixed|void
          */
-        function get_total($args = array())
+        function get_total()
         {
             if ($this->order_id) {
                 $order_data = $this->get_order_data();
                 $total = $order_data['price'];
-                if(!empty($order_data['deposit_price'])){
-                    $total = $order_data['deposit_price'];
-                }
-                if(!empty($args)){
-                    $total = $order_data['price'];
-                    if(!empty($args['without_deposit'])){
-                        $total = $order_data['deposit_price'];
-                    }
-                }
                 $total = apply_filters('wpbooking_get_order_total', $total);
                 return $total;
             }
         }
 
 
-
+        function get_deposit_and_remain_html()
+        {
+            if ($this->order_id) {
+                $order_data = $this->get_order_data();
+                $total = $this->get_total();
+                $deposit = $order_data['deposit_price'];
+                $remain = $total - $deposit;
+                if(!empty($deposit)){
+                    $full_html = WPBooking_Currency::format_money($deposit).' / <strong>'.WPBooking_Currency::format_money($remain).'</strong>';
+                    return $full_html;
+                }else{
+                    return false;
+                }
+            }
+        }
 
         /**
          * Do Create New Order
@@ -365,8 +392,13 @@ if (!class_exists('WB_Order')) {
         {
             if($this->order_id){
                 if(!$format) $format=get_option('date_format');
-
-                return get_the_time($format);
+                $check_in = $this->data['check_in_timestamp'];
+                $check_out = $this->data['check_out_timestamp'];
+                $start = new DateTime(date('Y-m-d',$check_in));
+                $end = new DateTime(date('Y-m-d',$check_out));
+                $end = $end->modify( '+1 day' );
+                $full_time = date($format,$check_in).'&nbsp; &rarr; &nbsp;'.date($format,$check_out) .' ('.sprintf(_n('%s day','%s days',$start->diff($end)->days,'wpbooking'),$start->diff($end)->days).')';
+                return $full_time;
             }
         }
 
@@ -396,6 +428,20 @@ if (!class_exists('WB_Order')) {
                 }
 
             }
+        }
+
+        /**
+         * Get service type
+         *
+         * @since 1.0
+         * @author tienhd
+         *
+         * @return bool/string
+         */
+        function get_service_type(){
+            if(!empty($this->data) and is_array($this->data)){
+                return $this->data['service_type'];
+            }else{ return false; }
         }
 
     }

@@ -116,7 +116,6 @@ if (!class_exists('WPBooking_Admin_Order')) {
 
 			}
 
-
 			// Listing Page
 			echo($this->admin_load_view('order/index'));
 

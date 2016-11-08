@@ -3708,3 +3708,141 @@ label[for=wpbooking_room_typediv-hide]
         }
     }
 }
+
+//order page
+.wp-list-table{
+  .wb-column-action{
+    position: relative;
+    padding-bottom: 45px;
+    .wb-row-actions{
+      position: absolute;
+      bottom: 10px;
+      a{
+        display: inline-block;
+        text-decoration: none;
+        line-height: 20px;
+        height: 25px;
+        margin: 0;
+        padding: 0 10px 1px;
+        cursor: pointer;
+        border-width: 1px;
+        border-style: solid;
+        -webkit-appearance: none;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        background: #fafafa;
+        border-color: #999;
+        color: #23282d;
+        box-shadow: 0 1px 0 #ccc;
+        vertical-align: top;
+        &:hover{
+          border-color: #252525;
+        }
+      }
+    }
+  }
+  .column-id{
+    width: 100%;
+    display: inline-flex;
+    .id{
+      width: 10%;
+    }
+    .status{
+      width: 40%;
+    }
+    p{
+      margin: 0 !important;
+    }
+  }
+  .wb-column-action{
+    .id{
+      width: 10%;
+      float: left;
+    }
+    .status{
+      width: 40%;
+      float: left;
+    }
+    .customer{
+      width: 50%;
+      float: left;
+    }
+  }
+  .column-status{
+    width: 12%;
+  }
+  .column-customer{
+    width: 20%;
+  }
+  .column-service{
+    width: 10%;
+  }
+  .wb-right-label{
+    float: right;
+  }
+  .wb-price-total{
+    float: right;
+    width: 40%;
+    text-align: right;
+    .wb-deposit-remain{
+      color: #aaa;
+    }
+  }
+  .wb-booking-info{
+    width: 60%;
+    float: left;
+  }
+  .wb-column-empty{
+    width: 30px;
+  }
+  .wb-button-customer,.wp-button-booking{
+    cursor: pointer;
+    .caret:before{
+      content: '\f139';
+      font-family: dashicons;
+      font-size: 18px;
+      position: relative;
+      top: 4px;
+    }
+  }
+  .wb-booking-detail{
+    clear: both;
+    padding-top: 20px;
+    .wb-room-price{
+      float: right;
+    }
+    .wb-room-item:before{
+      width: 100%;
+      border-bottom: 1px dotted #777;
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 4px;
+    }
+    .wb-room-name{
+      position: relative;
+      z-index: 1;
+      padding-right: 5px;
+      background: #FFF;
+    }
+    .wb-room-price{
+      position: relative;
+      z-index: 1;
+      padding-left: 5px;
+      background: #FFF;
+    }
+    .wb-room-item{
+      position: relative;
+    }
+
+  }
+  >tbody>:nth-child(odd){
+    .wb-room-name,.wb-room-price{
+      background: #f9f9f9;
+    }
+  }
+}
