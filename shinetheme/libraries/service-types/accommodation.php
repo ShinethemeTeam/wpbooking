@@ -1311,6 +1311,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             }
             $check_in = strtotime($check_in);
             $check_out = strtotime($check_out);
+            if(empty($hotel_id) or empty($check_in)){
+                return array();
+            }
             global $wpdb;
             $sql = "
             SELECT
