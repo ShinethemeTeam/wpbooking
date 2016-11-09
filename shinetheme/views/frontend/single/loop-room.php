@@ -71,34 +71,37 @@ $service_room = new WB_Service(get_the_ID());
         </div>
     </div>
     <div class="room-book">
-        <div class="room-total-price">
-            <?php
-            $price = get_post_meta(get_the_ID(),'base_price',true);
-            $check_in = WPBooking_Input::request('check_in');
-            $check_out = WPBooking_Input::request('check_out');
-            if(!empty($check_in) and !empty($check_out)){
-                $price = WPBooking_Accommodation_Service_Type::inst()->_get_price_room_with_date(get_the_ID(),$check_in,$check_out);
-            }
-            echo WPBooking_Currency::format_money($price);
-            ?>
-            <!--<button class="wb-button button_show_price"><?php /*esc_html_e("Hyperlink Show Price","wpbooking") */?></button>-->
-        </div>
-        <div class="room-number">
-            <select class="form-control option_number_room" name="wpbooking_room[<?php the_ID() ?>][number_room]" data-price-base="<?php echo esc_attr($price) ?>" >
+        <?php
+        $price = get_post_meta(get_the_ID(),'base_price',true);
+        $check_in = WPBooking_Input::request('check_in');
+        $check_out = WPBooking_Input::request('check_out');
+        if(!empty($check_in) and !empty($check_out)){
+        ?>
+            <div class="room-total-price">
                 <?php
-                $max_room = get_post_meta(get_the_ID(),'room_number',true);
-                if(empty($max_room))$max_room=20;
-                for($i=0;$i<=$max_room;$i++){
-                    echo "<option value='{$i}'>{$i}</option>";
-                }
+                    $price = WPBooking_Accommodation_Service_Type::inst()->_get_price_room_with_date(get_the_ID(),$check_in,$check_out);
+                    echo WPBooking_Currency::format_money($price);
                 ?>
-            </select>
-        </div>
-        <div class="room-extra">
-            <?php if(!empty($list_extra)){ ?>
-                <span class="btn_extra"><?php esc_html_e("Extra services","wpbooking") ?></span>
-            <?php } ?>
-        </div>
+            </div>
+            <div class="room-number">
+                <select class="form-control option_number_room" name="wpbooking_room[<?php the_ID() ?>][number_room]" data-price-base="<?php echo esc_attr($price) ?>" >
+                    <?php
+                    $max_room = get_post_meta(get_the_ID(),'room_number',true);
+                    if(empty($max_room))$max_room=20;
+                    for($i=0;$i<=$max_room;$i++){
+                        echo "<option value='{$i}'>{$i}</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="room-extra">
+                <?php if(!empty($list_extra)){ ?>
+                    <span class="btn_extra"><?php esc_html_e("Extra services","wpbooking") ?></span>
+                <?php } ?>
+            </div>
+        <?php } else {?>
+            <button onclick="return false" class="wb-button button_show_price is_single_search_result"><?php esc_html_e("Show Price","wpbooking") ?></button>
+        <?php } ?>
     </div>
     <div class="more-extra">
         <?php if(!empty($list_extra)){

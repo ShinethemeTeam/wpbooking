@@ -454,7 +454,9 @@ jQuery(document).ready(function($){
             $('.btn-do-search-room').click();
         }
     },500);
-    
+    $('.button_show_price.is_single_search_result').click(function(){
+        $('.btn-do-search-room').click();
+    });
     $('.form-search-room .btn-do-search-room').click(function(){
         var searchbox = $(this).closest('.form-search-room');
         do_search_room(searchbox);
@@ -992,8 +994,11 @@ jQuery(document).ready(function($){
         parent.next().find('[name=check_in]').focus();
     });
 
-    // Ajax Search in Archive page
     var form_filter=$('.wpbooking-search-form.is_search_form');
+    $('.button_show_price.is_page_search_result').click(function(){
+        form_filter.submit();
+    });
+    // Ajax Search in Archive page
     form_filter.submit(function(){
 
         // Validate Required Field

@@ -287,7 +287,6 @@ $hotel_id = get_the_ID();
 							<input name="wpbooking_adults" class="form_book_adults"  type="hidden">
 							<input name="wpbooking_children" class="form_book_children"  type="hidden">
 							<div class="content-loop-room">
-
 								<?php
 								if($rooms->have_posts()) {
 									while( $rooms->have_posts() ) {
