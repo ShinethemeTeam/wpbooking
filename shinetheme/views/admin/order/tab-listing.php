@@ -61,8 +61,8 @@ $query=new WP_Query($args);
 		<div class="tablenav-pages">
 			<p class="search-box">
 				<label class="screen-reader-text" for="post-search-input"><?php esc_html_e('Search Order','wpbooking') ?></label>
-				<input type="search"  name="keyword" value="<?php echo WPBooking_Input::get('keyword') ?>">
-				<input type="submit"  class="button" value="<?php esc_html_e('Search Order','wpbooking') ?>"></p>
+				<input type="search" name="keyword" value="<?php echo WPBooking_Input::get('keyword') ?>">
+				<input type="submit" name="search_keyword" class="button" value="<?php esc_html_e('Search Order','wpbooking') ?>"></p>
 		</div>
 	</div>
 	<!--		End top-->

@@ -377,9 +377,11 @@ jQuery(document).ready(function($){
         {
             minDate:0,
             onSelect:function(selected) {
-                var arr = selected.split('-');
-                arr[2] = parseInt(arr[2])+1;
-                selected = arr[0] + '-' + arr[1] + '-' + arr[2]
+                var p = $(this).parent();
+                var check_in = new Date(selected);
+                p.find('.checkin_d').val(check_in.getDate());
+                p.find('.checkin_m').val(check_in.getMonth()+1);
+                p.find('.checkin_y').val(check_in.getFullYear());
                 var form=$(this).closest('form');
                 var date_end=$('.wpbooking-date-end',form);
                 date_end.datepicker("option","minDate", selected)
@@ -396,6 +398,11 @@ jQuery(document).ready(function($){
     $('.wpbooking-date-end').datepicker( {
         minDate:0,
         onSelect:function(selected) {
+            var p = $(this).parent();
+            var check_out = new Date(selected);
+            p.find('.checkout_d').val(check_out.getDate());
+            p.find('.checkout_m').val(check_out.getMonth()+1);
+            p.find('.checkout_y').val(check_out.getFullYear());
             var form=$(this).closest('form');
             var date_start=$('.wpbooking-date-start',form);
             date_start.datepicker("option","maxDate", selected);
