@@ -399,7 +399,7 @@ jQuery(document).ready(function($){
         minDate:0,
         onSelect:function(selected) {
             var p = $(this).parent();
-            var check_out = new Date(selected);
+            var check_out = $(this).datepicker( 'getDate' );
             p.find('.checkout_d').val(check_out.getDate());
             p.find('.checkout_m').val(check_out.getMonth()+1);
             p.find('.checkout_y').val(check_out.getFullYear());
