@@ -280,7 +280,6 @@ $hotel_id=get_the_ID();
                                 </select>
                             </div>
                             <button type="button" class="wb-button btn-do-search-room"><?php esc_html_e("CHECK AVAILABILITY ","wpbooking") ?></button>
-                            <img class="img_loading" src="<?php echo admin_url('/images/wpspin_light.gif') ?>">
                         </div>
                     </div>
                 </form>

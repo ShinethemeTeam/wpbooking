@@ -22,9 +22,7 @@ if(!class_exists('WPBooking_Meta_Model')){
          */
         function get_price_accommodation($post_id){
             global $wpdb;
-
             if(empty($post_id)) return;
-
             $row = $this->select('CAST(meta_value AS DECIMAL) AS min_price,ID')
                 ->join('posts','posts.ID=postmeta.post_id')
                 ->where('meta_key','base_price')
@@ -33,8 +31,11 @@ if(!class_exists('WPBooking_Meta_Model')){
                 ->orderby('min_price','asc')
                 ->limit(1)
                 ->get()->row();
-            return $row;
-
+            if(!empty($row['min_price'])){
+                return $row['min_price'];
+            }else {
+                return 0;
+            }
         }
 
         static function inst()

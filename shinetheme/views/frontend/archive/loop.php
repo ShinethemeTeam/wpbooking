@@ -60,27 +60,15 @@
 							<?php do_action('wpbooking_after_service_address_rate', get_the_ID(), $service->get_type(), $service) ?>
 						</div>
 						<div class="service-price-book-now">
-							<?php
-							$price = get_post_meta(get_the_ID(),'base_price',true);
-							$check_in = WPBooking_Input::request('checkin_d')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_y');
-							$check_out = WPBooking_Input::request('checkout_d')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_y');
-							if($check_in == '--')$check_in='';
-							if($check_out == '--')$check_out='';
-							if(!empty($check_out) and !empty($check_in)){
+							<div class="service-price">
+								<?php
+								$service->get_price_html();
 								?>
-								<div class="service-price">
-									<?php
-									$service->get_price_html();
-									?>
-
-								</div>
-								<div class="service-book-now">
-									<a class="wb-btn wb-btn-primary"
-									   href="<?php echo esc_url($url) ?>"><?php esc_html_e('Book Now', 'wpbooking') ?></a>
-								</div>
-							<?php } else {?>
-								<button class="wb-button button_show_price is_page_search_result"><?php esc_html_e("Show Price","wpbooking") ?></button>
-							<?php } ?>
+							</div>
+							<div class="service-book-now">
+								<a class="wb-btn wb-btn-primary"
+								   href="<?php echo esc_url($url) ?>"><?php esc_html_e('Book Now', 'wpbooking') ?></a>
+							</div>
 						</div>
 					</div>
 				</div>

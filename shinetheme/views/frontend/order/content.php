@@ -21,7 +21,7 @@ do_action('wpbooking_before_order_content');
             <i class="fa fa-check-circle"></i>
             <?php
             if($customer_name=$order->get_customer('name')){
-                printf(esc_html__('%s, your order has been received!','wpbooking'),$customer_name);
+                printf(esc_html__('%s, Congratulation! Your booking has been successful! Below is booking details.','wpbooking'),$customer_name);
             }else{
                 esc_html_e('Thank you, your order has been received!','wpbooking');
             }

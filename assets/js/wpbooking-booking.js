@@ -536,7 +536,7 @@ jQuery(document).ready(function($){
             return;
         }
         searchbox.addClass('loading');
-        searchbox.find('.img_loading').show();
+        searchbox.find('.btn-do-search-room').addClass('loading');
         var content_list_room = parent.find('.content-loop-room');
         var content_search_room = parent.find('.content-search-room');
         $.ajax({
@@ -546,7 +546,7 @@ jQuery(document).ready(function($){
             'url':wpbooking_params.ajax_url,
             'success': function(data) {
                 searchbox.removeClass('loading');
-                searchbox.find('.img_loading').hide();
+                searchbox.find('.btn-do-search-room').removeClass('loading');
                 console.log(data);
                 if (data.status) {
                     if (typeof data.data != "undefined" && data.data) {
@@ -560,16 +560,19 @@ jQuery(document).ready(function($){
                     }
                 }
                 if (data.message) {
-                    setMessage(holder, data.message, 'danger');
+                    var status = 'danger';
+                    if (typeof data.status_message != "undefined" && data.status_message) {
+                        status = data.status_message;
+                    }
+                    setMessage(holder, data.message, status);
                     content_list_room.html('');
                     content_search_room.hide();
-
-
                 }
                 $('.content-search-room .content-loop-room .loop-room .option_number_room').trigger('change');
             },
             error: function(data) {
                 searchbox.removeClass('loading');
+                searchbox.find('.btn-do-search-room').removeClass('loading');
             }
         })
     }
@@ -652,6 +655,19 @@ jQuery(document).ready(function($){
         if (!holder.length) return;
         holder.html('');
         holder.html(html);
+        do_scrollTo(holder);
+    }
+    function do_scrollTo(el) {
+        if (el.length) {
+            var top = el.offset().top;
+            if ($('#wpadminbar').length && $('#wpadminbar').css('position') == 'fixed') {
+                top -= 32;
+            }
+            top -= 50;
+            $('html,body').animate({
+                'scrollTop': top
+            }, 500);
+        }
     }
     /**
      * Format money

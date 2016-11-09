@@ -112,10 +112,10 @@ if(!class_exists('WPBooking_Admin_Setup'))
                         }else{
                             update_option("wpbooking_cart_page",$page_cart->ID);
                         }
-                        $page_check_out  = get_page_by_title( 'Wpbooking Check Out' );
+                        $page_check_out  = get_page_by_title( 'Wpbooking Checkout' );
                         if(empty($page_cart)){
                             $my_post = array(
-                                'post_title'   => "Wpbooking Check Out" ,
+                                'post_title'   => "Wpbooking Checkout" ,
                                 'post_content' => "[wpbooking_checkout_page]" ,
                                 'post_status'  => 'publish' ,
                                 'post_type'    => 'page' ,

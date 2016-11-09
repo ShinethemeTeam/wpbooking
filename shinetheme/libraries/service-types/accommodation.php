@@ -168,13 +168,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             add_filter('wpbooking_service_base_price_' . $this->type_id, array($this, '_change_base_price'), 10, 3);
 
 
-            /**
-             * Change Base Price HTML
-             *
-             * @author quandq
-             * @since 1.0
-             */
-            add_filter('wpbooking_service_base_price_html_' . $this->type_id, array($this, '_change_base_price_html'), 10, 4);
 
 
             /**
@@ -1118,7 +1111,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $result = array(
                         'status'  => 0,
                         'data'    => '',
-                        'message' => __('No Room.', 'wpbooking'),
+                        'message' => __('Không tìm thấy room nào !', 'wpbooking'),
+                        'status_message' => 'default',
                     );
                     echo json_encode($result);
                     die;
@@ -1222,10 +1216,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if ($sortby = $this->request('wb_sort_by')) {
                 switch ($sortby) {
                     case "price_asc":
-                        $injection->orderby($table_prefix . '.price', 'asc');
+                        $injection->orderby($table_prefix . '.price+0', 'asc');
                         break;
                     case "price_desc":
-                        $injection->orderby($table_prefix . '.price', 'desc');
+                        $injection->orderby($table_prefix . '.price+0', 'desc');
                         break;
                     case "date_asc":
                         $injection->add_arg('orderby', 'date');
@@ -1622,13 +1616,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          */
         public function _change_base_price($base_price, $hotel_id, $service_type)
         {
-            $check_in = WPBooking_Input::request('checkin_d')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_y');
-            $check_out = WPBooking_Input::request('checkout_d')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_y');
-            $rs = WPBooking_Meta_Model::inst()->get_price_accommodation($hotel_id);
-            if(!empty($rs['ID'])){
-                $room_id = $rs['ID'];
-                $base_price = $this->_get_price_room_with_date($room_id,$check_in,$check_out);
-            }
+            $base_price = WPBooking_Meta_Model::inst()->get_price_accommodation($hotel_id);
+
             return $base_price;
         }
 

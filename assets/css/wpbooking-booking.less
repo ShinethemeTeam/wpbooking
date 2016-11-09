@@ -98,6 +98,10 @@
         border-color: rgba(240, 80, 80, 0.3);
         color: #ff5b5b;
     }
+    &.alert-default{
+        border: 1px solid #e6e6e6;
+        color: #666;
+    }
     a{
         text-decoration: underline;
     }
@@ -2027,6 +2031,26 @@
                     .wb-button{
                         margin-left: 10px !important;
                     }
+                    .btn-do-search-room{
+                        &.loading::after {
+                            animation: 1s steps(8) 0s normal none infinite running fa-spin;
+                            content: "";
+                            display: inline-block;
+                            font-family: FontAwesome;
+                            font-feature-settings: normal;
+                            font-kerning: auto;
+                            font-language-override: normal;
+                            font-size: inherit;
+                            font-size-adjust: none;
+                            font-stretch: normal;
+                            font-style: normal;
+                            font-synthesis: weight style;
+                            font-variant: normal;
+                            font-weight: normal;
+                            line-height: 1;
+                            text-rendering: auto;
+                        }
+                    }
                     .form-item{
                         float: left;
                         padding-right: 10px;
@@ -3358,7 +3382,7 @@
         font-size: 14px;
         .wpbooking-thankyou-message{
             color: #669966;
-            font-size: 15px;
+            font-size: 14px;
             .success-icon{
                 font-size: 60px;
                 color: #4cae4c;

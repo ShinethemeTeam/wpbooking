@@ -88,7 +88,7 @@ if (empty($cart)) {
                             </label>
                         </div>
                         <div class="checkout-submit-button">
-                            <button type="submit" class="wb-btn wb-btn-primary wb-btn-md submit-button" disabled><?php _e('CHECK OUT', 'wpbooking') ?></button>
+                            <button type="submit" class="wb-btn wb-btn-primary wb-btn-md submit-button" disabled><?php _e('CHECKOUT', 'wpbooking') ?></button>
                         </div>
                     </div>
                 </div>
