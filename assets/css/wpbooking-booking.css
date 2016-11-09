@@ -5935,6 +5935,15 @@ body.twentytwelve .wb-archive-wrapper {
 body.twentytwelve .wb-archive-wrapper * {
   box-sizing: border-box;
 }
+body.twentytwelve .wb-archive-wrapper .wpbooking-loop-wrap .service-thumbnail img {
+  max-width: 100%;
+}
+body.twentytwelve .wpbooking_service * {
+  box-sizing: border-box;
+}
+body.twentytwelve .wpbooking-single-content .wb-service-title-address .wb-service-title {
+  margin-top: 30px;
+}
 .wpbooking-bootstrap.p10 .row {
   margin-right: -10px;
   margin-left: -10px;
