@@ -423,7 +423,8 @@ jQuery(document).ready(function($){
                     },100);
                 }
                 $(this).trigger('change');
-            }
+            },
+            dateFormat: 'dd-mm-yy'
         }).datepicker('widget');//.wrap('<div class="ll-skin-melon"/>');
 
     $('.search-room-availablity .wpbooking-search-end').datepicker( {
@@ -433,7 +434,8 @@ jQuery(document).ready(function($){
             var date_end=$('.search-room-availablity .wpbooking-search-start',form);
             date_end.datepicker("option","maxDate", selected);
             $(this).trigger('change');
-        }
+        },
+        dateFormat: 'dd-mm-yy'
     }).datepicker('widget');
 
 

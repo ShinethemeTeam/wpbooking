@@ -33,8 +33,8 @@ if(!function_exists('wpbooking_service_price_html'))
 		$price_html=WPBooking_Currency::format_money($price);
 		$price_html=sprintf(__('from %s/night','wpbooking'),'<br><span class="price">'.$price_html.'</span>');
 
-		$price_html= apply_filters('wpbooking_service_base_price_html',$price_html,$post_id,$service_type);
-		$price_html= apply_filters('wpbooking_service_base_price_html_'.$service_type,$price_html,$post_id,$service_type);
+		$price_html= apply_filters('wpbooking_service_base_price_html',$price_html,$price,$post_id,$service_type);
+		$price_html= apply_filters('wpbooking_service_base_price_html_'.$service_type,$price_html,$price,$post_id,$service_type);
 
 		return $price_html;
 	}

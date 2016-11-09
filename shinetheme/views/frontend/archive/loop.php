@@ -107,6 +107,7 @@
 										<?php
 										$service->get_price_html();
 										?>
+										
 									</div>
 									<div class="service-book-now">
 										<a class="wb-btn wb-btn-primary"
