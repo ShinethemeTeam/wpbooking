@@ -230,14 +230,26 @@ $hotel_id = get_the_ID();
 						<div class="search-room-form">
 							<h5 class="service-info-title"><?php esc_html_e('Check availability', 'wpbooing') ?></h5>
 							<div class="form-search">
+								<?php
+								$check_in = WPBooking_Input::request('checkin_y')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_d');
+								if($check_in == '--')$check_in='';
+								$check_out = WPBooking_Input::request('checkout_y')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_d');
+								if($check_out == '--')$check_out='';
+								?>
 								<div class="form-item w20 form-item-icon">
 									<label><?php esc_html_e('Check In', 'wpbooing') ?><i class="fa fa-calendar"></i>
-                                        <input type="text" class="form-control wpbooking-search-start" value="<?php echo WPBooking_Input::request('check_in') ?>" name="check_in" placeholder="<?php esc_html_e('Check In', 'wpbooing') ?>">
+										<input class="checkin_d" name="checkin_d" value="<?php echo esc_html(WPBooking_Input::request('checkin_d')) ?>" type="hidden">
+										<input class="checkin_m" name="checkin_m" value="<?php echo esc_html(WPBooking_Input::request('checkin_m')) ?>" type="hidden">
+										<input class="checkin_y" name="checkin_y" value="<?php echo esc_html(WPBooking_Input::request('checkin_y')) ?>" type="hidden">
+                                        <input type="text" class="form-control wpbooking-search-start" value="<?php echo balanceTags($check_in) ?>" name="check_in" placeholder="<?php esc_html_e('Check In', 'wpbooing') ?>">
                                     </label>
 								</div>
 								<div class="form-item w20 form-item-icon">
 									<label><?php esc_html_e('Check Out', 'wpbooing') ?>
-                                        <input type="text" class="form-control wpbooking-search-end" value="<?php echo WPBooking_Input::request('check_out') ?>"  name="check_out" placeholder="<?php esc_html_e('Check Out', 'wpbooing') ?>">
+										<input class="checkout_d" name="checkout_d" value="<?php echo esc_html(WPBooking_Input::request('checkout_d')) ?>" type="hidden">
+										<input class="checkout_m" name="checkout_m" value="<?php echo esc_html(WPBooking_Input::request('checkout_m')) ?>" type="hidden">
+										<input class="checkout_y" name="checkout_y" value="<?php echo esc_html(WPBooking_Input::request('checkout_y')) ?>" type="hidden">
+                                        <input type="text" class="form-control wpbooking-search-end" value="<?php echo balanceTags($check_out) ?>"  name="check_out" placeholder="<?php esc_html_e('Check Out', 'wpbooing') ?>">
                                         <i class="fa fa-calendar"></i>
                                     </label>
 								</div>

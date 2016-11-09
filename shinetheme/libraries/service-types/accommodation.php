@@ -1616,9 +1616,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          */
         public function _change_base_price($base_price, $hotel_id, $service_type)
         {
-            $base_price = 0;
-            $check_in = WPBooking_Input::request('check_in');
-            $check_out = WPBooking_Input::request('check_out');
+            $check_in = WPBooking_Input::request('checkin_d')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_y');
+            $check_out = WPBooking_Input::request('checkout_d')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_y');
             $rs = WPBooking_Meta_Model::inst()->get_price_accommodation($hotel_id);
             if(!empty($rs['ID'])){
                 $room_id = $rs['ID'];
@@ -1642,8 +1641,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         public function _change_base_price_html($price_html,$price,$post_id,$service_type)
         {
             if(!$post_id) return ;
-            $check_in = WPBooking_Input::request('check_in');
-            $check_out = WPBooking_Input::request('check_out');
+            $check_in = WPBooking_Input::request('checkin_y')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_d');
+            $check_out = WPBooking_Input::request('checkout_y')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_d');
             $price_html=WPBooking_Currency::format_money($price);
             $diff = strtotime($check_out) - strtotime($check_in);
             $diff = $diff / (60 * 60 * 24);
