@@ -1237,12 +1237,14 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         break;
                     case "rate_asc":
                     case "rate_desc":
-                        $rate_calculate = 1;
+                        $injection->select('avg(' . $wpdb->commentmeta . '.meta_value) as avg_rate')
+                            ->join('comments', $wpdb->prefix . 'comments.comment_post_ID=' . $wpdb->posts . '.ID and  ' . $wpdb->comments . '.comment_approved=1', 'LEFT')
+                            ->join('commentmeta', $wpdb->prefix . 'commentmeta.comment_id=' . $wpdb->prefix . 'comments.comment_ID and ' . $wpdb->commentmeta . ".meta_key='wpbooking_review'", 'LEFT');
                         if ($sortby == 'rate_asc') {
-                            $injection->orderby('avg_rate', 'asc');
-                        } else {
-                            $injection->orderby('avg_rate', 'desc');
-                        }
+                                $injection->orderby('avg_rate', 'asc');
+                            } else {
+                                $injection->orderby('avg_rate', 'desc');
+                            }
 
                         break;
                 }
@@ -1290,8 +1292,12 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if(empty($hotel_id)) $hotel_id = get_the_ID();
             $inject=WPBooking_Query_Inject::inst();
             $inject->inject();
-            $check_in= $this->request('check_in');
-            $check_out = $this->request('check_out');
+
+            $check_in = $this->request('checkin_d')."-".$this->request('checkin_m')."-".$this->request('checkin_y');
+            $check_out = $this->request('checkout_d')."-".$this->request('checkout_m')."-".$this->request('checkout_y');
+            if($check_in == '--')$check_in='';
+            if($check_out == '--')$check_out='';
+
             $number_room = $this->request('room_number',1);
             $ids_not_in = $this->get_unavailability_hotel_room($hotel_id,$check_in,$check_out,$number_room);
             $inject->where_not_in('ID',$ids_not_in);
@@ -1616,9 +1622,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          */
         public function _change_base_price($base_price, $hotel_id, $service_type)
         {
-            $base_price = 0;
-            $check_in = WPBooking_Input::request('check_in');
-            $check_out = WPBooking_Input::request('check_out');
+            $check_in = WPBooking_Input::request('checkin_d')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_y');
+            $check_out = WPBooking_Input::request('checkout_d')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_y');
             $rs = WPBooking_Meta_Model::inst()->get_price_accommodation($hotel_id);
             if(!empty($rs['ID'])){
                 $room_id = $rs['ID'];
@@ -1642,8 +1647,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         public function _change_base_price_html($price_html,$price,$post_id,$service_type)
         {
             if(!$post_id) return ;
-            $check_in = WPBooking_Input::request('check_in');
-            $check_out = WPBooking_Input::request('check_out');
+            $check_in = WPBooking_Input::request('checkin_y')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_d');
+            $check_out = WPBooking_Input::request('checkout_y')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_d');
             $price_html=WPBooking_Currency::format_money($price);
             $diff = strtotime($check_out) - strtotime($check_in);
             $diff = $diff / (60 * 60 * 24);
@@ -1831,9 +1836,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         function _add_to_cart_validate($is_validated, $service_type, $post_id, $cart_params)
         {
             $service = new WB_Service($post_id);
-            $check_in = $this->post('wpbooking_check_in');
-            $check_out = $this->post('wpbooking_check_out');
 
+            $check_in = $this->request('wpbooking_checkin_d')."-".$this->request('wpbooking_checkin_m')."-".$this->request('wpbooking_checkin_y');
+            $check_out = $this->request('wpbooking_checkout_d')."-".$this->request('wpbooking_checkout_m')."-".$this->request('wpbooking_checkout_y');
+            if($check_in == '--')$check_in='';
+            if($check_out == '--')$check_out='';
 
             $wpbooking_room = $this->post('wpbooking_room');
             $check_number_room = false;

@@ -2016,6 +2016,15 @@ a.label:focus {
   padding: 5px 24px;
   text-transform: uppercase;
 }
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .wpbooking_order_form.no_date .content-loop-room {
+  width: 100%;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .wpbooking_order_form.no_date .content-info {
+  display: none;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .wpbooking_order_form.no_date .room-book {
+  text-align: right;
+}
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room {
   padding: 10px;
   border-width: 1px;

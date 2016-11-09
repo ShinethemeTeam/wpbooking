@@ -17,109 +17,75 @@
             $wp_query->the_post();
 			$service = new WB_Service();
 			$url = add_query_arg(array(
-				'check_in'  => WPBooking_Input::get('check_in'),
-				'check_out' => WPBooking_Input::get('check_out'),
+				'checkin_d'  => WPBooking_Input::get('checkin_d'),
+				'checkin_m'  => WPBooking_Input::get('checkin_m'),
+				'checkin_y'  => WPBooking_Input::get('checkin_y'),
+				'checkout_d' => WPBooking_Input::get('checkout_d'),
+				'checkout_m' => WPBooking_Input::get('checkout_m'),
+				'checkout_y' => WPBooking_Input::get('checkout_y'),
 				'adult'     => WPBooking_Input::get('adult_s'),
 				'child'     => WPBooking_Input::get('child_s'),
 			), get_permalink());
 
-			switch ($service_type = $service->get_type()) {
-				case "room":
-					?>
-                    <li <?php post_class('loop-item') ?>>
-                        <div class="content-item">
-                            <div class="service-thumbnail">
-                                <?php
-                                echo $service->get_featured_image('thumb');
-                                ?>
-                            </div>
-                            <div class="service-content">
-                                <div class="service-content-inner">
-                                    <h3 class="service-title"><a
-                                            href="<?php echo esc_url($url) ?>"><strong><?php the_title() ?></strong></a></h3>
+			?>
+			<li <?php post_class('loop-item') ?>>
+				<div class="content-item">
+					<div class="service-thumbnail">
+						<?php
+						echo $service->get_featured_image('thumb');
+						?>
+					</div>
+					<div class="service-content">
+						<div class="service-content-inner">
+							<h3 class="service-title"><a
+									href="<?php echo esc_url($url) ?>"><strong><?php the_title() ?></strong></a></h3>
 
-                                    <div class="service-address-rate">
-
-                                        <?php $address = $service->get_address();
-                                        if ($address) {
-                                            ?>
-                                            <div class="service-address">
-                                                <i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
-                                            </div>
-                                        <?php } ?>
-                                    </div>
-                                    <div class="wb-score-review">
-                                        <?php echo $service->get_review_score(); ?>
-                                    </div>
-                                    <?php do_action('wpbooking_after_service_address_rate', get_the_ID(), $service->get_type(), $service) ?>
-                                </div>
-                                <div class="service-price-book-now">
-                                    <div class="service-price">
-                                        <?php
-                                        $service->get_price_html();
-                                        ?>
-                                    </div>
-                                    <div class="service-book-now">
-                                        <a class="wb-btn wb-btn-primary"
-                                           href="<?php echo esc_url($url) ?>"><?php esc_html_e('Book Now', 'wpbooking') ?></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-					<?php
-					break;
-				case 'accommodation':
-					?>
-					<li <?php post_class('loop-item') ?>>
-						<div class="content-item">
-							<div class="service-thumbnail">
-								<?php
-								echo $service->get_featured_image('thumb');
-								?>
-							</div>
-							<div class="service-content">
-								<div class="service-content-inner">
-									<h3 class="service-title"><a
-											href="<?php echo esc_url($url) ?>"><strong><?php the_title() ?></strong></a></h3>
-
-									<div class="service-address-rate">
-										<div class="wb-hotel-star">
-											<?php
-                                            $service->get_star_rating_html();
-											?>
-										</div>
-										<?php $address = $service->get_address();
-										if ($address) {
-											?>
-											<div class="service-address">
-												<i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
-											</div>
-										<?php } ?>
-									</div>
-                                    <div class="wb-score-review">
-                                        <?php echo $service->get_review_score(); ?>
-                                    </div>
-									<?php do_action('wpbooking_after_service_address_rate', get_the_ID(), $service->get_type(), $service) ?>
+							<div class="service-address-rate">
+								<div class="wb-hotel-star">
+									<?php
+									$service->get_star_rating_html();
+									?>
 								</div>
-								<div class="service-price-book-now">
-									<div class="service-price">
-										<?php
-										$service->get_price_html();
-										?>
-										
+								<?php $address = $service->get_address();
+								if ($address) {
+									?>
+									<div class="service-address">
+										<i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
 									</div>
-									<div class="service-book-now">
-										<a class="wb-btn wb-btn-primary"
-										   href="<?php echo esc_url($url) ?>"><?php esc_html_e('Book Now', 'wpbooking') ?></a>
-									</div>
-								</div>
+								<?php } ?>
 							</div>
+							<div class="wb-score-review">
+								<?php echo $service->get_review_score(); ?>
+							</div>
+							<?php do_action('wpbooking_after_service_address_rate', get_the_ID(), $service->get_type(), $service) ?>
 						</div>
-					</li>
-					<?php
-					break;
-			}
+						<div class="service-price-book-now">
+							<?php
+							$price = get_post_meta(get_the_ID(),'base_price',true);
+							$check_in = WPBooking_Input::request('checkin_d')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_y');
+							$check_out = WPBooking_Input::request('checkout_d')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_y');
+							if($check_in == '--')$check_in='';
+							if($check_out == '--')$check_out='';
+							if(!empty($check_out) and !empty($check_in)){
+								?>
+								<div class="service-price">
+									<?php
+									$service->get_price_html();
+									?>
+
+								</div>
+								<div class="service-book-now">
+									<a class="wb-btn wb-btn-primary"
+									   href="<?php echo esc_url($url) ?>"><?php esc_html_e('Book Now', 'wpbooking') ?></a>
+								</div>
+							<?php } else {?>
+								<button class="wb-button button_show_price is_page_search_result"><?php esc_html_e("Show Price","wpbooking") ?></button>
+							<?php } ?>
+						</div>
+					</div>
+				</div>
+			</li>
+			<?php
 		}
 	} else {
 		printf('<h3>%s</h3>', esc_html__('Found nothing match your search', 'wpbooking'));

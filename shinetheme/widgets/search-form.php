@@ -482,7 +482,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                     </select>
                 </label>
             </p>
-            <?php $all_list_field= WPBooking_Service_Controller::inst()->_get_list_field_search();
+            <?php $all_list_field= WPBooking_Service_Controller::inst()->get_search_fields();
             if(!empty($all_list_field)) {
                 foreach( $all_list_field as $key => $value ) {
                     ?>
