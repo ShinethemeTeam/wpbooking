@@ -1867,6 +1867,9 @@ a.label:focus {
   margin-bottom: 30px;
   clear: both;
 }
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .alert-default {
+  font-size: 16px;
+}
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-control {
   display: block;
   width: 100%;
@@ -2132,7 +2135,7 @@ a.label:focus {
   margin-bottom: 15px;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .room-number {
-  width: 60%;
+  width: 55%;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .form-control {
   display: block;
