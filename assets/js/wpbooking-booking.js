@@ -378,7 +378,7 @@ jQuery(document).ready(function($){
             minDate:0,
             onSelect:function(selected) {
                 var p = $(this).parent();
-                var check_in = new Date(selected);
+                var check_in = $(this).datepicker( 'getDate' );
                 p.find('.checkin_d').val(check_in.getDate());
                 p.find('.checkin_m').val(check_in.getMonth()+1);
                 p.find('.checkin_y').val(check_in.getFullYear());
