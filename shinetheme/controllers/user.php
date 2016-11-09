@@ -203,7 +203,7 @@ if (!class_exists('WPBooking_User')) {
             if (!$validate->run()) {
                 wpbooking_set_message($validate->error_string(), 'danger');
                 $error_field = $validate->get_error_fields();
-                WPBooking()->set('error_field', $error_field);
+                WPBooking()->set('error_r_field', $error_field);
                 $is_validated = FALSE;
             }
 

@@ -384,7 +384,7 @@ jQuery(document).ready(function($){
                 p.find('.checkin_y').val(check_in.getFullYear());
                 var form=$(this).closest('form');
                 var date_end=$('.wpbooking-date-end',form);
-                date_end.datepicker("option","minDate", selected)
+                date_end.datepicker("option","minDate", new Date(check_in.getFullYear(),check_in.getMonth(),check_in.getDate()+1))
                 if($('.wpbooking-date-end').length){
                     window.setTimeout(function(){
                         $('.wpbooking-date-end').datepicker('show');
@@ -405,7 +405,7 @@ jQuery(document).ready(function($){
             p.find('.checkout_y').val(check_out.getFullYear());
             var form=$(this).closest('form');
             var date_start=$('.wpbooking-date-start',form);
-            date_start.datepicker("option","maxDate", selected);
+            date_start.datepicker("option","maxDate", new Date(check_out.getFullYear(),check_out.getMonth(),check_out.getDate()-1));
             date_start.trigger('change');
 
         }
@@ -1986,6 +1986,9 @@ jQuery(document).ready(function($){
             $(this).closest('.form-group-wrap').find('button[type=submit]').addClass('wb-disabled');
         }
     });
+    if($('#wpbooking-register-form .accept-term input').is(':checked')){
+        $('#wpbooking-register-form .form-group-wrap').find('button[type=submit]').removeClass('wb-disabled');
+    }
 });
 
 

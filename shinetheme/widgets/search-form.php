@@ -293,6 +293,11 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                     break;
 
 				case "check_in":
+                    $check_in = '';
+                    if(WPBooking_Input::get('checkin_d') && WPBooking_Input::get('checkin_m') && WPBooking_Input::get('checkin_y')) {
+                        $date = new DateTime(WPBooking_Input::get('checkin_d') . '-' . WPBooking_Input::get('checkin_m') . '-' . WPBooking_Input::get('checkin_y'));
+                        $check_in = $date->format(get_option('date_format'));
+                    }
 					?>
 					<div class="item-search datepicker-field">
 						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
@@ -301,7 +306,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                                 <input type="hidden" class="checkin_d" name="checkin_d" value="<?php echo WPBooking_Input::get('checkin_d')?>" />
                                 <input type="hidden" class="checkin_m" name="checkin_m" value="<?php echo WPBooking_Input::get('checkin_m')?>" />
                                 <input type="hidden" class="checkin_y" name="checkin_y" value="<?php echo WPBooking_Input::get('checkin_y')?>" />
-								<input class="wpbooking-date-start <?php if($v['required']=='yes') echo 'wb-required' ?>" readonly type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+								<input class="wpbooking-date-start <?php if($v['required']=='yes') echo 'wb-required' ?>" readonly type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($check_in) ?>">
 								<i class="fa fa-calendar"></i>
 							</label>
 						</div>
@@ -310,6 +315,11 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					<?php
 					break;
 				case "check_out":
+                    $check_out = '';
+                    if(WPBooking_Input::get('checkout_d') && WPBooking_Input::get('checkout_m') && WPBooking_Input::get('checkout_y')) {
+                        $date = new DateTime(WPBooking_Input::get('checkout_d') . '-' . WPBooking_Input::get('checkout_m') . '-' . WPBooking_Input::get('checkout_y'));
+                        $check_out = $date->format(get_option('date_format'));
+                    }
 					?>
 					<div class="item-search  datepicker-field">
 						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
@@ -319,7 +329,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                                 <input type="hidden" class="checkout_d" name="checkout_d" value="<?php echo WPBooking_Input::get('checkout_d')?>" />
                                 <input type="hidden" class="checkout_m" name="checkout_m" value="<?php echo WPBooking_Input::get('checkout_m')?>" />
                                 <input type="hidden" class="checkout_y" name="checkout_y" value="<?php echo WPBooking_Input::get('checkout_y')?>" />
-								<input class="wpbooking-date-end <?php if($v['required']=='yes') echo 'wb-required' ?>" readonly type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+								<input class="wpbooking-date-end <?php if($v['required']=='yes') echo 'wb-required' ?>" readonly type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($check_out) ?>">
 								<i class="fa fa-calendar"></i>
 							</label>
 						</div>
