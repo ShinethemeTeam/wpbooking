@@ -5927,6 +5927,9 @@ body.twentysixteen .wpbooking-checkout-wrap a {
 body.twentytwelve .wb-archive-wrapper {
   padding: 0px;
 }
+body.twentytwelve .wb-archive-wrapper * {
+  box-sizing: border-box;
+}
 .wpbooking-bootstrap.p10 .row {
   margin-right: -10px;
   margin-left: -10px;
