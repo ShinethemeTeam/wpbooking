@@ -175,6 +175,10 @@
     font-size: 14px;
 }
 
+.wb-error{
+  border: 1px solid red !important;
+}
+
 // Search form
 .wpbooking-search-form{
 
@@ -5954,13 +5958,7 @@ body{
             *{
                 box-sizing: border-box;
             }
-          .wpbooking-loop-wrap{
-            .service-thumbnail{
-              img{
-                max-width: 100%;
-              }
-            }
-          }
+
         }
         .wpbooking_service{
 
@@ -5968,13 +5966,154 @@ body{
                 box-sizing: border-box;
             }
         }
+      .wpbooking-myaccount-wrap{
+        *{
+          box-sizing: border-box;
+        }
+      }
+      .wpbooking-loop-wrap{
+        .service-thumbnail{
+          img{
+            max-width: 100%;
+            margin-bottom: 0;
+          }
+        }
+      }
       .wpbooking-single-content{
+        font-size: 13px;
         .wb-service-title-address{
           .wb-service-title{
             margin-top: 30px;
           }
+          .wb-hotel-star{
+            margin-bottom: 10px;
+            margin-top: 5px;
+          }
+        }
+        .wb-tabs{
+          a{
+            text-decoration: none;
+          }
+        }
+        .wp-tabs-content{
+          .service-map-element{
+            min-height: 300px !important;
+          }
+        }
+        .col-service-reviews-meta{
+          .wb-service-reviews-meta{
+            padding-top: 30px;
+            .wb-reviews-score-box{
+              .score-header{
+                padding-left: 10px;
+              }
+            }
+            .wb-reviews-score-box{
+              min-height: 150px;
+              .list_review_fields{
+                font-size: 13px;
+                .rating_title{
+                  padding-left: 10px;
+                }
+                .rating{
+                  font-size: 12px;
+                }
+              }
+            }
+            .wb-share{
+              .wb-list-social{
+                li a{
+                  padding-top: 8px;
+                }
+              }
+            }
+          }
+          a{
+            text-decoration: none;
+            color: #666;
+          }
+        }
+        .service-content-section{
+          .service-detail-item{
+            font-size: 13px;
+            line-height: 1.5;
+          }
+          .search-room-availablity{
+            .content-search-room{
+              .loop-room{
+                .room-image{
+                  img{
+                    max-width: 100%;
+                  }
+                }
+                .room-content{
+                  .room-info{
+                    .control{
+                      .img{
+                        padding: 5px 6px;
+                        line-height: 1;
+                      }
+                    }
+                  }
+                }
+                .room-book{
+                  .room-total-price{
+                    margin-bottom: 10px;
+                  }
+                  .room-number{
+                    width: 80%;
+                  }
+                }
+              }
+            }
+          }
+        }
+        #respond{
+          form{
+            label{
+              display: table-row;
+            }
+            input[type="text"]{
+              width: 100%;
+              padding: 5px;
+            }
+            .comment-form-author{
+              margin-right: 5px;
+            }
+            .comment-form-email{
+              margin-left: 5px;
+            }
+          }
+
+        }
+        .wb-reviews-section{
+          .comment-list{
+            > li .comment-content-wrap{
+              .comment-title{
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 10px;
+              }
+              .comment-text{
+                font-size: 13px;
+                p{
+                  line-height: 1.5;
+                }
+              }
+              .wpbooking-more-review-detail{
+                .review-stats{
+                  .wpbooking-rating-review-result{
+                    .rating-title{
+                      padding: 4px 10px 4px 0;
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
+
     }
 }
 

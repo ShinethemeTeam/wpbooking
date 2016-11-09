@@ -202,12 +202,14 @@ if (!class_exists('WPBooking_User')) {
 
             if (!$validate->run()) {
                 wpbooking_set_message($validate->error_string(), 'danger');
+                $error_field = $validate->get_error_fields();
+                WPBooking()->set('error_field', $error_field);
                 $is_validated = FALSE;
             }
 
             // Allow to add filter before register
             $is_validated = apply_filters('wpbooking_register_validate', $is_validated);
-            var_dump($validate->get_error_fields());
+
             if ($is_validated) {
                 // Start Create User
                 $user_email = WPBooking_Input::post('rg-email');

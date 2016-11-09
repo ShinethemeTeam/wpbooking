@@ -10,7 +10,7 @@ $service_room = new WB_Service(get_the_ID());
         <?php
         echo $featured=$service_room->get_featured_image_room('thumb');
         ?>
-        &nbsp;
+
     </div>
     <div class="room-content">
         <div class="room-title">
