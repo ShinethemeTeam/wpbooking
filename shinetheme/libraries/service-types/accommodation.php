@@ -637,7 +637,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         array(
                             'label' => __("Term & condition", 'wpbooking'),
                             'type'  => 'title',
-                            'desc'  => esc_html__("We will show these information in checkout step.", "wpbooking")
+                            'desc'  => esc_html__("We will show this information in checkout step.", "wpbooking")
                         ),
                         array(
                             'label' => __('Minimum Stay', 'wpbooking'),
@@ -1216,10 +1216,17 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if ($sortby = $this->request('wb_sort_by')) {
                 switch ($sortby) {
                     case "price_asc":
-                        $injection->orderby($table_prefix . '.price+0', 'asc');
+                        $injection->select('MIN(CAST(order_table.meta_value as double)) as min_price');
+                        $injection->join('posts as post_table',"post_table.post_parent={$wpdb->posts}.ID");
+                        $injection->join('postmeta as order_table',"order_table.post_ID=post_table.ID and order_table.meta_key='base_price' and order_table.meta_value>0");
+                        $injection->orderby('min_price', 'asc');
+
                         break;
                     case "price_desc":
-                        $injection->orderby($table_prefix . '.price+0', 'desc');
+                        $injection->select('MIN(CAST(order_table.meta_value as double)) as min_price');
+                        $injection->join('posts as post_table',"post_table.post_parent={$wpdb->posts}.ID");
+                        $injection->join('postmeta as order_table',"order_table.post_ID=post_table.ID and order_table.meta_key='base_price' and order_table.meta_value>0");
+                        $injection->orderby('min_price', 'desc');
                         break;
                     case "date_asc":
                         $injection->add_arg('orderby', 'date');

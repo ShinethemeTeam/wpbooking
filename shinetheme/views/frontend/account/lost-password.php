@@ -11,7 +11,7 @@
     <div class="form-group-wrap">
         <div class="form-group">
             <label for="username_email" class="control-label"><?php echo esc_html__('Username or email address','wpbooking'); ?> <span class="required">*</span></label>
-            <input class="form-control" id="user_login" name="user_login" value="">
+            <input class="form-control <?php echo (WPBooking_Input::get('errors')?'wb-error':'')?>" id="user_login" required name="user_login" value="">
         </div>
         <div class="form-group">
             <button type="submit" name="submit" class="wb-btn wb-btn-default wb-btn-lg" value="reset_pass_submit"><?php echo esc_html__('Reset Password','wpbooking'); ?></button>

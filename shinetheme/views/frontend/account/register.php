@@ -23,19 +23,19 @@ if(!empty(WPBooking()->get('error_r_field'))){
 	<div class="form-group-wrap">
 		<div class="form-group">
 			<label for="reg-login" class="control-label"><?php esc_html_e('Username','wpbooking') ?> <span class="required">*</span></label>
-			<input type="text" class="form-control <?php echo (array_key_exists('rg-login',$error_field)?'wb-error':'')?>" value="<?php echo WPBooking_Input::post('rg-login') ?>" name="rg-login" id="reg-login" ">
+			<input type="text" required class="form-control <?php echo (array_key_exists('rg-login',$error_field)?'wb-error':'')?>" value="<?php echo WPBooking_Input::post('rg-login') ?>" name="rg-login" id="reg-login" ">
 		</div>
 		<div class="form-group">
 			<label for="input-email" class="control-label"><?php esc_html_e('Email','wpbooking') ?> <span class="required">*</span></label>
-			<input type="text" class="form-control <?php echo (array_key_exists('rg-email',$error_field)?'wb-error':'')?>" value="<?php echo WPBooking_Input::post('rg-email') ?>" name="rg-email" id="input-email" ">
+			<input type="text" required class="form-control <?php echo (array_key_exists('rg-email',$error_field)?'wb-error':'')?>" value="<?php echo WPBooking_Input::post('rg-email') ?>" name="rg-email" id="input-email" ">
 		</div>
 		<div class="form-group">
 			<label for="input-password" class="control-label"><?php esc_html_e('Password','wpbooking') ?> <span class="required">*</span></label>
-			<input type="password" class="form-control <?php echo (array_key_exists('rg-password',$error_field)?'wb-error':'')?>" id="input-password" name="rg-password" value="<?php echo WPBooking_Input::post('rg-password') ?>">
+			<input type="password" required class="form-control <?php echo (array_key_exists('rg-password',$error_field)?'wb-error':'')?>" id="input-password" name="rg-password" value="<?php echo WPBooking_Input::post('rg-password') ?>">
 		</div>
 		<div class="form-group">
 			<label for="input-repassword" class="control-label"><?php esc_html_e('Re-type Password','wpbooking') ?> <span class="required">*</span></label>
-			<input type="password" class="form-control <?php echo (array_key_exists('rg-repassword',$error_field)?'wb-error':'')?>" id="input-repassword" name="rg-repassword" value="<?php echo WPBooking_Input::post('rg-repassword') ?>">
+			<input type="password" required class="form-control <?php echo (array_key_exists('rg-repassword',$error_field)?'wb-error':'')?>" id="input-repassword" name="rg-repassword" value="<?php echo WPBooking_Input::post('rg-repassword') ?>">
 		</div>
 		<div class="form-group">
 			<label class="accept-term">
