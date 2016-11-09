@@ -17,8 +17,12 @@
             $wp_query->the_post();
 			$service = new WB_Service();
 			$url = add_query_arg(array(
-				'check_in'  => WPBooking_Input::get('check_in'),
-				'check_out' => WPBooking_Input::get('check_out'),
+				'checkin_d'  => WPBooking_Input::get('checkin_d'),
+				'checkin_m'  => WPBooking_Input::get('checkin_m'),
+				'checkin_y'  => WPBooking_Input::get('checkin_y'),
+				'checkout_d' => WPBooking_Input::get('checkout_d'),
+				'checkout_m' => WPBooking_Input::get('checkout_m'),
+				'checkout_y' => WPBooking_Input::get('checkout_y'),
 				'adult'     => WPBooking_Input::get('adult_s'),
 				'child'     => WPBooking_Input::get('child_s'),
 			), get_permalink());
@@ -104,8 +108,11 @@
 								</div>
 								<div class="service-price-book-now">
 									<?php
-									$check_in = WPBooking_Input::request('check_in');
-									$check_out = WPBooking_Input::request('check_out');
+									$price = get_post_meta(get_the_ID(),'base_price',true);
+									$check_in = WPBooking_Input::request('checkin_d')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_y');
+									$check_out = WPBooking_Input::request('checkout_d')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_y');
+									if($check_in == '--')$check_in='';
+									if($check_out == '--')$check_out='';
 									if(!empty($check_out) and !empty($check_in)){
 										?>
 										<div class="service-price">

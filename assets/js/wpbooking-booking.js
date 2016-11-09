@@ -77,7 +77,7 @@ jQuery(document).ready(function($){
     },500);
     $(document).on('change','.form-search-room input,.form-search-room select,.form-search-room textarea',function(){
         var searchbox = $(this).closest('.form-search-room');
-        var data_form_book = searchbox.find('input[type=text],select,textarea').serializeArray();
+        var data_form_book = searchbox.find('input,select,textarea').serializeArray();
         for (var i = 0; i < data_form_book.length; i++) {
             searchbox.closest('.search-room-availablity').find('.form_book_'+data_form_book[i].name).val(data_form_book[i].value);
         }
@@ -424,6 +424,11 @@ jQuery(document).ready(function($){
         {
             minDate:0,
             onSelect:function(selected) {
+                var p = $(this).parent();
+                var check_in = $(this).datepicker( 'getDate' );
+                p.find('.checkin_d').val(check_in.getDate());
+                p.find('.checkin_m').val(check_in.getMonth()+1);
+                p.find('.checkin_y').val(check_in.getFullYear());
                 var form=$(this).closest('form');
                 var date_end=$('.search-room-availablity .wpbooking-search-end',form);
                 date_end.datepicker("option","minDate", selected)
@@ -434,18 +439,23 @@ jQuery(document).ready(function($){
                 }
                 $(this).trigger('change');
             },
-            dateFormat: 'dd-mm-yy'
         }).datepicker('widget');//.wrap('<div class="ll-skin-melon"/>');
 
     $('.search-room-availablity .wpbooking-search-end').datepicker( {
         minDate:0,
         onSelect:function(selected) {
+
+            var p = $(this).parent();
+            var check_out = $(this).datepicker( 'getDate' );
+            p.find('.checkout_d').val(check_out.getDate());
+            p.find('.checkout_m').val(check_out.getMonth()+1);
+            p.find('.checkout_y').val(check_out.getFullYear());
+
             var form=$(this).closest('form');
             var date_end=$('.search-room-availablity .wpbooking-search-start',form);
             date_end.datepicker("option","maxDate", selected);
             $(this).trigger('change');
         },
-        dateFormat: 'dd-mm-yy'
     }).datepicker('widget');
 
 
@@ -542,6 +552,8 @@ jQuery(document).ready(function($){
                     if (typeof data.data != "undefined" && data.data) {
                         content_list_room.html(data.data);
                         content_search_room.show();
+                        content_search_room.find('.wpbooking_order_form').removeClass('no_date');
+
                     } else {
                         content_list_room.html('');
                         content_search_room.hide();

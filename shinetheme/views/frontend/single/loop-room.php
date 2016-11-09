@@ -73,8 +73,10 @@ $service_room = new WB_Service(get_the_ID());
     <div class="room-book">
         <?php
         $price = get_post_meta(get_the_ID(),'base_price',true);
-        $check_in = WPBooking_Input::request('check_in');
-        $check_out = WPBooking_Input::request('check_out');
+        $check_in = WPBooking_Input::request('checkin_d')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_y');
+        $check_out = WPBooking_Input::request('checkout_d')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_y');
+        if($check_in == '--')$check_in='';
+        if($check_out == '--')$check_out='';
         if(!empty($check_in) and !empty($check_out)){
         ?>
             <div class="room-total-price">

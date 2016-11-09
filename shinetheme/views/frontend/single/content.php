@@ -290,11 +290,33 @@ $hotel_id = get_the_ID();
 					</form>
 					<div class="search_room_alert"></div>
 					<div class="content-search-room">
-						<form method="post" class="wpbooking_order_form">
+						<?php
+
+
+						$checkin_d = WPBooking_Input::request('checkin_d');
+						$checkin_m = WPBooking_Input::request('checkin_m');
+						$checkin_y = WPBooking_Input::request('checkin_y');
+
+						$checkout_d = WPBooking_Input::request('checkout_d');
+						$checkout_m = WPBooking_Input::request('checkout_m');
+						$checkout_y = WPBooking_Input::request('checkout_y');
+
+						$class = '';
+						if(!$checkin_d and !$checkin_m and !$checkin_y and !$checkout_d and !$checkout_m and !$checkout_y){
+							$class = 'no_date';
+						}
+						?>
+						<form method="post" class="wpbooking_order_form <?php echo esc_html($class) ?>">
 							<input name="action" value="wpbooking_add_to_cart" type="hidden">
 							<input name="post_id" value="<?php the_ID() ?>" type="hidden">
-							<input name="wpbooking_check_in" class="form_book_check_in"  type="hidden">
-							<input name="wpbooking_check_out" class="form_book_check_out"  type="hidden">
+							<input name="wpbooking_checkin_d" class="form_book_checkin_d" value="<?php echo esc_attr($checkin_d) ?>"  type="hidden">
+							<input name="wpbooking_checkin_m" class="form_book_checkin_m" value="<?php echo esc_attr($checkin_m) ?>" type="hidden">
+							<input name="wpbooking_checkin_y" class="form_book_checkin_y" value="<?php echo esc_attr($checkin_y) ?>" type="hidden">
+
+							<input name="wpbooking_checkout_d" class="form_book_checkout_d" value="<?php echo esc_attr($checkout_d) ?>" type="hidden">
+							<input name="wpbooking_checkout_m" class="form_book_checkout_m" value="<?php echo esc_attr($checkout_m) ?>" type="hidden">
+							<input name="wpbooking_checkout_y" class="form_book_checkout_y" value="<?php echo esc_attr($checkout_y) ?>" type="hidden">
+
 							<input name="wpbooking_room_number" class="form_book_room_number"  type="hidden">
 							<input name="wpbooking_adults" class="form_book_adults"  type="hidden">
 							<input name="wpbooking_children" class="form_book_children"  type="hidden">
