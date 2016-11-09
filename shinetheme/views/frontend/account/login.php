@@ -6,6 +6,17 @@
  * Time: 3:32 PM
  */
 $full_url =  $current_url="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$error_field = array('u'=>'','p'=>'');
+if(!WPBooking_Input::post('action'))
+    WPBooking()->set('error_code','');
+
+if(!empty(WPBooking()->get('error_code'))){
+    if(strpos(WPBooking()->get('error_code'),'username')){
+        $error_field['u'] = 'wb-error';
+    }else{
+        $error_field['p'] = 'wb-error';
+    }
+}
 ?>
 <form action="" method="post" id="wpbooking-login-form" class="login-register-form">
 	<input type="hidden"  name="action" value="wpbooking_do_login">
@@ -14,11 +25,11 @@ $full_url =  $current_url="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 	<div class="form-group-wrap">
 		<div class="form-group">
 			<label for="input-login" class="control-label"><?php esc_html_e('Username or email address','wpbooking') ?> <span class="required">*</span></label>
-			<input type="text" class="form-control" value="<?php echo WPBooking_Input::post('login') ?>" name="login" id="input-login">
+			<input type="text" class="form-control <?php echo esc_attr($error_field['u']); ?>" required value="<?php echo WPBooking_Input::post('login') ?>" name="login" id="input-login">
 		</div>
 		<div class="form-group">
 			<label for="input-password" class="control-label"><?php esc_html_e('Password','wpbooking') ?> <span class="required">*</span></label>
-			<input type="password" class="form-control" id="input-password" name="password">
+			<input type="password" class="form-control <?php echo esc_attr($error_field['p']); ?>" required id="input-password" name="password">
 		</div>
 		<div class="form-group">
 			<button type="submit" class="wb-btn wb-btn-default wb-btn-md"><?php esc_html_e('Login','wpbooking') ?></button>

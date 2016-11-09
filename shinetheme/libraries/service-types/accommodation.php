@@ -637,7 +637,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         array(
                             'label' => __("Term & condition", 'wpbooking'),
                             'type'  => 'title',
-                            'desc'  => esc_html__("We will show these information in checkout step.", "wpbooking")
+                            'desc'  => esc_html__("We will show this information in checkout step.", "wpbooking")
                         ),
                         array(
                             'label' => __('Minimum Stay', 'wpbooking'),

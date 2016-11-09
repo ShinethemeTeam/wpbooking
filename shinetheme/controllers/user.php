@@ -155,6 +155,7 @@ if (!class_exists('WPBooking_User')) {
                 $user = wp_signon($creds, FALSE);
                 if (is_wp_error($user)) {
                     if(!empty($user->get_error_code())){
+                        WPBooking()->set('error_code',$user->get_error_code());
                         wpbooking_set_message($this->get_error_message($user->get_error_code()), 'danger');
                     }else{
                         wpbooking_set_message(esc_html__('You need to enter a username and a password to login', 'wpbooking'), 'danger');
@@ -562,11 +563,14 @@ if (!class_exists('WPBooking_User')) {
                         $is_validate = apply_filters('wpbooking_change_password_validate', $is_validate);
 
                         if ($is_validate) {
+                            WPBooking_Session::set('new_changed_pass',WPBooking_Input::post('u_new_password'));
                             // Start Update
                             $is_updated = wp_update_user(array(
                                 'ID'        => get_current_user_id(),
                                 'user_pass' => WPBooking_Input::post('u_new_password'),
                             ));
+
+                            WPBooking_Session::destroy('new_changed_pass');
 
                             if (is_wp_error($is_updated)) {
 
@@ -579,8 +583,8 @@ if (!class_exists('WPBooking_User')) {
                             }
                         }
 
-
                         do_action('wpbooking_after_change_password', $is_validate, $is_updated);
+
                     }
                     break;
 
@@ -1062,6 +1066,8 @@ if (!class_exists('WPBooking_User')) {
 
                 if(!$validator->run()){
                     wpbooking_set_message($validator->error_string(),'danger');
+                    $error_field = $validator->get_error_fields();
+                    WPBooking()->set('error_rs_fields',$error_field);
                     $redirect_url = get_permalink($account_page) . 'reset-password';
                     $redirect_url = add_query_arg('key', $rp_key, $redirect_url);
                     $redirect_url = add_query_arg('login', $rp_login, $redirect_url);
