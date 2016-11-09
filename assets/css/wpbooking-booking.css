@@ -202,6 +202,9 @@ a.label:focus {
 .ui-datepicker {
   font-size: 14px;
 }
+.wb-error {
+  border: 1px solid red !important;
+}
 .wpbooking-search-form {
   padding: 30px 15px;
   border: 1px solid #d5d5d5;
@@ -5944,14 +5947,100 @@ body.twentytwelve .wb-archive-wrapper {
 body.twentytwelve .wb-archive-wrapper * {
   box-sizing: border-box;
 }
-body.twentytwelve .wb-archive-wrapper .wpbooking-loop-wrap .service-thumbnail img {
-  max-width: 100%;
-}
 body.twentytwelve .wpbooking_service * {
   box-sizing: border-box;
 }
+body.twentytwelve .wpbooking-myaccount-wrap * {
+  box-sizing: border-box;
+}
+body.twentytwelve .wpbooking-loop-wrap .service-thumbnail img {
+  max-width: 100%;
+  margin-bottom: 0;
+}
+body.twentytwelve .wpbooking-single-content {
+  font-size: 13px;
+}
 body.twentytwelve .wpbooking-single-content .wb-service-title-address .wb-service-title {
   margin-top: 30px;
+}
+body.twentytwelve .wpbooking-single-content .wb-service-title-address .wb-hotel-star {
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+body.twentytwelve .wpbooking-single-content .wb-tabs a {
+  text-decoration: none;
+}
+body.twentytwelve .wpbooking-single-content .wp-tabs-content .service-map-element {
+  min-height: 300px !important;
+}
+body.twentytwelve .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta {
+  padding-top: 30px;
+}
+body.twentytwelve .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .score-header {
+  padding-left: 10px;
+}
+body.twentytwelve .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box {
+  min-height: 150px;
+}
+body.twentytwelve .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .list_review_fields {
+  font-size: 13px;
+}
+body.twentytwelve .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .list_review_fields .rating_title {
+  padding-left: 10px;
+}
+body.twentytwelve .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .list_review_fields .rating {
+  font-size: 12px;
+}
+body.twentytwelve .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-list-social li a {
+  padding-top: 8px;
+}
+body.twentytwelve .wpbooking-single-content .col-service-reviews-meta a {
+  text-decoration: none;
+  color: #666;
+}
+body.twentytwelve .wpbooking-single-content .service-content-section .service-detail-item {
+  font-size: 13px;
+  line-height: 1.5;
+}
+body.twentytwelve .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-image img {
+  max-width: 100%;
+}
+body.twentytwelve .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content .room-info .control .img {
+  padding: 5px 6px;
+  line-height: 1;
+}
+body.twentytwelve .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .room-total-price {
+  margin-bottom: 10px;
+}
+body.twentytwelve .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .room-number {
+  width: 80%;
+}
+body.twentytwelve .wpbooking-single-content #respond form label {
+  display: table-row;
+}
+body.twentytwelve .wpbooking-single-content #respond form input[type="text"] {
+  width: 100%;
+  padding: 5px;
+}
+body.twentytwelve .wpbooking-single-content #respond form .comment-form-author {
+  margin-right: 5px;
+}
+body.twentytwelve .wpbooking-single-content #respond form .comment-form-email {
+  margin-left: 5px;
+}
+body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .comment-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .comment-text {
+  font-size: 13px;
+}
+body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .comment-text p {
+  line-height: 1.5;
+}
+body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .wpbooking-more-review-detail .review-stats .wpbooking-rating-review-result .rating-title {
+  padding: 4px 10px 4px 0;
 }
 .wpbooking-bootstrap.p10 .row {
   margin-right: -10px;
