@@ -25,14 +25,15 @@ if(!class_exists('WPBooking_Meta_Model')){
 
             if(empty($post_id)) return;
 
-            $row = $this->select('MIN(meta_value) as min_price')
+            $row = $this->select('CAST(meta_value AS DECIMAL) AS min_price,ID')
                 ->join('posts','posts.ID=postmeta.post_id')
                 ->where('meta_key','base_price')
                 ->where($wpdb->posts.'.post_parent',$post_id)
                 ->where($wpdb->posts.'.post_status','publish')
+                ->orderby('min_price','asc')
+                ->limit(1)
                 ->get()->row();
-
-            return (!empty($row['min_price']))?$row['min_price']:'';
+            return $row;
 
         }
 
