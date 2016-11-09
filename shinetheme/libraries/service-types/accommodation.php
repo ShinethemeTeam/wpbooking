@@ -1118,7 +1118,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $result = array(
                         'status'  => 0,
                         'data'    => '',
-                        'message' => __('No Room.', 'wpbooking'),
+                        'message' => __('Không tìm thấy room nào !', 'wpbooking'),
+                        'status_message' => 'default',
                     );
                     echo json_encode($result);
                     die;

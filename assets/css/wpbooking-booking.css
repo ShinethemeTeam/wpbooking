@@ -155,6 +155,10 @@ a.label:focus {
   border-color: rgba(240, 80, 80, 0.3);
   color: #ff5b5b;
 }
+.alert.alert-default {
+  border: 1px solid #e6e6e6;
+  color: #666;
+}
 .alert a {
   text-decoration: underline;
 }

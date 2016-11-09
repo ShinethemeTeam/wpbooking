@@ -560,11 +560,13 @@ jQuery(document).ready(function($){
                     }
                 }
                 if (data.message) {
-                    setMessage(holder, data.message, 'danger');
+                    var status = 'danger';
+                    if (typeof data.status_message != "undefined" && data.status_message) {
+                        status = data.status_message;
+                    }
+                    setMessage(holder, data.message, status);
                     content_list_room.html('');
                     content_search_room.hide();
-
-
                 }
                 $('.content-search-room .content-loop-room .loop-room .option_number_room').trigger('change');
             },
