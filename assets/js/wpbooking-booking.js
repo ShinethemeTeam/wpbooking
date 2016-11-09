@@ -536,7 +536,7 @@ jQuery(document).ready(function($){
             return;
         }
         searchbox.addClass('loading');
-        searchbox.find('.img_loading').show();
+        searchbox.find('.btn-do-search-room').addClass('loading');
         var content_list_room = parent.find('.content-loop-room');
         var content_search_room = parent.find('.content-search-room');
         $.ajax({
@@ -546,7 +546,7 @@ jQuery(document).ready(function($){
             'url':wpbooking_params.ajax_url,
             'success': function(data) {
                 searchbox.removeClass('loading');
-                searchbox.find('.img_loading').hide();
+                searchbox.find('.btn-do-search-room').removeClass('loading');
                 console.log(data);
                 if (data.status) {
                     if (typeof data.data != "undefined" && data.data) {
@@ -572,6 +572,7 @@ jQuery(document).ready(function($){
             },
             error: function(data) {
                 searchbox.removeClass('loading');
+                searchbox.find('.btn-do-search-room').removeClass('loading');
             }
         })
     }

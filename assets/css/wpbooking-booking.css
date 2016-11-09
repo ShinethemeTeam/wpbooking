@@ -1969,6 +1969,24 @@ a.label:focus {
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .wb-button {
   margin-left: 10px !important;
 }
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .btn-do-search-room.loading::after {
+  animation: 1s steps(8) 0s normal none infinite running fa-spin;
+  content: "";
+  display: inline-block;
+  font-family: FontAwesome;
+  font-feature-settings: normal;
+  font-kerning: auto;
+  font-language-override: normal;
+  font-size: inherit;
+  font-size-adjust: none;
+  font-stretch: normal;
+  font-style: normal;
+  font-synthesis: weight style;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  text-rendering: auto;
+}
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .form-item {
   float: left;
   padding-right: 10px;
