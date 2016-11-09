@@ -654,6 +654,19 @@ jQuery(document).ready(function($){
         if (!holder.length) return;
         holder.html('');
         holder.html(html);
+        do_scrollTo(holder);
+    }
+    function do_scrollTo(el) {
+        if (el.length) {
+            var top = el.offset().top;
+            if ($('#wpadminbar').length && $('#wpadminbar').css('position') == 'fixed') {
+                top -= 32;
+            }
+            top -= 50;
+            $('html,body').animate({
+                'scrollTop': top
+            }, 500);
+        }
     }
     /**
      * Format money

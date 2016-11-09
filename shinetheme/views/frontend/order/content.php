@@ -16,18 +16,18 @@ do_action('wpbooking_before_order_content');
             <?php esc_html_e('Success Booking','wpbooking'); ?>
         <?php } ?>
     </div>
-    <?php /*if(!WPBooking_Input::request('wpbooking_detail') == 'true'){ */?><!--
+    <?php if(!WPBooking_Input::request('wpbooking_detail') == 'true'){ ?>
         <div class="wpbooking-thankyou-message">
             <i class="fa fa-check-circle"></i>
             <?php
-/*            if($customer_name=$order->get_customer('name')){
-                printf(esc_html__('%s, your order has been received!','wpbooking'),$customer_name);
+            if($customer_name=$order->get_customer('name')){
+                printf(esc_html__('%s, Congratulation! Your booking has been successful! Below is booking details.','wpbooking'),$customer_name);
             }else{
                 esc_html_e('Thank you, your order has been received!','wpbooking');
             }
-            */?>
+            ?>
         </div>
-    --><?php /*} */?>
+    <?php } ?>
 	<div class="order-head-info wpbooking-bootstrap">
         <div class="row">
             <div class="col-md-6">
