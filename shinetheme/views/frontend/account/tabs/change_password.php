@@ -9,19 +9,19 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="u_password"><?php esc_html_e('Old Password','wpbooking') ?></label>
-                    <input type="password" class="form-control" id="u_password" name="u_password" >
+                    <input type="password" class="form-control" required id="u_password" name="u_password" >
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="u_new_password"><?php esc_html_e('New Password','wpbooking') ?></label>
-                    <input type="password" class="form-control" id="u_new_password" name="u_new_password" >
+                    <input type="password" class="form-control" required id="u_new_password" name="u_new_password" >
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="u_re_new_password"><?php esc_html_e('Confirm New Password','wpbooking') ?></label>
-                    <input type="password" class="form-control" id="u_re_new_password" name="u_re_new_password" >
+                    <input type="password" class="form-control" required id="u_re_new_password" name="u_re_new_password" >
                 </div>
             </div>
             <div class="col-md-9 text-info">

@@ -19,12 +19,9 @@ if(!$wp_query->have_posts()) return;
     </div>
 	<div class="col-post-found">
 		<h2 class="post-found-count"><?php
-            $service = new WB_Service();
-            if($service == 'room') {
-                printf(_n('Found %d room','Found %d rooms',$wp_query->found_posts, 'wpbooking'), $wp_query->found_posts);
-            }else{
-                printf(_n('Found %d Accommodation','Found %d Accommodation',$wp_query->found_posts, 'wpbooking'), $wp_query->found_posts);
-            }
+
+            printf(_n('Found %d Accommodation','Found %d Accommodations',$wp_query->found_posts, 'wpbooking'), $wp_query->found_posts);
+
             ?></h2>
 		<p class="post-query-desc">
 			<?php
