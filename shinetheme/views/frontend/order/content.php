@@ -10,21 +10,27 @@ do_action('wpbooking_before_order_content');
 ?>
 <div class="wpbooking-order-detail-page">
     <div class="wpbooking-title">
-        <?php esc_html_e('Success Booking','wpbooking'); ?>
+        <?php if(WPBooking_Input::request('wpbooking_detail') == 'true'){ ?>
+            <?php esc_html_e('Booking Details','wpbooking'); ?>
+        <?php }else{ ?>
+            <?php esc_html_e('Success Booking','wpbooking'); ?>
+        <?php } ?>
     </div>
-	<div class="wpbooking-thankyou-message">
+    <?php if(!WPBooking_Input::request('wpbooking_detail') == 'true'){ ?>
+        <div class="wpbooking-thankyou-message">
             <i class="fa fa-check-circle"></i>
-		<?php
-		if($customer_name=$order->get_customer('name')){
-			printf(esc_html__('%s, your order has been received!','wpbooking'),$customer_name);
-		}else{
-			esc_html_e('Thank you, your order has been received!','wpbooking');
-		}
-		?>
-	</div>
+            <?php
+            if($customer_name=$order->get_customer('name')){
+                printf(esc_html__('%s, your order has been received!','wpbooking'),$customer_name);
+            }else{
+                esc_html_e('Thank you, your order has been received!','wpbooking');
+            }
+            ?>
+        </div>
+    <?php } ?>
 	<div class="order-head-info wpbooking-bootstrap">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-6">
                 <div class="head-info">
                     <span class="head-info-title"><?php  esc_html_e('Booking code :','wpbooking')?></span>
                     <span class="head-info-content hl">#<?php the_ID() ?></span>
@@ -38,7 +44,7 @@ do_action('wpbooking_before_order_content');
                     <span class="head-info-content"><?php echo ($order->get_status_html()) ?></span>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <div class="head-info total">
                     <span class="head-info-title"><?php  esc_html_e('Total','wpbooking')?></span>
                     <span class="head-info-content"><?php echo WPBooking_Currency::format_money($order->get_total(array('without_deposit'=>false))) ?></span>

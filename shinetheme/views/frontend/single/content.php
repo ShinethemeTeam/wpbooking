@@ -232,9 +232,9 @@ $hotel_id = get_the_ID();
 							<div class="form-search">
 								<?php
 								$check_in = WPBooking_Input::request('checkin_y')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_d');
-								if($check_in == '--')$check_in='';
+								if($check_in == '--')$check_in='';else$check_in = date(get_option('date_format'),strtotime($check_in));
 								$check_out = WPBooking_Input::request('checkout_y')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_d');
-								if($check_out == '--')$check_out='';
+								if($check_out == '--')$check_out='';else$check_out = date(get_option('date_format'),strtotime($check_out));
 								?>
 								<div class="form-item w20 form-item-icon">
 									<label><?php esc_html_e('Check In', 'wpbooing') ?><i class="fa fa-calendar"></i>
