@@ -217,6 +217,7 @@
             border:1px solid #d5d5d5;
             padding:0px 10px;
           background: #FFF;
+            box-sizing: border-box;
             &.small-input{
                 width: auto;
             }
@@ -2156,12 +2157,6 @@
                                 font-size: 17px;
                                 font-weight: bold;
                                 margin-bottom: 15px;
-                                .button_show_price{
-                                    background: @maincolor none repeat scroll 0 0;
-                                    border-color: #f0ad4e;
-                                    font-size: 12px;
-                                    padding: 5px 10px;
-                                }
                             }
                             .room-number{
                                 width: 60%;
@@ -5953,6 +5948,14 @@ body{
             }
         }
     }
+    &.twentytwelve{
+        .wb-archive-wrapper{
+            padding: 0px;
+            *{
+                box-sizing: border-box;
+            }
+        }
+    }
 }
 
 // bootstrap custom
@@ -6751,4 +6754,10 @@ body{
         }
     }
 
+}
+.button_show_price{
+    background: @maincolor none repeat scroll 0 0;
+    border-color: #f0ad4e;
+    font-size: 12px;
+    padding: 5px 10px;
 }

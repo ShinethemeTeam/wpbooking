@@ -162,9 +162,20 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             /**
              * Change Base Price
              *
+             * @author quandq
              * @since 1.0
              */
             add_filter('wpbooking_service_base_price_' . $this->type_id, array($this, '_change_base_price'), 10, 3);
+
+
+            /**
+             * Change Base Price HTML
+             *
+             * @author quandq
+             * @since 1.0
+             */
+            add_filter('wpbooking_service_base_price_html_' . $this->type_id, array($this, '_change_base_price_html'), 10, 4);
+
 
             /**
              * Move name and email field to top in comment
@@ -1603,13 +1614,49 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          * @param $service_type
          * @return mixed
          */
-        public function _change_base_price($base_price, $post_id, $service_type)
+        public function _change_base_price($base_price, $hotel_id, $service_type)
         {
-
-            $base_price = WPBooking_Meta_Model::inst()->get_price_accommodation($post_id);
-
+            $base_price = 0;
+            $check_in = WPBooking_Input::request('check_in');
+            $check_out = WPBooking_Input::request('check_out');
+            $rs = WPBooking_Meta_Model::inst()->get_price_accommodation($hotel_id);
+            if(!empty($rs['ID'])){
+                $room_id = $rs['ID'];
+                $base_price = $this->_get_price_room_with_date($room_id,$check_in,$check_out);
+            }
             return $base_price;
         }
+
+        /**
+         * Hook Callback Change Base Price
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @param $price_html
+         * @param $price
+         * @param $post_id
+         * @param $service_type
+         * @return string
+         */
+        public function _change_base_price_html($price_html,$price,$post_id,$service_type)
+        {
+            if(!$post_id) return ;
+            $check_in = WPBooking_Input::request('check_in');
+            $check_out = WPBooking_Input::request('check_out');
+            $price_html=WPBooking_Currency::format_money($price);
+            $diff = strtotime($check_out) - strtotime($check_in);
+            $diff = $diff / (60 * 60 * 24);
+            if($diff > 1){
+                $price_html=sprintf(__('from %s /%s nights','wpbooking'),'<br><span class="price">'.$price_html.'</span>',$diff);
+            }else{
+                $price_html=sprintf(__('from %s /night','wpbooking'),'<br><span class="price">'.$price_html.'</span>');
+            }
+
+
+            return $price_html;
+        }
+
 
         /**
          * Move fields in comment to top
@@ -1790,10 +1837,12 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             $wpbooking_room = $this->post('wpbooking_room');
             $check_number_room = false;
+            $total_number_room = 0;
             if(!empty($wpbooking_room)) {
                 foreach( $wpbooking_room as $k => $v ) {
                     if(!empty( $v['number_room'] )) {
                         $check_number_room = true;
+                        $total_number_room += $v['number_room'];
                     }
                 }
             }
@@ -1817,6 +1866,13 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 wpbooking_set_message(esc_html__("Please select one room","wpbooking"),'error');
                 $is_validated = FALSE;
                 return $is_validated;
+            }
+            //check number room and adult
+            $adult = $this->post('wpbooking_adults');
+            if($total_number_room > $adult){
+                $is_validated = FALSE;
+                $message = esc_html__('Bạn không thể book số phòng lớn hơn số người lớn !', 'wpbooking');
+                wpbooking_set_message($message, 'error');
             }
 
 
@@ -1876,17 +1932,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         }
                         wpbooking_set_message($message, 'error');
                     }
-
-                    //check number room and adult
-                    $adult = $this->post('wpbooking_adults');
-                    foreach($list_room as $room_id => $data){
-                        if($data['number'] > $adult){
-                            $is_validated = FALSE;
-                            $message = esc_html__('Bạn không thể book số phòng lớn hơn số người lớn !', 'wpbooking');
-                            wpbooking_set_message($message, 'error');
-                        }
-                    }
-
 
                 }
 
@@ -2449,24 +2494,14 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 $index = WPBooking_Input::get('delete_item_hotel_room');
                 $booking = WPBooking_Checkout_Controller::inst();
                 $all = $booking->get_cart();
-                if(!empty($all['service_type'])){
-                    $service_type=$all['service_type'];
-                    $redirect_to_home = false;
-                    switch($service_type){
-                        case 'accommodation':
-                            unset($all['rooms'][$index]);
-                            if(empty($all['rooms'])){
-                                $booking->set_cart(array());
-                                $redirect_to_home = true;
-                            }
-                            break;
-                    }
-                    if($redirect_to_home){
-                        wp_redirect(home_url());
+                if(!empty($all['service_type']) and $all['service_type'] = 'accommodation' ){
+                    unset($all['rooms'][$index]);
+                    if(empty($all['rooms'])){
+                        $booking->set_cart(array());
                     }else{
                         $booking->set_cart($all);
-                        wpbooking_set_message(__("Delete item successfully", 'wpbooking'), 'success');
                     }
+                    wpbooking_set_message(__("Delete item successfully", 'wpbooking'), 'success');
                 }
             }
         }
