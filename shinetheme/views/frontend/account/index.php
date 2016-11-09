@@ -29,11 +29,12 @@ global $wp_query;
 		echo wpbooking_load_view('account/reset-password');
 		echo '</div';
 	}else{
-        var_dump(get_option('users_can_register'));
 		?>
 		<div class="row">
-			<div class="col-sm-6"><?php echo wpbooking_load_view('account/login') ?></div>
+			<div class="<?php echo (wpbooking_is_any_register()?'col-sm-6':'col-sm-12')?>"><?php echo wpbooking_load_view('account/login') ?></div>
+            <?php if(wpbooking_is_any_register()){ ?>
 			<div class="col-sm-6"><?php echo wpbooking_load_view('account/register') ?></div>
+            <?php } ?>
 		</div>
 		<?php
 	}

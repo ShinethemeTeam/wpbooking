@@ -176,7 +176,7 @@ if (!class_exists('WPBooking_User')) {
             }
 
             // Register
-            if (WPBooking_Input::post('action') == 'wpbooking_do_register') {
+            if (WPBooking_Input::post('action') == 'wpbooking_do_register' && wpbooking_is_any_register()) {
                 $this->_do_register();
             }
 
@@ -205,16 +205,9 @@ if (!class_exists('WPBooking_User')) {
                 $is_validated = FALSE;
             }
 
-            if(!is_email(WPBooking_Input::post('rg-email'))){
-                $is_validated = FALSE;
-                if(!empty(WPBooking_Input::post('rg-email')))
-                wpbooking_set_message(esc_html__('The email field is invalid','wpbooking'), 'danger');
-                else wpbooking_set_message(esc_html__('The email field is required','wpbooking'), 'danger');
-            }
-
             // Allow to add filter before register
             $is_validated = apply_filters('wpbooking_register_validate', $is_validated);
-
+            var_dump($validate->get_error_fields());
             if ($is_validated) {
                 // Start Create User
                 $user_email = WPBooking_Input::post('rg-email');
