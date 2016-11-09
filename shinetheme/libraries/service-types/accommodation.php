@@ -1216,10 +1216,17 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if ($sortby = $this->request('wb_sort_by')) {
                 switch ($sortby) {
                     case "price_asc":
-                        $injection->orderby($table_prefix . '.price+0', 'asc');
+                        $injection->select('MIN(order_table.meta_value) as min_price');
+                        $injection->join('posts as post_table',"post_table.post_parent={$wpdb->posts}.ID");
+                        $injection->join('postmeta as order_table',"order_table.post_ID=post_table.ID and order_table.meta_key='base_price'");
+                        $injection->orderby('min_price', 'asc');
+
                         break;
                     case "price_desc":
-                        $injection->orderby($table_prefix . '.price+0', 'desc');
+                        $injection->select('MIN(order_table.meta_value) as min_price');
+                        $injection->join('posts as post_table',"post_table.post_parent={$wpdb->posts}.ID");
+                        $injection->join('postmeta as order_table',"order_table.post_ID=post_table.ID and order_table.meta_key='base_price'");
+                        $injection->orderby('min_price', 'desc');
                         break;
                     case "date_asc":
                         $injection->add_arg('orderby', 'date');
