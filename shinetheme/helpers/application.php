@@ -577,3 +577,13 @@ if(!function_exists("wpbooking_get_country_list"))
 		return $countryList;
 	}
 }
+
+if(!function_exists('wpbooking_is_any_register')){
+    function wpbooking_is_any_register(){
+        $can_register = get_option('users_can_register');
+        if($can_register == '1'){
+            return true;
+        }
+        return false;
+    }
+}
