@@ -60,6 +60,7 @@ $inject->clear();
 					<div class="item-form-to">
 						<span><?php esc_html_e("From:","wpbooking") ?> </span> <?php echo date(get_option('date_format'),$order_data['check_in_timestamp']) ?> &nbsp
 						<span><?php esc_html_e("To:","wpbooking") ?> </span><?php echo date(get_option('date_format'),$order_data['check_out_timestamp']) ?> &nbsp
+						<br>
 						<?php
 						$diff=$order_data['check_out_timestamp'] - $order_data['check_in_timestamp'];
 						$diff = $diff / (60 * 60 * 24);
