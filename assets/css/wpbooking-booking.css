@@ -5935,6 +5935,9 @@ body.twentytwelve .wb-archive-wrapper {
 body.twentytwelve .wb-archive-wrapper * {
   box-sizing: border-box;
 }
+body.twentytwelve .wb-archive-wrapper .wpbooking-loop-wrap .service-thumbnail img {
+  max-width: 100%;
+}
 .wpbooking-bootstrap.p10 .row {
   margin-right: -10px;
   margin-left: -10px;
