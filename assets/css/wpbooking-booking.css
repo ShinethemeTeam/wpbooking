@@ -202,9 +202,6 @@ a.label:focus {
 .ui-datepicker {
   font-size: 14px;
 }
-.wb-error {
-  border: 1px solid red !important;
-}
 .wpbooking-search-form {
   padding: 30px 15px;
   border: 1px solid #d5d5d5;
@@ -4325,6 +4322,11 @@ a.label:focus {
 }
 .wpbooking-myaccount-wrap .required {
   color: red;
+}
+.wpbooking-myaccount-wrap .login-register-form .wb-error,
+.wpbooking-myaccount-wrap .wb-form-lost-password .wb-error,
+.wpbooking-myaccount-wrap .wb-form-reset-password .wb-error {
+  border: 1px solid red !important;
 }
 .wpbooking-myaccount-wrap .login-register-form .form-title,
 .wpbooking-myaccount-wrap .wb-form-lost-password .form-title,
