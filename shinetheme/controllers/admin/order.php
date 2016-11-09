@@ -35,6 +35,9 @@ if (!class_exists('WPBooking_Admin_Order')) {
 
 		function _apply_change_form()
 		{
+            if(!empty(WPBooking_Input::get('search_keyword')) && !empty(WPBooking_Input::get('keyword'))){
+                
+            }
 
 		}
 
