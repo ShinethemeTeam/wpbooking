@@ -1237,12 +1237,14 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         break;
                     case "rate_asc":
                     case "rate_desc":
-                        $rate_calculate = 1;
+                        $injection->select('avg(' . $wpdb->commentmeta . '.meta_value) as avg_rate')
+                            ->join('comments', $wpdb->prefix . 'comments.comment_post_ID=' . $wpdb->posts . '.ID and  ' . $wpdb->comments . '.comment_approved=1', 'LEFT')
+                            ->join('commentmeta', $wpdb->prefix . 'commentmeta.comment_id=' . $wpdb->prefix . 'comments.comment_ID and ' . $wpdb->commentmeta . ".meta_key='wpbooking_review'", 'LEFT');
                         if ($sortby == 'rate_asc') {
-                            $injection->orderby('avg_rate', 'asc');
-                        } else {
-                            $injection->orderby('avg_rate', 'desc');
-                        }
+                                $injection->orderby('avg_rate', 'asc');
+                            } else {
+                                $injection->orderby('avg_rate', 'desc');
+                            }
 
                         break;
                 }
@@ -1293,6 +1295,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             $check_in = $this->request('checkin_d')."-".$this->request('checkin_m')."-".$this->request('checkin_y');
             $check_out = $this->request('checkout_d')."-".$this->request('checkout_m')."-".$this->request('checkout_y');
+            if($check_in == '--')$check_in='';
+            if($check_out == '--')$check_out='';
 
             $number_room = $this->request('room_number',1);
             $ids_not_in = $this->get_unavailability_hotel_room($hotel_id,$check_in,$check_out,$number_room);
