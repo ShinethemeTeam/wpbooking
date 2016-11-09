@@ -33,7 +33,7 @@ $term_link=WPBooking_User::inst()->get_term_condition_link();
 					<input type="checkbox" name="term_condition" <?php checked(WPBooking_Input::post('term_condition'),1) ?> value="1"><?php printf(esc_html__('Accept %s','wpbooking'),sprintf('<a href="%s" target="_blank">%s</a>',$term_link,esc_html__('Term & Condition','wpbooking'))); ?>
 			</label>
 		</div>
-		<button type="submit" class="wb-btn wb-btn-default wb-btn-md"><?php esc_html_e('Register','wpbooking') ?></button>
+		<button type="submit" class="wb-btn wb-btn-default wb-btn-md wb-disabled"><?php esc_html_e('Register','wpbooking') ?></button>
 	</div>
 	<?php
 	if(WPBooking_Input::post('action')=='wpbooking_do_register')

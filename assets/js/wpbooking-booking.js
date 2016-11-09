@@ -1960,6 +1960,13 @@ jQuery(document).ready(function($){
            }
        })
    }
+    $('#wpbooking-register-form .accept-term input').on('change', function(){
+        if($(this).is(':checked') ){
+            $(this).closest('.form-group-wrap').find('button[type=submit]').removeClass('wb-disabled');
+        }else{
+            $(this).closest('.form-group-wrap').find('button[type=submit]').addClass('wb-disabled');
+        }
+    });
 });
 
 
