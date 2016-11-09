@@ -406,9 +406,14 @@ if (!class_exists('WPBooking_Service_Controller')) {
         }
 
         /**
-         * @return array|mixed|void
+         * Get All Available Search fields
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @return array
          */
-        function _get_list_field_search()
+        function get_search_fields()
         {
 
             $all_types=$this->get_service_types();

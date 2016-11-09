@@ -453,6 +453,9 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 			$injection->join($table, $table_prefix . '.post_id=' . $wpdb->posts . '.ID');
 			$injection->groupby($wpdb->posts . '.ID');
 
+            // Status
+            $injection->add_arg('post_status','publish');
+
 			// Service Type
 			if($service_type=WPBooking_Input::get('service_type')){
 				$injection->where($table_prefix.'.service_type',$service_type);
