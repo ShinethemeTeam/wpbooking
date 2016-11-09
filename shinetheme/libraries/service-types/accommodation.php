@@ -1216,10 +1216,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if ($sortby = $this->request('wb_sort_by')) {
                 switch ($sortby) {
                     case "price_asc":
-                        $injection->orderby($table_prefix . '.price', 'asc');
+                        $injection->orderby($table_prefix . '.price+0', 'asc');
                         break;
                     case "price_desc":
-                        $injection->orderby($table_prefix . '.price', 'desc');
+                        $injection->orderby($table_prefix . '.price+0', 'desc');
                         break;
                     case "date_asc":
                         $injection->add_arg('orderby', 'date');
