@@ -968,15 +968,40 @@ a.label:focus {
 }
 .review-order-item .review-order-item-table .extra-service {
   margin-left: 0;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 .review-order-item .review-order-item-table .extra-service .extra-item {
   color: #333333;
-  margin-left: 10px;
-  font-style: italic;
 }
 .review-order-item .review-order-item-table .extra-service .extra-item.price {
   font-style: normal;
+}
+.review-order-item .review-order-item-table .extra-service .title {
+  text-transform: none;
+}
+.review-order-item .review-order-item-table .room-info table {
+  margin-top: 10px;
+}
+.review-order-item .review-order-item-table .room-info table th,
+.review-order-item .review-order-item-table .room-info table td {
+  padding-left: 10px;
+}
+.review-order-item .review-order-item-table .room-info table .desc {
+  font-style: italic;
+}
+.review-order-item .review-order-item-table .room-info thead {
+  background: #ececec;
+}
+.review-order-item .review-order-item-table .room-info .btn_detail_checkout {
+  font-size: 13px;
+  font-style: italic;
+  font-weight: normal;
+  margin-top: 20px;
+  padding: 3px 11px;
+  background: #f0ad4e;
+}
+.review-order-item .review-order-item-table .room-info .content_details {
+  display: none;
 }
 .site-main.twentyfifteen {
   margin-left: 8.3333%;
@@ -2133,6 +2158,10 @@ a.label:focus {
   font-size: 17px;
   font-weight: bold;
   margin-bottom: 15px;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .room-total-price .small {
+  font-size: 13px;
+  font-weight: normal;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-book .room-number {
   width: 55%;

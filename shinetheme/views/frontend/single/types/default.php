@@ -245,7 +245,7 @@ $hotel_id=get_the_ID();
                                     <input class="checkout_d" name="checkout_d" value="<?php echo esc_html(WPBooking_Input::request('checkout_d')) ?>" type="hidden">
                                     <input class="checkout_m" name="checkout_m" value="<?php echo esc_html(WPBooking_Input::request('checkout_m')) ?>" type="hidden">
                                     <input class="checkout_y" name="checkout_y" value="<?php echo esc_html(WPBooking_Input::request('checkout_y')) ?>" type="hidden">
-                                    <input type="text" readonlys class="form-control wpbooking-search-end" value="<?php echo balanceTags($check_out) ?>"  name="check_out" placeholder="<?php esc_html_e('Check Out', 'wpbooing') ?>">
+                                    <input type="text" readonly class="form-control wpbooking-search-end" value="<?php echo balanceTags($check_out) ?>"  name="check_out" placeholder="<?php esc_html_e('Check Out', 'wpbooing') ?>">
                                     <i class="fa fa-calendar"></i>
                                 </label>
                             </div>

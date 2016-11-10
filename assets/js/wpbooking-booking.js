@@ -429,9 +429,11 @@ jQuery(document).ready(function($){
                 p.find('.checkin_d').val(check_in.getDate());
                 p.find('.checkin_m').val(check_in.getMonth()+1);
                 p.find('.checkin_y').val(check_in.getFullYear());
+
                 var form=$(this).closest('form');
-                var date_end=$('.search-room-availablity .wpbooking-search-end',form);
-                date_end.datepicker("option","minDate", selected)
+                var date_end=$('.search-room-availablity .wpbooking-search-end');
+                date_end.datepicker("option","minDate", new Date(check_in.getFullYear(),check_in.getMonth(),check_in.getDate()+1))
+
                 if($('.search-room-availablity .wpbooking-search-end').length){
                     window.setTimeout(function(){
                         $('.search-room-availablity .wpbooking-search-end').datepicker('show');
@@ -452,9 +454,11 @@ jQuery(document).ready(function($){
             p.find('.checkout_y').val(check_out.getFullYear());
 
             var form=$(this).closest('form');
-            var date_end=$('.search-room-availablity .wpbooking-search-start',form);
-            date_end.datepicker("option","maxDate", selected);
-            $(this).trigger('change');
+            var date_start=$('.search-room-availablity .wpbooking-search-start');
+            date_start.datepicker("option","maxDate", new Date(check_out.getFullYear(),check_out.getMonth(),check_out.getDate()-1));
+            date_start.trigger('change');
+
+
         },
     }).datepicker('widget');
 
@@ -2003,6 +2007,17 @@ jQuery(document).ready(function($){
     if($('#wpbooking-register-form .accept-term input').is(':checked')){
         $('#wpbooking-register-form .form-group-wrap').find('button[type=submit]').removeClass('wb-disabled');
     }
+
+    $(document).on('click','.btn_detail_checkout',function(){
+        var $content = $(this).parent();
+        var info = $content.find('.content_details');
+        if(info.css('display') == 'none'){
+            info.slideDown();
+        }else{
+            info.slideUp();
+        }
+    });
+
 });
 
 

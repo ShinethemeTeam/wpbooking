@@ -965,14 +965,42 @@
         }
         .extra-service{
             margin-left: 0;
-            margin-top: 30px;
+            margin-top: 20px;
             .extra-item{
                 color: #333333;
-                margin-left: 10px;
-                font-style: italic;
+
+
                 &.price{
                     font-style:normal;
                 }
+            }
+            .title{
+                text-transform: none;
+            }
+        }
+        .room-info{
+            table{
+                margin-top: 10px;
+                th,td{
+                    padding-left: 10px;
+                }
+                .desc{
+                    font-style: italic;
+                }
+            }
+            thead{
+                background: #ececec;
+            }
+            .btn_detail_checkout{
+                font-size: 13px;
+                font-style: italic;
+                font-weight: normal;
+                margin-top: 20px;
+                padding: 3px 11px;
+                background: @maincolor;
+            }
+            .content_details{
+                display: none;
             }
         }
     }
@@ -2206,6 +2234,10 @@
                                 font-size: 17px;
                                 font-weight: bold;
                                 margin-bottom: 15px;
+                                .small{
+                                    font-size: 13px;
+                                    font-weight: normal;
+                                }
                             }
                             .room-number{
                                 width: 55%;
