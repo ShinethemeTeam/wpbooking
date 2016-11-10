@@ -45,7 +45,7 @@ if(!empty($order_data['rooms'])){
                                             <?php
                                             if(!empty($v['raw_data'])){ ?>
                                                 <div class="extra-service">
-                                                    <div class="title"><?php esc_html_e("Price by night","wpbooking") ?></div>
+                                                    <div class="title"><?php esc_html_e("Price by Night","wpbooking") ?></div>
                                                     <div class="extra-item">
                                                         <table>
                                                             <thead>

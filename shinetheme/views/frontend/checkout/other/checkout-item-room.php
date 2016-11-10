@@ -49,7 +49,7 @@ if(!empty($cart['rooms'])){
                                             <?php
                                             if(!empty($v['list_date_price'])){ ?>
                                                 <div class="extra-service">
-                                                    <div class="title"><?php esc_html_e("Price by night","wpbooking") ?></div>
+                                                    <div class="title"><?php esc_html_e("Price by Night","wpbooking") ?></div>
                                                     <div class="extra-item">
                                                         <table>
                                                             <thead>
