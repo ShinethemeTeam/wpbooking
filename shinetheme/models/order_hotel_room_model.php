@@ -12,7 +12,7 @@ if(!class_exists( 'WPBooking_Order_Hotel_Order_Model' )) {
         static $_inst = false;
         public function __construct()
         {
-            $this->table_version = '1.0.1';
+            $this->table_version = '1.0.2';
             $this->table_name    = 'wpbooking_order_hotel_room';
             $this->columns = array(
                 'id'                  => array(
@@ -28,6 +28,7 @@ if(!class_exists( 'WPBooking_Order_Hotel_Order_Model' )) {
                 'extra_fees'          => array( 'type' => 'text' ) ,
                 'check_in_timestamp'  => array( 'type' => 'varchar' , 'length' => 255 ) ,
                 'check_out_timestamp' => array( 'type' => 'varchar' , 'length' => 255 ) ,
+                'raw_data'            => array( 'type' => 'text' ) ,
             );
             parent::__construct();
 

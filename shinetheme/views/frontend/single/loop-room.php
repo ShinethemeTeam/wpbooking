@@ -4,6 +4,13 @@ $list_extra = get_post_meta(get_the_ID(),'extra_services',true);
 $hotel_id = wp_get_post_parent_id(get_the_ID());
 $service_room = new WB_Service(get_the_ID());
 
+$check_in = WPBooking_Input::request('checkin_d')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_y');
+$check_out = WPBooking_Input::request('checkout_d')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_y');
+if($check_in == '--')$check_in='';
+if($check_out == '--')$check_out='';
+
+$diff=strtotime($check_out) - strtotime($check_in);
+$diff = $diff / (60 * 60 * 24);
 ?>
 <div class="loop-room post-<?php the_ID() ?>">
     <div class="room-image">
@@ -84,6 +91,16 @@ $service_room = new WB_Service(get_the_ID());
                     $price = WPBooking_Accommodation_Service_Type::inst()->_get_price_room_with_date(get_the_ID(),$check_in,$check_out);
                     echo WPBooking_Currency::format_money($price);
                 ?>
+                <br>
+                <span class="small">
+                        <?php
+                        if($diff>0){
+                            echo sprintf( esc_html__("/ %s nights","wpbooking"), $diff);
+                        }else{
+                            echo sprintf( esc_html__("/ %s night","wpbooking"), $diff);
+                        }
+                        ?>
+                    </span>
             </div>
             <div class="room-number">
                 <select class="form-control option_number_room" name="wpbooking_room[<?php the_ID() ?>][number_room]" data-price-base="<?php echo esc_attr($price) ?>" >
@@ -163,9 +180,24 @@ $service_room = new WB_Service(get_the_ID());
             <div class="title col-7">
                 <?php the_title() ?>
             </div>
-            <div class="price col-3 text-right">
-                <?php  echo WPBooking_Currency::format_money($price); ?> <span class="small"><?php esc_html_e("/night","wpbooking") ?></span>
-            </div>
+            <?php
+            if(!empty($diff)){
+                ?>
+                <div class="price col-3 text-right">
+                    <?php  echo WPBooking_Currency::format_money($price); ?>
+                    <span class="small">
+                        <?php
+                        if($diff>0){
+                            echo sprintf( esc_html__("/ %s nights","wpbooking"), $diff);
+                        }else{
+                            echo sprintf( esc_html__("/ %s night","wpbooking"), $diff);
+                        }
+                       ?>
+                    </span>
+                </div>
+                <?php
+            }
+            ?>
             <div class="gallery col-6">
                 <div class="service-gallery-single">
                     <div class="fotorama_room" data-allowfullscreen="true" data-nav="thumbs">

@@ -2007,6 +2007,17 @@ jQuery(document).ready(function($){
     if($('#wpbooking-register-form .accept-term input').is(':checked')){
         $('#wpbooking-register-form .form-group-wrap').find('button[type=submit]').removeClass('wb-disabled');
     }
+
+    $(document).on('click','.btn_detail_checkout',function(){
+        var $content = $(this).parent();
+        var info = $content.find('.content_details');
+        if(info.css('display') == 'none'){
+            info.slideDown();
+        }else{
+            info.slideUp();
+        }
+    });
+
 });
 
 

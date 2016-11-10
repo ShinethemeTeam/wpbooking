@@ -1733,6 +1733,29 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         if ($cart_item['check_in_timestamp'] and $cart_item['check_out_timestamp']) {
                             $cart_item['rooms'][$room_id]['calendar_prices'] = $calendar->get_prices( $room_id , $cart_item[ 'check_in_timestamp' ] , $cart_item[ 'check_out_timestamp' ] );
                         }
+
+                        // add list date price
+                        $price_base = get_post_meta($room_id,'base_price',true);
+                        $check_in = $cart_item['check_in_timestamp'];
+                        $check_out = $cart_item['check_out_timestamp'];
+                        if(!empty($cart_item['rooms'][$room_id]['calendar_prices'])){
+                            $custom_calendar = $cart_item['rooms'][$room_id]['calendar_prices'];
+                        }
+                        $groupday = $this->getGroupDay($check_in, $check_out);
+                        if(is_array($groupday) && count($groupday)) {
+                            foreach( $groupday as $date ) {
+                                $price_tmp = $price_base;
+                                if(!empty($custom_calendar)){
+                                    foreach($custom_calendar as $date_calendar){
+                                        if($date[0] >= $date_calendar['start'] && $date[0] <=  $date_calendar['end']){
+                                            $price_tmp = $date_calendar['price'];
+                                        }
+                                    }
+                                }
+                                $cart_item['rooms'][$room_id]['list_date_price'][$date[0]] = $price_tmp;
+                            }
+                        }
+
                     }
 
                 }
@@ -1744,7 +1767,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if(!empty($wpbooking_children)){
                 $cart_item['person']+=$wpbooking_children;
             }
-
 
             return $cart_item;
         }
@@ -2479,6 +2501,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         'extra_fees'=> serialize($room['extra_fees']),
                         'check_in_timestamp'=> $cart['check_in_timestamp'],
                         'check_out_timestamp'=> $cart['check_out_timestamp'],
+                        'raw_data'=> serialize($room['list_date_price']),
                     );
                     $order->save_order_hotel_room($data, $room_id , $order_id);
                 }
