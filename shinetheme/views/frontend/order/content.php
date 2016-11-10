@@ -71,7 +71,9 @@ do_action('wpbooking_before_order_content');
                         </a>
                     </div>
                     <div class="review-order-item-title">
-                        <h4 class="service-name"><a href="<?php echo get_permalink($order_data['post_id'])?>" target="_blank"><?php echo get_the_title($order_data['post_id'])?></a></h4>
+                        <h4 class="service-name">
+                            <a href="<?php echo get_permalink($order_data['post_id'])?>" target="_blank"><?php echo get_the_title($order_data['post_id'])?></a>
+                        </h4>
                         <?php if($address=$service->get_address()){
                             printf('<p class="service-address"><i class="fa fa-map-marker"></i> %s</p>',$address);
                         } ?>

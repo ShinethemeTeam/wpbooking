@@ -1,89 +1,118 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 4/21/2016
- * Time: 4:33 PM
- */
-?>
-<table width="100%" cellpadding="0" cellspacing="0">
-	<thead>
+<table class=service_info>
 	<tr>
-		<th><?php _e('No','wpbooking') ?></th>
-		<th class="review-order-item-info"><?php _e('Service','wpbooking')?></th>
-		<th class="review-order-item-total"><?php _e('Price','wpbooking')?></th>
+		<td colspan=4 class=content-row>
+			<div class=col-3>
+				<img src=<?php echo wpbooking_assets_url('images/demo_150.png') ?>>
+			</div>
+			<div class=col-7>
+				<h3> Duplex Suite with Spa Access</h3>
+				<h4> Address: 48 Boulevard des Invalides</h4>
+				<h4 class=color_black>
+					<span class=bold>From: </span> 25/11/2016
+					<span class=bold>To: </span>26/11/2016
+					(1 day)
+				</h4>
+			</div>
+		</td>
 	</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td class="small-td" width="5">1</td>
-			<td class="review-order-item-info">
-				<h4 class="service-name"><?php esc_html_e('Service A','wpbooking') ?></h4>
-			</td>
-			<td class="review-order-item-total">
-				<p class="cart-item-price">$ 80.00</p>
-			</td>
-		</tr>
-		<tr>
-			<td class="small-td" width="5">2</td>
-			<td class="review-order-item-info">
-				<h4 class="service-name"><?php esc_html_e('Service B','wpbooking') ?></h4>
-			</td>
-			<td class="review-order-item-total">
-				<p class="cart-item-price">$ 20.00</p>
-			</td>
-		</tr>
-	</tbody>
-	<tfoot>
-		<tr>
-			<td colspan="3">
-				<div class="review-cart-total">
-				<span class="total-title">
-					<?php _e('Total Price:', 'wpbooking') ?>
-				</span>
-					<span class="total-amount">100$</span>
-
-					<span class="total-title">
-						<?php _e('Extra Price:', 'wpbooking') ?>
-					</span>
-					<span class="total-amount">50$</span>
-
-					<span class="total-title">
-						<?php _e('Addition:', 'wpbooking') ?>
-					</span>
-					<span class="total-amount">40$</span>
-
-					<span class="total-title">
-						<?php _e('Discount:', 'wpbooking') ?>
-					</span>
-					<span class="total-amount">-20$</span>
-
-					<span class="total-title">
-						<?php _e('Tax:', 'wpbooking') ?>
-					</span>
-					<span class="total-amount">80$</span>
-
-					<span class="total-line"></span>
-					<span class="total-title">
-					<?php _e('Total Amount:', 'wpbooking') ?>
-				</span>
-					<span class="total-amount big">250$</span>
-
-					<span class="total-title">
-						<?php _e('Deposit:', 'wpbooking') ?>
-					</span>
-					<span class="total-amount big">100$</span>
-
-					<span class="total-title">
-					<?php _e('Remain:', 'wpbooking') ?>
-					</span>
-					<span class="total-amount big">150$
-					</span>
-
+	<tr>
+		<th width=50%>
+			Room
+		</th>
+		<th class=text-center>
+			Price(USD)
+		</th>
+		<th width=15% class=text-center>
+			Number
+		</th>
+		<th class=text-center>
+			Total(USD)
+		</th>
+	</tr>
+	<tr>
+		<td>
+			<div class=col-3>
+				<div class=room-image>
+					<img src=<?php echo wpbooking_assets_url('images/demo_50.png') ?>>
 				</div>
-			</td>
-		</tr>
-		<tr>
-		<?php do_action('wpbooking_review_order_footer_preview') ?>
-	</tfoot>
+			</div>
+			<div class=col-7>
+				<div class=bold>
+					<h3> Room 1</h3>
+				</div>
+				<div>
+					Max 2 people
+				</div>
+				<br>
+				<span class=btn_detail_checkout>Details</span>
+				<div class=extra-service>
+					<h4 class=color_black>Price by Night</h4>
+					<div class=extra-item>
+						<table class=color_black>
+							<thead>
+							<tr>
+								<th width=60%>
+									Night
+								</th>
+								<th class=text-center>
+									Price
+								</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td>
+									Night 1
+									<br>
+									<span class=desc>(25/11/2016)</span>
+								</td>
+								<td class=text-center>
+									50.00 <span class=symbol>$</span>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class=extra-service>
+					<h4 class=color_black>Extra Service</h4>
+					<div class=extra-item>
+						<table class=color_black>
+							<thead>
+							<tr class=color_black>
+								<th width=60%>
+									Service name
+								</th>
+								<th class=text-center>
+									Price
+								</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr class=color_black>
+								<td>
+									Extra 1<br>
+									x  <span class=desc>1</span>
+								</td>
+								<td class=text-center>
+									100.00 <span class=symbol>$</span>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		</td>
+		<td class=text-center>
+			50.00$
+		</td>
+		<td class=text-center>
+			1
+		</td>
+		<td class=text-center>
+			150.00$
+		</td>
+	</tr>
 </table>

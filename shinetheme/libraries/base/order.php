@@ -361,7 +361,6 @@ if (!class_exists('WB_Order')) {
         function get_status_html()
         {
             $status=$this->get_status();
-
             if($status){
                 $all_status=WPBooking_Config::inst()->item('order_status');
                 if(array_key_exists($status,$all_status)){
@@ -384,6 +383,42 @@ if (!class_exists('WB_Order')) {
                     }
                 }else{
                     return sprintf('<label class="bold text_up">%s</label>',esc_html__('Unknown','wpbooking'));
+                }
+            }
+        }
+
+        /**
+         * Get HTML of Order Status
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return string
+         */
+        function get_status_email_html()
+        {
+            $status=$this->get_status();
+            if($status){
+                $all_status=WPBooking_Config::inst()->item('order_status');
+                if(array_key_exists($status,$all_status)){
+                    switch($status){
+                        case "payment_failed":
+                            return sprintf('<label class="failed">%s</label>',$all_status[$status]['label']);
+                            break;
+                        case "completed":
+                            return sprintf('<label class="completed">%s</label>',$all_status[$status]['label']);
+                            break;
+                        case "on_hold":
+                        case "cancelled":
+                        case "refunded":
+                            return sprintf('<label class="on_hold">%s</label>',$all_status[$status]['label']);
+                            break;
+                        default:
+                            return sprintf('<label class="on_hold">%s</label>',$all_status[$status]['label']);
+                            break;
+                    }
+                }else{
+                    return sprintf('<label class="on_hold">%s</label>',esc_html__('Unknown','wpbooking'));
                 }
             }
         }

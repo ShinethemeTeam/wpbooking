@@ -237,6 +237,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             add_action('wpbooking_order_detail_item_information_'.$this->type_id, array($this, '_add_info_order_detail_item_room'),10,2);
             add_action('wpbooking_order_detail_total_item_information_'.$this->type_id, array($this, '_add_info_order_total_item_room'),10,2);
 
+            add_action('wpbooking_email_detail_item_information_'.$this->type_id, array($this, '_add_information_email_detail_item'),10,2);
+
             /**
              * Delete Item Room
              *
@@ -2230,6 +2232,18 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         }
 
         /**
+         * Add Item Info Room for Email Detail
+         *
+         * @author quandq
+         * @since 1.0
+         * @param $order_data
+         */
+        function _add_information_email_detail_item($order_data){
+            $order = WPBooking_Order_Hotel_Order_Model::inst();
+            $order_data['rooms']= $order->get_order($order_data['order_id']);
+            echo wpbooking_load_view('emails/shortcodes/detail-item-room',array('order_data'=>$order_data));
+        }
+        /**
          * Add Item Info Room for Page Order Detail
          *
          * @author quandq
@@ -2276,6 +2290,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 }
             }
         }
+
+
 
         /**
          * Get Price Room In Cart

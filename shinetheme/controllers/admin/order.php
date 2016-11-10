@@ -204,7 +204,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
 		 */
 		function _resend_email()
 		{
-			if (WPBooking_Input::get('post_type') == 'wpbooking_order'
+			if (WPBooking_Input::get('page') == 'wpbooking_page_orders'
 				and $order_id = WPBooking_Input::get('order_id')
 				and WPBooking_Input::get('wpbooking_resend_email')
 			) {
