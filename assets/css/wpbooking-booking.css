@@ -1502,6 +1502,10 @@ a.label:focus {
 .wb-tabs li.active a {
   color: #FFF;
 }
+.wb-form-change-password .wb-error,
+.wb-form-edit-profile .wb-error {
+  border: 1px solid red !important;
+}
 .single-wpbooking_service .wpbooking-single-content {
   padding: 10px 15px 50px;
   color: #333;

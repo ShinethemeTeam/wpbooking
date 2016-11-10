@@ -501,6 +501,7 @@ if (!class_exists('WPBooking_User')) {
 
                         if (!$validate->run()) {
                             $is_validate = FALSE;
+                            WPBooking()->set('error_ed_fields',$validate->get_error_fields());
                             wpbooking_set_message($validate->error_string(), 'danger');
                         }
 
@@ -542,14 +543,15 @@ if (!class_exists('WPBooking_User')) {
 
                         $validate = new WPBooking_Form_Validator();
                         $validate->set_rules('u_password', esc_html__('Password', 'wpbooking'), 'required|max_length[255]');
-                        $validate->set_rules('u_new_password', esc_html__('New Password', 'wpbooking'), 'required|max_length[255]');
-                        $validate->set_rules('u_re_new_password', esc_html__('Confirm New Password', 'wpbooking'), 'required|max_length[255]|matches[u_new_password]');
+                        $validate->set_rules('u_new_password', esc_html__('New Password', 'wpbooking'), 'required|min_length[8]|max_length[255]');
+                        $validate->set_rules('u_re_new_password', esc_html__('Confirm New Password', 'wpbooking'), 'required|min_length[8]|max_length[255]|matches[u_new_password]');
 
                         $is_validate = TRUE;
                         $is_updated = FALSE;
 
                         if (!$validate->run()) {
                             $is_validate = FALSE;
+                            WPBooking_Session::set('error_c_fields',$validate->get_error_fields());
                             wpbooking_set_message($validate->error_string(), 'danger');
                         }
 
@@ -557,6 +559,7 @@ if (!class_exists('WPBooking_User')) {
 
                         if (!wp_check_password(WPBooking_Input::post('u_password'), $current_user->user_pass)) {
                             $is_validate = FALSE;
+                            WPBooking_Session::set('old_pass','wb-error');
                             wpbooking_set_message(esc_html__('Your Current Password is not correct', 'wpbooking'), 'danger');
                         }
 
@@ -1066,8 +1069,7 @@ if (!class_exists('WPBooking_User')) {
 
                 if(!$validator->run()){
                     wpbooking_set_message($validator->error_string(),'danger');
-                    $error_field = $validator->get_error_fields();
-                    WPBooking()->set('error_rs_fields',$error_field);
+                    WPBooking_Session::set('error_rs_field',$validator->get_error_fields());
                     $redirect_url = get_permalink($account_page) . 'reset-password';
                     $redirect_url = add_query_arg('key', $rp_key, $redirect_url);
                     $redirect_url = add_query_arg('login', $rp_login, $redirect_url);

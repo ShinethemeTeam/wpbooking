@@ -7,8 +7,13 @@
  */
 global $current_user;
 $user_id = $current_user->ID;
+$error_fields = array();
+if(!empty(WPBooking()->get('error_ed_fields'))){
+    $error_fields = WPBooking()->get('error_ed_fields');
+    WPBooking()->set('error_ed_fields','');
+}
 ?>
-<form action="" method="post">
+<form class="wb-form-edit-profile" action="" method="post">
 	<input type="hidden" name="action" value="wpbooking_update_profile">
 	<h3 class="tab-page-title">
 		<?php esc_html_e("Edit Profile",'wpbooking') ?>
@@ -23,31 +28,31 @@ $user_id = $current_user->ID;
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="u_fist_name"><?php esc_html_e('First Name','wpbooking') ?> <span class="required">*</span></label>
-                            <input type="text"  class="form-control" id="u_fist_name" name="u_fist_name" value="<?php echo WPBooking_Input::post('u_fist_name',$current_user->first_name) ?>" >
+                            <input type="text"  class="form-control" id="u_fist_name" required name="u_fist_name" value="<?php echo WPBooking_Input::post('u_fist_name',$current_user->first_name) ?>" >
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="u_last_name"><?php esc_html_e('Last Name','wpbooking') ?> <span class="required">*</span></label>
-                            <input type="text"  class="form-control" id="u_last_name" name="u_last_name" value="<?php echo WPBooking_Input::post('u_last_name',$current_user->last_name) ?>"  >
+                            <input type="text"  class="form-control" id="u_last_name" required name="u_last_name" value="<?php echo WPBooking_Input::post('u_last_name',$current_user->last_name) ?>"  >
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="u_email"><?php esc_html_e('Email Address','wpbooking') ?> <span class="required">*</span></label>
-                            <input type="text"  class="form-control" id="u_email" name="u_email" value="<?php echo WPBooking_Input::post('u_email',$current_user->user_email) ?>" >
+                            <input type="text"  class="form-control <?php echo (array_key_exists('u_email',$error_fields)?'wb-error':'')?>" id="u_email" required name="u_email" value="<?php echo WPBooking_Input::post('u_email',$current_user->user_email) ?>" >
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="u_phone"><?php esc_html_e('Phone','wpbooking') ?> <span class="required">*</span></label>
-                            <input type="tel"  class="form-control" id="u_phone" name="u_phone" value="<?php echo WPBooking_Input::post('u_phone',get_user_meta(get_current_user_id(),'phone',true)) ?>" >
+                            <input type="tel"  class="form-control" id="u_phone" required name="u_phone" value="<?php echo WPBooking_Input::post('u_phone',get_user_meta(get_current_user_id(),'phone',true)) ?>" >
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label for="u_address"><?php esc_html_e('Address','wpbooking') ?> <span class="required">*</span></label>
-                            <input type="text"  class="form-control" id="u_address" name="u_address" value="<?php echo WPBooking_Input::post('u_address',get_user_meta(get_current_user_id(),'address',true)) ?>" >
+                            <input type="text"  class="form-control" id="u_address" required name="u_address" value="<?php echo WPBooking_Input::post('u_address',get_user_meta(get_current_user_id(),'address',true)) ?>" >
                         </div>
                     </div>
                     <div class="col-sm-6">
