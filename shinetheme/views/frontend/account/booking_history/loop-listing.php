@@ -32,8 +32,8 @@ $inject->clear();
 		</td>
 		<td width="23%" class="text-center">
 			<?php esc_html_e('TOTAL', 'wpbooking') ?><br>
-			<?php esc_html_e('( DEPOSIT / REMAIN )', 'wpbooking') ?><br>
-			( <?php echo WPBooking_Currency::get_current_currency('currency') ?> )
+			<?php esc_html_e('(DEPOSIT / REMAIN)', 'wpbooking') ?><br>
+			(<?php echo WPBooking_Currency::get_current_currency('currency') ?>)
 		</td>
 	</tr>
 	</thead>

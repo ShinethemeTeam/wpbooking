@@ -64,7 +64,7 @@ if(!empty($order_data['rooms'])){
                                                                     <td>
                                                                         <?php esc_html_e("Night","wpbooking") ?> <?php echo esc_html($i) ?>
                                                                         <br>
-                                                                        <span class="desc">( <?php echo date(get_option('date_format') , $k_list_date) ?> )</span>
+                                                                        <span class="desc">(<?php echo date(get_option('date_format') , $k_list_date) ?>)</span>
                                                                     </td>
                                                                     <td class="text-center">
                                                                         <?php echo WPBooking_Currency::format_money($v_list_date) ?>
