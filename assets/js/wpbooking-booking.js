@@ -452,7 +452,7 @@ jQuery(document).ready(function($){
             p.find('.checkout_d').val(check_out.getDate());
             p.find('.checkout_m').val(check_out.getMonth()+1);
             p.find('.checkout_y').val(check_out.getFullYear());
-            
+
             var form=$(this).closest('form');
             var date_start=$('.search-room-availablity .wpbooking-search-start');
             date_start.datepicker("option","maxDate", new Date(check_out.getFullYear(),check_out.getMonth(),check_out.getDate()-1));
