@@ -83,36 +83,41 @@ if(!empty($order_data['rooms'])){
                                                 foreach($v['extra_fees'] as $extra_service){
                                                     if(!empty($extra_service['data'])){
                                                         ?>
-                                                        <table>
-                                                            <thead>
-                                                            <tr>
-                                                                <th width="60%" >
-                                                                    <?php esc_html_e("Service name",'wpbooking') ?>
-                                                                </th>
-                                                                <th class="text-center">
-                                                                    <?php esc_html_e("Price",'wpbooking') ?>
-                                                                </th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <?php
-                                                            foreach($extra_service['data'] as $value){
-                                                                ?>
-                                                                <tr>
-                                                                    <td >
-                                                                        <?php echo esc_html($value['title']) ?><br>
-                                                                        x  <span class="desc"><?php echo esc_html($value['quantity']) ?></span>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <?php echo WPBooking_Currency::format_money($value['price']) ?>
-                                                                    </td>
-                                                                </tr>
-                                                                <?php
-                                                            }
-                                                            ?>
+                                                        <div class="extra-service">
+                                                            <div class="title"><?php echo esc_html($extra_service['title']) ?></div>
+                                                            <div class="extra-item">
+                                                                <table>
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th width="60%" >
+                                                                            <?php esc_html_e("Service name",'wpbooking') ?>
+                                                                        </th>
+                                                                        <th class="text-center">
+                                                                            <?php esc_html_e("Price",'wpbooking') ?>
+                                                                        </th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <?php
+                                                                    foreach($extra_service['data'] as $value){
+                                                                        ?>
+                                                                        <tr>
+                                                                            <td >
+                                                                                <?php echo esc_html($value['title']) ?><br>
+                                                                                x  <span class="desc"><?php echo esc_html($value['quantity']) ?></span>
+                                                                            </td>
+                                                                            <td class="text-center">
+                                                                                <?php echo WPBooking_Currency::format_money($value['price']) ?>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <?php
+                                                                    }
+                                                                    ?>
 
-                                                            </tbody>
-                                                        </table>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
                                                         <?php
                                                     }
                                                 } ?>

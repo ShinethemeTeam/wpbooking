@@ -976,6 +976,9 @@ a.label:focus {
 .review-order-item .review-order-item-table .extra-service .extra-item.price {
   font-style: normal;
 }
+.review-order-item .review-order-item-table .extra-service .title {
+  text-transform: none;
+}
 .review-order-item .review-order-item-table .room-info table {
   margin-top: 10px;
 }
