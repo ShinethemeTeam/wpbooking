@@ -48,7 +48,7 @@ if (!class_exists('WPBooking_Model')) {
 		 * @var string
 		 * @since 1.0
 		 */
-		protected $table_key = 'order_id';
+		protected $table_key = 'id';
 
 
 		/**

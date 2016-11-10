@@ -3671,18 +3671,30 @@ label[for=wpbooking_room_typediv-hide] {
 .wp-list-table .wb-column-action .wb-row-actions a:hover {
   border-color: #252525;
 }
+.wp-list-table .check-column {
+  padding: 12px 0 8px;
+}
 .wp-list-table .column-id {
-  width: 100%;
+  width: 33%;
+}
+.wp-list-table .column-id p {
   display: inline-flex;
 }
 .wp-list-table .column-id .id {
-  width: 10%;
+  width: 9%;
+  padding-left: 10px;
 }
 .wp-list-table .column-id .status {
-  width: 40%;
+  width: 38%;
+}
+.wp-list-table .column-id .customer {
+  width: 45%;
 }
 .wp-list-table .column-id p {
   margin: 0 !important;
+}
+.wp-list-table .column-primary {
+  width: 32%;
 }
 .wp-list-table .wb-column-action .id {
   width: 10%;
@@ -3691,6 +3703,10 @@ label[for=wpbooking_room_typediv-hide] {
 .wp-list-table .wb-column-action .status {
   width: 40%;
   float: left;
+}
+.wp-list-table .wb-column-action .status label.text_up {
+  padding: 2px 5px;
+  border: 1px solid #ccc;
 }
 .wp-list-table .wb-column-action .customer {
   width: 50%;
