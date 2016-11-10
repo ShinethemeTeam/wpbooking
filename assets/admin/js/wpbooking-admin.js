@@ -1810,7 +1810,7 @@ jQuery(document).ready(function( $ ){
         });
     });
 
-    $('.wb-column-action').each(function(){
+    $('.wb-column-action').parent().each(function(){
         $(this).hover(function () {
             var elm = $(this).find('.wb-row-actions');
             if(elm.hasClass('none')){

@@ -587,3 +587,48 @@ if(!function_exists('wpbooking_is_any_register')){
         return false;
     }
 }
+
+if(!function_exists('wpbooking_months_dropdown')) {
+    function wpbooking_get_months_dropdown_html($post_type)
+    {
+        global $wpdb, $wp_locale;
+
+        $extra_checks = "AND post_status != 'auto-draft'";
+        if (!isset($_GET['post_status']) || 'trash' !== $_GET['post_status']) {
+            $extra_checks .= " AND post_status != 'trash'";
+        } elseif (isset($_GET['post_status'])) {
+            $extra_checks = $wpdb->prepare(' AND post_status = %s', $_GET['post_status']);
+        }
+
+        $months = $wpdb->get_results($wpdb->prepare("
+			SELECT DISTINCT YEAR( post_date ) AS year, MONTH( post_date ) AS month
+			FROM $wpdb->posts
+			WHERE post_type = %s
+			$extra_checks
+			ORDER BY post_date DESC
+		", $post_type));
+
+        $month_count = count($months);
+
+        if (!$month_count || (1 == $month_count && 0 == $months[0]->month))
+            return;
+
+        $m = isset($_GET['m']) ? (int)$_GET['m'] : 0;
+        ?>
+        <select name="m" id="filter-by-date">
+            <option<?php selected($m, 0); ?> value=""><?php esc_html_e('All dates','wpbooking'); ?></option>
+            <?php
+            foreach ($months as $arc_row) {
+                if (0 == $arc_row->year)
+                    continue;
+
+                $month = zeroise($arc_row->month, 2);
+                $year = $arc_row->year;
+
+                printf("<option %s value='%s'>%s</option>\n",selected($m, $year . $month, false), esc_attr($arc_row->year . $month), sprintf(__('%1$s %2$d'), $wp_locale->get_month($month), $year));
+            }
+            ?>
+        </select>
+        <?php
+    }
+}

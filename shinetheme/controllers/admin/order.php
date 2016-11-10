@@ -35,11 +35,42 @@ if (!class_exists('WPBooking_Admin_Order')) {
 
 		function _apply_change_form()
 		{
-            if(!empty(WPBooking_Input::get('search_keyword')) && !empty(WPBooking_Input::get('keyword'))){
-                
+            if($status = WPBooking_Input::get('action') and $order_ids = WPBooking_Input::get('wpbooking_order_item')) {
+                $this->apply_status_changed($status,$order_ids);
+            }
+		}
+
+        function apply_status_changed($status, $order_ids){
+            $order = WPBooking_Order_Model::inst();
+            if (is_array($order_ids)) {
+                foreach($order_ids as $key => $val){
+                    $this->apply_status_changed($status, $val);
+                }
+                return true;
             }
 
-		}
+            switch ($status) {
+                case 'onhold_booking':
+                    $order->update_status($order_ids,'on_hold');
+                    break;
+                case 'complete_booking':
+                    $order->update_status($order_ids,'completed');
+                    break;
+                case 'cancel_booking':
+                    $order->update_status($order_ids,'cancelled');
+                    break;
+                case 'refunded_booking':
+                    $order->update_status($order_ids,'refunded');
+                    break;
+                case 'trash':
+                    $order->update_status($order_ids,'trash');
+                    break;
+                case 'permanently_delete':
+                    $order->delete_order($order_ids);
+                    break;
+            }
+
+        }
 
 		/**
 		 * Get Report Data for Report Tab

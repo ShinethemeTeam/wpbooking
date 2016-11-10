@@ -3745,18 +3745,31 @@ label[for=wpbooking_room_typediv-hide]
       }
     }
   }
+  .check-column{
+    padding: 12px 0 8px;
+  }
   .column-id{
-    width: 100%;
-    display: inline-flex;
+    width: 33%;
+    //padding: 8px 10px !important;
+    p{
+      display: inline-flex;
+    }
     .id{
-      width: 10%;
+      width: 9%;
+      padding-left: 10px;
     }
     .status{
-      width: 40%;
+      width: 38%;
+    }
+    .customer{
+      width: 45%;
     }
     p{
       margin: 0 !important;
     }
+  }
+  .column-primary{
+    width: 32%;
   }
   .wb-column-action{
     .id{
@@ -3766,6 +3779,10 @@ label[for=wpbooking_room_typediv-hide]
     .status{
       width: 40%;
       float: left;
+      label.text_up{
+        padding: 2px 5px;
+        border: 1px solid #ccc;
+      }
     }
     .customer{
       width: 50%;

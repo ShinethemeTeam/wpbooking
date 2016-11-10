@@ -108,6 +108,53 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
             $this->where('order_id', $order_id)->update(array('status' => 'completed', 'status' => 'cancelled'));
         }
 
+        /**
+         * Update status for order
+         *
+         * @since 1.0
+         * @author tienhd
+         *
+         * @param $order_id
+         * @param $status
+         */
+        function update_status($order_id, $status){
+            $this->where('order_id', $order_id)->update(array('status' => $status));
+            wp_update_post(array('ID' => $order_id, 'post_status' => $status));
+        }
+
+        /**
+         * Delete permanently order
+         *
+         * @since 1.0
+         * @author tienhd
+         *
+         * @param $order_id
+         */
+        function delete_order($order_id){
+            $this->where('order_id', $order_id)->delete();
+            $order_room = WPBooking_Order_Hotel_Order_Model::inst();
+            $order_room->where('order_id', $order_id)->delete();
+            wp_delete_post($order_id);
+        }
+
+        /**
+         * Get Table Name with Prefix
+         *
+         * @author tienhd
+         * @since 1.0
+         *
+         * @param $prefix
+         * @return string
+         */
+        function get_table_name($prefix=true)
+        {
+            global $wpdb;
+            if($prefix)
+                return $table_name = $wpdb->prefix . $this->table_name;
+            else
+                return $this->table_name;
+        }
+
         static function inst()
         {
             if(!self::$_inst) {

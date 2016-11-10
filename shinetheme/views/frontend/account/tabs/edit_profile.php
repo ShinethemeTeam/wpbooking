@@ -58,13 +58,13 @@ if(!empty(WPBooking()->get('error_ed_fields'))){
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="u_postcode"><?php esc_html_e('Postcode / ZIP','wpbooking') ?></label>
-                            <input type="number"  class="form-control" id="u_postcode" name="u_postcode" value="<?php echo WPBooking_Input::post('u_postcode',get_user_meta(get_current_user_id(),'postcode',true)) ?>" >
+                            <input type="text"  class="form-control" id="u_postcode" name="u_postcode" value="<?php echo WPBooking_Input::post('u_postcode',get_user_meta(get_current_user_id(),'postcode',true)) ?>" >
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="u_apt_unit"><?php esc_html_e('Apt/ Unit','wpbooking') ?></label>
-                            <input type="number"  class="form-control" id="u_apt_unit" name="u_apt_unit" value="<?php echo WPBooking_Input::post('u_apt_unit',get_user_meta(get_current_user_id(),'apt_unit',true)) ?>"  >
+                            <input type="text"  class="form-control" id="u_apt_unit" name="u_apt_unit" value="<?php echo WPBooking_Input::post('u_apt_unit',get_user_meta(get_current_user_id(),'apt_unit',true)) ?>"  >
                         </div>
                     </div>
                     <div class="col-md-12">
