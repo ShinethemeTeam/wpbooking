@@ -1131,7 +1131,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $minimum_stay = $service->get_minimum_stay();
                     $dDiff = wpbooking_timestamp_diff_day($check_in_timestamp, $check_out_timestamp);
                     if ($dDiff < $minimum_stay) {
-                        $result['message'] = sprintf(esc_html__('Minimum stay is %s day(s)', 'wpbooking'), $minimum_stay);
+                        $result['message'] = sprintf(esc_html__('Minimum stay is %s night(s)', 'wpbooking'), $minimum_stay);
                         $result['status'] = 2;
                     }
                 }
@@ -1188,6 +1188,26 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
                 if (!empty($tax_query_child))
                     $tax_query[] = $tax_query_child;
+            }
+
+            $check_in = $this->request('checkin_y')."-".$this->request('checkin_m')."-".$this->request('checkin_d');
+            $check_out = $this->request('checkout_y')."-".$this->request('checkout_m')."-".$this->request('checkout_d');
+            if($check_in == '--')$check_in='';
+            if($check_out == '--')$check_out='';
+            // Validate Minimum Stay
+            if ($check_in and $check_out) {
+                $check_in_timestamp = strtotime($check_in);
+                $check_out_timestamp = strtotime($check_out);
+                $dDiff = wpbooking_timestamp_diff_day($check_in_timestamp, $check_out_timestamp);
+                $meta_query[] = array(
+                    'relation' => 'AND',
+                    array(
+                        'key'     => 'minimum_stay',
+                        'type'    => 'NUMERIC',
+                        'value'   => $dDiff,
+                        'compare' => '<='
+                    )
+                );
             }
 
             // Star Rating
@@ -1293,6 +1313,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     )
                 )
             ";
+
+
+
             $injection->where($sql,false,true);
             parent::_add_default_query_hook();
 
@@ -1318,6 +1341,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if($check_in == '--')$check_in='';
             if($check_out == '--')$check_out='';
 
+            $number_room = $this->request('room_number',1);
             $is_minimum_stay = true;
             if ($check_in and $check_out) {
                 $service =  new WB_Service(WPBooking_Input::request('hotel_id'));
@@ -1330,7 +1354,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 }
             }
             if($is_minimum_stay){
-                $number_room = $this->request('room_number',1);
                 $ids_not_in = $this->get_unavailability_hotel_room($hotel_id,$check_in,$check_out,$number_room);
                 $inject->where_not_in('ID',$ids_not_in);
 
@@ -1926,7 +1949,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 return $is_validated;
             }
             if(empty($check_number_room)){
-                wpbooking_set_message(esc_html__("Please select one room","wpbooking"),'error');
+                wpbooking_set_message(esc_html__("Vui lòng chọn một hoặc nhiều phòng mà bạn muốn đặt.","wpbooking"),'error');
                 $is_validated = FALSE;
                 return $is_validated;
             }
@@ -1964,7 +1987,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $dDiff = wpbooking_timestamp_diff_day($check_in_timestamp, $check_out_timestamp);
                     if ($dDiff < $minimum_stay) {
                         $is_validated = FALSE;
-                        wpbooking_set_message(sprintf(esc_html__('Minimum stay is %s day(s)', 'wpbooking'), $minimum_stay), 'error');
+                        wpbooking_set_message(sprintf(esc_html__('Minimum stay is %s night(s)', 'wpbooking'), $minimum_stay), 'error');
                         return $is_validated;
                     }
                 }

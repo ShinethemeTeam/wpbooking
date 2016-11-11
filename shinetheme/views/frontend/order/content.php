@@ -1,6 +1,14 @@
 <?php
-echo wpbooking_get_message();
 $order_id = get_the_ID();
+$my_user = wp_get_current_user();
+$user_book = get_post_meta($order_id,'user_id',true);
+
+if(!is_user_logged_in() and empty($my_user->ID) and $user_book != $my_user->ID and !is_super_admin()){
+    esc_html_e("You don't have permission to access this page","wpbooking");
+    return;
+}
+
+echo wpbooking_get_message();
 $order=new WB_Order($order_id);
 $booking=WPBooking_Order::inst();
 $order_data=$order->get_order_data();

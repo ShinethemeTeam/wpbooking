@@ -1955,6 +1955,9 @@ a.label:focus {
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room:after {
   clear: both;
 }
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room.have_none {
+  display: none;
+}
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .content-loop-room {
   float: left;
   width: 80%;

@@ -219,7 +219,7 @@ $hotel_id=get_the_ID();
         <?php
         global $wp_query;
         $rooms=WPBooking_Accommodation_Service_Type::inst()->search_room();
-        if($rooms->have_posts()) {
+
             ?>
             <div class="search-room-availablity">
                 <form method="post" name="form-search-room" class="form-search-room">
@@ -287,10 +287,14 @@ $hotel_id=get_the_ID();
                     </div>
                 </form>
                 <div class="search_room_alert"></div>
-                <div class="content-search-room">
+                <?php
+                $is_have_post = '';
+                if(!$rooms->have_posts()) {
+                    $is_have_post = 'have_none';
+                }
+                ?>
+                <div class="content-search-room <?php echo esc_html($is_have_post) ?>">
                     <?php
-
-
                     $checkin_d = WPBooking_Input::request('checkin_d');
                     $checkin_m = WPBooking_Input::request('checkin_m');
                     $checkin_y = WPBooking_Input::request('checkin_y');
@@ -325,8 +329,6 @@ $hotel_id=get_the_ID();
                                     $rooms->the_post();
                                     echo wpbooking_load_view('single/loop-room',array('hotel_id'=>$hotel_id));
                                 }
-                            } else {
-                                echo wpbooking_load_view('single/loop-room-none');
                             }
                             ?>
                         </div>
@@ -340,7 +342,7 @@ $hotel_id=get_the_ID();
                     </form>
                 </div>
             </div>
-        <?php }
+        <?php
         wp_reset_postdata();
 
         ?>
