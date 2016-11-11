@@ -999,7 +999,11 @@ a.label:focus {
                 margin-top: 20px;
                 padding: 3px 11px;
                 background: @maincolor;*/
+  color: #f0ad4e;
   cursor: pointer;
+  display: inline-block;
+  font-style: italic;
+  padding-top: 10px;
 }
 .review-order-item .review-order-item-table .room-info .content_details {
   display: none;
