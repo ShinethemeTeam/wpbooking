@@ -61,10 +61,10 @@ if (!class_exists('WB_Order')) {
                 $udata = get_userdata($this->user_id);
                 $customer_info = array(
                     'id'          => $this->user_id,
-                    'name'        => $udata->display_name,
+                    'name'        => ($udata->display_name?$udata->display_name:$udata->user_login),
                     'avatar'      => get_avatar($this->user_id),
-                    'description' => $udata->user_description,
-                    'email'       => $udata->user_email
+                    'description' => ($udata->user_description?$udata->user_description:''),
+                    'email'       => ($udata->user_email?$udata->user_email:'')
                 );
 
                 if ($need) {
