@@ -1587,10 +1587,11 @@ jQuery(document).ready(function( $ ){
                             element.replaceWith(res.updated_content[k]);
                             $(window).trigger('wpbooking_event_hotel_room_update_content',[k,res.updated_content[k]]);
                         }
+
                     }
 
                     $(window).trigger('wpbooking_event_hotel_room_saved');
-
+                    $('input[name=room_measunit]').trigger('change');
                 }else{
                     alert(res.message);
                 }

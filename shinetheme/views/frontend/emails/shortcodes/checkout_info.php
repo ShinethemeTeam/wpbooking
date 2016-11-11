@@ -46,7 +46,7 @@ do_action('wpbooking_before_checkout_form_data_preview');
 	<?php if(!empty($special_request = get_post_meta($order_id,'wpbooking_user_special_request',true))){ ?>
 		<div class="col-10">
 			<label><?php esc_html_e("Special request:","wpbooking") ?> </label>
-			<p><?php echo esc_html($apt_unit) ?></p>
+			<p><?php echo esc_html($special_request) ?></p>
 		</div>
 	<?php } ?>
 	<div class=col-12>

@@ -993,12 +993,13 @@ a.label:focus {
   background: #ececec;
 }
 .review-order-item .review-order-item-table .room-info .btn_detail_checkout {
-  font-size: 13px;
-  font-style: italic;
-  font-weight: normal;
-  margin-top: 20px;
-  padding: 3px 11px;
-  background: #f0ad4e;
+  /* font-size: 13px;
+                font-style: italic;
+                font-weight: normal;
+                margin-top: 20px;
+                padding: 3px 11px;
+                background: @maincolor;*/
+  cursor: pointer;
 }
 .review-order-item .review-order-item-table .room-info .content_details {
   display: none;
