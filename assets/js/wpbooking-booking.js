@@ -470,6 +470,11 @@ jQuery(document).ready(function($){
     },500);
     $(document).on('click','.button_show_price.is_single_search_result',function(){
         $('.btn-do-search-room').click();
+        if($('.search-room-availablity .wpbooking-search-start').length){
+            window.setTimeout(function(){
+                $('.search-room-availablity .wpbooking-search-start').datepicker('show');
+            },100);
+        }
     });
     $('.form-search-room .btn-do-search-room').click(function(){
         var searchbox = $(this).closest('.form-search-room');
