@@ -1131,7 +1131,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $minimum_stay = $service->get_minimum_stay();
                     $dDiff = wpbooking_timestamp_diff_day($check_in_timestamp, $check_out_timestamp);
                     if ($dDiff < $minimum_stay) {
-                        $result['message'] = sprintf(esc_html__('Minimum stay is %s day(s)', 'wpbooking'), $minimum_stay);
+                        $result['message'] = sprintf(esc_html__('Minimum stay is %s night(s)', 'wpbooking'), $minimum_stay);
                         $result['status'] = 2;
                     }
                 }
@@ -1964,7 +1964,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $dDiff = wpbooking_timestamp_diff_day($check_in_timestamp, $check_out_timestamp);
                     if ($dDiff < $minimum_stay) {
                         $is_validated = FALSE;
-                        wpbooking_set_message(sprintf(esc_html__('Minimum stay is %s day(s)', 'wpbooking'), $minimum_stay), 'error');
+                        wpbooking_set_message(sprintf(esc_html__('Minimum stay is %s night(s)', 'wpbooking'), $minimum_stay), 'error');
                         return $is_validated;
                     }
                 }
