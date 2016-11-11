@@ -107,8 +107,7 @@ if (!class_exists('WB_Order')) {
         function get_customer_email()
         {
             if ($this->order_id) {
-                if ($this->user_id) return $this->get_customer('email');
-
+                //if ($this->user_id) return $this->get_customer('email');
                 // Try to get user email field
                 return get_post_meta($this->order_id, 'wpbooking_user_email', true);
             }
