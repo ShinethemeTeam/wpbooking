@@ -505,7 +505,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'type'  => 'radio',
                             'value' => array(
                                 "metres" => esc_html__("Square metres", 'wpbooking'),
-                                "feed"   => esc_html__("Square feet", 'wpbooking'),
+                                "feet"   => esc_html__("Square feet", 'wpbooking'),
                             ),
                             'std'   => 'metres',
                             'class' => 'radio_pro',

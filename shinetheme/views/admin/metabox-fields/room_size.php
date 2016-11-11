@@ -40,7 +40,7 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
                                 <div class="input-group">
                                     <input class="form-control"  id="room_size[<?php the_ID() ?>]" value="<?php echo get_post_meta(get_the_ID(), 'room_size', TRUE) ?>" name="room_size[<?php the_ID() ?>]"  type="number">
                                     <span data-condition="room_measunit:is(metres)" class="input-group-addon wpbooking-condition">m<sup>2</sup></span>
-                                    <span data-condition="room_measunit:is(feed)" class="input-group-addon wpbooking-condition">ft<sup>2</sup></span>
+                                    <span data-condition="room_measunit:is(feet)" class="input-group-addon wpbooking-condition">ft<sup>2</sup></span>
                                 </div>
                             </div>
                         </div>
