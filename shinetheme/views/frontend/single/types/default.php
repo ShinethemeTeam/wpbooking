@@ -145,11 +145,14 @@ $hotel_id=get_the_ID();
                     if ($value = get_post_meta(get_the_ID(), $key, true)) {
                         switch($key){
                             case 'contact_number':
+                                $value=sprintf('<a href="tel:%s">%s</a>',esc_html($value),esc_html($value));
+                                break;
+
                             case 'contact_email':
-                                $value = ($value);
+                                $value=sprintf('<a href="mailto:%s">%s</a>',esc_html($value),esc_html($value));
                                 break;
                             case 'website';
-                                $value = '<a href="'.$value.'">'.$value.'</a>';
+                                $value = '<a target=_blank href="'.$value.'">'.$value.'</a>';
                                 break;
                         }
                         $html .= '<div class="wb-meta-contact">
