@@ -294,8 +294,8 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
 				case "check_in":
                     $check_in = '';
-                    if(WPBooking_Input::get('checkin_d') && WPBooking_Input::get('checkin_m') && WPBooking_Input::get('checkin_y')) {
-                        $date = new DateTime(WPBooking_Input::get('checkin_d') . '-' . WPBooking_Input::get('checkin_m') . '-' . WPBooking_Input::get('checkin_y'));
+                    if(WPBooking_Input::get('checkin_y') && WPBooking_Input::get('checkin_m') && WPBooking_Input::get('checkin_d')) {
+                        $date = new DateTime(WPBooking_Input::get('checkin_y') . '-' . WPBooking_Input::get('checkin_m') . '-' . WPBooking_Input::get('checkin_d'));
                         $check_in = $date->format(get_option('date_format'));
                     }
 					?>

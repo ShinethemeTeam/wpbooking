@@ -470,11 +470,6 @@ jQuery(document).ready(function($){
     },500);
     $(document).on('click','.button_show_price.is_single_search_result',function(){
         $('.btn-do-search-room').click();
-        if($('.search-room-availablity .wpbooking-search-start').length){
-            window.setTimeout(function(){
-                $('.search-room-availablity .wpbooking-search-start').datepicker('show');
-            },100);
-        }
     });
     $('.form-search-room .btn-do-search-room').click(function(){
         var searchbox = $(this).closest('.form-search-room');
@@ -523,6 +518,11 @@ jQuery(document).ready(function($){
             if (dataobj.check_out == "") {
                 searchbox.find('[name=check_out]').addClass('error');
             }
+            if($('.search-room-availablity .wpbooking-search-start').length){
+                window.setTimeout(function(){
+                    $('.search-room-availablity .wpbooking-search-start').datepicker('show');
+                },100);
+            }
             setMessage(holder, wpbooking_hotel_localize.is_not_select_date, 'danger');
             return false;
         }
@@ -530,12 +530,22 @@ jQuery(document).ready(function($){
             if (dataobj.check_in == "") {
                 searchbox.find('[name=check_in]').addClass('error');
             }
+            if($('.search-room-availablity .wpbooking-search-start').length){
+                window.setTimeout(function(){
+                    $('.search-room-availablity .wpbooking-search-start').datepicker('show');
+                },100);
+            }
             setMessage(holder, wpbooking_hotel_localize.is_not_select_check_in_date, 'danger');
             return false;
         }
         if (dataobj.check_out == '') {
             if (dataobj.check_out == "") {
                 searchbox.find('[name=check_out]').addClass('error');
+            }
+            if($('.search-room-availablity .wpbooking-search-end').length){
+                window.setTimeout(function(){
+                    $('.search-room-availablity .wpbooking-search-end').datepicker('show');
+                },100);
             }
             setMessage(holder, wpbooking_hotel_localize.is_not_select_check_out_date, 'danger');
             return false;

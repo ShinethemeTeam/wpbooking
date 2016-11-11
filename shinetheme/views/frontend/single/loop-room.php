@@ -4,8 +4,8 @@ $list_extra = get_post_meta(get_the_ID(),'extra_services',true);
 $hotel_id = wp_get_post_parent_id(get_the_ID());
 $service_room = new WB_Service(get_the_ID());
 
-$check_in = WPBooking_Input::request('checkin_d')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_y');
-$check_out = WPBooking_Input::request('checkout_d')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_y');
+$check_in = WPBooking_Input::request('checkin_y')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_d');
+$check_out = WPBooking_Input::request('checkout_y')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_d');
 if($check_in == '--')$check_in='';
 if($check_out == '--')$check_out='';
 
@@ -80,8 +80,8 @@ $diff = $diff / (60 * 60 * 24);
     <div class="room-book">
         <?php
         $price = get_post_meta(get_the_ID(),'base_price',true);
-        $check_in = WPBooking_Input::request('checkin_d')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_y');
-        $check_out = WPBooking_Input::request('checkout_d')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_y');
+        $check_in = WPBooking_Input::request('checkin_y')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_d');
+        $check_out = WPBooking_Input::request('checkout_y')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_d');
         if($check_in == '--')$check_in='';
         if($check_out == '--')$check_out='';
 
