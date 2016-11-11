@@ -1119,8 +1119,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     echo json_encode($result);
                     die;
                 }
-                $check_in = $this->request('checkin_d')."-".$this->request('checkin_m')."-".$this->request('checkin_y');
-                $check_out = $this->request('checkout_d')."-".$this->request('checkout_m')."-".$this->request('checkout_y');
+                $check_in = $this->request('checkin_y')."-".$this->request('checkin_m')."-".$this->request('checkin_d');
+                $check_out = $this->request('checkout_y')."-".$this->request('checkout_m')."-".$this->request('checkout_d');
                 if($check_in == '--')$check_in='';
                 if($check_out == '--')$check_out='';
                 // Validate Minimum Stay
@@ -1313,8 +1313,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $inject=WPBooking_Query_Inject::inst();
             $inject->inject();
 
-            $check_in = $this->request('checkin_d')."-".$this->request('checkin_m')."-".$this->request('checkin_y');
-            $check_out = $this->request('checkout_d')."-".$this->request('checkout_m')."-".$this->request('checkout_y');
+            $check_in = $this->request('checkin_y')."-".$this->request('checkin_m')."-".$this->request('checkin_d');
+            $check_out = $this->request('checkout_y')."-".$this->request('checkout_m')."-".$this->request('checkout_d');
             if($check_in == '--')$check_in='';
             if($check_out == '--')$check_out='';
 
@@ -1893,8 +1893,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         {
             $service = new WB_Service($post_id);
 
-            $check_in = $this->request('wpbooking_checkin_d')."-".$this->request('wpbooking_checkin_m')."-".$this->request('wpbooking_checkin_y');
-            $check_out = $this->request('wpbooking_checkout_d')."-".$this->request('wpbooking_checkout_m')."-".$this->request('wpbooking_checkout_y');
+            $check_in = $this->request('wpbooking_checkin_y')."-".$this->request('wpbooking_checkin_m')."-".$this->request('wpbooking_checkin_d');
+            $check_out = $this->request('wpbooking_checkout_y')."-".$this->request('wpbooking_checkout_m')."-".$this->request('wpbooking_checkout_d');
             if($check_in == '--')$check_in='';
             if($check_out == '--')$check_out='';
 

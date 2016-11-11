@@ -333,8 +333,8 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
             // Convert Check In and Check Out to Timestamp if available
 
-            $check_in = WPBooking_Input::request('wpbooking_checkin_d')."-".WPBooking_Input::request('wpbooking_checkin_m')."-".WPBooking_Input::request('wpbooking_checkin_y');
-            $check_out = WPBooking_Input::request('wpbooking_checkout_d')."-".WPBooking_Input::request('wpbooking_checkout_m')."-".WPBooking_Input::request('wpbooking_checkout_y');
+            $check_in = WPBooking_Input::request('wpbooking_checkin_y')."-".WPBooking_Input::request('wpbooking_checkin_m')."-".WPBooking_Input::request('wpbooking_checkin_d');
+            $check_out = WPBooking_Input::request('wpbooking_checkout_y')."-".WPBooking_Input::request('wpbooking_checkout_m')."-".WPBooking_Input::request('wpbooking_checkout_d');
             if($check_in == '--')$check_in='';
             if($check_out == '--')$check_out='';
             if ($check_in) {
