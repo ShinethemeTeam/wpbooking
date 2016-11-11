@@ -9,7 +9,7 @@ global $wpdb;
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 $args=array(
 	'post_type'=>'wpbooking_order',
-	'posts_per_page'=>1,
+	'posts_per_page'=>20,
     'paged' => $paged,
     'status' => 'any'
 );
@@ -152,7 +152,7 @@ $query=new WP_Query($args);
                                 <?php
                                 echo $order->get_status_html();
                                 echo '<br>';
-                                echo $order->get_payment_gateway();
+                                echo '<span class="payment">'.$order->get_payment_gateway().'</span>';
                                 ?>
                             </div>
                             <div class="customer">

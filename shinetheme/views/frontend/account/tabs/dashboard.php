@@ -38,13 +38,13 @@ global $current_user;
 			<?php } ?>
 			<?php if(!empty($apt_unit = get_user_meta($user_id,'apt_unit',true))){ ?>
 				<div class="col-md-6">
-					<label><?php esc_html_e("Apt/ Unit","wpbooking") ?> </label>
+					<label><?php esc_html_e("Apt / Unit:","wpbooking") ?> </label>
 					<p><?php echo esc_html($apt_unit) ?></p>
 				</div>
 			<?php } ?>
 			<?php if(!empty($postcode_zip = get_user_meta($user_id,'postcode',true))){ ?>
 				<div class="col-md-6">
-					<label><?php esc_html_e("Postcode / Zip","wpbooking") ?> </label>
+					<label><?php esc_html_e("Postcode / Zip:","wpbooking") ?> </label>
 					<p><?php echo esc_html($postcode_zip) ?></p>
 				</div>
 			<?php } ?>

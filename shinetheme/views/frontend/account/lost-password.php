@@ -19,7 +19,7 @@
         <a class="login-url" href="<?php echo esc_url(wp_login_url()); ?>"><?php echo esc_html__('Login','wpbooking'); ?></a>
     </div>
     <?php
-    if(WPBooking_Input::get('errors')){
+    if(WPBooking_Input::get('errors') || WPBooking_Input::get('checkemail') == 'confirm'){
         echo wpbooking_get_message();
     }?>
 </form>
