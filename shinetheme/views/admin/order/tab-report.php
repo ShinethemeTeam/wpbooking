@@ -26,7 +26,8 @@ $type_array=array(
 	'last_90days'=>esc_html__('Last 90 days','wpbooking'),
 	'this_year'=>esc_html__('This Year','wpbooking'),
 	'last_year'=>esc_html__('Last Year','wpbooking'),
-)
+);
+
 ?>
 <div class="wb-tab-report-wrap clear">
 	<form action="" class="report-form" method="get">

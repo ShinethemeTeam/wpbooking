@@ -63,7 +63,7 @@ if(!empty(WPBooking()->get('error_ed_fields'))){
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="u_apt_unit"><?php esc_html_e('Apt/ Unit','wpbooking') ?></label>
+                            <label for="u_apt_unit"><?php esc_html_e('Apt / Unit','wpbooking') ?></label>
                             <input type="text"  class="form-control" id="u_apt_unit" name="u_apt_unit" value="<?php echo WPBooking_Input::post('u_apt_unit',get_user_meta(get_current_user_id(),'apt_unit',true)) ?>"  >
                         </div>
                     </div>

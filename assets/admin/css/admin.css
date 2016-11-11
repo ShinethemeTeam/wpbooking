@@ -3705,8 +3705,19 @@ label[for=wpbooking_room_typediv-hide] {
   float: left;
 }
 .wp-list-table .wb-column-action .status label.text_up {
-  padding: 2px 5px;
-  border: 1px solid #ccc;
+  padding: 2px 7px;
+  border: 1px solid #777777;
+  text-transform: uppercase;
+}
+.wp-list-table .wb-column-action .status label.on_hold {
+  border-color: #ec8223;
+}
+.wp-list-table .wb-column-action .status label.completed {
+  border-color: #39b54a;
+}
+.wp-list-table .wb-column-action .status span.payment {
+  display: block;
+  padding-top: 7px;
 }
 .wp-list-table .wb-column-action .customer {
   width: 50%;

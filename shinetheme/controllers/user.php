@@ -231,6 +231,7 @@ if (!class_exists('WPBooking_User')) {
                     wpbooking_set_message(esc_html__('Your account is registered successfully. You can login now', 'wpbooking'), 'success');
 
                     WPBooking_Session::set('wpbooking_user_pass', $password);
+                    WPBooking()->set('register','successful');
                     // Hook after Register Success, maybe sending some email...etc
                     /**
                      * @see WPBooking_User::_send_registration_email()
@@ -920,7 +921,7 @@ if (!class_exists('WPBooking_User')) {
                     // Email sent
                     $account_page = wpbooking_get_option('myaccount-page');
                     if(!empty($account_page))
-                        $redirect_url = get_permalink($account_page);
+                        $redirect_url = get_permalink($account_page).'lost-password';
                     else
                         $redirect_url = wp_login_url();
 
@@ -958,33 +959,23 @@ if (!class_exists('WPBooking_User')) {
                 case 'empty_password':
                     return esc_html__( 'You need to enter a password to login.', 'wpbooking' );
                 case 'invalid_username':
-                    return esc_html__(
-                        "We don't have any users with that email address. Maybe you used a different one when signing up?",
-                        'wpbooking'
-                    );
+                    return esc_html__("Username invalid",'wpbooking');
                 case 'incorrect_password':
-                    return esc_html__('The password you entered wasn\'t quite right.','wpbooking');
-
+                    return esc_html__('Your password incorrect.','wpbooking');
                 case 'email':
-                    return esc_html__( 'The email address you entered is not valid.', 'wpbooking' );
-
+                    return esc_html__( 'Your email invalid.', 'wpbooking' );
                 case 'email_exists':
                     return esc_html__( 'An account exists with this email address.', 'wpbooking' );
-
                 case 'invalid_email':
                 case 'invalidcombo':
-                    return esc_html__( 'There are no users registered with this email address.', 'wpbooking' );
-
+                    return esc_html__( 'Username or email is invalid.', 'wpbooking' );
                 case 'expiredkey':
                 case 'invalidkey':
                     return esc_html__( 'The password reset link you used is not valid anymore.', 'wpbooking' );
-
                 case 'password_reset_mismatch':
                     return esc_html__( "The two passwords you entered don't match.", 'wpbooking' );
-
                 case 'password_reset_empty':
                     return esc_html__( "Sorry, we don't accept empty passwords.", 'wpbooking' );
-
                 default:
                     break;
             }
