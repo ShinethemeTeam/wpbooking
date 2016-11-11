@@ -59,10 +59,9 @@ if (!class_exists('WB_Order')) {
         {
             if ($this->user_id) {
                 $udata = get_userdata($this->user_id);
-                var_dump($udata);
                 $customer_info = array(
                     'id'          => $this->user_id,
-                    'name'        => (!empty($udata)?$udata->display_name:$udata->user_login),
+                    'name'        => (!empty($udata)?$udata->display_name:''),
                     'avatar'      => get_avatar($this->user_id),
                     'description' => (!empty($udata)?$udata->user_description:''),
                     'email'       => (!empty($udata)?$udata->user_email:'')
