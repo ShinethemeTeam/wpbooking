@@ -547,7 +547,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 'user_postcode'    => array(
                     'title'       => esc_html__( "Postcode / ZIP" , "wpbooking" ) ,
                     'placeholder' => esc_html__( "Postcode / ZIP" , "wpbooking" ) ,
-                    'type'        => 'number' ,
+                    'type'        => 'text' ,
                     'name'        => 'user_postcode' ,
                     'size'        => '6' ,
                     'required'    => false ,
@@ -556,7 +556,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 'user_apt_unit'        => array(
                     'title'       => esc_html__( "Apt/ Unit" , "wpbooking" ) ,
                     'placeholder' => esc_html__( "Apt/ Unit" , "wpbooking" ) ,
-                    'type'        => 'number' ,
+                    'type'        => 'text' ,
                     'name'        => 'user_apt_unit' ,
                     'size'        => '6' ,
                     'required'    => false ,
