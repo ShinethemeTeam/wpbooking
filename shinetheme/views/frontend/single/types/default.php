@@ -284,7 +284,13 @@ $hotel_id=get_the_ID();
                     </div>
                 </form>
                 <div class="search_room_alert"></div>
-                <div class="content-search-room">
+                <?php
+                $is_have_post = '';
+                if(!$rooms->have_posts()) {
+                    $is_have_post = 'have_none';
+                }
+                ?>
+                <div class="content-search-room <?php echo esc_html($is_have_post) ?>">
                     <?php
                     $checkin_d = WPBooking_Input::request('checkin_d');
                     $checkin_m = WPBooking_Input::request('checkin_m');
