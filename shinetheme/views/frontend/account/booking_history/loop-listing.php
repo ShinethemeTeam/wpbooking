@@ -72,7 +72,10 @@ $inject->clear();
 						?>
 					</div>
 					<div class="link-details">
-						<a href="<?php echo add_query_arg(array('wpbooking_detail'=>'true'), get_permalink(get_the_ID()) ) ?>" ><?php esc_html_e('details','wpbooking') ?> <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+						<a href="<?php echo add_query_arg(array('wpbooking_detail'=>'true'), get_permalink(get_the_ID()) ) ?>" >
+                            <?php esc_html_e('Details','wpbooking') ?>
+
+                        </a>
 					</div>
 				</td>
 				<td class="booking-data">

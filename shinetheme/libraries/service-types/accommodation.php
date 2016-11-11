@@ -1855,16 +1855,21 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         //check availability Order
                         $ids_room_not_availability = array();
                         foreach($list_room as $room_id => $data){
-                            $id = $this->check_availability_order_hotel_room($room_id,$check_in_timestamp, $check_out_timestamp,$data['number']);
-                            if(!empty($id)){
-                                $ids_room_not_availability[] = get_the_title($id);
+                            $data_rs = $this->check_availability_order_hotel_room($room_id,$check_in_timestamp, $check_out_timestamp,$data['number']);
+                            if(!empty($data_rs['total'])){
+                                $number_room = get_post_meta($room_id,'room_number',true);
+                                $availability_number = $number_room - $data_rs['total'];
+                                $ids_room_not_availability[] = array('title'=>get_the_title($data_rs['id']),'number'=>$availability_number);
                             }
                         }
                         if(!empty($ids_room_not_availability)){
                             $is_validated = FALSE;
-                            $string = implode(',',$ids_room_not_availability);
-                            $message = esc_html__('Bạn không thể book "%s"', 'wpbooking','error');
-                            wpbooking_set_message(sprintf($message, $string), 'error');
+                            $message = '';
+                            foreach($ids_room_not_availability as $k_not_availability=>$value_not_availability){
+                                $message .= sprintf(esc_html__('Bạn không thể book. Room Type "%s" chỉ còn %s phòng trống!', 'wpbooking','error'), $value_not_availability['title'], $value_not_availability['number'])."</br>";
+                            }
+                            wpbooking_set_message($message, 'error');
+                            return $is_validated;
                         }
                     }
                 }
@@ -1991,16 +1996,18 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     //check availability Order
                     $ids_room_not_availability = array();
                     foreach($list_room as $room_id => $data){
-                        $id = $this->check_availability_order_hotel_room($room_id,$check_in_timestamp, $check_out_timestamp,$data['number']);
-                        if(!empty($id)){
-                            $ids_room_not_availability[] = array('title'=>get_the_title($id),'number'=>$data['number']);
+                        $data_rs = $this->check_availability_order_hotel_room($room_id,$check_in_timestamp, $check_out_timestamp,$data['number']);
+                        if(!empty($data_rs['total'])){
+                            $number_room = get_post_meta($room_id,'room_number',true);
+                            $availability_number = $number_room - $data_rs['total'];
+                            $ids_room_not_availability[] = array('title'=>get_the_title($data_rs['id']),'number'=>$availability_number);
                         }
                     }
                     if(!empty($ids_room_not_availability)){
                         $is_validated = FALSE;
                         $message = '';
                         foreach($ids_room_not_availability as $k_not_availability=>$value_not_availability){
-                            $message .= sprintf(esc_html__('Bạn không thể book %s room "%s" ', 'wpbooking','error'), $value_not_availability['number'],$value_not_availability['title'])."</br>";
+                            $message .= sprintf(esc_html__('Bạn không thể book. Room Type "%s" chỉ còn %s phòng trống!', 'wpbooking','error'), $value_not_availability['title'], $value_not_availability['number'])."</br>";
                         }
                         wpbooking_set_message($message, 'error');
                         return $is_validated;
@@ -2155,11 +2162,42 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         ) AS table_booked
                 )
             )";
-            $r='';
+            $r=array();
+
             $res=$wpdb->get_row($sql,ARRAY_A);
             if(!is_wp_error($res))
             {
-                $r = array_shift($res);
+                $room_id = array_shift($res);
+                $r['total'] = 0;
+                $r['id']=$room_id;
+                if(!empty($room_id)){
+                    $sql2 = "
+                           SELECT
+                                SUM({$wpdb->prefix}wpbooking_order_hotel_room.number) as total_number
+                            FROM
+                                {$wpdb->prefix}wpbooking_order_hotel_room
+                            WHERE
+                                1 = 1
+                            	AND  {$wpdb->prefix}wpbooking_order_hotel_room.room_id = {$room_id}
+                            AND (
+                                (
+                                    check_in_timestamp <= {$check_in}
+                                    AND check_out_timestamp >= {$check_in}
+                                )
+                                OR (
+                                    check_in_timestamp >= {$check_in}
+                                    AND check_in_timestamp <= {$check_out}
+                                )
+                            )
+                            GROUP BY
+                                {$wpdb->prefix}wpbooking_order_hotel_room.room_id";
+                    $res2=$wpdb->get_row($sql2,ARRAY_A);
+                    if(!is_wp_error($res))
+                    {
+                        $total = array_shift($res2);
+                        $r['total']=$total;
+                    }
+                }
             }
             return $r;
         }

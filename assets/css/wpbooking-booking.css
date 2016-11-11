@@ -5758,7 +5758,13 @@ a.label:focus {
 }
 .wpbooking-account-table td .link-details a {
   border: medium none;
-  color: #666666;
+  color: #fff;
+  background: #f0ad4e none repeat scroll 0 0;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: normal;
+  margin-top: 20px;
+  padding: 3px 11px;
 }
 .wpbooking-account-table .booking-data {
   padding-left: 15px;
