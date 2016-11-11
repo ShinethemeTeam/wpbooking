@@ -1341,6 +1341,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if($check_in == '--')$check_in='';
             if($check_out == '--')$check_out='';
 
+            $number_room = $this->request('room_number',1);
             $is_minimum_stay = true;
             if ($check_in and $check_out) {
                 $service =  new WB_Service(WPBooking_Input::request('hotel_id'));
@@ -1353,7 +1354,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 }
             }
             if($is_minimum_stay){
-                $number_room = $this->request('room_number',1);
                 $ids_not_in = $this->get_unavailability_hotel_room($hotel_id,$check_in,$check_out,$number_room);
                 $inject->where_not_in('ID',$ids_not_in);
 
