@@ -468,7 +468,7 @@ jQuery(document).ready(function($){
             $('.btn-do-search-room').click();
         }
     },500);
-    $('.button_show_price.is_single_search_result').click(function(){
+    $(document).on('click','.button_show_price.is_single_search_result',function(){
         $('.btn-do-search-room').click();
     });
     $('.form-search-room .btn-do-search-room').click(function(){
@@ -572,6 +572,23 @@ jQuery(document).ready(function($){
                     content_list_room.html('');
                     content_search_room.hide();
                 }
+                if (data.status && data.status==2) {
+                    var status = 'danger';
+                    if (typeof data.status_message != "undefined" && data.status_message) {
+                        status = data.status_message;
+                    }
+                    setMessage(holder, data.message, status);
+                    if (typeof data.data != "undefined" && data.data) {
+                        content_list_room.html(data.data);
+                        content_search_room.show();
+                        content_search_room.find('.wpbooking_order_form').addClass('no_date');
+
+                    } else {
+                        content_list_room.html('');
+                        content_search_room.hide();
+                    }
+                }
+
                 $('.content-search-room .content-loop-room .loop-room .option_number_room').trigger('change');
             },
             error: function(data) {
@@ -667,7 +684,7 @@ jQuery(document).ready(function($){
             if ($('#wpadminbar').length && $('#wpadminbar').css('position') == 'fixed') {
                 top -= 32;
             }
-            top -= 50;
+            top -= 250;
             $('html,body').animate({
                 'scrollTop': top
             }, 500);

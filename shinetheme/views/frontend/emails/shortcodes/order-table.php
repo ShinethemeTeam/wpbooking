@@ -34,9 +34,9 @@ $service_type=$order_data['service_type'];
                     $diff=$order_data['check_out_timestamp'] - $order_data['check_in_timestamp'];
                     $diff = $diff / (60 * 60 * 24);
                     if($diff > 1){
-                        echo sprintf(esc_html__('(%s days)','wpbooking'),$diff);
+                        echo sprintf(esc_html__('(%s nights)','wpbooking'),$diff);
                     }else{
-                        echo sprintf(esc_html__('(%s day)','wpbooking'),$diff);
+                        echo sprintf(esc_html__('(%s night)','wpbooking'),$diff);
                     }
                     ?>
                 </h4>
