@@ -13,7 +13,7 @@ if(!function_exists('wpbooking_email_order_id_func'))
 		if(!$order_id){
 			return '#1010';
 		}
-		return $order_id;
+		return '#'.$order_id;
 	}
 
 	add_shortcode('wpbooking_email_order_id','wpbooking_email_order_id_func');

@@ -16,7 +16,7 @@ if (!class_exists('WPBooking_Email')) {
 
             add_action('init', array($this, '_load_email_shortcodes'));
 
-            //add_action('wpbooking_after_checkout_success', array($this, '_send_order_email_success'));
+            add_action('wpbooking_after_checkout_success', array($this, '_send_order_email_success'));
 
             /**
              * Send Emails when new Order Item has been updated/changed, example: payment complete or cancelled
@@ -53,13 +53,11 @@ if (!class_exists('WPBooking_Email')) {
             $all_shortcodes = array(
                 'checkout_info'         => esc_html__('Your Username', 'wpbooking'),// Default Value for Preview
                 'order_table'           => esc_html__('email@domain.com', 'wpbooking'),
-                'order_form_field'      => esc_html__('Form Value', 'wpbooking'),
-                'checkout_form_field'   => esc_html__('Form Value', 'wpbooking'),
                 'order_id'              => '#111',
-                'order_status'          => '<label class="alert alert-information">' . esc_html__('Status', 'wpbooking') . '</label>',
+                'order_status'          => '<span class="bold">' . esc_html__('STATUS', 'wpbooking') . '</label>',
                 'order_total'           => '100$',
                 'order_payment_gateway' => 'PayPal',
-                'order_date'            => date(get_option('date_format'))
+                'name_customer' => 'Jonathan & Leo',
             );
 
             $all_shortcodes = apply_filters('wpbooking_booking_email_shortcodes', $all_shortcodes);
@@ -236,12 +234,14 @@ if (!class_exists('WPBooking_Email')) {
             $order = new WB_Order($order_id);
 
             $to = $order->get_customer_email();
+
             if ($to) {
                 $subject = sprintf(__("New Order from %s", 'wpbooking'), get_bloginfo('title'));
 
                 WPBooking()->set('is_email_to_customer', 1);
 
                 $message = $this->replaceShortcode(wpbooking_get_option('email_to_customer'));
+
                 $message = do_shortcode($message);
 
                 $this->send($to, $subject, $message);
@@ -250,6 +250,7 @@ if (!class_exists('WPBooking_Email')) {
             }
 
             do_action('wpbooking_after_send_customer_email', $order_id);
+
         }
 
         function _send_order_email_confirm()
@@ -386,12 +387,13 @@ if (!class_exists('WPBooking_Email')) {
         {
             WPBooking_Loader::inst()->load_library('shortcodes/emails/order-table');
             WPBooking_Loader::inst()->load_library('shortcodes/emails/order_id');
-            WPBooking_Loader::inst()->load_library('shortcodes/emails/order_date');
+            WPBooking_Loader::inst()->load_library('shortcodes/emails/order_name_customer');
+            //WPBooking_Loader::inst()->load_library('shortcodes/emails/order_date');
             WPBooking_Loader::inst()->load_library('shortcodes/emails/order_total');
             WPBooking_Loader::inst()->load_library('shortcodes/emails/order_payment_gateway');
             WPBooking_Loader::inst()->load_library('shortcodes/emails/booking_status');
             WPBooking_Loader::inst()->load_library('shortcodes/emails/checkout-info');
-            WPBooking_Loader::inst()->load_library('shortcodes/emails/checkout_form_field');
+           // WPBooking_Loader::inst()->load_library('shortcodes/emails/checkout_form_field');
         }
 
         /**

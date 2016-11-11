@@ -71,7 +71,9 @@ do_action('wpbooking_before_order_content');
                         </a>
                     </div>
                     <div class="review-order-item-title">
-                        <h4 class="service-name"><a href="<?php echo get_permalink($order_data['post_id'])?>" target="_blank"><?php echo get_the_title($order_data['post_id'])?></a></h4>
+                        <h4 class="service-name">
+                            <a href="<?php echo get_permalink($order_data['post_id'])?>" target="_blank"><?php echo get_the_title($order_data['post_id'])?></a>
+                        </h4>
                         <?php if($address=$service->get_address()){
                             printf('<p class="service-address"><i class="fa fa-map-marker"></i> %s</p>',$address);
                         } ?>
@@ -83,9 +85,9 @@ do_action('wpbooking_before_order_content');
                             $diff=$order_data['check_out_timestamp'] - $order_data['check_in_timestamp'];
                             $diff = $diff / (60 * 60 * 24);
                             if($diff > 1){
-                                echo sprintf(esc_html__('(%s days)','wpbooking'),$diff);
+                                echo sprintf(esc_html__('(%s nights)','wpbooking'),$diff);
                             }else{
-                                echo sprintf(esc_html__('(%s day)','wpbooking'),$diff);
+                                echo sprintf(esc_html__('(%s night)','wpbooking'),$diff);
                             }
                             ?>
                         </div>

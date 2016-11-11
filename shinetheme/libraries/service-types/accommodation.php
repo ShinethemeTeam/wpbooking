@@ -237,6 +237,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             add_action('wpbooking_order_detail_item_information_'.$this->type_id, array($this, '_add_info_order_detail_item_room'),10,2);
             add_action('wpbooking_order_detail_total_item_information_'.$this->type_id, array($this, '_add_info_order_total_item_room'),10,2);
 
+            add_action('wpbooking_email_detail_item_information_'.$this->type_id, array($this, '_add_information_email_detail_item'),10,2);
+
             /**
              * Delete Item Room
              *
@@ -1117,6 +1119,23 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     echo json_encode($result);
                     die;
                 }
+                $check_in = $this->request('checkin_d')."-".$this->request('checkin_m')."-".$this->request('checkin_y');
+                $check_out = $this->request('checkout_d')."-".$this->request('checkout_m')."-".$this->request('checkout_y');
+                if($check_in == '--')$check_in='';
+                if($check_out == '--')$check_out='';
+                // Validate Minimum Stay
+                if ($check_in and $check_out) {
+                    $service =  new WB_Service(WPBooking_Input::request('hotel_id'));
+                    $check_in_timestamp = strtotime($check_in);
+                    $check_out_timestamp = strtotime($check_out);
+                    $minimum_stay = $service->get_minimum_stay();
+                    $dDiff = wpbooking_timestamp_diff_day($check_in_timestamp, $check_out_timestamp);
+                    if ($dDiff < $minimum_stay) {
+                        $result['message'] = sprintf(esc_html__('Minimum stay is %s day(s)', 'wpbooking'), $minimum_stay);
+                        $result['status'] = 2;
+                    }
+                }
+
                 wp_reset_query();
                 echo json_encode($result);
                 wp_die();
@@ -1299,9 +1318,23 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if($check_in == '--')$check_in='';
             if($check_out == '--')$check_out='';
 
-            $number_room = $this->request('room_number',1);
-            $ids_not_in = $this->get_unavailability_hotel_room($hotel_id,$check_in,$check_out,$number_room);
-            $inject->where_not_in('ID',$ids_not_in);
+            $is_minimum_stay = true;
+            if ($check_in and $check_out) {
+                $service =  new WB_Service(WPBooking_Input::request('hotel_id'));
+                $check_in_timestamp = strtotime($check_in);
+                $check_out_timestamp = strtotime($check_out);
+                $minimum_stay = $service->get_minimum_stay();
+                $dDiff = wpbooking_timestamp_diff_day($check_in_timestamp, $check_out_timestamp);
+                if ($dDiff < $minimum_stay) {
+                    $is_minimum_stay = false;
+                }
+            }
+            if($is_minimum_stay){
+                $number_room = $this->request('room_number',1);
+                $ids_not_in = $this->get_unavailability_hotel_room($hotel_id,$check_in,$check_out,$number_room);
+                $inject->where_not_in('ID',$ids_not_in);
+
+            }
 
             $arg = array(
                 'post_type'      => 'wpbooking_hotel_room',
@@ -1822,16 +1855,21 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         //check availability Order
                         $ids_room_not_availability = array();
                         foreach($list_room as $room_id => $data){
-                            $id = $this->check_availability_order_hotel_room($room_id,$check_in_timestamp, $check_out_timestamp,$data['number']);
-                            if(!empty($id)){
-                                $ids_room_not_availability[] = get_the_title($id);
+                            $data_rs = $this->check_availability_order_hotel_room($room_id,$check_in_timestamp, $check_out_timestamp,$data['number']);
+                            if(!empty($data_rs['total'])){
+                                $number_room = get_post_meta($room_id,'room_number',true);
+                                $availability_number = $number_room - $data_rs['total'];
+                                $ids_room_not_availability[] = array('title'=>get_the_title($data_rs['id']),'number'=>$availability_number);
                             }
                         }
                         if(!empty($ids_room_not_availability)){
                             $is_validated = FALSE;
-                            $string = implode(',',$ids_room_not_availability);
-                            $message = esc_html__('Bạn không thể book "%s"', 'wpbooking','error');
-                            wpbooking_set_message(sprintf($message, $string), 'error');
+                            $message = '';
+                            foreach($ids_room_not_availability as $k_not_availability=>$value_not_availability){
+                                $message .= sprintf(esc_html__('Bạn không thể book. Room Type "%s" chỉ còn %s phòng trống!', 'wpbooking','error'), $value_not_availability['title'], $value_not_availability['number'])."</br>";
+                            }
+                            wpbooking_set_message($message, 'error');
+                            return $is_validated;
                         }
                     }
                 }
@@ -1896,9 +1934,12 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $adult = $this->post('wpbooking_adults');
             if($total_number_room > $adult){
                 $is_validated = FALSE;
-                $message = esc_html__('Bạn không thể book số phòng lớn hơn số người lớn !', 'wpbooking');
+                $message = esc_html__('Bạn không thể book số phòng lớn hơn số người lớn!', 'wpbooking');
                 wpbooking_set_message($message, 'error');
+                return $is_validated;
             }
+
+
 
 
             if ($check_in) {
@@ -1915,6 +1956,17 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     wpbooking_set_message(esc_html__("Ngày check out phải sau ngày check in","wpbooking"),'error');
                     $is_validated = FALSE;
                     return $is_validated;
+                }
+
+                // Validate Minimum Stay
+                if ($check_in_timestamp and $check_out_timestamp) {
+                    $minimum_stay = $service->get_minimum_stay();
+                    $dDiff = wpbooking_timestamp_diff_day($check_in_timestamp, $check_out_timestamp);
+                    if ($dDiff < $minimum_stay) {
+                        $is_validated = FALSE;
+                        wpbooking_set_message(sprintf(esc_html__('Minimum stay is %s day(s)', 'wpbooking'), $minimum_stay), 'error');
+                        return $is_validated;
+                    }
                 }
 
 
@@ -1944,31 +1996,25 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     //check availability Order
                     $ids_room_not_availability = array();
                     foreach($list_room as $room_id => $data){
-                        $id = $this->check_availability_order_hotel_room($room_id,$check_in_timestamp, $check_out_timestamp,$data['number']);
-                        if(!empty($id)){
-                            $ids_room_not_availability[] = array('title'=>get_the_title($id),'number'=>$data['number']);
+                        $data_rs = $this->check_availability_order_hotel_room($room_id,$check_in_timestamp, $check_out_timestamp,$data['number']);
+                        if(!empty($data_rs['total'])){
+                            $number_room = get_post_meta($room_id,'room_number',true);
+                            $availability_number = $number_room - $data_rs['total'];
+                            $ids_room_not_availability[] = array('title'=>get_the_title($data_rs['id']),'number'=>$availability_number);
                         }
                     }
                     if(!empty($ids_room_not_availability)){
                         $is_validated = FALSE;
                         $message = '';
                         foreach($ids_room_not_availability as $k_not_availability=>$value_not_availability){
-                            $message .= sprintf(esc_html__('Bạn không thể book %s room "%s" ', 'wpbooking','error'), $value_not_availability['number'],$value_not_availability['title'])."</br>";
+                            $message .= sprintf(esc_html__('Bạn không thể book. Room Type "%s" chỉ còn %s phòng trống!', 'wpbooking','error'), $value_not_availability['title'], $value_not_availability['number'])."</br>";
                         }
                         wpbooking_set_message($message, 'error');
+                        return $is_validated;
                     }
 
                 }
 
-                // Validate Minimum Stay
-                if ($check_in_timestamp and $check_out_timestamp) {
-                    $minimum_stay = $service->get_minimum_stay();
-                    $dDiff = wpbooking_timestamp_diff_day($check_in_timestamp, $check_out_timestamp);
-                    if ($dDiff < $minimum_stay) {
-                        $is_validated = FALSE;
-                        wpbooking_set_message(sprintf(esc_html__('Minimum stay is %s day(s)', 'wpbooking'), $minimum_stay), 'error');
-                    }
-                }
 
             }
 
@@ -2116,11 +2162,42 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         ) AS table_booked
                 )
             )";
-            $r='';
+            $r=array();
+
             $res=$wpdb->get_row($sql,ARRAY_A);
             if(!is_wp_error($res))
             {
-                $r = array_shift($res);
+                $room_id = array_shift($res);
+                $r['total'] = 0;
+                $r['id']=$room_id;
+                if(!empty($room_id)){
+                    $sql2 = "
+                           SELECT
+                                SUM({$wpdb->prefix}wpbooking_order_hotel_room.number) as total_number
+                            FROM
+                                {$wpdb->prefix}wpbooking_order_hotel_room
+                            WHERE
+                                1 = 1
+                            	AND  {$wpdb->prefix}wpbooking_order_hotel_room.room_id = {$room_id}
+                            AND (
+                                (
+                                    check_in_timestamp <= {$check_in}
+                                    AND check_out_timestamp >= {$check_in}
+                                )
+                                OR (
+                                    check_in_timestamp >= {$check_in}
+                                    AND check_in_timestamp <= {$check_out}
+                                )
+                            )
+                            GROUP BY
+                                {$wpdb->prefix}wpbooking_order_hotel_room.room_id";
+                    $res2=$wpdb->get_row($sql2,ARRAY_A);
+                    if(!is_wp_error($res))
+                    {
+                        $total = array_shift($res2);
+                        $r['total']=$total;
+                    }
+                }
             }
             return $r;
         }
@@ -2230,6 +2307,18 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         }
 
         /**
+         * Add Item Info Room for Email Detail
+         *
+         * @author quandq
+         * @since 1.0
+         * @param $order_data
+         */
+        function _add_information_email_detail_item($order_data){
+            $order = WPBooking_Order_Hotel_Order_Model::inst();
+            $order_data['rooms']= $order->get_order($order_data['order_id']);
+            echo wpbooking_load_view('emails/shortcodes/detail-item-room',array('order_data'=>$order_data));
+        }
+        /**
          * Add Item Info Room for Page Order Detail
          *
          * @author quandq
@@ -2276,6 +2365,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 }
             }
         }
+
+
 
         /**
          * Get Price Room In Cart

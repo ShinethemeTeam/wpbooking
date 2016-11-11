@@ -84,7 +84,20 @@ $diff = $diff / (60 * 60 * 24);
         $check_out = WPBooking_Input::request('checkout_d')."-".WPBooking_Input::request('checkout_m')."-".WPBooking_Input::request('checkout_y');
         if($check_in == '--')$check_in='';
         if($check_out == '--')$check_out='';
-        if(!empty($check_in) and !empty($check_out)){
+
+        $is_minimum_stay = true;
+        if ($check_in and $check_out) {
+            $service =  new WB_Service(WPBooking_Input::request('hotel_id'));
+            $check_in_timestamp = strtotime($check_in);
+            $check_out_timestamp = strtotime($check_out);
+            $minimum_stay = $service->get_minimum_stay();
+            $dDiff = wpbooking_timestamp_diff_day($check_in_timestamp, $check_out_timestamp);
+            if ($dDiff < $minimum_stay) {
+                $is_minimum_stay = false;
+            }
+        }
+
+        if(!empty($check_in) and !empty($check_out) and $is_minimum_stay){
         ?>
             <div class="room-total-price">
                 <?php

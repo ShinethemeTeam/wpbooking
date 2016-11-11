@@ -170,6 +170,11 @@ $query=new WP_Query($args);
 								<span class="cancel"><a href="<?php echo esc_url($url_cancel)  ?>" title="<?php esc_html_e('Cancel this item','wpbooking')?>"><?php esc_html_e('Cancel','wpbooking')?></a> </span>
 								<span class="refund"><a href="<?php echo esc_url($url_refund)  ?>" title="<?php esc_html_e('Refund this item','wpbooking')?>"><?php esc_html_e('Refund','wpbooking')?></a> </span>
 								<span class="move_trash trash"><a href="<?php echo add_query_arg(array('action'=>'trash','wpbooking_apply_changes'=>'1','wpbooking_order_item'=>array(get_the_ID()))) ?>" onclick="return confirm('<?php esc_html_e('Are you want to move to trash?','wpbooking') ?>')" title="<?php esc_html_e('Move to trash','wpbooking')?>"><?php esc_html_e('Trash','wpbooking')?></a> </span>
+								<span class="resend_email">
+									<a href="<?php echo add_query_arg(array('wpbooking_resend_email'=>'true','order_id'=>get_the_ID())) ?>" title="<?php esc_html_e('Move to trash','wpbooking')?>">
+										<?php esc_html_e('Resend Mail','wpbooking')?></a>
+								</span>
+
 							</div>
 						</td>
 						<td class="wb-booking-information">

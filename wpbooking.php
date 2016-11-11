@@ -63,6 +63,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 
         }
 
+
         function _activation_redirect($plugin)
         {
             if ($plugin == plugin_basename(__FILE__)) {
@@ -306,6 +307,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
         function _init()
         {
             load_plugin_textdomain('wpbooking', FALSE, plugin_basename(dirname(__FILE__)) . '/languages');
+
 
         }
 
