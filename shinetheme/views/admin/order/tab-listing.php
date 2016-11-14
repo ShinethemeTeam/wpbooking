@@ -199,15 +199,13 @@ $query=new WP_Query($args);
                                     echo '<li class="wb-room-item"><span class="wb-room-name"><strong>'.get_the_title($value['room_id']).' x'.$value['number'].'</strong></span>';
                                     echo '<span class="wb-room-price">'.$price.'</span>';
                                     echo '</li>';
-//                                    var_dump($extra_fees['extra_service']);
-//                                    if(!empty($extra_fees['extra_service']) && is_array($extra_fees['extra_service'])){
-//                                        foreach($extra_fees as $k => $v){
-////                                            var_dump($v);
-//                                            echo '<li class="wb-room-item"><span class="wb-extra-title"><strong>'.$v['title'].' x'.$v['quantity'].'</strong></span>';
-//                                            echo '<span class="wb-extra-price">'.WPBooking_Currency::format_money($v['price']).'</span>';
-//                                            echo '</li>';
-//                                        }
-//                                    }
+                                    if(!empty($extra_fees['extra_service']['data']) && is_array($extra_fees['extra_service']['data'])){
+                                        foreach($extra_fees['extra_service']['data'] as $k => $v){
+                                            echo '<li class="wb-room-item"><span class="wb-extra-title">'.$v['title'].' x'.$v['quantity'].'</span>';
+                                            echo '<span class="wb-extra-price">'.WPBooking_Currency::format_money($v['price']).'</span>';
+                                            echo '</li>';
+                                        }
+                                    }
                                 }
                                 ?>
                             </ul>

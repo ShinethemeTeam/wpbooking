@@ -632,3 +632,10 @@ if(!function_exists('wpbooking_months_dropdown')) {
         <?php
     }
 }
+
+if(!function_exists('wpbooking_covert_to_one')){
+    function wpbooking_covert_to_one($res){
+        if($res == 0) return (int)$res + 1;
+        return $res;
+    }
+}

@@ -156,19 +156,130 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
         }
 
         /**
-         * Get all data in time
+         * Get where of service service type
          *
-         * @since 1.0
+         * @param $service_type
+         * @return string
+         */
+        function service_where($service_type){
+            $sv_where = '1 = 1';
+            if(is_array($service_type) and count($service_type) >= 1){
+                foreach($service_type as $k => $val) {
+                    if($k == 0) {
+                        $sv_where = '( service_type = \'' . $val.'\'';
+                    }elseif($k == count($service_type - 1)){
+                        $sv_where = ' OR service_type = \''.$val.'\' )';
+                    }else{
+                        $sv_where = ' OR service_type = \''. $val .'\'';
+                    }
+                    if(count($service_type) == 1){
+                        $sv_where = '(service_type = \'' . $val . '\')';
+                    }
+                }
+            }
+            return $sv_where;
+        }
+
+        /**
+         *Get total sale in time range
+         *
          * @author tienhd
+         * @since 1.0
          *
+         * @param $service_type
          * @param $start_day
          * @param $end_day
-         * @return bool|WPBooking_Order_Model
+         * @return string
          */
-        function get_all_data_order($service_type,$start_day, $end_day){
+        function get_rp_total_sale($service_type,$start_day, $end_day){
 
-//            $this->select('SUM(price) as total_price, DISTINCT post_id as items, COUNT(*) as total_bookings, ');
+            $row = $this->select('SUM(price) as total_sale')
+                ->where('created_at>=',$start_day)
+                ->where('created_at<=',$end_day)
+                ->where($this->service_where($service_type),false,true)
+                ->get()->row();
 
+            return (!empty($row['total_sale']))?$row['total_sale']:'0';
+        }
+
+        /**
+         *Get total items in time range
+         *
+         * @author tienhd
+         * @since 1.0
+         *
+         * @param $service_type
+         * @param $start_day
+         * @param $end_day
+         * @return string
+         */
+        function get_rp_total_items($service_type,$start_day, $end_day){
+            $row = $this->select('COUNT(DISTINCT post_id) as items')
+                ->where('created_at>=',$start_day)
+                ->where('created_at<=',$end_day)
+                ->where($this->service_where($service_type),false,true)
+                ->get()->row();
+            return (!empty($row['items']))?$row['items']:'0';
+        }
+        /**
+         *Get total booking in time range
+         *
+         * @author tienhd
+         * @since 1.0
+         *
+         * @param $service_type
+         * @param $start_day
+         * @param $end_day
+         * @return string
+         */
+        function get_rp_total_bookings($service_type,$start_day, $end_day){
+            $row = $this->select('COUNT(*) as total_bookings')
+                ->where('created_at>=',$start_day)
+                ->where('created_at<=',$end_day)
+                ->where($this->service_where($service_type),false,true)
+                ->get()->row();
+            return (!empty($row['total_bookings']))?$row['total_bookings']:'0';
+        }
+        /**
+         *Get total net profit in time range
+         *
+         * @author tienhd
+         * @since 1.0
+         *
+         * @param $service_type
+         * @param $start_day
+         * @param $end_day
+         * @return string
+         */
+        function get_rp_total_net_profit($service_type,$start_day, $end_day){
+            $row = $this->select('COUNT(*) as net_profit')
+                ->where('created_at>=',$start_day)
+                ->where('created_at<=',$end_day)
+                ->where($this->service_where($service_type),false,true)
+                ->get()->row();
+            return (!empty($row['net_profit']))?$row['net_profit']:'0';
+        }
+
+        /**
+         *Get total items by status
+         *
+         * @author tienhd
+         * @since 1.0
+         *
+         * @param $service_type
+         * @param $start_day
+         * @param $end_day
+         * @param $status
+         * @return string
+         */
+        function get_rp_items_by_status($service_type,$start_day, $end_day,$status){
+            $row = $this->select('COUNT(*) as '.$status)
+                ->where('created_at>=',$start_day)
+                ->where('created_at<=',$end_day)
+                ->where($this->service_where($service_type),false,true)
+                ->where('status',$status)
+                ->get()->row();
+            return (!empty($row[$status]))?$row[$status]:'0';
         }
 
         static function inst()

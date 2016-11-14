@@ -3628,6 +3628,40 @@ label[for=wpbooking_room_typediv-hide] {
   padding: 15px;
   background: white;
 }
+.wb-tab-report-wrap .report-content .wb-report-total {
+  width: 100%;
+  margin-bottom: 20px;
+  table-layout: fixed;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+.wb-tab-report-wrap .report-content .wb-report-total tr th {
+  width: 12.5%;
+  border: 1px solid #cccccc;
+  background: #f6f6f6;
+  font-size: 16px;
+  padding: 12px 3px;
+  font-weight: normal;
+}
+.wb-tab-report-wrap .report-content .wb-report-total tr td {
+  text-align: center;
+  border: 1px solid #cccccc;
+  padding: 40px 3px;
+}
+.wb-tab-report-wrap .report-content .wb-report-total tr .wb-total-sale {
+  color: #ec8223;
+  font-size: 20px;
+}
+.wb-tab-report-wrap .report-content .wb-report-total tr .wb-net-profit {
+  font-size: 20px;
+  color: #4bc0c0;
+}
+.wb-tab-report-wrap .report-content .wb-report-total tr .number {
+  width: 100%;
+  display: block;
+  font-size: 35px;
+  padding-bottom: 15px;
+}
 .wb-tab-report-wrap .notice-error {
   border: 1px solid #dedede;
   border-left: 4px solid #dc3232;
@@ -3769,9 +3803,6 @@ label[for=wpbooking_room_typediv-hide] {
   clear: both;
   padding-top: 20px;
 }
-.wp-list-table .wb-booking-detail .wb-room-price {
-  float: right;
-}
 .wp-list-table .wb-booking-detail .wb-room-item:before {
   width: 100%;
   border-bottom: 1px dotted #777;
@@ -3780,22 +3811,30 @@ label[for=wpbooking_room_typediv-hide] {
   position: absolute;
   bottom: 4px;
 }
-.wp-list-table .wb-booking-detail .wb-room-name {
+.wp-list-table .wb-booking-detail .wb-room-name,
+.wp-list-table .wb-booking-detail .wb-extra-title {
   position: relative;
   z-index: 1;
   padding-right: 5px;
   background: #FFF;
 }
-.wp-list-table .wb-booking-detail .wb-room-price {
+.wp-list-table .wb-booking-detail .wb-room-price,
+.wp-list-table .wb-booking-detail .wb-extra-price {
   position: relative;
   z-index: 1;
   padding-left: 5px;
   background: #FFF;
+  float: right;
 }
 .wp-list-table .wb-booking-detail .wb-room-item {
   position: relative;
 }
+.wp-list-table .wb-booking-detail .wb-extra-title {
+  padding-left: 20px;
+}
 .wp-list-table > tbody > :nth-child(odd) .wb-room-name,
-.wp-list-table > tbody > :nth-child(odd) .wb-room-price {
+.wp-list-table > tbody > :nth-child(odd) .wb-room-price,
+.wp-list-table > tbody > :nth-child(odd) .wb-extra-title,
+.wp-list-table > tbody > :nth-child(odd) .wb-extra-price {
   background: #f9f9f9;
 }

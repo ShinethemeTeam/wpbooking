@@ -3696,6 +3696,42 @@ label[for=wpbooking_room_typediv-hide]
     .report-content{
         padding:15px;
         background: white;
+      .wb-report-total{
+        width: 100%;
+        margin-bottom: 20px;
+        table-layout: fixed;
+        border-spacing: 0;
+        border-collapse: collapse;
+        tr{
+          th{
+            width: 12.5%;
+            border: 1px solid #cccccc;
+            background: #f6f6f6;
+            font-size: 16px;
+            padding: 12px 3px;
+            font-weight: normal;
+          }
+          td{
+            text-align: center;
+            border: 1px solid #cccccc;
+            padding: 40px 3px;
+          }
+          .wb-total-sale{
+            color: @maincolor;
+            font-size: 20px;
+          }
+          .wb-net-profit{
+            font-size: 20px;
+            color: #4bc0c0;
+          }
+          .number{
+            width: 100%;
+            display: block;
+            font-size: 35px;
+            padding-bottom: 15px;
+          }
+        }
+      }
     }
 
     .notice-error{
@@ -3843,9 +3879,6 @@ label[for=wpbooking_room_typediv-hide]
   .wb-booking-detail{
     clear: both;
     padding-top: 20px;
-    .wb-room-price{
-      float: right;
-    }
     .wb-room-item:before{
       width: 100%;
       border-bottom: 1px dotted #777;
@@ -3854,25 +3887,28 @@ label[for=wpbooking_room_typediv-hide]
       position: absolute;
       bottom: 4px;
     }
-    .wb-room-name{
+    .wb-room-name, .wb-extra-title{
       position: relative;
       z-index: 1;
       padding-right: 5px;
       background: #FFF;
     }
-    .wb-room-price{
+    .wb-room-price, .wb-extra-price{
       position: relative;
       z-index: 1;
       padding-left: 5px;
       background: #FFF;
+      float: right;
     }
     .wb-room-item{
       position: relative;
     }
-
+    .wb-extra-title{
+      padding-left: 20px;
+    }
   }
   >tbody>:nth-child(odd){
-    .wb-room-name,.wb-room-price{
+    .wb-room-name,.wb-room-price, .wb-extra-title, .wb-extra-price{
       background: #f9f9f9;
     }
   }

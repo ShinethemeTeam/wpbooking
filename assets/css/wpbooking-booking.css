@@ -4492,11 +4492,14 @@ a.label:focus {
 .wpbooking-myaccount-wrap .wb-form-lost-password p.register-url,
 .wpbooking-myaccount-wrap .wb-form-reset-password p.register-url {
   margin-bottom: 0;
+  font-size: 14px;
 }
 .wpbooking-myaccount-wrap .login-register-form p.register-url a,
 .wpbooking-myaccount-wrap .wb-form-lost-password p.register-url a,
 .wpbooking-myaccount-wrap .wb-form-reset-password p.register-url a {
   color: #f0ad4e;
+  border-bottom: none;
+  text-decoration: underline;
 }
 .wpbooking-myaccount-wrap .wb-account-nav {
   margin: 0px;

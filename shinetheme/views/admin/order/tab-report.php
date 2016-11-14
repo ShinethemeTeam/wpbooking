@@ -11,10 +11,20 @@ $args=array(
 	'post_type'=>'wpbooking_order',
 	'posts_per_page'=>20
 );
+
+$service_type = WPBooking_Input::get('wb_service_types',array('accommodation'));
+$report_type=WPBooking_Input::get('report_type','last_7days');
+$start_date=WPBooking_Input::get('date_from');
+$end_date=WPBooking_Input::get('date_to');
+$chart = new WPBooking_Chart();
+
+$total_sale = $chart->total_in_time_range($service_type,'total_sale',$report_type,$start_date, $end_date);
+
 $query=new WP_Query($args);
 $service_types=WPBooking_Service_Controller::inst()->get_service_types();
 $report_data=WPBooking_Admin_Order::inst()->get_report_data();
-$report_type=WPBooking_Input::get('report_type','last_7_days');
+
+$report_type=WPBooking_Input::get('report_type','last_7days');
 $type_array=array(
 	'today'=>esc_html__('Today','wpbooking'),
 	'yesterday'=>esc_html__('Yesterday','wpbooking'),
@@ -75,6 +85,56 @@ $type_array=array(
 			<?php if(empty($report_data)){
 				printf('<div class="notice-error"><p>%s</p></div>',esc_html__('There is no data for reporting','wpbooking'));
 			}else{
+                $total_sale = $chart->total_in_time_range($service_type,'total_sale',$report_type,$start_date, $end_date);
+                $net_profit = $chart->total_in_time_range($service_type,'net_profit',$report_type,$start_date, $end_date);
+                $items = $chart->total_in_time_range($service_type,'items',$report_type,$start_date, $end_date);
+                $total_bookings = $chart->total_in_time_range($service_type,'total_bookings',$report_type,$start_date, $end_date);
+                $completed = $chart->total_in_time_range($service_type,'completed',$report_type,$start_date, $end_date);
+                $on_hold = $chart->total_in_time_range($service_type,'on_hold',$report_type,$start_date, $end_date);
+                $cancelled = $chart->total_in_time_range($service_type,'cancelled',$report_type,$start_date, $end_date);
+                $refunded = $chart->total_in_time_range($service_type,'refunded',$report_type,$start_date, $end_date);
+                ?>
+                <table class="wb-report-total">
+                    <tr>
+                        <th class="wb-report-column"><?php echo esc_html__('Total Sale','wpbooking'); ?></th>
+                        <th class="wb-report-column"><?php echo esc_html__('Net Profit','wpbooking'); ?></th>
+                        <th class="wb-report-column"><?php echo esc_html__('Items','wpbooking'); ?></th>
+                        <th class="wb-report-column"><?php echo esc_html__('Total Bookings','wpbooking'); ?></th>
+                        <th class="wb-report-column"><?php echo esc_html__('Completed','wpbooking'); ?></th>
+                        <th class="wb-report-column"><?php echo esc_html__('On Hold','wpbooking'); ?></th>
+                        <th class="wb-report-column"><?php echo esc_html__('Cancelled','wpbooking'); ?></th>
+                        <th class="wb-report-column"><?php echo esc_html__('Refunded','wpbooking'); ?></th>
+                    </tr>
+                    <tr>
+                        <td class="wb-report-d-column wb-total-sale"><?php echo WPBooking_Currency::format_money($total_sale); ?></td>
+                        <td class="wb-report-d-column wb-net-profit"><?php echo WPBooking_Currency::format_money($net_profit); ?></td>
+                        <td class="wb-report-d-column">
+                            <span class="number"><?php echo esc_attr($items)?></span>
+                            <?php echo _n('item','items',wpbooking_covert_to_one($items)); ?>
+                        </td>
+                        <td class="wb-report-d-column">
+                            <span class="number"><?php echo esc_attr($total_bookings)?></span>
+                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($total_bookings)); ?>
+                        </td>
+                        <td class="wb-report-d-column">
+                            <span class="number"><?php echo esc_attr($completed)?></span>
+                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($completed)); ?>
+                        </td>
+                        <td class="wb-report-d-column">
+                            <span class="number"><?php echo esc_attr($on_hold)?></span>
+                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($on_hold)); ?>
+                        </td>
+                        <td class="wb-report-d-column">
+                            <span class="number"><?php echo esc_attr($cancelled)?></span>
+                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($cancelled)); ?>
+                        </td>
+                        <td class="wb-report-d-column">
+                            <span class="number"><?php echo esc_attr($refunded)?></span>
+                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($refunded)); ?>
+                        </td>
+                    </tr>
+                </table>
+                <?php
                 echo '<div class="wb-chart-report"><canvas id="wb-chart"></canvas></div>';
             } ?>
 		</div>
