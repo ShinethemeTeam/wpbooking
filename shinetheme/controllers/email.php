@@ -332,7 +332,7 @@ if (!class_exists('WPBooking_Email')) {
             $check = wp_mail($to, $subject, $message, $headers, $attachment);
 
             remove_filter('wp_mail_content_type', array($this, 'set_html_content_type'));
-            echo $message;
+
             return array(
                 'status' => $check,
                 'data'   => array(

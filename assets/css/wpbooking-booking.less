@@ -2064,6 +2064,14 @@
                             }
                         }
                     }
+                    @media (max-width: 520px) {
+                        .content-loop-room{
+                            width: 100%;
+                        }
+                        .content-info{
+                            width: 100%;
+                        }
+                    }
                 }
                 .form-search{
                     &:before,
@@ -2076,9 +2084,7 @@
                     }
                     margin-right: -10px;
                     margin-left: -10px;
-                    .wb-button{
-                        margin-left: 10px !important;
-                    }
+
                     .btn-do-search-room{
                         &.loading::after {
                             animation: 1s steps(8) 0s normal none infinite running fa-spin;
@@ -2109,6 +2115,7 @@
                         }
                         &.w20{
                             width: 20%;
+                            margin-top: 10px;
                         }
                         &.w25{
                             width: 25%;
@@ -2119,6 +2126,7 @@
                         &.w100{
                             width: 100%;
                         }
+
                         label{
                             display: block;
                         }
@@ -2136,6 +2144,60 @@
                         input,select{
                             margin-top: 4px;
                         }
+                        @media (max-width: 1024px) {
+                            &.w20{
+                                width: 50%;
+                            }
+                            &.w25{
+                                width: 50%;
+                            }
+                            &.w50{
+                                width: 50%;
+                            }
+                            &.w100{
+                                width: 100%;
+                            }
+                            &.form-item-icon{
+                                .form-control {
+                                    padding: 0 25px 0 5px;
+                                }
+                            }
+                            .fa{
+                                font-size: 16px;
+                                position: absolute;
+                                right: 15px;
+                                top: 35px;
+                            }
+                        }
+                        @media (max-width: 640px) {
+                            &.w20{
+                                width: 50%;
+                            }
+                            &.w25{
+                                width: 50%;
+                            }
+                            &.w50{
+                                width: 50%;
+                            }
+                            &.w100{
+                                width: 100%;
+                            }
+                        }
+                        @media (max-width: 420px) {
+                            &.w20{
+                                width: 100%;
+                            }
+                            &.w25{
+                                width: 100%;
+                            }
+                            &.w50{
+                                width: 100%;
+                            }
+                            &.w100{
+                                width: 100%;
+                            }
+                        }
+
                     }
                     .wb-button {
                         background: @maincolor none repeat scroll 0 0;
@@ -2223,6 +2285,16 @@
                                         }
                                     }
                                 }
+                                @media (max-width: 1100px) {
+                                    .control{
+                                        width: 55%;
+                                    }
+                                }
+                                @media (max-width: 680px) {
+                                    .control{
+                                        width: 100%;
+                                    }
+                                }
                             }
                             .room-facilities{
                                 .title{
@@ -2235,7 +2307,9 @@
                                     font-size: 13px;
                                 }
                             }
+
                         }
+
                         .room-book{
                             float: right;
                             width: 20%;
@@ -2291,10 +2365,12 @@
                         }
                         .more-extra{
                             float: right;
-                            width: 68%;
+                            width: 100%;
                             margin-top: 30px;
                             display: none;
                             table{
+                                width: 68%;
+                                float: right;
                                 border-color: #cfcfcf;
                                 thead{
                                     background: #f0f0f0 none repeat scroll 0 0;
@@ -2435,6 +2511,93 @@
                             text-decoration: none;
                             cursor: pointer;
                             border: 1px solid #000;
+                        }
+                        @media (max-width: 1024px) {
+                            .more-extra{
+                                table{
+                                    width: 80%;
+                                }
+                            }
+                            .modal-content{
+                                width: 90%;
+                            }
+                        }
+                        @media (max-width: 800px) {
+                            .modal-content .col-7{
+                                width: 50%;
+                            }
+                            .modal-content .col-3{
+                                width: 50%;
+                            }
+                            .modal-content .info .item span{
+                                display: block;
+                                margin-bottom: 20px;
+                            }
+                        }
+                        @media (max-width: 680px) {
+                            .room-content{
+                                width: 45%;
+                            }
+                            .room-book{
+                                width: 25%;
+                            }
+                            .more-extra{
+                                width: 100%;
+                            }
+                            .more-extra{
+                                table{
+                                    width: 100%;
+                                }
+                            }
+                            .modal-content .info .item span{
+                                display: inline;
+                            }
+                            .gallery.col-6{
+                                width: 100%;
+                            }
+                            .info.col-4{
+                                width: 100%;
+                                padding-left: 0px;
+                            }
+
+                        }
+                        @media (max-width: 480px) {
+                            .modal-content .title.col-7{
+                                width: 100%;
+                            }
+                            .modal-content .price.col-3{
+                                width: 100%;
+                                text-align: left;
+                            }
+                        }
+                        @media (max-width: 400px) {
+                            .room-image{
+                                text-align: center;
+                                width: 100%;
+                            }
+                            .room-content{
+                                width: 100%;
+                                text-align: center;
+                            }
+                            .room-book{
+                                width: 100%;
+                                text-align: center !important;
+                            }
+                            .room-info{
+                                width: 50%;
+                                margin-left: auto;
+                                margin-right: auto;
+                            }
+                            .room-number{
+                                margin-left: auto;
+                                margin-right: auto;
+                            }
+                            .more-extra{
+                                width: 100%;
+                            }
+                            .modal-content .col-33{
+                                width: 100% !important;
+                            }
                         }
                     }
                 }
@@ -3153,6 +3316,10 @@
         margin: 0;
         padding: 0;
         text-transform: none;
+        .text-color{
+            color: @maincolor;
+            border-bottom: 1px solid @maincolor;
+        }
     }
     .billing_information{
         margin-top: 30px;
@@ -5762,8 +5929,7 @@
             padding-top: 5px;
             a{
                 border: medium none;
-                color: #fff;
-                background: #f0ad4e none repeat scroll 0 0;
+                color: #f0ad4e;
                 font-size: 13px;
                 font-style: italic;
                 font-weight: normal;

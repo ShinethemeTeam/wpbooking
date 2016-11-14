@@ -59,7 +59,7 @@ $my_term =wp_get_post_terms($post_id,$data['taxonomy']);
                                         </div>
                                          <?php if(count($list_room) != 1){?>
                                             <div class="wpbooking-col-sm-4 class_item_all">
-                                                <label><input class="item_all" name="type_data"  value="all" <?php echo esc_html($checked_all) ?>  type="checkbox"><?php echo esc_html_e("All","wpbooking") ?></label>
+                                                <label><input class="item_all" name="<?php echo esc_attr($data['id']) ?>[<?php echo esc_attr($i) ?>][type_data]"  value="all" <?php echo esc_html($checked_all) ?>  type="checkbox"><?php echo esc_html_e("All","wpbooking") ?></label>
                                             </div>
                                         <?php }?>
                                         <?php if(!empty($list_room)){?>

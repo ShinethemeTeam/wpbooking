@@ -74,7 +74,7 @@ $inject->clear();
 					<div class="link-details">
 						<a href="<?php echo add_query_arg(array('wpbooking_detail'=>'true'), get_permalink(get_the_ID()) ) ?>" >
                             <?php esc_html_e('Details','wpbooking') ?>
-
+							<i class="fa fa-caret-down" aria-hidden="true"></i>
                         </a>
 					</div>
 				</td>

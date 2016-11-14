@@ -156,6 +156,7 @@ if (!class_exists('WPBooking_User')) {
             // Login
             if (WPBooking_Input::post('action') == 'wpbooking_do_login') {
 
+
                 $creds['user_login'] = WPBooking_Input::post('login');
                 $creds['user_password'] = WPBooking_Input::post('password');
                 $creds['remember'] = WPBooking_Input::post('remember');
@@ -171,7 +172,7 @@ if (!class_exists('WPBooking_User')) {
                 } else {
                     // Login Success
                     // Redirect if url is exists
-                    if ($redirect = WPBooking_Input::post('url')) {
+                    if ($redirect = WPBooking_Input::request('wpbooking_redirect')) {
                         wp_redirect($redirect);
                         die;
                     } else {
