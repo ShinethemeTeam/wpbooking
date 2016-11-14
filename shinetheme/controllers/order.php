@@ -47,7 +47,7 @@ if (!class_exists('WPBooking_Order')) {
                     $is_checked = false;
                 }
 
-                if(!$is_checked){
+                if($is_checked){
                     wp_redirect(home_url());
                 }
             }
