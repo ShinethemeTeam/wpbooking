@@ -180,6 +180,8 @@ if(!class_exists('WPBooking_Chart')){
         }
 
         /**
+         * Get total sale in time range
+         *
          * @param $service_type
          * @param $range
          * @param bool $start_date
@@ -191,8 +193,29 @@ if(!class_exists('WPBooking_Chart')){
             $res = array();
             if(!empty($time_range['range'])){
                 $res['label'] = $time_range['label'];
-                foreach ($time_range['label'] as $item) {
+                foreach ($time_range['label'] as $key => $value) {
+                    $res['data'][] = WPBooking_Order_Model::inst()->get_rp_total_sale($service_type ,$time_range['range'][$key],$time_range['range'][$key+1]);
+                }
+            }
+            return $res;
+        }
 
+        /**
+         * Get total item booking by status order
+         *
+         * @param $service_type
+         * @param $range
+         * @param bool $start_date
+         * @param bool $end_date
+         * @return array
+         */
+        public function get_items_booking_by_status($service_type ,$range, $start_date = false, $end_date = false){
+            $time_range = $this->get_time_range($range, $start_date, $end_date);
+            $res = array();
+            if(!empty($time_range['range'])){
+                $res['label'] = $time_range['label'];
+                foreach ($time_range['label'] as $key => $value) {
+                    $res['data'][] = WPBooking_Order_Model::inst()->get_rp_total_sale($service_type ,$time_range['range'][$key],$time_range['range'][$key+1]);
                 }
             }
             return $res;
