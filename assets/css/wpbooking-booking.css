@@ -3102,6 +3102,10 @@ a.label:focus {
   padding: 0;
   text-transform: none;
 }
+.wpbooking-checkout-wrap .checkout-form-sub-title .text-color {
+  color: #f0ad4e;
+  border-bottom: 1px solid #f0ad4e;
+}
 .wpbooking-checkout-wrap .billing_information {
   margin-top: 30px;
 }

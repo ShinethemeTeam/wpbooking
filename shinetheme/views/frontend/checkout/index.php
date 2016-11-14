@@ -24,7 +24,22 @@ if (empty($cart)) {
                     <div class="col-md-7">
                         <div class="checkout-form-wrap">
                             <h5 class="checkout-form-title"><?php esc_html_e('Billing Information', 'wpbooking') ?></h5>
-                            <h5 class="checkout-form-sub-title"><?php esc_html_e('Billing Information', 'wpbooking') ?></h5>
+                            <h5 class="checkout-form-sub-title">
+                                <?php
+                                if(is_user_logged_in()){
+                                    esc_html_e('Billing Information', 'wpbooking');
+                                }else{
+                                    esc_html_e("Already have an account?","wpbooking");
+                                    $url_check_out = get_permalink(wpbooking_get_option('checkout_page'));
+                                    var_dump($url_check_out);
+
+                                   /* $url = WPBooking_User::inst()->;
+
+                                    var_dump($url);*/
+                                ?>
+                                     <a href="<?php echo esc_url(wp_login_url('',$url_check_out)); ?>" class="text-color"><?php esc_html_e('Login',"wpbooking") ?></a>
+                                <?php } ?>
+                            </h5>
                             <input name="action" value="wpbooking_do_checkout" type="hidden">
                             <div class="billing_information">
                                 <div class="row">
