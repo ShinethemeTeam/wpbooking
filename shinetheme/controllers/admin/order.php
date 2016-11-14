@@ -69,7 +69,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                     $order->delete_order($order_ids);
                     break;
             }
-
+            do_action('wpbooking_order_item_changed',$order_ids);
         }
 
 		/**
