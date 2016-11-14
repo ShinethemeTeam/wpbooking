@@ -31,13 +31,8 @@ if (empty($cart)) {
                                 }else{
                                     esc_html_e("Already have an account?","wpbooking");
                                     $url_check_out = get_permalink(wpbooking_get_option('checkout_page'));
-                                    var_dump($url_check_out);
-
-                                   /* $url = WPBooking_User::inst()->;
-
-                                    var_dump($url);*/
                                 ?>
-                                     <a href="<?php echo esc_url(wp_login_url('',$url_check_out)); ?>" class="text-color"><?php esc_html_e('Login',"wpbooking") ?></a>
+                                     <a href="<?php echo esc_url(add_query_arg(array("wpbooking_redirect"=>$url_check_out),wp_login_url())); ?>" class="text-color"><?php esc_html_e('Login',"wpbooking") ?></a>
                                 <?php } ?>
                             </h5>
                             <input name="action" value="wpbooking_do_checkout" type="hidden">
