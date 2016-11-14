@@ -282,7 +282,9 @@ $hotel_id=get_the_ID();
                                     ?>
                                 </select>
                             </div>
-                            <button type="button" class="wb-button btn-do-search-room"><?php esc_html_e("CHECK AVAILABILITY ","wpbooking") ?></button>
+                           <div class="form-item w100">
+                               <button type="button" class="wb-button btn-do-search-room"><?php esc_html_e("CHECK AVAILABILITY ","wpbooking") ?></button>
+                           </div>
                         </div>
                     </div>
                 </form>

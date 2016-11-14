@@ -123,14 +123,23 @@ if (!class_exists('WB_Order')) {
          * @since 1.0
          * @author quandq
          *
-         *
+         * @param array $args
          * @return mixed|void
          */
-        function get_total()
+        function get_total($args = array())
         {
             if ($this->order_id) {
                 $order_data = $this->get_order_data();
                 $total = $order_data['price'];
+                if(!empty($order_data['deposit_price'])){
+                    $total = $order_data['deposit_price'];
+                }
+                if(!empty($args)){
+                    $total = $order_data['price'];
+                    if(!empty($args['without_deposit'])){
+                        $total = $order_data['deposit_price'];
+                    }
+                }
                 $total = apply_filters('wpbooking_get_order_total', $total);
                 return $total;
             }

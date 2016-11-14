@@ -547,7 +547,7 @@ if (!class_exists('WPBooking_Metabox')) {
             $terms = array();
             $terms_meta = array();
             $list_room = WPBooking_Accommodation_Service_Type::inst()->_get_room_by_hotel($post_id);
-            
+
             if(!empty($list)){
                 foreach($list as $k=>$v){
                     $key_term = '';
