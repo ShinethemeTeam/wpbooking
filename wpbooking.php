@@ -232,6 +232,11 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             wp_enqueue_style('wbCalendar', wpbooking_assets_url('css/wb-calendar.css'));
 
             /**
+             * Chart Report
+             */
+            wp_enqueue_script('chart', wpbooking_admin_assets_url('js/Chart.min.js'), array('jquery'), null, true);
+
+            /**
              * Flag icon
              * @since 1.0
              * @author dungdt

@@ -155,6 +155,22 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
                 return $this->table_name;
         }
 
+        /**
+         * Get all data in time
+         *
+         * @since 1.0
+         * @author tienhd
+         *
+         * @param $start_day
+         * @param $end_day
+         * @return bool|WPBooking_Order_Model
+         */
+        function get_all_data_order($service_type,$start_day, $end_day){
+
+//            $this->select('SUM(price) as total_price, DISTINCT post_id as items, COUNT(*) as total_bookings, ');
+
+        }
+
         static function inst()
         {
             if(!self::$_inst) {

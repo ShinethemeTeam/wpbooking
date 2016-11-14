@@ -247,6 +247,8 @@ a.label:focus {
   border: 1px solid #d5d5d5;
   padding: 0px 10px;
   background: #FFF;
+  font-size: 14px;
+  color: #555555;
   box-sizing: border-box;
 }
 .wpbooking-search-form .item-search input[type=text].small-input,
@@ -4472,6 +4474,21 @@ a.label:focus {
   font-size: 12px;
   font-style: italic;
   width: 80%;
+}
+.wpbooking-myaccount-wrap .login-register-form hr,
+.wpbooking-myaccount-wrap .wb-form-lost-password hr,
+.wpbooking-myaccount-wrap .wb-form-reset-password hr {
+  margin: 20px 0;
+}
+.wpbooking-myaccount-wrap .login-register-form p.register-url,
+.wpbooking-myaccount-wrap .wb-form-lost-password p.register-url,
+.wpbooking-myaccount-wrap .wb-form-reset-password p.register-url {
+  margin-bottom: 0;
+}
+.wpbooking-myaccount-wrap .login-register-form p.register-url a,
+.wpbooking-myaccount-wrap .wb-form-lost-password p.register-url a,
+.wpbooking-myaccount-wrap .wb-form-reset-password p.register-url a {
+  color: #f0ad4e;
 }
 .wpbooking-myaccount-wrap .wb-account-nav {
   margin: 0px;

@@ -74,7 +74,9 @@ $type_array=array(
 		<div class="report-content">
 			<?php if(empty($report_data)){
 				printf('<div class="notice-error"><p>%s</p></div>',esc_html__('There is no data for reporting','wpbooking'));
-			} ?>
+			}else{
+                echo '<div class="wb-chart-report"><canvas id="wb-chart"></canvas></div>';
+            } ?>
 		</div>
 	</form>
 </div>
