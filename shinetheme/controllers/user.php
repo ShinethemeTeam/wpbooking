@@ -130,10 +130,18 @@ if (!class_exists('WPBooking_User')) {
              */
             add_action('send_password_change_email',array($this, '_send_email_changed_password'),10, 3);
 
+            add_action('template_redirect',array($this,'_redirect_register_url'));
+
 
         }
 
+        function _redirect_register_url(){
+            global $wp_query;
 
+            if(!wpbooking_is_any_register() and isset($wp_query->query_vars['register'])){
+                wp_redirect($this->get_login_url());
+            }
+        }
 
         /**
          * Login & Register handler
@@ -193,7 +201,7 @@ if (!class_exists('WPBooking_User')) {
         function _do_register()
         {
             $validate = new WPBooking_Form_Validator();
-            $validate->set_rules('rg-login', esc_html__('Username', 'wpbooking'), 'required|min_length[4]|max_length[50]|alpha_dash|is_unique[users.user_login]');
+            $validate->set_rules('rg-login', esc_html__('Username', 'wpbooking'), 'required|min_length[4]|max_length[50]|is_unique[users.user_login]');
             $validate->set_rules('rg-email', esc_html__('Email', 'wpbooking'), 'required|max_length[100]|valid_email|is_unique[users.user_email]');
             $validate->set_rules('rg-password', esc_html__('Password', 'wpbooking'), 'required|min_length[8]|max_length[50]');
             $validate->set_rules('rg-repassword', esc_html__('Re-Type Password', 'wpbooking'), 'required|min_length[8]|max_length[50]|matches[rg-password]');
@@ -201,9 +209,16 @@ if (!class_exists('WPBooking_User')) {
 
             $is_validated = TRUE;
 
+            //Validate
             if (!$validate->run()) {
                 wpbooking_set_message($validate->error_string(), 'danger');
                 $error_field = $validate->get_error_fields();
+                if(WPBooking_Input::post('rg-login') && !validate_username(WPBooking_Input::post('rg-login'))){
+                    wpbooking_set_message(esc_html__('Username is invalid','wpbooking'), 'danger');
+                    if(!isset($error_field['rg-login'])){
+                        $error_field['rg-login'] = esc_html__('Username is invalid','wpbooking');
+                    }
+                }
                 WPBooking()->set('error_r_field', $error_field);
                 $is_validated = FALSE;
             }
@@ -228,7 +243,7 @@ if (!class_exists('WPBooking_User')) {
 
                 } else {
 
-                    wpbooking_set_message(esc_html__('Your account is registered successfully. You can login now', 'wpbooking'), 'success');
+                    wpbooking_set_message(wp_kses(__('Your account is registered successfully. You can login now: <a href="'.$this->get_login_url().'">Login</a>', 'wpbooking'),array('a'=>array('href'=> array()))), 'success');
 
                     WPBooking_Session::set('wpbooking_user_pass', $password);
                     WPBooking()->set('register','successful');
@@ -659,6 +674,9 @@ if (!class_exists('WPBooking_User')) {
 
             // reset password
             add_rewrite_endpoint('reset-password', EP_PAGES);
+
+            //register
+            add_rewrite_endpoint('register', EP_PAGES);
 
 
             flush_rewrite_rules();
@@ -1175,15 +1193,40 @@ if (!class_exists('WPBooking_User')) {
             }
         }
 
-
-        public function load_lost_password_form(){
-            if(  WPBooking_Input::get('wb-reset-pass') == 'true' ){
-
-                return wpbooking_load_view('account/reset-password');
+        /**
+         * Get register url
+         *
+         * @since 1.0
+         * @author tienhd
+         *
+         * @return string|void
+         */
+        function get_register_url(){
+            $account_page = wpbooking_get_option('myaccount-page');
+            if($account_page) {
+                $url = get_permalink($account_page).'register';
+                return $url;
             }
-            return wpbooking_load_view('account/lost-password');
-
+            return home_url('/');
         }
+
+        /**
+         * Get login url
+         *
+         * @since 1.0
+         * @author tienhd
+         *
+         * @return string|void
+         */
+        function get_login_url(){
+            $account_page = wpbooking_get_option('myaccount-page');
+            if($account_page) {
+                $url = get_permalink($account_page);
+                return $url;
+            }
+            return admin_url('/');
+        }
+
 
 
         /**

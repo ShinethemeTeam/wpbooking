@@ -80,14 +80,17 @@ if (!class_exists('WB_Order')) {
                         case 'phone':
                             $phone = get_post_meta($this->order_id,'wpbooking_user_phone',true);
                             return !empty($phone) ? $phone : FALSE;
-                            break;
                         case 'address':
                             $address = get_post_meta($this->order_id,'wpbooking_user_address',true);
                             return !empty($address) ? $address : FALSE;
-                            break;
+                        case 'email':
+                            $email = get_post_meta($this->order_id,'wpbooking_user_email',true);
+                            return !empty($email) ? $email : FALSE;
+                        case 'apt':
+                            $apt = get_post_meta($this->order_id,'wpbooking_user_apt_unit',true);
+                            return !empty($apt)?$apt:'';
                         default:
                             return !empty($customer_info[$need]) ? $customer_info[$need] : FALSE;
-                            break;
                     }
 
                 }

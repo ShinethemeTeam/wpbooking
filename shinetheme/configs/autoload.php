@@ -36,6 +36,7 @@ $autoload['library']=array(
 	'base/service',
 	'base/order',
 	'base/coupon',
+    'base/chart',
 	'taxonomy-metabox',
 	'query-inject',
     'service',

@@ -131,7 +131,7 @@ $query=new WP_Query($args);
 			<?php if($query->have_posts()){
 				while($query->have_posts()){
 					$query->the_post();
-					$url_edit=add_query_arg(array('page'=>'wpbooking_page_orders','order_item_id'=>get_the_ID()),admin_url('admin.php'));
+					$url_edit=add_query_arg(array('page'=>'wpbooking_page_orders','action' => 'onhold_booking','wpbooking_order_item'=>get_the_ID()),admin_url('admin.php'));
 					$url_complete=add_query_arg(array('page'=>'wpbooking_page_orders','action'=>'complete_booking','wpbooking_order_item'=>get_the_ID()),admin_url('admin.php'));
 					$url_cancel=add_query_arg(array('page'=>'wpbooking_page_orders','action'=>'cancel_booking','wpbooking_order_item'=>get_the_ID()),admin_url('admin.php'));
 					$url_refund=add_query_arg(array('page'=>'wpbooking_page_orders','action'=>'refunded_booking','wpbooking_order_item'=>get_the_ID()),admin_url('admin.php'));
@@ -157,21 +157,21 @@ $query=new WP_Query($args);
                             </div>
                             <div class="customer">
                                 <a href="<?php echo esc_url(add_query_arg( 'user_id', $order->get_customer('id'), self_admin_url( 'user-edit.php' ) )); ?>"><strong><?php echo $order->get_customer('full_name'); ?></strong></a><br>
-                                <span class="wb-button-customer"><em><?php echo esc_html__('detail ','wpbooking'); ?></em><span class="caret"></span></span>
+                                <span class="wb-button-customer"><em><?php echo esc_html__('details ','wpbooking'); ?></em><span class="caret"></span></span>
                                 <ul class="none wb-customer-detail">
-                                    <li><strong><?php echo esc_html__('Email address :','wpbooking'); ?></strong><br><?php echo esc_attr($order->get_customer_email()); ?></li>
+                                    <li><strong><?php echo esc_html__('Email address :','wpbooking'); ?></strong><br><?php echo esc_attr($order->get_customer('email')); ?></li>
                                     <li><strong><?php echo esc_html__('Phone : ','wpbooking'); ?></strong><br><?php echo esc_attr($order->get_customer('phone')); ?></li>
-                                    <li><strong><?php echo esc_html__('Address : ','wpbooking'); ?></strong><br><?php echo esc_attr($order->get_customer('address')); ?></li>
+                                    <li><strong><?php echo esc_html__('Address : ','wpbooking'); ?></strong><br><?php echo esc_attr($order->get_customer('apt')); ?> <?php echo esc_attr($order->get_customer('address')); ?></li>
                                 </ul>
                             </div>
 							<div class="wb-row-actions none">
-								<span class="edit"><a href="<?php echo esc_url($url_edit)  ?>" title="<?php esc_html_e('View this item','wpbooking')?>"><?php esc_html_e('View','wpbooking')?></a> </span>
+								<span class="on_hold"><a href="<?php echo esc_url($url_edit)  ?>" title="<?php esc_html_e('View this item','wpbooking')?>"><?php esc_html_e('On Hold','wpbooking')?></a> </span>
 								<span class="complete"><a href="<?php echo esc_url($url_complete)  ?>" title="<?php esc_html_e('Complete this item','wpbooking')?>"><?php esc_html_e('Complete','wpbooking')?></a> </span>
 								<span class="cancel"><a href="<?php echo esc_url($url_cancel)  ?>" title="<?php esc_html_e('Cancel this item','wpbooking')?>"><?php esc_html_e('Cancel','wpbooking')?></a> </span>
 								<span class="refund"><a href="<?php echo esc_url($url_refund)  ?>" title="<?php esc_html_e('Refund this item','wpbooking')?>"><?php esc_html_e('Refund','wpbooking')?></a> </span>
 								<span class="move_trash trash"><a href="<?php echo add_query_arg(array('action'=>'trash','wpbooking_apply_changes'=>'1','wpbooking_order_item'=>array(get_the_ID()))) ?>" onclick="return confirm('<?php esc_html_e('Are you want to move to trash?','wpbooking') ?>')" title="<?php esc_html_e('Move to trash','wpbooking')?>"><?php esc_html_e('Trash','wpbooking')?></a> </span>
 								<span class="resend_email">
-									<a href="<?php echo add_query_arg(array('wpbooking_resend_email'=>'true','order_id'=>get_the_ID())) ?>" title="<?php esc_html_e('Move to trash','wpbooking')?>">
+									<a href="<?php echo add_query_arg(array('wpbooking_resend_email'=>'true','order_id'=>get_the_ID())) ?>" title="<?php esc_html_e('Resend Email this item','wpbooking')?>">
 										<?php esc_html_e('Resend Mail','wpbooking')?></a>
 								</span>
 
@@ -180,7 +180,7 @@ $query=new WP_Query($args);
 						<td class="wb-booking-information">
                             <span class="wb-booking-info">
                                 <a href="<?php echo esc_url(get_permalink($order_data['post_id'])); ?>" target="_blank"><strong><?php echo get_the_title($order_data['post_id']); ?></strong></a><br>
-                                <span class="wp-button-booking"><em><?php echo esc_html__('detail ','wpbooking'); ?></em><span class="caret"></span></span>
+                                <span class="wp-button-booking"><em><?php echo esc_html__('details ','wpbooking'); ?></em><span class="caret"></span></span>
                             </span>
                             <span class="wb-price-total">
                                 <?php
@@ -194,9 +194,20 @@ $query=new WP_Query($args);
                                 <li><?php echo esc_html__('Rooms: ','wpbooking') ?></li>
                                 <?php
                                 foreach($room_data as $key => $value){
+                                    $extra_fees = unserialize($value['extra_fees']);
                                     $price = WPBooking_Currency::format_money($value['price']);
                                     echo '<li class="wb-room-item"><span class="wb-room-name"><strong>'.get_the_title($value['room_id']).' x'.$value['number'].'</strong></span>';
-                                    echo '<span class="wb-room-price">'.$price.'</span></li>';
+                                    echo '<span class="wb-room-price">'.$price.'</span>';
+                                    echo '</li>';
+//                                    var_dump($extra_fees['extra_service']);
+//                                    if(!empty($extra_fees['extra_service']) && is_array($extra_fees['extra_service'])){
+//                                        foreach($extra_fees as $k => $v){
+////                                            var_dump($v);
+//                                            echo '<li class="wb-room-item"><span class="wb-extra-title"><strong>'.$v['title'].' x'.$v['quantity'].'</strong></span>';
+//                                            echo '<span class="wb-extra-price">'.WPBooking_Currency::format_money($v['price']).'</span>';
+//                                            echo '</li>';
+//                                        }
+//                                    }
                                 }
                                 ?>
                             </ul>
@@ -237,8 +248,6 @@ $query=new WP_Query($args);
 				'format'=>'?page_number=%#%',
 				'add_args'=>array()
 			));
-//            echo get_previous_posts_link('<');
-//            echo get_next_posts_link('>',$query->max_num_pages);
 
 			wp_reset_postdata();
 
