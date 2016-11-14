@@ -114,5 +114,32 @@
 		<td class=text-center>
 			150.00$
 		</td>
+	<tr>
+		<td colspan=4 class="text-right content-row">
+			<div class="content-total">
+				<br>
+				<span class="total-title">1 Rooms</span>
+				<span class="total-amount">100.00$</span>
+				<span class="total-title">Extra Service</span>
+				<span class="total-amount">50.00$</span>
+				<span class="total-title">V.A.T</span>
+				<span class="total-amount">10.00$</span>
+				<span class="total-title">City Tax</span>
+				<span class="total-amount">50.00$</span>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=4 class="text-right content-row">
+			<div class="content-total">
+				<br>
+				<span class="total-title bold" >TOTAL AMOUNT</span>
+				<span class="total-amount bold" >200.0$</span>
+				<span class="total-title color" > Deposit/Pay Now</span>
+				<span class="total-amount color">150.00$</span>
+				<span class="total-title bold" >You’llpay at the property</span>
+				<span class="total-amount bold" >50.00$</span>
+			</div>
+		</td>
 	</tr>
 </table>

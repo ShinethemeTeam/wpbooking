@@ -1,6 +1,7 @@
 <?php
-echo wpbooking_get_message();
 $order_id = get_the_ID();
+
+echo wpbooking_get_message();
 $order=new WB_Order($order_id);
 $booking=WPBooking_Order::inst();
 $order_data=$order->get_order_data();
@@ -101,7 +102,7 @@ do_action('wpbooking_before_order_content');
                             <?php do_action('wpbooking_order_detail_total_item_information_'.$service_type,$order_data) ?>
                             <?php
                             $tax = unserialize($order_data['tax']);
-                            if (!empty($tax['vat']['excluded']) and $tax['vat']['excluded'] != 'no') {
+                            if (!empty($tax['vat']['excluded']) and $tax['vat']['excluded'] != 'no' and $tax['vat']['price'] > 0) {
                                 $vat_amount = $tax['vat']['amount']."% ";
                                 $unit = $tax['vat']['unit'];
                                 if($unit == 'fixed') $vat_amount = '';
@@ -111,7 +112,7 @@ do_action('wpbooking_before_order_content');
                                 </span>
                                 <span class="total-amount"><?php echo WPBooking_Currency::format_money($tax['vat']['price']); ?></span>
                             <?php } ?>
-                            <?php if (!empty($tax['citytax']['excluded']) and $tax['citytax']['excluded'] != 'no') {
+                            <?php if (!empty($tax['citytax']['excluded']) and $tax['citytax']['excluded'] != 'no' and $tax['citytax']['price']) {
                                 ?>
                                 <span class="total-title">
                                     <?php  esc_html_e("City Tax",'wpbookng'); ?>
@@ -189,7 +190,7 @@ do_action('wpbooking_before_order_content');
             <?php if(!empty($special_request = get_post_meta($order_id,'wpbooking_user_special_request',true))){ ?>
                 <div class="col-md-12">
                     <label><?php esc_html_e("Special request:","wpbooking") ?> </label>
-                    <p><?php echo esc_html($apt_unit) ?></p>
+                    <p><?php echo esc_html($special_request) ?></p>
                 </div>
             <?php } ?>
 

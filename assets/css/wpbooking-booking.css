@@ -995,12 +995,17 @@ a.label:focus {
   background: #ececec;
 }
 .review-order-item .review-order-item-table .room-info .btn_detail_checkout {
-  font-size: 13px;
+  /* font-size: 13px;
+                font-style: italic;
+                font-weight: normal;
+                margin-top: 20px;
+                padding: 3px 11px;
+                background: @maincolor;*/
+  color: #f0ad4e;
+  cursor: pointer;
+  display: inline-block;
   font-style: italic;
-  font-weight: normal;
-  margin-top: 20px;
-  padding: 3px 11px;
-  background: #f0ad4e;
+  padding-top: 10px;
 }
 .review-order-item .review-order-item-table .room-info .content_details {
   display: none;
@@ -1956,6 +1961,9 @@ a.label:focus {
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room:after {
   clear: both;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room.have_none {
+  display: none;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .content-loop-room {
   float: left;

@@ -43,7 +43,8 @@ if(!empty($cart['rooms'])){
                                         <?php } ?>
                                         <?php
                                         if(!empty($v['list_date_price'])){ ?>
-                                            <button class="wb-button btn_detail_checkout"><?php esc_html_e("Details","wpbooking") ?></button>
+                                            <span class="btn_detail_checkout"><?php esc_html_e("Details","wpbooking") ?> <i class="fa fa-caret-down" aria-hidden="true"></i>
+</span>
                                         <?php } ?>
                                         <div class="content_details">
                                             <?php

@@ -43,6 +43,57 @@ $service_type=$order_data['service_type'];
             </div>
         </td>
     </tr>
+
     <?php do_action('wpbooking_email_detail_item_information',$order_data) ?>
     <?php do_action('wpbooking_email_detail_item_information_'.$service_type,$order_data) ?>
+
+    <tr>
+        <td colspan=4 class="text-right content-row">
+            <div class="content-total">
+                <br>
+                <?php do_action('wpbooking_order_detail_total_item_information_'.$service_type,$order_data) ?>
+                <?php
+                $tax = unserialize($order_data['tax']);
+                if (!empty($tax['vat']['excluded']) and $tax['vat']['excluded'] != 'no' and $tax['vat']['price']>0) {
+                    $vat_amount = $tax['vat']['amount']."% ";
+                    $unit = $tax['vat']['unit'];
+                    if($unit == 'fixed') $vat_amount = '';
+                    ?>
+                    <span class="total-title">
+                                    <?php  echo sprintf(esc_html__("%s V.A.T",'wpbooking'),$vat_amount); ?>
+                                </span>
+                    <span class="total-amount"><?php echo WPBooking_Currency::format_money($tax['vat']['price']); ?></span>
+                <?php } ?>
+                <?php if (!empty($tax['citytax']['excluded']) and $tax['citytax']['excluded'] != 'no' and $tax['citytax']['price']>0) {
+                    ?>
+                    <span class="total-title">
+                                    <?php  esc_html_e("City Tax",'wpbookng'); ?>
+                                </span>
+                    <span class="total-amount"><?php echo WPBooking_Currency::format_money($tax['citytax']['price']); ?></span>
+                <?php } ?>
+            </div>
+
+        </td>
+    </tr>
+    <tr>
+        <td colspan=4 class="text-right content-row">
+            <div class="content-total">
+                <br>
+                <?php $price_total = $order_data['price']; ?>
+                <span class="total-title bold"><?php _e('TOTAL AMOUNT', 'wpbooking') ?></span>
+                <span class="total-amount bold"><?php echo WPBooking_Currency::format_money($price_total); ?></span>
+                <?php
+                if(!empty($order_data['deposit_price'])){
+                    $price_deposit = $order_data['deposit_price'];
+                    $property = $price_total - $price_deposit;
+                    ?>
+                    <span class="total-title color"> <?php _e('Deposit/Pay Now', 'wpbooking') ?></span>
+                    <span class="total-amount color"><?php echo WPBooking_Currency::format_money($price_deposit); ?></span>
+                    <span class="total-title bold"><?php _e('You’ll pay at the property', 'wpbooking') ?></span>
+                    <span class="total-amount bold"><?php echo WPBooking_Currency::format_money($property); ?></span>
+                <?php } ?>
+            </div>
+
+        </td>
+    </tr>
 </table>

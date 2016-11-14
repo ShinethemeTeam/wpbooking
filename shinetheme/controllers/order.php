@@ -17,8 +17,41 @@ if (!class_exists('WPBooking_Order')) {
 		{
             add_action('template_redirect', array($this, '_complete_purchase_validate'));
             add_filter('the_content', array($this, '_show_order_information'));
+
+            /**
+             * Check Order Details Permission
+             *
+             * @since 1.0
+             * @author quandq
+             */
+            add_action('template_redirect', array($this, '_check_order_details_permission'));
 		}
 
+        /**
+         * Check Order Details Permission
+         *
+         * @since 1.0
+         * @author quandq
+         */
+		function _check_order_details_permission(){
+            if(is_singular('wpbooking_order')){
+                $order_id = get_the_ID();
+                $my_user = wp_get_current_user();
+                $user_book = get_post_meta($order_id,'user_id',true);
+
+                $is_checked = true;
+                if(!is_user_logged_in()){
+                    $is_checked = false;
+                }
+                if($user_book != $my_user->ID || !current_user_can('manage_options')){
+                    $is_checked = false;
+                }
+
+                if(!$is_checked){
+                    wp_redirect(home_url());
+                }
+            }
+        }
         /**
          * Complete Purchase Validate
          *

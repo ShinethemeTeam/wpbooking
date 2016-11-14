@@ -26,6 +26,10 @@ do_action('wpbooking_before_checkout_form_data_preview');
 		<label><?php esc_html_e('Apt/ Unit:','wpbooking') ?> </label>
 		<p><?php esc_html_e('8888','wpbooking') ?></p>
 	</div>
+    <div class="col-md-12">
+        <label><?php esc_html_e("Special request:","wpbooking") ?> </label>
+        <p>ABC</p>
+    </div>
 	<div class=col-12>
 		<div class=text-center>
 			<a class=btn_history href=# ><?php esc_html_e('Booking History','wpbooking') ?></a>
