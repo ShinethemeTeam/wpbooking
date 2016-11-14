@@ -22,7 +22,7 @@ if (!class_exists('WPBooking_Email')) {
              * Send Emails when new Order Item has been updated/changed, example: payment complete or cancelled
              * @since 1.0
              */
-            add_action('wpbooking_order_item_changed', array($this, '_send_order_email_success'));
+            add_action('wpbooking_order_item_changed', array($this, '_send_order_email_for_item_changed'));
 
 
             //add_action('wpbooking_after_checkout_success',array($this,'_send_order_email_confirm'));
@@ -87,6 +87,14 @@ if (!class_exists('WPBooking_Email')) {
             }
         }
 
+        function _send_order_email_for_item_changed($order_id){
+
+            if (wpbooking_get_option('on_booking_email_customer')) {
+
+                $this->send_customer_email($order_id);
+            }
+
+        }
         function _send_order_email_success($order_id)
         {
 
