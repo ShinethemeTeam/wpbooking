@@ -1826,120 +1826,122 @@ jQuery(document).ready(function( $ ){
     });
 
     var ctx= $("#wb-chart");
-    var st_chart= new Chart(ctx,{
-        type: 'bar',
-        data: {
-            labels: ["January", "February", "March", "April", "May", "June","July","August","September","October","November","December"],
-            datasets: [
-                {
-                    label: 'Total sale',
-                    type: 'line',
-                    data: [12000, 15000, 3000, 5000, 15000, 3000,12000, 15000, 3000, 5000, 6000, 20000],
-                    borderColor: 'red',
-                    fill: false,
-                    yAxisID: "y-axis-2",
-                    backgroundColor: "white",
-                    borderColor: "#f7941d",
-                    borderCapStyle: 'butt',
-                    borderDash: [],
-                    borderDashOffset: 5,
-                    borderJoinStyle: 'miter',
-                    pointBorderColor: "#f7941d",
-                    pointBackgroundColor: "#fff",
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "white",
-                    pointHoverBorderColor: "#f7941d",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 1,
-                    pointHitRadius: 10,
-
-                },
-                {
-                    label: 'Net profit',
-                    type: 'line',
-                    data: [10000, 13000, 3000, 3000, 12000, 1000,10000, 10000, 5000, 3000, 4000, 15000],
-                    borderColor: 'orange',
-                    fill: false,
-                    yAxisID: "y-axis-2",
-                    backgroundColor: "white",
-                    borderColor: "rgba(75,192,192,1)",
-                    borderCapStyle: 'butt',
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    borderJoinStyle: 'miter',
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointBackgroundColor: "#fff",
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "white",
-                    pointHoverBorderColor: "rgba(75,192,192,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 1,
-                    pointHitRadius: 10,
-                },
-                {
-                    label: 'Refunded',
-                    data: [12, 19, 3, 5, 15, 3,12, 19, 3, 5, 6, 1],
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    yAxisID: "y-axis-1",
-                },
-                {
-                    label: 'Cancelled',
-                    data: [12, 19, 3, 5, 15, 3,12, 19, 3, 5, 6, 1],
-                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                    yAxisID: "y-axis-1",
-                },
-                {
-                    label: 'On hold',
-                    data: [0, 19, 3, 5, 15, 3,12, 19, 3, 5, 6, 30],
-                    backgroundColor:'rgba(54, 162, 235, 0.2)',
-                    fill: false,
-                    yAxisID: "y-axis-1",
-                },{
-                    label: 'Completed',
-                    data: [12, 19, 3, 5, 15, 3,12, 19, 3, 5, 6, 30],
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    fill: false,
-                    yAxisID: "y-axis-1",
-                },
-            ],
-        },
-        options: {
-            multiTooltipTemplate: "<%%=datasetLabel%> : <%%= value %>",
-            responsive: true,
-            ShowVerticalLines: false,
-            title:{
-                display:false,
-                text:'2016 bookings report',
-                fontSize: 18,
-                padding: 20,
-            },
-            tooltips: {
-                mode: "label",
-            },
-            scales: {
-                xAxes: [{
-                    stacked: true,
-                    gridLines: {
-                        display: false,
-                    }
-                }],
-                yAxes: [{
-                    display: true,
-                    position: "left",
-                    id: "y-axis-1",
-                    stacked: true,
-                    scaleLabel: "fs",
-                },
+    if(ctx.length !== 0) {
+        var st_chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                datasets: [
                     {
-                        display: true,
-                        position: "right",
-                        id: "y-axis-2",
+                        label: 'Total sale',
+                        type: 'line',
+                        data: [12000, 15000, 3000, 5000, 15000, 3000, 12000, 15000, 3000, 5000, 6000, 20000],
+                        borderColor: 'red',
+                        fill: false,
+                        yAxisID: "y-axis-2",
+                        backgroundColor: "white",
+                        borderColor: "#f7941d",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 5,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "#f7941d",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "white",
+                        pointHoverBorderColor: "#f7941d",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
 
-                    }]
+                    },
+                    {
+                        label: 'Net profit',
+                        type: 'line',
+                        data: [10000, 13000, 3000, 3000, 12000, 1000, 10000, 10000, 5000, 3000, 4000, 15000],
+                        borderColor: 'orange',
+                        fill: false,
+                        yAxisID: "y-axis-2",
+                        backgroundColor: "white",
+                        borderColor: "rgba(75,192,192,1)",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "white",
+                        pointHoverBorderColor: "rgba(75,192,192,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                    },
+                    {
+                        label: 'Refunded',
+                        data: [12, 19, 3, 5, 15, 3, 12, 19, 3, 5, 6, 1],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        yAxisID: "y-axis-1",
+                    },
+                    {
+                        label: 'Cancelled',
+                        data: [12, 19, 3, 5, 15, 3, 12, 19, 3, 5, 6, 1],
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        yAxisID: "y-axis-1",
+                    },
+                    {
+                        label: 'On hold',
+                        data: [0, 19, 3, 5, 15, 3, 12, 19, 3, 5, 6, 30],
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: false,
+                        yAxisID: "y-axis-1",
+                    }, {
+                        label: 'Completed',
+                        data: [12, 19, 3, 5, 15, 3, 12, 19, 3, 5, 6, 30],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        fill: false,
+                        yAxisID: "y-axis-1",
+                    },
+                ],
+            },
+            options: {
+                multiTooltipTemplate: "<%%=datasetLabel%> : <%%= value %>",
+                responsive: true,
+                ShowVerticalLines: false,
+                title: {
+                    display: false,
+                    text: '2016 bookings report',
+                    fontSize: 18,
+                    padding: 20,
+                },
+                tooltips: {
+                    mode: "label",
+                },
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        gridLines: {
+                            display: false,
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        position: "left",
+                        id: "y-axis-1",
+                        stacked: true,
+                        scaleLabel: "fs",
+                    },
+                        {
+                            display: true,
+                            position: "right",
+                            id: "y-axis-2",
+
+                        }]
+                }
             }
-        }
-    });
+        });
+    }
 
 });

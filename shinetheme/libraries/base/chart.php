@@ -192,7 +192,7 @@ if(!class_exists('WPBooking_Chart')){
             if(!empty($time_range['range'])){
                 $res['label'] = $time_range['label'];
                 foreach ($time_range['label'] as $item) {
-                    
+
                 }
             }
             return $res;
