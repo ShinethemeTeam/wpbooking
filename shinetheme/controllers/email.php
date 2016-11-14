@@ -332,7 +332,7 @@ if (!class_exists('WPBooking_Email')) {
             $check = wp_mail($to, $subject, $message, $headers, $attachment);
 
             remove_filter('wp_mail_content_type', array($this, 'set_html_content_type'));
-
+            echo $message;
             return array(
                 'status' => $check,
                 'data'   => array(
@@ -415,14 +415,9 @@ if (!class_exists('WPBooking_Email')) {
 
                 $content = $this->replaceShortcode($content);
 
-                $head =  wpbooking_get_option("email_header");
-
-                $footer = wpbooking_get_option("email_footer");
-
-                $content = $head.$content.$footer;
+                $content = $this->insert_header_footer_email_template($content);
 
                 $content = do_shortcode($content);
-
 
                 $content = WPBooking_Email::inst()->apply_css($content);
                 echo($content);

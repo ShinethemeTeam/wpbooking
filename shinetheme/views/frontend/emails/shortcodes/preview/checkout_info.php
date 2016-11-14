@@ -28,7 +28,7 @@ do_action('wpbooking_before_checkout_form_data_preview');
 	</div>
     <div class="col-md-12">
         <label><?php esc_html_e("Special request:","wpbooking") ?> </label>
-        <p>ABC></p>
+        <p>ABC</p>
     </div>
 	<div class=col-12>
 		<div class=text-center>

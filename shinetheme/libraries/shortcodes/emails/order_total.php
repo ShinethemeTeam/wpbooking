@@ -11,7 +11,7 @@ if(!function_exists('wpbooking_email_order_total_func'))
 	{
 		$order_id=WPBooking()->get('order_id');
 		if(!$order_id){
-			return '150.00$';
+			return '200.00$';
 		}
 		$order=new WB_Order($order_id);
         return WPBooking_Currency::format_money($order->get_total(array('without_deposit'=>false)));
