@@ -546,12 +546,14 @@ if (!class_exists('WPBooking_Metabox')) {
             $list_base = WPBooking_Input::post($field_id.'_base');
             $terms = array();
             $terms_meta = array();
+            $list_room = WPBooking_Accommodation_Service_Type::inst()->_get_room_by_hotel($post_id);
+            
             if(!empty($list)){
                 foreach($list as $k=>$v){
                     $key_term = '';
                     $term = '';
                     foreach($v as $key=>$value){
-                        if($key != "post_id"){
+                        if($key != "post_id" and $key != 'type_data'){
                             $terms[] = $value;
                             $term = $value;
                             $key_term = $key;
@@ -564,10 +566,15 @@ if (!class_exists('WPBooking_Metabox')) {
                                 $terms_meta[$value2][$key_term][] = $term;
                             }
                         }
+                        if($key == 'type_data' and $value == 'all'){
+                            foreach($list_room as $key_room => $value_room){
+                                $terms_meta[$value_room['ID']][$key_term][] = $term;
+                            }
+                        }
                     }
                 }
             }
-            $list_room = WPBooking_Accommodation_Service_Type::inst()->_get_room_by_hotel($post_id);
+
             if(!empty($list_base)){
                 foreach($list_base as $k=>$v){
                     if($v == 'true'){
