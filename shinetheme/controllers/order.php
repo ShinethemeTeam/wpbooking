@@ -43,11 +43,15 @@ if (!class_exists('WPBooking_Order')) {
                 if(!is_user_logged_in()){
                     $is_checked = false;
                 }
-                if($user_book != $my_user->ID || !current_user_can('manage_options')){
+
+                if($user_book != $my_user->ID ){
                     $is_checked = false;
                 }
+                if(current_user_can('manage_options')){
+                    $is_checked = true;
+                }
 
-                if($is_checked){
+                if($is_checked == false){
                     wp_redirect(home_url());
                 }
             }
