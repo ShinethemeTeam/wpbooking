@@ -573,12 +573,14 @@ if (!class_exists('WPBooking_Admin_Order')) {
                     $res['data'][] = WPBooking_Order_Model::inst()->get_rp_total_sale($service_type ,$time_range['range'][$key],$time_range['range'][$key+1]);
                 }
             }
+            $decimal = WPBooking_Currency::get_current_currency('decimal');
             if(!empty($res['data'])){
                 foreach($res['data'] as $key => $val){
-                    $res['data'][$key] = (float)$val;
+                    $res['data'][$key] = number_format($val,$decimal,'.','');
                 }
             }
             return $res;
+
         }
         /**
          * Get net profit in time range
@@ -597,9 +599,10 @@ if (!class_exists('WPBooking_Admin_Order')) {
                     $res[] = WPBooking_Order_Model::inst()->get_rp_total_net_profit($service_type ,$time_range['range'][$key],$time_range['range'][$key+1]);
                 }
             }
+            $decimal = WPBooking_Currency::get_current_currency('decimal');
             if(!empty($res)){
                 foreach($res as $key => $val){
-                    $res[$key] = (float)$val;
+                    $res[$key] = number_format($val,$decimal,'.','');
                 }
             }
             return $res;
@@ -630,6 +633,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
             }
             return $res;
         }
+
 
 		static function inst()
 		{

@@ -120,7 +120,7 @@ $query=new WP_Query($args);
                     <p class="status"><?php esc_html_e('Status - Payment Method','wpbooking') ?></p>
                     <p class="customer"><?php esc_html_e('Customer Information','wpbooking') ?></p>
                 </th>
-				<th class="manage-column column-primary asc"> <span class="wb-left-label"><?php esc_html_e('Booking Information','wpbooking') ?></span><span class="wb-right-label"><?php echo esc_html__('Total (Deposit/Remain) ','wpbooking').'('.WPBooking_Currency::get_current_currency('symbol').')'?></span></th>
+				<th class="manage-column column-primary asc"> <span class="wb-left-label"><?php esc_html_e('Booking Information','wpbooking') ?></span><span class="wb-right-label"><?php echo esc_html__('Total (Deposit/Remain) ','wpbooking').'('.WPBooking_Currency::get_current_currency('currency').')'?></span></th>
 				<th class="wb-column-empty"></th>
                 <th class="manage-column column-customer asc"> <?php esc_html_e('Booking Date','wpbooking') ?></th>
 				<th class="manage-column column-service asc"> <?php esc_html_e('Service Type','wpbooking') ?></th>

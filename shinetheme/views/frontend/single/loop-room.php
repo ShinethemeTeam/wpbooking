@@ -132,7 +132,7 @@ $diff = $diff / (60 * 60 * 24);
                 <?php } ?>
             </div>
         <?php } else {?>
-            <button onclick="return false" class="wb-button button_show_price is_single_search_result"><?php esc_html_e("Show Price","wpbooking") ?></button>
+            <button onclick="return false" class="wb-btn wb-btn-default wb-btn-sm button_show_price is_single_search_result"><?php esc_html_e("Show Price","wpbooking") ?></button>
         <?php } ?>
     </div>
     <div class="more-extra">

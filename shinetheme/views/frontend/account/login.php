@@ -32,7 +32,7 @@ if(!empty(WPBooking()->get('error_code'))){
 			<input type="password" class="form-control <?php echo esc_attr($error_field['p']); ?>" required id="input-password" name="password">
 		</div>
 		<div class="form-group">
-			<button type="submit" class="wb-btn wb-btn-default wb-btn-md"><?php esc_html_e('Login','wpbooking') ?></button>
+			<button type="submit" class="wb-btn wb-btn-default"><?php esc_html_e('Login','wpbooking') ?></button>
 			<label class="remember-me">
 				<input type="checkbox" <?php checked(WPBooking_Input::post('remember'),1) ?> name="remember" value="1"><?php esc_html_e('Remember Me','wpbooking') ?>
 			</label>

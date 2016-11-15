@@ -18,9 +18,6 @@ $start_date=WPBooking_Input::get('date_from');
 $end_date=WPBooking_Input::get('date_to');
 $chart = WPBooking_Admin_Order::inst();
 
-$total_sale = $chart->get_total_sale_in_time_range($service_type,$report_type,$start_date, $end_date);
-//var_dump($total_sale);
-
 $query=new WP_Query($args);
 $service_types=WPBooking_Service_Controller::inst()->get_service_types();
 $report_data=WPBooking_Admin_Order::inst()->get_report_data();

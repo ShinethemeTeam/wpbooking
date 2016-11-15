@@ -69,7 +69,7 @@ if(!empty(WPBooking()->get('error_ed_fields'))){
                     </div>
                     <div class="col-md-12">
                         <?php if(WPBooking_Input::post('action')=='wpbooking_update_profile') echo wpbooking_get_message(); ?>
-                        <button type="submit" class="btn wb-btn-default"><?php esc_html_e('Save','wpbooking') ?></button>
+                        <button type="submit" class="wb-btn wb-btn-default"><?php esc_html_e('Save','wpbooking') ?></button>
                     </div>
                 </div>
         </div>

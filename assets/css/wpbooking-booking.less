@@ -26,7 +26,7 @@
     text-transform: uppercase;
     border-radius: 0px;
     padding:4px 10px;
-    display: inline-block;
+    //display: inline-block;
 
     &.wb-btn-success{
         background: #5cb85c;
@@ -7193,8 +7193,9 @@ body{
 }
 .wb-btn{
   margin-top: 10px;
+  font-size: 14px;
   text-transform: uppercase;
-  width: 100%;
+  width: auto;
   color: white;
   padding: 7px 12px;
   font-weight: normal;
@@ -7202,6 +7203,9 @@ body{
 .wb-btn.wb-btn-default{
   background: @maincolor;
   border: 1px solid @maincolor;
+  &:hover{
+    color: white;
+  }
 }
 .wb-btn.wb-btn-sm{
   padding: 5px 10px;

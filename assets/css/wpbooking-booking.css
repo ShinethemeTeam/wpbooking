@@ -87,7 +87,6 @@ a.label:focus {
   text-transform: uppercase;
   border-radius: 0px;
   padding: 4px 10px;
-  display: inline-block;
 }
 .wb-btn.wb-btn-success {
   background: #5cb85c;
@@ -7267,8 +7266,9 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
 }
 .wb-btn {
   margin-top: 10px;
+  font-size: 14px;
   text-transform: uppercase;
-  width: 100%;
+  width: auto;
   color: white;
   padding: 7px 12px;
   font-weight: normal;
@@ -7276,6 +7276,9 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
 .wb-btn.wb-btn-default {
   background: #f0ad4e;
   border: 1px solid #f0ad4e;
+}
+.wb-btn.wb-btn-default:hover {
+  color: white;
 }
 .wb-btn.wb-btn-sm {
   padding: 5px 10px;
