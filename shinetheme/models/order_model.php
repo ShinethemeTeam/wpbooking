@@ -15,7 +15,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
 
         public function __construct()
         {
-            $this->table_version = '1.0.1';
+            $this->table_version = '1.0.2';
             $this->table_name    = 'wpbooking_order';
             $this->columns = array(
                 'id'                  => array(
@@ -25,11 +25,11 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
                 'order_id'            => array( 'type' => 'int' , 'length' => 11 ) ,
                 'post_id'             => array( 'type' => 'int' , 'length' => 11 ) ,// Service ID
                 'service_type'        => array( 'type' => 'varchar' , 'length' => 255 ) ,
-                'price'               => array( 'type' => 'varchar' , 'length' => 255 ) ,// Total Price after calculating, with tax also
+                'price'               => array( 'type' => 'float' ) ,// Total Price after calculating, with tax also
                 'discount'            => array( 'type' => 'int' , 'length' => 11 ) ,
                 'extra_fees'          => array( 'type' => 'text' ) ,
                 'tax'                 => array( 'type' => 'text' ) ,
-                'tax_total'           => array( 'type' => 'varchar' ) ,
+                'tax_total'           => array( 'type' => 'float' ) ,
                 'currency'            => array( 'type' => 'varchar' , 'length' => 255 ) ,
                 'raw_data'            => array( 'type' => 'text' ) ,
                 'check_in_timestamp'  => array( 'type' => 'varchar' , 'length' => 255 ) ,
