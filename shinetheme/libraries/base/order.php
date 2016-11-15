@@ -217,8 +217,7 @@ if (!class_exists('WB_Order')) {
                     }
                 }
             }
-
-            WPBooking_Order_Model::inst()->add_new_column('tax_total');
+            
             WPBooking_Order_Model::inst()->save_order($cart, $order_id, $customer_id);
             do_action('wpbooking_save_order_'.$cart['service_type'],$cart,$order_id);
 

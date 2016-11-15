@@ -47,10 +47,6 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
 
         }
 
-        function add_new_column($key){
-
-        }
-
         /**
          * Save Order
          *

@@ -7265,6 +7265,24 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
 .tooltip_desc:hover:after {
   display: block;
 }
+.wb-btn {
+  margin-top: 10px;
+  text-transform: uppercase;
+  width: 100%;
+  color: white;
+  padding: 7px 12px;
+  font-weight: normal;
+}
+.wb-btn.wb-btn-default {
+  background: #f0ad4e;
+  border: 1px solid #f0ad4e;
+}
+.wb-btn.wb-btn-sm {
+  padding: 5px 10px;
+}
+.wb-btn.wb-btn-lg {
+  padding: 9px 16px;
+}
 .button_show_price {
   background: #f0ad4e none repeat scroll 0 0;
   border-color: #f0ad4e;
