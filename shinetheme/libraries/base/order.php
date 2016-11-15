@@ -199,6 +199,7 @@ if (!class_exists('WB_Order')) {
                 update_post_meta($order_id, 'discount', $cart['discount']);
                 update_post_meta($order_id, 'extra_fees', array());
                 update_post_meta($order_id, 'tax',$tax);
+                update_post_meta($order_id, 'tax_total',$tax['total_price']);
                 update_post_meta($order_id, 'currency', WPBooking_Currency::get_current_currency('currency'));
                 update_post_meta($order_id, 'raw_data', array());
                 update_post_meta($order_id, 'check_in_timestamp', $cart['check_in_timestamp']);
@@ -217,6 +218,7 @@ if (!class_exists('WB_Order')) {
                 }
             }
 
+            WPBooking_Order_Model::inst()->add_new_column('tax_total');
             WPBooking_Order_Model::inst()->save_order($cart, $order_id, $customer_id);
             do_action('wpbooking_save_order_'.$cart['service_type'],$cart,$order_id);
 

@@ -82,6 +82,7 @@ if(!class_exists('WPBooking_Chart')){
                 case 'last_7days':
                     $current_date = strtotime('now');
                     $start = strtotime('-1 week',$current_date);
+                    $start = strtotime('+1 day',$start);
                     while($start <= $current_date){
                         $data_range['label'][] = date('Y/m/d', $start);
                         $data_range['range'][] = $start;
@@ -199,9 +200,8 @@ if(!class_exists('WPBooking_Chart')){
             }
             return $res;
         }
-
         /**
-         * Get total item booking by status order
+         * Get net profit in time range
          *
          * @param $service_type
          * @param $range
@@ -209,17 +209,38 @@ if(!class_exists('WPBooking_Chart')){
          * @param bool $end_date
          * @return array
          */
-        public function get_items_booking_by_status($service_type ,$range, $start_date = false, $end_date = false){
+        public function get_net_profit_in_time_range($service_type ,$range, $start_date = false, $end_date = false){
             $time_range = $this->get_time_range($range, $start_date, $end_date);
             $res = array();
             if(!empty($time_range['range'])){
-                $res['label'] = $time_range['label'];
                 foreach ($time_range['label'] as $key => $value) {
-                    $res['data'][] = WPBooking_Order_Model::inst()->get_rp_total_sale($service_type ,$time_range['range'][$key],$time_range['range'][$key+1]);
+                    $res[] = WPBooking_Order_Model::inst()->get_rp_total_net_profit($service_type ,$time_range['range'][$key],$time_range['range'][$key+1]);
                 }
             }
             return $res;
         }
+
+        /**
+         * Get total item booking by status order
+         *
+         * @param $service_type
+         * @param $range
+         * @param $status
+         * @param bool $start_date
+         * @param bool $end_date
+         * @return array
+         */
+        public function get_items_booking_by_status($service_type ,$range, $status, $start_date = false, $end_date = false){
+            $time_range = $this->get_time_range($range, $start_date, $end_date);
+            $res = array();
+            if(!empty($time_range['range'])){
+                foreach ($time_range['label'] as $key => $value) {
+                    $res[] = WPBooking_Order_Model::inst()->get_rp_items_by_status($service_type ,$time_range['range'][$key],$time_range['range'][$key+1],$status);
+                }
+            }
+            return $res;
+        }
+
 
     }
 
