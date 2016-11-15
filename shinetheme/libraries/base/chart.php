@@ -59,7 +59,7 @@ if(!class_exists('WPBooking_Chart')){
                     break;
                 case 'this_week':
                     $current_date = strtotime('now');
-                    $start = strtotime('monday this week',$current_date);
+                    $start = strtotime('monday this week midnight',$current_date);
                     while($start <= $current_date){
                         $data_range['label'][] = date('Y/m/d', $start);
                         $data_range['range'][] = $start;
@@ -69,7 +69,7 @@ if(!class_exists('WPBooking_Chart')){
                     break;
                 case 'last_week':
                     $current_date = strtotime('now');
-                    $monday_this_week = strtotime('monday this week',$current_date);
+                    $monday_this_week = strtotime('monday this week midnight',$current_date);
                     $start = strtotime('-1 week', $monday_this_week);
                     $end = strtotime('+6 days', $start);
                     while($start <= $end){
@@ -81,7 +81,7 @@ if(!class_exists('WPBooking_Chart')){
                     break;
                 case 'last_7days':
                     $current_date = strtotime('now');
-                    $start = strtotime('-1 week',$current_date);
+                    $start = strtotime('-1 week midnight',$current_date);
                     $start = strtotime('+1 day',$start);
                     while($start <= $current_date){
                         $data_range['label'][] = date('Y/m/d', $start);
@@ -92,7 +92,7 @@ if(!class_exists('WPBooking_Chart')){
                     break;
                 case 'last_30days':
                     $current_date = strtotime('now');
-                    $start = strtotime('-30 days',$current_date);
+                    $start = strtotime('-30 days midnight',$current_date);
                     while($start <= $current_date){
                         $data_range['label'][] = date('Y/m/d', $start);
                         $data_range['range'][] = $start;
@@ -102,7 +102,7 @@ if(!class_exists('WPBooking_Chart')){
                     break;
                 case 'last_60days':
                     $current_date = strtotime('now');
-                    $start = strtotime('-60 days',$current_date);
+                    $start = strtotime('-60 days midnight',$current_date);
                     while($start <= $current_date){
                         $data_range['label'][] = date('Y/m/d', $start);
                         $data_range['range'][] = $start;
@@ -112,7 +112,7 @@ if(!class_exists('WPBooking_Chart')){
                     break;
                 case 'last_90days':
                     $current_date = strtotime('now');
-                    $start = strtotime('-90 days',$current_date);
+                    $start = strtotime('-90 days midnight',$current_date);
                     while($start <= $current_date){
                         $data_range['label'][] = date('Y/m/d', $start);
                         $data_range['range'][] = $start;
