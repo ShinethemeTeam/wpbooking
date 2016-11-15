@@ -43,7 +43,7 @@ $payment_status=WPBooking_Config::inst()->item('payment_status');
 						} ?>
 					</select>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<button type="submit" class="wb-button"><?php esc_html_e("Filter","wpbooking") ?></button>
 				</div>
 			</div>
@@ -51,14 +51,16 @@ $payment_status=WPBooking_Config::inst()->item('payment_status');
 		<?php if(WPBooking_Input::get('subtab')){
 			printf('<input type="hidden" name=subtab value=%s>',WPBooking_Input::get('subtab'));
 		} ?>
-		<div class="tablenav top">
-			<?php
-			if($current_tab=WPBooking_Input::get('subtab')){
-				echo wpbooking_load_view('account/booking_history/loop-'.$current_tab);
-			}else{
-				echo wpbooking_load_view('account/booking_history/loop-listing');
-			}
-			?>
+		<div class="tablenav top ">
+			<div class="tab_history">
+				<?php
+				if($current_tab=WPBooking_Input::get('subtab')){
+					echo wpbooking_load_view('account/booking_history/loop-'.$current_tab);
+				}else{
+					echo wpbooking_load_view('account/booking_history/loop-listing');
+				}
+				?>
+			</div>
 			<div class="clear"></div>
 	</form>
 <?php wp_reset_postdata()?>

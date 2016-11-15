@@ -9,7 +9,7 @@
                 <tbody>
                 <tr class="">
                     <th scope="row">
-                        <label for=""><?php esc_html_e("Allow Guest Checkout?:","wpbooking") ?>:</label>
+                        <label for=""><?php esc_html_e("Allow Guest Checkout?","wpbooking") ?>:</label>
                     </th>
                     <td>
                         <input type="checkbox" value="1" name="wpbooking_allow_guest_checkout" class="form-control min-width-500" id="wpbooking_allow_guest_checkout">
