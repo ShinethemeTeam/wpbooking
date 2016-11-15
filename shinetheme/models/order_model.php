@@ -15,7 +15,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
 
         public function __construct()
         {
-            $this->table_version = '1.0.0';
+            $this->table_version = '1.0.1';
             $this->table_name    = 'wpbooking_order';
             $this->columns = array(
                 'id'                  => array(
@@ -23,9 +23,9 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
                     'AUTO_INCREMENT' => true
                 ) ,
                 'order_id'            => array( 'type' => 'int' , 'length' => 11 ) ,
-                'post_id'             => array( 'type' => 'int' , 'length' => 11 ) ,
+                'post_id'             => array( 'type' => 'int' , 'length' => 11 ) ,// Service ID
                 'service_type'        => array( 'type' => 'varchar' , 'length' => 255 ) ,
-                'price'               => array( 'type' => 'varchar' , 'length' => 255 ) ,
+                'price'               => array( 'type' => 'varchar' , 'length' => 255 ) ,// Total Price after calculating, with tax also
                 'discount'            => array( 'type' => 'int' , 'length' => 11 ) ,
                 'extra_fees'          => array( 'type' => 'text' ) ,
                 'tax'                 => array( 'type' => 'text' ) ,
@@ -34,8 +34,8 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
                 'raw_data'            => array( 'type' => 'text' ) ,
                 'check_in_timestamp'  => array( 'type' => 'varchar' , 'length' => 255 ) ,
                 'check_out_timestamp' => array( 'type' => 'varchar' , 'length' => 255 ) ,
-                'user_id'             => array( 'type' => 'int' , 'length' => 11 ) ,
-                'author_id'           => array( 'type' => 'int' , 'length' => 11 ) ,
+                'user_id'             => array( 'type' => 'int' , 'length' => 11 ) ,// Customer ID
+                'author_id'           => array( 'type' => 'int' , 'length' => 11 ) ,// Service's Author ID
                 'deposit'             => array( 'type' => 'text' ) ,
                 'deposit_price'             => array( 'type' => 'varchar' , 'length' => 255 ) ,
                 'created_at'          => array( 'type' => 'varchar' , 'length' => 255 ) ,

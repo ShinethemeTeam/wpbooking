@@ -16,7 +16,7 @@ $service_type = WPBooking_Input::get('wb_service_types',array('accommodation'));
 $report_type=WPBooking_Input::get('report_type','last_7days');
 $start_date=WPBooking_Input::get('date_from');
 $end_date=WPBooking_Input::get('date_to');
-$chart = new WPBooking_Chart();
+$chart = WPBooking_Admin_Order::inst();
 
 $total_sale = $chart->get_total_sale_in_time_range($service_type,$report_type,$start_date, $end_date);
 //var_dump($total_sale);
@@ -83,9 +83,18 @@ $type_array=array(
 			</ul>
 		</div>
 		<div class="report-content">
-			<?php if(empty($report_data)){
+            <?
+
+            ?>
+			<?php
+            $start = strtotime($start_date);
+            $end = strtotime($end_date);
+            $range = $end - $start;
+            if(empty($report_data)){
 				printf('<div class="notice-error"><p>%s</p></div>',esc_html__('There is no data for reporting','wpbooking'));
-			}else{
+			}elseif($range > 0 && ($range/86400) > 90 ){
+                printf('<div class="notice-error"><p>%s</p></div>',esc_html__('Please select a time period not exceeding 90 days','wpbooking'));
+            }else{
                 $total_sale = $chart->total_in_time_range($service_type,'total_sale',$report_type,$start_date, $end_date);
                 $net_profit = $chart->total_in_time_range($service_type,'net_profit',$report_type,$start_date, $end_date);
                 $items = $chart->total_in_time_range($service_type,'items',$report_type,$start_date, $end_date);
