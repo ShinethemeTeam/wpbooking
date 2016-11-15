@@ -6,7 +6,6 @@
     <div class="setup-content">
         <h1 class="text-center"><?php esc_html_e("Service Setup","wpbooking") ?></h1>
         <div class="item_setup <?php echo esc_attr($is_tab) ?>">
-            <h3><?php esc_html_e("Service Room","wpbooking") ?></h3>
             <table class="form-table wpbooking-settings ">
                 <tbody>
                     <tr class="wpbooking-setting-service_type_accommodation_review wpbooking-form-group">

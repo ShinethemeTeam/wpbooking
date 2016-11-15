@@ -884,7 +884,19 @@
 
             }
         }
-
+        @media(max-width: 480px){
+            .review-order-item-img{
+                width: 100%;
+                text-align: center;
+                img{
+                    display: inline;
+                }
+            }
+            .review-order-item-title{
+                text-align: center;
+                width: 100%;
+            }
+        }
         .review-order-item-title{
             display: table;
             .service-name{
@@ -1008,6 +1020,17 @@
             }
             .content_details{
                 display: none;
+            }
+        }
+    }
+    @media(max-width: 480px){
+        .review-order-item-table{
+            .room-image{
+
+            }
+            overflow-x: auto ;
+            &>table{
+                width: 400px;
             }
         }
     }
@@ -2325,6 +2348,9 @@
                             }
                             .room-number{
                                 width: 55%;
+                                .option_number_room{
+                                    padding: 5px 8px;
+                                }
                             }
                             .form-control{
                                 display: block;
@@ -3560,6 +3586,7 @@
         display: block;
         margin-top: 15px;
     }
+
 }
 .wpbooking-coupon-form{
   .form-control{
@@ -3596,6 +3623,11 @@
         font-size: 39px;
         font-weight: bold;
         margin-bottom: 20px;
+    }
+    @media(max-width: 480px){
+        .wpbooking-title{
+            font-size: 25px;
+        }
     }
     .wpbooking-order-detail-page{
         font-size: 14px;
@@ -3634,7 +3666,13 @@
                     }
                 }
             }
-
+            @media(max-width: 991px){
+                .head-info{
+                    &.total{
+                        text-align: left;
+                    }
+                }
+            }
             .bold{
                 font-weight: bold;
 
@@ -3692,6 +3730,12 @@
         }
         .review-cart-total{
             margin: -1px;
+        }
+        @media(max-width: 480px){
+            .review-cart-item{
+                width: 100%;
+                padding-left: 30px;
+            }
         }
     }
     &.customer{
@@ -4685,6 +4729,13 @@
                 .children{
                     display: block;
                 }
+            }
+        }
+    }
+    @media(max-width: 520px){
+        .wb-account-nav{
+            li{
+                width: 100%;
             }
         }
     }
@@ -5703,6 +5754,11 @@
             }
             .control-filter{
                 margin-bottom: 25px;
+                @media(max-width: 991px){
+                    .wb-button{
+                        margin-top: 20px;
+                    }
+                }
             }
         }
         &.dashboard{
@@ -5987,6 +6043,16 @@
 
             border: none;
             color: @maincolor;
+        }
+    }
+}
+@media(max-width: 480px){
+    .tab_history{
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 20px;
+        .wpbooking-account-table{
+            width: 480px;
         }
     }
 }
