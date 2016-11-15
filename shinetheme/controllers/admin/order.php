@@ -364,7 +364,272 @@ if (!class_exists('WPBooking_Admin_Order')) {
 
 		}
 
+        /**
+         * Get time range
+         *
+         * @author tienhd
+         * @since 1.0
+         *
+         * @param string $range
+         * @param bool $start_date
+         * @param bool $end_date
+         * @return array
+         */
+        public function get_time_range($range = '',$start_date = false, $end_date = false){
 
+            $data_range = array();
+            switch($range){
+                case 'this_year':
+                    $current_date = strtotime('now');
+                    $this_year = date('Y');
+                    $start = strtotime($this_year.'-01-01');
+                    while($start < $current_date){
+                        $data_range['label'][] = date('F', $start);
+                        $data_range['range'][] = $start;
+                        $start = strtotime('+1 month',$start);
+                    }
+                    $data_range['range'][]= $current_date;
+                    break;
+                case 'last_year':
+                    $last_year = date('Y',strtotime('-1 year'));
+                    $start = strtotime($last_year.'-01-01');
+                    $end = strtotime($last_year.'-12-31');
+                    while($start < $end){
+                        $data_range['label'][] = date('F', $start);
+                        $data_range['range'][] = $start;
+                        $start = strtotime('+1 month',$start);
+                    }
+                    $data_range['range'][]= $end;
+                    break;
+                case 'today':
+                    $start = strtotime('now midnight');
+                    $end = strtotime('+1 day',$start);
+                    $inti = 0;
+                    while($start < $end){
+                        $data_range['label'][] = $inti.':00';
+                        $data_range['range'][] = $start;
+                        $start = $start + 3600;
+                        $inti++;
+                    }
+                    $data_range['range'][]= $end;
+                    break;
+                case 'yesterday':
+                    $end = strtotime('now midnight');
+                    $start = strtotime('-1 day',$end);
+                    $inti = 0;
+                    while($start < $end){
+                        $data_range['label'][] = $inti.':00';
+                        $data_range['range'][] = $start;
+                        $start = $start + 3600;
+                        $inti++;
+                    }
+                    $data_range['range'][]= $end;
+                    break;
+                case 'this_week':
+                    $current_date = strtotime('now');
+                    $start = strtotime('monday this week midnight',$current_date);
+                    while($start <= $current_date){
+                        $data_range['label'][] = date('Y/m/d', $start);
+                        $data_range['range'][] = $start;
+                        $start = strtotime('+1 day',$start);
+                    }
+                    $data_range['range'][]= $current_date;
+                    break;
+                case 'last_week':
+                    $current_date = strtotime('now');
+                    $monday_this_week = strtotime('monday this week midnight',$current_date);
+                    $start = strtotime('-1 week', $monday_this_week);
+                    $end = strtotime('+6 days', $start);
+                    while($start <= $end){
+                        $data_range['label'][] = date('Y/m/d', $start);
+                        $data_range['range'][] = $start;
+                        $start = strtotime('+1 day',$start);
+                    }
+                    $data_range['range'][]= $end;
+                    break;
+                case 'last_7days':
+                    $current_date = strtotime('now');
+                    $start = strtotime('-1 week midnight',$current_date);
+                    $start = strtotime('+1 day',$start);
+                    while($start <= $current_date){
+                        $data_range['label'][] = date('Y/m/d', $start);
+                        $data_range['range'][] = $start;
+                        $start = strtotime('+1 day',$start);
+                    }
+                    $data_range['range'][]= $current_date;
+                    break;
+                case 'last_30days':
+                    $current_date = strtotime('now');
+                    $start = strtotime('-30 days midnight',$current_date);
+                    while($start <= $current_date){
+                        $data_range['label'][] = date('Y/m/d', $start);
+                        $data_range['range'][] = $start;
+                        $start = strtotime('+1 day',$start);
+                    }
+                    $data_range['range'][]= $current_date;
+                    break;
+                case 'last_60days':
+                    $current_date = strtotime('now');
+                    $start = strtotime('-60 days midnight',$current_date);
+                    while($start <= $current_date){
+                        $data_range['label'][] = date('Y/m/d', $start);
+                        $data_range['range'][] = $start;
+                        $start = strtotime('+1 day',$start);
+                    }
+                    $data_range['range'][]= $current_date;
+                    break;
+                case 'last_90days':
+                    $current_date = strtotime('now');
+                    $start = strtotime('-90 days midnight',$current_date);
+                    while($start <= $current_date){
+                        $data_range['label'][] = date('Y/m/d', $start);
+                        $data_range['range'][] = $start;
+                        $start = strtotime('+1 day',$start);
+                    }
+                    $data_range['range'][]= $current_date;
+                    break;
+                default:
+                    break;
+            }
+            if(!empty($start_date) && !empty($end_date)){
+                $start = strtotime($start_date);
+                $end = strtotime($end_date);
+                if($start > $end){
+                    $data_range['label'][] = date('Y/m/d', $start);
+                    $data_range['range'][] = $start;
+                    $data_range['range'][] = strtotime('+1 day', $start);
+                }else {
+                    while ($start <= $end) {
+                        $data_range['label'][] = date('Y/m/d', $start);
+                        $data_range['range'][] = $start;
+                        $start = strtotime('+1 day', $start);
+                    }
+                    $data_range['range'][] = $end;
+                }
+            }
+            return $data_range;
+        }
+
+        /**
+         * Get total data in time range
+         *
+         * @author tienhd
+         * @since 1.0
+         *
+         * @param $service_type
+         * @param $select
+         * @param $range
+         * @param bool $start_date
+         * @param bool $end_date
+         * @return string
+         */
+        public function total_in_time_range($service_type, $select ,$range, $start_date = false, $end_date = false)
+        {
+
+            $time_range = $this->get_time_range($range, $start_date, $end_date);
+            $res = '0';
+
+            if (!empty($time_range['range'])) {
+                switch($select){
+                    case 'total_sale':
+                        $res = WPBooking_Order_Model::inst()->get_rp_total_sale($service_type,$time_range['range'][0],$time_range['range'][count($time_range['range'])-1]);
+                        break;
+                    case 'net_profit':
+                        $res = WPBooking_Order_Model::inst()->get_rp_total_net_profit($service_type,$time_range['range'][0],$time_range['range'][count($time_range['range'])-1]);
+                        break;
+                    case 'items':
+                        $res = WPBooking_Order_Model::inst()->get_rp_total_items($service_type,$time_range['range'][0],$time_range['range'][count($time_range['range'])-1]);
+                        break;
+                    case 'total_bookings':
+                        $res = WPBooking_Order_Model::inst()->get_rp_total_bookings($service_type,$time_range['range'][0],$time_range['range'][count($time_range['range'])-1]);
+                        break;
+                    case 'completed':
+                    case 'on_hold':
+                    case 'cancelled':
+                    case 'refunded':
+                        $res = WPBooking_Order_Model::inst()->get_rp_items_by_status($service_type,$time_range['range'][0],$time_range['range'][count($time_range['range'])-1],$select);
+                        break;
+                }
+            }
+
+            return $res;
+        }
+
+        /**
+         * Get total sale in time range
+         *
+         * @param $service_type
+         * @param $range
+         * @param bool $start_date
+         * @param bool $end_date
+         * @return array
+         */
+        public function get_total_sale_in_time_range($service_type ,$range, $start_date = false, $end_date = false){
+            $time_range = $this->get_time_range($range, $start_date, $end_date);
+            $res = array();
+            if(!empty($time_range['range'])){
+                $res['label'] = $time_range['label'];
+                foreach ($time_range['label'] as $key => $value) {
+                    $res['data'][] = WPBooking_Order_Model::inst()->get_rp_total_sale($service_type ,$time_range['range'][$key],$time_range['range'][$key+1]);
+                }
+            }
+            if(!empty($res['data'])){
+                foreach($res['data'] as $key => $val){
+                    $res['data'][$key] = (float)$val;
+                }
+            }
+            return $res;
+        }
+        /**
+         * Get net profit in time range
+         *
+         * @param $service_type
+         * @param $range
+         * @param bool $start_date
+         * @param bool $end_date
+         * @return array
+         */
+        public function get_net_profit_in_time_range($service_type ,$range, $start_date = false, $end_date = false){
+            $time_range = $this->get_time_range($range, $start_date, $end_date);
+            $res = array();
+            if(!empty($time_range['range'])){
+                foreach ($time_range['label'] as $key => $value) {
+                    $res[] = WPBooking_Order_Model::inst()->get_rp_total_net_profit($service_type ,$time_range['range'][$key],$time_range['range'][$key+1]);
+                }
+            }
+            if(!empty($res)){
+                foreach($res as $key => $val){
+                    $res[$key] = (float)$val;
+                }
+            }
+            return $res;
+        }
+
+        /**
+         * Get total item booking by status order
+         *
+         * @param $service_type
+         * @param $range
+         * @param $status
+         * @param bool $start_date
+         * @param bool $end_date
+         * @return array
+         */
+        public function get_items_booking_by_status($service_type ,$range, $status, $start_date = false, $end_date = false){
+            $time_range = $this->get_time_range($range, $start_date, $end_date);
+            $res = array();
+            if(!empty($time_range['range'])){
+                foreach ($time_range['label'] as $key => $value) {
+                    $res[] = WPBooking_Order_Model::inst()->get_rp_items_by_status($service_type ,$time_range['range'][$key],$time_range['range'][$key+1],$status);
+                }
+            }
+            if(!empty($res)){
+                foreach($res as $key => $val){
+                    $res[$key] = (float)$val;
+                }
+            }
+            return $res;
+        }
 
 		static function inst()
 		{

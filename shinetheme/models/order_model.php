@@ -15,7 +15,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
 
         public function __construct()
         {
-            $this->table_version = '1.0.0';
+            $this->table_version = '1.0.2';
             $this->table_name    = 'wpbooking_order';
             $this->columns = array(
                 'id'                  => array(
@@ -23,25 +23,26 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
                     'AUTO_INCREMENT' => true
                 ) ,
                 'order_id'            => array( 'type' => 'int' , 'length' => 11 ) ,
-                'post_id'             => array( 'type' => 'int' , 'length' => 11 ) ,
+                'post_id'             => array( 'type' => 'int' , 'length' => 11 ) ,// Service ID
                 'service_type'        => array( 'type' => 'varchar' , 'length' => 255 ) ,
-                'price'               => array( 'type' => 'varchar' , 'length' => 255 ) ,
+                'price'               => array( 'type' => 'float' ) ,// Total Price after calculating, with tax also
                 'discount'            => array( 'type' => 'int' , 'length' => 11 ) ,
                 'extra_fees'          => array( 'type' => 'text' ) ,
                 'tax'                 => array( 'type' => 'text' ) ,
+                'tax_total'           => array( 'type' => 'float' ) ,
                 'currency'            => array( 'type' => 'varchar' , 'length' => 255 ) ,
                 'raw_data'            => array( 'type' => 'text' ) ,
                 'check_in_timestamp'  => array( 'type' => 'varchar' , 'length' => 255 ) ,
                 'check_out_timestamp' => array( 'type' => 'varchar' , 'length' => 255 ) ,
-                'user_id'             => array( 'type' => 'int' , 'length' => 11 ) ,
-                'author_id'           => array( 'type' => 'int' , 'length' => 11 ) ,
+                'user_id'             => array( 'type' => 'int' , 'length' => 11 ) ,// Customer ID
+                'author_id'           => array( 'type' => 'int' , 'length' => 11 ) ,// Service's Author ID
                 'deposit'             => array( 'type' => 'text' ) ,
                 'deposit_price'             => array( 'type' => 'varchar' , 'length' => 255 ) ,
                 'created_at'          => array( 'type' => 'varchar' , 'length' => 255 ) ,
                 'payment_method'      => array( 'type' => 'varchar' , 'length' => 255 ) ,
                 'status'              => array( 'type' => 'varchar' , 'length' => 255 ) ,
-
             );
+
             parent::__construct();
 
         }
@@ -196,6 +197,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
             $row = $this->select('SUM(price) as total_sale')
                 ->where('created_at>=',$start_day)
                 ->where('created_at<=',$end_day)
+                ->where("(status='on_hold' OR status='completed')",false,true)
                 ->where($this->service_where($service_type),false,true)
                 ->get()->row();
 
@@ -217,6 +219,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
             $row = $this->select('COUNT(DISTINCT post_id) as items')
                 ->where('created_at>=',$start_day)
                 ->where('created_at<=',$end_day)
+                ->where("(status='on_hold' OR status='completed')",false,true)
                 ->where($this->service_where($service_type),false,true)
                 ->get()->row();
             return (!empty($row['items']))?$row['items']:'0';
@@ -236,6 +239,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
             $row = $this->select('COUNT(*) as total_bookings')
                 ->where('created_at>=',$start_day)
                 ->where('created_at<=',$end_day)
+                ->where("(status='on_hold' OR status='completed')",false,true)
                 ->where($this->service_where($service_type),false,true)
                 ->get()->row();
             return (!empty($row['total_bookings']))?$row['total_bookings']:'0';
@@ -252,12 +256,20 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
          * @return string
          */
         function get_rp_total_net_profit($service_type,$start_day, $end_day){
-            $row = $this->select('COUNT(*) as net_profit')
+            $total_price = $this->get_rp_total_sale($service_type,$start_day, $end_day);
+
+            $row = $this->select('SUM(tax_total) as tax_total')
                 ->where('created_at>=',$start_day)
                 ->where('created_at<=',$end_day)
+                ->where("(status='on_hold' OR status='completed')",false,true)
                 ->where($this->service_where($service_type),false,true)
                 ->get()->row();
-            return (!empty($row['net_profit']))?$row['net_profit']:'0';
+
+            $tax_total = (!empty($row['tax_total']))?$row['tax_total']:0;
+
+            $net_profit = (float)$total_price - (float)$tax_total;
+
+            return $net_profit;
         }
 
         /**
@@ -276,8 +288,8 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
             $row = $this->select('COUNT(*) as '.$status)
                 ->where('created_at>=',$start_day)
                 ->where('created_at<=',$end_day)
-                ->where($this->service_where($service_type),false,true)
                 ->where('status',$status)
+                ->where($this->service_where($service_type),false,true)
                 ->get()->row();
             return (!empty($row[$status]))?$row[$status]:'0';
         }

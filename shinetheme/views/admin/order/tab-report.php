@@ -16,7 +16,7 @@ $service_type = WPBooking_Input::get('wb_service_types',array('accommodation'));
 $report_type=WPBooking_Input::get('report_type','last_7days');
 $start_date=WPBooking_Input::get('date_from');
 $end_date=WPBooking_Input::get('date_to');
-$chart = new WPBooking_Chart();
+$chart = WPBooking_Admin_Order::inst();
 
 $total_sale = $chart->get_total_sale_in_time_range($service_type,$report_type,$start_date, $end_date);
 //var_dump($total_sale);
@@ -83,9 +83,18 @@ $type_array=array(
 			</ul>
 		</div>
 		<div class="report-content">
-			<?php if(empty($report_data)){
+            <?
+
+            ?>
+			<?php
+            $start = strtotime($start_date);
+            $end = strtotime($end_date);
+            $range = $end - $start;
+            if(empty($report_data)){
 				printf('<div class="notice-error"><p>%s</p></div>',esc_html__('There is no data for reporting','wpbooking'));
-			}else{
+			}elseif($range > 0 && ($range/86400) > 90 ){
+                printf('<div class="notice-error"><p>%s</p></div>',esc_html__('Please select a time period not exceeding 90 days','wpbooking'));
+            }else{
                 $total_sale = $chart->total_in_time_range($service_type,'total_sale',$report_type,$start_date, $end_date);
                 $net_profit = $chart->total_in_time_range($service_type,'net_profit',$report_type,$start_date, $end_date);
                 $items = $chart->total_in_time_range($service_type,'items',$report_type,$start_date, $end_date);
@@ -135,8 +144,141 @@ $type_array=array(
                         </td>
                     </tr>
                 </table>
+                <div class="wb-chart-report">
+                    <canvas id="wb-chart"></canvas>
+                </div>
                 <?php
-                echo '<div class="wb-chart-report"><canvas id="wb-chart"></canvas></div>';
+                $data_total_sale = $chart->get_total_sale_in_time_range($service_type,$report_type,$start_date,$end_date);
+                $data_net_profit = $chart->get_net_profit_in_time_range($service_type,$report_type,$start_date,$end_date);
+                $data_refunded = $chart->get_items_booking_by_status($service_type,$report_type,'refunded',$start_date,$end_date);
+                $data_completed = $chart->get_items_booking_by_status($service_type,$report_type,'completed',$start_date,$end_date);
+                $data_on_hold = $chart->get_items_booking_by_status($service_type,$report_type,'on_hold',$start_date,$end_date);
+                $data_cancelled = $chart->get_items_booking_by_status($service_type,$report_type,'cancelled',$start_date,$end_date);
+                ?>
+                <script type="text/javascript">
+                    jQuery(function(){
+                        var ctx= jQuery("#wb-chart");
+                        if(ctx.length !== 0) {
+                            var st_chart = new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: <?php echo json_encode($data_total_sale['label']); ?>,
+                                    datasets: [
+                                        {
+                                            label: 'Total sale',
+                                            type: 'line',
+                                            data: <?php echo json_encode($data_total_sale['data']); ?>,
+                                            borderColor: 'red',
+                                            fill: false,
+                                            yAxisID: "y-axis-2",
+                                            backgroundColor: "white",
+                                            borderColor: "#f7941d",
+                                            borderCapStyle: 'butt',
+                                            borderDash: [],
+                                            borderDashOffset: 5,
+                                            borderJoinStyle: 'miter',
+                                            pointBorderColor: "#f7941d",
+                                            pointBackgroundColor: "#fff",
+                                            pointBorderWidth: 1,
+                                            pointHoverRadius: 5,
+                                            pointHoverBackgroundColor: "white",
+                                            pointHoverBorderColor: "#f7941d",
+                                            pointHoverBorderWidth: 2,
+                                            pointRadius: 1,
+                                            pointHitRadius: 10,
+
+                                        },
+                                        {
+                                            label: 'Net profit',
+                                            type: 'line',
+                                            data: <?php echo json_encode($data_net_profit); ?>,
+                                            borderColor: 'orange',
+                                            fill: false,
+                                            yAxisID: "y-axis-2",
+                                            backgroundColor: "white",
+                                            borderColor: "rgba(75,192,192,1)",
+                                            borderCapStyle: 'butt',
+                                            borderDash: [],
+                                            borderDashOffset: 0.0,
+                                            borderJoinStyle: 'miter',
+                                            pointBorderColor: "rgba(75,192,192,1)",
+                                            pointBackgroundColor: "#fff",
+                                            pointBorderWidth: 1,
+                                            pointHoverRadius: 5,
+                                            pointHoverBackgroundColor: "white",
+                                            pointHoverBorderColor: "rgba(75,192,192,1)",
+                                            pointHoverBorderWidth: 2,
+                                            pointRadius: 1,
+                                            pointHitRadius: 10,
+                                        },
+                                        {
+                                            label: 'Refunded',
+                                            data: <?php echo json_encode($data_refunded); ?>,
+                                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                            yAxisID: "y-axis-1",
+                                        },
+                                        {
+                                            label: 'Cancelled',
+                                            data: <?php echo json_encode($data_cancelled); ?>,
+                                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                                            yAxisID: "y-axis-1",
+                                        },
+                                        {
+                                            label: 'On hold',
+                                            data: <?php echo json_encode($data_on_hold); ?>,
+                                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                            fill: false,
+                                            yAxisID: "y-axis-1",
+                                        }, {
+                                            label: 'Completed',
+                                            data: <?php echo json_encode($data_completed); ?>,
+                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            fill: false,
+                                            yAxisID: "y-axis-1",
+                                        },
+                                    ],
+                                },
+                                options: {
+                                    multiTooltipTemplate: "<%%=datasetLabel%> : <%%= value %>",
+                                    responsive: true,
+                                    ShowVerticalLines: false,
+                                    title: {
+                                        display: false,
+                                        text: '2016 bookings report',
+                                        fontSize: 18,
+                                        padding: 20,
+                                    },
+                                    tooltips: {
+                                        mode: "label",
+                                    },
+                                    scales: {
+                                        xAxes: [{
+                                            stacked: true,
+                                            gridLines: {
+                                                display: false,
+                                            }
+                                        }],
+                                        yAxes: [{
+                                            display: true,
+                                            position: "left",
+                                            id: "y-axis-1",
+                                            stacked: true,
+                                            scaleLabel: "fs",
+                                        },
+                                            {
+                                                display: true,
+                                                position: "right",
+                                                id: "y-axis-2",
+
+                                            }]
+                                    }
+                                }
+                            });
+                        }
+                    });
+                </script>
+                <?php
+
             } ?>
 		</div>
 	</form>
