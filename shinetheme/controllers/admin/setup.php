@@ -99,19 +99,6 @@ if(!class_exists('WPBooking_Admin_Setup'))
                         exit;
                         break;
                     case "wp_booking":
-                        $page_cart  = get_page_by_title( 'Wpbooking Cart' );
-                        if(empty($page_cart)){
-                            $my_post = array(
-                                'post_title'   => "Wpbooking Cart" ,
-                                'post_content' => "[wpbooking_cart_page]" ,
-                                'post_status'  => 'publish' ,
-                                'post_type'    => 'page' ,
-                            );
-                            $post_id = wp_insert_post( $my_post );
-                            update_option("wpbooking_cart_page",$post_id);
-                        }else{
-                            update_option("wpbooking_cart_page",$page_cart->ID);
-                        }
                         $page_check_out  = get_page_by_title( 'Wpbooking Checkout' );
                         if(empty($page_cart)){
                             $my_post = array(
@@ -125,20 +112,19 @@ if(!class_exists('WPBooking_Admin_Setup'))
                         }else{
                             update_option("wpbooking_checkout_page",$page_check_out->ID);
                         }
-                        $page_check_form  = get_page_by_title( 'Wpbooking Check Out Form 1' ,'OBJECT' , "wpbooking_form" );
-                        if(empty($page_check_form)){
-                            $content =  self::_get_template_default("check_out_form");
-                            $my_post = array(
-                                'post_title'   => "Wpbooking Check Out Form 1" ,
-                                'post_content' => $content ,
-                                'post_status'  => 'publish' ,
-                                'post_type'    => 'wpbooking_form' ,
-                            );
-                            $post_id = wp_insert_post( $my_post );
-                            update_option("wpbooking_checkout_form",$post_id);
-                        }else{
-                            update_option("wpbooking_checkout_form",$page_check_form->ID);
-                        }
+                        $key_request = "wpbooking_allow_captcha_google_checkout";
+                        $value_request = WPBooking_Input::request($key_request);
+                        update_option($key_request,$value_request);
+
+                        $key_request = "wpbooking_google_key_captcha";
+                        $value_request = WPBooking_Input::request($key_request);
+                        update_option($key_request,$value_request);
+
+                        $key_request = "wpbooking_google_secret_key_captcha";
+                        $value_request = WPBooking_Input::request($key_request);
+                        update_option($key_request,$value_request);
+
+
                         update_option("wpbooking_allow_guest_checkout",WPBooking_Input::request('wpbooking_allow_guest_checkout'));
                         wp_redirect( add_query_arg( array('page'=>'wpbooking_setup_page_settings','wp_step'=>'wp_email') , admin_url("admin.php") ) );
                         exit;
@@ -146,17 +132,21 @@ if(!class_exists('WPBooking_Admin_Setup'))
                     case "wp_email":
                         update_option("wpbooking_email_from",WPBooking_Input::request('wpbooking_email_from'));
                         update_option("wpbooking_email_from_address",WPBooking_Input::request('wpbooking_email_from_address'));
+                        update_option("wpbooking_system_email",WPBooking_Input::request('wpbooking_system_email'));
+
                         update_option("wpbooking_on_booking_email_customer",WPBooking_Input::request('wpbooking_on_booking_email_customer',0));
-                        update_option("wpbooking_on_booking_email_author",WPBooking_Input::request('wpbooking_on_booking_email_author',0));
                         update_option("wpbooking_on_booking_email_admin",WPBooking_Input::request('wpbooking_on_booking_email_admin',0));
+
                         update_option("wpbooking_on_registration_email_customer",WPBooking_Input::request('wpbooking_on_registration_email_customer',0));
                         update_option("wpbooking_on_registration_email_admin",WPBooking_Input::request('wpbooking_on_registration_email_admin',0));
-                        update_option("email_header",self::_get_template_default("email_header"));
-                        update_option("email_footer",self::_get_template_default("email_footer"));
+
+                        update_option("wpbooking_email_header",self::_get_template_default("email_header"));
+                        update_option("wpbooking_email_footer",self::_get_template_default("email_footer"));
                         update_option("wpbooking_email_stylesheet",self::_get_template_default("css"));
+
                         update_option("wpbooking_email_to_customer",self::_get_template_default("booking_email_customer"));
-                        update_option("wpbooking_email_to_partner",self::_get_template_default("booking_email_author"));
                         update_option("wpbooking_email_to_admin",self::_get_template_default("booking_email_admin"));
+
                         update_option("wpbooking_registration_email_customer",self::_get_template_default("registration_email_customer"));
                         update_option("wpbooking_registration_email_admin",self::_get_template_default("registration_email_admin"));
 
@@ -167,47 +157,26 @@ if(!class_exists('WPBooking_Admin_Setup'))
                         ///////////////////
                         /////Room//////////
                         ///////////////////
-                        update_option("wpbooking_service_type_room_enable_review",WPBooking_Input::request('wpbooking_service_type_room_enable_review',0));
-                        update_option("wpbooking_service_type_room_review_without_booking",WPBooking_Input::request('wpbooking_service_type_room_review_without_booking',0));
-                        update_option("wpbooking_service_type_room_show_rate_review_button",WPBooking_Input::request('wpbooking_service_type_room_show_rate_review_button',0));
-                        update_option("wpbooking_service_type_room_allowed_review_on_own_listing",WPBooking_Input::request('wpbooking_service_type_room_allowed_review_on_own_listing',0));
-                        update_option("wpbooking_service_type_room_allowed_vote_for_own_review",WPBooking_Input::request('wpbooking_service_type_room_allowed_vote_for_own_review',0));
-                        update_option("wpbooking_service_type_room_review_stats",array(
-                            array(
-                                'title'=>'Location'
-                            ),
-                            array(
-                                'title'=>'View'
-                            ),
-                            array(
-                                'title'=>'Meal'
-                            ),
-                            array(
-                                'title'=>'Sleep'
-                            ),
-                            array(
-                                'title'=>'Cleaness'
-                            ),
-                            array(
-                                'title'=>'Quality Service'
-                            )
-                        ));
-                        update_option("wpbooking_service_type_room_maximum_review",1);
-                        $page_order_form  = get_page_by_title( 'Wpbooking Order Form 1' ,'OBJECT' , "wpbooking_form" );
-                        if(empty($page_order_form)){
-                            $content =   self::_get_template_default("order_form");
-                            $my_post = array(
-                                'post_title'   => "Wpbooking Order Form 1" ,
-                                'post_content' => $content ,
-                                'post_status'  => 'publish' ,
-                                'post_type'    => 'wpbooking_form' ,
-                            );
-                            $post_id = wp_insert_post( $my_post );
-                            update_option("wpbooking_service_type_room_order_form",$post_id);
-                        }else{
-                            update_option("wpbooking_service_type_room_order_form",$page_order_form->ID);
+                        update_option("wpbooking_service_type_accommodation_enable_review",WPBooking_Input::request('wpbooking_service_type_accommodation_enable_review',0));
+                        update_option("wpbooking_service_type_accommodation_review_without_booking",WPBooking_Input::request('wpbooking_service_type_accommodation_review_without_booking',0));
+                        update_option("wpbooking_service_type_accommodation_show_rate_review_button",WPBooking_Input::request('wpbooking_service_type_accommodation_show_rate_review_button',0));
+                        update_option("wpbooking_service_type_accommodation_allowed_review_on_own_listing",WPBooking_Input::request('wpbooking_service_type_accommodation_allowed_review_on_own_listing',0));
+                        update_option("wpbooking_service_type_accommodation_allowed_vote_for_own_review",WPBooking_Input::request('wpbooking_service_type_accommodation_allowed_vote_for_own_review',0));
+
+                        $ids = array();
+                        foreach(array(
+                                    'Clean Service',
+                                    'Location',
+                                    'Sleep',
+                                    'View',
+                                ) as $k=>$v){
+                            $q=wp_insert_term($v,'wpbooking_review_stats');
+
+                            $ids[] = $q['term_id'];
                         }
-                        update_option("wpbooking_service_type_room_posts_per_page",10);
+                        update_option("wpbooking_service_type_accommodation_review_stats",$ids);
+                        update_option("wpbooking_service_type_accommodation_maximum_review",1);
+                        update_option("wpbooking_service_type_accommodation_posts_per_page",10);
                         wp_redirect( add_query_arg( array('page'=>'wpbooking_setup_page_settings','wp_step'=>'wp_payment') , admin_url("admin.php") ) );
                         exit;
                         break;
@@ -227,349 +196,562 @@ if(!class_exists('WPBooking_Admin_Setup'))
             $html = "";
             switch($style){
                 case "css":
-                    $html = '    .template {
-                                    background: #F1F1F1;
-                                    font-family: tahoma;
-                                    padding: 50px 0px;
-                                }
+                    $html = '    
+.color_black{
+    color:black;
+}
+.font_italic{
+    font-style:italic;
+}
+.completed{
+    border: 1px solid #669966;
+    color: #669966;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 10px;
+    display: inline-block;
+    margin-top: -3px;
+}
+.failed{
+   border: 1px solid red;
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 10px;  
+    display: inline-block;
+    margin-top: -3px;
+}
+.on_hold{
+     border: 1px solid #f0ad4e;
+    color: #f0ad4e;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 10px;
+    display: inline-block;
+    margin-top: -3px;
+}
+.col-10{
+    float:left;
+    width:100%;
+} 
+.col-5{
+    float:left;
+    width:50%;
+} 
+.col-7{
+    float:left;
+    width:70%;
+} 
+.col-3{
+    float:left;
+    width:30%;
+} 
+.col-2{
+    float:left;
+    width:20%;
+} 
+.float-right{
+    float:right;
+}
+.bold{
+    font-weight:bold;
+}
+.head-info{
+    margin-bottom:20px;   
+}
+.head-info-content-hl{
+     color: #f0ad4e;
+}
+.head-info-total-price{
+    text-align:right;
+    
+}
+.head-info-total-price .head-info-title{
+     color: #666666;
+    display: block;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight:bold;
+}
+.head-info-total-price .head-info-content{
+    color: #333333;
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+}
+.content-row {
+	overflow:hidden;
+}
+table{
+    width:100%;
+    font-size: 13px;
+}
+h3{
+    margin:0px;
+    padding:0px 0px 10px 0px;
+}
+h4{
+    margin:0px;
+    padding:0px 0px 10px 0px;
+}
+.room-image img{
+    width:50px;
+}
+.text-center{
+    text-align:center;
+}
+.service_info td{
+    vertical-align: top;
+}
+table {
+    border-collapse: collapse;
+}
 
-                                .email-template {
-                                    width: 100%;
-                                    text-align: center;
-                                    background: #f2f2f2;
-                                }
+table, th, td {
+    border: 1px solid #ccc;
+}
+.extra-service{
+    margin-top:10px;
+}
+.btn_detail_checkout {
+    color: #f0ad4e;
+    font-size: 13px;
+    font-style: italic;
+    font-weight: normal;
+    margin-top: 20px;
+}
+.customer{
+    margin-top:30px;
+}
+.customer label{
+    font-weight: bold;
+}
+.btn_history{
+    background: #f0ad4e none repeat scroll 0 0;
+    border: 1px solid #ff9933 !important;
+    border-radius: 0;
+    color: white;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: normal;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: 5px 20px;
+    text-decoration: none;
+    text-transform: none;
+}
+.color{
+    color:#f0ad4e;
+}
+.content-total{
+    width: 50%; float: right;
+}
+.total-title,.total-amount{
+    display: inline-block; width: 50%;
+    margin-bottom: 20px;
+}
+.total-amount{
+    float:right;
+}
+.total-title{
+    text-align:left;
+}
 
-                                .email-header {
-                                    padding-top: 50px;
-                                    padding-bottom: 25px;
-                                }
 
-                                .email-header h2 {
-                                    font-size: 30px;
-                                }
 
-                                .email-footer {
-                                    padding-top: 50px;
-                                    padding-bottom: 60px;
-                                    font-size: 15px;
-                                    font-style: italic;
-                                    line-height: 25px;
-                                }
 
-                                .email-footer a {
-                                    margin-left: 10px;
-                                    margin-right: 10px;
-                                }
 
-                                .email-footer img {
-                                    width: 22px;
-                                    height: 22px;
-                                }
 
-                                .content {
-                                    background: white;
-                                    width: 600px;
-                                    margin: 0px auto;
-                                    border-radius: 4px;
-                                    padding: 20px;
-                                    padding: 20px 70px 50px;
-                                    border-radius: 0;
-                                    color: #000;
-                                    font-size: 15px;
-                                    text-align: left;
-                                }
 
-                                .header {
-                                    margin: -20px;
-                                    background: #0073aa;
-                                    padding: 15px 25px;
-                                    margin-bottom: 40px;
-                                }
 
-                                .header h1 {
-                                    color: white;
-                                    text-transform: uppercase;
-                                    font-size: 30px;
-                                }
 
-                                .footer {
-                                    margin: -20px;
-                                    background: #ECECEC;
-                                    padding: 5px 10px;
-                                    margin-top: 40px;
-                                    color: #737373;
-                                }
+.template {
+	background: #F1F1F1;
+	font-family: tahoma;
+	padding: 50px 0px;
+}
 
-                                table, tr {
-                                    border-top: 1px solid #ccc;
-                                    border-left: 1px solid #ccc;
-                                    background: white;
-                                }
+.email-template {
+	width: 100%;
+	text-align: center;
+	background: #f2f2f2;
+}
 
-                                td, th {
-                                    border-right: 1px solid #ccc;
-                                    border-bottom: 1px solid #ccc;
-                                    color: #737373;
-                                    padding: 12px;
-                                }
+.email-header {
+	padding-top: 50px;
+	padding-bottom: 25px;
+}
 
-                                .review-cart-total:before,
-                                .review-cart-total:after {
-                                    display: table;
+.email-header h2 {
+	font-size: 30px;
+}
 
-                                }
+.email-footer {
+	padding-top: 50px;
+	padding-bottom: 60px;
+	font-size: 15px;
+	font-style: italic;
+	line-height: 25px;
+}
 
-                                .review-cart-total:after {
-                                    clear: both;
-                                }
+.email-footer a {
+	margin-left: 10px;
+	margin-right: 10px;
+}
 
-                                .review-cart-total .total-title {
-                                    clear: both;
-                                    font-size: 14px;
-                                    float: left;
-                                    margin-top: 10px;
-                                }
+.email-footer img {
+	width: 22px;
+	height: 22px;
+}
 
-                                .review-cart-total .total-amount {
-                                    font-size: 14px;
-                                    color: #666666;
-                                    float: right;
-                                    margin-top: 10px;
-                                }
+.content {
+	background: white;
+	width: 600px;
+	margin: 0px auto;
+	border-radius: 4px;
+	padding: 20px;
+	padding: 20px 70px 50px;
+	border-radius: 0;
+	color: #000;
+	font-size: 15px;
+	text-align: left;
+	overflow:auto;
+}
 
-                                .review-cart-total .total-amount.big {
-                                    font-size: 20px;
-                                    margin-top: 5px;
-                                }
+.header {
+	margin: -20px;
+	background: #0073aa;
+	padding: 15px 25px;
+	margin-bottom: 40px;
+}
 
-                                .review-cart-total .total-line {
-                                    clear: both;
-                                    height: 1px;
-                                    width: 100%;
-                                    background: #333;
-                                    margin: 10px 0px;
-                                    display: block;
-                                    margin-top: 15px;
-                                }
+.header h1 {
+	color: red;
+	text-transform: uppercase;
+	font-size: 30px;
+}
 
-                                .label {
-                                    display: inline;
-                                    padding: .2em .6em .3em;
-                                    font-size: 75%;
-                                    font-weight: bold;
-                                    line-height: 1;
-                                    color: #fff;
-                                    text-align: center;
-                                    white-space: nowrap;
-                                    vertical-align: baseline;
-                                    border-radius: .25em;
-                                }
+.footer {
+	margin: -20px;
+	background: #ECECEC;
+	padding: 5px 10px;
+	margin-top: 40px;
+	color: #737373;
+}
 
-                                a.label:hover, a.label:focus {
-                                    color: #fff;
-                                    text-decoration: none;
-                                    cursor: pointer;
-                                }
+table, tr {
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	background: white;
+}
 
-                                .label:empty {
-                                    display: none;
-                                }
+td, th {
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	
+	padding: 8px;
+}
 
-                                .btn .label {
-                                    position: relative;
-                                    top: -1px;
-                                }
+.review-cart-total:before,
+.review-cart-total:after {
+	display: table;
 
-                                .label-default {
-                                    background-color: #777;
-                                }
+}
 
-                                .label-default[href]:hover, .label-default[href]:focus {
-                                    background-color: #5e5e5e;
-                                }
+.review-cart-total:after {
+	clear: both;
+}
 
-                                .label-primary {
-                                    background-color: #337ab7;
-                                }
+.review-cart-total .total-title {
+	clear: both;
+	font-size: 14px;
+	float: left;
+	margin-top: 10px;
+}
 
-                                .label-primary[href]:hover, .label-primary[href]:focus {
-                                    background-color: #286090;
-                                }
+.review-cart-total .total-amount {
+	font-size: 14px;
+	color: #666666;
+	float: right;
+	margin-top: 10px;
+}
 
-                                .label-success {
-                                    background-color: #5cb85c;
-                                }
+.review-cart-total .total-amount.big {
+	font-size: 20px;
+	margin-top: 5px;
+}
 
-                                .label-success[href]:hover, .label-success[href]:focus {
-                                    background-color: #449d44;
-                                }
+.review-cart-total .total-line {
+	clear: both;
+	height: 1px;
+	width: 100%;
+	background: #333;
+	margin: 10px 0px;
+	display: block;
+	margin-top: 15px;
+}
 
-                                .label-info {
-                                    background-color: #5bc0de;
-                                }
+.label {
+	display: inline;
+	padding: .2em .6em .3em;
+	font-size: 75%;
+	font-weight: bold;
+	line-height: 1;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em;
+}
 
-                                .label-info[href]:hover, .label-info[href]:focus {
-                                    background-color: #31b0d5;
-                                }
+a.label:hover, a.label:focus {
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+}
 
-                                .label-warning {
-                                    background-color: #f0ad4e;
-                                }
+.label:empty {
+	display: none;
+}
 
-                                .label-warning[href]:hover, .label-warning[href]:focus {
-                                    background-color: #ec971f;
-                                }
+.btn .label {
+	position: relative;
+	top: -1px;
+}
 
-                                .label-danger {
-                                    background-color: #d9534f;
-                                }
+.label-default {
+	background-color: #777;
+}
 
-                                .label-danger[href]:hover, .label-danger[href]:focus {
-                                    background-color: #c9302c;
-                                }
+.label-default[href]:hover, .label-default[href]:focus {
+	background-color: #5e5e5e;
+}
 
-                                /*email comment*/
-                                .title {
-                                    font-size: 28px;
-                                    margin-bottom: 17px;
-                                }
+.label-primary {
+	background-color: #337ab7;
+}
 
-                                .title-approved {
-                                    color: #6aa84f;
-                                    font-size: 28px;
-                                    margin-bottom: 17px;
-                                }
+.label-primary[href]:hover, .label-primary[href]:focus {
+	background-color: #286090;
+}
 
-                                .title-disapproved {
-                                    color: #cc4125;
-                                    font-size: 28px;
-                                    margin-bottom: 17px;
-                                }
+.label-success {
+	background-color: #5cb85c;
+}
 
-                                .content-header {
-                                    margin-bottom: 40px;
-                                    text-align: center;
-                                }
+.label-success[href]:hover, .label-success[href]:focus {
+	background-color: #449d44;
+}
 
-                                .content-header p {
-                                    line-height: 25px;
-                                    font-style: italic;
-                                }
+.label-info {
+	background-color: #5bc0de;
+}
 
-                                .content-center {
-                                    background: #fafafa;
-                                    padding: 20px 15px;
-                                    text-align: center;
-                                    font-style: italic;
-                                }
+.label-info[href]:hover, .label-info[href]:focus {
+	background-color: #31b0d5;
+}
 
-                                .content .content-center a {
-                                    color: #F0AD4E;
-                                }
+.label-warning {
+	background-color: #f0ad4e;
+}
 
-                                .content-center .icon {
-                                    font-size: 45px;
-                                    line-height: 1;
-                                }
+.label-warning[href]:hover, .label-warning[href]:focus {
+	background-color: #ec971f;
+}
 
-                                .content-center .comment {
-                                    margin-top: 0px;
-                                    margin-bottom: 22px;
-                                    font-style: italic;
-                                }
+.label-danger {
+	background-color: #d9534f;
+}
 
-                                .content-center .review {
-                                    font-style: italic;
-                                }
+.label-danger[href]:hover, .label-danger[href]:focus {
+	background-color: #c9302c;
+}
 
-                                .review-score {
-                                    display: table;
-                                    width: 50%;
-                                    list-style: none;
-                                    text-align: left;
-                                    margin: 0 auto;
-                                }
+/*email comment*/
+.title {
+	font-size: 28px;
+	margin-bottom: 17px;
+}
 
-                                .review-score li {
-                                    display: table-row;
-                                    line-height: 2;
-                                }
+.title-approved {
+	color: #6aa84f;
+	font-size: 28px;
+	margin-bottom: 17px;
+}
 
-                                .review-score li span {
-                                    display: table-cell;
-                                }
+.title-disapproved {
+	color: #cc4125;
+	font-size: 28px;
+	margin-bottom: 17px;
+}
 
-                                .review-score li .score {
-                                    color: #F0AD4E;
-                                }
+.content-header {
+	margin-bottom: 40px;
+	text-align: center;
+}
 
-                                .content-footer {
-                                    margin: 30px 30px 0;
-                                    text-align: center;
-                                }
+.content-header p {
+	line-height: 25px;
+	font-style: italic;
+}
 
-                                .content-footer .btn.btn-default {
-                                    padding: 15px;
-                                    background: #F0AD4E;
-                                    color: #FFF;
-                                    text-decoration: none;
-                                    display: inline-block;
-                                }
+.content-center {
+	background: #fafafa;
+	padding: 20px 15px;
+	text-align: center;
+	font-style: italic;
+}
 
-                                .content-footer .comment_link {
-                                    display: block;
-                                    margin-top: 15px;
-                                    font-style: italic;
-                                }
+.content .content-center a {
+	color: #F0AD4E;
+}
 
-                                .content-footer .comment_link a {
-                                    color: #F0AD4E;
-                                }
+.content-center .icon {
+	font-size: 45px;
+	line-height: 1;
+}
+
+.content-center .comment {
+	margin-top: 0px;
+	margin-bottom: 22px;
+	font-style: italic;
+}
+
+.content-center .review {
+	font-style: italic;
+}
+
+.review-score {
+	display: table;
+	width: 50%;
+	list-style: none;
+	text-align: left;
+	margin: 0 auto;
+}
+
+.review-score li {
+	display: table-row;
+	line-height: 2;
+}
+
+.review-score li span {
+	display: table-cell;
+}
+
+.review-score li .score {
+	color: #F0AD4E;
+}
+
+.content-footer {
+	margin: 30px 30px 0;
+	text-align: center;
+}
+
+.content-footer .btn.btn-default {
+	padding: 15px;
+	background: #F0AD4E;
+	color: #FFF;
+	text-decoration: none;
+	display: inline-block;
+}
+
+.content-footer .comment_link {
+	display: block;
+	margin-top: 15px;
+	font-style: italic;
+}
+
+.content-footer .comment_link a {
+	color: #F0AD4E;
+}
 
                                 ';
                     break;
+                case "booking_email_customer":
+                    $html  = '
+<div class=content>
+    <h2> Hello [name_customer]!</h2>
+    <h2> Your booking status is [order_status]</h2>
+    <span class=font_italic> Below is your booking information</span>
+    <br><br><br><br>
+    <div class=content-row>
+        <div class=col-7>
+            <div class=head-info>
+                <span class=head-info-title>Booking code :</span>
+                <span class=head-info-content-hl>[order_id]</span>
+            </div>
+            <div class=head-info>
+                <span class=head-info-title>Payment method:</span>
+                <span class=head-info-content >[order_payment_gateway]</span>
+            </div>
+        </div>
+        <div class=col-3>
+            <div class=head-info-total-price>
+                <span class=head-info-title>Total</span>
+                <br>
+                <span class=head-info-content>[order_total]</span>
+            </div>
+        </div>
+    </div>
+    <h2> YOUR BOOKING INFORMATION </h2>
+    <div>[order_table]</div>
+    <div class=customer>
+        <div class=title>
+            <h5>CUSTOMER INFORMATION:</h5>
+        </div>
+        [checkout_info]
+    </div>
+</div>';
+                    break;
                 case "booking_email_admin":
-                    $html  = '<div class=template>
-                               <div class=content>
-                                    <div class=header>
-                                       <h1>Order Information</h1>
-                                     </div>
-                            <h2>Dear Admin <h2>
-                            <p>          Here are information of your booking</p>
-                            <p>Order ID: [order_id]</p>
-                            <p>Order Status:[order_status]</p>
-                            <p>Booking Date:[order_date]</p>
-                            <p>Payment Gateway:[order_payment_gateway]</p>
-                            <p>Total:[order_total]</p>
-                                     [order_table]
-                                       <br>
-                                       <br>
-                                       [checkout_info]
-                                       <br>
-                                       <br>
-                                       <h3>Seperate Checkout Field</h3>
-                                     <p>Name: <strong>[checkout_form_field name=first_name] [checkout_form_field name=last_name]</strong></p>
-                            <p>Email: <strong>[checkout_form_field name=user_email]</strong></p>
-                            <p>Phone: <strong>[checkout_form_field name=phone]</strong></p>
-                                     <div class=footer>
-                                       <p>Generated by <a href="#">WPBooking</a> Plugin</p>
-                                     </div>
-                                </div>
-                            </div>';
+                    $html  = '
+<div class=content>
+    <h2> Hello Admin!</h2>
+<h4>[name_customer] have just booked a room on your System. </h4>
+ <span class=font_italic>Below is booking information:</span><br><br><br><br>
+    <div class=content-row>
+        <div class=col-7>
+            <div class=head-info>
+                <span class=head-info-title>Booking code :</span>
+                <span class=head-info-content-hl>[order_id]</span>
+            </div>
+            <div class=head-info>
+                <span class=head-info-title>Payment method:</span>
+                <span class=head-info-content >[order_payment_gateway]</span>
+            </div>
+        </div>
+        <div class=col-3>
+            <div class=head-info-total-price>
+                <span class=head-info-title>Total</span>
+                <br>
+                <span class=head-info-content>[order_total]</span>
+            </div>
+        </div>
+    </div>
+    <h2>BOOKING INFORMATION </h2>
+    <div>[order_table]</div>
+    <div class=customer>
+        <div class=title>
+           <h5>CUSTOMER INFORMATION:</h5>
+        </div>
+        [checkout_info]
+    </div>
+</div>';
                     break;
                 case "registration_email_customer":
-                    $html = '<div class=content>
-                                    <div class=content-header>
-                                       <h3 class=title-approved >Registration Successful<h1>
-                                       <p class=description>Hello <strong>[user_login]</strong>, Thank you for registration.<br>Here are your account information:</p>
-                                     </div>
-                                     <div class=content-center>
-                                         Username: <strong>[user_login]</strong><br><br>
-                                         Password: [user_pass]<br><br>
-                                         Email: [user_email]<br><br>
-                                         Profile URL: [profile_url]<br><br>
-                                     </div>
-                                </div>';
+                    $html = '
+<div class=content>
+    <div class=content-header>
+       <h3 class=title-approved >Registration Successful<h1>
+       <p class=description>Hello <strong>[user_login]</strong>, Thank you for registration.<br>Here are your account information:</p>
+     </div>
+     <div class=content-center>
+         Username: <strong>[user_login]</strong><br><br>
+         Password: [user_pass]<br><br>
+         Email: [user_email]<br><br>
+         Profile URL: [profile_url]<br><br>
+     </div>
+</div>';
                     break;
                 case "registration_email_admin":
                     $html = '<div class=content>
@@ -584,48 +766,11 @@ if(!class_exists('WPBooking_Admin_Setup'))
                                      </div>
                                 </div>';
                     break;
-                case "check_out_form":
-                    $html = '<div class="row">
-                                            <div class="col-sm-6">[wpbooking_form_first_name is_required="on" title="First name" ]</div>
-                                            <div class="col-sm-6">[wpbooking_form_last_name is_required="on" title="Last name" ]</div>
-                                        </div>
-
-                                        [wpbooking_form_text title="Company Name" name="company-name" ]
-
-                                        <div class="row">
-                                            <div class="col-sm-6">[wpbooking_form_user_email is_required="on" title="Email address" ]</div>
-                                            <div class="col-sm-6">[wpbooking_form_text is_required="on" title="Phone" name="phone" ]</div>
-                                        </div>
-
-                                        [wpbooking_form_country_dropdown is_required="on" title="Country" name="country" ]
-
-                                        [wpbooking_form_text is_required="on" title="Address" name="address" ]
-
-                                        <div class="row">
-                                            <div class="col-sm-6">[wpbooking_form_text  title="Postcode / ZIP" name="postcode" ]</div>
-                                            <div class="col-sm-6">[wpbooking_form_text  title="Apt/ Unit" name="apt_unit" ]</div>
-                                        </div>
-
-                                        [wpbooking_form_textarea title="Order Note" name="order_note" placeholder="Notes about your order, e.g special note for delivery" ]';
-                    break;
-                case "order_form":
-                    $html = '[wpbooking_form_extra_services title="Extra Services" ]
-
-                            [wpbooking_form_check_in is_required="on" title="Check In" ]
-
-                            [wpbooking_form_check_out is_required="on" title="Check Out" ]
-
-                            [wpbooking_form_guest is_required="on" title="Guest" ]
-
-                            [wpbooking_form_submit_button label="Book Now" ]';
-                    break;
                 case "email_header":
                     $html = '<div class=email-template>
                                 <div class=email-header>
                                     <h2 class=email-title>WPBOOKING</h2>
-                                </div>
-
-                            ';
+                                </div>';
                     break;
                 case "email_footer":
                     $html = '<div class=email-footer>
@@ -636,8 +781,7 @@ if(!class_exists('WPBooking_Admin_Setup'))
                                 <p>Copyright © WP Booking. All rights reserved.<br>
                                    1000 Abcdefg Streets, Klmnopq , QW 9981</p>
                             </div>
-                        </div>
-                            ';
+                        </div>';
                     break;
             }
             return $html;

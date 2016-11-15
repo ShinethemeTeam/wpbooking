@@ -27,6 +27,15 @@
                         <i class="wpbooking-desc"></i>
                     </td>
                 </tr>
+                <tr class="wpbooking_system_email">
+                    <th scope="row">
+                        <label for="system_email"><?php esc_html_e("System Email to get Booking, Registration Notification...etc:","wpbooking") ?></label>
+                    </th>
+                    <td>
+                        <input id="wpbooking_system_email" class="form-control  min-width-500" value="" name="wpbooking_system_email" placeholder="system@domain.com"  type="text">
+                        <i class="wpbooking-desc"></i>
+                    </td>
+                </tr>
                 <tr class="wpbooking_on_booking_email_customer wpbooking-form-group  ">
                     <th scope="row">
                         <label for="on_booking_email_customer"><?php esc_html_e("Enable Email To Customer:","wpbooking") ?></label>
@@ -39,18 +48,6 @@
                         <i class="wpbooking-desc"></i>
                     </td>
                 </tr>
-                <tr class="wpbooking_on_booking_email_author wpbooking-form-group  ">
-                    <th scope="row">
-                        <label for="on_booking_email_author"><?php esc_html_e("Enable Email To Author:","wpbooking") ?></label>
-                    </th>
-                    <td>
-                        <label>
-                            <input type="checkbox" value="1" checked="" name="wpbooking_on_booking_email_author" class="form-control min-width-500" id="wpbooking_on_booking_email_author">
-                            <?php esc_html_e("Enable Email To Author","wpbooking") ?>		</label>
-                        <i class="wpbooking-desc"></i>
-                    </td>
-                </tr>
-
                 <tr class="wpbooking_on_booking_email_admin wpbooking-form-group  ">
                     <th scope="row">
                         <label for="on_booking_email_admin"><?php esc_html_e("Enable Email To Admin:","wpbooking") ?></label>
