@@ -262,12 +262,17 @@ $type_array=array(
                                             stacked: true,
                                             scaleLabel: "fs",
                                         },
-                                            {
-                                                display: true,
-                                                position: "right",
-                                                id: "y-axis-2",
+                                        {
+                                            display: true,
+                                            position: "right",
+                                            id: "y-axis-2",
+                                            ticks: {
+                                                callback: function(value, index, values) {
+                                                    return value.toLocaleString("en-US",{style:"currency", currency:"<?php echo WPBooking_Currency::get_current_currency('currency')?>"});
+                                                }
+                                            }
 
-                                            }]
+                                        }]
                                     }
                                 }
                             });
