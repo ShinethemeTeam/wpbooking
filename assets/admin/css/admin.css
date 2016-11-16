@@ -3851,7 +3851,7 @@ label[for=wpbooking_room_typediv-hide] {
     width: 100%;
   }
 }
-@media (max-width: 1150px) {
+@media (max-width: 1200px) {
   .desc_section_metabox {
     display: none;
   }
@@ -3884,6 +3884,9 @@ label[for=wpbooking_room_typediv-hide] {
   .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
     float: left;
   }
+  .wpbooking-row .wpbooking-col-sm-6 {
+    width: 100%;
+  }
 }
 @media (max-width: 800px) {
   .wb-section-navigation .button {
@@ -3899,6 +3902,9 @@ label[for=wpbooking_room_typediv-hide] {
   }
   .wb-section-navigation .button {
     height: 48px;
+  }
+  .st-metabox-tabs-content .form-control.small {
+    width: 100%;
   }
 }
 .st-metabox-tabs .st-metabox-nav li {

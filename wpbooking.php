@@ -183,9 +183,9 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
                 'booking_required_adult'          => __('Please select adult number', 'wpbooking'),
                 'booking_required_children'       => __('Please select children number', 'wpbooking'),
                 'booking_required_adult_children' => __('Please select Adult and  Children number', 'wpbooking'),
-                'is_not_select_date'              => __('Please select Check-in and Check-out date', 'wpbooking'),
-                'is_not_select_check_in_date'     => __('Please select Check-in date', 'wpbooking'),
-                'is_not_select_check_out_date'    => __('Please select Check-out date', 'wpbooking'),
+                'is_not_select_date'              => __('To see price details, please select check-in and check-out date.', 'wpbooking'),
+                'is_not_select_check_in_date'     => __('Select check-in date please.', 'wpbooking'),
+                'is_not_select_check_out_date'    => __('Pleas select check-out date.', 'wpbooking'),
                 'loading_url'     => admin_url('/images/wpspin_light.gif'),
             ));
         }

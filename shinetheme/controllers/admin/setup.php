@@ -142,6 +142,7 @@ if(!class_exists('WPBooking_Admin_Setup'))
 
                         update_option("wpbooking_email_header",self::_get_template_default("email_header"));
                         update_option("wpbooking_email_footer",self::_get_template_default("email_footer"));
+
                         update_option("wpbooking_email_stylesheet",self::_get_template_default("css"));
 
                         update_option("wpbooking_email_to_customer",self::_get_template_default("booking_email_customer"));
@@ -171,8 +172,9 @@ if(!class_exists('WPBooking_Admin_Setup'))
                                     'View',
                                 ) as $k=>$v){
                             $q=wp_insert_term($v,'wpbooking_review_stats');
-
-                            $ids[] = $q['term_id'];
+                            if(!is_wp_error($q)){
+                                $ids[] = $q['term_id'];
+                            }
                         }
                         update_option("wpbooking_service_type_accommodation_review_stats",$ids);
                         update_option("wpbooking_service_type_accommodation_maximum_review",1);

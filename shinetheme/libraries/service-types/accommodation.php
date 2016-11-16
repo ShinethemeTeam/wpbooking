@@ -16,7 +16,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         {
             $this->type_info = array(
                 'label' => __("Accommodation", 'wpbooking'),
-                'desc'  => esc_html__('Chỗ nghỉ cho khách du lịch, thường có nhà hàng, phòng họp và các dịch vụ khác dành cho khách', 'wpbooking')
+                'desc'  => esc_html__('Traveler accommodation, often a restaurant, meeting rooms and other services for guests', 'wpbooking')
             );
 
             $this->settings = array(
@@ -497,7 +497,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         array(
                             'label' => __("Space", 'wpbooking'),
                             'type'  => 'title',
-                            'desc'  => esc_html__("Chúng tôi hiển thị kích thước phòng cho khách", "wpbooking")
+                            'desc'  => esc_html__("We display size guest room", "wpbooking")
                         ),
                         array(
                             'label' => __('What is your preferred  unit of measurement?', 'wpbooking'),
@@ -509,7 +509,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             ),
                             'std'   => 'metres',
                             'class' => 'radio_pro',
-                            'desc'  => esc_html__("Chọn đơn vị đo lường ưa thích của bạn", "wpbooking")
+                            'desc'  => esc_html__("Select the preferred unit of measure your", "wpbooking")
                         ),
                         array(
                             'label'  => __('Room size', 'wpbooking'),
@@ -802,7 +802,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'taxonomy' => 'wb_hotel_room_type',
                     'parent'   => 0,
                     'class'    => 'small',
-                    'desc'  => __("Dựa vào tiện nghi của phòng, hãy chọn 1 kiểu chính xác nhất.", 'wpbooking'),
+                    'desc'  => __("Based on the comfort of the room, choose one style most accurate.", 'wpbooking'),
                 ),
                 array(
                     'label' => esc_html__('Room Number', 'wpbooking'),
@@ -858,7 +858,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 array(
                     'type'  => 'title',
                     'label' => __('Extra Services', 'wpbooking'),
-                    'desc'  => esc_html__('Thiết lập các dịch vụ mở rộng cho tài sản của bạn', 'wpbooking')
+                    'desc'  => esc_html__('Set the extended services for your property', 'wpbooking')
                 ),
                 array(
                     'type'           => 'extra_services',
@@ -1113,7 +1113,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $result = array(
                         'status'  => 0,
                         'data'    => '',
-                        'message' => __('Không tìm thấy room nào !', 'wpbooking'),
+                        'message' => __('Our system not found any room from your searching. You can change search now.', 'wpbooking'),
                         'status_message' => 'default',
                     );
                     echo json_encode($result);
@@ -1867,7 +1867,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                     wpbooking_set_message(sprintf("You can not check-out at: %s", 'wpbooking'), date(get_option('date_format'), $check_out_timestamp));
                                 }
                                 if (!empty($res['unavailable_dates'])) {
-                                    $message = esc_html__('Bạn không thể book "%s" vào ngày: %s', 'wpbooking');
+                                    $message = esc_html__('You can not book "%s" on: %s', 'wpbooking');
                                     $not_avai_string = FALSE;
                                     $not_avai_string .= date(get_option('date_format'), $res['unavailable_dates']);
                                     wpbooking_set_message(sprintf($message, get_the_title($room_id) , $not_avai_string), 'error');
@@ -1889,7 +1889,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             $is_validated = FALSE;
                             $message = '';
                             foreach($ids_room_not_availability as $k_not_availability=>$value_not_availability){
-                                $message .= sprintf(esc_html__('Bạn không thể book. Room Type "%s" chỉ còn %s phòng trống!', 'wpbooking','error'), $value_not_availability['title'], $value_not_availability['number'])."</br>";
+                                //$message .= sprintf(esc_html__('Bạn không thể book. Room Type "%s" chỉ còn %s phòng trống!', 'wpbooking','error'), $value_not_availability['title'], $value_not_availability['number'])."</br>";
+                                $message = esc_html__("Number of room you booking is not enough, please change your search.","wpbooking");
                             }
                             wpbooking_set_message($message, 'error');
                             return $is_validated;
@@ -1934,22 +1935,22 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             }
 
             if(empty($check_in) and empty($check_out)){
-                wpbooking_set_message(esc_html__("Please select Check-in and Check-out date","wpbooking"),'error');
+                wpbooking_set_message(esc_html__("To see price details, please select check-in and check-out date.","wpbooking"),'error');
                 $is_validated = FALSE;
                 return $is_validated;
             }
             if(empty($check_in)){
-                wpbooking_set_message(esc_html__("Please select Check-in date","wpbooking"),'error');
+                wpbooking_set_message(esc_html__("Select check-in date please.","wpbooking"),'error');
                 $is_validated = FALSE;
                 return $is_validated;
             }
             if(empty($check_out)){
-                wpbooking_set_message(esc_html__("Please select Check-out date","wpbooking"),'error');
+                wpbooking_set_message(esc_html__("Pleas select check-out date.","wpbooking"),'error');
                 $is_validated = FALSE;
                 return $is_validated;
             }
             if(empty($check_number_room)){
-                wpbooking_set_message(esc_html__("Vui lòng chọn một hoặc nhiều phòng mà bạn muốn đặt.","wpbooking"),'error');
+                wpbooking_set_message(esc_html__("Please select number of room.","wpbooking"),'error');
                 $is_validated = FALSE;
                 return $is_validated;
             }
@@ -1957,7 +1958,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $adult = $this->post('wpbooking_adults');
             if($total_number_room > $adult){
                 $is_validated = FALSE;
-                $message = esc_html__('Bạn không thể book số phòng lớn hơn số người lớn!', 'wpbooking');
+                $message = esc_html__('Number of rooms bookable can not more than number of adults.', 'wpbooking');
                 wpbooking_set_message($message, 'error');
                 return $is_validated;
             }
@@ -1976,7 +1977,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 }
 
                 if($check_out_timestamp < $check_in_timestamp){
-                    wpbooking_set_message(esc_html__("Ngày check out phải sau ngày check in","wpbooking"),'error');
+                    wpbooking_set_message(esc_html__("Day after day check out to check in","wpbooking"),'error');
                     $is_validated = FALSE;
                     return $is_validated;
                 }
@@ -1987,7 +1988,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $dDiff = wpbooking_timestamp_diff_day($check_in_timestamp, $check_out_timestamp);
                     if ($dDiff < $minimum_stay) {
                         $is_validated = FALSE;
-                        wpbooking_set_message(sprintf(esc_html__('Minimum stay is %s night(s)', 'wpbooking'), $minimum_stay), 'error');
+                        wpbooking_set_message(sprintf(esc_html__('This %s required minimum stay is %s night(s)', 'wpbooking'),$service->get_type(), $minimum_stay), 'error');
                         return $is_validated;
                     }
                 }
@@ -2008,7 +2009,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                 wpbooking_set_message(sprintf("You can not check-out at: %s", 'wpbooking'), date(get_option('date_format'), $check_out_timestamp),'error');
                             }
                             if (!empty($res['unavailable_dates'])) {
-                                $message = esc_html__('Bạn không thể book "%s" vào ngày: %s', 'wpbooking','error');
+                                $message = esc_html__('You can not book "%s" on: %s', 'wpbooking','error');
                                 $not_avai_string = FALSE;
                                 $not_avai_string .= date(get_option('date_format'), $res['unavailable_dates']);
                                 wpbooking_set_message(sprintf($message, get_the_title($room_id) , $not_avai_string), 'error');
@@ -2030,7 +2031,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         $is_validated = FALSE;
                         $message = '';
                         foreach($ids_room_not_availability as $k_not_availability=>$value_not_availability){
-                            $message .= sprintf(esc_html__('Bạn không thể book. Room Type "%s" chỉ còn %s phòng trống!', 'wpbooking','error'), $value_not_availability['title'], $value_not_availability['number'])."</br>";
+                            //$message .= sprintf(esc_html__('Bạn không thể book. Room Type "%s" chỉ còn %s phòng trống!', 'wpbooking','error'), $value_not_availability['title'], $value_not_availability['number'])."</br>";
+                            $message = esc_html__("Number of room you booking is not enough, please change your search.","wpbooking");
                         }
                         wpbooking_set_message($message, 'error');
                         return $is_validated;
