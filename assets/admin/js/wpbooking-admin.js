@@ -1816,14 +1816,10 @@ jQuery(document).ready(function( $ ){
             var elm = $(this).find('.wb-row-actions');
             elm.addClass('none');
             $(this).hover(function () {
-                if(elm.hasClass('none')){
-                    elm.removeClass('none');
-                }else{
-                    elm.addClass('none');
-                }
+                elm.removeClass('none');
+            },function(){
+                elm.addClass('none');
             });
         });
     });
-
-
 });

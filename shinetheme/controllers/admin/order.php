@@ -504,7 +504,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 day', $start);
                     }
-                    $data_range['range'][] = $end;
+                    $data_range['range'][] = strtotime('+1 day', $end);
                 }
             }
             return $data_range;
