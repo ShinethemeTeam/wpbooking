@@ -9,7 +9,7 @@ global $wpdb;
 $paged = ( WPBooking_Input::get('page_number') ) ? WPBooking_Input::get('page_number') : 1;
 $args=array(
 	'post_type'=>'wpbooking_order',
-	'posts_per_page'=>5,
+	'posts_per_page'=>20,
     'paged' => $paged,
     'status' => 'any'
 );
