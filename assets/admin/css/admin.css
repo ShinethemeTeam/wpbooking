@@ -664,6 +664,9 @@ img.settings-demo-image-gallery {
   display: block;
   margin-bottom: 10px;
 }
+.wpbooking-settings .div_taxonomy .taxonomy option[value="wpbooking_review_stats"] {
+  display: none;
+}
 .wpbooking-settings .button-secondary.hover,
 .wpbooking-settings .button-secondary:hover,
 .wpbooking-settings .button-secondary.focus,

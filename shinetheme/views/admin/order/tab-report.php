@@ -90,7 +90,7 @@ $type_array=array(
             if(empty($report_data)){
 				printf('<div class="notice-error"><p>%s</p></div>',esc_html__('There is no data for reporting','wpbooking'));
 			}elseif($range > 0 && ($range/86400) > 90 ){
-                printf('<div class="notice-error"><p>%s</p></div>',esc_html__('Please select a time period not exceeding 90 days','wpbooking'));
+                printf('<div class="notice-error"><p>%s</p></div>',esc_html__('Please select a time period not exceed 90 days','wpbooking'));
             }else{
                 $total_sale = $chart->total_in_time_range($service_type,'total_sale',$report_type,$start_date, $end_date);
                 $net_profit = $chart->total_in_time_range($service_type,'net_profit',$report_type,$start_date, $end_date);
