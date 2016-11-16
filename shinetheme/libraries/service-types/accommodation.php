@@ -2662,6 +2662,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             $total_price = WPBooking_Checkout_Controller::inst()->get_cart_total(array('without_tax'=>false));
             $total_tax = 0;
+            $tax_total = 0;
 
             if(!empty($cart['tax']) and !empty($cart['rooms'])){
                 $number_room = 0;
@@ -2701,11 +2702,13 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         if($value['excluded'] == 'yes_not_included'){
                             $total_tax += $price;
                         }
+                        $tax_total += $price;
                         $tax[$key]['price'] = floatval($price);
                     }
                 }
             }
             $tax['total_price'] = $total_tax;
+            $tax['tax_total'] = $tax_total;
             return $tax;
         }
 

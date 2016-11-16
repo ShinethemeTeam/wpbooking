@@ -6,7 +6,7 @@
  * Time: 8:46 AM
  */
 global $wpdb;
-$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+$paged = ( WPBooking_Input::get('page_number') ) ? WPBooking_Input::get('page_number') : 1;
 $args=array(
 	'post_type'=>'wpbooking_order',
 	'posts_per_page'=>20,
@@ -184,7 +184,7 @@ $query=new WP_Query($args);
                             </span>
                             <span class="wb-price-total">
                                 <?php
-                                echo '<strong>'.WPBooking_Currency::format_money($order->get_total()).'</strong><br>';
+                                echo '<strong>'.WPBooking_Currency::format_money($order_data['price']).'</strong><br>';
                                 if($dr_price = $order->get_deposit_and_remain_html()){
                                     echo '<span class="wb-deposit-remain">( '.$dr_price.' )</span>';
                                 }
@@ -238,7 +238,6 @@ $query=new WP_Query($args);
 		</table>
 		<div class="wpbooking-paginate">
 			<?php
-
 			echo paginate_links(array(
 				'base'=>admin_url('admin.php').'%_%',
 				'total'=>$query->max_num_pages,
@@ -246,7 +245,6 @@ $query=new WP_Query($args);
 				'format'=>'?page_number=%#%',
 				'add_args'=>array()
 			));
-
 			wp_reset_postdata();
 
             $inject->clear();

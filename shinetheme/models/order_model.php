@@ -197,7 +197,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
             $row = $this->select('SUM(price) as total_sale')
                 ->where('created_at>=',$start_day)
                 ->where('created_at<=',$end_day)
-                ->where("(status='on_hold' OR status='completed')",false,true)
+                ->where("(status='on_hold' OR status='completed' OR status='completed_a_part')",false,true)
                 ->where($this->service_where($service_type),false,true)
                 ->get()->row();
 
@@ -219,7 +219,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
             $row = $this->select('COUNT(DISTINCT post_id) as items')
                 ->where('created_at>=',$start_day)
                 ->where('created_at<=',$end_day)
-                ->where("(status='on_hold' OR status='completed')",false,true)
+                ->where("(status='on_hold' OR status='completed' OR status='completed_a_part')",false,true)
                 ->where($this->service_where($service_type),false,true)
                 ->get()->row();
             return (!empty($row['items']))?$row['items']:'0';
@@ -239,7 +239,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
             $row = $this->select('COUNT(*) as total_bookings')
                 ->where('created_at>=',$start_day)
                 ->where('created_at<=',$end_day)
-                ->where("(status='on_hold' OR status='completed')",false,true)
+                ->where("(status='on_hold' OR status='completed' OR status='completed_a_part')",false,true)
                 ->where($this->service_where($service_type),false,true)
                 ->get()->row();
             return (!empty($row['total_bookings']))?$row['total_bookings']:'0';
@@ -261,7 +261,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
             $row = $this->select('SUM(tax_total) as tax_total')
                 ->where('created_at>=',$start_day)
                 ->where('created_at<=',$end_day)
-                ->where("(status='on_hold' OR status='completed')",false,true)
+                ->where("(status='on_hold' OR status='completed' OR status='completed_a_part')",false,true)
                 ->where($this->service_where($service_type),false,true)
                 ->get()->row();
 

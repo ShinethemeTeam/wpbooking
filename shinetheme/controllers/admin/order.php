@@ -388,7 +388,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 month',$start);
                     }
-                    $data_range['range'][]= $current_date;
+                    $data_range['range'][]= strtotime('+1 day midnight',$current_date);
                     break;
                 case 'last_year':
                     $last_year = date('Y',strtotime('-1 year'));
@@ -399,7 +399,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 month',$start);
                     }
-                    $data_range['range'][]= $end;
+                    $data_range['range'][]= strtotime('+1 day midnight',$end);
                     break;
                 case 'today':
                     $start = strtotime('now midnight');
@@ -433,7 +433,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 day',$start);
                     }
-                    $data_range['range'][]= $current_date;
+                    $data_range['range'][]= strtotime('+1 day midnight',$current_date);
                     break;
                 case 'last_week':
                     $current_date = strtotime('now');
@@ -456,7 +456,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 day',$start);
                     }
-                    $data_range['range'][]= $current_date;
+                    $data_range['range'][]= strtotime('+1 day midnight',$current_date);
                     break;
                 case 'last_30days':
                     $current_date = strtotime('now');
@@ -466,7 +466,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 day',$start);
                     }
-                    $data_range['range'][]= $current_date;
+                    $data_range['range'][]= strtotime('+1 day midnight',$current_date);
                     break;
                 case 'last_60days':
                     $current_date = strtotime('now');
@@ -476,7 +476,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 day',$start);
                     }
-                    $data_range['range'][]= $current_date;
+                    $data_range['range'][]= strtotime('+1 day midnight',$current_date);
                     break;
                 case 'last_90days':
                     $current_date = strtotime('now');
@@ -486,7 +486,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 day',$start);
                     }
-                    $data_range['range'][]= $current_date;
+                    $data_range['range'][]= strtotime('+1 day midnight',$current_date);
                     break;
                 default:
                     break;
@@ -504,7 +504,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 day', $start);
                     }
-                    $data_range['range'][] = strtotime('+1 day', $end);
+                    $data_range['range'][] = strtotime('+1 day midnight', $end);
                 }
             }
             return $data_range;

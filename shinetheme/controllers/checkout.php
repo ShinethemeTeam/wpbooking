@@ -591,6 +591,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $cart = $this->get_cart();
             $total_price = $this->get_cart_total(array('without_tax'=>false));
             $total_tax = 0;
+            $tax_total = 0;
             $service_type = $cart['service_type'];
             if(!empty($cart['tax'])){
                 foreach($cart['tax'] as $key => $value){
@@ -609,11 +610,15 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                         if($value['excluded'] == 'yes_not_included'){
                             $total_tax += $price;
                         }
+
+                        $tax_total += (float)$price;
+
                         $tax[$key]['price'] = floatval($price);
                     }
                 }
             }
             $tax['total_price'] = $total_tax;
+            $tax['tax_total'] = $tax_total;
             $tax = apply_filters('wpbooking_get_cart_tax_price', $tax, $cart);
             $tax = apply_filters('wpbooking_get_cart_tax_price_'.$service_type, $tax, $cart);
             return $tax;

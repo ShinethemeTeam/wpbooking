@@ -509,6 +509,13 @@ img.settings-demo-image-gallery{
             margin-bottom: 10px;
         }
     }
+  .div_taxonomy{
+    .taxonomy{
+      option[value="wpbooking_review_stats"]{
+        display: none;
+      }
+    }
+  }
 }
 .wpbooking-settings .button-secondary.hover, .wpbooking-settings .button-secondary:hover, .wpbooking-settings .button-secondary.focus, .wpbooking-settings .button-secondary:focus {
     background: #9b3221 none repeat scroll 0 0;
@@ -3778,7 +3785,31 @@ label[for=wpbooking_room_typediv-hide]
           border-color: #252525;
         }
       }
+      @media (max-width: 1554px ) {
+        a{
+          height: auto;
+          background: transparent;
+          padding: 0 3px;
+          border: 0;
+          border-right: 1px solid #ccc;
+          box-shadow: none;
+          border-radius: 0;
+          line-height: 14px;
+          color: #0073aa;
+          &:hover{
+            background: transparent;
+            text-decoration: underline;
+
+          }
+        }
+        span:last-child{
+          a{
+            border: none;
+          }
+        }
+      }
     }
+
   }
   .check-column{
     padding: 12px 0 8px;

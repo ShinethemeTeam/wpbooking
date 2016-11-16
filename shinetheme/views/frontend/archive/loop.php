@@ -52,10 +52,7 @@
 									</div>
 								<?php } ?>
 							</div>
-							<div class="wb-score-review">
-								<?php echo $service->get_review_score(); ?>
-							</div>
-							<?php do_action('wpbooking_after_service_address_rate', get_the_ID(), $service->get_type(), $service) ?>
+							<?php do_action('wpbooking_after_service_address', get_the_ID(), $service->get_type(), $service) ?>
 						</div>
 						<div class="service-price-book-now">
 							<div class="service-price">

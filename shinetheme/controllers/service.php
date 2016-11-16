@@ -101,6 +101,15 @@ if (!class_exists('WPBooking_Service_Controller')) {
              * @author dungdt
              */
             add_action('pre_get_posts',array($this,'_filter_main_query'));
+
+            /**
+             * Add latest booking and review score in loop service
+             *
+             * @since 1.0
+             * @author tienhd
+             */
+            add_action('wpbooking_after_service_address', array($this,'_latest_booking_html'), 10 ,3);
+            add_action('wpbooking_after_service_address', array($this,'_review_score_html'), 15 ,3);
         }
 
 
@@ -693,6 +702,28 @@ if (!class_exists('WPBooking_Service_Controller')) {
             }
 
             return $this->all_services_instance[$post_id];
+        }
+
+        /**
+         * @param $post_id
+         * @param $service_type
+         * @param $service
+         */
+        function _latest_booking_html($post_id, $service_type, $service){
+            if(!empty($post_id)){
+                ?>
+
+                <?php
+            }
+        }
+        function _review_score_html($post_id, $service_type, $service){
+            if(!empty($post_id)){
+                ?>
+                <div class="wb-score-review">
+                    <?php echo $service->get_review_score(); ?>
+                </div>
+            <?php
+            }
         }
 
 		static function inst()

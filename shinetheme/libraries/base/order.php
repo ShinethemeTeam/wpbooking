@@ -150,7 +150,7 @@ if (!class_exists('WB_Order')) {
         {
             if ($this->order_id) {
                 $order_data = $this->get_order_data();
-                $total = $this->get_total();
+                $total = $order_data['price'];
                 $deposit = $order_data['deposit_price'];
                 $remain = $total - $deposit;
                 if(!empty($deposit)){
@@ -199,7 +199,7 @@ if (!class_exists('WB_Order')) {
                 update_post_meta($order_id, 'discount', $cart['discount']);
                 update_post_meta($order_id, 'extra_fees', array());
                 update_post_meta($order_id, 'tax',$tax);
-                update_post_meta($order_id, 'tax_total',$tax['total_price']);
+                update_post_meta($order_id, 'tax_total',$tax['tax_total']);
                 update_post_meta($order_id, 'currency', WPBooking_Currency::get_current_currency('currency'));
                 update_post_meta($order_id, 'raw_data', array());
                 update_post_meta($order_id, 'check_in_timestamp', $cart['check_in_timestamp']);
