@@ -29,11 +29,10 @@
 			?>
 			<li <?php post_class('loop-item') ?>>
 				<div class="content-item">
-					<div class="service-thumbnail">
-						<?php
-						echo $service->get_featured_image('thumb');
-						?>
-					</div>
+                    <?php
+                    $thumb_bg = WPBooking_Assets::build_css_class('background: url('.$service->get_featured_image('gallery_url').') ; background-size: cover; background-position: center');
+                    ?>
+					<div class="service-thumbnail <?php echo esc_attr($thumb_bg); ?>"></div>
 					<div class="service-content">
 						<div class="service-content-inner">
 							<h3 class="service-title"><a

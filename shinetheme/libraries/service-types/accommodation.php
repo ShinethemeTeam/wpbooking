@@ -573,7 +573,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'class' => 'small'
                         ),
                         array(
-                            'label' => __('Select deposit optional', 'wpbooking'),
+                            'label' => __('Deposit payment amount', 'wpbooking'),
                             'id'    => 'deposit_payment_amount',
                             'type'  => 'number',
                             'desc'  => esc_html__("Leave empty for disallow deposit payment", "wpbooking"),

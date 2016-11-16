@@ -465,6 +465,15 @@
             }
         }
     }
+  @media (max-width: 1199px){
+    .col-post-found, .col-loop-order, .search-title{
+      width: 100%;
+      padding: 0;
+    }
+    &{
+      margin-bottom: 20px;
+    }
+  }
 
 }
 
@@ -519,71 +528,6 @@
                 float: left;
               }
 
-                .service-gallery{
-                    position: relative;
-                    margin-bottom: 20px;
-                    .service-fav{
-                        position: absolute;
-                        top:10px;
-                        right: 15px;
-                        z-index: 2;
-                        padding-left: 1px;
-                        i{
-                            font-size: 24px;
-                            color: #e6e6e6;
-                            //position: absolute;
-                            left:3px;
-                            top:2px;
-                            text-shadow: 0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white,0px 0px 2px white;
-                            &.icon-bg{
-                                color: white;
-                                position: static;
-                                font-size: 28px;
-                                display: none;
-                            }
-
-                        }
-                        &:focus,&:active{
-                            outline: none;
-                        }
-                        &.active,&:hover{
-                            i{
-                                color: @maincolor;
-                            }
-                        }
-                    }
-                    .service-author{
-                        position: absolute;
-                        left: 13px;
-                        bottom: -15px;
-                        z-index: 4;
-                        img{
-                            max-width: 44px;
-                            border:2px solid white;
-                            border-radius: 50%;
-                            height: auto;
-                        }
-                    }
-                    .owl-prev{
-                        position: absolute;
-                        color: white;
-                        top: 30%;
-                        left: 0px;
-                        font-size: 30px;
-                        font-weight: normal;
-                        padding:0px 15px;
-                    }
-                    .owl-next{
-                        position: absolute;
-                        color: white;
-                        top: 30%;
-                        right: 0px;
-                        font-size: 30px;
-                        font-weight: normal;
-                        padding:0px 15px;
-                    }
-                }
-
                 .service-content{
                     .service-title{
                         margin: 0 0 5px;
@@ -637,36 +581,16 @@
                         .service-book-now{
                             display: inline-block;
                             float: right;
-                            .wb-btn-primary{
-                                color: white;
-                                background: #f0ad4e;
-                                font-size: 12px;
-                                text-transform: uppercase;
-                                font-weight: normal;
-                                border:1px solid #ff9933;
-                                border-radius: 0px;
-                                padding-top: 5px;
-                                padding-bottom: 5px;
-                            }
-                        }
-                    }
-                    .wpbooking-room-type{
-                        margin-top: -11px;
-                        a{
-                            font-size: 12px;
-                            color: #999999;
-                            border:1px solid #999999;
-                            border-radius: 3px;
-                            padding: 2px 5px;
-                            display: inline-block;
-                            &:hover,&:focus{
-                                text-decoration: none;
-                            }
                         }
                     }
 
+
                 }
+
+
             }
+
+          //responsive
 
         }
 
@@ -679,14 +603,9 @@
                 .content-item{
                     .clearfix;
                     position: relative;
-                    .service-gallery{
-                        width: 44%;
-                        float: left;
-                        margin-bottom: 10px;
-                    }
                   .service-thumbnail{
                     float: left;
-                    @media (min-width: 639px) {
+                    @media (min-width: 640px) {
                       &{
                         width: 150px;
                         height: auto;
@@ -725,6 +644,55 @@
                             }
                         }
                     }
+                  //responsive
+                  @media (max-width: 1199px) {
+                    &{
+                      box-shadow: 0px 1px 1px #ccc;
+                      .service-content{
+                        .service-content-inner{
+                          width: 100%;
+                          .wb-score-review{
+                            position: relative;
+                            bottom: -10px;
+                          }
+                        }
+                        .service-price-book-now{
+                          width: 100%;
+                          margin-top: 15px;
+                          border-top: 1px solid #DDD;
+                          .service-price{
+                            width: 100%;
+                            margin-bottom: 0;
+                            margin-top: 5px;
+                            br{
+                              display: none;
+                            }
+                            span{
+                              display: inline;
+                            }
+                          }
+                          .service-book-now{
+                            display: none;
+                          }
+                        }
+                      }
+                    }
+
+                  }
+                  @media (max-width: 639px) {
+                    .service-thumbnail{
+                      width: 25%;
+                      position: absolute;
+                      bottom: 10px;
+                      left: 10px;
+                      top: 10px;
+                    }
+                    .service-content{
+                      padding-left: 10px;
+                      margin-left: 25%;
+                      width: 75%;
+                    }
+                  }
                 }
             }
         }
@@ -1580,6 +1548,7 @@
   list-style: none;
   display: inline-flex;
   margin-bottom: 0;
+  margin-left: 0;
   li{
     background: #f2f2f2;
     display: inline-flex;
@@ -1673,91 +1642,8 @@
             }
         }
 
-        .wb-service-gallery-map{
-            margin-bottom: 30px;
-            .service-title{
-                font-size: 30px;
-                margin-top: 50px;
-                color: #333;
-                margin-bottom: 15px;
-                font-weight: normal;
-            }
-            .service-address-rate{
-                .clearfix;
-                margin-bottom: 10px;
-                .service-rate{
-                    font-size: 13px;
-                    display: inline-block;
-                    .rating-stars
-                    {
-                        a{
-                            color: #ff9966;
-                            margin-right: 3px;
-                        }
-                    }
-                    .rating-count{
-                        margin-left: 5px;
-                    }
-                }
-            }
-            .wpbooking-room-type{
-                a{
-                    font-size: 14px;
-                    color: #333;
-                    border-radius: 2px;
-                    border:1px solid #ddd;
-                    padding:2px 5px;
-                    &:hover{
-                        text-decoration: none;
-                    }
-
-                }
-            }
-            .service-gallery-single{
-                .clearfix;
-                margin-left: -2px;
-                margin-right: -2px;
-                .gallery-item{
-                    float: left;
-                    width: 33%;
-                    padding:2px;
-                    position: relative;
-                    cursor: pointer;
-                    img{
-                        max-width: 100%;
-                    }
-
-                    .hover-tag{
-                        display: none;
-                        position: absolute;
-                        top:2px;
-                        right:2px;
-                        left: 2px;
-                        bottom: 2px;
-                        background: rgba(0,0,0,0.5);
-                        text-align: center;
-                        border:none;
-                        i{
-                            color: white;
-                            margin-top: 48%;
-                        }
-                    }
-
-                    &:hover{
-                        .hover-tag{
-                            display: block;
-                        }
-                    }
-                }
-            }
-        }
-
         .col-service-reviews-meta{
-            .order-form-content{
-                padding:0 10px 10px;
-                font-size: 14px;
 
-            }
           .wb-service-reviews-meta {
             width: 100%;
             padding-top: 39px;
@@ -1798,6 +1684,7 @@
                 margin-top: 15px;
                 display: table;
                 width: 100%;
+                margin-left: 0;
                 li{
                   display: table-row;
                   >span{
@@ -1852,29 +1739,32 @@
               position: relative;
               overflow: hidden;
               width: 100%;
+              font-size: 14px;
               .wb-button-share{
                 position: relative;
                 z-index: 1;
                 font-size: 14px;
+                display: inline-flex;
                 i{
                   height: 29px;
-                  width: 32px;
+                  width: 29px;
+                  line-height: 29px;
                   text-align: center;
-                  padding-top: 7px;
                   background: @maincolor;
                   color: #FFFFFF;
                   transition: all 0.4s;
                   border: 1px solid @maincolor;
                   border-right: none;
-                  position: relative;
                   z-index: 1;
+                  position: relative;
                 }
                 a{
                   border: 1px solid #cccccc;
                   border-left: none;
-                  height: 27px;
-                  padding: 4px 12px;
+                  height: 29px;
+                  line-height: 29px;
                   transition: all 0.3s;
+                  padding: 0 10px;
                   opacity: 1;
                   left: 0;
                   &:focus{
@@ -1898,9 +1788,8 @@
               &:hover{
                 .wb-list-social{
                   opacity: 1;
-                  top: 45px;
-                  top: 0px;
-                  left: 32px;
+                  top: 0;
+                  left: 29px;
                 }
                 .wb-button-share{
                   a{
@@ -1911,10 +1800,11 @@
 
               }
               .wb-list-social{
+                margin-left: 0;
                 list-style: none;
                 position: absolute;
                 font-size: 13px;
-                top: 0px;
+                top: 0;
                 left: 70px;
                 transition: all 0.3s ease-in;
                 opacity: 0;
@@ -1967,22 +1857,58 @@
                   }
                 }
 
-                //&:before{
-                //  content: '';
-                //  width: 10px;
-                //  height: 10px;
-                //  position: absolute;
-                //  left: 45%;
-                //  top: -10px;
-                //  border-style: solid;
-                //  border-width: 0 7px 9px 7px;
-                //  border-color: transparent transparent #ccc transparent;
-                //}
               }
             }
 
           }
         }
+
+      //responsive
+      @media (max-width: 1199px) {
+        .row-service-gallery-contact{
+          .col-service-gallery{
+            width: 100%;
+            float: none;
+          }
+          .col-service-reviews-meta{
+            width: 100%;
+            .wb-reviews-score-box{
+              width: 49%;
+              float: left;
+            }
+            .wb-contact-box, .wb-share{
+              width: 49%;
+              float: right;
+            }
+          }
+        }
+      }
+      @media (max-width: 480px) {
+        .wb-service-title-address{
+          width: 100%;
+        }
+        .wb-price-html{
+          width: 100%;
+          padding-top: 0;
+        }
+        .row-service-gallery-contact{
+          .col-service-gallery{
+            width: 100%;
+            float: none;
+          }
+          .col-service-reviews-meta{
+            width: 100%;
+            .wb-reviews-score-box{
+              width: 100%;
+              float: none;
+            }
+            .wb-contact-box, .wb-share{
+              width: 100%;
+              float: none;
+            }
+          }
+        }
+      }
 
         .service-content-section{
             margin-bottom: 30px;
@@ -2643,10 +2569,17 @@
               .wb-list-amenities{
                 list-style: none;
                 width: 100%;
+                margin-left: 0;
                 li{
                   display: inline-block;
                   width: 33%;
                   padding-right: 15px;
+                  @media (max-width: 639px){
+                    width: 50%;
+                  }
+                  @media (max-width: 479px){
+                    width: 100%;
+                  }
                 }
               }
              }
