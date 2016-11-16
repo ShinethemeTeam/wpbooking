@@ -3705,6 +3705,26 @@ label[for=wpbooking_room_typediv-hide] {
 .wp-list-table .wb-column-action .wb-row-actions a:hover {
   border-color: #252525;
 }
+@media (max-width: 1554px) {
+  .wp-list-table .wb-column-action .wb-row-actions a {
+    height: auto;
+    background: transparent;
+    padding: 0 3px;
+    border: 0;
+    border-right: 1px solid #ccc;
+    box-shadow: none;
+    border-radius: 0;
+    line-height: 14px;
+    color: #0073aa;
+  }
+  .wp-list-table .wb-column-action .wb-row-actions a:hover {
+    background: transparent;
+    text-decoration: underline;
+  }
+  .wp-list-table .wb-column-action .wb-row-actions span:last-child a {
+    border: none;
+  }
+}
 .wp-list-table .check-column {
   padding: 12px 0 8px;
 }

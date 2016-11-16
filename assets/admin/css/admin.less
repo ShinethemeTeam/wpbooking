@@ -3779,7 +3779,31 @@ label[for=wpbooking_room_typediv-hide]
           border-color: #252525;
         }
       }
+      @media (max-width: 1554px ) {
+        a{
+          height: auto;
+          background: transparent;
+          padding: 0 3px;
+          border: 0;
+          border-right: 1px solid #ccc;
+          box-shadow: none;
+          border-radius: 0;
+          line-height: 14px;
+          color: #0073aa;
+          &:hover{
+            background: transparent;
+            text-decoration: underline;
+
+          }
+        }
+        span:last-child{
+          a{
+            border: none;
+          }
+        }
+      }
     }
+
   }
   .check-column{
     padding: 12px 0 8px;

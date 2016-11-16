@@ -150,7 +150,7 @@ if (!class_exists('WB_Order')) {
         {
             if ($this->order_id) {
                 $order_data = $this->get_order_data();
-                $total = $this->get_total();
+                $total = $order_data['price'];
                 $deposit = $order_data['deposit_price'];
                 $remain = $total - $deposit;
                 if(!empty($deposit)){
