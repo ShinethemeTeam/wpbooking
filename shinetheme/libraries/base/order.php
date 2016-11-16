@@ -262,7 +262,7 @@ if (!class_exists('WB_Order')) {
 
                 $status = 'completed';
 
-                if(!empty($data['deposit_price']) and $data['deposit_price'] > 0){
+                if(!empty($data['deposit_price']) and $data['deposit_price'] > 0 and $data['deposit_price'] != $data['price']){
                     $status = 'completed_a_part';
                 }
 

@@ -1760,7 +1760,6 @@ img.settings-demo-image-gallery {
 input.gmap-search {
   display: block;
   position: absolute;
-  width: 200px;
   top: 10px;
   left: 100px;
   height: 31px;
@@ -3861,4 +3860,73 @@ label[for=wpbooking_room_typediv-hide] {
 .wp-list-table > tbody > :nth-child(odd) .wb-extra-title,
 .wp-list-table > tbody > :nth-child(odd) .wb-extra-price {
   background: #f9f9f9;
+}
+@media (max-width: 1300px) {
+  .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .service_detail {
+    width: 130px;
+  }
+}
+@media (max-width: 1200px) {
+  .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .service_detail {
+    width: 100%;
+  }
+}
+@media (max-width: 1150px) {
+  .desc_section_metabox {
+    display: none;
+  }
+  .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .st-metabox-content-wrapper {
+    width: 95%;
+  }
+  .st-metabox-tab-content-wrap .wpbooking-form-group.hotel_room_list .wb-room-list .room-item {
+    width: 50%;
+  }
+  .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
+    width: 30%;
+  }
+  .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right {
+    margin-left: 30%;
+  }
+  .st-metabox-tab-content-wrap .content_tax_vat .label_vat_unit {
+    display: block;
+    padding: 20px 10px 10px 0;
+  }
+}
+@media (max-width: 1100px) {
+  .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
+    float: left;
+  }
+}
+@media (max-width: 980px) {
+  .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right {
+    width: auto;
+  }
+  .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
+    float: left;
+  }
+}
+@media (max-width: 800px) {
+  .wb-section-navigation .button {
+    height: 45px;
+  }
+}
+@media (max-width: 480px) {
+  .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .service-desc {
+    width: auto;
+  }
+  input.gmap-search {
+    width: 100px;
+  }
+  .wb-section-navigation .button {
+    height: 48px;
+  }
+}
+.st-metabox-tabs .st-metabox-nav li {
+  margin: 0 0 0.4em;
+}
+.st-metabox-nav .ui-tabs-active a {
+  border-bottom: none !important;
+}
+.st-metabox-tabs-content .st-metabox-content-wrapper .radio_pro {
+  margin-bottom: 10px;
 }
