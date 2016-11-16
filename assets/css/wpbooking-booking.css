@@ -2477,9 +2477,14 @@ a.label:focus {
   width: 33%;
   padding-right: 15px;
 }
-@media (max-width: 480px) {
+@media (max-width: 639px) {
   .single-wpbooking_service .wpbooking-single-content .service-content-section .service-content-wrap .wb-list-amenities li {
     width: 50%;
+  }
+}
+@media (max-width: 479px) {
+  .single-wpbooking_service .wpbooking-single-content .service-content-section .service-content-wrap .wb-list-amenities li {
+    width: 100%;
   }
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .service-detail-item {
