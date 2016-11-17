@@ -714,9 +714,9 @@ if (!class_exists('WPBooking_Service_Controller')) {
         function _latest_booking_html($post_id, $service_type, $service){
             if(!empty($post_id)){
                 $latest_time = WPBooking_Order_Model::inst()->get_latest_booking_date($post_id);
-                $current = new DateTime(date('Y-m-d h:i:s',strtotime('now')));
-                $latest = new DateTime(date('Y-m-d h:i:s',$latest_time));
-                if($latest) {
+                if($latest_time) {
+                    $current = new DateTime(date('Y-m-d h:i:s',strtotime('now')));
+                    $latest = new DateTime(date('Y-m-d h:i:s',$latest_time));
                     if($latest->diff($current)->d > 3 || $latest->diff($current)->m > 0 || $latest->diff($current)->y > 0){
                         $latest_str = date(get_option('date_format'), $latest_time);
                     }elseif($latest->diff($current)->d > 0){
