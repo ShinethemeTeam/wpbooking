@@ -51,6 +51,10 @@ if (!class_exists('WPBooking_Order')) {
                     $is_checked = true;
                 }
 
+                if(!WPBooking_Input::request('wpbooking_detail')){
+                    $is_checked = true;
+                }
+
                 if($is_checked == false){
                     wp_redirect(home_url());
                 }
