@@ -728,7 +728,9 @@ if (!class_exists('WPBooking_Service_Controller')) {
                     }else{
                         $latest_str = esc_html__('just now','wpbooking');
                     }
-                    echo '<p class="wb-latest-booking">'.esc_html__('Latest booking: ','wpbooking').$latest_str.'</p>';
+                    $latest_booking = '<p class="wb-latest-booking">'.esc_html__('Latest booking: ','wpbooking').$latest_str.'</p>';
+
+                    echo apply_filters('wpbooking_latest_booking_html_'.$service_type,$latest_booking,$post_id,$latest_time,$current);
                 }
             }
         }

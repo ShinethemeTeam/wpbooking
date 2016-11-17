@@ -175,7 +175,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					if( $new_item > 0 ){
 						echo json_encode( array(
 							'status' => 1,
-							'message' => __('Added successful.', 'wpbooking')
+							'message' => __('Added successfully.', 'wpbooking')
 						) ); 
 						die;
 					}else{
@@ -222,7 +222,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 							echo json_encode( array(
 								'status' => 1,
-								'message' => __('Added successful.', 'wpbooking')
+								'message' => __('Added successfully.', 'wpbooking')
 							) );
 							die;
 						}else{

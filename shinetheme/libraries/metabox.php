@@ -75,7 +75,7 @@ if (!class_exists('WPBooking_Metabox')) {
 
 
                     if(!$permission){
-                        $res['message']=esc_html__('You don not have permission to do that','wpbooking');
+                        $res['message']=esc_html__('You don\'t have permission to do that','wpbooking');
                     }else{
 
                         // Change Service Type
@@ -91,7 +91,7 @@ if (!class_exists('WPBooking_Metabox')) {
                     }
 
                 }else{
-                    $res['message']=esc_html__('Please specific Service Type','wpbooking');
+                    $res['message']=esc_html__('Please specify Service Type','wpbooking');
                 }
             }
 
