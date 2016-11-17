@@ -32,7 +32,11 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
 	                <?php
 	                	/*	Old data */
 	                	$old = array();
-	                	$old_terms = wp_get_post_terms( $post_id, 'wpbooking_location' );
+                    $args = array(
+                        'orderby' => 'name',
+                        'order' => 'ASC'
+                    );
+	                	$old_terms = wp_get_post_terms( $post_id, 'wpbooking_location', $args);
 	                	if( !empty( $old_terms ) && is_array( $old_terms ) ){
 	                		foreach( $old_terms as $term ){
 	                			$old[] = (int) $term->term_id;
