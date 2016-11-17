@@ -908,7 +908,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
                 // Validate Permission
                 if (!$hotel_id) {
-                    $res['message'] = esc_html__('Please Specific Property ID', 'wpbooking');
+                    $res['message'] = esc_html__('Please specify Property ID', 'wpbooking');
                     echo json_encode($res);
                     die;
                 } else {
@@ -1113,7 +1113,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $result = array(
                         'status'  => 0,
                         'data'    => '',
-                        'message' => __('Our system not found any room from your searching. You can change search now.', 'wpbooking'),
+                        'message' => __('Our system is not found any room from your searching. You can change search now.', 'wpbooking'),
                         'status_message' => 'default',
                     );
                     echo json_encode($result);
@@ -1940,12 +1940,12 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 return $is_validated;
             }
             if(empty($check_in)){
-                wpbooking_set_message(esc_html__("Select check-in date please.","wpbooking"),'error');
+                wpbooking_set_message(esc_html__("Please select check-in date.","wpbooking"),'error');
                 $is_validated = FALSE;
                 return $is_validated;
             }
             if(empty($check_out)){
-                wpbooking_set_message(esc_html__("Pleas select check-out date.","wpbooking"),'error');
+                wpbooking_set_message(esc_html__("Please select check-out date.","wpbooking"),'error');
                 $is_validated = FALSE;
                 return $is_validated;
             }
