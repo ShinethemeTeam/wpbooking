@@ -17,7 +17,6 @@ if (empty($cart)) {
             </div>
         </div>
         <div class="wpbooking-checkout-form wpbooking-bootstrap">
-
             <form action="<?php echo home_url('/') ?>" onsubmit="return false" method="post" novalidate>
                 <input class="wpbooking_check_empty_cart" type="hidden" value="true">
                 <div class="row">
@@ -89,17 +88,14 @@ if (empty($cart)) {
                         <div class="wpbooking-captcha">
                             <?php echo wpbooking_load_view('checkout/captcha') ?>
                         </div>
-
                         <div class="form-group">
-
                             <label for="term_condition">
                                 <input type="checkbox" id="term_condition" name="term_condition"  value="1">
-                                <?php $page_term_condition = wpbooking_get_option('term-page'); ?>
                                 <?php
+                                $page_term_condition = wpbooking_get_option('term-page');
                                 $link = '<a class="term_condition" href="'.esc_url(get_permalink($page_term_condition)).'">'.esc_attr__("terms and conditions").'</a>';
                                 printf(esc_html__(" I have read and accept the %s","wpbooking"),$link);
                                 ?>
-
                             </label>
                         </div>
                         <div class="checkout-submit-button">
