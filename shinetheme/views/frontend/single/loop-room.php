@@ -15,7 +15,7 @@ $diff = $diff / (60 * 60 * 24);
 <div class="loop-room post-<?php the_ID() ?>">
     <div class="room-image">
         <?php
-        echo $featured=$service_room->get_featured_image_room('thumb');
+        echo $featured=$service_room->get_featured_image_room('thumb300');
         ?>
 
     </div>
@@ -65,8 +65,13 @@ $diff = $diff / (60 * 60 * 24);
                         if(!empty($term_ids) and !empty($rental_features->labels->name)){
                             echo '<div class="title">'.$rental_features->labels->name.': </div>';
                             foreach($term_ids as $key=>$value){
-                                $term = get_term($value,$taxonomy);
-                                $html .= $term->name.", ";
+                                if($key <= 6){
+                                    $term = get_term($value,$taxonomy);
+                                    if(!empty($term->name)){
+                                        $html .= $term->name.", ";
+                                    }
+
+                                }
                             }
                         }
                     }
@@ -272,7 +277,7 @@ $diff = $diff / (60 * 60 * 24);
                             echo '<div class="title">'.$rental_features->labels->name.'</div>';
                             foreach($term_ids as $key=>$value){
                                 $term = get_term($value,$taxonomy);
-                                if(!is_wp_error($term)){
+                                if(!is_wp_error($term) and !empty($term->name)){
                                 ?>
                                 <div class="item col-33">
                                     <input type="checkbox" checked onclick="return false">
