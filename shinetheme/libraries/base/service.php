@@ -182,7 +182,9 @@ if (!class_exists('WB_Service')) {
                 if(!empty($gallery)){
                     foreach($gallery as $k=>$v){
                         if(empty($image_id)){
-                            $image_id = $v;
+                            if(!empty(wp_get_attachment_image($image_id))){
+                                $image_id = $v;
+                            }
                         }
                     }
                 }
