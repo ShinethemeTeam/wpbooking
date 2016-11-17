@@ -116,6 +116,8 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 								'class'             => $class ,
 								'id'             => $v['field_type'] ,
 								'taxonomy'          => 'wpbooking_location' ,
+                                'orderby' => 'name',
+                                'order' =>'ASC',
 								'hide_empty' => 0,
 							);
 							$is_taxonomy = WPBooking_Input::get('location_id');
