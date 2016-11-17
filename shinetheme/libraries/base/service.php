@@ -182,7 +182,7 @@ if (!class_exists('WB_Service')) {
                 if(!empty($gallery)){
                     foreach($gallery as $k=>$v){
                         if(empty($image_id)){
-                            if(!empty(wp_get_attachment_image($image_id))){
+                            if(!empty(wp_get_attachment_image($v,'thumbnail'))){
                                 $image_id = $v;
                             }
                         }
