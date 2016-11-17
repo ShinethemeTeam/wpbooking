@@ -294,6 +294,26 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
             return (!empty($row[$status]))?$row[$status]:'0';
         }
 
+        /**
+         * Latest booking
+         *
+         * @param $post_id
+         * @return bool
+         */
+        function get_latest_booking_date($post_id){
+            if(!empty($post_id)){
+                $row = $this->select('created_at')
+                    ->where('post_id',$post_id)
+                    ->orderby('created_at','DESC')
+                    ->limit(1)->get()->row();
+
+                return (!empty($row['created_at'])?$row['created_at']:'');
+            }
+            else{
+                return FALSE;
+            }
+        }
+
         static function inst()
         {
             if(!self::$_inst) {

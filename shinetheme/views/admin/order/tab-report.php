@@ -162,7 +162,7 @@ $type_array=array(
                                     labels: <?php echo json_encode($data_total_sale['label']); ?>,
                                     datasets: [
                                         {
-                                            label: 'Total sale',
+                                            label: '<?php echo esc_html__('Total sale','wpbooking')?>',
                                             type: 'line',
                                             data: <?php echo json_encode($data_total_sale['data']); ?>,
                                             borderColor: 'red',
@@ -186,7 +186,7 @@ $type_array=array(
 
                                         },
                                         {
-                                            label: 'Net profit',
+                                            label: '<?php echo esc_html__('Net profit','wpbooking')?>',
                                             type: 'line',
                                             data: <?php echo json_encode($data_net_profit); ?>,
                                             borderColor: 'orange',
@@ -209,25 +209,25 @@ $type_array=array(
                                             pointHitRadius: 10,
                                         },
                                         {
-                                            label: 'Refunded',
+                                            label: '<?php echo esc_html__('Refunded','wpbooking')?>',
                                             data: <?php echo json_encode($data_refunded); ?>,
                                             backgroundColor: 'rgba(255, 99, 132, 0.2)',
                                             yAxisID: "y-axis-1",
                                         },
                                         {
-                                            label: 'Cancelled',
+                                            label: '<?php echo esc_html__('Cancelled','wpbooking')?>',
                                             data: <?php echo json_encode($data_cancelled); ?>,
                                             backgroundColor: 'rgba(255, 206, 86, 0.2)',
                                             yAxisID: "y-axis-1",
                                         },
                                         {
-                                            label: 'On hold',
+                                            label: '<?php echo esc_html__('On hold','wpbooking')?>',
                                             data: <?php echo json_encode($data_on_hold); ?>,
                                             backgroundColor: 'rgba(54, 162, 235, 0.2)',
                                             fill: false,
                                             yAxisID: "y-axis-1",
                                         }, {
-                                            label: 'Completed',
+                                            label: '<?php echo esc_html__('Completed','wpbooking')?>',
                                             data: <?php echo json_encode($data_completed); ?>,
                                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
                                             fill: false,

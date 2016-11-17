@@ -705,17 +705,34 @@ if (!class_exists('WPBooking_Service_Controller')) {
         }
 
         /**
+         * get latest booking html
+         *
          * @param $post_id
          * @param $service_type
          * @param $service
          */
         function _latest_booking_html($post_id, $service_type, $service){
             if(!empty($post_id)){
-                ?>
-
-                <?php
+                $latest_time = WPBooking_Order_Model::inst()->get_latest_booking_date($post_id);
+                $current = new DateTime(date('Y-m-d h:i:s',strtotime('now')));
+                $latest = new DateTime(date('Y-m-d h:i:s',$latest_time));
+                if($latest) {
+                    if($latest->diff($current)->d > 3 || $latest->diff($current)->m > 0 || $latest->diff($current)->y > 0){
+                        $latest_str = date(get_option('date_format'), $latest_time);
+                    }elseif($latest->diff($current)->d > 0){
+                        $latest_str = $latest->diff($current)->d.esc_html__(' day(s) ago','wpbooking');
+                    }elseif($latest->diff($current)->h > 0){
+                        $latest_str = $latest->diff($current)->h.esc_html__(' hour(s) ago','wpbooking');
+                    }elseif($latest->diff($current)->i > 0){
+                        $latest_str = $latest->diff($current)->i.esc_html__(' minute(s) ago','wpbooking');
+                    }else{
+                        $latest_str = esc_html__('just now','wpbooking');
+                    }
+                    echo '<p class="wb-latest-booking">'.esc_html__('Latest booking: ','wpbooking').$latest_str.'</p>';
+                }
             }
         }
+
         function _review_score_html($post_id, $service_type, $service){
             if(!empty($post_id)){
                 ?>

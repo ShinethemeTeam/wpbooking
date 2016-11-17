@@ -405,6 +405,9 @@
     margin-bottom: 20px;
     h2{
       font-size: 32px;
+      @media (max-width: 767px) {
+        font-size: 24px;
+      }
     }
   }
     .col-post-found{
@@ -416,7 +419,11 @@
             color: #666666;
             font-weight: normal;
             margin-top: 0px;
+          @media (max-width: 767px) {
+            font-size: 22px;
+          }
         }
+
         .post-query-desc{
             font-size: 14px;
             color: #666;
@@ -546,7 +553,15 @@
                             font-size: 13px;
                             float: left;
                         }
+
                     }
+                  .wb-latest-booking{
+                    margin-bottom: 10px;
+                    font-size: 12px;
+                    font-style: italic;
+                    color: #999;
+                    margin-top: 10px;
+                  }
 
                   .wb-score-review{
                       position: absolute;
@@ -1589,6 +1604,9 @@
           font-size: 32px;
           font-weight: bold;
           line-height: 1.4;
+          @media (max-width: 767px) {
+            font-size: 22px;
+          }
         }
         .wb-hotel-star{
           font-size: 13px;
@@ -1614,6 +1632,9 @@
           color: #333;
           font-size: 25px;
           font-weight: bold;
+          @media (max-width: 767px) {
+            font-size: 20px;
+          }
         }
       }
         .row-service-gallery-contact{

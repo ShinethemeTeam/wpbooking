@@ -71,7 +71,7 @@
 			<?php
 		}
 	} else {
-		printf('<h3>%s</h3>', esc_html__('Found nothing match your search', 'wpbooking'));
+		printf('<h3>%s</h3>', esc_html__('Not found anything related with search conditions.', 'wpbooking'));
 	}
 	?>
 </ul>

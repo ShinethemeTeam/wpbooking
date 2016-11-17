@@ -140,10 +140,6 @@ if (!class_exists('WPBooking_Service_Model')) {
 			return array();
 		}
 
-        function get_latest_booking_date(){
-
-        }
-
 		static function inst()
 		{
 			if (!self::$_inst) {

@@ -423,6 +423,11 @@ a.label:focus {
 .wpbooking-loop-header .search-title h2 {
   font-size: 32px;
 }
+@media (max-width: 767px) {
+  .wpbooking-loop-header .search-title h2 {
+    font-size: 24px;
+  }
+}
 .wpbooking-loop-header .col-post-found {
   width: 66%;
   float: left;
@@ -433,6 +438,11 @@ a.label:focus {
   color: #666666;
   font-weight: normal;
   margin-top: 0px;
+}
+@media (max-width: 767px) {
+  .wpbooking-loop-header .col-post-found .post-found-count {
+    font-size: 22px;
+  }
 }
 .wpbooking-loop-header .col-post-found .post-query-desc {
   font-size: 14px;
@@ -563,6 +573,13 @@ a.label:focus {
   color: #666666;
   font-size: 13px;
   float: left;
+}
+.wpbooking-loop-wrap .wpbooking-loop-items .loop-item .content-item .service-content .wb-latest-booking {
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-style: italic;
+  color: #999;
+  margin-top: 10px;
 }
 .wpbooking-loop-wrap .wpbooking-loop-items .loop-item .content-item .service-content .wb-score-review {
   position: absolute;
@@ -1536,6 +1553,11 @@ a.label:focus {
   font-weight: bold;
   line-height: 1.4;
 }
+@media (max-width: 767px) {
+  .single-wpbooking_service .wpbooking-single-content .wb-service-title-address .wb-service-title {
+    font-size: 22px;
+  }
+}
 .single-wpbooking_service .wpbooking-single-content .wb-service-title-address .wb-hotel-star {
   font-size: 13px;
 }
@@ -1560,6 +1582,11 @@ a.label:focus {
   color: #333;
   font-size: 25px;
   font-weight: bold;
+}
+@media (max-width: 767px) {
+  .single-wpbooking_service .wpbooking-single-content .wb-price-html .price {
+    font-size: 20px;
+  }
 }
 .single-wpbooking_service .wpbooking-single-content .row-service-gallery-contact {
   margin-left: -10px;
