@@ -95,7 +95,11 @@ if (empty($cart)) {
                             <label for="term_condition">
                                 <input type="checkbox" id="term_condition" name="term_condition"  value="1">
                                 <?php $page_term_condition = wpbooking_get_option('term-page'); ?>
-                                <a class="term_condition" href="<?php echo esc_url(get_permalink($page_term_condition)) ?>"><?php esc_html_e(" I have read and accept the terms and  conditions","wpbooking") ?></a>
+                                <?php
+                                $link = '<a class="term_condition" href="'.esc_url(get_permalink($page_term_condition)).'">'.esc_attr__("terms and conditions").'</a>';
+                                printf(esc_html__(" I have read and accept the %s","wpbooking"),$link);
+                                ?>
+
                             </label>
                         </div>
                         <div class="checkout-submit-button">
