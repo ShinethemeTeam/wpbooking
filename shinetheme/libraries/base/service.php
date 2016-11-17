@@ -192,7 +192,7 @@ if (!class_exists('WB_Service')) {
                         'thumb_url'   => wp_get_attachment_image_url($image_id,'thumbnail'),
                         'gallery'     => $gallery,
                         'gallery_url' => $gallery,
-
+                        'thumb300'       => wp_get_attachment_image($image_id,array(300,300)),
                     );
                 }
             }
