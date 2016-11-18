@@ -62,7 +62,8 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 			 * @author dungdt
 			 */
 			// Check current service type
-			if($service_type=WPBooking_Input::get('service_type') and  $service_type==$this->type_id){
+
+			if(($service_type=WPBooking_Input::get('service_type') and  $service_type==$this->type_id)){
 				add_action('init', array($this, '_add_default_query_hook'));
 			}
 

@@ -3046,6 +3046,12 @@ a.label:focus {
   white-space: nowrap;
   padding-right: 10px;
 }
+@media (min-width: 1200px) {
+  .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .wpbooking-comment-form-rating .review-stats .wpbooking-rating-review .rating-title {
+    padding-right: 15px;
+    padding-bottom: 5px;
+  }
+}
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-respond .comment-form .wpbooking-comment-form-rating .review-stats .wpbooking-rating-review .rating-stars {
   display: table-cell;
 }

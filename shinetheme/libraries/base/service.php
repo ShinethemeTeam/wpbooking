@@ -586,7 +586,8 @@ if (!class_exists('WB_Service')) {
 				$arg = wp_parse_args($arg, array(
 					'post_type'      => 'wpbooking_service',
 					'posts_per_page' => $posts_per_page,
-					'post__not_in'   => array($this->ID)
+					'post__not_in'   => array($this->ID),
+                    'post_status'    => 'publish'
 				));
 
 				$query = wpbooking_query('related_service', $arg);
