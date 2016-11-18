@@ -35,7 +35,7 @@
                 </tr>
                 <tr class="wpbooking_google_key_captcha">
                     <th scope="row">
-                        <label for="google_key_captcha"><?php esc_html_e("Google key:","wpbooking") ?></label>
+                        <label for="google_key_captcha"><?php esc_html_e("Google key","wpbooking") ?></label>
                     </th>
                     <td>
                         <input id="wpbooking_google_key_captcha" class="form-control  min-width-500" value="" name="wpbooking_google_key_captcha"  type="text">
@@ -44,7 +44,7 @@
                 </tr>
                 <tr class="wpbooking_google_secret_key_captcha">
                     <th scope="row">
-                        <label for="google_secret_key_captcha">Google secret key:</label>
+                        <label for="google_secret_key_captcha"><?php esc_html_e("Google secret key","wpbooking") ?></label>
                     </th>
                     <td>
                         <input id="wpbooking_google_secret_key_captcha" class="form-control  min-width-500" name="wpbooking_google_secret_key_captcha"  type="text">

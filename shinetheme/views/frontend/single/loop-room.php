@@ -47,7 +47,7 @@ $diff = $diff / (60 * 60 * 24);
                     <?php
                     echo $room_size;
                     $room_measunit = get_post_meta( $hotel_id , 'room_measunit' , true );
-                    if($room_measunit == 'feed')
+                    if($room_measunit == 'feet')
                         echo ' ft<sup>2</sup>';
                     else echo ' m<sup>2</sup>';
                 }
@@ -256,7 +256,7 @@ $diff = $diff / (60 * 60 * 24);
                              <?php
                              echo $room_size;
                              $room_measunit = get_post_meta( $hotel_id , 'room_measunit' , true );
-                             if($room_measunit == 'feed')
+                             if($room_measunit == 'feet')
                                  echo ' ft<sup>2</sup>';
                              else echo ' m<sup>2</sup>';
                              }
