@@ -79,6 +79,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                         'exclude_from_search'       => false,
                         'show_in_admin_all_list'    => true,
                         'show_in_admin_status_list' => true,
+                        'publicly_queryable' => false,
                         'label_count'               => _n_noop( $v['label'].' <span class="count">(%s)</span>', $v['label'].' <span class="count">(%s)</span>' ),
                     ) );
                 }

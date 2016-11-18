@@ -67,9 +67,26 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 				add_action('init', array($this, '_add_default_query_hook'));
 			}
 
+            if(!is_admin())
+                add_action( 'pre_get_posts', array( $this, '_change_post_status_query' ) );
 
 		}
 
+        /**
+         * Change status query archive wpbooking service page
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @param $q
+         */
+        function _change_post_status_query($q){
+            if($q->is_main_query()){
+                // Only Modify Archive, Tax page
+                if(!$q->is_post_type_archive( 'wpbooking_service' ) && ! $q->is_tax( get_object_taxonomies( 'wpbooking_service' ) )) return;
+                $q->set('post_status','publish');
+            }
+        }
 		function set_metabox($metabox){
 		    $this->metabox=$metabox;
         }
@@ -387,6 +404,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 
 		function _add_page_archive_search($args)
 		{
+
 			return $args;
 		}
 
