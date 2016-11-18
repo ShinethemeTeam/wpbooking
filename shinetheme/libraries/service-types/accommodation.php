@@ -1251,6 +1251,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if (!empty($meta_query))
                 $injection->add_arg('meta_query', $meta_query);
 
+
+            $injection->add_arg('post_status', 'publish');
+
             // Order By
             if ($sortby = $this->request('wb_sort_by')) {
                 switch ($sortby) {
