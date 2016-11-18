@@ -1527,7 +1527,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                 <div class="input-group">
                                     <input class="form-control" id="room_size[' . get_the_ID() . ']" name="room_size[' . get_the_ID() . ']" type="number" value="' . get_post_meta(get_the_ID(), 'room_size', true) . '">
                                     <span data-condition="room_measunit:is(metres)" class="input-group-addon wpbooking-condition" style="display: none;">m<sup>2</sup></span>
-                                    <span data-condition="room_measunit:is(feed)" class="input-group-addon wpbooking-condition">ft<sup>2</sup></span>
+                                    <span data-condition="room_measunit:is(feet)" class="input-group-addon wpbooking-condition">ft<sup>2</sup></span>
                                 </div>
                             </div>
                         </div>';
