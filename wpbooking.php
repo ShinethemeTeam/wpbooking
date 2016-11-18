@@ -234,7 +234,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             /**
              * Chart Report
              */
-            wp_enqueue_script('chart', wpbooking_admin_assets_url('js/Chart.min.js'), array('jquery'), null, true);
+            wp_enqueue_script('chart', wpbooking_assets_url('js/Chart.min.js'), array('jquery'), null, true);
 
             /**
              * Flag icon

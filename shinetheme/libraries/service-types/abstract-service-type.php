@@ -62,11 +62,17 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 			 * @author dungdt
 			 */
 			// Check current service type
-
 			if(($service_type=WPBooking_Input::get('service_type') and  $service_type==$this->type_id)){
 				add_action('init', array($this, '_add_default_query_hook'));
 			}
 
+            /**
+             * Change status query archive wpbooking service page
+             *
+             * @since 1.0
+             * @author quandq
+             *
+             */
             if(!is_admin())
                 add_action( 'pre_get_posts', array( $this, '_change_post_status_query' ) );
 
@@ -464,6 +470,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 		{
 
 			global $wpdb;
+            var_dump(is_post_type_archive('wpbooking_service'));
 			$table = WPBooking_Service_Model::inst()->get_table_name(FALSE);
 			$table_prefix = WPBooking_Service_Model::inst()->get_table_name();
 

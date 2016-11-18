@@ -57,7 +57,8 @@ if(!$wp_query->have_posts()) return;
 					'price_desc'=>esc_html__('Price DESC','wpbooking'),
 					'rate_asc'=>esc_html__('Rate ASC','wpbooking'),
 					'rate_desc'=>esc_html__('Rate DESC','wpbooking'),
-				)
+				);
+                if(WPBooking_Input::get('service_type')){
 				?>
 				<select name="wb_sort_by" class="wpbooking-loop-sort-by">
 					<option value=""><?php esc_html_e('Sort by','wpbooking') ?></option>
@@ -67,6 +68,7 @@ if(!$wp_query->have_posts()) return;
 						}
 					} ?>
 				</select>
+                <?php } ?>
 			</form>
 		</div>
 	</div>
