@@ -63,8 +63,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 			 */
 			// Check current service type
 
-            $page_archive  = get_page_by_title( 'Wpbooking Archive' );
-			if(($service_type=WPBooking_Input::get('service_type') and  $service_type==$this->type_id) || (!empty($page_archive) && $page_archive->ID == wpbooking_get_option('archive-page'))){
+			if(($service_type=WPBooking_Input::get('service_type') and  $service_type==$this->type_id)){
 				add_action('init', array($this, '_add_default_query_hook'));
 			}
 
