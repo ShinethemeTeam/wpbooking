@@ -518,11 +518,11 @@ if (!class_exists('WPBooking_User')) {
                         do_action('wpbooking_before_update_profile');
 
                         $validate = new WPBooking_Form_Validator();
-                        $validate->set_rules('u_fist_name', esc_html__('Fist name', 'wpbooking'), 'required|max_length[500]');
-                        $validate->set_rules('u_last_name', esc_html__('Fist name', 'wpbooking'), 'required|max_length[500]');
-                        $validate->set_rules('u_email', esc_html__('Email', 'wpbooking'), 'required|max_length[255]|valid_emails');
-                        $validate->set_rules('u_phone', esc_html__('Phone Number', 'wpbooking'), 'required|max_length[255]');
-                        $validate->set_rules('u_address', esc_html__('Address', 'wpbooking'), 'required');
+                        $validate->set_rules('u_fist_name', esc_html__('first name', 'wpbooking'), 'required|max_length[500]');
+                        $validate->set_rules('u_last_name', esc_html__('last name', 'wpbooking'), 'required|max_length[500]');
+                        $validate->set_rules('u_email', esc_html__('email', 'wpbooking'), 'required|max_length[255]|valid_emails');
+                        $validate->set_rules('u_phone', esc_html__('phone number', 'wpbooking'), 'required|max_length[255]');
+                        $validate->set_rules('u_address', esc_html__('address', 'wpbooking'), 'required');
 
                         $is_validate = TRUE;
                         $is_updated = FALSE;

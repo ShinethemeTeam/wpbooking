@@ -141,7 +141,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             if ($is_validate and $pay_amount) {
                 if (empty($selected_gateway)) {
                     $is_validate = FALSE;
-                    wpbooking_set_message(__("Vui lòng chọn một phương thức thanh toán", 'wpbooking'), 'error');
+                    wpbooking_set_message(__("Please select a payment method.", 'wpbooking'), 'error');
                 } elseif (!$gateway and !$gateway->is_available()) {
                     $is_validate = FALSE;
                     wpbooking_set_message(sprintf(__("Gateway: %s is not ready to use, please choose other gateway", 'wpbooking'), $selected_gateway), 'error');
