@@ -470,7 +470,6 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 		{
 
 			global $wpdb;
-            var_dump(is_post_type_archive('wpbooking_service'));
 			$table = WPBooking_Service_Model::inst()->get_table_name(FALSE);
 			$table_prefix = WPBooking_Service_Model::inst()->get_table_name();
 
