@@ -366,11 +366,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
             die;
         }
 
-        function get_days_from_range($start, $end)
-        {
-
-        }
-
         function _add_body_class($class)
         {
 //			if (is_singular()) {
@@ -389,7 +384,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
             do_action('wpbooking_before_default_query_' . $service_type);
 
             $args = wp_parse_args($args, array(
-                'post_type' => 'wpbooking_service'
+                'post_type' => 'wpbooking_service',
             ));
 
             $query = wpbooking_query('default', $args);
