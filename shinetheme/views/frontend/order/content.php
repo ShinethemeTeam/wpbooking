@@ -41,7 +41,7 @@ do_action('wpbooking_before_order_content');
                     <span class="head-info-content "><span class="bold"><?php echo esc_html($order->get_payment_gateway()) ?></span></span>
                 </div>
                 <div class="head-info">
-                    <span class="head-info-title"><?php  esc_html_e('Booking Status:','wpbooking')?></span>
+                    <span class="head-info-title"><?php  esc_html_e('Booking status:','wpbooking')?></span>
                     <span class="head-info-content"><?php echo ($order->get_status_html()) ?></span>
                 </div>
             </div>

@@ -39,9 +39,24 @@ $cart=$booking->get_cart();
 						}else{
 							echo sprintf(esc_html__('(%s night)','wpbooking'),$diff);
 						}
+
+						$url_change_date = add_query_arg(array(
+							'checkin_d'  => date("d",$cart['check_in_timestamp']),
+							'checkin_m'  => date("m",$cart['check_in_timestamp']),
+							'checkin_y'  => date("Y",$cart['check_in_timestamp']),
+
+							'checkout_d' => date("d",$cart['check_out_timestamp']),
+							'checkout_m' => date("m",$cart['check_out_timestamp']),
+							'checkout_y' => date("Y",$cart['check_out_timestamp']),
+						), get_permalink($post_id));
+
+
 						?>
+						<small><a href="<?php echo esc_url($url_change_date) ?>"><?php esc_html_e("Change Date","wpbooking") ?></a></small>
 					</div>
 				</div>
+
+
 			</div>
             <?php do_action('wpbooking_review_checkout_item_information',$cart) ?>
 			<?php do_action('wpbooking_review_checkout_item_information_'.$service_type,$cart) ?>

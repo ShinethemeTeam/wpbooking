@@ -11,7 +11,7 @@ if(!empty($order_data['rooms'])){
             <?php esc_html_e('Price','wpbooking') ?> (<?php echo get_post_meta($order_id,'currency',true) ?>)
         </th>
         <th width=15% class=text-center>
-            Number
+            <?php esc_html_e('Number','wpbooking') ?>
         </th>
         <th class=text-center>
             <?php esc_html_e('Total','wpbooking') ?>(<?php echo get_post_meta($order_id,'currency',true) ?>)

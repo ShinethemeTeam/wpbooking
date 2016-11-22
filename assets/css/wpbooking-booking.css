@@ -919,6 +919,10 @@ a.label:focus {
 .review-order-item .review-order-item-info .review-order-item-title .review-order-item-form-to span {
   font-weight: 700;
 }
+.review-order-item .review-order-item-info .review-order-item-title .review-order-item-form-to small a {
+  border: medium none;
+  color: #f0ad4e;
+}
 .review-order-item .review-order-item-table {
   margin-left: -1px;
   margin-right: -1px;
