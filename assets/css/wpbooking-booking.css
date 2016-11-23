@@ -159,7 +159,7 @@ a.label:focus {
   color: #666;
 }
 .alert a {
-  text-decoration: underline;
+  text-decoration: none !important;
 }
 .alert p {
   margin-bottom: 0px;
