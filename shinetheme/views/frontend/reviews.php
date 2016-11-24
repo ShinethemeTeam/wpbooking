@@ -72,22 +72,24 @@ if ( post_password_required() ) {
 	$aria_req = ( $req ? " aria-required='true'" : '' );
 	$html_req = ( $req ? " required='required'" : '' );
 	$html5    = 'html5' === $args['format'];
-	comment_form(array(
-		'comment_notes_before'=>FALSE,
-		'fields'=>array(
-			'author' => '<p class="comment-form-author">' . '<label for="author"><strong>' . __( 'Name','wpbooking' ) . ( $req ? ' </strong><span class="required">*</span>' : '' ) . '</label> ' .
-				'<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30"' . $aria_req . $html_req . ' /></p>',
-			'email'  => '<p class="comment-form-email"><label for="email"><strong>' . __( 'Your Email' ) . ( $req ? ' </strong><span class="required">*</span>' : '' ) . '</label> ' .
-				'<input id="email" name="email" ' . ( $html5 ? 'type="email"' : 'type="text"' ) . ' value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30" aria-describedby="email-notes"' . $aria_req . $html_req  . ' /></p>',
-		),
-		'comment_field'        => '<div class="wpbooking-comment-form-content">
-						<p class="comment-form-title">
-							<label for="wpbooking_title"><strong>'.esc_html__('Review Title','wpbooking').'</strong> <span class="required">*</span></label>
-							<input type="text" name="wpbooking_title" >
-						</p>
-						<p class="comment-form-comment"><label for="comment"><strong>' . esc_html__( 'Review Text', 'wpbooking' ) . '</strong> <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8"  aria-required="true" required="required"></textarea></p></div>'.$field_review,
-		'label_submit'=>esc_html__('SEND','wpbooking')
-	));
+
+    comment_form(array(
+        'comment_notes_before' => FALSE,
+        'fields' => array(
+            'author' => '<p class="comment-form-author">' . '<label for="author"><strong>' . __('Name', 'wpbooking') . ($req ? ' </strong><span class="required">*</span>' : '') . '</label> ' .
+                '<input id="author" name="author" type="text" value="' . esc_attr($commenter['comment_author']) . '" size="30"' . $aria_req . $html_req . ' /></p>',
+            'email' => '<p class="comment-form-email"><label for="email"><strong>' . __('Your Email') . ($req ? ' </strong><span class="required">*</span>' : '') . '</label> ' .
+                '<input id="email" name="email" ' . ($html5 ? 'type="email"' : 'type="text"') . ' value="' . esc_attr($commenter['comment_author_email']) . '" size="30" aria-describedby="email-notes"' . $aria_req . $html_req . ' /></p>',
+        ),
+        'comment_field' => '<div class="wpbooking-comment-form-content">
+                    <p class="comment-form-title">
+                        <label for="wpbooking_title"><strong>' . esc_html__('Review Title', 'wpbooking') . '</strong> <span class="required">*</span></label>
+                        <input type="text" name="wpbooking_title" >
+                    </p>
+                    <p class="comment-form-comment"><label for="comment"><strong>' . esc_html__('Review Text', 'wpbooking') . '</strong> <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8"  aria-required="true" required="required"></textarea></p></div>' . $field_review,
+        'label_submit' => esc_html__('SEND', 'wpbooking')
+    ));
+
 	if(!comments_open(get_the_ID()) and !is_user_logged_in()){
 		printf('<p class="alert alert-danger">%s</p>',esc_html__('Please Login To Write Review','wpbooking'));
 	}

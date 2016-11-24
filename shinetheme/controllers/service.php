@@ -578,7 +578,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
                 $res['voted'] = (int)$model->vote($review_id, get_current_user_id());
                 $res['status'] = 1;
                 if ($count = $model->count($review_id)) {
-                    $res['vote_count'] = sprintf(esc_html__('%d like this', 'wpbooking'), $count);
+                    $res['vote_count'] = sprintf(esc_html__('%d like', 'wpbooking'), $count);
                     if ($count > 1)
                         $res['vote_count_2'] = sprintf(esc_html__('%d likes', 'wpbooking'), $count);
                     else
@@ -739,6 +739,22 @@ if (!class_exists('WPBooking_Service_Controller')) {
             <?php
             }
         }
+
+        /**
+         * Check user booking
+         *
+         * @param $post_id
+         * @return bool|WPBooking_Order_Model
+         */
+        function check_user_booking($post_id){
+            if(!empty($post_id)){
+                $user_id = get_current_user_id();
+                return WPBooking_Order_Model::inst()->check_user_booking($post_id,$user_id);
+            }else{
+                return false;
+            }
+        }
+
 
 		static function inst()
 		{

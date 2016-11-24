@@ -69,8 +69,8 @@ if(!class_exists('WPBooking_Comment_Model'))
                     'comment_approved'=>1
                     ))->get()->row();
             return !empty($row['total'])?$row['total']:FALSE;
-
         }
+
 		static function inst()
 		{
 			if(!self::$_inst) self::$_inst=new self();

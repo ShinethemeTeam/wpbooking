@@ -2945,9 +2945,15 @@
                                 }
                             }
                         }
+                      .wb-vote-reply-comment{
+                        display: inline-flex;
+                        border-top: 1px solid #ddd;
+                        width: 100%;
+                        padding-top: 15px;
+                      }
                         .wpbooking-vote-for-review{
                             font-size: 13px;
-                            margin-bottom:10px;
+                            margin-right:10px;
                             .review-vote-count{
                                 font-weight: bold;
                             }
@@ -2967,11 +2973,17 @@
                                     border-color: @maincolor;
                                 }
                             }
+                          .wb-like-text{
+                            color: @maincolor;
+                          }
+                          .wb-like-text.wb-none{
+                            display: none;
+                          }
                         }
                         .wb-btn-reply-comment{
                             font-size: 13px;
                             font-style: italic;
-                            color: @maincolor;
+                            color: #777;
                             border:none;
                         }
                     }

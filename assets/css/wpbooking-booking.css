@@ -2875,9 +2875,15 @@ a.label:focus {
   white-space: nowrap;
   padding-right: 10px;
 }
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .wb-vote-reply-comment {
+  display: inline-flex;
+  border-top: 1px solid #ddd;
+  width: 100%;
+  padding-top: 15px;
+}
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .wpbooking-vote-for-review {
   font-size: 13px;
-  margin-bottom: 10px;
+  margin-right: 10px;
 }
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .wpbooking-vote-for-review .review-vote-count {
   font-weight: bold;
@@ -2898,10 +2904,16 @@ a.label:focus {
   background: #f0ad4e;
   border-color: #f0ad4e;
 }
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .wpbooking-vote-for-review .wb-like-text {
+  color: #f0ad4e;
+}
+.single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .wpbooking-vote-for-review .wb-like-text.wb-none {
+  display: none;
+}
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-list > li .comment-content-wrap .wb-btn-reply-comment {
   font-size: 13px;
   font-style: italic;
-  color: #f0ad4e;
+  color: #777;
   border: none;
 }
 .single-wpbooking_service .wpbooking-single-content .wb-reviews-section .comment-list > li ul,

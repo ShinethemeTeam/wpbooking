@@ -246,6 +246,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              * @author quandq
              */
             add_action('template_redirect', array($this, '_delete_cart_item_hotel_room'));
+
+            //Check comment open
+            add_filter('comments_open', array($this, '_comments_open'), 10, 2);
+
+            add_filter('wpbooking_enable_vote_for_review', array($this, '_enable_vote_for_review'), 10, 4);
         }
 
 
@@ -2713,6 +2718,88 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $tax['total_price'] = $total_tax;
             $tax['tax_total'] = $tax_total;
             return $tax;
+        }
+
+        /**
+         * Hook Filter To Show Review Form for accommodation
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $open
+         * @param $post_id
+         * @return bool|mixed|string|void
+         */
+        function _comments_open($open, $post_id)
+        {
+            $service_type = get_post_meta($post_id, 'service_type', TRUE);
+
+            if ($post_id and $service_type == $this->type_id) {
+                $open = $this->get_option('enable_review');
+
+                if (is_user_logged_in()) {
+                    // room_maximum_review
+                    if ($max = $this->room_maximum_review()) {
+                        $comment = WPBooking_Comment_Model::inst();
+                        $count = $comment->select('count(comment_ID) as total')
+                            ->where(array('comment_post_ID' => $post_id, 'comment_parent' => 0, 'user_id' => get_current_user_id()))
+                            ->get()->row();
+                        $count = !empty($count['total']) ? $count['total'] : 0;
+
+                        if ($count >= $max) {
+                            wpbooking_set_message(sprintf(esc_html__('Maximum number of review you can post is %d', 'wpbooking'), $max));
+                            $open = FALSE;
+                        }
+                    }
+
+                    // review_without_booking
+                    if (!$this->review_without_booking()) {
+                        $order_item = WPBooking_Order_Model::inst();
+                        $count = $order_item->select('count(id) as total')->where(array('post_id' => $post_id, 'user_id' => get_current_user_id()))->get()->row();
+                        if (empty($count['total']) or $count['total'] < 1) {
+                            wpbooking_set_message(esc_html__('This Room required booking before writing review', 'wpbooking'));
+                            $open = FALSE;
+                        }
+                    }
+
+                    // Review in their own posts
+                    if (!$this->get_option('allowed_review_on_own_listing')) {
+                        $author_id = get_post_field('post_author', $post_id);
+                        if ($author_id == get_current_user_id()) {
+                            $open = FALSE;
+                        }
+                    }
+                }
+
+            }
+
+            return $open;
+        }
+
+        function _enable_vote_for_review($enable , $post_id, $service_type, $review_id)
+        {
+            //_allowed_vote_for_own_review
+            $enable = $this->get_option('show_rate_review_button', FALSE);
+            if (is_user_logged_in()) {
+
+                $comment = get_comment($review_id);
+
+                if (!$this->get_option('allowed_vote_for_own_review') and get_current_user_id() == $comment->user_id) {
+                    $enable = FALSE;
+                }
+            }
+
+            return $enable;
+        }
+
+        function room_maximum_review()
+        {
+            return $this->get_option('maximum_review');
+        }
+
+        function review_without_booking()
+        {
+            return $this->get_option('review_without_booking');
         }
 
         static function inst()

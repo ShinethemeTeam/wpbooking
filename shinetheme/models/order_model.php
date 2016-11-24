@@ -297,6 +297,9 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
         /**
          * Latest booking
          *
+         * @author tienhd
+         * @since 1.0
+         *
          * @param $post_id
          * @return bool
          */
@@ -311,6 +314,29 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
             }
             else{
                 return FALSE;
+            }
+        }
+
+        /**
+         * Check user booking
+         *
+         * @author tienhd
+         * @since 1.0
+         *
+         * @param $post_id
+         * @param $user_id
+         * @return bool|WPBooking_Order_Model
+         */
+        function check_user_booking($post_id, $user_id){
+            if(!empty($post_id)){
+                $row = $this->select('user_id')
+                    ->where('user_id',$user_id)
+                    ->where('post_id',$post_id)
+                    ->limit(1)->get()->row();
+
+                return (!empty($row['user_id'])?true:false);
+            }else{
+                return false;
             }
         }
 

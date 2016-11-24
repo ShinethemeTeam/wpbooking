@@ -1746,8 +1746,10 @@ jQuery(document).ready(function($){
                 }
                 if(res.voted){
                     me.addClass('active');
+                    me.closest('.wpbooking-vote-for-review').find('.wb-like-text').addClass('wb-none');
                 }else{
                     me.removeClass('active');
+                    me.closest('.wpbooking-vote-for-review').find('.wb-like-text').removeClass('wb-none');
                 }
             }
         })
