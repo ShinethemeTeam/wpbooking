@@ -113,130 +113,133 @@ $data_current_user = get_userdata( $user_id );
 		</div>
 	<?php endif; ?>
 </div>
-<div class="user-reviews">
-	<?php
-	global $wpdb;
-	$page=WPBooking_Input::request('page_number',1);
-	if($page < 1)$page=1;
-	$limit=5;
-	$offset=($page-1)*$limit;
-	$comment=WPBooking_Comment_Model::inst();
-	$res=$comment->select('SQL_CALC_FOUND_ROWS *');
-	$res=$comment->join('posts','posts.ID=comments.comment_post_ID')
-		->where(array(
-			$wpdb->prefix.'posts.post_author'=>$user_id,
-			$wpdb->prefix.'posts.post_type'=>'wpbooking_service',
-			$wpdb->prefix.'comments.comment_parent'=>0,
-			$wpdb->prefix.'comments.comment_approved'=>1
-		))
-		->limit($limit,$offset)
-		->orderby($wpdb->prefix.'comments.comment_ID',"DESC")
-		->get()
-		->result();
-	$total_item=$wpdb->get_var('SELECT FOUND_ROWS()');
-	$total=ceil($total_item/$limit);
-	$paging=array();
-	$paging['base']=$link_my_profile.'%_%';
-	$paging['format']='?page_number=%#%';
-	$paging['total']=$total;
-	$paging['current']=$page;
-	?>
-	<?php if($total_item > 0): ?>
-		<h3 class="tab-page-title">
-			<?php
-			if($total_item > 1)
-				echo sprintf(esc_html__("Reviews (%d)",'wpbooking'),$total_item);
-			else
-				echo sprintf(esc_html__("Review (%d)",'wpbooking'),$total_item)
-			?>
-		</h3>
-		<div class="container-fluid detail-rate">
-			<div class="row ">
-				<div class="col-md-4 dark_bg text-center">
-					<div class="number_rate">
-						<?php
-						$data = WPBooking_User::get_detail_rate($user_id);
-						$wpbooking_review = $data['rate'];
-						echo esc_html($wpbooking_review);
-						?>
-					</div>
-					<div class="star_rate">
-						<div class="wpbooking-review-summary">
-							<label class="wpbooking-rating-review-result">
-								<span class="rating-stars">
-									<a class="<?php if($wpbooking_review>=1) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
-									<a class="<?php if($wpbooking_review>=2) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
-									<a class="<?php if($wpbooking_review>=3) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
-									<a class="<?php if($wpbooking_review>=4) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
-									<a class="<?php if($wpbooking_review>=5) echo 'active'; ?>"><i class="fa fa-star-o icon-star"></i></a>
-								</span>
-							</label>
-						</div>
-					</div>
-					<div class="number">
-						<?php
-						if($data['total'] > 1)
-							echo sprintf(esc_html__("%d Ratings",'wpbooking'),$data['total']);
-						else
-							echo sprintf(esc_html__("%d Rating",'wpbooking'),$data['total'])
-						?>
-					</div>
-				</div>
-				<div class="col-md-8">
-					<?php for($i = 5 ;$i >= 1 ; $i--){?>
-						<div class="item_process">
-							<?php
-							$wpbooking_rate = WPBooking_User::count_review_by_rate($user_id,$i);
-							$width = ceil(($wpbooking_rate/$total_item)*100);
-							?>
-							<label><i class="fa fa-star-o icon-star"></i> <?php echo esc_html($i) ?></label>
-							<?php $class = WPBooking_Assets::build_css_class("width:{$width}%",'::before') ?>
-							<div class="process <?php echo esc_attr($class) ?>"></div>
-							<div class="info">
-								<?php echo esc_html($wpbooking_rate) ?>
-							</div>
-						</div>
-					<?php } ?>
-				</div>
-			</div>
-		</div>
-		<div class="user-paginate user-paginate-top">
-			<?php echo paginate_links($paging); ?>
-		</div>
-		<ol class="comment-list">
-			<?php
-			if(!empty($res)){
-				foreach($res as $k=>$v){
-					echo '<li id="'.$v['comment_ID'].'">';
-					$v['my_user_id'] = $my_user_id;
-					$v['user_id'] = $user_id;
-					echo wpbooking_load_view('/single/review/item-2',array('data'=>$v));
-					$children_comment=$comment->join('posts','posts.ID=comments.comment_post_ID')
-						->where(array(
-							$wpdb->prefix.'posts.post_author'=>$user_id,
-							$wpdb->prefix.'posts.post_type'=>'wpbooking_service',
-							$wpdb->prefix.'comments.comment_parent'=>$v['comment_ID'],
-						))
-						->orderby($wpdb->prefix.'comments.comment_ID',"DESC")
-						->get()
-						->result();
-					if(!empty($children_comment)){
-						foreach($children_comment as $key=>$value){
-							echo '<ol class="comment-list children">';
-							$value['children'] = $v['comment_ID'];
-							$value['my_user_id'] = $my_user_id;
-							$value['user_id'] = $user_id;
-							echo wpbooking_load_view('/single/review/item-2',array('data'=>$value));
-							echo "</ol>";
-						}
-					}
-					echo "</li>";
-				}
-			}
-			?>
-		</ol>
-		<div class="user-paginate">
-			<?php echo paginate_links($paging); ?>
-		</div>
-	<?php endif; ?>
-</div>
+<?php
+do_action('wpbooking_after_user_listing');
+?>
+<!--<div class="user-reviews">-->
+<!--	--><?php
+//	global $wpdb;
+//	$page=WPBooking_Input::request('page_number',1);
+//	if($page < 1)$page=1;
+//	$limit=5;
+//	$offset=($page-1)*$limit;
+//	$comment=WPBooking_Comment_Model::inst();
+//	$res=$comment->select('SQL_CALC_FOUND_ROWS *');
+//	$res=$comment->join('posts','posts.ID=comments.comment_post_ID')
+//		->where(array(
+//			$wpdb->prefix.'posts.post_author'=>$user_id,
+//			$wpdb->prefix.'posts.post_type'=>'wpbooking_service',
+//			$wpdb->prefix.'comments.comment_parent'=>0,
+//			$wpdb->prefix.'comments.comment_approved'=>1
+//		))
+//		->limit($limit,$offset)
+//		->orderby($wpdb->prefix.'comments.comment_ID',"DESC")
+//		->get()
+//		->result();
+//	$total_item=$wpdb->get_var('SELECT FOUND_ROWS()');
+//	$total=ceil($total_item/$limit);
+//	$paging=array();
+//	$paging['base']=$link_my_profile.'%_%';
+//	$paging['format']='?page_number=%#%';
+//	$paging['total']=$total;
+//	$paging['current']=$page;
+//	?>
+<!--	--><?php //if($total_item > 0): ?>
+<!--		<h3 class="tab-page-title">-->
+<!--			--><?php
+//			if($total_item > 1)
+//				echo sprintf(esc_html__("Reviews (%d)",'wpbooking'),$total_item);
+//			else
+//				echo sprintf(esc_html__("Review (%d)",'wpbooking'),$total_item)
+//			?>
+<!--		</h3>-->
+<!--		<div class="container-fluid detail-rate">-->
+<!--			<div class="row ">-->
+<!--				<div class="col-md-4 dark_bg text-center">-->
+<!--					<div class="number_rate">-->
+<!--						--><?php
+//						$data = WPBooking_User::get_detail_rate($user_id);
+//						$wpbooking_review = $data['rate'];
+//						echo esc_html($wpbooking_review);
+//						?>
+<!--					</div>-->
+<!--					<div class="star_rate">-->
+<!--						<div class="wpbooking-review-summary">-->
+<!--							<label class="wpbooking-rating-review-result">-->
+<!--								<span class="rating-stars">-->
+<!--									<a class="--><?php //if($wpbooking_review>=1) echo 'active'; ?><!--"><i class="fa fa-star-o icon-star"></i></a>-->
+<!--									<a class="--><?php //if($wpbooking_review>=2) echo 'active'; ?><!--"><i class="fa fa-star-o icon-star"></i></a>-->
+<!--									<a class="--><?php //if($wpbooking_review>=3) echo 'active'; ?><!--"><i class="fa fa-star-o icon-star"></i></a>-->
+<!--									<a class="--><?php //if($wpbooking_review>=4) echo 'active'; ?><!--"><i class="fa fa-star-o icon-star"></i></a>-->
+<!--									<a class="--><?php //if($wpbooking_review>=5) echo 'active'; ?><!--"><i class="fa fa-star-o icon-star"></i></a>-->
+<!--								</span>-->
+<!--							</label>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="number">-->
+<!--						--><?php
+//						if($data['total'] > 1)
+//							echo sprintf(esc_html__("%d Ratings",'wpbooking'),$data['total']);
+//						else
+//							echo sprintf(esc_html__("%d Rating",'wpbooking'),$data['total'])
+//						?>
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="col-md-8">-->
+<!--					--><?php //for($i = 5 ;$i >= 1 ; $i--){?>
+<!--						<div class="item_process">-->
+<!--							--><?php
+//							$wpbooking_rate = WPBooking_User::count_review_by_rate($user_id,$i);
+//							$width = ceil(($wpbooking_rate/$total_item)*100);
+//							?>
+<!--							<label><i class="fa fa-star-o icon-star"></i> --><?php //echo esc_html($i) ?><!--</label>-->
+<!--							--><?php //$class = WPBooking_Assets::build_css_class("width:{$width}%",'::before') ?>
+<!--							<div class="process --><?php //echo esc_attr($class) ?><!--"></div>-->
+<!--							<div class="info">-->
+<!--								--><?php //echo esc_html($wpbooking_rate) ?>
+<!--							</div>-->
+<!--						</div>-->
+<!--					--><?php //} ?>
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--		<div class="user-paginate user-paginate-top">-->
+<!--			--><?php //echo paginate_links($paging); ?>
+<!--		</div>-->
+<!--		<ol class="comment-list">-->
+<!--			--><?php
+//			if(!empty($res)){
+//				foreach($res as $k=>$v){
+//					echo '<li id="'.$v['comment_ID'].'">';
+//					$v['my_user_id'] = $my_user_id;
+//					$v['user_id'] = $user_id;
+//					echo wpbooking_load_view('/single/review/item-2',array('data'=>$v));
+//					$children_comment=$comment->join('posts','posts.ID=comments.comment_post_ID')
+//						->where(array(
+//							$wpdb->prefix.'posts.post_author'=>$user_id,
+//							$wpdb->prefix.'posts.post_type'=>'wpbooking_service',
+//							$wpdb->prefix.'comments.comment_parent'=>$v['comment_ID'],
+//						))
+//						->orderby($wpdb->prefix.'comments.comment_ID',"DESC")
+//						->get()
+//						->result();
+//					if(!empty($children_comment)){
+//						foreach($children_comment as $key=>$value){
+//							echo '<ol class="comment-list children">';
+//							$value['children'] = $v['comment_ID'];
+//							$value['my_user_id'] = $my_user_id;
+//							$value['user_id'] = $user_id;
+//							echo wpbooking_load_view('/single/review/item-2',array('data'=>$value));
+//							echo "</ol>";
+//						}
+//					}
+//					echo "</li>";
+//				}
+//			}
+//			?>
+<!--		</ol>-->
+<!--		<div class="user-paginate">-->
+<!--			--><?php //echo paginate_links($paging); ?>
+<!--		</div>-->
+<!--	--><?php //endif; ?>
+<!--</div>-->

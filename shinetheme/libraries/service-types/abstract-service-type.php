@@ -27,7 +27,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 
 			add_filter('init', array($this, '_register_type'));
 			add_filter('wpbooking_service_setting_sections', array($this, '_add_setting_section'));
-			add_filter('wpbooking_review_stats', array($this, '_filter_get_review_stats'));
+//			add_filter('wpbooking_review_stats', array($this, '_filter_get_review_stats'));
 			add_filter('wpbooking_get_order_form_' . $this->type_id, array($this, '_get_order_form'));
 
 			/*Change Search*/
@@ -284,43 +284,43 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 			return $need;
 		}
 
-		function _filter_get_review_stats($stats)
-		{
-			$post_id = get_the_ID();
+//		function _filter_get_review_stats($stats)
+//		{
+//			$post_id = get_the_ID();
+//
+//			if (get_post_meta($post_id, 'service_type', TRUE) != $this->type_id) return $stats;
+//
+//			$stats = $this->get_review_stats();
+//			if (!empty($stats)) return $stats;
+//
+//			return $stats;
+//		}
 
-			if (get_post_meta($post_id, 'service_type', TRUE) != $this->type_id) return $stats;
-
-			$stats = $this->get_review_stats();
-			if (!empty($stats)) return $stats;
-
-			return $stats;
-		}
-
-		/**
-		 * Get All Review Stats from the Settings
-		 *
-		 * @since 1.0
-		 * @return bool|mixed|void
-		 *
-		 */
-		function get_review_stats()
-		{
-			$stats= $this->get_option('review_stats', array());
-            $review_stats=array();
-
-            if(!empty($stats)){
-                foreach($stats as $k=>$v){
-                    $term=get_term($v,'wpbooking_review_stats');
-                    if(!is_wp_error($term) and !empty($term->term_id))
-                    $review_stats[$term->term_id]=array(
-                        'id'=>$term->term_id,
-                        'title'=>$term->name
-                    );
-                }
-            }
-
-            return $review_stats;
-		}
+//		/**
+//		 * Get All Review Stats from the Settings
+//		 *
+//		 * @since 1.0
+//		 * @return bool|mixed|void
+//		 *
+//		 */
+//		function get_review_stats()
+//		{
+//			$stats= $this->get_option('review_stats', array());
+//            $review_stats=array();
+//
+//            if(!empty($stats)){
+//                foreach($stats as $k=>$v){
+//                    $term=get_term($v,'wpbooking_review_stats');
+//                    if(!is_wp_error($term) and !empty($term->term_id))
+//                    $review_stats[$term->term_id]=array(
+//                        'id'=>$term->term_id,
+//                        'title'=>$term->name
+//                    );
+//                }
+//            }
+//
+//            return $review_stats;
+//		}
 
 		function _add_setting_section($sections = array())
 		{

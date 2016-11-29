@@ -825,23 +825,6 @@ if (!class_exists('WPBooking_User')) {
         }
 
         /**
-         * Count Number of Comment inside Comment Loop or use specific author email
-         *
-         * @since 1.0
-         * @author dungdt
-         *
-         * @param $author_email bool|string
-         * @return null|string
-         */
-        function count_reviews($author_email = FALSE)
-        {
-            if (!$author_email) $author_email = get_comment_author_email();
-            global $wpdb;
-
-            return $count = $wpdb->get_var('SELECT COUNT(comment_ID) FROM ' . $wpdb->comments . ' WHERE comment_approved=1 and comment_parent=0 and  comment_author_email = "' . $author_email . '"');
-        }
-
-        /**
          * Get Term & Condition Page Permalink
          *
          * @since 1.0

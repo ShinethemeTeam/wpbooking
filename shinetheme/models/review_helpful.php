@@ -5,8 +5,8 @@
  * Date: 7/28/2016
  * Time: 5:37 PM
  */
-if (!class_exists('WPBooking_Review_Helpful_Model')) {
-	class WPBooking_Review_Helpful_Model extends WPBooking_Model
+if (!class_exists('WPBooking_Helpful_Model')) {
+	class WPBooking_Helpful_Model extends WPBooking_Model
 	{
 		static $inst = FALSE;
 
@@ -25,7 +25,8 @@ if (!class_exists('WPBooking_Review_Helpful_Model')) {
 				'ip_address' => array('type' => 'varchar', 'length' => 50)
 			);
 
-			parent::__construct();
+            parent::__construct();
+
 		}
 
 		function vote($review_id, $user_id)
@@ -97,5 +98,5 @@ if (!class_exists('WPBooking_Review_Helpful_Model')) {
 		}
 	}
 
-	WPBooking_Review_Helpful_Model::inst();
+    WPBooking_Helpful_Model::inst();
 }

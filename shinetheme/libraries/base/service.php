@@ -266,23 +266,6 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
-		/**
-		 * Get Rate in HTML format of current Service
-		 *
-		 * @since 1.0
-		 * @author dungdt
-		 *
-		 * @param bool|TRUE $echo
-		 * @return string
-		 */
-		function get_rate_html($echo = TRUE)
-		{
-			if ($this->ID) {
-				$rate = wpbooking_service_rate_to_html($this->ID);
-				if ($echo) echo($rate);
-				else return $rate;
-			}
-		}
 
         /**
          * Get hotel star
@@ -297,18 +280,6 @@ if (!class_exists('WB_Service')) {
                 if($echo) echo ($star_rating);
                 else return $star_rating;
             }
-        }
-
-        /**
-         * Get review score
-         *
-         * @since 1.0
-         */
-
-        function get_review_score(){
-            if(!$this->ID) return;
-            $score = wpbooking_service_review_score_html($this->ID);
-            return $score;
         }
 
 		/**
@@ -329,32 +300,32 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
-        /**
-         * get average of a stats
-         *
-         * @author tien
-         * @since 1.0
-         *
-         * @param $term_id
-         * @return mixed|string|void
-         */
-		function get_stats_avg_rating($term_id){
-            if($this->ID){
-                global $wpdb;
-
-                $model=WPBooking_Comment_Model::inst();
-                $res= $model->select('AVG('.$wpdb->commentmeta.'.meta_value) as average')
-                    ->join('commentmeta','commentmeta.comment_id=comments.comment_ID')
-                    ->where(array(
-                        'comment_post_ID'=>$this->ID,
-                        'comment_parent'=>0,
-                        'comment_approved'=>1,
-                        $wpdb->commentmeta.'.meta_key'=>'wpbooking_review_stats_'.($term_id)
-                    ))->get()->row();
-
-                return (!empty($res['average']))?$res['average']:false;
-            }
-        }
+//        /**
+//         * get average of a stats
+//         *
+//         * @author tien
+//         * @since 1.0
+//         *
+//         * @param $term_id
+//         * @return mixed|string|void
+//         */
+//		function get_stats_avg_rating($term_id){
+//            if($this->ID){
+//                global $wpdb;
+//
+//                $model=WPBooking_Comment_Model::inst();
+//                $res= $model->select('AVG('.$wpdb->commentmeta.'.meta_value) as average')
+//                    ->join('commentmeta','commentmeta.comment_id=comments.comment_ID')
+//                    ->where(array(
+//                        'comment_post_ID'=>$this->ID,
+//                        'comment_parent'=>0,
+//                        'comment_approved'=>1,
+//                        $wpdb->commentmeta.'.meta_key'=>'wpbooking_review_stats_'.($term_id)
+//                    ))->get()->row();
+//
+//                return (!empty($res['average']))?$res['average']:false;
+//            }
+//        }
 
 		/**
 		 * Get Service Type ID of current Service
@@ -545,26 +516,6 @@ if (!class_exists('WB_Service')) {
 		}
 
 		/**
-		 * Check if current post is allowed to vote for the review
-		 *
-		 * @since 1.0
-		 * @author dungdt
-		 *
-		 * @param $review_id int
-		 * @return bool|mixed|void
-		 */
-		function enable_vote_for_review($review_id)
-		{
-			$enable = FALSE;
-			if ($this->ID and is_user_logged_in()) {
-				$enable = apply_filters('wpbooking_enable_vote_for_review', $enable, $this->ID, $this->service_type,$review_id);
-				$enable = apply_filters('wpbooking_enable_vote_for_review_' . $this->service_type, $enable, $this->ID, $this->service_type,$review_id);
-			}
-
-			return $enable;
-		}
-
-		/**
 		 * Get Query to return related service
 		 *
 		 * @since 1.0
@@ -733,19 +684,19 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
-        /**
-         * Get Reviews Stats Based on Service Type
-         *
-         * @since 1.0
-         * @author dungdt
-         *
-         */
-		function get_review_stats()
-        {
-            $wpbooking_review_stats=apply_filters('wpbooking_review_stats',array(),$this->ID);
-
-            return $wpbooking_review_stats;
-        }
+//        /**
+//         * Get Reviews Stats Based on Service Type
+//         *
+//         * @since 1.0
+//         * @author dungdt
+//         *
+//         */
+//		function get_review_stats()
+//        {
+//            $wpbooking_review_stats=apply_filters('wpbooking_review_stats',array(),$this->ID);
+//
+//            return $wpbooking_review_stats;
+//        }
 
 	}
 }

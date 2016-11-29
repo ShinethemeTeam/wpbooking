@@ -28,9 +28,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
                 'service-types/car',
             ));
 
-            //add_filter('comment_form_field_comment', array($this, 'add_review_field'));
-            add_action('comment_post', array($this, '_save_review_stats'));
-
             add_filter('template_include', array($this, '_show_single_service'));
 
             // archive page
@@ -53,30 +50,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
              * @since 1.0
              */
             add_action('wp_ajax_wpbooking_add_favorite', array($this, '_add_favorite'));
-
-            /**
-             * Filter to load specific comment template file
-             *
-             * @since 1.0
-             * @author dungdt
-             */
-            add_filter('comments_template', array($this, '_comments_template'));
-
-            /**
-             * Ajax Vote Review Handler
-             *
-             * @since 1.0
-             * @author dungdt
-             */
-            add_action('wp_ajax_wpbooking_vote_review', array($this, '_wpbooking_vote_review'));
-
-            /**
-             * Ajax Reply a Review
-             *
-             * @since 1.0
-             * @author dungdt
-             */
-            add_action('wp_ajax_wpbooking_write_reply', array($this, '_wpbooking_write_reply'));
 
             /**
              * Redirect for Disable Property
@@ -109,7 +82,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
              * @author tienhd
              */
             add_action('wpbooking_after_service_address', array($this,'_latest_booking_html'), 10 ,3);
-            add_action('wpbooking_after_service_address', array($this,'_review_score_html'), 15 ,3);
         }
 
 
@@ -450,50 +422,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
             return $template;
         }
 
-
-        /**
-         * Save Comment Stats Data
-         * @param $comment_id
-         * @return bool
-         */
-        function _save_review_stats($comment_id)
-        {
-            $comemntObj = get_comment($comment_id);
-            $post_id = $comemntObj->comment_post_ID;
-
-            if (get_post_type($post_id) != 'wpbooking_service') return FALSE;
-
-            $validate = apply_filters('wpbooking_save_review_stats_validate', TRUE, $post_id, $comment_id);
-
-            if ($validate) {
-                $wpbooking_review = $this->post('wpbooking_review');
-                $details = $this->post('wpbooking_review_detail');
-                if (!empty($details) and is_array($details)) {
-                    $total = 0;
-                    foreach ($details as $key=>$val) {
-                        $total += $val['rate'];
-                        update_comment_meta($comment_id, 'wpbooking_review_stats_'.$key, $val['rate']);
-                    }
-                    $wpbooking_review = ($total) / count($details);
-                }
-                if($wpbooking_review < 1) $wpbooking_review = 1;
-                update_comment_meta($comment_id, 'wpbooking_review', $wpbooking_review);
-                update_comment_meta($comment_id, 'wpbooking_review_detail', $details);
-                update_comment_meta($comment_id, 'wpbooking_title', $this->post('wpbooking_title'));
-            }
-
-            do_action('after_wpbooking_update_review_stats', $validate, $comment_id, $post_id);
-        }
-
-        function add_review_field($fields)
-        {
-//			if (get_post_type() != 'wpbooking_service') return $fields;
-//
-//			$field_review = apply_filters('wpbooking_review_field', wpbooking_load_view('single/review/review-field'));
-//
-//			return $field_review . $fields;
-        }
-
         /**
          * Register Default Service Type Object
          *
@@ -539,128 +467,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
             if ($type and isset($all[$type])) return $all[$type];
         }
 
-        /**
-         * Filter to load our specific reviews template
-         *
-         * @since 1.0
-         * @author dungdt
-         *
-         * @param $template
-         * @return string
-         */
-        function _comments_template($template)
-        {
-            if (get_post_type() != 'wpbooking_service') return $template;
-
-            $template = wpbooking_view_path('reviews');
-
-            return $template;
-        }
-
-        /**
-         * Ajax Vote for Review handler
-         *
-         * @since 1.0
-         * @author dungdt
-         */
-        function _wpbooking_vote_review()
-        {
-            $res = array(
-                'status' => FALSE
-            );
-            $review_id = WPBooking_Input::post('review_id');
-            if (!is_user_logged_in()) {
-                $res['status'] = FALSE;
-                $res['not_logged_in'] = 1;
-            } else {
-                $model = WPBooking_Review_Helpful_Model::inst();
-
-                $res['voted'] = (int)$model->vote($review_id, get_current_user_id());
-                $res['status'] = 1;
-                if ($count = $model->count($review_id)) {
-                    $res['vote_count'] = sprintf(esc_html__('%d like', 'wpbooking'), $count);
-                    if ($count > 1)
-                        $res['vote_count_2'] = sprintf(esc_html__('%d likes', 'wpbooking'), $count);
-                    else
-                        $res['vote_count_2'] = sprintf(esc_html__('%d like', 'wpbooking'), $count);
-                    $res['count'] = $count;
-                } else {
-                    $res['vote_count'] = '';
-                    $res['vote_count_2'] = '';
-                    $res['count'] = 0;
-                }
-
-
-            }
-
-            echo json_encode($res);
-            die;
-        }
-
-        /**
-         * Ajax Reply for Review
-         *
-         * @since 1.0
-         * @author dungdt
-         */
-        function _wpbooking_write_reply()
-        {
-            $res = array(
-                'status' => FALSE
-            );
-            $review_id = $this->post('review_id');
-            $message = $this->post('message');
-            if ($review_id and $message and is_user_logged_in()) {
-
-                $review = get_comment($review_id);
-                $post_id = $review->comment_post_ID;
-                $service = new WB_Service($post_id);
-
-                // Only Level 1 and check current user permission
-                if (wpbooking_review_allow_reply($review_id)) {
-                    $current_user = wp_get_current_user();
-                    $data = array(
-                        'comment_content'      => $message,
-                        'comment_parent'       => $review_id,
-                        'user_id'              => get_current_user_id(),
-                        'comment_author_IP'    => $this->ip_address(),
-                        'comment_author_email' => $current_user->user_email,
-                        'comment_post_ID'      => $post_id
-                    );
-                    $reply_id = wp_insert_comment($data);
-                    $count = WPBooking_User::inst()->count_reviews($service->get_author('email'));
-                    $html_count = FALSE;
-                    if ($count) $html_count = sprintf('<span class="review-count">' . _n('1 review', '%d reviews', $count, 'wpbooking') . '</span>', $count);
-
-                    $res['status'] = 1;
-                    $res['html'] = '<li>
-										<div class="comment_container">
-											<footer class="comment-meta">
-												<div class="comment-author vcard">
-													' . $service->get_author('avatar')
-                        . sprintf('<b class="review-author-name">%s</b>', $service->get_author('name'))
-                        . $html_count . '
-												</div><!-- .comment-author -->
-											</footer><!-- .comment-meta -->
-
-											<div class="comment-content-wrap">
-												<div class="comment-text">
-													<p>' . $message . '</p>
-												</div>
-											</div><!-- .comment-content -->
-										</div>
-									</li>';
-
-                    $res['html'] = apply_filters('wpbooking_write_reply_html_result', $res['html'], $reply_id);
-
-                }
-            }
-
-            $res = apply_filters('wpbooking_write_reply_result', $res);
-
-            echo json_encode($res);
-            die;
-        }
 
         /**
          * Filter to Add Class Name to Body Tag
@@ -727,16 +533,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
                     echo apply_filters('wpbooking_latest_booking_html_'.$service_type,$latest_booking,$post_id,$latest_time,$current);
                 }
-            }
-        }
-
-        function _review_score_html($post_id, $service_type, $service){
-            if(!empty($post_id)){
-                ?>
-                <div class="wb-score-review">
-                    <?php echo $service->get_review_score(); ?>
-                </div>
-            <?php
             }
         }
 

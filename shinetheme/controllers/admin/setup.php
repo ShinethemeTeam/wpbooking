@@ -158,26 +158,7 @@ if(!class_exists('WPBooking_Admin_Setup'))
                         ///////////////////
                         /////Room//////////
                         ///////////////////
-                        update_option("wpbooking_service_type_accommodation_enable_review",WPBooking_Input::request('wpbooking_service_type_accommodation_enable_review',0));
-                        update_option("wpbooking_service_type_accommodation_review_without_booking",WPBooking_Input::request('wpbooking_service_type_accommodation_review_without_booking',0));
-                        update_option("wpbooking_service_type_accommodation_show_rate_review_button",WPBooking_Input::request('wpbooking_service_type_accommodation_show_rate_review_button',0));
-                        update_option("wpbooking_service_type_accommodation_allowed_review_on_own_listing",WPBooking_Input::request('wpbooking_service_type_accommodation_allowed_review_on_own_listing',0));
-                        update_option("wpbooking_service_type_accommodation_allowed_vote_for_own_review",WPBooking_Input::request('wpbooking_service_type_accommodation_allowed_vote_for_own_review',0));
 
-                        $ids = array();
-                        foreach(array(
-                                    'Clean Service',
-                                    'Location',
-                                    'Sleep',
-                                    'View',
-                                ) as $k=>$v){
-                            $q=wp_insert_term($v,'wpbooking_review_stats');
-                            if(!is_wp_error($q)){
-                                $ids[] = $q['term_id'];
-                            }
-                        }
-                        update_option("wpbooking_service_type_accommodation_review_stats",$ids);
-                        update_option("wpbooking_service_type_accommodation_maximum_review",1);
                         update_option("wpbooking_service_type_accommodation_posts_per_page",10);
                         wp_redirect( add_query_arg( array('page'=>'wpbooking_setup_page_settings','wp_step'=>'wp_payment') , admin_url("admin.php") ) );
                         exit;

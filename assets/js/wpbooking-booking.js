@@ -3,51 +3,51 @@
  */
 jQuery(document).ready(function($){
 
-    $('.wpbooking-rating-review a').hover(function(){
-        var index=$(this).index();
-        index=parseInt(index);
-
-        $(this).addClass('active');
-        $(this).prevAll().addClass('active');
-        $(this).nextAll().removeClass('active');
-
-        $(this).closest('.wpbooking-rating-review').find('.wpbooking_review_detail_rate').val(index+1);
-
-        var totalRate=0;
-        var rateStats=$('.wpbooking_review_detail_rate');
-        if(rateStats.length){
-            rateStats.each(function(){
-                totalRate+=parseInt($(this).val());
-            });
-            $('[name=wpbooking_review]').val(parseFloat(totalRate/rateStats.length));
-        }else{
-            $('[name=wpbooking_review]').val(index+1);
-        }
-
-    });
-
-    if($('.wpbooking_review_detail_rate').length == 0) {
-        var rate = $('.wpbooking-comment-form-rating [name=wpbooking_review]').val();
-        if (rate != 0) {
-            $('.wpbooking-comment-form-rating .wpbooking-rating-review a').each(function () {
-                if (parseInt($(this).index()) < rate) {
-                    $(this).addClass('active');
-                }
-            });
-        }
-    }
-
-
-    $('.wpbooking-rating-review .wpbooking_review_detail_rate').each(function () {
-        var rate = $(this).val();
-        if (rate != 0) {
-            $(this).closest('.wpbooking-rating-review').find('a').each(function () {
-                if (parseInt($(this).index()) < rate) {
-                    $(this).addClass('active');
-                }
-            });
-        }
-    });
+    //$('.wpbooking-rating-review a').hover(function(){
+    //    var index=$(this).index();
+    //    index=parseInt(index);
+    //
+    //    $(this).addClass('active');
+    //    $(this).prevAll().addClass('active');
+    //    $(this).nextAll().removeClass('active');
+    //
+    //    $(this).closest('.wpbooking-rating-review').find('.wpbooking_review_detail_rate').val(index+1);
+    //
+    //    var totalRate=0;
+    //    var rateStats=$('.wpbooking_review_detail_rate');
+    //    if(rateStats.length){
+    //        rateStats.each(function(){
+    //            totalRate+=parseInt($(this).val());
+    //        });
+    //        $('[name=wpbooking_review]').val(parseFloat(totalRate/rateStats.length));
+    //    }else{
+    //        $('[name=wpbooking_review]').val(index+1);
+    //    }
+    //
+    //});
+    //
+    //if($('.wpbooking_review_detail_rate').length == 0) {
+    //    var rate = $('.wpbooking-comment-form-rating [name=wpbooking_review]').val();
+    //    if (rate != 0) {
+    //        $('.wpbooking-comment-form-rating .wpbooking-rating-review a').each(function () {
+    //            if (parseInt($(this).index()) < rate) {
+    //                $(this).addClass('active');
+    //            }
+    //        });
+    //    }
+    //}
+    //
+    //
+    //$('.wpbooking-rating-review .wpbooking_review_detail_rate').each(function () {
+    //    var rate = $(this).val();
+    //    if (rate != 0) {
+    //        $(this).closest('.wpbooking-rating-review').find('a').each(function () {
+    //            if (parseInt($(this).index()) < rate) {
+    //                $(this).addClass('active');
+    //            }
+    //        });
+    //    }
+    //});
 
 
 
@@ -1730,30 +1730,30 @@ jQuery(document).ready(function($){
        $(this).closest('.wpbooking-more-review-detail').toggleClass('active');
     });
 
-    $('.wpbooking-vote-for-review .review-do-vote').click(function(){
-        var me=$(this);
-        $.ajax({
-            data:{
-                action:'wpbooking_vote_review',
-                review_id:$(this).data('review-id'),
-            },
-            type:'post',
-            url:wpbooking_params.ajax_url,
-            dataType:'json',
-            success:function(res){
-                if(res.status){
-                    me.closest('.wpbooking-vote-for-review').find('.review-vote-count').html(res.vote_count);
-                }
-                if(res.voted){
-                    me.addClass('active');
-                    me.closest('.wpbooking-vote-for-review').find('.wb-like-text').addClass('wb-none');
-                }else{
-                    me.removeClass('active');
-                    me.closest('.wpbooking-vote-for-review').find('.wb-like-text').removeClass('wb-none');
-                }
-            }
-        })
-    });
+    //$('.wpbooking-vote-for-review .review-do-vote').click(function(){
+    //    var me=$(this);
+    //    $.ajax({
+    //        data:{
+    //            action:'wpbooking_vote_review',
+    //            review_id:$(this).data('review-id'),
+    //        },
+    //        type:'post',
+    //        url:wpbooking_params.ajax_url,
+    //        dataType:'json',
+    //        success:function(res){
+    //            if(res.status){
+    //                me.closest('.wpbooking-vote-for-review').find('.review-vote-count').html(res.vote_count);
+    //            }
+    //            if(res.voted){
+    //                me.addClass('active');
+    //                me.closest('.wpbooking-vote-for-review').find('.wb-like-text').addClass('wb-none');
+    //            }else{
+    //                me.removeClass('active');
+    //                me.closest('.wpbooking-vote-for-review').find('.wb-like-text').removeClass('wb-none');
+    //            }
+    //        }
+    //    })
+    //});
     $('.wpbooking-account-tab .user-reviews .review-do-vote').click(function(){
         var me=$(this);
 
@@ -1784,43 +1784,43 @@ jQuery(document).ready(function($){
         })
     });
 
-    $('.wb-btn-reply-comment').click(function(){
-       var parent=$(this).closest('li');
-       parent.find('ul .reply-comment-form').toggleClass('active');
-    });
-
-    // Reply
-    $('.reply-submit a').click(function(){
-        var me=$(this);
-        var parent=me.closest('.wpbooking-add-reply');
-        me.addClass('loading');
-        var message=parent.find('.reply_content').val();
-        if(!message) return false;
-
-        $.ajax({
-            data:{
-                action:'wpbooking_write_reply',
-                review_id:me.data('review-id'),
-                message:message
-            },
-            url:wpbooking_params.ajax_url,
-            dataType:'json',
-            type:'post',
-            success:function(res){
-                me.removeClass('loading');
-                if(res.status){
-                    me.closest('.comment').find('.wb-btn-reply-comment').hide();
-                    me.closest('.content_comment_profile').find('.wb-btn-reply-comment').hide();
-                    me.closest('ul').html(res.html);
-                }
-            },
-            error:function(e){
-                console.log(e.responseText);
-                me.removeClass('loading');
-            }
-        })
-
-    });
+    //$('.wb-btn-reply-comment').click(function(){
+    //   var parent=$(this).closest('li');
+    //   parent.find('ul .reply-comment-form').toggleClass('active');
+    //});
+    //
+    //// Reply
+    //$('.reply-submit a').click(function(){
+    //    var me=$(this);
+    //    var parent=me.closest('.wpbooking-add-reply');
+    //    me.addClass('loading');
+    //    var message=parent.find('.reply_content').val();
+    //    if(!message) return false;
+    //
+    //    $.ajax({
+    //        data:{
+    //            action:'wpbooking_write_reply',
+    //            review_id:me.data('review-id'),
+    //            message:message
+    //        },
+    //        url:wpbooking_params.ajax_url,
+    //        dataType:'json',
+    //        type:'post',
+    //        success:function(res){
+    //            me.removeClass('loading');
+    //            if(res.status){
+    //                me.closest('.comment').find('.wb-btn-reply-comment').hide();
+    //                me.closest('.content_comment_profile').find('.wb-btn-reply-comment').hide();
+    //                me.closest('ul').html(res.html);
+    //            }
+    //        },
+    //        error:function(e){
+    //            console.log(e.responseText);
+    //            me.removeClass('loading');
+    //        }
+    //    })
+    //
+    //});
 
     // Cart Item
     $('.cart-item-order-form-fields-wrap .show-more-less').click(function(){
@@ -1958,25 +1958,25 @@ jQuery(document).ready(function($){
 
         },100);
     })
-    $('#comments input[type=submit]').click(function(){
-        var check = true;
-        $(".wpbooking_review_detail_rate").each(function(){
-            if($(this).val() < 1){
-                check = false
-            }
-        });
-        $("input[name=wpbooking_review]").each(function(){
-            if($(this).val() < 1){
-                check = false
-            }
-        });
-        if(check == false){
-            var msg = '<div class="alert alert-danger"><p>'+wpbooking_params.select_comment_review+'</p></div>';
-            $(this).closest('.form-submit').find('.alert').remove();
-            $(this).closest('.form-submit').append(msg);
-            return false;
-        }
-    });
+    //$('#comments input[type=submit]').click(function(){
+    //    var check = true;
+    //    $(".wpbooking_review_detail_rate").each(function(){
+    //        if($(this).val() < 1){
+    //            check = false
+    //        }
+    //    });
+    //    $("input[name=wpbooking_review]").each(function(){
+    //        if($(this).val() < 1){
+    //            check = false
+    //        }
+    //    });
+    //    if(check == false){
+    //        var msg = '<div class="alert alert-danger"><p>'+wpbooking_params.select_comment_review+'</p></div>';
+    //        $(this).closest('.form-submit').find('.alert').remove();
+    //        $(this).closest('.form-submit').append(msg);
+    //        return false;
+    //    }
+    //});
 
     $.fn.wb_tabs = function(params){
         var setting = params;

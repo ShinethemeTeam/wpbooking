@@ -170,7 +170,7 @@ $diff = $diff / (60 * 60 * 24);
                         </td>
                         <td>
                             <span class="title"><?php echo  esc_html($v['is_selected'])?></span>
-                            <span class="desc"><?php echo esc_html( $v['desc'] ) ?></span>
+                            <span class="desc"><?php echo (!empty($v['desc']))?esc_html( $v['desc'] ):'' ?></span>
                         </td>
                         <td>
                             <select class="form-control option_extra_quantity" name="wpbooking_room[<?php the_ID() ?>][extra_service][<?php echo esc_attr($k) ?>][quantity]" data-price-extra="<?php echo esc_attr($v['money']) ?>">

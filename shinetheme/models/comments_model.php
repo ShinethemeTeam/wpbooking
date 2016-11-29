@@ -5,7 +5,8 @@
  * Date: 5/30/2016
  * Time: 6:01 PM
  */
-if(!class_exists('WPBooking_Comment_Model'))
+
+if(!class_exists('WPBooking_Comment_Model') && class_exists('WPBooking_Model'))
 {
 	class WPBooking_Comment_Model extends WPBooking_Model
 	{
@@ -18,45 +19,46 @@ if(!class_exists('WPBooking_Comment_Model'))
 			parent::__construct();
 		}
 
-		/**
-		 * Get Avg Rate for Specific Post
-		 *
-		 * @since 1.0
-		 * @author dungdt
-		 *
-		 * @param bool|FALSE $post_id
-		 * @return bool
-		 */
-		function get_avg_review($post_id=FALSE)
-		{
-			global $wpdb;
-			if(!$post_id) return FALSE;
 
-			$row=$this->select('avg('.$wpdb->commentmeta.'.meta_value) as avg_rate')
-				->join('commentmeta','commentmeta.comment_id=comments.comment_ID')
-				->where($wpdb->commentmeta.'.meta_key','wpbooking_review')
-				->where('comment_post_ID',$post_id)
-				->where('comment_approved',1)
-				->get()->row();
+        /**
+         * Get Avg Rate for Specific Post
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param bool|FALSE $post_id
+         * @return bool
+         */
+        function get_avg_review($post_id=FALSE)
+        {
+            global $wpdb;
+            if(!$post_id) return FALSE;
 
-			return !empty($row['avg_rate'])?$row['avg_rate']:FALSE;
-		}
+            $row=$this->select('avg('.$wpdb->commentmeta.'.meta_value) as avg_rate')
+                ->join('commentmeta','commentmeta.comment_id=comments.comment_ID')
+                ->where($wpdb->commentmeta.'.meta_key','wb_review')
+                ->where('comment_post_ID',$post_id)
+                ->where('comment_approved',1)
+                ->get()->row();
 
-		/**
-		 * Get Number of Reply for a Review
-		 *
-		 * @author dungdt
-		 * @since 1.0
-		 *
-		 * @param $review_id
-		 * @return mixed
-		 */
-		function count_child($review_id){
+            return !empty($row['avg_rate'])?$row['avg_rate']:FALSE;
+        }
 
-			$res=$this->select('count(comment_ID) as total')->where('comment_parent',$review_id)->get(1)->row();
+        /**
+         * Get Number of Reply for a Review
+         *
+         * @author dungdt
+         * @since 1.0
+         *
+         * @param $review_id
+         * @return mixed
+         */
+        function count_child($review_id){
 
-			return $res['total'];
-		}
+            $res=$this->select('count(comment_ID) as total')->where('comment_parent',$review_id)->get(1)->row();
+
+            return $res['total'];
+        }
 
         function count_parent($post_id = false){
 
@@ -67,7 +69,7 @@ if(!class_exists('WPBooking_Comment_Model'))
                     'comment_post_ID'=>$post_id,
                     'comment_parent'=>0,
                     'comment_approved'=>1
-                    ))->get()->row();
+                ))->get()->row();
             return !empty($row['total'])?$row['total']:FALSE;
         }
 
@@ -80,6 +82,6 @@ if(!class_exists('WPBooking_Comment_Model'))
 
 	}
 
-	WPBooking_Comment_Model::inst();
+    WPBooking_Comment_Model::inst();
 
 }

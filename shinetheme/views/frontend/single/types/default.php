@@ -80,60 +80,8 @@ $hotel_id=get_the_ID();
         <div class="col-service-reviews-meta">
             <div class="wb-service-reviews-meta">
                 <?php
-                $review_score = WPBooking_Comment_Model::inst()->get_avg_review(get_the_ID());
-                $count = WPBooking_Comment_Model::inst()->count_parent(get_the_ID());
-                if($count > 0){
-                    ?>
-                    <div class="wb-reviews-score-box wp-box-item">
-                        <?php
-
-                        if($review_score > 4){
-                            $str_rating = esc_html__('Excellent','wpbooking');
-                        }elseif($review_score > 3){
-                            $str_rating = esc_html__('Very Good','wpbooking');
-                        }elseif($review_score > 2){
-                            $str_rating = esc_html__('Average','wpbooking');
-                        }elseif($review_score > 1){
-                            $str_rating = esc_html__('Poor','wpbooking');
-                        }else{
-                            $str_rating = esc_html__('Terrible','wpbooking');
-                        }
-
-                        $wpbooking_review_stats=$service->get_review_stats();
-
-                        ?>
-                        <div class="score-header">
-                            <span class="reviews-count"><?php printf(_n('%s review','%s reviews',$count,'wpbooking'),$count); ?></span>
-                            <span class="rating-str"><?php echo esc_attr($str_rating); ?></span>
-                            <span class="review-score"><?php echo number_format($review_score,1,'.',''); ?></span> <span class="max-rating"><?php echo esc_html__('of 5 guest rating');?></span>
-                        </div>
-                        <?php if($wpbooking_review_stats){ ?>
-                            <ul class="list_review_fields">
-                                <?php foreach($wpbooking_review_stats as $key => $value) {
-                                    $rating_score = $service->get_stats_avg_rating($key);
-                                    if ($rating_score) {
-                                        ?>
-                                        <li>
-                                            <span class="rating_title"><?php echo esc_attr($value['title']); ?>&nbsp;</span>
-                                            <span class="rating">
-                                   <span class="<?php if ($rating_score >= 0.5) echo 'active'; ?>"><i
-                                           class="fa fa-star-o icon-star"></i></span>
-                                   <span class="<?php if ($rating_score >= 1.5) echo 'active'; ?>"><i
-                                           class="fa fa-star-o icon-star"></i></span>
-                                   <span class="<?php if ($rating_score >= 2.5) echo 'active'; ?>"><i
-                                           class="fa fa-star-o icon-star"></i></span>
-                                   <span class="<?php if ($rating_score >= 3.5) echo 'active'; ?>"><i
-                                           class="fa fa-star-o icon-star"></i></span>
-                                   <span class="<?php if ($rating_score >= 4.5) echo 'active'; ?>"><i
-                                           class="fa fa-star-o icon-star"></i></span>
-                               </span>
-                                        </li>
-                                    <?php }
-                                }?>
-                            </ul>
-                        <?php } ?>
-                    </div>
-                <?php } ?>
+                do_action('wpbooking_before_contact_meta');
+                ?>
                 <?php
                 $contact_meta = array(
                     'contact_number' => 'fa-phone',

@@ -1,5 +1,6 @@
 <?php
 if(empty($data['taxonomy'])) return;
+
 $data_value = wpbooking_get_option($data['id'],$data['std']);
 if(!is_array($data_value)) $data_value=array();else $data_value=array_values($data_value);
 

@@ -238,30 +238,6 @@ if(!function_exists('wpbooking_icon_class_handler')){
 	}
 }
 
-if(!function_exists('wpbooking_count_review_vote')){
-	function wpbooking_count_review_vote($review_id=FALSE){
-
-		$model= WPBooking_Review_Helpful_Model::inst();
-
-		$res= $model->select('count(id) as total')->where(array(
-			'review_id'=>$review_id,
-		))->get(1)->row();
-
-		if($res) return $res['total'];
-		return 0;
-	}
-}
-if(!function_exists('wpbooking_user_liked_review')){
-	function wpbooking_user_liked_review($review_id=FALSE,$user_id=FALSE){
-
-		if(!$user_id) $user_id=get_current_user_id();
-		if(!$user_id) return FALSE;
-
-		return WPBooking_Review_Helpful_Model::inst()->count($review_id,$user_id);
-
-	}
-}
-
 if(!function_exists('wpbooking_query')){
 	function wpbooking_query($query_id='default',$arg,$service_type=FALSE){
 
