@@ -171,6 +171,7 @@ if (!class_exists('WB_Service')) {
         {
             $res = array(
                 'thumb'       => sprintf('<img src="%s" alt="%s"/>', wpbooking_assets_url('images/default.png'), get_the_title($this->ID)),
+                'thumb300'       => sprintf('<img src="%s" alt="%s"/>', wpbooking_assets_url('images/default.png'), get_the_title($this->ID)),
                 'thumb_url'   => wpbooking_assets_url('images/default.png'),
                 'gallery'     => sprintf('<img src="%s" alt="%s"/>', wpbooking_assets_url('images/default.png'), get_the_title($this->ID)),
                 'gallery_url' => wpbooking_assets_url('images/default.png'),
