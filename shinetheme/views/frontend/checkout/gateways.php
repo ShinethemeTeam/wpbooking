@@ -24,12 +24,14 @@ if(!$pay_amount) return;
 						<input type="radio" name="payment_gateway" value="<?php echo esc_attr($key)?>" >
 						<span><?php echo $value->get_option('title') ?></span>
 					</label>
-					<div class="gateway-desc gateway-id-<?php echo esc_attr($key) ?>">
-						<?php echo do_shortcode($value->get_option('desc'));
-						do_action('wpbooking_gateway_desc',$key,$value);
-						do_action('wpbooking_gateway_desc_'.$key,$value);
-						?>
-					</div>
+					<?php if(!empty($value->get_option('desc'))){ ?>
+						<div class="gateway-desc gateway-id-<?php echo esc_attr($key) ?>">
+							<?php echo do_shortcode($value->get_option('desc'));
+							do_action('wpbooking_gateway_desc',$key,$value);
+							do_action('wpbooking_gateway_desc_'.$key,$value);
+							?>
+						</div>
+					<?php } ?>
 				</div>
 			</li>
 			<?php

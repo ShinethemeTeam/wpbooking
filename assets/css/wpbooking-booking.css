@@ -2256,7 +2256,7 @@ a.label:focus {
   /* Hidden by default */
   position: fixed;
   /* Stay in place */
-  z-index: 1;
+  z-index: 99999;
   /* Sit on top */
   padding-top: 100px;
   /* Location of the box */
@@ -6940,4 +6940,7 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
 .term_condition {
   border: none !important;
   color: #f0ad4e;
+}
+.mgt-10 {
+  margin-top: 10px;
 }
