@@ -165,6 +165,8 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
              */
             wp_enqueue_script('wpbooking-select2', wpbooking_assets_url('select2/js/select2.full.min.js'), array('jquery'), null, true);
 
+            wp_enqueue_script('wpbooking-nicescroll', wpbooking_assets_url('js/nicescroll.js'), array('jquery'), null, true);
+
             wp_enqueue_script('wpbooking-booking', wpbooking_assets_url('js/wpbooking-booking.js'), array('jquery', 'chartjs', 'jquery-ui-datepicker', 'icheck', 'owlcarousel', 'moment'), null, true);
 
 
