@@ -146,18 +146,6 @@
     }
 
 }
-.rating-stars{
-
-    a{
-        &.active{
-            .icon-star{
-                &:before{
-                    content: "\f005";
-                }
-            }
-        }
-    }
-}
 // Hide Search Button in archive page
 .wpbooking-archive-page{
     //.search-button-wrap{
@@ -1706,39 +1694,6 @@
                 .max-rating{
                   display: inline-block;
                   font-size: 15px;
-                }
-              }
-              .list_review_fields{
-                list-style: none;
-                font-size: 14px;
-                margin-top: 15px;
-                display: table;
-                width: 100%;
-                margin-left: 0;
-                li{
-                  display: table-row;
-                  >span{
-                    display: table-cell;
-                  }
-                }
-                li:nth-of-type(odd){
-                  background: #FAFAFA;
-                }
-                .rating_title{
-                  padding: 5px 5px 5px 24px;
-                  width: 1px;
-                  white-space: nowrap;
-                }
-                .rating{
-                  padding-right: 10px;
-                  color: #ccc;
-                  text-align: right;
-                  .active{
-                    color: @maincolor;
-                    i:before{
-                      content: "\f005";
-                    }
-                  }
                 }
               }
             }

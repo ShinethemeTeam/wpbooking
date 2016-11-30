@@ -171,7 +171,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             wp_localize_script('jquery', 'wpbooking_params', array(
                 'ajax_url'              => admin_url('admin-ajax.php'),
                 'wpbooking_security'    => wp_create_nonce('wpbooking-nonce-field'),
-                'select_comment_review' => esc_html__('Please rating the criteria of this accomodation.', 'wpbooking'),
+                'select_comment_review' => esc_html__('Please rating the criteria of this accommodation.', 'wpbooking'),
                 'currency_symbol'=>WPBooking_Currency::get_current_currency('symbol'),
                 'currency_position'=> WPBooking_Currency::get_current_currency('position'),
                 'thousand_separator'=> WPBooking_Currency::get_current_currency('thousand_sep'),

@@ -165,15 +165,15 @@ if (!class_exists('WPBooking_Admin_Service')) {
 			WPBooking_Assets::add_css("#wpbooking_amenitydiv{display:none!important}");
 
 			WPBooking_Taxonomy_Metabox::inst()->add_metabox(array(
-				'id'       => 'amenity_information',
-				'taxonomy' => array('wpbooking_amenity'),
-				'fields'   => array(
-					array(
-						'type'  => 'icon',
-						'id'    => 'icon',
-						'label' => esc_html__('Icon', 'wpbooking')
-					)
-				)
+//				'id'       => 'amenity_information',
+//				'taxonomy' => array('wpbooking_amenity'),
+//				'fields'   => array(
+//					array(
+//						'type'  => 'icon',
+//						'id'    => 'icon',
+//						'label' => esc_html__('Icon', 'wpbooking')
+//					)
+//				)
 			));
 
 			// Extra Services

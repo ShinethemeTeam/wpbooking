@@ -9,6 +9,15 @@ if(!empty($data['element_list_item'])){
     $data_value = $data['custom_value'];
 }
 
+$min = '';
+if(!empty($data['min'])){
+    $min = $data['min'];
+}
+$max = '';
+if(!empty($data['max'])){
+    $min = $data['max'];
+}
+
 $class = $name;
 $data_class = '';
 if(!empty($data['condition'])){
@@ -21,7 +30,7 @@ if(!empty($data['condition'])){
         <label for="<?php echo esc_html($data['id']) ?>"><?php echo esc_html($data['label']) ?>:</label>
     </th>
     <td>
-        <input type="number" id="<?php echo esc_attr($name) ?>" class="form-control" value="<?php echo esc_html($data_value) ?>" name="<?php echo esc_html($name) ?>" placeholder="<?php echo esc_html($data['label']) ?>">
+        <input type="number" id="<?php echo esc_attr($name) ?>" min="<?php echo esc_attr($min); ?>" max="<?php echo esc_attr($max); ?>" class="form-control" value="<?php echo esc_html($data_value) ?>" name="<?php echo esc_html($name) ?>" placeholder="<?php echo esc_html($data['label']) ?>">
         <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
     </td>
 </tr>

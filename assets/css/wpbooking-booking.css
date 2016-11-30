@@ -192,9 +192,6 @@ a.label:focus {
 .wpbooking-rating-review br {
   display: none;
 }
-.rating-stars a.active .icon-star:before {
-  content: "\f005";
-}
 .wpbooking-archive-page .wpbooking-search-form-wrap.show-more-active .search-button-wrap {
   display: block;
 }
@@ -1662,39 +1659,6 @@ a.label:focus {
 .single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .score-header .max-rating {
   display: inline-block;
   font-size: 15px;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .list_review_fields {
-  list-style: none;
-  font-size: 14px;
-  margin-top: 15px;
-  display: table;
-  width: 100%;
-  margin-left: 0;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .list_review_fields li {
-  display: table-row;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .list_review_fields li > span {
-  display: table-cell;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .list_review_fields li:nth-of-type(odd) {
-  background: #FAFAFA;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .list_review_fields .rating_title {
-  padding: 5px 5px 5px 24px;
-  width: 1px;
-  white-space: nowrap;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .list_review_fields .rating {
-  padding-right: 10px;
-  color: #ccc;
-  text-align: right;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .list_review_fields .rating .active {
-  color: #f0ad4e;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .list_review_fields .rating .active i:before {
-  content: "\f005";
 }
 .single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-contact-box {
   margin-bottom: 25px;
