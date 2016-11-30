@@ -27,7 +27,7 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 			if (!version_compare(phpversion(), '5.3', '<')) {
 				// default gateways
 				$defaults=array(
-					'bank-transfer',
+					'submit-form',
 					'paypal'
 				);
 				foreach($defaults as $value){

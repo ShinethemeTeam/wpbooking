@@ -145,7 +145,7 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 
                         ?>
                         <a class="wb-btn wb-btn-blue wb-btn-md" href="<?php echo esc_url($response->getRedirectUrl())   ?>"><?php esc_html_e('Pay Now','wpbooking') ?></a>
-                        <p class=><?php esc_html_e('You will be redirect to PayPal.com to complete the payment','wpbooking') ?></p>
+                        <p class="mgt-10"><?php esc_html_e('You will be redirect to PayPal.com to complete the payment','wpbooking') ?></p>
                         <?php
                     }else{
                         wpbooking_set_message(esc_html__('Paypal Error:','wpbooking').' '.$response->getMessage(),'error');

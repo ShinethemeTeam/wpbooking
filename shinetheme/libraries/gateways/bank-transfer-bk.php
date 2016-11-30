@@ -80,6 +80,6 @@ if(!class_exists('WPBooking_BankTransfer_Gateway') and class_exists('WPBooking_A
 		}
 	}
 
-	WPBooking_BankTransfer_Gateway::inst();
+	//WPBooking_BankTransfer_Gateway::inst();
 }
 
