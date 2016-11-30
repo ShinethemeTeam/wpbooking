@@ -225,6 +225,8 @@ $diff = $diff / (60 * 60 * 24);
                             foreach($gallery as $k => $v){
                                 echo wp_get_attachment_image($v,'full');
                             }
+                        }else{
+                            echo $featured=$service_room->get_featured_image_room('thumb300');
                         }
                         ?>
                     </div>
