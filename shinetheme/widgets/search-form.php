@@ -222,41 +222,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					</div>
 					<?php
 					break;
-				case "review_rate":
-					?>
-					<div class="item-search">
-						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
 
-						<div class="item-search-content">
-							<div class="list-checkbox">
-							<?php
-							$data = array(
-								"5" => __('Excellent 4+','wpbooking') ,
-								"4" => __('Very Good 3+','wpbooking') ,
-								"3" => __('Average 2+','wpbooking') ,
-								"2" => __('Poor 1+','wpbooking') ,
-								"1" => __('Terrible','wpbooking') ,
-							);
-							if(!empty( $data )) {
-								foreach( $data as $key2 => $value2 ) {
-									$check ="";
-									if(in_array($key2,explode(',',$value))){
-										$check = "checked";
-									}
-									?>
-										<label ><input class="wb-checkbox-search <?php if($v['required']=='yes') echo 'wb-required' ?>" type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
-										<?php echo ( $value2 ) ?></label>
-									<?php
-								}
-							}
-							?>
-							<input type="hidden" value="<?php echo esc_attr($value) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v['field_type'] ) ?>">
-						</div>
-						</div>
-						<div class="wb-collapse"></div>
-					</div>
-					<?php
-					break;
 				//Hotel star
                 case 'star_rating':
                     ?>
@@ -445,6 +411,9 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					<?php
 					break;
 			}
+
+            do_action('wpbooking_after_get_search_field_html', $v, $service_type);
+
 		}
 
 
