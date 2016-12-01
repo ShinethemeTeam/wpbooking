@@ -3947,6 +3947,150 @@ label[for=wpbooking_room_typediv-hide]
     }
   }
 }
+
+//WPBooking About
+
+.wpbooking-info{
+  margin-left: 10px;
+  margin-top: 20px;
+  width: 1200px;
+  font-size: 14px;
+  p{
+    font-size: 14px;
+  }
+  @media (max-width: 1199px) {
+    width: 100%;
+  }
+  h1{
+    font-size: 35px;
+  }
+  .description{
+    font-style: normal;
+    font-size: 15px;
+    margin: 15px 0 15px;
+  }
+  .wb-control{
+    width: 100%;
+    display: inline-block;
+    .wb-left{
+      float: left;
+      margin-right: 42px;
+      padding-top: 20px;
+    }
+    .wb-desc{
+      float: left;
+      margin-right: 40px;
+      padding-top: 5px;
+      p{
+        margin: 8px 0;
+      }
+    }
+    .wb-right{
+      padding-top: 20px;
+      float: right;
+    }
+    .full-width{
+      width: 100%;
+    }
+  }
+  .wb-content{
+    overflow: hidden;
+    clear: both;
+    background: #fff;
+    margin-top: 20px;
+    border: 1px solid #cfcfcf;
+    .header{
+      padding: 32px;
+      background: #F9F9F9;
+      border-bottom: 1px solid #cfcfcf;
+      h2{
+        color: #f0ad4e;
+        font-size: 28px;
+        margin: 10px 0;
+      }
+    }
+    .content{
+      padding: 38px 100px 45px 70px;
+      @media (max-width: 480px) {
+        padding: 20px 30px 30px 30px;
+      }
+      .step{
+        clear: both;
+        display: inline-block;
+        margin-bottom: 57px;
+        width: 100%;
+        .left{
+          float: left;
+          width: 45%;
+          padding-right: 30px;
+          h3{
+            font-size: 20px;
+            font-weight: bold;
+            span{
+              color: #f0ad4e;
+              font-size: 24px;
+            }
+          }
+          ul{
+            margin-top: 30px;
+            padding-left: 30px;
+            li{
+              position: relative;
+              &:before{
+                content: '';
+                width: 7px;
+                height: 7px;
+                background: #f0ad4e;
+                position: absolute;
+                top: 7px;
+                left: -18px;
+              }
+            }
+          }
+        }
+        img{
+          float: right;
+          width: 47%;
+          -webkit-box-shadow: 0px 10px 50px -15px rgba(0,0,0,0.75);
+          -moz-box-shadow: 0px 10px 50px -15px rgba(0,0,0,0.75);
+          box-shadow: 0px 10px 50px -15px rgba(0,0,0,0.75);
+        }
+        &:last-child{
+          margin-bottom: 0;
+        }
+        @media (max-width: 768px) {
+          .left{
+            width: 100%;
+          }
+          img{
+            margin-top: 20px;
+            width: 100%;
+          }
+        }
+      }
+    }
+    .footer{
+      padding: 32px;
+      background: #F9F9F9;
+      border-top: 1px solid #cfcfcf;
+      h3{
+        font-size: 27px;
+        font-weight: 300;
+        margin-top: 10px;
+      }
+      a{
+        display: block;
+        color: #f0ad4e;
+        text-decoration: underline;
+        margin: 10px 0 10px 17px;
+        &:focus{
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}
+
 @media(max-width: 1300px){
     .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .service_detail {
         width: 130px;

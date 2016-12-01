@@ -21,32 +21,14 @@ if(!class_exists('WPBooking_Admin_Setting'))
             // add script and style
             add_action('admin_enqueue_scripts',array($this,"_add_scripts"));
 
-//            add_action('init',array($this,'_register_tax'));
         }
 
 
-//        public function _register_tax()
-//        {
-//            // Default Taxonomy
-//            $labels = array(
-//                'name'              => _x('Review Stats', 'taxonomy general name', 'wpbooking'),
-//            );
-//
-//            $args = array(
-//                'hierarchical'      => false,
-//                'labels'            => $labels,
-//                'show_ui'           => false,
-//                'show_admin_column' => false,
-//                'query_var'         => TRUE,
-//                'meta_box_cb'=>false
-//            );
-//
-//            register_taxonomy('wb_review_stats', array('wpbooking_service'), $args);
-//        }
         function _add_scripts()
         {
             wp_enqueue_script ('jquery-ui-tabs');
             wp_enqueue_media();
+
         }
 
 		/**
