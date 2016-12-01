@@ -159,9 +159,9 @@ $query=new WP_Query($args);
                                 <a href="<?php echo esc_url(add_query_arg( 'user_id', $order->get_customer('id'), self_admin_url( 'user-edit.php' ) )); ?>"><strong><?php echo $order->get_customer('full_name'); ?></strong></a><br>
                                 <span class="wb-button-customer"><em><?php echo esc_html__('details ','wpbooking'); ?></em><span class="caret"></span></span>
                                 <ul class="none wb-customer-detail">
-                                    <li><strong><?php echo esc_html__('Email address :','wpbooking'); ?></strong><br><?php echo esc_attr($order->get_customer('email')); ?></li>
-                                    <li><strong><?php echo esc_html__('Phone : ','wpbooking'); ?></strong><br><?php echo esc_attr($order->get_customer('phone')); ?></li>
-                                    <li><strong><?php echo esc_html__('Address : ','wpbooking'); ?></strong><br><?php echo esc_attr($order->get_customer('apt')); ?> <?php echo esc_attr($order->get_customer('address')); ?></li>
+                                    <li><strong><?php echo esc_html__('Email address: ','wpbooking'); ?></strong><br><?php echo esc_attr($order->get_customer('email')); ?></li>
+                                    <li><strong><?php echo esc_html__('Phone: ','wpbooking'); ?></strong><br><?php echo esc_attr($order->get_customer('phone')); ?></li>
+                                    <li><strong><?php echo esc_html__('Address: ','wpbooking'); ?></strong><br><?php echo esc_attr($order->get_customer('apt')); ?> <?php echo esc_attr($order->get_customer('address')); ?></li>
                                 </ul>
                             </div>
 							<div class="wb-row-actions none">

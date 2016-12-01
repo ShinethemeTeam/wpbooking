@@ -444,7 +444,7 @@ if (!class_exists('WB_Order')) {
                 $check_out = $this->data['check_out_timestamp'];
                 $start = new DateTime(date('Y-m-d',$check_in));
                 $end = new DateTime(date('Y-m-d',$check_out));
-                $full_time = date($format,$check_in).'&nbsp; &rarr; &nbsp;'.date($format,$check_out) .' ('.sprintf(_n('%s night','%s nights',$start->diff($end)->days,'wpbooking'),$start->diff($end)->days).')';
+                $full_time = date($format,$check_in).'&nbsp; &rarr; &nbsp;'.date($format,$check_out) .' <br>('.sprintf(_n('%s night','%s nights',$start->diff($end)->days,'wpbooking'),$start->diff($end)->days).')';
                 return $full_time;
             }
         }

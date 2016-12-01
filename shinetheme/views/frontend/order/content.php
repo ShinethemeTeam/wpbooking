@@ -33,7 +33,7 @@ do_action('wpbooking_before_order_content');
         <div class="row">
             <div class="col-md-6">
                 <div class="head-info">
-                    <span class="head-info-title"><?php  esc_html_e('Booking code :','wpbooking')?></span>
+                    <span class="head-info-title"><?php  esc_html_e('Booking code:','wpbooking')?></span>
                     <span class="head-info-content hl">#<?php the_ID() ?></span>
                 </div>
                 <div class="head-info">

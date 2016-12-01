@@ -660,7 +660,7 @@ a.label:hover, a.label:focus {
     <div class=content-row>
         <div class=col-7>
             <div class=head-info>
-                <span class=head-info-title>Booking code :</span>
+                <span class=head-info-title>Booking code:</span>
                 <span class=head-info-content-hl>[order_id]</span>
             </div>
             <div class=head-info>
@@ -695,7 +695,7 @@ a.label:hover, a.label:focus {
     <div class=content-row>
         <div class=col-7>
             <div class=head-info>
-                <span class=head-info-title>Booking code :</span>
+                <span class=head-info-title>Booking code:</span>
                 <span class=head-info-content-hl>[order_id]</span>
             </div>
             <div class=head-info>
