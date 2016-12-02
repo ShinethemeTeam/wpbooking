@@ -3882,6 +3882,9 @@ label[for=wpbooking_room_typediv-hide] {
   .wpbooking-info {
     width: 100%;
   }
+  .wpbooking-info .wb-content {
+    margin-right: 15px;
+  }
 }
 .wpbooking-info h1 {
   font-size: 35px;
