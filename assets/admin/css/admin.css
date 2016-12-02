@@ -3864,6 +3864,11 @@ label[for=wpbooking_room_typediv-hide] {
 .wp-list-table > tbody > :nth-child(odd) .wb-extra-price {
   background: #f9f9f9;
 }
+@media (max-width: 782px) {
+  .wp-list-table .column-id {
+    display: none;
+  }
+}
 .wpbooking-info {
   margin-left: 10px;
   margin-top: 20px;
@@ -3873,7 +3878,7 @@ label[for=wpbooking_room_typediv-hide] {
 .wpbooking-info p {
   font-size: 14px;
 }
-@media (max-width: 1199px) {
+@media (max-width: 1400px) {
   .wpbooking-info {
     width: 100%;
   }
