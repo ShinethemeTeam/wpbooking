@@ -2094,6 +2094,16 @@ input.gmap-search {
   clear: both;
   width: auto;
 }
+.wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-room-price-table {
+  margin-bottom: 20px;
+}
+.wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-room-price-table th,
+.wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-room-price-table td {
+  padding: 5px;
+}
+.wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-room-price-table input.number-select {
+  width: 50px;
+}
 .wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .form-container .calendar-input-icon {
   position: relative;
 }
@@ -2991,6 +3001,13 @@ a.ui-datepicker-next {
 }
 .st-metabox-tabs-content .wpbooking-form-group.width-two .st-metabox-content-wrapper .form-group {
   width: 100%;
+}
+.st-metabox-tabs-content .wpbooking-form-group .wb-age-options-table th,
+.st-metabox-tabs-content .wpbooking-form-group .wb-age-options-table td {
+  padding: 10px ;
+}
+.st-metabox-tabs-content .wpbooking-form-group .wb-age-options-table input {
+  width: 50px;
 }
 .st-metabox-tabs-content .wpbooking-form-group.wb-taxonomy-field {
   margin-bottom: 50px;
