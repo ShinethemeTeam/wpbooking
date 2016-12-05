@@ -24,8 +24,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
             $loader->load_library(array(
                 'service-types/abstract-service-type',
                 'service-types/accommodation',
-                'service-types/room',
-                'service-types/car',
+                'service-types/tour',
             ));
 
             add_filter('template_include', array($this, '_show_single_service'));

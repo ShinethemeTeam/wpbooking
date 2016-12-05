@@ -55,12 +55,14 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
 							   class="widefat form-control">
 						<p class="help-block"><?php esc_html_e('Address neighborhood, organization and clusters','wpbooking') ?></p>
 					</div>
+					<?php if(empty($data['exclude']) or !in_array('apt_unit',$data['exclude'])){?>
 					<div class="wpbooking-col-sm-12">
 						<input type="text" name="apt_unit" placeholder="<?php esc_html_e('Apt/Unit #', 'wpbooking') ?>"
 							   value="<?php echo get_post_meta(get_the_ID(), 'apt_unit', TRUE) ?>"
 							   class="widefat form-control">
 						<p class="help-block"><?php esc_html_e('House number, floor, building','wpbooking') ?></p>
 					</div>
+					<?php }?>
 				</div>
 			</div>
 		</div>

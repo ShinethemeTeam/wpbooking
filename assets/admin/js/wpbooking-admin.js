@@ -647,6 +647,8 @@ jQuery(document).ready(function( $ ){
     ///////////////////////////
     
     function load_gmap(){
+        if(typeof google=='undefined') return;
+
         if( $('.wpbooking-gmap-wrapper').length ){
             $('.wpbooking-gmap-wrapper').each(function(index, el) {
                 console.log('map load ...');
