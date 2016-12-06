@@ -1835,4 +1835,13 @@ jQuery(document).ready(function( $ ){
             $('.calendar-room2.tour').addClass('per_person');
         }
     });
+
+    $('.age_adult_max').each(function () {
+        $(this).bind('keyup mouseup', function(){
+            if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_adult_min').val())){
+
+            }
+        });
+    });
+
 });
