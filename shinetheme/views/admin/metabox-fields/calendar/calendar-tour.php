@@ -13,6 +13,9 @@ $property_available_for=get_post_meta($post_id,'property_available_for',true);
 
 $df_price=get_post_meta($post_id,'base_price',true);
 
+$pricing_type = get_post_meta($post_id,'pricing_type',true);
+if(empty($pricing_type)) $pricing_type = 'per_person';
+
 ?>
 
 <div class="<?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
@@ -24,7 +27,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
                     <div class="overlay">
                         <span class="spinner is-active"></span>
                     </div>
-                    <div class="calendar-room2 <?php echo ($property_available_for=='specific_periods')?'specific_periods':FALSE ?>">
+                    <div class="calendar-room2 tour <?php echo esc_attr($pricing_type);?> <?php echo ($property_available_for=='specific_periods')?'specific_periods':FALSE ?>">
 
                     </div>
                     <div class="calendar-room <?php echo ($property_available_for=='specific_periods')?'specific_periods':FALSE ?>">
@@ -68,9 +71,9 @@ $df_price=get_post_meta($post_id,'base_price',true);
                             <tbody>
                                 <tr>
                                     <td>
-                                        <input type="number" name="calendar_minimum" class="number-select" value="1"></td>
+                                        <input type="number" name="calendar_minimum" min="1" class="number-select" value="1"></td>
                                     <td>
-                                        <input type="number" name="calendar_maximum" class="number-select" value="">
+                                        <input type="number" name="calendar_maximum" min="1" class="number-select" value="">
                                     </td>
                                     <td>
                                         <div class="input-group ">
@@ -93,7 +96,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
                                 <tr>
                                     <td><?php esc_html_e('Adult','wpbooking') ?></td>
                                     <td>
-                                        <input type="number" name="calendar_adult_minimum" class="number-select" value="">
+                                        <input type="number" name="calendar_adult_minimum" min="0" class="number-select" value="">
                                     </td>
                                     <td>
                                         <div class="input-group ">
@@ -105,7 +108,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
                                 <tr>
                                     <td><?php esc_html_e('Child','wpbooking') ?></td>
                                     <td>
-                                        <input type="number" name="calendar_child_minimum" class="number-select" value="">
+                                        <input type="number" name="calendar_child_minimum" min="0" class="number-select" value="">
                                     </td>
                                     <td>
                                         <div class="input-group ">
@@ -117,7 +120,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
                                 <tr>
                                     <td><?php esc_html_e('Infant','wpbooking') ?></td>
                                     <td>
-                                        <input type="number" name="calendar_infant_minimum" class="number-select" value="">
+                                        <input type="number" name="calendar_infant_minimum" min="0" class="number-select" value="">
                                     </td>
                                     <td>
                                         <div class="input-group ">

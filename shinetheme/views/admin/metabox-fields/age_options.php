@@ -60,18 +60,18 @@ $old_data=wp_parse_args($old_data,array(
                     <tbody>
                         <tr>
                             <td><?php esc_html_e('Adult','wpbooking') ?></td>
-                            <td><input type="text" name="<?php echo esc_attr($name) ?>[adult][minimum]" value="<?php echo esc_attr($old_data['adult']['minimum']) ?>"></td>
-                            <td><input type="text" name="<?php echo esc_attr($name) ?>[adult][maximum]" value="<?php echo esc_attr($old_data['adult']['maximum']) ?>"></td>
+                            <td><input type="text" name="<?php echo esc_attr($data['id']) ?>[adult][minimum]" value="<?php echo esc_attr($old_data['adult']['minimum']) ?>" /></td>
+                            <td><input type="text" name="<?php echo esc_attr($data['id']) ?>[adult][maximum]" value="<?php echo esc_attr($old_data['adult']['maximum']) ?>" /></td>
                         </tr>
                         <tr>
                             <td><?php esc_html_e('Child','wpbooking') ?></td>
-                            <td><input type="text" name="<?php echo esc_attr($name) ?>[child][minimum]" value="<?php echo esc_attr($old_data['child']['maximum']) ?>"></td>
-                            <td><input type="text" name="<?php echo esc_attr($name) ?>[child][maximum]" value="<?php echo esc_attr($old_data['child']['maximum']) ?>"></td>
+                            <td><input type="text" name="<?php echo esc_attr($data['id']) ?>[child][minimum]" value="<?php echo esc_attr($old_data['child']['minimum']) ?>" /></td>
+                            <td><input type="text" name="<?php echo esc_attr($data['id']) ?>[child][maximum]" value="<?php echo esc_attr($old_data['child']['maximum']) ?>" /></td>
                         </tr>
                         <tr>
                             <td><?php esc_html_e('Infant','wpbooking') ?></td>
-                            <td><input type="text" name="<?php echo esc_attr($name) ?>[infant][minimum]" value="<?php echo esc_attr($old_data['infant']['maximum']) ?>"></td>
-                            <td><input type="text" name="<?php echo esc_attr($name) ?>[infant][maximum]" value="<?php echo esc_attr($old_data['infant']['maximum']) ?>" ></td>
+                            <td><input type="text" name="<?php echo esc_attr($data['id']) ?>[infant][minimum]" value="<?php echo esc_attr($old_data['infant']['minimum']) ?>" /></td>
+                            <td><input type="text" name="<?php echo esc_attr($data['id']) ?>[infant][maximum]" value="<?php echo esc_attr($old_data['infant']['maximum']) ?>" /></td>
                         </tr>
                     </tbody>
                 </table>
