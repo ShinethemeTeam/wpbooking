@@ -8,6 +8,7 @@
 
 $_version = '1.0';
 
+$extension_url = add_query_arg(array('page' => 'wpbooking_page_extensions'), admin_url('admin.php'));
 $tabs = array(
 //    array(
 //        'id' => 'what_new',
@@ -17,11 +18,11 @@ $tabs = array(
         'id' => 'get_started',
         'name' => esc_html__('Get Started','wpbooking'),
     ),
-//    array(
-//        'id' => 'functionality',
-//        'name' => esc_html__('Get even more functionality','wpbooking'),
-//        'url' => '#'
-//    ),
+    array(
+        'id' => 'functionality',
+        'name' => esc_html__('Get even more functionality','wpbooking'),
+        'url' => $extension_url
+    ),
 );
 
 $menu_page=WPBooking()->get_menu_page();
