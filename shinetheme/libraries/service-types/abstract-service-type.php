@@ -522,6 +522,20 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 		}
 
         /**
+         * Get Thumb-size from setting page
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param bool $default
+         * @return bool|mixed|void
+         */
+        function thumb_size($default = FALSE)
+        {
+            return $this->get_option('thumb_size', $default);
+        }
+
+        /**
          * Quick method for get $_POST data
          *
          * @since 1.0

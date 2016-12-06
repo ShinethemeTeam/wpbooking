@@ -189,7 +189,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'condition'=>'pricing_type:is(per_person)'
                         ),
                         array(
-                            'label'=>esc_html__('This Property is available','wpbooking'),
+                            'label'=>esc_html__('This tour is available','wpbooking'),
                             'id'=>'property_available_for',
                             'type'=>'dropdown',
                             'value'=>array(
