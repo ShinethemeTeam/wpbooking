@@ -247,6 +247,27 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              */
             add_action('template_redirect', array($this, '_delete_cart_item_hotel_room'));
 
+            /**
+             * Show List Room in single Hotel
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('wpbooking_after_service_amenity',array($this,'_show_list_room'));
+
+        }
+
+        /**
+         * Show List Room in single Hotel
+         *
+         * @since 1.0
+         * @author dungdt
+         */
+        public function _show_list_room(){
+            $service=wpbooking_get_service();
+            if($service->get_type()==$this->type_id){
+                echo wpbooking_load_view('single/hotel/room');
+            }
         }
 
 

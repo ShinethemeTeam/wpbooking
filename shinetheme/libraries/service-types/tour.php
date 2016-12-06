@@ -46,7 +46,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
 
             parent::__construct();
 
-            //wpbooking_archive_loop_image_size
+
             add_filter('wpbooking_archive_loop_image_size', array($this, '_apply_thumb_size'), 10, 3);
 
 
@@ -58,7 +58,21 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
              */
             add_action('init',array($this,'_register_meta_fields'));
 
+            /**
+             * Change Base Price HTML Format
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('wpbooking_service_base_price_html_'.$this->type_id,array($this,'_edit_price_html'));
+
         }
+
+        public function _edit_price_html()
+        {
+
+        }
+
 
         /**
          * Register metabox fields
