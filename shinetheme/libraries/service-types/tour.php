@@ -328,7 +328,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         ),
                         array(
                             'label' => __("Gallery", 'wpbooking'),
-                            'id'    => 'gallery',
+                            'id'    => 'tour_gallery',
                             'type'  => 'gallery',
                             'desc'  => __('Picture recommendations', 'wpbooking')
                         ),
@@ -368,6 +368,15 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             }
 
             return $size;
+        }
+
+        /**
+         * @param bool $default
+         * @return bool|mixed|void
+         */
+        function thumb_size($default = FALSE)
+        {
+            return $this->get_option('thumb_size_hotel', $default);
         }
 
         /**

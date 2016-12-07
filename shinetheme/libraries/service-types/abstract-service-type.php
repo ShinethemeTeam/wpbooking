@@ -457,6 +457,21 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 				$injection->add_arg('tax_query',$tax_query);
 			}
 
+            //service type
+            $meta_query = $injection->get_arg('meta_query');
+            if($this->type_id){
+                $meta_query[] = array(
+                   'relation' => 'AND',
+                       array(
+                           'key' => 'service_type', //(string) - Custom field key.
+                           'value' => $this->type_id,
+                           'type' => 'CHAR',
+                           'compare' => '='
+                        )
+                );
+                $injection->add_arg('meta_query',$meta_query);
+            }
+
 		}
 
 		/**

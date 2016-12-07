@@ -1,6 +1,5 @@
 jQuery(document).ready(function($) {
 
-
     var RoomCalendar = function( container ){
     	var self = this;
 		this.container = container;
@@ -50,8 +49,22 @@ jQuery(document).ready(function($) {
                         });
                     },
                     sourceRender: function (source, element) {
-                        if (source.status == 'available' && typeof source.price_text!='undefined' ) {
-                            element.append('<span class="wb-price">' + source.price_text + '</span>');
+
+                        if($('.calendar-room2').hasClass('tour')) {
+                            if ($('.calendar-room2').hasClass('per_person')) {
+                                if (source.status == 'available' && source.adult_price != undefined && (source.adult_price != 0 || source.infant_price != 0,source.child_price != 0 )) {
+                                    element.append('<span class="wb-person"> Adult: ' + source.adult_price + '<br>' +
+                                        'Child: ' + source.child_price +'<br>Infant: ' + source.infant_price + '</span>');
+                                }
+                            } else{
+                                if (source.status == 'available' && source.calendar_price != undefined && source.calendar_price != 0) {
+                                    element.append('<span class="wb-price">' + source.price_text + '</span>');
+                                }
+                            }
+                        }else{
+                            if (source.status == 'available' && typeof source.price_text != 'undefined') {
+                                element.append('<span class="wb-price">' + source.price_text + '</span>');
+                            }
                         }
                     },
                     dayClick: function (element, source) {
@@ -67,6 +80,33 @@ jQuery(document).ready(function($) {
 
                            $('#calendar-price-week').val(source.weekly);
                            $('#calendar-price-month').val(source.monthly);
+
+                            if(source.calendar_price && source.calendar_price != 0) {
+                                $('input[name=calendar_minimum]').val(source.calendar_minimum);
+                                $('input[name=calendar_maximum]').val(source.calendar_maximum);
+                                $('input[name=calendar_price]').val(source.calendar_price);
+                            }else{
+                                $('input[name=calendar_minimum]').val('');
+                                $('input[name=calendar_maximum]').val('');
+                                $('input[name=calendar_price]').val('');
+                            }
+
+                            if(source.adult_price && (source.adult_price != 0 || source.child_price != 0 || source.infant_price != 0)) {
+                                $('input[name=calendar_adult_minimum]').val(source.adult_minimum);
+                                $('input[name=calendar_adult_price]').val(source.adult_price);
+                                $('input[name=calendar_child_minimum]').val(source.child_minimum);
+                                $('input[name=calendar_child_price]').val(source.child_price);
+                                $('input[name=calendar_infant_minimum]').val(source.infant_minimum);
+                                $('input[name=calendar_infant_price]').val(source.infant_price);
+                            }else{
+                                $('input[name=calendar_adult_minimum]').val('');
+                                $('input[name=calendar_adult_price]').val('');
+                                $('input[name=calendar_child_minimum]').val('');
+                                $('input[name=calendar_child_price]').val('');
+                                $('input[name=calendar_infant_minimum]').val('');
+                                $('input[name=calendar_infant_price]').val('');
+                            }
+
                            if(source.can_check_in==1){
                                $('#calendar-can-check-in').iCheck('check');
                            }else{
@@ -188,8 +228,18 @@ jQuery(document).ready(function($) {
                         'weekly':$('#calendar-price-week').val(),
                         'monthly':$('#calendar-price-month').val(),
                         'can_check_in':can_check_in,
-                        'can_check_out':can_check_out
-                    }
+                        'can_check_out':can_check_out,
+                        'calendar_minimum' : $('input[name=calendar_minimum]', parent).val(),
+                        'calendar_maximum' : $('input[name=calendar_maximum]', parent).val(),
+                        'calendar_price' : $('input[name=calendar_price]', parent).val(),
+                        'calendar_adult_minimum' : $('input[name=calendar_adult_minimum]', parent).val(),
+                        'calendar_adult_price' : $('input[name=calendar_adult_price]', parent).val(),
+                        'calendar_child_minimum' : $('input[name=calendar_child_minimum]', parent).val(),
+                        'calendar_child_price' : $('input[name=calendar_child_price]', parent).val(),
+                        'calendar_infant_minimum' : $('input[name=calendar_infant_minimum]', parent).val(),
+                        'calendar_infant_price' : $('input[name=calendar_infant_price]', parent).val(),
+                    };
+
                     if( flag_add ) return false; flag_add = true;
 
                     $('.form-message', parent).html('').removeClass('error success');

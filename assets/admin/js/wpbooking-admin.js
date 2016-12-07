@@ -1824,4 +1824,24 @@ jQuery(document).ready(function( $ ){
             });
         });
     });
+
+
+    $('#pricing_type').change(function () {
+        if($('.calendar-room2.tour').hasClass('per_person')){
+            $('.calendar-room2.tour').removeClass('per_person');
+            $('.calendar-room2.tour').addClass('per_unit');
+        }else{
+            $('.calendar-room2.tour').removeClass('per_unit');
+            $('.calendar-room2.tour').addClass('per_person');
+        }
+    });
+
+    $('.age_adult_max').each(function () {
+        $(this).bind('keyup mouseup', function(){
+            if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_adult_min').val())){
+
+            }
+        });
+    });
+
 });

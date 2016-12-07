@@ -150,8 +150,18 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					$weekly=WPBooking_Input::post('weekly');
 					$monthly=WPBooking_Input::post('monthly');
 
+					$calendar_minimum=WPBooking_Input::post('calendar_minimum');
+					$calendar_maximum=WPBooking_Input::post('calendar_maximum');
+					$calendar_price=WPBooking_Input::post('calendar_price');
+					$calendar_adult_minimum=WPBooking_Input::post('calendar_adult_minimum');
+					$calendar_adult_price=WPBooking_Input::post('calendar_adult_price');
+					$calendar_child_minimum=WPBooking_Input::post('calendar_child_minimum');
+					$calendar_child_price=WPBooking_Input::post('calendar_child_price');
+					$calendar_infant_minimum=WPBooking_Input::post('calendar_infant_minimum');
+					$calendar_infant_price=WPBooking_Input::post('calendar_infant_price');
+
 					/* Get origin post id if use WPML */
-					$base_id = (int) wpbooking_origin_id( $post_id, 'wpbooking_service', true );
+					$base_id = (int) wpbooking_origin_id( $post_id, 'wpbooking_service');
 
 					/* Get all item between check in - out */
 
@@ -167,10 +177,10 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 					if( isset( $split['insert'] ) && !empty( $split['insert'] ) ){
 						foreach( $split['insert'] as $item ){
-							$this->wpbooking_insert_availability( $item['post_id'], $item['base_id'], $item['start'], $item['end'], $item['price'], $item['status'], $item['group_day'],$weekly,$monthly,$can_check_in,$can_check_out);
+							$this->wpbooking_insert_availability( $item['post_id'], $item['base_id'], $item['start'], $item['end'], $item['price'], $item['status'], $item['group_day'],$weekly,$monthly,$can_check_in,$can_check_out,$item['calendar_minimum'],$item['calendar_maximum'],$item['calendar_price'],$item['adult_minimum'],$item['adult_price'],$item['child_minimum'],$item['child_price'],$item['infant_minimum'],$item['infant_price'] );
 						}
 					}
-					$new_item = $this->wpbooking_insert_availability( $post_id, $base_id, $check_in, $check_out, $price, $status, $group_day,$weekly,$monthly,$can_check_in,$can_check_out );
+					$new_item = $this->wpbooking_insert_availability( $post_id, $base_id, $check_in, $check_out, $price, $status, $group_day,$weekly,$monthly,$can_check_in,$can_check_out,$calendar_minimum,$calendar_maximum,$calendar_price,$calendar_adult_minimum,$calendar_adult_price,$calendar_child_minimum,$calendar_child_price,$calendar_infant_minimum,$calendar_infant_price );
 
 					if( $new_item > 0 ){
 						echo json_encode( array(
@@ -451,7 +461,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 		}
 
-		public function wpbooking_insert_availability( $post_id = '', $base_id = '', $check_in = '', $check_out = '', $price = '', $status = '', $group_day = '',$weekly=FALSE,$monthly=FALSE,$can_check_in=1,$can_check_out=1){
+		public function wpbooking_insert_availability( $post_id = '', $base_id = '', $check_in = '', $check_out = '', $price = '', $status = '', $group_day = '',$weekly=FALSE,$monthly=FALSE,$can_check_in=1,$can_check_out=1,$calendar_minimum = '',$calendar_maximum = '',$calendar_price = '',$adult_minimum = '',$adult_price='',$child_minimum='',$child_price='',$infant_minimum='',$infant_price=''){
 			global $wpdb;
 
 			$table = $wpdb->prefix. 'wpbooking_availability';
@@ -469,7 +479,16 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 						'monthly'=>$monthly,
 						'weekly'=>$weekly,
 						'can_check_in'=>$can_check_in,
-						'can_check_out'=>$can_check_out
+						'can_check_out'=>$can_check_out,
+						'calendar_minimum'=>$calendar_minimum,
+                        'calendar_maximum' => $calendar_maximum,
+                        'calendar_price' => $calendar_price,
+                        'adult_minimum' => $adult_minimum,
+                        'adult_price' => $adult_price,
+                        'child_minimum' => $child_minimum,
+                        'child_price' => $child_price,
+                        'infant_minimum' => $infant_minimum,
+                        'infant_price' => $infant_price,
 					)
 				);
 			}else{
@@ -487,7 +506,16 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 							'monthly'=>$monthly,
 							'weekly'=>$weekly,
 							'can_check_in'=>$can_check_in,
-							'can_check_out'=>$can_check_out
+							'can_check_out'=>$can_check_out,
+                            'calendar_minimum'=>$calendar_minimum,
+                            'calendar_maximum' => $calendar_maximum,
+                            'calendar_price' => $calendar_price,
+                            'adult_minimum' => $adult_minimum,
+                            'adult_price' => $adult_price,
+                            'child_minimum' => $child_minimum,
+                            'child_price' => $child_price,
+                            'infant_minimum' => $infant_minimum,
+                            'infant_price' => $infant_price,
 						)
 					);
 				}
@@ -505,6 +533,8 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 			$result = $wpdb->get_results( $sql, ARRAY_A );
 
+            $service_type = get_post_meta( $base_id ,'service_type', true);
+
 			$return = array();
 
 			if( !empty( $result ) ){
@@ -516,13 +546,23 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 						'start' => date( 'Y-m-d', $item['start'] ),
 						'end' => date('Y-m-d', strtotime( '+1 day', $item['end'] ) ),
 						'price' => (float) $item['price'],
-						'price_text' => WPBooking_Currency::format_money($item['price']),
+						'price_text' => ($service_type == 'tour')?WPBooking_Currency::format_money($item['calendar_price']):WPBooking_Currency::format_money($item['price']),
 						'weekly' => (float) $item['weekly'],
 						'monthly' => (float) $item['monthly'],
 						'status' => $item['status'],
 						'group_day' => $item['group_day'],
 						'can_check_in' => $item['can_check_in'],
 						'can_check_out' => $item['can_check_out'],
+                        'calendar_minimum'=>$item['calendar_minimum'],
+                        'calendar_maximum' => $item['calendar_maximum'],
+                        'calendar_price' => $item['calendar_price'],
+                        'adult_minimum' => $item['adult_minimum'],
+                        'adult_price' => $item['adult_price'],
+                        'child_minimum' => $item['child_minimum'],
+                        'child_price' => $item['child_price'],
+                        'infant_minimum' => $item['infant_minimum'],
+                        'infant_price' => $item['infant_price'],
+                        'pricing_type' => get_post_meta($item['post_id'],'pricing_type', true),
 					);
 //					if($item['status']=='not_available'){
 //						$item_array['rendering']='background';
@@ -554,6 +594,8 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 							'start' => strtotime( $item['start'] ),
 							'end' => strtotime( '-1 day', $check_in ),
 							'price' => (float) $item['price'],
+							'price_init' => (float) $item['price_init'],
+							'price_person' => (float) $item['price_person'],
 							'status' => $item['status'],
 							'group_day' => $item['group_day'],
 						);
@@ -566,6 +608,8 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 							'start' => strtotime( '+1 day', $check_out ),
 							'end' => strtotime( '-1 day', strtotime( $item['end'] ) ),
 							'price' => (float) $item['price'],
+                            'price_init' => (float) $item['price_init'],
+                            'price_person' => (float) $item['price_person'],
 							'status' => $item['status'],
 							'group_day' => $item['group_day'],
 						);
