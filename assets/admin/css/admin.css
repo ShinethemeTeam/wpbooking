@@ -1687,6 +1687,7 @@ img.settings-demo-image-gallery {
   margin-bottom: 10px;
   border: solid 1px #fff;
   position: relative;
+  overflow: hidden;
 }
 .st-metabox-tab-content-wrap .open_section_metabox.active {
   border: solid 1px #ec8223;
@@ -1759,6 +1760,23 @@ img.settings-demo-image-gallery {
   border: 1px dashed #C0C0C0;
   width: 100%;
   min-height: 300px;
+}
+.st-metabox-content-wrapper .btn_upload_gallery,
+.st-metabox-content-wrapper .btn_remove_demo_gallery {
+  background: transparent;
+  color: #666666;
+  border: 1px solid #CCCCCC;
+  padding: 7px 12px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  transition: .1s;
+}
+.st-metabox-content-wrapper .btn_upload_gallery:hover,
+.st-metabox-content-wrapper .btn_remove_demo_gallery:hover {
+  border-color: #ec8223;
+  color: #ec8223;
+  background: #fff;
 }
 input.gmap-search {
   display: block;
@@ -4339,6 +4357,80 @@ label[for=wpbooking_room_typediv-hide] {
   color: #fff !important;
   text-decoration: none !important;
   margin: 0 !important;
+}
+.wb-itinerary-wrap {
+  padding-left: 20px;
+  width: 80%;
+}
+@media (max-width: 1399px) {
+  .wb-itinerary-wrap {
+    width: 100%;
+  }
+}
+.wb-itinerary-wrap h3.title {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+.wb-itinerary-wrap .iti-header {
+  display: inline-block;
+  width: 100%;
+}
+.wb-itinerary-wrap .iti-header .title {
+  width: 30%;
+  float: left;
+}
+.wb-itinerary-wrap .iti-header .desc {
+  width: 60%;
+  float: left;
+}
+.wb-itinerary-wrap .itinerary-content {
+  clear: both;
+  width: 100%;
+}
+.wb-itinerary-wrap .itinerary-content .item-itinerary {
+  display: inline-block;
+  width: 100%;
+}
+.wb-itinerary-wrap .itinerary-content .item-itinerary .input-title {
+  width: 30%;
+  float: left;
+  padding-right: 20px;
+}
+.wb-itinerary-wrap .itinerary-content .item-itinerary .input-title input {
+  width: 100%;
+}
+.wb-itinerary-wrap .itinerary-content .item-itinerary .input-desc {
+  width: 60%;
+  float: left;
+  padding-right: 20px;
+}
+.wb-itinerary-wrap .itinerary-content .item-itinerary .input-desc textarea {
+  width: 100%;
+}
+.wb-itinerary-wrap .itinerary-content .item-itinerary div:last-child {
+  width: 10%;
+  float: left;
+  padding-top: 3px;
+}
+.wb-itinerary-wrap .itinerary-content .item-itinerary div:last-child a {
+  border: 1px solid #cc0000;
+  padding: 2px 6px;
+  color: #c00;
+}
+.wb-itinerary-wrap .itinerary-content .item-itinerary div:last-child a:hover {
+  background: #c00;
+  color: #fff;
+}
+.wb-itinerary-wrap .iti-description {
+  color: #999999;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 12px;
+}
+.wb-itinerary-wrap .iti-footer {
+  width: 100%;
+  clear: both;
+  margin-top: 20px;
 }
 @media (max-width: 1300px) {
   .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .service_detail {

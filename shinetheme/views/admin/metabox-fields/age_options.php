@@ -55,6 +55,7 @@ $old_data=wp_parse_args($old_data,array(
                             <th><?php esc_html_e('Age Band','wpbooking') ?></th>
                             <th><?php esc_html_e('Minimum Age','wpbooking')?></th>
                             <th><?php esc_html_e('Maximum Age','wpbooking')?></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,7 +76,7 @@ $old_data=wp_parse_args($old_data,array(
                         </tr>
                     </tbody>
                 </table>
-
+                <div class="form-message error adult_notice hidden"><?php echo esc_html__('Please enter the maximum age greater or equal to the minimum age','wpbooking');?></div>
                 <?php
                 if(!empty($data['help_inline'])){
                     printf('<span class="help_inline">%s</span>',$data['help_inline']);

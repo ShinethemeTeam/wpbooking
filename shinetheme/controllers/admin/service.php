@@ -44,7 +44,17 @@ if (!class_exists('WPBooking_Admin_Service')) {
              */
             add_filter('wpbooking_footer_email_template_html',array($this,'_get_footer_email_template'));
 
+            /**
+             * Add field filter in service list admin
+             *
+             * @author: tienhd
+             * @since: 1.0
+             */
+            add_action( 'restrict_manage_posts', array($this, '_service_filter_field'), 15, 2 );
+            add_filter( 'parse_query', array($this, '_service_filter_meta') );
+
 		}
+
 
 		function _autocomplete_post()
         {
@@ -267,6 +277,47 @@ if (!class_exists('WPBooking_Admin_Service')) {
          */
         public function _get_footer_email_template(){
             return wpbooking_get_option('email_footer','');
+        }
+
+        /**
+         * Add filter field service type
+         *
+         * @param $post_type
+         * @param $which
+         */
+        function _service_filter_field($post_type, $which) {
+            if ( $post_type == 'wpbooking_service' ) {
+                $service_types = WPBooking_Service_Controller::inst()->get_service_types();
+
+                echo '<select name="service_type">';
+                echo '<option value="0">'.esc_html__('All service','wpbooking').'</option>';
+                foreach($service_types as $key => $val){
+                    echo '<option '.selected(WPBooking_Input::get('service_type'),$key,false).' value="'.$key.'">'.$val->get_info('label').'</option>';
+                }
+
+                echo '</select>';
+
+            }
+        }
+
+        /**
+         * Add meta query for filter service type
+         *
+         * @param $query
+         */
+        function _service_filter_meta($query){
+            if( is_admin() AND $query->query['post_type'] == 'wpbooking_service' ) {
+                $query_vars = &$query->query_vars;
+                $query_vars['meta_query'] = array();
+                if(WPBooking_Input::get('service_type')){
+                    $query_vars['meta_query'][] = array(
+                        'field' => 'service_type',
+                        'value' => WPBooking_Input::get('service_type'),
+                        'type' => 'char',
+                        'compare' => '='
+                    );
+                }
+            }
         }
 
 		static function inst()

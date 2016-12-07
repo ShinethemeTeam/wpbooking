@@ -430,7 +430,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'label' => __('Map Lat & Long', 'wpbooking'),
                             'id'    => 'gmap',
                             'type'  => 'gmap',
-                            'desc'  => esc_html__('This is the location we will provide guests. Click and drag the marker if you need to move it', 'wpbooking')
+                            'desc'  => esc_html__('This is the location we will provide guests. Click to move the marker if you need to move it', 'wpbooking')
                         ),
                         array(
                             'type'    => 'desc_section',
@@ -566,7 +566,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'fields' => array(
                         array('type' => 'open_section'),
                         array(
-                            'label' => __("Payment infomation", 'wpbooking'),
+                            'label' => __("Payment information", 'wpbooking'),
                             'type'  => 'title',
                             'desc'  => esc_html__("We will show in website yourdomain.com", "wpbooking")
                         ),

@@ -59,7 +59,7 @@ if(!empty($data['condition'])){
 									<?php echo __('Title', 'wpbooking'); ?>
 								</div>
 								<div class="st-metabox-right">
-									<input type="text" class="widefat form-control input-title" name="<?php echo esc_html( $data['id'] ); ?>[title][]" value="<?php echo esc_html( $convert_val['title'] ); ?>">
+									<input type="text" class="widefat form-control input-title title_list-item" name="<?php echo esc_html( $data['id'] ); ?>[title][]" value="<?php echo esc_html( $convert_val['title'] ); ?>">
 								</div>
 							</div>
 								<?php foreach( $data['value'] as $key => $item ):
@@ -93,7 +93,7 @@ if(!empty($data['condition'])){
 
 									$file = 'metabox-fields/' . $item['type'];
 
-									echo wpbooking_admin_load_view( $file, array( 'data' => $item,'is_sub_item'=>true ) );
+									echo wpbooking_admin_load_view( $file, array( 'data' => $item,'is_sub_item'=>true, 'post_id' => $post_id ) );
 								?>
 									
 								<?php endforeach; ?>	
@@ -133,7 +133,7 @@ if(!empty($data['condition'])){
 	            </a>
 			</div>
 		</div>
-		<table>	
+		<table >
 			<tr>
 				<td class="td-left" colspan="3">
 					<div class="form-table wpbooking-settings  wpbooking-form-group ">
@@ -144,7 +144,7 @@ if(!empty($data['condition'])){
 							<div class="st-metabox-content-wrapper">
 								<div class="form-group">
 									<div class="" style="margin-bottom: 7px;">
-										<input type="text" class="widefat form-control input-title" name="<?php echo esc_html( $data['id'] ); ?>[title][]" value="">
+										<input type="text" class="widefat form-control input-title title_list-item" name="<?php echo esc_html( $data['id'] ); ?>[title][]" value="">
 									</div>
 								</div>
 							</div>
@@ -176,7 +176,7 @@ if(!empty($data['condition'])){
 
 						$file = 'metabox-fields/' . $item['type'];
 
-						echo wpbooking_admin_load_view( $file, array( 'data' => $item ) );
+						echo wpbooking_admin_load_view( $file, array( 'data' => $item , 'post_id' => $post_id) );
 
 						unset( $data['value'][ $key ] );
 					?>

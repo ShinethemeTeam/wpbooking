@@ -29,6 +29,9 @@ $class.=' width-'.$data['width'];
 					foreach( $service_type as $key => $value ){
 						$check=FALSE;
 						$active = '';
+                        if(WPBooking_Input::get('action') == 'edit'){
+                            $active = 'hidden';
+                        }
 						if($old_data){
 							$check=checked($old_data,$key,FALSE);
 							if(!empty($check)){

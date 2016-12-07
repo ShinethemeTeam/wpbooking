@@ -25,8 +25,12 @@ $data=wp_parse_args($data,array(
 			$class = 'w50';
 		}
 
+        if(WPBooking_Input::get('action') == 'edit'){
+            $data['next_label'] = esc_html__('Save','wpbooking');
+        }
+
 		if($data['ajax_saving']) $class.=' ajax_saving';
-		printf('<a href="#" class="button wb-next-section %s">%s <i class="fa fa-spinner fa-pulse"></i></a>',$class,$data['next_label']);
+		printf('<a href="#" class="button wb-next-section %s" data-action="%s">%s <i class="fa fa-spinner fa-pulse"></i></a>',$class,WPBooking_Input::get('action'),$data['next_label']);
 	}
 
 	?>
