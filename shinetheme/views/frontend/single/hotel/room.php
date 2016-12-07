@@ -10,7 +10,6 @@
     <?php
     global $wp_query;
     $rooms=WPBooking_Accommodation_Service_Type::inst()->search_room();
-
     ?>
     <div class="search-room-availablity">
         <form method="post" name="form-search-room" class="form-search-room">
@@ -117,6 +116,7 @@
                 <input name="wpbooking_children" class="form_book_children"  type="hidden">
                 <div class="content-loop-room">
                     <?php
+                    $hotel_id = get_the_ID();
                     if($rooms->have_posts()) {
                         while( $rooms->have_posts() ) {
                             $rooms->the_post();
