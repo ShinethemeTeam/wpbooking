@@ -104,7 +104,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
             if(empty(WPBooking_Input::request('term_condition'))){
                 $is_validate = FALSE;
-                wpbooking_set_message(__("ban chưa chấp nhận điều khoản của chúng tôi !", 'wpbooking'), 'error');
+                wpbooking_set_message(__("You do not accept our terms!", 'wpbooking'), 'error');
             }
 
             if (empty($cart)) {
@@ -130,7 +130,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $pay_amount = $this->get_cart_total();
             if ($is_validate and empty($pay_amount)) {
                 $is_validate = FALSE;
-                wpbooking_set_message(__("Giá giỏ hàng là 0. Bạn không thể thực hiện thanh toán này!", 'wpbooking'), 'error');
+                wpbooking_set_message(__("Price basket of 0. You can not make this payment!", 'wpbooking'), 'error');
             }
 
             // Require Payment Gateways

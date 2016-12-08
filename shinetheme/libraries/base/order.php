@@ -273,6 +273,10 @@ if (!class_exists('WB_Order')) {
                 // Update Status of Order Item in database
                 $order_model = WPBooking_Order_Model::inst();
                 $order_model->complete_purchase($this->order_id,$status);
+
+                // Send Email
+                $order = new WB_Order($this->order_id);
+                $order->send_email_after_booking($this->order_id);
             }
         }
 
@@ -489,6 +493,18 @@ if (!class_exists('WB_Order')) {
             if(!empty($this->data) and is_array($this->data)){
                 return $this->data['service_type'];
             }else{ return false; }
+        }
+
+        /**
+         * Send Email After Booking
+         *
+         * @since 1.0
+         * @author tienhd
+         *
+         * @param $order_id
+         */
+        function send_email_after_booking($order_id){
+            do_action('wpbooking_send_email_after_checkout', $order_id);
         }
 
     }

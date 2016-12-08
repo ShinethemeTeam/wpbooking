@@ -91,6 +91,7 @@ if (!class_exists('WPBooking_Order')) {
 						}
 						break;
 				}
+
 			}
 		}
 
