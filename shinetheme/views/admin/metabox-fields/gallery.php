@@ -41,9 +41,9 @@ if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
 
 $field .= '</div>';        
 
-$field .= '<button style="margin-right: 10px;" id="" class="btn button button-primary btn_upload_gallery" type="button" name="">'. __("Add Gallery","wpbooking").'</button>';
-if( count( $tmp = explode(',', $old_data ) ) > 0 ){
-    $field .= '<button class="btn button btn_remove_demo_gallery button-secondary" type="button" name="">'.__("Remove Gallery","wpbooking").'</button>';
+$field .= '<button style="margin-right: 10px;" id="" class="btn_upload_gallery" type="button" name="">'. __("Add Gallery","wpbooking").'</button>';
+if(!empty($old_data) && count( $tmp ) > 0 ){
+    $field .= '<button class="btn_remove_demo_gallery" type="button" name="">'.__("Remove Gallery","wpbooking").'</button>';
 }
 
 $field .= '</div></div>';

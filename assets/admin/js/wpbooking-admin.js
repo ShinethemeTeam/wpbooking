@@ -117,15 +117,18 @@ jQuery(document).ready(function( $ ){
     ///////////////////////////////////
     jQuery(document).ready(function($){
         $("body").on('click','.btn_remove_demo_gallery',function(){
-            var container = $(this).parent();
-            container.find('.fg_metadata').val('');
-            container.find('.demo-image-gallery').hide();
+            if(confirm(wpbooking_params.delete_gallery) == true) {
+                var container = $(this).parent();
+                container.find('.fg_metadata').val('');
+                container.find('.demo-image-gallery').hide();
+                $(this).hide();
+            }
         });
 
         var file_frame;
         $('body').on('click','.btn_upload_gallery',function (event) {
             var container = $(this).parent();
-            console.log(container);
+
             event.preventDefault();
             // If the media frame already exists, reopen it.
             if ( file_frame ) {
@@ -158,7 +161,7 @@ jQuery(document).ready(function( $ ){
                 var imageHTML = '';
                 var metadataString = '';
                 images = file_frame.state().get('library');
-                console.log(images);
+
                 images.each(function(attachment) {
                     imageIDArray.push(attachment.attributes.id);
                     imageHTML += '<img class="demo-image-gallery settings-demo-gallery" src="'+attachment.attributes.url+'">';
@@ -168,7 +171,7 @@ jQuery(document).ready(function( $ ){
                 if (metadataString) {
                     $('.fg_metadata',container).val(metadataString);
                     $('.featuredgallerydiv',container).html(imageHTML).show();
-                    console.log($('.featuredgallerydiv',container).html());
+                    $('.btn_remove_demo_gallery').show();
                 }
             });
             file_frame.open();
@@ -617,10 +620,12 @@ jQuery(document).ready(function( $ ){
         container.find('.wpbooking_number_last_list_item').val(number_list);
     });
     $(document).on('click', '.btn_list_item_del', function (event) {
-        var confirm_delete=confirm('Are You Want To Delete It?');
-        if(!confirm_delete) return false;
-        var container = $(this).parent().parent().parent();
-        container.remove();
+        event.preventDefault();
+        var confirm_delete=confirm('Are you want to delete it?');
+        if(confirm_delete) {
+            var container = $(this).parent().parent().parent();
+            container.remove();
+        }
     });
     $(document).on('click', '.btn_list_item_edit', function (event) {
         var container_full = $(this).parent().parent().parent().parent();
@@ -861,6 +866,7 @@ jQuery(document).ready(function( $ ){
                 cursor: "move"
             });
             $('.icp-auto').iconpicker();
+
         }
         return false;
     });
@@ -1052,21 +1058,25 @@ jQuery(document).ready(function( $ ){
     });
     //$('.wb-next-section').click(function(){
     $(document).on('click','.wb-next-section',function(){
+        t = $(this);
         var next_a,section;
         next_a=$('.st-metabox-nav li.ui-state-active').next().find('a');
         section=$(this).closest('.st-metabox-tabs-content');
 
-
         if($(this).hasClass('ajax_saving')){
             saveMetaboxSection(section,$(this),function(){
-                next_a.trigger('click');
-                var h=$('#st_post_metabox').offset().top;
-                $('html,body').animate({'scrollTop':parseInt(h)-200});
+                if(t.data('action') != 'edit') {
+                    next_a.trigger('click');
+                    var h = $('#st_post_metabox').offset().top;
+                    $('html,body').animate({'scrollTop': parseInt(h) - 200});
+                }
             });
         }else{
-            next_a.trigger('click');
-            var h=$('#st_post_metabox').offset().top;
-            $('html,body').animate({'scrollTop':parseInt(h)-200});
+            if($(this).data('action') != 'edit') {
+                next_a.trigger('click');
+                var h = $('#st_post_metabox').offset().top;
+                $('html,body').animate({'scrollTop': parseInt(h) - 200});
+            }
         }
 
 
@@ -1839,9 +1849,56 @@ jQuery(document).ready(function( $ ){
     $('.age_adult_max').each(function () {
         $(this).bind('keyup mouseup', function(){
             if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_adult_min').val())){
-
+                $('.adult_notice').show();
+            }else{
+                $('.adult_notice').hide();
             }
         });
+    });
+    $('.age_child_max').each(function () {
+        $(this).bind('keyup mouseup', function(){
+            if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_child_min').val())){
+                $('.adult_notice').show();
+            }else{
+                $('.adult_notice').hide();
+            }
+        });
+    });
+    $('.age_infant_max').each(function () {
+        $(this).bind('keyup mouseup', function(){
+            if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_infant_min').val())){
+                $('.adult_notice').show();
+            }else{
+                $('.adult_notice').hide();
+            }
+        });
+    });
+
+    $(document).on('click','.btn_list_item_edit', function (e) {
+        e.preventDefault();
+        var parent = $(this).closest('.wpbooking-list-item');
+        if(parent.find('table').hasClass('hidden')){
+            parent.find('table').removeClass('hidden');
+            parent.addClass('active');
+        }else{
+            parent.find('table').addClass('hidden');
+            parent.removeClass('active');
+        }
+    });
+
+    $('.wb-itinerary-add-new').click(function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        var item = $('.item-itinerary-draft').html();
+
+        $(this).closest('.wb-itinerary-wrap').find('.itinerary-content').append(item);
+        $(this).closest('.wb-itinerary-wrap').find('.itinerary-content').find('.input-title input').attr('name',id+'[title][]');
+        $(this).closest('.wb-itinerary-wrap').find('.itinerary-content').find('.input-desc textarea').attr('name',id+'[desc][]');
+    });
+
+    $(document).on('click','.item-itinerary-del', function(e){
+        e.preventDefault();
+        $(this).closest('.item-itinerary').remove();
     });
 
 });

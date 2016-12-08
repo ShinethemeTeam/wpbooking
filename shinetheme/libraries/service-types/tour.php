@@ -73,7 +73,6 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
 
         }
 
-
         /**
          * Register metabox fields
          *
@@ -171,8 +170,41 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
 
                     )
                 ),
+                'important_info' => array(
+                    'label' => esc_html__('2. Important Info','wpbooking'),
+                    'fields' => array(
+                        array(
+                            'type' => 'open_section'
+                        ),
+                        array(
+                            'type' => 'texteditor',
+                            'id' => 'tour_detail',
+                            'label' => esc_html__('Details','wpbooking'),
+                            'desc' => esc_html__('Enter details of your tour','wpbooking')
+                        ),
+                        array(
+                            'type' => 'close_section'
+                        ),
+                        array(
+                            'type' => 'open_section'
+                        ),
+                        array(
+                            'label' => esc_html__('Itinerary','wpbooking'),
+                            'id' => 'itinerary',
+                            'type' => 'itinerary_tour',
+                            'desc' => esc_html__('Add to the itinerary of the tour','wpbooking'),
+                        ),
+                        array(
+                            'type' => 'close_section'
+                        ),
+                        array(
+                            'type' => 'section_navigation',
+                        ),
+
+                    )
+                ),
                 'detail_tab'      => array(
-                    'label'  => __('2. Booking Details', 'wpbooking'),
+                    'label'  => __('3. Booking Details', 'wpbooking'),
                     'fields' => array(
                         array('type' => 'open_section'),
                         array(
@@ -228,7 +260,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     )
                 ),
                 'policies_tab'    => array(
-                    'label'  => __('3. Policies & Checkout', 'wpbooking'),
+                    'label'  => __('4. Policies & Checkout', 'wpbooking'),
                     'fields' => array(
 
                         array('type' => 'open_section'),
@@ -320,7 +352,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     ),
                 ),
                 'photo_tab'       => array(
-                    'label'  => __('4. Photos', 'wpbooking'),
+                    'label'  => __('5. Photos', 'wpbooking'),
                     'fields' => array(
                         array(
                             'label' => __("Pictures", 'wpbooking'),

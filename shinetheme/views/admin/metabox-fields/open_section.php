@@ -9,5 +9,6 @@
             }
             ?>
         </div>
-    <?php } ?>
+    <?php }
+    ?>
     <div class="content-metabox <?php if(isset($data['open_section']) and $data['open_section'] == false){ echo 'no-active'; }?>">
