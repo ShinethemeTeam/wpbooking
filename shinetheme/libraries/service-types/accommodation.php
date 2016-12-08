@@ -421,15 +421,16 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'label' => __("Property Location", 'wpbooking'),
                             'type'  => 'title',
                             'desc'  => esc_html__("Property's address and your contact number", 'wpbooking'),
-                            'extra_rules'=>array(
-                                'apt_unit'=>array('label'=>esc_html__('Apt/Unit #','wpbooking'),'rule'=>'required')
-                            )
                         ),
                         array(
                             'label'           => __('Address', 'wpbooking'),
                             'id'              => 'address',
                             'type'            => 'address',
                             'container_class' => 'mb35',
+                            'extra_rules'=>array(
+                                'location_id'=>array('label'=>esc_html__('Location','wpbooking'),'rule'=>'required'),
+                                'address'=>array('label'=>esc_html__('Address','wpbooking'),'rule'=>'required'),
+                            )
                         ),
                         array(
                             'label' => __('Map Lat & Long', 'wpbooking'),
