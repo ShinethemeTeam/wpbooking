@@ -922,7 +922,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'status' => 0
             );
             $room_id = $this->post('room_id');
-            $hotel_id = $this->post('hotel_id');
+            $hotel_id = trim($this->post('hotel_id'));
 
 
             if (!$room_id) {
