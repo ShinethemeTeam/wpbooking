@@ -61,34 +61,112 @@ if (!class_exists('WPBooking_Metabox')) {
                 $post_id=WPBooking_Input::post('wb_post_id');
                 $post_type=get_post_type($post_id);
 
+
                 if($service_type and is_object($service_type_object)){
 
-                    /* check permissions */
-                    $permission=true;
-                    if ('page' == $post_type) {
-                        if (!current_user_can('edit_page', $post_id))
-                            $permission=false;
-                    } else {
-                        if (!current_user_can('edit_post', $post_id))
-                            $permission=false;
-                    }
+                    // Validate Form Fields
+                    $is_validated=true;
+
+                    $metabox=$service_type_object->get_metabox();
+
+                    if(!empty($metabox[$section]['fields'])){
+                        $form_validate=new WPBooking_Form_Validator();
+                        $need_validate=false;
+
+                        foreach($metabox[$section]['fields'] as $field){
+                            if(!empty($field['rules'])){
+
+                                // rule_condition
+                                if(!empty($field['rule_condition'])){
+                                    $rule_condition=explode('|',$field['rule_condition']);
+                                    if(!empty($rule_condition)){
+                                        foreach($rule_condition as $condition){
+                                            $condition_explode=explode(':',$condition);
+                                            if(isset($condition_explode[1])){
+                                                switch ($condition_explode[1]){
+                                                    case "not_empty":
+                                                        if(!empty($_POST[$condition_explode[0]])){
+                                                            $need_validate=true;
+                                                            $form_validate->set_rules($field['id'],$field['label'],$field['rules']);
+                                                        }
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }else{
+                                    $need_validate=true;
+                                    $form_validate->set_rules($field['id'],$field['label'],$field['rules']);
+                                }
 
 
-                    if(!$permission){
-                        $res['message']=esc_html__('You don\'t have permission to do that','wpbooking');
-                    }else{
+                            }
+                            if(!empty($field['extra_rules']) and is_array($field['extra_rules'])){
+                                foreach($field['extra_rules'] as $name=>$rule){
+                                    // rule_condition
+                                    if(!empty($rule['rule_condition'])){
+                                        $rule_condition=explode('|',$rule['rule_condition']);
+                                        if(!empty($rule_condition)){
+                                            foreach($rule_condition as $condition){
+                                                $condition_explode=explode(':',$condition);
+                                                if(isset($condition_explode[1])){
+                                                    switch ($condition_explode[1]){
+                                                        case "not_empty":
+                                                            if(!empty($_POST[$condition_explode[0]])){
+                                                                $need_validate=true;
+                                                                $form_validate->set_rules($name,$rule['label'],$rule['rules']);
+                                                            }
+                                                            break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }else{
+                                        $need_validate=true;
+                                        $form_validate->set_rules($name,$rule['label'],$rule['rule']);
+                                    }
+                                }
 
-                        // Change Service Type
-                        update_post_meta($post_id,'service_type',$service_type);
+                            }
 
-                        $metabox=$service_type_object->get_metabox();
-
-                        if(isset($metabox[$section])){
-                            $this->do_save_metabox($post_id,$metabox[$section]['fields'],$section);
                         }
 
-                        $res['status']=1;
+                        if($need_validate){
+                            $is_validated=$form_validate->run();
+
+                            if(!$is_validated) $res['error_fields']=$form_validate->get_error_fields();
+                        }
+
+                        // Specific validate for Room Size
                     }
+
+                    if($is_validated){
+                        /* check permissions */
+                        $permission=true;
+                        if ('page' == $post_type) {
+                            if (!current_user_can('edit_page', $post_id))
+                                $permission=false;
+                        } else {
+                            if (!current_user_can('edit_post', $post_id))
+                                $permission=false;
+                        }
+
+
+                        if(!$permission){
+                            $res['message']=esc_html__('You don\'t have permission to do that','wpbooking');
+                        }else{
+
+                            // Change Service Type
+                            update_post_meta($post_id,'service_type',$service_type);
+
+                            if(isset($metabox[$section])){
+                                $this->do_save_metabox($post_id,$metabox[$section]['fields'],$section);
+                            }
+
+                            $res['status']=1;
+                        }
+                    }
+
 
                 }else{
                     $res['message']=esc_html__('Please specify Service Type','wpbooking');

@@ -6,6 +6,7 @@
  * Time: 5:07 PM
  */
 $config['lang'][ 'required' ]           = __( 'The %s field is required.' , 'wpbooking' );
+$config['lang'][ 'array_key_required' ] = __( 'The %s field is required.' , 'wpbooking' );
 $config['lang'][ 'isset' ]              = __( 'The %s field must have a value.' , 'wpbooking' );
 $config['lang'][ 'valid_email' ]        = __( 'Please enter a valid email format.' , 'wpbooking' );
 $config['lang'][ 'valid_emails' ]       = __( 'Please enter a valid email format.' , 'wpbooking' );

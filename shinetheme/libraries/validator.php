@@ -510,7 +510,6 @@ if(!class_exists('WPBooking_Form_Validator'))
             }
 
             // --------------------------------------------------------------------
-
             // Cycle through each rule and run it
             foreach ($rules As $rule)
             {
@@ -866,6 +865,11 @@ if(!class_exists('WPBooking_Form_Validator'))
             {
                 return ( ! empty($str));
             }
+        }
+
+        public function array_key_required($str,$val){
+            if(!is_array($str)  or empty($str[$val])) return false;
+            return true;
         }
 
         // --------------------------------------------------------------------

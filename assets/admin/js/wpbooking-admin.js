@@ -1090,6 +1090,9 @@ jQuery(document).ready(function( $ ){
 
         var data=section.find('input,select,textarea').serialize();
 
+        section.find('.is_error').removeClass('is_error');
+        section.find('.is_error_message').remove();
+
         data+='&action=wpbooking_save_metabox_section';
 
         $.ajax({
@@ -1109,6 +1112,28 @@ jQuery(document).ready(function( $ ){
                     wpbooking_reload_image_room(section.find('input,select,textarea'));
                 }
 
+                if(typeof res.error_fields!=='undefined')
+                {
+                    for(var k in res.error_fields){
+
+                        var field=section.find("[name='"+k+"']");
+                        if(!field.length){
+                            field=section.find('.field-'+k+' .st-metabox-content-wrapper .form-group');
+                        }
+                        if(!field.length){
+                            field=section.find('.field-'+k);
+                        }
+                        field.addClass('is_error');
+                        $('<span class="is_error_message">'+res.error_fields[k]+'</span>').insertAfter(field);
+                    }
+
+                    var first_error=section.find('.is_error:first-child');
+                    if(first_error.length){
+                        var h = section.find(first_error).offset().top;
+                        $('html,body').animate({'scrollTop': parseInt(h) - 200});
+                    }
+
+                }
                 section.removeClass('loading');
             },
             error:function(e){
@@ -1605,8 +1630,31 @@ jQuery(document).ready(function( $ ){
                     $(window).trigger('wpbooking_event_hotel_room_saved');
                     $('input[name=room_measunit]').trigger('change');
                 }else{
-                    alert(res.message);
+                    if(typeof res.message!='undefined'){
+                        alert(res.message);
+                    }
                 }
+
+                if(typeof res.error_fields!=='undefined')
+                {
+                    for(var k in res.error_fields){
+
+                        var field=parent.find("[name='"+k+"']");
+                        if(!field.length){
+                            field=parent.find('.field-'+k+' .st-metabox-content-wrapper .form-group');
+                        }
+                        field.addClass('is_error');
+                        $('<span class="is_error_message">'+res.error_fields[k]+'</span>').insertAfter(field);
+                    }
+
+                    var first_error=parent.find('.is_error:first-child');
+                    if(first_error.length){
+                        var h = parent.find(first_error).offset().top;
+                        $('html,body').animate({'scrollTop': parseInt(h) - 200});
+                    }
+
+                }
+
             },
             error:function(e){
                 parent.removeClass('on-loading');
