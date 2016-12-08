@@ -121,6 +121,7 @@ jQuery(document).ready(function( $ ){
                 var container = $(this).parent();
                 container.find('.fg_metadata').val('');
                 container.find('.demo-image-gallery').hide();
+                $(this).hide();
             }
         });
 
@@ -170,7 +171,7 @@ jQuery(document).ready(function( $ ){
                 if (metadataString) {
                     $('.fg_metadata',container).val(metadataString);
                     $('.featuredgallerydiv',container).html(imageHTML).show();
-
+                    $('.btn_remove_demo_gallery').show();
                 }
             });
             file_frame.open();

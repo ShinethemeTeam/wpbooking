@@ -171,8 +171,20 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     )
                 ),
                 'important_info' => array(
-                    'label' => esc_html__('2. Itinerary','wpbooking'),
+                    'label' => esc_html__('2. Important Info','wpbooking'),
                     'fields' => array(
+                        array(
+                            'type' => 'open_section'
+                        ),
+                        array(
+                            'type' => 'texteditor',
+                            'id' => 'tour_detail',
+                            'label' => esc_html__('Details','wpbooking'),
+                            'desc' => esc_html__('Enter details of your tour','wpbooking')
+                        ),
+                        array(
+                            'type' => 'close_section'
+                        ),
                         array(
                             'type' => 'open_section'
                         ),
