@@ -428,7 +428,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'type'            => 'address',
                             'container_class' => 'mb35',
                             'extra_rules'=>array(
-                                'location_id'=>array('label'=>esc_html__('Location','wpbooking'),'rule'=>'required'),
+                                'location_id'=>array('label'=>esc_html__('Location','wpbooking'),'rule'=>'required|greater_than[1]'),
                                 'address'=>array('label'=>esc_html__('Address','wpbooking'),'rule'=>'required'),
                             )
                         ),
