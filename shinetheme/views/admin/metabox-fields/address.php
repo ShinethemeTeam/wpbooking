@@ -5,7 +5,7 @@
  * Date: 7/13/2016
  * Time: 2:38 PM
  */
-wp_editor('hello','test');
+
 $old_data = (isset($data['custom_data'])) ? esc_html($data['custom_data']) : get_post_meta($post_id, esc_html($data['id']), TRUE);
 
 $class = ' wpbooking-form-group ';
