@@ -396,7 +396,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'desc'         => esc_html__('The contact phone', 'wpbooking'),
                             'type'         => 'text',
                             'class'        => 'small',
-                            'tooltip_desc' => esc_html__('The contact phone', 'wpbooking'),
                             'rules'=>'required'
                         ),
                         array(
@@ -428,7 +427,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'type'            => 'address',
                             'container_class' => 'mb35',
                             'extra_rules'=>array(
-                                'location_id'=>array('label'=>esc_html__('Location','wpbooking'),'rule'=>'required|greater_than[1]'),
+                                'location_id'=>array('label'=>esc_html__('Location','wpbooking'),'rule'=>'required_integer'),
                                 'address'=>array('label'=>esc_html__('Address','wpbooking'),'rule'=>'required'),
                             )
                         ),

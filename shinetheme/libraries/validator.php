@@ -872,6 +872,10 @@ if(!class_exists('WPBooking_Form_Validator'))
             return true;
         }
 
+        public function required_integer($str){
+            return trim($str)?true:false;
+        }
+
         // --------------------------------------------------------------------
 
         /**
