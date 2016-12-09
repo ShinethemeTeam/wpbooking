@@ -32,6 +32,7 @@ $age_options=$service->get_meta('age_options');
             </div>
         <?php } ?>
         <?php do_action('wpbooking_after_service_address_rate', get_the_ID(), $service->get_type(), $service) ?>
+
         <?php
         do_action('wpbooking_before_contact_meta');
         ?>
