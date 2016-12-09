@@ -21,6 +21,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 			add_action('init', array($this, '_add_metabox'));
 			add_action('save_post', array($this, '_save_extra_field'));
 			add_filter('wpbooking_settings', array($this, '_add_settings'));
+
 			// Ajax save property
 
 			// Merge Data

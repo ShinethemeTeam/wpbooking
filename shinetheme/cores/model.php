@@ -842,7 +842,7 @@ if (!class_exists('WPBooking_Model')) {
          *
          * @return bool|string
          */
-		protected function _get_query()
+		public function _get_query()
 		{
 			global $wpdb;
 			$table_name = $wpdb->prefix . $this->table_name;
@@ -1020,7 +1020,7 @@ if (!class_exists('WPBooking_Model')) {
          * @since 1.0
          * @author dungdt
          */
-		protected function _clear_query()
+		public function _clear_query()
 		{
 			$this->_where_query = array();
 			$this->_select_query = array();

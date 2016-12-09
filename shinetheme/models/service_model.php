@@ -72,7 +72,6 @@ if (!class_exists('WPBooking_Service_Model')) {
 						break;
 				}
 			}
-
 			if (!$check_exists = $this->find_by('post_id', $post_id)) {
 				$data['post_id'] = $post_id;
 				$this->insert($data);
