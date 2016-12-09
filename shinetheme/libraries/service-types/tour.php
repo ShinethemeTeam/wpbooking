@@ -267,14 +267,16 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'value'=>array(
                                 'per_person'=>esc_html__('Per person','wpbooking'),
                                 'per_unit'=>esc_html__('Per unit','wpbooking'),
-                            )
+                            ),
+                            'class' => 'small'
                         ),
                         array(
                             'label'=>esc_html__('Maximum people per booking','wpbooking'),
                             'id'=>'max_people',
                             'type'=>'number',
                             'condition'=>'pricing_type:is(per_person)',
-                            'std'=>1
+                            'std'=>1,
+                            'class' => 'small'
                         ),
                         array(
                             'label'=>esc_html__('Age Options','wpbooking'),
@@ -290,7 +292,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'value'=>array(
                                 'forever'=>esc_html__('Forever','wpbooking'),
                                 'specific_periods'=>esc_html__('For specific periods','wpbooking'),
-                            )
+                            ),
+                            'class' => 'small'
                         ),
 
                         array(
