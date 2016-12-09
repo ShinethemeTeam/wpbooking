@@ -690,6 +690,9 @@ img.settings-demo-image-gallery{
         &.small{
             width: 215px;
         }
+        &.is_error{
+            border-color:red;
+        }
         .form-label{
             padding-bottom: 10px;
             padding-top: 5px;
@@ -720,6 +723,11 @@ img.settings-demo-image-gallery{
                 }
             }
         }
+    }
+    .is_error_message{
+        color: red;
+        display: block;
+        margin-top: 5px;
     }
     textarea.form-control{
         min-height: 300px !important;
@@ -1187,6 +1195,9 @@ img.settings-demo-image-gallery{
         padding: 10px 30px;
         .field-title{
             font-size: 18px;
+        }
+        .tax_input_col_left{
+            float: left;
         }
         .label_vat_unit{
             padding-left: 30px;
@@ -2255,7 +2266,7 @@ input.gmap-search{
         color: #A81212;
     }
     &.success{
-        color: #1E59DF;
+        color: #72b916;
     }
 }
 .clearfix:after,
@@ -4584,4 +4595,39 @@ label[for=wpbooking_room_typediv-hide]
 
 .st-metabox-tabs-content .st-metabox-content-wrapper .radio_pro {
     margin-bottom: 10px;
+}
+.wpbooking_dashboard_widget{
+    table  {
+
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 1em;
+
+        thead td{
+            border-bottom: 1px solid #ececec;
+            color: #777;
+        }
+        td{
+            padding: 3px 0;
+            &.b,&.t{
+                line-height: 1.5;
+                vertical-align: middle;
+            }
+            &.t{
+                font-size: 12px;
+                padding-right: 12px;
+                color: #777;
+                width: 100%;
+            }
+        }
+    }
+    .table_left {
+        float: left;
+        width: 45%;
+    }
+    .table_right {
+        float: right;
+        width: 45%;
+    }
+
 }

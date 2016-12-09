@@ -21,6 +21,14 @@ if(!class_exists('WPBooking_About')){
             add_action( 'admin_menu', array($this,'register_wpbooking_extensions_menu_page') );
 
             add_action('admin_enqueue_scripts', array($this, '_enqueue_scripts'));
+
+            /**
+             * Action to Register Dashboard Widgets
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('wp_dashboard_setup',array($this,'add_dashboard_widgets'));
         }
 
         function _wpbooking_about_page(){
@@ -65,6 +73,47 @@ if(!class_exists('WPBooking_About')){
 
         function callback_wpbooking_extensions_sub_menu(){
             echo wpbooking_admin_load_view('about/tab-extensions');
+        }
+
+        /**
+         * Register Widget in Dashboard Page
+         *
+         * @since 1.0
+         * @author dungdt
+         */
+        public function add_dashboard_widgets(){
+            wp_add_dashboard_widget('wpbooking_report',esc_html__('WPBooking Sales Summary','wpbooking'),array($this,'_report_widget_callback'));
+        }
+
+        /**
+         * Callback function to show Report Widget
+         *
+         * @since 1.0
+         * @author dungdt
+         */
+        public function _report_widget_callback()
+        {
+            $data=$this->get_widget_sale_data();
+            $html= wpbooking_admin_load_view('report-widget',$data);
+            $html=apply_filters('wpbooking_report_widget_content',$html);
+            echo do_shortcode($html);
+        }
+
+        public function get_widget_sale_data(){
+            $data=array(
+                'current_month_earning'=>0,
+                'current_month_sale'=>0,
+                'today_earning'=>0,
+                'today_sale'=>0,
+                'last_month_earning'=>0,
+                'last_month_sale'=>0,
+                'total_earning'=>0,
+                'total_sale'=>0,
+            );
+
+
+
+            return apply_filters('wpbooking_report_widget_sale_data',$data);
         }
 
         static function inst(){

@@ -37,7 +37,7 @@ if( !empty( $value ) ){
 }
 ?>
 <div
-    class="wpbooking-settings taxonomy_fee_select <?php echo esc_html($class); ?>" <?php echo esc_html($data_class); ?>>
+    class="wpbooking-settings taxonomy_fee_select <?php echo esc_html($class); ?> field-<?php echo esc_html($data['id']); ?>" <?php echo esc_html($data_class); ?>>
     <div class="st-metabox-left">
         <label for="<?php echo esc_html($data['id']); ?>"><?php echo esc_html($data['label']); ?></label>
     </div>

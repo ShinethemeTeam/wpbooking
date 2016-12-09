@@ -396,14 +396,15 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'desc'         => esc_html__('The contact phone', 'wpbooking'),
                             'type'         => 'text',
                             'class'        => 'small',
-                            'tooltip_desc' => esc_html__('The contact phone', 'wpbooking')
+                            'rules'=>'required'
                         ),
                         array(
                             'label'       => __('Contact Email', 'wpbooking'),
                             'id'          => 'contact_email',
                             'type'        => 'text',
                             'placeholder' => esc_html__('Example@domain.com', 'wpbooking'),
-                            'class'       => 'small'
+                            'class'       => 'small',
+                            'rules'=>'required|valid_email'
                         ),
                         array(
                             'label'       => __('Website', 'wpbooking'),
@@ -425,6 +426,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'id'              => 'address',
                             'type'            => 'address',
                             'container_class' => 'mb35',
+                            'extra_rules'=>array(
+                                'location_id'=>array('label'=>esc_html__('Location','wpbooking'),'rule'=>'required_integer'),
+                                'address'=>array('label'=>esc_html__('Address','wpbooking'),'rule'=>'required'),
+                            )
                         ),
                         array(
                             'label' => __('Map Lat & Long', 'wpbooking'),
@@ -481,6 +486,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'id'       => 'wpbooking_select_amenity',
                             'taxonomy' => 'wpbooking_amenity',
                             'type'     => 'taxonomy_select',
+                            'rules'=>'required'
                         ),
                         array(
                             'type'         => 'custom-taxonomy',
@@ -537,6 +543,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'label'  => __('Room size', 'wpbooking'),
                             'id'     => 'room_size',
                             'type'   => 'room_size',
+                            'rules'=>'required'
                         ),
                         array('type' => 'close_section'),
                         array(
@@ -550,7 +557,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'id'       => 'hotel_room_facilities',
                             'label'    => __("Facilities", 'wpbooking'),
                             'type'     => 'taxonomy_room_select',
-                            'taxonomy' => 'wb_hotel_room_facilities'
+                            'taxonomy' => 'wb_hotel_room_facilities',
+                            'rules'=>'required'
                         ),
                         array('type' => 'close_section'),
 
@@ -599,7 +607,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'id'    => 'deposit_payment_amount',
                             'type'  => 'number',
                             'desc'  => esc_html__("Leave empty for disallow deposit payment", "wpbooking"),
-                            'class' => 'small'
+                            'class' => 'small',
+                            'min'=>1,
+                            'rules'=>'required|integer|greater_than[0]',
+                            'rule_condition'=>'deposit_payment_status:not_empty'
                         ),
                         array(
                             'label' => __('How many days in advance can guests cancel free of  charge?', 'wpbooking'),
@@ -642,7 +653,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                 'vat_excluded',
                                 'vat_amount',
                                 'vat_unit',
-                            )
+                            ),
+                            'extra_rules'=>array(
+                                'vat_amount'=>array('label'=>esc_html__('VAT amount','wpbooking'),'rules'=>'required|integer|greater_than[0]','rule_condition'=>'vat_excluded:not_empty')
+                            ),
+
                         ),
                         array(
                             'label'  => __('City Tax', 'wpbooking'),
@@ -652,7 +667,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                 'citytax_excluded',
                                 'citytax_amount',
                                 'citytax_unit',
-                            )
+                            ),
+                            'extra_rules'=>array(
+                                 'citytax_amount'=>array('label'=>esc_html__('City Tax amount','wpbooking'),'rules'=>'required|integer|greater_than[0]','rule_condition'=>'citytax_excluded:not_empty')
+        ),
                         ),
 
                         array('type' => 'close_section'),
@@ -706,6 +724,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'id'    => 'terms_conditions',
                             'type'  => 'textarea',
                             'rows'  => '5',
+                            'rules'=>'required'
                         ),
                         array('type' => 'close_section'),
                         array(
@@ -724,6 +743,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'label' => __("Gallery", 'wpbooking'),
                             'id'    => 'gallery',
                             'type'  => 'gallery_hotel',
+                            'rules'=>'array_key_required[gallery]',
                             'desc'  => __('Picture recommendations
 
 				We recommend having pictures in the following order (if available):
@@ -737,7 +757,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 				Pictures showing animals, people, watermarks, logos and images composed of multiple
 				smaller images will be removed.', 'wpbooking')
                         ),
-
                         array(
                             'type'       => 'section_navigation',
                             'next_label' => esc_html__('Save', 'wpbooking')
@@ -812,10 +831,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'type'  => 'title',
                 ),
                 array(
-                    'label' => esc_html__('Room name (optional)', 'wpbooking'),
+                    'label' => esc_html__('Room name', 'wpbooking'),
                     'type'  => 'text',
                     'id'    => 'room_name',
                     'desc'  => __("Create an optional, custom name for your reference.", 'wpbooking'),
+                    'rules'=>'required'
                 ),
                 array(
                     'label'    => esc_html__('Room Type', 'wpbooking'),
@@ -831,6 +851,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'type'  => 'number',
                     'id'    => 'room_number',
                     'class' => 'small',
+                    'rules'=>'required|integer|greater_than[0]',
+                    'min'=>1
                 ),
                 array(
                     'label' => esc_html__('Bed Rooms', 'wpbooking'),
@@ -945,6 +967,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         echo json_encode($res);
                         die;
                     }
+
                 }
 
 
@@ -1045,28 +1068,60 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 }
 
                 $fields = $this->get_room_meta_fields();
-                WPBooking_Metabox::inst()->do_save_metabox($room_id, $fields, 'wpbooking_hotel_room_form');
 
-                // Save Extra Fields
-                //property_available_for
-                if (isset($_POST['property_available_for'])) update_post_meta($room_id, 'property_available_for', $_POST['property_available_for']);
+                $form_validate=new WPBooking_Form_Validator();
+                $need_validate=false;
+                $is_validated=true;
+                foreach($fields as $field){
 
-                $hotel_id = wp_get_post_parent_id($room_id);
-                $list_room_new = $this->_get_room_by_hotel($hotel_id);
+                    if(!empty($field['rules'])){
+                        $need_validate=true;
+                        $form_validate->set_rules($field['id'],$field['label'],$field['rules']);
+                    }
+                    if(!empty($field['extra_rules']) and is_array($field['extra_rules'])){
+                        $need_validate=true;
+                        foreach($field['extra_rules'] as $name=>$rule){
+                            $form_validate->set_rules($name,$rule['label'],$rule['rule']);
+                        }
+
+                    }
+
+                }
+
+                if($need_validate){
+                    $is_validated=$form_validate->run();
+
+                    if(!$is_validated) $res['error_fields']=$form_validate->get_error_fields();
+                }
 
 
-                $list_room_new = json_encode($list_room_new);
-                $res['data']['list_room'] = $list_room_new;
 
-                $res['data']['number'] = get_post_meta($room_id, 'room_number', true);
-                $res['data']['thumbnail'] = '';
-                $res['data']['title'] = get_the_title($room_id);
-                $res['data']['room_id'] = $room_id;
-                $res['data']['security'] = wp_create_nonce('del_security_post_' . $room_id);
 
-                $res['updated_content'] = apply_filters('wpbooking_hotel_room_form_updated_content', array(), $room_id, $hotel_id);
+                if($is_validated){
+                    WPBooking_Metabox::inst()->do_save_metabox($room_id, $fields, 'wpbooking_hotel_room_form');
 
-                $res['status'] = 1;
+                    // Save Extra Fields
+                    //property_available_for
+                    if (isset($_POST['property_available_for'])) update_post_meta($room_id, 'property_available_for', $_POST['property_available_for']);
+
+                    $hotel_id = wp_get_post_parent_id($room_id);
+                    $list_room_new = $this->_get_room_by_hotel($hotel_id);
+
+
+                    $list_room_new = json_encode($list_room_new);
+                    $res['data']['list_room'] = $list_room_new;
+
+                    $res['data']['number'] = get_post_meta($room_id, 'room_number', true);
+                    $res['data']['thumbnail'] = '';
+                    $res['data']['title'] = get_the_title($room_id);
+                    $res['data']['room_id'] = $room_id;
+                    $res['data']['security'] = wp_create_nonce('del_security_post_' . $room_id);
+
+                    $res['updated_content'] = apply_filters('wpbooking_hotel_room_form_updated_content', array(), $room_id, $hotel_id);
+
+                    $res['status'] = 1;
+                }
+
             }
 
 

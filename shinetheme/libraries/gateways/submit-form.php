@@ -65,6 +65,8 @@ if(!class_exists('WPBooking_SubmitForm_Gateway') and class_exists('WPBooking_Abs
 		}
 
 		function do_checkout($order_id){
+            $order = new WB_Order($order_id);
+            $order->send_email_after_booking($order_id);
 			return array(
 				'status'=>1
 			);

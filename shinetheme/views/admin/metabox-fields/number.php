@@ -10,6 +10,7 @@ if( !empty( $value ) ){
 	$old_data = $value;
 }
 
+
 $class = ' wpbooking-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){
@@ -21,12 +22,16 @@ $attr=FALSE;
 if(!empty($data['attr']) and is_array($data['attr'])){
 	$attr=implode(' ',$data['attr']);
 }
+if(empty($data['min'])) $data['min']=0;
+else{
+	if($old_data<$data['min']) $old_data=$data['min'];
+}
 
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
 $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
 
-$field .= '<div style="margin-bottom: 7px;"><input '.$attr.' id="'. esc_html( $data['id'] ).'" type="number" name="'. $name .'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'"></div>';
+$field .= '<div style="margin-bottom: 7px;"><input '.$attr.' id="'. esc_html( $data['id'] ).'" type="number" name="'. $name .'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'" min="'.$data['min'].'"></div>';
 
 $field .= '</div></div>';
 

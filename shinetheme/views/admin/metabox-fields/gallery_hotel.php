@@ -77,8 +77,8 @@ $field .= '<button class="btn_remove_gallery_hotel button-gallery-primary mb10 '
 $field .= '</div></div></div>';
 
 ?>
-<div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
-    <div class="st-metabox-full">
+<div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?> field-<?php echo esc_attr($data['id'])?>" <?php echo esc_html( $data_class ); ?>>
+    <div class="st-metabox-full ">
         <label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
     </div>
     <div class="st-metabox-full">
