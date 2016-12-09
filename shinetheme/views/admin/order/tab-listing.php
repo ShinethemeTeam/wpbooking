@@ -17,7 +17,7 @@ $args=array(
 $inject=WPBooking_Query_Inject::inst();
 $inject->inject();
 if(!empty(WPBooking_Input::get('search_keyword')) && $keyword = WPBooking_Input::get('keyword')){
-    $args['s']=$keyword;
+    $args['p']= str_replace('#','',$keyword);
 }
 
 if($m = WPBooking_Input::get('m')){
@@ -103,7 +103,7 @@ $query=new WP_Query($args);
 		<div class="tablenav-pages">
 			<p class="search-box">
 				<label class="screen-reader-text" for="post-search-input"><?php esc_html_e('Search Order','wpbooking') ?></label>
-				<input type="search" name="keyword" value="<?php echo WPBooking_Input::get('keyword') ?>">
+				<input type="search" name="keyword" value="<?php echo WPBooking_Input::get('keyword') ?>" placeholder="<?php echo esc_html__('ID','wpbooking') ?>">
 				<input type="submit" name="search_keyword" class="button" value="<?php esc_html_e('Search Order','wpbooking') ?>"></p>
 		</div>
 	</div>

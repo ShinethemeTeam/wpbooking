@@ -4445,6 +4445,9 @@ label[for=wpbooking_room_typediv-hide] {
   clear: both;
   margin-top: 20px;
 }
+.title-no-ex {
+  margin-bottom: 50px;
+}
 @media (max-width: 1300px) {
   .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .service_detail {
     width: 130px;
@@ -4541,7 +4544,10 @@ label[for=wpbooking_room_typediv-hide] {
   font-size: 12px;
   padding-right: 12px;
   color: #777;
-  width: 100%;
+  width: 50%;
+}
+.wpbooking_dashboard_widget table td:last-child {
+  text-align: right;
 }
 .wpbooking_dashboard_widget .table_left {
   float: left;

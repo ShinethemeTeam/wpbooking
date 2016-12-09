@@ -1978,7 +1978,7 @@ jQuery(document).ready(function( $ ){
                             '<div class="info">' +
                             '<h3 class="title">'+item.title+'</h3>' +
                             '<p class="desc">'+item.short_ex+'</p>' +
-                            '<a class="read-more" href="'+item.url+'">Read More</a>' +
+                            '<a class="read-more" href="'+item.url+'">'+wpbooking_params.read_more+'</a>' +
                             '</div>' +
                             '</div>' +
                             '</div>' +
@@ -1992,7 +1992,7 @@ jQuery(document).ready(function( $ ){
 
                     var page_html = '<div class="pagination"><ul class="ex-pagination">';
 
-                    page_html += '<li class="hidden"><a href="#" data-paged="0" class="prev">Prev</a></li>';
+                    page_html += '<li class="hidden"><a href="#" data-paged="0" class="prev">'+wpbooking_params.prev+'</a></li>';
 
                     for(var i = 1; i<= res.data.max_pages; i++){
                         if(i==1){
@@ -2002,12 +2002,20 @@ jQuery(document).ready(function( $ ){
                         }
 
                     }
-                    page_html += '<li><a href="#" data-paged="2" class="next" data-s="'+s+'" >Next</a></li>';
+                    page_html += '<li><a href="#" data-paged="2" class="next" data-s="'+s+'" >'+wpbooking_params.next+'</a></li>';
                     page_html += '</ul></div>';
 
                     if(res.data.max_pages > 1) {
                         $('.extension-list').append(page_html);
                     }
+
+                    $('.result-text .ex-total').text(res.data.post_count);
+                    $('.result-text .ex-from').text(1);
+                    if( res.data.post_count >= res.posts_per_page)
+                        $('.result-text .ex-to').text(res.posts_per_page);
+                    else
+                        $('.result-text .ex-to').text(res.data.post_count);
+
                 }
 
             },
@@ -2047,7 +2055,7 @@ jQuery(document).ready(function( $ ){
                             '<div class="info">' +
                             '<h3 class="title">'+item.title+'</h3>' +
                             '<p class="desc">'+item.short_ex+'</p>' +
-                            '<a class="read-more" href="'+item.url+'">Read More</a>' +
+                            '<a class="read-more" href="'+item.url+'">'+wpbooking_params.read_more+'</a>' +
                             '</div>' +
                             '</div>' +
                             '</div>' +
@@ -2074,7 +2082,7 @@ jQuery(document).ready(function( $ ){
                     }
 
                     var page_html = '<div class="pagination"><ul class="ex-pagination">';
-                    page_html += '<li class="'+prev+'"><a href="#" data-s="'+s+'" data-cat="'+cat+'" data-paged="'+(parseInt(res.paged) - 1)+'" class="prev">Prev</a></li>';
+                    page_html += '<li class="'+prev+'"><a href="#" data-s="'+s+'" data-cat="'+cat+'" data-paged="'+(parseInt(res.paged) - 1)+'" class="prev">'+wpbooking_params.prev+'</a></li>';
 
                     for(var i = 1; i<= res.data.max_pages; i++){
                         if(res.paged == i){
@@ -2085,10 +2093,20 @@ jQuery(document).ready(function( $ ){
 
                     }
 
-                    page_html += '<li class="'+next+'"><a href="#" data-paged="'+(parseInt(res.paged) + 1)+'" data-cat="'+cat+'" data-s="'+s+'" class="next">Next</a></li>';
+                    page_html += '<li class="'+next+'"><a href="#" data-paged="'+(parseInt(res.paged) + 1)+'" data-cat="'+cat+'" data-s="'+s+'" class="next">'+wpbooking_params.next+'</a></li>';
                     page_html += '</ul></div>';
 
                     $('.extension-list').append(page_html);
+
+                    $('.result-text .ex-total').text(res.data.post_count);
+                    $('.result-text .ex-from').text(parseInt(res.paged-1)*parseInt(res.posts_per_page));
+                    if(res.paged == 1){
+                        $('.result-text .ex-from').text(1);
+                    }
+                    $('.result-text .ex-to').text(res.posts_per_page*res.paged);
+                    if(res.paged == res.data.max_pages){
+                        $('.result-text .ex-to').text(res.data.post_count);
+                    }
                 }
             },
             error:function(e){
@@ -2128,7 +2146,7 @@ jQuery(document).ready(function( $ ){
                                 '<div class="info">' +
                                 '<h3 class="title">'+item.title+'</h3>' +
                                 '<p class="desc">'+item.short_ex+'</p>' +
-                                '<a class="read-more" href="'+item.url+'">Read More</a>' +
+                                '<a class="read-more" href="'+item.url+'">'+wpbooking_params.read_more+'</a>' +
                                 '</div>' +
                                 '</div>' +
                                 '</div>' +
@@ -2143,7 +2161,7 @@ jQuery(document).ready(function( $ ){
 
                         var page_html = '<div class="pagination"><ul class="ex-pagination">';
 
-                        page_html += '<li class="hidden"><a href="#" data-paged="0" class="prev">Prev</a></li>';
+                        page_html += '<li class="hidden"><a href="#" data-paged="0" class="prev">'+wpbooking_params.prev+'</a></li>';
 
                         for(var i = 1; i<= res.data.max_pages; i++){
                             if(i==1){
@@ -2153,12 +2171,19 @@ jQuery(document).ready(function( $ ){
                             }
 
                         }
-                        page_html += '<li><a href="#" data-paged="2" class="next" data-cat="'+cat+'" >Next</a></li>';
+                        page_html += '<li><a href="#" data-paged="2" class="next" data-cat="'+cat+'" >'+wpbooking_params.next+'</a></li>';
                         page_html += '</ul></div>';
 
                         if(res.data.max_pages > 1) {
                             $('.extension-list').append(page_html);
                         }
+
+                        $('.result-text .ex-total').text(res.data.post_count);
+                        $('.result-text .ex-from').text(1);
+                        if( res.data.post_count >= res.posts_per_page)
+                            $('.result-text .ex-to').text(res.posts_per_page);
+                        else
+                            $('.result-text .ex-to').text(res.data.post_count);
                     }
 
                 },

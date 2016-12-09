@@ -225,6 +225,27 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
             return (!empty($row['items']))?$row['items']:'0';
         }
         /**
+         *Get total sales in time range
+         *
+         * @author tienhd
+         * @since 1.0
+         *
+         * @param $service_type
+         * @param $start_day
+         * @param $end_day
+         * @return string
+         */
+
+        function get_total_sales($service_type,$start_day, $end_day){
+            $row = $this->select('COUNT(post_id) as items')
+                ->where('created_at>=',$start_day)
+                ->where('created_at<=',$end_day)
+                ->where("(status='on_hold' OR status='completed' OR status='completed_a_part')",false,true)
+                ->where($this->service_where($service_type),false,true)
+                ->get()->row();
+            return (!empty($row['items']))?$row['items']:'0';
+        }
+        /**
          *Get total booking in time range
          *
          * @author tienhd
@@ -235,6 +256,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
          * @param $end_day
          * @return string
          */
+
         function get_rp_total_bookings($service_type,$start_day, $end_day){
             $row = $this->select('COUNT(*) as total_bookings')
                 ->where('created_at>=',$start_day)

@@ -35,7 +35,7 @@ curl_close($curlSession);
         </div>
         <div class="content">
             <div class="result-text">
-                <p><?php echo __('Total ','wpbooking')?><?php echo '<span class="ex-total">'.$jsonData->data->post_count.'</span>';?><?php echo esc_html__(' extensions. Showing 12- 32','wpbooking')?></p>
+                <p><?php echo __('Total ','wpbooking')?><?php echo '<span class="ex-total">'.$jsonData->data->post_count.'</span>';?><?php echo esc_html__(' extensions. Showing ','wpbooking')?><span class="ex-from">1</span> - <span class="ex-to"><?php echo esc_attr($jsonData->posts_per_page)?></span></p>
             </div>
             <div class="ex-sidebar">
                 <div class="box-search">
