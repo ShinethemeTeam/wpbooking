@@ -4502,3 +4502,34 @@ label[for=wpbooking_room_typediv-hide] {
 .st-metabox-tabs-content .st-metabox-content-wrapper .radio_pro {
   margin-bottom: 10px;
 }
+.wpbooking_dashboard_widget table {
+  width: 100%;
+  margin-left: 0;
+  margin-bottom: 1em;
+}
+.wpbooking_dashboard_widget table thead td {
+  border-bottom: 1px solid #ececec;
+  color: #777;
+}
+.wpbooking_dashboard_widget table td {
+  padding: 3px 0;
+}
+.wpbooking_dashboard_widget table td.b,
+.wpbooking_dashboard_widget table td.t {
+  line-height: 1.5;
+  vertical-align: middle;
+}
+.wpbooking_dashboard_widget table td.t {
+  font-size: 12px;
+  padding-right: 12px;
+  color: #777;
+  width: 100%;
+}
+.wpbooking_dashboard_widget .table_left {
+  float: left;
+  width: 45%;
+}
+.wpbooking_dashboard_widget .table_right {
+  float: right;
+  width: 45%;
+}
