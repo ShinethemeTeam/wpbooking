@@ -1901,4 +1901,225 @@ jQuery(document).ready(function( $ ){
         $(this).closest('.item-itinerary').remove();
     });
 
+    //extensionh page ajax
+
+    $('.wb-search-extension').click(function () {
+        $.ajax({
+            url: wpbooking_params.api_url,
+            data: {
+                action: 'st_get_extension',
+                s: $(this).closest('.search-extensions').find('.search-field').val()
+            },
+            dataType: 'json',
+            type: 'post',
+            beforeSend:function(){
+                var loading = '<div class="ex-loading"></div>';
+                $('.extension-list').append(loading);
+            },
+            success:function(res){
+                $('.ex-loading').remove();
+                $('.extension-list ').html('');
+                $('.extension-list ').append('<div class="list"></div>');
+                if(res.status == 1){
+                    res.data.posts.forEach(function(item,index){
+                        var item_html = '<div class="item">' +
+                            '<div class="extension">' +
+                            '<div class="thumnail">' +
+                            '<img src="'+item.thumb_url+'"/>' +
+                            '</div>' +
+                            '<div class="info">' +
+                            '<h3 class="title">'+item.title+'</h3>' +
+                            '<p class="desc">'+item.short_ex+'</p>' +
+                            '<a class="read-more" href="'+item.url+'">Read More</a>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                        $('.extension-list .list').append(item_html);
+                    });
+                    var s = '';
+                    if(res.s){
+                        s = res.s;
+                    }
+
+                    var page_html = '<div class="pagination"><ul class="ex-pagination">';
+
+                    page_html += '<li class="hidden"><a href="#" data-paged="0" class="prev">Prev</a></li>';
+
+                    for(var i = 1; i<= res.data.max_pages; i++){
+                        if(i==1){
+                            page_html += '<li class="active"><span>'+i+'</span></li>';
+                        }else{
+                            page_html += '<li><a href="#" data-paged="'+i+'" data-s="'+s+'">'+i+'</a></li>';
+                        }
+
+                    }
+                    page_html += '<li><a href="#" data-paged="2" class="next" data-s="'+s+'" >Next</a></li>';
+                    page_html += '</ul></div>';
+
+                    if(res.data.max_pages > 1) {
+                        $('.extension-list').append(page_html);
+                    }
+                }
+
+            },
+            error:function(e){
+                console.log(e);
+            }
+        });
+        return false;
+    });
+    $(document).on('click', '.ex-pagination a', function(){
+        $.ajax({
+            url: wpbooking_params.api_url,
+            data: {
+                action: 'st_get_extension',
+                paged: $(this).attr('data-paged'),
+                cat_id: $(this).attr('data-cat'),
+                s: $(this).attr('data-s'),
+
+            },
+            dataType: 'json',
+            type: 'post',
+            beforeSend:function(){
+                var loading = '<div class="ex-loading"></div>';
+                $('.extension-list').append(loading);
+            },
+            success:function(res){
+                $('.ex-loading').remove();
+                $('.extension-list').html('');
+                $('.extension-list').append('<div class="list"></div>');
+                if(res.status == 1){
+                    res.data.posts.forEach(function(item,index){
+                        var item_html = '<div class="item">' +
+                            '<div class="extension">' +
+                            '<div class="thumnail">' +
+                            '<img src="'+item.thumb_url+'"/>' +
+                            '</div>' +
+                            '<div class="info">' +
+                            '<h3 class="title">'+item.title+'</h3>' +
+                            '<p class="desc">'+item.short_ex+'</p>' +
+                            '<a class="read-more" href="'+item.url+'">Read More</a>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                        $('.extension-list .list').append(item_html);
+                    });
+                    var s = '';
+                    if(res.s && res.s != undefined){
+                        s = res.s;
+                    }
+
+                    var cat = '';
+                    if(res.cat_id && res.cat_id != undefined){
+                        cat = res.cat_id;
+                    }
+
+                    var prev = '';
+                    var next = '';
+                    if(res.paged == 1){
+                        prev = 'hidden';
+                    }
+                    if(res.paged == res.data.max_pages){
+                        next = 'hidden';
+                    }
+
+                    var page_html = '<div class="pagination"><ul class="ex-pagination">';
+                    page_html += '<li class="'+prev+'"><a href="#" data-s="'+s+'" data-cat="'+cat+'" data-paged="'+(parseInt(res.paged) - 1)+'" class="prev">Prev</a></li>';
+
+                    for(var i = 1; i<= res.data.max_pages; i++){
+                        if(res.paged == i){
+                            page_html += '<li class="active"><span>'+i+'</span></li>';
+                        }else{
+                            page_html += '<li><a href="#" data-s="'+s+'" data-cat="'+cat+'" data-paged="'+i+'">'+i+'</a></li>';
+                        }
+
+                    }
+
+                    page_html += '<li class="'+next+'"><a href="#" data-paged="'+(parseInt(res.paged) + 1)+'" data-cat="'+cat+'" data-s="'+s+'" class="next">Next</a></li>';
+                    page_html += '</ul></div>';
+
+                    $('.extension-list').append(page_html);
+                }
+            },
+            error:function(e){
+                console.log(e);
+            }
+        });
+        return false;
+    });
+
+    $('.box-categories .list-cat a').each(function(){
+        $(this).click(function(){
+            $('.box-categories .list-cat').find('li').removeClass('active');
+            $(this).parent().addClass('active');
+            $.ajax({
+                url: wpbooking_params.api_url,
+                data: {
+                    action: 'st_get_extension',
+                    cat_id: $(this).attr('data-id')
+                },
+                dataType: 'json',
+                type: 'post',
+                beforeSend:function(){
+                    var loading = '<div class="ex-loading"></div>';
+                    $('.extension-list').append(loading);
+                },
+                success:function(res){
+                    $('.ex-loading').remove();
+                    $('.extension-list').html('');
+                    $('.extension-list').append('<div class="list"></div>');
+                    if(res.status == 1){
+                        res.data.posts.forEach(function(item,index){
+                            var item_html = '<div class="item">' +
+                                '<div class="extension">' +
+                                '<div class="thumnail">' +
+                                '<img src="'+item.thumb_url+'"/>' +
+                                '</div>' +
+                                '<div class="info">' +
+                                '<h3 class="title">'+item.title+'</h3>' +
+                                '<p class="desc">'+item.short_ex+'</p>' +
+                                '<a class="read-more" href="'+item.url+'">Read More</a>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>';
+                            $('.extension-list .list').append(item_html);
+                        });
+
+                        var cat = '';
+                        if(res.cat_id && res.cat_id != undefined){
+                            cat = res.cat_id;
+                        }
+
+                        var page_html = '<div class="pagination"><ul class="ex-pagination">';
+
+                        page_html += '<li class="hidden"><a href="#" data-paged="0" class="prev">Prev</a></li>';
+
+                        for(var i = 1; i<= res.data.max_pages; i++){
+                            if(i==1){
+                                page_html += '<li class="active"><span>'+i+'</span></li>';
+                            }else{
+                                page_html += '<li><a href="#" data-paged="'+i+'" data-cat="'+cat+'">'+i+'</a></li>';
+                            }
+
+                        }
+                        page_html += '<li><a href="#" data-paged="2" class="next" data-cat="'+cat+'" >Next</a></li>';
+                        page_html += '</ul></div>';
+
+                        if(res.data.max_pages > 1) {
+                            $('.extension-list').append(page_html);
+                        }
+                    }
+
+                },
+                error:function(e){
+                    console.log(e);
+                }
+            });
+            return false;
+        });
+    });
+
 });

@@ -37,6 +37,8 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
         protected $_dir_path = FALSE;
         protected $_dir_url = FALSE;
 
+        public $API_URL = 'http://localhost/wpbooking_org/wp-admin/admin-ajax.php';
+
 
         /**
          * @since 1.0
@@ -282,6 +284,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 
             wp_localize_script('jquery', 'wpbooking_params', array(
                 'ajax_url'           => admin_url('admin-ajax.php'),
+                'api_url'            => $this->API_URL,
                 'wpbooking_security' => wp_create_nonce('wpbooking-nonce-field'),
                 'delete_confirm'     => esc_html__('Are you want to delete?', 'wpbooking'),
                 'delete_string'      => esc_html__('delete', 'wpbooking'),
@@ -290,8 +293,6 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
                 'rooms' => esc_html__('rooms','wpbooking'),
                 'delete_permanently_image' => esc_html__('You want delete permanently this image?','wpbooking')
             ));
-
-
 
         }
 
