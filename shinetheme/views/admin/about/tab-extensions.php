@@ -11,7 +11,9 @@ curl_setopt($curlSession, CURLOPT_URL, WPBooking()->API_URL.'?action=st_get_exte
 curl_setopt($curlSession, CURLOPT_BINARYTRANSFER, true);
 curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
 
-$jsonData = json_decode(curl_exec($curlSession));
+$data = str_replace('(','',curl_exec($curlSession));
+$data = str_replace(')','',$data);
+$jsonData = json_decode($data);
 
 curl_close($curlSession);
 
@@ -35,7 +37,7 @@ curl_close($curlSession);
         </div>
         <div class="content">
             <div class="result-text">
-                <p><?php echo __('Total ','wpbooking')?><?php echo '<span class="ex-total">'.$jsonData->data->post_count.'</span>';?><?php echo esc_html__(' extensions. Showing ','wpbooking')?><span class="ex-from">1</span> - <span class="ex-to"><?php echo esc_attr($jsonData->posts_per_page)?></span></p>
+                <p><?php echo __('Total ','wpbooking')?><?php echo '<span class="ex-total">'.$jsonData->data->post_count.'</span>';?><?php echo esc_html__(' extensions. Showing ','wpbooking')?><span class="ex-from">1</span> - <span class="ex-to"><?php echo ($jsonData->data->max_pages > 1)?esc_attr($jsonData->posts_per_page):$jsonData->data->post_count; ?></span></p>
             </div>
             <div class="ex-sidebar">
                 <div class="box-search">
@@ -77,7 +79,7 @@ curl_close($curlSession);
                                 <div class="info">
                                     <h3 class="title"><?php echo esc_attr($val->title); ?></h3>
                                     <p class="desc"><?php echo esc_attr($val->short_ex); ?></p>
-                                    <a class="read-more"
+                                    <a class="read-more" target="_blank"
                                        href="<?php echo esc_url($val->url); ?>"><?php echo esc_html__('Read more', 'wpbooking'); ?></a>
                                 </div>
                             </div>

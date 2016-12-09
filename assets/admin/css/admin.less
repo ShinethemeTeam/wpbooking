@@ -3231,6 +3231,20 @@ a.ui-datepicker-next {
                 border: solid 1px @maincolor;
             }
         }
+      &.wb-save-now-section{
+        background: @maincolor;
+        &:hover{
+          border: solid 1px transparent;
+          color: #fff;
+          background: @maincolor;
+        }
+      }
+      &.wb-next{
+        background: #31b0d5;
+        &:hover{
+          background: #31b0d5;
+        }
+      }
         &.full{
             width: 100%;
         }
@@ -3243,6 +3257,10 @@ a.ui-datepicker-next {
             }
             width: 49%;
         }
+      &.w30{
+        width: 30%;
+        display: table-cell;
+      }
         color: #fff;
         border: solid 1px transparent;
         border-radius: 0;
@@ -3253,6 +3271,11 @@ a.ui-datepicker-next {
         font-size: 15px;
         font-weight: bold;
     }
+}
+.wb-action-edit{
+  display: table;
+  width: 100%;
+  border-spacing: 10px;
 }
 .iconpicker{
     .iconpicker-item{

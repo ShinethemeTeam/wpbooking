@@ -1958,13 +1958,16 @@ jQuery(document).ready(function( $ ){
                 action: 'st_get_extension',
                 s: $(this).closest('.search-extensions').find('.search-field').val()
             },
-            dataType: 'json',
             type: 'post',
+            dataType: 'jsonp',
+            jsonp: 'callback',
+            jsonpCallback: 'callback',
             beforeSend:function(){
                 var loading = '<div class="ex-loading"></div>';
                 $('.extension-list').append(loading);
             },
             success:function(res){
+                //console.log(res.responseText);
                 $('.ex-loading').remove();
                 $('.extension-list ').html('');
                 $('.extension-list ').append('<div class="list"></div>');
@@ -1978,7 +1981,7 @@ jQuery(document).ready(function( $ ){
                             '<div class="info">' +
                             '<h3 class="title">'+item.title+'</h3>' +
                             '<p class="desc">'+item.short_ex+'</p>' +
-                            '<a class="read-more" href="'+item.url+'">'+wpbooking_params.read_more+'</a>' +
+                            '<a class="read-more" target="_blank" href="'+item.url+'">'+wpbooking_params.read_more+'</a>' +
                             '</div>' +
                             '</div>' +
                             '</div>' +
@@ -2035,8 +2038,10 @@ jQuery(document).ready(function( $ ){
                 s: $(this).attr('data-s'),
 
             },
-            dataType: 'json',
             type: 'post',
+            dataType: 'jsonp',
+            jsonp: 'callback',
+            jsonpCallback: 'callback',
             beforeSend:function(){
                 var loading = '<div class="ex-loading"></div>';
                 $('.extension-list').append(loading);
@@ -2055,7 +2060,7 @@ jQuery(document).ready(function( $ ){
                             '<div class="info">' +
                             '<h3 class="title">'+item.title+'</h3>' +
                             '<p class="desc">'+item.short_ex+'</p>' +
-                            '<a class="read-more" href="'+item.url+'">'+wpbooking_params.read_more+'</a>' +
+                            '<a class="read-more" target="_blank" href="'+item.url+'">'+wpbooking_params.read_more+'</a>' +
                             '</div>' +
                             '</div>' +
                             '</div>' +
@@ -2103,6 +2108,7 @@ jQuery(document).ready(function( $ ){
                     if(res.paged == 1){
                         $('.result-text .ex-from').text(1);
                     }
+                    console.log(res.data.post_count);
                     $('.result-text .ex-to').text(res.posts_per_page*res.paged);
                     if(res.paged == res.data.max_pages){
                         $('.result-text .ex-to').text(res.data.post_count);
@@ -2126,7 +2132,9 @@ jQuery(document).ready(function( $ ){
                     action: 'st_get_extension',
                     cat_id: $(this).attr('data-id')
                 },
-                dataType: 'json',
+                dataType: 'jsonp',
+                jsonp: 'callback',
+                jsonpCallback: 'callback',
                 type: 'post',
                 beforeSend:function(){
                     var loading = '<div class="ex-loading"></div>';
@@ -2146,7 +2154,7 @@ jQuery(document).ready(function( $ ){
                                 '<div class="info">' +
                                 '<h3 class="title">'+item.title+'</h3>' +
                                 '<p class="desc">'+item.short_ex+'</p>' +
-                                '<a class="read-more" href="'+item.url+'">'+wpbooking_params.read_more+'</a>' +
+                                '<a class="read-more" target="_blank" href="'+item.url+'">'+wpbooking_params.read_more+'</a>' +
                                 '</div>' +
                                 '</div>' +
                                 '</div>' +

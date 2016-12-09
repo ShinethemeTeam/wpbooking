@@ -30,7 +30,7 @@ if(!empty($data['taxonomy'])){
 	}
 }
 
-if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
+if( !empty( $data['value'] ) && is_array( $data['value'] ) ){
 	$array_with_out_key=FALSE;
 	$keys = array_keys( $data['value']);
 	if($keys[0]===0){

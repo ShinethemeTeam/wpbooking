@@ -40,7 +40,7 @@
                     <td class="first t sales">
                         <?php esc_html_e('Sales','wpbooking')?>						</td>
                     <td class="b b-last-month-sales">
-                        <?php echo (int)$current_month_sale ?>
+                        <?php echo (int)$last_month_sale ?>
                     </td>
                 </tr>
                 </tbody>
