@@ -58,6 +58,15 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
              */
             add_action('init',array($this,'_register_meta_fields'));
 
+
+            /**
+             * Register Tour Type
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('init',array($this,'_register_tour_type'));
+
             /**
              * Change Base Price HTML Format
              *
@@ -66,6 +75,39 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
              */
             add_action('wpbooking_service_base_price_html_'.$this->type_id,array($this,'_edit_price_html'));
 
+        }
+
+        /**
+         * Register Tour Type
+         *
+         * @since 1.0
+         * @author dungdt
+         */
+        public function _register_tour_type(){
+            // Register Taxonomy
+            $labels = array(
+                'name'              => _x('Tour Type', 'taxonomy general name', 'wpbooking'),
+                'singular_name'     => _x('Tour Type', 'taxonomy singular name', 'wpbooking'),
+                'search_items'      => __('Search Tour Type', 'wpbooking'),
+                'all_items'         => __('All Tour Type', 'wpbooking'),
+                'parent_item'       => __('Parent Tour Type', 'wpbooking'),
+                'parent_item_colon' => __('Parent Tour Type:', 'wpbooking'),
+                'edit_item'         => __('Edit Tour Type', 'wpbooking'),
+                'update_item'       => __('Update Tour Type', 'wpbooking'),
+                'add_new_item'      => __('Add New Tour Type', 'wpbooking'),
+                'new_item_name'     => __('New Tour Type Name', 'wpbooking'),
+                'menu_name'         => __('Tour Type', 'wpbooking'),
+            );
+            $args = array(
+                'hierarchical'      => true,
+                'labels'            => $labels,
+                'show_ui'           => true,
+                'show_admin_column' => false,
+                'query_var'         => true,
+                'meta_box_cb'       => false,
+                'rewrite'           => array('slug' => 'tour-type'),
+            );
+            register_taxonomy('wb_tour_type', array('wpbooking_service'), $args);
         }
 
         public function _edit_price_html()
@@ -100,6 +142,13 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'type'  => 'on-off',
                             'std'   => 'on',
                             'desc'  => esc_html__('Listing will appear in search results.', 'wpbooking'),
+                        ),
+                        array(
+                            'id'    => 'tour_type',
+                            'label' => __("Tour Type", 'wpbooking'),
+                            'type'  => 'dropdown',
+                            'taxonomy'=>'wb_tour_type',
+                            'class' => 'small'
                         ),
                         array(
                             'id'    => 'star_rating',

@@ -4551,3 +4551,8 @@ label[for=wpbooking_room_typediv-hide] {
   float: right;
   width: 45%;
 }
+.column-wpbooking_service_type {
+  width: 1px;
+  white-space: nowrap;
+  word-break: initial;
+}

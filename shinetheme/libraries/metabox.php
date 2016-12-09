@@ -532,6 +532,20 @@ if (!class_exists('WPBooking_Metabox')) {
                         break;
                 }
 
+                /**
+                 * @todo Save Extra Fields
+                 *
+                 * @since 1.0
+                 * @author dungdt
+                 */
+                switch ($field['type']){
+                    case "dropdown":
+                        if(!empty($field['taxonomy'])){
+                            $this->wpbooking_save_taxonomy($post_id,$field['id'],$field);
+                        }
+                        break;
+                }
+
                 // Fields to Save
                 if(!empty($field['fields'])){
                     foreach($field['fields'] as $f){
