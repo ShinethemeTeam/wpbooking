@@ -68,12 +68,13 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             add_action('init',array($this,'_register_tour_type'));
 
             /**
-             * Change Base Price HTML Format
+             * Change Base Price Format
              *
              * @since 1.0
              * @author dungdt
              */
-            add_action('wpbooking_service_base_price_html_'.$this->type_id,array($this,'_edit_price_html'));
+            add_action('wpbooking_service_base_price_'.$this->type_id,array($this,'_edit_price'),10,2);
+
 
         }
 
@@ -110,9 +111,33 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             register_taxonomy('wb_tour_type', array('wpbooking_service'), $args);
         }
 
-        public function _edit_price_html()
+        /**
+         * Query Minimum Price for Tour
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $price
+         * @param $post_id
+         * @return $this
+         */
+        public function _edit_price($price,$post_id)
         {
+            $calendar=WPBooking_Calendar_Model::inst();
 
+            $query=$calendar->select('MIN(calendar_price) as min_price')->where(array(
+                'post_id'=>$post_id,
+                'status'=>'available',
+                'calendar_price >'=>0,
+                'start >='=>strtotime(date('d-m-Y'))
+
+            ))->get(1)->row();
+
+            if($query){
+                $price=$query['min_price'];
+            }
+
+            return $price;
         }
 
         /**
@@ -170,7 +195,6 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'desc'         => esc_html__('The contact phone', 'wpbooking'),
                             'type'         => 'text',
                             'class'        => 'small',
-                            'tooltip_desc' => esc_html__('The contact phone', 'wpbooking')
                         ),
                         array(
                             'label'       => __('Contact Email', 'wpbooking'),
@@ -272,7 +296,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         ),
                         array(
                             'label'=>esc_html__('Maximum people per booking','wpbooking'),
-                            'id'=>'max_people',
+                            'id'=>'max_guests',
                             'type'=>'number',
                             'condition'=>'pricing_type:is(per_person)',
                             'std'=>1,
@@ -558,6 +582,113 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
 
             return $search_fields;
             // TODO: Implement get_search_fields() method.
+        }
+
+
+        /**
+         * Get Available Days by Month, Years
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         *
+         * @param $month
+         * @param $year
+         * @return array
+         */
+        public function get_available_days($post_id,$month,$year){
+
+            $calendar=WPBooking_Calendar_Model::inst();
+
+            $start=strtotime(date('1-'.$month.'-'.$year));
+            if($start<strtotime(date('d-m-Y'))) $start=strtotime(date('d-m-Y'));
+
+            $query=$calendar->where('post_id',$post_id)
+                        ->where('status','available')
+                        ->where('calendar_price >',0)
+                        ->where('start >',$start)
+                        ->orderby('start','asc')
+                        ->get(100)
+                        ->result();
+            return $query;
+        }
+        /**
+         * Get Next Available 10 Month
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param bool $post_id
+         * @return array
+         */
+        public function getNext10MonthAvailable($post_id=false)
+        {
+            if(!$post_id) $post_id=get_the_ID();
+
+            $calendar=WPBooking_Calendar_Model::inst();
+
+            global $wpdb;
+            switch (get_post_meta($post_id,'pricing_type',true)){
+                case "per_unit":
+                    $from_query=$calendar->select($wpdb->prefix.'wpbooking_availability.id,calendar_maximum,(adult_number + children_number + infant_number) AS total_people,start,calendar_price')
+                                        ->join('wpbooking_order',"wpbooking_order.post_id = wpbooking_availability.post_id and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')",'left')
+                                        ->where(array(
+                                            $wpdb->prefix.'wpbooking_availability.post_id'=>$post_id,
+                                            $wpdb->prefix.'wpbooking_availability.status'=>'available',
+                                            'calendar_price >'=>0,
+                                            'start >='=>strtotime(date('d-m-Y')),
+                                        ))
+                                        ->groupby($wpdb->prefix.'wpbooking_availability.id')
+                                        ->having(' total_people IS NULL OR total_people < calendar_maximum')
+                                        ->_get_query();
+                    $calendar->_clear_query();
+
+                    $query=$wpdb->get_results("
+                            SELECT
+                                calendar_maximum,
+                                start,
+                                CONCAT(
+                                    MONTH (FROM_UNIXTIME(START)),
+                                    '_',
+                                    YEAR (FROM_UNIXTIME(START))
+                                ) AS month_year
+                                FROM ($from_query) as available_table
+                                GROUP BY month_year
+                                ORDER BY
+                                    START ASC
+                                LIMIT 0,
+                                 10
+                    
+                    ",ARRAY_A );
+                    break;
+                case "per_person":
+                    $from_query=$calendar->select($wpdb->prefix.'wpbooking_availability.id,calendar_maximum,(adult_number + children_number + infant_number) AS total_people,start,calendar_price')
+                        ->join('wpbooking_order',"wpbooking_order.post_id = wpbooking_availability.post_id and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')",'left')
+                        ->where(array(
+                            $wpdb->prefix.'wpbooking_availability.post_id'=>$post_id,
+                            $wpdb->prefix.'wpbooking_availability.status'=>'available',
+                            'calendar_price >'=>0,
+                            'start >='=>strtotime(date('d-m-Y')),
+                        ))
+                        ->groupby($wpdb->prefix.'wpbooking_availability.id')
+                        ->having(' total_people IS NULL OR total_people < calendar_maximum')
+                        ->_get_query();
+                    $calendar->_clear_query();
+                default:
+                    break;
+            }
+            $res=array();
+
+            if(!empty($query)){
+                foreach($query as $item){
+                    $res[$item['month_year']]=array(
+                        'days'=>$this->get_available_days($post_id,date('m',$item['start']),date('Y',$item['start'])),
+                        'label'=>date_i18n('M Y',$item['start'])
+                    );
+                }
+            }
+
+            return $res;
         }
 
         static function inst()

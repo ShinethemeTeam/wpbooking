@@ -554,8 +554,9 @@ if (!class_exists('WPBooking_Metabox')) {
                     }
                 }
             }
-
             do_action('wpbooking_save_metabox_section', $post_id,$section_id, $sections);
+
+            WPBooking_Service_Model::inst()->save_extra($post_id);
         }
 
         function wpbooking_save_taxonomy($post_id,$field_id,$field)

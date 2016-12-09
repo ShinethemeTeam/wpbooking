@@ -6944,3 +6944,29 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
 .mgt-10 {
   margin-top: 10px;
 }
+.wb-contact-list {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+.wb-contact-list li {
+  list-style: none;
+  display: inline-block;
+  margin-right: 15px;
+  color: #666666;
+  font-size: 14px;
+}
+.wb-contact-list li a {
+  color: inherit;
+}
+.wb-contact-list li a:hover {
+  text-decoration: none;
+}
+.wb-contact-list li i {
+  display: inline-block;
+  margin-right: 0px;
+}
+.service-type-tour .wpbooking-single-content .wb-price-html {
+  width: auto;
+  float: none;
+}

@@ -2058,6 +2058,28 @@ jQuery(document).ready(function($){
         return false;
     });
 
+
+    // Tour Single
+    $('.wb-departure-month').change(function(){
+         var v=$(this).val();
+        if(!v) return;
+         $('.wb-departure-date option').hide();
+         $('.wb-departure-date option.'+v).show();
+         $('.wb-departure-date').trigger('change');
+
+    });
+
+    $('.wb-departure-month').trigger('change');
+
+    $('.wb-departure-date').change(function(){
+        var v=$(this).val();
+        if(!v) return;
+        var price=$(this).find('option[value='+v+']').data('price');
+        $('.wb-price-html .price').html(price);
+    });
+
+    $('.wb-departure-date').trigger('change');
+
 });
 
 

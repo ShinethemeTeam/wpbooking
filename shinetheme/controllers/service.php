@@ -33,6 +33,17 @@ if (!class_exists('WPBooking_Service_Controller')) {
             add_filter('template_include', array($this, 'template_loader'));
             add_filter('body_class', array($this, '_add_body_class'));
 
+
+            /**
+             * Add More to Post Class
+             *
+             *
+             * @since 1.0
+             * @author dungdt
+             *
+             */
+            add_filter('post_class',array($this,'_add_post_class'),10,2);
+
             /**
              *
              * Ajax Get Calendar Months
@@ -83,6 +94,25 @@ if (!class_exists('WPBooking_Service_Controller')) {
             add_action('wpbooking_after_service_address', array($this,'_latest_booking_html'), 10 ,3);
         }
 
+        /**
+         * Add More to Post Class
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $class
+         * @param $post_id
+         * @return array
+         */
+        public function _add_post_class($class,$post_id)
+        {
+            $service=$this->get_service_instance($post_id);
+            if($service->get_type()){
+                $class[]='service-type-'.$service->get_type();
+            }
+
+            return $class;
+        }
 
         /**
          * Filter the Main Query

@@ -301,32 +301,7 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
-//        /**
-//         * get average of a stats
-//         *
-//         * @author tien
-//         * @since 1.0
-//         *
-//         * @param $term_id
-//         * @return mixed|string|void
-//         */
-//		function get_stats_avg_rating($term_id){
-//            if($this->ID){
-//                global $wpdb;
-//
-//                $model=WPBooking_Comment_Model::inst();
-//                $res= $model->select('AVG('.$wpdb->commentmeta.'.meta_value) as average')
-//                    ->join('commentmeta','commentmeta.comment_id=comments.comment_ID')
-//                    ->where(array(
-//                        'comment_post_ID'=>$this->ID,
-//                        'comment_parent'=>0,
-//                        'comment_approved'=>1,
-//                        $wpdb->commentmeta.'.meta_key'=>'wpbooking_review_stats_'.($term_id)
-//                    ))->get()->row();
-//
-//                return (!empty($res['average']))?$res['average']:false;
-//            }
-//        }
+
 
 		/**
 		 * Get Service Type ID of current Service

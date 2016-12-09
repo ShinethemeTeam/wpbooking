@@ -15,7 +15,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
 
         public function __construct()
         {
-            $this->table_version = '1.0.2';
+            $this->table_version = '1.0.3';
             $this->table_name    = 'wpbooking_order';
             $this->columns = array(
                 'id'                  => array(
@@ -41,6 +41,9 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
                 'created_at'          => array( 'type' => 'varchar' , 'length' => 255 ) ,
                 'payment_method'      => array( 'type' => 'varchar' , 'length' => 255 ) ,
                 'status'              => array( 'type' => 'varchar' , 'length' => 255 ) ,
+                'adult_number'              => array( 'type' => 'int' ,  ) ,
+                'children_number'              => array( 'type' => 'int' ,  ) ,
+                'infant_number'              => array( 'type' => 'int' ,  ) ,
             );
 
             parent::__construct();
