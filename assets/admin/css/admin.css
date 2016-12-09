@@ -1327,6 +1327,7 @@ img.settings-demo-image-gallery {
   margin-bottom: 18px;
   margin-left: 15px;
   margin-top: 20px;
+  width: auto;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group .wpbooking-form-group {
   margin-left: 0px;
@@ -4556,4 +4557,10 @@ label[for=wpbooking_room_typediv-hide] {
 .wpbooking_dashboard_widget .table_right {
   float: right;
   width: 45%;
+}
+.column-wpbooking_service_type {
+  width: 7%;
+  white-space: nowrap;
+  word-break: initial;
+  word-wrap: initial;
 }

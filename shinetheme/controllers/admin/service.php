@@ -53,8 +53,71 @@ if (!class_exists('WPBooking_Admin_Service')) {
             add_action( 'restrict_manage_posts', array($this, '_service_filter_field'), 15, 2 );
             add_filter( 'parse_query', array($this, '_service_filter_meta') );
 
+
+            /**
+             * Add More Columns Head to Manage Service Screen
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_filter('manage_posts_columns',array($this,'_add_service_columns'));
+
+            /**
+             * Add Columns Content to Manage Service Screen
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_filter('manage_posts_custom_column',array($this,'_add_service_columns_content'),10,2);
+
 		}
 
+
+        /**
+         * Callback to Add More Columns Head to Manage Service Screen
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $columns
+         * @return array
+         */
+		public function _add_service_columns($columns){
+
+		    if($this->get('post_type')=='wpbooking_service'){
+                $new=array();
+                $new['wpbooking_service_type']=esc_html__('Type','wpbooking');
+
+                $columns=array_slice($columns, 0, 1, true) +
+                    $new +
+                array_slice($columns, 1, count($columns) - 1, true) ;
+            }
+
+		    return $columns;
+        }
+
+
+        /**
+         * Callback Add Columns Content to Manage Service Screen
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $column_name
+         * @param $post_ID
+         */
+
+        public function _add_service_columns_content($column_name, $post_ID)
+        {
+            switch ($column_name){
+                case "wpbooking_service_type":
+                    $service=new WB_Service($post_ID);
+                    echo esc_html($service->get_type_name());
+
+                break;
+            }
+
+        }
 
 		function _autocomplete_post()
         {
@@ -163,7 +226,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				'hierarchical'      => TRUE,
 				'labels'            => $labels,
 				'show_ui'           => true,
-				'show_admin_column' => TRUE,
+				'show_admin_column' => false,
 				'query_var'         => TRUE,
 				'rewrite'           => array('slug' => 'amenities'),
                 'meta_box_cb'=>false
@@ -194,7 +257,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				'hierarchical'      => TRUE,
 				'labels'            => $labels,
 				'show_ui'           => TRUE,
-				'show_admin_column' => TRUE,
+				'show_admin_column' => false,
 				'query_var'         => TRUE,
 			);
 			$args = apply_filters('wpbooking_register_extra_services_taxonomy', $args);
