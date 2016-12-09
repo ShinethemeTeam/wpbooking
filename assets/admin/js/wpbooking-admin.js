@@ -2019,6 +2019,9 @@ jQuery(document).ready(function( $ ){
                     else
                         $('.result-text .ex-to').text(res.data.post_count);
 
+                }else{
+                    $('.extension-list .list').append('<h3>No Result</h3>');
+                    $('.result-text').hide();
                 }
 
             },
