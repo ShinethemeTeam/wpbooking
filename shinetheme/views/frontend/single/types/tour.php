@@ -63,8 +63,7 @@ $age_options=$service->get_meta('age_options');
         }
         ?>
         <?php do_action('wpbooking_after_service_address_rate', get_the_ID(), $service->get_type(), $service) ?>
-<<<<<<< HEAD
-=======
+
         <?php
         do_action('wpbooking_before_contact_meta');
         ?>
@@ -99,7 +98,6 @@ $age_options=$service->get_meta('age_options');
             echo '<ul class="wb-contact-list">'.$html.'</ul>';
         }
         ?>
->>>>>>> 0a7c781367b6c959873b40ad247bb9d54bc12506
     </div>
     <div class="row-service-gallery-contact">
         <div class="col-service-gallery">
