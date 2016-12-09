@@ -106,10 +106,13 @@ if (!class_exists('WPBooking_Service_Controller')) {
          */
         public function _add_post_class($class,$post_id)
         {
-            $service=$this->get_service_instance($post_id);
-            if($service->get_type()){
-                $class[]='service-type-'.$service->get_type();
+            if(!is_admin()){
+                $service=$this->get_service_instance($post_id);
+                if($service->get_type()){
+                    $class[]='service-type-'.$service->get_type();
+                }
             }
+
 
             return $class;
         }
@@ -524,8 +527,8 @@ if (!class_exists('WPBooking_Service_Controller')) {
          * @return WB_Service
          */
         function get_service_instance($post_id=false){
+            var_dump(debug_backtrace());
             if(!$post_id)$post_id =get_the_ID();
-
             // Check Instance Exists
             if(!array_key_exists($post_id,$this->all_services_instance)){
                 $this->all_services_instance[$post_id]=new WB_Service($post_id);
