@@ -228,7 +228,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'label' => __('Map Lat & Long', 'wpbooking'),
                             'id'    => 'gmap',
                             'type'  => 'gmap',
-                            'desc'  => esc_html__('This is the location we will provide guests. Click and drag the marker if you need to move it', 'wpbooking')
+                            'desc'  => esc_html__('This is the location we will provide guests. Click to move the marker if you need to move it', 'wpbooking')
                         ),
                         array(
                             'type'    => 'desc_section',
@@ -243,41 +243,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
 
                     )
                 ),
-                'important_info' => array(
-                    'label' => esc_html__('2. Important Info','wpbooking'),
-                    'fields' => array(
-                        array(
-                            'type' => 'open_section'
-                        ),
-                        array(
-                            'type' => 'texteditor',
-                            'id' => 'tour_detail',
-                            'label' => esc_html__('Details','wpbooking'),
-                            'desc' => esc_html__('Enter details of your tour','wpbooking')
-                        ),
-                        array(
-                            'type' => 'close_section'
-                        ),
-                        array(
-                            'type' => 'open_section'
-                        ),
-                        array(
-                            'label' => esc_html__('Itinerary','wpbooking'),
-                            'id' => 'itinerary',
-                            'type' => 'itinerary_tour',
-                            'desc' => esc_html__('Add to the itinerary of the tour','wpbooking'),
-                        ),
-                        array(
-                            'type' => 'close_section'
-                        ),
-                        array(
-                            'type' => 'section_navigation',
-                        ),
-
-                    )
-                ),
                 'detail_tab'      => array(
-                    'label'  => __('3. Booking Details', 'wpbooking'),
+                    'label'  => __('2. Booking Details', 'wpbooking'),
                     'fields' => array(
                         array('type' => 'open_section'),
                         array(
@@ -335,7 +302,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     )
                 ),
                 'policies_tab'    => array(
-                    'label'  => __('4. Policies & Checkout', 'wpbooking'),
+                    'label'  => __('3. Policies & Checkout', 'wpbooking'),
                     'fields' => array(
 
                         array('type' => 'open_section'),
@@ -412,7 +379,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         array(
                             'label' => __("Term & condition", 'wpbooking'),
                             'type'  => 'title',
-                            'desc'  => esc_html__("We will show this information in checkout step.", "wpbooking")
+                            'desc'  => esc_html__("Setting terms and condition for your property", "wpbooking")
                         ),
                         array(
                             'label' => __('Terms & Conditions', 'wpbooking'),
@@ -427,7 +394,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     ),
                 ),
                 'photo_tab'       => array(
-                    'label'  => __('5. Photos', 'wpbooking'),
+                    'label'  => __('4. Photos', 'wpbooking'),
                     'fields' => array(
                         array(
                             'label' => __("Pictures", 'wpbooking'),
@@ -437,12 +404,13 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'label' => __("Gallery", 'wpbooking'),
                             'id'    => 'tour_gallery',
                             'type'  => 'gallery',
-                            'desc'  => __('Picture recommendations', 'wpbooking')
+                            'desc'  => __('Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wpbooking')
                         ),
 
                         array(
                             'type'       => 'section_navigation',
-                            'next_label' => esc_html__('Save', 'wpbooking')
+                            'next_label' => esc_html__('Save', 'wpbooking'),
+                            'next' => false
                         ),
                     )
                 ),

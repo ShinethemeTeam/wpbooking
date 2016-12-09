@@ -576,7 +576,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         array(
                             'label' => __("Payment information", 'wpbooking'),
                             'type'  => 'title',
-                            'desc'  => esc_html__("We will show in website yourdomain.com", "wpbooking")
+                            'desc'  => esc_html__("Specify the payment methods you accept at your accommodation as payment for the stay", "wpbooking")
                         ),
                         array(
                             'label' => __('We are accepted:', 'wpbooking'),
@@ -679,7 +679,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         array(
                             'label' => __("Term & condition", 'wpbooking'),
                             'type'  => 'title',
-                            'desc'  => esc_html__("We will show this information in checkout step.", "wpbooking")
+                            'desc'  => esc_html__("Setting terms and condition for your property", "wpbooking")
                         ),
                         array(
                             'label' => __('Minimum Stay', 'wpbooking'),
@@ -744,22 +744,12 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'id'    => 'gallery',
                             'type'  => 'gallery_hotel',
                             'rules'=>'array_key_required[gallery]',
-                            'desc'  => __('Picture recommendations
-
-				We recommend having pictures in the following order (if available):
-
-				Living area
-				Bedroom(s)
-				Kitchen
-				View from the apartment/house
-				Exterior of apartment/building
-				Please no generic pictures of the city
-				Pictures showing animals, people, watermarks, logos and images composed of multiple
-				smaller images will be removed.', 'wpbooking')
+                            'desc'  => __('Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wpbooking')
                         ),
                         array(
                             'type'       => 'section_navigation',
-                            'next_label' => esc_html__('Save', 'wpbooking')
+                            'next_label' => esc_html__('Save', 'wpbooking'),
+                            'next' => false
                         ),
                     )
                 ),
@@ -844,7 +834,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'taxonomy' => 'wb_hotel_room_type',
                     'parent'   => 0,
                     'class'    => 'small',
-                    'desc'  => __("Based on the comfort of the room, choose one style most accurate.", 'wpbooking'),
+                    'desc'  => __("Based on the amenities of room, select one type most accurate", 'wpbooking'),
                 ),
                 array(
                     'label' => esc_html__('Room Number', 'wpbooking'),

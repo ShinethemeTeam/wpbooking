@@ -3200,6 +3200,20 @@ a.ui-datepicker-next {
   color: #ec8223;
   border: solid 1px #ec8223;
 }
+.wb-section-navigation .button.wb-save-now-section {
+  background: #ec8223;
+}
+.wb-section-navigation .button.wb-save-now-section:hover {
+  border: solid 1px transparent;
+  color: #fff;
+  background: #ec8223;
+}
+.wb-section-navigation .button.wb-next {
+  background: #31b0d5;
+}
+.wb-section-navigation .button.wb-next:hover {
+  background: #31b0d5;
+}
 .wb-section-navigation .button.full {
   width: 100%;
 }
@@ -3213,6 +3227,15 @@ a.ui-datepicker-next {
 .wb-section-navigation .button.w50.wb-prev-section,
 .wb-section-navigation .button.w50.wb-all-rooms {
   float: left;
+}
+.wb-section-navigation .button.w30 {
+  width: 30%;
+  display: table-cell;
+}
+.wb-action-edit {
+  display: table;
+  width: 100%;
+  border-spacing: 10px;
 }
 .iconpicker .iconpicker-item {
   height: auto;

@@ -16,7 +16,7 @@ $age_options=$service->get_meta('age_options');
 ?>
 <div itemscope itemtype="http://schema.org/Product" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
     <meta itemprop="url" content="<?php the_permalink(); ?>"/>
-    <div class="container-fluid wpbooking-single-content entry-header">
+    <div class="container-fluid wpbooking-single-content entry-header tour-single">
     <div class="wb-service-title-address">
         <h1 class="wb-service-title" itemprop="name"><?php the_title(); ?></h1>
         <div class="wb-hotel-star">
@@ -31,7 +31,40 @@ $age_options=$service->get_meta('age_options');
                 <i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
             </div>
         <?php } ?>
+        <?php
+        $contact_meta = array(
+            'contact_number' => 'fa-phone',
+            'contact_email' => 'fa-envelope',
+            'website' => 'fa-home',
+        );
+        $html = '';
+        foreach($contact_meta as $key => $val) {
+            if ($value = get_post_meta(get_the_ID(), $key, true)) {
+                switch($key){
+                    case 'contact_number':
+                        $value=sprintf('<a href="tel:%s">%s</a>',esc_html($value),esc_html($value));
+                        break;
+
+                    case 'contact_email':
+                        $value=sprintf('<a href="mailto:%s">%s</a>',esc_html($value),esc_html($value));
+                        break;
+                    case 'website';
+                        $value = '<a target=_blank href="'.$value.'">'.$value.'</a>';
+                        break;
+                }
+                $html .= '<div class="wb-meta-contact">
+                                    <i class="fa '.$val.' wb-icon-contact"></i>
+                                    <span>'.$value.'</span>
+                                </div>';
+            }
+        }
+        if(!empty($html)){
+            echo '<div class="wb-service-contact tour-contact">'.$html.'</div>';
+        }
+        ?>
         <?php do_action('wpbooking_after_service_address_rate', get_the_ID(), $service->get_type(), $service) ?>
+<<<<<<< HEAD
+=======
         <?php
         do_action('wpbooking_before_contact_meta');
         ?>
@@ -66,6 +99,7 @@ $age_options=$service->get_meta('age_options');
             echo '<ul class="wb-contact-list">'.$html.'</ul>';
         }
         ?>
+>>>>>>> 0a7c781367b6c959873b40ad247bb9d54bc12506
     </div>
     <div class="row-service-gallery-contact">
         <div class="col-service-gallery">
@@ -113,6 +147,7 @@ $age_options=$service->get_meta('age_options');
         </div>
         <div class="col-service-reviews-meta">
             <div class="wb-service-reviews-meta">
+
                 <form class="wb-tour-booking-form" method="post" action="" onsubmit="return false">
                     <div class="wb-price-html">
                         <?php $service->get_price_html(true); ?>

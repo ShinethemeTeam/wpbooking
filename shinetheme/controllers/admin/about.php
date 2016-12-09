@@ -16,10 +16,25 @@ if(!class_exists('WPBooking_About')){
 
         function __construct()
         {
+            /**
+             * Action load about page
+             *
+             * @since 1.0
+             * @author tienhd
+             */
             add_action('wpbooking_default_menu_page', array($this, '_wpbooking_about_page'));
 
+            /**
+             * Action register extension page
+             *
+             * @since 1.0
+             * @author tienhd
+             */
             add_action( 'admin_menu', array($this,'register_wpbooking_extensions_menu_page') );
 
+            /**
+             * Enqueue css and javascript in admin
+             */
             add_action('admin_enqueue_scripts', array($this, '_enqueue_scripts'));
 
             /**
@@ -31,10 +46,22 @@ if(!class_exists('WPBooking_About')){
             add_action('wp_dashboard_setup',array($this,'add_dashboard_widgets'));
         }
 
+        /**
+         * Get about page
+         *
+         * @since 1.0
+         * @author tienhd
+         */
         function _wpbooking_about_page(){
             echo wpbooking_admin_load_view('about/index');
         }
 
+        /**
+         * Enqueue scripts
+         *
+         * @since 1.0
+         * @author tienhd
+         */
         function _enqueue_scripts(){
             if(WPBooking_Input::get('page') == 'wpbooking') {
                 wp_enqueue_script('jquery-ui-tabs');
@@ -42,6 +69,12 @@ if(!class_exists('WPBooking_About')){
             }
         }
 
+        /**
+         * Register extensions page in admin menu
+         *
+         * @since 1.0
+         * @author tienhd
+         */
         function register_wpbooking_extensions_menu_page(){
             $menu_page=$this->get_menu_page();
             add_submenu_page(
@@ -54,6 +87,10 @@ if(!class_exists('WPBooking_About')){
             );
         }
 
+        /**
+         *
+         * @return mixed|void
+         */
         function get_menu_page()
         {
 
@@ -71,6 +108,12 @@ if(!class_exists('WPBooking_About')){
 
         }
 
+        /**
+         * Get extensions page
+         *
+         * @since 1.0
+         * @author tienhd
+         */
         function callback_wpbooking_extensions_sub_menu(){
             echo wpbooking_admin_load_view('about/tab-extensions');
         }

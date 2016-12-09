@@ -69,24 +69,25 @@ if (!class_exists('WB_Service')) {
 		{
 			if ($this->ID) {
 				$res = array();
+                $gallery = get_post_meta($this->ID, 'gallery', TRUE);
+                if($this->service_type == 'tour')
+                    $gallery = get_post_meta($this->ID, 'tour_gallery', true);
+                if ($gallery and !is_array($gallery)) {
+                    $gallery = explode(',', $gallery);
+                    if (!empty($gallery)) {
+                        foreach ($gallery as $media) {
+                            $thumb = wp_get_attachment_image_src($media, $this->thumb_size);
+                            $gallery = wp_get_attachment_image_src($media, $this->gallery_size);
+                            $res[] = array(
+                                'thumb'       => wp_get_attachment_image($media, $this->thumb_size),
+                                'thumb_url'   => !empty($thumb[0]) ? $thumb[0] : FALSE,
+                                'gallery'     => wp_get_attachment_image($media, $this->gallery_size),
+                                'gallery_url' => !empty($gallery[0]) ? $gallery[0] : FALSE,
+                            );
 
-				$gallery = get_post_meta($this->ID, 'gallery', TRUE);
-				if ($gallery and !is_array($gallery)) {
-					$gallery = explode(',', $gallery);
-					if (!empty($gallery)) {
-						foreach ($gallery as $media) {
-							$thumb = wp_get_attachment_image_src($media, $this->thumb_size);
-							$gallery = wp_get_attachment_image_src($media, $this->gallery_size);
-							$res[] = array(
-								'thumb'       => wp_get_attachment_image($media, $this->thumb_size),
-								'thumb_url'   => !empty($thumb[0]) ? $thumb[0] : FALSE,
-								'gallery'     => wp_get_attachment_image($media, $this->gallery_size),
-								'gallery_url' => !empty($gallery[0]) ? $gallery[0] : FALSE,
-							);
-
-						}
-					}
-				}elseif(is_array($gallery)){
+                        }
+                    }
+                }elseif(is_array($gallery)){
                     if(!empty($gallery['gallery'])){
                         $gallery_arr = explode(',', $gallery['gallery']);
                         if(!empty($gallery_arr)) {
@@ -104,6 +105,7 @@ if (!class_exists('WB_Service')) {
                         }
                     }
                 }
+
 
 				if (empty($res)) {
 					// Default
