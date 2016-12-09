@@ -309,17 +309,16 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'type'=>'age_options',
                             'condition'=>'pricing_type:is(per_person)'
                         ),
-                        array(
-                            'label'=>esc_html__('This tour is available','wpbooking'),
-                            'id'=>'property_available_for',
-                            'type'=>'dropdown',
-                            'value'=>array(
-                                'forever'=>esc_html__('Forever','wpbooking'),
-                                'specific_periods'=>esc_html__('For specific periods','wpbooking'),
-                            ),
-                            'class' => 'small'
-                        ),
-
+//                        array(
+//                            'label'=>esc_html__('This tour is available','wpbooking'),
+//                            'id'=>'property_available_for',
+//                            'type'=>'dropdown',
+//                            'value'=>array(
+//                                'forever'=>esc_html__('Forever','wpbooking'),
+//                                'specific_periods'=>esc_html__('For specific periods','wpbooking'),
+//                            ),
+//                            'class' => 'small'
+//                        ),
                         array(
                             'label' => __("Availability", 'wpbooking'),
                             'type'  => 'title',
