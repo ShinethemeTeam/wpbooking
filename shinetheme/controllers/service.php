@@ -42,7 +42,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
              * @author dungdt
              *
              */
-            add_filter('post_class',array($this,'_add_post_class'),10,2);
+//            add_filter('post_class',array($this,'_add_post_class'),10,2);
 
             /**
              *

@@ -19,8 +19,14 @@ if(!$wp_query->have_posts()) return;
     </div>
 	<div class="col-post-found">
 		<h2 class="post-found-count"><?php
+            $service_type = WPBooking_Input::get('service_type');
+            $service = WPBooking_Service_Controller::inst()->get_service_type($service_type);
 
-            printf(_n('Found %d Accommodation','Found %d Accommodations',$wp_query->found_posts, 'wpbooking'), $wp_query->found_posts);
+            if($service_type){
+                printf(_n('Found %d ','Found %d ',$wp_query->found_posts, 'wpbooking').$service->get_info('label'), $wp_query->found_posts);
+            }else{
+                printf(_n('Found %d service','Found %d services',$wp_query->found_posts, 'wpbooking'), $wp_query->found_posts);
+            }
 
             ?></h2>
 		<p class="post-query-desc">
@@ -55,9 +61,8 @@ if(!$wp_query->have_posts()) return;
 					'date_desc'=>esc_html__('Date DESC','wpbooking'),
 					'price_asc'=>esc_html__('Price ASC','wpbooking'),
 					'price_desc'=>esc_html__('Price DESC','wpbooking'),
-					'rate_asc'=>esc_html__('Rate ASC','wpbooking'),
-					'rate_desc'=>esc_html__('Rate DESC','wpbooking'),
 				);
+                apply_filters('wpbooking_filter_list_sortby', $sortby, $service_type);
                 if(WPBooking_Input::get('service_type')){
 				?>
 				<select name="wb_sort_by" class="wpbooking-loop-sort-by">

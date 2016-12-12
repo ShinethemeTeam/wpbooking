@@ -822,7 +822,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         array(
                             'type'       => 'section_navigation',
                             'next_label' => esc_html__('Save', 'wpbooking'),
-                            'next' => false
+                            'step' => 'finish'
                         ),
                     )
                 ),
@@ -1280,9 +1280,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 wp_die();
             }
         }
-
-
-
 
         function _add_default_query_hook()
         {

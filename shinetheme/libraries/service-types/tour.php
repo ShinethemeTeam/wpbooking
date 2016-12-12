@@ -818,7 +818,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         array(
                             'type'       => 'section_navigation',
                             'next_label' => esc_html__('Save', 'wpbooking'),
-                            'next'       => false
+                            'step' => 'finish'
                         ),
                     )
                 ),
@@ -889,12 +889,10 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     'type'    => "dropdown",
                     'options' => array(
                         ""            => __("-- Select --", "wpbooking"),
-                        "location_id" => __("Location Dropdown", "wpbooking"),
-                        "check_in"    => __("Check In", "wpbooking"),
-                        "check_out"   => __("Check Out", "wpbooking"),
-                        "adult_child" => __("Adult And Children", "wpbooking"),
+                        "location_id" => __("Destination", "wpbooking"),
+                        "check_in"    => __("From date", "wpbooking"),
+                        "check_out"   => __("To date", "wpbooking"),
                         "taxonomy"    => __("Taxonomy", "wpbooking"),
-//                        "review_rate" => __("Review Rate", "wpbooking"),
                         "star_rating" => __("Star Of Tour", "wpbooking"),
                         "price"       => __("Price", "wpbooking"),
                     )
@@ -1124,6 +1122,115 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             }
 
             return $res;
+        }
+
+        function _add_default_query_hook(){
+            global $wpdb;
+            $table_prefix = WPBooking_Service_Model::inst()->get_table_name();
+            $injection = WPBooking_Query_Inject::inst();
+            $tax_query = $injection->get_arg('tax_query');
+
+            // Taxonomy
+            $tax = $this->request('taxonomy');
+            if (!empty($tax) and is_array($tax)) {
+                $taxonomy_operator = $this->request('taxonomy_operator');
+                $tax_query_child = array();
+                foreach ($tax as $key => $value) {
+                    if ($value) {
+                        if (!empty($taxonomy_operator[$key])) {
+                            $operator = $taxonomy_operator[$key];
+                        } else {
+                            $operator = "OR";
+                        }
+                        if ($operator == 'OR') $operator = 'IN';
+                        $value = explode(',', $value);
+                        if (!empty($value) and is_array($value)) {
+                            foreach ($value as $k => $v) {
+                                if (!empty($v)) {
+                                    $ids[] = $v;
+                                }
+                            }
+                        }
+                        if (!empty($ids)) {
+                            $tax_query[] = array(
+                                'taxonomy' => $key,
+                                'terms'    => $ids,
+                                'operator' => $operator,
+                            );
+                        }
+                        $ids = array();
+                    }
+                }
+
+
+                if (!empty($tax_query_child))
+                    $tax_query[] = $tax_query_child;
+            }
+
+            // Star Rating
+            if ($star_rating = $this->get('star_rating') and is_array(explode(',', $star_rating))) {
+
+                $star_rating_arr = explode(',', $star_rating);
+                $meta_query[] = array(
+                    'relation' => 'AND',
+                    array(
+                        'key'     => 'star_rating',
+                        'type'    => 'CHAR',
+                        'value'   => $star_rating_arr,
+                        'compare' => 'IN'
+                    )
+                );
+            }
+
+            //Check in
+            if($this->request('checkin_d') && $this->request('checkin_m') && $this->request('checkin_y')){
+                $from_date = strtotime($this->request('checkin_d').'-'.$this->request('checkin_m').'-'.$this->request('checkin_y'));
+
+                $injection->join('wpbooking_availability as avail', "avail.post_id={$wpdb->posts}.ID");
+                $injection->where('avail.start', $from_date);
+                $injection->where('avail.status', 'available');
+                $injection->groupby('avail.post_id');
+            }
+
+            if (!empty($tax_query))
+                $injection->add_arg('tax_query', $tax_query);
+
+            if (!empty($meta_query))
+                $injection->add_arg('meta_query', $meta_query);
+
+
+            $injection->add_arg('post_status', 'publish');
+
+            // Order By
+            if ($sortby = $this->request('wb_sort_by')) {
+                switch ($sortby) {
+                    case "price_asc":
+                        $injection->select('MIN(CAST(order_table.meta_value as double)) as min_price');
+                        $injection->join('posts as post_table',"post_table.post_parent={$wpdb->posts}.ID");
+                        $injection->join('postmeta as order_table',"order_table.post_ID=post_table.ID and order_table.meta_key='base_price' and order_table.meta_value>0");
+                        $injection->orderby('min_price', 'asc');
+
+                        break;
+                    case "price_desc":
+                        $injection->select('MIN(CAST(order_table.meta_value as double)) as min_price');
+                        $injection->join('posts as post_table',"post_table.post_parent={$wpdb->posts}.ID");
+                        $injection->join('postmeta as order_table',"order_table.post_ID=post_table.ID and order_table.meta_key='base_price' and order_table.meta_value>0");
+                        $injection->orderby('min_price', 'desc');
+                        break;
+                    case "date_asc":
+                        $injection->add_arg('orderby', 'date');
+                        $injection->add_arg('order', 'asc');
+                        break;
+                    case "date_desc":
+                        $injection->add_arg('orderby', 'date');
+                        $injection->add_arg('order', 'desc');
+                        break;
+                }
+            }
+
+
+
+            parent::_add_default_query_hook();
         }
 
         static function inst()
