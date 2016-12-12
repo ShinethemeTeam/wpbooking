@@ -118,6 +118,14 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             add_action('wpbooking_order_detail_after_address_'.$this->type_id,array($this,'_show_order_info_after_address'));
 
 
+            /**
+             * Show More Order Info for Email
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('wpbooking_email_order_after_address_'.$this->type_id,array($this,'_show_email_order_info_after_address'));
+
         }
 
 
@@ -189,23 +197,40 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             if(!empty($order_data['raw_data'])){
                 $raw_data=json_decode($order_data['raw_data'],true);
                 if($raw_data){
-                    $this->_show_review_tour_info($raw_data);
+                    $raw_data['price']=0;
+                    $this->show_review_tour_info($raw_data);
                 }
             }
         }
+
         /**
-         * Show Tour Info
+         * Show More Order Info for Email
          *
          * @since 1.0
          * @author dungdt
+         *
+         * @param $order_data
          */
-        public function _show_review_tour_info($cart)
-        {
-            $service = wpbooking_get_service($cart['post_id']);
-            $booking=WPBooking_Checkout_Controller::inst();
+        public function _show_email_order_info_after_address($order_data){
+            if(!empty($order_data['raw_data'])){
+                $raw_data=json_decode($order_data['raw_data'],true);
+                if($raw_data){
+                    $raw_data['price']=0;
+                    $this->show_review_tour_info($raw_data);
+                }
+            }
+        }
+
+        /**
+         * To show Tour More information
+         * @param $cart
+         */
+        protected function show_review_tour_info($cart){
 
             // Price
-            printf('<span class="review-order-item-price">%s</span>',WPBooking_Currency::format_money($booking->get_cart_total()));
+            if(!empty($cart['price'])){
+                printf('<span class="review-order-item-price tour-price">%s</span>',WPBooking_Currency::format_money($cart['price']));
+            }
 
 
             $contact_meta = array(
@@ -244,10 +269,10 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                 if(!empty($cart['duration'])){
                     $from_detail.=' ('.$cart['duration'].')';
                 }
-                printf('<div class="from-detail">%s %s</div>',esc_html__('From:','wpbooking'),$from_detail);
+                printf('<div class="from-detail"><span class="head-item">%s:</span> <span class="from-detail-duration">%s</span></div>',esc_html__('From','wpbooking'),$from_detail);
             }
 
-            switch ($service->get_meta('pricing_type')) {
+            switch ($cart['pricing_type']) {
                 case "per_person":
                 default:
                     if (!empty($cart['calendar'])) {
@@ -257,20 +282,30 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'infant_price' => ''
                         ));
                         if (!empty($cart['adult_number'])) {
-                            printf('<div class="people-price-item">%s <span class="price-item">%d x %s = %s</span></div>', esc_html__('Adult', 'wpbooking'), $cart['adult_number'], WPBooking_Currency::format_money($calendar['adult_price']), WPBooking_Currency::format_money($calendar['adult_price'] * $cart['adult_number']));
+                            printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__('Adult', 'wpbooking'), $cart['adult_number'], WPBooking_Currency::format_money($calendar['adult_price']), WPBooking_Currency::format_money($calendar['adult_price'] * $cart['adult_number']));
                         }
                         if (!empty($cart['children_number'])) {
-                            printf('<div class="people-price-item">%s <span class="price-item">%d x %s = %s</span></div>', esc_html__('Children', 'wpbooking'), $cart['children_number'], WPBooking_Currency::format_money($calendar['child_price']), WPBooking_Currency::format_money($calendar['child_price'] * $cart['children_number']));
+                            printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__('Children', 'wpbooking'), $cart['children_number'], WPBooking_Currency::format_money($calendar['child_price']), WPBooking_Currency::format_money($calendar['child_price'] * $cart['children_number']));
                         }
                         if (!empty($cart['infant_number'])) {
-                            printf('<div class="people-price-item">%s <span class="price-item">%d x %s = %s</span></div>', esc_html__('Infant', 'wpbooking'), $cart['infant_number'], WPBooking_Currency::format_money($calendar['infant_price']), WPBooking_Currency::format_money($calendar['infant_price'] * $cart['infant_number']));
+                            printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__('Infant', 'wpbooking'), $cart['infant_number'], WPBooking_Currency::format_money($calendar['infant_price']), WPBooking_Currency::format_money($calendar['infant_price'] * $cart['infant_number']));
                         }
                     }
                     break;
             }
-            ?>
+        }
 
-            <?php
+        /**
+         * Callback to show Tour Info
+         *
+         * @since 1.0
+         * @author dungdt
+         */
+        public function _show_review_tour_info($cart)
+        {
+            $cart['price']=WPBooking_Checkout_Controller::inst()->get_cart_total();
+
+            $this->show_review_tour_info($cart);
         }
 
         /**

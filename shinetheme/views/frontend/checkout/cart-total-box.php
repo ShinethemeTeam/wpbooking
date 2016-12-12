@@ -27,7 +27,7 @@ $service_type = $cart['service_type'];
             <span class="total-amount"><?php echo WPBooking_Currency::format_money($tax['citytax']['price']); ?></span>
         <?php } ?>
     </div>
-    <span class="total-line"></span>
+    <?php if(!empty($tax['total_price'])) echo '<span class="total-line"></span>' ?>
     <div class="review-cart-item total">
         <?php
         $price_total = $booking->get_cart_total(array(

@@ -21,7 +21,6 @@ $chart = WPBooking_Admin_Order::inst();
 $query=new WP_Query($args);
 $service_types=WPBooking_Service_Controller::inst()->get_service_types();
 $report_data=WPBooking_Admin_Order::inst()->get_report_data();
-
 $report_type=WPBooking_Input::get('report_type','last_7days');
 $type_array=array(
 	'today'=>esc_html__('Today','wpbooking'),
