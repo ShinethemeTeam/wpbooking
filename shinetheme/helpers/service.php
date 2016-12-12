@@ -27,6 +27,7 @@ if(!function_exists('wpbooking_service_price_html'))
 		if(!$post_id) $post_id=get_the_ID();
 
 		$price=wpbooking_service_price($post_id);
+
 		//$currency=get_post_meta($post_id,'currency',TRUE);
 		$service_type= get_post_meta($post_id,'service_type',true);
 

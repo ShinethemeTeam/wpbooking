@@ -297,9 +297,9 @@ if (!class_exists('WB_Service')) {
 		function get_price_html($echo = TRUE)
 		{
 			if ($this->ID) {
-				$rate = wpbooking_service_price_html($this->ID);
-				if ($echo) echo($rate);
-				else return $rate;
+				$price_html = wpbooking_service_price_html($this->ID);
+				if ($echo) echo($price_html);
+				else return $price_html;
 			}
 		}
 

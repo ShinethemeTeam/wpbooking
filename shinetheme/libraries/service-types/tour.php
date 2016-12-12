@@ -532,15 +532,27 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
          */
         public function _edit_price($price, $post_id)
         {
+            global $wpdb;
             $calendar = WPBooking_Calendar_Model::inst();
 
-            $query = $calendar->select('MIN(calendar_price) as min_price')->where(array(
-                'post_id'          => $post_id,
-                'status'           => 'available',
-                'calendar_price >' => 0,
-                'start >='         => strtotime(date('d-m-Y'))
+            $pricing_type = get_post_meta($post_id, 'pricing_type', true);
 
-            ))->get(1)->row();
+            if($pricing_type == 'per_person'){
+                $query = $calendar->select('CASE WHEN MIN(child_price) < MIN(adult_price) THEN MIN(adult_price) ELSE MIN(child_price) END as min_price')->where(array(
+                    'post_id' => $post_id,
+                    'status' => 'available',
+                    'start >=' => strtotime(date('d-m-Y'))
+
+                ))->get(1)->row();
+            }else{
+                $query = $calendar->select('MIN(calendar_price) as min_price')->where(array(
+                    'post_id' => $post_id,
+                    'status' => 'available',
+                    'calendar_price >' => 0,
+                    'start >=' => strtotime(date('d-m-Y'))
+
+                ))->get(1)->row();
+            }
 
             if ($query) {
                 $price = $query['min_price'];
@@ -1205,16 +1217,22 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             if ($sortby = $this->request('wb_sort_by')) {
                 switch ($sortby) {
                     case "price_asc":
-                        $injection->select('MIN(CAST(order_table.meta_value as double)) as min_price');
-                        $injection->join('posts as post_table',"post_table.post_parent={$wpdb->posts}.ID");
-                        $injection->join('postmeta as order_table',"order_table.post_ID=post_table.ID and order_table.meta_key='base_price' and order_table.meta_value>0");
+                        $injection->select("CASE WHEN meta.meta_value='per_person' AND MIN(avail.child_price) < MIN(avail.adult_price) THEN MIN(avail.adult_price)
+			                                WHEN meta.meta_value='per_person' AND MIN(avail.child_price) > MIN(avail.adult_price) THEN MIN(avail.child_price)
+			                                ELSE MIN(avail.calendar_price)
+			                                END as min_price");
+                        $injection->join('postmeta as meta',"meta.post_id={$wpdb->posts}.ID AND meta.meta_key='pricing_type'");
+                        $injection->join('wpbooking_availability as avail',"avail.post_id = {$wpdb->posts}.ID");
                         $injection->orderby('min_price', 'asc');
 
                         break;
                     case "price_desc":
-                        $injection->select('MIN(CAST(order_table.meta_value as double)) as min_price');
-                        $injection->join('posts as post_table',"post_table.post_parent={$wpdb->posts}.ID");
-                        $injection->join('postmeta as order_table',"order_table.post_ID=post_table.ID and order_table.meta_key='base_price' and order_table.meta_value>0");
+                        $injection->select("CASE WHEN meta.meta_value='per_person' AND MIN(avail.child_price) < MIN(avail.adult_price) THEN MIN(avail.adult_price)
+			                                WHEN meta.meta_value='per_person' AND MIN(avail.child_price) > MIN(avail.adult_price) THEN MIN(avail.child_price)
+			                                ELSE MIN(avail.calendar_price)
+			                                END as min_price");
+                        $injection->join('postmeta as meta',"meta.post_id={$wpdb->posts}.ID AND meta.meta_key='pricing_type'");
+                        $injection->join('wpbooking_availability as avail',"avail.post_id = {$wpdb->posts}.ID");
                         $injection->orderby('min_price', 'desc');
                         break;
                     case "date_asc":

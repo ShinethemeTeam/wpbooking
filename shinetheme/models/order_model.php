@@ -172,10 +172,10 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
                 foreach($service_type as $k => $val) {
                     if($k == 0) {
                         $sv_where = '( service_type = \'' . $val.'\'';
-                    }elseif($k == count($service_type - 1)){
-                        $sv_where = ' OR service_type = \''.$val.'\' )';
+                    }elseif($k == count($service_type) - 1){
+                        $sv_where .= ' OR service_type = \''.$val.'\' )';
                     }else{
-                        $sv_where = ' OR service_type = \''. $val .'\'';
+                        $sv_where .= ' OR service_type = \''. $val .'\'';
                     }
                     if(count($service_type) == 1){
                         $sv_where = '(service_type = \'' . $val . '\')';
