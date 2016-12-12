@@ -1058,46 +1058,48 @@ jQuery(document).ready(function($){
         parent.next().find('[name=check_in]').focus();
     });
 
-    var form_filter=$('.wpbooking-search-form.is_search_form');
-    $('.button_show_price.is_page_search_result').click(function(){
-        form_filter.submit();
-    });
+    // $('.button_show_price.is_page_search_result').click(function(){
+    //     form_filter.submit();
+    // });
     // Ajax Search in Archive page
-    form_filter.submit(function(){
+    $('.wpbooking-search-form.is_search_form').each(function(i,form_filter){
+        form_filter.submit(function(){
 
-        // Validate Required Field
-        var is_validated=true;
-        var scrollTo=false;
-        form_filter.find('.wb-required').removeClass('wb-error');
-        form_filter.find('.item-search').removeClass('wb-error');
+            // Validate Required Field
+            var is_validated=true;
+            var scrollTo=false;
+            form_filter.find('.wb-required').removeClass('wb-error');
+            form_filter.find('.item-search').removeClass('wb-error');
 
-        form_filter.find('.wb-required').each(function(){
-            if($(this).val()==false){
-                console.log($(this));
-                is_validated=false;
-                $(this).addClass('wb-error');
-                $(this).closest('.item-search').addClass('wb-error');
+            form_filter.find('.wb-required').each(function(){
+                if($(this).val()==false){
+                    console.log($(this));
+                    is_validated=false;
+                    $(this).addClass('wb-error');
+                    $(this).closest('.item-search').addClass('wb-error');
 
-                if($(this).closest('.wpbooking-search-form-more').length){
-                    $(this).closest('.wpbooking-search-form-wrap').find('.wpbooking-show-more-fields').trigger('click');
+                    if($(this).closest('.wpbooking-search-form-more').length){
+                        $(this).closest('.wpbooking-search-form-wrap').find('.wpbooking-show-more-fields').trigger('click');
+                    }
+
+                    // Scroll to first error input
+                    if(!scrollTo){
+                        scrollTo=$(this).offset().top-200;
+                    }
                 }
+            });
 
-                // Scroll to first error input
-                if(!scrollTo){
-                    scrollTo=$(this).offset().top-200;
+            if(!is_validated){
+                if(scrollTo){
+                    $('html,body').animate({
+                        scrollTop:scrollTo
+                    },'fast');
                 }
+                return false;
             }
         });
+    })
 
-        if(!is_validated){
-            if(scrollTo){
-                $('html,body').animate({
-                    scrollTop:scrollTo
-                },'fast');
-            }
-            return false;
-        }
-    });
     // Remove Class Wb-error on input
     $(this).find('input,select').change(function(){
         if($(this).hasClass('wb-error') && $(this).val()){
