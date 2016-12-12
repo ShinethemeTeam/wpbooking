@@ -1058,9 +1058,9 @@ jQuery(document).ready(function($){
         parent.next().find('[name=check_in]').focus();
     });
 
-    $('.button_show_price.is_page_search_result').click(function(){
-        form_filter.submit();
-    });
+    // $('.button_show_price.is_page_search_result').click(function(){
+    //     form_filter.submit();
+    // });
     // Ajax Search in Archive page
     $('.wpbooking-search-form.is_search_form').each(function(i,form_filter){
         form_filter.submit(function(){
