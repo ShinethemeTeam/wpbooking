@@ -1062,8 +1062,9 @@ jQuery(document).ready(function($){
     //     form_filter.submit();
     // });
     // Ajax Search in Archive page
-    $('.wpbooking-search-form.is_search_form').each(function(i,form_filter){
-        form_filter.submit(function(){
+
+    $('.wpbooking-search-form.is_search_form').submit(function(){
+            var form_filter=$(this);
 
             // Validate Required Field
             var is_validated=true;
@@ -1097,8 +1098,9 @@ jQuery(document).ready(function($){
                 }
                 return false;
             }
+
+            return false;
         });
-    })
 
     // Remove Class Wb-error on input
     $(this).find('input,select').change(function(){
