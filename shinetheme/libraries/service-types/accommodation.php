@@ -255,6 +255,79 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              */
             add_action('wpbooking_after_service_amenity',array($this,'_show_list_room'));
 
+            /**
+             * Show Start,End Information
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('wpbooking_review_after_address_'.$this->type_id,array($this,'_show_start_end_information'));
+
+
+            /**
+             * Show Order Info after Address
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('wpbooking_order_detail_after_address_'.$this->type_id,array($this,'_show_order_info_after_address'));
+
+        }
+        /**
+         * Show Start,End Information
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param array $cart
+         */
+        public function _show_start_end_information($cart){
+            $post_id=$cart['post_id'];
+            ?>
+
+            <div class="review-order-item-form-to">
+                <span><?php esc_html_e("From:","wpbooking") ?> </span> <?php echo date(get_option('date_format'),$cart['check_in_timestamp']) ?> &nbsp
+                <span><?php esc_html_e("To:","wpbooking") ?> </span><?php echo date(get_option('date_format'),$cart['check_out_timestamp']) ?> &nbsp
+                <?php
+                $diff=$cart['check_out_timestamp'] - $cart['check_in_timestamp'];
+                $diff = $diff / (60 * 60 * 24);
+                if($diff > 1){
+                    echo sprintf(esc_html__('(%s nights)','wpbooking'),$diff);
+                }else{
+                    echo sprintf(esc_html__('(%s night)','wpbooking'),$diff);
+                }
+
+                $url_change_date = add_query_arg(array(
+                    'checkin_d'  => date("d",$cart['check_in_timestamp']),
+                    'checkin_m'  => date("m",$cart['check_in_timestamp']),
+                    'checkin_y'  => date("Y",$cart['check_in_timestamp']),
+
+                    'checkout_d' => date("d",$cart['check_out_timestamp']),
+                    'checkout_m' => date("m",$cart['check_out_timestamp']),
+                    'checkout_y' => date("Y",$cart['check_out_timestamp']),
+                ), get_permalink($post_id));
+                ?>
+                <small><a href="<?php echo esc_url($url_change_date) ?>"><?php esc_html_e("Change Date","wpbooking") ?></a></small>
+            </div>
+            <?php
+        }
+
+        /**
+         * Show Order Info after Address
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $order_data
+         */
+        public function _show_order_info_after_address($order_data)
+        {
+            if(!empty($order_data['raw_data'])){
+                $raw_data=json_decode($order_data['raw_data'],true);
+                if($raw_data){
+                    $this->_show_start_end_information($raw_data);
+                }
+            }
         }
 
         /**

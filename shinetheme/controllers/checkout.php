@@ -259,6 +259,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
                     if (!empty($data['redirect'])) {
                         $res['redirect'] = $data['redirect'];
+                        WPBooking_Session::set('wpbooking_order_id','');
                     }
                     if(isset($data['complete_purchase']) and !$data['complete_purchase']){
                         $res['redirect'] = "";
@@ -362,7 +363,6 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
             } else {
 
-
                 WPBooking_Session::set('wpbooking_cart', $cart_params);
 
                // wpbooking_set_message(sprintf(__('Add to %s success', 'wpbooking'), sprintf('<a href="%s">%s</a>', $this->get_checkout_url(), __('cart', 'wpbooking'))), 'success');
@@ -372,6 +372,8 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                     'redirect' => $this->get_checkout_url(),
                 );
 
+
+                WPBooking_Session::set('wpbooking_order_id',false);
             }
             $res['updated_content'] = apply_filters('wpbooking_cart_updated_content', array(),$is_validate);
 

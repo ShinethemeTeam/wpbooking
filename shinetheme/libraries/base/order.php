@@ -166,7 +166,7 @@ if (!class_exists('WB_Order')) {
          * Do Create New Order
          *
          * @param $cart
-         * @param array $checkout_form_data
+         * @param array $form_billing_data
          * @param bool|FALSE $selected_gateway
          * @param bool|FALSE $customer_id
          * @return int|WP_Error
@@ -189,6 +189,7 @@ if (!class_exists('WB_Order')) {
                 $booking = WPBooking_Checkout_Controller::inst();
 
                 $price = $booking->get_cart_total(array( 'without_deposit' => false, 'without_tax' => true ),$cart);
+
                 $deposit_price = $booking->get_cart_total(array( 'without_deposit' => true, 'without_tax' => true ),$cart);
                 $tax = $booking->get_cart_tax_price();
                 $post_author = get_post_field( 'post_author', $cart['post_id'] );
@@ -201,7 +202,6 @@ if (!class_exists('WB_Order')) {
                 update_post_meta($order_id, 'tax',$tax);
                 update_post_meta($order_id, 'tax_total',$tax['tax_total']);
                 update_post_meta($order_id, 'currency', WPBooking_Currency::get_current_currency('currency'));
-                update_post_meta($order_id, 'raw_data', array());
                 update_post_meta($order_id, 'check_in_timestamp', $cart['check_in_timestamp']);
                 update_post_meta($order_id, 'check_out_timestamp', $cart['check_out_timestamp']);
                 update_post_meta($order_id, 'user_id', $customer_id);
@@ -217,6 +217,7 @@ if (!class_exists('WB_Order')) {
                     }
                 }
             }
+
 
             WPBooking_Order_Model::inst()->save_order($cart, $order_id, $customer_id);
             do_action('wpbooking_save_order_'.$cart['service_type'],$cart,$order_id);

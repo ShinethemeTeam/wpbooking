@@ -15,7 +15,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 
 		function __construct()
 		{
-			$this->table_version = '1.0.2.10';
+			$this->table_version = '1.0.2.11';
 			$this->table_name = 'wpbooking_service';
 			$this->columns = array(
 				'id'                     => array(
@@ -34,6 +34,7 @@ if (!class_exists('WPBooking_Service_Model')) {
 				'property_available_for' => array('type' => 'varchar', 'length' => 50),
 				'max_guests'             => array('type' => "INT"),
 				'location_id'            => array('type' => "INT"),
+                'pricing_type'=>array('type' => "varchar", 'length' => "100")
 			);
 			parent::__construct();
 		}

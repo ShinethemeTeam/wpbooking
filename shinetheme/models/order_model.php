@@ -74,6 +74,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
                 $data[$k] = $value;
 
             }
+            $data['raw_data']=json_encode($cart);
             $post_id = $cart['post_id'];
             $data['order_id'] = $order_id;
             $data['status'] = get_post_field( 'post_status', $order_id );
