@@ -163,10 +163,12 @@ if(!function_exists('wpbooking_post_query_desc'))
 			$q[]=sprintf(esc_html__('in %s','wpbooking'),'<span>'.$location->name.'</span>');
 		}
 		if(!empty($input['checkin_d']) and $checkin_d=$input['checkin_d'] and !empty($input['checkin_m']) and $checkin_m=$input['checkin_m'] and !empty($input['checkin_y']) and $checkin_y=$input['checkin_y']){
-			$q[]=sprintf(esc_html__('from %s','wpbooking'),'<span>'.$check_in.'</span>');
+			$from_date = date(get_option('date_format'), strtotime($checkin_d.'-'.$checkin_m.'-'.$checkin_y));
+            $q[]=sprintf(esc_html__('from %s','wpbooking'),'<span>'.$from_date.'</span>');
 
-			if(!empty($input['check_out']) and $check_out=$input['check_out']){
-				$q[]=sprintf(esc_html__('to %s','wpbooking'),'<span>'.$check_out.'</span>');
+			if(!empty($input['checkout_d']) and $checkout_d=$input['checkout_d'] and !empty($input['checkout_m']) and $checkout_m=$input['checkout_m'] and !empty($input['checkout_y']) and $checkout_y=$input['checkout_y']){
+                $to_date = date(get_option('date_format'), strtotime($checkout_d.'-'.$checkout_m.'-'.$checkout_y));
+                $q[]=sprintf(esc_html__('to %s','wpbooking'),'<span>'.$to_date.'</span>');
 			}
 		}
 
