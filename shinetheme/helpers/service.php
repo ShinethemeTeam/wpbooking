@@ -162,7 +162,7 @@ if(!function_exists('wpbooking_post_query_desc'))
 			if(!is_wp_error($location) and $location)
 			$q[]=sprintf(esc_html__('in %s','wpbooking'),'<span>'.$location->name.'</span>');
 		}
-		if(!empty($input['check_in']) and $check_in=$input['check_in']){
+		if(!empty($input['checkin_d']) and $checkin_d=$input['checkin_d'] and !empty($input['checkin_m']) and $checkin_m=$input['checkin_m'] and !empty($input['checkin_y']) and $checkin_y=$input['checkin_y']){
 			$q[]=sprintf(esc_html__('from %s','wpbooking'),'<span>'.$check_in.'</span>');
 
 			if(!empty($input['check_out']) and $check_out=$input['check_out']){
@@ -170,9 +170,6 @@ if(!function_exists('wpbooking_post_query_desc'))
 			}
 		}
 
-		if(!empty($input['guest']) and $guest=$input['guest']){
-			$q[]=sprintf(esc_html__('%s guest(s)','wpbooking'),'<span>'.$guest.'</span>');
-		}
 		$query_desc=FALSE;
 		if(!empty($q)){
 			foreach($q as $key=>$val){
