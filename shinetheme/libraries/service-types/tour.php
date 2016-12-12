@@ -73,7 +73,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
              * @since 1.0
              * @author dungdt
              */
-            add_action('wpbooking_service_base_price_' . $this->type_id, array($this, '_edit_price'), 10, 2);
+            add_action('wpbooking_service_base_price_html_' . $this->type_id, array($this, '_edit_price'), 10, 4);
 
             /**
              * Filter to Validate Add To Cart
@@ -565,7 +565,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
          * @param $post_id
          * @return $this
          */
-        public function _edit_price($price, $post_id)
+        public function _edit_price($price_html,$price,$post_id,$service_type)
         {
             global $wpdb;
             $calendar = WPBooking_Calendar_Model::inst();
@@ -592,8 +592,11 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             if ($query) {
                 $price = $query['min_price'];
             }
+            $price_html=WPBooking_Currency::format_money($price);
 
-            return $price;
+            $price_html =sprintf(__('from %s','wpbooking'),'<br><span class="price">'.$price_html.'</span>');
+
+            return $price_html;
         }
 
         /**
