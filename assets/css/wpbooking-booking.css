@@ -883,10 +883,12 @@ a.label:focus {
   .review-order-item .review-order-item-info .review-order-item-title {
     text-align: center;
     width: 100%;
+    float: none;
   }
 }
 .review-order-item .review-order-item-info .review-order-item-title {
-  display: table;
+  float: right;
+  width: 73%;
 }
 .review-order-item .review-order-item-info .review-order-item-title .service-name {
   margin: 0px;
@@ -909,6 +911,54 @@ a.label:focus {
 }
 .review-order-item .review-order-item-info .review-order-item-title .service-address {
   color: #666;
+}
+.review-order-item .review-order-item-info .review-order-item-title .review-order-item-price.tour-price {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.review-order-item .review-order-item-info .review-order-item-title .wb-contact-list {
+  margin-bottom: 30px;
+}
+.review-order-item .review-order-item-info .review-order-item-title .wb-contact-list a {
+  border: none;
+}
+.review-order-item .review-order-item-info .review-order-item-title .people-price-item,
+.review-order-item .review-order-item-info .review-order-item-title .from-detail {
+  color: #333;
+  position: relative;
+}
+.review-order-item .review-order-item-info .review-order-item-title .people-price-item:after,
+.review-order-item .review-order-item-info .review-order-item-title .from-detail:after {
+  background: #cccccc;
+  position: absolute;
+  content: '';
+  width: 100%;
+  bottom: 6px;
+  height: 1px;
+  left: 0px;
+  right: 0px;
+  z-index: 0;
+}
+.review-order-item .review-order-item-info .review-order-item-title .people-price-item span,
+.review-order-item .review-order-item-info .review-order-item-title .from-detail span {
+  position: relative;
+  z-index: 1;
+  background: white;
+}
+.review-order-item .review-order-item-info .review-order-item-title .people-price-item .price-item,
+.review-order-item .review-order-item-info .review-order-item-title .from-detail .price-item,
+.review-order-item .review-order-item-info .review-order-item-title .people-price-item .from-detail-duration,
+.review-order-item .review-order-item-info .review-order-item-title .from-detail .from-detail-duration {
+  float: right;
+  padding-left: 10px;
+}
+.review-order-item .review-order-item-info .review-order-item-title .people-price-item .head-item,
+.review-order-item .review-order-item-info .review-order-item-title .from-detail .head-item {
+  padding-right: 10px;
+  font-weight: bold;
 }
 .review-order-item .review-order-item-info .review-order-item-title .review-order-item-form-to {
   margin-top: 20px;

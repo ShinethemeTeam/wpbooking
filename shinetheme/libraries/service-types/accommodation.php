@@ -272,7 +272,16 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              */
             add_action('wpbooking_order_detail_after_address_'.$this->type_id,array($this,'_show_order_info_after_address'));
 
+            /**
+             * Show More Order Info for Email
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('wpbooking_email_order_after_address_'.$this->type_id,array($this,'_show_email_order_info_after_address'));
+
         }
+
         /**
          * Show Start,End Information
          *
@@ -328,6 +337,37 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $this->_show_start_end_information($raw_data);
                 }
             }
+        }
+
+        /**
+         * Show More Order Info for Email
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $order_data
+         */
+        public function _show_email_order_info_after_address($order_data)
+        {
+
+            ?>
+            <h4 class=color_black>
+                <span class=bold><?php esc_html_e("From:","wpbooking") ?> </span> <?php echo date(get_option('date_format'),$order_data['check_in_timestamp']) ?>
+                <span class=bold><?php esc_html_e("To:","wpbooking") ?> </span><?php echo date(get_option('date_format'),$order_data['check_out_timestamp']) ?>
+                <?php
+                $diff=$order_data['check_out_timestamp'] - $order_data['check_in_timestamp'];
+                $diff = $diff / (60 * 60 * 24);
+                if($diff > 1){
+                    echo sprintf(esc_html__('(%s nights)','wpbooking'),$diff);
+                }else{
+                    echo sprintf(esc_html__('(%s night)','wpbooking'),$diff);
+                }
+                ?>
+
+
+            </h4>
+            <?php
+
         }
 
         /**
