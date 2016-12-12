@@ -57,20 +57,8 @@ $inject->clear();
 							<?php echo get_the_title($order_data['post_id'])?>
 						</a>
 					</h4>
-					<div class="item-form-to">
-						<span><?php esc_html_e("From:","wpbooking") ?> </span> <?php echo date(get_option('date_format'),$order_data['check_in_timestamp']) ?> &nbsp
-						<span><?php esc_html_e("To:","wpbooking") ?> </span><?php echo date(get_option('date_format'),$order_data['check_out_timestamp']) ?> &nbsp
-						<br>
-						<?php
-						$diff=$order_data['check_out_timestamp'] - $order_data['check_in_timestamp'];
-						$diff = $diff / (60 * 60 * 24);
-						if($diff > 1){
-							echo sprintf(esc_html__('(%s nights)','wpbooking'),$diff);
-						}else{
-							echo sprintf(esc_html__('(%s night)','wpbooking'),$diff);
-						}
-						?>
-					</div>
+					<?php do_action('wpbooking_order_history_after_service_name',$order_data) ?>
+					<?php do_action('wpbooking_order_history_after_service_name_'.$service_type,$order_data) ?>
 					<div class="link-details">
 						<a href="<?php echo add_query_arg(array('wpbooking_detail'=>'true'), get_permalink(get_the_ID()) ) ?>" >
                             <?php esc_html_e('Details','wpbooking') ?>

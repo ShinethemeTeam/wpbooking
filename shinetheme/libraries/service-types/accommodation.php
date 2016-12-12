@@ -280,6 +280,30 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              */
             add_action('wpbooking_email_order_after_address_'.$this->type_id,array($this,'_show_email_order_info_after_address'));
 
+            add_action('wpbooking_order_history_after_service_name_'.$this->type_id,array($this,'_show_order_info_listing'));
+
+        }
+
+        public function _show_order_info_listing($order_data)
+        {
+            ?>
+
+            <div class="item-form-to">
+                <span><?php esc_html_e("From:","wpbooking") ?> </span> <?php echo date(get_option('date_format'),$order_data['check_in_timestamp']) ?> &nbsp
+                <span><?php esc_html_e("To:","wpbooking") ?> </span><?php echo date(get_option('date_format'),$order_data['check_out_timestamp']) ?> &nbsp
+                <br>
+                <?php
+                $diff=$order_data['check_out_timestamp'] - $order_data['check_in_timestamp'];
+                $diff = $diff / (60 * 60 * 24);
+                if($diff > 1){
+                    echo sprintf(esc_html__('(%s nights)','wpbooking'),$diff);
+                }else{
+                    echo sprintf(esc_html__('(%s night)','wpbooking'),$diff);
+                }
+                ?>
+
+            </div>
+            <?php
         }
 
         /**
