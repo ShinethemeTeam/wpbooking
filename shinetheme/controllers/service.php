@@ -42,7 +42,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
              * @author dungdt
              *
              */
-            add_filter('post_class',array($this,'_add_post_class'),10,2);
+//            add_filter('post_class',array($this,'_add_post_class'),10,2);
 
             /**
              *
@@ -527,7 +527,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
          * @return WB_Service
          */
         function get_service_instance($post_id=false){
-            var_dump(debug_backtrace());
+//            var_dump(debug_backtrace());
             if(!$post_id)$post_id =get_the_ID();
             // Check Instance Exists
             if(!array_key_exists($post_id,$this->all_services_instance)){
