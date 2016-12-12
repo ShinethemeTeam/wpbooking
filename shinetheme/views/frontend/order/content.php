@@ -78,20 +78,9 @@ do_action('wpbooking_before_order_content');
                         <?php if($address=$service->get_address()){
                             printf('<p class="service-address"><i class="fa fa-map-marker"></i> %s</p>',$address);
                         } ?>
-                        <p class="review-order-item-price"></p>
-                        <div class="review-order-item-form-to">
-                            <span><?php esc_html_e("From:","wpbooking") ?> </span> <?php echo date(get_option('date_format'),$order_data['check_in_timestamp']) ?> &nbsp
-                            <span><?php esc_html_e("To:","wpbooking") ?> </span><?php echo date(get_option('date_format'),$order_data['check_out_timestamp']) ?> &nbsp
-                            <?php
-                            $diff=$order_data['check_out_timestamp'] - $order_data['check_in_timestamp'];
-                            $diff = $diff / (60 * 60 * 24);
-                            if($diff > 1){
-                                echo sprintf(esc_html__('(%s nights)','wpbooking'),$diff);
-                            }else{
-                                echo sprintf(esc_html__('(%s night)','wpbooking'),$diff);
-                            }
-                            ?>
-                        </div>
+
+                        <?php do_action('wpbooking_order_detail_after_address',$order_data) ?>
+                        <?php do_action('wpbooking_order_detail_after_address_'.$service_type,$order_data) ?>
                     </div>
                 </div>
                 <?php do_action('wpbooking_order_detail_item_information',$order_data) ?>
@@ -127,7 +116,7 @@ do_action('wpbooking_before_order_content');
                             <span class="total-title text-up text-bold"><?php _e('Total Amount', 'wpbooking') ?></span>
                             <span class="total-amount text-up text-bold"><?php echo WPBooking_Currency::format_money($price_total); ?></span>
                             <?php
-                            if(!empty($order_data['deposit_price'])){
+                            if(!empty($order_data['deposit_price']) and $order_data['deposit_price']<$price_total){
                                 $price_deposit = $order_data['deposit_price'];
                                 $property = $price_total - $price_deposit;
                                 ?>

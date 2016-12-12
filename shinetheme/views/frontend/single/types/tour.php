@@ -114,7 +114,8 @@ $age_options=$service->get_meta('age_options');
         </div>
         <div class="col-service-reviews-meta">
             <div class="wb-service-reviews-meta">
-                <form class="wb-tour-booking-form" method="post" action="" onsubmit="return false">
+                <form class="wb-tour-booking-form" method="post" action="" >
+                    <input type="hidden" name="post_id" value="<?php the_ID() ?>">
                     <div class="wb-price-html">
                         <?php $service->get_price_html(true); ?>
                     </div>
@@ -130,7 +131,16 @@ $age_options=$service->get_meta('age_options');
                                                 foreach($next10Month as $key=>$item){
                                                     if(!empty($item['days'])){
                                                         foreach($item['days'] as $day){
-                                                            printf('<option value="%s" class="%s" data-price="%s">%s</option>',$day['start'],$key,esc_attr(WPBooking_Currency::format_money($day['calendar_price'])),date('d',$day['start']));
+                                                            $day=wp_parse_args($day,array(
+                                                                'calendar_price'=>false,
+                                                                'adult_price'=>false,
+                                                                'child_price'=>false,
+                                                                'infant_price'=>false,
+                                                            ));
+                                                            $calendar_price=$day['calendar_price']?$day['calendar_price']:$day['adult_price'];
+                                                            if(!$calendar_price)  $calendar_price=$day['child_price']?$day['child_price']:$day['infant_price'];
+
+                                                            printf('<option value="%s" class="%s" data-price="%s">%s</option>',$day['start'],$key,esc_attr(WPBooking_Currency::format_money($calendar_price)),date('d',$day['start']));
                                                         }
                                                     }
                                                 }
@@ -198,7 +208,9 @@ $age_options=$service->get_meta('age_options');
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" class="wb-button"><?php esc_html_e('Book Now','wpbooking') ?></button>
+                        <div class="booking-message"></div>
+                        <button type="submit" class="wb-button wb-order-button"><?php esc_html_e('Book Now','wpbooking') ?>
+                            <i class="fa fa-spinner fa-pulse "></i></button>
                     </div>
                 </form>
                 <div class="wb-share">

@@ -2080,6 +2080,57 @@ jQuery(document).ready(function($){
 
     $('.wb-departure-date').trigger('change');
 
+    // Tour Booking
+    $('.wb-tour-booking-form').submit(function(){
+        var self=$(this);
+        self.addClass('loading');
+        self.find('.booking-message').html('');
+        var data=self.serialize();
+        data+='&action=wpbooking_add_to_cart';
+
+        $.ajax({
+            dataType:'json',
+            type:'post',
+            data:data,
+            url:wpbooking_params.ajax_url,
+            success:function(res){
+                if(res){
+
+                }
+                if(res.message){
+                    self.find('.booking-message').html(res.message);
+                }
+
+                if(typeof res.redirect!='undefined'){
+                    window.location=res.redirect;
+                }
+
+                if(typeof res.error_fields!='undefined')
+                {
+                    for(var k in res.error_fields){
+
+                        self.find("[name='"+k+"']").addClass('input-error');
+                    }
+                }
+                if(typeof  res.updated_content!='undefined'){
+
+                    for (var k in res.updated_content){
+                        var element=$(k);
+                        element.replaceWith(res.updated_content[k]);
+                        $(window).trigger('wpbooking_event_cart_update_content',[k,res.updated_content[k]]);
+                    }
+                }
+
+                self.removeClass('loading');
+            },
+            error:function(e){
+                console.log(e.reponseText);
+            }
+        })
+
+        return false;
+    });
+
 });
 
 

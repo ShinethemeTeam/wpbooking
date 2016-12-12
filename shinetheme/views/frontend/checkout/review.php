@@ -27,33 +27,9 @@ $cart=$booking->get_cart();
 					<?php if($address=$service->get_address()){
 						printf('<p class="service-address"><i class="fa fa-map-marker"></i> %s</p>',$address);
 					} ?>
-					<p class="review-order-item-price"></p>
-					<div class="review-order-item-form-to">
-						<span><?php esc_html_e("From:","wpbooking") ?> </span> <?php echo date(get_option('date_format'),$cart['check_in_timestamp']) ?> &nbsp
-						<span><?php esc_html_e("To:","wpbooking") ?> </span><?php echo date(get_option('date_format'),$cart['check_out_timestamp']) ?> &nbsp
-						<?php
-						$diff=$cart['check_out_timestamp'] - $cart['check_in_timestamp'];
-						$diff = $diff / (60 * 60 * 24);
-						if($diff > 1){
-							echo sprintf(esc_html__('(%s nights)','wpbooking'),$diff);
-						}else{
-							echo sprintf(esc_html__('(%s night)','wpbooking'),$diff);
-						}
 
-						$url_change_date = add_query_arg(array(
-							'checkin_d'  => date("d",$cart['check_in_timestamp']),
-							'checkin_m'  => date("m",$cart['check_in_timestamp']),
-							'checkin_y'  => date("Y",$cart['check_in_timestamp']),
-
-							'checkout_d' => date("d",$cart['check_out_timestamp']),
-							'checkout_m' => date("m",$cart['check_out_timestamp']),
-							'checkout_y' => date("Y",$cart['check_out_timestamp']),
-						), get_permalink($post_id));
-
-
-						?>
-						<small><a href="<?php echo esc_url($url_change_date) ?>"><?php esc_html_e("Change Date","wpbooking") ?></a></small>
-					</div>
+					<?php do_action('wpbooking_review_after_address',$cart) ?>
+					<?php do_action('wpbooking_review_after_address_'.$service_type,$cart) ?>
 				</div>
 
 

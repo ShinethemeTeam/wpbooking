@@ -6989,3 +6989,9 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
   width: auto;
   float: none;
 }
+.service-type-tour .wb-tour-booking-form .wb-order-button .fa {
+  display: none;
+}
+.service-type-tour .wb-tour-booking-form.loading .wb-order-button .fa {
+  display: inline-block;
+}
