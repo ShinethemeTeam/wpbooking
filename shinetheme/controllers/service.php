@@ -101,14 +101,15 @@ if (!class_exists('WPBooking_Service_Controller')) {
          * @author dungdt
          *
          * @param $class
-         * @param $post_id
          * @return array
          */
-        public function _add_post_class($class,$post_id)
+        public function _add_post_class($class)
         {
             if(!is_admin()){
-                $service=$this->get_service_instance($post_id);
-                if($service->get_type()){
+                global $post;
+                $post_id=$post->ID;
+                $service=wpbooking_get_service($post_id);
+                if($service and $service->get_type()){
                     $class[]='service-type-'.$service->get_type();
                 }
             }
