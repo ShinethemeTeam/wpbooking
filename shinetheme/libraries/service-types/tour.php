@@ -271,10 +271,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                 }
                 printf('<div class="from-detail"><span class="head-item">%s:</span> <span class="from-detail-duration">%s</span></div>',esc_html__('From','wpbooking'),$from_detail);
             }
-
             switch ($cart['pricing_type']) {
                 case "per_person":
-                default:
                     if (!empty($cart['calendar'])) {
                         $calendar = wp_parse_args($cart['calendar'], array(
                             'adult_price'  => '',
