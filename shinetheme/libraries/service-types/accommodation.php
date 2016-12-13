@@ -319,8 +319,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             ?>
 
             <div class="review-order-item-form-to">
-                <span><?php esc_html_e("From:","wpbooking") ?> </span> <?php echo date(get_option('date_format'),$cart['check_in_timestamp']) ?> &nbsp
-                <span><?php esc_html_e("To:","wpbooking") ?> </span><?php echo date(get_option('date_format'),$cart['check_out_timestamp']) ?> &nbsp
+                <span><?php esc_html_e("From:","wpbooking") ?> </span> <?php echo date_i18n(get_option('date_format'),$cart['check_in_timestamp']) ?> &nbsp
+                <span><?php esc_html_e("To:","wpbooking") ?> </span><?php echo date_i18n(get_option('date_format'),$cart['check_out_timestamp']) ?> &nbsp
                 <?php
                 $diff=$cart['check_out_timestamp'] - $cart['check_in_timestamp'];
                 $diff = $diff / (60 * 60 * 24);
@@ -376,8 +376,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             ?>
             <h4 class=color_black>
-                <span class=bold><?php esc_html_e("From:","wpbooking") ?> </span> <?php echo date(get_option('date_format'),$order_data['check_in_timestamp']) ?>
-                <span class=bold><?php esc_html_e("To:","wpbooking") ?> </span><?php echo date(get_option('date_format'),$order_data['check_out_timestamp']) ?>
+                <span class=bold><?php esc_html_e("From:","wpbooking") ?> </span> <?php echo date_i18n(get_option('date_format'),$order_data['check_in_timestamp']) ?>
+                <span class=bold><?php esc_html_e("To:","wpbooking") ?> </span><?php echo date_i18n(get_option('date_format'),$order_data['check_out_timestamp']) ?>
                 <?php
                 $diff=$order_data['check_out_timestamp'] - $order_data['check_in_timestamp'];
                 $diff = $diff / (60 * 60 * 24);

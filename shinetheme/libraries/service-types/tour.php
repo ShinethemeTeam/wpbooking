@@ -83,6 +83,23 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
              */
             add_filter('wpbooking_add_to_cart_validate_' . $this->type_id, array($this, '_add_to_cart_validate'), 10, 4);
 
+            /**
+             * Show More info in Cart Total Box
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_action('wpbooking_check_total_item_information_'.$this->type_id,array($this,'_add_total_box_info'));
+
+
+            /**
+             * Show More info in Order Total Box
+             *
+             * @since 1.0
+             * @author dungdt
+             *
+             */
+            add_action('wpbooking_order_detail_total_item_information_'.$this->type_id,array($this,'_add_order_total_box_info'));
 
             /**
              * Filter to Change Cart Params
@@ -127,7 +144,40 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             add_action('wpbooking_email_order_after_address_'.$this->type_id,array($this,'_show_email_order_info_after_address'));
 
         }
+        /**
+         * Show More info in Cart Total Box
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param array $cart
+         */
+        public function _add_total_box_info($cart){
+            if($cart['price']) {
+                echo '<span class="total-title">'.esc_html__('Tour Price:','wpbooking').'</span>
+                      <span class="total-amount">'.WPBooking_Currency::format_money($cart['price']).'</span>';
 
+            }
+        }
+
+        /**
+         * Show More info in Order Total Box
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param array $order_data
+         */
+        public function _add_order_total_box_info($order_data)
+        {
+            if(!empty($order_data['raw_data'])){
+                $raw_data=json_decode($order_data['raw_data'],true);
+                if($raw_data){
+                    $raw_data['price']=$order_data['price']-$order_data['tax_total'];
+                    $this->_add_total_box_info($raw_data);
+                }
+            }
+        }
 
         /**
          * Change Cart Total Price
@@ -390,32 +440,23 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         wpbooking_set_message(esc_html__('Sorry! This tour is not available at your selected time', 'wpbooking'), 'error');
                     } else {
                         $total_people = $cart_params['adult_number'] + $cart_params['children_number'] + $cart_params['infant_number'];
-                        if (!$total_people) {
-                            $is_validated = false;
-                            wpbooking_set_message(esc_html__('Please select at least one person', 'wpbooking'), 'error');
-                        } else {
 
-                            // Check Slot(s) Remain
 
-                            if ($total_people + $query['total_people_booked'] > $query['max_guests']) {
-                                $is_validated = false;
-                                wpbooking_set_message(sprintf(esc_html__('This tour only remain availability for %d people', 'wpbooking'), $query['max_guests'] - $query['total_people_booked']), 'error');
-                            }
-                            // Check Max, Min
-                            $min = (int)$query['calendar_minimum'];
-                            $max = (int)$query['calendar_maximum'];
-                            if ($min <= $max) {
-                                if ($min) {
-                                    if ($total_people < $min) {
-                                        $is_validated = false;
-                                        wpbooking_set_message(sprintf(esc_html__('Minimum Travelers must be %d', 'wpbooking'), $min), 'error');
-                                    }
+                        // Check Slot(s) Remain
+                        // Check Max, Min
+                        $min = (int)$query['calendar_minimum'];
+                        $max = (int)$query['calendar_maximum'];
+                        if ($min <= $max) {
+                            if ($min) {
+                                if ($total_people < $min) {
+                                    $is_validated = false;
+                                    wpbooking_set_message(sprintf(esc_html__('Minimum Travelers must be %d', 'wpbooking'), $min), 'error');
                                 }
-                                if ($max) {
-                                    if ($total_people > $max) {
-                                        $is_validated = false;
-                                        wpbooking_set_message(sprintf(esc_html__('Maximum Travelers must be %d', 'wpbooking'), $max), 'error');
-                                    }
+                            }
+                            if ($max) {
+                                if ($total_people > $max) {
+                                    $is_validated = false;
+                                    wpbooking_set_message(sprintf(esc_html__('Maximum Travelers must be %d', 'wpbooking'), $max), 'error');
                                 }
                             }
                         }
@@ -450,26 +491,32 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         wpbooking_set_message(esc_html__('Sorry! This tour is not available at your selected time', 'wpbooking'), 'error');
                     } else {
                         $total_people = $cart_params['adult_number'] + $cart_params['children_number'] + $cart_params['infant_number'];
-                        if (!$total_people) {
+
+                        // Check Slot(s) Remain
+                        if ($total_people + $query['total_people_booked'] > $query['max_guests']) {
                             $is_validated = false;
-                            wpbooking_set_message(esc_html__('Please select at least one person', 'wpbooking'), 'error');
+                            wpbooking_set_message(sprintf(esc_html__('This tour only remain availability for %d people', 'wpbooking'), $query['max_guests'] - $query['total_people_booked']), 'error');
                         } else {
 
-                            // Check Slot(s) Remain
-                            if ($total_people + $query['total_people_booked'] > $query['max_guests']) {
-                                $is_validated = false;
-                                wpbooking_set_message(sprintf(esc_html__('This tour only remain availability for %d people', 'wpbooking'), $query['max_guests'] - $query['total_people_booked']), 'error');
-                            } else {
+                            $error_message=array();
 
-                                // Check Max, Min
-                                if ((!empty($query['adult_minimum']) and $cart_params['adult_number'] < $query['adult_minimum']) or (!empty($query['child_minimum']) and $cart_params['children_number'] < $query['child_minimum']) or (!empty($query['infant_minimum']) and $cart_params['infant_number'] < $query['infant_minimum'])) {
-                                    $is_validated = false;
-                                    wpbooking_set_message(sprintf(esc_html__('This tour require at least %d adult(s), %d children, %d infant(s)', 'wpbooking'), $query['adult_minimum'], $query['child_minimum'], $query['infant_minimum']), 'error');
-                                }
+                            if((!empty($query['adult_minimum']) and $cart_params['adult_number'] < $query['adult_minimum'])){
+                                $error_message[]=sprintf(esc_html__('%d adult(s)','wpbooking'),$query['adult_minimum']);
+                            }
+                            if((!empty($query['child_minimum']) and $cart_params['children_number'] < $query['child_minimum'])){
+                                $error_message[]=sprintf(esc_html__('%d children','wpbooking'),$query['child_minimum']);
+                            }
+                            if((!empty($query['infant_minimum']) and $cart_params['infant_number'] < $query['infant_minimum'])){
+                                $error_message[]=sprintf(esc_html__('%d infant(s)','wpbooking'),$query['infant_minimum']);
+                            }
 
+                            if(!empty($error_message)){
+                                $is_validated=false;
+                                wpbooking_set_message(sprintf(esc_html__('This tour require at least %s', 'wpbooking'), implode(', ',$error_message)), 'error');
                             }
 
                         }
+
 
                     }
                     break;
