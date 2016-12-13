@@ -193,6 +193,13 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                     }
                 }
 
+                /**
+                 * Update User Billing Info if empty
+                 *
+                 * @since 1.0
+                 * @author dungdt
+                 */
+                if($customer_id) WPBooking_User::inst()->order_update_user($customer_id,$fields);
 
                 $order_id = WPBooking_Session::get('wpbooking_order_id');
                 if(!empty($order_id)){

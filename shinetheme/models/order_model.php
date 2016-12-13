@@ -15,7 +15,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
 
         public function __construct()
         {
-            $this->table_version = '1.0.3';
+            $this->table_version = '1.0.4';
             $this->table_name    = 'wpbooking_order';
             $this->columns = array(
                 'id'                  => array(
@@ -32,8 +32,8 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
                 'tax_total'           => array( 'type' => 'float' ) ,
                 'currency'            => array( 'type' => 'varchar' , 'length' => 255 ) ,
                 'raw_data'            => array( 'type' => 'text' ) ,
-                'check_in_timestamp'  => array( 'type' => 'varchar' , 'length' => 255 ) ,
-                'check_out_timestamp' => array( 'type' => 'varchar' , 'length' => 255 ) ,
+                'check_in_timestamp'  => array( 'type' => 'int' ) ,
+                'check_out_timestamp' => array( 'type' => 'int' ) ,
                 'user_id'             => array( 'type' => 'int' , 'length' => 11 ) ,// Customer ID
                 'author_id'           => array( 'type' => 'int' , 'length' => 11 ) ,// Service's Author ID
                 'deposit'             => array( 'type' => 'text' ) ,
@@ -67,7 +67,10 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
 
             foreach ($columns as $k => $v) {
                 if (in_array($k, array('id', 'post_id'))) continue;
-                $value = get_post_meta($order_id, $k, TRUE);
+
+                if(!empty($cart[$k])) $value=$cart[$k]; // Use data From Cart before query from order meta
+                else $value = get_post_meta($order_id, $k, TRUE);
+
                 if(!empty($value) and is_array($value)){
                     $value = serialize($value);
                 }
