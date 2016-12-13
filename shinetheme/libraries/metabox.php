@@ -562,11 +562,16 @@ if (!class_exists('WPBooking_Metabox')) {
         function wpbooking_save_taxonomy($post_id,$field_id,$field)
         {
             $data=WPBooking_Input::post($field_id);
+            if(!empty($data) && is_numeric($data)){
+                $data_new = array($data);
+            }else{
+                $data_new = $data;
+            }
 
-            if(!empty($data) and is_array($data) and !empty($field['taxonomy'])){
+            if(!empty($data_new) and is_array($data_new) and !empty($field['taxonomy'])){
 
-                $data = array_map( 'intval', $data );
-                wp_set_object_terms( $post_id, $data, $field['taxonomy'] );
+                $data_new = array_map( 'intval', $data_new );
+                wp_set_object_terms( $post_id, $data_new, $field['taxonomy'] );
             }
             update_post_meta($post_id,$field_id,$data);
         }

@@ -1326,9 +1326,9 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             if ($sortby = $this->request('wb_sort_by')) {
                 switch ($sortby) {
                     case "price_asc":
-                        $injection->select("CASE WHEN meta.meta_value='per_person' AND MIN(avail.child_price) < MIN(avail.adult_price) THEN MIN(avail.adult_price)
-			                                WHEN meta.meta_value='per_person' AND MIN(avail.child_price) > MIN(avail.adult_price) THEN MIN(avail.child_price)
-			                                ELSE MIN(avail.calendar_price)
+                        $injection->select("CASE WHEN meta.meta_value='per_person' AND MIN(CAST(avail.child_price as double)) < MIN(CAST(avail.adult_price as double)) THEN MIN(CAST(avail.adult_price as double))
+			                                WHEN meta.meta_value='per_person' AND MIN(CAST(avail.child_price as double)) > MIN(CAST(avail.adult_price as double)) THEN MIN(CAST(avail.child_price as double))
+			                                ELSE MIN(CAST(avail.calendar_price as double))
 			                                END as min_price");
                         $injection->join('postmeta as meta',"meta.post_id={$wpdb->posts}.ID AND meta.meta_key='pricing_type'");
                         $injection->join('wpbooking_availability as avail',"avail.post_id = {$wpdb->posts}.ID");
@@ -1336,9 +1336,9 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
 
                         break;
                     case "price_desc":
-                        $injection->select("CASE WHEN meta.meta_value='per_person' AND MIN(avail.child_price) < MIN(avail.adult_price) THEN MIN(avail.adult_price)
-			                                WHEN meta.meta_value='per_person' AND MIN(avail.child_price) > MIN(avail.adult_price) THEN MIN(avail.child_price)
-			                                ELSE MIN(avail.calendar_price)
+                        $injection->select("CASE WHEN meta.meta_value='per_person' AND MIN(CAST(avail.child_price as double)) < MIN(CAST(avail.adult_price as double)) THEN MIN(CAST(avail.adult_price as double))
+			                                WHEN meta.meta_value='per_person' AND MIN(CAST(avail.child_price as double)) > MIN(CAST(avail.adult_price as double)) THEN MIN(CAST(avail.child_price as double))
+			                                ELSE MIN(CAST(avail.calendar_price as double))
 			                                END as min_price");
                         $injection->join('postmeta as meta',"meta.post_id={$wpdb->posts}.ID AND meta.meta_key='pricing_type'");
                         $injection->join('wpbooking_availability as avail',"avail.post_id = {$wpdb->posts}.ID");

@@ -28,6 +28,7 @@ if(!empty($data['taxonomy'])){
 			$data['value'][$term->term_id]=$term->name;
 		}
 	}
+    $field .= '<input type="hidden" name="is_tax" value="'.$name.'">';
 }
 
 if( !empty( $data['value'] ) && is_array( $data['value'] ) ){
