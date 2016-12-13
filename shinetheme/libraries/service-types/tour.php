@@ -922,15 +922,17 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
          */
         public function get_search_fields()
         {
-            $taxonomy = get_object_taxonomies('wpbooking_service', 'array');
-            $list_taxonomy = array();
-            if (!empty($taxonomy)) {
-                foreach ($taxonomy as $k => $v) {
-                    if ($k == 'wpbooking_location') continue;
-                    if ($k == 'wpbooking_extra_service') continue;
-                    $list_taxonomy[$k] = $v->label;
+            $wpbooking_taxonomy = get_option('wpbooking_taxonomies');
+
+            $list_taxonomy = array('wb_tour_type' => esc_html__('Tour type','wpbooking'));
+            if(!empty($wpbooking_taxonomy) && is_array($wpbooking_taxonomy)){
+                foreach($wpbooking_taxonomy as $key => $val){
+                    if(!empty($val['service_type']) && in_array('tour',$val['service_type'])){
+                        $list_taxonomy[$key] = $val['label'];
+                    }
                 }
             }
+
 
             $search_fields = apply_filters('wpbooking_search_field_' . $this->type_id, array(
                 array(

@@ -1785,12 +1785,21 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         public function get_search_fields()
         {
             $taxonomy = get_object_taxonomies('wpbooking_service', 'array');
+            $wpbooking_taxonomy = get_option('wpbooking_taxonomies');
             $list_taxonomy = array();
             if (!empty($taxonomy)) {
                 foreach ($taxonomy as $k => $v) {
                     if ($k == 'wpbooking_location') continue;
                     if ($k == 'wpbooking_extra_service') continue;
-                    $list_taxonomy[$k] = $v->label;
+                    if ($k == 'wb_review_stats') continue;
+                    if ($k == 'wb_tour_type') continue;
+                    if(key_exists($k, $wpbooking_taxonomy)){
+                        if(!empty($wpbooking_taxonomy[$k]['service_type']) && in_array('accommodation', $wpbooking_taxonomy[$k]['service_type'])){
+                            $list_taxonomy[$k] = $v->label;
+                        }
+                    }else{
+                        $list_taxonomy[$k] = $v->label;
+                    }
                 }
             }
 

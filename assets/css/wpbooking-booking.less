@@ -6971,6 +6971,63 @@ body{
     }
 
     .wb-tour-booking-form{
+      border: 1px solid #ddd;
+      margin-bottom: 30px;
+      .wb-price-html{
+        text-align: left;
+        padding: 10px 15px !important;
+        border-bottom: 1px solid #ddd;
+      }
+      .wb-tour-form-wrap{
+        padding: 20px 15px;
+        font-size: 14px;
+        background: #fafafa;
+        .form-control{
+          margin-bottom: 5px;
+          select.form-control{
+            width: 100%;
+            background: #fff;
+            padding: 5px;
+            font-size: 14px;
+            color: #777;
+            border: 1px solid #dfdfdf;
+          }
+
+        }
+        .departure-date-control{
+          i.fa{
+            width: 25px;
+            font-size: 17px;
+          }
+          select{
+            background: #fff;
+            padding: 5px;
+            font-size: 14px;
+            color: #777;
+            border: 1px solid #dfdfdf;
+          }
+          select.wb-departure-date{
+            width: 60px;
+            margin-right: 10px;
+          }
+          select.wb-departure-month{
+            width: ~"calc(100% - 105px)";
+          }
+        }
+        .controls{
+          margin-top: 7px;
+        }
+        .wb-button.wb-order-button{
+          margin-top: 10px;
+          text-transform: uppercase;
+          background: #f0ad4e;
+          border: 1px solid #f0ad4e;
+          font-size: 14px;
+          color: white;
+          padding: 8px 35px;
+          font-weight: normal;
+        }
+      }
         .wb-order-button{
             .fa{
                 display: none;
@@ -6984,4 +7041,33 @@ body{
             }
         }
     }
+  .wb-tour-meta{
+    margin-top: 30px;
+    .list-meta{
+      display: inline-flex;
+      list-style: none;
+      width: 100%;
+      background: #fafafa;
+      margin-bottom: 0;
+      border: 1px solid #ddd;
+      margin-left: 0 !important;
+      li{
+        &.tour_type{
+          width: 28%;
+        }
+        &.max_people{
+          width: 30%;
+        }
+        &.duration{
+          width: 42%;
+        }
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+  }
+  .wb-service-reviews-meta{
+    padding-top: 0 !important;
+    margin-top: -24px;
+  }
 }

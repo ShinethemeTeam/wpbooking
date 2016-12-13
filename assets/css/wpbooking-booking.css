@@ -7039,9 +7039,94 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
   width: auto;
   float: none;
 }
+.service-type-tour .wb-tour-booking-form {
+  border: 1px solid #ddd;
+  margin-bottom: 30px;
+}
+.service-type-tour .wb-tour-booking-form .wb-price-html {
+  text-align: left;
+  padding: 10px 15px !important;
+  border-bottom: 1px solid #ddd;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap {
+  padding: 20px 15px;
+  font-size: 14px;
+  background: #fafafa;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .form-control {
+  margin-bottom: 5px;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .form-control select.form-control {
+  width: 100%;
+  background: #fff;
+  padding: 5px;
+  font-size: 14px;
+  color: #777;
+  border: 1px solid #dfdfdf;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .departure-date-control i.fa {
+  width: 25px;
+  font-size: 17px;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .departure-date-control select {
+  background: #fff;
+  padding: 5px;
+  font-size: 14px;
+  color: #777;
+  border: 1px solid #dfdfdf;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .departure-date-control select.wb-departure-date {
+  width: 60px;
+  margin-right: 10px;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .departure-date-control select.wb-departure-month {
+  width: calc(100% - 105px);
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .controls {
+  margin-top: 7px;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .wb-button.wb-order-button {
+  margin-top: 10px;
+  text-transform: uppercase;
+  background: #f0ad4e;
+  border: 1px solid #f0ad4e;
+  font-size: 14px;
+  color: white;
+  padding: 8px 35px;
+  font-weight: normal;
+}
 .service-type-tour .wb-tour-booking-form .wb-order-button .fa {
   display: none;
 }
 .service-type-tour .wb-tour-booking-form.loading .wb-order-button .fa {
   display: inline-block;
+}
+.service-type-tour .wb-tour-meta {
+  margin-top: 30px;
+}
+.service-type-tour .wb-tour-meta .list-meta {
+  display: inline-flex;
+  list-style: none;
+  width: 100%;
+  background: #fafafa;
+  margin-bottom: 0;
+  border: 1px solid #ddd;
+  margin-left: 0 !important;
+}
+.service-type-tour .wb-tour-meta .list-meta li {
+  font-size: 14px;
+  padding: 10px;
+}
+.service-type-tour .wb-tour-meta .list-meta li.tour_type {
+  width: 28%;
+}
+.service-type-tour .wb-tour-meta .list-meta li.max_people {
+  width: 30%;
+}
+.service-type-tour .wb-tour-meta .list-meta li.duration {
+  width: 42%;
+}
+.service-type-tour .wb-service-reviews-meta {
+  padding-top: 0 !important;
+  margin-top: -24px;
 }

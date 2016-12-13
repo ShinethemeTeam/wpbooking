@@ -111,6 +111,24 @@ $age_options=$service->get_meta('age_options');
                     <?php } ?>
                 </div>
             </div>
+            <div class="wb-tour-meta">
+                <?php
+                $tour_type = get_post_meta(get_the_ID(), 'tour_type', true);
+                $tax_tour_type = get_term_by('id', (int)$tour_type, 'wb_tour_type');
+                ?>
+                <ul class="list-meta">
+                    <?php if(!empty($tax_tour_type->name)){ ?>
+                    <li class="tour_type"><i class="fa fa-flag"></i> <?php echo esc_attr($tax_tour_type->name); ?></li>
+                    <?php }
+                    if($duration = get_post_meta(get_the_ID(),'duration', true)){
+                        echo '<li class="duration"><i class="fa fa-clock-o"></i> '.esc_html__('Duration: ','wpbooking').$duration.'</li>';
+                    }
+                    if($max_people = get_post_meta(get_the_ID(), 'max_guests',true)){
+                        echo '<li class="max_people"><i class="fa fa-users"></i> '.esc_html__('Max: ','wpbooking').$max_people.esc_html__(' people','wpbooking').' </li>';
+                    }
+                    ?>
+                </ul>
+            </div>
         </div>
         <div class="col-service-reviews-meta">
             <div class="wb-service-reviews-meta">
@@ -243,7 +261,174 @@ $age_options=$service->get_meta('age_options');
         </div>
     </div>
     <?php do_action('wpbooking_after_service_description') ?>
+    <div class="service-content-section">
+        <h5 class="service-info-title"><?php esc_html_e('Payment Policies', 'wpbooing') ?></h5>
 
+        <div class="service-details">
+            <?php
+            $array = array(
+                'deposit_payment_status' => '',
+                'deposit_payment_amount' => wp_kses(__('Deposit: %s &nbsp;&nbsp;<span class="enforced_red">required</span>','wpbooking'),array('span'=>array('class'=>array()))),
+                'allow_cancel' => esc_html__('Cancellation allowed: Yes','wpbboking'),
+                'cancel_free_days_prior' => esc_html__('Time allowed to free: %s','wpbooking'),
+                'cancel_guest_payment' => esc_html__('Fee cancel booking: %s','wpbooking'),
+            );
+            $cancel_guest_payment = array(
+                'first_night' => esc_html__('100% of the first night','wpbooking'),
+                'full_stay' => esc_html__('100% of the full stay','wpbooking'),
+            );
+
+            $deposit_html = array();
+            $allow_deposit = '';
+            foreach ($array as $key => $val) {
+                $meta = get_post_meta(get_the_ID(), $key, TRUE);
+                if($key == 'deposit_payment_status'){
+                    $allow_deposit = $meta;
+                    continue;
+                }
+                if (!empty($meta)) {
+                    if($key == 'deposit_payment_amount') {
+                        if(empty($allow_deposit)) {
+                            $deposit_html[] = '';
+                        }elseif($allow_deposit == 'amount'){
+                            $deposit_html[] = sprintf($val, WPBooking_Currency::format_money($meta));
+                        }else{
+                            $deposit_html[] = sprintf($val, $meta.'%');
+                        }
+                        continue;
+                    }
+                    if($key == 'cancel_guest_payment'){
+                        $deposit_html[] = sprintf($val, $cancel_guest_payment[$meta]);
+                        continue;
+                    }
+                    if($key == 'cancel_free_days_prior'){
+                        if($meta == 'day_of_arrival')
+                            $deposit_html[] = sprintf($val, esc_html__('Day of arrival (6 pm)','wpbooking'));
+                        else
+                            $deposit_html[] = sprintf($val, $meta.esc_html__(' day','wpbooking'));
+
+                        continue;
+                    }
+
+                }
+                if($key == 'allow_cancel'){
+                    $deposit_html[] = $val;
+                    continue;
+                }
+            }
+
+            if (!empty($deposit_html)) {
+                ?>
+                <div class="service-detail-item">
+                    <div class="service-detail-title"><?php esc_html_e('Prepayment / Cancellation', 'wpbooking') ?></div>
+                    <div class="service-detail-content">
+                        <?php
+                        foreach($deposit_html as $value){
+                            if(!empty($value)) echo ($value).'<br>';
+                        }
+                        ?>
+                    </div>
+                </div>
+            <?php } ?>
+
+
+            <?php
+            $tax_html=array();
+            $array = array(
+                'vat_excluded'          => '',
+                'vat_unit'          => '',
+                'vat_amount' => esc_html__('V.A.T: %s &nbsp;&nbsp;'),
+                'citytax_excluded' => '',
+                'citytax_unit' => '',
+                'citytax_amount' => esc_html__('City tax: %s'),
+            );
+            $citytax_unit = array(
+                'stay' => esc_html__(' /stay','wpbooking'),
+                'person_per_stay' => esc_html__(' /person per stay','wpbooking'),
+                'night' => esc_html__(' /night','wpbooking'),
+                'percent' => esc_html__('%','wpbooking'),
+                'person_per_night' => esc_html__(' /person per night','wpbooking'),
+            );
+            $vat_excluded = '';
+            $citytax_excluded = '';
+            $ct_unit= '';
+            foreach ($array as $key => $val) {
+                $value = get_post_meta(get_the_ID(), $key, TRUE);
+                if (!empty($value)) {
+                    switch($key){
+                        case 'vat_excluded':
+                            $vat_excluded = $value;
+                            break;
+                        case 'vat_unit':
+                            $ct_unit = $value;
+                            break;
+                        case 'vat_amount':
+                            $amount = '';
+                            if(!empty($ct_unit)) {
+                                if ($ct_unit == 'percent') {
+                                    $amount = $value.'%';
+                                } else {
+                                    $amount = WPBooking_Currency::format_money($value);
+                                }
+                            }
+
+                            if($vat_excluded == 'yes_included'){
+                                $tax_html[] = sprintf($val, $amount.' &nbsp;&nbsp;'.wp_kses(__('<span class="enforced_red">included</span>','wpbooking'),array('span' => array('class' => array()))));
+                            }elseif($vat_excluded != 'no'){
+                                $tax_html[] = sprintf($val, $amount);
+                            }
+                            break;
+                        case 'citytax_excluded':
+                            $citytax_excluded = $value;
+                            break;
+                        case 'citytax_unit':
+                            $ct_unit = $value;
+                            break;
+                        case 'citytax_amount':
+                            if(!empty($ct_unit)) {
+                                if ($ct_unit == 'percent') {
+                                    $str_citytax = sprintf($val, $value) . $citytax_unit[$ct_unit];
+                                } else {
+                                    $str_citytax = sprintf($val, WPBooking_Currency::format_money($value)) . $citytax_unit[$ct_unit];
+                                }
+                            }
+                            if($citytax_excluded != 'no') {
+                                if ($citytax_excluded == 'yes_included') {
+                                    $tax_html[] = $str_citytax . '&nbsp;&nbsp; <span class="enforced_red">' . esc_html__('included', 'wpbooking') . '</span>';
+                                } else {
+                                    $tax_html[] = $str_citytax;
+                                }
+                            }
+                            break;
+                    }
+                }
+            }
+
+            if(!empty($tax_html)){
+                ?>
+                <div class="service-detail-item">
+                    <div
+                        class="service-detail-title"><?php esc_html_e('Tax', 'wpbooking') ?></div>
+                    <div class="service-detail-content">
+                        <?php foreach($tax_html as $value){
+                            echo ($value).'<br>';
+                        }?>
+                    </div>
+                </div>
+            <?php }  ?>
+
+            <?php
+            if ($terms_conditions = get_post_meta(get_the_ID(),'terms_conditions',true)) { ?>
+                <div class="service-detail-item">
+                    <div class="service-detail-title"><?php esc_html_e('Term & Condition', 'wpbooking') ?></div>
+                    <div class="service-detail-content">
+                        <?php echo ($terms_conditions); ?>
+                    </div>
+                </div>
+            <?php } ?>
+
+        </div>
+    </div>
     <div class="service-content-section comment-section">
         <?php
         if (comments_open(get_the_ID()) || get_comments_number()) :
