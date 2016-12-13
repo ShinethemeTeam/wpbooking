@@ -1887,7 +1887,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          * @author
          *
          * @param $base_price
-         * @param $post_id
+         * @param $hotel_id
          * @param $service_type
          * @return mixed
          */
@@ -2217,15 +2217,15 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             $is_validated = FALSE;
                             // If there are some day not available, return the message
                             if (!empty($res['can_not_check_in'])) {
-                                wpbooking_set_message(sprintf("You can not check-in at: %s", 'wpbooking'), date(get_option('date_format'), $check_in_timestamp),'error');
+                                wpbooking_set_message(sprintf(esc_html__("You can not check-in at: %s", 'wpbooking'), date_i18n(get_option('date_format'), $check_in_timestamp)),'error');
                             }
                             if (!empty($res['can_not_check_out'])) {
-                                wpbooking_set_message(sprintf("You can not check-out at: %s", 'wpbooking'), date(get_option('date_format'), $check_out_timestamp),'error');
+                                wpbooking_set_message(sprintf(esc_html__("You can not check-out at: %s", 'wpbooking'), date_i18n(get_option('date_format'), $check_out_timestamp)),'error');
                             }
                             if (!empty($res['unavailable_dates'])) {
-                                $message = esc_html__('You can not book "%s" on: %s', 'wpbooking','error');
+                                $message = esc_html__('You can not book "%s" on: %s', 'wpbooking');
                                 $not_avai_string = FALSE;
-                                $not_avai_string .= date(get_option('date_format'), $res['unavailable_dates']);
+                                $not_avai_string .= date_i18n(get_option('date_format'), $res['unavailable_dates']);
                                 wpbooking_set_message(sprintf($message, get_the_title($room_id) , $not_avai_string), 'error');
                             }
 
