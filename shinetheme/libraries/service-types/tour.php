@@ -663,13 +663,15 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'desc'  => esc_html__('The contact phone', 'wpbooking'),
                             'type'  => 'text',
                             'class' => 'small',
+                            'rules'=>'required'
                         ),
                         array(
                             'label'       => __('Contact Email', 'wpbooking'),
                             'id'          => 'contact_email',
                             'type'        => 'text',
                             'placeholder' => esc_html__('Example@domain.com', 'wpbooking'),
-                            'class'       => 'small'
+                            'class'       => 'small',
+                            'rules'=>'required|valid_email'
                         ),
                         array(
                             'label'       => __('Website', 'wpbooking'),
