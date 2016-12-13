@@ -37,7 +37,7 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
 							'name'            => 'location_id',
                             'orderby'         => 'name',
                             'order'           => 'ASC',
-							'selected'        => get_post_meta(get_the_ID(), 'location_id', TRUE),
+							'selected'        => get_post_meta($post_id, 'location_id', TRUE),
 							'hide_empty'      => FALSE,
 							'hierarchical'    => 1
 						)) ?>
@@ -46,20 +46,20 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
 					<div class="wpbooking-col-sm-12">
 						<input type="text" name="zip_code"
 							   placeholder="<?php esc_html_e('Zip/Postcode', 'wpbooking') ?>"
-							   value="<?php echo get_post_meta(get_the_ID(), 'zip_code', TRUE) ?>"
+							   value="<?php echo get_post_meta($post_id, 'zip_code', TRUE) ?>"
 							   class="widefat form-control">
 						<p class="help-block"><?php esc_html_e('Zip/ postcode','wpbooking') ?></p>
 					</div>
 					<div class="wpbooking-col-sm-12">
 						<input type="text" name="address" placeholder="<?php esc_html_e('Address', 'wpbooking') ?>"
-							   value="<?php echo get_post_meta(get_the_ID(), 'address', TRUE) ?>"
+							   value="<?php echo get_post_meta($post_id, 'address', TRUE) ?>"
 							   class="widefat form-control">
 						<p class="help-block"><?php esc_html_e('Address neighborhood, organization and clusters','wpbooking') ?></p>
 					</div>
 					<?php if(empty($data['exclude']) or !in_array('apt_unit',$data['exclude'])){?>
 					<div class="wpbooking-col-sm-12">
 						<input type="text" name="apt_unit" placeholder="<?php esc_html_e('Apt/Unit #', 'wpbooking') ?>"
-							   value="<?php echo get_post_meta(get_the_ID(), 'apt_unit', TRUE) ?>"
+							   value="<?php echo get_post_meta($post_id, 'apt_unit', TRUE) ?>"
 							   class="widefat form-control">
 						<p class="help-block"><?php esc_html_e('House number, floor, building','wpbooking') ?></p>
 					</div>

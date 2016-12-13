@@ -198,7 +198,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                 $raw_data=json_decode($order_data['raw_data'],true);
                 if($raw_data){
                     $raw_data['price']=0;
-                    $this->show_review_tour_info($raw_data);
+                    $this->show_review_tour_info($raw_data,false);
                 }
             }
         }
@@ -216,7 +216,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                 $raw_data=json_decode($order_data['raw_data'],true);
                 if($raw_data){
                     $raw_data['price']=0;
-                    $this->show_review_tour_info($raw_data);
+                    $this->show_review_tour_info($raw_data,false);
                 }
             }
         }
@@ -225,7 +225,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
          * To show Tour More information
          * @param $cart
          */
-        protected function show_review_tour_info($cart){
+        protected function show_review_tour_info($cart,$is_checkout=true){
 
             // Price
             if(!empty($cart['price'])){
@@ -271,8 +271,18 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                 }
                 printf('<div class="from-detail"><span class="head-item">%s:</span> <span class="from-detail-duration">%s</span></div>',esc_html__('From','wpbooking'),$from_detail);
             }
-
             switch ($cart['pricing_type']) {
+                case "per_unit":
+                    if (!empty($cart['adult_number'])) {
+                        printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d</span></div>', esc_html__('Adult(s)', 'wpbooking'), $cart['adult_number']);
+                    }
+                    if (!empty($cart['children_number'])) {
+                        printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d</span></div>', esc_html__('Children', 'wpbooking'), $cart['children_number']);
+                    }
+                    if (!empty($cart['infant_number'])) {
+                        printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d</span></div>', esc_html__('Infant(s)', 'wpbooking'), $cart['infant_number']);
+                    }
+                    break;
                 case "per_person":
                 default:
                     if (!empty($cart['calendar'])) {
@@ -282,16 +292,25 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'infant_price' => ''
                         ));
                         if (!empty($cart['adult_number'])) {
-                            printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__('Adult', 'wpbooking'), $cart['adult_number'], WPBooking_Currency::format_money($calendar['adult_price']), WPBooking_Currency::format_money($calendar['adult_price'] * $cart['adult_number']));
+                            printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__('Adult(s)', 'wpbooking'), $cart['adult_number'], WPBooking_Currency::format_money($calendar['adult_price']), WPBooking_Currency::format_money($calendar['adult_price'] * $cart['adult_number']));
                         }
                         if (!empty($cart['children_number'])) {
                             printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__('Children', 'wpbooking'), $cart['children_number'], WPBooking_Currency::format_money($calendar['child_price']), WPBooking_Currency::format_money($calendar['child_price'] * $cart['children_number']));
                         }
                         if (!empty($cart['infant_number'])) {
-                            printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__('Infant', 'wpbooking'), $cart['infant_number'], WPBooking_Currency::format_money($calendar['infant_price']), WPBooking_Currency::format_money($calendar['infant_price'] * $cart['infant_number']));
+                            printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__('Infant(s)', 'wpbooking'), $cart['infant_number'], WPBooking_Currency::format_money($calendar['infant_price']), WPBooking_Currency::format_money($calendar['infant_price'] * $cart['infant_number']));
                         }
                     }
                     break;
+            }
+
+            if($is_checkout){
+                $url_change_date = add_query_arg(array(
+                    'start_date'  =>$cart['check_in_timestamp'],
+                ), get_permalink($cart['post_id']));
+                ?>
+                <small><a href="<?php echo esc_url($url_change_date) ?>"><?php esc_html_e("Change Date","wpbooking") ?></a></small>
+                <?php
             }
         }
 
@@ -355,7 +374,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             switch ($service->get_meta('pricing_type')) {
                 case "per_unit":
                     $query = $calendar->select($wpdb->prefix . 'wpbooking_availability.id,
-	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price')
+	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_minimum,calendar_maximum,(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price')
                         ->join('wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id")
                         ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
                         ->where(array(
@@ -383,9 +402,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                                 wpbooking_set_message(sprintf(esc_html__('This tour only remain availability for %d people', 'wpbooking'), $query['max_guests'] - $query['total_people_booked']), 'error');
                             }
                             // Check Max, Min
-                            $min = $query['calendar_minimum'];
-                            $max = $query['calendar_maximum'];
-
+                            $min = (int)$query['calendar_minimum'];
+                            $max = (int)$query['calendar_maximum'];
                             if ($min <= $max) {
                                 if ($min) {
                                     if ($total_people < $min) {
@@ -654,13 +672,15 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'desc'  => esc_html__('The contact phone', 'wpbooking'),
                             'type'  => 'text',
                             'class' => 'small',
+                            'rules'=>'required'
                         ),
                         array(
                             'label'       => __('Contact Email', 'wpbooking'),
                             'id'          => 'contact_email',
                             'type'        => 'text',
                             'placeholder' => esc_html__('Example@domain.com', 'wpbooking'),
-                            'class'       => 'small'
+                            'class'       => 'small',
+                            'rules'=>'required|valid_email'
                         ),
                         array(
                             'label'       => __('Website', 'wpbooking'),
@@ -1045,6 +1065,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'end <='                                         => $end,
                         ))
                         ->groupby($wpdb->prefix . 'wpbooking_availability.id')
+                        ->orderby($wpdb->prefix . 'wpbooking_availability.start')
                         ->having(' total_people_booked IS NULL OR total_people_booked < max_guests')
                         ->get()->result();
                     $calendar->_clear_query();
@@ -1066,6 +1087,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         ))
                         ->where("({$wpdb->prefix}wpbooking_availability.adult_price > 0 or {$wpdb->prefix}wpbooking_availability.child_price>0 or {$wpdb->prefix}wpbooking_availability.infant_price>0)", false, true)
                         ->groupby($wpdb->prefix . 'wpbooking_availability.id')
+                        ->orderby($wpdb->prefix . 'wpbooking_availability.start')
                         ->having(' total_people_booked IS NULL OR total_people_booked < max_guests')
                         ->get()->result();
                 default:

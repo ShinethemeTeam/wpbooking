@@ -68,10 +68,9 @@ jQuery(document).ready(function($) {
                         }
                     },
                     dayClick: function (element, source) {
-
                         if(source){
                            var start=moment(source.start);
-                           var end=moment(source.end);
+                           var end=moment(source.start);
                            setCheckInOut(start.format('MM/DD/YYYY'),end.format('MM/DD/YYYY'), self.form_container);
 
                            $('#calendar-price').val(source.price);

@@ -157,8 +157,10 @@ $age_options=$service->get_meta('age_options');
                                                             ));
                                                             $calendar_price=$day['calendar_price']?$day['calendar_price']:$day['adult_price'];
                                                             if(!$calendar_price)  $calendar_price=$day['child_price']?$day['child_price']:$day['infant_price'];
+                                                            $selected=false;
+                                                            if(!empty($_GET['start_date']) and $_GET['start_date']==$day['start']) $selected='selected';
 
-                                                            printf('<option value="%s" class="%s" data-price="%s">%s</option>',$day['start'],$key,esc_attr(WPBooking_Currency::format_money($calendar_price)),date('d',$day['start']));
+                                                            printf('<option value="%s" class="%s" data-price="%s" %s>%s</option>',$day['start'],$key,esc_attr(WPBooking_Currency::format_money($calendar_price)),$selected,date('d',$day['start']));
                                                         }
                                                     }
                                                 }

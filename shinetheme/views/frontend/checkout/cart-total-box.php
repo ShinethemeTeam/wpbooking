@@ -9,7 +9,7 @@ $service_type = $cart['service_type'];
         <?php do_action('wpbooking_check_total_item_information_'.$service_type,$cart) ?>
         <?php
         $tax = $booking->get_cart_tax_price();
-        if (!empty($tax['vat']['excluded']) and $tax['vat']['excluded'] != 'no') {
+        if (!empty($tax['vat']['excluded']) and $tax['vat']['excluded'] != 'no' and $tax['vat']['price']) {
             $vat_amount = $tax['vat']['amount']."% ";
             $unit = $tax['vat']['unit'];
             if($unit == 'fixed') $vat_amount = '';
@@ -19,7 +19,7 @@ $service_type = $cart['service_type'];
 				</span>
             <span class="total-amount"><?php echo WPBooking_Currency::format_money($tax['vat']['price']); ?></span>
         <?php } ?>
-        <?php if (!empty($tax['citytax']['excluded']) and $tax['citytax']['excluded'] != 'no') {
+        <?php if (!empty($tax['citytax']['excluded']) and $tax['citytax']['excluded'] != 'no' and $tax['citytax']['price']) {
             ?>
             <span class="total-title">
 					<?php  esc_html_e("City Tax",'wpbookng'); ?>
