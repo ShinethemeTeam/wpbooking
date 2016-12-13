@@ -1251,6 +1251,10 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             $injection = WPBooking_Query_Inject::inst();
             $tax_query = $injection->get_arg('tax_query');
 
+            $posts_per_page = $this->get_option('posts_per_page',10);
+
+            $injection->add_arg('posts_per_page', $posts_per_page);
+
             // Taxonomy
             $tax = $this->request('taxonomy');
             if (!empty($tax) and is_array($tax)) {

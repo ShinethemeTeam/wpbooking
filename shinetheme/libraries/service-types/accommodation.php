@@ -1353,6 +1353,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $tax_query = $injection->get_arg('tax_query');
             $rate_calculate = FALSE;
 
+            //posts per page
+            $posts_per_page = $this->get_option('posts_per_page',10);
+            $injection->add_arg('posts_per_page', $posts_per_page);
+
             // Taxonomy
             $tax = $this->request('taxonomy');
             if (!empty($tax) and is_array($tax)) {
