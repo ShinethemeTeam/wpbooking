@@ -198,7 +198,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                 $raw_data=json_decode($order_data['raw_data'],true);
                 if($raw_data){
                     $raw_data['price']=0;
-                    $this->show_review_tour_info($raw_data);
+                    $this->show_review_tour_info($raw_data,false);
                 }
             }
         }
@@ -216,7 +216,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                 $raw_data=json_decode($order_data['raw_data'],true);
                 if($raw_data){
                     $raw_data['price']=0;
-                    $this->show_review_tour_info($raw_data);
+                    $this->show_review_tour_info($raw_data,false);
                 }
             }
         }
@@ -225,7 +225,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
          * To show Tour More information
          * @param $cart
          */
-        protected function show_review_tour_info($cart){
+        protected function show_review_tour_info($cart,$is_checkout=true){
 
             // Price
             if(!empty($cart['price'])){
@@ -302,6 +302,15 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         }
                     }
                     break;
+            }
+
+            if($is_checkout){
+                $url_change_date = add_query_arg(array(
+                    'start_date'  =>$cart['check_in_timestamp'],
+                ), get_permalink($cart['post_id']));
+                ?>
+                <small><a href="<?php echo esc_url($url_change_date) ?>"><?php esc_html_e("Change Date","wpbooking") ?></a></small>
+                <?php
             }
         }
 
