@@ -272,7 +272,19 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                 printf('<div class="from-detail"><span class="head-item">%s:</span> <span class="from-detail-duration">%s</span></div>',esc_html__('From','wpbooking'),$from_detail);
             }
             switch ($cart['pricing_type']) {
+                case "per_unit":
+                    if (!empty($cart['adult_number'])) {
+                        printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d</span></div>', esc_html__('Adult(s)', 'wpbooking'), $cart['adult_number']);
+                    }
+                    if (!empty($cart['children_number'])) {
+                        printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d</span></div>', esc_html__('Children', 'wpbooking'), $cart['children_number']);
+                    }
+                    if (!empty($cart['infant_number'])) {
+                        printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d</span></div>', esc_html__('Infant(s)', 'wpbooking'), $cart['infant_number']);
+                    }
+                    break;
                 case "per_person":
+                default:
                     if (!empty($cart['calendar'])) {
                         $calendar = wp_parse_args($cart['calendar'], array(
                             'adult_price'  => '',
@@ -280,13 +292,13 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'infant_price' => ''
                         ));
                         if (!empty($cart['adult_number'])) {
-                            printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__('Adult', 'wpbooking'), $cart['adult_number'], WPBooking_Currency::format_money($calendar['adult_price']), WPBooking_Currency::format_money($calendar['adult_price'] * $cart['adult_number']));
+                            printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__('Adult(s)', 'wpbooking'), $cart['adult_number'], WPBooking_Currency::format_money($calendar['adult_price']), WPBooking_Currency::format_money($calendar['adult_price'] * $cart['adult_number']));
                         }
                         if (!empty($cart['children_number'])) {
                             printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__('Children', 'wpbooking'), $cart['children_number'], WPBooking_Currency::format_money($calendar['child_price']), WPBooking_Currency::format_money($calendar['child_price'] * $cart['children_number']));
                         }
                         if (!empty($cart['infant_number'])) {
-                            printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__('Infant', 'wpbooking'), $cart['infant_number'], WPBooking_Currency::format_money($calendar['infant_price']), WPBooking_Currency::format_money($calendar['infant_price'] * $cart['infant_number']));
+                            printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__('Infant(s)', 'wpbooking'), $cart['infant_number'], WPBooking_Currency::format_money($calendar['infant_price']), WPBooking_Currency::format_money($calendar['infant_price'] * $cart['infant_number']));
                         }
                     }
                     break;
