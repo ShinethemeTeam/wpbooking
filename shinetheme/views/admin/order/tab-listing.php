@@ -191,19 +191,25 @@ $query=new WP_Query($args);
                                 ?>
                             </span>
                             <ul class="none wb-booking-detail">
-                                <li><?php echo esc_html__('Rooms: ','wpbooking') ?></li>
                                 <?php
-                                foreach($room_data as $key => $value){
-                                    $extra_fees = unserialize($value['extra_fees']);
-                                    $price = WPBooking_Currency::format_money($value['price']);
-                                    echo '<li class="wb-room-item"><span class="wb-room-name"><strong>'.get_the_title($value['room_id']).' x'.$value['number'].'</strong></span>';
-                                    echo '<span class="wb-room-price">'.$price.'</span>';
+                                if($service_type == 'tour') {
+                                    echo '<li class="wb-room-item"><span class="wb-room-name"><strong></strong></span>';
+                                    echo '<span class="wb-room-price"></span>';
                                     echo '</li>';
-                                    if(!empty($extra_fees['extra_service']['data']) && is_array($extra_fees['extra_service']['data'])){
-                                        foreach($extra_fees['extra_service']['data'] as $k => $v){
-                                            echo '<li class="wb-room-item"><span class="wb-extra-title">'.$v['title'].' x'.$v['quantity'].'</span>';
-                                            echo '<span class="wb-extra-price">'.WPBooking_Currency::format_money($v['price']).'</span>';
-                                            echo '</li>';
+                                }else{
+                                    echo '<li>'.esc_html__('Rooms: ','wpbooking').'</li>';
+                                    foreach ($room_data as $key => $value) {
+                                        $extra_fees = unserialize($value['extra_fees']);
+                                        $price = WPBooking_Currency::format_money($value['price']);
+                                        echo '<li class="wb-room-item"><span class="wb-room-name"><strong>' . get_the_title($value['room_id']) . ' x' . $value['number'] . '</strong></span>';
+                                        echo '<span class="wb-room-price">' . $price . '</span>';
+                                        echo '</li>';
+                                        if (!empty($extra_fees['extra_service']['data']) && is_array($extra_fees['extra_service']['data'])) {
+                                            foreach ($extra_fees['extra_service']['data'] as $k => $v) {
+                                                echo '<li class="wb-room-item"><span class="wb-extra-title">' . $v['title'] . ' x' . $v['quantity'] . '</span>';
+                                                echo '<span class="wb-extra-price">' . WPBooking_Currency::format_money($v['price']) . '</span>';
+                                                echo '</li>';
+                                            }
                                         }
                                     }
                                 }
