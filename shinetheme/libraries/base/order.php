@@ -380,11 +380,11 @@ if (!class_exists('WB_Order')) {
                     switch($status){
                         case "on_hold":
                         case "payment_failed":
-                            return sprintf('<label class="bold text_up on_hold">%s</label>',$all_status[$status]['label']);
+                            return sprintf('<label class="bold text_up %s">%s</label>',$status,$all_status[$status]['label']);
                             break;
                         case "completed_a_part":
                         case "completed":
-                            return sprintf('<label class="bold text_up completed">%s</label>',$all_status[$status]['label']);
+                            return sprintf('<label class="bold text_up %s">%s</label>',$status,$all_status[$status]['label']);
                             break;
                         case "cancelled":
                         case "refunded":
@@ -392,7 +392,7 @@ if (!class_exists('WB_Order')) {
                             break;
 
                         default:
-                            return sprintf('<label class="bold text_up">%s</label>',$all_status[$status]['label']);
+                            return sprintf('<label class="bold text_up %s">%s</label>',$status,$all_status[$status]['label']);
                             break;
                     }
                 }else{

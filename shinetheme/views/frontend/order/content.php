@@ -42,7 +42,7 @@ do_action('wpbooking_before_order_content');
                 </div>
                 <div class="head-info">
                     <span class="head-info-title"><?php  esc_html_e('Booking status:','wpbooking')?></span>
-                    <span class="head-info-content"><?php echo ($order->get_status_html()) ?></span>
+                    <span class="head-info-content booking-status"><?php echo ($order->get_status_html()) ?></span>
                 </div>
             </div>
             <div class="col-md-6">

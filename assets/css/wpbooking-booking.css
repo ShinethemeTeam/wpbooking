@@ -3243,6 +3243,26 @@ a.label:focus {
 .single-wpbooking_order .wpbooking-order-detail-page .order-head-info .text_up {
   text-transform: uppercase;
 }
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .completed {
+  color: #5cb85c;
+  border: solid 1px #5cb85c;
+}
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .booking-status label {
+  padding: 5px 10px;
+  border-radius: 0px;
+}
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .on-hold,
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .completed_a_part {
+  color: #f0ad4e;
+  border: solid 1px #f0ad4e;
+}
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .payment_failed,
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .cancelled,
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .refunded,
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .trash {
+  color: #ff3333;
+  border: solid 1px #ff3333;
+}
 .single-wpbooking_order .wpbooking-order-detail-page .section-title {
   color: #333;
   font-size: 18px;
@@ -7129,4 +7149,8 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
 .service-type-tour .wb-service-reviews-meta {
   padding-top: 0 !important;
   margin-top: -24px;
+}
+.review-order-item-title .change-date {
+  color: #f0ad4e;
+  border: none;
 }
