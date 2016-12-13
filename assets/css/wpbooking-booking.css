@@ -895,6 +895,7 @@ a.label:focus {
   font-weight: normal;
   line-height: normal;
   font-size: 14px;
+  width: 70%;
 }
 .review-order-item .review-order-item-info .review-order-item-title .service-name a {
   border: medium none;
@@ -7058,6 +7059,9 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
 .service-type-tour .wpbooking-single-content .wb-price-html {
   width: auto;
   float: none;
+}
+.service-type-tour .wpbooking-single-content .wb-service-title-address {
+  width: 100%;
 }
 .service-type-tour .wb-tour-booking-form {
   border: 1px solid #ddd;

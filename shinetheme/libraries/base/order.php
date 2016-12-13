@@ -99,6 +99,10 @@ if (!class_exists('WB_Order')) {
             }
         }
 
+        function get_column_row_data(){
+
+        }
+
         /**
          * Get Customer Email that received the booking email
          *
