@@ -1099,7 +1099,6 @@ jQuery(document).ready(function($){
                 return false;
             }
 
-            return false;
         });
 
     // Remove Class Wb-error on input
