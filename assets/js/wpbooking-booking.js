@@ -371,46 +371,48 @@ jQuery(document).ready(function($){
     var has_date_picker=$('.has-date-picker');
     has_date_picker.datepicker()
         .datepicker('widget');
-        //.wrap('<div class="ll-skin-melon"/>');
 
-    $('.wpbooking-date-start').datepicker(
-        {
+
+
+    $('.wpbooking-search-form-wrap').each(function(){
+        var start=$(this).find('.wpbooking-date-start');
+        var end=$(this).find('.wpbooking-date-end');
+        console.log(start);
+        start.datepicker(
+            {
+                minDate:0,
+                onSelect:function(selected) {
+                    var p = $(this).parent();
+                    var check_in = $(this).datepicker( 'getDate' );
+                    p.find('.checkin_d').val(check_in.getDate());
+                    p.find('.checkin_m').val(check_in.getMonth()+1);
+                    p.find('.checkin_y').val(check_in.getFullYear());
+                    end.datepicker("option","minDate", new Date(check_in.getFullYear(),check_in.getMonth(),check_in.getDate()+1))
+                    if(end.length){
+                        window.setTimeout(function(){
+                            end.datepicker('show');
+                        },100);
+                    }
+                    $(this).trigger('change');
+                }
+            });
+
+
+        end.datepicker( {
             minDate:0,
             onSelect:function(selected) {
                 var p = $(this).parent();
-                var check_in = $(this).datepicker( 'getDate' );
-                p.find('.checkin_d').val(check_in.getDate());
-                p.find('.checkin_m').val(check_in.getMonth()+1);
-                p.find('.checkin_y').val(check_in.getFullYear());
-                var form=$(this).closest('form');
-                var date_end=$('.wpbooking-date-end',form);
-                date_end.datepicker("option","minDate", new Date(check_in.getFullYear(),check_in.getMonth(),check_in.getDate()+1))
-                if($('.wpbooking-date-end').length){
-                    window.setTimeout(function(){
-                        $('.wpbooking-date-end').datepicker('show');
-                    },100);
-                }
-                $(this).trigger('change');
+                var check_out = $(this).datepicker( 'getDate' );
+                p.find('.checkout_d').val(check_out.getDate());
+                p.find('.checkout_m').val(check_out.getMonth()+1);
+                p.find('.checkout_y').val(check_out.getFullYear());
+                start.datepicker("option","maxDate", new Date(check_out.getFullYear(),check_out.getMonth(),check_out.getDate()-1));
+                start.trigger('change');
+
             }
-        })
-        .datepicker('widget');//.wrap('<div class="ll-skin-melon"/>');
+        });
+    });
 
-    $('.wpbooking-date-end').datepicker( {
-        minDate:0,
-        onSelect:function(selected) {
-            var p = $(this).parent();
-            var check_out = $(this).datepicker( 'getDate' );
-            p.find('.checkout_d').val(check_out.getDate());
-            p.find('.checkout_m').val(check_out.getMonth()+1);
-            p.find('.checkout_y').val(check_out.getFullYear());
-            var form=$(this).closest('form');
-            var date_start=$('.wpbooking-date-start',form);
-            date_start.datepicker("option","maxDate", new Date(check_out.getFullYear(),check_out.getMonth(),check_out.getDate()-1));
-            date_start.trigger('change');
-
-        }
-    })
-    .datepicker('widget');
     //.wrap('<div class="ll-skin-melon"/>');
 
     $('.wpbooking-select2').select2();
