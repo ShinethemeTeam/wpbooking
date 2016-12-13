@@ -159,6 +159,9 @@ $age_options=$service->get_meta('age_options');
                                                             if(!$calendar_price)  $calendar_price=$day['child_price']?$day['child_price']:$day['infant_price'];
                                                             $selected=false;
                                                             if(!empty($_GET['start_date']) and $_GET['start_date']==$day['start']) $selected='selected';
+                                                            if(!empty($_GET['checkin_d']) and !empty($_GET['checkin_m']) and !empty($_GET['checkin_y'])){
+                                                                if(strtotime($_GET['checkin_d'].'-'.$_GET['checkin_m'].'-'.$_GET['checkin_y'])==$day['start'])$selected='selected';
+                                                            }
 
                                                             printf('<option value="%s" class="%s" data-price="%s" %s>%s</option>',$day['start'],$key,esc_attr(WPBooking_Currency::format_money($calendar_price)),$selected,date('d',$day['start']));
                                                         }
