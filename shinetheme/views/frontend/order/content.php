@@ -42,7 +42,7 @@ do_action('wpbooking_before_order_content');
                 </div>
                 <div class="head-info">
                     <span class="head-info-title"><?php  esc_html_e('Booking status:','wpbooking')?></span>
-                    <span class="head-info-content"><?php echo ($order->get_status_html()) ?></span>
+                    <span class="head-info-content booking-status"><?php echo ($order->get_status_html()) ?></span>
                 </div>
             </div>
             <div class="col-md-6">
@@ -75,6 +75,11 @@ do_action('wpbooking_before_order_content');
                         <h4 class="service-name">
                             <a href="<?php echo get_permalink($order_data['post_id'])?>" target="_blank"><?php echo get_the_title($order_data['post_id'])?></a>
                         </h4>
+                        <div class="wb-hotel-star">
+                            <?php
+                            $service->get_star_rating_html();
+                            ?>
+                        </div>
                         <?php if($address=$service->get_address()){
                             printf('<p class="service-address"><i class="fa fa-map-marker"></i> %s</p>',$address);
                         } ?>

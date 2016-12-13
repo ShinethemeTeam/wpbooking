@@ -309,7 +309,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     'start_date'  =>$cart['check_in_timestamp'],
                 ), get_permalink($cart['post_id']));
                 ?>
-                <small><a href="<?php echo esc_url($url_change_date) ?>"><?php esc_html_e("Change Date","wpbooking") ?></a></small>
+                <small><a href="<?php echo esc_url($url_change_date) ?>" class="change-date"><?php esc_html_e("Change Date","wpbooking") ?></a></small>
                 <?php
             }
         }
