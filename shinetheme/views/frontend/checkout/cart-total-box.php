@@ -2,6 +2,7 @@
 $booking=WPBooking_Checkout_Controller::inst();
 $cart=$booking->get_cart();
 $service_type = $cart['service_type'];
+$cart['price']=$booking->get_cart_total();
 ?>
 <h5 class="checkout-form-title"><?php esc_html_e("Total","wpbooking") ?></h5>
 <div class="review-cart-total">
