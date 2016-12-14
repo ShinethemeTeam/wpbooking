@@ -443,20 +443,26 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
 
 
                         // Check Slot(s) Remain
-                        // Check Max, Min
-                        $min = (int)$query['calendar_minimum'];
-                        $max = (int)$query['calendar_maximum'];
-                        if ($min <= $max) {
-                            if ($min) {
-                                if ($total_people < $min) {
-                                    $is_validated = false;
-                                    wpbooking_set_message(sprintf(esc_html__('Minimum Travelers must be %d', 'wpbooking'), $min), 'error');
+                        // Check Slot(s) Remain
+                        if ($total_people + $query['total_people_booked'] > $query['max_guests']) {
+                            $is_validated = false;
+                            wpbooking_set_message(sprintf(esc_html__('This tour only remain availability for %d people', 'wpbooking'), $query['max_guests'] - $query['total_people_booked']), 'error');
+                        } else {
+                            // Check Max, Min
+                            $min = (int)$query['calendar_minimum'];
+                            $max = (int)$query['calendar_maximum'];
+                            if ($min <= $max) {
+                                if ($min) {
+                                    if ($total_people < $min) {
+                                        $is_validated = false;
+                                        wpbooking_set_message(sprintf(esc_html__('Minimum Travelers must be %d', 'wpbooking'), $min), 'error');
+                                    }
                                 }
-                            }
-                            if ($max) {
-                                if ($total_people > $max) {
-                                    $is_validated = false;
-                                    wpbooking_set_message(sprintf(esc_html__('Maximum Travelers must be %d', 'wpbooking'), $max), 'error');
+                                if ($max) {
+                                    if ($total_people > $max) {
+                                        $is_validated = false;
+                                        wpbooking_set_message(sprintf(esc_html__('Maximum Travelers must be %d', 'wpbooking'), $max), 'error');
+                                    }
                                 }
                             }
                         }
