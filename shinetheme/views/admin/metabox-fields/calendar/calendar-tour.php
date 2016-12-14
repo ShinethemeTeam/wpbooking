@@ -101,7 +101,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                     <td>
                                         <div class="input-group ">
                                             <span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-                                            <input type="number" class="form-control"  value="" name="calendar_adult_price"  >
+                                            <input type="number" class="form-control"  value="0" name="calendar_adult_price"  >
                                         </div>
                                     </td>
                                 </tr>
@@ -113,7 +113,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                     <td>
                                         <div class="input-group ">
                                             <span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-                                            <input type="number" class="form-control"  value="" name="calendar_child_price"  >
+                                            <input type="number" class="form-control"  value="0" name="calendar_child_price"  >
                                         </div>
                                     </td>
                                 </tr>
@@ -125,7 +125,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                     <td>
                                         <div class="input-group ">
                                             <span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-                                            <input type="number" class="form-control"  value="" name="calendar_infant_price"  >
+                                            <input type="number" class="form-control"  value="0" name="calendar_infant_price"  >
                                         </div>
                                     </td>
                                 </tr>

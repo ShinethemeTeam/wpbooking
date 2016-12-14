@@ -138,7 +138,7 @@ do_action('wpbooking_before_order_content');
     <?php do_action('wpbooking_after_order_information_table',$order) ?>
     <div class="order-information-content customer wpbooking-bootstrap">
         <div class="title">
-            <?php esc_html_e("Customer Information:","wpbooking") ?>
+            <?php esc_html_e("Customer Information","wpbooking") ?>
         </div>
         <div class="row">
             <?php

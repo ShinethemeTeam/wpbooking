@@ -160,10 +160,10 @@ if(!class_exists('WPBooking_About')){
             $current_month = strtotime(date('Y-m-1 00:00'));
             $last_month = strtotime('-1 month',$current_month);
 
-            $data['current_month_sale'] = WPBooking_Order_Model::inst()->get_total_sales('',$midnight,$current_date);
-            $data['current_month_earning'] = WPBooking_Order_Model::inst()->get_rp_total_sale('',$midnight,$current_date);
-            $data['today_sale'] = WPBooking_Order_Model::inst()->get_total_sales('',$current_month,$current_date);
-            $data['today_earning'] = WPBooking_Order_Model::inst()->get_rp_total_sale('',$current_month,$current_date);
+            $data['current_month_sale'] = WPBooking_Order_Model::inst()->get_total_sales('',$current_month,$current_date);
+            $data['current_month_earning'] = WPBooking_Order_Model::inst()->get_rp_total_sale('',$current_month,$current_date);
+            $data['today_sale'] = WPBooking_Order_Model::inst()->get_total_sales('',$midnight,$current_date);
+            $data['today_earning'] = WPBooking_Order_Model::inst()->get_rp_total_sale('',$midnight,$current_date);
             $data['last_month_sale'] = WPBooking_Order_Model::inst()->get_total_sales('',$last_month,$current_month);
             $data['last_month_earning'] = WPBooking_Order_Model::inst()->get_rp_total_sale('',$last_month,$current_month);
             $data['total_sale'] = WPBooking_Order_Model::inst()->get_total_sales('','0',$current_date);

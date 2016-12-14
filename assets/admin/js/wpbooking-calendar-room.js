@@ -52,7 +52,7 @@ jQuery(document).ready(function($) {
 
                         if($('.calendar-room2').hasClass('tour')) {
                             if ($('.calendar-room2').hasClass('per_person')) {
-                                if (source.status == 'available' && source.adult_price != undefined && (source.adult_price != 0 || source.infant_price != 0,source.child_price != 0 )) {
+                                if (source.status == 'available' && (source.adult_price != 0 || source.infant_price != 0 || source.child_price != 0 )) {
                                     element.append('<span class="wb-person"> Adult: ' + source.adult_price + '<br>' +
                                         'Child: ' + source.child_price +'<br>Infant: ' + source.infant_price + '</span>');
                                 }
@@ -90,7 +90,7 @@ jQuery(document).ready(function($) {
                                 $('input[name=calendar_price]').val('');
                             }
 
-                            if(source.adult_price && (source.adult_price != 0 || source.child_price != 0 || source.infant_price != 0)) {
+                            if((source.adult_price != 0 || source.child_price != 0 || source.infant_price != 0)) {
                                 $('input[name=calendar_adult_minimum]').val(source.adult_minimum);
                                 $('input[name=calendar_adult_price]').val(source.adult_price);
                                 $('input[name=calendar_child_minimum]').val(source.child_minimum);
@@ -277,9 +277,15 @@ jQuery(document).ready(function($) {
 
                     return false;
                 });
-            }
 
+                $(document).on('click','.wb-save-now-section.reload_calender', function (){
+                    self.calendarObject.refreshCalendar();
+                });
+            }
         };
+
+
+
         this.ajaxSavePropertyAvailableFor=function(val,post_id){
                 $('.overlay', self.container).addClass('open');
                 if(val=='specific_periods'){

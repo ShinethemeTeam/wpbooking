@@ -637,7 +637,7 @@
                                 margin-top: 0px;
                             }
                           @media (min-width: 1200px) {
-                            padding-bottom: 30px;
+                            //padding-bottom: 30px;
                           }
                         }
                         .service-price-book-now{
@@ -861,7 +861,7 @@
         @media(max-width: 480px){
             .review-order-item-img{
                 width: 100%;
-                text-align: center;
+                text-align: left;
                 img{
                     display: inline;
                 }
@@ -877,6 +877,7 @@
             width: ~"calc(100% - 170px)";
           @media (max-width: 480px) {
             width: 100%;
+            text-align: left;
           }
             .service-name{
                 margin:0px;
@@ -7103,6 +7104,9 @@ body{
   .wb-service-reviews-meta{
     padding-top: 0 !important;
     margin-top: -24px;
+    @media (max-width: 1200px){
+      margin-top: 30px;
+    }
   }
 }
 .review-order-item-title{

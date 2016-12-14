@@ -154,7 +154,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
          */
         public function _add_total_box_info($cart){
             if($cart['price']) {
-                echo '<span class="total-title">'.esc_html__('Tour Price:','wpbooking').'</span>
+                echo '<span class="total-title">'.esc_html__('Tour Price','wpbooking').'</span>
                       <span class="total-amount">'.WPBooking_Currency::format_money($cart['price']).'</span>';
 
             }
@@ -837,6 +837,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         array('type' => 'close_section'),
                         array(
                             'type' => 'section_navigation',
+                            'class' => 'reload_calender'
                         ),
                     )
                 ),

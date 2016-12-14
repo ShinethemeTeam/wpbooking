@@ -2281,7 +2281,8 @@ input.gmap-search {
   font-style: italic;
 }
 .form-message.error {
-  color: #A81212;
+  color: red;
+  box-shadow: none;
 }
 .form-message.success {
   color: #72b916;

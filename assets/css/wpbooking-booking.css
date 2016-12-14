@@ -668,9 +668,6 @@ a.label:focus {
   margin-top: 0px;
 }
 @media (min-width: 1200px) {
-  .wpbooking-loop-wrap .wpbooking-loop-items.list .loop-item .content-item .service-content .service-content-inner {
-    padding-bottom: 30px;
-  }
 }
 .wpbooking-loop-wrap .wpbooking-loop-items.list .loop-item .content-item .service-content .service-price-book-now {
   margin-top: 0px;
@@ -875,7 +872,7 @@ a.label:focus {
 @media (max-width: 480px) {
   .review-order-item .review-order-item-info .review-order-item-img {
     width: 100%;
-    text-align: center;
+    text-align: left;
   }
   .review-order-item .review-order-item-info .review-order-item-img img {
     display: inline;
@@ -893,6 +890,7 @@ a.label:focus {
 @media (max-width: 480px) {
   .review-order-item .review-order-item-info .review-order-item-title {
     width: 100%;
+    text-align: left;
   }
 }
 .review-order-item .review-order-item-info .review-order-item-title .service-name {
@@ -7170,6 +7168,11 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
 .service-type-tour .wb-service-reviews-meta {
   padding-top: 0 !important;
   margin-top: -24px;
+}
+@media (max-width: 1200px) {
+  .service-type-tour .wb-service-reviews-meta {
+    margin-top: 30px;
+  }
 }
 .review-order-item-title .change-date {
   color: #f0ad4e;
