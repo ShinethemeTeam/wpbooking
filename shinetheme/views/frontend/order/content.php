@@ -96,7 +96,7 @@ do_action('wpbooking_before_order_content');
                             <?php do_action('wpbooking_order_detail_total_item_information_'.$service_type,$order_data) ?>
                             <?php
                             $tax = unserialize($order_data['tax']);
-                            if (!empty($tax['vat']['excluded']) and $tax['vat']['excluded'] != 'no' and $tax['vat']['price'] > 0) {
+                            if (!empty($tax['vat']['excluded']) and $tax['vat']['excluded'] != 'no' and !empty($tax['vat']['price'])) {
                                 $vat_amount = $tax['vat']['amount']."% ";
                                 $unit = $tax['vat']['unit'];
                                 if($unit == 'fixed') $vat_amount = '';
@@ -106,7 +106,7 @@ do_action('wpbooking_before_order_content');
                                 </span>
                                 <span class="total-amount"><?php echo WPBooking_Currency::format_money($tax['vat']['price']); ?></span>
                             <?php } ?>
-                            <?php if (!empty($tax['citytax']['excluded']) and $tax['citytax']['excluded'] != 'no' and $tax['citytax']['price']) {
+                            <?php if (!empty($tax['citytax']['excluded']) and $tax['citytax']['excluded'] != 'no' and !empty($tax['citytax']['price'])) {
                                 ?>
                                 <span class="total-title">
                                     <?php  esc_html_e("City Tax",'wpbookng'); ?>
