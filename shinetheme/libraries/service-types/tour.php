@@ -513,9 +513,9 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             if(!empty($error_message)){
                                 $is_validated=false;
                                 wpbooking_set_message(sprintf(esc_html__('This tour require at least %s', 'wpbooking'), implode(', ',$error_message)), 'error');
-                            }else{
+                            }elseif(!$total_people){
                                 $is_validated=false;
-                                wpbooking_set_message(esc_html__('This tour require at least 1 people', 'wpbooking'), 'error');
+                                wpbooking_set_message(esc_html__('This tour require at least 1 person', 'wpbooking'), 'error');
                             }
 
                         }
