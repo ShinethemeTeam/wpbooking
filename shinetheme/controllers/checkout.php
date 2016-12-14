@@ -1,15 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 10/18/2016
- * Time: 9:33 AM
- */
 if(!class_exists('WPBooking_Checkout_Controller'))
 {
     class WPBooking_Checkout_Controller extends WPBooking_Controller
     {
         static $_inst;
+
         function __construct()
         {
             if(!session_id())
@@ -87,7 +82,6 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
         }
 
-
         /**
          * Ajax Checkout Handler
          *
@@ -158,17 +152,12 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 $res ['status'] = 0;
                 $res['message'] = wpbooking_get_message(TRUE);
             } else {
-
-
-
                 // Checkout form data
-
                 if (!empty($fields)) {
                     foreach ($fields as $k => $v) {
                         $fields[$k]['value'] = WPBooking_Input::post($k);
                     }
                 }
-
                 // Register User
                 $customer_id = FALSE;
                 if(is_user_logged_in()){
@@ -192,8 +181,6 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                         }
                     }
                 }
-
-
                 $order_id = WPBooking_Session::get('wpbooking_order_id');
                 if(!empty($order_id)){
                     $order=new WB_Order($order_id);
@@ -208,14 +195,10 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                         'status' => 1
                     );
                     $res['status'] = 1;
-
-
                     // Only work with Order Table bellow
                     try {
                         if ($selected_gateway) {
-
                             $data = WPBooking_Payment_Gateways::inst()->do_checkout($selected_gateway, $order_id);
-
                             if (!$data['status']) {
                                 $res = array(
                                     'status'  => 0,
@@ -229,11 +212,10 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                                 $order->complete_purchase();
                             }
                         }
-
                         if ($res['status']) {
-                            // Clear the Order Id after create new order,
+                            //Clear the Order Id after create new order,
                             WPBooking_Session::set('wpbooking_order_id','');
-                            // Clear the Cart after create new order,
+                            //Clear the Cart after create new order,
                             WPBooking_Session::set('wpbooking_cart', array());
 
                             wpbooking_set_message(__('Booking Success', 'wpbooking'));
@@ -241,18 +223,14 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                             $res['data'] = $data;
                             $res['message'] = wpbooking_get_message(TRUE);
                         }
-
-
                     } catch (Exception $e) {
                         wpbooking_set_message($e->getMessage(), 'error');
                         //do checkout
                         $res = array(
                             'status'  => 0,
                             'message' => wpbooking_get_message(TRUE),
-
                         );
                     }
-
                     if (empty($data['redirect'])) {
                         $res['redirect'] = get_permalink($order_id);
                     }
@@ -350,28 +328,19 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $cart_params = apply_filters('wpbooking_cart_item_params', $cart_params, $post_id, $service_type);
             $cart_params = apply_filters('wpbooking_cart_item_params_' . $service_type, $cart_params, $post_id);
 
-
             $is_validate = apply_filters('wpbooking_add_to_cart_validate', $is_validate, $service_type, $post_id,$cart_params);
             $is_validate = apply_filters('wpbooking_add_to_cart_validate_' . $service_type, $is_validate, $service_type, $post_id,$cart_params);
 
-
-            //var_dump($cart_params);
             if (!$is_validate) {
                 $res['status'] = FALSE;
                 $res['message'] = wpbooking_get_message(TRUE);
-
             } else {
-
-
                 WPBooking_Session::set('wpbooking_cart', $cart_params);
-
-               // wpbooking_set_message(sprintf(__('Add to %s success', 'wpbooking'), sprintf('<a href="%s">%s</a>', $this->get_checkout_url(), __('cart', 'wpbooking'))), 'success');
                 $res = array(
                     'status'  => 1,
                     'message' => '',
                     'redirect' => $this->get_checkout_url(),
                 );
-
             }
             $res['updated_content'] = apply_filters('wpbooking_cart_updated_content', array(),$is_validate);
 
@@ -405,6 +374,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
         {
             add_shortcode('wpbooking_checkout_page', array($this, '_render_checkout_shortcode'));
         }
+
         /**
          * CheckOut shortcode
          *
@@ -462,7 +432,6 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             }
             return $total_price;
         }
-
 
         /**
          * Get cart
@@ -642,6 +611,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             }
            wp_die();
         }
+
         static function inst()
         {
             if(!self::$_inst){
