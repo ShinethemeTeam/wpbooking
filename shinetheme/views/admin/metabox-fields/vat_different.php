@@ -45,7 +45,7 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
         <div class="st-metabox-content-wrapper">
             <div class="form-group">
                 <div class="tax_input_col_left">
-                    <input type="text" name="vat_amount" value="<?php echo get_post_meta($post_id, 'vat_amount', TRUE) ?>" class="widefat form-control small">
+                    <input type="number" name="vat_amount" value="<?php echo get_post_meta($post_id, 'vat_amount', TRUE) ?>" min="0" class="widefat form-control small">
                 </div>
                 <div class="tax_input_col_right">
                     <label class="label_vat_unit" for="<?php esc_html_e("Unit","wpbooking") ?>"><?php  esc_html_e("Unit","wpbooking") ?></label>

@@ -1789,13 +1789,16 @@ jQuery(document).ready(function( $ ){
     });*/
 
     $('.check_all_service_type').change(function(){
-
        if($(this).attr('checked')=='checked'){
            $(this).closest('li').siblings().find('input:checkbox').attr('checked','checked')
            $(this).closest('form').submit();
        }else{
            $(this).closest('li').siblings().find('input:checkbox').removeAttr('checked');
        }
+    });
+
+    $('.service_types input[type=checkbox]:not(.check_all_service_type)').change(function(){
+        $(this).closest('form').submit();
     });
 
     $('.datepicker_start').datepicker();
@@ -1839,11 +1842,35 @@ jQuery(document).ready(function( $ ){
         form.submit();
     });
 
+    $(document).on('change','.age_adult_max',function(){
+        if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_adult_min').val())){
+            $('.adult_notice').show();
+        }else{
+            $('.adult_notice').hide();
+        }
+    });
+
+    $(document).on('change','.age_child_max',function(){
+        if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_child_min').val())){
+            $('.adult_notice').show();
+        }else{
+            $('.adult_notice').hide();
+        }
+    });
+
+    $(document).on('change','.age_infant_max',function(){
+        if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_infant_min').val())){
+            $('.adult_notice').show();
+        }else{
+            $('.adult_notice').hide();
+        }
+    });
+
     $(document).on('change','input[type=number]',function(){
         $(this).each(function(){
             var number = $(this).val();
             number = parseFloat(number);
-            console.log(number);
+            //console.log(number);
             if (isNaN(number)) {
                 number = 0;
             }
@@ -1893,34 +1920,6 @@ jQuery(document).ready(function( $ ){
             $('.calendar-room2.tour').removeClass('per_unit');
             $('.calendar-room2.tour').addClass('per_person');
         }
-    });
-
-    $('.age_adult_max').each(function () {
-        $(this).bind('keyup mouseup', function(){
-            if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_adult_min').val())){
-                $('.adult_notice').show();
-            }else{
-                $('.adult_notice').hide();
-            }
-        });
-    });
-    $('.age_child_max').each(function () {
-        $(this).bind('keyup mouseup', function(){
-            if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_child_min').val())){
-                $('.adult_notice').show();
-            }else{
-                $('.adult_notice').hide();
-            }
-        });
-    });
-    $('.age_infant_max').each(function () {
-        $(this).bind('keyup mouseup', function(){
-            if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_infant_min').val())){
-                $('.adult_notice').show();
-            }else{
-                $('.adult_notice').hide();
-            }
-        });
     });
 
     $(document).on('click','.btn_list_item_edit', function (e) {

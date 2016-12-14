@@ -714,7 +714,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'label'       => __("Duration", 'wpbooking'),
                             'type'        => 'text',
                             'placeholder' => esc_html__('Example: 10 days', 'wpbooking'),
-                            'class'       => 'small'
+                            'class'       => 'small',
+                            'rules'=>'required'
                         ),
                         array(
                             'label' => __('Contact Number', 'wpbooking'),
@@ -738,7 +739,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'type'        => 'text',
                             'desc'        => esc_html__('Property website (optional)', 'wpbooking'),
                             'placeholder' => esc_html__('http://exampledomain.com', 'wpbooking'),
-                            'class'       => 'small'
+                            'class'       => 'small',
+                            'rules' => 'valid_url'
                         ),
                         array('type' => 'close_section'),
                         array('type' => 'open_section'),
@@ -751,7 +753,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'id'              => 'address',
                             'type'            => 'address',
                             'container_class' => 'mb35',
-                            'exclude'         => array('apt_unit')
+                            'exclude'         => array('apt_unit'),
+                            'rules'=>'required'
                         ),
                         array(
                             'label' => __('Map Lat & Long', 'wpbooking'),
@@ -795,14 +798,16 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'id'    => 'max_guests',
                             'type'  => 'number',
                             'std'   => 1,
-                            'class' => 'small'
+                            'class' => 'small',
+                            'min' => 1
                         ),
                         array(
                             'label'     => esc_html__('Age Options', 'wpbooking'),
                             'desc'      => esc_html__('Provide your requirements for what age defines a child vs. adult.', 'wpbooking'),
                             'id'        => 'age_options',
                             'type'      => 'age_options',
-                            'condition' => 'pricing_type:is(per_person)'
+                            'condition' => 'pricing_type:is(per_person)',
+                            'rules'=>'required'
                         ),
 //                        array(
 //                            'label'=>esc_html__('This tour is available','wpbooking'),
@@ -856,7 +861,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'id'    => 'deposit_payment_amount',
                             'type'  => 'number',
                             'desc'  => esc_html__("Leave empty for disallow deposit payment", "wpbooking"),
-                            'class' => 'small'
+                            'class' => 'small',
+                            'min' => 1
                         ),
                         array(
                             'label' => __('How many days in advance can guests cancel free of  charge?', 'wpbooking'),
@@ -914,6 +920,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'id'    => 'terms_conditions',
                             'type'  => 'textarea',
                             'rows'  => '5',
+                            'rules'=>'required'
                         ),
                         array('type' => 'close_section'),
                         array(
@@ -932,6 +939,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'label' => __("Gallery", 'wpbooking'),
                             'id'    => 'tour_gallery',
                             'type'  => 'gallery',
+                            'rules'=>'required',
                             'desc'  => __('Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wpbooking')
                         ),
 
