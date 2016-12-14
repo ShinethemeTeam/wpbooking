@@ -12,7 +12,7 @@ $args=array(
 	'posts_per_page'=>20
 );
 
-$service_type = WPBooking_Input::get('wb_service_types',array('accommodation'));
+$service_type = WPBooking_Input::get('wb_service_types',array('accommodation', 'tour'));
 $report_type=WPBooking_Input::get('report_type','last_7days');
 $start_date=WPBooking_Input::get('date_from');
 $end_date=WPBooking_Input::get('date_to');
@@ -45,11 +45,25 @@ $type_array=array(
 		<div class="select-service-type">
 			<h4><?php esc_html_e('Service type:','wpbooking') ?></h4>
 			<ul class="service_types">
-				<li><label ><input type="checkbox" class="check_all_service_type" checked> <?php esc_html_e('All','wpbooking') ?></label></li>
+                <?php
+                $chked = '';
+                if(count($service_type) == count($service_types)){
+                    $chked = 'checked';
+                }
+                ?>
+				<li><label ><input type="checkbox" class="check_all_service_type" <?php echo esc_attr($chked); ?>> <?php esc_html_e('All','wpbooking') ?></label></li>
 				<?php
 				if(!empty($service_types)){
 					foreach($service_types as $key=>$val){
-						$checked='checked';
+                        $checked = '';
+                        if(is_array($service_type)){
+                            if(in_array($key, $service_type)){
+                                $checked='checked';
+                            }
+                        }else{
+                            $checked='checked';
+                        }
+
 						printf('<li><label ><input type="checkbox" %s name="wb_service_types[]" value="%s"> %s</label></li>',$checked,$key,$val->get_info('label'));
 					}
 				}

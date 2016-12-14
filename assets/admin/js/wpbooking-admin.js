@@ -1792,6 +1792,7 @@ jQuery(document).ready(function( $ ){
 
        if($(this).attr('checked')=='checked'){
            $(this).closest('li').siblings().find('input:checkbox').attr('checked','checked')
+           $(this).closest('form').submit();
        }else{
            $(this).closest('li').siblings().find('input:checkbox').removeAttr('checked');
        }
