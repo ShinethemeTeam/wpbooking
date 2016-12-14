@@ -457,7 +457,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                     switch ($cart['deposit']['status']) {
                         case "percent":
                             if ($cart['deposit']['amount'] > 100) $cart['deposit']['amount'] = 100;
-                            $price_deposit = $total_price * $cart['deposit']['amount'] / 100;
+                            $price_deposit = round($total_price * $cart['deposit']['amount'] / 100,2);
                             break;
                         case "amount":
                         default:
@@ -610,7 +610,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                         $tax[$key] = $value;
                         switch($unit){
                             case "percent":
-                                $price = $total_price * ($value['amount'] / 100);
+                                $price = round($total_price * ($value['amount'] / 100),2);
                                 break;
                             case "fixed":
                             default:
