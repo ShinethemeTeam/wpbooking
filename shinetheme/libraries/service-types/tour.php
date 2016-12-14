@@ -547,7 +547,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     $query = $calendar->select($wpdb->prefix . 'wpbooking_availability.id,
 	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price')
                         ->join('wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id")
-                        ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
+                        ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and check_in_timestamp=`start` wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
                         ->where(array(
                             $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
                             $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
@@ -572,7 +572,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                                                 infant_minimum
 ')
                         ->join('wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id")
-                        ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
+                        ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
                         ->where(array(
                             $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
                             $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
