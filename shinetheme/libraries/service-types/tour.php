@@ -424,7 +424,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             switch ($service->get_meta('pricing_type')) {
                 case "per_unit":
                     $query = $calendar->select($wpdb->prefix . 'wpbooking_availability.id,
-	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_minimum,calendar_maximum,(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price')
+	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_minimum,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price')
                         ->join('wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id")
                         ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
                         ->where(array(
@@ -467,7 +467,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                 case "per_person":
                 default:
                     $query = $query = $calendar->select($wpdb->prefix . 'wpbooking_availability.id,
-                                                ' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,(adult_number + children_number + infant_number) AS total_people_booked,start,
+                                                ' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,
                                                 ' . $wpdb->prefix . 'wpbooking_availability.adult_price,
                                                 ' . $wpdb->prefix . 'wpbooking_availability.child_price,
                                                 ' . $wpdb->prefix . 'wpbooking_availability.infant_price,
@@ -513,6 +513,9 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             if(!empty($error_message)){
                                 $is_validated=false;
                                 wpbooking_set_message(sprintf(esc_html__('This tour require at least %s', 'wpbooking'), implode(', ',$error_message)), 'error');
+                            }else{
+                                $is_validated=false;
+                                wpbooking_set_message(esc_html__('This tour require at least 1 people', 'wpbooking'), 'error');
                             }
 
                         }
@@ -542,7 +545,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             switch ($service->get_meta('pricing_type')) {
                 case "per_unit":
                     $query = $calendar->select($wpdb->prefix . 'wpbooking_availability.id,
-	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price')
+	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price')
                         ->join('wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id")
                         ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
                         ->where(array(
@@ -560,7 +563,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                 case "per_person":
                 default:
                     $query = $query = $calendar->select($wpdb->prefix . 'wpbooking_availability.id,
-                                                ' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,(adult_number + children_number + infant_number) AS total_people_booked,start,
+                                                ' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,
                                                 ' . $wpdb->prefix . 'wpbooking_availability.adult_price,
                                                 ' . $wpdb->prefix . 'wpbooking_availability.child_price,
                                                 ' . $wpdb->prefix . 'wpbooking_availability.infant_price,
@@ -1101,9 +1104,9 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             switch (get_post_meta($post_id, 'pricing_type', true)) {
                 case "per_unit":
                     $query = $calendar->select($wpdb->prefix . 'wpbooking_availability.id,
-	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price')
+	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price')
                         ->join('wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id")
-                        ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
+                        ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
                         ->where(array(
                             $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
                             $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
@@ -1120,12 +1123,12 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     break;
                 case "per_person":
                     $query = $calendar->select($wpdb->prefix . 'wpbooking_availability.id,
-	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,(adult_number + children_number + infant_number) AS total_people_booked,start,
-' . $wpdb->prefix . 'wpbooking_availability.adult_price,
-' . $wpdb->prefix . 'wpbooking_availability.child_price,
-' . $wpdb->prefix . 'wpbooking_availability.infant_price')
+                                    ' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,
+                                    ' . $wpdb->prefix . 'wpbooking_availability.adult_price,
+                                    ' . $wpdb->prefix . 'wpbooking_availability.child_price,
+                                    ' . $wpdb->prefix . 'wpbooking_availability.infant_price')
                         ->join('wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id")
-                        ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
+                        ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
                         ->where(array(
                             $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
                             $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
@@ -1162,8 +1165,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             global $wpdb;
             switch (get_post_meta($post_id, 'pricing_type', true)) {
                 case "per_unit":
-                    $from_query = $calendar->select($wpdb->prefix . 'wpbooking_availability.id,calendar_maximum,(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price')
-                        ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
+                    $from_query = $calendar->select($wpdb->prefix . 'wpbooking_availability.id,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price')
+                        ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
                         ->where(array(
                             $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
                             $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
@@ -1195,12 +1198,12 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     break;
                 case "per_person":
                     $from_query = $calendar->select($wpdb->prefix . 'wpbooking_availability.id,
-	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,(adult_number + children_number + infant_number) AS total_people_booked,start,
+	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,
 ' . $wpdb->prefix . 'wpbooking_availability.adult_price,
 ' . $wpdb->prefix . 'wpbooking_availability.child_price,
 ' . $wpdb->prefix . 'wpbooking_availability.infant_price')
                         ->join('wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id")
-                        ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
+                        ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
                         ->where(array(
                             $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
                             $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
