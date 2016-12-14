@@ -59,7 +59,8 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
                     <p class="help-block"></p>
                 </div>
             </div>
+            <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
         </div>
-        <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
+
     </div>
 </div>

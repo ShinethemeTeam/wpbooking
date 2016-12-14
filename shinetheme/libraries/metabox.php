@@ -87,7 +87,7 @@ if (!class_exists('WPBooking_Metabox')) {
                                                     case "not_empty":
                                                         if(!empty($_POST[$condition_explode[0]])){
                                                             $need_validate=true;
-                                                            $form_validate->set_rules($field['id'],$field['label'],$field['rules']);
+                                                            $form_validate->set_rules($field['id'],strtolower($field['label']),$field['rules']);
                                                         }
                                                     break;
                                                 }
@@ -96,7 +96,7 @@ if (!class_exists('WPBooking_Metabox')) {
                                     }
                                 }else{
                                     $need_validate=true;
-                                    $form_validate->set_rules($field['id'],$field['label'],$field['rules']);
+                                    $form_validate->set_rules($field['id'],strtolower($field['label']),$field['rules']);
                                 }
 
 
@@ -114,7 +114,7 @@ if (!class_exists('WPBooking_Metabox')) {
                                                         case "not_empty":
                                                             if(!empty($_POST[$condition_explode[0]])){
                                                                 $need_validate=true;
-                                                                $form_validate->set_rules($name,$rule['label'],$rule['rules']);
+                                                                $form_validate->set_rules($name,strtolower($rule['label']),$rule['rules']);
                                                             }
                                                             break;
                                                     }
@@ -123,7 +123,7 @@ if (!class_exists('WPBooking_Metabox')) {
                                         }
                                     }else{
                                         $need_validate=true;
-                                        $form_validate->set_rules($name,$rule['label'],$rule['rule']);
+                                        $form_validate->set_rules($name,strtolower($rule['label']),$rule['rule']);
                                     }
                                 }
 

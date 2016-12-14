@@ -20,7 +20,7 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
 
-    $field .= '<div style="margin-bottom: 7px;"><select name="'. $name .'" id="'. esc_html( $data['id'] ) .'" class="widefat form-control '. esc_html( $data['class'] ).'">';
+    $field .= '<div><select name="'. $name .'" id="'. esc_html( $data['id'] ) .'" class="widefat form-control '. esc_html( $data['class'] ).'">';
     for( $i=1;$i<=$data['max_star'] ;$i++ ){
 
         $checked = '';

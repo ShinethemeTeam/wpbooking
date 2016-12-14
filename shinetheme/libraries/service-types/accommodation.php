@@ -638,7 +638,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     )
                 ),
                 'room_detail_tab' => array(
-                    'label'  => esc_html__('3. Room details', 'wpbooking'),
+                    'label'  => esc_html__('3. Room Details', 'wpbooking'),
                     'fields' => array(
                         array(
                             'label' => esc_html__('Your Rooms', 'wpbooking'),
