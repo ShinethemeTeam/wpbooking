@@ -99,6 +99,10 @@ if (!class_exists('WB_Order')) {
             }
         }
 
+        function get_column_row_data(){
+
+        }
+
         /**
          * Get Customer Email that received the booking email
          *
@@ -166,7 +170,7 @@ if (!class_exists('WB_Order')) {
          * Do Create New Order
          *
          * @param $cart
-         * @param array $checkout_form_data
+         * @param array $form_billing_data
          * @param bool|FALSE $selected_gateway
          * @param bool|FALSE $customer_id
          * @return int|WP_Error
@@ -189,9 +193,11 @@ if (!class_exists('WB_Order')) {
                 $booking = WPBooking_Checkout_Controller::inst();
 
                 $price = $booking->get_cart_total(array( 'without_deposit' => false, 'without_tax' => true ),$cart);
+
                 $deposit_price = $booking->get_cart_total(array( 'without_deposit' => true, 'without_tax' => true ),$cart);
                 $tax = $booking->get_cart_tax_price();
                 $post_author = get_post_field( 'post_author', $cart['post_id'] );
+                $cart['tax']=$tax;
 
                 update_post_meta($order_id, 'post_id', $cart['post_id']);
                 update_post_meta($order_id, 'service_type', $cart['service_type']);
@@ -201,7 +207,6 @@ if (!class_exists('WB_Order')) {
                 update_post_meta($order_id, 'tax',$tax);
                 update_post_meta($order_id, 'tax_total',$tax['tax_total']);
                 update_post_meta($order_id, 'currency', WPBooking_Currency::get_current_currency('currency'));
-                update_post_meta($order_id, 'raw_data', array());
                 update_post_meta($order_id, 'check_in_timestamp', $cart['check_in_timestamp']);
                 update_post_meta($order_id, 'check_out_timestamp', $cart['check_out_timestamp']);
                 update_post_meta($order_id, 'user_id', $customer_id);
@@ -211,12 +216,18 @@ if (!class_exists('WB_Order')) {
                 update_post_meta($order_id, 'created_at', $created);
                 update_post_meta($order_id, 'payment_method', $selected_gateway);
 
+                if (!empty($cart)) {
+                    foreach ($cart as $key => $value) {
+                        update_post_meta($order_id, 'wb_cart_' . $key, $value);
+                    }
+                }
                 if (!empty($form_billing_data)) {
                     foreach ($form_billing_data as $key => $value) {
                         update_post_meta($order_id, 'wpbooking_' . $key, $value['value']);
                     }
                 }
             }
+
 
             WPBooking_Order_Model::inst()->save_order($cart, $order_id, $customer_id);
             do_action('wpbooking_save_order_'.$cart['service_type'],$cart,$order_id);
@@ -374,11 +385,11 @@ if (!class_exists('WB_Order')) {
                     switch($status){
                         case "on_hold":
                         case "payment_failed":
-                            return sprintf('<label class="bold text_up on_hold">%s</label>',$all_status[$status]['label']);
+                            return sprintf('<label class="bold text_up %s">%s</label>',$status,$all_status[$status]['label']);
                             break;
                         case "completed_a_part":
                         case "completed":
-                            return sprintf('<label class="bold text_up completed">%s</label>',$all_status[$status]['label']);
+                            return sprintf('<label class="bold text_up %s">%s</label>',$status,$all_status[$status]['label']);
                             break;
                         case "cancelled":
                         case "refunded":
@@ -386,7 +397,7 @@ if (!class_exists('WB_Order')) {
                             break;
 
                         default:
-                            return sprintf('<label class="bold text_up">%s</label>',$all_status[$status]['label']);
+                            return sprintf('<label class="bold text_up %s">%s</label>',$status,$all_status[$status]['label']);
                             break;
                     }
                 }else{
@@ -442,14 +453,29 @@ if (!class_exists('WB_Order')) {
          */
         function get_booking_date($format=NULL)
         {
+            $full_time=false;
+
             if($this->order_id){
                 if(!$format) $format=get_option('date_format');
                 $check_in = $this->data['check_in_timestamp'];
                 $check_out = $this->data['check_out_timestamp'];
                 $start = new DateTime(date('Y-m-d',$check_in));
-                $end = new DateTime(date('Y-m-d',$check_out));
-                $full_time = date($format,$check_in).'&nbsp; &rarr; &nbsp;'.date($format,$check_out) .' <br>('.sprintf(_n('%s night','%s nights',$start->diff($end)->days,'wpbooking'),$start->diff($end)->days).')';
-                return $full_time;
+                if($check_out){
+                    $end = new DateTime(date('Y-m-d',$check_out));
+                }
+
+                if(!empty($start) and !empty($end)){
+                    $full_time = date_i18n($format,$check_in).'&nbsp; &rarr; &nbsp;'.date_i18n($format,$check_out) .' <br>('.sprintf(_n('%s night','%s nights',$start->diff($end)->days,'wpbooking'),$start->diff($end)->days).')';
+                }
+
+                if(!empty($start) and empty($end)){
+
+                    $full_time = date_i18n($format,$check_in);
+                    if($duration=$this->get_meta('wb_duration')){
+                        $full_time.='<br>('.$duration.')';
+                    }
+                }
+                return apply_filters('wpbooking_order_get_booking_date',$full_time,$this);
             }
         }
 
@@ -475,7 +501,7 @@ if (!class_exists('WB_Order')) {
                         return $gateway;
                     }
                 }else{
-                    return esc_html__('Unknow','wpbooking');
+                    return esc_html__('Unknown','wpbooking');
                 }
 
             }
@@ -493,6 +519,22 @@ if (!class_exists('WB_Order')) {
             if(!empty($this->data) and is_array($this->data)){
                 return $this->data['service_type'];
             }else{ return false; }
+        }
+
+        /**
+         * Get Order MEta
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $key
+         * @return mixed
+         */
+        function get_meta($key)
+        {
+            if($this->order_id){
+                return get_post_meta($this->order_id,$key,true);
+            }
         }
 
         /**

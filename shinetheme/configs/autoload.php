@@ -53,7 +53,7 @@ $autoload['controller']=array(
 	'admin/location',
 	'admin/taxonomy',
 	'admin/service',
-    'admin/wpbooking.about',
+    'admin/about',
     'admin/settings',
 	'admin/taxonomy',
 	'admin/calendar.metabox',

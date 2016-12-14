@@ -371,46 +371,48 @@ jQuery(document).ready(function($){
     var has_date_picker=$('.has-date-picker');
     has_date_picker.datepicker()
         .datepicker('widget');
-        //.wrap('<div class="ll-skin-melon"/>');
 
-    $('.wpbooking-date-start').datepicker(
-        {
+
+
+    $('.wpbooking-search-form-wrap').each(function(){
+        var start=$(this).find('.wpbooking-date-start');
+        var end=$(this).find('.wpbooking-date-end');
+        console.log(start);
+        start.datepicker(
+            {
+                minDate:0,
+                onSelect:function(selected) {
+                    var p = $(this).parent();
+                    var check_in = $(this).datepicker( 'getDate' );
+                    p.find('.checkin_d').val(check_in.getDate());
+                    p.find('.checkin_m').val(check_in.getMonth()+1);
+                    p.find('.checkin_y').val(check_in.getFullYear());
+                    end.datepicker("option","minDate", new Date(check_in.getFullYear(),check_in.getMonth(),check_in.getDate()+1))
+                    if(end.length){
+                        window.setTimeout(function(){
+                            end.datepicker('show');
+                        },100);
+                    }
+                    $(this).trigger('change');
+                }
+            });
+
+
+        end.datepicker( {
             minDate:0,
             onSelect:function(selected) {
                 var p = $(this).parent();
-                var check_in = $(this).datepicker( 'getDate' );
-                p.find('.checkin_d').val(check_in.getDate());
-                p.find('.checkin_m').val(check_in.getMonth()+1);
-                p.find('.checkin_y').val(check_in.getFullYear());
-                var form=$(this).closest('form');
-                var date_end=$('.wpbooking-date-end',form);
-                date_end.datepicker("option","minDate", new Date(check_in.getFullYear(),check_in.getMonth(),check_in.getDate()+1))
-                if($('.wpbooking-date-end').length){
-                    window.setTimeout(function(){
-                        $('.wpbooking-date-end').datepicker('show');
-                    },100);
-                }
-                $(this).trigger('change');
+                var check_out = $(this).datepicker( 'getDate' );
+                p.find('.checkout_d').val(check_out.getDate());
+                p.find('.checkout_m').val(check_out.getMonth()+1);
+                p.find('.checkout_y').val(check_out.getFullYear());
+                start.datepicker("option","maxDate", new Date(check_out.getFullYear(),check_out.getMonth(),check_out.getDate()-1));
+                start.trigger('change');
+
             }
-        })
-        .datepicker('widget');//.wrap('<div class="ll-skin-melon"/>');
+        });
+    });
 
-    $('.wpbooking-date-end').datepicker( {
-        minDate:0,
-        onSelect:function(selected) {
-            var p = $(this).parent();
-            var check_out = $(this).datepicker( 'getDate' );
-            p.find('.checkout_d').val(check_out.getDate());
-            p.find('.checkout_m').val(check_out.getMonth()+1);
-            p.find('.checkout_y').val(check_out.getFullYear());
-            var form=$(this).closest('form');
-            var date_start=$('.wpbooking-date-start',form);
-            date_start.datepicker("option","maxDate", new Date(check_out.getFullYear(),check_out.getMonth(),check_out.getDate()-1));
-            date_start.trigger('change');
-
-        }
-    })
-    .datepicker('widget');
     //.wrap('<div class="ll-skin-melon"/>');
 
     $('.wpbooking-select2').select2();
@@ -1058,46 +1060,49 @@ jQuery(document).ready(function($){
         parent.next().find('[name=check_in]').focus();
     });
 
-    var form_filter=$('.wpbooking-search-form.is_search_form');
-    $('.button_show_price.is_page_search_result').click(function(){
-        form_filter.submit();
-    });
+    // $('.button_show_price.is_page_search_result').click(function(){
+    //     form_filter.submit();
+    // });
     // Ajax Search in Archive page
-    form_filter.submit(function(){
 
-        // Validate Required Field
-        var is_validated=true;
-        var scrollTo=false;
-        form_filter.find('.wb-required').removeClass('wb-error');
-        form_filter.find('.item-search').removeClass('wb-error');
+    $('.wpbooking-search-form.is_search_form').submit(function(){
+            var form_filter=$(this);
 
-        form_filter.find('.wb-required').each(function(){
-            if($(this).val()==false){
-                console.log($(this));
-                is_validated=false;
-                $(this).addClass('wb-error');
-                $(this).closest('.item-search').addClass('wb-error');
+            // Validate Required Field
+            var is_validated=true;
+            var scrollTo=false;
+            form_filter.find('.wb-required').removeClass('wb-error');
+            form_filter.find('.item-search').removeClass('wb-error');
 
-                if($(this).closest('.wpbooking-search-form-more').length){
-                    $(this).closest('.wpbooking-search-form-wrap').find('.wpbooking-show-more-fields').trigger('click');
+            form_filter.find('.wb-required').each(function(){
+                if($(this).val()==false){
+                    console.log($(this));
+                    is_validated=false;
+                    $(this).addClass('wb-error');
+                    $(this).closest('.item-search').addClass('wb-error');
+
+                    if($(this).closest('.wpbooking-search-form-more').length){
+                        $(this).closest('.wpbooking-search-form-wrap').find('.wpbooking-show-more-fields').trigger('click');
+                    }
+
+                    // Scroll to first error input
+                    if(!scrollTo){
+                        scrollTo=$(this).offset().top-200;
+                    }
                 }
+            });
 
-                // Scroll to first error input
-                if(!scrollTo){
-                    scrollTo=$(this).offset().top-200;
+            if(!is_validated){
+                if(scrollTo){
+                    $('html,body').animate({
+                        scrollTop:scrollTo
+                    },'fast');
                 }
+                return false;
             }
+
         });
 
-        if(!is_validated){
-            if(scrollTo){
-                $('html,body').animate({
-                    scrollTop:scrollTo
-                },'fast');
-            }
-            return false;
-        }
-    });
     // Remove Class Wb-error on input
     $(this).find('input,select').change(function(){
         if($(this).hasClass('wb-error') && $(this).val()){
@@ -2055,6 +2060,79 @@ jQuery(document).ready(function($){
     $('.wb-list-social a').click(function(e) {
         e.preventDefault();
         window.open($(this).attr('href'), 'ShareWindow', 'height=500, width=550, top=' + ($(window).height() / 2 - 275) + ', left=' + ($(window).width() / 2 - 225) + ', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+        return false;
+    });
+
+
+    // Tour Single
+    $('.wb-departure-month').change(function(){
+         var v=$(this).val();
+        if(!v) return;
+         $('.wb-departure-date option').hide();
+         $('.wb-departure-date option.'+v).show();
+         $('.wb-departure-date').trigger('change');
+
+    });
+
+    $('.wb-departure-month').trigger('change');
+
+    $('.wb-departure-date').change(function(){
+        var v=$(this).val();
+        if(!v) return;
+        var price=$(this).find('option[value='+v+']').data('price');
+        $('.wb-price-html .price').html(price);
+    });
+
+    $('.wb-departure-date').trigger('change');
+
+    // Tour Booking
+    $('.wb-tour-booking-form').submit(function(){
+        var self=$(this);
+        self.addClass('loading');
+        self.find('.booking-message').html('');
+        var data=self.serialize();
+        data+='&action=wpbooking_add_to_cart';
+
+        $.ajax({
+            dataType:'json',
+            type:'post',
+            data:data,
+            url:wpbooking_params.ajax_url,
+            success:function(res){
+                if(res){
+
+                }
+                if(res.message){
+                    self.find('.booking-message').html(res.message);
+                }
+
+                if(typeof res.redirect!='undefined'){
+                    window.location=res.redirect;
+                }
+
+                if(typeof res.error_fields!='undefined')
+                {
+                    for(var k in res.error_fields){
+
+                        self.find("[name='"+k+"']").addClass('input-error');
+                    }
+                }
+                if(typeof  res.updated_content!='undefined'){
+
+                    for (var k in res.updated_content){
+                        var element=$(k);
+                        element.replaceWith(res.updated_content[k]);
+                        $(window).trigger('wpbooking_event_cart_update_content',[k,res.updated_content[k]]);
+                    }
+                }
+
+                self.removeClass('loading');
+            },
+            error:function(e){
+                console.log(e.reponseText);
+            }
+        })
+
         return false;
     });
 

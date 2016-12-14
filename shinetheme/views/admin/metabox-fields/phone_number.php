@@ -26,7 +26,7 @@ if(!empty($data['container_class'])) $class.=' '.$data['container_class'];
 $field = '';
 
 $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
-$phone_code=get_post_meta(get_the_ID(),'phone_code',true);
+$phone_code=get_post_meta($post_id,'phone_code',true);
 $country_user = get_user_meta(get_current_user_id(),'country',true);
 $codes=WB_Helpers::get_phone_country_code();
 if(empty($phone_code)){

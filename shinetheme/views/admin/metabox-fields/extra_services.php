@@ -44,7 +44,6 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 								</div>
 								<div class="max-quantity">
 									<select name="<?php echo esc_attr($data['id'].'['.$k.'][quantity]') ?>" class="max-quantity-select" >
-										<option value=""><?php esc_html_e('-','wpbooking') ?></option>
 										<?php for($i = 1; $i <=20; $i++ ) {
 											echo '<option '.selected($selected_quantity,$i,false).' value="'.$i.'">'.$i.'</option>';
 										}?>

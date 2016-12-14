@@ -27,19 +27,8 @@ $service_type=$order_data['service_type'];
                        echo esc_html($address);
                     } ?>
                 </h4>
-                <h4 class=color_black>
-                    <span class=bold><?php esc_html_e("From:","wpbooking") ?> </span> <?php echo date(get_option('date_format'),$order_data['check_in_timestamp']) ?>
-                    <span class=bold><?php esc_html_e("To:","wpbooking") ?> </span><?php echo date(get_option('date_format'),$order_data['check_out_timestamp']) ?>
-                    <?php
-                    $diff=$order_data['check_out_timestamp'] - $order_data['check_in_timestamp'];
-                    $diff = $diff / (60 * 60 * 24);
-                    if($diff > 1){
-                        echo sprintf(esc_html__('(%s nights)','wpbooking'),$diff);
-                    }else{
-                        echo sprintf(esc_html__('(%s night)','wpbooking'),$diff);
-                    }
-                    ?>
-                </h4>
+                <?php do_action('wpbooking_email_order_after_address',$order_data) ?>
+                <?php do_action('wpbooking_email_order_after_address_'.$service_type,$order_data) ?>
             </div>
         </td>
     </tr>
@@ -54,7 +43,7 @@ $service_type=$order_data['service_type'];
                 <?php do_action('wpbooking_order_detail_total_item_information_'.$service_type,$order_data) ?>
                 <?php
                 $tax = unserialize($order_data['tax']);
-                if (!empty($tax['vat']['excluded']) and $tax['vat']['excluded'] != 'no' and $tax['vat']['price']>0) {
+                if (!empty($tax['vat']['excluded']) and $tax['vat']['excluded'] != 'no' and !empty($tax['vat']['price'])) {
                     $vat_amount = $tax['vat']['amount']."% ";
                     $unit = $tax['vat']['unit'];
                     if($unit == 'fixed') $vat_amount = '';
@@ -64,7 +53,7 @@ $service_type=$order_data['service_type'];
                                 </span>
                     <span class="total-amount"><?php echo WPBooking_Currency::format_money($tax['vat']['price']); ?></span>
                 <?php } ?>
-                <?php if (!empty($tax['citytax']['excluded']) and $tax['citytax']['excluded'] != 'no' and $tax['citytax']['price']>0) {
+                <?php if (!empty($tax['citytax']['excluded']) and $tax['citytax']['excluded'] != 'no' and !empty($tax['citytax']['price'])) {
                     ?>
                     <span class="total-title">
                                     <?php  esc_html_e("City Tax",'wpbookng'); ?>

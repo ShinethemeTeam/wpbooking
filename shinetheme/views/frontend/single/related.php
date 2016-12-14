@@ -7,7 +7,6 @@
  */
 $service=new WB_Service();
 $service_type=$service->get_type();
-$location_id = get_post_meta(get_the_ID(),'location_id',true);
 
 $related = $service->get_related_query();
 

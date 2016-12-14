@@ -668,9 +668,6 @@ a.label:focus {
   margin-top: 0px;
 }
 @media (min-width: 1200px) {
-  .wpbooking-loop-wrap .wpbooking-loop-items.list .loop-item .content-item .service-content .service-content-inner {
-    padding-bottom: 30px;
-  }
 }
 .wpbooking-loop-wrap .wpbooking-loop-items.list .loop-item .content-item .service-content .service-price-book-now {
   margin-top: 0px;
@@ -875,7 +872,7 @@ a.label:focus {
 @media (max-width: 480px) {
   .review-order-item .review-order-item-info .review-order-item-img {
     width: 100%;
-    text-align: center;
+    text-align: left;
   }
   .review-order-item .review-order-item-info .review-order-item-img img {
     display: inline;
@@ -883,16 +880,31 @@ a.label:focus {
   .review-order-item .review-order-item-info .review-order-item-title {
     text-align: center;
     width: 100%;
+    float: none;
   }
 }
 .review-order-item .review-order-item-info .review-order-item-title {
-  display: table;
+  float: right;
+  width: calc(100% - 170px);
+}
+@media (max-width: 480px) {
+  .review-order-item .review-order-item-info .review-order-item-title {
+    width: 100%;
+    text-align: left;
+  }
 }
 .review-order-item .review-order-item-info .review-order-item-title .service-name {
   margin: 0px;
   font-weight: normal;
   line-height: normal;
   font-size: 14px;
+  width: 70%;
+}
+@media (max-width: 480px) {
+  .review-order-item .review-order-item-info .review-order-item-title .service-name {
+    width: 100%;
+    margin-top: 20px;
+  }
 }
 .review-order-item .review-order-item-info .review-order-item-title .service-name a {
   border: medium none;
@@ -909,6 +921,60 @@ a.label:focus {
 }
 .review-order-item .review-order-item-info .review-order-item-title .service-address {
   color: #666;
+}
+.review-order-item .review-order-item-info .review-order-item-title .review-order-item-price.tour-price {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.review-order-item .review-order-item-info .review-order-item-title .wb-contact-list {
+  margin-bottom: 30px;
+}
+.review-order-item .review-order-item-info .review-order-item-title .wb-contact-list a {
+  border: none;
+}
+.review-order-item .review-order-item-info .review-order-item-title .people-price-item,
+.review-order-item .review-order-item-info .review-order-item-title .from-detail {
+  color: #333;
+  position: relative;
+}
+.review-order-item .review-order-item-info .review-order-item-title .people-price-item:after,
+.review-order-item .review-order-item-info .review-order-item-title .from-detail:after {
+  background: #cccccc;
+  position: absolute;
+  content: '';
+  width: 100%;
+  bottom: 6px;
+  height: 1px;
+  left: 0px;
+  right: 0px;
+  z-index: 0;
+}
+.review-order-item .review-order-item-info .review-order-item-title .people-price-item span,
+.review-order-item .review-order-item-info .review-order-item-title .from-detail span {
+  position: relative;
+  z-index: 1;
+  background: white;
+}
+.review-order-item .review-order-item-info .review-order-item-title .people-price-item .price-item,
+.review-order-item .review-order-item-info .review-order-item-title .from-detail .price-item,
+.review-order-item .review-order-item-info .review-order-item-title .people-price-item .from-detail-duration,
+.review-order-item .review-order-item-info .review-order-item-title .from-detail .from-detail-duration {
+  float: right;
+  padding-left: 10px;
+}
+.review-order-item .review-order-item-info .review-order-item-title .people-price-item .head-item,
+.review-order-item .review-order-item-info .review-order-item-title .from-detail .head-item {
+  padding-right: 10px;
+  font-weight: bold;
+}
+@media (max-width: 480px) {
+  .review-order-item .review-order-item-info .review-order-item-title .people-price-item,
+  .review-order-item .review-order-item-info .review-order-item-title .from-detail {
+    text-align: left;
+  }
 }
 .review-order-item .review-order-item-info .review-order-item-title .review-order-item-form-to {
   margin-top: 20px;
@@ -3192,6 +3258,26 @@ a.label:focus {
 }
 .single-wpbooking_order .wpbooking-order-detail-page .order-head-info .text_up {
   text-transform: uppercase;
+}
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .completed {
+  color: #5cb85c;
+  border: solid 1px #5cb85c;
+}
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .booking-status label {
+  padding: 5px 10px;
+  border-radius: 0px;
+}
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .on-hold,
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .completed_a_part {
+  color: #f0ad4e;
+  border: solid 1px #f0ad4e;
+}
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .payment_failed,
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .cancelled,
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .refunded,
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .trash {
+  color: #ff3333;
+  border: solid 1px #ff3333;
 }
 .single-wpbooking_order .wpbooking-order-detail-page .section-title {
   color: #333;
@@ -6943,4 +7029,152 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
 }
 .mgt-10 {
   margin-top: 10px;
+}
+/*---------- Tour -----------*/
+.wpbooking-single-content .wb-service-contact {
+  display: inline-flex;
+  font-size: 14px;
+  width: 100%;
+}
+.wpbooking-single-content .wb-service-contact .wb-meta-contact {
+  margin-right: 10px;
+  color: #777;
+}
+.wpbooking-single-content .wb-service-contact .wb-meta-contact a {
+  color: #777;
+}
+.wpbooking-single-content .wb-service-contact .wb-meta-contact a:hover {
+  color: #333;
+}
+.tour-single .wb-service-title-address {
+  width: 100%;
+}
+.wb-contact-list {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+.wb-contact-list li {
+  list-style: none;
+  display: inline-block;
+  margin-right: 15px;
+  color: #666666;
+  font-size: 14px;
+}
+.wb-contact-list li a {
+  color: inherit;
+}
+.wb-contact-list li a:hover {
+  text-decoration: none;
+}
+.wb-contact-list li i {
+  display: inline-block;
+  margin-right: 0px;
+}
+.service-type-tour .wpbooking-single-content .wb-price-html {
+  width: auto;
+  float: none;
+}
+.service-type-tour .wpbooking-single-content .wb-service-title-address {
+  width: 100%;
+}
+.service-type-tour .wb-tour-booking-form {
+  border: 1px solid #ddd;
+  margin-bottom: 30px;
+}
+.service-type-tour .wb-tour-booking-form .wb-price-html {
+  text-align: left;
+  padding: 10px 15px !important;
+  border-bottom: 1px solid #ddd;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap {
+  padding: 20px 15px;
+  font-size: 14px;
+  background: #fafafa;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .form-control {
+  margin-bottom: 5px;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .form-control select.form-control {
+  width: 100%;
+  background: #fff;
+  padding: 5px;
+  font-size: 14px;
+  color: #777;
+  border: 1px solid #dfdfdf;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .departure-date-control i.fa {
+  width: 25px;
+  font-size: 17px;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .departure-date-control select {
+  background: #fff;
+  padding: 5px;
+  font-size: 14px;
+  color: #777;
+  border: 1px solid #dfdfdf;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .departure-date-control select.wb-departure-date {
+  width: 60px;
+  margin-right: 10px;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .departure-date-control select.wb-departure-month {
+  width: calc(100% - 105px);
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .controls {
+  margin-top: 7px;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .wb-button.wb-order-button {
+  margin-top: 10px;
+  text-transform: uppercase;
+  background: #f0ad4e;
+  border: 1px solid #f0ad4e;
+  font-size: 14px;
+  color: white;
+  padding: 8px 35px;
+  font-weight: normal;
+}
+.service-type-tour .wb-tour-booking-form .wb-order-button .fa {
+  display: none;
+}
+.service-type-tour .wb-tour-booking-form.loading .wb-order-button .fa {
+  display: inline-block;
+}
+.service-type-tour .wb-tour-meta {
+  margin-top: 30px;
+}
+.service-type-tour .wb-tour-meta .list-meta {
+  display: inline-flex;
+  list-style: none;
+  width: 100%;
+  background: #fafafa;
+  margin-bottom: 0;
+  border: 1px solid #ddd;
+  margin-left: 0 !important;
+}
+.service-type-tour .wb-tour-meta .list-meta li {
+  font-size: 14px;
+  padding: 10px;
+}
+.service-type-tour .wb-tour-meta .list-meta li.tour_type {
+  width: 28%;
+}
+.service-type-tour .wb-tour-meta .list-meta li.max_people {
+  width: 30%;
+}
+.service-type-tour .wb-tour-meta .list-meta li.duration {
+  width: 42%;
+}
+.service-type-tour .wb-service-reviews-meta {
+  padding-top: 0 !important;
+  margin-top: -24px;
+}
+@media (max-width: 1200px) {
+  .service-type-tour .wb-service-reviews-meta {
+    margin-top: 30px;
+  }
+}
+.review-order-item-title .change-date {
+  color: #f0ad4e;
+  border: none;
 }

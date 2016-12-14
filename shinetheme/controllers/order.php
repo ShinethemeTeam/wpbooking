@@ -79,16 +79,19 @@ if (!class_exists('WPBooking_Order')) {
 						$order->cancel_purchase();
 						break;
 					case "complete_purchase":
-						$return=WPBooking_Payment_Gateways::inst()->complete_purchase($gateway, $order_id);
-						if($return){
-							// Update the Order Items
-							$order->complete_purchase();
-							//wpbooking_set_message(__('Thank you! Your booking is completed','wpbooking'),'success');
+					    if(in_array($order->get_status(),array('payment_failed','on_hold'))){
+                            $return=WPBooking_Payment_Gateways::inst()->complete_purchase($gateway, $order_id);
+                            if($return){
+                                // Update the Order Items
+                                $order->complete_purchase();
+                                //wpbooking_set_message(__('Thank you! Your booking is completed','wpbooking'),'success');
 
-						}else{
-							$order->payment_failed();
-							//wpbooking_set_message(__('Sorry! Can not complete your payment','wpbooking'),'danger');
-						}
+                            }else{
+                                $order->payment_failed();
+                                //wpbooking_set_message(__('Sorry! Can not complete your payment','wpbooking'),'danger');
+                            }
+                        }
+
 						break;
 				}
 

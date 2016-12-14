@@ -181,6 +181,16 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                         }
                     }
                 }
+
+                /**
+                 * Update User Billing Info if empty
+                 *
+                 * @since 1.0
+                 * @author dungdt
+                 */
+                if($customer_id) WPBooking_User::inst()->order_update_user($customer_id,$fields);
+
+
                 $order_id = WPBooking_Session::get('wpbooking_order_id');
                 if(!empty($order_id)){
                     $order=new WB_Order($order_id);
@@ -237,6 +247,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
                     if (!empty($data['redirect'])) {
                         $res['redirect'] = $data['redirect'];
+                        WPBooking_Session::set('wpbooking_order_id','');
                     }
                     if(isset($data['complete_purchase']) and !$data['complete_purchase']){
                         $res['redirect'] = "";
@@ -341,6 +352,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                     'message' => '',
                     'redirect' => $this->get_checkout_url(),
                 );
+                WPBooking_Session::set('wpbooking_order_id',false);
             }
             $res['updated_content'] = apply_filters('wpbooking_cart_updated_content', array(),$is_validate);
 
@@ -418,7 +430,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                     switch ($cart['deposit']['status']) {
                         case "percent":
                             if ($cart['deposit']['amount'] > 100) $cart['deposit']['amount'] = 100;
-                            $price_deposit = $total_price * $cart['deposit']['amount'] / 100;
+                            $price_deposit = round($total_price * $cart['deposit']['amount'] / 100,2);
                             break;
                         case "amount":
                         default:
@@ -570,7 +582,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                         $tax[$key] = $value;
                         switch($unit){
                             case "percent":
-                                $price = $total_price * ($value['amount'] / 100);
+                                $price = round($total_price * ($value['amount'] / 100),2);
                                 break;
                             case "fixed":
                             default:

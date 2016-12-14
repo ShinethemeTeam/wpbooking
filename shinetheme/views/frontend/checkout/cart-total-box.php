@@ -2,6 +2,7 @@
 $booking=WPBooking_Checkout_Controller::inst();
 $cart=$booking->get_cart();
 $service_type = $cart['service_type'];
+$cart['price']=$booking->get_cart_total();
 ?>
 <h5 class="checkout-form-title"><?php esc_html_e("Total","wpbooking") ?></h5>
 <div class="review-cart-total">
@@ -9,7 +10,7 @@ $service_type = $cart['service_type'];
         <?php do_action('wpbooking_check_total_item_information_'.$service_type,$cart) ?>
         <?php
         $tax = $booking->get_cart_tax_price();
-        if (!empty($tax['vat']['excluded']) and $tax['vat']['excluded'] != 'no') {
+        if (!empty($tax['vat']['excluded']) and $tax['vat']['excluded'] != 'no' and $tax['vat']['price']) {
             $vat_amount = $tax['vat']['amount']."% ";
             $unit = $tax['vat']['unit'];
             if($unit == 'fixed') $vat_amount = '';
@@ -19,7 +20,7 @@ $service_type = $cart['service_type'];
 				</span>
             <span class="total-amount"><?php echo WPBooking_Currency::format_money($tax['vat']['price']); ?></span>
         <?php } ?>
-        <?php if (!empty($tax['citytax']['excluded']) and $tax['citytax']['excluded'] != 'no') {
+        <?php if (!empty($tax['citytax']['excluded']) and $tax['citytax']['excluded'] != 'no' and $tax['citytax']['price']) {
             ?>
             <span class="total-title">
 					<?php  esc_html_e("City Tax",'wpbookng'); ?>
@@ -27,7 +28,7 @@ $service_type = $cart['service_type'];
             <span class="total-amount"><?php echo WPBooking_Currency::format_money($tax['citytax']['price']); ?></span>
         <?php } ?>
     </div>
-    <span class="total-line"></span>
+    <?php if(!empty($tax['total_price'])) echo '<span class="total-line"></span>' ?>
     <div class="review-cart-item total">
         <?php
         $price_total = $booking->get_cart_total(array(

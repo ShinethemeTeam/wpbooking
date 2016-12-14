@@ -33,6 +33,17 @@ if (!class_exists('WPBooking_Service_Controller')) {
             add_filter('template_include', array($this, 'template_loader'));
             add_filter('body_class', array($this, '_add_body_class'));
 
+
+            /**
+             * Add More to Post Class
+             *
+             *
+             * @since 1.0
+             * @author dungdt
+             *
+             */
+            add_filter('post_class',array($this,'_add_post_class'),10,2);
+
             /**
              *
              * Ajax Get Calendar Months
@@ -83,6 +94,29 @@ if (!class_exists('WPBooking_Service_Controller')) {
             add_action('wpbooking_after_service_address', array($this,'_latest_booking_html'), 10 ,3);
         }
 
+        /**
+         * Add More to Post Class
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $class
+         * @return array
+         */
+        public function _add_post_class($class)
+        {
+            if(!is_admin()){
+                global $post;
+                $post_id=$post->ID;
+                $service=wpbooking_get_service($post_id);
+                if($service and $service->get_type()){
+                    $class[]='service-type-'.$service->get_type();
+                }
+            }
+
+
+            return $class;
+        }
 
         /**
          * Filter the Main Query
@@ -495,7 +529,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
          */
         function get_service_instance($post_id=false){
             if(!$post_id)$post_id =get_the_ID();
-
             // Check Instance Exists
             if(!array_key_exists($post_id,$this->all_services_instance)){
                 $this->all_services_instance[$post_id]=new WB_Service($post_id);

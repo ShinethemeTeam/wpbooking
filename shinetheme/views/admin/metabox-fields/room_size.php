@@ -33,12 +33,14 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
                     query_posts($arg);
                     while(have_posts()){
                         the_post();
+                        $size=get_post_meta(get_the_ID(), 'room_size', TRUE);
+                        if($size<1) $size=1;
                         ?>
                         <div class="wpbooking-col-sm-6">
                             <div class="form-group">
                                 <p><?php the_title() ?></p>
                                 <div class="input-group">
-                                    <input class="form-control"  id="room_size[<?php the_ID() ?>]" value="<?php echo get_post_meta(get_the_ID(), 'room_size', TRUE) ?>" name="room_size[<?php the_ID() ?>]"  type="number">
+                                    <input class="form-control" min="1"  id="room_size[<?php the_ID() ?>]" value="<?php echo esc_attr($size)  ?>" name="room_size[<?php the_ID() ?>]"  type="number">
                                     <span data-condition="room_measunit:is(metres)" class="input-group-addon wpbooking-condition">m<sup>2</sup></span>
                                     <span data-condition="room_measunit:is(feet)" class="input-group-addon wpbooking-condition">ft<sup>2</sup></span>
                                 </div>

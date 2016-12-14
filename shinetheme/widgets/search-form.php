@@ -266,15 +266,16 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                         $date = new DateTime(WPBooking_Input::get('checkin_y') . '-' . WPBooking_Input::get('checkin_m') . '-' . WPBooking_Input::get('checkin_d'));
                         $check_in = $date->format(get_option('date_format'));
                     }
+                    $id=$v['field_type'].'_'.rand(0,time());
 					?>
 					<div class="item-search datepicker-field">
-						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+						<label for="<?php echo esc_attr($id) ?>"><?php echo esc_html($v['title']) ?></label>
 						<div class="item-search-content">
 							<label >
                                 <input type="hidden" class="checkin_d" name="checkin_d" value="<?php echo WPBooking_Input::get('checkin_d')?>" />
                                 <input type="hidden" class="checkin_m" name="checkin_m" value="<?php echo WPBooking_Input::get('checkin_m')?>" />
                                 <input type="hidden" class="checkin_y" name="checkin_y" value="<?php echo WPBooking_Input::get('checkin_y')?>" />
-								<input class="wpbooking-date-start <?php if($v['required']=='yes') echo 'wb-required' ?>" readonly type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($check_in) ?>">
+								<input  class="wpbooking-date-start <?php if($v['required']=='yes') echo 'wb-required' ?>" readonly type="text" <?php echo esc_html($required) ?> id="<?php echo esc_attr($id) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($check_in) ?>">
 								<i class="fa fa-calendar"></i>
 							</label>
 						</div>
@@ -288,16 +289,17 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                         $date = new DateTime(WPBooking_Input::get('checkout_d') . '-' . WPBooking_Input::get('checkout_m') . '-' . WPBooking_Input::get('checkout_y'));
                         $check_out = $date->format(get_option('date_format'));
                     }
+                    $id=$v['field_type'].'_'.rand(0,time());
 					?>
 					<div class="item-search  datepicker-field">
-						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
+						<label for="<?php echo esc_attr($id) ?>"><?php echo esc_html($v['title']) ?></label>
 
 						<div class="item-search-content">
 							<label >
                                 <input type="hidden" class="checkout_d" name="checkout_d" value="<?php echo WPBooking_Input::get('checkout_d')?>" />
                                 <input type="hidden" class="checkout_m" name="checkout_m" value="<?php echo WPBooking_Input::get('checkout_m')?>" />
                                 <input type="hidden" class="checkout_y" name="checkout_y" value="<?php echo WPBooking_Input::get('checkout_y')?>" />
-								<input class="wpbooking-date-end <?php if($v['required']=='yes') echo 'wb-required' ?>" readonly type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($check_out) ?>">
+								<input class="wpbooking-date-end <?php if($v['required']=='yes') echo 'wb-required' ?>" readonly type="text" <?php echo esc_html($required) ?> id="<?php echo esc_attr($id) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($check_out) ?>">
 								<i class="fa fa-calendar"></i>
 							</label>
 						</div>
@@ -333,48 +335,6 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                     </div>
                     <?php
                     break;
-				case "guest":
-					?>
-					<div class="item-search">
-						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-
-						<div class="item-search-content">
-							<select id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" class="small-input <?php if($v['required']=='yes') echo 'wb-required' ?>">
-								<option value=""><?php esc_html_e('- Select -','wpbooking') ?></option>
-								<?php for($i=1;$i<=20;$i++){
-									printf('<option value="%s" %s>%s</option>',$i,selected(WPBooking_Input::get($v['field_type']),$i,FALSE),$i);
-								} ?>
-							</select>
-						</div>
-						<div class="wb-collapse"></div>
-					</div>
-					<?php
-					break;
-
-				case "bathroom":
-				case "double_bed":
-				case "single_bed":
-				case "sofa_bed":
-				case "property_floor":
-				case "bedroom":
-					?>
-					<div class="item-search <?php if(!$v['title']) echo 'no_title'; ?>">
-						<?php if($v['title']){ ?>
-						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-						<?php } ?>
-
-						<div class="item-search-content">
-							<select id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" class="<?php if($v['required']=='yes') echo 'wb-required' ?>">
-							<?php if($v['placeholder']) printf('<option value="">%s</option>',$v['placeholder']); ?>
-							<?php for($i=1;$i<=20;$i++){
-								printf('<option value="%s" %s >%s</option>',$i,selected(WPBooking_Input::get($v['field_type']),$i,FALSE),$i);
-							} ?>
-							</select>
-						</div>
-						<div class="wb-collapse"></div>
-					</div>
-					<?php
-					break;
 				case "price":
 					wp_enqueue_script('ion-range-slider');
 					wp_enqueue_style('ion-range-slider');
@@ -393,20 +353,6 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 							<input type="text" data-type="double" data-min="<?php echo esc_attr($min_max_price['min']) ?>" data-max="<?php echo esc_attr($min_max_price['max']) ?>" class="wpbooking-ionrangeslider" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
 						</div>
 						<?php if($v['title']) { ?><div class="wb-collapse"></div> <?php } ?>
-					</div>
-					<?php
-					break;
-				case "property_size":
-					?>
-					<div class="item-search  property_size">
-						<label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label>
-
-						<div class="item-search-content">
-							<label >
-								<input class="<?php if($v['required']=='yes') echo 'wb-required' ?>" type="text" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
-							</label>
-						</div>
-						<div class="wb-collapse"></div>
 					</div>
 					<?php
 					break;

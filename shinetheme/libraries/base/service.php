@@ -69,24 +69,25 @@ if (!class_exists('WB_Service')) {
 		{
 			if ($this->ID) {
 				$res = array();
+                $gallery = get_post_meta($this->ID, 'gallery', TRUE);
+                if($this->service_type == 'tour')
+                    $gallery = get_post_meta($this->ID, 'tour_gallery', true);
+                if ($gallery and !is_array($gallery)) {
+                    $gallery = explode(',', $gallery);
+                    if (!empty($gallery)) {
+                        foreach ($gallery as $media) {
+                            $thumb = wp_get_attachment_image_src($media, $this->thumb_size);
+                            $gallery = wp_get_attachment_image_src($media, $this->gallery_size);
+                            $res[] = array(
+                                'thumb'       => wp_get_attachment_image($media, $this->thumb_size),
+                                'thumb_url'   => !empty($thumb[0]) ? $thumb[0] : FALSE,
+                                'gallery'     => wp_get_attachment_image($media, $this->gallery_size),
+                                'gallery_url' => !empty($gallery[0]) ? $gallery[0] : FALSE,
+                            );
 
-				$gallery = get_post_meta($this->ID, 'gallery', TRUE);
-				if ($gallery and !is_array($gallery)) {
-					$gallery = explode(',', $gallery);
-					if (!empty($gallery)) {
-						foreach ($gallery as $media) {
-							$thumb = wp_get_attachment_image_src($media, $this->thumb_size);
-							$gallery = wp_get_attachment_image_src($media, $this->gallery_size);
-							$res[] = array(
-								'thumb'       => wp_get_attachment_image($media, $this->thumb_size),
-								'thumb_url'   => !empty($thumb[0]) ? $thumb[0] : FALSE,
-								'gallery'     => wp_get_attachment_image($media, $this->gallery_size),
-								'gallery_url' => !empty($gallery[0]) ? $gallery[0] : FALSE,
-							);
-
-						}
-					}
-				}elseif(is_array($gallery)){
+                        }
+                    }
+                }elseif(is_array($gallery)){
                     if(!empty($gallery['gallery'])){
                         $gallery_arr = explode(',', $gallery['gallery']);
                         if(!empty($gallery_arr)) {
@@ -104,6 +105,7 @@ if (!class_exists('WB_Service')) {
                         }
                     }
                 }
+
 
 				if (empty($res)) {
 					// Default
@@ -295,38 +297,13 @@ if (!class_exists('WB_Service')) {
 		function get_price_html($echo = TRUE)
 		{
 			if ($this->ID) {
-				$rate = wpbooking_service_price_html($this->ID);
-				if ($echo) echo($rate);
-				else return $rate;
+				$price_html = wpbooking_service_price_html($this->ID);
+				if ($echo) echo($price_html);
+				else return $price_html;
 			}
 		}
 
-//        /**
-//         * get average of a stats
-//         *
-//         * @author tien
-//         * @since 1.0
-//         *
-//         * @param $term_id
-//         * @return mixed|string|void
-//         */
-//		function get_stats_avg_rating($term_id){
-//            if($this->ID){
-//                global $wpdb;
-//
-//                $model=WPBooking_Comment_Model::inst();
-//                $res= $model->select('AVG('.$wpdb->commentmeta.'.meta_value) as average')
-//                    ->join('commentmeta','commentmeta.comment_id=comments.comment_ID')
-//                    ->where(array(
-//                        'comment_post_ID'=>$this->ID,
-//                        'comment_parent'=>0,
-//                        'comment_approved'=>1,
-//                        $wpdb->commentmeta.'.meta_key'=>'wpbooking_review_stats_'.($term_id)
-//                    ))->get()->row();
-//
-//                return (!empty($res['average']))?$res['average']:false;
-//            }
-//        }
+
 
 		/**
 		 * Get Service Type ID of current Service

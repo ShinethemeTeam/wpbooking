@@ -37,16 +37,16 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                 <div class="wpbooking-calendar-sidebar">
                     <div class="form-container calendar-room-form">
                         <h4 class="form-title"><?php echo esc_html__('Set price by date arrange','wpbooking') ?></h4>
-                        <p class="form-desc"><?php echo esc_html__('You can make room for any purpose ( like discount , high price , ... )','wpbooking'); ?></p>
+                        <p class="form-desc"><?php echo esc_html__('You can make room for any purpose (like discount, high price, ...)','wpbooking'); ?></p>
                         <div class="calendar-room-form-item full-width" >
-                            <label class="calendar-label" for="calendar-checkin"><?php echo __('From Date', 'wpbooking'); ?></label>
+                            <label class="calendar-label" for="calendar-checkin"><?php echo __('Start Date', 'wpbooking'); ?></label>
                             <div class="calendar-input-icon">
                                 <input class="calendar-input date-picker" type="text" id="calendar-checkin" name="calendar-checkin" value="" readonly="readonly" placeholder="<?php echo __('From Date','wpbooking'); ?>">
                                 <label for="calendar-checkin" class="fa"><i class="fa fa-calendar"></i></label>
                             </div>
                         </div>
                         <div class="calendar-room-form-item full-width" >
-                            <label class="calendar-label" for="calendar-checkout"><?php echo __('To Date', 'wpbooking'); ?></label>
+                            <label class="calendar-label" for="calendar-checkout"><?php echo __('End Date', 'wpbooking'); ?></label>
                             <div class="calendar-input-icon">
                                 <input class="calendar-input date-picker" type="text" id="calendar-checkout" name="calendar-checkout" value="" readonly="readonly" placeholder="<?php echo __('To Date','wpbooking'); ?>">
                                 <label for="calendar-checkout" class="fa"><i class="fa fa-calendar"></i></label>
@@ -101,7 +101,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                     <td>
                                         <div class="input-group ">
                                             <span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-                                            <input type="number" class="form-control"  value="" name="calendar_adult_price"  >
+                                            <input type="number" class="form-control"  value="0" name="calendar_adult_price"  >
                                         </div>
                                     </td>
                                 </tr>
@@ -113,7 +113,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                     <td>
                                         <div class="input-group ">
                                             <span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-                                            <input type="number" class="form-control"  value="" name="calendar_child_price"  >
+                                            <input type="number" class="form-control"  value="0" name="calendar_child_price"  >
                                         </div>
                                     </td>
                                 </tr>
@@ -125,7 +125,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                     <td>
                                         <div class="input-group ">
                                             <span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-                                            <input type="number" class="form-control"  value="" name="calendar_infant_price"  >
+                                            <input type="number" class="form-control"  value="0" name="calendar_infant_price"  >
                                         </div>
                                     </td>
                                 </tr>

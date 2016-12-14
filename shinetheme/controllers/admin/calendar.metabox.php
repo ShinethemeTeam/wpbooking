@@ -99,7 +99,6 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					}
 
 
-
 					$data=array(
 						'data'=>$return
 					);
@@ -135,7 +134,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					if( !$check_in || !$check_out ){
 						echo json_encode( array(
 							'status' => 0,
-							'message' => __('The checkin or checkout field is invalid.', 'wpbooking')
+							'message' => __('The start date or end date field is invalid.', 'wpbooking')
 						) );
 						die;
 					}
@@ -529,7 +528,9 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 			$table = $wpdb->prefix. 'wpbooking_availability';
 
-			$sql = "SELECT * FROM {$table} WHERE base_id = {$base_id} AND ( ( CAST( `start` AS UNSIGNED ) >= CAST( {$check_in} AS UNSIGNED) AND CAST( `start` AS UNSIGNED ) <= CAST( {$check_out} AS UNSIGNED ) ) OR ( CAST( `end` AS UNSIGNED ) >= CAST( {$check_in} AS UNSIGNED ) AND ( CAST( `end` AS UNSIGNED ) <= CAST( {$check_out} AS UNSIGNED ) ) ) )";
+            $where=apply_filters('wpbooking_get_availability_where_clause',false,$base_id);
+
+			$sql = "SELECT * FROM {$table} WHERE base_id = {$base_id} AND ( ( CAST( `start` AS UNSIGNED ) >= CAST( {$check_in} AS UNSIGNED) AND CAST( `start` AS UNSIGNED ) <= CAST( {$check_out} AS UNSIGNED ) ) OR ( CAST( `end` AS UNSIGNED ) >= CAST( {$check_in} AS UNSIGNED ) AND ( CAST( `end` AS UNSIGNED ) <= CAST( {$check_out} AS UNSIGNED ) ) ) ) ".$where;
 
 			$result = $wpdb->get_results( $sql, ARRAY_A );
 

@@ -14,7 +14,7 @@ if(!empty($data['container_class'])) $class.=' '.$data['container_class'];
 $list_room = WPBooking_Accommodation_Service_Type::inst()->_get_room_by_hotel($post_id);
 $my_term =wp_get_post_terms($post_id,$data['taxonomy']);
 ?>
-<div class="wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+<div class="wpbooking-settings <?php echo esc_html( $class ); ?> field-<?php echo esc_html($data['id']); ?>" <?php echo esc_html( $data_class ); ?>>
     <div class="st-metabox-left">
         <label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
     </div>

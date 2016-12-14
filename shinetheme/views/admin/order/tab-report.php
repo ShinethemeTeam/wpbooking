@@ -12,7 +12,7 @@ $args=array(
 	'posts_per_page'=>20
 );
 
-$service_type = WPBooking_Input::get('wb_service_types',array('accommodation'));
+$service_type = WPBooking_Input::get('wb_service_types',array('accommodation', 'tour'));
 $report_type=WPBooking_Input::get('report_type','last_7days');
 $start_date=WPBooking_Input::get('date_from');
 $end_date=WPBooking_Input::get('date_to');
@@ -21,7 +21,6 @@ $chart = WPBooking_Admin_Order::inst();
 $query=new WP_Query($args);
 $service_types=WPBooking_Service_Controller::inst()->get_service_types();
 $report_data=WPBooking_Admin_Order::inst()->get_report_data();
-
 $report_type=WPBooking_Input::get('report_type','last_7days');
 $type_array=array(
 	'today'=>esc_html__('Today','wpbooking'),
@@ -46,11 +45,25 @@ $type_array=array(
 		<div class="select-service-type">
 			<h4><?php esc_html_e('Service type:','wpbooking') ?></h4>
 			<ul class="service_types">
-				<li><label ><input type="checkbox" class="check_all_service_type" checked> <?php esc_html_e('All','wpbooking') ?></label></li>
+                <?php
+                $chked = '';
+                if(count($service_type) == count($service_types)){
+                    $chked = 'checked';
+                }
+                ?>
+				<li><label ><input type="checkbox" class="check_all_service_type" <?php echo esc_attr($chked); ?>> <?php esc_html_e('All','wpbooking') ?></label></li>
 				<?php
 				if(!empty($service_types)){
 					foreach($service_types as $key=>$val){
-						$checked='checked';
+                        $checked = '';
+                        if(is_array($service_type)){
+                            if(in_array($key, $service_type)){
+                                $checked='checked';
+                            }
+                        }else{
+                            $checked='checked';
+                        }
+
 						printf('<li><label ><input type="checkbox" %s name="wb_service_types[]" value="%s"> %s</label></li>',$checked,$key,$val->get_info('label'));
 					}
 				}
@@ -97,6 +110,7 @@ $type_array=array(
                 $items = $chart->total_in_time_range($service_type,'items',$report_type,$start_date, $end_date);
                 $total_bookings = $chart->total_in_time_range($service_type,'total_bookings',$report_type,$start_date, $end_date);
                 $completed = $chart->total_in_time_range($service_type,'completed',$report_type,$start_date, $end_date);
+				$completed_a_part = $chart->total_in_time_range($service_type,'completed_a_part',$report_type,$start_date, $end_date);
                 $on_hold = $chart->total_in_time_range($service_type,'on_hold',$report_type,$start_date, $end_date);
                 $cancelled = $chart->total_in_time_range($service_type,'cancelled',$report_type,$start_date, $end_date);
                 $refunded = $chart->total_in_time_range($service_type,'refunded',$report_type,$start_date, $end_date);
@@ -108,6 +122,7 @@ $type_array=array(
                         <th class="wb-report-column"><?php echo esc_html__('Items','wpbooking'); ?></th>
                         <th class="wb-report-column"><?php echo esc_html__('Total Bookings','wpbooking'); ?></th>
                         <th class="wb-report-column"><?php echo esc_html__('Completed','wpbooking'); ?></th>
+                        <th class="wb-report-column"><?php echo esc_html__('Completed a Part','wpbooking'); ?></th>
                         <th class="wb-report-column"><?php echo esc_html__('On Hold','wpbooking'); ?></th>
                         <th class="wb-report-column"><?php echo esc_html__('Cancelled','wpbooking'); ?></th>
                         <th class="wb-report-column"><?php echo esc_html__('Refunded','wpbooking'); ?></th>
@@ -126,6 +141,10 @@ $type_array=array(
                         <td class="wb-report-d-column">
                             <span class="number"><?php echo esc_attr($completed)?></span>
                             <?php echo _n('booking','bookings',wpbooking_covert_to_one($completed)); ?>
+                        </td>
+                        <td class="wb-report-d-column">
+                            <span class="number"><?php echo esc_attr($completed)?></span>
+                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($completed_a_part)); ?>
                         </td>
                         <td class="wb-report-d-column">
                             <span class="number"><?php echo esc_attr($on_hold)?></span>
@@ -149,6 +168,7 @@ $type_array=array(
                 $data_net_profit = $chart->get_net_profit_in_time_range($service_type,$report_type,$start_date,$end_date);
                 $data_refunded = $chart->get_items_booking_by_status($service_type,$report_type,'refunded',$start_date,$end_date);
                 $data_completed = $chart->get_items_booking_by_status($service_type,$report_type,'completed',$start_date,$end_date);
+                $data_completed_a_part = $chart->get_items_booking_by_status($service_type,$report_type,'completed_a_part',$start_date,$end_date);
                 $data_on_hold = $chart->get_items_booking_by_status($service_type,$report_type,'on_hold',$start_date,$end_date);
                 $data_cancelled = $chart->get_items_booking_by_status($service_type,$report_type,'cancelled',$start_date,$end_date);
                 ?>
@@ -229,7 +249,13 @@ $type_array=array(
                                         }, {
                                             label: '<?php echo esc_html__('Completed','wpbooking')?>',
                                             data: <?php echo json_encode($data_completed); ?>,
-                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                                            fill: false,
+                                            yAxisID: "y-axis-1",
+                                        },{
+                                            label: '<?php echo esc_html__('Completed a Part','wpbooking')?>',
+                                            data: <?php echo json_encode($data_completed_a_part); ?>,
+                                            backgroundColor: 'rgba(109, 48, 123, 0.48)',
                                             fill: false,
                                             yAxisID: "y-axis-1",
                                         },

@@ -28,16 +28,17 @@ if(!empty($data['taxonomy'])){
 			$data['value'][$term->term_id]=$term->name;
 		}
 	}
+    $field .= '<input type="hidden" name="is_tax" value="'.$name.'">';
 }
 
-if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
+if( !empty( $data['value'] ) && is_array( $data['value'] ) ){
 	$array_with_out_key=FALSE;
 	$keys = array_keys( $data['value']);
 	if($keys[0]===0){
 		$array_with_out_key=true;
 	}
 
-	$field .= '<div style="margin-bottom: 7px;"><select name="'. $name .'" id="'. esc_html( $data['id'] ) .'" class="widefat form-control '. esc_html( $data['class'] ).'">';
+	$field .= '<div><select name="'. $name .'" id="'. esc_html( $data['id'] ) .'" class="widefat form-control '. esc_html( $data['class'] ).'">';
 	foreach( $data['value'] as $key => $value ){
 		$compare=$key;
 		if($array_with_out_key) $compare=$value;
@@ -71,7 +72,7 @@ if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 	}
 	$field .= '</select></div>';
 }
-
+$field .= '<div class="metabox-help">'.balanceTags( $data['desc'] ).'</div>';
 $field .= '</div></div>';
 
 ?>
@@ -81,6 +82,5 @@ $field .= '</div></div>';
 </div>
 <div class="st-metabox-right">
 	<?php echo do_shortcode($field); ?>
-	<div class="metabox-help"><?php echo balanceTags( $data['desc'] ) ?></div>
 </div>
 </div>

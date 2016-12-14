@@ -1090,6 +1090,9 @@ jQuery(document).ready(function( $ ){
 
         var data=section.find('input,select,textarea').serialize();
 
+        section.find('.is_error').removeClass('is_error');
+        section.find('.is_error_message').remove();
+
         data+='&action=wpbooking_save_metabox_section';
 
         $.ajax({
@@ -1109,6 +1112,28 @@ jQuery(document).ready(function( $ ){
                     wpbooking_reload_image_room(section.find('input,select,textarea'));
                 }
 
+                if(typeof res.error_fields!=='undefined')
+                {
+                    for(var k in res.error_fields){
+
+                        var field=section.find("[name='"+k+"']");
+                        if(!field.length){
+                            field=section.find('.field-'+k+' .st-metabox-content-wrapper .form-group');
+                        }
+                        if(!field.length){
+                            field=section.find('.field-'+k);
+                        }
+                        field.addClass('is_error');
+                        $('<span class="is_error_message">'+res.error_fields[k]+'</span>').insertAfter(field);
+                    }
+
+                    var first_error=section.find('.is_error:first-child');
+                    if(first_error.length){
+                        var h = section.find(first_error).offset().top;
+                        $('html,body').animate({'scrollTop': parseInt(h) - 200});
+                    }
+
+                }
                 section.removeClass('loading');
             },
             error:function(e){
@@ -1605,8 +1630,31 @@ jQuery(document).ready(function( $ ){
                     $(window).trigger('wpbooking_event_hotel_room_saved');
                     $('input[name=room_measunit]').trigger('change');
                 }else{
-                    alert(res.message);
+                    if(typeof res.message!='undefined'){
+                        alert(res.message);
+                    }
                 }
+
+                if(typeof res.error_fields!=='undefined')
+                {
+                    for(var k in res.error_fields){
+
+                        var field=parent.find("[name='"+k+"']");
+                        if(!field.length){
+                            field=parent.find('.field-'+k+' .st-metabox-content-wrapper .form-group');
+                        }
+                        field.addClass('is_error');
+                        $('<span class="is_error_message">'+res.error_fields[k]+'</span>').insertAfter(field);
+                    }
+
+                    var first_error=parent.find('.is_error:first-child');
+                    if(first_error.length){
+                        var h = parent.find(first_error).offset().top;
+                        $('html,body').animate({'scrollTop': parseInt(h) - 200});
+                    }
+
+                }
+
             },
             error:function(e){
                 parent.removeClass('on-loading');
@@ -1741,12 +1789,16 @@ jQuery(document).ready(function( $ ){
     });*/
 
     $('.check_all_service_type').change(function(){
-
        if($(this).attr('checked')=='checked'){
            $(this).closest('li').siblings().find('input:checkbox').attr('checked','checked')
+           $(this).closest('form').submit();
        }else{
            $(this).closest('li').siblings().find('input:checkbox').removeAttr('checked');
        }
+    });
+
+    $('.service_types input[type=checkbox]:not(.check_all_service_type)').change(function(){
+        $(this).closest('form').submit();
     });
 
     $('.datepicker_start').datepicker();
@@ -1790,11 +1842,35 @@ jQuery(document).ready(function( $ ){
         form.submit();
     });
 
+    $(document).on('change','.age_adult_max',function(){
+        if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_adult_min').val())){
+            $('.adult_notice').show();
+        }else{
+            $('.adult_notice').hide();
+        }
+    });
+
+    $(document).on('change','.age_child_max',function(){
+        if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_child_min').val())){
+            $('.adult_notice').show();
+        }else{
+            $('.adult_notice').hide();
+        }
+    });
+
+    $(document).on('change','.age_infant_max',function(){
+        if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_infant_min').val())){
+            $('.adult_notice').show();
+        }else{
+            $('.adult_notice').hide();
+        }
+    });
+
     $(document).on('change','input[type=number]',function(){
         $(this).each(function(){
             var number = $(this).val();
             number = parseFloat(number);
-            console.log(number);
+            //console.log(number);
             if (isNaN(number)) {
                 number = 0;
             }
@@ -1846,34 +1922,6 @@ jQuery(document).ready(function( $ ){
         }
     });
 
-    $('.age_adult_max').each(function () {
-        $(this).bind('keyup mouseup', function(){
-            if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_adult_min').val())){
-                $('.adult_notice').show();
-            }else{
-                $('.adult_notice').hide();
-            }
-        });
-    });
-    $('.age_child_max').each(function () {
-        $(this).bind('keyup mouseup', function(){
-            if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_child_min').val())){
-                $('.adult_notice').show();
-            }else{
-                $('.adult_notice').hide();
-            }
-        });
-    });
-    $('.age_infant_max').each(function () {
-        $(this).bind('keyup mouseup', function(){
-            if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_infant_min').val())){
-                $('.adult_notice').show();
-            }else{
-                $('.adult_notice').hide();
-            }
-        });
-    });
-
     $(document).on('click','.btn_list_item_edit', function (e) {
         e.preventDefault();
         var parent = $(this).closest('.wpbooking-list-item');
@@ -1899,6 +1947,263 @@ jQuery(document).ready(function( $ ){
     $(document).on('click','.item-itinerary-del', function(e){
         e.preventDefault();
         $(this).closest('.item-itinerary').remove();
+    });
+
+    //extensionh page ajax
+
+    $('.wb-search-extension').click(function () {
+        $.ajax({
+            url: wpbooking_params.api_url,
+            data: {
+                action: 'st_get_extension',
+                s: $(this).closest('.search-extensions').find('.search-field').val()
+            },
+            type: 'post',
+            dataType: 'jsonp',
+            jsonp: 'callback',
+            jsonpCallback: 'callback',
+            beforeSend:function(){
+                var loading = '<div class="ex-loading"></div>';
+                $('.extension-list').append(loading);
+            },
+            success:function(res){
+                //console.log(res.responseText);
+                $('.ex-loading').remove();
+                $('.extension-list ').html('');
+                $('.extension-list ').append('<div class="list"></div>');
+                if(res.status == 1){
+                    res.data.posts.forEach(function(item,index){
+                        var item_html = '<div class="item">' +
+                            '<div class="extension">' +
+                            '<div class="thumnail">' +
+                            '<img src="'+item.thumb_url+'"/>' +
+                            '</div>' +
+                            '<div class="info">' +
+                            '<h3 class="title">'+item.title+'</h3>' +
+                            '<p class="desc">'+item.short_ex+'</p>' +
+                            '<a class="read-more" target="_blank" href="'+item.url+'">'+wpbooking_params.read_more+'</a>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                        $('.extension-list .list').append(item_html);
+                    });
+                    var s = '';
+                    if(res.s){
+                        s = res.s;
+                    }
+
+                    var page_html = '<div class="pagination"><ul class="ex-pagination">';
+
+                    page_html += '<li class="hidden"><a href="#" data-paged="0" class="prev">'+wpbooking_params.prev+'</a></li>';
+
+                    for(var i = 1; i<= res.data.max_pages; i++){
+                        if(i==1){
+                            page_html += '<li class="active"><span>'+i+'</span></li>';
+                        }else{
+                            page_html += '<li><a href="#" data-paged="'+i+'" data-s="'+s+'">'+i+'</a></li>';
+                        }
+
+                    }
+                    page_html += '<li><a href="#" data-paged="2" class="next" data-s="'+s+'" >'+wpbooking_params.next+'</a></li>';
+                    page_html += '</ul></div>';
+
+                    if(res.data.max_pages > 1) {
+                        $('.extension-list').append(page_html);
+                    }
+
+                    $('.result-text .ex-total').text(res.data.post_count);
+                    $('.result-text .ex-from').text(1);
+                    if( res.data.post_count >= res.posts_per_page)
+                        $('.result-text .ex-to').text(res.posts_per_page);
+                    else
+                        $('.result-text .ex-to').text(res.data.post_count);
+
+                }else{
+                    $('.extension-list .list').append('<h3>No Result</h3>');
+                    $('.result-text').hide();
+                }
+
+            },
+            error:function(e){
+                console.log(e);
+            }
+        });
+        return false;
+    });
+    $(document).on('click', '.ex-pagination a', function(){
+        $.ajax({
+            url: wpbooking_params.api_url,
+            data: {
+                action: 'st_get_extension',
+                paged: $(this).attr('data-paged'),
+                cat_id: $(this).attr('data-cat'),
+                s: $(this).attr('data-s'),
+
+            },
+            type: 'post',
+            dataType: 'jsonp',
+            jsonp: 'callback',
+            jsonpCallback: 'callback',
+            beforeSend:function(){
+                var loading = '<div class="ex-loading"></div>';
+                $('.extension-list').append(loading);
+            },
+            success:function(res){
+                $('.ex-loading').remove();
+                $('.extension-list').html('');
+                $('.extension-list').append('<div class="list"></div>');
+                if(res.status == 1){
+                    res.data.posts.forEach(function(item,index){
+                        var item_html = '<div class="item">' +
+                            '<div class="extension">' +
+                            '<div class="thumnail">' +
+                            '<img src="'+item.thumb_url+'"/>' +
+                            '</div>' +
+                            '<div class="info">' +
+                            '<h3 class="title">'+item.title+'</h3>' +
+                            '<p class="desc">'+item.short_ex+'</p>' +
+                            '<a class="read-more" target="_blank" href="'+item.url+'">'+wpbooking_params.read_more+'</a>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                        $('.extension-list .list').append(item_html);
+                    });
+                    var s = '';
+                    if(res.s && res.s != undefined){
+                        s = res.s;
+                    }
+
+                    var cat = '';
+                    if(res.cat_id && res.cat_id != undefined){
+                        cat = res.cat_id;
+                    }
+
+                    var prev = '';
+                    var next = '';
+                    if(res.paged == 1){
+                        prev = 'hidden';
+                    }
+                    if(res.paged == res.data.max_pages){
+                        next = 'hidden';
+                    }
+
+                    var page_html = '<div class="pagination"><ul class="ex-pagination">';
+                    page_html += '<li class="'+prev+'"><a href="#" data-s="'+s+'" data-cat="'+cat+'" data-paged="'+(parseInt(res.paged) - 1)+'" class="prev">'+wpbooking_params.prev+'</a></li>';
+
+                    for(var i = 1; i<= res.data.max_pages; i++){
+                        if(res.paged == i){
+                            page_html += '<li class="active"><span>'+i+'</span></li>';
+                        }else{
+                            page_html += '<li><a href="#" data-s="'+s+'" data-cat="'+cat+'" data-paged="'+i+'">'+i+'</a></li>';
+                        }
+
+                    }
+
+                    page_html += '<li class="'+next+'"><a href="#" data-paged="'+(parseInt(res.paged) + 1)+'" data-cat="'+cat+'" data-s="'+s+'" class="next">'+wpbooking_params.next+'</a></li>';
+                    page_html += '</ul></div>';
+
+                    $('.extension-list').append(page_html);
+
+                    $('.result-text .ex-total').text(res.data.post_count);
+                    $('.result-text .ex-from').text(parseInt(res.paged-1)*parseInt(res.posts_per_page));
+                    if(res.paged == 1){
+                        $('.result-text .ex-from').text(1);
+                    }
+                    console.log(res.data.post_count);
+                    $('.result-text .ex-to').text(res.posts_per_page*res.paged);
+                    if(res.paged == res.data.max_pages){
+                        $('.result-text .ex-to').text(res.data.post_count);
+                    }
+                }
+            },
+            error:function(e){
+                console.log(e);
+            }
+        });
+        return false;
+    });
+
+    $('.box-categories .list-cat a').each(function(){
+        $(this).click(function(){
+            $('.box-categories .list-cat').find('li').removeClass('active');
+            $(this).parent().addClass('active');
+            $.ajax({
+                url: wpbooking_params.api_url,
+                data: {
+                    action: 'st_get_extension',
+                    cat_id: $(this).attr('data-id')
+                },
+                dataType: 'jsonp',
+                jsonp: 'callback',
+                jsonpCallback: 'callback',
+                type: 'post',
+                beforeSend:function(){
+                    var loading = '<div class="ex-loading"></div>';
+                    $('.extension-list').append(loading);
+                },
+                success:function(res){
+                    $('.ex-loading').remove();
+                    $('.extension-list').html('');
+                    $('.extension-list').append('<div class="list"></div>');
+                    if(res.status == 1){
+                        res.data.posts.forEach(function(item,index){
+                            var item_html = '<div class="item">' +
+                                '<div class="extension">' +
+                                '<div class="thumnail">' +
+                                '<img src="'+item.thumb_url+'"/>' +
+                                '</div>' +
+                                '<div class="info">' +
+                                '<h3 class="title">'+item.title+'</h3>' +
+                                '<p class="desc">'+item.short_ex+'</p>' +
+                                '<a class="read-more" target="_blank" href="'+item.url+'">'+wpbooking_params.read_more+'</a>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>';
+                            $('.extension-list .list').append(item_html);
+                        });
+
+                        var cat = '';
+                        if(res.cat_id && res.cat_id != undefined){
+                            cat = res.cat_id;
+                        }
+
+                        var page_html = '<div class="pagination"><ul class="ex-pagination">';
+
+                        page_html += '<li class="hidden"><a href="#" data-paged="0" class="prev">'+wpbooking_params.prev+'</a></li>';
+
+                        for(var i = 1; i<= res.data.max_pages; i++){
+                            if(i==1){
+                                page_html += '<li class="active"><span>'+i+'</span></li>';
+                            }else{
+                                page_html += '<li><a href="#" data-paged="'+i+'" data-cat="'+cat+'">'+i+'</a></li>';
+                            }
+
+                        }
+                        page_html += '<li><a href="#" data-paged="2" class="next" data-cat="'+cat+'" >'+wpbooking_params.next+'</a></li>';
+                        page_html += '</ul></div>';
+
+                        if(res.data.max_pages > 1) {
+                            $('.extension-list').append(page_html);
+                        }
+
+                        $('.result-text .ex-total').text(res.data.post_count);
+                        $('.result-text .ex-from').text(1);
+                        if( res.data.post_count >= res.posts_per_page)
+                            $('.result-text .ex-to').text(res.posts_per_page);
+                        else
+                            $('.result-text .ex-to').text(res.data.post_count);
+                    }
+
+                },
+                error:function(e){
+                    console.log(e);
+                }
+            });
+            return false;
+        });
     });
 
 });
