@@ -881,6 +881,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'id'    => 'gallery',
                             'type'  => 'gallery_hotel',
                             'rules'=>'array_key_required[gallery]',
+                            'error_message' => esc_html__('You must upload minimum one photo for your accommodation','wpbooking'),
                             'desc'  => __('Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wpbooking')
                         ),
                         array(
