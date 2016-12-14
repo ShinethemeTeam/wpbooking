@@ -53,7 +53,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
                     </div>
 					<div class="form-container calendar-room-form">
 						<h4 class="form-title"><?php echo esc_html__('Set price by date arrange','wpbooking') ?></h4>
-						<p class="form-desc"><?php echo esc_html__('You can make room for any purpose ( like discount , high price , ... )','wpbooking'); ?></p>
+						<p class="form-desc"><?php echo esc_html__('You can make room for any purpose (like discount, high price, ...)','wpbooking'); ?></p>
 						<div class="calendar-room-form-item full-width" >
 							<label class="calendar-label" for="calendar-checkin"><?php echo __('Start Date', 'wpbooking'); ?></label>
 							<div class="calendar-input-icon">
