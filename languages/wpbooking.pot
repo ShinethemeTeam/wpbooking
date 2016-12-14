@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPBooking\n"
-"POT-Creation-Date: 2016-11-16 15:40+0700\n"
+"POT-Creation-Date: 2016-12-14 11:22+0700\n"
 "PO-Revision-Date: 2016-05-27 10:45+0700\n"
 "Last-Translator: \n"
 "Language-Team: Shinetheme <contact@shinetheme.com>\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: shinetheme/configs/config.php:11
 #: shinetheme/views/admin/order/tab-listing.php:168
-#: shinetheme/views/admin/order/tab-report.php:111
+#: shinetheme/views/admin/order/tab-report.php:126
 msgid "On Hold"
 msgstr ""
 
@@ -38,11 +38,14 @@ msgid "Payment Failed because of Gateway Problem or Wrong API data of Gateway"
 msgstr ""
 
 #: shinetheme/configs/config.php:19
-#: shinetheme/views/admin/order/tab-report.php:110
+#: shinetheme/views/admin/order/tab-report.php:124
+#: shinetheme/views/admin/order/tab-report.php:250
 msgid "Completed"
 msgstr ""
 
 #: shinetheme/configs/config.php:22
+#: shinetheme/views/admin/order/tab-report.php:125
+#: shinetheme/views/admin/order/tab-report.php:256
 msgid "Completed a Part"
 msgstr ""
 
@@ -51,7 +54,8 @@ msgid "Completed with deposit payment"
 msgstr ""
 
 #: shinetheme/configs/config.php:26
-#: shinetheme/views/admin/order/tab-report.php:112
+#: shinetheme/views/admin/order/tab-report.php:127
+#: shinetheme/views/admin/order/tab-report.php:238
 msgid "Cancelled"
 msgstr ""
 
@@ -60,7 +64,8 @@ msgid "Customer or Admin cancel the booking"
 msgstr ""
 
 #: shinetheme/configs/config.php:30
-#: shinetheme/views/admin/order/tab-report.php:113
+#: shinetheme/views/admin/order/tab-report.php:128
+#: shinetheme/views/admin/order/tab-report.php:232
 msgid "Refunded"
 msgstr ""
 
@@ -154,124 +159,119 @@ msgstr ""
 msgid "Futon Mat / Variable Size"
 msgstr ""
 
-#: shinetheme/configs/lang.php:8
+#: shinetheme/configs/lang.php:8 shinetheme/configs/lang.php:9
+#: shinetheme/configs/lang.php:10
 #, php-format
 msgid "The %s field is required."
 msgstr ""
 
-#: shinetheme/configs/lang.php:9
+#: shinetheme/configs/lang.php:11
 #, php-format
 msgid "The %s field must have a value."
 msgstr ""
 
-#: shinetheme/configs/lang.php:10
-#, php-format
-msgid "The %s field must contain a valid email address."
-msgstr ""
-
-#: shinetheme/configs/lang.php:11
-#, php-format
-msgid "The %s field must contain all valid email addresses."
-msgstr ""
-
-#: shinetheme/configs/lang.php:12
-#, php-format
-msgid "The %s field must contain a valid URL. Ex \"http://domain.com\""
-msgstr ""
-
-#: shinetheme/configs/lang.php:13
-#, php-format
-msgid "The %s field must contain a valid IP."
+#: shinetheme/configs/lang.php:12 shinetheme/configs/lang.php:13
+msgid "Please enter a valid email format."
 msgstr ""
 
 #: shinetheme/configs/lang.php:14
 #, php-format
-msgid "The %s field must be at least %s characters in length."
+msgid "The %s field must contain a valid URL. Ex \"http://domain.com\""
 msgstr ""
 
 #: shinetheme/configs/lang.php:15
 #, php-format
-msgid "The %s field can not exceed %s characters in length."
+msgid "The %s field must contain a valid IP."
 msgstr ""
 
 #: shinetheme/configs/lang.php:16
 #, php-format
-msgid "The %s field must be exactly %s characters in length."
+msgid "The %s field must be at least %s characters."
 msgstr ""
 
 #: shinetheme/configs/lang.php:17
 #, php-format
-msgid "The %s field may only contain alphabetical characters."
+msgid "The %s field can not exceed %s characters in length."
 msgstr ""
 
 #: shinetheme/configs/lang.php:18
 #, php-format
-msgid "The %s field may only contain alpha-numeric characters."
+msgid "The %s field must be exactly %s characters in length."
 msgstr ""
 
 #: shinetheme/configs/lang.php:19
+#, php-format
+msgid "The %s field may only contain alphabetical characters."
+msgstr ""
+
+#: shinetheme/configs/lang.php:20
+#, php-format
+msgid "The %s field may only contain alpha-numeric characters."
+msgstr ""
+
+#: shinetheme/configs/lang.php:21
 #, php-format
 msgid ""
 "The %s field may only contain alpha-numeric characters, underscores, and "
 "dashes."
 msgstr ""
 
-#: shinetheme/configs/lang.php:20
+#: shinetheme/configs/lang.php:22
 #, php-format
 msgid "The %s field must contain only numbers."
 msgstr ""
 
-#: shinetheme/configs/lang.php:21
+#: shinetheme/configs/lang.php:23
 #, php-format
 msgid "The %s field must contain only numeric characters."
 msgstr ""
 
-#: shinetheme/configs/lang.php:22
+#: shinetheme/configs/lang.php:24
 #, php-format
 msgid "The %s field must contain an integer."
 msgstr ""
 
-#: shinetheme/configs/lang.php:23
+#: shinetheme/configs/lang.php:25
 #, php-format
 msgid "The %s field is not in the correct format."
 msgstr ""
 
-#: shinetheme/configs/lang.php:24
-#, php-format
-msgid "The %s field does not match the %s field."
-msgstr ""
-
-#: shinetheme/configs/lang.php:25
-#, php-format
-msgid "The %s field is exists."
-msgstr ""
-
 #: shinetheme/configs/lang.php:26
 #, php-format
-msgid "The %s field must contain only positive numbers."
+msgid "The %s does not match."
 msgstr ""
 
 #: shinetheme/configs/lang.php:27
 #, php-format
-msgid "The %s field must contain a number greater than zero."
+msgid "The %s field is exists."
 msgstr ""
 
 #: shinetheme/configs/lang.php:28
 #, php-format
-msgid "The %s field must contain a decimal number."
+msgid "The %s field must contain only positive numbers."
 msgstr ""
 
 #: shinetheme/configs/lang.php:29
 #, php-format
-msgid "The %s field must contain a number less than %s."
+msgid "The %s field must contain a number greater than zero."
 msgstr ""
 
 #: shinetheme/configs/lang.php:30
 #, php-format
-msgid "The %s field must contain a number greater than %s."
+msgid "The %s field must contain a decimal number."
 msgstr ""
 
 #: shinetheme/configs/lang.php:31
+#, php-format
+msgid "The %s field must contain a number less than %s."
+msgstr ""
+
+#: shinetheme/configs/lang.php:32
+#, php-format
+msgid "The %s field must contain a number greater than %s."
+msgstr ""
+
+#: shinetheme/configs/lang.php:33
 #, php-format
 msgid "The %s field positive digit"
 msgstr ""
@@ -282,7 +282,6 @@ msgstr ""
 
 #: shinetheme/configs/settings.php:8 shinetheme/configs/settings.php:106
 #: shinetheme/configs/settings.php:151
-#: shinetheme/libraries/service-types/accommodation.php:26
 msgid "General Options"
 msgstr ""
 
@@ -412,16 +411,17 @@ msgid "Allow Captcha Google Checkout?"
 msgstr ""
 
 #: shinetheme/configs/settings.php:131
+#: shinetheme/views/admin/setup_demo/wp_booking.php:38
 msgid "Google key"
 msgstr ""
 
 #: shinetheme/configs/settings.php:137
+#: shinetheme/views/admin/setup_demo/wp_booking.php:47
 msgid "Google secret key"
 msgstr ""
 
-#: shinetheme/configs/settings.php:147 shinetheme/controllers/checkout.php:520
-#: shinetheme/controllers/checkout.php:521 shinetheme/controllers/user.php:206
-#: shinetheme/controllers/user.php:512
+#: shinetheme/configs/settings.php:147 shinetheme/controllers/checkout.php:530
+#: shinetheme/controllers/checkout.php:531
 #: shinetheme/libraries/shortcodes/form-build-default/email.php:11
 #: shinetheme/views/frontend/account/partner-register.php:24
 #: shinetheme/views/frontend/account/register.php:33
@@ -514,45 +514,44 @@ msgstr ""
 msgid "Email To Admin"
 msgstr ""
 
-#: shinetheme/controllers/admin/calendar.metabox.php:123
-#: shinetheme/controllers/admin/calendar.metabox.php:202
-#: shinetheme/libraries/service-types/accommodation.php:923
+#: shinetheme/controllers/admin/about.php:100
+#: shinetheme/controllers/admin/about.php:101
+msgid "Extensions"
+msgstr ""
+
+#: shinetheme/controllers/admin/about.php:128
+msgid "WPBooking Sales Summary"
+msgstr ""
+
+#: shinetheme/controllers/admin/calendar.metabox.php:122
+#: shinetheme/controllers/admin/calendar.metabox.php:211
+#: shinetheme/libraries/service-types/accommodation.php:1093
 msgid "You do not have permission to do it"
 msgstr ""
 
-#: shinetheme/controllers/admin/calendar.metabox.php:138
+#: shinetheme/controllers/admin/calendar.metabox.php:137
 msgid "The checkin or checkout field is invalid."
 msgstr ""
 
-#: shinetheme/controllers/admin/calendar.metabox.php:178
-#: shinetheme/controllers/admin/calendar.metabox.php:225
-msgid "Added successful."
+#: shinetheme/controllers/admin/calendar.metabox.php:187
+#: shinetheme/controllers/admin/calendar.metabox.php:234
+msgid "Added successfully."
 msgstr ""
 
-#: shinetheme/controllers/admin/calendar.metabox.php:184
+#: shinetheme/controllers/admin/calendar.metabox.php:193
 msgid "Have an error when add new item."
 msgstr ""
 
-#: shinetheme/controllers/admin/calendar.metabox.php:262
+#: shinetheme/controllers/admin/calendar.metabox.php:271
 msgid "The price field is not a number."
 msgstr ""
 
-#: shinetheme/controllers/admin/calendar.metabox.php:371
+#: shinetheme/controllers/admin/calendar.metabox.php:380
 msgid "The months field is required."
 msgstr ""
 
-#: shinetheme/controllers/admin/calendar.metabox.php:379
+#: shinetheme/controllers/admin/calendar.metabox.php:388
 msgid "The years field is required."
-msgstr ""
-
-#: shinetheme/controllers/admin/comments.php:55
-#, php-format
-msgid "[%s] Approved review"
-msgstr ""
-
-#: shinetheme/controllers/admin/comments.php:58
-#, php-format
-msgid "[%s] Disapproved review"
 msgstr ""
 
 #: shinetheme/controllers/admin/location.php:28
@@ -561,6 +560,7 @@ msgstr ""
 
 #: shinetheme/controllers/admin/location.php:29
 #: shinetheme/controllers/admin/location.php:38
+#: shinetheme/libraries/service-types/accommodation.php:567
 msgid "Location"
 msgstr ""
 
@@ -667,13 +667,13 @@ msgid "Order Information"
 msgstr ""
 
 #: shinetheme/controllers/admin/order.php:319
-#: shinetheme/controllers/admin/service.php:106
-#: shinetheme/libraries/service-types/accommodation.php:265
+#: shinetheme/controllers/admin/service.php:180
+#: shinetheme/libraries/service-types/accommodation.php:424
 #: shinetheme/views/admin/fields/list-item.php:170
-#: shinetheme/views/admin/fields/taxonomy-checkbox.php:52
+#: shinetheme/views/admin/fields/taxonomy-checkbox.php:53
 #: shinetheme/views/admin/form-builder.php:55
 #: shinetheme/views/admin/metabox-fields/bed_options.php:6
-#: shinetheme/views/admin/metabox-fields/extra_services.php:113
+#: shinetheme/views/admin/metabox-fields/extra_services.php:112
 #: shinetheme/views/admin/metabox-fields/repeat_dropdown.php:6
 #: shinetheme/views/admin/metabox-fields/taxonomies.php:77
 msgid "Add New"
@@ -716,169 +716,169 @@ msgid "No Booking found in Trash."
 msgstr ""
 
 #: shinetheme/controllers/admin/order.php:333
-#: shinetheme/controllers/admin/service.php:120
-#: shinetheme/libraries/service-types/accommodation.php:279
+#: shinetheme/controllers/admin/service.php:194
+#: shinetheme/libraries/service-types/accommodation.php:438
 msgid "Description."
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:87
-#: shinetheme/controllers/admin/service.php:104
+#: shinetheme/controllers/admin/service.php:90
+#: shinetheme/libraries/shortcodes/form-build-default/captcha.php:47
+msgid "Type"
+msgstr ""
+
+#: shinetheme/controllers/admin/service.php:161
+#: shinetheme/controllers/admin/service.php:178
 #: shinetheme/views/admin/coupon/index.php:54
 #: shinetheme/views/admin/coupon/index.php:253
 msgid "Services"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:102
-#: shinetheme/controllers/admin/service.php:103
-#: shinetheme/controllers/admin/service.php:105
+#: shinetheme/controllers/admin/service.php:176
+#: shinetheme/controllers/admin/service.php:177
+#: shinetheme/controllers/admin/service.php:179
 msgid "Service"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:107
+#: shinetheme/controllers/admin/service.php:181
 msgid "Add New Service"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:108
+#: shinetheme/controllers/admin/service.php:182
 msgid "New Service"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:109
+#: shinetheme/controllers/admin/service.php:183
 msgid "Edit Service"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:110
+#: shinetheme/controllers/admin/service.php:184
 msgid "View Service"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:111
+#: shinetheme/controllers/admin/service.php:185
 msgid "All Services"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:112
+#: shinetheme/controllers/admin/service.php:186
 msgid "Search Services"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:113
+#: shinetheme/controllers/admin/service.php:187
 msgid "Parent Services:"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:114
+#: shinetheme/controllers/admin/service.php:188
 msgid "No services found."
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:115
+#: shinetheme/controllers/admin/service.php:189
 msgid "No services found in Trash."
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:139
-#: shinetheme/views/frontend/single/types/default.php:202
+#: shinetheme/controllers/admin/service.php:213
+#: shinetheme/views/frontend/single/types/default.php:150
 msgid "Amenities"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:140
-#: shinetheme/controllers/admin/service.php:149
-#: shinetheme/libraries/service-types/accommodation.php:454
-#: shinetheme/libraries/service-types/accommodation.php:458
+#: shinetheme/controllers/admin/service.php:214
+#: shinetheme/controllers/admin/service.php:223
+#: shinetheme/libraries/service-types/accommodation.php:618
+#: shinetheme/libraries/service-types/accommodation.php:622
 msgid "Amenity"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:141
+#: shinetheme/controllers/admin/service.php:215
 msgid "Search Amenity"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:142
+#: shinetheme/controllers/admin/service.php:216
 msgid "All Amenities"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:143
+#: shinetheme/controllers/admin/service.php:217
 msgid "Parent Amenity"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:144
+#: shinetheme/controllers/admin/service.php:218
 msgid "Parent Amenity:"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:145
+#: shinetheme/controllers/admin/service.php:219
 msgid "Edit Amenity"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:146
+#: shinetheme/controllers/admin/service.php:220
 msgid "Update Amenity"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:147
+#: shinetheme/controllers/admin/service.php:221
 msgid "Add New Amenity"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:148
+#: shinetheme/controllers/admin/service.php:222
 msgid "New Amenity Name"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:174
-msgid "Icon"
-msgstr ""
-
-#: shinetheme/controllers/admin/service.php:181
-#: shinetheme/libraries/service-types/accommodation.php:860
+#: shinetheme/controllers/admin/service.php:244
+#: shinetheme/libraries/service-types/accommodation.php:1030
 #: shinetheme/libraries/shortcodes/form-build-default/extra-services.php:11
 msgid "Extra Services"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:182
-#: shinetheme/controllers/admin/service.php:191
-#: shinetheme/controllers/admin/service.php:214
-#: shinetheme/libraries/service-types/accommodation.php:1755
+#: shinetheme/controllers/admin/service.php:245
+#: shinetheme/controllers/admin/service.php:254
+#: shinetheme/controllers/admin/service.php:277
+#: shinetheme/libraries/service-types/accommodation.php:1973
 msgid "Extra Service"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:183
+#: shinetheme/controllers/admin/service.php:246
 msgid "Search Extra Services"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:184
+#: shinetheme/controllers/admin/service.php:247
 msgid "All Extra Services"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:185
+#: shinetheme/controllers/admin/service.php:248
 msgid "Parent Extra Service"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:186
+#: shinetheme/controllers/admin/service.php:249
 msgid "Parent Extra Service:"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:187
+#: shinetheme/controllers/admin/service.php:250
 msgid "Edit Extra Service"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:188
+#: shinetheme/controllers/admin/service.php:251
 msgid "Update Extra Service"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:189
+#: shinetheme/controllers/admin/service.php:252
 msgid "Add New Extra Service"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:190
+#: shinetheme/controllers/admin/service.php:253
 msgid "New Extra Service Name"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:228
+#: shinetheme/controllers/admin/service.php:291
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:24
 msgid "Information"
 msgstr ""
 
-#: shinetheme/controllers/admin/settings.php:32
-#: shinetheme/libraries/service-types/accommodation.php:64
-msgid "Review Stats"
+#: shinetheme/controllers/admin/service.php:357
+msgid "All service"
 msgstr ""
 
-#: shinetheme/controllers/admin/settings.php:86
+#: shinetheme/controllers/admin/settings.php:68
 msgid "Service Exists. Please choose other name"
 msgstr ""
 
-#: shinetheme/controllers/admin/settings.php:123
-#: shinetheme/controllers/admin/settings.php:124
+#: shinetheme/controllers/admin/settings.php:105
+#: shinetheme/controllers/admin/settings.php:106
 #: shinetheme/views/admin/settings.php:3
 msgid "Settings"
 msgstr ""
@@ -944,102 +944,104 @@ msgstr ""
 msgid "Taxonomies"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:106
-msgid "ban chưa chấp nhận điều khoản của chúng tôi !"
+#: shinetheme/controllers/checkout.php:107
+msgid "You do not accept our terms!"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:111
+#: shinetheme/controllers/checkout.php:112
 #: shinetheme/views/frontend/checkout/index.php:5
 msgid "Sorry! Your cart is currently empty"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:132
-msgid "Giá giỏ hàng là 0. Bạn không thể thực hiện thanh toán này!"
+#: shinetheme/controllers/checkout.php:133
+msgid "Price basket of 0. You can not make this payment!"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:143
-msgid "Vui lòng chọn một phương thức thanh toán"
+#: shinetheme/controllers/checkout.php:144
+msgid "Please select a payment method."
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:146
+#: shinetheme/controllers/checkout.php:147
 #, php-format
 msgid "Gateway: %s is not ready to use, please choose other gateway"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:238
+#: shinetheme/controllers/checkout.php:246
 msgid "Booking Success"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:271
+#: shinetheme/controllers/checkout.php:280
 msgid "Can not create the order. Please contact the Admin"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:306
+#: shinetheme/controllers/checkout.php:315
 msgid "You do not select any service"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:502
+#: shinetheme/controllers/checkout.php:512
 #: shinetheme/libraries/shortcodes/form-build-default/first-name.php:11
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:30
 msgid "First Name"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:503
+#: shinetheme/controllers/checkout.php:513
 msgid "First name"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:511
+#: shinetheme/controllers/checkout.php:521
 #: shinetheme/libraries/shortcodes/form-build-default/last-name.php:11
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:36
 msgid "Last Name"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:512
+#: shinetheme/controllers/checkout.php:522
 msgid "Last name"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:522
+#: shinetheme/controllers/checkout.php:532
 msgid "Email to confirmation"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:530
-#: shinetheme/controllers/checkout.php:531
+#: shinetheme/controllers/checkout.php:540
+#: shinetheme/controllers/checkout.php:541
 msgid "Telephone"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:539
-#: shinetheme/controllers/checkout.php:540 shinetheme/controllers/user.php:514
-#: shinetheme/libraries/service-types/accommodation.php:402
-#: shinetheme/views/admin/metabox-fields/address.php:51
+#: shinetheme/controllers/checkout.php:549
+#: shinetheme/controllers/checkout.php:550
+#: shinetheme/libraries/service-types/accommodation.php:562
+#: shinetheme/libraries/service-types/accommodation.php:568
+#: shinetheme/libraries/service-types/tour.php:758
+#: shinetheme/views/admin/metabox-fields/address.php:54
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:54
 msgid "Address"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:548
-#: shinetheme/controllers/checkout.php:549
+#: shinetheme/controllers/checkout.php:558
+#: shinetheme/controllers/checkout.php:559
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:60
 msgid "Postcode / ZIP"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:557
-#: shinetheme/controllers/checkout.php:558
+#: shinetheme/controllers/checkout.php:567
+#: shinetheme/controllers/checkout.php:568
 msgid "Apt/ Unit"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:566
+#: shinetheme/controllers/checkout.php:576
 msgid "Special Request"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:567
+#: shinetheme/controllers/checkout.php:577
 msgid "Notes about your order, e.g. special notes for  delivery."
 msgstr ""
 
-#: shinetheme/controllers/email.php:54 shinetheme/controllers/user.php:338
+#: shinetheme/controllers/email.php:54 shinetheme/controllers/user.php:347
 #: shinetheme/views/frontend/account/partner-register.php:21
 msgid "Your Username"
 msgstr ""
 
-#: shinetheme/controllers/email.php:55 shinetheme/controllers/user.php:339
+#: shinetheme/controllers/email.php:55 shinetheme/controllers/user.php:348
 msgid "email@domain.com"
 msgstr ""
 
@@ -1077,24 +1079,28 @@ msgstr ""
 msgid "Dismiss this notice."
 msgstr ""
 
-#: shinetheme/controllers/service.php:205
+#: shinetheme/controllers/service.php:219
 msgid "Post ID is required"
 msgstr ""
 
-#: shinetheme/controllers/service.php:577
-#: shinetheme/views/frontend/single/review/item.php:88
-#, php-format
-msgid "%d like this"
+#: shinetheme/controllers/service.php:556
+msgid " day(s) ago"
 msgstr ""
 
-#: shinetheme/controllers/service.php:579
-#, php-format
-msgid "%d likes"
+#: shinetheme/controllers/service.php:558
+msgid " hour(s) ago"
 msgstr ""
 
-#: shinetheme/controllers/service.php:581
-#, php-format
-msgid "%d like"
+#: shinetheme/controllers/service.php:560
+msgid " minute(s) ago"
+msgstr ""
+
+#: shinetheme/controllers/service.php:562
+msgid "just now"
+msgstr ""
+
+#: shinetheme/controllers/service.php:564
+msgid "Latest booking: "
 msgstr ""
 
 #: shinetheme/controllers/user.php:170
@@ -1102,14 +1108,108 @@ msgid "You need to enter a username and a password to login"
 msgstr ""
 
 #: shinetheme/controllers/user.php:205
-#: shinetheme/views/admin/email/registration_document.php:10
-#: shinetheme/views/frontend/account/partner-register.php:20
-#: shinetheme/views/frontend/account/register.php:29
-#: shinetheme/views/frontend/emails/templates/changed_password.php:17
-msgid "Username"
+msgid "username"
 msgstr ""
 
-#: shinetheme/controllers/user.php:207 shinetheme/controllers/user.php:562
+#: shinetheme/controllers/user.php:206 shinetheme/controllers/user.php:523
+msgid "email"
+msgstr ""
+
+#: shinetheme/controllers/user.php:207
+msgid "password"
+msgstr ""
+
+#: shinetheme/controllers/user.php:208
+msgid "re-type password"
+msgstr ""
+
+#: shinetheme/controllers/user.php:209
+#: shinetheme/views/frontend/account/register.php:46
+#: shinetheme/views/frontend/single/types/default.php:380
+#: shinetheme/views/frontend/single/types/tour.php:428
+msgid "Term & Condition"
+msgstr ""
+
+#: shinetheme/controllers/user.php:219
+msgid "This email ready registered. You can login "
+msgstr ""
+
+#: shinetheme/controllers/user.php:219 shinetheme/controllers/user.php:228
+msgid "here"
+msgstr ""
+
+#: shinetheme/controllers/user.php:222
+msgid ""
+"The username can only contain underscores and alphanumeric characters and "
+"dashes. It must be unique, and must not include spaces."
+msgstr ""
+
+#: shinetheme/controllers/user.php:224
+msgid "Username is invalid"
+msgstr ""
+
+#: shinetheme/controllers/user.php:228
+msgid "This username ready registered. You can login "
+msgstr ""
+
+#: shinetheme/controllers/user.php:229
+msgid "Username is exist"
+msgstr ""
+
+#: shinetheme/controllers/user.php:251
+msgid "Can not create user. Please try it again later"
+msgstr ""
+
+#: shinetheme/controllers/user.php:256
+msgid "Your account is registered successfully. You can login now: <a href=\""
+msgstr ""
+
+#: shinetheme/controllers/user.php:288
+#, php-format
+msgid "New Registration: %s"
+msgstr ""
+
+#: shinetheme/controllers/user.php:349
+msgid "http://domain.com/profile.php"
+msgstr ""
+
+#: shinetheme/controllers/user.php:350
+msgid "http://domain.com/wp-admin/user-edit.php"
+msgstr ""
+
+#: shinetheme/controllers/user.php:351
+msgid "Default Password"
+msgstr ""
+
+#: shinetheme/controllers/user.php:469
+msgid "Update Successful"
+msgstr ""
+
+#: shinetheme/controllers/user.php:485
+msgid "Create Successful"
+msgstr ""
+
+#: shinetheme/controllers/user.php:521
+msgid "first name"
+msgstr ""
+
+#: shinetheme/controllers/user.php:522
+msgid "last name"
+msgstr ""
+
+#: shinetheme/controllers/user.php:524
+msgid "phone number"
+msgstr ""
+
+#: shinetheme/controllers/user.php:525
+msgid "address"
+msgstr ""
+
+#: shinetheme/controllers/user.php:552
+msgid "Updated Successfully"
+msgstr ""
+
+#: shinetheme/controllers/user.php:573
 #: shinetheme/views/frontend/account/login.php:31
 #: shinetheme/views/frontend/account/partner-register.php:28
 #: shinetheme/views/frontend/account/register.php:37
@@ -1117,267 +1217,172 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: shinetheme/controllers/user.php:208
-msgid "Re-Type Password"
-msgstr ""
-
-#: shinetheme/controllers/user.php:209
-#: shinetheme/views/frontend/account/register.php:46
-#: shinetheme/views/frontend/single/types/default.php:565
-msgid "Term & Condition"
-msgstr ""
-
-#: shinetheme/controllers/user.php:218 shinetheme/controllers/user.php:220
-msgid "Username is invalid"
-msgstr ""
-
-#: shinetheme/controllers/user.php:242
-msgid "Can not create user. Please try it again later"
-msgstr ""
-
-#: shinetheme/controllers/user.php:247
-msgid "Your account is registered successfully. You can login now: <a href=\""
-msgstr ""
-
-#: shinetheme/controllers/user.php:279
-#, php-format
-msgid "New Registration: %s"
-msgstr ""
-
-#: shinetheme/controllers/user.php:340
-msgid "http://domain.com/profile.php"
-msgstr ""
-
-#: shinetheme/controllers/user.php:341
-msgid "http://domain.com/wp-admin/user-edit.php"
-msgstr ""
-
-#: shinetheme/controllers/user.php:342
-msgid "Default Password"
-msgstr ""
-
-#: shinetheme/controllers/user.php:459
-msgid "Update Successful"
-msgstr ""
-
-#: shinetheme/controllers/user.php:475
-msgid "Create Successful"
-msgstr ""
-
-#: shinetheme/controllers/user.php:510 shinetheme/controllers/user.php:511
-msgid "Fist name"
-msgstr ""
-
-#: shinetheme/controllers/user.php:513
-#: shinetheme/views/frontend/account/update-profile.php:46
-#: shinetheme/views/frontend/account/update-profile.php:47
-msgid "Phone Number"
-msgstr ""
-
-#: shinetheme/controllers/user.php:541
-msgid "Updated Successfully"
-msgstr ""
-
-#: shinetheme/controllers/user.php:563
+#: shinetheme/controllers/user.php:574
 #: shinetheme/views/frontend/account/reset-password.php:21
 #: shinetheme/views/frontend/account/tabs/change_password.php:28
 #: shinetheme/views/frontend/account/update-profile.php:64
 msgid "New Password"
 msgstr ""
 
-#: shinetheme/controllers/user.php:564
+#: shinetheme/controllers/user.php:575
 #: shinetheme/views/frontend/account/tabs/change_password.php:34
 #: shinetheme/views/frontend/account/update-profile.php:68
 msgid "Confirm New Password"
 msgstr ""
 
-#: shinetheme/controllers/user.php:580
-msgid "Your Current Password is not correct"
+#: shinetheme/controllers/user.php:591
+msgid "The old password is incorrect."
 msgstr ""
 
-#: shinetheme/controllers/user.php:602
-msgid "Password Changed Successfully"
+#: shinetheme/controllers/user.php:613
+msgid "Change password successful! The new password changed successfully."
 msgstr ""
 
-#: shinetheme/controllers/user.php:632
+#: shinetheme/controllers/user.php:643
 msgid "Service does not exists"
 msgstr ""
 
-#: shinetheme/controllers/user.php:639
+#: shinetheme/controllers/user.php:650
 msgid "You do not have permission to access this page"
 msgstr ""
 
-#: shinetheme/controllers/user.php:698
+#: shinetheme/controllers/user.php:709
 msgid "Dashboard"
 msgstr ""
 
-#: shinetheme/controllers/user.php:702
+#: shinetheme/controllers/user.php:713
 msgid "Your Booking"
 msgstr ""
 
-#: shinetheme/controllers/user.php:704
+#: shinetheme/controllers/user.php:715
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:19
 msgid "Edit Profile"
 msgstr ""
 
-#: shinetheme/controllers/user.php:706
+#: shinetheme/controllers/user.php:717
 msgid "Logout"
 msgstr ""
 
-#: shinetheme/controllers/user.php:858
+#: shinetheme/controllers/user.php:871
 msgid "wpbooking_"
 msgstr ""
 
-#: shinetheme/controllers/user.php:947
-msgid "Check your email for a link to reset your password."
-msgstr ""
-
-#: shinetheme/controllers/user.php:977
-msgid "The username field is not empty."
-msgstr ""
-
-#: shinetheme/controllers/user.php:979
-msgid "You need to enter a password to login."
-msgstr ""
-
-#: shinetheme/controllers/user.php:981
-msgid "Username invalid"
-msgstr ""
-
-#: shinetheme/controllers/user.php:983
-msgid "Your password incorrect."
-msgstr ""
-
-#: shinetheme/controllers/user.php:985
-msgid "Your email invalid."
-msgstr ""
-
-#: shinetheme/controllers/user.php:987
-msgid "An account exists with this email address."
+#: shinetheme/controllers/user.php:960
+msgid ""
+"Your request for reset password has been sent. Please check your email for "
+"continue."
 msgstr ""
 
 #: shinetheme/controllers/user.php:990
-msgid "Username or email is invalid."
+msgid "The username field is not empty."
 msgstr ""
 
-#: shinetheme/controllers/user.php:993
-msgid "The password reset link you used is not valid anymore."
+#: shinetheme/controllers/user.php:992
+msgid "You need to enter a password to login."
 msgstr ""
 
-#: shinetheme/controllers/user.php:995
-msgid "The two passwords you entered don't match."
+#: shinetheme/controllers/user.php:994
+msgid "Username is incorrect."
 msgstr ""
 
-#: shinetheme/controllers/user.php:997
-msgid "Sorry, we don't accept empty passwords."
+#: shinetheme/controllers/user.php:996
+msgid "Your password is incorrect."
+msgstr ""
+
+#: shinetheme/controllers/user.php:998
+msgid "Your email invalid."
+msgstr ""
+
+#: shinetheme/controllers/user.php:1000
+msgid "An account exists with this email address."
 msgstr ""
 
 #: shinetheme/controllers/user.php:1002
+msgid "Email is incorrect."
+msgstr ""
+
+#: shinetheme/controllers/user.php:1004
+msgid "Username or email is incorrect."
+msgstr ""
+
+#: shinetheme/controllers/user.php:1007
+msgid "The password reset link you used is not valid anymore."
+msgstr ""
+
+#: shinetheme/controllers/user.php:1013
 msgid "An unknown error occurred. Please try again later."
 msgstr ""
 
-#: shinetheme/controllers/user.php:1077
-msgid "New password"
+#: shinetheme/controllers/user.php:1088
+msgid "new password"
 msgstr ""
 
-#: shinetheme/controllers/user.php:1078
-msgid "Confirm password"
+#: shinetheme/controllers/user.php:1089
+msgid "confirm password"
 msgstr ""
 
-#: shinetheme/controllers/user.php:1093
+#: shinetheme/controllers/user.php:1104
 msgid "Your password has been changed. You can sign in now."
 msgstr ""
 
-#: shinetheme/controllers/user.php:1154
+#: shinetheme/controllers/user.php:1165
 msgid "Changed password successful"
 msgstr ""
 
-#: shinetheme/controllers/user.php:1338 shinetheme/helpers/service.php:154
-#: shinetheme/helpers/service.php:203 shinetheme/libraries/base/order.php:389
-#: shinetheme/libraries/base/order.php:425
+#: shinetheme/controllers/user.php:1349 shinetheme/helpers/service.php:84
+#: shinetheme/helpers/service.php:133 shinetheme/libraries/base/order.php:403
+#: shinetheme/libraries/base/order.php:439
+#: shinetheme/libraries/base/order.php:503
 #: shinetheme/views/frontend/account/orders/loop-listing.php:80
 msgid "Unknown"
 msgstr ""
 
-#: shinetheme/controllers/user.php:1360 shinetheme/libraries/base/order.php:474
+#: shinetheme/controllers/user.php:1371
 msgid "Unknow"
 msgstr ""
 
-#: shinetheme/helpers/application.php:619
+#: shinetheme/helpers/application.php:595
 msgid "All dates"
 msgstr ""
 
-#: shinetheme/helpers/application.php:628
+#: shinetheme/helpers/application.php:604
 #, php-format
 msgid "%1$s %2$d"
 msgstr ""
 
-#: shinetheme/helpers/service.php:34
+#: shinetheme/helpers/service.php:35
 #, php-format
 msgid "from %s/night"
 msgstr ""
 
-#: shinetheme/helpers/service.php:69
-#, php-format
-msgid "%d reviews"
-msgstr ""
-
-#: shinetheme/helpers/service.php:71
-msgid "1 review"
-msgstr ""
-
-#: shinetheme/helpers/service.php:88
-msgid "Excellent "
-msgstr ""
-
-#: shinetheme/helpers/service.php:90
-msgid "Very Good "
-msgstr ""
-
-#: shinetheme/helpers/service.php:92
-msgid "Average "
-msgstr ""
-
-#: shinetheme/helpers/service.php:94
-msgid "Poor "
-msgstr ""
-
-#: shinetheme/helpers/service.php:96
-msgid "Terrible "
-msgstr ""
-
-#: shinetheme/helpers/service.php:216
+#: shinetheme/helpers/service.php:146
 msgid "Unknown Gateway"
 msgstr ""
 
-#: shinetheme/helpers/service.php:233
+#: shinetheme/helpers/service.php:163
 #, php-format
 msgid "in %s"
 msgstr ""
 
-#: shinetheme/helpers/service.php:236
+#: shinetheme/helpers/service.php:167
+#: shinetheme/libraries/service-types/tour.php:671
 #, php-format
 msgid "from %s"
 msgstr ""
 
-#: shinetheme/helpers/service.php:239
-#: shinetheme/views/frontend/single/types/default.php:359
-#: shinetheme/views/frontend/single/types/default.php:363
+#: shinetheme/helpers/service.php:171
+#: shinetheme/views/frontend/single/types/default.php:174
+#: shinetheme/views/frontend/single/types/default.php:178
 #, php-format
 msgid "to %s"
 msgstr ""
 
-#: shinetheme/helpers/service.php:244
-#, php-format
-msgid "%s guest(s)"
-msgstr ""
-
-#: shinetheme/libraries/base/order.php:178
+#: shinetheme/libraries/base/order.php:182
 #, php-format
 msgid "New Order In %s"
 msgstr ""
 
-#: shinetheme/libraries/base/service.php:239
+#: shinetheme/libraries/base/service.php:244
 #, php-format
 msgid "since %s"
 msgstr ""
@@ -1392,23 +1397,26 @@ msgstr ""
 msgid "Can not verify captcha"
 msgstr ""
 
-#: shinetheme/libraries/gateways/bank-transfer.php:25
+#: shinetheme/libraries/gateways/bank-transfer-bk.php:25
 msgid "Bank Transfer"
 msgstr ""
 
-#: shinetheme/libraries/gateways/bank-transfer.php:30
+#: shinetheme/libraries/gateways/bank-transfer-bk.php:30
 #: shinetheme/libraries/gateways/paypal.php:33
+#: shinetheme/libraries/gateways/submit-form.php:30
 msgid "Enable"
 msgstr ""
 
-#: shinetheme/libraries/gateways/bank-transfer.php:33
+#: shinetheme/libraries/gateways/bank-transfer-bk.php:33
 #: shinetheme/views/admin/setup_demo/wp_payment.php:18
 msgid "Yes, I want to enable Bank Transfer"
 msgstr ""
 
-#: shinetheme/libraries/gateways/bank-transfer.php:37
+#: shinetheme/libraries/gateways/bank-transfer-bk.php:37
 #: shinetheme/libraries/gateways/paypal.php:40
-#: shinetheme/libraries/service-types/accommodation.php:1614
+#: shinetheme/libraries/gateways/submit-form.php:37
+#: shinetheme/libraries/service-types/accommodation.php:1829
+#: shinetheme/libraries/service-types/tour.php:1038
 #: shinetheme/libraries/shortcodes/form-build-default/captcha.php:32
 #: shinetheme/libraries/shortcodes/form-build-default/captcha.php:34
 #: shinetheme/libraries/shortcodes/form-build-default/check-in.php:22
@@ -1445,21 +1453,25 @@ msgstr ""
 #: shinetheme/views/admin/fields/list-item.php:14
 #: shinetheme/views/admin/fields/list-item.php:37
 #: shinetheme/views/admin/fields/list-item.php:116
+#: shinetheme/views/admin/metabox-fields/itinerary_tour.php:26
 #: shinetheme/views/admin/metabox-fields/list-item.php:59
 #: shinetheme/views/admin/metabox-fields/list-item.php:141
 msgid "Title"
 msgstr ""
 
-#: shinetheme/libraries/gateways/bank-transfer.php:44
+#: shinetheme/libraries/gateways/bank-transfer-bk.php:44
 #: shinetheme/libraries/gateways/paypal.php:47
+#: shinetheme/libraries/gateways/submit-form.php:44
 msgid "Descriptions"
 msgstr ""
 
-#: shinetheme/libraries/gateways/bank-transfer.php:49
+#: shinetheme/libraries/gateways/bank-transfer-bk.php:49
+#: shinetheme/libraries/gateways/submit-form.php:49
 msgid "Bank Account"
 msgstr ""
 
-#: shinetheme/libraries/gateways/bank-transfer.php:51
+#: shinetheme/libraries/gateways/bank-transfer-bk.php:51
+#: shinetheme/libraries/gateways/submit-form.php:51
 msgid "Write down your back account here"
 msgstr ""
 
@@ -1506,8 +1518,8 @@ msgstr ""
 
 #: shinetheme/libraries/gateways/paypal.php:135
 #: shinetheme/libraries/gateways/paypal.php:208
-#: shinetheme/libraries/gateways/paypal.php:267 wpbooking.php:393
-#: wpbooking.php:394
+#: shinetheme/libraries/gateways/paypal.php:267 wpbooking.php:399
+#: wpbooking.php:400
 msgid "WPBooking"
 msgstr ""
 
@@ -1531,15 +1543,23 @@ msgstr ""
 msgid "PayPal API is not correctly! Please check with the Admin"
 msgstr ""
 
-#: shinetheme/libraries/metabox.php:78
-msgid "You don not have permission to do that"
+#: shinetheme/libraries/gateways/submit-form.php:25
+msgid "Submit Form"
 msgstr ""
 
-#: shinetheme/libraries/metabox.php:94
-msgid "Please specific Service Type"
+#: shinetheme/libraries/gateways/submit-form.php:33
+msgid "Yes, I want to enable Submit Form"
 msgstr ""
 
-#: shinetheme/libraries/metabox.php:306
+#: shinetheme/libraries/metabox.php:156
+msgid "You don't have permission to do that"
+msgstr ""
+
+#: shinetheme/libraries/metabox.php:172
+msgid "Please specify Service Type"
+msgstr ""
+
+#: shinetheme/libraries/metabox.php:384
 #: shinetheme/views/admin/order/tab-listing.php:126
 #: shinetheme/views/admin/taxonomy/edit.php:38
 #: shinetheme/views/admin/taxonomy/index.php:83
@@ -1548,25 +1568,21 @@ msgstr ""
 msgid "Service Type"
 msgstr ""
 
-#: shinetheme/libraries/service-types/abstract-service-type.php:121
-#: shinetheme/libraries/service-types/abstract-service-type.php:176
+#: shinetheme/libraries/service-types/abstract-service-type.php:145
+#: shinetheme/libraries/service-types/abstract-service-type.php:200
 msgid "Booking Details:"
 msgstr ""
 
-#: shinetheme/libraries/service-types/abstract-service-type.php:147
-#: shinetheme/libraries/service-types/abstract-service-type.php:198
+#: shinetheme/libraries/service-types/abstract-service-type.php:171
+#: shinetheme/libraries/service-types/abstract-service-type.php:222
 #: shinetheme/views/frontend/account/tabs/inbox.php:55
 #: shinetheme/views/frontend/checkout/cart-widget.php:51
-#: shinetheme/views/frontend/single/review/item-2.php:70
-#: shinetheme/views/frontend/single/review/item.php:81
 msgid "More"
 msgstr ""
 
-#: shinetheme/libraries/service-types/abstract-service-type.php:147
-#: shinetheme/libraries/service-types/abstract-service-type.php:198
+#: shinetheme/libraries/service-types/abstract-service-type.php:171
+#: shinetheme/libraries/service-types/abstract-service-type.php:222
 #: shinetheme/views/frontend/checkout/cart-widget.php:51
-#: shinetheme/views/frontend/single/review/item-2.php:70
-#: shinetheme/views/frontend/single/review/item.php:81
 msgid "Less"
 msgstr ""
 
@@ -1576,647 +1592,699 @@ msgstr ""
 
 #: shinetheme/libraries/service-types/accommodation.php:19
 msgid ""
-"Chỗ nghỉ cho khách du lịch, thường có nhà hàng, phòng họp và các dịch vụ "
-"khác dành cho khách"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:31
-msgid "Review"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:36
-#: shinetheme/views/admin/setup_demo/wp_service.php:21
-msgid "Enable Review"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:40
-#: shinetheme/views/admin/setup_demo/wp_service.php:26
-msgid "Allow user to review without booking"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:45
-#: shinetheme/views/admin/setup_demo/wp_service.php:31
-msgid "Show Rate (Help-full) button in each review?"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:49
-#: shinetheme/views/admin/setup_demo/wp_service.php:36
-msgid "User can write review on their own listing?"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:53
-#: shinetheme/views/admin/setup_demo/wp_service.php:41
-msgid "User can vote for their own review?"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:72
-msgid "Maximum review per user"
+"Traveler accommodation, often a restaurant, meeting rooms and other services "
+"for guests"
 msgstr ""
 
 #: shinetheme/libraries/service-types/accommodation.php:81
+#: shinetheme/libraries/service-types/tour.php:26
 msgid "Layout"
 msgstr ""
 
 #: shinetheme/libraries/service-types/accommodation.php:86
+#: shinetheme/libraries/service-types/tour.php:31
 msgid "Item per page"
 msgstr ""
 
 #: shinetheme/libraries/service-types/accommodation.php:92
+#: shinetheme/libraries/service-types/tour.php:37
 msgid "Thumb Size"
 msgstr ""
 
 #: shinetheme/libraries/service-types/accommodation.php:97
+#: shinetheme/libraries/service-types/tour.php:42
 msgid "Gallery Size"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:261
-#: shinetheme/libraries/service-types/accommodation.php:262
-#: shinetheme/libraries/service-types/accommodation.php:263
-#: shinetheme/libraries/service-types/accommodation.php:264
-msgid "Hotel Room"
+#: shinetheme/libraries/service-types/accommodation.php:292
+#: shinetheme/libraries/service-types/accommodation.php:322
+#: shinetheme/libraries/service-types/accommodation.php:379
+msgid "From:"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:266
-msgid "Add New Hotel Room"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:267
-msgid "New Hotel Room"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:268
-msgid "Edit Hotel Room"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:269
-msgid "View Hotel Room"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:270
-msgid "All Hotel Room"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:271
-msgid "Search Hotel Room"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:272
-msgid "Parent Hotel Room:"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:273
-msgid "No Hotel Room found."
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:274
-msgid "No Hotel Room found in Trash."
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:295
-#: shinetheme/libraries/service-types/accommodation.php:296
-#: shinetheme/libraries/service-types/accommodation.php:305
-#: shinetheme/libraries/service-types/accommodation.php:799
-msgid "Room Type"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:297
-msgid "Search Room Type"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:298
-msgid "All Room Type"
+#: shinetheme/libraries/service-types/accommodation.php:293
+#: shinetheme/libraries/service-types/accommodation.php:323
+#: shinetheme/libraries/service-types/accommodation.php:380
+msgid "To:"
 msgstr ""
 
 #: shinetheme/libraries/service-types/accommodation.php:299
-msgid "Parent Room Type"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:300
-msgid "Parent Room Type:"
+#: shinetheme/libraries/service-types/accommodation.php:328
+#: shinetheme/libraries/service-types/accommodation.php:385
+#, php-format
+msgid "(%s nights)"
 msgstr ""
 
 #: shinetheme/libraries/service-types/accommodation.php:301
+#: shinetheme/libraries/service-types/accommodation.php:330
+#: shinetheme/libraries/service-types/accommodation.php:387
+#, php-format
+msgid "(%s night)"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:343
+#: shinetheme/libraries/service-types/tour.php:362
+msgid "Change Date"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:420
+#: shinetheme/libraries/service-types/accommodation.php:421
+#: shinetheme/libraries/service-types/accommodation.php:422
+#: shinetheme/libraries/service-types/accommodation.php:423
+msgid "Hotel Room"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:425
+msgid "Add New Hotel Room"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:426
+msgid "New Hotel Room"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:427
+msgid "Edit Hotel Room"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:428
+msgid "View Hotel Room"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:429
+msgid "All Hotel Room"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:430
+msgid "Search Hotel Room"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:431
+msgid "Parent Hotel Room:"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:432
+msgid "No Hotel Room found."
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:433
+msgid "No Hotel Room found in Trash."
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:454
+#: shinetheme/libraries/service-types/accommodation.php:455
+#: shinetheme/libraries/service-types/accommodation.php:464
+#: shinetheme/libraries/service-types/accommodation.php:968
+msgid "Room Type"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:456
+msgid "Search Room Type"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:457
+msgid "All Room Type"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:458
+msgid "Parent Room Type"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:459
+msgid "Parent Room Type:"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:460
 msgid "Edit Room Type"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:302
+#: shinetheme/libraries/service-types/accommodation.php:461
 msgid "Update Room Type"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:303
+#: shinetheme/libraries/service-types/accommodation.php:462
 msgid "Add New Room Type"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:304
+#: shinetheme/libraries/service-types/accommodation.php:463
 msgid "New Room Type Name"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:320
-#: shinetheme/libraries/service-types/accommodation.php:321
-#: shinetheme/libraries/service-types/accommodation.php:330
+#: shinetheme/libraries/service-types/accommodation.php:479
+#: shinetheme/libraries/service-types/accommodation.php:480
+#: shinetheme/libraries/service-types/accommodation.php:489
 msgid "Room Facilities"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:322
+#: shinetheme/libraries/service-types/accommodation.php:481
 msgid "Search Room Facilities"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:323
+#: shinetheme/libraries/service-types/accommodation.php:482
 msgid "All Room Facilities"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:324
+#: shinetheme/libraries/service-types/accommodation.php:483
 msgid "Parent Room Facilities"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:325
+#: shinetheme/libraries/service-types/accommodation.php:484
 msgid "Parent Room Facilities:"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:326
+#: shinetheme/libraries/service-types/accommodation.php:485
 msgid "Edit Room Facilities"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:327
+#: shinetheme/libraries/service-types/accommodation.php:486
 msgid "Update Room Facilities"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:328
+#: shinetheme/libraries/service-types/accommodation.php:487
 msgid "Add New Room Facilities"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:329
+#: shinetheme/libraries/service-types/accommodation.php:488
 msgid "New Room Facilities Name"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:347
+#: shinetheme/libraries/service-types/accommodation.php:506
 msgid "1. Property Information"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:353
+#: shinetheme/libraries/service-types/accommodation.php:512
 msgid "About Your Property"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:355
+#: shinetheme/libraries/service-types/accommodation.php:514
+#: shinetheme/libraries/service-types/tour.php:695
 msgid "Basic information"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:359
+#: shinetheme/libraries/service-types/accommodation.php:518
 msgid "Enable Property"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:362
+#: shinetheme/libraries/service-types/accommodation.php:521
+#: shinetheme/libraries/service-types/tour.php:702
 msgid "Listing will appear in search results."
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:366
+#: shinetheme/libraries/service-types/accommodation.php:525
+#: shinetheme/libraries/service-types/tour.php:713
 msgid "Star Rating"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:368
+#: shinetheme/libraries/service-types/accommodation.php:527
 msgid "Standard of property from 1 to 5 star."
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:372
+#: shinetheme/libraries/service-types/accommodation.php:531
+#: shinetheme/libraries/service-types/tour.php:727
 msgid "Contact Number"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:374
-#: shinetheme/libraries/service-types/accommodation.php:377
+#: shinetheme/libraries/service-types/accommodation.php:533
+#: shinetheme/libraries/service-types/tour.php:729
 msgid "The contact phone"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:380
+#: shinetheme/libraries/service-types/accommodation.php:539
+#: shinetheme/libraries/service-types/tour.php:735
 msgid "Contact Email"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:383
+#: shinetheme/libraries/service-types/accommodation.php:542
+#: shinetheme/libraries/service-types/tour.php:738
 msgid "Example@domain.com"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:387
+#: shinetheme/libraries/service-types/accommodation.php:547
+#: shinetheme/libraries/service-types/tour.php:743
 msgid "Website"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:390
+#: shinetheme/libraries/service-types/accommodation.php:550
+#: shinetheme/libraries/service-types/tour.php:746
 msgid "Property website (optional)"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:391
+#: shinetheme/libraries/service-types/accommodation.php:551
+#: shinetheme/libraries/service-types/tour.php:747
 msgid "http://exampledomain.com"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:397
+#: shinetheme/libraries/service-types/accommodation.php:557
 msgid "Property Location"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:399
+#: shinetheme/libraries/service-types/accommodation.php:559
 msgid "Property's address and your contact number"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:408
+#: shinetheme/libraries/service-types/accommodation.php:572
+#: shinetheme/libraries/service-types/tour.php:766
 msgid "Map Lat & Long"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:411
+#: shinetheme/libraries/service-types/accommodation.php:575
+#: shinetheme/libraries/service-types/tour.php:769
 msgid ""
-"This is the location we will provide guests. Click and drag the marker if "
-"you need to move it"
+"This is the location we will provide guests. Click to move the marker if you "
+"need to move it"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:415
+#: shinetheme/libraries/service-types/accommodation.php:579
+#: shinetheme/libraries/service-types/tour.php:773
 msgid "Your address matters! "
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:416
+#: shinetheme/libraries/service-types/accommodation.php:580
 msgid ""
 "Please make sure to enter your full address including building name, "
 "apartment number, etc."
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:427
+#: shinetheme/libraries/service-types/accommodation.php:591
 msgid "2. Property Details"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:431
+#: shinetheme/libraries/service-types/accommodation.php:595
 msgid "Check In & Check Out"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:433
+#: shinetheme/libraries/service-types/accommodation.php:597
 msgid "Time to check in, out in your property"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:436
-#: shinetheme/libraries/service-types/accommodation.php:437
+#: shinetheme/libraries/service-types/accommodation.php:600
+#: shinetheme/libraries/service-types/accommodation.php:601
 msgid "Check In time"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:443
-#: shinetheme/libraries/service-types/accommodation.php:444
+#: shinetheme/libraries/service-types/accommodation.php:607
+#: shinetheme/libraries/service-types/accommodation.php:608
 msgid "Check Out time"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:476
+#: shinetheme/libraries/service-types/accommodation.php:641
 msgid "3. Room details"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:479
+#: shinetheme/libraries/service-types/accommodation.php:644
 msgid "Your Rooms"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:481
+#: shinetheme/libraries/service-types/accommodation.php:646
 msgid "Here is an overview of your rooms"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:485
+#: shinetheme/libraries/service-types/accommodation.php:650
+#: shinetheme/views/admin/metabox-fields/section_navigation.php:44
 msgid "Next Step"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:492
+#: shinetheme/libraries/service-types/accommodation.php:657
 msgid "4. Facilities"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:498
+#: shinetheme/libraries/service-types/accommodation.php:663
 msgid "Space"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:500
-msgid "Chúng tôi hiển thị kích thước phòng cho khách"
+#: shinetheme/libraries/service-types/accommodation.php:665
+msgid "We display size guest room"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:503
+#: shinetheme/libraries/service-types/accommodation.php:668
 msgid "What is your preferred  unit of measurement?"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:507
+#: shinetheme/libraries/service-types/accommodation.php:672
 msgid "Square metres"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:508
+#: shinetheme/libraries/service-types/accommodation.php:673
 msgid "Square feet"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:512
-msgid "Chọn đơn vị đo lường ưa thích của bạn"
+#: shinetheme/libraries/service-types/accommodation.php:677
+msgid "Select the preferred unit of measure your"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:515
+#: shinetheme/libraries/service-types/accommodation.php:680
 msgid "Room size"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:524
+#: shinetheme/libraries/service-types/accommodation.php:690
 msgid "Room facilities"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:529
+#: shinetheme/libraries/service-types/accommodation.php:695
 msgid "Facilities"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:543
+#: shinetheme/libraries/service-types/accommodation.php:710
 msgid "5. Policies & Checkout"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:547
-msgid "Payment infomation"
+#: shinetheme/libraries/service-types/accommodation.php:714
+msgid "Payment information"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:549
-msgid "We will show in website yourdomain.com"
+#: shinetheme/libraries/service-types/accommodation.php:716
+msgid ""
+"Specify the payment methods you accept at your accommodation as payment for "
+"the stay"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:552
+#: shinetheme/libraries/service-types/accommodation.php:719
 msgid "We are accepted:"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:559
-#: shinetheme/libraries/service-types/accommodation.php:561
+#: shinetheme/libraries/service-types/accommodation.php:726
+#: shinetheme/libraries/service-types/accommodation.php:728
+#: shinetheme/libraries/service-types/tour.php:849
+#: shinetheme/libraries/service-types/tour.php:851
 msgid "Pre-payment and cancellation policies"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:564
-#: shinetheme/libraries/service-types/accommodation.php:576
+#: shinetheme/libraries/service-types/accommodation.php:731
+#: shinetheme/libraries/service-types/tour.php:854
 msgid "Select deposit optional"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:568
+#: shinetheme/libraries/service-types/accommodation.php:735
+#: shinetheme/libraries/service-types/tour.php:858
 msgid "Disallow Deposit"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:569
+#: shinetheme/libraries/service-types/accommodation.php:736
+#: shinetheme/libraries/service-types/tour.php:859
 msgid "Deposit by percent"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:570
+#: shinetheme/libraries/service-types/accommodation.php:737
+#: shinetheme/libraries/service-types/tour.php:860
 msgid "Deposit by amount"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:572
+#: shinetheme/libraries/service-types/accommodation.php:739
+#: shinetheme/libraries/service-types/tour.php:862
 msgid "You can select Disallow Deposit, Deposit by percent, Deposit by amount"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:579
+#: shinetheme/libraries/service-types/accommodation.php:743
+#: shinetheme/libraries/service-types/tour.php:866
+msgid "Deposit payment amount"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:746
+#: shinetheme/libraries/service-types/tour.php:869
 msgid "Leave empty for disallow deposit payment"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:583
+#: shinetheme/libraries/service-types/accommodation.php:753
+#: shinetheme/libraries/service-types/tour.php:874
 msgid "How many days in advance can guests cancel free of  charge?"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:587
-#: shinetheme/views/frontend/single/types/default.php:446
+#: shinetheme/libraries/service-types/accommodation.php:757
+#: shinetheme/libraries/service-types/tour.php:878
+#: shinetheme/views/frontend/single/types/default.php:261
+#: shinetheme/views/frontend/single/types/tour.php:311
 msgid "Day of arrival (6 pm)"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:588
+#: shinetheme/libraries/service-types/accommodation.php:758
+#: shinetheme/libraries/service-types/tour.php:879
 msgid "1 day"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:589
+#: shinetheme/libraries/service-types/accommodation.php:759
+#: shinetheme/libraries/service-types/tour.php:880
 msgid "2 days"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:590
+#: shinetheme/libraries/service-types/accommodation.php:760
+#: shinetheme/libraries/service-types/tour.php:881
 msgid "3 days"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:591
+#: shinetheme/libraries/service-types/accommodation.php:761
+#: shinetheme/libraries/service-types/tour.php:882
 msgid "7 days"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:592
+#: shinetheme/libraries/service-types/accommodation.php:762
+#: shinetheme/libraries/service-types/tour.php:883
 msgid "14 days"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:594
+#: shinetheme/libraries/service-types/accommodation.php:764
+#: shinetheme/libraries/service-types/tour.php:885
 msgid "Day of arrival ( 18: 00 ) , 1 day , 2 days, 3 days, 7 days, 14 days"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:598
+#: shinetheme/libraries/service-types/accommodation.php:768
+#: shinetheme/libraries/service-types/tour.php:889
 msgid "Or guests will pay 100%"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:602
+#: shinetheme/libraries/service-types/accommodation.php:772
+#: shinetheme/libraries/service-types/tour.php:893
 msgid "of the first night"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:603
+#: shinetheme/libraries/service-types/accommodation.php:773
+#: shinetheme/libraries/service-types/tour.php:894
 msgid "of the full stay"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:605
+#: shinetheme/libraries/service-types/accommodation.php:775
+#: shinetheme/libraries/service-types/tour.php:896
 msgid "Of the first night, of the full stay"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:611
-#: shinetheme/views/frontend/single/types/default.php:551
+#: shinetheme/libraries/service-types/accommodation.php:781
+#: shinetheme/libraries/service-types/tour.php:902
+#: shinetheme/views/frontend/single/types/default.php:366
+#: shinetheme/views/frontend/single/types/tour.php:416
 msgid "Tax"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:613
+#: shinetheme/libraries/service-types/accommodation.php:783
 msgid ""
 "Set your local VAT or city tax, so guests know what is included in the price "
 "of their stay."
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:616
+#: shinetheme/libraries/service-types/accommodation.php:786
+#: shinetheme/libraries/service-types/tour.php:907
 msgid "VAT"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:626
-#: shinetheme/views/frontend/checkout/cart-total-box.php:25
-#: shinetheme/views/frontend/emails/shortcodes/order-table.php:70
-#: shinetheme/views/frontend/order/content.php:118
+#: shinetheme/libraries/service-types/accommodation.php:795
+#: shinetheme/views/admin/metabox-fields/vat_different.php:42
+msgid "VAT amount"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:800
+#: shinetheme/views/frontend/checkout/cart-total-box.php:26
+#: shinetheme/views/frontend/emails/shortcodes/order-table.php:59
+#: shinetheme/views/frontend/order/content.php:112
 msgid "City Tax"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:640
+#: shinetheme/libraries/service-types/accommodation.php:809
+#: shinetheme/views/admin/metabox-fields/citytax_different.php:42
+msgid "City Tax amount"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:817
+#: shinetheme/libraries/service-types/tour.php:920
 msgid "Term & condition"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:642
-msgid "We will show this information in checkout step."
+#: shinetheme/libraries/service-types/accommodation.php:819
+#: shinetheme/libraries/service-types/tour.php:922
+msgid "Setting terms and condition for your property"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:645
+#: shinetheme/libraries/service-types/accommodation.php:822
 msgid "Minimum Stay"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:683
+#: shinetheme/libraries/service-types/accommodation.php:860
+#: shinetheme/libraries/service-types/tour.php:925
 msgid "Terms & Conditions"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:695
+#: shinetheme/libraries/service-types/accommodation.php:873
 msgid "6. Photos"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:698
+#: shinetheme/libraries/service-types/accommodation.php:876
+#: shinetheme/libraries/service-types/tour.php:941
 msgid "Pictures"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:702
+#: shinetheme/libraries/service-types/accommodation.php:880
+#: shinetheme/libraries/service-types/tour.php:945
 msgid "Gallery"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:705
+#: shinetheme/libraries/service-types/accommodation.php:884
+#: shinetheme/libraries/service-types/tour.php:949
 msgid ""
-"Picture recommendations\n"
-"\n"
-"\t\t\t\tWe recommend having pictures in the following order (if available):\n"
-"\n"
-"\t\t\t\tLiving area\n"
-"\t\t\t\tBedroom(s)\n"
-"\t\t\t\tKitchen\n"
-"\t\t\t\tView from the apartment/house\n"
-"\t\t\t\tExterior of apartment/building\n"
-"\t\t\t\tPlease no generic pictures of the city\n"
-"\t\t\t\tPictures showing animals, people, watermarks, logos and images "
-"composed of multiple\n"
-"\t\t\t\tsmaller images will be removed."
+"Great photos invite guests to get the full experience of your property. Be "
+"sure to include high-resolution photos of the building, facilities, and "
+"amenities. We will display these photos on your property's page"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:721
+#: shinetheme/libraries/service-types/accommodation.php:888
+#: shinetheme/libraries/service-types/tour.php:954
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:94
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:217
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:138
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:261
 #: shinetheme/views/admin/metabox-fields/room-form-button.php:10
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:72
 msgid "Save"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:789
+#: shinetheme/libraries/service-types/accommodation.php:957
 msgid "Room Name"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:793
-msgid "Room name (optional)"
+#: shinetheme/libraries/service-types/accommodation.php:961
+msgid "Room name"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:796
+#: shinetheme/libraries/service-types/accommodation.php:964
 msgid "Create an optional, custom name for your reference."
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:805
-msgid "Dựa vào tiện nghi của phòng, hãy chọn 1 kiểu chính xác nhất."
+#: shinetheme/libraries/service-types/accommodation.php:974
+msgid "Based on the amenities of room, select one type most accurate"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:808
+#: shinetheme/libraries/service-types/accommodation.php:977
 msgid "Room Number"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:812
-msgid "Out of 2 rooms at your property"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:815
+#: shinetheme/libraries/service-types/accommodation.php:985
 msgid "Bed Rooms"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:825
+#: shinetheme/libraries/service-types/accommodation.php:995
 msgid "Bath Rooms"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:834
+#: shinetheme/libraries/service-types/accommodation.php:1004
 msgid "Living Rooms"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:843
+#: shinetheme/libraries/service-types/accommodation.php:1013
 msgid "Max guests"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:861
-msgid "Thiết lập các dịch vụ mở rộng cho tài sản của bạn"
+#: shinetheme/libraries/service-types/accommodation.php:1031
+msgid "Set the extended services for your property"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:865
+#: shinetheme/libraries/service-types/accommodation.php:1035
 msgid "Choose extra services"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:877
+#: shinetheme/libraries/service-types/accommodation.php:1047
 msgid "Price Settings"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:879
+#: shinetheme/libraries/service-types/accommodation.php:1049
 msgid "You can setting price for room"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:911
-msgid "Please Specific Property ID"
+#: shinetheme/libraries/service-types/accommodation.php:1081
+msgid "Please specify Property ID"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:917
+#: shinetheme/libraries/service-types/accommodation.php:1087
 msgid "Property is not exists"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:933
+#: shinetheme/libraries/service-types/accommodation.php:1104
 msgid "Room Draft"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:940
+#: shinetheme/libraries/service-types/accommodation.php:1111
 msgid "Can not create room, please check again"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1116
-msgid "Không tìm thấy room nào !"
+#: shinetheme/libraries/service-types/accommodation.php:1319
+msgid ""
+"Our system is not found any room from your searching. You can change search "
+"now."
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1134
-#: shinetheme/libraries/service-types/accommodation.php:1990
+#: shinetheme/libraries/service-types/accommodation.php:1337
 #, php-format
-msgid "Minimum stay is %s night(s)"
+msgid "This %s required minimum stay is %s night(s)."
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1598
+#: shinetheme/libraries/service-types/accommodation.php:1813
+#: shinetheme/libraries/service-types/tour.php:1024
 msgid "Field Type"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1601
+#: shinetheme/libraries/service-types/accommodation.php:1816
+#: shinetheme/libraries/service-types/tour.php:1027
 #: shinetheme/libraries/shortcodes/form-build-default/dropdown.php:93
 #: shinetheme/libraries/shortcodes/form-build-default/guest.php:77
 #: shinetheme/widgets/search-form.php:112
-#: shinetheme/widgets/search-form.php:149
-#: shinetheme/widgets/search-form.php:480
+#: shinetheme/widgets/search-form.php:151
+#: shinetheme/widgets/search-form.php:397
 msgid "-- Select --"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1602
+#: shinetheme/libraries/service-types/accommodation.php:1817
 msgid "Location Dropdown"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1603
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:58
-#: shinetheme/views/frontend/single/types/default.php:239
-#: shinetheme/views/frontend/single/types/default.php:243
+#: shinetheme/libraries/service-types/accommodation.php:1818
+#: shinetheme/views/frontend/single/hotel/room.php:29
+#: shinetheme/views/frontend/single/hotel/room.php:33
 msgid "Check In"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1604
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:65
+#: shinetheme/libraries/service-types/accommodation.php:1819
 #: shinetheme/views/frontend/checkout/cart-widget.php:63
-#: shinetheme/views/frontend/single/types/default.php:247
-#: shinetheme/views/frontend/single/types/default.php:251
+#: shinetheme/views/frontend/single/hotel/room.php:37
+#: shinetheme/views/frontend/single/hotel/room.php:41
 msgid "Check Out"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1605
+#: shinetheme/libraries/service-types/accommodation.php:1820
 msgid "Adult And Children"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1606
+#: shinetheme/libraries/service-types/accommodation.php:1821
+#: shinetheme/libraries/service-types/tour.php:1031
 msgid "Taxonomy"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1607
-msgid "Review Rate"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:1608
+#: shinetheme/libraries/service-types/accommodation.php:1823
 msgid "Star Of Property"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1609
+#: shinetheme/libraries/service-types/accommodation.php:1824
+#: shinetheme/libraries/service-types/tour.php:1033
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:80
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:84
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:88
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:211
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:68
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:92
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:255
 #: shinetheme/views/frontend/checkout/other/checkout-item-room.php:11
 #: shinetheme/views/frontend/checkout/other/checkout-item-room.php:62
 #: shinetheme/views/frontend/checkout/other/checkout-item-room.php:103
@@ -2229,8 +2297,10 @@ msgstr ""
 msgid "Price"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1620
-#: shinetheme/libraries/service-types/accommodation.php:1621
+#: shinetheme/libraries/service-types/accommodation.php:1835
+#: shinetheme/libraries/service-types/accommodation.php:1836
+#: shinetheme/libraries/service-types/tour.php:1044
+#: shinetheme/libraries/service-types/tour.php:1045
 #: shinetheme/libraries/shortcodes/form-build-default/check-in.php:63
 #: shinetheme/libraries/shortcodes/form-build-default/check-out.php:72
 #: shinetheme/libraries/shortcodes/form-build-default/country-dropdown.php:75
@@ -2245,124 +2315,371 @@ msgstr ""
 msgid "Placeholder"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1626
+#: shinetheme/libraries/service-types/accommodation.php:1841
+#: shinetheme/libraries/service-types/tour.php:1050
 msgid "- Taxonomy"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1633
+#: shinetheme/libraries/service-types/accommodation.php:1848
+#: shinetheme/libraries/service-types/tour.php:1057
 msgid "- Display Style"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1637
+#: shinetheme/libraries/service-types/accommodation.php:1852
+#: shinetheme/libraries/service-types/tour.php:1061
 msgid "Dropdown"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1638
+#: shinetheme/libraries/service-types/accommodation.php:1853
+#: shinetheme/libraries/service-types/tour.php:1062
 #: shinetheme/libraries/shortcodes/form-build-default/checkbox.php:11
 msgid "Check Box"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1643
+#: shinetheme/libraries/service-types/accommodation.php:1858
+#: shinetheme/libraries/service-types/tour.php:1067
 msgid "- Operator"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1647
+#: shinetheme/libraries/service-types/accommodation.php:1862
+#: shinetheme/libraries/service-types/tour.php:1071
 msgid "And"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1648
+#: shinetheme/libraries/service-types/accommodation.php:1863
+#: shinetheme/libraries/service-types/tour.php:1072
 msgid "Or"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1653
-#: shinetheme/views/admin/metabox-fields/extra_services.php:59
-#: shinetheme/views/admin/metabox-fields/extra_services.php:100
+#: shinetheme/libraries/service-types/accommodation.php:1868
+#: shinetheme/libraries/service-types/tour.php:1077
+#: shinetheme/views/admin/metabox-fields/extra_services.php:58
+#: shinetheme/views/admin/metabox-fields/extra_services.php:99
 msgid "Required"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1656
-#: shinetheme/views/admin/metabox-fields/citytax_different.php:34
-#: shinetheme/views/admin/metabox-fields/extra_services.php:56
-#: shinetheme/views/admin/metabox-fields/extra_services.php:97
-#: shinetheme/views/admin/metabox-fields/vat_different.php:34
+#: shinetheme/libraries/service-types/accommodation.php:1871
+#: shinetheme/libraries/service-types/tour.php:1080
+#: shinetheme/views/admin/metabox-fields/citytax_different.php:32
+#: shinetheme/views/admin/metabox-fields/extra_services.php:55
+#: shinetheme/views/admin/metabox-fields/extra_services.php:96
+#: shinetheme/views/admin/metabox-fields/vat_different.php:32
 msgid "No"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1657
+#: shinetheme/libraries/service-types/accommodation.php:1872
+#: shinetheme/libraries/service-types/tour.php:1081
 #: shinetheme/views/admin/metabox-fields/bed_options.php:155
 #: shinetheme/views/admin/metabox-fields/bed_options.php:290
 #: shinetheme/views/admin/metabox-fields/bed_options.php:444
-#: shinetheme/views/admin/metabox-fields/extra_services.php:57
-#: shinetheme/views/admin/metabox-fields/extra_services.php:98
-#: shinetheme/widgets/search-form.php:542
-#: shinetheme/widgets/search-form.php:621
+#: shinetheme/views/admin/metabox-fields/extra_services.php:56
+#: shinetheme/views/admin/metabox-fields/extra_services.php:97
+#: shinetheme/widgets/search-form.php:459
+#: shinetheme/widgets/search-form.php:538
 msgid "Yes"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1662
+#: shinetheme/libraries/service-types/accommodation.php:1877
+#: shinetheme/libraries/service-types/tour.php:1086
 msgid "In Advance Search?"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1708
+#: shinetheme/libraries/service-types/accommodation.php:1926
 #, php-format
 msgid "from %s /%s nights"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1710
+#: shinetheme/libraries/service-types/accommodation.php:1928
 #, php-format
 msgid "from %s /night"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1870
-#: shinetheme/libraries/service-types/accommodation.php:2011
+#: shinetheme/libraries/service-types/accommodation.php:2088
+#: shinetheme/libraries/service-types/accommodation.php:2230
 #, php-format
-msgid "Bạn không thể book \"%s\" vào ngày: %s"
+msgid "You can not book \"%s\" on: %s"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1892
-#: shinetheme/libraries/service-types/accommodation.php:2033
+#: shinetheme/libraries/service-types/accommodation.php:2111
+#: shinetheme/libraries/service-types/accommodation.php:2253
+msgid "Number of room you booking is not enough, please change your search."
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:2156 wpbooking.php:190
+msgid "To see price details, please select check-in and check-out date."
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:2161 wpbooking.php:191
+msgid "Please select check-in date."
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:2166 wpbooking.php:192
+msgid "Please select check-out date."
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:2171
+msgid "Please select number of room."
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:2179
+msgid "Number of rooms bookable can not more than number of adults."
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:2198
+msgid "Day after day check out to check in"
+msgstr ""
+
+#: shinetheme/libraries/service-types/accommodation.php:2209
 #, php-format
-msgid "Bạn không thể book. Room Type \"%s\" chỉ còn %s phòng trống!"
+msgid "This %s required minimum stay is %s night(s)"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1937 wpbooking.php:186
-msgid "Please select Check-in and Check-out date"
+#: shinetheme/libraries/service-types/accommodation.php:2224
+#, php-format
+msgid "You can not check-in at: %s"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1942 wpbooking.php:187
-msgid "Please select Check-in date"
+#: shinetheme/libraries/service-types/accommodation.php:2227
+#, php-format
+msgid "You can not check-out at: %s"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:1947 wpbooking.php:188
-msgid "Please select Check-out date"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:1952
-msgid "Vui lòng chọn một hoặc nhiều phòng mà bạn muốn đặt."
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:1960
-msgid "Bạn không thể book số phòng lớn hơn số người lớn!"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:1979
-msgid "Ngày check out phải sau ngày check in"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:2292
-#: shinetheme/libraries/service-types/accommodation.php:2360
+#: shinetheme/libraries/service-types/accommodation.php:2512
+#: shinetheme/libraries/service-types/accommodation.php:2580
 #, php-format
 msgid "%s rooms"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:2294
-#: shinetheme/libraries/service-types/accommodation.php:2362
+#: shinetheme/libraries/service-types/accommodation.php:2514
+#: shinetheme/libraries/service-types/accommodation.php:2582
 #, php-format
 msgid "%s room"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:2644
+#: shinetheme/libraries/service-types/accommodation.php:2864
 msgid "Delete item successfully"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:18
+msgid "Tour"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:19
+msgid "Tour Booking"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:157
+msgid "Tour Price:"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:322
+#: shinetheme/views/admin/order/tab-report.php:86
+msgid "From"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:327
+#: shinetheme/libraries/service-types/tour.php:345
+msgid "Adult(s)"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:330
+#: shinetheme/libraries/service-types/tour.php:348
+#: shinetheme/views/admin/order/tab-listing.php:205
+#: shinetheme/views/frontend/single/hotel/room.php:66
+#: shinetheme/views/frontend/single/types/tour.php:203
+#: shinetheme/widgets/search-form.php:325
+msgid "Children"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:333
+#: shinetheme/libraries/service-types/tour.php:351
+msgid "Infant(s)"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:440
+#: shinetheme/libraries/service-types/tour.php:497
+msgid "Sorry! This tour is not available at your selected time"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:449
+#: shinetheme/libraries/service-types/tour.php:504
+#, php-format
+msgid "This tour only remain availability for %d people"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:458
+#, php-format
+msgid "Minimum Travelers must be %d"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:464
+#, php-format
+msgid "Maximum Travelers must be %d"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:510
+#, php-format
+msgid "%d adult(s)"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:513
+#, php-format
+msgid "%d children"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:516
+#, php-format
+msgid "%d infant(s)"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:521
+#, php-format
+msgid "This tour require at least %s"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:524
+msgid "This tour require at least 1 person"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:607
+#: shinetheme/libraries/service-types/tour.php:608
+#: shinetheme/libraries/service-types/tour.php:617
+#: shinetheme/libraries/service-types/tour.php:706
+msgid "Tour Type"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:609
+msgid "Search Tour Type"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:610
+msgid "All Tour Type"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:611
+msgid "Parent Tour Type"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:612
+msgid "Parent Tour Type:"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:613
+msgid "Edit Tour Type"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:614
+msgid "Update Tour Type"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:615
+msgid "Add New Tour Type"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:616
+msgid "New Tour Type Name"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:687
+msgid "1. Basic Information"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:693
+msgid "About Your Tour"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:699
+msgid "Enable Tour"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:715
+msgid "Standard of tour from 1 to 5 star."
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:720
+msgid "Duration"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:722
+msgid "Example: 10 days"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:754
+msgid "Tour Destination"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:774
+msgid "Please make sure to enter your full address "
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:785
+msgid "2. Booking Details"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:789
+msgid "Pricing type"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:793
+msgid "Pricing Type"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:797
+msgid "Per person"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:798
+msgid "Per unit"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:803
+msgid "Maximum people"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:811
+msgid "Age Options"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:812
+msgid "Provide your requirements for what age defines a child vs. adult."
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:829
+msgid "Availability"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:844
+msgid "3. Policies & Checkout"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:904
+msgid ""
+"Set your local VAT, so guests know what is included in the price of their "
+"stay."
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:938
+msgid "4. Photos"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:1011
+msgid "Tour type"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:1028
+msgid "Destination"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:1029
+msgid "From date"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:1030
+msgid "To date"
+msgstr ""
+
+#: shinetheme/libraries/service-types/tour.php:1032
+msgid "Star Of Tour"
 msgstr ""
 
 #: shinetheme/libraries/shortcodes/form-build-default/captcha.php:18
@@ -2418,7 +2735,6 @@ msgstr ""
 #: shinetheme/views/admin/taxonomy/edit.php:19
 #: shinetheme/views/admin/taxonomy/index.php:20
 #: shinetheme/views/admin/taxonomy/index.php:71
-#: shinetheme/views/frontend/reviews.php:78
 msgid "Name"
 msgstr ""
 
@@ -2430,10 +2746,6 @@ msgstr ""
 #: shinetheme/libraries/shortcodes/form-build-default/last-name.php:42
 #: shinetheme/libraries/shortcodes/form-build-default/user-email.php:42
 msgid "This is default attribute, you can not change it"
-msgstr ""
-
-#: shinetheme/libraries/shortcodes/form-build-default/captcha.php:47
-msgid "Type"
 msgstr ""
 
 #: shinetheme/libraries/shortcodes/form-build-default/captcha.php:51
@@ -2493,6 +2805,7 @@ msgstr ""
 #: shinetheme/libraries/shortcodes/form-build-default/textarea.php:48
 #: shinetheme/libraries/shortcodes/form-build-default/textarea.php:50
 #: shinetheme/libraries/shortcodes/form-build-default/user-email.php:48
+#: shinetheme/views/admin/order/tab-listing.php:106
 #: shinetheme/views/admin/order/tab-listing.php:119
 #: shinetheme/views/frontend/account/booking_history/loop-listing.php:25
 msgid "ID"
@@ -2640,6 +2953,7 @@ msgid "User Field"
 msgstr ""
 
 #: shinetheme/libraries/shortcodes/form-build-default/guest.php:10
+#: shinetheme/views/admin/order/tab-listing.php:215
 #: shinetheme/views/frontend/account/orders/loop-listing.php:85
 msgid "Guest"
 msgstr ""
@@ -2692,6 +3006,226 @@ msgstr ""
 msgid "The field was not set"
 msgstr ""
 
+#: shinetheme/views/admin/about/index.php:19
+#: shinetheme/views/admin/about/tab-get_started.php:43
+msgid "Get Started"
+msgstr ""
+
+#: shinetheme/views/admin/about/index.php:23
+msgid "Get even more functionality"
+msgstr ""
+
+#: shinetheme/views/admin/about/index.php:33
+#, php-format
+msgid "Welcome to Wp Booking %s"
+msgstr ""
+
+#: shinetheme/views/admin/about/index.php:34
+msgid "Wpbooking is ready to receive and manage bookings from visitor"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-extensions.php:24
+msgid "Extensions for WPBooking"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-extensions.php:32
+msgid ""
+"These extensions <strong>add functionality</strong> to your WPBooking "
+"powered store."
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-extensions.php:35
+#: shinetheme/views/admin/about/tab-extensions.php:113
+msgid "Browse all extensions"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-extensions.php:40
+msgid "Total "
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-extensions.php:40
+msgid " extensions. Showing "
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-extensions.php:44
+#: shinetheme/views/admin/about/tab-extensions.php:49
+#: shinetheme/widgets/search-form.php:80
+msgid "Search"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-extensions.php:47
+msgid "Find an extensions"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-extensions.php:48
+#: shinetheme/views/admin/metabox-fields/location.php:30
+msgid "Type to search"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-extensions.php:55
+msgid "Category"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-extensions.php:58
+#: shinetheme/views/admin/coupon/index.php:62
+#: shinetheme/views/admin/coupon/index.php:306
+#: shinetheme/views/admin/metabox-fields/taxonomy_room_select.php:62
+#: shinetheme/views/admin/order/tab-report.php:54
+#: shinetheme/views/frontend/account/tabs/services.php:33
+#: shinetheme/views/frontend/account/tabs/your_wishlist.php:49
+msgid "All"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-extensions.php:83
+msgid "Read more"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-extensions.php:96 wpbooking.php:296
+msgid "Prev"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-extensions.php:105
+#: shinetheme/views/frontend/archive/pagination.php:31 wpbooking.php:295
+msgid "Next"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-extensions.php:119
+msgid "No extensions."
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:25
+msgid ""
+"We are spending you <strong>four main settings</strong> to create a booking "
+"system."
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:26
+msgid "There are below:"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:49
+msgid "Create new accommodation"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:50
+msgid ""
+"Accommodations are the core of your Booking site. Without them, you do not "
+"really have a Booking site, so setting them up properly and making them easy "
+"to booking is extremely important."
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:52
+msgid "Create contact information of accommodation"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:53
+msgid "Create location of accommodation"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:54
+msgid "Setting check-in/ check-out time"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:55
+msgid "Setting amenities of accommodation"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:56
+msgid "Create room of accommodation"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:57
+msgid "Setting facilities of accommodation"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:58
+msgid "Setting policies of accommodation: tax, cancelation policies"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:59
+msgid "Setting photos of accommodation"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:66
+msgid "Create accommodation’s room"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:67
+msgid ""
+"Per accommodation usually have multiple rooms. They are created in the "
+"accommodation. Includes:"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:69
+msgid "Base information: name, number of rooms"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:70
+msgid "Create and setting extra service"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:71
+msgid "Setting price of room"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:72
+msgid "Setting available status of room"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:79
+msgid "Check and manage your bookings"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:82
+msgid ""
+"After user booking success, you can replace booking status of user "
+"booking(s) easy to use Booking Admin Panel"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:83
+msgid "You can view booking report by the chart"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:90
+msgid "Configure different settings"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:93
+msgid "Currency of booking system"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:94
+msgid "Booking/register notification email"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:95
+msgid "Edit notification email easy"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:96
+msgid "Setting payment methods"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:97
+msgid "Setting review options"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:104
+msgid "Have a questions?"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:106
+msgid "Need Help?"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:107
+msgid "FAQ"
+msgstr ""
+
+#: shinetheme/views/admin/about/tab-get_started.php:108
+msgid "Submit a Ticket?"
+msgstr ""
+
 #: shinetheme/views/admin/coupon/index.php:13
 msgid "Coupon"
 msgstr ""
@@ -2716,15 +3250,6 @@ msgstr ""
 
 #: shinetheme/views/admin/coupon/index.php:46
 msgid "Enter your coupon code"
-msgstr ""
-
-#: shinetheme/views/admin/coupon/index.php:62
-#: shinetheme/views/admin/coupon/index.php:306
-#: shinetheme/views/admin/metabox-fields/taxonomy_room_select.php:62
-#: shinetheme/views/admin/order/tab-report.php:49
-#: shinetheme/views/frontend/account/tabs/services.php:33
-#: shinetheme/views/frontend/account/tabs/your_wishlist.php:49
-msgid "All"
 msgstr ""
 
 #: shinetheme/views/admin/coupon/index.php:64
@@ -2812,10 +3337,14 @@ msgid "All Discount Coupons"
 msgstr ""
 
 #: shinetheme/views/admin/coupon/index.php:250
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:58
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:42
 msgid "Start Date"
 msgstr ""
 
 #: shinetheme/views/admin/coupon/index.php:251
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:65
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:49
 msgid "End Date"
 msgstr ""
 
@@ -2833,8 +3362,8 @@ msgstr ""
 #: shinetheme/views/admin/metabox-fields/hotel_room_list.php:81
 #: shinetheme/views/admin/metabox-fields/list-item.php:46
 #: shinetheme/views/admin/taxonomy/index.php:38
-#: shinetheme/widgets/search-form.php:512
-#: shinetheme/widgets/search-form.php:600
+#: shinetheme/widgets/search-form.php:429
+#: shinetheme/widgets/search-form.php:517
 msgid "Edit"
 msgstr ""
 
@@ -2885,6 +3414,13 @@ msgstr ""
 
 #: shinetheme/views/admin/email/document.php:19
 msgid "Place Order Form Field Value"
+msgstr ""
+
+#: shinetheme/views/admin/email/registration_document.php:10
+#: shinetheme/views/frontend/account/partner-register.php:20
+#: shinetheme/views/frontend/account/register.php:29
+#: shinetheme/views/frontend/emails/templates/changed_password.php:17
+msgid "Username"
 msgstr ""
 
 #: shinetheme/views/admin/email/registration_document.php:12
@@ -2943,15 +3479,15 @@ msgstr ""
 msgid "Choose One"
 msgstr ""
 
-#: shinetheme/views/admin/fields/taxonomy-checkbox.php:51
+#: shinetheme/views/admin/fields/taxonomy-checkbox.php:52
 #: shinetheme/views/admin/metabox-fields/taxonomies.php:64
 #, php-format
 msgid "%s name"
 msgstr ""
 
 #: shinetheme/views/admin/fields/upload.php:24
-#: shinetheme/widgets/search-form.php:513
-#: shinetheme/widgets/search-form.php:601
+#: shinetheme/widgets/search-form.php:430
+#: shinetheme/widgets/search-form.php:518
 msgid "Remove"
 msgstr ""
 
@@ -3001,7 +3537,7 @@ msgid "Form Title:"
 msgstr ""
 
 #: shinetheme/views/admin/form-builder.php:163
-#: shinetheme/widgets/search-form.php:582
+#: shinetheme/widgets/search-form.php:499
 msgid "Add Field"
 msgstr ""
 
@@ -3025,7 +3561,7 @@ msgstr ""
 msgid "Save Form"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/address.php:33
+#: shinetheme/views/admin/metabox-fields/address.php:34
 #: shinetheme/views/admin/metabox-fields/bed_options.php:7
 #: shinetheme/views/admin/metabox-fields/check_in.php:30
 #: shinetheme/views/admin/metabox-fields/check_in.php:41
@@ -3036,28 +3572,63 @@ msgstr ""
 msgid "Please Select"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/address.php:41
+#: shinetheme/views/admin/metabox-fields/address.php:44
 msgid "Place, location, spot, site, locality"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/address.php:45
+#: shinetheme/views/admin/metabox-fields/address.php:48
 msgid "Zip/Postcode"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/address.php:48
+#: shinetheme/views/admin/metabox-fields/address.php:51
 msgid "Zip/ postcode"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/address.php:54
+#: shinetheme/views/admin/metabox-fields/address.php:57
 msgid "Address neighborhood, organization and clusters"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/address.php:57
+#: shinetheme/views/admin/metabox-fields/address.php:61
 msgid "Apt/Unit #"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/address.php:60
+#: shinetheme/views/admin/metabox-fields/address.php:64
 msgid "House number, floor, building"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/age_options.php:55
+msgid "Age Band"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/age_options.php:56
+msgid "Minimum Age"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/age_options.php:57
+msgid "Maximum Age"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/age_options.php:63
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:97
+#: shinetheme/views/admin/order/tab-listing.php:200
+#: shinetheme/widgets/search-form.php:313
+msgid "Adult"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/age_options.php:68
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:109
+msgid "Child"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/age_options.php:73
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:121
+#: shinetheme/views/admin/order/tab-listing.php:210
+#: shinetheme/views/frontend/single/types/tour.php:219
+msgid "Infant"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/age_options.php:79
+msgid "Please enter the maximum age greater or equal to the minimum age"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/bed_options.php:133
@@ -3104,32 +3675,39 @@ msgid "For specific periods"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:55
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:39
 msgid "Set price by date arrange"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:56
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:40
 msgid "You can make room for any purpose ( like discount , high price , ... )"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:60
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:44
 msgid "From Date"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:67
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:51
 msgid "To Date"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:72
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:56
 #: shinetheme/views/frontend/account/tabs/booking_history.php:37
 #: shinetheme/views/frontend/account/tabs/orders.php:70
 msgid "Status"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:74
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:58
 msgid "Available"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:75
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:59
 msgid "Not Available"
 msgstr ""
 
@@ -3146,84 +3724,117 @@ msgid "Montly Price"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:105
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:149
 msgid "How to set Availability ?"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:107
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:151
 msgid "To set availability on your calendar:"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:109
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:153
 msgid "Click a day in the calendar to set a start date"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:110
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:154
 msgid "Click another day to set the end date of the period you want to edit"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:113
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:157
 msgid "A right sight table, allowing you to set availbility for that period"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:122
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:166
 msgid "Bulk Price Edit"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:123
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:167
 msgid "Close"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:127
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:171
 msgid "Choose Date:"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:130
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:174
 msgid "Days Of Week"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:133
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:177
 msgid "Sunday"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:134
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:178
 msgid "Monday"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:135
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:179
 msgid "Tuesday"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:136
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:180
 msgid "Wednesday"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:137
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:181
 msgid "Thursday"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:138
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:182
 msgid "Friday"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:139
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:183
 msgid "Saturday"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:144
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:188
 msgid "Days Of Month"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:164
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:208
 msgid "Months"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:188
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:232
 msgid "Years"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:218
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:262
 #: shinetheme/views/admin/order/tab-listing.php:170
 msgid "Cancel"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:66
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:91
+msgid "Min Travelers"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:67
+msgid "Max Travelers"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:90
+msgid "Age band"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/check_in.php:28
@@ -3246,13 +3857,13 @@ msgstr ""
 msgid "Do you use City Tax ?"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/citytax_different.php:32
-#: shinetheme/views/admin/metabox-fields/vat_different.php:32
+#: shinetheme/views/admin/metabox-fields/citytax_different.php:33
+#: shinetheme/views/admin/metabox-fields/vat_different.php:33
 msgid "Yes, Included"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/citytax_different.php:33
-#: shinetheme/views/admin/metabox-fields/vat_different.php:33
+#: shinetheme/views/admin/metabox-fields/citytax_different.php:34
+#: shinetheme/views/admin/metabox-fields/vat_different.php:34
 msgid "Yes, Not included"
 msgstr ""
 
@@ -3261,33 +3872,33 @@ msgstr ""
 msgid "Yes, Included / Yes, Not included / No"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/citytax_different.php:42
-msgid "City Tax amount"
-msgstr ""
-
-#: shinetheme/views/admin/metabox-fields/citytax_different.php:48
-#: shinetheme/views/admin/metabox-fields/vat_different.php:48
+#: shinetheme/views/admin/metabox-fields/citytax_different.php:51
+#: shinetheme/views/admin/metabox-fields/vat_different.php:51
 msgid "Unit"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/citytax_different.php:50
-msgid "/stay"
-msgstr ""
-
-#: shinetheme/views/admin/metabox-fields/citytax_different.php:51
-msgid "/person per stay"
-msgstr ""
-
-#: shinetheme/views/admin/metabox-fields/citytax_different.php:52
-msgid "/night"
-msgstr ""
-
 #: shinetheme/views/admin/metabox-fields/citytax_different.php:53
-msgid "/person per night"
+#, php-format
+msgid "%s %s /stay"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/citytax_different.php:54
-#: shinetheme/views/admin/metabox-fields/vat_different.php:50
+#, php-format
+msgid "%s %s /person per stay"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/citytax_different.php:55
+#, php-format
+msgid "%s %s /night"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/citytax_different.php:56
+#, php-format
+msgid "%s %s /person per night"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/citytax_different.php:57
+#: shinetheme/views/admin/metabox-fields/vat_different.php:53
 msgid "Percent (%)"
 msgstr ""
 
@@ -3331,26 +3942,26 @@ msgstr ""
 msgid "Bankcard"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/extra_services.php:47
-#: shinetheme/views/admin/metabox-fields/extra_services.php:88
-msgid "-"
-msgstr ""
-
-#: shinetheme/views/admin/metabox-fields/extra_services.php:52
-#: shinetheme/views/admin/metabox-fields/extra_services.php:93
+#: shinetheme/views/admin/metabox-fields/extra_services.php:51
+#: shinetheme/views/admin/metabox-fields/extra_services.php:92
 msgid "Max quantity"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/extra_services.php:104
+#: shinetheme/views/admin/metabox-fields/extra_services.php:87
+msgid "-"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/extra_services.php:103
 msgid "Extra Service Name"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/extra_services.php:105
-#: shinetheme/views/frontend/single/types/default.php:184
+#: shinetheme/views/admin/metabox-fields/extra_services.php:104
+#: shinetheme/views/frontend/single/types/default.php:132
+#: shinetheme/views/frontend/single/types/tour.php:255
 msgid "Description"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/extra_services.php:107
+#: shinetheme/views/admin/metabox-fields/extra_services.php:106
 msgid "Max Quantity"
 msgstr ""
 
@@ -3410,6 +4021,14 @@ msgstr ""
 msgid "There is %s in your listing"
 msgstr ""
 
+#: shinetheme/views/admin/metabox-fields/itinerary_tour.php:29
+msgid "Desctiprion"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/itinerary_tour.php:68
+msgid "Add new"
+msgstr ""
+
 #: shinetheme/views/admin/metabox-fields/living_options.php:22
 msgid "Living room #__number_living__"
 msgstr ""
@@ -3422,10 +4041,6 @@ msgstr ""
 #: shinetheme/views/admin/metabox-fields/living_options.php:63
 #, php-format
 msgid "Living room #%d"
-msgstr ""
-
-#: shinetheme/views/admin/metabox-fields/location.php:30
-msgid "Type to search"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/property_size.php:45
@@ -3441,7 +4056,7 @@ msgid "Feet"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/repeat_dropdown.php:91
-#: wpbooking.php:285
+#: wpbooking.php:290
 msgid "delete"
 msgstr ""
 
@@ -3453,9 +4068,13 @@ msgstr ""
 msgid "Save & Next Step"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/section_navigation.php:20
+#: shinetheme/views/admin/metabox-fields/section_navigation.php:29
 #: shinetheme/views/frontend/archive/pagination.php:30
 msgid "Previous"
+msgstr ""
+
+#: shinetheme/views/admin/metabox-fields/section_navigation.php:32
+msgid "Save Now"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/taxonomy_room_select.php:67
@@ -3470,16 +4089,8 @@ msgstr ""
 msgid "Do you use V.A.T ?"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/vat_different.php:42
-msgid "VAT amount"
-msgstr ""
-
-#: shinetheme/views/admin/metabox-fields/vat_different.php:51
+#: shinetheme/views/admin/metabox-fields/vat_different.php:54
 msgid "Fixed"
-msgstr ""
-
-#: shinetheme/views/admin/metabox-fields/vat_different.php:53
-msgid "Sed ut perspiciatis unde omnis "
 msgstr ""
 
 #: shinetheme/views/admin/order/detail.php:16
@@ -3493,7 +4104,7 @@ msgstr ""
 #: shinetheme/views/admin/order/detail.php:33
 #: shinetheme/views/frontend/account/booking_history/detail.php:24
 #: shinetheme/views/frontend/account/orders/loop-listing.php:57
-#: shinetheme/views/frontend/checkout/cart-total-box.php:6
+#: shinetheme/views/frontend/checkout/cart-total-box.php:7
 #: shinetheme/views/frontend/checkout/other/checkout-item-room.php:13
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:17
 #: shinetheme/views/frontend/order/content.php:50
@@ -3507,7 +4118,7 @@ msgid "Billing Details"
 msgstr ""
 
 #: shinetheme/views/admin/order/detail.php:64
-#: shinetheme/views/frontend/checkout/index.php:85
+#: shinetheme/views/frontend/checkout/index.php:84
 msgid "Payment Method"
 msgstr ""
 
@@ -3605,15 +4216,15 @@ msgid "details "
 msgstr ""
 
 #: shinetheme/views/admin/order/tab-listing.php:162
-msgid "Email address :"
+msgid "Email address: "
 msgstr ""
 
 #: shinetheme/views/admin/order/tab-listing.php:163
-msgid "Phone : "
+msgid "Phone: "
 msgstr ""
 
 #: shinetheme/views/admin/order/tab-listing.php:164
-msgid "Address : "
+msgid "Address: "
 msgstr ""
 
 #: shinetheme/views/admin/order/tab-listing.php:168
@@ -3658,98 +4269,137 @@ msgstr ""
 msgid "Resend Mail"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-listing.php:194
+#: shinetheme/views/admin/order/tab-listing.php:224
 msgid "Rooms: "
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-listing.php:233
-#: shinetheme/views/frontend/account/booking_history/loop-listing.php:112
+#: shinetheme/views/admin/order/tab-listing.php:242
+msgid "Show more details"
+msgstr ""
+
+#: shinetheme/views/admin/order/tab-listing.php:264
+#: shinetheme/views/frontend/account/booking_history/loop-listing.php:100
 #: shinetheme/views/frontend/account/orders/loop-listing.php:132
 msgid "No Booking Found"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:27
+#: shinetheme/views/admin/order/tab-report.php:26
+#: shinetheme/views/admin/report-widget.php:54
 msgid "Today"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:28
+#: shinetheme/views/admin/order/tab-report.php:27
 msgid "Yesterday"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:29
+#: shinetheme/views/admin/order/tab-report.php:28
 msgid "This week"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:30
+#: shinetheme/views/admin/order/tab-report.php:29
 msgid "Last week"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:31
+#: shinetheme/views/admin/order/tab-report.php:30
 msgid "Last 7 days"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:32
+#: shinetheme/views/admin/order/tab-report.php:31
 msgid "Last 30 days"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:33
+#: shinetheme/views/admin/order/tab-report.php:32
 msgid "Last 60 days"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:34
+#: shinetheme/views/admin/order/tab-report.php:33
 msgid "Last 90 days"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:35
+#: shinetheme/views/admin/order/tab-report.php:34
 msgid "This Year"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:36
+#: shinetheme/views/admin/order/tab-report.php:35
 msgid "Last Year"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:47
+#: shinetheme/views/admin/order/tab-report.php:46
 msgid "Service type:"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:62
+#: shinetheme/views/admin/order/tab-report.php:75
 msgid "Filter by:"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:73
-msgid "From"
-msgstr ""
-
-#: shinetheme/views/admin/order/tab-report.php:76
+#: shinetheme/views/admin/order/tab-report.php:89
 msgid "To"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:79
+#: shinetheme/views/admin/order/tab-report.php:92
 msgid "Go"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:91
+#: shinetheme/views/admin/order/tab-report.php:104
 msgid "There is no data for reporting"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:93
-msgid "Please select a time period not exceeding 90 days"
+#: shinetheme/views/admin/order/tab-report.php:106
+msgid "Please select a time period not exceed 90 days"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:106
+#: shinetheme/views/admin/order/tab-report.php:120
 msgid "Total Sale"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:107
+#: shinetheme/views/admin/order/tab-report.php:121
 msgid "Net Profit"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:108
+#: shinetheme/views/admin/order/tab-report.php:122
 msgid "Items"
 msgstr ""
 
-#: shinetheme/views/admin/order/tab-report.php:109
+#: shinetheme/views/admin/order/tab-report.php:123
 msgid "Total Bookings"
+msgstr ""
+
+#: shinetheme/views/admin/order/tab-report.php:185
+msgid "Total sale"
+msgstr ""
+
+#: shinetheme/views/admin/order/tab-report.php:209
+msgid "Net profit"
+msgstr ""
+
+#: shinetheme/views/admin/order/tab-report.php:244
+msgid "On hold"
+msgstr ""
+
+#: shinetheme/views/admin/report-widget.php:14
+msgid "Current Month"
+msgstr ""
+
+#: shinetheme/views/admin/report-widget.php:19
+#: shinetheme/views/admin/report-widget.php:36
+#: shinetheme/views/admin/report-widget.php:59
+#: shinetheme/views/admin/report-widget.php:79
+msgid "Earnings"
+msgstr ""
+
+#: shinetheme/views/admin/report-widget.php:23
+#: shinetheme/views/admin/report-widget.php:41
+#: shinetheme/views/admin/report-widget.php:64
+#: shinetheme/views/admin/report-widget.php:83
+msgid "Sales"
+msgstr ""
+
+#: shinetheme/views/admin/report-widget.php:31
+msgid "Last Month"
+msgstr ""
+
+#: shinetheme/views/admin/report-widget.php:74
+msgid "Totals"
 msgstr ""
 
 #: shinetheme/views/admin/settings.php:83
@@ -3791,10 +4441,6 @@ msgstr ""
 
 #: shinetheme/views/admin/setup_demo/wp_booking.php:26
 msgid "Allow Captcha Google Checkout?:"
-msgstr ""
-
-#: shinetheme/views/admin/setup_demo/wp_booking.php:38
-msgid "Google key:"
 msgstr ""
 
 #: shinetheme/views/admin/setup_demo/wp_booking.php:58
@@ -3864,6 +4510,26 @@ msgstr ""
 
 #: shinetheme/views/admin/setup_demo/wp_service.php:13
 msgid "Review:"
+msgstr ""
+
+#: shinetheme/views/admin/setup_demo/wp_service.php:21
+msgid "Enable Review"
+msgstr ""
+
+#: shinetheme/views/admin/setup_demo/wp_service.php:26
+msgid "Allow user to review without booking"
+msgstr ""
+
+#: shinetheme/views/admin/setup_demo/wp_service.php:31
+msgid "Show Rate (Help-full) button in each review?"
+msgstr ""
+
+#: shinetheme/views/admin/setup_demo/wp_service.php:36
+msgid "User can write review on their own listing?"
+msgstr ""
+
+#: shinetheme/views/admin/setup_demo/wp_service.php:41
+msgid "User can vote for their own review?"
 msgstr ""
 
 #: shinetheme/views/admin/taxonomy/edit.php:11
@@ -3957,37 +4623,7 @@ msgstr ""
 msgid "(DEPOSIT / REMAIN)"
 msgstr ""
 
-#: shinetheme/views/frontend/account/booking_history/loop-listing.php:61
-#: shinetheme/views/frontend/checkout/review.php:32
-#: shinetheme/views/frontend/emails/shortcodes/order-table.php:31
-#: shinetheme/views/frontend/order/content.php:83
-msgid "From:"
-msgstr ""
-
-#: shinetheme/views/frontend/account/booking_history/loop-listing.php:62
-#: shinetheme/views/frontend/checkout/review.php:33
-#: shinetheme/views/frontend/emails/shortcodes/order-table.php:32
-#: shinetheme/views/frontend/order/content.php:84
-msgid "To:"
-msgstr ""
-
-#: shinetheme/views/frontend/account/booking_history/loop-listing.php:68
-#: shinetheme/views/frontend/checkout/review.php:38
-#: shinetheme/views/frontend/emails/shortcodes/order-table.php:37
-#: shinetheme/views/frontend/order/content.php:89
-#, php-format
-msgid "(%s nights)"
-msgstr ""
-
-#: shinetheme/views/frontend/account/booking_history/loop-listing.php:70
-#: shinetheme/views/frontend/checkout/review.php:40
-#: shinetheme/views/frontend/emails/shortcodes/order-table.php:39
-#: shinetheme/views/frontend/order/content.php:91
-#, php-format
-msgid "(%s night)"
-msgstr ""
-
-#: shinetheme/views/frontend/account/booking_history/loop-listing.php:76
+#: shinetheme/views/frontend/account/booking_history/loop-listing.php:64
 #: shinetheme/views/frontend/checkout/other/checkout-item-room.php:46
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:47
 #: shinetheme/views/frontend/order/other/order-item-room.php:42
@@ -4018,15 +4654,13 @@ msgid "Your Message"
 msgstr ""
 
 #: shinetheme/views/frontend/account/inbox/reply.php:57
-#: shinetheme/views/frontend/single/review/item-2.php:130
-#: shinetheme/views/frontend/single/review/item.php:118
 msgid "Send"
 msgstr ""
 
 #: shinetheme/views/frontend/account/login.php:24
 #: shinetheme/views/frontend/account/login.php:35
 #: shinetheme/views/frontend/account/lost-password.php:19
-#: shinetheme/views/frontend/checkout/index.php:35
+#: shinetheme/views/frontend/checkout/index.php:34
 msgid "Login"
 msgstr ""
 
@@ -4087,7 +4721,6 @@ msgid "Register as Partner"
 msgstr ""
 
 #: shinetheme/views/frontend/account/partner-register.php:25
-#: shinetheme/views/frontend/reviews.php:80
 msgid "Your Email"
 msgstr ""
 
@@ -4152,7 +4785,7 @@ msgstr ""
 #: shinetheme/views/frontend/account/tabs/booking_history.php:7
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:59
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:35
-#: shinetheme/views/frontend/order/content.php:206
+#: shinetheme/views/frontend/order/content.php:200
 msgid "Booking History"
 msgstr ""
 
@@ -4182,14 +4815,14 @@ msgstr ""
 #: shinetheme/views/frontend/account/tabs/dashboard.php:29
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:24
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:14
-#: shinetheme/views/frontend/order/content.php:168
+#: shinetheme/views/frontend/order/content.php:162
 msgid "Telephone:"
 msgstr ""
 
 #: shinetheme/views/frontend/account/tabs/dashboard.php:35
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:30
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:18
-#: shinetheme/views/frontend/order/content.php:174
+#: shinetheme/views/frontend/order/content.php:168
 msgid "Address:"
 msgstr ""
 
@@ -4200,7 +4833,7 @@ msgstr ""
 #: shinetheme/views/frontend/account/tabs/dashboard.php:47
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:36
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:22
-#: shinetheme/views/frontend/order/content.php:180
+#: shinetheme/views/frontend/order/content.php:174
 msgid "Postcode / Zip:"
 msgstr ""
 
@@ -4250,26 +4883,6 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: shinetheme/views/frontend/account/tabs/profile.php:148
-#, php-format
-msgid "Reviews (%d)"
-msgstr ""
-
-#: shinetheme/views/frontend/account/tabs/profile.php:150
-#, php-format
-msgid "Review (%d)"
-msgstr ""
-
-#: shinetheme/views/frontend/account/tabs/profile.php:179
-#, php-format
-msgid "%d Ratings"
-msgstr ""
-
-#: shinetheme/views/frontend/account/tabs/profile.php:181
-#, php-format
-msgid "%d Rating"
-msgstr ""
-
 #: shinetheme/views/frontend/account/tabs/services.php:25
 msgid "Your Listing"
 msgstr ""
@@ -4300,72 +4913,70 @@ msgstr ""
 msgid "Display Name"
 msgstr ""
 
+#: shinetheme/views/frontend/account/update-profile.php:46
+#: shinetheme/views/frontend/account/update-profile.php:47
+msgid "Phone Number"
+msgstr ""
+
 #: shinetheme/views/frontend/archive/header.php:17
 msgid "Search Result"
 msgstr ""
 
-#: shinetheme/views/frontend/archive/header.php:54
+#: shinetheme/views/frontend/archive/header.php:26
+msgid "(s)"
+msgstr ""
+
+#: shinetheme/views/frontend/archive/header.php:60
 msgid "Date ASC"
 msgstr ""
 
-#: shinetheme/views/frontend/archive/header.php:55
+#: shinetheme/views/frontend/archive/header.php:61
 msgid "Date DESC"
 msgstr ""
 
-#: shinetheme/views/frontend/archive/header.php:56
+#: shinetheme/views/frontend/archive/header.php:62
 msgid "Price ASC"
 msgstr ""
 
-#: shinetheme/views/frontend/archive/header.php:57
+#: shinetheme/views/frontend/archive/header.php:63
 msgid "Price DESC"
 msgstr ""
 
-#: shinetheme/views/frontend/archive/header.php:58
-msgid "Rate ASC"
-msgstr ""
-
-#: shinetheme/views/frontend/archive/header.php:59
-msgid "Rate DESC"
-msgstr ""
-
-#: shinetheme/views/frontend/archive/header.php:63
+#: shinetheme/views/frontend/archive/header.php:69
 msgid "Sort by"
 msgstr ""
 
-#: shinetheme/views/frontend/archive/loop.php:69
+#: shinetheme/views/frontend/archive/loop.php:66
 #: shinetheme/views/frontend/single/order-form.php:4
+#: shinetheme/views/frontend/single/types/tour.php:235
 msgid "Book Now"
 msgstr ""
 
-#: shinetheme/views/frontend/archive/loop.php:78
-msgid "Found nothing match your search"
+#: shinetheme/views/frontend/archive/loop.php:75
+msgid "Not found anything related with search conditions."
 msgstr ""
 
-#: shinetheme/views/frontend/archive/pagination.php:31
-msgid "Next"
-msgstr ""
-
-#: shinetheme/views/frontend/checkout/cart-total-box.php:18
-#: shinetheme/views/frontend/emails/shortcodes/order-table.php:63
-#: shinetheme/views/frontend/order/content.php:111
+#: shinetheme/views/frontend/checkout/cart-total-box.php:19
+#: shinetheme/views/frontend/emails/shortcodes/order-table.php:52
+#: shinetheme/views/frontend/order/content.php:105
 #, php-format
 msgid "%s V.A.T"
 msgstr ""
 
-#: shinetheme/views/frontend/checkout/cart-total-box.php:37
-#: shinetheme/views/frontend/order/content.php:127
+#: shinetheme/views/frontend/checkout/cart-total-box.php:38
+#: shinetheme/views/frontend/order/content.php:121
 msgid "Total Amount"
 msgstr ""
 
-#: shinetheme/views/frontend/checkout/cart-total-box.php:48
-#: shinetheme/views/frontend/emails/shortcodes/order-table.php:90
-#: shinetheme/views/frontend/order/content.php:134
+#: shinetheme/views/frontend/checkout/cart-total-box.php:49
+#: shinetheme/views/frontend/emails/shortcodes/order-table.php:79
+#: shinetheme/views/frontend/order/content.php:128
 msgid "Deposit/Pay Now"
 msgstr ""
 
-#: shinetheme/views/frontend/checkout/cart-total-box.php:51
-#: shinetheme/views/frontend/emails/shortcodes/order-table.php:92
-#: shinetheme/views/frontend/order/content.php:136
+#: shinetheme/views/frontend/checkout/cart-total-box.php:52
+#: shinetheme/views/frontend/emails/shortcodes/order-table.php:81
+#: shinetheme/views/frontend/order/content.php:130
 msgid "You’ll pay at the property"
 msgstr ""
 
@@ -4386,31 +4997,33 @@ msgstr ""
 msgid "Cart"
 msgstr ""
 
-#: shinetheme/views/frontend/checkout/index.php:26
-#: shinetheme/views/frontend/checkout/index.php:30
+#: shinetheme/views/frontend/checkout/index.php:25
+#: shinetheme/views/frontend/checkout/index.php:29
 msgid "Billing Information"
 msgstr ""
 
-#: shinetheme/views/frontend/checkout/index.php:32
+#: shinetheme/views/frontend/checkout/index.php:31
 msgid "Already have an account?"
 msgstr ""
 
 #: shinetheme/views/frontend/checkout/index.php:97
-msgid " I have read and accept the terms and  conditions"
+#, php-format
+msgid " I have read and accept the %s"
 msgstr ""
 
-#: shinetheme/views/frontend/checkout/index.php:101
+#: shinetheme/views/frontend/checkout/index.php:102
 msgid "CHECKOUT"
 msgstr ""
 
 #: shinetheme/views/frontend/checkout/other/checkout-item-room.php:10
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:8
 #: shinetheme/views/frontend/order/other/order-item-room.php:9
-#: shinetheme/views/frontend/single/types/default.php:256
+#: shinetheme/views/frontend/single/hotel/room.php:46
 msgid "Rooms"
 msgstr ""
 
 #: shinetheme/views/frontend/checkout/other/checkout-item-room.php:12
+#: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:14
 #: shinetheme/views/frontend/order/other/order-item-room.php:11
 msgid "Number"
 msgstr ""
@@ -4450,7 +5063,7 @@ msgstr ""
 #: shinetheme/views/frontend/checkout/other/checkout-item-room.php:100
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:92
 #: shinetheme/views/frontend/order/other/order-item-room.php:94
-#: shinetheme/views/frontend/single/loop-room.php:148
+#: shinetheme/views/frontend/single/loop-room.php:153
 msgid "Service name"
 msgstr ""
 
@@ -4460,29 +5073,29 @@ msgstr ""
 
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:12
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:6
-#: shinetheme/views/frontend/order/content.php:156
+#: shinetheme/views/frontend/order/content.php:150
 msgid "Full name:"
 msgstr ""
 
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:18
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:10
-#: shinetheme/views/frontend/order/content.php:162
+#: shinetheme/views/frontend/order/content.php:156
 msgid "Email confirmation:"
 msgstr ""
 
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:42
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:26
-#: shinetheme/views/frontend/order/content.php:186
+#: shinetheme/views/frontend/order/content.php:180
 msgid "Apt/ Unit:"
 msgstr ""
 
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:48
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:30
-#: shinetheme/views/frontend/order/content.php:192
+#: shinetheme/views/frontend/order/content.php:186
 msgid "Special request:"
 msgstr ""
 
-#: shinetheme/views/frontend/emails/shortcodes/order-table.php:83
+#: shinetheme/views/frontend/emails/shortcodes/order-table.php:72
 msgid "TOTAL AMOUNT"
 msgstr ""
 
@@ -4508,33 +5121,6 @@ msgstr ""
 
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:27
 msgid "8888"
-msgstr ""
-
-#: shinetheme/views/frontend/emails/templates/approved_comment.php:20
-msgid "points"
-msgstr ""
-
-#: shinetheme/views/frontend/emails/templates/approved_comment.php:33
-#, php-format
-msgid "Your review is %s"
-msgstr ""
-
-#: shinetheme/views/frontend/emails/templates/approved_comment.php:34
-#, php-format
-msgid ""
-"Hello <strong>%s</strong>, Your review is %s by %s administrator.<br> at %s"
-msgstr ""
-
-#: shinetheme/views/frontend/emails/templates/approved_comment.php:43
-msgid "Show comment"
-msgstr ""
-
-#: shinetheme/views/frontend/emails/templates/approved_comment.php:44
-msgid "Can't see the button? Try this "
-msgstr ""
-
-#: shinetheme/views/frontend/emails/templates/approved_comment.php:44
-msgid "Link"
 msgstr ""
 
 #: shinetheme/views/frontend/emails/templates/changed_password.php:11
@@ -4578,7 +5164,7 @@ msgid "Thank you, your order has been received!"
 msgstr ""
 
 #: shinetheme/views/frontend/order/content.php:36
-msgid "Booking code :"
+msgid "Booking code:"
 msgstr ""
 
 #: shinetheme/views/frontend/order/content.php:40
@@ -4586,305 +5172,260 @@ msgid "Payment method:"
 msgstr ""
 
 #: shinetheme/views/frontend/order/content.php:44
-msgid "Booking Status:"
+msgid "Booking status:"
 msgstr ""
 
 #: shinetheme/views/frontend/order/content.php:65
 msgid "your booking information"
 msgstr ""
 
-#: shinetheme/views/frontend/order/content.php:147
+#: shinetheme/views/frontend/order/content.php:141
 msgid "Customer Information:"
 msgstr ""
 
-#: shinetheme/views/frontend/reviews.php:25
-#, php-format
-msgid "%s's Reviews"
+#: shinetheme/views/frontend/single/hotel/room.php:20
+msgid "Check availability"
 msgstr ""
 
-#: shinetheme/views/frontend/reviews.php:59
-#, php-format
-msgid "Showing %d to %d"
+#: shinetheme/views/frontend/single/hotel/room.php:56
+#: shinetheme/views/frontend/single/types/tour.php:184
+msgid "Adults"
 msgstr ""
 
-#: shinetheme/views/frontend/reviews.php:85
-msgid "Review Title"
+#: shinetheme/views/frontend/single/hotel/room.php:76
+msgid "CHECK AVAILABILITY "
 msgstr ""
 
-#: shinetheme/views/frontend/reviews.php:88
-msgid "Review Text"
+#: shinetheme/views/frontend/single/hotel/room.php:130
+msgid "room(s) selected"
 msgstr ""
 
-#: shinetheme/views/frontend/reviews.php:89
-msgid "SEND"
-msgstr ""
-
-#: shinetheme/views/frontend/reviews.php:92
-msgid "Please Login To Write Review"
+#: shinetheme/views/frontend/single/hotel/room.php:132
+msgid "BOOK NOW"
 msgstr ""
 
 #: shinetheme/views/frontend/single/loop-room-none.php:1
 msgid "No Room"
 msgstr ""
 
-#: shinetheme/views/frontend/single/loop-room.php:111
-#: shinetheme/views/frontend/single/loop-room.php:204
+#: shinetheme/views/frontend/single/loop-room.php:116
+#: shinetheme/views/frontend/single/loop-room.php:209
 #, php-format
 msgid "/ %s nights"
 msgstr ""
 
-#: shinetheme/views/frontend/single/loop-room.php:113
-#: shinetheme/views/frontend/single/loop-room.php:206
+#: shinetheme/views/frontend/single/loop-room.php:118
+#: shinetheme/views/frontend/single/loop-room.php:211
 #, php-format
 msgid "/ %s night"
 msgstr ""
 
-#: shinetheme/views/frontend/single/loop-room.php:131
+#: shinetheme/views/frontend/single/loop-room.php:136
 msgid "Extra services"
 msgstr ""
 
-#: shinetheme/views/frontend/single/loop-room.php:135
+#: shinetheme/views/frontend/single/loop-room.php:140
 msgid "Show Price"
 msgstr ""
 
-#: shinetheme/views/frontend/single/loop-room.php:151
+#: shinetheme/views/frontend/single/loop-room.php:156
 msgid "Quantity"
 msgstr ""
 
-#: shinetheme/views/frontend/single/loop-room.php:155
+#: shinetheme/views/frontend/single/loop-room.php:160
 #, php-format
 msgid "Price (%s)"
 msgstr ""
 
-#: shinetheme/views/frontend/single/loop-room.php:237
+#: shinetheme/views/frontend/single/loop-room.php:244
 msgid "Max Guest:"
 msgstr ""
 
-#: shinetheme/views/frontend/single/loop-room.php:237
+#: shinetheme/views/frontend/single/loop-room.php:244
 msgid "guests"
 msgstr ""
 
-#: shinetheme/views/frontend/single/loop-room.php:237
+#: shinetheme/views/frontend/single/loop-room.php:244
 msgid "guest"
 msgstr ""
 
-#: shinetheme/views/frontend/single/loop-room.php:250
+#: shinetheme/views/frontend/single/loop-room.php:257
 msgid "Room Size:"
 msgstr ""
 
-#: shinetheme/views/frontend/single/loop-room.php:261
+#: shinetheme/views/frontend/single/loop-room.php:268
 msgid "Bath rooms"
 msgstr ""
 
-#: shinetheme/views/frontend/single/loop-room.php:261
-#: shinetheme/views/frontend/single/loop-room.php:262
-#: shinetheme/views/frontend/single/loop-room.php:263
+#: shinetheme/views/frontend/single/loop-room.php:268
+#: shinetheme/views/frontend/single/loop-room.php:269
+#: shinetheme/views/frontend/single/loop-room.php:270
 msgid "room(s)"
 msgstr ""
 
-#: shinetheme/views/frontend/single/loop-room.php:262
+#: shinetheme/views/frontend/single/loop-room.php:269
 msgid "Living rooms"
 msgstr ""
 
-#: shinetheme/views/frontend/single/loop-room.php:263
+#: shinetheme/views/frontend/single/loop-room.php:270
 msgid "Bed rooms"
 msgstr ""
 
-#: shinetheme/views/frontend/single/related.php:17
+#: shinetheme/views/frontend/single/related.php:16
 msgid "Related "
 msgstr ""
 
-#: shinetheme/views/frontend/single/review/item-2.php:22
-#: shinetheme/views/frontend/single/review/item.php:33
-msgid "This review is waiting for approval."
-msgstr ""
-
-#: shinetheme/views/frontend/single/review/item-2.php:82
-msgid "likes"
-msgstr ""
-
-#: shinetheme/views/frontend/single/review/item-2.php:82
-msgid "like"
-msgstr ""
-
-#: shinetheme/views/frontend/single/review/item-2.php:96
-msgid "Like"
-msgstr ""
-
-#: shinetheme/views/frontend/single/review/item-2.php:100
-#: shinetheme/views/frontend/single/review/item.php:91
-msgid "Reply"
-msgstr ""
-
-#: shinetheme/views/frontend/single/review/item.php:88
-msgid "Was this review helpful?"
-msgstr ""
-
-#: shinetheme/views/frontend/single/review/review-field.php:13
-msgid "Review Stars"
-msgstr ""
-
 #: shinetheme/views/frontend/single/types/default.php:45
+#: shinetheme/views/frontend/single/types/tour.php:80
 msgid "Photos"
 msgstr ""
 
 #: shinetheme/views/frontend/single/types/default.php:47
+#: shinetheme/views/frontend/single/types/tour.php:82
 msgid "On the map"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:91
-msgid "Excellent"
-msgstr ""
-
-#: shinetheme/views/frontend/single/types/default.php:93
-msgid "Very Good"
-msgstr ""
-
-#: shinetheme/views/frontend/single/types/default.php:95
-msgid "Average"
-msgstr ""
-
-#: shinetheme/views/frontend/single/types/default.php:97
-msgid "Poor"
-msgstr ""
-
-#: shinetheme/views/frontend/single/types/default.php:99
-#: shinetheme/widgets/search-form.php:236
-msgid "Terrible"
-msgstr ""
-
-#: shinetheme/views/frontend/single/types/default.php:108
-msgid "of 5 guest rating"
-msgstr ""
-
-#: shinetheme/views/frontend/single/types/default.php:170
+#: shinetheme/views/frontend/single/types/default.php:118
+#: shinetheme/views/frontend/single/types/tour.php:241
 msgid "Share"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:230
-msgid "Check availability"
-msgstr ""
-
-#: shinetheme/views/frontend/single/types/default.php:266
-msgid "Adults"
-msgstr ""
-
-#: shinetheme/views/frontend/single/types/default.php:276
-#: shinetheme/widgets/search-form.php:355
-msgid "Children"
-msgstr ""
-
-#: shinetheme/views/frontend/single/types/default.php:286
-msgid "CHECK AVAILABILITY "
-msgstr ""
-
-#: shinetheme/views/frontend/single/types/default.php:339
-msgid "room(s) selected"
-msgstr ""
-
-#: shinetheme/views/frontend/single/types/default.php:341
-msgid "BOOK NOW"
-msgstr ""
-
-#: shinetheme/views/frontend/single/types/default.php:353
+#: shinetheme/views/frontend/single/types/default.php:168
 msgid "Accommodation Policies"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:358
-#: shinetheme/views/frontend/single/types/default.php:362
+#: shinetheme/views/frontend/single/types/default.php:173
+#: shinetheme/views/frontend/single/types/default.php:177
 #, php-format
 msgid "from %s "
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:366
+#: shinetheme/views/frontend/single/types/default.php:181
 msgid "Check In: "
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:367
+#: shinetheme/views/frontend/single/types/default.php:182
 msgid "Check Out: "
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:402
+#: shinetheme/views/frontend/single/types/default.php:217
 msgid "Time"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:411
+#: shinetheme/views/frontend/single/types/default.php:226
+#: shinetheme/views/frontend/single/types/tour.php:276
 #, php-format
 msgid "Deposit: %s &nbsp;&nbsp;<span class=\"enforced_red\">required</span>"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:412
+#: shinetheme/views/frontend/single/types/default.php:227
+#: shinetheme/views/frontend/single/types/tour.php:277
 msgid "Cancellation allowed: Yes"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:413
+#: shinetheme/views/frontend/single/types/default.php:228
+#: shinetheme/views/frontend/single/types/tour.php:278
 #, php-format
 msgid "Time allowed to free: %s"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:414
+#: shinetheme/views/frontend/single/types/default.php:229
+#: shinetheme/views/frontend/single/types/tour.php:279
 #, php-format
 msgid "Fee cancel booking: %s"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:417
+#: shinetheme/views/frontend/single/types/default.php:232
+#: shinetheme/views/frontend/single/types/tour.php:282
 #, php-format
 msgid "100% of the first night"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:418
+#: shinetheme/views/frontend/single/types/default.php:233
+#: shinetheme/views/frontend/single/types/tour.php:283
 #, php-format
 msgid "100% of the full stay"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:448
+#: shinetheme/views/frontend/single/types/default.php:263
+#: shinetheme/views/frontend/single/types/tour.php:313
 msgid " day"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:463
+#: shinetheme/views/frontend/single/types/default.php:278
+#: shinetheme/views/frontend/single/types/tour.php:328
 msgid "Prepayment / Cancellation"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:480
+#: shinetheme/views/frontend/single/types/default.php:295
+#: shinetheme/views/frontend/single/types/tour.php:345
 #, php-format
 msgid "V.A.T: %s &nbsp;&nbsp;"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:483
+#: shinetheme/views/frontend/single/types/default.php:298
+#: shinetheme/views/frontend/single/types/tour.php:348
 #, php-format
 msgid "City tax: %s"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:486
+#: shinetheme/views/frontend/single/types/default.php:301
+#: shinetheme/views/frontend/single/types/tour.php:351
 msgid " /stay"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:487
+#: shinetheme/views/frontend/single/types/default.php:302
+#: shinetheme/views/frontend/single/types/tour.php:352
 msgid " /person per stay"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:488
+#: shinetheme/views/frontend/single/types/default.php:303
+#: shinetheme/views/frontend/single/types/tour.php:353
 msgid " /night"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:489
+#: shinetheme/views/frontend/single/types/default.php:304
+#: shinetheme/views/frontend/single/types/tour.php:354
 msgid "%"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:490
+#: shinetheme/views/frontend/single/types/default.php:305
+#: shinetheme/views/frontend/single/types/tour.php:355
 msgid " /person per night"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:516
+#: shinetheme/views/frontend/single/types/default.php:331
+#: shinetheme/views/frontend/single/types/tour.php:381
 msgid "<span class=\"enforced_red\">included</span>"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:537
+#: shinetheme/views/frontend/single/types/default.php:352
+#: shinetheme/views/frontend/single/types/tour.php:402
 msgid "included"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:589
+#: shinetheme/views/frontend/single/types/default.php:404
 msgid "Cards Accepted"
+msgstr ""
+
+#: shinetheme/views/frontend/single/types/tour.php:124
+msgid "Duration: "
+msgstr ""
+
+#: shinetheme/views/frontend/single/types/tour.php:127
+msgid "Max: "
+msgstr ""
+
+#: shinetheme/views/frontend/single/types/tour.php:127
+msgid " people"
+msgstr ""
+
+#: shinetheme/views/frontend/single/types/tour.php:142
+msgid "Departure date"
+msgstr ""
+
+#: shinetheme/views/frontend/single/types/tour.php:270
+msgid "Payment Policies"
 msgstr ""
 
 #: shinetheme/widgets/search-form.php:6
@@ -4895,108 +5436,87 @@ msgstr ""
 msgid "Advance Search"
 msgstr ""
 
-#: shinetheme/widgets/search-form.php:80
-msgid "Search"
-msgstr ""
-
-#: shinetheme/widgets/search-form.php:202
+#: shinetheme/widgets/search-form.php:204
 msgid "More..."
 msgstr ""
 
-#: shinetheme/widgets/search-form.php:232
-msgid "Excellent 4+"
-msgstr ""
-
-#: shinetheme/widgets/search-form.php:233
-msgid "Very Good 3+"
-msgstr ""
-
-#: shinetheme/widgets/search-form.php:234
-msgid "Average 2+"
-msgstr ""
-
-#: shinetheme/widgets/search-form.php:235
-msgid "Poor 1+"
-msgstr ""
-
-#: shinetheme/widgets/search-form.php:268
+#: shinetheme/widgets/search-form.php:236
 msgid "5 stars"
 msgstr ""
 
-#: shinetheme/widgets/search-form.php:269
+#: shinetheme/widgets/search-form.php:237
 msgid "4 stars"
 msgstr ""
 
-#: shinetheme/widgets/search-form.php:270
+#: shinetheme/widgets/search-form.php:238
 msgid "3 stars"
 msgstr ""
 
-#: shinetheme/widgets/search-form.php:271
+#: shinetheme/widgets/search-form.php:239
 msgid "2 stars"
 msgstr ""
 
-#: shinetheme/widgets/search-form.php:272
+#: shinetheme/widgets/search-form.php:240
 msgid "1 star"
 msgstr ""
 
-#: shinetheme/widgets/search-form.php:343
-msgid "Adult"
-msgstr ""
-
-#: shinetheme/widgets/search-form.php:346
-#: shinetheme/widgets/search-form.php:358
-#: shinetheme/widgets/search-form.php:375
+#: shinetheme/widgets/search-form.php:316
+#: shinetheme/widgets/search-form.php:328
 msgid "- Select -"
 msgstr ""
 
-#: shinetheme/widgets/search-form.php:473
+#: shinetheme/widgets/search-form.php:390
 msgid "Title:"
 msgstr ""
 
-#: shinetheme/widgets/search-form.php:475
+#: shinetheme/widgets/search-form.php:392
 msgid "Service Type:"
 msgstr ""
 
-#: shinetheme/widgets/search-form.php:500
+#: shinetheme/widgets/search-form.php:417
 msgid "Search Fields:"
 msgstr ""
 
-#: shinetheme/widgets/search-form.php:583
+#: shinetheme/widgets/search-form.php:500
 msgid "Remember hit Save button after add or remove new search field"
 msgstr ""
 
-#: wpbooking.php:174
-msgid "Please select the review criteria"
+#: wpbooking.php:178
+msgid "Please rating the criteria of this accommodation."
 msgstr ""
 
-#: wpbooking.php:183
+#: wpbooking.php:187
 msgid "Please select adult number"
 msgstr ""
 
-#: wpbooking.php:184
+#: wpbooking.php:188
 msgid "Please select children number"
 msgstr ""
 
-#: wpbooking.php:185
-msgid "Please select Adult and  Children number"
-msgstr ""
-
-#: wpbooking.php:284
-msgid "Are you want to delete?"
-msgstr ""
-
-#: wpbooking.php:286
-msgid "Do you want delete all image? "
-msgstr ""
-
-#: wpbooking.php:287
-msgid "room"
-msgstr ""
-
-#: wpbooking.php:288
-msgid "rooms"
+#: wpbooking.php:189
+msgid "Please select adult and children number"
 msgstr ""
 
 #: wpbooking.php:289
+msgid "Are you want to delete?"
+msgstr ""
+
+#: wpbooking.php:291
+msgid "Do you want delete all image? "
+msgstr ""
+
+#: wpbooking.php:292
+msgid "room"
+msgstr ""
+
+#: wpbooking.php:293
+msgid "rooms"
+msgstr ""
+
+#: wpbooking.php:294
 msgid "You want delete permanently this image?"
+msgstr ""
+
+#: wpbooking.php:297
+msgid "Read More"
 msgstr ""
