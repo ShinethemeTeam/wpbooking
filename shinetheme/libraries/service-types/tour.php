@@ -1140,7 +1140,6 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         ->orderby($wpdb->prefix . 'wpbooking_availability.start')
                         ->having(' total_people_booked IS NULL OR total_people_booked < max_guests')
                         ->get()->result();
-                    var_dump($calendar->last_query());
                 default:
                     break;
             }
