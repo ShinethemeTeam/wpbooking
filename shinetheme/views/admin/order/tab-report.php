@@ -12,7 +12,7 @@ $args=array(
 	'posts_per_page'=>20
 );
 
-$service_type = WPBooking_Input::get('wb_service_types',array('accommodation'));
+$service_type = WPBooking_Input::get('wb_service_types','');
 $report_type=WPBooking_Input::get('report_type','last_7days');
 $start_date=WPBooking_Input::get('date_from');
 $end_date=WPBooking_Input::get('date_to');

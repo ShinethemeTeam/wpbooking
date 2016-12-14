@@ -874,13 +874,20 @@
         }
         .review-order-item-title{
             float: right;
-            width: 73%;
+            width: ~"calc(100% - 170px)";
+          @media (max-width: 480px) {
+            width: 100%;
+          }
             .service-name{
                 margin:0px;
                 font-weight: normal;
                 line-height: normal;
                 font-size: 14px;
               width: 70%;
+              @media (max-width: 480px) {
+                width: 100%;
+                margin-top: 20px;
+              }
                 a{
                     border: medium none;
                     display: inline-block;
@@ -941,6 +948,9 @@
                     padding-right:10px;
                     font-weight: bold;
                 }
+              @media (max-width: 480px) {
+                text-align: left;
+              }
             }
             .review-order-item-form-to{
                 margin-top: 20px;

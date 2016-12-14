@@ -888,7 +888,12 @@ a.label:focus {
 }
 .review-order-item .review-order-item-info .review-order-item-title {
   float: right;
-  width: 73%;
+  width: calc(100% - 170px);
+}
+@media (max-width: 480px) {
+  .review-order-item .review-order-item-info .review-order-item-title {
+    width: 100%;
+  }
 }
 .review-order-item .review-order-item-info .review-order-item-title .service-name {
   margin: 0px;
@@ -896,6 +901,12 @@ a.label:focus {
   line-height: normal;
   font-size: 14px;
   width: 70%;
+}
+@media (max-width: 480px) {
+  .review-order-item .review-order-item-info .review-order-item-title .service-name {
+    width: 100%;
+    margin-top: 20px;
+  }
 }
 .review-order-item .review-order-item-info .review-order-item-title .service-name a {
   border: medium none;
@@ -960,6 +971,12 @@ a.label:focus {
 .review-order-item .review-order-item-info .review-order-item-title .from-detail .head-item {
   padding-right: 10px;
   font-weight: bold;
+}
+@media (max-width: 480px) {
+  .review-order-item .review-order-item-info .review-order-item-title .people-price-item,
+  .review-order-item .review-order-item-info .review-order-item-title .from-detail {
+    text-align: left;
+  }
 }
 .review-order-item .review-order-item-info .review-order-item-title .review-order-item-form-to {
   margin-top: 20px;
