@@ -197,6 +197,7 @@ if (!class_exists('WB_Order')) {
                 $deposit_price = $booking->get_cart_total(array( 'without_deposit' => true, 'without_tax' => true ),$cart);
                 $tax = $booking->get_cart_tax_price();
                 $post_author = get_post_field( 'post_author', $cart['post_id'] );
+                $cart['tax']=$tax;
 
                 update_post_meta($order_id, 'post_id', $cart['post_id']);
                 update_post_meta($order_id, 'service_type', $cart['service_type']);
