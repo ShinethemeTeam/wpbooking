@@ -828,6 +828,12 @@ jQuery(document).ready(function( $ ){
                     });
 
                 }
+                bt_ot_searchbox.keypress(function(e){
+                    if(e.which  == 13)
+                    {
+                        return false; // returning false will prevent the event from bubbling up.
+                    }
+                });
 
                 google.maps.event.addListener(gmap_obj, "zoom_changed", function(event) {
                     $('input[name="map_zoom"]', t).val( gmap_obj.getZoom() );
