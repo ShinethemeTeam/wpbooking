@@ -112,9 +112,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              */
             add_filter('wpbooking_service_base_price_' . $this->type_id, array($this, '_change_base_price'), 10, 3);
 
-
-
-
             /**
              * Move name and email field to top in comment
              */
@@ -836,20 +833,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         ),
                     )
                 ),
-                /*'calendar_tab'    => array(
-                    'label'  => __( '5. Calendar' , 'wpbooking' ) ,
-                    'fields' => array(
-
-                        array(
-                            'type'  => 'title' ,
-                            'label' => esc_html__( 'Availability Template' , 'wpbooking' )
-                        ) ,
-                        array(
-                            'id'   => 'calendar' ,
-                            'type' => 'calendar'
-                        )
-                    )
-                )*/
             ));
 
         }
@@ -1924,8 +1907,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             }else{
                 $price_html=sprintf(__('from %s /night','wpbooking'),'<br><span class="price">'.$price_html.'</span>');
             }
-
-
             return $price_html;
         }
 
@@ -2282,25 +2263,26 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             if($room_id){
                 $calendar = WPBooking_Calendar_Model::inst();
-                $calendar_prices = $calendar->calendar_months($room_id, $start, $start);
+                $calendar_prices = $calendar->calendar_months($room_id, $start, $end);
 
                 // Reformat the res
                 if(!empty($calendar_prices)){
                     foreach($calendar_prices as $key=>$value){
-                        $calendar_prices[$value['start']]=$value;
+                        $calendar_prices[date('d-m-Y',$value['start'])]=$value;
                     }
                 }
 
                 $is_available_for = get_post_meta($room_id,'property_available_for',true);
 
-               
+
+
                 switch($is_available_for){
                     case "specific_periods":
                         if(!empty($calendar_prices)){
                             $return['status']=1;
                             $check_in_temp=$start;
                             while ($check_in_temp <= $end) {
-                                if(!array_key_exists($check_in_temp,$calendar_prices) or $calendar_prices[$check_in_temp]['status']=='not_available'){
+                                if(!array_key_exists(date('d-m-Y',$check_in_temp),$calendar_prices) or $calendar_prices[date('d-m-Y',$check_in_temp)]['status']=='not_available'){
                                     $return['unavailable_dates'] = $check_in_temp;
                                     $return['status']=0;
                                 }
@@ -2314,7 +2296,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         if(!empty($calendar_prices)){
                             $check_in_temp=$start;
                             while ($check_in_temp <= $end) {
-                                if(array_key_exists($check_in_temp,$calendar_prices) and $calendar_prices[$check_in_temp]['status']=='not_available'){
+                                if(array_key_exists(date('d-m-Y',$check_in_temp),$calendar_prices) and $calendar_prices[date('d-m-Y',$check_in_temp)]['status']=='not_available'){
                                     $return['unavailable_dates'] = $check_in_temp;
                                     $return['status']=0;
                                 }
