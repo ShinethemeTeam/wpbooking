@@ -93,15 +93,7 @@ $query = new WP_Query(array(
                 <div class="room-create">
                     <a href="#" data-hotel-id="<?php echo esc_attr($post_id)?> " class="create-room"><?php esc_html_e('Create New Room','wpbooking') ?></a>
                 </div>
-                <div class="room-count">
-                    <?php
-                    if($query->found_posts>1){
-                        printf(__('There are %s in your listing','wpbooking'),$query->found_posts?'<span class="n text-color">'.$query->found_posts.'</span> <b>'.esc_html__('room type(s)','wpbooking').'</b>':'<b>'.esc_html__('no room','wpbooking').'</b>');
-                    }else{
-                        printf(__('There is %s in your listing','wpbooking'),$query->found_posts?'<span class="n text-color">'.$query->found_posts.'</span> <b>'.esc_html__('room type(s)','wpbooking').'</b>':'<b>'.esc_html__('no room','wpbooking').'</b>');
-                    }
-                   ?>
-                </div>
+                <?php echo do_shortcode(WPBooking_Accommodation_Service_Type::inst()->_get_room_count_text($post_id)); ?>
             </div>
             <div class="room-item-default hidden">
                 <div class="room-item">

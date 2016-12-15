@@ -1189,7 +1189,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $res['data']['room_id'] = $room_id;
                     $res['data']['security'] = wp_create_nonce('del_security_post_' . $room_id);
 
-                    $res['updated_content'] = apply_filters('wpbooking_hotel_room_form_updated_content', array(), $room_id, $hotel_id);
+                    $updated_content=array(
+                        '.wp-room-actions .room-count'=>$this->_get_room_count_text($hotel_id)
+                    );
+                    $res['updated_content'] = apply_filters('wpbooking_hotel_room_form_updated_content', $updated_content, $room_id, $hotel_id);
 
                     $res['status'] = 1;
                 }
@@ -1223,9 +1226,52 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $res['data']['list_room'] = $list_room_new;
                 }
             }
-            $res['updated_content'] = apply_filters('wpbooking_hotel_room_form_updated_content', array(), $room_id, $hotel_id);
+            $updated_content=array(
+                '.wp-room-actions .room-count'=>$this->_get_room_count_text($hotel_id)
+            );
+            $res['updated_content'] = apply_filters('wpbooking_hotel_room_form_updated_content', $updated_content, $room_id, $hotel_id);
             echo json_encode($res);
             wp_die();
+        }
+
+        /**
+         * Get Hotel Room Count HTML for List Room in Dashboard
+         *
+         * @since 1.0
+         * @author dungft
+         *
+         * @param $hotel_id
+         * @param bool | WP_Query @query
+         * @return string
+         *
+         */
+        public function _get_room_count_text($hotel_id,$query=false){
+            if(!$query){
+                $query = new WP_Query(array(
+                    'post_parent'    => $hotel_id,
+                    'posts_per_page' => 200,
+                    'post_type'=>'wpbooking_hotel_room'
+                ));
+            }
+
+            $total_room=0;
+            while ($query->have_posts()){
+                $query->the_post();
+                $total_room+=get_post_meta(get_the_ID(),'room_number',true);
+            }
+
+            if($query->found_posts){
+                $text_count=sprintf('<span class="n text-color">%d </span><b>%s</b> ',$query->found_posts,esc_html__('room type(s)','wpbooking'));
+                if($total_room){
+                    $text_count.=sprintf(esc_html__('with %s ','wpbooking'),sprintf('<span class="n text-color">%d </span><b>%s</b>',$total_room,esc_html__('room(s)')));
+                }
+                $html='<div class="room-count">'.sprintf(__('There are %s in your listing','wpbooking'),$text_count).'</div>';
+            }else{
+                $html='<div class="room-count">'.esc_html__('There is <b>no room</b> in your listing','wpbooking').'</div>';
+            }
+
+            wp_reset_postdata();
+            return $html;
         }
 
         /**
