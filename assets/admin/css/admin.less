@@ -842,6 +842,7 @@ img.settings-demo-image-gallery{
         }
     }
     .st-metabox-content-wrapper{
+        position: relative;
 
         .zoom_size{
             .input-group-addon{
@@ -1695,15 +1696,31 @@ img.settings-demo-image-gallery{
         clear: both;
     }
     .open_section_metabox{
-        &.active{
-            border: solid 1px @maincolor;
-        }
         background: #fff;
         padding: 15px 0;
         margin-bottom: 10px;
         border: solid 1px #fff;
         position: relative;
-      overflow: hidden;
+        overflow: hidden;
+        &.active{
+            border: solid 1px @maincolor;
+        }
+        .wb-back-all-rooms{
+            position: absolute;
+            right:25px;
+            top:20px;
+            z-index: 1;
+            background: white;
+            border:1px solid @maincolor;
+            color: @maincolor;
+            padding: 10px 18px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            &:hover,&:focus{
+                color: @maincolor;
+            }
+        }
     }
 }
 
@@ -3094,6 +3111,9 @@ a.ui-datepicker-next {
     .wb-section-navigation{
         .fa{
             display: none;
+            &.fa-force-show{
+                display: inline-block;
+            }
         }
     }
     &.loading{
@@ -3108,8 +3128,10 @@ a.ui-datepicker-next {
             z-index: 99;
         }
         .wb-section-navigation{
-            .fa{
-                display: inline-block;
+            .loading{
+                .fa{
+                    display: inline-block;
+                }
             }
         }
     }
@@ -3302,6 +3324,9 @@ a.ui-datepicker-next {
     .button{
         &.wb-next-section,&.wb-save-room{
             background: @maincolor;
+            &:focus{
+                color: white;
+            }
             &:hover{
                 border: solid 1px transparent;
                 color: #fff;
@@ -3309,7 +3334,12 @@ a.ui-datepicker-next {
             }
         }
         &.wb-prev-section,&.wb-all-rooms{
-            background: #ddd;
+            background: white;
+            border-color: #ed8323;
+            color: #ed8323;
+            &:focus{
+                color: #ed8323;
+            }
             &:hover{
                 color: @maincolor;
                 border: solid 1px @maincolor;
@@ -3325,6 +3355,9 @@ a.ui-datepicker-next {
       }
       &.wb-next{
         background: #31b0d5;
+          &:focus{
+              color: white;
+          }
         &:hover{
           background: #31b0d5;
         }

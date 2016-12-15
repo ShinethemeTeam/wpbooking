@@ -943,6 +943,9 @@ img.settings-demo-image-gallery {
   color: #666666;
   font-style: italic;
 }
+.st-metabox-tabs-content .st-metabox-content-wrapper {
+  position: relative;
+}
 .st-metabox-tabs-content .st-metabox-content-wrapper .zoom_size .input-group-addon {
   padding: 5px;
 }
@@ -1787,6 +1790,23 @@ img.settings-demo-image-gallery {
 }
 .st-metabox-tab-content-wrap .open_section_metabox.active {
   border: solid 1px #ec8223;
+}
+.st-metabox-tab-content-wrap .open_section_metabox .wb-back-all-rooms {
+  position: absolute;
+  right: 25px;
+  top: 20px;
+  z-index: 1;
+  background: white;
+  border: 1px solid #ec8223;
+  color: #ec8223;
+  padding: 10px 18px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+}
+.st-metabox-tab-content-wrap .open_section_metabox .wb-back-all-rooms:hover,
+.st-metabox-tab-content-wrap .open_section_metabox .wb-back-all-rooms:focus {
+  color: #ec8223;
 }
 .st-metabox-content-wrapper .creditcard {
   background: url(../../images/creditcard.png) no-repeat;
@@ -3078,6 +3098,9 @@ a.ui-datepicker-next {
 .st-metabox-tabs-content .wb-section-navigation .fa {
   display: none;
 }
+.st-metabox-tabs-content .wb-section-navigation .fa.fa-force-show {
+  display: inline-block;
+}
 .st-metabox-tabs-content.loading:after {
   content: "";
   position: absolute;
@@ -3088,7 +3111,7 @@ a.ui-datepicker-next {
   background: rgba(255, 255, 255, 0.67);
   z-index: 99;
 }
-.st-metabox-tabs-content.loading .wb-section-navigation .fa {
+.st-metabox-tabs-content.loading .wb-section-navigation .loading .fa {
   display: inline-block;
 }
 .st-metabox-tabs-content .wpbooking-form-group:after {
@@ -3269,6 +3292,10 @@ a.ui-datepicker-next {
 .wb-section-navigation .button.wb-save-room {
   background: #ec8223;
 }
+.wb-section-navigation .button.wb-next-section:focus,
+.wb-section-navigation .button.wb-save-room:focus {
+  color: white;
+}
 .wb-section-navigation .button.wb-next-section:hover,
 .wb-section-navigation .button.wb-save-room:hover {
   border: solid 1px transparent;
@@ -3277,7 +3304,13 @@ a.ui-datepicker-next {
 }
 .wb-section-navigation .button.wb-prev-section,
 .wb-section-navigation .button.wb-all-rooms {
-  background: #ddd;
+  background: white;
+  border-color: #ed8323;
+  color: #ed8323;
+}
+.wb-section-navigation .button.wb-prev-section:focus,
+.wb-section-navigation .button.wb-all-rooms:focus {
+  color: #ed8323;
 }
 .wb-section-navigation .button.wb-prev-section:hover,
 .wb-section-navigation .button.wb-all-rooms:hover {
@@ -3294,6 +3327,9 @@ a.ui-datepicker-next {
 }
 .wb-section-navigation .button.wb-next {
   background: #31b0d5;
+}
+.wb-section-navigation .button.wb-next:focus {
+  color: white;
 }
 .wb-section-navigation .button.wb-next:hover {
   background: #31b0d5;

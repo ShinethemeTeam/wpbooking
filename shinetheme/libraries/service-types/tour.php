@@ -788,7 +788,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         array('type' => 'close_section'),
                         array(
                             'type' => 'section_navigation',
-                            'prev' => false
+                            'prev' => false,
+                            'step'=>'first'
                         ),
 
                     )
