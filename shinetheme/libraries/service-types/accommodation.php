@@ -862,12 +862,12 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          * @author quandq
          *
          * @param $post_id
-         * @return array|void
+         * @return array|void|bool
          */
         function _get_room_by_hotel($post_id)
         {
             if (empty($post_id))
-                return;
+                return false;
             $list = array();
             $args = array(
                 'post_type'      => 'wpbooking_hotel_room',
@@ -1241,7 +1241,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          * @author dungft
          *
          * @param $hotel_id
-         * @param bool | WP_Query @query
+         * @param bool @query
          * @return string
          *
          */
@@ -1339,7 +1339,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         function _add_default_query_hook()
         {
             global $wpdb;
-            $table_prefix = WPBooking_Service_Model::inst()->get_table_name();
             $injection = WPBooking_Query_Inject::inst();
             $tax_query = $injection->get_arg('tax_query');
             $rate_calculate = FALSE;
@@ -2447,6 +2446,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $post_id = $this->request('wb_post_id');
             $tab = $this->request('wb_meta_section');
             $service = new WB_Service($post_id);
+            $list_room = array();
             if($service->get_type() == $this->type_id and $tab=='photo_tab'){
                 $arg = array(
                     'post_type'      => 'wpbooking_hotel_room',
@@ -2454,8 +2454,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'post_status'    => array('publish', 'draft', 'pending', 'future', 'private', 'inherit'),
                     'post_parent'    => $post_id
                 );
-                $list_room = array();
-                global $wp_query;
                 query_posts($arg);
                 while(have_posts()){
                     the_post();
