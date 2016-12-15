@@ -1596,7 +1596,7 @@ jQuery(document).ready(function( $ ){
                 var count_old = parent.find('.room-count .n').text();
                 if(res.status){
                     // Go to All Rooms
-                    room_form.html('');
+                    //room_form.html('');
                     if(!parent.hasClass('wb-edit-room')){
                         var count_new = parseInt(count_old) + 1;
                         parent.find('.room-count .n').text(count_new);
@@ -1617,8 +1617,8 @@ jQuery(document).ready(function( $ ){
                         item_html.find('.room-remain-left').html(res.data.number+' room(s)');
                         item_html.find('.room-type').html(res.data.title);
                     }
-                    parent.removeClass('on-create');
-                    parent.removeClass('wb-edit-room');
+                    //parent.removeClass('on-create');
+                    //parent.removeClass('wb-edit-room');
 
                     if(typeof  res.updated_content!='undefined'){
 

@@ -3013,6 +3013,9 @@ a.ui-datepicker-next {
 .st-metabox-tabs-content .wb-section-navigation .fa {
   display: none;
 }
+.st-metabox-tabs-content .wb-section-navigation .fa.fa-force-show {
+  display: inline-block;
+}
 .st-metabox-tabs-content.loading:after {
   content: "";
   position: absolute;
@@ -3204,6 +3207,10 @@ a.ui-datepicker-next {
 .wb-section-navigation .button.wb-save-room {
   background: #ec8223;
 }
+.wb-section-navigation .button.wb-next-section:focus,
+.wb-section-navigation .button.wb-save-room:focus {
+  color: white;
+}
 .wb-section-navigation .button.wb-next-section:hover,
 .wb-section-navigation .button.wb-save-room:hover {
   border: solid 1px transparent;
@@ -3212,7 +3219,13 @@ a.ui-datepicker-next {
 }
 .wb-section-navigation .button.wb-prev-section,
 .wb-section-navigation .button.wb-all-rooms {
-  background: #ddd;
+  background: white;
+  border-color: #ed8323;
+  color: #ed8323;
+}
+.wb-section-navigation .button.wb-prev-section:focus,
+.wb-section-navigation .button.wb-all-rooms:focus {
+  color: #ed8323;
 }
 .wb-section-navigation .button.wb-prev-section:hover,
 .wb-section-navigation .button.wb-all-rooms:hover {
@@ -3229,6 +3242,9 @@ a.ui-datepicker-next {
 }
 .wb-section-navigation .button.wb-next {
   background: #31b0d5;
+}
+.wb-section-navigation .button.wb-next:focus {
+  color: white;
 }
 .wb-section-navigation .button.wb-next:hover {
   background: #31b0d5;

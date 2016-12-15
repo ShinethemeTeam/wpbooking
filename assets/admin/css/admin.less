@@ -3036,6 +3036,9 @@ a.ui-datepicker-next {
     .wb-section-navigation{
         .fa{
             display: none;
+            &.fa-force-show{
+                display: inline-block;
+            }
         }
     }
     &.loading{
@@ -3246,6 +3249,9 @@ a.ui-datepicker-next {
     .button{
         &.wb-next-section,&.wb-save-room{
             background: @maincolor;
+            &:focus{
+                color: white;
+            }
             &:hover{
                 border: solid 1px transparent;
                 color: #fff;
@@ -3253,7 +3259,12 @@ a.ui-datepicker-next {
             }
         }
         &.wb-prev-section,&.wb-all-rooms{
-            background: #ddd;
+            background: white;
+            border-color: #ed8323;
+            color: #ed8323;
+            &:focus{
+                color: #ed8323;
+            }
             &:hover{
                 color: @maincolor;
                 border: solid 1px @maincolor;
@@ -3269,6 +3280,9 @@ a.ui-datepicker-next {
       }
       &.wb-next{
         background: #31b0d5;
+          &:focus{
+              color: white;
+          }
         &:hover{
           background: #31b0d5;
         }

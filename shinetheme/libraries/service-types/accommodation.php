@@ -583,7 +583,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         array('type' => 'close_section'),
                         array(
                             'type' => 'section_navigation',
-                            'prev' => false
+                            'prev' => false,
+                            'step'=>'first'
                         ),
 
                     )
