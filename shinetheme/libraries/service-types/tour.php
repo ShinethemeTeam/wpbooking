@@ -739,7 +739,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'label' => __('Contact Number', 'wpbooking'),
                             'id'    => 'contact_number',
                             'desc'  => esc_html__('The contact phone', 'wpbooking'),
-                            'type'  => 'text',
+                            'type'  => 'number',
                             'class' => 'small',
                             'rules' => 'required'
                         ),

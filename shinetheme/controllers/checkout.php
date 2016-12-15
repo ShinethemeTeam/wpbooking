@@ -516,7 +516,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 'user_phone'           => array(
                     'title'       => esc_html__( "Telephone" , "wpbooking" ) ,
                     'placeholder' => esc_html__( "Telephone" , "wpbooking" ) ,
-                    'type'        => 'text' ,
+                    'type'        => 'number' ,
                     'name'        => 'user_phone' ,
                     'size'        => '12' ,
                     'required'    => true ,
