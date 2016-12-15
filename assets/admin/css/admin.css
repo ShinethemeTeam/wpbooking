@@ -3007,7 +3007,7 @@ a.ui-datepicker-next {
   background: rgba(255, 255, 255, 0.67);
   z-index: 99;
 }
-.st-metabox-tabs-content.loading .wb-section-navigation .fa {
+.st-metabox-tabs-content.loading .wb-section-navigation .loading .fa {
   display: inline-block;
 }
 .st-metabox-tabs-content .wpbooking-form-group:after {

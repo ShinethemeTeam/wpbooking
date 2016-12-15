@@ -1062,6 +1062,7 @@ jQuery(document).ready(function( $ ){
         var next_a,section;
         next_a=$('.st-metabox-nav li.ui-state-active').next().find('a');
         section=$(this).closest('.st-metabox-tabs-content');
+        t.addClass('loading');
 
         if($(this).hasClass('ajax_saving')){
             saveMetaboxSection(section,$(this),function(){
@@ -1070,6 +1071,8 @@ jQuery(document).ready(function( $ ){
                     var h = $('#st_post_metabox').offset().top;
                     $('html,body').animate({'scrollTop': parseInt(h) - 200});
                 }
+
+                t.removeClass('loading');
             });
         }else{
             if($(this).data('action') != 'edit') {
