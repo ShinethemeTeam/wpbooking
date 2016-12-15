@@ -898,6 +898,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         function get_room_meta_fields()
         {
             $fields = array(
+                array(
+                    'type' => 'breadcrumb',
+                    'new_text' => esc_html__('Add new room','wpbooking'),
+                    'edit_text' => esc_html__('Edit room','wpbooking')
+                ),
                 array('type' => 'open_section','conner_button'=>'<a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> '.esc_html__('Back to All Rooms','wpbooking').'</a>'),
                 array(
                     'label' => __("Room Name", 'wpbooking'),
@@ -1175,7 +1180,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     // Save Extra Fields
                     //property_available_for
                     if (isset($_POST['property_available_for'])) update_post_meta($room_id, 'property_available_for', $_POST['property_available_for']);
-
+//                    var_dump($room_id);
+//                    var_dump(get_post($room_id));
                     $hotel_id = wp_get_post_parent_id($room_id);
                     $list_room_new = $this->_get_room_by_hotel($hotel_id);
 
@@ -1188,7 +1194,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $res['data']['title'] = get_the_title($room_id);
                     $res['data']['room_id'] = $room_id;
                     $res['data']['security'] = wp_create_nonce('del_security_post_' . $room_id);
-
                     $updated_content=array(
                         '.wp-room-actions .room-count'=>$this->_get_room_count_text($hotel_id)
                     );

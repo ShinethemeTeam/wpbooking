@@ -1562,6 +1562,9 @@ jQuery(document).ready(function( $ ){
                             $(window).trigger('wpbooking_event_hotel_room_update_content',[k,res.updated_content[k]]);
                         }
                     }
+                    if(parent.find('.wb-room-list .room-item').length == 0 || parent.find('.wb-room-list').html() == undefined){
+                        parent.find('.hotel_room_list').addClass('wpbooking-no-room');
+                    }
                 },
                 error:function(e){
                     parent.removeClass('on-loading');

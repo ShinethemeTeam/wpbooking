@@ -355,6 +355,10 @@ img.settings-demo-gallery {
   padding-left: 15px;
   padding-right: 15px;
 }
+.wb-form-group-gallery > div label {
+  display: block;
+  margin-bottom: 20px;
+}
 .wpbooking-no-gallery {
   background: #fff;
   padding: 20px 10px;
@@ -379,6 +383,7 @@ img.settings-demo-gallery {
 }
 .wpbooking-no-gallery .btn_upload_gallery_hotel,
 .wpbooking-no-gallery .btn_upload_gallery {
+  margin-top: 0 !important;
   color: #ec8223 !important;
   border-color: #ec8223 !important;
 }
@@ -392,7 +397,6 @@ img.settings-demo-gallery {
 }
 .wpbooking-no-gallery .no-gallery-notice {
   display: block;
-  margin-bottom: -20px;
 }
 .wpbooking-no-gallery .no-gallery-notice h3 {
   margin: 5px 0;
