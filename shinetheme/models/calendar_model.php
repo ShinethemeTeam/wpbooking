@@ -97,7 +97,6 @@ if (!class_exists('WPBooking_Calendar_Model')) {
 				->orderby('start', 'asc')->get()->result();
 
 
-
 			return $res;
 		}
 
