@@ -2264,18 +2264,12 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if($room_id){
                 $calendar = WPBooking_Calendar_Model::inst();
                 $calendar_prices = $calendar->calendar_months($room_id, $start, $end);
-
-                // Reformat the res
                 if(!empty($calendar_prices)){
                     foreach($calendar_prices as $key=>$value){
                         $calendar_prices[date('d-m-Y',$value['start'])]=$value;
                     }
                 }
-
                 $is_available_for = get_post_meta($room_id,'property_available_for',true);
-
-
-
                 switch($is_available_for){
                     case "specific_periods":
                         if(!empty($calendar_prices)){
@@ -2288,6 +2282,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                 }
                                 $check_in_temp = strtotime('+1 day', $check_in_temp);
                             }
+                        }else{
+                            $return['unavailable_dates'] = $start;
+                            $return['status']=0;
                         }
                         break;
                     case "forever":
@@ -2305,18 +2302,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         }
                         break;
                 }
-                /*if(!empty($calendar_prices)){
-                    if(array_key_exists($start,$calendar_prices) and $calendar_prices[$start]['can_check_in']==FALSE){
-                        $return['status']=0;
-                        $return['can_not_check_in']=TRUE;
-                    }
-                    if(array_key_exists($end,$calendar_prices) and $calendar_prices[$end]['can_check_out']==FALSE){
-                        $return['status']=0;
-                        $return['can_not_check_out']=TRUE;
-                    }
-                }*/
             }
-
             return apply_filters('wpbooking_service_check_availability_room',$return,$this,$start,$end);
 
         }
