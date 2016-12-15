@@ -95,7 +95,7 @@ if (!class_exists('WPBooking_User')) {
              * @since 1.0
              * @author tienhd
              */
-            add_filter('login_url',array($this,'_redirect_login_url'));
+            add_filter('login_url',array($this,'_redirect_login_url'),10,3);
 
             /**
              * Redirect reset password url
@@ -172,7 +172,7 @@ if (!class_exists('WPBooking_User')) {
                 } else {
                     // Login Success
                     // Redirect if url is exists
-                    if ($redirect = WPBooking_Input::request('wpbooking_redirect')) {
+                    if ($redirect = WPBooking_Input::request('redirect_to')) {
                         wp_redirect($redirect);
                         die;
                     } else {
@@ -1195,11 +1195,11 @@ if (!class_exists('WPBooking_User')) {
          * redirect login url
          * @return string
          */
-        function _redirect_login_url($login_url){
+        function _redirect_login_url($login_url,$redirect){
             $account_page = wpbooking_get_option('myaccount-page');
             if($account_page) {
-                $redir = get_permalink($account_page);
-                return $redir;
+                $redir = add_query_arg('redirect_to',$redirect,get_permalink($account_page));
+                return esc_url($redir);
             }else {
                 return $login_url;
             }

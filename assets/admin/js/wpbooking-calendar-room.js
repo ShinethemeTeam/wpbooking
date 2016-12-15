@@ -179,7 +179,10 @@ jQuery(document).ready(function($) {
                     }else{
                         $('#calendar-checkout').val('');
                         self.last_end_date=false;
-                        $('#calendar-checkout').datepicker('show');
+                        window.setTimeout(function(){
+                            $('#calendar-checkout').datepicker('show');
+                        },100)
+
                     }
 
                 }
@@ -203,7 +206,9 @@ jQuery(document).ready(function($) {
                     }else{
                         $('#calendar-in').val('');
                         self.last_start_date=false;
-                        $('#calendar-checkin').datepicker('show');
+                        window.setTimeout(function(){
+                            $('#calendar-checkin').datepicker('show');;
+                        },100)
                     }
                 }
             });
