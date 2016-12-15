@@ -176,7 +176,16 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             if (!empty($order_data['raw_data'])) {
                 $raw_data = json_decode($order_data['raw_data'], true);
                 if ($raw_data) {
-                    $raw_data['price'] = $order_data['price'] - $order_data['tax_total'];
+                    $raw_data['price'] = $order_data['price'];
+                    $tax_data=unserialize($order_data['tax']);
+
+                    if(!empty($tax_data)){
+                        foreach($tax_data as $tax){
+                            if(!empty($tax['excluded']) and $tax['excluded']=='yes_not_included'){
+                                $raw_data['price'] = $order_data['price'] - $order_data['tax_total'];
+                            }
+                        }
+                    }
                     $this->_add_total_box_info($raw_data);
                 }
             }
