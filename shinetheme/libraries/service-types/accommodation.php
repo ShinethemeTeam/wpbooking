@@ -845,12 +845,12 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          * @author quandq
          *
          * @param $post_id
-         * @return array|void
+         * @return array|void|bool
          */
         function _get_room_by_hotel($post_id)
         {
             if (empty($post_id))
-                return;
+                return false;
             $list = array();
             $args = array(
                 'post_type'      => 'wpbooking_hotel_room',
@@ -881,6 +881,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         function get_room_meta_fields()
         {
             $fields = array(
+                array(
+                    'type' => 'breadcrumb',
+                    'new_text' => esc_html__('Add new room','wpbooking'),
+                    'edit_text' => esc_html__('Edit room','wpbooking')
+                ),
                 array('type' => 'open_section','conner_button'=>'<a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> '.esc_html__('Back to All Rooms','wpbooking').'</a>'),
                 array(
                     'label' => __("Room Name", 'wpbooking'),
@@ -952,7 +957,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
 
                 // Extra Service
-                array('type' => 'open_section','conner_button'=>'<a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> '.esc_html__('Back to All Rooms','wpbooking').'</a>'),
+                array('type' => 'open_section'),
                 array(
                     'type'  => 'title',
                     'label' => __('Extra Services', 'wpbooking'),
@@ -970,7 +975,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 ),
 
                 // Calendar
-                array('type' => 'open_section','conner_button'=>'<a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> '.esc_html__('Back to All Rooms','wpbooking').'</a>'),
+                array('type' => 'open_section'),
                 array(
                     'label' => __("Price Settings", 'wpbooking'),
                     'type'  => 'title',
@@ -1044,9 +1049,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             $res['status'] = 1;
             $res['html'] = "
+            
                 <input name='wb_room_id' type='hidden' value='" . esc_attr($room_id) . "'>
             ";
             $res['html'] .= sprintf('<input type="hidden" name="wb_hotel_room_security" value="%s">', wp_create_nonce("wpbooking_hotel_room_" . $room_id));
+            $res['html'].='<div class="wb-back-all-rooms-wrap"><a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> '.esc_html__('Back to All Rooms','wpbooking').'</a></div>';
             $fields = $this->get_room_meta_fields();
             foreach ((array)$fields as $field_id => $field):
 
@@ -1158,7 +1165,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     // Save Extra Fields
                     //property_available_for
                     if (isset($_POST['property_available_for'])) update_post_meta($room_id, 'property_available_for', $_POST['property_available_for']);
-
+//                    var_dump($room_id);
+//                    var_dump(get_post($room_id));
                     $hotel_id = wp_get_post_parent_id($room_id);
                     $list_room_new = $this->_get_room_by_hotel($hotel_id);
 
@@ -1171,8 +1179,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $res['data']['title'] = get_the_title($room_id);
                     $res['data']['room_id'] = $room_id;
                     $res['data']['security'] = wp_create_nonce('del_security_post_' . $room_id);
-
-                    $res['updated_content'] = apply_filters('wpbooking_hotel_room_form_updated_content', array(), $room_id, $hotel_id);
+                    $updated_content=array(
+                        '.wp-room-actions .room-count'=>$this->_get_room_count_text($hotel_id)
+                    );
+                    $res['updated_content'] = apply_filters('wpbooking_hotel_room_form_updated_content', $updated_content, $room_id, $hotel_id);
 
                     $res['status'] = 1;
                 }
@@ -1206,9 +1216,52 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $res['data']['list_room'] = $list_room_new;
                 }
             }
-            $res['updated_content'] = apply_filters('wpbooking_hotel_room_form_updated_content', array(), $room_id, $hotel_id);
+            $updated_content=array(
+                '.wp-room-actions .room-count'=>$this->_get_room_count_text($hotel_id)
+            );
+            $res['updated_content'] = apply_filters('wpbooking_hotel_room_form_updated_content', $updated_content, $room_id, $hotel_id);
             echo json_encode($res);
             wp_die();
+        }
+
+        /**
+         * Get Hotel Room Count HTML for List Room in Dashboard
+         *
+         * @since 1.0
+         * @author dungft
+         *
+         * @param $hotel_id
+         * @param bool @query
+         * @return string
+         *
+         */
+        public function _get_room_count_text($hotel_id,$query=false){
+            if(!$query){
+                $query = new WP_Query(array(
+                    'post_parent'    => $hotel_id,
+                    'posts_per_page' => 200,
+                    'post_type'=>'wpbooking_hotel_room'
+                ));
+            }
+
+            $total_room=0;
+            while ($query->have_posts()){
+                $query->the_post();
+                $total_room+=get_post_meta(get_the_ID(),'room_number',true);
+            }
+
+            if($query->found_posts){
+                $text_count=sprintf('<span class="n text-color">%d </span><b>%s</b> ',$query->found_posts,esc_html__('room type(s)','wpbooking'));
+                if($total_room){
+                    $text_count.=sprintf(esc_html__('with %s ','wpbooking'),sprintf('<span class="n text-color">%d </span><b>%s</b>',$total_room,esc_html__('room(s)')));
+                }
+                $html='<div class="room-count">'.sprintf(__('There are %s in your listing','wpbooking'),$text_count).'</div>';
+            }else{
+                $html='<div class="room-count">'.esc_html__('There is <b>no room</b> in your listing','wpbooking').'</div>';
+            }
+
+            wp_reset_postdata();
+            return $html;
         }
 
         /**
@@ -1276,7 +1329,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         function _add_default_query_hook()
         {
             global $wpdb;
-            $table_prefix = WPBooking_Service_Model::inst()->get_table_name();
             $injection = WPBooking_Query_Inject::inst();
             $tax_query = $injection->get_arg('tax_query');
             $rate_calculate = FALSE;
@@ -2383,6 +2435,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $post_id = $this->request('wb_post_id');
             $tab = $this->request('wb_meta_section');
             $service = new WB_Service($post_id);
+            $list_room = array();
             if($service->get_type() == $this->type_id and $tab=='photo_tab'){
                 $arg = array(
                     'post_type'      => 'wpbooking_hotel_room',
@@ -2390,8 +2443,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'post_status'    => array('publish', 'draft', 'pending', 'future', 'private', 'inherit'),
                     'post_parent'    => $post_id
                 );
-                $list_room = array();
-                global $wp_query;
                 query_posts($arg);
                 while(have_posts()){
                     the_post();

@@ -169,10 +169,53 @@ img.settings-demo-gallery{
     margin-top: 20px;
     padding-left: 15px;
     padding-right: 15px;
-
+  >div label{
+    display: block;margin-bottom: 20px;
+  }
 }
 .wpbooking-no-gallery{
-
+  background: #fff;
+  padding: 20px 10px;
+  border: 1px dashed #ccc;
+  text-align: center;
+  i.wpbooking-desc{
+    display: none;
+  }
+  .st-metabox-left, .st-metabox-right{
+    width: 100% !important;
+    margin-left: 0 !important;
+    .st-metabox-content-wrapper{
+      width: 100% !important;
+      .btn_upload_gallery{
+        margin-top: 20px;
+      }
+    }
+  }
+  .btn_upload_gallery_hotel,.btn_upload_gallery{
+    margin-top: 0 !important;
+    color: @maincolor !important;
+    border-color: @maincolor !important;
+    &:hover{
+      color: #666666 !important;
+      border-color: #ccc !important;
+    }
+  }
+  >div label{
+    display: none;
+  }
+  .no-gallery-notice{
+    display: block;
+    //margin-bottom: -20px;
+    h3{
+      margin: 5px 0;
+      color: #999;
+      margin-top: 10px;
+    }
+    p{
+      margin: 5px 0;
+      color: #999;
+    }
+  }
 }
 .gallery-row{
     margin-left: -15px;
@@ -1468,6 +1511,24 @@ img.settings-demo-image-gallery{
                 }
             }
         }
+      &.wpbooking-no-room{
+        .wp-room-actions, .wb-room-list{
+          display: none;
+        }
+        .wb-no-room-message{
+          margin: 20px 0;
+          padding: 10px;
+          background: #f0f0f0;
+          display: block;
+          a.create-room{
+            color: @maincolor;
+            font-weight: bold;
+            &:hover{
+              text-decoration: none;
+            }
+          }
+        }
+      }
 
         &.bed_options{
             .default-item{
@@ -1647,25 +1708,42 @@ img.settings-demo-image-gallery{
         &.active{
             border: solid 1px @maincolor;
         }
-        .wb-back-all-rooms{
-            position: absolute;
-            right:25px;
-            top:20px;
-            z-index: 1;
-            background: white;
-            border:1px solid @maincolor;
-            color: @maincolor;
-            padding: 10px 18px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 15px;
-            &:hover,&:focus{
-                color: @maincolor;
-            }
-        }
+
     }
 }
-
+.sticky-wrapper{
+    position: relative;
+    z-index: 4;
+}
+.wb-back-all-rooms-wrap{
+    //position: absolute;
+    //right:25px;
+    //top:53px;    float: right;
+    float: right;
+    text-align: right;
+}
+.wb-back-all-rooms{
+    z-index: 999;
+    width: 185px;
+    background: white;
+    border:1px solid @maincolor;
+    color: @maincolor;
+    padding: 10px 18px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    &:hover,&:focus{
+        color: @maincolor;
+    }
+}
+.is-sticky{
+    >.wb-back-all-rooms{
+        position: static;
+    }
+}
 //meta_box
 .st-metabox-content-wrapper{
 

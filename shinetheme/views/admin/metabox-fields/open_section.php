@@ -11,8 +11,5 @@
         </div>
     <?php }
 
-    if(!empty($data['conner_button'])){
-        echo do_shortcode($data['conner_button']);
-    }
     ?>
     <div class="content-metabox <?php if(isset($data['open_section']) and $data['open_section'] == false){ echo 'no-active'; }?>">

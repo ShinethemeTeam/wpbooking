@@ -158,7 +158,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                             <li>+ <?php esc_html_e('A right sight table, allowing you to set status and price for that period','wpbooking')?></li>
 
                         </ul>
-                        <h4><strong><?php esc_html_e('Way 1:','wpbooking') ?></strong></h4>
+                        <h4><strong><?php esc_html_e('Way 2:','wpbooking') ?></strong></h4>
                         <ul class="list">
                             <li>+ <?php esc_html_e('Drag the mouse in the left calendar to get start date and end date','wpbooking') ?>
                             </li>

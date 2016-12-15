@@ -12,9 +12,7 @@ $data=wp_parse_args($data,array(
 ));
 $sec_class = '';
 $action = WPBooking_Input::get('action');
-if($action == 'edit'){
-    $sec_class = 'wb-action-edit';
-}
+$sec_class = 'wb-action-edit';
 
 ?>
 <div class="text-right <?php echo esc_attr($sec_class); ?> wb-section-navigation clear" style="clear: both">
@@ -22,7 +20,7 @@ if($action == 'edit'){
 	if(!isset($data['prev']) or $data['prev']){
 		$class = 'full';
 		if(!isset($data['next']) or $data['next']){
-			$class = 'w50';
+			$class = 'w30';
 		}
         if($action == 'edit'){
             $class = 'w30';
@@ -33,21 +31,18 @@ if($action == 'edit'){
 		$data['next'] = false;
 	}
 	if(!isset($data['next']) or $data['next']){
-		$class = 'full';
-		if(!isset($data['prev']) or $data['prev']){
-			$class = 'w50';
-		}
-		$loading = '<i class="fa fa-spinner fa-pulse"></i>';
+
+		$class = 'w30 ';
+		$loading=false;
 		if($action == 'edit'){
 			$data['next_label'] = esc_html__('Save & Next Step','wpbooking');
-			$class = 'w30 ';
 			$loading = '';
 		}
 		if($data['ajax_saving']) $class.=' ajax_saving';
 		printf('<a href="#" class="button wb-next-section %s">%s %s <i class="fa fa-spinner fa-pulse"></i></a>',$class,$data['next_label'], $loading);
 	}
 
-    if($action == 'edit' and !in_array($data['step'],array('finish','first'))){
+    if(!in_array($data['step'],array('finish'))){
         $class = (!empty($data['class']))?$data['class']:'';
         printf('<a href="#" class="button wb-save-now-section wb-next-section w30 ajax_saving wb-next %s" data-action="%s">%s <i class="fa fa-spinner fa-pulse"></i></a>', $class, WPBooking_Input::get('action'),esc_html__('Save Now','wpbooking'));
     }

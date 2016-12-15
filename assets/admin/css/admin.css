@@ -355,6 +355,58 @@ img.settings-demo-gallery {
   padding-left: 15px;
   padding-right: 15px;
 }
+.wb-form-group-gallery > div label {
+  display: block;
+  margin-bottom: 20px;
+}
+.wpbooking-no-gallery {
+  background: #fff;
+  padding: 20px 10px;
+  border: 1px dashed #ccc;
+  text-align: center;
+}
+.wpbooking-no-gallery i.wpbooking-desc {
+  display: none;
+}
+.wpbooking-no-gallery .st-metabox-left,
+.wpbooking-no-gallery .st-metabox-right {
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+.wpbooking-no-gallery .st-metabox-left .st-metabox-content-wrapper,
+.wpbooking-no-gallery .st-metabox-right .st-metabox-content-wrapper {
+  width: 100% !important;
+}
+.wpbooking-no-gallery .st-metabox-left .st-metabox-content-wrapper .btn_upload_gallery,
+.wpbooking-no-gallery .st-metabox-right .st-metabox-content-wrapper .btn_upload_gallery {
+  margin-top: 20px;
+}
+.wpbooking-no-gallery .btn_upload_gallery_hotel,
+.wpbooking-no-gallery .btn_upload_gallery {
+  margin-top: 0 !important;
+  color: #ec8223 !important;
+  border-color: #ec8223 !important;
+}
+.wpbooking-no-gallery .btn_upload_gallery_hotel:hover,
+.wpbooking-no-gallery .btn_upload_gallery:hover {
+  color: #666666 !important;
+  border-color: #ccc !important;
+}
+.wpbooking-no-gallery > div label {
+  display: none;
+}
+.wpbooking-no-gallery .no-gallery-notice {
+  display: block;
+}
+.wpbooking-no-gallery .no-gallery-notice h3 {
+  margin: 5px 0;
+  color: #999;
+  margin-top: 10px;
+}
+.wpbooking-no-gallery .no-gallery-notice p {
+  margin: 5px 0;
+  color: #999;
+}
 .gallery-row {
   margin-left: -15px;
   margin-right: -15px;
@@ -1574,6 +1626,23 @@ img.settings-demo-image-gallery {
 .st-metabox-tab-content-wrap .wpbooking-form-group.hotel_room_list .wp-room-actions .room-count .text-color {
   color: #ec8223;
 }
+.st-metabox-tab-content-wrap .wpbooking-form-group.wpbooking-no-room .wp-room-actions,
+.st-metabox-tab-content-wrap .wpbooking-form-group.wpbooking-no-room .wb-room-list {
+  display: none;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.wpbooking-no-room .wb-no-room-message {
+  margin: 20px 0;
+  padding: 10px;
+  background: #f0f0f0;
+  display: block;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.wpbooking-no-room .wb-no-room-message a.create-room {
+  color: #ec8223;
+  font-weight: bold;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.wpbooking-no-room .wb-no-room-message a.create-room:hover {
+  text-decoration: none;
+}
 .st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .default-item {
   margin-bottom: 10px;
 }
@@ -1726,11 +1795,17 @@ img.settings-demo-image-gallery {
 .st-metabox-tab-content-wrap .open_section_metabox.active {
   border: solid 1px #ec8223;
 }
-.st-metabox-tab-content-wrap .open_section_metabox .wb-back-all-rooms {
-  position: absolute;
-  right: 25px;
-  top: 20px;
-  z-index: 1;
+.sticky-wrapper {
+  position: relative;
+  z-index: 4;
+}
+.wb-back-all-rooms-wrap {
+  float: right;
+  text-align: right;
+}
+.wb-back-all-rooms {
+  z-index: 999;
+  width: 185px;
   background: white;
   border: 1px solid #ec8223;
   color: #ec8223;
@@ -1738,10 +1813,16 @@ img.settings-demo-image-gallery {
   text-decoration: none;
   font-weight: bold;
   font-size: 15px;
+  position: absolute;
+  right: 30px;
+  top: 30px;
 }
-.st-metabox-tab-content-wrap .open_section_metabox .wb-back-all-rooms:hover,
-.st-metabox-tab-content-wrap .open_section_metabox .wb-back-all-rooms:focus {
+.wb-back-all-rooms:hover,
+.wb-back-all-rooms:focus {
   color: #ec8223;
+}
+.is-sticky > .wb-back-all-rooms {
+  position: static;
 }
 .st-metabox-content-wrapper .creditcard {
   background: url(../../images/creditcard.png) no-repeat;

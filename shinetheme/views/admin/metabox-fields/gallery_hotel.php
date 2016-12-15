@@ -41,7 +41,7 @@ $list_room = json_encode($list_room);
 $field = '<div class="st-metabox-content-wrapper wpbooking-settings"><div class="form-group">';
 $field .= '<input type="hidden" id="wp_gallery_hotel" class="wp_gallery_hotel none" value="'. $gallery .'" name="'. $name .'[gallery]">';
 $field .= "<input type=\"hidden\" class=\"wb_hotel_gallery_data\" value='".  $room_data ."' name='". $name ."[room_data]' >
-			<br>";
+			";
 $field .= '<div class="featuredgallerydiv gallery-row" data-domain="'.implode(',',$text_domain).'" data-room=\''.$list_room.'\'>';
 
 $tmp = '';
@@ -81,9 +81,13 @@ $field .= '</div></div></div>';
 ?>
 <div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?> field-<?php echo esc_attr($data['id'])?>" <?php echo esc_html( $data_class ); ?>>
     <div class="st-metabox-full ">
-        <label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
+        <label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?><br></label>
     </div>
     <div class="st-metabox-full">
+        <div class="no-gallery-notice hidden">
+            <h3><?php echo esc_html__('No accommodation photo yet.','wpbooking') ?></h3>
+            <p><?php echo esc_html__('Upload at least a photo','wpbooking'); ?></p>
+        </div>
         <?php echo $field; ?>
         <i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
     </div>
