@@ -215,17 +215,12 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 			)->send();
 
 			if ($response->isSuccessful()) {
-
 				return array('status' => 1);
-
 			} elseif ($response->isRedirect()) {
-
 				return array('status' => 1, 'redirect' => $response->getRedirectUrl());
 			} else {
-
 				wpbooking_set_message($response->getMessage(),'error');
 				return array('status' => false, 'data' => $purchase);
-
 			}
 		}
 
