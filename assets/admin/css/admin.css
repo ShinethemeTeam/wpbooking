@@ -1726,11 +1726,17 @@ img.settings-demo-image-gallery {
 .st-metabox-tab-content-wrap .open_section_metabox.active {
   border: solid 1px #ec8223;
 }
-.st-metabox-tab-content-wrap .open_section_metabox .wb-back-all-rooms {
-  position: absolute;
-  right: 25px;
-  top: 20px;
+.sticky-wrapper {
+  position: relative;
   z-index: 1;
+}
+.wb-back-all-rooms-wrap {
+  float: right;
+  text-align: right;
+}
+.wb-back-all-rooms {
+  z-index: 999;
+  width: 185px;
   background: white;
   border: 1px solid #ec8223;
   color: #ec8223;
@@ -1738,10 +1744,16 @@ img.settings-demo-image-gallery {
   text-decoration: none;
   font-weight: bold;
   font-size: 15px;
+  position: absolute;
+  right: 30px;
+  top: 30px;
 }
-.st-metabox-tab-content-wrap .open_section_metabox .wb-back-all-rooms:hover,
-.st-metabox-tab-content-wrap .open_section_metabox .wb-back-all-rooms:focus {
+.wb-back-all-rooms:hover,
+.wb-back-all-rooms:focus {
   color: #ec8223;
+}
+.is-sticky > .wb-back-all-rooms {
+  position: static;
 }
 .st-metabox-content-wrapper .creditcard {
   background: url(../../images/creditcard.png) no-repeat;
