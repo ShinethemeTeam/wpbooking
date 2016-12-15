@@ -1589,6 +1589,7 @@ jQuery(document).ready(function( $ ){
         return false;
     });
     $(document).on('click','.wb-back-all-rooms',function(){
+        $('.wb-back-all-rooms-wrap').unstick();
         var parent=$(this).closest('.st-metabox-tab-content-wrap');
         var room_form=parent.find('.wpbooking-hotel-room-form');
         room_form.html('');
