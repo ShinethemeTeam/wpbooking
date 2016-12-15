@@ -172,7 +172,47 @@ img.settings-demo-gallery{
 
 }
 .wpbooking-no-gallery{
-
+  background: #fff;
+  padding: 20px 10px;
+  border: 1px dashed #ccc;
+  text-align: center;
+  i.wpbooking-desc{
+    display: none;
+  }
+  .st-metabox-left, .st-metabox-right{
+    width: 100% !important;
+    margin-left: 0 !important;
+    .st-metabox-content-wrapper{
+      width: 100% !important;
+      .btn_upload_gallery{
+        margin-top: 20px;
+      }
+    }
+  }
+  .btn_upload_gallery_hotel,.btn_upload_gallery{
+    color: @maincolor !important;
+    border-color: @maincolor !important;
+    &:hover{
+      color: #666666 !important;
+      border-color: #ccc !important;
+    }
+  }
+  >div label{
+    display: none;
+  }
+  .no-gallery-notice{
+    display: block;
+    margin-bottom: -20px;
+    h3{
+      margin: 5px 0;
+      color: #999;
+      margin-top: 10px;
+    }
+    p{
+      margin: 5px 0;
+      color: #999;
+    }
+  }
 }
 .gallery-row{
     margin-left: -15px;
@@ -1468,6 +1508,24 @@ img.settings-demo-image-gallery{
                 }
             }
         }
+      &.wpbooking-no-room{
+        .wp-room-actions, .wb-room-list{
+          display: none;
+        }
+        .wb-no-room-message{
+          margin: 20px 0;
+          padding: 10px;
+          background: #f0f0f0;
+          display: block;
+          a.create-room{
+            color: @maincolor;
+            font-weight: bold;
+            &:hover{
+              text-decoration: none;
+            }
+          }
+        }
+      }
 
         &.bed_options{
             .default-item{

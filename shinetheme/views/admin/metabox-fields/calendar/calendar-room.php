@@ -38,7 +38,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
 						<div class="form-group wb-default-price">
 							<div class="input-group">
 								<span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-								<input type="number" class="form-control" id="base_price" value="<?php echo esc_attr($df_price); ?>" name="base_price" placeholder="0" >
+								<input type="number" class="form-control" min="0" id="base_price" value="<?php echo esc_attr($df_price); ?>" name="base_price" placeholder="0" >
 							</div>
 						</div>
 					</div>
@@ -77,7 +77,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
 						</div>
 						<div class="calendar-room-form-item full-width" style="clear:both" >
 							<label class="calendar-label" for="calendar-price"><?php echo __('Price', 'wpbooking'); ?></label>
-							<input class="calendar-input" type="number" id="calendar-price" name="calendar-price" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
+							<input class="calendar-input" type="number" id="calendar-price" min="0" name="calendar-price" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
 						</div>
 						<div class="calendar-room-form-item full-width hidden" >
 							<label class="calendar-label" for="calendar-price-week"><?php echo __('Price', 'wpbooking'); ?></label>
@@ -114,7 +114,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
 							<li>+ <?php esc_html_e('A right sight table, allowing you to set status and price for that period','wpbooking')?></li>
 
 						</ul>
-						<h4><strong><?php esc_html_e('Way 1:','wpbooking') ?></strong></h4>
+						<h4><strong><?php esc_html_e('Way 2:','wpbooking') ?></strong></h4>
 						<ul class="list">
 							<li>+ <?php esc_html_e('Drag the mouse in the left calendar to get start date and end date','wpbooking') ?>
 							</li>

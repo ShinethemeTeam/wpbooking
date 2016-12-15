@@ -35,6 +35,9 @@ $query = new WP_Query(array(
     'posts_per_page' => 200,
     'post_type'=>'wpbooking_hotel_room'
 ));
+if($query->found_posts < 1){
+    $class .= ' wpbooking-no-room ';
+}
 
 ?>
 <div class="wpbooking-settings hotel_room_list <?php echo esc_html($class); ?>" <?php echo esc_html($data_class); ?>>
@@ -48,7 +51,8 @@ $query = new WP_Query(array(
                 </div>
             </div>
             <div class="wb-room-list">
-                <?php while ($query->have_posts()){
+                <?php
+                while ($query->have_posts()){
                     $query->the_post();
                     $room_id = get_the_ID();
                     $image_id = '';
@@ -110,6 +114,9 @@ $query = new WP_Query(array(
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="wb-no-room-message hidden">
+                <span><?php echo esc_html__('There isn\'t room you listing'); ?> <a href="#" data-hotel-id="<?php echo esc_attr($post_id)?> " class="create-room"><?php esc_html_e('Create New Room','wpbooking') ?></a></span>
             </div>
         </div>
     </div>

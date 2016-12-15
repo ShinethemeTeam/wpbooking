@@ -121,6 +121,7 @@ jQuery(document).ready(function( $ ){
                 var container = $(this).parent();
                 container.find('.fg_metadata').val('');
                 container.find('.demo-image-gallery').hide();
+                $(this).closest('.wpbooking-gallery').addClass('wpbooking-no-gallery');
                 $(this).hide();
             }
         });
@@ -128,6 +129,7 @@ jQuery(document).ready(function( $ ){
         var file_frame;
         $('body').on('click','.btn_upload_gallery',function (event) {
             var container = $(this).parent();
+            var cls = $(this).closest('.wpbooking-gallery');
 
             event.preventDefault();
             // If the media frame already exists, reopen it.
@@ -171,6 +173,7 @@ jQuery(document).ready(function( $ ){
                 if (metadataString) {
                     $('.fg_metadata',container).val(metadataString);
                     $('.featuredgallerydiv',container).html(imageHTML).show();
+                    cls.removeClass('wpbooking-no-gallery');
                     $('.btn_remove_demo_gallery').show();
                 }
             });
@@ -306,6 +309,7 @@ jQuery(document).ready(function( $ ){
                 container.find('.wp_gallery_hotel').val('');
                 container.find('.wb_hotel_gallery_data').val('');
                 container.find('.gallery-item').remove();
+                $(this).closest('.wb-form-group-gallery').addClass('wpbooking-no-gallery');
                 $(this).hide();
             }
         });
@@ -331,6 +335,7 @@ jQuery(document).ready(function( $ ){
                         $('.wp_gallery_hotel').val(img_arr.join(','));
                         if(img_arr.length == 0){
                             $('.btn_remove_gallery_hotel').hide();
+                            $('.wb-form-group-gallery').addClass('wpbooking-no-gallery');
                         }
 
                         $('.featuredgallerydiv').find('.gallery-item').each(function () {
@@ -361,6 +366,7 @@ jQuery(document).ready(function( $ ){
 
         $("body").on('click','.gallery-item-btn.gallery-item-remove',function(){
                 var t = $(this);
+            var cls = $(this).closest('.wb-form-group-gallery');
                 var domain = t.closest('.featuredgallerydiv').data('domain');
                 var domain_arr = domain.split(',');
                 var wn = confirm(domain_arr[0]);
@@ -387,6 +393,7 @@ jQuery(document).ready(function( $ ){
                     }
                     $(this).parent().parent().remove();
                     if($('#wp_gallery_hotel').val() == ''){
+                        cls.addClass('wpbooking-no-gallery');
                         $('.btn_remove_gallery_hotel').hide();
                     }
                 }
@@ -426,6 +433,7 @@ jQuery(document).ready(function( $ ){
 
         $('body').on('click','.btn_upload_gallery_hotel',function (event) {
             var container = $(this).parent().parent();
+            var cls = $(this).closest('.wb-form-group-gallery');
             event.preventDefault();
             // If the media frame already exists, reopen it.
             if ( file_frame ) {
@@ -461,7 +469,7 @@ jQuery(document).ready(function( $ ){
                 images = file_frame.state().get('library');
                 images.each(function(attachment) {
                     imageIDArray.push(attachment.attributes.id);
-                    console.log(attachment.attributes);
+                    //console.log(attachment.attributes);
                     imageHTML += '<div class="gallery-item">';
                     imageHTML += '<img class="demo-image-gallery settings-demo-image-gallery" src="'+attachment.attributes.sizes.thumbnail.url+'">';
                     imageHTML += '<div class="gallery-item-control text-center"><a href="javascript:void(0)" class="gallery-item-btn gallery-item-edit" data-url="'+attachment.attributes.sizes.full.url+'" data-id="'+attachment.attributes.id+'"><i class="fa fa-pencil-square-o"></i></a><a href="javascript:void(0)" class="gallery-item-btn gallery-item-remove" data-id="'+attachment.attributes.id+'"><i class="fa fa-trash"></i></a></div>';
@@ -472,6 +480,7 @@ jQuery(document).ready(function( $ ){
                 if (metadataString) {
                     $('.wp_gallery_hotel',container).val(metadataString);
                     $('.featuredgallerydiv',container).html(imageHTML).show();
+                    cls.removeClass('wpbooking-no-gallery');
                     $('.btn_remove_gallery_hotel').show();
                 }
             });
@@ -1646,6 +1655,7 @@ jQuery(document).ready(function( $ ){
 
                     $(window).trigger('wpbooking_event_hotel_room_saved');
                     $('input[name=room_measunit]').trigger('change');
+                    parent.find('.hotel_room_list').removeClass('wpbooking-no-room');
                 }else{
                     if(typeof res.message!='undefined'){
                         alert(res.message);
@@ -1883,17 +1893,21 @@ jQuery(document).ready(function( $ ){
         }
     });
 
-    $(document).on('change','input[type=number]',function(){
-        $(this).each(function(){
-            var number = $(this).val();
-            number = parseFloat(number);
-            //console.log(number);
-            if (isNaN(number)) {
-                number = 0;
-            }
-            $(this).val(number);
-        });
-    });
+    //$(document).on('change','input[type=number]',function(){
+    //    $(this).each(function(){
+    //        var number = $(this).val();
+    //        number = parseFloat(number);
+    //        //console.log(number);
+    //        if (isNaN(number)) {
+    //            var min = $(this).attr('min');
+    //            if(min != undefined && min != ''){
+    //                number = min;
+    //            }
+    //
+    //        }
+    //        $(this).val(number);
+    //    });
+    //});
 
     $('.wb-button-customer').each(function(){
         $(this).click(function(){
