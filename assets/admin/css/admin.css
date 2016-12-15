@@ -779,10 +779,26 @@ img.settings-demo-image-gallery {
 .st-metabox-tabs-content .input-group.small {
   width: 215px;
 }
+.st-metabox-tabs-content ::-webkit-input-placeholder {
+  font-style: italic;
+  color: #999;
+}
+.st-metabox-tabs-content :-moz-placeholder {
+  font-style: italic;
+  color: #999;
+}
+.st-metabox-tabs-content ::-moz-placeholder {
+  font-style: italic;
+  color: #999;
+}
+.st-metabox-tabs-content :-ms-input-placeholder {
+  font-style: italic;
+  color: #999;
+}
 .st-metabox-tabs-content .form-control {
   height: 30px;
   padding: 4px 8px;
-  font-size: 14px;
+  font-size: 13px;
   color: #555;
   background-color: #fff;
   background-image: none;
@@ -3078,6 +3094,7 @@ a.ui-datepicker-next {
 }
 .st-metabox-tabs-content .wpbooking-form-group.wb-property-size-field .st-metabox-content-wrapper input {
   float: left;
+  font-size: 13px;
 }
 .st-metabox-tabs-content .wpbooking-form-group.wb-property-size-field .st-metabox-content-wrapper .unit_type {
   height: 30px;
@@ -3087,7 +3104,7 @@ a.ui-datepicker-next {
   margin-bottom: 20px;
 }
 .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item {
-  margin-bottom: 15px;
+  margin-bottom: 35px;
 }
 .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item:after {
   clear: both;
@@ -3108,12 +3125,10 @@ a.ui-datepicker-next {
   float: left;
   width: 215px;
   margin-right: 15px;
-  margin-bottom: 10px;
 }
 .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .max-quantity {
   float: left;
   margin-right: 20px;
-  margin-bottom: 20px;
 }
 .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .max-quantity select {
   min-width: 44px;
@@ -3122,11 +3137,9 @@ a.ui-datepicker-next {
   float: left;
   width: 120px;
   margin-right: 20px;
-  margin-bottom: 20px;
 }
 .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .require-options {
   float: left;
-  margin-bottom: 20px;
 }
 .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .service_desc {
   width: 100%;
