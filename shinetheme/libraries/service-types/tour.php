@@ -960,7 +960,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'type'  => 'gallery',
                             'rules' => 'required',
                             'desc'  => __('Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wpbooking'),
-                            'error_message' => esc_html__('You must upload minimum one photo for your tour','wpbooking')
+                            'error_message' => esc_html__('You must upload minimum one photo for your tour','wpbooking'),
+                            'service_type' => esc_html__('tour','wpbooking')
                         ),
 
                         array(

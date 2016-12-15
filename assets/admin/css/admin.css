@@ -355,6 +355,54 @@ img.settings-demo-gallery {
   padding-left: 15px;
   padding-right: 15px;
 }
+.wpbooking-no-gallery {
+  background: #fff;
+  padding: 20px 10px;
+  border: 1px dashed #ccc;
+  text-align: center;
+}
+.wpbooking-no-gallery i.wpbooking-desc {
+  display: none;
+}
+.wpbooking-no-gallery .st-metabox-left,
+.wpbooking-no-gallery .st-metabox-right {
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+.wpbooking-no-gallery .st-metabox-left .st-metabox-content-wrapper,
+.wpbooking-no-gallery .st-metabox-right .st-metabox-content-wrapper {
+  width: 100% !important;
+}
+.wpbooking-no-gallery .st-metabox-left .st-metabox-content-wrapper .btn_upload_gallery,
+.wpbooking-no-gallery .st-metabox-right .st-metabox-content-wrapper .btn_upload_gallery {
+  margin-top: 20px;
+}
+.wpbooking-no-gallery .btn_upload_gallery_hotel,
+.wpbooking-no-gallery .btn_upload_gallery {
+  color: #ec8223 !important;
+  border-color: #ec8223 !important;
+}
+.wpbooking-no-gallery .btn_upload_gallery_hotel:hover,
+.wpbooking-no-gallery .btn_upload_gallery:hover {
+  color: #666666 !important;
+  border-color: #ccc !important;
+}
+.wpbooking-no-gallery > div label {
+  display: none;
+}
+.wpbooking-no-gallery .no-gallery-notice {
+  display: block;
+  margin-bottom: -20px;
+}
+.wpbooking-no-gallery .no-gallery-notice h3 {
+  margin: 5px 0;
+  color: #999;
+  margin-top: 10px;
+}
+.wpbooking-no-gallery .no-gallery-notice p {
+  margin: 5px 0;
+  color: #999;
+}
 .gallery-row {
   margin-left: -15px;
   margin-right: -15px;
@@ -1570,6 +1618,23 @@ img.settings-demo-image-gallery {
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group.hotel_room_list .wp-room-actions .room-count .text-color {
   color: #ec8223;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.wpbooking-no-room .wp-room-actions,
+.st-metabox-tab-content-wrap .wpbooking-form-group.wpbooking-no-room .wb-room-list {
+  display: none;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.wpbooking-no-room .wb-no-room-message {
+  margin: 20px 0;
+  padding: 10px;
+  background: #f0f0f0;
+  display: block;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.wpbooking-no-room .wb-no-room-message a.create-room {
+  color: #ec8223;
+  font-weight: bold;
+}
+.st-metabox-tab-content-wrap .wpbooking-form-group.wpbooking-no-room .wb-no-room-message a.create-room:hover {
+  text-decoration: none;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group.bed_options .default-item {
   margin-bottom: 10px;

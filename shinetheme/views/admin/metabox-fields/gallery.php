@@ -37,23 +37,29 @@ if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
             $field .= '<img src="'.esc_url($url[0]).'" class="demo-image-gallery settings-demo-gallery" >';
         } 
     }
+}else{
+    $class .= ' wpbooking-no-gallery ';
 }
 
 $field .= '</div>';        
 
 $field .= '<button style="margin-right: 10px;" id="" class="btn_upload_gallery" type="button" name="">'. __("Add Gallery","wpbooking").'</button>';
-if(!empty($old_data) && count( $tmp ) > 0 ){
-    $field .= '<button class="btn_remove_demo_gallery" type="button" name="">'.__("Remove Gallery","wpbooking").'</button>';
-}
+
+$field .= '<button class="btn_remove_demo_gallery '.((!empty($old_data) && count( $tmp ) > 0 )?'':'hidden').'" type="button" name="">'.__("Remove Gallery","wpbooking").'</button>';
+
 
 $field .= '</div></div>';
 
 ?>
-<div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
+<div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?> wpbooking-gallery" <?php echo esc_html( $data_class ); ?>>
 <div class="st-metabox-left">
 	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
 </div>
 <div class="st-metabox-right">
+    <div class="no-gallery-notice hidden">
+        <h3><?php echo sprintf(esc_html__('No %s photo yet.','wpbooking'), (isset($data['service_type'])?$data['service_type']:'')); ?></h3>
+        <p><?php echo esc_html__('Upload at least a photo','wpbooking'); ?></p>
+    </div>
 	<?php echo $field; ?>
 	<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
 </div>

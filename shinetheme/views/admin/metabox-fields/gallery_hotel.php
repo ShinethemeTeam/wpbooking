@@ -84,6 +84,10 @@ $field .= '</div></div></div>';
         <label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
     </div>
     <div class="st-metabox-full">
+        <div class="no-gallery-notice hidden">
+            <h3><?php echo esc_html__('No accommodation photo yet.','wpbooking') ?></h3>
+            <p><?php echo esc_html__('Upload at least a photo','wpbooking'); ?></p>
+        </div>
         <?php echo $field; ?>
         <i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
     </div>
