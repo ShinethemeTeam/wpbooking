@@ -147,14 +147,23 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
 
                     <div class="calendar-help">
                         <div class="help-label"><?php esc_html_e('How to set Availability ?','wpbooking') ?></div>
+                        <h4><strong><?php esc_html_e('Way 1:','wpbooking') ?></strong></h4>
                         <ul class="list">
                             <li>+ <?php esc_html_e('To set availability on your calendar:','wpbooking') ?>
                                 <ul>
-                                    <li>- <?php esc_html_e('Click a day in the calendar to set a start date','wpbooking') ?></li>
-                                    <li>- <?php esc_html_e('Click another day to set the end date of the period you want to edit','wpbooking') ?></li>
+                                    <li>- <?php esc_html_e('A right sight table, click to Start Date picker to set a start date','wpbooking') ?></li>
+                                    <li>- <?php esc_html_e('A right sight table, click to End Date picker to set a end date of the period you want to edit','wpbooking') ?></li>
                                 </ul>
                             </li>
-                            <li>+ <?php esc_html_e('A right sight table, allowing you to set availbility for that period','wpbooking')?></li>
+                            <li>+ <?php esc_html_e('A right sight table, allowing you to set status and price for that period','wpbooking')?></li>
+
+                        </ul>
+                        <h4><strong><?php esc_html_e('Way 1:','wpbooking') ?></strong></h4>
+                        <ul class="list">
+                            <li>+ <?php esc_html_e('Drag the mouse in the left calendar to get start date and end date','wpbooking') ?>
+                            </li>
+                            <li>+ <?php esc_html_e('A right sight table, allowing you to set status and price for that period','wpbooking')?></li>
+
                         </ul>
                     </div>
                     <div id="form-bulk-edit">
