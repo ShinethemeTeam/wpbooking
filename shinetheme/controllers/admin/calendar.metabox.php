@@ -492,6 +492,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 				);
 			}else{
 				for( $i = $check_in; $i <= $check_out; $i = strtotime('+1 day', $i) ){
+
 					$wpdb->insert(
 						$table,
 						array(
@@ -599,6 +600,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 							'price_person' => (float) $item['price_person'],
 							'status' => $item['status'],
 							'group_day' => $item['group_day'],
+                            'start2'=>date('Y-m-d H:i:s',strtotime( $item['start'] ))
 						);
 					}
 
@@ -613,6 +615,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
                             'price_person' => (float) $item['price_person'],
 							'status' => $item['status'],
 							'group_day' => $item['group_day'],
+                            'start2'=>date('Y-m-d H:i:s',strtotime( $item['start'] ))
 						);
 					}
 
