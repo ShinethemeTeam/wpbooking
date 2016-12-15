@@ -898,7 +898,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         function get_room_meta_fields()
         {
             $fields = array(
-                array('type' => 'open_section'),
+                array('type' => 'open_section','conner_button'=>'<a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> '.esc_html__('Back to All Rooms','wpbooking').'</a>'),
                 array(
                     'label' => __("Room Name", 'wpbooking'),
                     'type'  => 'title',
@@ -969,9 +969,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
 
                 // Extra Service
-                array(
-                    'type' => 'open_section'
-                ),
+                array('type' => 'open_section','conner_button'=>'<a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> '.esc_html__('Back to All Rooms','wpbooking').'</a>'),
                 array(
                     'type'  => 'title',
                     'label' => __('Extra Services', 'wpbooking'),
@@ -989,7 +987,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 ),
 
                 // Calendar
-                array('type' => 'open_section'),
+                array('type' => 'open_section','conner_button'=>'<a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> '.esc_html__('Back to All Rooms','wpbooking').'</a>'),
                 array(
                     'label' => __("Price Settings", 'wpbooking'),
                     'type'  => 'title',

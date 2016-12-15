@@ -1576,6 +1576,20 @@ jQuery(document).ready(function( $ ){
 
         return false;
     });
+    $(document).on('click','.wb-back-all-rooms',function(){
+        var parent=$(this).closest('.st-metabox-tab-content-wrap');
+        var room_form=parent.find('.wpbooking-hotel-room-form');
+        room_form.html('');
+        parent.removeClass('on-create');
+        parent.removeClass('wb-edit-room');
+
+        var h=$('#st_post_metabox').offset().top;
+        $('html,body').animate({'scrollTop':parseInt(h)-200});
+
+        return false;
+    });
+
+
 
     // Save Room Data
     $(document).on('click','.wb-room-form .wb-save-room',function(){
@@ -1724,7 +1738,7 @@ jQuery(document).ready(function( $ ){
         var parent = $this.closest('.content-metabox');
         setTimeout(function(){
             var title = $this.val();
-            parent.find('.field-title').html(title);
+            parent.find('.field-title').html(wpbooking_params.room_name+' '+title);
         },100);
     });
 

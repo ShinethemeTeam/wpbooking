@@ -294,7 +294,8 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
                 'delete_permanently_image' => esc_html__('You want delete permanently this image?','wpbooking'),
                 'next' => esc_html__('Next','wpbooking'),
                 'prev' => esc_html__('Prev','wpbooking'),
-                'read_more' => esc_html__('Read More','wpbooking')
+                'read_more' => esc_html__('Read More','wpbooking'),
+                'room_name'=>esc_html__('Room Name:','wpbooking')
             ));
 
         }

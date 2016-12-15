@@ -802,6 +802,7 @@ img.settings-demo-image-gallery{
         }
     }
     .st-metabox-content-wrapper{
+        position: relative;
 
         .zoom_size{
             .input-group-addon{
@@ -1637,15 +1638,31 @@ img.settings-demo-image-gallery{
         clear: both;
     }
     .open_section_metabox{
-        &.active{
-            border: solid 1px @maincolor;
-        }
         background: #fff;
         padding: 15px 0;
         margin-bottom: 10px;
         border: solid 1px #fff;
         position: relative;
-      overflow: hidden;
+        overflow: hidden;
+        &.active{
+            border: solid 1px @maincolor;
+        }
+        .wb-back-all-rooms{
+            position: absolute;
+            right:25px;
+            top:20px;
+            z-index: 1;
+            background: white;
+            border:1px solid @maincolor;
+            color: @maincolor;
+            padding: 10px 18px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            &:hover,&:focus{
+                color: @maincolor;
+            }
+        }
     }
 }
 
