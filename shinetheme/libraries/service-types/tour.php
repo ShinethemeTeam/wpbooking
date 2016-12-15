@@ -448,8 +448,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         $total_people = $cart_params['adult_number'] + $cart_params['children_number'] + $cart_params['infant_number'];
 
 
-                        if (!empty($total_people)) {
-                            $is_validated = true;
+                        if (empty($total_people)) {
+                            $is_validated = false;
                             wpbooking_set_message(esc_html__('This tour require at least 1 person', 'wpbooking'), 'error');
                         } else {
                             // Check Slot(s) Remain
