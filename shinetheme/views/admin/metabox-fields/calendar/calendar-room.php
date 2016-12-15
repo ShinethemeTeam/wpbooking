@@ -41,8 +41,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
 								<input type="number" class="form-control" min="0" id="base_price" value="<?php echo esc_attr($df_price); ?>" name="base_price" placeholder="0" >
 							</div>
 						</div>
-					</div>
-                    <div class="form-container">
+
                         <div class="calendar-room-form-item full-width" >
                             <h4 class="form-title"><?php echo __('This Property is available:', 'wpbooking'); ?></h4>
                             <div class="calendar-input-icon mt20">

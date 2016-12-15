@@ -96,36 +96,36 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                 <tr>
                                     <td><?php esc_html_e('Adult','wpbooking') ?></td>
                                     <td>
-                                        <input type="number" name="calendar_adult_minimum" min="0" class="number-select" value="">
+                                        <input type="number" name="calendar_adult_minimum" min="0" class="number-select" value="" placeholder="0">
                                     </td>
                                     <td>
                                         <div class="input-group ">
                                             <span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-                                            <input type="number" class="form-control"  value="0" name="calendar_adult_price"  >
+                                            <input type="number" class="form-control"  value="" name="calendar_adult_price" placeholder="0" >
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td><?php esc_html_e('Child','wpbooking') ?></td>
                                     <td>
-                                        <input type="number" name="calendar_child_minimum" min="0" class="number-select" value="">
+                                        <input type="number" name="calendar_child_minimum" min="0" class="number-select" value="" placeholder="0">
                                     </td>
                                     <td>
                                         <div class="input-group ">
                                             <span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-                                            <input type="number" class="form-control"  value="0" name="calendar_child_price"  >
+                                            <input type="number" class="form-control"  value="" name="calendar_child_price" placeholder="0"  >
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td><?php esc_html_e('Infant','wpbooking') ?></td>
                                     <td>
-                                        <input type="number" name="calendar_infant_minimum" min="0" class="number-select" value="">
+                                        <input type="number" name="calendar_infant_minimum" min="0" class="number-select" value="" placeholder="0">
                                     </td>
                                     <td>
                                         <div class="input-group ">
                                             <span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-                                            <input type="number" class="form-control"  value="0" name="calendar_infant_price"  >
+                                            <input type="number" class="form-control"  value="" name="calendar_infant_price" min="0" placeholder="0" >
                                         </div>
                                     </td>
                                 </tr>

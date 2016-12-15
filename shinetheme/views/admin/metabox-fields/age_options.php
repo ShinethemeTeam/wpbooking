@@ -29,16 +29,16 @@ if(!empty($data['container_class'])) $class.=' '.$data['container_class'];
 if(!is_array($old_data)) $old_data=array();
 $old_data=wp_parse_args($old_data,array(
     'adult'=>array(
-        'minimum'=>'0',
-        'maximum'=>'0'
+        'minimum'=>'',
+        'maximum'=>''
     ),
     'child'=>array(
-        'minimum'=>'0',
-        'maximum'=>'0'
+        'minimum'=>'',
+        'maximum'=>''
     ),
     'infant'=>array(
-        'minimum'=>'0',
-        'maximum'=>'0'
+        'minimum'=>'',
+        'maximum'=>''
     ),
 ))
 ?>

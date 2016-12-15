@@ -407,6 +407,21 @@ img.settings-demo-gallery {
   margin: 5px 0;
   color: #999;
 }
+.wb-breadcrumb-room {
+  margin-bottom: 30px;
+  font-size: 17px;
+}
+.wb-breadcrumb-room a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #333;
+}
+.wb-breadcrumb-room a:hover {
+  color: #ec8223;
+}
+.wb-breadcrumb-room span {
+  color: #ec8223;
+}
 .gallery-row {
   margin-left: -15px;
   margin-right: -15px;
@@ -2275,6 +2290,9 @@ input.gmap-search {
   background: #66cc66;
   color: white;
   border-color: #66cc66;
+}
+.wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .calendar-price-df-form .calendar-room-form-item {
+  margin-top: 30px;
 }
 .wpbooking-calendar-wrapper .wpbooking-calendar-sidebar .calendar-price-df-form .form-group {
   max-width: 215px;

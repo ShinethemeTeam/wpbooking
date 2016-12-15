@@ -110,6 +110,10 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 			}
 		}
 
+        public function _save_base_price(){
+
+        }
+
 		public function _add_availability(){
 
 			$post_id = (int) WPBooking_Input::post('post-id',0);

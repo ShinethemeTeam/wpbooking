@@ -226,8 +226,6 @@ jQuery(document).ready(function($) {
 
             // Check In
 
-
-
             var flag_add = false;
             if( $('.wpbooking-calendar-sidebar .calendar-room-form').length ){
                 $('.wpbooking-calendar-sidebar .calendar-room-form #calendar-save').click(function(event) {
