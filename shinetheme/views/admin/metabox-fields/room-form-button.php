@@ -17,7 +17,7 @@ $data=wp_parse_args($data,array(
 		if(!isset($data['next']) or $data['next']){
 			$class = 'w50';
 		}
-		printf('<a href="#" class="button wb-all-rooms %s">%s</a>',$class,esc_html__('All Rooms','wpbooking'));
+		printf('<a href="#" class="button wb-all-rooms %s"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> %s</a>',$class,esc_html__('Back to All Rooms','wpbooking'));
 	}
 	if(!isset($data['next']) or $data['next']){
 		$class = 'full';

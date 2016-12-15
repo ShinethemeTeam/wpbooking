@@ -96,9 +96,9 @@ $query = new WP_Query(array(
                 <div class="room-count">
                     <?php
                     if($query->found_posts>1){
-                        printf(__('There are %s in your listing','wpbooking'),$query->found_posts?'<span class="n text-color">'.$query->found_posts.'</span> <b>'.esc_html__('room types','wpbooking').'</b>':'<b>'.esc_html__('no room','wpbooking').'</b>');
+                        printf(__('There are %s in your listing','wpbooking'),$query->found_posts?'<span class="n text-color">'.$query->found_posts.'</span> <b>'.esc_html__('room type(s)','wpbooking').'</b>':'<b>'.esc_html__('no room','wpbooking').'</b>');
                     }else{
-                        printf(__('There is %s in your listing','wpbooking'),$query->found_posts?'<span class="n text-color">'.$query->found_posts.'</span> <b>'.esc_html__('room types','wpbooking').'</b>':'<b>'.esc_html__('no room','wpbooking').'</b>');
+                        printf(__('There is %s in your listing','wpbooking'),$query->found_posts?'<span class="n text-color">'.$query->found_posts.'</span> <b>'.esc_html__('room type(s)','wpbooking').'</b>':'<b>'.esc_html__('no room','wpbooking').'</b>');
                     }
                    ?>
                 </div>
