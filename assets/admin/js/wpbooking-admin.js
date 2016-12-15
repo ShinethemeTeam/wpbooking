@@ -1730,7 +1730,7 @@ jQuery(document).ready(function( $ ){
                 $('#living_rooms').trigger("change");
                 $('#room_name').trigger("keypress");
                 $('input[type=number]').trigger("change");
-
+                $('.wb-back-all-rooms-wrap').sticky({topSpacing:30});
                 if(res.message){ alert(res.message);}
             },
             error:function(e){

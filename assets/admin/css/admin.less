@@ -1708,25 +1708,42 @@ img.settings-demo-image-gallery{
         &.active{
             border: solid 1px @maincolor;
         }
-        .wb-back-all-rooms{
-            position: absolute;
-            right:25px;
-            top:20px;
-            z-index: 1;
-            background: white;
-            border:1px solid @maincolor;
-            color: @maincolor;
-            padding: 10px 18px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 15px;
-            &:hover,&:focus{
-                color: @maincolor;
-            }
-        }
+
     }
 }
-
+.sticky-wrapper{
+    position: relative;
+    z-index: 1;
+}
+.wb-back-all-rooms-wrap{
+    //position: absolute;
+    //right:25px;
+    //top:53px;    float: right;
+    float: right;
+    text-align: right;
+}
+.wb-back-all-rooms{
+    z-index: 999;
+    width: 185px;
+    background: white;
+    border:1px solid @maincolor;
+    color: @maincolor;
+    padding: 10px 18px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    &:hover,&:focus{
+        color: @maincolor;
+    }
+}
+.is-sticky{
+    >.wb-back-all-rooms{
+        position: static;
+    }
+}
 //meta_box
 .st-metabox-content-wrapper{
 

@@ -862,12 +862,12 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          * @author quandq
          *
          * @param $post_id
-         * @return array|void
+         * @return array|void|bool
          */
         function _get_room_by_hotel($post_id)
         {
             if (empty($post_id))
-                return;
+                return false;
             $list = array();
             $args = array(
                 'post_type'      => 'wpbooking_hotel_room',
@@ -974,7 +974,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
 
                 // Extra Service
-                array('type' => 'open_section','conner_button'=>'<a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> '.esc_html__('Back to All Rooms','wpbooking').'</a>'),
+                array('type' => 'open_section'),
                 array(
                     'type'  => 'title',
                     'label' => __('Extra Services', 'wpbooking'),
@@ -992,7 +992,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 ),
 
                 // Calendar
-                array('type' => 'open_section','conner_button'=>'<a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> '.esc_html__('Back to All Rooms','wpbooking').'</a>'),
+                array('type' => 'open_section'),
                 array(
                     'label' => __("Price Settings", 'wpbooking'),
                     'type'  => 'title',
@@ -1066,9 +1066,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             $res['status'] = 1;
             $res['html'] = "
+            
                 <input name='wb_room_id' type='hidden' value='" . esc_attr($room_id) . "'>
             ";
             $res['html'] .= sprintf('<input type="hidden" name="wb_hotel_room_security" value="%s">', wp_create_nonce("wpbooking_hotel_room_" . $room_id));
+            $res['html'].='<div class="wb-back-all-rooms-wrap"><a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> '.esc_html__('Back to All Rooms','wpbooking').'</a></div>';
             $fields = $this->get_room_meta_fields();
             foreach ((array)$fields as $field_id => $field):
 
@@ -1246,7 +1248,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          * @author dungft
          *
          * @param $hotel_id
-         * @param bool | WP_Query @query
+         * @param bool @query
          * @return string
          *
          */
@@ -1344,7 +1346,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         function _add_default_query_hook()
         {
             global $wpdb;
-            $table_prefix = WPBooking_Service_Model::inst()->get_table_name();
             $injection = WPBooking_Query_Inject::inst();
             $tax_query = $injection->get_arg('tax_query');
             $rate_calculate = FALSE;
@@ -2452,6 +2453,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $post_id = $this->request('wb_post_id');
             $tab = $this->request('wb_meta_section');
             $service = new WB_Service($post_id);
+            $list_room = array();
             if($service->get_type() == $this->type_id and $tab=='photo_tab'){
                 $arg = array(
                     'post_type'      => 'wpbooking_hotel_room',
@@ -2459,8 +2461,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'post_status'    => array('publish', 'draft', 'pending', 'future', 'private', 'inherit'),
                     'post_parent'    => $post_id
                 );
-                $list_room = array();
-                global $wp_query;
                 query_posts($arg);
                 while(have_posts()){
                     the_post();
