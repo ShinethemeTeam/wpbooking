@@ -13,7 +13,6 @@ if (!class_exists('WPBooking_Email')) {
         function __construct()
         {
             // Init Shortcodes
-
             add_action('init', array($this, '_load_email_shortcodes'));
 
             add_action('wpbooking_send_email_after_checkout', array($this, '_send_order_email_success'));
@@ -23,9 +22,6 @@ if (!class_exists('WPBooking_Email')) {
              * @since 1.0
              */
             add_action('wpbooking_order_item_changed', array($this, '_send_order_email_for_item_changed'));
-
-
-            //add_action('wpbooking_after_checkout_success',array($this,'_send_order_email_confirm'));
 
             add_action('admin_init', array($this, '_test_email'));
 
@@ -38,8 +34,6 @@ if (!class_exists('WPBooking_Email')) {
             add_action('wp_ajax_wpbooking_booking_email_preview', array($this, '_preview_email'));
 
         }
-
-
         /**
          * Get All Available Booking Email Shortcodes
          *
@@ -88,12 +82,10 @@ if (!class_exists('WPBooking_Email')) {
         }
 
         function _send_order_email_for_item_changed($order_id){
-
             if (wpbooking_get_option('on_booking_email_customer')) {
 
                 $this->send_customer_email($order_id);
             }
-
         }
         function _send_order_email_success($order_id)
         {
@@ -122,9 +114,7 @@ if (!class_exists('WPBooking_Email')) {
          */
         private function send_admin_email($order_id)
         {
-
             $to = wpbooking_get_option('system_email');
-
             WPBooking()->set('is_email_to_admin', 1);
             WPBooking()->set('order_id', $order_id);
             $subject = sprintf(__("New Order from %s", 'wpbooking'), get_bloginfo('title'));
@@ -132,7 +122,6 @@ if (!class_exists('WPBooking_Email')) {
             $message = $this->replaceShortcode($message);
             $message = do_shortcode($message);
             $this->send($to, $subject, $message);
-
             WPBooking()->set('is_email_to_admin', 0);
         }
 
@@ -258,11 +247,6 @@ if (!class_exists('WPBooking_Email')) {
             }
 
             do_action('wpbooking_after_send_customer_email', $order_id);
-
-        }
-
-        function _send_order_email_confirm()
-        {
 
         }
 
@@ -396,12 +380,10 @@ if (!class_exists('WPBooking_Email')) {
             WPBooking_Loader::inst()->load_library('shortcodes/emails/order-table');
             WPBooking_Loader::inst()->load_library('shortcodes/emails/order_id');
             WPBooking_Loader::inst()->load_library('shortcodes/emails/order_name_customer');
-            //WPBooking_Loader::inst()->load_library('shortcodes/emails/order_date');
             WPBooking_Loader::inst()->load_library('shortcodes/emails/order_total');
             WPBooking_Loader::inst()->load_library('shortcodes/emails/order_payment_gateway');
             WPBooking_Loader::inst()->load_library('shortcodes/emails/booking_status');
             WPBooking_Loader::inst()->load_library('shortcodes/emails/checkout-info');
-           // WPBooking_Loader::inst()->load_library('shortcodes/emails/checkout_form_field');
         }
 
         /**
@@ -447,7 +429,7 @@ if (!class_exists('WPBooking_Email')) {
             return $header;
         }
         /**
-         * Get header email templates html
+         * Get footer email templates html
          *
          * @since 1.0
          * @author tienhd
