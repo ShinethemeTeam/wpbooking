@@ -97,6 +97,7 @@ if (!class_exists('WPBooking_Metabox')) {
                                 }else{
                                     $need_validate=true;
                                     $form_validate->set_rules($field['id'],strtolower($field['label']),$field['rules']);
+
                                 }
 
 
@@ -133,8 +134,14 @@ if (!class_exists('WPBooking_Metabox')) {
 
                         if($need_validate){
                             $is_validated=$form_validate->run();
-
                             if(!$is_validated) $res['error_fields']=$form_validate->get_error_fields();
+                            foreach($metabox[$section]['fields'] as $field){
+                                if(!empty($field['error_message'])){
+                                    if(key_exists($field['id'],$res['error_fields'])){
+                                        $res['error_fields'][$field['id']] = $field['error_message'];
+                                    }
+                                }
+                            }
                         }
 
                         // Specific validate for Room Size

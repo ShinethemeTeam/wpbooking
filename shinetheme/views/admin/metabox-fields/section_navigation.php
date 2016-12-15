@@ -42,12 +42,12 @@ if($action == 'edit'){
 		}
         $loading = '<i class="fa fa-spinner fa-pulse"></i>';
         if($action == 'edit'){
-            $data['next_label'] = esc_html__('Next Step','wpbooking');
+            $data['next_label'] = esc_html__('Save & Next Step','wpbooking');
             $class = 'w30 wb-next';
             $loading = '';
         }
 		if($data['ajax_saving']) $class.=' ajax_saving';
-		printf('<a href="#" class="button wb-next-section %s">%s %s</a>',$class,$data['next_label'], $loading);
+		printf('<a href="#" class="button wb-next-section %s">%s %s <i class="fa fa-spinner fa-pulse"></i></a>',$class,$data['next_label'], $loading);
 	}
 
 	?>

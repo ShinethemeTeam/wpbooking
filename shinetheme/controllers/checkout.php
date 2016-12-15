@@ -373,7 +373,12 @@ if(!class_exists('WPBooking_Checkout_Controller'))
          */
         function get_checkout_url()
         {
-            return get_permalink(wpbooking_get_option('checkout_page'));
+            $checkout_url= get_permalink(wpbooking_get_option('checkout_page'));
+            $allow_guest_checkout=wpbooking_get_option('allow_guest_checkout');
+            if(!$allow_guest_checkout and !is_user_logged_in()){
+                $checkout_url=wp_login_url($checkout_url);
+            }
+            return $checkout_url;
         }
 
         /**
@@ -511,7 +516,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 'user_phone'           => array(
                     'title'       => esc_html__( "Telephone" , "wpbooking" ) ,
                     'placeholder' => esc_html__( "Telephone" , "wpbooking" ) ,
-                    'type'        => 'text' ,
+                    'type'        => 'number' ,
                     'name'        => 'user_phone' ,
                     'size'        => '12' ,
                     'required'    => true ,

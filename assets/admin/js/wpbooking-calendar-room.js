@@ -53,8 +53,18 @@ jQuery(document).ready(function($) {
                         if($('.calendar-room2').hasClass('tour')) {
                             if ($('.calendar-room2').hasClass('per_person')) {
                                 if (source.status == 'available' && (source.adult_price != 0 || source.infant_price != 0 || source.child_price != 0 )) {
-                                    element.append('<span class="wb-person"> Adult: ' + source.adult_price + '<br>' +
-                                        'Child: ' + source.child_price +'<br>Infant: ' + source.infant_price + '</span>');
+                                    var html_info = '<span class="wb-person">';
+                                    if(source.adult_price != undefined && source.adult_price != 0){
+                                        html_info += 'Adult: ' + source.adult_price;
+                                    }
+                                    if(source.child_price != undefined && source.child_price != 0) {
+                                        html_info += '<br>Child: ' + source.child_price;
+                                    }
+                                    if(source.infant_price != undefined && source.infant_price != 0) {
+                                        html_info += '<br>Infant: ' + source.infant_price;
+                                    }
+                                        html_info += '</span>';
+                                    element.append(html_info);
                                 }
                             } else{
                                 if (source.status == 'available' && source.calendar_price != undefined && source.calendar_price != 0) {
@@ -90,18 +100,24 @@ jQuery(document).ready(function($) {
                                 $('input[name=calendar_price]').val('');
                             }
 
-                            if((source.adult_price != 0 || source.child_price != 0 || source.infant_price != 0)) {
+                            if(source.adult_price != undefined && source.adult_price != 0){
                                 $('input[name=calendar_adult_minimum]').val(source.adult_minimum);
                                 $('input[name=calendar_adult_price]').val(source.adult_price);
-                                $('input[name=calendar_child_minimum]').val(source.child_minimum);
-                                $('input[name=calendar_child_price]').val(source.child_price);
-                                $('input[name=calendar_infant_minimum]').val(source.infant_minimum);
-                                $('input[name=calendar_infant_price]').val(source.infant_price);
                             }else{
                                 $('input[name=calendar_adult_minimum]').val('');
                                 $('input[name=calendar_adult_price]').val('');
+                            }
+                            if(source.child_price != undefined && source.child_price != 0){
+                                $('input[name=calendar_child_minimum]').val(source.child_minimum);
+                                $('input[name=calendar_child_price]').val(source.child_price);
+                            }else{
                                 $('input[name=calendar_child_minimum]').val('');
                                 $('input[name=calendar_child_price]').val('');
+                            }
+                            if(source.child_price != undefined && source.child_price != 0){
+                                $('input[name=calendar_infant_minimum]').val(source.infant_minimum);
+                                $('input[name=calendar_infant_price]').val(source.infant_price);
+                            }else{
                                 $('input[name=calendar_infant_minimum]').val('');
                                 $('input[name=calendar_infant_price]').val('');
                             }
@@ -163,7 +179,10 @@ jQuery(document).ready(function($) {
                     }else{
                         $('#calendar-checkout').val('');
                         self.last_end_date=false;
-                        $('#calendar-checkout').datepicker('show');
+                        window.setTimeout(function(){
+                            $('#calendar-checkout').datepicker('show');
+                        },100)
+
                     }
 
                 }
@@ -187,7 +206,9 @@ jQuery(document).ready(function($) {
                     }else{
                         $('#calendar-in').val('');
                         self.last_start_date=false;
-                        $('#calendar-checkin').datepicker('show');
+                        window.setTimeout(function(){
+                            $('#calendar-checkin').datepicker('show');;
+                        },100)
                     }
                 }
             });

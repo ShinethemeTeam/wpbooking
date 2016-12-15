@@ -50,10 +50,10 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
                 <div class="tax_input_col_right">
                     <label class="label_vat_unit" for="<?php esc_html_e("Unit","wpbooking") ?>"><?php  esc_html_e("Unit","wpbooking") ?></label>
                     <select class="form-control widefat small" name="citytax_unit">
-                        <option <?php selected("stay",get_post_meta($post_id, 'citytax_unit', TRUE)) ?> value="stay"> <?php printf(esc_html__("%s %s /stay",'wpbooking'),WPBooking_Currency::get_current_currency('currency'),WPBooking_Currency::get_current_currency('symbol'));?></option>
-                        <option <?php selected("person_per_stay",get_post_meta($post_id, 'citytax_unit', TRUE)) ?> value="person_per_stay"> <?php printf(esc_html__("%s %s /person per stay",'wpbooking'),WPBooking_Currency::get_current_currency('currency'),WPBooking_Currency::get_current_currency('symbol'));  ?></option>
-                        <option <?php selected("night",get_post_meta($post_id, 'citytax_unit', TRUE)) ?> value="night"> <?php printf(esc_html__("%s %s /night",'wpbooking'),WPBooking_Currency::get_current_currency('currency'),WPBooking_Currency::get_current_currency('symbol'));  ?></option>
-                        <option <?php selected("person_per_night",get_post_meta($post_id, 'citytax_unit', TRUE)) ?> value="person_per_night"> <?php printf(esc_html__("%s %s /person per night",'wpbooking'),WPBooking_Currency::get_current_currency('currency'),WPBooking_Currency::get_current_currency('symbol'));  ?></option>
+                        <option <?php selected("stay",get_post_meta($post_id, 'citytax_unit', TRUE)) ?> value="stay"> <?php printf(esc_html__("%s /stay",'wpbooking'),WPBooking_Currency::get_current_currency('symbol'));?></option>
+                        <option <?php selected("person_per_stay",get_post_meta($post_id, 'citytax_unit', TRUE)) ?> value="person_per_stay"> <?php printf(esc_html__("%s /person per stay",'wpbooking'),WPBooking_Currency::get_current_currency('symbol'));  ?></option>
+                        <option <?php selected("night",get_post_meta($post_id, 'citytax_unit', TRUE)) ?> value="night"> <?php printf(esc_html__("%s /night",'wpbooking'),WPBooking_Currency::get_current_currency('symbol'));  ?></option>
+                        <option <?php selected("person_per_night",get_post_meta($post_id, 'citytax_unit', TRUE)) ?> value="person_per_night"> <?php printf(esc_html__("%s /person per night",'wpbooking'),WPBooking_Currency::get_current_currency('symbol'));  ?></option>
                         <option <?php selected("percent",get_post_meta($post_id, 'citytax_unit', TRUE)) ?> value="percent"><?php esc_html_e("Percent (%)",'wpbooking') ?></option>
                     </select>
                     <p class="help-block"></p>

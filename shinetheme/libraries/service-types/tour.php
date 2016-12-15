@@ -159,7 +159,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             if ($cart['price']) {
                 echo '<span class="total-title">' . esc_html__('Tour Price', 'wpbooking') . '</span>
                       <span class="total-amount">' . WPBooking_Currency::format_money($cart['price']) . '</span>';
-                
+
             }
         }
 
@@ -448,8 +448,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         $total_people = $cart_params['adult_number'] + $cart_params['children_number'] + $cart_params['infant_number'];
 
 
-                        if (!empty($total_people)) {
-                            $is_validated = true;
+                        if (empty($total_people)) {
+                            $is_validated = false;
                             wpbooking_set_message(esc_html__('This tour require at least 1 person', 'wpbooking'), 'error');
                         } else {
                             // Check Slot(s) Remain
@@ -530,7 +530,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
 
                             if (!empty($error_message)) {
                                 $is_validated = false;
-                                wpbooking_set_message(sprintf(esc_html__('This tour require at least %s', 'wpbooking'), implode(', ', $error_message)), 'error');
+                                wpbooking_set_message(sprintf(esc_html__('This tour require at least %s people', 'wpbooking'), implode(', ', $error_message)), 'error');
                             } elseif (!$total_people) {
                                 $is_validated = false;
                                 wpbooking_set_message(esc_html__('This tour require at least 1 person', 'wpbooking'), 'error');
@@ -739,7 +739,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'label' => __('Contact Number', 'wpbooking'),
                             'id'    => 'contact_number',
                             'desc'  => esc_html__('The contact phone', 'wpbooking'),
-                            'type'  => 'text',
+                            'type'  => 'number',
                             'class' => 'small',
                             'rules' => 'required'
                         ),
@@ -959,7 +959,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'id'    => 'tour_gallery',
                             'type'  => 'gallery',
                             'rules' => 'required',
-                            'desc'  => __('Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wpbooking')
+                            'desc'  => __('Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wpbooking'),
+                            'error_message' => esc_html__('You must upload minimum one photo for your tour','wpbooking')
                         ),
 
                         array(

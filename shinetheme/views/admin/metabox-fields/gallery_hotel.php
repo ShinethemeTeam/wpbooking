@@ -62,6 +62,8 @@ if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
             $field .= '</div>';
         }
     }
+}else{
+    $class .= ' wpbooking-no-gallery ';
 }
 
 

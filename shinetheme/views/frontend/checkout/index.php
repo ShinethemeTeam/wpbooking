@@ -8,6 +8,16 @@ echo wpbooking_get_message();
 if (empty($cart)) {
     return;
 }
+$allow_guest_checkout=wpbooking_get_option('allow_guest_checkout');
+if(!$allow_guest_checkout and !is_user_logged_in()){
+    $checkout_url=$booking->get_checkout_url();
+    ?>
+    <script type="text/javascript">
+        window.location.href='<?php echo esc_url($checkout_url) ?>';
+    </script>
+    <?php
+    return false;
+}
 ?>
 <div class="wpbooking-checkout-wrap">
     <div class="wpbooking_checkout_form">

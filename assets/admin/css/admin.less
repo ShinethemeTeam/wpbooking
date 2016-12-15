@@ -171,6 +171,9 @@ img.settings-demo-gallery{
     padding-right: 15px;
 
 }
+.wpbooking-no-gallery{
+
+}
 .gallery-row{
     margin-left: -15px;
     margin-right: -15px;
@@ -674,10 +677,26 @@ img.settings-demo-image-gallery{
             width: 215px;
         }
     }
+  ::-webkit-input-placeholder {
+    font-style: italic;
+    color: #999;
+  }
+  :-moz-placeholder {
+    font-style: italic;
+    color: #999;
+  }
+  ::-moz-placeholder {
+    font-style: italic;
+    color: #999;
+  }
+  :-ms-input-placeholder {
+    font-style: italic;
+    color: #999;
+  }
     .form-control{
         height: 30px;
         padding: 4px 8px;
-        font-size: 14px;
+        font-size: 13px;
         color: #555;
         background-color: #fff;
         background-image: none;
@@ -3031,8 +3050,10 @@ a.ui-datepicker-next {
             z-index: 99;
         }
         .wb-section-navigation{
-            .fa{
-                display: inline-block;
+            .loading{
+                .fa{
+                    display: inline-block;
+                }
             }
         }
     }
@@ -3112,6 +3133,7 @@ a.ui-datepicker-next {
             .st-metabox-content-wrapper{
                 input{
                     float: left;
+                  font-size: 13px;
                 }
                 .unit_type{
                     height: 30px;
@@ -3126,7 +3148,7 @@ a.ui-datepicker-next {
             }
             .extra-item{
                 .clearfix;
-                margin-bottom: 15px;
+                margin-bottom: 35px;
                 .service_detail{
                     float: left;
                     width: 200px;
@@ -3141,12 +3163,12 @@ a.ui-datepicker-next {
                     float: left;
                     width: 215px;
                     margin-right: 15px;
-                  margin-bottom: 10px;
+                  //margin-bottom: 10px;
                 }
               .max-quantity{
                 float: left;
                 margin-right: 20px;
-                  margin-bottom: 20px;
+                  //margin-bottom: 20px;
                 select{
                   min-width: 44px;
                 }
@@ -3155,11 +3177,11 @@ a.ui-datepicker-next {
                     float: left;
                     width: 120px;
                     margin-right: 20px;
-                    margin-bottom: 20px;
+                    //margin-bottom: 20px;
                 }
                 .require-options{
                     float: left;
-                    margin-bottom: 20px;
+                    //margin-bottom: 20px;
                 }
                 .service_desc{
                     width: 100%; float: left;

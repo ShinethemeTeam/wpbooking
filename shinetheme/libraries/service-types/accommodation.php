@@ -16,7 +16,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         {
             $this->type_info = array(
                 'label' => __("Accommodation", 'wpbooking'),
-                'desc'  => esc_html__('Traveler accommodation, often a restaurant, meeting rooms and other services for guests', 'wpbooking')
+                'desc'  => esc_html__('You can post any kind of property like hotel, hostel, room like airbnb... anything called accommodation', 'wpbooking')
             );
 
             $this->settings = array(
@@ -474,9 +474,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'label'        => __('Contact Number', 'wpbooking'),
                             'id'           => 'contact_number',
                             'desc'         => esc_html__('The contact phone', 'wpbooking'),
-                            'type'         => 'text',
+                            'type'         => 'number',
                             'class'        => 'small',
-                            'rules'=>'required'
+                            'rules'=>'required',
+                            'min' => 0
                         ),
                         array(
                             'label'       => __('Contact Email', 'wpbooking'),
@@ -824,6 +825,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'id'    => 'gallery',
                             'type'  => 'gallery_hotel',
                             'rules'=>'array_key_required[gallery]',
+                            'error_message' => esc_html__('You must upload minimum one photo for your accommodation','wpbooking'),
                             'desc'  => __('Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wpbooking')
                         ),
                         array(
@@ -939,8 +941,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'type'  => 'dropdown',
                     'id'    => 'bath_rooms',
                     'value' => array(
-                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+                        0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
                     ),
+                    'std' => 0,
                     'class' => 'small'
                 ),
                 array(
@@ -948,7 +951,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'type'  => 'dropdown',
                     'id'    => 'living_rooms',
                     'value' => array(
-                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+                        0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
                     ),
                     'class' => 'small'
                 ),

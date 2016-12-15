@@ -76,15 +76,15 @@ $df_price=get_post_meta($post_id,'base_price',true);
 							</select>
 						</div>
 						<div class="calendar-room-form-item full-width" style="clear:both" >
-							<label class="calendar-label" for="calendar-price"><?php echo __('Nightly Price', 'wpbooking'); ?></label>
+							<label class="calendar-label" for="calendar-price"><?php echo __('Price', 'wpbooking'); ?></label>
 							<input class="calendar-input" type="number" id="calendar-price" name="calendar-price" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
 						</div>
 						<div class="calendar-room-form-item full-width hidden" >
-							<label class="calendar-label" for="calendar-price-week"><?php echo __('Weekly Price', 'wpbooking'); ?></label>
+							<label class="calendar-label" for="calendar-price-week"><?php echo __('Price', 'wpbooking'); ?></label>
 							<input class="calendar-input-week" type="text" id="calendar-price-week" name="calendar-price-week" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
 						</div>
 						<div class="calendar-room-form-item full-width hidden" >
-							<label class="calendar-label" for="calendar-price-month"><?php echo __('Montly Price', 'wpbooking'); ?></label>
+							<label class="calendar-label" for="calendar-price-month"><?php echo __('Price', 'wpbooking'); ?></label>
 							<input class="calendar-input-month" type="text" id="calendar-price-month" name="calendar-price-month" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
 						</div>
 						<div class="clear"></div>
@@ -103,14 +103,23 @@ $df_price=get_post_meta($post_id,'base_price',true);
 
 					<div class="calendar-help">
 						<div class="help-label"><?php esc_html_e('How to set Availability ?','wpbooking') ?></div>
+						<h4><strong><?php esc_html_e('Way 1:','wpbooking') ?></strong></h4>
 						<ul class="list">
 							<li>+ <?php esc_html_e('To set availability on your calendar:','wpbooking') ?>
 								<ul>
-									<li>- <?php esc_html_e('Click a day in the calendar to set a start date','wpbooking') ?></li>
-									<li>- <?php esc_html_e('Click another day to set the end date of the period you want to edit','wpbooking') ?></li>
+									<li>- <?php esc_html_e('A right sight table, click to Start Date picker to set a start date','wpbooking') ?></li>
+									<li>- <?php esc_html_e('A right sight table, click to End Date picker to set a end date of the period you want to edit','wpbooking') ?></li>
 								</ul>
 							</li>
-							<li>+ <?php esc_html_e('A right sight table, allowing you to set availbility for that period','wpbooking')?></li>
+							<li>+ <?php esc_html_e('A right sight table, allowing you to set status and price for that period','wpbooking')?></li>
+
+						</ul>
+						<h4><strong><?php esc_html_e('Way 1:','wpbooking') ?></strong></h4>
+						<ul class="list">
+							<li>+ <?php esc_html_e('Drag the mouse in the left calendar to get start date and end date','wpbooking') ?>
+							</li>
+							<li>+ <?php esc_html_e('A right sight table, allowing you to set status and price for that period','wpbooking')?></li>
+
 						</ul>
 					</div>
 					<div id="form-bulk-edit">
