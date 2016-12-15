@@ -901,7 +901,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 array(
                     'type' => 'breadcrumb',
                     'new_text' => esc_html__('Add new room','wpbooking'),
-                    'edit_text' => esc_html__('Edit room','wpbooking')
                 ),
                 array('type' => 'open_section','conner_button'=>'<a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> '.esc_html__('Back to All Rooms','wpbooking').'</a>'),
                 array(

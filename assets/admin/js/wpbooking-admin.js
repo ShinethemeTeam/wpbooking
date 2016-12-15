@@ -1700,7 +1700,9 @@ jQuery(document).ready(function( $ ){
         parent.addClass('on-loading');
 
         var edit_room_class = '';
-        if(room_id===undefined) room_id=0;
+        if(room_id===undefined) {
+            room_id = 0;
+        }
         if(hotel_id===undefined){
             edit_room_class = 'wb-edit-room';
             hotel_id=0;
