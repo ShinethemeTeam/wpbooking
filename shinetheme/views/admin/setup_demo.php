@@ -9,7 +9,6 @@
             <li class="<?php if($is_tab == "wp_general") echo "active"; ?>"><?php esc_html_e("General Setup","wpbooking") ?></li>
             <li class="<?php if($is_tab == "wp_booking") echo "active"; ?>"><?php esc_html_e("Booking Setup","wpbooking") ?></li>
             <li class="<?php if($is_tab == "wp_email") echo "active"; ?>"><?php esc_html_e("Email Setup","wpbooking") ?></li>
-            <li class="<?php if($is_tab == "wp_service") echo "active"; ?>"><?php esc_html_e("Service Setup","wpbooking") ?></li>
             <li class="<?php if($is_tab == "wp_payment") echo "active"; ?>"><?php esc_html_e("Payment Setup","wpbooking") ?></li>
         </ol>
         <?php
