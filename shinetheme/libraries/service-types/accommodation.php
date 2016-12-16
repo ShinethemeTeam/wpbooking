@@ -281,8 +281,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'checkout_m' => date("m",$cart['check_out_timestamp']),
                     'checkout_y' => date("Y",$cart['check_out_timestamp']),
                 ), get_permalink($post_id));
+                if(!isset($cart['is_cart_page']) or $cart['is_cart_page']){
                 ?>
                 <small><a href="<?php echo esc_url($url_change_date) ?>"><?php esc_html_e("Change Date","wpbooking") ?></a></small>
+                    <?php }?>
             </div>
             <?php
         }
@@ -300,6 +302,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if(!empty($order_data['raw_data'])){
                 $raw_data=json_decode($order_data['raw_data'],true);
                 if($raw_data){
+                    $raw_data['is_cart_page']=false;
                     $this->_show_start_end_information($raw_data);
                 }
             }
