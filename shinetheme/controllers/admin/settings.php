@@ -23,12 +23,10 @@ if(!class_exists('WPBooking_Admin_Setting'))
 
         }
 
-
         function _add_scripts()
         {
             wp_enqueue_script ('jquery-ui-tabs');
             wp_enqueue_media();
-
         }
 
 		/**
@@ -69,7 +67,6 @@ if(!class_exists('WPBooking_Admin_Setting'))
 					}
 				}
 			}
-
 			echo json_encode($res);
 			die;
 		}

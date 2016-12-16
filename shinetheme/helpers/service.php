@@ -28,7 +28,6 @@ if(!function_exists('wpbooking_service_price_html'))
 
 		$price=wpbooking_service_price($post_id);
 
-		//$currency=get_post_meta($post_id,'currency',TRUE);
 		$service_type= get_post_meta($post_id,'service_type',true);
 
 		$price_html=WPBooking_Currency::format_money($price);

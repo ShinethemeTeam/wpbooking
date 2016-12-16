@@ -1083,7 +1083,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $class_extra = 'wpbooking-hndle-tag-input';
                 }
                 $file = 'metabox-fields/' . $field['type'];
-                //var_dump($file);
 
                 $field_html = apply_filters('wpbooking_metabox_field_html_' . $field['type'], false, $field);
 
@@ -1166,8 +1165,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     // Save Extra Fields
                     //property_available_for
                     if (isset($_POST['property_available_for'])) update_post_meta($room_id, 'property_available_for', $_POST['property_available_for']);
-//                    var_dump($room_id);
-//                    var_dump(get_post($room_id));
                     $hotel_id = wp_get_post_parent_id($room_id);
                     $list_room_new = $this->_get_room_by_hotel($hotel_id);
 
@@ -1800,7 +1797,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         "check_out"   => __("Check Out", "wpbooking"),
                         "adult_child" => __("Adult And Children", "wpbooking"),
                         "taxonomy"    => __("Taxonomy", "wpbooking"),
-//                        "review_rate" => __("Review Rate", "wpbooking"),
                         "star_rating" => __("Star Of Property", "wpbooking"),
                         "price"       => __("Price", "wpbooking"),
                     )

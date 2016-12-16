@@ -74,7 +74,6 @@ curl_close($curlSession);
                             <div class="extension">
                                 <div class="thumnail">
                                     <img src="<?php echo esc_url($val->thumb_url); ?>" alt="<?php echo esc_attr($val->title); ?>"/>
-<!--                                            <span class="featured">--><?php //echo esc_html__('HOT', 'wpbooking') ?><!--</span>-->
                                 </div>
                                 <div class="info">
                                     <h3 class="title"><?php echo esc_attr($val->title); ?></h3>
