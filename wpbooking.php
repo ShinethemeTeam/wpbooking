@@ -409,7 +409,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
                 'capability' => 'manage_options',
                 'menu_slug'  => 'wpbooking',
                 'function'   => array($this, '_show_default_page'),
-                'icon_url'   => FALSE,
+                'icon_url'   => 'dashicons-analytics',
                 'position'   => 55
             ));
 
