@@ -434,6 +434,9 @@ $age_options=$service->get_meta('age_options');
 
         </div>
     </div>
+    <?php
+    do_action('wpbooking_before_comment_template');
+    ?>
     <div class="service-content-section comment-section">
         <?php
         if (comments_open(get_the_ID()) || get_comments_number()) :
