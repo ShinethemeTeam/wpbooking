@@ -59,10 +59,6 @@ if (!class_exists('WPBooking_Inbox_Model')) {
 					'is_read'    => 0,
 					'is_parent'=>0
 				);
-//				$count=$this->select('count(id) as total')->where(array(
-//					'from_user'=>get_current_user_id(),
-//					'to_user'=>$to_user,
-//				));
 
 				return $this->insert($insert);
 			}

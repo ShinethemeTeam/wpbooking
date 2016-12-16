@@ -10,10 +10,6 @@ $_version = '1.0';
 
 $extension_url = add_query_arg(array('page' => 'wpbooking_page_extensions'), admin_url('admin.php'));
 $tabs = array(
-//    array(
-//        'id' => 'what_new',
-//        'name' => esc_html__('What\'s New','wpbooking'),
-//    ),
     array(
         'id' => 'get_started',
         'name' => esc_html__('Get Started','wpbooking'),

@@ -67,8 +67,6 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 						$all_days[$dt->format('Y-m-d')]=array(
 							'start'=>$dt->format('Y-m-d'),
 							'end'=>$dt->format('Y-m-d'),
-							//'rendering'=>'background',
-							//'backgroundColor'=>'#dce0e0'
 							'status'=>'available',
 							'can_check_in'=>1,
 							'can_check_out'=>1,
@@ -81,7 +79,6 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 						}
 
 					}
-
 					// Foreach Data
 					if(!empty($return)){
 						foreach($return as $day){
@@ -90,22 +87,17 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 							}
 						}
 					}
-
 					// Now append the exsits
 					if(!empty($all_days)){
 						foreach($all_days as $day){
 							$return[]=$day;
 						}
 					}
-
-
 					$data=array(
 						'data'=>$return
 					);
-
 					echo json_encode( $data );
 					die;
-
 				}
 			}
 		}
@@ -570,10 +562,6 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
                         'infant_price' => $item['infant_price'],
                         'pricing_type' => get_post_meta($item['post_id'],'pricing_type', true),
 					);
-//					if($item['status']=='not_available'){
-//						$item_array['rendering']='background';
-//						$item_array['backgroundColor']='#dce0e0';
-//					}
 
 					$return[] =$item_array;
 				}
