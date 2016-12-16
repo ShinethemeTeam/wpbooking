@@ -487,6 +487,9 @@ if (!class_exists('WPBooking_Service_Controller')) {
         /**
          * get latest booking html
          *
+         * @since 1.0
+         * @author tienhd
+         *
          * @param $post_id
          * @param $service_type
          * @param $service
@@ -510,7 +513,10 @@ if (!class_exists('WPBooking_Service_Controller')) {
                     }
                     $latest_booking = '<p class="wb-latest-booking">'.esc_html__('Latest booking: ','wpbooking').$latest_str.'</p>';
 
-                    echo apply_filters('wpbooking_latest_booking_html_'.$service_type,$latest_booking,$post_id,$latest_time,$current);
+                    $latest_booking = apply_filters('wpbooking_latest_booking_html',$latest_booking,$service_type,$post_id,$latest_time,$current);
+                    $latest_booking = apply_filters('wpbooking_latest_booking_html_'.$service_type,$latest_booking,$post_id,$latest_time,$current);
+
+                    echo do_shortcode($latest_booking);
                 }
             }
         }
