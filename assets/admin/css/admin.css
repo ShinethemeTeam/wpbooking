@@ -4741,3 +4741,12 @@ label[for=wpbooking_room_typediv-hide] {
   word-break: initial;
   word-wrap: initial;
 }
+.h_400 {
+  height: 400px;
+}
+.mr_10 {
+  margin-right: 10px;
+}
+.mb_7 {
+  margin-bottom: 7px;
+}

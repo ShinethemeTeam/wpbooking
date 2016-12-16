@@ -27,7 +27,7 @@ if(!empty($data['condition'])){
 		<label for="<?php echo esc_html($name) ?>"><?php echo esc_html($data['label']) ?>:</label>
 	</th>
 	<td>
-		<div  id="<?php echo esc_attr($name) ?>" style="height: 400px" class="width-800 ace-editor" ></div>
+		<div  id="<?php echo esc_attr($name) ?>" class="width-800 ace-editor h_400" ></div>
 		<textarea name="<?php echo esc_html($name) ?>" class="form-control  min-width-800 hidden" data-type="css"><?php echo esc_html($data_value) ?></textarea>
 		<i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
 	</td>

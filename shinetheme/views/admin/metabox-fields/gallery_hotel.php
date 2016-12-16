@@ -69,7 +69,7 @@ if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
 
 $field .= '</div>';        
 
-$field .= '<div class="clearfix gallery-control"><button style="margin-right: 10px;" id="" class="button-gallery-primary btn_upload_gallery_hotel mb10" type="button" name="">'. __("Add Gallery","wpbooking").'</button>';
+$field .= '<div class="clearfix gallery-control"><button  id="" class="button-gallery-primary btn_upload_gallery_hotel mb10 mr_10" type="button" name="">'. __("Add Gallery","wpbooking").'</button>';
 $show_btn_remove = false;
 if(!empty($old_data['gallery']) and count( $tmp = explode(',', $old_data['gallery'] ) ) > 0 ){
     $show_btn_remove = true;
