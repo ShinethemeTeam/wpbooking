@@ -38,7 +38,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
         protected $_dir_path = FALSE;
         protected $_dir_url = FALSE;
 
-        public $API_URL = 'http://188.166.251.178/wpbooking/wp-admin/admin-ajax.php';
+        public $API_URL = 'http://wpbooking.org/wp-admin/admin-ajax.php';
 
 
         /**

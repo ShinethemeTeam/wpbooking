@@ -59,7 +59,7 @@
                    <li><?php echo esc_html__('Setting photos of accommodation','wpbooking')?></li>
                 </ul>
             </div>
-            <img src="<?php echo wpbooking_admin_assets_url('images/wb-step.png')?>" class="img-step img-right"/>
+            <img src="<?php echo wpbooking_admin_assets_url('images/accommodation-final.png')?>" class="img-step"/>
         </div>
         <div class="step">
             <div class="left">
@@ -72,18 +72,36 @@
                     <li><?php echo esc_html__('Setting available status of room','wpbooking')?></li>
                 </ul>
             </div>
-            <img src="<?php echo wpbooking_admin_assets_url('images/wb-step.png')?>" class="img-step img-left"/>
+            <img src="<?php echo wpbooking_admin_assets_url('images/room-final.png')?>" class="img-step"/>
         </div>
         <div class="step">
             <div class="left">
-                <h3><?php echo esc_html__('Check and manage your bookings','wpbooking')?></h3>
+                <h3><?php echo esc_html__('Create new tour','wpbooking')?></h3>
+                <p><?php echo esc_html__('Tour is a other part of WpBooking plugin. You can use it for tourism, events or workshops, etc. You need setting tour information following:','wpbooking');?></p>
+                <ul>
+                    <li><?php echo esc_html__('Create contact information of tour','wpbooking')?></li>
+                    <li><?php echo esc_html__('Setting location of tour','wpbooking')?></li>
+                    <li><?php echo esc_html__('Setting pricing and status of tour','wpbooking')?></li>
+                    <li><?php echo esc_html__('Setting policies of tour: tax, cancellation policies','wpbooking')?></li>
+                    <li><?php echo esc_html__('Setting photos of tour','wpbooking')?></li>
+                </ul>
+            </div>
+            <img src="<?php echo wpbooking_admin_assets_url('images/tour-final.png')?>" class="img-step"/>
+        </div>
+        <div class="step">
+            <div class="left">
+                <h3><?php echo esc_html__('Manage your bookings','wpbooking')?></h3>
 
                 <ul>
                     <li><?php echo esc_html__('After user booking success, you can replace booking status of user booking(s) easy to use Booking Admin Panel','wpbooking')?></li>
                     <li><?php echo esc_html__('You can view booking report by the chart','wpbooking')?></li>
                 </ul>
+
             </div>
-            <img src="<?php echo wpbooking_admin_assets_url('images/wb-step.png')?>" class="img-step img-right"/>
+            <div class="right">
+                <img src="<?php echo wpbooking_admin_assets_url('images/allbooking-final.png')?>" class="img-step"/>
+                <img src="<?php echo wpbooking_admin_assets_url('images/report-final.png')?>" class="img-step"/>
+            </div>
         </div>
         <div class="step">
             <div class="left">
@@ -94,10 +112,9 @@
                     <li><?php echo esc_html__('Booking/register notification email','wpbooking')?></li>
                     <li><?php echo esc_html__('Edit notification email easy','wpbooking')?></li>
                     <li><?php echo esc_html__('Setting payment methods','wpbooking')?></li>
-                    <li><?php echo esc_html__('Setting review options','wpbooking')?></li>
                 </ul>
             </div>
-            <img src="<?php echo wpbooking_admin_assets_url('images/wb-step.png')?>" class="img-step img-left"/>
+            <img src="<?php echo wpbooking_admin_assets_url('images/setting-general-final.png')?>" class="img-step"/>
         </div>
     </div>
     <div class="footer">

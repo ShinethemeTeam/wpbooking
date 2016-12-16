@@ -4222,6 +4222,24 @@ label[for=wpbooking_room_typediv-hide] {
   top: 7px;
   left: -18px;
 }
+.wpbooking-info .wb-content .content .step .left img,
+.wpbooking-extension .wb-content .content .step .left img {
+  width: 100%;
+  margin-top: 20px;
+}
+.wpbooking-info .wb-content .content .step .right,
+.wpbooking-extension .wb-content .content .step .right {
+  float: right;
+  width: 47%;
+}
+.wpbooking-info .wb-content .content .step .right img,
+.wpbooking-extension .wb-content .content .step .right img {
+  width: 100%;
+}
+.wpbooking-info .wb-content .content .step .right img:last-child,
+.wpbooking-extension .wb-content .content .step .right img:last-child {
+  margin-top: 30px;
+}
 .wpbooking-info .wb-content .content .step img,
 .wpbooking-extension .wb-content .content .step img {
   float: right;
