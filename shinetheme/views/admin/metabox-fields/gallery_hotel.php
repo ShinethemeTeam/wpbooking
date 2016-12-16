@@ -57,8 +57,8 @@ if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
             $field .= '<div class="gallery-item">';
             $field .= '<img src="'.esc_url($url[0]).'" class="demo-image-gallery settings-demo-image-gallery" >';
             $field .= '<div class="gallery-item-control text-center">
-                        <a href="javascript:void(0)" class="gallery-item-btn gallery-item-edit" data-room-select="" data-url="'.$url_full[0].'" data-id="'.$v.'" ><i class="fa fa-pencil-square-o"></i></a>
-                        <a href="javascript:void(0)" data-id="'.$v.'" class="gallery-item-btn gallery-item-remove"><i class="fa fa-trash"></i></a></div>';
+                        <a href="javascript:void(0)" class="gallery-item-btn gallery-item-edit" data-room-select="" data-url="'.esc_url($url_full[0]).'" data-id="'.esc_attr($v).'" ><i class="fa fa-pencil-square-o"></i></a>
+                        <a href="javascript:void(0)" data-id="'.esc_attr($v).'" class="gallery-item-btn gallery-item-remove"><i class="fa fa-trash"></i></a></div>';
             $field .= '</div>';
         }
     }

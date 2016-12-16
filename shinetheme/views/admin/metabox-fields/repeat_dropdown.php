@@ -48,7 +48,7 @@ if (is_array($data['value']) && !empty($data['value'])) {
         $option_val = $key;
         if ($array_with_out_key) $option_val = $value;
 
-        $field .= '<option value="' . esc_html($option_val) . '" ' . $checked . '>' . esc_html($value) . '</option>';
+        $field .= '<option value="' . esc_html($option_val) . '" ' . esc_attr($checked) . '>' . esc_html($value) . '</option>';
     }
     $field .= '</select>';
 }
@@ -84,7 +84,7 @@ if (is_array($data['value']) && !empty($data['value'])) {
                                             $checked = '';
                                         }
 
-                                        echo '<option value="' . esc_html($key) . '" ' . $checked . '>' . esc_html($value) . '</option>';
+                                        echo '<option value="' . esc_html($key) . '" ' . esc_attr($checked) . '>' . esc_html($value) . '</option>';
                                     }
                                     ?>
                                 </select>

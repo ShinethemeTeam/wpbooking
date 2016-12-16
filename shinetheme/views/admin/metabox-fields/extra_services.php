@@ -33,25 +33,25 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 						?>
 							<div class="extra-item">
 								<div class="service_detail">
-									<label class="title" ><input type="checkbox" value="<?php echo esc_html($value['title']) ?>" <?php echo esc_attr($checked) ?> name="<?php echo esc_attr($data['id'].'['.$k.'][is_selected]') ?>">
+									<label class="title" ><input type="checkbox" value="<?php echo esc_html($value['title']) ?>" <?php echo esc_attr($checked) ?> name="<?php echo esc_attr($data['id'].'['.esc_attr($k).'][is_selected]') ?>">
 									<?php echo esc_html($value['title']) ?></label>
 								</div>
 								<div class="money-number">
 									<div class="input-group ">
 										<span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-										<input type="number" class="form-control" value="<?php echo (!empty($current['money']))?$current['money']:FALSE; ?>" min="0" name="<?php echo esc_attr($data['id'].'['.$k.'][money]') ?>"  >
+										<input type="number" class="form-control" value="<?php echo (!empty($current['money']))?$current['money']:FALSE; ?>" min="0" name="<?php echo esc_attr($data['id'].'['.esc_attr($k).'][money]') ?>"  >
 									</div>
 								</div>
 								<div class="max-quantity">
-									<select name="<?php echo esc_attr($data['id'].'['.$k.'][quantity]') ?>" class="max-quantity-select" >
+									<select name="<?php echo esc_attr($data['id'].'['.esc_attr($k).'][quantity]') ?>" class="max-quantity-select" >
 										<?php for($i = 1; $i <=20; $i++ ) {
-											echo '<option '.selected($selected_quantity,$i,false).' value="'.$i.'">'.$i.'</option>';
+											echo '<option '.selected($selected_quantity,$i,false).' value="'.esc_attr($i).'">'.esc_html($i).'</option>';
 										}?>
 									</select>
 									<span class="help_inline"><?php esc_html_e('Max quantity','wpbooking') ?></span>
 								</div>
 								<div class="require-options">
-									<select name="<?php echo esc_attr($data['id'].'['.$k.'][require]') ?>" >
+									<select name="<?php echo esc_attr($data['id'].'['.esc_attr($k).'][require]') ?>" >
 										<option value="no"><?php esc_html_e('No','wpbooking') ?></option>
 										<option <?php echo ($is_required)?'selected':false; ?> value="yes"><?php esc_html_e('Yes','wpbooking') ?></option>
 									</select>
@@ -59,7 +59,7 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 								</div>
 								<div class="service_desc">
 									<span class="service_desc metabox-help"><?php echo balanceTags($value['description']); ?>
-										<input type="hidden" value="<?php echo esc_html($value['description']) ?>"  name="<?php echo esc_attr($data['id'].'['.$k.'][desc]') ?>"/>
+										<input type="hidden" value="<?php echo esc_html($value['description']) ?>"  name="<?php echo esc_attr($data['id'].'['.esc_attr($k).'][desc]') ?>"/>
 									</span>
 								</div>
 							</div>
@@ -86,7 +86,7 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 								<select name="" class="max-quantity-select" >
 									<option value=""><?php esc_html_e('-','wpbooking') ?></option>
 									<?php for($i = 1; $i <=20; $i++ ) {
-										echo '<option value="'.$i.'">'.$i.'</option>';
+										echo '<option value="'.esc_attr($i).'">'.esc_html($i).'</option>';
 									}?>
 								</select>
 								<span class="help_inline"><?php esc_html_e('Max quantity','wpbooking') ?></span>
@@ -105,7 +105,7 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 					<select class="max-quantity-sv" >
 						<option value=""><?php esc_html_e('Max Quantity','wpbooking') ?></option>
 						<?php for($i = 1; $i <=20; $i++ ) {
-							echo '<option value="'.$i.'">'.$i.'</option>';
+							echo '<option value="'.esc_attr($i).'">'.esc_html($i).'</option>';
 						}?>
 					</select>
 					<a href="#" onclick="return false" class="button wb-btn-add-extra-service" data-id="<?php echo esc_attr($data['id']) ?>" data-type

@@ -15,7 +15,7 @@ if(!empty($data['edit_field_class'])){
 					$class=FALSE;
 					if(!empty($data['single_checkbox'])) $class='single_checkbox';
 
-                    echo ' <div class="wpbooking-col-md-12"><label><input type="checkbox"  class="item_check_box '.$class.'" value="'.$v.'">'.$k.'</label></div>';
+                    echo ' <div class="wpbooking-col-md-12"><label><input type="checkbox"  class="item_check_box '.esc_attr($class).'" value="'.esc_attr($v).'">'.esc_html($k).'</label></div>';
                 }
             } ?>
         </div>

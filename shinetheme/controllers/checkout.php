@@ -422,9 +422,6 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             }
             $total_price = $cart['price'];
             $service_type = $cart['service_type'];
-            $total_price = apply_filters('wpbooking_get_cart_total', $total_price, $cart);
-            $total_price = apply_filters('wpbooking_get_cart_total_'.$service_type, $total_price, $cart);
-
             if($args['without_tax']){
                 $tax = $this->get_cart_tax_price();
                 $total_price = $total_price + $tax['total_price'];
@@ -447,6 +444,8 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                     $total_price = $price_deposit;
                 }
             }
+            $total_price = apply_filters('wpbooking_get_cart_total', $total_price, $cart);
+            $total_price = apply_filters('wpbooking_get_cart_total_'.$service_type, $total_price, $cart);
             return $total_price;
         }
 

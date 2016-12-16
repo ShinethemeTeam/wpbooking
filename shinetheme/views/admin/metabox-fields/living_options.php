@@ -75,7 +75,7 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
                                         if($v['sofa'] == $i){
                                             $check = "selected";
                                         }
-                                        echo '<option '.$check.' value="' . esc_attr($i) . '" >' . esc_html($i) . '</option>';
+                                        echo '<option '.esc_attr($check).' value="' . esc_attr($i) . '" >' . esc_html($i) . '</option>';
                                     }
                                     ?>
                                 </select>
@@ -96,7 +96,7 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
                                         if($v['number'] == $i){
                                             $check = "selected";
                                         }
-                                        echo '<option '.$check.' value="' . esc_attr($i) . '" >' . esc_html($i) . '</option>';
+                                        echo '<option '.esc_attr($check).' value="' . esc_attr($i) . '" >' . esc_html($i) . '</option>';
                                     }
                                     ?>
                                 </select>

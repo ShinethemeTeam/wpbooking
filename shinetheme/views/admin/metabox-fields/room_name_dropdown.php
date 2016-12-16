@@ -33,7 +33,7 @@ if(!is_wp_error($terms) and   !empty( $terms ) ){
         if(!empty($child)){
             foreach($child as $term_id => $term){
 
-                $field .= '<option parent="'.$parent_term->term_id.'" value="'. esc_html( $term_id ).'" '. $checked .'>'. esc_html( $term->name ).'</option>';
+                $field .= '<option parent="'.esc_attr($parent_term->term_id).'" value="'. esc_html( $term_id ).'" '. esc_attr($checked) .'>'. esc_html( $term->name ).'</option>';
             }
         }
 

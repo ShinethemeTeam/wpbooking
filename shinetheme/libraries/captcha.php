@@ -65,7 +65,7 @@ if(!class_exists('WPBooking_Captcha'))
         {
             if($this->_is_check_allow_captcha()){
                 wp_enqueue_script('recaptcha');
-                return '<div id="wpbooking_recaptcha_field" class="g-recaptcha" data-sitekey="'.$this->_api_key['recaptcha']['key'].'"></div>';
+                return '<div id="wpbooking_recaptcha_field" class="g-recaptcha" data-sitekey="'.esc_attr($this->_api_key['recaptcha']['key']).'"></div>';
             }
 
         }

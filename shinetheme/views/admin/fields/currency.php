@@ -44,7 +44,7 @@ $data_value_currency = wp_parse_args($data_value, array(
                                 if($data_value_currency['currency'] ==$k){
                                     $check = "selected";
                                 }
-                                echo '<option '.$check.' value="'.$k.'">'.$v.'</option>';
+                                echo '<option '.esc_html($check).' value="'.esc_attr($k).'">'.esc_html($v).'</option>';
                             }
                         } ?>
                     </select>

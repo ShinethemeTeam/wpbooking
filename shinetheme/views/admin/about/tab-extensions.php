@@ -37,7 +37,7 @@ curl_close($curlSession);
         </div>
         <div class="content">
             <div class="result-text">
-                <p><?php echo __('Total ','wpbooking')?><?php echo '<span class="ex-total">'.$jsonData->data->post_count.'</span>';?><?php echo esc_html__(' extensions. Showing ','wpbooking')?><span class="ex-from">1</span> - <span class="ex-to"><?php echo ($jsonData->data->max_pages > 1)?esc_attr($jsonData->posts_per_page):$jsonData->data->post_count; ?></span></p>
+                <p><?php echo __('Total ','wpbooking')?><?php echo '<span class="ex-total">'.esc_html($jsonData->data->post_count).'</span>';?><?php echo esc_html__(' extensions. Showing ','wpbooking')?><span class="ex-from">1</span> - <span class="ex-to"><?php echo ($jsonData->data->max_pages > 1)?esc_attr($jsonData->posts_per_page):$jsonData->data->post_count; ?></span></p>
             </div>
             <div class="ex-sidebar">
                 <div class="box-search">
@@ -96,9 +96,9 @@ curl_close($curlSession);
                         <li class="hidden"><a href="#" data-paged="1" class="prev"><?php echo esc_html__('Prev','wpbooking');?></a></li>
                         <?php for($i = 1; $i <= $jsonData->data->max_pages; $i++){
                             if($i == 1){
-                                echo '<li class="active"><span>'.$i.'</span></li>';
+                                echo '<li class="active"><span>'.esc_html($i).'</span></li>';
                             }else{
-                                echo '<li><a href="#" data-paged="'.$i.'">'.$i.'</a></li>';
+                                echo '<li><a href="#" data-paged="'.esc_html($i).'">'.esc_html($i).'</a></li>';
                             }
                             ?>
                         <?php } ?>

@@ -185,54 +185,6 @@ if(!function_exists('wpbooking_post_query_desc'))
 		return  apply_filters('wpbooking_service_post_query_desc',$query_desc,$q,$input);
 	}
 }
-//if(!function_exists('wpbooking_comment_nav')){
-//	function wpbooking_comment_nav() {
-//		if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
-//			echo '<nav class="wb-reviews-pagination">';
-//			paginate_comments_links( apply_filters( 'wpbooking_comment_pagination_args', array(
-//				'prev_text' => '&larr;',
-//				'next_text' => '&rarr;',
-//				'type'      => 'list',
-//			) ) );
-//			echo '</nav>';
-//		endif;
-//	}
-//}
-//if(!function_exists('wpbooking_comment_item')){
-//	function wpbooking_comment_item( $comment, $args, $depth ) {
-//		$GLOBALS['comment'] = $comment;
-//		echo wpbooking_load_view( 'single/review/item', array( 'comment' => $comment, 'args' => $args, 'depth' => $depth ) );
-//	}
-//}
-//
-//if(!function_exists('wpbooking_review_allow_reply')){
-//	function wpbooking_review_allow_reply($review_id){
-//
-//		$allow=FALSE;
-//		$review = get_comment($review_id);
-//		if($review){
-//			$post_id = $review->comment_post_ID;
-//			$service = new WB_Service($post_id);
-//			$count_child=WPBooking_Comment_Model::inst()->count_child($review_id);
-//			if(!$count_child and !$review->comment_parent and $service->get_author('id') == get_current_user_id() and $review->user_id!=get_current_user_id()) $allow=true;
-//		}
-//
-//		return apply_filters('wpbooking_review_allow_reply',$allow);
-//	}
-//}
-//if(!function_exists('wpbooking_count_review')){
-//	function wpbooking_count_review($post_id){
-//		$model=WPBooking_Comment_Model::inst();
-//
-//		$res= $model->select('count(comment_ID) as total')->where(array(
-//			'comment_post_ID'=>$post_id,
-//			'comment_parent'=>0,
-//			'comment_approved'=>1
-//		))->get()->row();
-//
-//		return !empty($res['total'])?$res['total']:0;
-//	}
-//}
 if(!function_exists('wpbooking_get_service')){
 	function wpbooking_get_service($post_id=false){
 		return WPBooking_Service_Controller::inst()->get_service_instance($post_id);

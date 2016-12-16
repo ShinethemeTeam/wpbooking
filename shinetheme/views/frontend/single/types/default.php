@@ -93,24 +93,24 @@ $hotel_id=get_the_ID();
                     if ($value = get_post_meta(get_the_ID(), $key, true)) {
                         switch($key){
                             case 'contact_number':
-                                $value=sprintf('<a href="tel:%s">%s</a>',esc_html($value),esc_html($value));
+                                $value=sprintf('<a href="tel:%s">%s</a>',esc_html($value),do_shortcode($value));
                                 break;
 
                             case 'contact_email':
-                                $value=sprintf('<a href="mailto:%s">%s</a>',esc_html($value),esc_html($value));
+                                $value=sprintf('<a href="mailto:%s">%s</a>',esc_html($value),do_shortcode($value));
                                 break;
                             case 'website';
-                                $value = '<a target=_blank href="'.$value.'">'.$value.'</a>';
+                                $value = '<a target=_blank href="'.esc_url($value).'">'.do_shortcode($value).'</a>';
                                 break;
                         }
                         $html .= '<div class="wb-meta-contact">
-                                    <i class="fa '.$val.' wb-icon-contact"></i>
-                                    <span>'.$value.'</span>
+                                    <i class="fa '.esc_attr($val).' wb-icon-contact"></i>
+                                    <span>'.do_shortcode($value).'</span>
                                 </div>';
                     }
                 }
                 if(!empty($html)){
-                    echo '<div class="wb-contact-box wp-box-item">'.$html.'</div>';
+                    echo '<div class="wb-contact-box wp-box-item">'.do_shortcode($html).'</div>';
                 }
                 ?>
                 <div class="wb-share">
@@ -155,7 +155,7 @@ $hotel_id=get_the_ID();
                     foreach($amenities as $val){
                         $amenity = get_term_by('id',$val,'wpbooking_amenity');
                         if(!empty($amenity)){
-                            echo '<li><i class="fa fa-check-square-o"></i> &nbsp;'.$amenity->name.'</li>';
+                            echo '<li><i class="fa fa-check-square-o"></i> &nbsp;'.esc_html($amenity->name).'</li>';
                         }
                     }
                     ?>
@@ -406,7 +406,7 @@ $hotel_id=get_the_ID();
                         <ul class="wb-list-card-acd">
                             <?php foreach($card as $key => $val){
                                 if(!empty($val)){
-                                    echo '<li class="'.$card_image[$key].'">';
+                                    echo '<li class="'.esc_attr($card_image[$key]).'">';
                                     echo '</li>';
                                 }
                             }?>

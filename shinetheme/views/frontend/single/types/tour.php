@@ -54,17 +54,17 @@ $age_options=$service->get_meta('age_options');
                         $value=sprintf('<a href="mailto:%s">%s</a>',esc_html($value),esc_html($value));
                         break;
                     case 'website';
-                        $value = '<a target=_blank href="'.$value.'">'.$value.'</a>';
+                        $value = '<a target=_blank href="'.esc_url($value).'">'.esc_html($value).'</a>';
                         break;
                 }
                 $html .= '<li class="wb-meta-contact">
-                                    <i class="fa '.$val.' wb-icon-contact"></i>
-                                    <span>'.$value.'</span>
+                                    <i class="fa '.esc_html($val).' wb-icon-contact"></i>
+                                    <span>'.do_shortcode($value).'</span>
                                 </li>';
             }
         }
         if(!empty($html)){
-            echo '<ul class="wb-contact-list">'.$html.'</ul>';
+            echo '<ul class="wb-contact-list">'.do_shortcode($html).'</ul>';
         }
         ?>
     </div>

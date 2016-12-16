@@ -273,7 +273,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
 					'wpbooking_resend_email' => 1,
 
 				), admin_url('edit.php'));
-				$actions['wpbooking_resend_email'] = '<a href="' . $url . '">' . esc_html__('Resend Booking Email', 'wpbooking') . '</a>';
+				$actions['wpbooking_resend_email'] = '<a href="' . esc_url($url) . '">' . esc_html__('Resend Booking Email', 'wpbooking') . '</a>';
 
 				if (defined('WP_DEBUG') and WP_DEBUG) {
 					$actions['wpbooking_test_email'] = '<a href="' . add_query_arg(array(

@@ -63,7 +63,7 @@ $diff = $diff / (60 * 60 * 24);
                     foreach($facilities as $taxonomy=>$term_ids){
                         $rental_features = get_taxonomy( $taxonomy );
                         if(!empty($term_ids) and !empty($rental_features->labels->name)){
-                            echo '<div class="title">'.$rental_features->labels->name.': </div>';
+                            echo '<div class="title">'.esc_html($rental_features->labels->name).': </div>';
                             foreach($term_ids as $key=>$value){
                                 if($key <= 6){
                                     $term = get_term($value,$taxonomy);
@@ -276,7 +276,7 @@ $diff = $diff / (60 * 60 * 24);
                     foreach($facilities as $taxonomy=>$term_ids){
                         $rental_features = get_taxonomy( $taxonomy );
                         if(!empty($term_ids) and !empty($rental_features->labels->name)){
-                            echo '<div class="title">'.$rental_features->labels->name.'</div>';
+                            echo '<div class="title">'.esc_html($rental_features->labels->name).'</div>';
                             foreach($term_ids as $key=>$value){
                                 $term = get_term($value,$taxonomy);
                                 if(!is_wp_error($term) and !empty($term->name)){

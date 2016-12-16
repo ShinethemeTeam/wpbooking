@@ -33,7 +33,7 @@ if(  !empty( $data['choices'] ) and is_array( $data['choices'] ) ){
 			}
 		}
 		
-		$field .= '<div><label><input type="checkbox" name="'. $name .'" id="'. esc_html( $data['id'] ).'" class="'. esc_html( $data['class'] ) . '" value="'. esc_html( $key ) .'" ' . $checked .'> <span>'. esc_html( $value ) .'</span></label></div>';
+		$field .= '<div><label><input type="checkbox" name="'. $name .'" id="'. esc_html( $data['id'] ).'" class="'. esc_html( $data['class'] ) . '" value="'. esc_html( $key ) .'" ' . esc_attr($checked) .'> <span>'. esc_html( $value ) .'</span></label></div>';
 	}
 }elseif(!empty($data['checkbox_label'])){
 	$value=$data['checkbox_label'];
@@ -44,7 +44,7 @@ if(  !empty( $data['choices'] ) and is_array( $data['choices'] ) ){
 	$name=$data['id'];
 	$key=$data['checkbox_value'];
 
-	$field .= '<div><label><input type="checkbox" name="'. $name .'" id="'. esc_html( $data['id'] ).'" class="'. esc_html( $data['class'] ) . '" value="'. esc_html( $key ) .'" ' . $checked .'> <span>'. esc_html( $value ) .'</span></label></div>';
+	$field .= '<div><label><input type="checkbox" name="'. $name .'" id="'. esc_html( $data['id'] ).'" class="'. esc_html( $data['class'] ) . '" value="'. esc_html( $key ) .'" ' . esc_attr($checked) .'> <span>'. esc_html( $value ) .'</span></label></div>';
 }
 
 $field .= '</div></div>';

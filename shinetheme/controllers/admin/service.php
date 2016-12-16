@@ -356,7 +356,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
                 echo '<select name="service_type">';
                 echo '<option value="0">'.esc_html__('All service','wpbooking').'</option>';
                 foreach($service_types as $key => $val){
-                    echo '<option '.selected(WPBooking_Input::get('service_type'),$key,false).' value="'.$key.'">'.$val->get_info('label').'</option>';
+                    echo '<option '.selected(WPBooking_Input::get('service_type'),$key,false).' value="'.esc_attr($key).'">'.esc_html($val->get_info('label')).'</option>';
                 }
 
                 echo '</select>';
