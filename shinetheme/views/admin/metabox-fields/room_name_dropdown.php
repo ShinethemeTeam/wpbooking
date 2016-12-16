@@ -24,7 +24,7 @@ $checked=false;
 if(in_array($checked,$selected_term)) $checked='selected';
 if(!is_wp_error($terms) and   !empty( $terms ) ){
 
-	$field .= '<div style="margin-bottom: 7px;"><select name="'. $name .'" id="'. esc_html( $data['id'] ) .'" class="widefat form-control '. esc_html( $data['class'] ).'">';
+	$field .= '<div class="mb7"><select name="'. $name .'" id="'. esc_html( $data['id'] ) .'" class="widefat form-control '. esc_html( $data['class'] ).'">';
 	foreach( $terms as $parent_key => $parent_term ){
 
         $field .= '<option value="">'. esc_html__('Please Select','wpbooking').'</option>';

@@ -53,7 +53,6 @@ if(!empty($old_data['gallery']) and count( $tmp = explode(',', $old_data['galler
     $show_btn_remove = true;
 }
 
-
 ?>
 <div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?> field-<?php echo esc_attr($data['id'])?>" <?php echo esc_html( $data_class ); ?>>
     <div class="st-metabox-full ">

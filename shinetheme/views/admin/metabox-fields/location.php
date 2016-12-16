@@ -44,8 +44,10 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
 	                	}
 	                    if( is_array( $lists ) && count( $lists) ):
 	                        foreach( $lists as $key => $location ):
+
+                                $location_css = WPBooking_Assets::build_css_class('margin-left: '.$location['deep'].'px ; margin-bottom: 5px;')
 	                ?>
-	                    <div data-name="<?php echo strtolower($location['parent_name']); ?>" class="item" style="margin-left: <?php echo esc_attr($location['deep']).'px;'; ?> margin-bottom: 5px;">
+	                    <div data-name="<?php echo strtolower($location['parent_name']); ?>" class="item <?php echo esc_attr($location_css); ?>">
 	                        <label for="<?php echo 'location-'.$location['id']; ?>">
 	                            <input <?php if(in_array($location['id'], $old)) echo 'checked'; ?> id="<?php echo 'location-'.$location['id']; ?>" type="checkbox" name="<?php echo esc_attr($name); ?>" value="<?php echo esc_attr($location['id']); ?>">
 	                            <span><?php echo esc_attr($location['name']); ?></span>

@@ -21,7 +21,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
 <div class="<?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
     <label for="<?php echo esc_html( $data['id'] ); ?>"><strong><?php echo esc_html( $data['label'] ); ?></strong></label>
     <div class="st-metabox-content-wrapper">
-        <div class="form-group" style="width: 100%;">
+        <div class="form-group full-width">
             <div class="wpbooking-calendar-wrapper" data-post-id="<?php echo esc_attr($post_id); ?>" data-post-encrypt="<?php echo wpbooking_encrypt( $post_id ); ?>">
                 <div class="wpbooking-calendar-content">
                     <div class="overlay">
@@ -137,10 +137,10 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                             <input type="hidden" id="calendar-post-encrypt" name="calendar-post-encrypt" value="<?php echo wpbooking_encrypt( $post_id ); ?>">
                             <button type="button" id="calendar-save" class="button button-large wb-button-primary"><?php echo __('Save','wpbooking'); ?></button>
                         </div>
-                        <div class="" style="margin-bottom: 10px;">
+                        <div class="mb10">
 
                         </div>
-                        <div class="form-message" style="margin-bottom: 10px;">
+                        <div class="form-message mb10">
                         </div>
                     </div>
 
@@ -173,23 +173,23 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                             </div>
                             <div class="form-title">
                                 <h3 class="clearfix"><?php echo __('Bulk Price Edit', 'wpbooking'); ?>
-                                    <button style="float: right;" type="button" id="calendar-bulk-close" class="button button-small"><?php echo __('Close','wpbooking'); ?></button>
+                                    <button type="button" id="calendar-bulk-close" class="button button-small"><?php echo __('Close','wpbooking'); ?></button>
                                 </h3>
                             </div>
                             <div class="form-content clearfix">
-                                <h4 style="margin-bottom: 20px;"><?php echo __('Choose Date:', 'wpbooking'); ?></h4>
+                                <h4><?php echo __('Choose Date:', 'wpbooking'); ?></h4>
                                 <div class="form-group">
                                     <div class="form-title">
                                         <h4 class=""><input type="checkbox" class="check-all" data-name="day-of-week"> <?php echo __('Days Of Week', 'wpbooking'); ?></h4>
                                     </div>
                                     <div class="form-content">
-                                        <label class="block"><input type="checkbox" name="day-of-week[]" value="Sunday" style="margin-right: 5px;"><?php echo __('Sunday', 'wpbooking'); ?></label>
-                                        <label class="block"><input type="checkbox" name="day-of-week[]" value="Monday" style="margin-right: 5px;"><?php echo __('Monday', 'wpbooking'); ?></label>
-                                        <label class="block"><input type="checkbox" name="day-of-week[]" value="Tuesday" style="margin-right: 5px;"><?php echo __('Tuesday', 'wpbooking'); ?></label>
-                                        <label class="block"><input type="checkbox" name="day-of-week[]" value="Wednesday" style="margin-right: 5px;"><?php echo __('Wednesday', 'wpbooking'); ?></label>
-                                        <label class="block"><input type="checkbox" name="day-of-week[]" value="Thursday" style="margin-right: 5px;"><?php echo __('Thursday', 'wpbooking'); ?></label>
-                                        <label class="block"><input type="checkbox" name="day-of-week[]" value="Friday" style="margin-right: 5px;"><?php echo __('Friday', 'wpbooking'); ?></label>
-                                        <label class="block"><input type="checkbox" name="day-of-week[]" value="Saturday" style="margin-right: 5px;"><?php echo __('Saturday', 'wpbooking'); ?></label>
+                                        <label class="block"><input type="checkbox" name="day-of-week[]" value="Sunday" ><?php echo __('Sunday', 'wpbooking'); ?></label>
+                                        <label class="block"><input type="checkbox" name="day-of-week[]" value="Monday" ><?php echo __('Monday', 'wpbooking'); ?></label>
+                                        <label class="block"><input type="checkbox" name="day-of-week[]" value="Tuesday" ><?php echo __('Tuesday', 'wpbooking'); ?></label>
+                                        <label class="block"><input type="checkbox" name="day-of-week[]" value="Wednesday" ><?php echo __('Wednesday', 'wpbooking'); ?></label>
+                                        <label class="block"><input type="checkbox" name="day-of-week[]" value="Thursday" ><?php echo __('Thursday', 'wpbooking'); ?></label>
+                                        <label class="block"><input type="checkbox" name="day-of-week[]" value="Friday" ><?php echo __('Friday', 'wpbooking'); ?></label>
+                                        <label class="block"><input type="checkbox" name="day-of-week[]" value="Saturday" ><?php echo __('Saturday', 'wpbooking'); ?></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -202,7 +202,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                                 echo '<div>';
                                             }
                                             ?>
-                                            <label style="width: 40px;"><input type="checkbox" name="day-of-month[]" value="<?php echo esc_attr($i); ?>" style="margin-right: 5px;"><?php echo esc_attr($i); ?></label>
+                                            <label><input type="checkbox" name="day-of-month[]" value="<?php echo esc_attr($i); ?>"><?php echo esc_attr($i); ?></label>
 
                                             <?php
                                             if( $i != 1 && $i % 5 == 0 ) echo '</div><div>';
@@ -226,7 +226,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                                 echo '<div>';
                                             }
                                             ?>
-                                            <label style="width: 100px;"><input type="checkbox" name="months[]" value="<?php echo esc_attr($month); ?>" style="margin-right: 5px;"><?php echo esc_attr($month); ?></label>
+                                            <label><input type="checkbox" name="months[]" value="<?php echo esc_attr($month); ?>"><?php echo esc_html($month); ?></label>
 
                                             <?php
                                             if( $key != 0 && ($key + 1) % 2 == 0 ) echo '</div><div>';
@@ -249,7 +249,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                                 echo '<div>';
                                             }
                                             ?>
-                                            <label style="width: 100px;"><input type="checkbox" name="years[]" value="<?php echo esc_attr($i); ?>" style="margin-right: 5px;"><?php echo esc_attr($i); ?></label>
+                                            <label><input type="checkbox" name="years[]" value="<?php echo esc_attr($i); ?>"><?php echo esc_attr($i); ?></label>
 
                                             <?php
                                             if( $i != $year && ($i == $j + 2 ) ) { echo '</div><div>'; $j = $i; }
@@ -264,7 +264,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                 <label class="block"><span><strong><?php echo __('Price', 'wpbooking'); ?>: </strong></span><input type="text" value="" name="price-bulk" id="price-bulk" placeholder="<?php echo __('Price', 'wpbooking'); ?>"></label>
                                 <input type="hidden" name="post_id" value="<?php echo esc_attr($post_id); ?>">
                                 <input type="hidden" name="post-encrypt" value="<?php echo wpbooking_encrypt( $post_id ); ?>">
-                                <div class="form-message" style="margin-top: 20px;"></div>
+                                <div class="form-message"></div>
                             </div>
                             <div class="form-footer">
                                 <button type="button" id="calendar-bulk-save" class="button button-primary button-large"><?php echo __('Save','wpbooking'); ?></button><!--

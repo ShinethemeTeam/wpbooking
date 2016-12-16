@@ -8,9 +8,10 @@
 $data=wp_parse_args($data,array(
 	'ajax_saving'=>1,
 	'next_label'=>esc_html__('Save','wpbooking')
-))
+));
+$css = WPBooking_Assets::build_css_class('clear: both');
 ?>
-<div class="text-right wb-section-navigation wb-room-form clear" style="clear: both">
+<div class="text-right wb-section-navigation wb-room-form clear <?php echo esc_attr($css)?>">
 	<?php
 	if(!isset($data['prev']) or $data['prev']){
 		$class = 'full';

@@ -116,7 +116,7 @@ if(!empty($data['condition'])){
 <?php 
 	if( !empty( $data['value'] ) && is_array( $data['value'] ) ):
 ?>
-<div id="wpbooking-list-item-draft" class="hide">
+<div id="wpbooking-list-item-draft" class="wb-hidden">
 	<div class="wpbooking-list-item active">
 		<div class="list-item-head">
 
@@ -141,7 +141,8 @@ if(!empty($data['condition'])){
 						<div class="st-metabox-right">
 							<div class="st-metabox-content-wrapper">
 								<div class="form-group">
-									<div class="mb_7">
+									<div class="mb7">
+
 										<input type="text" class="widefat form-control input-title title_list-item" name="<?php echo esc_html( $data['id'] ); ?>[title][]" value="">
 									</div>
 								</div>
