@@ -3267,7 +3267,7 @@ a.label:focus {
   padding: 5px 10px;
   border-radius: 0px;
 }
-.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .on-hold,
+.single-wpbooking_order .wpbooking-order-detail-page .order-head-info .on_hold,
 .single-wpbooking_order .wpbooking-order-detail-page .order-head-info .completed_a_part {
   color: #f0ad4e;
   border: solid 1px #f0ad4e;
