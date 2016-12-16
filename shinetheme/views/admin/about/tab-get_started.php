@@ -96,9 +96,12 @@
                     <li><?php echo esc_html__('After user booking success, you can replace booking status of user booking(s) easy to use Booking Admin Panel','wpbooking')?></li>
                     <li><?php echo esc_html__('You can view booking report by the chart','wpbooking')?></li>
                 </ul>
-                <img src="<?php echo wpbooking_admin_assets_url('images/report-final.png')?>" class="img-step img-left"/>
+
             </div>
-            <img src="<?php echo wpbooking_admin_assets_url('images/allbooking-final.png')?>" class="img-step"/>
+            <div class="full">
+                <img src="<?php echo wpbooking_admin_assets_url('images/allbooking-final.png')?>" class="img-step"/>
+                <img src="<?php echo wpbooking_admin_assets_url('images/report-final.png')?>" class="img-step"/>
+            </div>
         </div>
         <div class="step">
             <div class="left">
