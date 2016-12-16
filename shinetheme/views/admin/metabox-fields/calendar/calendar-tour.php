@@ -73,12 +73,12 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                     <td>
                                         <input type="number" name="calendar_minimum" min="1" class="number-select" value="1"></td>
                                     <td>
-                                        <input type="number" name="calendar_maximum" min="1" class="number-select" value="">
+                                        <input type="number" name="calendar_maximum" min="1" class="number-select" value="" placeholder="0">
                                     </td>
                                     <td>
                                         <div class="input-group ">
                                             <span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-                                            <input type="number" class="form-control"  value="" name="calendar_price"  >
+                                            <input type="number" class="form-control"  value="" name="calendar_price" placeholder="0" >
                                         </div>
                                     </td>
                                 </tr>
