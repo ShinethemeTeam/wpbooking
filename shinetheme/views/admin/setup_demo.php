@@ -1,6 +1,6 @@
 <div class="wrap ">
     <div id="icon-tools" class="icon32"></div>
-    <h2 class="text-center" ><?php _e("Setup Plugin Booking",'wpbooking') ?></h2>
+    <h2 class="text-center" ><?php _e("Setup Wpbooking plugin",'wpbooking') ?></h2>
 </div>
 <?php $is_tab = WPBooking_Input::request('wp_step','wp_general'); ?>
 <div class="wrap">

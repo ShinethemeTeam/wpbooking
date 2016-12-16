@@ -415,32 +415,55 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             }
             $total_price = $cart['price'];
             $service_type = $cart['service_type'];
-            if($args['without_tax']){
-                $tax = $this->get_cart_tax_price();
-                $total_price = $total_price + $tax['total_price'];
-            }
-            if($args['without_deposit']){
-                if(!empty($cart['deposit']['status'])){
-                    $price_deposit = 0;
-                    switch ($cart['deposit']['status']) {
-                        case "percent":
-                            if ($cart['deposit']['amount'] > 100) $cart['deposit']['amount'] = 100;
-                            $price_deposit = round($total_price * $cart['deposit']['amount'] / 100,2);
-                            break;
-                        case "amount":
-                        default:
-                            if ($cart['deposit']['amount'] < $total_price)
-                                $price_deposit = $cart['deposit']['amount'];
-                            break;
 
-                    }
-                    $total_price = $price_deposit;
-                }
-            }
-            $total_price = apply_filters('wpbooking_get_cart_total', $total_price, $cart);
-            $total_price = apply_filters('wpbooking_get_cart_total_'.$service_type, $total_price, $cart);
+            $total_price = apply_filters('wpbooking_get_cart_total', $total_price, $cart,$args);
+            $total_price = apply_filters('wpbooking_get_cart_total_'.$service_type, $total_price, $cart,$args);
+
+
             return $total_price;
         }
+
+        /**
+         * Get Cart Deposit Amount
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $cart
+         * @return float|int|mixed|void
+         */
+        public function get_cart_deposit($cart=false){
+            $total_price=(float)$this->get_cart_total();
+
+            $tax=$this->get_cart_tax_amount($total_price);
+
+            $total_price+=$tax;
+
+            if(empty($cart)){
+                $cart = $this->get_cart();
+            }
+
+            if(!empty($cart['deposit']['status'])){
+                $price_deposit = 0;
+                switch ($cart['deposit']['status']) {
+                    case "percent":
+                        if ($cart['deposit']['amount'] > 100) $cart['deposit']['amount'] = 100;
+                        $price_deposit = round($total_price * $cart['deposit']['amount'] / 100,2);
+                        break;
+                    case "amount":
+                    default:
+                        if ($cart['deposit']['amount'] < $total_price)
+                            $price_deposit = $cart['deposit']['amount'];
+                        break;
+
+                }
+                $total_price = $price_deposit;
+            }
+
+            return $total_price;
+        }
+
+
 
         /**
          * Get cart
@@ -565,10 +588,10 @@ if(!class_exists('WPBooking_Checkout_Controller'))
          *
          * @return int|mixed|void
          */
-        public function get_cart_tax_price(){
+        public function get_cart_tax_price($total_without_tax=0){
             $tax = array();
             $cart = $this->get_cart();
-            $total_price = $this->get_cart_total(array('without_tax'=>false));
+            $total_price = $total_without_tax;
             $total_tax = 0;
             $tax_total = 0;
             $service_type = $cart['service_type'];
@@ -601,6 +624,22 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $tax = apply_filters('wpbooking_get_cart_tax_price', $tax, $cart);
             $tax = apply_filters('wpbooking_get_cart_tax_price_'.$service_type, $tax, $cart);
             return $tax;
+        }
+
+        /**
+         * Get Tax Price
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $total_without_tax
+         * @return float
+         */
+        public function get_cart_tax_amount($total_without_tax){
+
+            $tax=$this->get_cart_tax_price($total_without_tax);
+
+            return !empty($tax['total_price'])?(float)$tax['total_price']:0;
         }
 
         /**

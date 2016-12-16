@@ -194,14 +194,16 @@ if (!class_exists('WB_Order')) {
 
                 $price = $booking->get_cart_total(array( 'without_deposit' => false, 'without_tax' => true ),$cart);
 
-                $deposit_price = $booking->get_cart_total(array( 'without_deposit' => true, 'without_tax' => true ),$cart);
-                $tax = $booking->get_cart_tax_price();
+                $deposit_price = $booking->get_cart_deposit();
+
+                $tax = $booking->get_cart_tax_price($price);
+
                 $post_author = get_post_field( 'post_author', $cart['post_id'] );
                 $cart['tax']=$tax;
 
                 update_post_meta($order_id, 'post_id', $cart['post_id']);
                 update_post_meta($order_id, 'service_type', $cart['service_type']);
-                update_post_meta($order_id, 'price', $price);
+                update_post_meta($order_id, 'price', $price+$tax['tax_total']); // With Tax
                 update_post_meta($order_id, 'discount', $cart['discount']);
                 update_post_meta($order_id, 'extra_fees', array());
                 update_post_meta($order_id, 'tax',$tax);
