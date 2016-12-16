@@ -151,9 +151,7 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 		{
 
 			$selected_gateway=$this->get_gateway($gateway);
-
 			$data=FALSE;
-
 			if(method_exists($selected_gateway,'complete_purchase'))
 			{
 				do_action('wpbooking_before_payment_complete_purchase');

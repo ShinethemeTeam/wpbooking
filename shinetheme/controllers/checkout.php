@@ -142,11 +142,8 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 }
             }
 
-
-
             $is_validate = apply_filters('wpbooking_do_checkout_validate', $is_validate, $cart);
             $is_validate = apply_filters('wpbooking_do_checkout_validate_'.$service_type, $is_validate , $cart);
-
 
             if (!$is_validate) {
                 $res ['status'] = 0;
@@ -189,7 +186,6 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                  * @author dungdt
                  */
                 if($customer_id) WPBooking_User::inst()->order_update_user($customer_id,$fields);
-
 
                 $order_id = WPBooking_Session::get('wpbooking_order_id');
                 if(!empty($order_id)){
@@ -264,7 +260,6 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
             }
 
-
             $res = apply_filters('wpbooking_ajax_do_checkout', $res, $cart);
 
             echo json_encode($res);
@@ -285,7 +280,6 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $post_id = WPBooking_Input::post('post_id');
 
             $service_type = get_post_meta($post_id, 'service_type', TRUE);
-
 
             // Validate Order Form
             $is_validate = TRUE;
@@ -322,7 +316,6 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             }
 
             // Convert Check In and Check Out to Timestamp if available
-
             $check_in = WPBooking_Input::request('wpbooking_checkin_y')."-".WPBooking_Input::request('wpbooking_checkin_m')."-".WPBooking_Input::request('wpbooking_checkin_d');
             $check_out = WPBooking_Input::request('wpbooking_checkout_y')."-".WPBooking_Input::request('wpbooking_checkout_m')."-".WPBooking_Input::request('wpbooking_checkout_d');
             if($check_in == '--')$check_in='';
@@ -627,7 +620,6 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             }
            wp_die();
         }
-
         static function inst()
         {
             if(!self::$_inst){
@@ -635,7 +627,6 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             }
             return self::$_inst;
         }
-
     }
     WPBooking_Checkout_Controller::inst();
 }

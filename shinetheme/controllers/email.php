@@ -364,9 +364,7 @@ if (!class_exists('WPBooking_Email')) {
                 }
 
             }
-
             $message = apply_filters('wpbooking_email_content_apply_css', $message);
-
             return $message;
         }
 

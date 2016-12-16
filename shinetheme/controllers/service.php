@@ -19,7 +19,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
         function __construct()
         {
             // Load Abstract Service Type class and Default Service Types
-
             $loader = WPBooking_Loader::inst();
             $loader->load_library(array(
                 'service-types/abstract-service-type',
@@ -33,7 +32,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
             add_filter('template_include', array($this, 'template_loader'));
             add_filter('body_class', array($this, '_add_body_class'));
 
-
             /**
              * Add More to Post Class
              *
@@ -43,16 +41,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
              *
              */
             add_filter('post_class',array($this,'_add_post_class'),10,2);
-
-            /**
-             *
-             * Ajax Get Calendar Months
-             * @author dungdt
-             * @since 1.0
-             */
-            //add_action('wp_ajax_wpbooking_calendar_months', array($this, '_calendar_months'));
-            //add_action('wp_ajax_nopriv_wpbooking_calendar_months', array($this, '_calendar_months'));
-
 
             /**
              * Ajax Add Favorite
@@ -131,7 +119,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
                 return;
             }
 
-
             // Fix for verbose page rules
             if ( $GLOBALS['wp_rewrite']->use_verbose_page_rules && isset( $q->queried_object->ID ) && $q->queried_object->ID === wpbooking_get_option( 'archive-page' ) ) {
                 $q->set( 'post_type', 'wpbooking_service' );
@@ -155,7 +142,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
                     add_filter( 'redirect_canonical', '__return_false' );
                 }
             }
-
 
             // When orderby is set, WordPress shows posts. Get around that here.
             if ( $q->is_home() && 'page' === get_option( 'show_on_front' ) && absint( get_option( 'page_on_front' ) ) === wpbooking_get_option( 'archive-page' ) ) {
@@ -243,7 +229,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
         function _calendar_months()
         {
             $res = array();
-
             $post_id = WPBooking_Input::post('post_id');
             $currentMonth = WPBooking_Input::post('currentMonth');
             $currentYear = WPBooking_Input::post('currentYear');
@@ -265,16 +250,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
             $calendar_months = array();
             $calendar_dates = array();
 
-            // Default Months
-//			for ($i = 0; $i < 3; $i++) {
-//				$date = new DateTime($currentYear . '-' . $currentMonth . '-1');
-//				if (!$i) {
-//					$calendar_months[$date->format('m_Y')] = array();
-//				} else {
-//					$date->modify('+' . $i . ' months');
-//					$calendar_months[$date->format('m_Y')] = array();
-//				}
-//			}
             // All day data
             $all_days = array();
 
@@ -306,14 +281,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
                     }
 
                     $key = date('m', $v['start']) . '_' . date('Y', $v['start']);
-//					$calendar_months[$key][] = array(
-//						'date'            => date('Y-m-d', $v['start']),
-//						'price'           => WPBooking_Currency::format_money($v['price']),
-//						//'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked']),
-//						'tooltip_content' => WPBooking_Currency::format_money($v['price']),
-//						'can_check_in'    => $v['can_check_in'],
-//						'can_check_out'   => $v['can_check_out'],
-//					);
 
                     $calendar_dates[date('Y-m-d', $v['start'])] = array(
                         'date'            => date('Y-m-d', $v['start']),
@@ -363,7 +330,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
                 }
             }
 
-
             $res['dates'] = $calendar_dates;
 
             echo json_encode($res);
@@ -373,14 +339,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
         function _add_body_class($class)
         {
-//			if (is_singular()) {
-//				$is_page = get_the_ID();
-//				$list_page_search = apply_filters("wpbooking_add_page_archive_search", array());
-//				if (!empty($list_page_search[$is_page])) {
-//					$class[] = 'wpbooking-archive-page';
-//				}
-//			}
-
             return $class;
         }
 
@@ -394,7 +352,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
             $query = wpbooking_query('default', $args);
 
-
             return $query;
         }
 
@@ -406,11 +363,9 @@ if (!class_exists('WPBooking_Service_Controller')) {
          */
         public function template_loader($template)
         {
-            // check tax
             if (is_post_type_archive('wpbooking_service') or is_tax(get_object_taxonomies('wpbooking_service'))) {
                 $template = wpbooking_view_path('archive-service');
             }
-
             return $template;
         }
 
@@ -424,10 +379,8 @@ if (!class_exists('WPBooking_Service_Controller')) {
          */
         function get_search_fields()
         {
-
             $all_types=$this->get_service_types();
             $list_filed=array();
-
             if(!empty($all_types)){
                 foreach($all_types as $type_id=>$type_object){
                     $fields=$type_object->get_search_fields();
@@ -437,14 +390,9 @@ if (!class_exists('WPBooking_Service_Controller')) {
                 }
             }
             $list_filed = apply_filters("wpbooking_list_fields_form_search", $list_filed);
-
             return $list_filed;
         }
 
-
-        /**
-         *
-         */
         function _show_single_service($template)
         {
 
@@ -517,7 +465,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
             return $class;
         }
 
-
         /**
          * Get Service Instance By ID, allow cached instance
          *
@@ -583,7 +530,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
             }
         }
 
-
 		static function inst()
 		{
 			if (!self::$_inst) {
@@ -592,8 +538,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
 			return self::$_inst;
 		}
-
 	}
-
 	WPBooking_Service_Controller::inst();
 }
