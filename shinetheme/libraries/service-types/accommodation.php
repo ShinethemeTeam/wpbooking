@@ -1443,16 +1443,16 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if ($sortby = $this->request('wb_sort_by')) {
                 switch ($sortby) {
                     case "price_asc":
-                        $injection->select('MIN(CAST(order_table.meta_value as double)) as min_price');
-                        $injection->join('posts as post_table',"post_table.post_parent={$wpdb->posts}.ID");
-                        $injection->join('postmeta as order_table',"order_table.post_ID=post_table.ID and order_table.meta_key='base_price' and order_table.meta_value>0");
+                        $injection->select('MIN(CAST(order_table.meta_value as DECIMAL)) as min_price');
+                        $injection->join('posts as post_table',"post_table.post_parent={$wpdb->posts}.ID",'left');
+                        $injection->join('postmeta as order_table',"order_table.post_ID=post_table.ID and order_table.meta_key='base_price' and order_table.meta_value>0",'left');
                         $injection->orderby('min_price', 'asc');
 
                         break;
                     case "price_desc":
-                        $injection->select('MIN(CAST(order_table.meta_value as double)) as min_price');
-                        $injection->join('posts as post_table',"post_table.post_parent={$wpdb->posts}.ID");
-                        $injection->join('postmeta as order_table',"order_table.post_ID=post_table.ID and order_table.meta_key='base_price' and order_table.meta_value>0");
+                        $injection->select('MIN(CAST(order_table.meta_value as DECIMAL)) as min_price');
+                        $injection->join('posts as post_table',"post_table.post_parent={$wpdb->posts}.ID",'left');
+                        $injection->join('postmeta as order_table',"order_table.post_ID=post_table.ID and order_table.meta_key='base_price' and order_table.meta_value>0",'left');
                         $injection->orderby('min_price', 'desc');
                         break;
                     case "date_asc":

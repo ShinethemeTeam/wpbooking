@@ -1,7 +1,6 @@
 <?php
 global $wp_query;
 get_header();
-$my_query = $wp_query;
 echo wpbooking_load_view('wrap/start');
 ?>
 <div class="wpbooking-container wb-archive-wrapper hentry">
