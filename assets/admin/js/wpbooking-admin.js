@@ -1638,6 +1638,7 @@ jQuery(document).ready(function( $ ){
                             parent.find('.room-count b').text(wpbooking_params.rooms);
                         }
                         var html = parent.find('.room-item-default .room-item').clone();
+                        html.addClass('item-hotel-room-'+res.data.room_id);
                         html.find('.room-remain-left').html(res.data.number+' room(s)');
                         html.find('.room-image').html(res.data.thumbnail);
                         html.find('.room-type').html(res.data.title);
