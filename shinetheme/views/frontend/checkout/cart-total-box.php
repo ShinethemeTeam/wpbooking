@@ -38,7 +38,7 @@ $tax_total=0;
         if(!empty($cart['deposit']['status'])){
             $price_deposit = $booking->get_cart_deposit();
 
-            $property = $price_total - $price_deposit;
+            $property = $price_total+$tax_total - $price_deposit;
             ?>
             <span class="total-title text-color"> <?php _e('Deposit/Pay Now', 'wpbooking') ?></span>
             <span class="total-amount text-color"><?php echo WPBooking_Currency::format_money($price_deposit); ?></span>

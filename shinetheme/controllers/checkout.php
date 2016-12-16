@@ -405,10 +405,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
          */
         function get_cart_total($args=array(),$cart=false)
         {
-            $args = wp_parse_args($args, array(
-                'without_deposit'        => false,
-                'without_tax'            => false
-            ));
+         
 
             if(empty($cart)){
                 $cart = $this->get_cart();
@@ -438,29 +435,27 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $tax=$this->get_cart_tax_amount($total_price);
 
             $total_price+=$tax;
+            $price_deposit = 0;
 
             if(empty($cart)){
                 $cart = $this->get_cart();
             }
 
             if(!empty($cart['deposit']['status'])){
-                $price_deposit = 0;
                 switch ($cart['deposit']['status']) {
                     case "percent":
                         if ($cart['deposit']['amount'] > 100) $cart['deposit']['amount'] = 100;
                         $price_deposit = round($total_price * $cart['deposit']['amount'] / 100,2);
                         break;
                     case "amount":
-                    default:
                         if ($cart['deposit']['amount'] < $total_price)
                             $price_deposit = $cart['deposit']['amount'];
                         break;
 
                 }
-                $total_price = $price_deposit;
             }
 
-            return $total_price;
+            return $price_deposit;
         }
 
 
