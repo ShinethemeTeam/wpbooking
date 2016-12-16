@@ -22,6 +22,6 @@ switch($template){
         break;
 	default :
 		echo '<div id="primary" class="content-area">
-				<main id="main" class="site-main '.$template.'" role="main">';
+				<main id="main" class="site-main '.esc_attr($template).'" role="main">';
 		break;
 }

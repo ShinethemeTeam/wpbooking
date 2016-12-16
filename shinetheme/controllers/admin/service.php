@@ -200,6 +200,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				'has_archive'        => ($page_id = wpbooking_get_option('archive-page')) && get_post($page_id) ? get_page_uri($page_id) : 'all-services',
 				'hierarchical'       => FALSE,
 				//'menu_position'      => '59.9',
+                'menu_icon'=>'dashicons-tickets-alt',
 				'supports'           => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments')
 			);
 
@@ -353,7 +354,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
                 echo '<select name="service_type">';
                 echo '<option value="0">'.esc_html__('All service','wpbooking').'</option>';
                 foreach($service_types as $key => $val){
-                    echo '<option '.selected(WPBooking_Input::get('service_type'),$key,false).' value="'.$key.'">'.$val->get_info('label').'</option>';
+                    echo '<option '.selected(WPBooking_Input::get('service_type'),$key,false).' value="'.esc_attr($key).'">'.esc_html($val->get_info('label')).'</option>';
                 }
 
                 echo '</select>';

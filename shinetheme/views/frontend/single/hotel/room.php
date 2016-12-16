@@ -47,7 +47,7 @@
                         <select name="room_number" class="form-control">
                             <?php
                             for($i=1 ; $i<=20 ; $i++ ){
-                                echo '<option value="'.$i.'">'.$i.'</option>';
+                                echo '<option value="'.esc_attr($i).'">'.esc_html($i).'</option>';
                             }
                             ?>
                         </select>
@@ -57,7 +57,7 @@
                         <select name="adults" class="form-control">
                             <?php
                             for($i=1 ; $i<=20 ; $i++ ){
-                                echo '<option value="'.$i.'">'.$i.'</option>';
+                                echo '<option value="'.esc_attr($i).'">'.esc_html($i).'</option>';
                             }
                             ?>
                         </select>
@@ -67,7 +67,7 @@
                         <select name="children" class="form-control">
                             <?php
                             for($i=0 ; $i<=20 ; $i++ ){
-                                echo '<option value="'.$i.'">'.$i.'</option>';
+                                echo '<option value="'.esc_attr($i).'">'.esc_html($i).'</option>';
                             }
                             ?>
                         </select>

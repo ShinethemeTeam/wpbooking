@@ -216,7 +216,7 @@ if (!class_exists('WPBooking_User')) {
                 $error_field = $validate->get_error_fields();
 
                 if(WPBooking_Input::post('rg-email') && email_exists(WPBooking_Input::post('rg-email'))){
-                    wpbooking_set_message(esc_html__('This email ready registered. You can login ','wpbooking').'<a href="'.$this->get_login_url().'">'.esc_html__('here','wpbooking').'</a>', 'danger');
+                    wpbooking_set_message(esc_html__('This email ready registered. You can login ','wpbooking').'<a href="'.esc_url($this->get_login_url()).'">'.esc_html__('here','wpbooking').'</a>', 'danger');
                 }
                 if(WPBooking_Input::post('rg-login') && !validate_username(WPBooking_Input::post('rg-login'))){
                     wpbooking_set_message(esc_html__('The username can only contain underscores and alphanumeric characters and dashes. It must be unique, and must not include spaces.','wpbooking'), 'danger');
@@ -225,7 +225,7 @@ if (!class_exists('WPBooking_User')) {
                     }
                 }
                 if(WPBooking_Input::post('rg-login') && username_exists(WPBooking_Input::post('rg-login'))){
-                    wpbooking_set_message(esc_html__('This username ready registered. You can login ','wpbooking').'<a href="'.$this->get_login_url().'">'.esc_html__('here','wpbooking').'</a>', 'danger');
+                    wpbooking_set_message(esc_html__('This username ready registered. You can login ','wpbooking').'<a href="'.esc_url($this->get_login_url()).'">'.esc_html__('here','wpbooking').'</a>', 'danger');
                     $error_field['rg-login'] = esc_html__('Username is exist','wpbooking');
                 }
 
@@ -253,7 +253,7 @@ if (!class_exists('WPBooking_User')) {
 
                 } else {
 
-                    wpbooking_set_message(wp_kses(__('Your account is registered successfully. You can login now: <a href="'.$this->get_login_url().'">Login</a>', 'wpbooking'),array('a'=>array('href'=> array()))), 'success');
+                    wpbooking_set_message(wp_kses(__('Your account is registered successfully. You can login now: <a href="'.esc_url($this->get_login_url()).'">Login</a>', 'wpbooking'),array('a'=>array('href'=> array()))), 'success');
 
                     WPBooking_Session::set('wpbooking_user_pass', $password);
                     WPBooking()->set('register','successful');
@@ -918,6 +918,7 @@ if (!class_exists('WPBooking_User')) {
             if(!empty($gravatar_pic_url)){
                 $css = WPBooking_Assets::build_css_class('height: '.$args['height'].'px; width: '.$args['width'].'px;');
                 return '<img alt="avatar"  width='.$args['width'].' height='.$args['height'].' src="'.$gravatar_pic_url.'" class="avatar '.$css.'" >';
+
             }
             return $avatar;
         }

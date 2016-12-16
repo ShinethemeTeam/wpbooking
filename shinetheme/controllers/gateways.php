@@ -18,11 +18,8 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 
 		function __construct()
 		{
-
-
 			// load abstract class
 			WPBooking_Loader::inst()->load_library('gateways/abstract-payment-gateway');
-
 			// We used Omnipay for our default payment Gateways
 			if (!version_compare(phpversion(), '5.3', '<')) {
 				// default gateways
@@ -36,9 +33,7 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 			}else{
 				add_action( 'admin_notices', array($this,'add_php_version_notices') );
 			}
-
 			add_filter('wpbooking_settings',array($this,'_add_settings'));
-
 		}
 
 

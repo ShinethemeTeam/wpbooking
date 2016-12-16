@@ -48,7 +48,7 @@ $slug_page_menu = $menu_page['menu_slug'];
                     $title_page_active = $v['label'];
 					$url='#';
                 }
-                echo '<li><a class="'.$is_class.'" href="'.$url.'">'.$v['label'].'</a>  </li>';
+                echo '<li><a class="'.esc_attr($is_class).'" href="'.esc_url($url).'">'.esc_html($v['label']).'</a>  </li>';
                 if( ( $i+ 1) < count($sections)) echo "|";
                 echo '</li>';
                 $i++;

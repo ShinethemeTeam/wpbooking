@@ -2479,7 +2479,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $html = sprintf(esc_html__("%s room",'wpbooking'),$number);
                 }
                 $price = $this->_get_total_price_all_room_in_cart($cart,false);
-                echo '<span class="total-title">'.$html.'</span>
+                echo '<span class="total-title">'.esc_html($html).'</span>
                       <span class="total-amount">'.WPBooking_Currency::format_money($price).'</span>';
 
                 foreach($cart['rooms'] as $room_id=>$room){
@@ -2489,7 +2489,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         foreach($extra_fees as $extra_items){
                             $price = 0;
                             if(!empty($extra_items['data'])){
-                                echo '<span class="total-title">'.$extra_items['title'].'</span>';
+                                echo '<span class="total-title">'.esc_html($extra_items['title']).'</span>';
                                 foreach($extra_items['data'] as $data){
                                     $price += ( $data['price'] * $data['quantity'] ) * $number_room;
                                 }
@@ -2550,7 +2550,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 foreach($rooms as $room){
                     $price += $room['price'];
                 }
-                echo '<span class="total-title">'.$html.'</span>
+                echo '<span class="total-title">'.esc_html($html).'</span>
                       <span class="total-amount">'.WPBooking_Currency::format_money($price).'</span>';
                 foreach($rooms as $room){
                     $number_room = $room['number'];
@@ -2560,7 +2560,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             foreach($extra_fees as $extra_items){
                                 $price = 0;
                                 if(!empty($extra_items['data'])){
-                                    echo '<span class="total-title">'.$extra_items['title'].'</span>';
+                                    echo '<span class="total-title">'.esc_html($extra_items['title']).'</span>';
                                     foreach($extra_items['data'] as $data){
                                         $price += ( $data['price'] * $data['quantity'] ) * $number_room;
                                     }

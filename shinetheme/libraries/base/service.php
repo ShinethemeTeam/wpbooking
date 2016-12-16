@@ -661,20 +661,5 @@ if (!class_exists('WB_Service')) {
 				}
 			}
 		}
-
-//        /**
-//         * Get Reviews Stats Based on Service Type
-//         *
-//         * @since 1.0
-//         * @author dungdt
-//         *
-//         */
-//		function get_review_stats()
-//        {
-//            $wpbooking_review_stats=apply_filters('wpbooking_review_stats',array(),$this->ID);
-//
-//            return $wpbooking_review_stats;
-//        }
-
 	}
 }

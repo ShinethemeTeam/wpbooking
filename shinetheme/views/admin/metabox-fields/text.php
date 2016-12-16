@@ -29,7 +29,7 @@ $field = '';
 
 $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
 
-$field .= '<input id="'. esc_html( $data['id'] ).'" type="text" placeholder="'.$data['placeholder'].'" name="'. $name .'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'">';
+$field .= '<input id="'. esc_html( $data['id'] ).'" type="text" placeholder="'.esc_html($data['placeholder']).'" name="'. $name .'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'">';
 
 ?>
 

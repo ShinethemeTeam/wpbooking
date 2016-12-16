@@ -13,7 +13,7 @@
     <div class="content-center">
         <?php echo esc_attr('Someone has requested a password reset for the following account:','wpbooking'); ?>
         <br><br>
-        <?php echo esc_attr('Username : ','wpbooking').'<strong>'.$user_login.'</strong>'; ?>
+        <?php echo esc_attr('Username : ','wpbooking').'<strong>'.esc_html($user_login).'</strong>'; ?>
         <br><br>
         <?php echo esc_attr('If this was a mistake, just ignore this email and nothing will happen.','wpbooking'); ?>
         <br><br>

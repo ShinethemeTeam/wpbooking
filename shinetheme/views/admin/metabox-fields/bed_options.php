@@ -42,7 +42,7 @@ $field = '';
                                 $array_with_out_key = true;
                             }
 
-                            echo '<select name="' . $name . '_single_[bed_type][]"  class="widefat small form-control ' . esc_html($data['class']) . '">';
+                            echo '<select name="' . esc_attr($name) . '_single_[bed_type][]"  class="widefat small form-control ' . esc_html($data['class']) . '">';
                             if (!empty($data['select_label'])) $field .= sprintf('<option value="">%s</option>', $data['select_label']);
                             foreach ($data['value'] as $key => $value) {
                                 $compare = $key;
@@ -59,7 +59,7 @@ $field = '';
                                         $checked = ' selected ';
                                     }
                                 }
-                                echo '<option value="' . esc_html($option_val) . '" ' . $checked . '>' . esc_html($value) . '</option>';
+                                echo '<option value="' . esc_html($option_val) . '" ' . esc_attr($checked) . '>' . esc_html($value) . '</option>';
                             }
                             echo '</select> x ';
 
@@ -71,7 +71,7 @@ $field = '';
                                         $checked = ' selected ';
                                     }
                                 }
-                                echo '<option '.$checked.' value="' . esc_attr($i) . '" >' . esc_html($i) . '</option>';
+                                echo '<option '.esc_attr($checked).' value="' . esc_attr($i) . '" >' . esc_html($i) . '</option>';
                             }
                             echo '</select>';
 
@@ -96,7 +96,7 @@ $field = '';
                                                 $checked = '';
                                             }
 
-                                            echo '<option value="' . esc_html($key) . '" ' . $checked . '>' . esc_html($value) . '</option>';
+                                            echo '<option value="' . esc_html($key) . '" ' . esc_attr($checked) . '>' . esc_html($value) . '</option>';
                                         }
                                         ?>
                                     </select> x
@@ -109,7 +109,7 @@ $field = '';
                                         } else {
                                             $checked = '';
                                         }
-                                        echo '<option '.$checked.' value="' . esc_attr($i) . '" >' . esc_html($i) . '</option>';
+                                        echo '<option '.esc_attr($checked).' value="' . esc_attr($i) . '" >' . esc_html($i) . '</option>';
                                     }
                                     echo '</select>';
 
@@ -181,7 +181,7 @@ $field = '';
                                     $array_with_out_key = true;
                                 }
 
-                                echo '<select name="' . $name . '_multi_[__number_room__][bed_type][bed_type][]" class="widefat small form-control ' . esc_html($data['class']) . '">';
+                                echo '<select name="' . esc_attr($name) . '_multi_[__number_room__][bed_type][bed_type][]" class="widefat small form-control ' . esc_html($data['class']) . '">';
                                 if (!empty($data['select_label'])) $field .= sprintf('<option value="">%s</option>', $data['select_label']);
                                 foreach ($data['value'] as $key => $value) {
                                     $compare = $key;
@@ -202,7 +202,7 @@ $field = '';
                                     $option_val = $key;
                                     if ($array_with_out_key) $option_val = $value;
 
-                                    echo '<option value="' . esc_html($option_val) . '" ' . $checked . '>' . esc_html($value) . '</option>';
+                                    echo '<option value="' . esc_html($option_val) . '" ' . esc_attr($checked) . '>' . esc_html($value) . '</option>';
                                 }
                                 echo '</select> x ';
 
@@ -234,7 +234,7 @@ $field = '';
                                                     $checked = '';
                                                 }
 
-                                                echo '<option value="' . esc_html($key) . '" ' . $checked . '>' . esc_html($value) . '</option>';
+                                                echo '<option value="' . esc_html($key) . '" ' . esc_attr($checked) . '>' . esc_html($value) . '</option>';
                                             }
                                             ?>
                                         </select> x
@@ -321,7 +321,7 @@ $field = '';
                                         if ($keys[0] === 0) {
                                             $array_with_out_key = true;
                                         }
-                                        echo '<select name="' . $name . '_multi_['.$i.'][bed_type][bed_type][]" class="widefat small form-control ' . esc_html($data['class']) . '">';
+                                        echo '<select name="' . esc_attr($name) . '_multi_['.esc_attr($i).'][bed_type][bed_type][]" class="widefat small form-control ' . esc_html($data['class']) . '">';
                                         if (!empty($data['select_label'])) $field .= sprintf('<option value="">%s</option>', $data['select_label']);
 
                                         foreach ($data['value'] as $key => $value) {
@@ -347,7 +347,7 @@ $field = '';
 
                                             }
 
-                                            echo '<option value="' . esc_html($option_val) . '" ' . $checked . '>' . esc_html($value) . '</option>';
+                                            echo '<option value="' . esc_html($option_val) . '" ' . esc_attr($checked) . '>' . esc_html($value) . '</option>';
                                         }
                                         echo '</select> x ';
 
@@ -361,7 +361,7 @@ $field = '';
                                                     }
                                                 }
                                             }
-                                            echo '<option '.$checked.' value="' . esc_attr($j) . '" >' . esc_html($j) . '</option>';
+                                            echo '<option '.esc_attr($checked).' value="' . esc_attr($j) . '" >' . esc_html($j) . '</option>';
                                         }
                                         echo '</select>';
 
@@ -384,7 +384,7 @@ $field = '';
                                                         } else {
                                                             $checked = '';
                                                         }
-                                                        echo '<option value="' . esc_html($key) . '" ' . $checked . '>' . esc_html($value) . '</option>';
+                                                        echo '<option value="' . esc_html($key) . '" ' . esc_attr($checked) . '>' . esc_html($value) . '</option>';
                                                     }
                                                     ?>
                                                 </select> x
@@ -397,7 +397,7 @@ $field = '';
                                                     } else {
                                                         $checked = '';
                                                     }
-                                                    echo '<option ' . $checked . ' value="' . esc_attr($j) . '" >' . esc_html($j) . '</option>';
+                                                    echo '<option ' . esc_attr($checked) . ' value="' . esc_attr($j) . '" >' . esc_html($j) . '</option>';
                                                 }
                                                 echo '</select>';
                                                 ?>

@@ -38,7 +38,7 @@ if( is_array( $data['value'] ) && !empty( $data['value'] ) ){
 				$checked = '';
 			}
 		}
-		$field .= '<div class="'. esc_html( $data['class'] ).' '.$checked. '"><label><input type="radio" name="'. $name .'"  value="'. esc_html( $key ) .'" ' . $checked .'> <span>'. esc_html( $value ) .'</span></label></div>';
+		$field .= '<div class="'. esc_html( $data['class'] ).' '.esc_attr($checked). '"><label><input type="radio" name="'. $name .'"  value="'. esc_html( $key ) .'" ' . esc_attr($checked) .'> <span>'. esc_html( $value ) .'</span></label></div>';
 	}
 }
 

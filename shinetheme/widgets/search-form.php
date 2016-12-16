@@ -163,7 +163,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 								}
 								wp_dropdown_categories( $args );
 								?>
-								<input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>" name="<?php echo esc_attr( "taxonomy_operator" . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
+								<input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>" name="<?php echo esc_attr( "taxonomy_operator" . '[' . esc_attr($v[ 'taxonomy' ]) . ']' ) ?>" />
 								<?php
 							}else{
                                 ?>
@@ -212,8 +212,8 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 									}
 
 									?>
-									<input type="hidden" value="<?php echo esc_attr($value_item) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v[ 'field_type' ] . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
-									<input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>" name="<?php echo esc_attr( "taxonomy_operator" . '[' . $v[ 'taxonomy' ] . ']' ) ?>" />
+									<input type="hidden" value="<?php echo esc_attr($value_item) ?>" class="data_taxonomy" name="<?php echo esc_attr( $v[ 'field_type' ] . '[' . esc_attr($v[ 'taxonomy' ]) . ']' ) ?>" />
+									<input type="hidden" value="<?php echo esc_attr($v['taxonomy_operator']) ?>" name="<?php echo esc_attr( "taxonomy_operator" . '[' . esc_attr($v[ 'taxonomy' ]) . ']' ) ?>" />
 								</div>
 								</div>
 							<?php } ?>
@@ -402,7 +402,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                                 if($service_type == $k ){
                                     $select = "selected";
                                 }
-                                echo '<option '.$select.' value="'.$k.'">'.$v->get_info('label').'</option>';
+                                echo '<option '.esc_attr($select).' value="'.esc_attr($k).'">'.esc_html($v->get_info('label')).'</option>';
                             }
                         }
                         ?>
