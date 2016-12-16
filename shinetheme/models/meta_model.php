@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by ShineTheme.
+ * WpBooking Team
  * User: NAZUMI
  * Date: 10/24/2016
  * Version: 1.0

@@ -6,7 +6,7 @@
  *
  * Class WPBooking_Input
  *
- * Created by ShineTheme
+ * Created by WpBooking Team
  * @author quandq
  */
 if ( ! defined( 'ABSPATH' ) ) {

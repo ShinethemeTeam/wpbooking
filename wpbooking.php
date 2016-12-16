@@ -1,16 +1,17 @@
 <?php
 /**
  * Plugin Name: WpBooking
- * Plugin URI: #
+ * Plugin URI: wpbooking
  * Description: All in one Booking System
  * Version: 1.0
- * Author: shinetheme
- * Author URI: http://www.shinetheme.com
+ * Author: wpbooking
+ * Author URI: http://www.wpbooking.org
  * Requires at least: 4.1
  * Tested up to: 4.3
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  *
  * Text Domain: wpbooking
- * Domain Path: /languages/
+ * Domain Path: languages/
  *
  * @package wpbooking
  * @author shinetheme
