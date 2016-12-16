@@ -51,7 +51,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
              * @author: tienhd
              * @since: 1.0
              */
-            add_action( 'restrict_manage_posts', array($this, '_service_filter_field'), 15, 2 );
+            add_action( 'restrict_manage_posts', array($this, '_service_filter_field'), 15 );
             add_filter( 'parse_query', array($this, '_service_filter_meta') );
 
 
@@ -349,7 +349,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
          * @param $post_type
          * @param $which
          */
-        function _service_filter_field($post_type, $which) {
+        function _service_filter_field($post_type) {
             if ( $post_type == 'wpbooking_service' ) {
                 $service_types = WPBooking_Service_Controller::inst()->get_service_types();
 
