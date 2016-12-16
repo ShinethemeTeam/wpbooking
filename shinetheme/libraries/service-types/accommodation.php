@@ -2547,7 +2547,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 }
                 $price = 0;
                 foreach($rooms as $room){
-                    $price += $room['price'];
+                    $price += $room['price'] * $room['number'];
                 }
                 echo '<span class="total-title">'.esc_html($html).'</span>
                       <span class="total-amount">'.WPBooking_Currency::format_money($price).'</span>';
