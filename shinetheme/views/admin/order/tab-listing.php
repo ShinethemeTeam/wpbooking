@@ -150,13 +150,13 @@ $query=new WP_Query($args);
                             </div>
                             <div class="status">
                                 <?php
-                                echo $order->get_status_html();
+                                echo do_shortcode($order->get_status_html());
                                 echo '<br>';
                                 echo '<span class="payment">'.$order->get_payment_gateway().'</span>';
                                 ?>
                             </div>
                             <div class="customer">
-                                <a href="<?php echo esc_url(add_query_arg( 'user_id', $order->get_customer('id'), self_admin_url( 'user-edit.php' ) )); ?>"><strong><?php echo $order->get_customer('full_name'); ?></strong></a><br>
+                                <a href="<?php echo esc_url(add_query_arg( 'user_id', $order->get_customer('id'), self_admin_url( 'user-edit.php' ) )); ?>"><strong><?php echo esc_attr($order->get_customer('full_name')); ?></strong></a><br>
                                 <span class="wb-button-customer"><em><?php echo esc_html__('details ','wpbooking'); ?></em><span class="caret"></span></span>
                                 <ul class="none wb-customer-detail">
                                     <li><strong><?php echo esc_html__('Email address: ','wpbooking'); ?></strong><br><?php echo esc_attr($order->get_customer('email')); ?></li>
@@ -243,7 +243,7 @@ $query=new WP_Query($args);
                         <td class="wb-column-empty"></td>
 						<td class="manage-column column-date asc">
 							<?php
-							echo $order->get_booking_date();
+							echo do_shortcode($order->get_booking_date());
 							?>
 						</td>
 						<td class="manage-column column-date asc">

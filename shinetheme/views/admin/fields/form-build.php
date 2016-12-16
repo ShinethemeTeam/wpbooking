@@ -51,6 +51,6 @@ if(!empty($data['condition'])){
             </div>
         </div>
 
-        <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
+        <i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
     </td>
 </tr>

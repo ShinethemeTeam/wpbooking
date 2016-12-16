@@ -40,6 +40,6 @@ if(!empty($data['element_list_item'])){
                 <?php } ?>
             </ul>
         </fieldset>
-        <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
+        <i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
     </td>
 </tr>

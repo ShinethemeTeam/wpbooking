@@ -36,7 +36,7 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
                 <p class="help-block"><?php esc_html_e('Yes, Included / Yes, Not included / No','wpbooking') ?></p>
             </div>
         </div>
-        <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
+        <i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
     </div>
     <div class="st-metabox-left">
         <label for="<?php esc_html_e("VAT amount","wpbooking") ?>"><?php esc_html_e("VAT amount","wpbooking") ?></label>
@@ -56,6 +56,6 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
                 </div>
             </div>
         </div>
-        <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
+        <i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
     </div>
 </div>

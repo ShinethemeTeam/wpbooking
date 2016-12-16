@@ -45,10 +45,10 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
 	                    if( is_array( $lists ) && count( $lists) ):
 	                        foreach( $lists as $key => $location ):
 	                ?>
-	                    <div data-name="<?php echo strtolower($location['parent_name']); ?>" class="item" style="margin-left: <?php echo $location['deep'].'px;'; ?> margin-bottom: 5px;">
+	                    <div data-name="<?php echo strtolower($location['parent_name']); ?>" class="item" style="margin-left: <?php echo esc_attr($location['deep']).'px;'; ?> margin-bottom: 5px;">
 	                        <label for="<?php echo 'location-'.$location['id']; ?>">
-	                            <input <?php if(in_array($location['id'], $old)) echo 'checked'; ?> id="<?php echo 'location-'.$location['id']; ?>" type="checkbox" name="<?php echo $name; ?>" value="<?php echo $location['id']; ?>">
-	                            <span><?php echo $location['name']; ?></span>
+	                            <input <?php if(in_array($location['id'], $old)) echo 'checked'; ?> id="<?php echo 'location-'.$location['id']; ?>" type="checkbox" name="<?php echo esc_attr($name); ?>" value="<?php echo esc_attr($location['id']); ?>">
+	                            <span><?php echo esc_attr($location['name']); ?></span>
 	                        </label>
 	                    </div>
 	                <?php  endforeach; endif; ?>
@@ -56,6 +56,6 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
 	        </div>
 		</div>
 	</div>
-	<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+	<i class="wpbooking-desc"><?php echo do_shortcode( $data['desc'] ) ?></i>
 </div>
 </div>

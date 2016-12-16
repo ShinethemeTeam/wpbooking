@@ -157,7 +157,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
 											echo '<div>';
 										}
 									?>
-										<label style="width: 40px;"><input type="checkbox" name="day-of-month[]" value="<?php echo $i; ?>" style="margin-right: 5px;"><?php echo $i; ?></label>
+										<label style="width: 40px;"><input type="checkbox" name="day-of-month[]" value="<?php echo esc_attr($i); ?>" style="margin-right: 5px;"><?php echo esc_attr($i); ?></label>
 					
 									<?php 
 										if( $i != 1 && $i % 5 == 0 ) echo '</div><div>';
@@ -181,7 +181,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
 											echo '<div>';
 										}
 									?>
-										<label style="width: 100px;"><input type="checkbox" name="months[]" value="<?php echo $month; ?>" style="margin-right: 5px;"><?php echo $month; ?></label>
+										<label style="width: 100px;"><input type="checkbox" name="months[]" value="<?php echo esc_attr($month); ?>" style="margin-right: 5px;"><?php echo esc_attr($month); ?></label>
 					
 									<?php 
 										if( $key != 0 && ($key + 1) % 2 == 0 ) echo '</div><div>';
@@ -204,7 +204,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
 											echo '<div>';
 										}
 									?>
-										<label style="width: 100px;"><input type="checkbox" name="years[]" value="<?php echo $i; ?>" style="margin-right: 5px;"><?php echo $i; ?></label>
+										<label style="width: 100px;"><input type="checkbox" name="years[]" value="<?php echo esc_attr($i); ?>" style="margin-right: 5px;"><?php echo esc_attr($i); ?></label>
 					
 									<?php 
 										if( $i != $year && ($i == $j + 2 ) ) { echo '</div><div>'; $j = $i; }
@@ -231,5 +231,5 @@ $df_price=get_post_meta($post_id,'base_price',true);
 			</div>
 		</div>
 	</div>	
-	<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+	<i class="wpbooking-desc"><?php echo do_shortcode( $data['desc'] ) ?></i>
 </div>

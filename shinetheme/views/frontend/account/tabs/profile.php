@@ -97,7 +97,7 @@ $data_current_user = get_userdata( $user_id );
 				?>
 				<div class="item">
 					<div class="item_thumbnail">
-						<?php echo balanceTags($service->get_featured_image('thumb'))?>
+						<?php echo do_shortcode($service->get_featured_image('thumb'))?>
 					</div>
 					<div class="item_title">
 						<?php the_title() ?>

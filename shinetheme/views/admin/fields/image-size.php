@@ -30,7 +30,7 @@ if(!empty($data_value)){
         <input type="checkbox" class="form-control  width-70 wpbooking_image_thumb_crop" <?php if($crop == "on") echo "checked" ?>  >
         <?php //_e("Crop the image ?",'wpbooking') ?>
 		</label>-->
-        <input type="hidden" class="data_value" value="<?php echo esc_html($data_value) ?>" name="<?php echo $name ?>">
-        <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
+        <input type="hidden" class="data_value" value="<?php echo esc_html($data_value) ?>" name="<?php echo esc_attr($name) ?>">
+        <i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
     </td>
 </tr>

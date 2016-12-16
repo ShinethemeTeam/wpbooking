@@ -88,8 +88,8 @@ $field .= '</div></div></div>';
             <h3><?php echo esc_html__('No accommodation photo yet.','wpbooking') ?></h3>
             <p><?php echo esc_html__('Upload at least a photo','wpbooking'); ?></p>
         </div>
-        <?php echo $field; ?>
-        <i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+        <?php echo do_shortcode($field); ?>
+        <i class="wpbooking-desc"><?php echo do_shortcode( $data['desc'] ) ?></i>
     </div>
 
 </div>

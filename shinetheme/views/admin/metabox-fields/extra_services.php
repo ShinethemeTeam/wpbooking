@@ -58,7 +58,7 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 									<span class="help_inline"><?php esc_html_e('Required','wpbooking') ?></span>
 								</div>
 								<div class="service_desc">
-									<span class="service_desc metabox-help"><?php echo balanceTags($value['description']); ?>
+									<span class="service_desc metabox-help"><?php echo do_shortcode($value['description']); ?>
 										<input type="hidden" value="<?php echo esc_html($value['description']) ?>"  name="<?php echo esc_attr($data['id'].'['.$k.'][desc]') ?>"/>
 									</span>
 								</div>
@@ -113,7 +113,7 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 				</div>
 			</div>
 		</div>
-		<div class="metabox-help"><?php echo balanceTags( $data['desc'] ) ?></div>
+		<div class="metabox-help"><?php echo do_shortcode( $data['desc'] ) ?></div>
 	</div>
 </div>
 <?php

@@ -21,7 +21,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 			$service_type=$instance['service_type'];
             $title = apply_filters( 'widget_title', empty( $title ) ? '' : $title, $instance, $this->id_base );
 
-			echo $widget_args['before_widget'];
+			echo do_shortcode($widget_args['before_widget']);
 
             $page_search = get_post_type_archive_link('wpbooking_service');
 
@@ -32,7 +32,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
             	<?php
 					if ( ! empty( $instance['title'] ) ) {
-						echo $widget_args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $widget_args['after_title'];
+						echo do_shortcode($widget_args['before_title']) . apply_filters( 'widget_title', $instance['title'] ). $widget_args['after_title'];
 					}
 					$hidden_fields=$_GET;
              	?>
@@ -83,7 +83,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
             </form>
             <?php
 
-			echo $widget_args['after_widget'];
+			echo do_shortcode($widget_args['after_widget']);
         }
 
 		function get_field_html($v,$service_type)
@@ -387,13 +387,13 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
             ));
             extract($instance);
             ?>
-            <p><label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><strong><?php _e('Title:',"wpbooking"); ?></strong> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
+            <p><label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><strong><?php _e('Title:',"wpbooking"); ?></strong> <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
             <p>
-                <label for="<?php echo $this->get_field_id('service_type'); ?>"><strong><?php _e('Service Type:','wpbooking'); ?></strong>
+                <label for="<?php echo esc_attr($this->get_field_id('service_type')); ?>"><strong><?php _e('Service Type:','wpbooking'); ?></strong>
                     <?php
                     $data = WPBooking_Service_Controller::inst()->get_service_types();
                     ?>
-                    <select name="<?php echo $this->get_field_name('service_type'); ?>" class="option_service_search_form widefat" id="<?php echo $this->get_field_id('service_type'); ?>">
+                    <select name="<?php echo esc_attr($this->get_field_name('service_type')); ?>" class="option_service_search_form widefat" id="<?php echo esc_attr($this->get_field_id('service_type')); ?>">
                         <option value=""><?php _e("-- Select --",'wpbooking') ?></option>
                         <?php
                         if(!empty($data)){
@@ -448,7 +448,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                                                         ?>
                                                         <tr class="<?php echo esc_attr($v1['class']) ?> div_<?php echo esc_attr($v1['name']) ?>">
                                                             <th> <?php echo esc_html($v1['label']) ?>:  </th>
-                                                            <td> <input type="text"  name="<?php echo $this->get_field_name('field_search'); ?>[<?php echo esc_attr($key) ?>][<?php echo esc_attr($number) ?>][<?php echo esc_attr($v1['name']) ?>]" class="form-control <?php echo esc_attr($v1['name']) ?>" value="<?php echo esc_html($data_value) ?>"> </td>
+                                                            <td> <input type="text"  name="<?php echo esc_attr($this->get_field_name('field_search')); ?>[<?php echo esc_attr($key) ?>][<?php echo esc_attr($number) ?>][<?php echo esc_attr($v1['name']) ?>]" class="form-control <?php echo esc_attr($v1['name']) ?>" value="<?php echo esc_html($data_value) ?>"> </td>
                                                         </tr>
                                                     <?php
                                                     }
@@ -456,7 +456,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                                                         ?>
                                                         <tr class="<?php echo esc_attr($v1['class']) ?> div_<?php echo esc_attr($v1['name']) ?>">
                                                             <th> <?php echo esc_html($v1['label']) ?>:  </th>
-                                                            <td> <label><input type="checkbox" <?php checked(1,$data_value) ?> value="1"  name="<?php echo $this->get_field_name('field_search'); ?>[<?php echo esc_attr($key) ?>][<?php echo esc_attr($number) ?>][<?php echo esc_attr($v1['name']) ?>]" class=" <?php echo esc_attr($v1['name']) ?>"> <?php esc_html_e('Yes','wpbooking')?></label> </td>
+                                                            <td> <label><input type="checkbox" <?php checked(1,$data_value) ?> value="1"  name="<?php echo esc_attr($this->get_field_name('field_search')); ?>[<?php echo esc_attr($key) ?>][<?php echo esc_attr($number) ?>][<?php echo esc_attr($v1['name']) ?>]" class=" <?php echo esc_attr($v1['name']) ?>"> <?php esc_html_e('Yes','wpbooking')?></label> </td>
                                                         </tr>
                                                     <?php
                                                     }
@@ -466,7 +466,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                                                         <tr class="<?php echo esc_attr($v1['class']) ?> div_<?php echo esc_attr($v1['name']) ?>">
                                                             <th> <?php echo esc_html($v1['label']) ?>:  </th>
                                                             <td>
-                                                                <select class="form-control <?php echo esc_attr($v1['name']) ?>" name="<?php echo $this->get_field_name('field_search'); ?>[<?php echo esc_attr($key) ?>][<?php echo esc_attr($number) ?>][<?php echo esc_attr($v1['name']) ?>]" >
+                                                                <select class="form-control <?php echo esc_attr($v1['name']) ?>" name="<?php echo esc_attr($this->get_field_name('field_search')); ?>[<?php echo esc_attr($key) ?>][<?php echo esc_attr($number) ?>][<?php echo esc_attr($v1['name']) ?>]" >
                                                                     <?php
                                                                     if(!empty($options)){
                                                                         foreach($options as $k2=>$v2){
@@ -496,7 +496,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                         </div>
                         <div class="widget-control-actions">
                             <div class="alignleft">
-                                <input type="button" value="<?php  esc_html_e('Add Field','wpbooking')?>" data-number="<?php echo esc_attr($number) ?>" data-name-field-search="<?php echo $this->get_field_name('field_search'); ?>" data-post-type="<?php echo esc_attr($key) ?>" class="button button-primary left btn_add_field_search_form" id="#">
+                                <input type="button" value="<?php  esc_html_e('Add Field','wpbooking')?>" data-number="<?php echo esc_attr($number) ?>" data-name-field-search="<?php echo esc_attr($this->get_field_name('field_search')); ?>" data-post-type="<?php echo esc_attr($key) ?>" class="button button-primary left btn_add_field_search_form" id="#">
                                 <p><i><?php esc_html_e('Remember hit Save button after add or remove new search field','wpbooking') ?></i></p>
                             </div>
                             <br class="clear">

@@ -78,7 +78,7 @@ if($query->found_posts < 1){
                                 <span class="room-remain-left"><?php printf(esc_html__('%d room(s)','wpbooking'),$number) ?></span>
                             </div>
                             <div class="room-image">
-                                <?php echo balanceTags($thumbnail) ?>
+                                <?php echo do_shortcode($thumbnail) ?>
                             </div>
                             <h3 class="room-type"><?php the_title()?></h3>
                             <div class="room-actions">

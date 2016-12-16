@@ -55,6 +55,6 @@ $field .= '</div></div>';
 				?>
 			</div>
 		</div>
-		<div class="metabox-help"><?php echo balanceTags( $data['desc'] ) ?></div>
+		<div class="metabox-help"><?php echo do_shortcode( $data['desc'] ) ?></div>
 	</div>
 </div>

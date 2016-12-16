@@ -7,7 +7,7 @@ if(!empty($data['edit_field_class'])){
 <div class="<?php echo esc_html($class) ?> ">
     <div class="wpbooking-build-group ">
 		<?php if(!empty($data['title'])){?>
-        <label class="control-label"><?php echo balanceTags($data['title']) ?>:</label>
+        <label class="control-label"><?php echo do_shortcode($data['title']) ?>:</label>
 		<?php } ?>
         <div class="wpbooking-row group-checkbox">
             <?php if(!empty($data['options'])){
@@ -19,7 +19,7 @@ if(!empty($data['edit_field_class'])){
                 }
             } ?>
         </div>
-        <input type="hidden" data-type="checkbox"  class="item" data-name-shortcode="<?php echo esc_attr($parent) ?>" name="<?php echo balanceTags($data['name']) ?>" id="<?php echo balanceTags($data['name']) ?>">
+        <input type="hidden" data-type="checkbox"  class="item" data-name-shortcode="<?php echo esc_attr($parent) ?>" name="<?php echo esc_attr($data['name']) ?>" id="<?php echo esc_attr($data['name']) ?>">
         <i class="desc"><?php echo esc_html($data['desc'])  ?></i>
     </div>
 </div>

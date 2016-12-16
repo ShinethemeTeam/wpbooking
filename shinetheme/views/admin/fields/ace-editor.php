@@ -29,7 +29,7 @@ if(!empty($data['condition'])){
 	<td>
 		<div  id="<?php echo esc_attr($name) ?>" style="height: 400px" class="width-800 ace-editor" ></div>
 		<textarea name="<?php echo esc_html($name) ?>" class="form-control  min-width-800 hidden" data-type="css"><?php echo esc_html($data_value) ?></textarea>
-		<i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
+		<i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
 	</td>
 
 </tr>

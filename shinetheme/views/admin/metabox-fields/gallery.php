@@ -60,7 +60,7 @@ $field .= '</div></div>';
         <h3><?php echo sprintf(esc_html__('No %s photo yet.','wpbooking'), (isset($data['service_type'])?$data['service_type']:'')); ?></h3>
         <p><?php echo esc_html__('Upload at least a photo','wpbooking'); ?></p>
     </div>
-	<?php echo $field; ?>
-	<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+	<?php echo do_shortcode($field); ?>
+	<i class="wpbooking-desc"><?php echo do_shortcode( $data['desc'] ) ?></i>
 </div>
 </div>
