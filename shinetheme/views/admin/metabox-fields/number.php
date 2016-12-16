@@ -27,11 +27,13 @@ else{
 	if($old_data<$data['min']) $old_data=$data['min'];
 }
 
+$ph = (isset($data['placeholder']))?$data['placeholder']:'';
+
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
 $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
 
-$field .= '<div style="margin-bottom: 7px;"><input '.$attr.' id="'. esc_html( $data['id'] ).'" type="number" name="'. $name .'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'" min="'.$data['min'].'"></div>';
+$field .= '<div style="margin-bottom: 7px;"><input '.$attr.' id="'. esc_html( $data['id'] ).'" type="number" placeholder="'.$ph.'" name="'. $name .'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'" min="'.$data['min'].'"></div>';
 
 $field .= '</div></div>';
 

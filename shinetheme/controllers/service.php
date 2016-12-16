@@ -593,7 +593,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
 			return self::$_inst;
 		}
 
-
 	}
 
 	WPBooking_Service_Controller::inst();
