@@ -3621,7 +3621,7 @@ label[for=wpbooking_locationdiv-hide] {
   padding: 0 0 0.8em;
   position: relative;
   text-align: center;
-  width: 20%;
+  width: 100%;
 }
 .wp-setup-demo .setup-steps li.active::before {
   border-color: #ffb900;
