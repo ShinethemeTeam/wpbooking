@@ -151,21 +151,17 @@ if(!class_exists('WPBooking_Admin_Setup'))
                         update_option("wpbooking_registration_email_customer",self::_get_template_default("registration_email_customer"));
                         update_option("wpbooking_registration_email_admin",self::_get_template_default("registration_email_admin"));
 
-                        wp_redirect( add_query_arg( array('page'=>'wpbooking_setup_page_settings','wp_step'=>'wp_service') , admin_url("admin.php") ) );
-                        exit;
-                        break;
-                    case "wp_service":
-                        ///////////////////
-                        /////Room//////////
-                        ///////////////////
-
-                        update_option("wpbooking_service_type_accommodation_posts_per_page",10);
                         wp_redirect( add_query_arg( array('page'=>'wpbooking_setup_page_settings','wp_step'=>'wp_payment') , admin_url("admin.php") ) );
                         exit;
                         break;
                     case "wp_payment":
-                        update_option("wpbooking_gateway_bank_transfer_enable",WPBooking_Input::request('wpbooking_gateway_bank_transfer_enable',0));
-                        update_option("wpbooking_gateway_paypal_enable",WPBooking_Input::request('wpbooking_gateway_paypal_enable',0));
+                        $gateway=WPBooking_Payment_Gateways::inst();
+                        $all=$gateway->get_gateways();
+                        if(!empty($all)){
+                            foreach($all as $key=>$value){
+                                update_option("wpbooking_gateway_".$key."_enable",WPBooking_Input::request('wpbooking_gateway_'.$key.'_enable',0));
+                            }
+                        }
                         update_option("wpbooking_setup_demo","false");
                         wp_redirect( add_query_arg( array('page'=>'wpbooking_page_settings') , admin_url("admin.php") ) );
                         exit;

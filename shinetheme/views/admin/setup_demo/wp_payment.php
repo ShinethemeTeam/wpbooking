@@ -8,30 +8,32 @@
         <div class="item_setup <?php echo esc_attr($is_tab) ?>">
             <table class="form-table wpbooking-settings ">
                 <tbody>
-                    <tr class="wpbooking_gateway_bank_transfer_enable wpbooking-form-group  ">
-                        <th scope="row">
-                            <label for="gateway_bank_transfer_enable"><?php esc_html_e("Bank Transfer:","wpbooking") ?></label>
-                        </th>
-                        <td>
-                            <label>
-                                <input type="checkbox" value="1" name="wpbooking_gateway_bank_transfer_enable" checked="" class="form-control min-width-500" id="wpbooking_gateway_bank_transfer_enable">
-                                <?php esc_html_e("Yes, I want to enable Bank Transfer","wpbooking") ?>
-                            </label>
-                            <i class="wpbooking-desc"></i>
-                        </td>
-                    </tr>
-                    <tr class="wpbooking_gateway_paypal_enable wpbooking-form-group  ">
-                        <th scope="row">
-                            <label for="gateway_paypal_enable"><?php esc_html_e("PayPal:","wpbooking") ?></label>
-                        </th>
-                        <td>
-                            <label>
-                                <input type="checkbox" value="1" name="wpbooking_gateway_paypal_enable" class="form-control min-width-500" id="wpbooking_gateway_paypal_enable">
-                                <?php esc_html_e("Yes, I want to enable PayPal","wpbooking") ?>		</label>
-                            <i class="wpbooking-desc"></i>
-                        </td>
-                    </tr>
-                    </td>
+                <?php
+                $gateway=WPBooking_Payment_Gateways::inst();
+                $all=$gateway->get_gateways();
+                ?>
+                <?php if(!empty($all))
+                {
+                    foreach($all as $key=>$value)
+                    {
+                        ?>
+                        <tr class="wpbooking_gateway_<?php echo esc_attr($key)?>_enable wpbooking-form-group  ">
+                            <th scope="row">
+                                <label for="gateway_<?php echo esc_attr($key)?>_enable"><?php echo esc_attr($value->get_option('title')) ?>:</label>
+                            </th>
+                            <td>
+                                <label>
+                                    <input type="checkbox" value="1" name="wpbooking_gateway_<?php echo esc_attr($key)?>_enable" checked="" class="form-control min-width-500" id="wpbooking_gateway_<?php echo esc_attr($key)?>_enable">
+                                    <?php esc_html_e("Yes, I want to enable ","wpbooking") ?><?php echo esc_attr($value->get_option('title')) ?>
+                                </label>
+                                <i class="wpbooking-desc"></i>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                }
+                ?>
+
                 </tr>
                 </tbody>
             </table>
