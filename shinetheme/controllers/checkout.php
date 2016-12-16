@@ -526,11 +526,11 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 'user_phone'           => array(
                     'title'       => esc_html__( "Telephone" , "wpbooking" ) ,
                     'placeholder' => esc_html__( "Telephone" , "wpbooking" ) ,
-                    'type'        => 'number' ,
+                    'type'        => 'text' ,
                     'name'        => 'user_phone' ,
                     'size'        => '12' ,
                     'required'    => true ,
-                    'rule'        => 'required|max_length[100]' ,
+                    'rule'        => 'required|numeric|max_length[100]' ,
                 ) ,
                 'user_address'         => array(
                     'title'       => esc_html__( "Address" , "wpbooking" ) ,

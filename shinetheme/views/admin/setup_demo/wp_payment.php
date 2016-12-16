@@ -19,12 +19,12 @@
                         ?>
                         <tr class="wpbooking_gateway_<?php echo esc_attr($key)?>_enable wpbooking-form-group  ">
                             <th scope="row">
-                                <label for="gateway_<?php echo esc_attr($key)?>_enable"><?php echo esc_attr($value->get_option('title')) ?>:</label>
+                                <label for="gateway_<?php echo esc_attr($key)?>_enable"><?php echo esc_attr($value->get_info('label')) ?>:</label>
                             </th>
                             <td>
                                 <label>
                                     <input type="checkbox" value="1" name="wpbooking_gateway_<?php echo esc_attr($key)?>_enable" checked="" class="form-control min-width-500" id="wpbooking_gateway_<?php echo esc_attr($key)?>_enable">
-                                    <?php esc_html_e("Yes, I want to enable ","wpbooking") ?><?php echo esc_attr($value->get_option('title')) ?>
+                                    <?php echo sprintf(esc_html__("Yes, I want to enable %s","wpbooking"),$value->get_info('label')) ?>
                                 </label>
                                 <i class="wpbooking-desc"></i>
                             </td>
