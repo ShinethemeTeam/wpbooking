@@ -98,7 +98,7 @@
                 </ul>
 
             </div>
-            <div class="right">
+            <div class="full">
                 <img src="<?php echo wpbooking_admin_assets_url('images/allbooking-final.png')?>" class="img-step"/>
                 <img src="<?php echo wpbooking_admin_assets_url('images/report-final.png')?>" class="img-step"/>
             </div>

@@ -4297,13 +4297,17 @@ label[for=wpbooking_room_typediv-hide]
             margin-top: 20px;
           }
         }
-        .right{
-          float: right;
-          width: 47%;
+        .full{
+          margin-top: 30px;
+          width: 100%;
+          display: inline-table;
           img{
-            width: 100%;
-            &:last-child{
-              margin-top: 30px;
+            &:first-child{
+              float: left;
+            }
+            width: 47%;
+            @media (max-width: 768px){
+              width: 100%;
             }
           }
         }
