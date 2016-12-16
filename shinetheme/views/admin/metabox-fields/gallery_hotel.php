@@ -67,7 +67,7 @@ if(!empty($old_data['gallery']) and count( $tmp = explode(',', $old_data['galler
         <div class="st-metabox-content-wrapper wpbooking-settings">
             <div class="form-group">
                 <input type="hidden" id="wp_gallery_hotel" class="wp_gallery_hotel none" value="<?php echo esc_attr($gallery) ?>" name="<?php echo esc_attr($name) ?>[gallery]">
-                <input type="hidden" class="wb_hotel_gallery_data" value="<?php echo esc_attr($room_data) ?>" name="<?php echo esc_attr($room_data) ?>[room_data]" >
+                <input type="hidden" class="wb_hotel_gallery_data" value="<?php echo esc_attr($room_data) ?>" name="<?php echo esc_attr($name) ?>[room_data]" >
                 <div class="featuredgallerydiv gallery-row" data-domain="<?php echo esc_attr(implode(',',$text_domain)) ?>" data-room="<?php echo esc_attr($list_room) ?>" >
                     <?php
                     if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
