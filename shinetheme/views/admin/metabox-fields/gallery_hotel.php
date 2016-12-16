@@ -38,45 +38,21 @@ $list_room = WPBooking_Accommodation_Service_Type::inst()->_get_room_by_hotel($p
 
 $list_room = json_encode($list_room);
 
-$field = '<div class="st-metabox-content-wrapper wpbooking-settings"><div class="form-group">';
-$field .= '<input type="hidden" id="wp_gallery_hotel" class="wp_gallery_hotel none" value="'. $gallery .'" name="'. $name .'[gallery]">';
-$field .= "<input type=\"hidden\" class=\"wb_hotel_gallery_data\" value='".  $room_data ."' name='". $name ."[room_data]' >
-			";
-$field .= '<div class="featuredgallerydiv gallery-row" data-domain="'.implode(',',$text_domain).'" data-room=\''.$list_room.'\'>';
-
 $tmp = '';
 if(!empty($old_data['gallery'])) {
     $tmp = explode(',', $old_data['gallery']);
 }
-
 if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
- 	foreach( $tmp as $k => $v ){
-        $url = wp_get_attachment_image_src( $v,'thumbnail' );
-        $url_full = wp_get_attachment_image_src( $v,'full' );
-        if( !empty( $url ) ){
-            $field .= '<div class="gallery-item">';
-            $field .= '<img src="'.esc_url($url[0]).'" class="demo-image-gallery settings-demo-image-gallery" >';
-            $field .= '<div class="gallery-item-control text-center">
-                        <a href="javascript:void(0)" class="gallery-item-btn gallery-item-edit" data-room-select="" data-url="'.esc_url($url_full[0]).'" data-id="'.esc_attr($v).'" ><i class="fa fa-pencil-square-o"></i></a>
-                        <a href="javascript:void(0)" data-id="'.esc_attr($v).'" class="gallery-item-btn gallery-item-remove"><i class="fa fa-trash"></i></a></div>';
-            $field .= '</div>';
-        }
-    }
+
 }else{
     $class .= ' wpbooking-no-gallery ';
 }
 
-
-$field .= '</div>';        
-
-$field .= '<div class="clearfix gallery-control"><button  id="" class="button-gallery-primary btn_upload_gallery_hotel mb10 mr_10" type="button" name="">'. __("Add Gallery","wpbooking").'</button>';
 $show_btn_remove = false;
 if(!empty($old_data['gallery']) and count( $tmp = explode(',', $old_data['gallery'] ) ) > 0 ){
     $show_btn_remove = true;
 }
-$field .= '<button class="btn_remove_gallery_hotel button-gallery-primary mb10 '.(($show_btn_remove)?'':'none').'" type="button" name="">'.__("Remove Gallery","wpbooking").'</button>';
 
-$field .= '</div></div></div>';
 
 ?>
 <div class="form-table wpbooking-settings <?php echo esc_html( $class ); ?> field-<?php echo esc_attr($data['id'])?>" <?php echo esc_html( $data_class ); ?>>
@@ -88,7 +64,38 @@ $field .= '</div></div></div>';
             <h3><?php echo esc_html__('No accommodation photo yet.','wpbooking') ?></h3>
             <p><?php echo esc_html__('Upload at least a photo','wpbooking'); ?></p>
         </div>
-        <?php echo do_shortcode($field); ?>
+        <div class="st-metabox-content-wrapper wpbooking-settings">
+            <div class="form-group">
+                <input type="hidden" id="wp_gallery_hotel" class="wp_gallery_hotel none" value="<?php echo esc_attr($gallery) ?>" name="<?php echo esc_attr($name) ?>[gallery]">
+                <input type="hidden" class="wb_hotel_gallery_data" value="<?php echo esc_attr($room_data) ?>" name="<?php echo esc_attr($room_data) ?>[room_data]" >
+                <div class="featuredgallerydiv gallery-row" data-domain="<?php echo esc_attr(implode(',',$text_domain)) ?>" data-room="<?php echo esc_attr($list_room) ?>" >
+                    <?php
+                    if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
+                        foreach( $tmp as $k => $v ){
+                            $url = wp_get_attachment_image_src( $v,'thumbnail' );
+                            $url_full = wp_get_attachment_image_src( $v,'full' );
+                            if( !empty( $url ) ){
+                                ?>
+                                <div class="gallery-item">
+                                    <img src="<?php echo esc_url($url[0])?>" class="demo-image-gallery settings-demo-image-gallery" >
+                                    <div class="gallery-item-control text-center">
+                                        <a href="javascript:void(0)" class="gallery-item-btn gallery-item-edit" data-room-select="" data-url="<?php echo esc_url($url_full[0])?>" data-id="<?php echo  esc_attr($v)?>" ><i class="fa fa-pencil-square-o"></i></a>
+                                        <a href="javascript:void(0)" data-id="<?php echo  esc_attr($v)?>" class="gallery-item-btn gallery-item-remove"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        }
+                    }
+                    ?>
+                </div>
+                <div class="clearfix gallery-control">
+                    <button  id="" class="button-gallery-primary btn_upload_gallery_hotel mb10 mr_10" type="button" name=""><?php esc_html_e("Add Gallery","wpbooking")?></button>
+
+                    <button class="btn_remove_gallery_hotel button-gallery-primary mb10 <?php if(!$show_btn_remove) echo 'none' ?>" type="button" name=""><?php esc_html_e("Remove Gallery","wpbooking")?></button>
+                </div>
+            </div>
+        </div>
         <i class="wpbooking-desc"><?php echo do_shortcode( $data['desc'] ) ?></i>
     </div>
 
