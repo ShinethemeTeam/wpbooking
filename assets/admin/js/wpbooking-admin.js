@@ -1918,7 +1918,7 @@ jQuery(document).ready(function( $ ){
             if (isNaN(number)) {
                 var min = $(this).attr('min');
                 if(min != undefined && min != ''){
-                    number = min;
+                    number = '';
                 }
 
             }

@@ -4222,6 +4222,11 @@ label[for=wpbooking_room_typediv-hide] {
   top: 7px;
   left: -18px;
 }
+.wpbooking-info .wb-content .content .step .left img,
+.wpbooking-extension .wb-content .content .step .left img {
+  width: 100%;
+  margin-top: 20px;
+}
 .wpbooking-info .wb-content .content .step img,
 .wpbooking-extension .wb-content .content .step img {
   float: right;

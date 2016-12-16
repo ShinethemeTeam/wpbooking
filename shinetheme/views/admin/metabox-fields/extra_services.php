@@ -39,7 +39,7 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 								<div class="money-number">
 									<div class="input-group ">
 										<span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-										<input type="number" class="form-control" value="<?php echo (!empty($current['money']))?$current['money']:FALSE; ?>" min="0" name="<?php echo esc_attr($data['id'].'['.esc_attr($k).'][money]') ?>"  >
+										<input type="number" class="form-control" placeholder="0" value="<?php echo (!empty($current['money']))?$current['money']:''; ?>" min="0" name="<?php echo esc_attr($data['id'].'['.esc_attr($k).'][money]') ?>"  >
 									</div>
 								</div>
 								<div class="max-quantity">
