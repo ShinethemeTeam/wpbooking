@@ -32,7 +32,7 @@ curl_close($curlSession);
                 <p><?php echo wp_kses(__('These extensions <strong>add functionality</strong> to your WPBooking powered store.','wpbooking'),array('strong' => array()))?></p>
             </div>
             <div class="all-extension">
-                <a href="<?php echo esc_url('http://188.166.251.178/wpbooking/?post_type=download&s=&no_scroll');?>" target="_blank" class="button button-primary"><?php echo esc_html__('Browse all extensions','wpbooking'); ?></a>
+                <a href="<?php echo esc_url('http://wpbooking.org');?>" target="_blank" class="button button-primary"><?php echo esc_html__('Browse all extensions','wpbooking'); ?></a>
             </div>
         </div>
         <div class="content">
@@ -110,7 +110,7 @@ curl_close($curlSession);
 
         </div>
         <div class="footer">
-            <a href="<?php echo esc_url('http://188.166.251.178/wpbooking/?post_type=download&s=&no_scroll');?>" target="_blank" class="button button-primary"><?php echo esc_html__('Browse all extensions','wpbooking'); ?></a>
+            <a href="<?php echo esc_url('http://wpbooking.org');?>" target="_blank" class="button button-primary"><?php echo esc_html__('Browse all extensions','wpbooking'); ?></a>
         </div>
         <?php }else{
             ?>

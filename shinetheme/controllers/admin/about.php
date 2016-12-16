@@ -88,6 +88,10 @@ if(!class_exists('WPBooking_About')){
         }
 
         /**
+         * Register extension page in a admin menu
+         *
+         * @author tienhd
+         * @since 1.0
          *
          * @return mixed|void
          */
@@ -142,6 +146,14 @@ if(!class_exists('WPBooking_About')){
             echo do_shortcode($html);
         }
 
+        /**
+         * Get widget sale data
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return mixed|void
+         */
         public function get_widget_sale_data(){
             $data=array(
                 'current_month_earning'=>0,
