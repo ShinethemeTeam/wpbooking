@@ -57,7 +57,6 @@ $slug_page_menu = $menu_page['menu_slug'];
         ?>
     </ul>
     <br class="clear">
-   <!-- <h3><?php /*echo esc_html($title_page_active) */?></h3>-->
     <div class="content-field">
         <form method="post" action="" id="form-settings-admin">
             <?php wp_nonce_field('wpbooking_action','wpbooking_save_settings_field') ?>

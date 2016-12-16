@@ -491,8 +491,6 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 
             return self::$_inst;
         }
-
-
     }
 
     /**
