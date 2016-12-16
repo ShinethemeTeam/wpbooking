@@ -108,5 +108,5 @@ $my_term =wp_get_post_terms($post_id,$data['taxonomy']);
             </div>
         </div>
     </div>
-    <div class="metabox-help"><?php echo balanceTags( $data['desc'] ) ?></div>
+    <div class="metabox-help"><?php echo do_shortcode( $data['desc'] ) ?></div>
 </div>

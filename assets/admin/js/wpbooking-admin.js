@@ -828,6 +828,12 @@ jQuery(document).ready(function( $ ){
                     });
 
                 }
+                bt_ot_searchbox.keypress(function(e){
+                    if(e.which  == 13)
+                    {
+                        return false; // returning false will prevent the event from bubbling up.
+                    }
+                });
 
                 google.maps.event.addListener(gmap_obj, "zoom_changed", function(event) {
                     $('input[name="map_zoom"]', t).val( gmap_obj.getZoom() );
@@ -1508,7 +1514,7 @@ jQuery(document).ready(function( $ ){
     // Create Room
     $(document).on('click','.hotel_room_list .create-room',function(){
         var parent=$(this).closest('.st-metabox-tab-content-wrap');
-        showRoomForm(parent,0,$(this).data('hotel-id'));
+        showRoomForm(parent,0,'',$(this).data('hotel-id'));
         return false;
     });
 
@@ -1516,7 +1522,8 @@ jQuery(document).ready(function( $ ){
     $(document).on('click','.hotel_room_list .room-edit',function(){
         var parent=$(this).closest('.st-metabox-tab-content-wrap');
         var room_id=$(this).data('room_id');
-        showRoomForm(parent,room_id);
+        var edit_text = $(this).data('edit-text');
+        showRoomForm(parent,room_id,edit_text);
         return false;
     });
 
@@ -1589,6 +1596,7 @@ jQuery(document).ready(function( $ ){
         return false;
     });
     $(document).on('click','.wb-back-all-rooms',function(){
+        $('.wb-back-all-rooms-wrap').unstick();
         var parent=$(this).closest('.st-metabox-tab-content-wrap');
         var room_form=parent.find('.wpbooking-hotel-room-form');
         room_form.html('');
@@ -1695,12 +1703,14 @@ jQuery(document).ready(function( $ ){
     });
 
 
-    function showRoomForm(parent,room_id,hotel_id) {
+    function showRoomForm(parent,room_id,edit_text,hotel_id) {
         var room_form=parent.find('.wpbooking-hotel-room-form');
         parent.addClass('on-loading');
 
         var edit_room_class = '';
-        if(room_id===undefined) room_id=0;
+        if(room_id===undefined) {
+            room_id = 0;
+        }
         if(hotel_id===undefined){
             edit_room_class = 'wb-edit-room';
             hotel_id=0;
@@ -1731,6 +1741,9 @@ jQuery(document).ready(function( $ ){
                 $('#room_name').trigger("keypress");
                 $('input[type=number]').trigger("change");
                 $('.wb-back-all-rooms-wrap').sticky({topSpacing:30});
+                if(edit_text != ''){
+                    parent.find('.wb-breadcrumb-room span').text(edit_text);
+                }
                 if(res.message){ alert(res.message);}
             },
             error:function(e){
@@ -1896,21 +1909,21 @@ jQuery(document).ready(function( $ ){
         }
     });
 
-    //$(document).on('change','input[type=number]',function(){
-    //    $(this).each(function(){
-    //        var number = $(this).val();
-    //        number = parseFloat(number);
-    //        //console.log(number);
-    //        if (isNaN(number)) {
-    //            var min = $(this).attr('min');
-    //            if(min != undefined && min != ''){
-    //                number = min;
-    //            }
-    //
-    //        }
-    //        $(this).val(number);
-    //    });
-    //});
+    $(document).on('change','input[type=number]',function(){
+        $(this).each(function(){
+            var number = $(this).val();
+            number = parseFloat(number);
+            //console.log(number);
+            if (isNaN(number)) {
+                var min = $(this).attr('min');
+                if(min != undefined && min != ''){
+                    number = min;
+                }
+
+            }
+            $(this).val(number);
+        });
+    });
 
     $('.wb-button-customer').each(function(){
         $(this).click(function(){

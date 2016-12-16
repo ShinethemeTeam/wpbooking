@@ -29,16 +29,16 @@ if(!empty($data['container_class'])) $class.=' '.$data['container_class'];
 if(!is_array($old_data)) $old_data=array();
 $old_data=wp_parse_args($old_data,array(
     'adult'=>array(
-        'minimum'=>'0',
-        'maximum'=>'0'
+        'minimum'=>'',
+        'maximum'=>''
     ),
     'child'=>array(
-        'minimum'=>'0',
-        'maximum'=>'0'
+        'minimum'=>'',
+        'maximum'=>''
     ),
     'infant'=>array(
-        'minimum'=>'0',
-        'maximum'=>'0'
+        'minimum'=>'',
+        'maximum'=>''
     ),
 ))
 ?>
@@ -61,18 +61,18 @@ $old_data=wp_parse_args($old_data,array(
                     <tbody>
                         <tr>
                             <td><?php esc_html_e('Adult','wpbooking') ?></td>
-                            <td><input type="number" class="age_adult_min" min="0" name="<?php echo esc_attr($data['id']) ?>[adult][minimum]" value="<?php echo esc_attr($old_data['adult']['minimum']) ?>" /></td>
-                            <td><input type="number" class="age_adult_max" min="0" name="<?php echo esc_attr($data['id']) ?>[adult][maximum]" value="<?php echo esc_attr($old_data['adult']['maximum']) ?>" /></td>
+                            <td><input type="number" class="age_adult_min" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[adult][minimum]" value="<?php echo esc_attr($old_data['adult']['minimum']) ?>" /></td>
+                            <td><input type="number" class="age_adult_max" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[adult][maximum]" value="<?php echo esc_attr($old_data['adult']['maximum']) ?>" /></td>
                         </tr>
                         <tr>
                             <td><?php esc_html_e('Child','wpbooking') ?></td>
-                            <td><input type="number" class="age_child_min" min="0" name="<?php echo esc_attr($data['id']) ?>[child][minimum]" value="<?php echo esc_attr($old_data['child']['minimum']) ?>" /></td>
-                            <td><input type="number" class="age_child_max" min="0" name="<?php echo esc_attr($data['id']) ?>[child][maximum]" value="<?php echo esc_attr($old_data['child']['maximum']) ?>" /></td>
+                            <td><input type="number" class="age_child_min" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[child][minimum]" value="<?php echo esc_attr($old_data['child']['minimum']) ?>" /></td>
+                            <td><input type="number" class="age_child_max" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[child][maximum]" value="<?php echo esc_attr($old_data['child']['maximum']) ?>" /></td>
                         </tr>
                         <tr>
                             <td><?php esc_html_e('Infant','wpbooking') ?></td>
-                            <td><input type="number" class="age_infant_min" min="0" name="<?php echo esc_attr($data['id']) ?>[infant][minimum]" value="<?php echo esc_attr($old_data['infant']['minimum']) ?>" /></td>
-                            <td><input type="number" class="age_infant_max" min="0" name="<?php echo esc_attr($data['id']) ?>[infant][maximum]" value="<?php echo esc_attr($old_data['infant']['maximum']) ?>" /></td>
+                            <td><input type="number" class="age_infant_min" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[infant][minimum]" value="<?php echo esc_attr($old_data['infant']['minimum']) ?>" /></td>
+                            <td><input type="number" class="age_infant_max" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[infant][maximum]" value="<?php echo esc_attr($old_data['infant']['maximum']) ?>" /></td>
                         </tr>
                     </tbody>
                 </table>
@@ -84,6 +84,6 @@ $old_data=wp_parse_args($old_data,array(
                 ?>
             </div>
         </div>
-        <div class="metabox-help"><?php echo balanceTags( $data['desc'] ) ?></div>
+        <div class="metabox-help"><?php echo do_shortcode( $data['desc'] ) ?></div>
     </div>
 </div>

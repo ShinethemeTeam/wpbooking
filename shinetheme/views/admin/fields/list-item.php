@@ -68,10 +68,11 @@ $id_list_item    = $data[ 'id' ];
                                                     );
                                                     $v2      = wp_parse_args( $v2 , $default );
                                                     $path    = 'fields/' . $v2[ 'type' ];
-                                                    echo $xx = wpbooking_admin_load_view( $path , array(
+                                                    echo wpbooking_admin_load_view( $path , array(
                                                         'data'           => $v2 ,
                                                         'slug_page_menu' => $slug_page_menu
                                                     ) );
+
                                                 }
                                             }
                                             ?>
@@ -117,7 +118,7 @@ $id_list_item    = $data[ 'id' ];
                                         </th>
                                         <td>
                                             <input type="text" class="form-control  min-width-500 list_item_title"
-                                                   name="wpbooking_list_item[<?php echo $id_list_item ?>][__number_list__][title]"
+                                                   name="wpbooking_list_item[<?php echo esc_attr($id_list_item) ?>][__number_list__][title]"
                                                    placeholder="title">
                                         </td>
                                     </tr>
@@ -137,7 +138,7 @@ $id_list_item    = $data[ 'id' ];
                                             );
                                             $v2      = wp_parse_args( $v2 , $default );
                                             $path    = 'fields/' . $v2[ 'type' ];
-                                            echo $xx = wpbooking_admin_load_view( $path , array( 'data'           => $v2 ,
+                                            echo wpbooking_admin_load_view( $path , array( 'data'           => $v2 ,
                                                                                                 'slug_page_menu' => $slug_page_menu
                                             ) );
                                         }
@@ -168,6 +169,6 @@ $id_list_item    = $data[ 'id' ];
         <input type="hidden" class="wpbooking_number_last_list_item" value="<?php echo esc_html( $i ) ?>">
         <button type="button"
                 class="button button-primary btn_add_new_list_item"><?php _e( "Add New" , 'wpbooking' ) ?></button>
-        <i class="wpbooking-desc"><?php echo balanceTags( $data[ 'desc' ] ) ?></i>
+        <i class="wpbooking-desc"><?php echo do_shortcode( $data[ 'desc' ] ) ?></i>
     </td>
 </tr>

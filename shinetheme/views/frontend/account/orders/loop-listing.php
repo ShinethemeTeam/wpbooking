@@ -120,7 +120,7 @@ $rows=$order_model->get()->result();
 				</td>
 				<td class="manage-column column-date asc">
 					<?php
-					echo $order->get_item_total_html($row);
+					echo do_shortcode($order->get_item_total_html($row));
 					?>
 				</td>
 			</tr>

@@ -27,7 +27,7 @@ if(!empty($data['condition'])){
 		<div style="margin-bottom: 7px;">
 		<?php
 		wp_editor( stripslashes( $old_data ), esc_html( $data['id'] ) ); ?>
-		<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+		<i class="wpbooking-desc"><?php echo do_shortcode( $data['desc'] ) ?></i>
 		</div>
 	</div></div>
 </div>

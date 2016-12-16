@@ -26,6 +26,6 @@ if(!empty($data['condition'])){
         <img src="<?php echo esc_url($data_value) ?>" id="demo_img" class="demo-image form-control settings-demo-image  <?php if(empty($data_value)) echo "none"; ?>" >
         <br>
         <button id="btn_upload_media" class="btn button button-primary btn_upload_media" type="button" name=""><?php _e("Upload","wpbooking") ?></button>
-        <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
+        <i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
     </td>
 </tr>

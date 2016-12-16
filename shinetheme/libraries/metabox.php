@@ -287,7 +287,7 @@ if (!class_exists('WPBooking_Metabox')) {
                                                 //var_dump($file);
 
                                                 $field_html = apply_filters('wpbooking_metabox_field_html_' . $field['type'], FALSE, $field, $post_id);
-                                                if ($field_html) echo $field_html;
+                                                if ($field_html) echo do_shortcode($field_html);
                                                 else
                                                     echo wpbooking_admin_load_view($file, array('data' => $field, 'class_extra' => $class_extra, 'post_id' => $post_id));
 
@@ -393,7 +393,7 @@ if (!class_exists('WPBooking_Metabox')) {
                             'desc'    => ''
                         );
                         $field_html = apply_filters('wpbooking_metabox_field_html_service-type-select', FALSE, $service_type_field, get_the_ID());
-                        if ($field_html) echo $field_html;
+                        if ($field_html) echo do_shortcode($field_html);
                         else
                             echo wpbooking_admin_load_view('metabox-fields/service-type-select', array('data' => $service_type_field, 'post_id' => get_the_ID()));
                         ?>

@@ -38,7 +38,7 @@ if(!empty($data['condition'])){
         <?php   if(count($tmp = explode(',',$data_value) ) > 0){ ?>
             <button class="btn button btn_remove_demo_gallery button-secondary" type="button" name=""><?php _e("Remove Gallery","wpbooking") ?></button>
         <?php }?>
-        <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
+        <i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
     </td>
 </tr>
 <script>

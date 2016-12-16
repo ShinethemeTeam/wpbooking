@@ -48,6 +48,6 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
                 </label>
             </div>
         </div>
-        <div class="metabox-help"><?php echo balanceTags( $data['desc'] ) ?></div>
+        <div class="metabox-help"><?php echo do_shortcode( $data['desc'] ) ?></div>
     </div>
 </div>

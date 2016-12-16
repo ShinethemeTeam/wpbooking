@@ -73,12 +73,12 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                     <td>
                                         <input type="number" name="calendar_minimum" min="1" class="number-select" value="1"></td>
                                     <td>
-                                        <input type="number" name="calendar_maximum" min="1" class="number-select" value="">
+                                        <input type="number" name="calendar_maximum" min="1" class="number-select" value="" placeholder="0">
                                     </td>
                                     <td>
                                         <div class="input-group ">
                                             <span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-                                            <input type="number" class="form-control"  value="" name="calendar_price"  >
+                                            <input type="number" class="form-control"  value="" name="calendar_price" placeholder="0" >
                                         </div>
                                     </td>
                                 </tr>
@@ -96,36 +96,36 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                 <tr>
                                     <td><?php esc_html_e('Adult','wpbooking') ?></td>
                                     <td>
-                                        <input type="number" name="calendar_adult_minimum" min="0" class="number-select" value="">
+                                        <input type="number" name="calendar_adult_minimum" min="0" class="number-select" value="" placeholder="0">
                                     </td>
                                     <td>
                                         <div class="input-group ">
                                             <span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-                                            <input type="number" class="form-control"  value="0" name="calendar_adult_price"  >
+                                            <input type="number" class="form-control"  value="" name="calendar_adult_price" placeholder="0" >
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td><?php esc_html_e('Child','wpbooking') ?></td>
                                     <td>
-                                        <input type="number" name="calendar_child_minimum" min="0" class="number-select" value="">
+                                        <input type="number" name="calendar_child_minimum" min="0" class="number-select" value="" placeholder="0">
                                     </td>
                                     <td>
                                         <div class="input-group ">
                                             <span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-                                            <input type="number" class="form-control"  value="0" name="calendar_child_price"  >
+                                            <input type="number" class="form-control"  value="" name="calendar_child_price" placeholder="0"  >
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td><?php esc_html_e('Infant','wpbooking') ?></td>
                                     <td>
-                                        <input type="number" name="calendar_infant_minimum" min="0" class="number-select" value="">
+                                        <input type="number" name="calendar_infant_minimum" min="0" class="number-select" value="" placeholder="0">
                                     </td>
                                     <td>
                                         <div class="input-group ">
                                             <span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-                                            <input type="number" class="form-control"  value="0" name="calendar_infant_price"  >
+                                            <input type="number" class="form-control"  value="" name="calendar_infant_price" min="0" placeholder="0" >
                                         </div>
                                     </td>
                                 </tr>
@@ -202,7 +202,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                                 echo '<div>';
                                             }
                                             ?>
-                                            <label style="width: 40px;"><input type="checkbox" name="day-of-month[]" value="<?php echo $i; ?>" style="margin-right: 5px;"><?php echo $i; ?></label>
+                                            <label style="width: 40px;"><input type="checkbox" name="day-of-month[]" value="<?php echo esc_attr($i); ?>" style="margin-right: 5px;"><?php echo esc_attr($i); ?></label>
 
                                             <?php
                                             if( $i != 1 && $i % 5 == 0 ) echo '</div><div>';
@@ -226,7 +226,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                                 echo '<div>';
                                             }
                                             ?>
-                                            <label style="width: 100px;"><input type="checkbox" name="months[]" value="<?php echo $month; ?>" style="margin-right: 5px;"><?php echo $month; ?></label>
+                                            <label style="width: 100px;"><input type="checkbox" name="months[]" value="<?php echo esc_attr($month); ?>" style="margin-right: 5px;"><?php echo esc_attr($month); ?></label>
 
                                             <?php
                                             if( $key != 0 && ($key + 1) % 2 == 0 ) echo '</div><div>';
@@ -249,7 +249,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                                                 echo '<div>';
                                             }
                                             ?>
-                                            <label style="width: 100px;"><input type="checkbox" name="years[]" value="<?php echo $i; ?>" style="margin-right: 5px;"><?php echo $i; ?></label>
+                                            <label style="width: 100px;"><input type="checkbox" name="years[]" value="<?php echo esc_attr($i); ?>" style="margin-right: 5px;"><?php echo esc_attr($i); ?></label>
 
                                             <?php
                                             if( $i != $year && ($i == $j + 2 ) ) { echo '</div><div>'; $j = $i; }
@@ -276,5 +276,5 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
             </div>
         </div>
     </div>
-    <i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+    <i class="wpbooking-desc"><?php echo do_shortcode( $data['desc'] ) ?></i>
 </div>

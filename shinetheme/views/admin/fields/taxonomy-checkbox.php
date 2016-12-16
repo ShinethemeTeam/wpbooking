@@ -53,6 +53,6 @@ if(!empty($data['condition'])){
             <a href="#" onclick="return false" class="button button-primary wb-btn-add-term" data-name="<?php echo esc_attr($name) ?>" data-tax="<?php echo esc_attr($data['taxonomy'] ) ?>"><?php esc_html_e('Add New','wpbooking') ?> <i class="fa fa-spin  fa-spinner loading-icon"></i></a>
         </div>
         <?php } ?>
-        <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
+        <i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
     </td>
 </tr>

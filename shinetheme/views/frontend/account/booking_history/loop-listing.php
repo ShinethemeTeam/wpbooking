@@ -69,15 +69,15 @@ $inject->clear();
 				<td class="booking-data">
 					<?php
 					$user = WPBooking_User::inst();
-					echo balanceTags($user->get_status_booking_history_html($status));
+					echo do_shortcode($user->get_status_booking_history_html($status));
 					?>
-					<span class="payment_method"><?php echo balanceTags($user->get_payment_gateway($payment_method)) ?></span>
+					<span class="payment_method"><?php echo do_shortcode($user->get_payment_gateway($payment_method)) ?></span>
 				</td>
 				<td class="booking-price text-center">
 					<div class="total">
 						<?php
 						$total_price = $order->get_total(array('without_deposit'=>false));
-						echo balanceTags(WPBooking_Currency::format_money($total_price));
+						echo do_shortcode(WPBooking_Currency::format_money($total_price));
 						?>
 					</div>
 					<?php if(!empty($order_data['deposit_price'])){ ?>

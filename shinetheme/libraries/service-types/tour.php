@@ -16,7 +16,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
         {
             $this->type_info = array(
                 'label' => __("Tour", 'wpbooking'),
-                'desc'  => esc_html__('Tour Booking', 'wpbooking')
+                'desc'  => esc_html__('You can post anything related to activities such as tourism, events, workshops, etc anything called tour', 'wpbooking')
             );
 
             $this->settings = array(
@@ -750,7 +750,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'desc'  => esc_html__('The contact phone', 'wpbooking'),
                             'type'  => 'number',
                             'class' => 'small',
-                            'rules' => 'required'
+                            'rules' => 'required',
+                            'placeholder' => esc_html__('Phone number','wpbooking')
                         ),
                         array(
                             'label'       => __('Contact Email', 'wpbooking'),

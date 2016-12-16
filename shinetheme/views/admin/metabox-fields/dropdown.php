@@ -72,7 +72,7 @@ if( !empty( $data['value'] ) && is_array( $data['value'] ) ){
 	}
 	$field .= '</select></div>';
 }
-$field .= '<div class="metabox-help">'.balanceTags( $data['desc'] ).'</div>';
+$field .= '<div class="metabox-help">'.do_shortcode( $data['desc'] ).'</div>';
 $field .= '</div></div>';
 
 ?>

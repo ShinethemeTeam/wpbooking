@@ -49,6 +49,6 @@ $field .= '</div></div>';
 				<option value="feet" <?php selected('feet',$old) ?>><?php echo esc_html__('Feet','wpbooking') ?></option>
 			</select>
 		</div>
-		<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+		<i class="wpbooking-desc"><?php echo do_shortcode( $data['desc'] ) ?></i>
 	</div>
 </div>

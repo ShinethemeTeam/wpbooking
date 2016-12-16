@@ -55,7 +55,7 @@ $field .= '</div></div>';
 	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
 </div>
 <div class="st-metabox-right">
-	<?php echo $field; ?>
-	<i class="wpbooking-desc"><?php echo balanceTags( $data['desc'] ) ?></i>
+	<?php echo do_shortcode($field); ?>
+	<i class="wpbooking-desc"><?php echo do_shortcode( $data['desc'] ) ?></i>
 </div>
 </div>

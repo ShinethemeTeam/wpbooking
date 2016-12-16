@@ -3,7 +3,7 @@
  *
  * Class WPBooking_Form_Validator
  *
- * Created by ShineTheme
+ * Created by WpBooking Team
  *
  */
 if ( ! defined( 'ABSPATH' ) ) {

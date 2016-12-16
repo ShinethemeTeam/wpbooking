@@ -22,6 +22,6 @@ if(!empty($data['condition'])){
     </th>
     <td>
         <input type="text" id="<?php echo esc_attr($name) ?>" class="form-control  min-width-500" value="<?php echo esc_html($data_value) ?>" name="<?php echo esc_html($name) ?>" placeholder="<?php echo esc_html($data['label']) ?>">
-        <i class="wpbooking-desc"><?php echo balanceTags($data['desc']) ?></i>
+        <i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
     </td>
 </tr>

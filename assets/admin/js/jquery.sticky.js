@@ -114,6 +114,7 @@
 
           // Check if sticky has reached end of container and stop sticking
           var stickyWrapperContainer = s.stickyWrapper.parent();
+            if(!stickyWrapperContainer.length) return;
           var unstick = (s.stickyElement.offset().top + s.stickyElement.outerHeight() >= stickyWrapperContainer.offset().top + stickyWrapperContainer.outerHeight()) && (s.stickyElement.offset().top <= s.topSpacing);
 
           if( unstick ) {

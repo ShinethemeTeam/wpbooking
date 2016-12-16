@@ -474,7 +474,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'type'         => 'number',
                             'class'        => 'small',
                             'rules'=>'required',
-                            'min' => 0
+                            'min' => 0,
+                            'placeholder' => esc_html__('Phone number', 'wpbooking'),
                         ),
                         array(
                             'label'       => __('Contact Email', 'wpbooking'),
@@ -884,7 +885,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 array(
                     'type' => 'breadcrumb',
                     'new_text' => esc_html__('Add new room','wpbooking'),
-                    'edit_text' => esc_html__('Edit room','wpbooking')
                 ),
                 array('type' => 'open_section','conner_button'=>'<a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> '.esc_html__('Back to All Rooms','wpbooking').'</a>'),
                 array(
@@ -1053,6 +1053,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 <input name='wb_room_id' type='hidden' value='" . esc_attr($room_id) . "'>
             ";
             $res['html'] .= sprintf('<input type="hidden" name="wb_hotel_room_security" value="%s">', wp_create_nonce("wpbooking_hotel_room_" . $room_id));
+
             $res['html'].='<div class="wb-back-all-rooms-wrap"><a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> '.esc_html__('Back to All Rooms','wpbooking').'</a></div>';
             $fields = $this->get_room_meta_fields();
             foreach ((array)$fields as $field_id => $field):

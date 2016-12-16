@@ -125,7 +125,7 @@ $field = '';
                 </div>
             </div>
 
-            <div class="metabox-help"><?php echo balanceTags($data['desc']) ?></div>
+            <div class="metabox-help"><?php echo do_shortcode($data['desc']) ?></div>
         </div>
         <div class="clear"></div>
 
@@ -259,7 +259,7 @@ $field = '';
                         </a>
                     </div>
                 </div>
-                <div class="metabox-help"><?php echo balanceTags($data['desc']) ?></div>
+                <div class="metabox-help"><?php echo do_shortcode($data['desc']) ?></div>
             </div>
             <div class="clear"></div>
 
@@ -413,7 +413,7 @@ $field = '';
                                 </a>
                             </div>
                         </div>
-                        <div class="metabox-help"><?php echo balanceTags($data['desc']) ?></div>
+                        <div class="metabox-help"><?php echo do_shortcode($data['desc']) ?></div>
                     </div>
                     <div class="clear"></div>
 

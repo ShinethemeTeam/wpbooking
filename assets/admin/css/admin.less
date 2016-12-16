@@ -217,6 +217,21 @@ img.settings-demo-gallery{
     }
   }
 }
+.wb-breadcrumb-room{
+  margin-bottom: 30px;
+  font-size: 17px;
+  a{
+    text-decoration: none;
+    font-weight: bold;
+    color: #333;
+    &:hover{
+      color: @maincolor;
+    }
+  }
+  span{
+    color: @maincolor;
+  }
+}
 .gallery-row{
     margin-left: -15px;
     margin-right: -15px;
@@ -1734,7 +1749,7 @@ img.settings-demo-image-gallery{
     font-size: 15px;
     position: absolute;
     right: 30px;
-    top: 30px;
+    top: 70px;
     &:hover,&:focus{
         color: @maincolor;
     }
@@ -2234,6 +2249,9 @@ input.gmap-search{
             }
         }
       .calendar-price-df-form{
+        .calendar-room-form-item{
+          margin-top: 30px;
+        }
         .form-group{
           max-width: 215px;
           input.form-control,span.input-group-addon{
