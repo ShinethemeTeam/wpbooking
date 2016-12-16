@@ -22,7 +22,7 @@ if(!$pay_amount) return;
 
 					<label>
 						<input type="radio" name="payment_gateway" value="<?php echo esc_attr($key)?>" >
-						<span><?php echo esc_attr($value->get_option('title')) ?></span>
+						<span><?php echo esc_attr($value->get_option('title'),$value->get_info('label')) ?></span>
 					</label>
 					<?php if(!empty($value->get_option('desc'))){ ?>
 						<div class="gateway-desc gateway-id-<?php echo esc_attr($key) ?>">
