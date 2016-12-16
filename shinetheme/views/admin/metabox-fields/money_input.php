@@ -30,7 +30,7 @@ $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
 $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
 
-$field .= '<div style="margin-bottom: 7px;"><input id="'. esc_html( $data['id'] ).'" type="text" name="'. $name .'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'"></div>';
+$field .= '<div class="mb7"><input id="'. esc_html( $data['id'] ).'" type="text" name="'. $name .'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'"></div>';
 
 $field .= '</div></div>';
 

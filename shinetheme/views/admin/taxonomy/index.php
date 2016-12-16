@@ -14,7 +14,8 @@
 	<div id="col-container">
 		<div id="col-right">
 			<div class="col-wrap">
-				<table class="widefat attributes-table wp-list-table ui-sortable" style="width:100%">
+                <?php $full = WPBooking_Assets::build_css_class('width: 100%'); ?>
+				<table class="widefat attributes-table wp-list-table ui-sortable <?php echo esc_attr($full); ?>">
 					<thead>
 					<tr>
 						<th scope="col"><?php _e( 'Name', 'wpbooking' ) ?></th>

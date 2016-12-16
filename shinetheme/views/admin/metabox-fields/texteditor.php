@@ -24,7 +24,7 @@ if(!empty($data['condition'])){
 </div>
 <div class="st-metabox-right">
 	<div class="st-metabox-content-wrapper"><div class="form-group">
-		<div style="margin-bottom: 7px;">
+		<div class="mb7">
 		<?php
 		wp_editor( stripslashes( $old_data ), esc_html( $data['id'] ) ); ?>
 		<i class="wpbooking-desc"><?php echo do_shortcode( $data['desc'] ) ?></i>

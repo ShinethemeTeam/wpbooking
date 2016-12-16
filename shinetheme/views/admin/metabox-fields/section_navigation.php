@@ -12,10 +12,10 @@ $data=wp_parse_args($data,array(
 ));
 $sec_class = '';
 $action = WPBooking_Input::get('action');
-$sec_class = 'wb-action-edit';
-
+$sec_class = 'wb-action-edit ';
+$sec_class .= WPBooking_Assets::build_css_class('clear: both');
 ?>
-<div class="text-right <?php echo esc_attr($sec_class); ?> wb-section-navigation clear" style="clear: both">
+<div class="text-right <?php echo esc_attr($sec_class); ?> wb-section-navigation clear">
 	<?php
 	if(!isset($data['prev']) or $data['prev']){
 		$class = 'full';
