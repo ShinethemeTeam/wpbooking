@@ -405,7 +405,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
          */
         function get_cart_total($args=array(),$cart=false)
         {
-         
+
 
             if(empty($cart)){
                 $cart = $this->get_cart();
