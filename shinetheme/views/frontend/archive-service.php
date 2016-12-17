@@ -2,6 +2,7 @@
 global $wp_query;
 get_header();
 echo wpbooking_load_view('wrap/start');
+var_dump($wp_query->request);
 ?>
 <div class="wpbooking-container wb-archive-wrapper hentry">
     <?php echo wpbooking_load_view('archive/header')?>

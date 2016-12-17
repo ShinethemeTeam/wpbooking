@@ -1352,14 +1352,27 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             }
 
             //Check in
-            if ($this->request('checkin_d') && $this->request('checkin_m') && $this->request('checkin_y')) {
-                $from_date = strtotime($this->request('checkin_d') . '-' . $this->request('checkin_m') . '-' . $this->request('checkin_y'));
+            if($this->request('checkout_d')){
+                $end_date = strtotime($this->request('checkout_d') . '-' . $this->request('checkout_m') . '-' . $this->request('checkout_y'));
+                if ($this->request('checkin_d') && $this->request('checkin_m') && $this->request('checkin_y')) {
+                    $from_date = strtotime($this->request('checkin_d') . '-' . $this->request('checkin_m') . '-' . $this->request('checkin_y'));
 
-                $injection->join('wpbooking_availability as avail', "avail.post_id={$wpdb->posts}.ID");
-                $injection->where('avail.start', $from_date);
-                $injection->where('avail.status', 'available');
-                $injection->groupby('avail.post_id');
+                    $injection->join('wpbooking_availability as avail', "avail.post_id={$wpdb->posts}.ID");
+                    $injection->where("(avail.`start` >= {$from_date} AND avail.`start` <= {$end_date})",false,true);
+                    $injection->where('avail.status', 'available');
+                    $injection->groupby('avail.post_id');
+                }
+            }else{
+                if ($this->request('checkin_d') && $this->request('checkin_m') && $this->request('checkin_y')) {
+                    $from_date = strtotime($this->request('checkin_d') . '-' . $this->request('checkin_m') . '-' . $this->request('checkin_y'));
+
+                    $injection->join('wpbooking_availability as avail', "avail.post_id={$wpdb->posts}.ID");
+                    $injection->where('avail.`start`', $from_date);
+                    $injection->where('avail.`status`', 'available');
+                    $injection->groupby('avail.post_id');
+                }
             }
+
 
             if (!empty($tax_query))
                 $injection->add_arg('tax_query', $tax_query);
