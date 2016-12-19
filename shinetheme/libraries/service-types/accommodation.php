@@ -34,12 +34,12 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 ),
                 array(
                     'id'    => "thumb_size",
-                    'label' => __("Thumb Size", 'travel-booking'),
+                    'label' => __("Thumb Size", 'wpbooking'),
                     'type'  => 'image-size'
                 ),
                 array(
                     'id'    => "gallery_size",
-                    'label' => __("Gallery Size", 'travel-booking'),
+                    'label' => __("Gallery Size", 'wpbooking'),
                     'type'  => 'image-size'
                 ),
             );
