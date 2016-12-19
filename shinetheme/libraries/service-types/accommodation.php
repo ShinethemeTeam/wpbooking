@@ -1410,25 +1410,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 );
             }
             // Review
-            if ($review_rate = $this->request('review_rate') and is_array(explode(',', $review_rate))) {
-
-                $rate_calculate = 1;
-
-
-                foreach (explode(',', $review_rate) as $k => $v) {
-                    $clause = 'AND';
-                    if ($k) $clause = 'OR';
-                    $injection->having("(avg_rate>=" . $v . ' and avg_rate<' . ($v + 1) . ') ', $clause);
-
-                }
-
-            }
-
-            if ($rate_calculate) {
-                $injection->select('avg(' . $wpdb->commentmeta . '.meta_value) as avg_rate')
-                    ->join('comments', $wpdb->prefix . 'comments.comment_post_ID=' . $wpdb->posts . '.ID and  ' . $wpdb->comments . '.comment_approved=1', 'LEFT')
-                    ->join('commentmeta', $wpdb->prefix . 'commentmeta.comment_id=' . $wpdb->prefix . 'comments.comment_ID and ' . $wpdb->commentmeta . ".meta_key='wpbooking_review'", 'LEFT');
-            }
 
             if (!empty($tax_query))
                 $injection->add_arg('tax_query', $tax_query);

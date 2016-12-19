@@ -1380,6 +1380,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             if (!empty($meta_query))
                 $injection->add_arg('meta_query', $meta_query);
 
+            // Review
 
             $injection->add_arg('post_status', 'publish');
 

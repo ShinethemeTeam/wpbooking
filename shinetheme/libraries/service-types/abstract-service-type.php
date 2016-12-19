@@ -533,6 +533,8 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 
 			}
 
+            do_action('wpbooking_add_default_query_hook');
+
 		}
 
         /**

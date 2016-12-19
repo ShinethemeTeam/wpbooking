@@ -50,7 +50,8 @@ curl_close($curlSession);
                         </form>
                     </div>
                 </div>
-                <?php if(!is_wp_error($jsonData->data->cat)){ ?>
+                <?php
+                if(!empty($jsonData->data->cat) && !is_wp_error($jsonData->data->cat)){ ?>
                 <div class="box-categories">
                     <h3 class="title"><?php echo esc_html__('Category','wpbooking'); ?></h3>
                     <div class="box-content">
