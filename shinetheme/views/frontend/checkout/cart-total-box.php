@@ -8,7 +8,7 @@ $tax_total=0;
 <h5 class="checkout-form-title"><?php esc_html_e("Total","wpbooking") ?></h5>
 <div class="review-cart-total">
     <div class="review-cart-item">
-        <?php do_action('wpbooking_check_total_item_information_'.$service_type,$cart) ?>
+        <?php do_action('wpbooking_check_out_total_item_information_'.$service_type,$cart) ?>
         <?php
         $tax = $booking->get_cart_tax_price($price_total);
         $tax_total=!empty($tax['total_price'])?$tax['total_price']:0;

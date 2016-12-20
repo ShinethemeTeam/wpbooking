@@ -89,7 +89,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
              * @since 1.0
              * @author dungdt
              */
-            add_action('wpbooking_check_total_item_information_' . $this->type_id, array($this, '_add_total_box_info'));
+            add_action('wpbooking_check_out_total_item_information_' . $this->type_id, array($this, '_add_total_box_info'));
 
 
             /**

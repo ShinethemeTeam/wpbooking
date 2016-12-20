@@ -94,14 +94,10 @@ if (!class_exists('WPBooking_Service_Model')) {
 				'service_type' => FALSE
 			));
 
-
-			$this->select('min(price)as min,max(price) as max')
-				->join('posts', 'posts.ID=' . $this->table_name . '.post_id');
-			if ($args['service_type']) {
-				$this->where('service_type', $args['service_type']);
-			}
-
-			$res = $this->get()->row();
+            $res = apply_filters('wpbooking_min_max_price_'.$args['service_type'],array(
+                'min'=>0,
+                'max'=>500
+            ));
 
 			return $res;
 		}

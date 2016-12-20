@@ -284,7 +284,6 @@ if (!class_exists('WPBooking_Metabox')) {
                                                     $class_extra = 'wpbooking-hndle-tag-input';
                                                 }
                                                 $file = 'metabox-fields/' . $field['type'];
-                                                //var_dump($file);
 
                                                 $field_html = apply_filters('wpbooking_metabox_field_html_' . $field['type'], FALSE, $field, $post_id);
                                                 if ($field_html) echo do_shortcode($field_html);

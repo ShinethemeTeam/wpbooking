@@ -160,7 +160,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              * @author quandq
              */
             add_action('wpbooking_review_checkout_item_information_'.$this->type_id, array($this, '_add_info_checkout_item_room'),10,2);
-            add_action('wpbooking_check_total_item_information_'.$this->type_id, array($this, '_add_info_total_item_room'),10,2);
+            add_action('wpbooking_check_out_total_item_information_'.$this->type_id, array($this, '_add_info_total_item_room'),10,2);
             add_action('wpbooking_save_order_'.$this->type_id, array($this, '_save_order_hotel_room'),10,2);
             /**
              * Change Tax Room CheckOut
@@ -224,7 +224,40 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             add_action('wpbooking_order_history_after_service_name_'.$this->type_id,array($this,'_show_order_info_listing'));
 
+            /**
+             * Get Min and Max Price
+             *
+             * @since 1.0
+             * @author quandq
+             */
+            add_filter('wpbooking_min_max_price_' . $this->type_id, array($this, '_change_min_max_price'), 10, 1);
+
         }
+         function _change_min_max_price($args = array())
+         {
+
+             $service = WPBooking_Service_Model::inst();
+
+             global $wpdb;
+
+             $service->select( '
+            MIN(CAST(' . $wpdb->postmeta . '.meta_value AS DECIMAL)) as min,
+            MAX(CAST(' . $wpdb->postmeta . '.meta_value AS DECIMAL)) as max
+            ' )
+                 ->join( 'posts as wpb_hotel' , 'wpb_hotel.ID=' . $service->get_table_name( false ) . '.post_id' )
+                 ->join( 'posts as wpb_room' , 'wpb_room.post_parent=' . $service->get_table_name( false ) . '.post_id' )
+                 ->join( 'postmeta' , 'postmeta.post_id= wpb_room.ID and meta_key = \'base_price\'' );
+
+             $service->where( 'service_type' , $this->type_id );
+
+             $res = $service->get()->row();
+
+             if(!is_wp_error( $res )) {
+                 $args = $res;
+             }
+
+             return $args;
+         }
 
         public function _show_order_info_listing($order_data)
         {
