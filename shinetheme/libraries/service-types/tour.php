@@ -143,6 +143,99 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
              */
             add_action('wpbooking_email_order_after_address_' . $this->type_id, array($this, '_show_email_order_info_after_address'));
 
+            /**
+             * Get Min and Max Price
+             *
+             * @since 1.0
+             * @author quandq
+             */
+            add_filter('wpbooking_min_max_price_' . $this->type_id, array($this, '_change_min_max_price'), 10, 1);
+
+        }
+        /**
+         * Get Min and Max Price
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @param array $args
+         * @return array
+         */
+        function _change_min_max_price($args = array())
+        {
+
+            $service = WPBooking_Service_Model::inst();
+
+            global $wpdb;
+
+            $service->select( "
+            MIN(
+                CASE
+                    WHEN wpb_meta.meta_value = 'per_person'
+                    THEN
+                            CASE WHEN 
+                                        (CAST(avail.adult_price AS DECIMAL)) <= ( CAST(avail.child_price AS DECIMAL) ) 
+                                        AND (CAST(avail.adult_price AS DECIMAL)) <= ( CAST(avail.infant_price AS DECIMAL) ) 
+                                        THEN
+                                            ( CAST(avail.adult_price AS DECIMAL) )
+                            
+                                        WHEN 
+                                                 ( CAST(avail.child_price AS DECIMAL) ) <= ( CAST(avail.adult_price AS DECIMAL) ) 
+                                                AND ( CAST(avail.child_price AS DECIMAL) ) <= ( CAST(avail.infant_price AS DECIMAL) ) 
+                                        THEN
+                                            (CAST(avail.child_price AS DECIMAL))
+                                        WHEN  ( CAST(avail.infant_price AS DECIMAL) ) <= ( CAST(avail.adult_price AS DECIMAL) ) 
+                                                AND ( CAST(avail.infant_price AS DECIMAL) ) <= ( CAST(avail.child_price AS DECIMAL) ) 
+                                            THEN
+                                                    (CAST(avail.infant_price AS DECIMAL))
+                                END
+                ELSE
+                            CAST(avail.calendar_price AS DECIMAL)
+                END
+            ) as min,
+            MAX(
+                CASE
+                    WHEN wpb_meta.meta_value = 'per_person'
+                    THEN
+                            CASE WHEN 
+                                        (CAST(avail.adult_price AS DECIMAL)) >= ( CAST(avail.child_price AS DECIMAL) ) 
+                                        AND (CAST(avail.adult_price AS DECIMAL)) >= ( CAST(avail.infant_price AS DECIMAL) ) 
+                                        THEN
+                                            ( CAST(avail.adult_price AS DECIMAL) )
+                            
+                                        WHEN 
+                                                 ( CAST(avail.child_price AS DECIMAL) ) >= ( CAST(avail.adult_price AS DECIMAL) ) 
+                                                AND ( CAST(avail.child_price AS DECIMAL) ) >= ( CAST(avail.infant_price AS DECIMAL) ) 
+                                        THEN
+                                            (CAST(avail.child_price AS DECIMAL))
+                                        WHEN  ( CAST(avail.infant_price AS DECIMAL) ) >= ( CAST(avail.adult_price AS DECIMAL) ) 
+                                                AND ( CAST(avail.infant_price AS DECIMAL) ) >= ( CAST(avail.child_price AS DECIMAL) ) 
+                                            THEN
+                                                    (CAST(avail.infant_price AS DECIMAL))
+                                END
+                ELSE
+                            CAST(avail.calendar_price AS DECIMAL)	
+                END
+            ) as max
+
+            " )
+                ->join( 'posts' , 'posts.ID=' . $service->get_table_name( false ) . '.post_id' )
+                ->join( 'postmeta as wpb_meta' , $wpdb->prefix.'posts.ID=wpb_meta.post_id and wpb_meta.meta_key = \'pricing_type\'' )
+                ->join( 'wpbooking_availability AS avail' , $wpdb->prefix.'posts.ID= avail.post_id ' );
+
+
+            $service->where( 'service_type' , $this->type_id );
+            $service->where( 'enable_property' , 'on' );
+            $service->where( $wpdb->prefix.'posts.post_status' , 'publish' );
+            $service->where( $wpdb->prefix.'posts.post_type' , 'wpbooking_service' );
+
+            $res = $service->get()->row();
+
+            if(!is_wp_error( $res )) {
+                $args = $res;
+            }
+
+            return $args;
         }
 
         /**
@@ -1383,6 +1476,47 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             // Review
 
             $injection->add_arg('post_status', 'publish');
+
+            // Price
+            if ($price = WPBooking_Input::get('price')) {
+                $array = explode(';', $price);
+
+                $injection->select( "
+                                        MIN(
+                                            CASE
+                                                WHEN wpb_meta.meta_value = 'per_person'
+                                                THEN
+                                                        CASE WHEN 
+                                                                    (CAST(avail.adult_price AS DECIMAL)) <= ( CAST(avail.child_price AS DECIMAL) ) 
+                                                                    AND (CAST(avail.adult_price AS DECIMAL)) <= ( CAST(avail.infant_price AS DECIMAL) ) 
+                                                                    THEN
+                                                                        ( CAST(avail.adult_price AS DECIMAL) )
+                                                        
+                                                                    WHEN 
+                                                                             ( CAST(avail.child_price AS DECIMAL) ) <= ( CAST(avail.adult_price AS DECIMAL) ) 
+                                                                            AND ( CAST(avail.child_price AS DECIMAL) ) <= ( CAST(avail.infant_price AS DECIMAL) ) 
+                                                                    THEN
+                                                                        (CAST(avail.child_price AS DECIMAL))
+                                                                    WHEN  ( CAST(avail.infant_price AS DECIMAL) ) <= ( CAST(avail.adult_price AS DECIMAL) ) 
+                                                                            AND ( CAST(avail.infant_price AS DECIMAL) ) <= ( CAST(avail.child_price AS DECIMAL) ) 
+                                                                        THEN
+                                                                                (CAST(avail.infant_price AS DECIMAL))
+                                                            END
+                                            ELSE
+                                                        CAST(avail.calendar_price AS DECIMAL)
+                                            END
+                                        ) as wpb_base_price" )
+
+                    ->join( 'postmeta as wpb_meta' , $wpdb->prefix.'posts.ID=wpb_meta.post_id and wpb_meta.meta_key = \'pricing_type\'' )
+                    ->join( 'wpbooking_availability AS avail' , $wpdb->prefix.'posts.ID= avail.post_id ' );
+
+                if (!empty($array[0])) {
+                    $injection->having('wpb_base_price >= '.$array[0]);
+                }
+                if (!empty($array[1])) {
+                    $injection->having('wpb_base_price <= '.$array[1]);
+                }
+            }
 
             // Order By
             if ($sortby = $this->request('wb_sort_by')) {

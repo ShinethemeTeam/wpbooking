@@ -233,6 +233,16 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             add_filter('wpbooking_min_max_price_' . $this->type_id, array($this, '_change_min_max_price'), 10, 1);
 
         }
+
+        /**
+         * Get Min and Max Price
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @param array $args
+         * @return array
+         */
          function _change_min_max_price($args = array())
          {
 
@@ -241,21 +251,33 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              global $wpdb;
 
              $service->select( '
-            MIN(CAST(' . $wpdb->postmeta . '.meta_value AS DECIMAL)) as min,
-            MAX(CAST(' . $wpdb->postmeta . '.meta_value AS DECIMAL)) as max
-            ' )
+               MIN(
+                    CAST(
+                        wp_postmeta.meta_value AS DECIMAL
+                    )
+                ) AS min_price
+                ')
                  ->join( 'posts as wpb_hotel' , 'wpb_hotel.ID=' . $service->get_table_name( false ) . '.post_id' )
                  ->join( 'posts as wpb_room' , 'wpb_room.post_parent=' . $service->get_table_name( false ) . '.post_id' )
                  ->join( 'postmeta' , 'postmeta.post_id= wpb_room.ID and meta_key = \'base_price\'' );
 
-             $service->where( 'service_type' , $this->type_id );
-             
-             $service->where( 'wpb_hotel.post_status' , 'publish' );
 
-             $res = $service->get()->row();
+             $service->where( 'service_type' , $this->type_id );
+             $service->where( 'enable_property' , 'on' );
+             $service->where( 'wpb_hotel.post_status' , 'publish' );
+             $service->where( 'wpb_hotel.post_type' , 'wpbooking_service' );
+             $service->groupby( 'wpb_hotel.ID' );
+
+             $sql = $service->_get_query();
+             $service->_clear_query();
+
+             $res = $wpdb->get_row("
+                    SELECT 	MIN(min_price) as min, MAX(min_price) as max FROM ($sql) as wpb_table
+             ",'ARRAY_A');
 
              if(!is_wp_error( $res )) {
                  $args = $res;
+
              }
 
              return $args;
@@ -1454,6 +1476,25 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
 
             $injection->add_arg('post_status', 'publish');
+
+            // Price
+            if ($price = WPBooking_Input::get('price')) {
+                $array = explode(';', $price);
+                $injection->select( '
+                           MIN(
+                                    CAST(
+                                        wpb_room_meta.meta_value AS DECIMAL
+                                    )
+                                ) AS wpb_base_price' )
+                    ->join( 'posts as wpb_room' , $wpdb->prefix.'posts.ID = wpb_room.post_parent' )
+                    ->join( 'postmeta as wpb_room_meta' , 'wpb_room_meta.post_id= wpb_room.ID and meta_key = \'base_price\'' );
+                if (!empty($array[0])) {
+                    $injection->having('wpb_base_price >= '.$array[0]);
+                }
+                if (!empty($array[1])) {
+                    $injection->having('wpb_base_price <= '.$array[1]);
+                }
+            }
 
             // Order By
             if ($sortby = $this->request('wb_sort_by')) {

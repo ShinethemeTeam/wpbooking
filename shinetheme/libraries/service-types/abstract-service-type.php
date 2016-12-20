@@ -501,17 +501,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 				$injection->where($table_prefix.'.service_type',$service_type);
 			}
 
-			// Price
-			if ($price = WPBooking_Input::get('price')) {
-				$array = explode(';', $price);
 
-				if (!empty($array[0])) {
-					$injection->where('price>=', $array[0]);
-				}
-				if (!empty($array[1])) {
-					$injection->where('price<=', $array[1]);
-				}
-			}
 
 			// Enable
 			$injection->where($table_prefix . '.enable_property', 'on');
