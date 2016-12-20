@@ -249,6 +249,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                  ->join( 'postmeta' , 'postmeta.post_id= wpb_room.ID and meta_key = \'base_price\'' );
 
              $service->where( 'service_type' , $this->type_id );
+             
+             $service->where( 'wpb_hotel.post_status' , 'publish' );
 
              $res = $service->get()->row();
 
