@@ -1524,10 +1524,10 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     ->join( 'wpbooking_availability as avail' , $wpdb->prefix.'posts.ID= avail.post_id ' );
 
                 if (!empty($array[0])) {
-                    $injection->having('wpb_base_price >= '.$array[0]);
+                    $injection->having(' CAST(wpb_base_price AS DECIMAL) >= '.$array[0]);
                 }
                 if (!empty($array[1])) {
-                    $injection->having('wpb_base_price <= '.$array[1]);
+                    $injection->having(' CAST(wpb_base_price AS DECIMAL) <= '.$array[1]);
                 }
             }
 
