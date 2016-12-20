@@ -1488,7 +1488,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                 ) AS wpb_base_price' )
                     ->join( 'posts as wpb_room' , $wpdb->prefix.'posts.ID = wpb_room.post_parent' )
                     ->join( 'postmeta as wpb_room_meta' , 'wpb_room_meta.post_id= wpb_room.ID and wpb_room_meta.meta_key = \'base_price\'' );
-                $injection->where('avail.start>=',strtotime('today'));
                 if (!empty($array[0])) {
                     $injection->having('wpb_base_price >= '.$array[0]);
                 }

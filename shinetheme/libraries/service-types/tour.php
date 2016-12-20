@@ -224,6 +224,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                 ->join( 'wpbooking_availability AS avail' , $wpdb->prefix.'posts.ID= avail.post_id ' );
 
 
+            $service->where( 'avail.start >' , strtotime('today') );
             $service->where( 'service_type' , $this->type_id );
             $service->where( 'enable_property' , 'on' );
             $service->where( $wpdb->prefix.'posts.post_status' , 'publish' );
