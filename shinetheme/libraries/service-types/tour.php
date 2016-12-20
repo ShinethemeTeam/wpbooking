@@ -193,28 +193,29 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             CAST(avail.calendar_price AS DECIMAL)
                 END
             ) as min,
+            
             MAX(
                 CASE
                     WHEN wpb_meta.meta_value = 'per_person'
                     THEN
                             CASE WHEN 
-                                        (CAST(avail.adult_price AS DECIMAL)) >= ( CAST(avail.child_price AS DECIMAL) ) 
-                                        AND (CAST(avail.adult_price AS DECIMAL)) >= ( CAST(avail.infant_price AS DECIMAL) ) 
+                                        (CAST(avail.adult_price AS DECIMAL)) <= ( CAST(avail.child_price AS DECIMAL) ) 
+                                        AND (CAST(avail.adult_price AS DECIMAL)) <= ( CAST(avail.infant_price AS DECIMAL) ) 
                                         THEN
                                             ( CAST(avail.adult_price AS DECIMAL) )
                             
                                         WHEN 
-                                                 ( CAST(avail.child_price AS DECIMAL) ) >= ( CAST(avail.adult_price AS DECIMAL) ) 
-                                                AND ( CAST(avail.child_price AS DECIMAL) ) >= ( CAST(avail.infant_price AS DECIMAL) ) 
+                                                 ( CAST(avail.child_price AS DECIMAL) ) <= ( CAST(avail.adult_price AS DECIMAL) ) 
+                                                AND ( CAST(avail.child_price AS DECIMAL) ) <= ( CAST(avail.infant_price AS DECIMAL) ) 
                                         THEN
                                             (CAST(avail.child_price AS DECIMAL))
-                                        WHEN  ( CAST(avail.infant_price AS DECIMAL) ) >= ( CAST(avail.adult_price AS DECIMAL) ) 
-                                                AND ( CAST(avail.infant_price AS DECIMAL) ) >= ( CAST(avail.child_price AS DECIMAL) ) 
+                                        WHEN  ( CAST(avail.infant_price AS DECIMAL) ) <= ( CAST(avail.adult_price AS DECIMAL) ) 
+                                                AND ( CAST(avail.infant_price AS DECIMAL) ) <= ( CAST(avail.child_price AS DECIMAL) ) 
                                             THEN
                                                     (CAST(avail.infant_price AS DECIMAL))
                                 END
                 ELSE
-                            CAST(avail.calendar_price AS DECIMAL)	
+                            CAST(avail.calendar_price AS DECIMAL)
                 END
             ) as max
 
