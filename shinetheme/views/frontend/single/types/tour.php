@@ -143,6 +143,7 @@ $age_options=$service->get_meta('age_options');
                                         <i class="fa fa-calendar"></i>
                                         <select class="wb-departure-date" name="wb-departure-date">
                                             <?php if(!empty($next10Month)){
+
                                                 foreach($next10Month as $key=>$item){
                                                     if(!empty($item['days'])){
                                                         foreach($item['days'] as $day){
@@ -152,8 +153,22 @@ $age_options=$service->get_meta('age_options');
                                                                 'child_price'=>false,
                                                                 'infant_price'=>false,
                                                             ));
-                                                            $calendar_price=$day['calendar_price']?$day['calendar_price']:$day['adult_price'];
-                                                            if(!$calendar_price)  $calendar_price=$day['child_price']?$day['child_price']:$day['infant_price'];
+
+                                                            if($service->get_meta('pricing_type') == 'per_unit'){
+                                                                $calendar_price=$day['calendar_price'];
+                                                            }else{
+                                                                if( $day['adult_price'] <= $day['child_price'] and $day['adult_price'] <= $day['infant_price']) {
+                                                                    $calendar_price = $day['adult_price'];
+                                                                }
+                                                                if( $day['child_price'] <= $day['adult_price'] and $day['child_price'] <= $day['infant_price']) {
+                                                                    $calendar_price = $day['child_price'];
+                                                                }
+                                                                if( $day['infant_price'] <= $day['adult_price'] and $day['infant_price'] <= $day['child_price']) {
+                                                                    $calendar_price = $day['infant_price'];
+                                                                }
+                                                            }
+                                                            //$calendar_price=$day['calendar_price']?$day['calendar_price']:$day['adult_price'];
+                                                            //if(!$calendar_price)  $calendar_price=$day['child_price']?$day['child_price']:$day['infant_price'];
                                                             $selected=false;
                                                             if(!empty($_GET['start_date']) and $_GET['start_date']==$day['start']) $selected='selected';
                                                             if(!empty($_GET['checkin_d']) and !empty($_GET['checkin_m']) and !empty($_GET['checkin_y'])){

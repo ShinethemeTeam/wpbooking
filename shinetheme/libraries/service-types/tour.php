@@ -761,7 +761,19 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             $pricing_type = get_post_meta($post_id, 'pricing_type', true);
 
             if ($pricing_type == 'per_person') {
-                $query = $calendar->select('CASE WHEN MIN(child_price) < MIN(adult_price) THEN MIN(adult_price) ELSE MIN(child_price) END as min_price')->where(array(
+                $query = $calendar->select('
+                CASE
+                WHEN MIN(adult_price) <= MIN(child_price)
+                AND MIN(adult_price) <= MIN(infant_price) THEN
+                    MIN(adult_price)
+                WHEN MIN(child_price) <= MIN(adult_price)
+                AND MIN(child_price) <= MIN(infant_price) THEN
+                    MIN(child_price)
+                WHEN MIN(infant_price) <= MIN(adult_price)
+                AND MIN(infant_price) <= MIN(child_price) THEN
+                    MIN(infant_price)
+                END AS min_price
+                ')->where(array(
                     'post_id'  => $post_id,
                     'status'   => 'available',
                     'start >=' => strtotime(date('d-m-Y'))
@@ -780,6 +792,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             if ($query) {
                 $price = $query['min_price'];
             }
+
             $price_html = WPBooking_Currency::format_money($price);
 
             $price_html = sprintf(__('from %s', 'wpbooking'), '<br><span class="price">' . $price_html . '</span>');
