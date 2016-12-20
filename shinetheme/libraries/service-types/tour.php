@@ -1523,6 +1523,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     ->join( 'postmeta as wpb_meta' , $wpdb->prefix.'posts.ID=wpb_meta.post_id and wpb_meta.meta_key = \'pricing_type\'' )
                     ->join( 'wpbooking_availability as avail' , $wpdb->prefix.'posts.ID= avail.post_id ' );
 
+                $injection->where('avail.start>=',strtotime('today'));
                 if (!empty($array[0])) {
                     $injection->having(' CAST(wpb_base_price AS DECIMAL) >= '.$array[0]);
                 }
