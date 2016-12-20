@@ -1508,7 +1508,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                                         ) as wpb_base_price" )
 
                     ->join( 'postmeta as wpb_meta' , $wpdb->prefix.'posts.ID=wpb_meta.post_id and wpb_meta.meta_key = \'pricing_type\'' )
-                    ->join( 'wpbooking_availability AS avail' , $wpdb->prefix.'posts.ID= avail.post_id ' );
+                    ->join( 'wpbooking_availability as avail' , $wpdb->prefix.'posts.ID= avail.post_id ' );
 
                 if (!empty($array[0])) {
                     $injection->having('wpb_base_price >= '.$array[0]);
