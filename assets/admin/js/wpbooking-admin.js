@@ -956,15 +956,19 @@ jQuery(document).ready(function( $ ){
 
     $(window).load(function(){
         $('.ace-editor').each(function(){
-            var type=$(this).data('type');
-            var input=$(this).next('textarea');
-            var editor = ace.edit($(this).attr('id'));
-            editor.setTheme("ace/theme/monokai");
-            editor.getSession().setMode("ace/mode/css");
-            editor.getSession().setValue( input.val() );
+            var flask = new CodeFlask;
+            var me=$(this);
+            var next=me.next('textarea');
+            console.log('#'+$(this).attr('id'));
+            flask.run('#'+$(this).attr('id'),{
+                language: 'css'
+            });
 
-            $('#form-settings-admin').submit(function(){
-                input.val(editor.getSession().getValue());
+            var old=next.val();
+            flask.update(old);
+
+            flask.onUpdate(function(code) {
+                next.val(code);
             });
         });
     });

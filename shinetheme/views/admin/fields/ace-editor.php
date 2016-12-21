@@ -5,7 +5,8 @@
  * Date: 6/6/2016
  * Time: 2:35 PM
  */
-wp_enqueue_script('acejs');
+wp_enqueue_script('codeflask');
+wp_enqueue_style('codeflask');
 $data_value = wpbooking_get_option($data['id'],$data['std']);
 $name = 'wpbooking_'.$data['id'];
 
@@ -27,8 +28,8 @@ if(!empty($data['condition'])){
 		<label for="<?php echo esc_html($name) ?>"><?php echo esc_html($data['label']) ?>:</label>
 	</th>
 	<td>
-		<div  id="<?php echo esc_attr($name) ?>" class="width-800 ace-editor h_400" ></div>
-		<textarea name="<?php echo esc_html($name) ?>" class="form-control  min-width-800 hidden" data-type="css"><?php echo esc_html($data_value) ?></textarea>
+		<div  id="<?php echo esc_attr($name) ?>" class="width-800 ace-editor  h_400" data-language="css"></div>
+		<textarea name="<?php echo esc_html($name) ?>" class="form-control  min-width-800 hidden"  ><?php echo esc_html($data_value) ?></textarea>
 		<i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
 	</td>
 

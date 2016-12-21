@@ -213,9 +213,12 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
              */
             wp_register_script('sticky',wpbooking_assets_url('admin/js/jquery.sticky.js'),array('jquery'),null,true);
             /**
-             * Ace Editor
+             * Code Flask
              */
-            wp_register_script('acejs', wpbooking_assets_url('ace/ace.js'), array(), null, true);
+            wp_register_style('prismjs', wpbooking_assets_url('codeflask/themes/prism.css'));
+            wp_register_style('codeflask', wpbooking_assets_url('codeflask/codeflask.css'),array('prismjs'));
+            wp_register_script('prismjs', wpbooking_assets_url('codeflask/prism.js'), array(), null, true);
+            wp_register_script('codeflask', wpbooking_assets_url('codeflask/codeflask.js'), array('prismjs'), null, true);
             wp_register_script('bootstrap', wpbooking_assets_url('bootstrap/js/bootstrap.min.js'), array('jquery'), null, true);
 
             /**
