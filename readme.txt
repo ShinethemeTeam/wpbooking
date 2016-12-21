@@ -6,7 +6,7 @@ Donate link: http://wpbooking.org/donate/
 Tags: booking system, booking calendar, booking engine, booking, system, calendar, engine, bookings, bookable, reservation calendar, reservations, scheduling, schedule, rooms, hotel, holiday home, accommodations, adventure tours, booking management system, payment gateways
 Requires at least: 4.0
 Tested up to: 4.8
-Stable tag: 1.0
+Stable tag: 1.0.1
 
 License: GNU Version 2 or Any Later Version
 
