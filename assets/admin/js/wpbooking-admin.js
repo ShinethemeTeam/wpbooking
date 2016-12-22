@@ -2028,7 +2028,7 @@ jQuery(document).ready(function( $ ){
                         var item_html = '<div class="item">' +
                             '<div class="extension">' +
                             '<div class="thumnail">' +
-                            '<img src="'+item.thumb_url+'"/>' +
+                            '<a target="_blank" href="'+item.url+'"><img src="'+item.thumb_url+'"/></a>' +
                             '</div>' +
                             '<div class="info">' +
                             '<h3 class="title">'+item.title+'</h3>' +
@@ -2110,7 +2110,7 @@ jQuery(document).ready(function( $ ){
                         var item_html = '<div class="item">' +
                             '<div class="extension">' +
                             '<div class="thumnail">' +
-                            '<img src="'+item.thumb_url+'"/>' +
+                            '<a target="_blank" href="'+item.url+'"><img src="'+item.thumb_url+'"/></a>' +
                             '</div>' +
                             '<div class="info">' +
                             '<h3 class="title">'+item.title+'</h3>' +
@@ -2204,7 +2204,7 @@ jQuery(document).ready(function( $ ){
                             var item_html = '<div class="item">' +
                                 '<div class="extension">' +
                                 '<div class="thumnail">' +
-                                '<img src="'+item.thumb_url+'"/>' +
+                                '<a target="_blank" href="'+item.url+'"><img src="'+item.thumb_url+'"/></a>' +
                                 '</div>' +
                                 '<div class="info">' +
                                 '<h3 class="title">'+item.title+'</h3>' +
