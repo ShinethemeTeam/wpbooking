@@ -44,7 +44,7 @@ if(!empty($list_tax)){
                                         }
                                         ?>
                                         <div class="wpbooking-row">
-                                            <div class="wpbooking-col-sm-12">
+                                            <div class="wpbooking-col-sm-6">
                                                 <label><input <?php echo esc_html($checked) ?> name="<?php echo esc_attr($data['id']) ?>[<?php echo esc_attr($data['taxonomy']) ?>][]" value="<?php echo esc_attr($term->term_id) ?>" type="checkbox"><?php echo esc_html($term->name) ?></label>
                                             </div>
                                         </div>

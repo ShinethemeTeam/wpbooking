@@ -885,12 +885,21 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'title'   => esc_html__('Your address matters! ', 'wpbooking'),
                             'content' => esc_html__('Please make sure to enter your full address ', 'wpbooking')
                         ),
+
+                        array('type' => 'close_section'),
+                        // Miscellaneous
+                        array('type' => 'open_section'),
+                        array(
+                            'label' => __("Amenity", 'wpbooking'),
+                            'type'  => 'title',
+                        ),
                         array(
                             'id'            => 'taxonomy_custom' ,
                             'type'          => 'taxonomy_custom',
                             'service_type'   => $this->type_id
                         ) ,
                         array('type' => 'close_section'),
+                        // End Miscellaneous
                         array(
                             'type' => 'section_navigation',
                             'prev' => false,
