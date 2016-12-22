@@ -169,7 +169,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             global $wpdb;
 
             $service->select( "
-            MIN(
+            (
                 CASE
                     WHEN wpb_meta.meta_value = 'per_person'
                     THEN
@@ -192,31 +192,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                 ELSE
                             CAST(avail.calendar_price AS DECIMAL)
                 END
-            ) as min,
-            MAX(
-                CASE
-                    WHEN wpb_meta.meta_value = 'per_person'
-                    THEN
-                            CASE WHEN 
-                                        (CAST(avail.adult_price AS DECIMAL)) >= ( CAST(avail.child_price AS DECIMAL) ) 
-                                        AND (CAST(avail.adult_price AS DECIMAL)) >= ( CAST(avail.infant_price AS DECIMAL) ) 
-                                        THEN
-                                            ( CAST(avail.adult_price AS DECIMAL) )
-                            
-                                        WHEN 
-                                                 ( CAST(avail.child_price AS DECIMAL) ) >= ( CAST(avail.adult_price AS DECIMAL) ) 
-                                                AND ( CAST(avail.child_price AS DECIMAL) ) >= ( CAST(avail.infant_price AS DECIMAL) ) 
-                                        THEN
-                                            (CAST(avail.child_price AS DECIMAL))
-                                        WHEN  ( CAST(avail.infant_price AS DECIMAL) ) >= ( CAST(avail.adult_price AS DECIMAL) ) 
-                                                AND ( CAST(avail.infant_price AS DECIMAL) ) >= ( CAST(avail.child_price AS DECIMAL) ) 
-                                            THEN
-                                                    (CAST(avail.infant_price AS DECIMAL))
-                                END
-                ELSE
-                            CAST(avail.calendar_price AS DECIMAL)	
-                END
-            ) as max
+            ) as base_price
 
             " )
                 ->join( 'posts' , 'posts.ID=' . $service->get_table_name( false ) . '.post_id' )
@@ -224,13 +200,20 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                 ->join( 'wpbooking_availability AS avail' , $wpdb->prefix.'posts.ID= avail.post_id ' );
 
 
+            $service->where( 'avail.start >' , strtotime('today') );
             $service->where( 'service_type' , $this->type_id );
             $service->where( 'enable_property' , 'on' );
             $service->where( $wpdb->prefix.'posts.post_status' , 'publish' );
             $service->where( $wpdb->prefix.'posts.post_type' , 'wpbooking_service' );
 
-            $res = $service->get()->row();
+            $sql = 'SELECT
+                        MIN(base_price) as min,
+                        MAX(base_price) as max
+                    FROM
+                        ('.$service->_get_query().') as wpb_table';
+            $service->_clear_query();
 
+            $res = $wpdb->get_row($sql,'ARRAY_A');
             if(!is_wp_error( $res )) {
                 $args = $res;
             }
@@ -1523,6 +1506,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     ->join( 'postmeta as wpb_meta' , $wpdb->prefix.'posts.ID=wpb_meta.post_id and wpb_meta.meta_key = \'pricing_type\'' )
                     ->join( 'wpbooking_availability as avail' , $wpdb->prefix.'posts.ID= avail.post_id ' );
 
+                $injection->where('avail.start>=',strtotime('today'));
                 if (!empty($array[0])) {
                     $injection->having(' CAST(wpb_base_price AS DECIMAL) >= '.$array[0]);
                 }

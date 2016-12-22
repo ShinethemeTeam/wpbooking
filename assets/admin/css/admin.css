@@ -4790,3 +4790,10 @@ label[for=wpbooking_room_typediv-hide] {
 .mb_7 {
   margin-bottom: 7px;
 }
+.ace-editor {
+  background: white;
+}
+.CodeFlask__code {
+  margin: 0px;
+  padding: 0px;
+}

@@ -7,7 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     $vendorDir . '/ircmaxell/password-compat/lib/password.php',
-    $vendorDir . '/symfony/polyfill-php55/bootstrap.php',
-    $vendorDir . '/symfony/polyfill-php54/bootstrap.php',
     $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
 );
