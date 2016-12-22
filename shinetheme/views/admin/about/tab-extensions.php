@@ -6,16 +6,11 @@
  * Version: 1.0
  */
 
-$curlSession = curl_init();
-curl_setopt($curlSession, CURLOPT_URL, WPBooking()->API_URL.'?action=st_get_extension');
-curl_setopt($curlSession, CURLOPT_BINARYTRANSFER, true);
-curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
-
-$data = str_replace('(','',curl_exec($curlSession));
+$remote=wp_remote_get(WPBooking()->API_URL.'?action=st_get_extension');
+$data = wp_remote_retrieve_body($remote);
+$data = str_replace('(','', $data);
 $data = str_replace(')','',$data);
 $jsonData = json_decode($data);
-
-curl_close($curlSession);
 
 ?>
 <div class="wpbooking-extension">
@@ -74,7 +69,7 @@ curl_close($curlSession);
                         <div class="item">
                             <div class="extension">
                                 <div class="thumnail">
-                                    <img src="<?php echo esc_url($val->thumb_url); ?>" alt="<?php echo esc_attr($val->title); ?>"/>
+                                    <a href="<?php echo esc_url($val->url)?>" target="_blank"><img src="<?php echo esc_url($val->thumb_url); ?>" alt="<?php echo esc_attr($val->title); ?>"/></a>
                                 </div>
                                 <div class="info">
                                     <h3 class="title"><?php echo esc_attr($val->title); ?></h3>
