@@ -496,6 +496,9 @@ if (!class_exists('WPBooking_Metabox')) {
                     case "taxonomy_room_select":
                         $this->wpbooking_save_taxonomy_room($post_id,$field['id']);
                         break;
+                    case "taxonomy_custom":
+                        $this->wpbooking_save_taxonomy_custom($post_id,$field['id']);
+                        break;
                     case "taxonomy_select":
                         $this->wpbooking_save_taxonomy($post_id,$field['id'],$field);
                         break;
@@ -634,6 +637,30 @@ if (!class_exists('WPBooking_Metabox')) {
             update_post_meta($post_id,$field_id,$data_multi);
 
         }
+        /**
+         * Save Taxonomy Custom
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @param $post_id
+         * @param $field_id
+         */
+        public function wpbooking_save_taxonomy_custom($post_id,$field_id){
+            $list = WPBooking_Input::post($field_id);
+            $list_base = WPBooking_Input::post($field_id.'_base');
+            if(!empty($list_base)){
+                foreach($list_base as $k=>$v){
+                    if(!empty($list) and key_exists($v,$list)){
+                        $terms = $list[$v];
+                        wp_set_post_terms($post_id, $terms, $v);
+                    }else{
+                        wp_set_post_terms($post_id, array(0), $v);
+                    }
+                }
+            }
+
+        }
 
         /**
          * Save Taxonomy Room Metabox
@@ -651,6 +678,8 @@ if (!class_exists('WPBooking_Metabox')) {
             $terms = array();
             $terms_meta = array();
             $list_room = WPBooking_Accommodation_Service_Type::inst()->_get_room_by_hotel($post_id);
+
+
 
             if(!empty($list)){
                 foreach($list as $k=>$v){

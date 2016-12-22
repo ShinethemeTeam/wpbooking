@@ -700,6 +700,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'taxonomy' => 'wb_hotel_room_facilities',
                             'rules'=>'required'
                         ),
+                        array(
+                            'id'            => 'taxonomy_custom' ,
+                            'type'          => 'taxonomy_custom',
+                            'service_type'   => $this->type_id
+                        ) ,
                         array('type' => 'close_section'),
 
 

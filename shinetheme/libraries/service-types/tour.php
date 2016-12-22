@@ -84,6 +84,15 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             add_filter('wpbooking_add_to_cart_validate_' . $this->type_id, array($this, '_add_to_cart_validate'), 10, 4);
 
             /**
+             * Filter to Change Cart Params
+             *
+             * @since 1.0
+             * @author dungdt
+             */
+            add_filter('wpbooking_cart_item_params_' . $this->type_id, array($this, '_change_cart_params'), 10, 2);
+
+
+            /**
              * Show More info in Cart Total Box
              *
              * @since 1.0
@@ -100,14 +109,6 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
              *
              */
             add_action('wpbooking_order_detail_total_item_information_' . $this->type_id, array($this, '_add_order_total_box_info'));
-
-            /**
-             * Filter to Change Cart Params
-             *
-             * @since 1.0
-             * @author dungdt
-             */
-            add_filter('wpbooking_cart_item_params_' . $this->type_id, array($this, '_change_cart_params'), 10, 2);
 
 
             /**
@@ -884,6 +885,11 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'title'   => esc_html__('Your address matters! ', 'wpbooking'),
                             'content' => esc_html__('Please make sure to enter your full address ', 'wpbooking')
                         ),
+                        array(
+                            'id'            => 'taxonomy_custom' ,
+                            'type'          => 'taxonomy_custom',
+                            'service_type'   => $this->type_id
+                        ) ,
                         array('type' => 'close_section'),
                         array(
                             'type' => 'section_navigation',
