@@ -629,9 +629,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'rules'=>'required'
                         ),
                         array(
-                            'type'         => 'custom-taxonomy',
-                            'service_type' => $this->type_id
-                        ),
+                            'id'            => 'taxonomy_custom' ,
+                            'type'          => 'taxonomy_custom',
+                            'service_type'   => $this->type_id
+                        ) ,
                         array('type' => 'close_section'),
                         // End Miscellaneous
 
@@ -700,6 +701,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'taxonomy' => 'wb_hotel_room_facilities',
                             'rules'=>'required'
                         ),
+
                         array('type' => 'close_section'),
 
 
