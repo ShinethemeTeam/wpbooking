@@ -213,7 +213,7 @@ if (!class_exists('WPBooking_Metabox')) {
         {
             $post_id=get_the_ID();
             $service_types=WPBooking_Service_Controller::inst()->get_service_types();
-            if(!empty(($service_types))){
+            if(!empty($service_types)){
                 foreach ($service_types as $type_id=>$type){
                     $sections=$type->get_metabox();
                     if(empty($sections)) continue;
