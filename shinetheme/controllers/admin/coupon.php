@@ -268,7 +268,6 @@ if (!class_exists('WPBooking_Admin_Coupon')) {
                 'capability_type'    => 'post',
                 'has_archive'        => false,
                 'hierarchical'       => FALSE,
-                //'menu_position'      => '59.9',
                 'supports'           => array('title', 'author')
             );
 

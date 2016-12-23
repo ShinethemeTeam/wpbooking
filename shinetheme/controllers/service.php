@@ -247,7 +247,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
             }
 
             $raw_data = WPBooking_Calendar_Model::inst()->calendar_months($post_id, $start, $end);
-            $calendar_months = array();
             $calendar_dates = array();
 
             // All day data
@@ -285,7 +284,6 @@ if (!class_exists('WPBooking_Service_Controller')) {
                     $calendar_dates[date('Y-m-d', $v['start'])] = array(
                         'date'            => date('Y-m-d', $v['start']),
                         'price'           => WPBooking_Currency::format_money($v['price']),
-                        //'tooltip_content' => sprintf(esc_html__('%s - %d available', 'wpbooking'), WPBooking_Currency::format_money($v['price']), $v['number'] - $v['total_booked']),
                         'can_check_in'    => $v['can_check_in'],
                         'can_check_out'   => $v['can_check_out'],
                         'tooltip_content' => WPBooking_Currency::format_money($v['price']),
