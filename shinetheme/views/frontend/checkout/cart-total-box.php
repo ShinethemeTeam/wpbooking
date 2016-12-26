@@ -47,4 +47,5 @@ $tax_total=0;
             <span class="total-amount text-bold"><?php echo WPBooking_Currency::format_money($property); ?></span>
         <?php } ?>
     </div>
+    <?php do_action("wpbooking_after_check_out_total_price") ?>
 </div>

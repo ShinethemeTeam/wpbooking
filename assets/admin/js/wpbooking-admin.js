@@ -2258,4 +2258,8 @@ jQuery(document).ready(function( $ ){
         });
     });
 
+
+    jQuery('.coupon-datepicker').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
 });

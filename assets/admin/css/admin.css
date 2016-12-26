@@ -3497,6 +3497,9 @@ label[for=wpbooking_locationdiv-hide] {
 .st-metabox-tab-content-wrap.coupon-metabox .coupon-submit {
   margin-left: 30px;
 }
+.st-metabox-tab-content-wrap.coupon-metabox .coupon-datepicker {
+  width: 150px;
+}
 .st-metabox-tab-content-wrap.coupon-metabox .wb-coupon-table {
   width: 100%;
   border-left: 1px solid #e6e6e6;

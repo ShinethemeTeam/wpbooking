@@ -25,9 +25,10 @@ if(!empty($list_tax)){
                     <label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
                 </div>
                 <div class="st-metabox-right">
-                    <div class="st-metabox-content-wrapper">
-                        <div class="form-group taxonomy_room_select">
+                    <div class="st-metabox-content-wrapper-new">
+                        <div class="form-group taxonomy_room_select taxonomy_fee_select wpbooking-form-group">
                             <input name="<?php echo esc_attr($data['id']) ?>_base[]" type="hidden" value="<?php echo esc_attr($data['taxonomy']) ?>">
+                            <div class="clearfix">
                             <?php
                             if(!empty($data['taxonomy'])){
                                 $terms=get_terms($data['taxonomy'],array('taxonomy'=>$data['taxonomy'],'hide_empty'=>false));
@@ -43,18 +44,18 @@ if(!empty($list_tax)){
                                             }
                                         }
                                         ?>
-                                        <div class="wpbooking-row">
-                                            <div class="wpbooking-col-sm-6">
+
+                                        <div class="term-item ">
                                                 <label><input <?php echo esc_html($checked) ?> name="<?php echo esc_attr($data['id']) ?>[<?php echo esc_attr($data['taxonomy']) ?>][]" value="<?php echo esc_attr($term->term_id) ?>" type="checkbox"><?php echo esc_html($term->name) ?></label>
                                             </div>
-                                        </div>
+
                                         <?php
                                         $i++;
                                     }
                                 }
                             }
                             ?>
-
+                            </div>
                             <?php
                             if(!empty($data['help_inline'])){
                                 printf('<span class="help_inline">%s</span>',$data['help_inline']);
