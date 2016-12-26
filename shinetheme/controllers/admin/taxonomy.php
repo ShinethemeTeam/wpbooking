@@ -12,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 	class WPBooking_Admin_Taxonomy_Controller extends WPBooking_Controller
 	{
-
 		static $_inst;
 
 		protected $_option_name = 'wpbooking_taxonomies';
@@ -55,7 +54,6 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 					$args['description'] = $service_desc;
 				}
 				if($parent_term){
-					//$res['message']=esc_html__('Term exists','wpbooking');
                     $check=get_term_meta($parent_term['term_id'],'service_type',true);
 					if(!$check){
 						$res['status']=1;

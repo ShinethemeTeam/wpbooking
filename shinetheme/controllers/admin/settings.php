@@ -13,7 +13,6 @@ if(!class_exists('WPBooking_Admin_Setting'))
         {
 			WPBookingConfig()->load('settings');
 
-            //add_action('init',array($this,'_add_post_type'));
             add_action( 'admin_menu', array($this,"register_wpbooking_sub_menu_page") );
 
             add_action( 'admin_init', array($this,"_save_settings") );

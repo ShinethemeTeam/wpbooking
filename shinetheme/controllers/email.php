@@ -62,9 +62,7 @@ if (!class_exists('WPBooking_Email')) {
         function _test_email()
         {
             if (WPBooking_Input::get('test_email') and $order_id = WPBooking_Input::get('post_id')) {
-                $order_model = WPBooking_Order_Model::inst();
 
-                $items = $order_model->get_order_items($order_id);
                 WPBooking()->set('order_id', $order_id);
                 WPBooking()->set('is_email_to_author', 1);
                 $message = do_shortcode(wpbooking_get_option('email_to_partner'));
@@ -94,10 +92,6 @@ if (!class_exists('WPBooking_Email')) {
 
                 $this->send_customer_email($order_id);
             }
-
-            /*if (wpbooking_get_option('on_booking_email_author')) {
-                $this->send_partner_email($order_id);
-            }*/
 
             if (wpbooking_get_option('on_booking_email_admin')) {
                 $this->send_admin_email($order_id);

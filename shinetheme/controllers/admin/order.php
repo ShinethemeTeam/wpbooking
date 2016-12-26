@@ -340,7 +340,6 @@ if (!class_exists('WPBooking_Admin_Order')) {
 				'capability_type'    => 'post',
 				'has_archive'        => TRUE,
 				'hierarchical'       => FALSE,
-				//'menu_position'      => '59.9',
 				'supports'           => array('title', 'author')
 			);
 

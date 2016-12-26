@@ -22,8 +22,6 @@ if (!class_exists('WPBooking_Admin_Service')) {
 			add_action('save_post', array($this, '_save_extra_field'));
 			add_filter('wpbooking_settings', array($this, '_add_settings'));
 
-			// Ajax save property
-
 			// Merge Data
 			add_action('admin_init', array($this, '_merge_data'));
 
@@ -390,7 +388,6 @@ if (!class_exists('WPBooking_Admin_Service')) {
 
 			return self::$_inst;
 		}
-
 
 	}
 
