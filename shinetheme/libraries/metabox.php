@@ -39,6 +39,17 @@ if (!class_exists('WPBooking_Metabox')) {
              */
             add_action('wp_ajax_wpbooking_delete_attachment',array($this,'_delete_p_attachment'));
 
+            add_action('save_post',array($this,'_save_service_type'));
+
+        }
+
+        public function _save_service_type($post_id )
+        {
+            if(!empty($_POST['service_type']) and $service_type=$_POST['service_type']){
+                update_post_meta($post_id,'service_type',$service_type);
+                WPBooking_Service_Model::inst()->where('post_id',$post_id)->update(array('service_type'=>$service_type));
+            }
+
         }
 
         /**
@@ -212,6 +223,7 @@ if (!class_exists('WPBooking_Metabox')) {
         function _add_js_template()
         {
             $post_id=get_the_ID();
+            $post_id=wpbooking_origin_id($post_id);
             $service_types=WPBooking_Service_Controller::inst()->get_service_types();
             if(!empty($service_types)){
                 foreach ($service_types as $type_id=>$type){
@@ -383,18 +395,20 @@ if (!class_exists('WPBooking_Metabox')) {
 
                     <div class="st-metabox-tab-content-wrap  row">
                         <?php
+                        $post_id=get_the_ID();
+                        $post_id=wpbooking_origin_id($post_id);
                         // Service Type fields
                         $service_type_field = array(
-                            'post_id' => get_the_ID(),
+                            'post_id' => $post_id,
                             'id'      => 'service_type',
                             'label'   => esc_html__('Service Type', 'wpbooking'),
                             'width'   => '',
                             'desc'    => ''
                         );
-                        $field_html = apply_filters('wpbooking_metabox_field_html_service-type-select', FALSE, $service_type_field, get_the_ID());
+                        $field_html = apply_filters('wpbooking_metabox_field_html_service-type-select', FALSE, $service_type_field, $post_id);
                         if ($field_html) echo do_shortcode($field_html);
                         else
-                            echo wpbooking_admin_load_view('metabox-fields/service-type-select', array('data' => $service_type_field, 'post_id' => get_the_ID()));
+                            echo wpbooking_admin_load_view('metabox-fields/service-type-select', array('data' => $service_type_field, 'post_id' => $post_id));
                         ?>
                     </div>
                     <div class="wpbooking-metabox-template">
