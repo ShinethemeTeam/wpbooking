@@ -30,6 +30,7 @@ $tax_total=0;
             <span class="total-amount"><?php echo WPBooking_Currency::format_money($tax['citytax']['price']); ?></span>
         <?php } ?>
     </div>
+    <?php do_action("wpbooking_after_check_out_total_price") ?>
     <?php if(!empty($tax['total_price'])) echo '<span class="total-line"></span>' ?>
     <div class="review-cart-item total">
         <span class="total-title text-up text-bold"><?php _e('Total Amount', 'wpbooking') ?></span>
@@ -47,5 +48,4 @@ $tax_total=0;
             <span class="total-amount text-bold"><?php echo WPBooking_Currency::format_money($property); ?></span>
         <?php } ?>
     </div>
-    <?php do_action("wpbooking_after_check_out_total_price") ?>
 </div>

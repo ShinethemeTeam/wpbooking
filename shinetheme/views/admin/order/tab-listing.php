@@ -189,6 +189,7 @@ $query=new WP_Query($args);
                                     echo '<span class="wb-deposit-remain">( '.do_shortcode($dr_price).' )</span>';
                                 }
                                 ?>
+								<?php do_action("wpbooking_admin_after_order_detail_total_price",get_the_ID(),$order_data) ?>
                             </span>
                             <ul class="none wb-booking-detail">
                                 <?php

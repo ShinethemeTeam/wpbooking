@@ -18,33 +18,33 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
             $this->table_version = '1.0.4';
             $this->table_name    = 'wpbooking_order';
             $this->columns = array(
-            'id'                  => array(
-                'type'           => 'int' ,
-                'AUTO_INCREMENT' => true
-            ) ,
-            'order_id'            => array( 'type' => 'int' , 'length' => 11 ) ,
-            'post_id'             => array( 'type' => 'int' , 'length' => 11 ) ,// Service ID
-            'service_type'        => array( 'type' => 'varchar' , 'length' => 255 ) ,
-            'price'               => array( 'type' => 'float' ) ,// Total Price after calculating, with tax also
-            'discount'            => array( 'type' => 'int' , 'length' => 11 ) ,
-            'extra_fees'          => array( 'type' => 'text' ) ,
-            'tax'                 => array( 'type' => 'text' ) ,
-            'tax_total'           => array( 'type' => 'float' ) ,
-            'currency'            => array( 'type' => 'varchar' , 'length' => 255 ) ,
-            'raw_data'            => array( 'type' => 'text' ) ,
-            'check_in_timestamp'  => array( 'type' => 'int' ) ,
-            'check_out_timestamp' => array( 'type' => 'int' ) ,
-            'user_id'             => array( 'type' => 'int' , 'length' => 11 ) ,// Customer ID
-            'author_id'           => array( 'type' => 'int' , 'length' => 11 ) ,// Service's Author ID
-            'deposit'             => array( 'type' => 'text' ) ,
-            'deposit_price'             => array( 'type' => 'varchar' , 'length' => 255 ) ,
-            'created_at'          => array( 'type' => 'varchar' , 'length' => 255 ) ,
-            'payment_method'      => array( 'type' => 'varchar' , 'length' => 255 ) ,
-            'status'              => array( 'type' => 'varchar' , 'length' => 255 ) ,
-            'adult_number'              => array( 'type' => 'int' ,  ) ,
-            'children_number'              => array( 'type' => 'int' ,  ) ,
-            'infant_number'              => array( 'type' => 'int' ,  ) ,
-        );
+                'id'                  => array(
+                    'type'           => 'int' ,
+                    'AUTO_INCREMENT' => true
+                ) ,
+                'order_id'            => array( 'type' => 'int' , 'length' => 11 ) ,
+                'post_id'             => array( 'type' => 'int' , 'length' => 11 ) ,// Service ID
+                'service_type'        => array( 'type' => 'varchar' , 'length' => 255 ) ,
+                'price'               => array( 'type' => 'float' ) ,// Total Price after calculating, with tax also
+                'discount'            => array( 'type' => 'int' , 'length' => 11 ) ,
+                'extra_fees'          => array( 'type' => 'text' ) ,
+                'tax'                 => array( 'type' => 'text' ) ,
+                'tax_total'           => array( 'type' => 'float' ) ,
+                'currency'            => array( 'type' => 'varchar' , 'length' => 255 ) ,
+                'raw_data'            => array( 'type' => 'text' ) ,
+                'check_in_timestamp'  => array( 'type' => 'int' ) ,
+                'check_out_timestamp' => array( 'type' => 'int' ) ,
+                'user_id'             => array( 'type' => 'int' , 'length' => 11 ) ,// Customer ID
+                'author_id'           => array( 'type' => 'int' , 'length' => 11 ) ,// Service's Author ID
+                'deposit'             => array( 'type' => 'text' ) ,
+                'deposit_price'             => array( 'type' => 'varchar' , 'length' => 255 ) ,
+                'created_at'          => array( 'type' => 'varchar' , 'length' => 255 ) ,
+                'payment_method'      => array( 'type' => 'varchar' , 'length' => 255 ) ,
+                'status'              => array( 'type' => 'varchar' , 'length' => 255 ) ,
+                'adult_number'              => array( 'type' => 'int' ,  ) ,
+                'children_number'              => array( 'type' => 'int' ,  ) ,
+                'infant_number'              => array( 'type' => 'int' ,  ) ,
+            );
 
             parent::__construct();
 

@@ -1334,7 +1334,8 @@ jQuery(document).ready(function( $ ){
                                 q: params.term, // search term
                                 action: 'wpbooking_autocomplete_post',
                                 page: params.page,
-                                type:me.data('type')
+                                type:me.data('type'),
+                                post__not_in:me.val()
                             };
                         },
                         processResults: function (data, params) {
