@@ -1830,7 +1830,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $taxonomy = get_object_taxonomies('wpbooking_service', 'array');
             $wpbooking_taxonomy = get_option('wpbooking_taxonomies');
             $list_taxonomy = array();
-            if (!empty($taxonomy)) {
+            if (!empty($taxonomy) and !empty($wpbooking_taxonomy)) {
                 foreach ($taxonomy as $k => $v) {
                     if ($k == 'wpbooking_location') continue;
                     if ($k == 'wpbooking_extra_service') continue;

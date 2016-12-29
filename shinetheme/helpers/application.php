@@ -151,12 +151,13 @@ if( !function_exists('wpbooking_origin_id') ){
      * @author haint
      *
      * @param $post_id
-     * @param string $post_type
      * @return int|NULL
      */
-	function wpbooking_origin_id( $post_id , $post_type = 'post' ){
+	function wpbooking_origin_id( $post_id){
 		if(function_exists('wpml_object_id_filter')) {
-		    return wpml_object_id_filter( $post_id, $post_type, true );
+			global $sitepress;
+			$a= wpml_object_id_filter($post_id, 'any',true,$sitepress->get_default_language());
+			return $a;
 		} else {
 		    return $post_id;
 		}
