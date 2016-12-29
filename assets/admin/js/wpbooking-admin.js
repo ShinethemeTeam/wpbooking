@@ -1918,7 +1918,7 @@ jQuery(document).ready(function( $ ){
         $(this).each(function(){
             var number = $(this).val();
             number = parseFloat(number);
-            //console.log(number);
+            console.log(number);
             if (isNaN(number)) {
                 var min = $(this).attr('min');
                 if(min != undefined && min != ''){
