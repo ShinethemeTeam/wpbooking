@@ -34,12 +34,13 @@ $tax_total=0;
     <?php if(!empty($tax['total_price'])) echo '<span class="total-line"></span>' ?>
     <div class="review-cart-item total">
         <span class="total-title text-up text-bold"><?php _e('Total Amount', 'wpbooking') ?></span>
-        <span class="total-amount text-up text-bold"><?php echo WPBooking_Currency::format_money($price_total+$tax_total); ?></span>
+        <span class="total-amount text-up text-bold"><?php echo WPBooking_Currency::format_money($booking->get_total_price_cart_with_tax()); ?></span>
         <?php
+
         if(!empty($cart['deposit']['status'])){
             $price_deposit = $booking->get_cart_deposit();
 
-            $property = $price_total+$tax_total - $price_deposit;
+            $property = $booking->get_total_price_cart_with_tax() - $price_deposit;
             ?>
             <span class="total-title text-color"> <?php _e('Deposit/Pay Now', 'wpbooking') ?></span>
             <span class="total-amount text-color"><?php echo WPBooking_Currency::format_money($price_deposit); ?></span>

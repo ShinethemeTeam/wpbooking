@@ -410,7 +410,9 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             if(empty($cart)){
                 $cart = $this->get_cart();
             }
+
             $total_price = $cart['price'];
+
             $service_type = $cart['service_type'];
 
 
@@ -431,11 +433,9 @@ if(!class_exists('WPBooking_Checkout_Controller'))
          * @return float|int|mixed|void
          */
         public function get_cart_deposit($cart=false){
-            $total_price=(float)$this->get_cart_total();
 
-            $tax=$this->get_cart_tax_amount($total_price);
+            $total_price =$this->get_total_price_cart_with_tax();
 
-            $total_price+=$tax;
             $price_deposit = 0;
 
             if(empty($cart)){
@@ -584,10 +584,10 @@ if(!class_exists('WPBooking_Checkout_Controller'))
          *
          * @return int|mixed|void
          */
-        public function get_cart_tax_price($total_without_tax=0){
+        public function get_cart_tax_price($total_with_tax=0){
             $tax = array();
             $cart = $this->get_cart();
-            $total_price = $total_without_tax;
+            $total_price = $total_with_tax;
             $total_tax = 0;
             $tax_total = 0;
             $service_type = $cart['service_type'];
@@ -636,6 +636,32 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $tax=$this->get_cart_tax_price($total_without_tax);
 
             return !empty($tax['total_price'])?(float)$tax['total_price']:0;
+        }
+
+        /**
+         * Get Tax Price Cart
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @return mixed|void
+         */
+        public function get_total_price_cart_with_tax(){
+
+            $price_total = $this->get_cart_total();
+
+            $price_total = apply_filters('wpbooking_get_total_price_cart_without_tax', $price_total);
+
+            $tax = $this->get_cart_tax_price($price_total);
+
+            $tax_total=!empty($tax['total_price'])?$tax['total_price']:0;
+
+            $total = $price_total + $tax_total;
+
+            $total = apply_filters('wpbooking_get_total_price_cart_with_tax', $total);
+
+            return $total;
+
         }
 
         /**

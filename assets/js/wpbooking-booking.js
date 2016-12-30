@@ -724,11 +724,11 @@ jQuery(document).ready(function($){
             case "right":
                 $money_string = $money + $symbol;
                 break;
-            case "left_space":
+            case "left_with_space":
                 $money_string = $symbol + " " + $money;
                 break;
 
-            case "right_space":
+            case "right_with_space":
                 $money_string = $money + " " + $symbol;
                 break;
             case "left":
