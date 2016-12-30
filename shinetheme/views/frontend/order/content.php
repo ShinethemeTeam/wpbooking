@@ -115,6 +115,7 @@ do_action('wpbooking_before_order_content');
                             <?php } ?>
 
                         </div>
+                        <?php do_action("wpbooking_after_order_detail_total_price",$order_id,$order_data) ?>
                         <?php if(!empty($tax['total_price'])) echo '<span class="total-line"></span>' ?>
                         <div class="review-cart-item total">
                             <?php $price_total = $order_data['price']; ?>

@@ -125,6 +125,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
             $args['post_type']=$type;
             $args['s']=$this->post('q');
             $args['posts_per_page']=10;
+            $args['post__not_in']=$this->post('post__not_in');
 
             $query=new WP_Query($args);
 

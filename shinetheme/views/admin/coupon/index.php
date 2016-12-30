@@ -124,7 +124,7 @@ $item_id = WPBooking_Input::get('item_id');
                                                    placeholder="<?php echo date('m/d/Y') ?>"
                                                    value="<?php $default = ($item_id) ? get_post_meta($item_id, 'start_date', true) : false;
                                                    echo WPBooking_Input::post('start_date', $default) ?>"
-                                                   class="widefat form-control wb-date">
+                                                   class="widefat form-control coupon-datepicker">
                                             <input id="start_time" type="text" name="start_time"
                                                    placeholder="12:00"
                                                    value="<?php $default = ($item_id) ? get_post_meta($item_id, 'start_time', true) : false;
@@ -157,7 +157,7 @@ $item_id = WPBooking_Input::get('item_id');
                                                    placeholder="<?php echo date('m/d/Y') ?>"
                                                    value="<?php $default = ($item_id) ? get_post_meta($item_id, 'end_date', true) : false;
                                                    echo WPBooking_Input::post('end_date', $default) ?>"
-                                                   class="widefat form-control wb-date">
+                                                   class="widefat form-control coupon-datepicker">
                                             <input id="end_time" type="text" name="end_time"
                                                    placeholder="12:00"
                                                    value="<?php $default = ($item_id) ? get_post_meta($item_id, 'end_time', true) : false;
@@ -279,7 +279,8 @@ $item_id = WPBooking_Input::get('item_id');
                                                 <?php echo WPBooking_Currency::format_money(esc_html($coupon->get_meta('minimum_spend'))) ?>
                                             </td>
                                             <td>
-                                                <?php if($coupon->get_meta('start_date_timestamp')) echo date_i18n(get_option('date_format') . ' ' . get_option('time_format'), (double)$coupon->get_meta('start_date_timestamp')) ?>
+                                                <?php
+                                                if($coupon->get_meta('start_date_timestamp')) echo date_i18n(get_option('date_format') . ' ' . get_option('time_format'), (double)$coupon->get_meta('start_date_timestamp')) ?>
                                             </td>
                                             <td>
                                                 <?php if($coupon->get_meta('end_date_timestamp')) echo date_i18n(get_option('date_format') . ' ' . get_option('time_format'), (double)$coupon->get_meta('end_date_timestamp')) ?>

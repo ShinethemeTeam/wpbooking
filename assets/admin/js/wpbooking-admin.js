@@ -1334,7 +1334,8 @@ jQuery(document).ready(function( $ ){
                                 q: params.term, // search term
                                 action: 'wpbooking_autocomplete_post',
                                 page: params.page,
-                                type:me.data('type')
+                                type:me.data('type'),
+                                post__not_in:me.val()
                             };
                         },
                         processResults: function (data, params) {
@@ -1918,7 +1919,7 @@ jQuery(document).ready(function( $ ){
         $(this).each(function(){
             var number = $(this).val();
             number = parseFloat(number);
-            //console.log(number);
+            console.log(number);
             if (isNaN(number)) {
                 var min = $(this).attr('min');
                 if(min != undefined && min != ''){
@@ -2258,4 +2259,8 @@ jQuery(document).ready(function( $ ){
         });
     });
 
+
+    jQuery('.coupon-datepicker').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
 });

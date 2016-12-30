@@ -710,7 +710,7 @@ if (!class_exists('WPBooking_Model')) {
 
 				if (version_compare($db_version, $this->table_version, '<')) {
 					$this->_upgrade_table();
-					//update_option($this->table_name.'_version', $this->table_version);
+					update_option($this->table_name.'_version', $this->table_version);
 				}
 
 			}
@@ -724,7 +724,7 @@ if (!class_exists('WPBooking_Model')) {
 		 *
 		 * @since 1.0
 		 */
-		protected function _upgrade_table()
+		public function _upgrade_table()
 		{
 			global $wpdb;
 			$table_name = $wpdb->prefix . $this->table_name;

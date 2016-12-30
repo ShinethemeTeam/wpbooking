@@ -94,11 +94,11 @@ if (!class_exists('WB_Coupon')) {
             if ($this->item_id) {
                 $ids = $this->get_meta('services_ids');
                 $res=$ids;
-
             }
-
             return $res;
         }
+
+
 
         /**
          * Get Edit URL (For Dashboard Only)

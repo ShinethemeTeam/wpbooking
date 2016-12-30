@@ -89,6 +89,7 @@ if (!class_exists('WPBooking_Admin_Coupon')) {
 
                             switch ($key){
                                 case "start_date":
+
                                     if($this->post('start_date')){
 
                                         $start_time=$this->post('start_time','00:00');

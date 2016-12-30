@@ -420,9 +420,10 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $total_price = $cart['price'];
             $service_type = $cart['service_type'];
 
-            $total_price = apply_filters('wpbooking_get_cart_total', $total_price, $cart,$args);
+
             $total_price = apply_filters('wpbooking_get_cart_total_'.$service_type, $total_price, $cart,$args);
 
+            $total_price = apply_filters('wpbooking_get_cart_total', $total_price, $cart,$args);
 
             return $total_price;
         }
