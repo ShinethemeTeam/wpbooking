@@ -55,6 +55,13 @@ if(!class_exists('WPBooking_Checkout_Controller'))
              */
             add_action( 'init',  array($this, '_register_order_status') );
 
+            /**
+             * Get form billing html
+             *
+             * @since 1.0
+             */
+            add_action('wpbooking_billing_information_form',array($this,'form_billing_html'));
+
             parent::__construct();
         }
 
@@ -272,7 +279,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
          * @since 1.0
          * @author quandq
          * @return string
-         */
+    */
         function _add_to_cart(){
 
             $res = array();
@@ -681,6 +688,61 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             }
            wp_die();
         }
+
+        /**
+         * Get form billing information
+         *
+         * @since 1.0
+         *
+         * @return WPBooking_Checkout_Controller
+         */
+        function form_billing_html(){
+            ?>
+            <div class="billing_information">
+                <div class="row">
+                    <?php
+                    $field_form_billing = $this->get_billing_form_fields();
+                    if(!empty($field_form_billing)){?>
+                        <?php foreach($field_form_billing as $k=>$v) {
+                            $data = wp_parse_args($v, array(
+                                'title'=>'',
+                                'desc'=>'',
+                                'placeholder'=>'',
+                                'type'=>'text',
+                                'name'=>'',
+                                'size'=>'12',
+                                'required'=>false,
+                            ));
+                            $value = '';
+                            if(is_user_logged_in()) {
+                                $customer_id = get_current_user_id();
+                                $key = str_ireplace("user_","",$v['name']);
+                                if($key == 'email'){
+                                    $value = get_the_author_meta( 'email', $customer_id );
+                                }else{
+                                    $value= get_user_meta($customer_id,$key,true);
+                                }
+                            }
+                            ?>
+                            <div class="col-md-<?php echo esc_html($data['size']) ?>">
+                                <div class="form-group">
+                                    <label for="<?php echo esc_html($data['name']) ?>"><?php echo esc_html($data['title']) ?> <?php if($data['required']) echo '<span class="required">*</span>'; ?></label>
+                                    <?php if($data['type'] != 'textarea'){ ?>
+                                        <input type="<?php echo esc_attr($data['type']) ?>" class="form-control only_number"  id="<?php echo esc_html($data['name']) ?>" name="<?php echo esc_html($data['name']) ?>" placeholder="<?php echo esc_html($data['placeholder']) ?>" <?php if($data['required']) echo 'required'; ?> value="<?php echo esc_html($value) ?>">
+                                        <span class="desc"><?php echo esc_html($data['desc']) ?></span>
+                                    <?php }else{ ?>
+                                        <textarea name="<?php echo esc_html($data['name']) ?>" class="form-control" rows="4" placeholder="<?php echo esc_html($data['placeholder']) ?>" <?php if($data['title']) echo 'required'; ?>><?php echo esc_html($value) ?></textarea>
+                                        <span class="desc"><?php echo esc_html($data['desc']) ?></span>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    <?php } ?>
+                </div>
+            </div>
+            <?php
+        }
+
         static function inst()
         {
             if(!self::$_inst){
