@@ -41,7 +41,7 @@ if(!$allow_guest_checkout and !is_user_logged_in()){
                                     esc_html_e("Already have an account?","wpbooking");
                                     $url_check_out = get_permalink(wpbooking_get_option('checkout_page'));
                                 ?>
-                                     <a href="<?php echo esc_url(add_query_arg(array("wpbooking_redirect"=>$url_check_out),wp_login_url())); ?>" class="text-color"><?php esc_html_e('Login',"wpbooking") ?></a>
+                                     <a href="<?php echo esc_url(add_query_arg(array("redirect_to"=>$url_check_out),wp_login_url())); ?>" class="text-color"><?php esc_html_e('Login',"wpbooking") ?></a>
                                 <?php } ?>
                             </h5>
                             <input name="action" value="wpbooking_do_checkout" type="hidden">
