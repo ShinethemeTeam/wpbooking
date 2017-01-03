@@ -72,6 +72,10 @@ if(!class_exists('WPBooking_SubmitForm_Gateway') and class_exists('WPBooking_Abs
 			);
 		}
 
+		function get_name_submit_form(){
+            return $this->gateway_id;
+        }
+
 		static function inst()
 		{
 			if(!self::$_inst){
