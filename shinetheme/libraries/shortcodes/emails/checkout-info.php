@@ -11,9 +11,9 @@ if(!function_exists('wpbooking_email_checkout_info_func'))
 	{
 		$order_id=WPBooking()->get('order_id');
 		if(!$order_id){
-			return wpbooking_load_view('emails/shortcodes/preview/checkout_info');
+			return apply_filters('wpbooking_email_preview_checkout_info_html', wpbooking_load_view('emails/shortcodes/preview/checkout_info'));
 		}
-		return wpbooking_load_view('emails/shortcodes/checkout_info',$attr);
+		return apply_filters('wpbooking_email_checkout_info_html', wpbooking_load_view('emails/shortcodes/checkout_info',$attr), $attr);
 	}
 
 	add_shortcode('wpbooking_email_checkout_info','wpbooking_email_checkout_info_func');
