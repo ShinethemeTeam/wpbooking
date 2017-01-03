@@ -123,6 +123,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 
             $type=$this->post('type');
             $args['post_type']=$type;
+            $args['post_status']='publish';
             $args['s']=$this->post('q');
             $args['posts_per_page']=10;
             $args['post__not_in']=$this->post('post__not_in');

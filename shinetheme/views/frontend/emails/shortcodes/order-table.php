@@ -60,6 +60,9 @@ $service_type=$order_data['service_type'];
                                 </span>
                     <span class="total-amount"><?php echo WPBooking_Currency::format_money($tax['citytax']['price']); ?></span>
                 <?php } ?>
+
+                <?php do_action("wpbooking_after_email_detail_total_price",$order_id,$order_data) ?>
+
             </div>
 
         </td>
