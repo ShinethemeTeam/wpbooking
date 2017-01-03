@@ -156,13 +156,17 @@ $query=new WP_Query($args);
                                 ?>
                             </div>
                             <div class="customer">
-                                <a href="<?php echo esc_url(add_query_arg( 'user_id', $order->get_customer('id'), self_admin_url( 'user-edit.php' ) )); ?>"><strong><?php echo esc_attr($order->get_customer('full_name')); ?></strong></a><br>
-                                <span class="wb-button-customer"><em><?php echo esc_html__('details ','wpbooking'); ?></em><span class="caret"></span></span>
-                                <ul class="none wb-customer-detail">
-                                    <li><strong><?php echo esc_html__('Email address: ','wpbooking'); ?></strong><br><?php echo esc_attr($order->get_customer('email')); ?></li>
-                                    <li><strong><?php echo esc_html__('Phone: ','wpbooking'); ?></strong><br><?php echo esc_attr($order->get_customer('phone')); ?></li>
-                                    <li><strong><?php echo esc_html__('Address: ','wpbooking'); ?></strong><br><?php echo esc_attr($order->get_customer('apt')); ?> <?php echo esc_attr($order->get_customer('address')); ?></li>
-                                </ul>
+                                <?php
+                                $customer_html = '<a href="'.esc_url(add_query_arg( 'user_id', $order->get_customer('id'), self_admin_url( 'user-edit.php' ) )).'"><strong>'.esc_attr($order->get_customer('full_name')).'</strong></a><br>';
+                                $customer_html .= '<span class="wb-button-customer"><em>'.esc_html__('details ','wpbooking').'</em><span class="caret"></span></span>';
+                                $customer_html .= '<ul class="none wb-customer-detail">';
+                                $customer_html .= '<li><strong>'.esc_html__('Email address: ','wpbooking').'</strong><br>'.esc_attr($order->get_customer('email')).'</li>';
+                                $customer_html .= '<li><strong>'.esc_html__('Phone: ','wpbooking').'</strong><br>'.esc_attr($order->get_customer('phone')).'</li>';
+                                $customer_html .= '<li><strong>'.esc_html__('Address: ','wpbooking').'</strong><br>'.esc_attr($order->get_customer('apt')).' '.esc_attr($order->get_customer('address')).'</li>';
+                                $customer_html .= '</ul>';
+
+                                echo apply_filters('wpbooking_admin_order_customer_html', $customer_html, get_the_ID());
+                                ?>
                             </div>
 							<div class="wb-row-actions none">
 								<span class="on_hold"><a href="<?php echo esc_url($url_edit)  ?>" title="<?php esc_html_e('View this item','wpbooking')?>"><?php esc_html_e('On Hold','wpbooking')?></a> </span>

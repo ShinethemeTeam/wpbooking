@@ -72,10 +72,11 @@ if (!class_exists('WB_Order')) {
                         case 'full_name':
                             $first_name = get_post_meta($this->order_id,'wpbooking_user_first_name',true);
                             $last_name = get_post_meta($this->order_id,'wpbooking_user_last_name',true);
+                            $full_name = '';
                             if(!empty($first_name) && !empty($last_name)){
                                 $full_name = $first_name.' '.$last_name;
-                                return $full_name;
                             }
+                            return $full_name;
                             break;
                         case 'phone':
                             $phone = get_post_meta($this->order_id,'wpbooking_user_phone',true);
