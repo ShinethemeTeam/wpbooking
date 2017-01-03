@@ -359,6 +359,8 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $res = apply_filters('wpbooking_ajax_add_to_cart', $res, $post_id,$is_validate);
             $res = apply_filters('wpbooking_ajax_add_to_cart_' . $service_type, $res, $post_id,$is_validate);
 
+            do_action('wpbooking_ajax_after_add_to_cart');
+
             echo json_encode($res);
 
             die;
