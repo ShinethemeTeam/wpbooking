@@ -25,6 +25,13 @@ if (!class_exists('WPBooking_Order')) {
              * @author quandq
              */
             add_action('template_redirect', array($this, '_check_order_details_permission'));
+
+            /**
+             * Get customer information
+             *
+             * @since 1.0
+             */
+            add_action('wpbooking_after_order_information_table', array($this,'_customer_information_html'), 15);
 		}
 
         /**
@@ -106,6 +113,19 @@ if (!class_exists('WPBooking_Order')) {
 				$content .= wpbooking_load_view('order/content');
 			return $content;
 		}
+
+        /**
+         * Customer information content html
+         *
+         * @since 1.0
+         */
+        function _customer_information_html(){
+            $order_id = get_the_ID();
+            $order=new WB_Order($order_id);
+            $order_data=$order->get_order_data();
+            $service_type = $order_data['service_type'];
+            echo wpbooking_load_view('order/customer_information', array('order_id' => $order_id, 'service_type' => $service_type, 'order_data' => $order_data));
+        }
 
 		static function inst()
 		{
