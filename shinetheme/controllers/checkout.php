@@ -200,6 +200,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 }else{
                     $order=new WB_Order(FALSE);
                     $order_id = $order->create($cart, $fields, $selected_gateway, $customer_id);
+                    $order=new WB_Order($order_id);
                 }
 
                 if ($order_id) {
@@ -651,7 +652,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
          * Get Tax Price Cart
          *
          * @since 1.0
-         * @author dungdt
+         * @author quandq
          *
          * @return mixed|void
          */
