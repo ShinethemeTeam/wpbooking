@@ -6,7 +6,7 @@
  * Version: 1.0
  */
 
-$remote = wp_remote_get(esc_url_raw(WPBooking()->API_URL.'?action=st_get_extension'), array('sslverify' => false));
+$remote = wp_remote_get(esc_url_raw(WPBooking()->API_URL.'?action=st_get_extension'));
 $data = wp_remote_retrieve_body($remote);
 $data = str_replace('(','', $data);
 $data = str_replace(')','',$data);
