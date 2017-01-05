@@ -789,6 +789,7 @@ a.label:focus {
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin-left: 5px;
 }
 .wpbooking-cart-wrap .wpbooking-cart-table tr .small-col {
   width: 6%;
@@ -2044,6 +2045,7 @@ a.label:focus {
   font-weight: normal;
   line-height: 1;
   text-rendering: auto;
+  margin-left: 5px;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .form-search .form-item {
   float: left;
@@ -3075,7 +3077,7 @@ a.label:focus {
   content: " ";
   left: 25px;
   position: absolute;
-  top: -19px;
+  top: -18px;
 }
 .wpbooking-checkout-wrap .wpbooking-checkout-form .wpbooking-gateways .gateway-desc.active {
   display: block;
