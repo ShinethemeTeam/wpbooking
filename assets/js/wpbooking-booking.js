@@ -201,8 +201,13 @@ jQuery(document).ready(function($){
 
                 if(typeof res.error_fields!='undefined')
                 {
-                    console.log(res.error_fields);
                     for(var k in res.error_fields){
+                        form.find("[name='"+k+"']").addClass('input-error');
+                    }
+                }
+                if(typeof res.data !='undefined'  && typeof res.data.error_fields !='undefined')
+                {
+                    for(var k in res.data.error_fields){
                         form.find("[name='"+k+"']").addClass('input-error');
                     }
                 }
