@@ -15,7 +15,7 @@ if (!class_exists('WPBooking_Email')) {
             // Init Shortcodes
             add_action('init', array($this, '_load_email_shortcodes'));
 
-            add_action('wpbooking_send_email_after_checkout', array($this, '_send_order_email_success'));
+            add_action('wpbooking_send_email_after_checkout', array($this, '_send_order_email_success'), 15);
 
             /**
              * Send Emails when new Order Item has been updated/changed, example: payment complete or cancelled

@@ -136,5 +136,5 @@ do_action('wpbooking_before_order_content');
                 </div>
             </div>
     </div>
-    <?php do_action('wpbooking_after_order_information_table',$order) ?>
+    <?php do_action('wpbooking_after_order_information_table',$order_id) ?>
 </div>

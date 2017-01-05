@@ -119,12 +119,14 @@ if (!class_exists('WPBooking_Order')) {
          *
          * @since 1.0
          */
-        function _customer_information_html(){
-            $order_id = get_the_ID();
+        function _customer_information_html($order_id){
             $order=new WB_Order($order_id);
             $order_data=$order->get_order_data();
             $service_type = $order_data['service_type'];
-            echo wpbooking_load_view('order/customer_information', array('order_id' => $order_id, 'service_type' => $service_type, 'order_data' => $order_data));
+
+            $html = wpbooking_load_view('order/customer_information', array('order_id' => $order_id, 'service_type' => $service_type, 'order_data' => $order_data));
+            echo apply_filters('wpbooking_customer_information_html',$html, $order_id);
+
         }
 
 		static function inst()
