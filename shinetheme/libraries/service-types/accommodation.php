@@ -417,20 +417,20 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         public function _add_init_action()
         {
             $labels = array(
-                'name'               => _x('Hotel Room', 'post type general name', 'wpbooking'),
-                'singular_name'      => _x('Hotel Room', 'post type singular name', 'wpbooking'),
-                'menu_name'          => _x('Hotel Room', 'admin menu', 'wpbooking'),
-                'name_admin_bar'     => _x('Hotel Room', 'add new on admin bar', 'wpbooking'),
-                'add_new'            => _x('Add New', 'Hotel Room', 'wpbooking'),
-                'add_new_item'       => __('Add New Hotel Room', 'wpbooking'),
-                'new_item'           => __('New Hotel Room', 'wpbooking'),
-                'edit_item'          => __('Edit Hotel Room', 'wpbooking'),
-                'view_item'          => __('View Hotel Room', 'wpbooking'),
-                'all_items'          => __('All Hotel Room', 'wpbooking'),
-                'search_items'       => __('Search Hotel Room', 'wpbooking'),
-                'parent_item_colon'  => __('Parent Hotel Room:', 'wpbooking'),
-                'not_found'          => __('No Hotel Room found.', 'wpbooking'),
-                'not_found_in_trash' => __('No Hotel Room found in Trash.', 'wpbooking')
+                'name'               => _x('Accommodation Room', 'post type general name', 'wpbooking'),
+                'singular_name'      => _x('Accommodation Room', 'post type singular name', 'wpbooking'),
+                'menu_name'          => _x('Accommodation Room', 'admin menu', 'wpbooking'),
+                'name_admin_bar'     => _x('Accommodation Room', 'add new on admin bar', 'wpbooking'),
+                'add_new'            => _x('Add New', 'Accommodation Room', 'wpbooking'),
+                'add_new_item'       => __('Add New Accommodation Room', 'wpbooking'),
+                'new_item'           => __('New Accommodation Room', 'wpbooking'),
+                'edit_item'          => __('Edit Accommodation Room', 'wpbooking'),
+                'view_item'          => __('View Accommodation Room', 'wpbooking'),
+                'all_items'          => __('All Accommodation Room', 'wpbooking'),
+                'search_items'       => __('Search Accommodation Room', 'wpbooking'),
+                'parent_item_colon'  => __('Parent Accommodation Room:', 'wpbooking'),
+                'not_found'          => __('No Accommodation Room found.', 'wpbooking'),
+                'not_found_in_trash' => __('No Accommodation Room found in Trash.', 'wpbooking')
             );
 
             $args = array(
