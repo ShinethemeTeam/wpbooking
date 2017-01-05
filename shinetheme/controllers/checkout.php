@@ -118,7 +118,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $validator = new WPBooking_Form_Validator();
             if (!empty($fields) and $is_validate) {
                 foreach ($fields as $key => $value) {
-                    $validator->set_rules($value['name'], $value['title'], $value['rule']);
+                    $validator->set_rules($value['name'], strtolower($value['title']), $value['rule']);
                 }
                 if ($is_validate and !$validator->run()) {
                     $is_validate = FALSE;
