@@ -56,6 +56,18 @@ if(!$wp_query->have_posts()) return;
 						}
 					}
 				}
+                $current_url = $_SERVER['REQUEST_URI'];
+                $grid_url = add_query_arg(array(
+                    'layout' => 'grid'
+                ), $current_url);
+                $list_url = add_query_arg(array(
+                    'layout' => 'list'
+                ), $current_url);
+                $layout = wpbooking_get_layout_archive();
+                ?>
+                <a class="wb-btn wb-btn-grid <?php echo ($layout == 'grid'?'active':'')?>" href="<?php echo esc_url($grid_url); ?>"><i class="fa fa-th"></i></a>
+                <a class="wb-btn wb-btn-list <?php echo ($layout == 'list'?'active':'')?>" href="<?php echo esc_url($list_url); ?>"><i class="fa fa-list"></i></a>
+                <?php
 				$sortby=array(
 					'date_asc'=>esc_html__('Date ASC','wpbooking'),
 					'date_desc'=>esc_html__('Date DESC','wpbooking'),

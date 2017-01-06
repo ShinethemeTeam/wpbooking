@@ -1814,7 +1814,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          */
         function thumb_size($default = FALSE)
         {
-            return $this->get_option('thumb_size_hotel', $default);
+            return $this->get_option('thumb_size', $default);
         }
 
         /**

@@ -1094,7 +1094,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
         function _apply_thumb_size($size, $service_type, $post_id)
         {
             if ($service_type == $this->type_id) {
-                $thumb = $this->thumb_size('150,150,off');
+                $thumb = $this->thumb_size('150,150,on');
                 $thumb = explode(',', $thumb);
                 if (count($thumb) == 3) {
                     if ($thumb[2] == 'off') $thumb[2] = FALSE;
@@ -1113,7 +1113,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
          */
         function thumb_size($default = FALSE)
         {
-            return $this->get_option('thumb_size_hotel', $default);
+            return $this->get_option('thumb_size', $default);
         }
 
         /**

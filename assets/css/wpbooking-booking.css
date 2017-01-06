@@ -414,7 +414,6 @@ a.label:focus {
   clear: both;
 }
 .wpbooking-loop-header .search-title {
-  padding: 0 10px;
   margin-bottom: 20px;
 }
 .wpbooking-loop-header .search-title h2 {
@@ -426,9 +425,9 @@ a.label:focus {
   }
 }
 .wpbooking-loop-header .col-post-found {
-  width: 66%;
+  width: 60%;
   float: left;
-  padding: 0px 10px;
+  padding-right: 10px;
 }
 .wpbooking-loop-header .col-post-found .post-found-count {
   font-size: 28px;
@@ -450,11 +449,13 @@ a.label:focus {
   color: #f0ad4e;
 }
 .wpbooking-loop-header .col-loop-order {
-  width: 33%;
+  width: 40%;
   float: left;
-  padding: 10px 10px 0;
+  padding: 10px 0 0 10px;
 }
 .wpbooking-loop-header .col-loop-order .wpbooking-loop-order {
+  text-align: right;
+  width: 100%;
   float: right;
 }
 .wpbooking-loop-header .col-loop-order .wpbooking-loop-order select {
@@ -463,7 +464,46 @@ a.label:focus {
   font-size: 14px;
   color: #666666;
   height: 30px;
-  width: 180px;
+  width: 150px;
+}
+.wpbooking-loop-header .col-loop-order .wpbooking-loop-order .wb-btn.wb-btn-grid,
+.wpbooking-loop-header .col-loop-order .wpbooking-loop-order .wb-btn.wb-btn-list {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 29px;
+  height: 29px;
+  margin: 0;
+  padding: 0 10px 1px;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+  -webkit-appearance: none;
+  white-space: nowrap;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #555;
+  border-color: #ccc;
+  background: #f7f7f7;
+  -webkit-box-shadow: 0 1px 0 #ccc;
+  box-shadow: 0 1px 0 #ccc;
+}
+.wpbooking-loop-header .col-loop-order .wpbooking-loop-order .wb-btn.wb-btn-grid:hover,
+.wpbooking-loop-header .col-loop-order .wpbooking-loop-order .wb-btn.wb-btn-list:hover {
+  background: #fafafa;
+  border-color: #999;
+  color: #23282d;
+}
+.wpbooking-loop-header .col-loop-order .wpbooking-loop-order .wb-btn.wb-btn-grid:focus,
+.wpbooking-loop-header .col-loop-order .wpbooking-loop-order .wb-btn.wb-btn-list:focus {
+  outline: none;
+}
+.wpbooking-loop-header .col-loop-order .wpbooking-loop-order .wb-btn.wb-btn-grid.active,
+.wpbooking-loop-header .col-loop-order .wpbooking-loop-order .wb-btn.wb-btn-list.active {
+  background: #f0ad4e;
+  color: #fff;
+  border-color: #f0ad4e;
 }
 .wpbooking-loop-header .col-loop-order .wpbooking-view-switch {
   float: right;
@@ -721,6 +761,53 @@ a.label:focus {
     padding-left: 10px;
     margin-left: 25%;
     width: 75%;
+  }
+}
+.wpbooking-loop-wrap .wpbooking-loop-items.grid .loop-item .content-item .service-thumbnail {
+  margin-bottom: 10px;
+  width: 100%;
+}
+.wpbooking-loop-wrap .wpbooking-loop-items.grid .loop-item .content-item .service-thumbnail img {
+  width: 100%;
+}
+.wpbooking-loop-wrap .wpbooking-loop-items.grid .loop-item .content-item .service-content .service-content-inner {
+  padding-bottom: 0;
+}
+.wpbooking-loop-wrap .wpbooking-loop-items.grid .loop-item .content-item .service-content .service-content-inner .wb-score-review {
+  position: relative;
+  bottom: 0;
+}
+.wpbooking-loop-wrap .wpbooking-loop-items.grid .loop-item .content-item .service-content .service-content-inner .wb-latest-booking {
+  margin-top: 0;
+}
+.wpbooking-loop-wrap .wpbooking-loop-items.grid .loop-item .content-item .service-content .service-content-inner .service-address-rate {
+  margin-bottom: 10px;
+}
+.wpbooking-loop-wrap .wpbooking-loop-items.grid .loop-item .content-item .service-content .service-price-book-now {
+  padding-top: 12px;
+  border-top: 1px solid #ddd;
+  position: relative;
+}
+.wpbooking-loop-wrap .wpbooking-loop-items.grid .loop-item .content-item .service-content .service-price-book-now .service-price {
+  width: 50%;
+  margin-bottom: 0;
+}
+.wpbooking-loop-wrap .wpbooking-loop-items.grid .loop-item .content-item .service-content .service-price-book-now .service-price .price {
+  display: inline;
+}
+.wpbooking-loop-wrap .wpbooking-loop-items.grid .loop-item .content-item .service-content .service-price-book-now .service-book-now {
+  position: absolute;
+  bottom: 8px;
+  right: 0;
+}
+@media (max-width: 768px) {
+  .wpbooking-loop-wrap .wpbooking-loop-items .loop-item {
+    width: 100%;
+  }
+}
+@media (max-width: 1200px) and (min-width: 955px) {
+  .wpbooking-loop-wrap .wpbooking-loop-items .loop-item {
+    width: 100%;
   }
 }
 .wpbooking-loop-wrap.loading {

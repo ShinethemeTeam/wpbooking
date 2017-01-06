@@ -20,7 +20,8 @@ $autoload['helper']=array(
     'settings',
     'form-build',
     'service',
-	'email'
+	'email',
+    'template-func'
 );
 
 $autoload['library']=array(
@@ -82,6 +83,10 @@ $autoload['widget']=array(
     'search-form',
     'currency-switcher',
 	'cart-widget'
+);
+
+$autoload['frontend'] = array(
+    'template-hooks'
 );
 
 $autoload['encrypr_key'] = 'wpbooking';
