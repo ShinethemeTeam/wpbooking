@@ -2062,13 +2062,6 @@ jQuery(document).ready(function($){
         }
     });
 
-    $('.wb-list-social a').click(function(e) {
-        e.preventDefault();
-        window.open($(this).attr('href'), 'ShareWindow', 'height=500, width=550, top=' + ($(window).height() / 2 - 275) + ', left=' + ($(window).width() / 2 - 225) + ', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
-        return false;
-    });
-
-
     // Tour Single
     $('.wb-departure-month').change(function(){
          var v=$(this).val();

@@ -1837,120 +1837,6 @@ a.label:focus {
   text-decoration: underline;
   color: #333333;
 }
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  font-size: 14px;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-button-share {
-  position: relative;
-  z-index: 1;
-  font-size: 14px;
-  display: inline-flex;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-button-share i {
-  height: 29px;
-  width: 29px;
-  line-height: 29px;
-  text-align: center;
-  background: #f0ad4e;
-  color: #FFFFFF;
-  transition: all 0.4s;
-  border: 1px solid #f0ad4e;
-  border-right: none;
-  z-index: 1;
-  position: relative;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-button-share a {
-  border: 1px solid #cccccc;
-  border-left: none;
-  height: 29px;
-  line-height: 29px;
-  transition: all 0.3s;
-  padding: 0 10px;
-  opacity: 1;
-  left: 0;
-  position: relative;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-button-share a:focus {
-  outline: none;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-button-share:hover a {
-  background: #f0ad4e;
-  border-color: #f0ad4e;
-  color: #FFF;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-button-share:hover i {
-  background: #FFF;
-  border-color: #ccc;
-  color: #333;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share:hover .wb-list-social {
-  opacity: 1;
-  top: 0;
-  left: 29px;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share:hover .wb-button-share a {
-  left: -40px;
-  opacity: 0;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-list-social {
-  margin-left: 0;
-  list-style: none;
-  position: absolute;
-  font-size: 13px;
-  top: 0;
-  left: 70px;
-  transition: all 0.3s ease-in;
-  opacity: 0;
-  z-index: 1;
-  display: inline-flex;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-list-social li {
-  display: inline-flex;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-list-social li a {
-  display: block;
-  text-align: center;
-  width: 29px;
-  height: 29px;
-  padding-top: 6px;
-  font-size: 9px;
-  border: 1px solid #ccc;
-  transition: all 0.3s;
-  border-right: none;
-  background: #FFF;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-list-social li:last-child a {
-  border-right: 1px solid #ccc;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-list-social li a:hover {
-  color: #FFF;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-list-social li a:focus {
-  outline: none;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-list-social li .wb-facebook:hover {
-  background: #3B5998;
-  border-color: #3B5998;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-list-social li .wb-twitter:hover {
-  background: #1C9EEE;
-  border-color: #1C9EEE;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-list-social li .wb-google:hover {
-  background: #DB4437;
-  border-color: #DB4437;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-list-social li .wb-pinterest:hover {
-  background: #B50A1E;
-  border-color: #B50A1E;
-}
-.single-wpbooking_service .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-list-social li .wb-linkedin:hover {
-  background: #0B6491;
-  border-color: #0B6491;
-}
 @media (max-width: 1199px) {
   .single-wpbooking_service .wpbooking-single-content .row-service-gallery-contact .col-service-gallery {
     width: 100%;
@@ -1962,11 +1848,6 @@ a.label:focus {
   .single-wpbooking_service .wpbooking-single-content .row-service-gallery-contact .col-service-reviews-meta .wb-reviews-score-box {
     width: 49%;
     float: left;
-  }
-  .single-wpbooking_service .wpbooking-single-content .row-service-gallery-contact .col-service-reviews-meta .wb-contact-box,
-  .single-wpbooking_service .wpbooking-single-content .row-service-gallery-contact .col-service-reviews-meta .wb-share {
-    width: 49%;
-    float: right;
   }
 }
 @media (max-width: 480px) {
@@ -1985,11 +1866,6 @@ a.label:focus {
     width: 100%;
   }
   .single-wpbooking_service .wpbooking-single-content .row-service-gallery-contact .col-service-reviews-meta .wb-reviews-score-box {
-    width: 100%;
-    float: none;
-  }
-  .single-wpbooking_service .wpbooking-single-content .row-service-gallery-contact .col-service-reviews-meta .wb-contact-box,
-  .single-wpbooking_service .wpbooking-single-content .row-service-gallery-contact .col-service-reviews-meta .wb-share {
     width: 100%;
     float: none;
   }
@@ -6057,9 +5933,6 @@ body.twentytwelve .wpbooking-single-content .col-service-reviews-meta .wb-servic
 }
 body.twentytwelve .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-reviews-score-box .list_review_fields .rating {
   font-size: 12px;
-}
-body.twentytwelve .wpbooking-single-content .col-service-reviews-meta .wb-service-reviews-meta .wb-share .wb-list-social li a {
-  padding-top: 8px;
 }
 body.twentytwelve .wpbooking-single-content .col-service-reviews-meta a {
   text-decoration: none;
