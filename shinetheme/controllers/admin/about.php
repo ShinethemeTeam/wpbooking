@@ -45,14 +45,8 @@ if(!class_exists('WPBooking_About')){
              */
             add_action('wp_dashboard_setup',array($this,'add_dashboard_widgets'));
 
-            add_action('admin_init', array($this,'http_ssl_fix'));
         }
 
-        function http_ssl_fix(){
-            if(WPBooking_Input::get('page') == 'wpbooking_page_extensions') {
-                add_filter('https_ssl_verify', '__return_false');
-            }
-        }
 
         /**
          * Get about page
