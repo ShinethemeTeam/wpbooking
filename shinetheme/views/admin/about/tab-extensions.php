@@ -6,17 +6,8 @@
  * Version: 1.0
  */
 
-//$ch = curl_init();
-//curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-//curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//curl_setopt($ch, CURLOPT_URL, WPBooking()->API_URL.'?action=st_get_extension');
-//$data = curl_exec($ch);
 $data = file_get_contents(WPBooking()->API_URL.'?action=st_get_extension');
-//var_dump($data);
-//curl_close($ch);
 
-//$remote = wp_remote_get(esc_url_raw(WPBooking()->API_URL.'?action=st_get_extension'));
-//$data = wp_remote_retrieve_body($remote);
 $data = str_replace('(','', $data);
 $data = str_replace(')','',$data);
 $jsonData = json_decode($data);
