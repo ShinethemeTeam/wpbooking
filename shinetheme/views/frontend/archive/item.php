@@ -18,7 +18,7 @@ $url = add_query_arg(array(
 ), get_permalink());
 $service = new WB_Service();
 ?>
-<li <?php post_class('loop-item') ?>>
+<li <?php post_class('loop-item') ?> itemprop="itemListElement" itemscope itemtype="http://schema.org/ItemList">
     <div class="content-item">
         <?php
         $thumb_bg = WPBooking_Assets::build_css_class('background: url('.$service->get_featured_image('thumb_url').') ; background-size: cover; background-position: center');
@@ -26,23 +26,26 @@ $service = new WB_Service();
         <?php
         if(wpbooking_get_layout_archive() == 'grid'){
             ?>
-            <div class="service-thumbnail">
-                <?php
-                echo do_shortcode($service->get_featured_image('thumb'));
-                ?>
+            <div class="service-thumbnail" itemscope itemtype="http://schema.org/ImageObject">
+                <a href="<?php echo esc_url($url) ?>" itemprop="url">
+                    <?php
+                    echo do_shortcode($service->get_featured_image('thumb'));
+                    ?>
+                </a>
             </div>
         <?php
         }else{
             ?>
-            <div class="service-thumbnail <?php echo esc_attr($thumb_bg); ?>"></div>
+            <a href="<?php echo esc_url($url) ?>">
+                <div class="service-thumbnail <?php echo esc_attr($thumb_bg); ?>"></div>
+            </a>
             <?php
         }
         ?>
 
         <div class="service-content">
             <div class="service-content-inner">
-                <h3 class="service-title"><a
-                        href="<?php echo esc_url($url) ?>"><strong><?php the_title() ?></strong></a></h3>
+                <h3 class="service-title" itemprop="name"><a itemprop="url" href="<?php echo esc_url($url) ?>"><strong><?php the_title() ?></strong></a></h3>
 
                 <div class="service-address-rate">
                     <div class="wb-hotel-star">
@@ -54,14 +57,14 @@ $service = new WB_Service();
                     if ($address) {
                         ?>
                         <div class="service-address">
-                            <i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
+                            <i class="fa fa-map-marker"></i> <span><?php echo esc_html($address) ?></span>
                         </div>
                     <?php } ?>
                 </div>
                 <?php do_action('wpbooking_after_service_address', get_the_ID(), $service->get_type(), $service) ?>
             </div>
             <div class="service-price-book-now">
-                <div class="service-price">
+                <div class="service-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                     <?php
                     $service->get_price_html();
                     ?>

@@ -10,7 +10,7 @@ $service = wpbooking_get_service();
 $service_type=$service->get_type();
 $hotel_id=get_the_ID();
 ?>
-<div itemscope itemtype="http://schema.org/Product" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
+<div itemscope itemtype="http://schema.org/Place" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
 
     <meta itemprop="url" content="<?php the_permalink(); ?>"/>
     <div class="container-fluid wpbooking-single-content entry-header">
@@ -24,13 +24,13 @@ $hotel_id=get_the_ID();
         <?php $address = $service->get_address();
         if ($address) {
             ?>
-            <div class="service-address">
+            <div class="service-address" itemprop="address">
                 <i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
             </div>
         <?php } ?>
         <?php do_action('wpbooking_after_service_address_rate', get_the_ID(), $service->get_type(), $service) ?>
     </div>
-    <div class="wb-price-html">
+    <div class="wb-price-html" itemprop="offers" itemscope itemtype="http://schema.org/Offer" >
         <?php $service->get_price_html(true); ?>
     </div>
     <div class="row-service-gallery-contact">
@@ -93,14 +93,14 @@ $hotel_id=get_the_ID();
                     if ($value = get_post_meta(get_the_ID(), $key, true)) {
                         switch($key){
                             case 'contact_number':
-                                $value=sprintf('<a href="tel:%s">%s</a>',esc_html($value),do_shortcode($value));
+                                $value=sprintf('<a href="tel:%s" itemprop="telephone" >%s</a>',esc_html($value),do_shortcode($value));
                                 break;
 
                             case 'contact_email':
-                                $value=sprintf('<a href="mailto:%s">%s</a>',esc_html($value),do_shortcode($value));
+                                $value=sprintf('<a href="mailto:%s" itemprop="email" >%s</a>',esc_html($value),do_shortcode($value));
                                 break;
                             case 'website';
-                                $value = '<a target=_blank href="'.esc_url($value).'">'.do_shortcode($value).'</a>';
+                                $value = '<a target=_blank href="'.esc_url($value).'" itemprop="url" >'.do_shortcode($value).'</a>';
                                 break;
                         }
                         $html .= '<div class="wb-meta-contact">
@@ -120,7 +120,7 @@ $hotel_id=get_the_ID();
     <div class="service-content-section">
         <h5 class="service-info-title"><?php esc_html_e('Description', 'wpbooing') ?></h5>
 
-        <div class="service-content-wrap">
+        <div class="service-content-wrap" itemprop="description">
             <?php
             if (have_posts()) {
                 while (have_posts()) {

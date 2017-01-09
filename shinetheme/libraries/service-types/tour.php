@@ -779,7 +779,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
 
             $price_html = WPBooking_Currency::format_money($price);
 
-            $price_html = sprintf(__('from %s', 'wpbooking'), '<br><span class="price">' . $price_html . '</span>');
+            $price_html = sprintf(__('from %s', 'wpbooking'), '<br><span class="price" itemprop="price" >' . $price_html . '</span>');
 
             return $price_html;
         }

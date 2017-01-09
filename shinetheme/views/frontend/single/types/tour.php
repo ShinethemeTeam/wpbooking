@@ -14,7 +14,7 @@ $next10Month=$tour->getNext10MonthAvailable();
 $pricing_type=$service->get_meta('pricing_type');
 $age_options=$service->get_meta('age_options');
 ?>
-<div itemscope itemtype="http://schema.org/Product" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
+<div itemscope itemtype="http://schema.org/Place" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
     <meta itemprop="url" content="<?php the_permalink(); ?>"/>
     <div class="container-fluid wpbooking-single-content entry-header">
     <div class="wb-service-title-address">
@@ -27,7 +27,7 @@ $age_options=$service->get_meta('age_options');
         <?php $address = $service->get_address();
         if ($address) {
             ?>
-            <div class="service-address">
+            <div class="service-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
                 <i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
             </div>
         <?php } ?>
@@ -44,14 +44,14 @@ $age_options=$service->get_meta('age_options');
             if ($value = get_post_meta(get_the_ID(), $key, true)) {
                 switch($key){
                     case 'contact_number':
-                        $value=sprintf('<a href="tel:%s">%s</a>',esc_html($value),esc_html($value));
+                        $value=sprintf('<a href="tel:%s" itemprop="telephone">%s</a>',esc_html($value),esc_html($value));
                         break;
 
                     case 'contact_email':
-                        $value=sprintf('<a href="mailto:%s">%s</a>',esc_html($value),esc_html($value));
+                        $value=sprintf('<a href="mailto:%s" itemprop="email">%s</a>',esc_html($value),esc_html($value));
                         break;
                     case 'website';
-                        $value = '<a target=_blank href="'.esc_url($value).'">'.esc_html($value).'</a>';
+                        $value = '<a target=_blank href="'.esc_url($value).'" itemprop="url">'.esc_html($value).'</a>';
                         break;
                 }
                 $html .= '<li class="wb-meta-contact">
@@ -118,7 +118,7 @@ $age_options=$service->get_meta('age_options');
                     <li class="tour_type"><i class="fa fa-flag"></i> <?php echo esc_attr($tax_tour_type->name); ?></li>
                     <?php }
                     if($duration = get_post_meta(get_the_ID(),'duration', true)){
-                        echo '<li class="duration"><i class="fa fa-clock-o"></i> '.esc_html__('Duration: ','wpbooking').$duration.'</li>';
+                        echo '<li class="duration" itemprop="duration" ><i class="fa fa-clock-o"></i> '.esc_html__('Duration: ','wpbooking').$duration.'</li>';
                     }
                     if($max_people = get_post_meta(get_the_ID(), 'max_guests',true)){
                         echo '<li class="max_people"><i class="fa fa-users"></i> '.esc_html__('Max: ','wpbooking').$max_people.esc_html__(' people','wpbooking').' </li>';
@@ -131,7 +131,7 @@ $age_options=$service->get_meta('age_options');
             <div class="wb-service-reviews-meta">
                 <form class="wb-tour-booking-form" method="post" action="" >
                     <input type="hidden" name="post_id" value="<?php the_ID() ?>">
-                    <div class="wb-price-html">
+                    <div class="wb-price-html" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                         <?php $service->get_price_html(true); ?>
                     </div>
                     <div class="wb-tour-form-wrap">
@@ -257,7 +257,7 @@ $age_options=$service->get_meta('age_options');
     <div class="service-content-section">
         <h5 class="service-info-title"><?php esc_html_e('Description', 'wpbooing') ?></h5>
 
-        <div class="service-content-wrap">
+        <div class="service-content-wrap" itemprop="description">
             <?php
             if (have_posts()) {
                 while (have_posts()) {
