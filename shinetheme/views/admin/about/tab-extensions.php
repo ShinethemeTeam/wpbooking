@@ -11,6 +11,7 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_URL, WPBooking()->API_URL.'?action=st_get_extension');
 $data = curl_exec($ch);
+var_dump($data);
 curl_close($ch);
 
 //$remote = wp_remote_get(esc_url_raw(WPBooking()->API_URL.'?action=st_get_extension'));
