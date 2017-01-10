@@ -25,7 +25,6 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
             $page_search = get_post_type_archive_link('wpbooking_service');
 
-
 			$search_more_fields=array();
             ?>
             <form class="wpbooking-search-form is_search_form" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
@@ -38,6 +37,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
              	?>
 				<input type="hidden" name="wpbooking_action" value="archive_filter">
 				<input type="hidden" name="service_type" value="<?php echo esc_attr($service_type)?>">
+
 				<div class="wpbooking-search-form-wrap" >
 					<?php
 					if(!empty($field_search[$service_type])){
@@ -80,6 +80,11 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 						<button class="wb-button" type="submit"><?php _e("Search",'wpbooking') ?></button>
 					</div>
 				</div>
+                <?php
+                if( $layout = WPBooking_Input::get('layout')){
+                    echo '<input type="hidden" name="layout" value="'.$layout.'">';
+                }
+                ?>
             </form>
             <?php
 

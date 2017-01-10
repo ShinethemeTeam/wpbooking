@@ -616,3 +616,12 @@ if(!function_exists('wpbooking_covert_to_one')){
         return $res;
     }
 }
+
+if(!function_exists('wpbooking_get_layout_archive')){
+    function wpbooking_get_layout_archive(){
+        $default = 'list';
+        $default = apply_filters('wpbooking_default_layout_archive',$default);
+        $layout = WPBooking_Input::get('layout', $default);
+        return $layout;
+    }
+}

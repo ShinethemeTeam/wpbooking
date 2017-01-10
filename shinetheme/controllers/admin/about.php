@@ -44,7 +44,9 @@ if(!class_exists('WPBooking_About')){
              * @author dungdt
              */
             add_action('wp_dashboard_setup',array($this,'add_dashboard_widgets'));
+
         }
+
 
         /**
          * Get about page

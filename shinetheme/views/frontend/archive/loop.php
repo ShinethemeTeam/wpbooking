@@ -7,7 +7,12 @@
  */
 ?>
 
-<ul class="wpbooking-loop-items list">
+<?php
+/**
+ * @hooked wpbooking_content_wrapper_start_html - 15
+ */
+do_action('wpbooking_after_main_header');
+?>
 	<?php
 	global $wp_query;
     if(isset($my_query)) $wp_query = $my_query;
@@ -15,64 +20,21 @@
 	if ($wp_query->have_posts()) {
 		while ($wp_query->have_posts()) {
             $wp_query->the_post();
-			$service = new WB_Service();
-			$url = add_query_arg(array(
-				'checkin_d'  => WPBooking_Input::get('checkin_d'),
-				'checkin_m'  => WPBooking_Input::get('checkin_m'),
-				'checkin_y'  => WPBooking_Input::get('checkin_y'),
-				'checkout_d' => WPBooking_Input::get('checkout_d'),
-				'checkout_m' => WPBooking_Input::get('checkout_m'),
-				'checkout_y' => WPBooking_Input::get('checkout_y'),
-				'adult'     => WPBooking_Input::get('adult_s'),
-				'child'     => WPBooking_Input::get('child_s'),
-			), get_permalink());
+            /**
+             * wpbooking_loop_item_content
+             *
+             * @hooked wpbooking_get_item_content_html
+             */
+            do_action('wpbooking_loop_item_content');
 
-			?>
-			<li <?php post_class('loop-item') ?>>
-				<div class="content-item">
-                    <?php
-                    $thumb_bg = WPBooking_Assets::build_css_class('background: url('.$service->get_featured_image('gallery_url').') ; background-size: cover; background-position: center');
-                    ?>
-					<div class="service-thumbnail <?php echo esc_attr($thumb_bg); ?>"></div>
-					<div class="service-content">
-						<div class="service-content-inner">
-							<h3 class="service-title"><a
-									href="<?php echo esc_url($url) ?>"><strong><?php the_title() ?></strong></a></h3>
-
-							<div class="service-address-rate">
-								<div class="wb-hotel-star">
-									<?php
-									$service->get_star_rating_html();
-									?>
-								</div>
-								<?php $address = $service->get_address();
-								if ($address) {
-									?>
-									<div class="service-address">
-										<i class="fa fa-map-marker"></i> <?php echo esc_html($address) ?>
-									</div>
-								<?php } ?>
-							</div>
-							<?php do_action('wpbooking_after_service_address', get_the_ID(), $service->get_type(), $service) ?>
-						</div>
-						<div class="service-price-book-now">
-							<div class="service-price">
-								<?php
-								$service->get_price_html();
-								?>
-							</div>
-							<div class="service-book-now">
-								<a class="wb-btn wb-btn-default wb-btn-sm"
-								   href="<?php echo esc_url($url) ?>"><?php esc_html_e('Book Now', 'wpbooking') ?></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
-			<?php
 		}
 	} else {
 		printf('<h3>%s</h3>', esc_html__('Not found anything related with search conditions.', 'wpbooking'));
 	}
 	?>
-</ul>
+<?php
+/**
+ * @hooked wpbooking_content_wrapper_end_html - 15
+ */
+do_action('wpbooking_before_main_footer');
+?>
