@@ -632,7 +632,7 @@ if (!class_exists('WPBooking_Model')) {
          *
 		 * @since 1.0
 		 */
-		function _check_meta_table_is_working()
+		 public function _check_meta_table_is_working()
 		{
 			global $wpdb;
 

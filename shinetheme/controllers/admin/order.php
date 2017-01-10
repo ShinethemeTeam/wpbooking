@@ -67,6 +67,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                     break;
                 case 'permanently_delete':
                     $order->delete_order($order_ids);
+					do_action('wpbooking_delete_orders',$order_ids);
                     break;
             }
             do_action('wpbooking_order_item_changed',$order_ids);
