@@ -176,7 +176,9 @@ if(!class_exists('WPBooking_Loader')){
         function load_extension(){
             $dir = WPBooking()->get_dir('shinetheme/libraries/extensions/');
 
-            $extensions = array_diff(scandir($dir), array('..', '.'));
+            if(is_dir($dir)) {
+                $extensions = array_diff(scandir($dir), array('..', '.'));
+            }
 
             // Auto load all extension file
             if(!empty($extensions)){
