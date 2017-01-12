@@ -20,7 +20,7 @@
 
 
 if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly
 }
 if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
     class WPBooking_System
