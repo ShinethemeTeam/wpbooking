@@ -72,6 +72,8 @@ if(!class_exists('WPBooking_Loader')){
 				$this->load_widget($autoload['widget']);
 			}
 
+            $this->load_extension();
+
 			return TRUE;
 		}
 
@@ -152,6 +154,7 @@ if(!class_exists('WPBooking_Loader')){
 				}
 			}
 		}
+
 		function load_widget($file)
 		{
 			if(is_array($file) and !empty($file)){
@@ -169,6 +172,20 @@ if(!class_exists('WPBooking_Loader')){
 				}
 			}
 		}
+
+        function load_extension(){
+            $dir = WPBooking()->get_dir('shinetheme/libraries/extensions/');
+
+            $extensions = glob($dir."/*/*.php");
+
+            // Auto load all extension file
+            if(!empty($extensions)){
+                foreach ($extensions as $file)
+                {
+                    include_once $file;
+                }
+            }
+        }
 
 		static function inst()
 		{
