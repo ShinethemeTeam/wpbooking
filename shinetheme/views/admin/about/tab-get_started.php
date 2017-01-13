@@ -120,9 +120,9 @@
     <div class="footer">
         <h3 class="question"><?php echo esc_html__('Have a questions?', 'wpbooking'); ?></h3>
         <div class="link">
-            <a href="#"><?php echo esc_html__('Need Help?','wpbooking')?></a>
-            <a href="#"><?php echo esc_html__('FAQ','wpbooking')?></a>
-            <a href="#"><?php echo esc_html__('Submit a Ticket?','wpbooking')?></a>
+            <a href="https://wpbooking.org" target="_blank"><?php echo esc_html__('Need Help?','wpbooking')?></a>
+            <a href="https://wpbooking.org/pricing-fqa" target="_blank"><?php echo esc_html__('FAQ','wpbooking')?></a>
+            <a href="https://wpbooking.org" target="_blank"><?php echo esc_html__('Submit a Ticket?','wpbooking')?></a>
         </div>
     </div>
 </div>

@@ -26,7 +26,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 			));
 
 			add_filter('init', array($this, '_register_type'));
-			add_filter('wpbooking_service_setting_sections', array($this, '_add_setting_section'));
+			add_filter('wpbooking_service_setting_sections', array($this, '_add_setting_section'), 20);
 			add_filter('wpbooking_get_order_form_' . $this->type_id, array($this, '_get_order_form'));
 
 			/*Change Search*/
@@ -304,7 +304,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 		function get_settings_fields()
 		{
 
-			return apply_filters('wpbooking_service_type_' . $this->type_id . '_settings_fields', $this->settings);
+			return apply_filters('wpbooking_service_type_' . $this->type_id . '_settings_fields', $this->settings, $this->type_id);
 		}
 
 		function get_info($key = FALSE)
