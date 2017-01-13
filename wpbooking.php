@@ -34,12 +34,9 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
          * @var array
          */
         protected $global_values = array();
-
         protected $_dir_path = FALSE;
         protected $_dir_url = FALSE;
-
         public $API_URL = 'https://wpbooking.org/wp-admin/admin-ajax.php';
-
 
         /**
          * @since 1.0
@@ -59,11 +56,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             add_action('wp_enqueue_scripts', array($this, '_frontend_scripts'));
 
             do_action('wpbooking_after_plugin_init');
-
             add_action('activated_plugin', array($this, '_activation_redirect'));
-
-
-
         }
 
 
@@ -125,7 +118,6 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
                 wp_enqueue_script('fotorama');
             }
             wp_enqueue_style('wpbooking', wpbooking_assets_url('css/wpbooking-booking.css'), array('icheck', 'owlcarousel', 'wpbooking-icon'));
-
 
             /**
              * Ion RangeSlider for Price Search Field
