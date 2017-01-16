@@ -83,7 +83,7 @@ if (!class_exists('WPBooking_Order')) {
 				$order=new WB_Order($order_id);
 				switch ($action) {
 					case "cancel_purchase":
-						$order->cancel_purchase();
+                        //$order->cancel_purchase();
 						break;
 					case "complete_purchase":
 					    if(in_array($order->get_status(),array('payment_failed','on_hold'))){

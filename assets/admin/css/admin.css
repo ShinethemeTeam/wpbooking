@@ -3865,7 +3865,7 @@ label[for=wpbooking_room_typediv-hide] {
   margin: 0 !important;
 }
 .wp-list-table .column-primary {
-  width: 32%;
+  /*width: 32%;*/
 }
 .wp-list-table .wb-column-action .id {
   width: 10%;
