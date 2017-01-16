@@ -35,6 +35,9 @@ $inject->clear();
 			<?php esc_html_e('(DEPOSIT / REMAIN)', 'wpbooking') ?><br>
 			(<?php echo WPBooking_Currency::get_current_currency('currency') ?>)
 		</td>
+        <?php
+        do_action('wpbooking_after_listing_title');
+        ?>
 	</tr>
 	</thead>
 	<tbody>
@@ -91,6 +94,9 @@ $inject->clear();
 					</div>
 					<?php } ?>
 				</td>
+                <?php
+                do_action('wpbooking_in_loop_listing_detail', get_the_ID());
+                ?>
 			</tr>
 			<?php
 		}
