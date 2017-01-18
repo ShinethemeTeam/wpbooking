@@ -2380,6 +2380,8 @@ a.label:focus {
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .modal-content .facilities .title {
   color: #333333;
   font-size: 20px;
+  float: left;
+  width: 100%;
 }
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .modal-content .facilities .sub_title {
   color: #f0ad4e;

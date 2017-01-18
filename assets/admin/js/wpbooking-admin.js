@@ -1788,55 +1788,6 @@ jQuery(document).ready(function( $ ){
         }
     }
 
-
-    /*$(document).on('change','#bed_rooms',function(){
-        var parent=$('.bed_options');
-        var number = parseInt($(this).val());
-
-        var item=parent.find('.multi-item-default').html();
-        var number_check = 1;
-        parent.find('.multi-item-row').each(function(){
-            if(number < number_check){
-                $(this).remove();
-            }
-            number_check++;
-        });
-        if(number > (number_check - 1)){
-            var n_item = number - (number_check - 1);
-            for ( var i=0 ; i < n_item ; i++){
-                console.log(i);
-                var n_item_next = number_check +i;
-                console.log(item);
-                var html = item.split('__number_room__').join(n_item_next);
-                parent.find('.multi-bed-option').append('<div class="multi-item-row number_'+n_item_next+'" data-number="'+n_item_next+'">'+html+'</div>');
-            }
-        }
-    });
-
-    $(document).on('change','#living_rooms',function(){
-        var parent=$('.living_options');
-        var number = parseInt($(this).val());
-
-        var item=parent.find('.multi-item-default').html();
-        var number_check = 1;
-        parent.find('.multi-item-row').each(function(){
-            if(number < number_check){
-                $(this).remove();
-            }
-            number_check++;
-        });
-        if(number > (number_check - 1)){
-            var n_item = number - (number_check - 1);
-            for ( var i=0 ; i < n_item ; i++){
-                console.log(i);
-                var n_item_next = number_check +i;
-                console.log(item);
-                var html = item.split('__number_living__').join(n_item_next);
-                parent.find('.multi-living-options').append('<div class="multi-item-row number_'+n_item_next+'" data-number="'+n_item_next+'">'+html+'</div>');
-            }
-        }
-    });*/
-
     $('.check_all_service_type').change(function(){
        if($(this).attr('checked')=='checked'){
            $(this).closest('li').siblings().find('input:checkbox').attr('checked','checked')
@@ -2001,9 +1952,7 @@ jQuery(document).ready(function( $ ){
         e.preventDefault();
         $(this).closest('.item-itinerary').remove();
     });
-
     //extensionh page ajax
-
     $('.wb-search-extension').click(function () {
         $.ajax({
             url: wpbooking_params.api_url,

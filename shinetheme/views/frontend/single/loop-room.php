@@ -11,6 +11,7 @@ if($check_out == '--')$check_out='';
 
 $diff=strtotime($check_out) - strtotime($check_in);
 $diff = $diff / (60 * 60 * 24);
+if($diff < 0 )$diff = 0;
 ?>
 <div class="loop-room post-<?php the_ID() ?>">
     <div class="room-image">
@@ -287,7 +288,6 @@ $diff = $diff / (60 * 60 * 24);
                                     <input type="checkbox" checked onclick="return false">
                                     <?php echo esc_html($term->name) ?>
                                 </div>
-
                                 <?php
                                 }
                             }

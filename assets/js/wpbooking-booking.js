@@ -1597,19 +1597,6 @@ jQuery(document).ready(function($){
 
     });
 
-    /**
-     * I-Check
-     */
-    $('.wb-icheck').each(function(){
-        $(this).iCheck({
-            checkboxClass:$(this).data('style'),
-            radioClass:$(this).data('style'),
-        });
-
-        if($(this).hasClass('disable')){
-            $(this).iCheck('disable');
-        }
-    });
 
     // Loop Grid Gallery
     if(typeof $.fn.owlCarousel=='function')

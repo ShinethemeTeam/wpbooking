@@ -97,8 +97,8 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             /**
              * Icheck
              */
-            wp_register_script('icheck', wpbooking_assets_url('icheck/icheck.min.js'), array('jquery'), null, true);
-            wp_register_style('icheck', wpbooking_assets_url('icheck/skins/square/_all.css'));
+            //wp_register_script('icheck', wpbooking_assets_url('icheck/icheck.min.js'), array('jquery'), null, true);
+            //wp_register_style('icheck', wpbooking_assets_url('icheck/skins/square/_all.css'));
 
             /**
              * OwlCarousel
@@ -117,7 +117,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
                 wp_enqueue_style('fororama');
                 wp_enqueue_script('fotorama');
             }
-            wp_enqueue_style('wpbooking', wpbooking_assets_url('css/wpbooking-booking.css'), array('icheck', 'owlcarousel', 'wpbooking-icon'));
+            wp_enqueue_style('wpbooking', wpbooking_assets_url('css/wpbooking-booking.css'), array( 'owlcarousel', 'wpbooking-icon'));
 
             /**
              * Ion RangeSlider for Price Search Field
@@ -155,7 +155,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
 
             wp_enqueue_script('wpbooking-nicescroll', wpbooking_assets_url('js/nicescroll.js'), array('jquery'), null, true);
 
-            wp_enqueue_script('wpbooking-booking', wpbooking_assets_url('js/wpbooking-booking.js'), array('jquery', 'chartjs', 'jquery-ui-datepicker', 'icheck', 'owlcarousel', 'moment'), null, true);
+            wp_enqueue_script('wpbooking-booking', wpbooking_assets_url('js/wpbooking-booking.js'), array('jquery', 'chartjs', 'jquery-ui-datepicker', 'owlcarousel', 'moment'), null, true);
 
 
             wp_localize_script('jquery', 'wpbooking_params', array(
@@ -214,8 +214,8 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             /**
              * Icheck
              */
-            wp_register_script('icheck', wpbooking_assets_url('icheck/icheck.min.js'), array('jquery'), null, true);
-            wp_register_style('icheck', wpbooking_assets_url('icheck/skins/square/_all.css'));
+            //wp_register_script('icheck', wpbooking_assets_url('icheck/icheck.min.js'), array('jquery'), null, true);
+            //wp_register_style('icheck', wpbooking_assets_url('icheck/skins/square/_all.css'));
 
 
             /**
@@ -242,7 +242,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
              *
              */
 
-            wp_enqueue_script('wpbooking-admin', wpbooking_admin_assets_url('js/wpbooking-admin.js'), array('jquery', 'bootstrap', 'icheck', 'jquery-ui-core', 'iconpicker', 'jquery-ui-datepicker', 'jquery-ui-accordion','wpbooking-calendar-room','sticky'), null, true);
+            wp_enqueue_script('wpbooking-admin', wpbooking_admin_assets_url('js/wpbooking-admin.js'), array('jquery', 'bootstrap', 'jquery-ui-core', 'iconpicker', 'jquery-ui-datepicker', 'jquery-ui-accordion','wpbooking-calendar-room','sticky'), null, true);
             wp_enqueue_script('wpbooking-admin-form-build', wpbooking_admin_assets_url('js/wpbooking-admin-form-build.js'), array('jquery'), null, true);
 
             wp_enqueue_script('moment-js', wpbooking_admin_assets_url('js/moment.min.js'), array('jquery'), null, true);
@@ -269,7 +269,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             wp_enqueue_style('full-calendar', wpbooking_admin_assets_url('/css/fullcalendar.min.css'), FALSE, '1.1.6');
 
             wp_enqueue_style('font-awesome', wpbooking_assets_url('fa4.5/css/font-awesome.min.css'), FALSE, '4.5.0');
-            wp_enqueue_style('wpbooking-admin', wpbooking_admin_assets_url('css/admin.css'), array('icheck', 'wpbooking-icon'));
+            wp_enqueue_style('wpbooking-admin', wpbooking_admin_assets_url('css/admin.css'), array('wpbooking-icon'));
             wp_enqueue_style('wpbooking-admin-form-build', wpbooking_admin_assets_url('css/wpbooking-admin-form-build.css'));
 
 
