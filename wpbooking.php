@@ -94,11 +94,6 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             wp_register_script('fotorama', wpbooking_assets_url('fotorama4.6.4/fotorama.js'), array('jquery'), null, true);
             wp_register_style('fotorama', wpbooking_assets_url('fotorama4.6.4/fotorama.css'));
 
-            /**
-             * Icheck
-             */
-            //wp_register_script('icheck', wpbooking_assets_url('icheck/icheck.min.js'), array('jquery'), null, true);
-            //wp_register_style('icheck', wpbooking_assets_url('icheck/skins/square/_all.css'));
 
             /**
              * OwlCarousel
@@ -211,11 +206,6 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
              */
             wp_register_script('iconpicker', wpbooking_assets_url('iconpicker/js/fontawesome-iconpicker.min.js'), array('jquery'), null, true);
 
-            /**
-             * Icheck
-             */
-            //wp_register_script('icheck', wpbooking_assets_url('icheck/icheck.min.js'), array('jquery'), null, true);
-            //wp_register_style('icheck', wpbooking_assets_url('icheck/skins/square/_all.css'));
 
 
             /**

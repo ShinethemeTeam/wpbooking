@@ -1300,15 +1300,6 @@ jQuery(document).ready(function( $ ){
     // Icon picker
     $('.icp-auto').iconpicker();
 
-    /**
-     * I-Check
-     */
-    $('.wb-icheck').each(function(){
-        $(this).iCheck({
-            checkboxClass:$(this).data('style'),
-            radioClass:$(this).data('style'),
-        });
-    });
 
     // Show More Less
     //$('.cart-item-order-form-fields-wrap .show-more-less').click(function(){
