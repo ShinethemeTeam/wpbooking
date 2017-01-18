@@ -3,54 +3,6 @@
  */
 jQuery(document).ready(function($){
 
-    //$('.wpbooking-rating-review a').hover(function(){
-    //    var index=$(this).index();
-    //    index=parseInt(index);
-    //
-    //    $(this).addClass('active');
-    //    $(this).prevAll().addClass('active');
-    //    $(this).nextAll().removeClass('active');
-    //
-    //    $(this).closest('.wpbooking-rating-review').find('.wpbooking_review_detail_rate').val(index+1);
-    //
-    //    var totalRate=0;
-    //    var rateStats=$('.wpbooking_review_detail_rate');
-    //    if(rateStats.length){
-    //        rateStats.each(function(){
-    //            totalRate+=parseInt($(this).val());
-    //        });
-    //        $('[name=wpbooking_review]').val(parseFloat(totalRate/rateStats.length));
-    //    }else{
-    //        $('[name=wpbooking_review]').val(index+1);
-    //    }
-    //
-    //});
-    //
-    //if($('.wpbooking_review_detail_rate').length == 0) {
-    //    var rate = $('.wpbooking-comment-form-rating [name=wpbooking_review]').val();
-    //    if (rate != 0) {
-    //        $('.wpbooking-comment-form-rating .wpbooking-rating-review a').each(function () {
-    //            if (parseInt($(this).index()) < rate) {
-    //                $(this).addClass('active');
-    //            }
-    //        });
-    //    }
-    //}
-    //
-    //
-    //$('.wpbooking-rating-review .wpbooking_review_detail_rate').each(function () {
-    //    var rate = $(this).val();
-    //    if (rate != 0) {
-    //        $(this).closest('.wpbooking-rating-review').find('a').each(function () {
-    //            if (parseInt($(this).index()) < rate) {
-    //                $(this).addClass('active');
-    //            }
-    //        });
-    //    }
-    //});
-
-
-
     // Single Services
     // Helper functions
     function getFormData(form){
@@ -1734,10 +1686,6 @@ jQuery(document).ready(function($){
                 enabled: true
             }
         });
-    });
-
-    $('.wp-show-detail-review span').click(function(){
-       $(this).closest('.wpbooking-more-review-detail').toggleClass('active');
     });
 
     //$('.wpbooking-vote-for-review .review-do-vote').click(function(){

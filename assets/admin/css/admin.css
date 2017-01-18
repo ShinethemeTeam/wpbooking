@@ -4406,6 +4406,9 @@ label[for=wpbooking_room_typediv-hide] {
     width: calc(100% - 30px);
   }
 }
+.wpbooking-extension .content .extension-list .item:nth-child(3n+1) {
+  clear: both;
+}
 .wpbooking-extension .content .extension-list .pagination {
   clear: both;
   padding-top: 20px;
