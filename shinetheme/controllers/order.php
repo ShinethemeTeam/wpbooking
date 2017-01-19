@@ -76,6 +76,15 @@ if (!class_exists('WPBooking_Order')) {
             }
         }
 
+        /**
+         * Check Meta Order Details Permission
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @param bool $order_id
+         * @return mixed|null|string
+         */
         function _handling_check_meta_order_show($order_id = false){
 
             if(!$order_id) $order_id = get_the_ID();
