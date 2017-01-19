@@ -17,7 +17,7 @@ $service_type=$order_data['service_type'];
         <td colspan=4 class=content-row>
             <div class=col-3>
                 <a href="<?php echo get_permalink($post_id)?>" target="_blank">
-                    <?php echo wp_kses($featured['thumb'],array('img'=>array('src'=>array(),'alt'=>array())))?>
+                    <?php echo get_the_post_thumbnail($post_id)?>
                 </a>
             </div>
             <div class=col-7>

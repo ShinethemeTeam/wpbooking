@@ -71,7 +71,12 @@ if (!class_exists('WPBooking_Order')) {
                 }
 
                 if($is_checked == false){
-                    wp_redirect(home_url());
+                    $page_my_account = wpbooking_get_option('myaccount-page');
+                    if(!empty($page_my_account)){
+                        wp_redirect(get_the_permalink($page_my_account));
+                    }else{
+                        wp_redirect(home_url());
+                    }
                 }
             }
         }
