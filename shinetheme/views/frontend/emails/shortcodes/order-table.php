@@ -17,7 +17,7 @@ $service_type=$order_data['service_type'];
         <td colspan=4 class=content-row>
             <div class=col-3>
                 <a href="<?php echo get_permalink($post_id)?>" target="_blank">
-                    <?php echo get_the_post_thumbnail($post_id,'post-thumbnail',array('style'=>'max-width: 100%;height: auto;'))?>
+                    <?php echo get_the_post_thumbnail($post_id,'post-thumbnail',array('style'=>'max-width: 95%;height: auto;'))?>
                 </a>
             </div>
             <div class=col-7>
