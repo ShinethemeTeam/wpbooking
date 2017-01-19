@@ -54,7 +54,7 @@ if (!class_exists('WPBooking_Order')) {
                 if($meta_wpbooking_permission == 'show'){
 
                     $is_checked = true;
-                    
+
                 }
                 else
                 {

@@ -1,6 +1,5 @@
 <?php
 $order_id = get_the_ID();
-
 echo wpbooking_get_message();
 $order=new WB_Order($order_id);
 $booking=WPBooking_Order::inst();
@@ -21,7 +20,7 @@ do_action('wpbooking_before_order_content');
         <?php } ?>
 
     </div>
-    <?php if(!WPBooking_Input::request('wpbooking_detail') == 'true'){ ?>
+    <?php if($check_order == 'show'){ ?>
         <div class="wpbooking-thankyou-message">
             <i class="fa fa-check-circle"></i>
             <?php
