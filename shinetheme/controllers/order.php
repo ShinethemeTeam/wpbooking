@@ -42,30 +42,63 @@ if (!class_exists('WPBooking_Order')) {
          */
 		function _check_order_details_permission(){
             if(is_singular('wpbooking_order')){
+
                 $order_id = get_the_ID();
                 $my_user = wp_get_current_user();
                 $user_book = get_post_meta($order_id,'user_id',true);
 
                 $is_checked = true;
-                if(!is_user_logged_in()){
-                    $is_checked = false;
-                }
 
-                if($user_book != $my_user->ID ){
-                    $is_checked = false;
-                }
-                if(current_user_can('manage_options')){
-                    $is_checked = true;
-                }
+                $meta_wpbooking_permission = $this->_handling_check_meta_order_show($order_id);
 
-                if(!WPBooking_Input::request('wpbooking_detail')){
+                if($meta_wpbooking_permission == 'show'){
+
                     $is_checked = true;
+                    
+                }
+                else
+                {
+                    if(!is_user_logged_in()){
+                        $is_checked = false;
+                    }
+
+                    if($user_book != $my_user->ID ){
+                        $is_checked = false;
+                    }
+                    if(current_user_can('manage_options')){
+                        $is_checked = true;
+                    }
                 }
 
                 if($is_checked == false){
                     wp_redirect(home_url());
                 }
             }
+        }
+
+        function _handling_check_meta_order_show($order_id = false){
+
+            if(!$order_id) $order_id = get_the_ID();
+
+            $meta_wpbooking_permission = get_post_meta($order_id,'wpbooking_permission_show',true);
+
+            if(empty($meta_wpbooking_permission)) $meta_wpbooking_permission = 'show';
+
+            $ss_wpbooking_permission = WPBooking_Session::get('wpbooking_permission_show_'.$order_id,$meta_wpbooking_permission);
+
+            if(!empty($ss_wpbooking_permission)) $meta_wpbooking_permission = $ss_wpbooking_permission;
+
+            if($meta_wpbooking_permission == 'show'){
+                WPBooking_Session::set('wpbooking_permission_show_'.$order_id,'show');
+                update_post_meta($order_id , 'wpbooking_permission_show' , 'hide' );
+            }
+
+            if(WPBooking_Input::request('wpbooking_detail') == 'true'){
+                WPBooking_Session::set('wpbooking_permission_show_'.$order_id,'hide');
+                $meta_wpbooking_permission = 'hide';
+            }
+
+            return $meta_wpbooking_permission;
         }
 
         /**

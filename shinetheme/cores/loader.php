@@ -63,7 +63,7 @@ if(!class_exists('WPBooking_Loader')){
             //Load controller frontend
             if(!is_admin()) {
                 if(!empty($autoload['frontend'])){
-                    $this->load_controller($autoload['frontend']);
+                    $this->load_helper($autoload['frontend']);
                 }
             }
 

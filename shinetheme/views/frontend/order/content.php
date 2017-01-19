@@ -11,11 +11,15 @@ do_action('wpbooking_before_order_content');
 ?>
 <div class="wpbooking-order-detail-page">
     <div class="wpbooking-title">
-        <?php if(WPBooking_Input::request('wpbooking_detail') == 'true'){ ?>
+
+        <?php
+        $check_order = WPBooking_Order::inst()->_handling_check_meta_order_show();
+        if($check_order == 'hide'){ ?>
             <?php esc_html_e('Booking Details','wpbooking'); ?>
         <?php }else{ ?>
             <?php esc_html_e('Success Booking','wpbooking'); ?>
         <?php } ?>
+
     </div>
     <?php if(!WPBooking_Input::request('wpbooking_detail') == 'true'){ ?>
         <div class="wpbooking-thankyou-message">
