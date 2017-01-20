@@ -1,5 +1,6 @@
 {
   "require": {
-    "omnipay/omnipay": "~2.0"
+    "omnipay/paypal": "~2.0",
+    "omnipay/stripe": "~2.0"
   }
 }
