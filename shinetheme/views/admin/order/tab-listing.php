@@ -39,6 +39,10 @@ if($payment_method = WPBooking_Input::get('payment_method')){
     $inject->where($table_prefix.'.payment_method',$payment_method);
 }
 
+if($author_id = WPBooking_Input::get('author_id')){
+	$inject->where($table_prefix.'.author_id',$author_id);
+}
+
 $query=new WP_Query($args);
 ?>
 <form action="<?php echo admin_url('admin.php') ?>" method="get" class="clear">
