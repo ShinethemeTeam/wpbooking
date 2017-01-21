@@ -41,7 +41,8 @@ if(!empty(WPBooking()->get('error_code'))){
         <?php if(wpbooking_is_any_register()){ ?>
             <hr>
             <p class="register-url"><?php echo esc_html__('Don\'t have an account yet? ');?><a href="<?php echo WPBooking_User::inst()->get_register_url(); ?>"><?php echo esc_html__('Create an account','wpbooking'); ?></a></p>
-        <?php } ?>
+        	<?php do_action("wpbooking_after_register_user_link") ?>
+		<?php } ?>
 	</div>
 	<?php
 	if(WPBooking_Input::post('action')=='wpbooking_do_login' || WPBooking_Input::get('checkemail') == 'confirm' || WPBooking_Input::get('password') == 'changed' )

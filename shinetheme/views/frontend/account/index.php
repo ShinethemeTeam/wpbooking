@@ -6,6 +6,7 @@
  * Time: 3:32 PM
  */
 global $wp_query;
+$other_filter_tab_account = apply_filters('wpbbooking_other_tab_content_account',array());
 ?>
 <div class="wpbooking-myaccount-wrap">
 	<?php
@@ -33,11 +34,24 @@ global $wp_query;
         echo wpbooking_load_view('account/register');
         echo '</div></div>';
     }else{
-		?>
-		<div class="row">
-			<div class="col-sm-12"><?php echo wpbooking_load_view('account/login') ?></div>
-		</div>
-		<?php
+		$show_tab_login  = true;
+		if(!empty($other_filter_tab_account)){
+			foreach($other_filter_tab_account as $k=>$v){
+				if(isset($wp_query->query_vars[$v])){
+					echo '<div class="row"><div class="col-sm-12">';
+					echo wpbooking_load_view('account/'.$v);
+					echo '</div></div>';
+					$show_tab_login = false;
+				}
+			}
+		}
+		if($show_tab_login == true) {
+			?>
+			<div class="row">
+				<div class="col-sm-12"><?php echo wpbooking_load_view( 'account/login' ) ?></div>
+			</div>
+			<?php
+		}
 	}
 	?>
 </div>
