@@ -169,16 +169,18 @@ $query=new WP_Query($args);
                                 ?>
                             </div>
 							<div class="wb-row-actions none">
-								<span class="on_hold"><a href="<?php echo esc_url($url_edit)  ?>" title="<?php esc_html_e('View this item','wpbooking')?>"><?php esc_html_e('On Hold','wpbooking')?></a> </span>
+<!--								<span class="on_hold"><a href="--><?php //echo esc_url($url_edit)  ?><!--" title="--><?php //esc_html_e('View this item','wpbooking')?><!--">--><?php //esc_html_e('On Hold','wpbooking')?><!--</a> </span>-->
 								<span class="complete"><a href="<?php echo esc_url($url_complete)  ?>" title="<?php esc_html_e('Complete this item','wpbooking')?>"><?php esc_html_e('Complete','wpbooking')?></a> </span>
-								<span class="cancel"><a href="<?php echo esc_url($url_cancel)  ?>" title="<?php esc_html_e('Cancel this item','wpbooking')?>"><?php esc_html_e('Cancel','wpbooking')?></a> </span>
-								<span class="refund"><a href="<?php echo esc_url($url_refund)  ?>" title="<?php esc_html_e('Refund this item','wpbooking')?>"><?php esc_html_e('Refund','wpbooking')?></a> </span>
+<!--								<span class="cancel"><a href="--><?php //echo esc_url($url_cancel)  ?><!--" title="--><?php //esc_html_e('Cancel this item','wpbooking')?><!--">--><?php //esc_html_e('Cancel','wpbooking')?><!--</a> </span>-->
+<!--								<span class="refund"><a href="--><?php //echo esc_url($url_refund)  ?><!--" title="--><?php //esc_html_e('Refund this item','wpbooking')?><!--">--><?php //esc_html_e('Refund','wpbooking')?><!--</a> </span>-->
 								<span class="move_trash trash"><a href="<?php echo add_query_arg(array('action'=>'trash','wpbooking_apply_changes'=>'1','wpbooking_order_item'=>array(get_the_ID()))) ?>" onclick="return confirm('<?php esc_html_e('Are you want to move to trash?','wpbooking') ?>')" title="<?php esc_html_e('Move to trash','wpbooking')?>"><?php esc_html_e('Trash','wpbooking')?></a> </span>
 								<span class="resend_email">
 									<a href="<?php echo add_query_arg(array('wpbooking_resend_email'=>'true','order_id'=>get_the_ID())) ?>" title="<?php esc_html_e('Resend Email this item','wpbooking')?>">
 										<?php esc_html_e('Resend Mail','wpbooking')?></a>
 								</span>
-
+                                <?php
+                                do_action('wpbooking_after_list_button_action', get_the_ID());
+                                ?>
 							</div>
 						</td>
 						<td class="wb-booking-information">
