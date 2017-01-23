@@ -3822,7 +3822,7 @@ label[for=wpbooking_room_typediv-hide] {
 .wp-list-table .wb-column-action .wb-row-actions a:hover {
   border-color: #252525;
 }
-@media (max-width: 1554px) {
+@media (max-width: 2000px) {
   .wp-list-table .wb-column-action .wb-row-actions a {
     height: auto;
     background: transparent;
