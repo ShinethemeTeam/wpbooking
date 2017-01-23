@@ -67,11 +67,15 @@ if(!empty(WPBooking()->get('error_ed_fields'))){
                             <input type="text"  class="form-control" id="u_apt_unit" name="u_apt_unit" value="<?php echo WPBooking_Input::post('u_apt_unit',get_user_meta(get_current_user_id(),'apt_unit',true)) ?>"  >
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <?php if(WPBooking_Input::post('action')=='wpbooking_update_profile') echo wpbooking_get_message(); ?>
-                        <button type="submit" class="wb-btn wb-btn-default"><?php esc_html_e('Save','wpbooking') ?></button>
-                    </div>
+            </div>
+            <?php do_action('wpbooking_after_field_update_profile',$user_id) ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <?php if(WPBooking_Input::post('action')=='wpbooking_update_profile') echo wpbooking_get_message(); ?>
+                    <button type="submit" class="wb-btn wb-btn-default"><?php esc_html_e('Save','wpbooking') ?></button>
                 </div>
+            </div>
+
         </div>
     </div>
 </form>
