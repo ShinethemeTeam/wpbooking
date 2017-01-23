@@ -34,6 +34,7 @@ if(!function_exists('wpbooking_load_view')) {
 		}
 
 		$file=apply_filters('wpbooking_load_view_'.$view,$file,$view,$data);
+		$file=apply_filters('wpbooking_load_view',$view,$file,$view,$data);
 
 		if(file_exists($file)){
 
