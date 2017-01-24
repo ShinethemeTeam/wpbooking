@@ -46,6 +46,7 @@ if (!class_exists('WPBooking_Order')) {
                 $order_id = get_the_ID();
                 $my_user = wp_get_current_user();
                 $user_book = get_post_meta($order_id,'user_id',true);
+                $user_partner = get_post_meta($order_id,'author_id',true);
 
                 $is_checked = true;
 
@@ -64,6 +65,10 @@ if (!class_exists('WPBooking_Order')) {
 
                     if($user_book != $my_user->ID ){
                         $is_checked = false;
+                    }
+
+                    if($user_partner == $my_user->ID ){
+                        $is_checked = true;
                     }
                     if(current_user_can('manage_options')){
                         $is_checked = true;
