@@ -56,9 +56,9 @@ $query=new WP_Query($args);
 			<div class="alignleft actions bulkactions">
 				<label for="bulk-action-selector-top" class="screen-reader-text"><?php esc_html_e('Select bulk action','wpbooking')?></label>
 				<select name="action" id="wpbooking_bulk_edit_order">
-					<option value="" selected ><?php esc_html_e('Bulk Actions','wpbooking') ?></option>
+					<option value="" selected="selected" ><?php esc_html_e('Bulk Actions','wpbooking') ?></option>
 					<option value="onhold_booking"><?php esc_html_e('Mark as On-Hold','wpbooking')  ?></option>
-					<option value="complete_booking"><?php esc_html_e('Mark as Completed','wpbooking')  ?></option>
+					<option value="complete_booking"><?php esc_html_e('Mark as Completed','wpbooking') ?></option>
 					<option value="cancel_booking"><?php esc_html_e('Mark as Cancelled','wpbooking')  ?></option>
 					<option value="refunded_booking"><?php esc_html_e('Mark as Refunded','wpbooking')  ?></option>
 					<option value="trash"><?php esc_html_e('Move to Trash','wpbooking')  ?></option>
@@ -113,7 +113,7 @@ $query=new WP_Query($args);
 	</div>
 	<!--		End top-->
 
-		<table class="wp-list-table widefat fixed striped posts">
+		<table class="wp-list-table widefat striped posts">
 			<thead>
 			<tr>
 				<th id="cb" class="manage-column column-cb check-column">
