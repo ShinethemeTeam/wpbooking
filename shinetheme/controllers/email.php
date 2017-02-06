@@ -386,12 +386,12 @@ if (!class_exists('WPBooking_Email')) {
          */
         function _preview_email()
         {
-            $allowed = array(
+            /*$allowed = array(
                 'email_to_customer',
                 'email_to_partner',
                 'email_to_admin',
-            );
-            if (in_array(WPBooking_Input::get('email'), $allowed)) {
+            );*/
+            //if (in_array(WPBooking_Input::get('email'), $allowed)) {
 
                 $content = wpbooking_get_option(WPBooking_Input::get('email'));
 
@@ -404,7 +404,7 @@ if (!class_exists('WPBooking_Email')) {
                 $content = WPBooking_Email::inst()->apply_css($content);
                 echo($content);
                 die;
-            }
+            //}
         }
 
         /**

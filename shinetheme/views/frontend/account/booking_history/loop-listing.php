@@ -1,12 +1,14 @@
 <?php
-$limit = 20;
-$offset = $limit * (WPBooking_Input::get('page_number', 1) - 1);
+$limit = 10;
+$page_number = WPBooking_Input::get('page_number', 1);
 $inject=WPBooking_Query_Inject::inst();
 global $wpdb;
 $inject->inject();
 $inject->join('wpbooking_order',$wpdb->prefix.'posts.ID = '.$wpdb->prefix.'wpbooking_order.order_id');
 $arg = array(
 	'post_type'  => 'wpbooking_order',
+	'posts_per_page'=>$limit,
+	'paged'=>$page_number,
 );
 $inject->where($wpdb->prefix.'wpbooking_order.user_id',get_current_user_id());
 if ($service_type = WPBooking_Input::request('wpbooking_service_type')) {
