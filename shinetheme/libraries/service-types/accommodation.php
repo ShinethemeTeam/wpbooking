@@ -1084,7 +1084,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         die;
                     }
                     // Check Role
-                    if (!current_user_can('manage_options') and $hotel->post_parent != get_current_user_id()) {
+                    if (!current_user_can('edit_posts') and $hotel->post_parent != get_current_user_id()) {
                         $res['message'] = esc_html__('You do not have permission to do it', 'wpbooking');
                         echo json_encode($res);
                         die;

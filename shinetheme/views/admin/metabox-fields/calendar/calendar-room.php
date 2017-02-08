@@ -19,7 +19,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
 	<label for="<?php echo esc_html( $data['id'] ); ?>"><strong><?php echo esc_html( $data['label'] ); ?></strong></label>
 	<div class="st-metabox-content-wrapper">
 		<div class="form-group full-width">
-			<div class="wpbooking-calendar-wrapper" data-post-id="<?php echo esc_attr($post_id); ?>" data-post-encrypt="<?php echo wpbooking_encrypt( $post_id ); ?>">
+			<div class="wpbooking-calendar-wrapper wb_room" data-post-id="<?php echo esc_attr($post_id); ?>" data-post-encrypt="<?php echo wpbooking_encrypt( $post_id ); ?>">
 				<div class="wpbooking-calendar-content">
 					<div class="overlay">
 						<span class="spinner is-active"></span>

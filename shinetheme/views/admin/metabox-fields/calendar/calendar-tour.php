@@ -22,7 +22,7 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
     <label for="<?php echo esc_html( $data['id'] ); ?>"><strong><?php echo esc_html( $data['label'] ); ?></strong></label>
     <div class="st-metabox-content-wrapper">
         <div class="form-group full-width">
-            <div class="wpbooking-calendar-wrapper" data-post-id="<?php echo esc_attr($post_id); ?>" data-post-encrypt="<?php echo wpbooking_encrypt( $post_id ); ?>">
+            <div class="wpbooking-calendar-wrapper wb_tour" data-post-id="<?php echo esc_attr($post_id); ?>" data-post-encrypt="<?php echo wpbooking_encrypt( $post_id ); ?>">
                 <div class="wpbooking-calendar-content">
                     <div class="overlay">
                         <span class="spinner is-active"></span>

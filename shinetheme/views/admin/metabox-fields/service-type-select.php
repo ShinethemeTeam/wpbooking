@@ -41,7 +41,7 @@ $class.=' width-'.$data['width'];
 							$check='checked="checked"';
 							$active = 'active';
 						}
-						printf('<label class="wb-radio-button service_type %s"><input type="radio" name="%s" value="%s" %s> %s</label>',$active,$data['id'],$key,$check,$value->get_info('label'));
+						printf('<label class="wb-radio-button wb_service_type %s"><input type="radio" name="%s" value="%s" %s> %s</label>',$active,$data['id'],$key,$check,$value->get_info('label'));
 						$i++;
 					}
 				} ?>
@@ -56,7 +56,7 @@ $class.=' width-'.$data['width'];
 						}elseif($i==0){
 							$check='checked="checked"';
 						}
-						printf('<div data-condition="service_type:is(%s)" class="wpbooking-condition desc-item service-type-%s">%s</div>',$key,$key,'<strong>'.$value->get_info('label').':</strong> '.$value->get_info('desc'));
+						printf('<div data-condition="wb_service_type:is(%s)" class="wpbooking-condition desc-item service-type-%s">%s</div>',$key,$key,'<strong>'.$value->get_info('label').':</strong> '.$value->get_info('desc'));
 						$i++;
 					}
 				} ?>

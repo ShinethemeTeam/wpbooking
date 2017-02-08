@@ -1165,7 +1165,7 @@ jQuery(document).ready(function($){
             var operator = ( $( this ).data( 'operator' ) || 'and' ).toLowerCase();
             $.each( conditions, function( index, condition ) {
 
-                var target   = $(  '#'+ condition.check );
+                var target   = $( '[name='+ condition.check+']' );
 
                 var targetEl = !! target.length && target.first();
 
@@ -1173,13 +1173,18 @@ jQuery(document).ready(function($){
                     return;
                 }
 
+
                 var v1 = targetEl.length ? targetEl.val().toString() : '';
                 var v2 = condition.value.toString();
                 var result;
 
+                if(targetEl.length && targetEl.attr('type')=='radio'){
+                    v1 = $( '[name='+ condition.check+']:checked').val();
+                }
                 if(targetEl.length && targetEl.attr('type')=='checkbox'){
                     v1=targetEl.is(':checked')?v1:'';
                 }
+
 
                 switch ( condition.rule ) {
                     case 'less_than':
@@ -1783,8 +1788,7 @@ jQuery(document).ready(function($){
     });
 
     // On-off
-    $('.wpbooking-switch').click(function()
-    {
+    $(document).on('click', '.wpbooking-switch', function(event) {
         $(this).toggleClass("switchOn",function(){
 
         });

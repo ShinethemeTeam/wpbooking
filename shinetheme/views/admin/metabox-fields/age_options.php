@@ -55,7 +55,6 @@ $old_data=wp_parse_args($old_data,array(
                             <th><?php esc_html_e('Age Band','wpbooking') ?></th>
                             <th><?php esc_html_e('Minimum Age','wpbooking')?></th>
                             <th><?php esc_html_e('Maximum Age','wpbooking')?></th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

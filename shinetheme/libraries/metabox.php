@@ -161,14 +161,8 @@ if (!class_exists('WPBooking_Metabox')) {
                     if($is_validated){
                         /* check permissions */
                         $permission=true;
-                        if ('page' == $post_type) {
-                            if (!current_user_can('edit_page', $post_id))
-                                $permission=false;
-                        } else {
-                            if (!current_user_can('edit_post', $post_id))
-                                $permission=false;
-                        }
-
+                        if (!current_user_can('edit_post', $post_id))
+                            $permission=false;
 
                         if(!$permission){
                             $res['message']=esc_html__('You don\'t have permission to do that','wpbooking');
@@ -329,7 +323,7 @@ if (!class_exists('WPBooking_Metabox')) {
 
             if (!in_array('gmap3.js', $scripts)) {
 
-                wp_enqueue_script('google-map-js','//maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key=AIzaSyA1l5FlclOzqDpkx5jSH5WBcC0XFkqmYOY',array('jquery'),null,true);
+                wp_enqueue_script('google-map-js','//maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key=AIzaSyAwXoW3vyBK0C5k2G-0l1D3n10UJ3LwZ3k',array('jquery'),null,true);
 
                 wp_enqueue_script('gmap3.js ', wpbooking_admin_assets_url('js/gmap3.min.js'), array('jquery'), null, TRUE);
             }
@@ -641,6 +635,7 @@ if (!class_exists('WPBooking_Metabox')) {
             }
             update_post_meta($post_id,$field_id.'_multi_',$data_multi);
         }
+
         function wpbooking_save_living_options($post_id,$field_id,$field)
         {
             $data_multi=WPBooking_Input::post($field_id);
