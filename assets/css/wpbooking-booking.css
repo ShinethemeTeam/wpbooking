@@ -4361,6 +4361,7 @@ a.label:focus {
   list-style: none;
   background: #f5f5f5;
   border-top: 1px solid white;
+  z-index: 99;
 }
 .wpbooking-myaccount-wrap .wb-account-nav .children li {
   display: block;

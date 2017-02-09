@@ -686,51 +686,26 @@ jQuery(document).ready(function( $ ){
                         navigationControl: true,
                         scrollwheel: true,
                     },
-                    //events:{
-                    //    click: function(marker, event, context){
-                    //        $('input[name="map_lat"]', t).val( marker.latLng.lat() );
-                    //        $('input[name="map_long"]', t).val( marker.latLng.lng() );
-                    //        $('input[name="map_zoom"]', t).val( marker.zoom );
-                    //
-                    //        $(this).gmap3({
-                    //            clear: {
-                    //                name:["marker"],
-                    //                last: true
-                    //            }
-                    //        });
-                    //        $(this).gmap3({
-                    //            marker:{
-                    //                values:[
-                    //                    {latLng:marker.latLng },
-                    //                ],
-                    //                options:{
-                    //                    draggable: false
-                    //                },
-                    //            }
-                    //        });
-                    //    }
-                    //}
                 };
-                if(map_lat && map_long){
-                    map_options.options.center=[map_lat, map_long];
-                    map_options.marker={
-                                        values:[
-                                            {latLng:new google.maps.LatLng({lat: map_lat, lng: map_long}) },
-                                        ],
-                                        options:{
-                                            draggable: false
-                                        },
-                                    };
-                }
+
                 if(map_zoom){
                     map_options.options.zoom=map_zoom;
                 }
-
-                console.log(map_options);
-                gmap.gmap3({
+                var obj = {
                     map:map_options
-                });
+                }
+                if(map_lat && map_long){
 
+                    obj.map.options.center=[map_lat, map_long];
+                    obj.marker={
+                        values:[ [map_lat, map_long] ],
+                        options:{
+                            draggable: false
+                        },
+                    };
+                }
+                console.log(obj);
+                gmap.gmap3(obj);
                 var gmap_obj = gmap.gmap3('get');
 
                 // Map Click

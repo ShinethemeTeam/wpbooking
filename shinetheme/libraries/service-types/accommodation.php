@@ -919,7 +919,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'post_type'      => 'wpbooking_hotel_room',
                 'post_parent'    => $post_id,
                 'posts_per_page' => 200,
-                'post_status'    => array('pending', 'draft', 'future', 'publish'),
+                'post_status'    => array('pending', 'future', 'publish'),
             );
             $my_query = new WP_Query($args);
             if ($my_query->have_posts()) {
@@ -1300,7 +1300,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 $query = new WP_Query(array(
                     'post_parent'    => $hotel_id,
                     'posts_per_page' => 200,
-                    'post_type'=>'wpbooking_hotel_room'
+                    'post_type'=>'wpbooking_hotel_room',
+                    'post_status'    => array('pending', 'future', 'publish'),
                 ));
             }
 
@@ -1761,7 +1762,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $arg = array(
                 'post_type'      => 'wpbooking_hotel_room',
                 'posts_per_page' => '200',
-                'post_status'    => array('publish', 'draft', 'pending', 'future', 'private', 'inherit'),
+                'post_status'    => array('pending', 'future', 'publish'),
                 'post_parent'    => $hotel_id
             );
             query_posts($arg);
@@ -2484,7 +2485,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 $arg = array(
                     'post_type'      => 'wpbooking_hotel_room',
                     'posts_per_page' => '200',
-                    'post_status'    => array('publish', 'draft', 'pending', 'future', 'private', 'inherit'),
+                    'post_status'    => array('pending', 'future', 'publish'),
                     'post_parent'    => $post_id
                 );
                 query_posts($arg);

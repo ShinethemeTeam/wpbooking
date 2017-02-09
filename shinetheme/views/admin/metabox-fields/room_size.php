@@ -27,7 +27,7 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
                     $arg =  array(
                         'post_type'      => 'wpbooking_hotel_room',
                         'posts_per_page' => '200',
-                        'post_status' => array('publish','draft','pending','future','private','inherit'),
+                        'post_status' => array('pending', 'future', 'publish'),
                         'post_parent'=>$post_id
                     );
                     query_posts($arg);

@@ -1312,6 +1312,11 @@ jQuery(document).ready(function($){
                                     });
                                 }
                             }
+                        },
+                        marker: {
+                            values: [
+                                [map_lat, map_long],
+                            ],
                         }
 
                     };
