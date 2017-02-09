@@ -1055,6 +1055,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                 'photo_tab'    => array(
                     'label'  => __('4. Photos', 'wpbooking'),
                     'fields' => array(
+                        array('type' => 'open_section'),
                         array(
                             'label' => __("Pictures", 'wpbooking'),
                             'type'  => 'title',
@@ -1068,7 +1069,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'error_message' => esc_html__('You must upload minimum one photo for your tour','wpbooking'),
                             'service_type' => esc_html__('tour','wpbooking')
                         ),
-
+                        array('type' => 'close_section'),
                         array(
                             'type'       => 'section_navigation',
                             'next_label' => esc_html__('Save', 'wpbooking'),

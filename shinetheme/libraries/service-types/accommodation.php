@@ -877,6 +877,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'photo_tab'       => array(
                     'label'  => __('6. Photos', 'wpbooking'),
                     'fields' => array(
+                        array('type' => 'open_section'),
                         array(
                             'label' => __("Pictures", 'wpbooking'),
                             'type'  => 'title',
@@ -889,6 +890,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'error_message' => esc_html__('You must upload minimum one photo for your accommodation','wpbooking'),
                             'desc'  => __('Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wpbooking')
                         ),
+                        array('type' => 'close_section'),
                         array(
                             'type'       => 'section_navigation',
                             'next_label' => esc_html__('Save', 'wpbooking'),

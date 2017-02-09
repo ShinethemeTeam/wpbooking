@@ -370,6 +370,9 @@ img.settings-demo-gallery {
   padding: 20px 10px;
   border: 1px dashed #ccc;
   text-align: center;
+  display: block !important;
+  margin: 10px;
+  width: auto;
 }
 .wpbooking-no-gallery i.wpbooking-desc {
   display: none;
@@ -406,12 +409,12 @@ img.settings-demo-gallery {
 }
 .wpbooking-no-gallery .no-gallery-notice h3 {
   margin: 5px 0;
-  color: #999;
+  color: #666;
   margin-top: 10px;
 }
 .wpbooking-no-gallery .no-gallery-notice p {
   margin: 5px 0;
-  color: #999;
+  color: #666;
 }
 .wb-breadcrumb-room {
   margin-bottom: 30px;
