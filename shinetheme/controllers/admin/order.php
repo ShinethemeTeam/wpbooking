@@ -581,7 +581,6 @@ if (!class_exists('WPBooking_Admin_Order')) {
                     $res['data'][$key] = number_format($val,$decimal,'.','');
                 }
             }
-            var_dump($time_range);
             return $res;
 
         }
