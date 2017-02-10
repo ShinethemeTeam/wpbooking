@@ -429,7 +429,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                     $current_date = strtotime('now');
                     $start = strtotime('monday this week midnight',$current_date);
                     while($start <= $current_date){
-                        $data_range['label'][] = date('Y/m/d', $start);
+                        $data_range['label'][] = date(get_option('date_format'), $start);
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 day',$start);
                     }
@@ -441,7 +441,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                     $start = strtotime('-1 week', $monday_this_week);
                     $end = strtotime('+6 days', $start);
                     while($start <= $end){
-                        $data_range['label'][] = date('Y/m/d', $start);
+                        $data_range['label'][] = date(get_option('date_format'), $start);
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 day',$start);
                     }
@@ -452,7 +452,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                     $start = strtotime('-1 week midnight',$current_date);
                     $start = strtotime('+1 day',$start);
                     while($start <= $current_date){
-                        $data_range['label'][] = date('Y/m/d', $start);
+                        $data_range['label'][] = date(get_option('date_format'), $start);
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 day',$start);
                     }
@@ -462,7 +462,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                     $current_date = strtotime('now');
                     $start = strtotime('-30 days midnight',$current_date);
                     while($start <= $current_date){
-                        $data_range['label'][] = date('Y/m/d', $start);
+                        $data_range['label'][] = date(get_option('date_format'), $start);
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 day',$start);
                     }
@@ -472,7 +472,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                     $current_date = strtotime('now');
                     $start = strtotime('-60 days midnight',$current_date);
                     while($start <= $current_date){
-                        $data_range['label'][] = date('Y/m/d', $start);
+                        $data_range['label'][] = date(get_option('date_format'), $start);
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 day',$start);
                     }
@@ -482,7 +482,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                     $current_date = strtotime('now');
                     $start = strtotime('-90 days midnight',$current_date);
                     while($start <= $current_date){
-                        $data_range['label'][] = date('Y/m/d', $start);
+                        $data_range['label'][] = date(get_option('date_format'), $start);
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 day',$start);
                     }
@@ -495,12 +495,12 @@ if (!class_exists('WPBooking_Admin_Order')) {
                 $start = strtotime($start_date);
                 $end = strtotime($end_date);
                 if($start > $end){
-                    $data_range['label'][] = date('Y/m/d', $start);
+                    $data_range['label'][] = date(get_option('date_format'), $start);
                     $data_range['range'][] = $start;
                     $data_range['range'][] = strtotime('+1 day', $start);
                 }else {
                     while ($start <= $end) {
-                        $data_range['label'][] = date('Y/m/d', $start);
+                        $data_range['label'][] = date(get_option('date_format'), $start);
                         $data_range['range'][] = $start;
                         $start = strtotime('+1 day', $start);
                     }
@@ -581,6 +581,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
                     $res['data'][$key] = number_format($val,$decimal,'.','');
                 }
             }
+            var_dump($time_range);
             return $res;
 
         }
