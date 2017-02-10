@@ -143,7 +143,7 @@ $type_array=array(
                             <?php echo _n('booking','bookings',wpbooking_covert_to_one($completed)); ?>
                         </td>
                         <td class="wb-report-d-column">
-                            <span class="number"><?php echo esc_attr($completed)?></span>
+                            <span class="number"><?php echo esc_attr($completed_a_part)?></span>
                             <?php echo _n('booking','bookings',wpbooking_covert_to_one($completed_a_part)); ?>
                         </td>
                         <td class="wb-report-d-column">

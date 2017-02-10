@@ -199,14 +199,18 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
          * @param $end_day
          * @return string
          */
-        function get_rp_total_sale($service_type,$start_day, $end_day){
+        function get_rp_total_sale($service_type,$start_day, $end_day,$author_id = false){
 
-            $row = $this->select('SUM(price) as total_sale')
+             $this->select('SUM(price) as total_sale')
                 ->where('created_at>=',$start_day)
                 ->where('created_at<=',$end_day)
                 ->where("(status='on_hold' OR status='completed' OR status='completed_a_part')",false,true)
-                ->where($this->service_where($service_type),false,true)
-                ->get()->row();
+                ->where($this->service_where($service_type),false,true);
+                if(!empty($author_id)){
+                    $this->where('author_id=',$author_id);
+                }
+
+            $row = $this->get()->row();
 
             return (!empty($row['total_sale']))?$row['total_sale']:'0';
         }
@@ -222,13 +226,16 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
          * @param $end_day
          * @return string
          */
-        function get_rp_total_items($service_type,$start_day, $end_day){
-            $row = $this->select('COUNT(DISTINCT post_id) as items')
+        function get_rp_total_items($service_type,$start_day, $end_day,$author_id = false){
+             $this->select('COUNT(DISTINCT post_id) as items')
                 ->where('created_at>=',$start_day)
                 ->where('created_at<=',$end_day)
                 ->where("(status='on_hold' OR status='completed' OR status='completed_a_part')",false,true)
-                ->where($this->service_where($service_type),false,true)
-                ->get()->row();
+                ->where($this->service_where($service_type),false,true);
+            if(!empty($author_id)){
+                $this->where('author_id=',$author_id);
+            }
+            $row = $this->get()->row();
             return (!empty($row['items']))?$row['items']:'0';
         }
         /**
@@ -243,13 +250,16 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
          * @return string
          */
 
-        function get_total_sales($service_type,$start_day, $end_day){
-            $row = $this->select('COUNT(post_id) as items')
+        function get_total_sales($service_type,$start_day, $end_day ,$author_id = false){
+            $this->select('COUNT(post_id) as items')
                 ->where('created_at>=',$start_day)
                 ->where('created_at<=',$end_day)
                 ->where("(status='on_hold' OR status='completed' OR status='completed_a_part')",false,true)
-                ->where($this->service_where($service_type),false,true)
-                ->get()->row();
+                ->where($this->service_where($service_type),false,true);
+            if(!empty($author_id)){
+                $this->where('author_id=',$author_id);
+            }
+            $row = $this->get()->row();
             return (!empty($row['items']))?$row['items']:'0';
         }
         /**
@@ -264,13 +274,17 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
          * @return string
          */
 
-        function get_rp_total_bookings($service_type,$start_day, $end_day){
-            $row = $this->select('COUNT(*) as total_bookings')
+        function get_rp_total_bookings($service_type,$start_day, $end_day ,$author_id = false){
+            $this->select('COUNT(*) as total_bookings')
                 ->where('created_at>=',$start_day)
                 ->where('created_at<=',$end_day)
                 ->where("(status='on_hold' OR status='completed' OR status='completed_a_part')",false,true)
-                ->where($this->service_where($service_type),false,true)
-                ->get()->row();
+                ->where($this->service_where($service_type),false,true);
+            if(!empty($author_id)){
+                $this->where('author_id=',$author_id);
+            }
+
+            $row = $this->get()->row();
             return (!empty($row['total_bookings']))?$row['total_bookings']:'0';
         }
         /**
@@ -284,7 +298,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
          * @param $end_day
          * @return string
          */
-        function get_rp_total_net_profit($service_type,$start_day, $end_day){
+        function get_rp_total_net_profit($service_type,$start_day, $end_day,$author_id = false){
             $total_price = $this->get_rp_total_sale($service_type,$start_day, $end_day);
 
             $row = $this->select('SUM(tax_total) as tax_total')
@@ -300,7 +314,7 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
 
             return $net_profit;
         }
-
+       
         /**
          *Get total items by status
          *
@@ -313,13 +327,16 @@ if(!class_exists( 'WPBooking_Order_Model' )) {
          * @param $status
          * @return string
          */
-        function get_rp_items_by_status($service_type,$start_day, $end_day,$status){
-            $row = $this->select('COUNT(*) as '.$status)
+        function get_rp_items_by_status($service_type,$start_day, $end_day,$status,$author_id = false){
+             $this->select('COUNT(*) as '.$status)
                 ->where('created_at>=',$start_day)
                 ->where('created_at<=',$end_day)
                 ->where('status',$status)
-                ->where($this->service_where($service_type),false,true)
-                ->get()->row();
+                ->where($this->service_where($service_type),false,true);
+            if(!empty($author_id)){
+                $this->where('author_id=',$author_id);
+            }
+            $row = $this->get()->row();
             return (!empty($row[$status]))?$row[$status]:'0';
         }
 

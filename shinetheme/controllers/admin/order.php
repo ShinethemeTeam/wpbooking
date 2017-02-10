@@ -523,31 +523,33 @@ if (!class_exists('WPBooking_Admin_Order')) {
          * @param bool $end_date
          * @return string
          */
-        public function total_in_time_range($service_type, $select ,$range, $start_date = false, $end_date = false)
+        public function total_in_time_range($service_type, $select ,$range, $start_date = false, $end_date = false , $author_id = false)
         {
 
             $time_range = $this->get_time_range($range, $start_date, $end_date);
             $res = '0';
 
+
             if (!empty($time_range['range'])) {
                 switch($select){
                     case 'total_sale':
-                        $res = WPBooking_Order_Model::inst()->get_rp_total_sale($service_type,$time_range['range'][0],$time_range['range'][count($time_range['range'])-1]);
+                        $res = WPBooking_Order_Model::inst()->get_rp_total_sale($service_type,$time_range['range'][0],$time_range['range'][count($time_range['range'])-1],$author_id);
                         break;
                     case 'net_profit':
-                        $res = WPBooking_Order_Model::inst()->get_rp_total_net_profit($service_type,$time_range['range'][0],$time_range['range'][count($time_range['range'])-1]);
+                        $res = WPBooking_Order_Model::inst()->get_rp_total_net_profit($service_type,$time_range['range'][0],$time_range['range'][count($time_range['range'])-1],$author_id);
                         break;
                     case 'items':
-                        $res = WPBooking_Order_Model::inst()->get_rp_total_items($service_type,$time_range['range'][0],$time_range['range'][count($time_range['range'])-1]);
+                        $res = WPBooking_Order_Model::inst()->get_rp_total_items($service_type,$time_range['range'][0],$time_range['range'][count($time_range['range'])-1],$author_id);
                         break;
                     case 'total_bookings':
-                        $res = WPBooking_Order_Model::inst()->get_rp_total_bookings($service_type,$time_range['range'][0],$time_range['range'][count($time_range['range'])-1]);
+                        $res = WPBooking_Order_Model::inst()->get_rp_total_bookings($service_type,$time_range['range'][0],$time_range['range'][count($time_range['range'])-1],$author_id);
                         break;
                     case 'completed':
+                    case 'completed_a_part':
                     case 'on_hold':
                     case 'cancelled':
                     case 'refunded':
-                        $res = WPBooking_Order_Model::inst()->get_rp_items_by_status($service_type,$time_range['range'][0],$time_range['range'][count($time_range['range'])-1],$select);
+                        $res = WPBooking_Order_Model::inst()->get_rp_items_by_status($service_type,$time_range['range'][0],$time_range['range'][count($time_range['range'])-1],$select,$author_id);
                         break;
                 }
             }
@@ -564,13 +566,13 @@ if (!class_exists('WPBooking_Admin_Order')) {
          * @param bool $end_date
          * @return array
          */
-        public function get_total_sale_in_time_range($service_type ,$range, $start_date = false, $end_date = false){
+        public function get_total_sale_in_time_range($service_type ,$range, $start_date = false, $end_date = false , $author_id = false){
             $time_range = $this->get_time_range($range, $start_date, $end_date);
             $res = array();
             if(!empty($time_range['range'])){
                 $res['label'] = $time_range['label'];
                 foreach ($time_range['label'] as $key => $value) {
-                    $res['data'][] = WPBooking_Order_Model::inst()->get_rp_total_sale($service_type ,$time_range['range'][$key],$time_range['range'][$key+1]);
+                    $res['data'][] = WPBooking_Order_Model::inst()->get_rp_total_sale($service_type ,$time_range['range'][$key],$time_range['range'][$key+1],$author_id);
                 }
             }
             $decimal = WPBooking_Currency::get_current_currency('decimal');
@@ -591,12 +593,12 @@ if (!class_exists('WPBooking_Admin_Order')) {
          * @param bool $end_date
          * @return array
          */
-        public function get_net_profit_in_time_range($service_type ,$range, $start_date = false, $end_date = false){
+        public function get_net_profit_in_time_range($service_type ,$range, $start_date = false, $end_date = false , $author_id = false){
             $time_range = $this->get_time_range($range, $start_date, $end_date);
             $res = array();
             if(!empty($time_range['range'])){
                 foreach ($time_range['label'] as $key => $value) {
-                    $res[] = WPBooking_Order_Model::inst()->get_rp_total_net_profit($service_type ,$time_range['range'][$key],$time_range['range'][$key+1]);
+                    $res[] = WPBooking_Order_Model::inst()->get_rp_total_net_profit($service_type ,$time_range['range'][$key],$time_range['range'][$key+1],$author_id);
                 }
             }
             $decimal = WPBooking_Currency::get_current_currency('decimal');
@@ -618,12 +620,12 @@ if (!class_exists('WPBooking_Admin_Order')) {
          * @param bool $end_date
          * @return array
          */
-        public function get_items_booking_by_status($service_type ,$range, $status, $start_date = false, $end_date = false){
+        public function get_items_booking_by_status($service_type ,$range, $status, $start_date = false, $end_date = false , $author_id = false){
             $time_range = $this->get_time_range($range, $start_date, $end_date);
             $res = array();
             if(!empty($time_range['range'])){
                 foreach ($time_range['label'] as $key => $value) {
-                    $res[] = WPBooking_Order_Model::inst()->get_rp_items_by_status($service_type ,$time_range['range'][$key],$time_range['range'][$key+1],$status);
+                    $res[] = WPBooking_Order_Model::inst()->get_rp_items_by_status($service_type ,$time_range['range'][$key],$time_range['range'][$key+1],$status,$author_id);
                 }
             }
             if(!empty($res)){
