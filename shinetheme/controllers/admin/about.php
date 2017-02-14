@@ -129,9 +129,14 @@ if(!class_exists('WPBooking_About')){
          *
          * @since 1.0
          * @author dungdt
+         *
+         * @update 1.0.1
+         * @author quandq
          */
         public function add_dashboard_widgets(){
-            wp_add_dashboard_widget('wpbooking_report',esc_html__('WPBooking Sales Summary','wpbooking'),array($this,'_report_widget_callback'));
+            if(current_user_can('manage_options')){
+                wp_add_dashboard_widget('wpbooking_report',esc_html__('WPBooking Sales Summary','wpbooking'),array($this,'_report_widget_callback'));
+            }
         }
 
         /**

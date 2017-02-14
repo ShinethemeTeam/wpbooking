@@ -19,7 +19,7 @@ if (!class_exists('WPBooking_User')) {
              * @author dungdt
              * @since 1.0
              */
-            add_action('init', array($this, '_login_register_handler'));
+            add_action('init', array($this, '_login_register_handler'),11);
 
 
             /**

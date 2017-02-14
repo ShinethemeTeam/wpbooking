@@ -184,7 +184,7 @@ if (!class_exists('WPBooking_Metabox')) {
                     $res['message']=esc_html__('Please specify Service Type','wpbooking');
                 }
             }
-
+            $res = apply_filters('wpbooking_result_ajax_save_metabox',$res,$metabox[$section]);
             echo json_encode($res);
             wp_die();
 
