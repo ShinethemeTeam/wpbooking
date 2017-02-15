@@ -10,6 +10,8 @@ $map_long = (float) get_post_meta( $post_id, 'map_long', true );
 
 $map_zoom = (int) get_post_meta( $post_id, 'map_zoom', true );
 
+$is_show_map = (int) get_post_meta( $post_id, 'is_show_map', true );
+
 if( !$map_zoom ){ $map_zoom = $data['map_zoom']; }
 
 $class = ' wpbooking-form-group ';
@@ -40,7 +42,11 @@ $field .= '</div></div></div>';
 	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
 </div>
 <div class="st-metabox-right">
-	<?php echo do_shortcode($field); ?>
-	<i class="wpbooking-desc"><?php echo do_shortcode( $data['desc'] ) ?></i>
+    <label><input type="checkbox" class="btn_show_map" <?php if($is_show_map) echo 'checked'; ?> name="is_show_map" value="1"> <?php esc_html_e("Show Map","wpbooking-partner") ?> </label>
+	<div class="content-gmap <?php if(!$is_show_map) echo 'nonex'; ?>">
+        <br>
+        <?php echo do_shortcode($field); ?>
+        <i class="wpbooking-desc"><?php echo do_shortcode( $data['desc'] ) ?></i>
+    </div>
 </div>
 </div>

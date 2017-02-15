@@ -80,6 +80,8 @@ if (!class_exists('WPBooking_Service_Controller')) {
              * @author tienhd
              */
             add_action('wpbooking_after_service_address', array($this,'_latest_booking_html'), 10 ,3);
+
+            add_action('init', array($this, '_load_form_search_shortcodes'));
         }
 
         /**
@@ -533,6 +535,15 @@ if (!class_exists('WPBooking_Service_Controller')) {
             }else{
                 return false;
             }
+        }
+        /**
+         * Load Shortcode
+         *
+         * @since 1.1
+         * @author quandq
+         */
+        function _load_form_search_shortcodes(){
+            WPBooking_Loader::inst()->load_library('shortcodes/form-search');
         }
 
 		static function inst()

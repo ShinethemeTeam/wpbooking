@@ -40,7 +40,8 @@ $autoload['library']=array(
 	'query-inject',
     'service',
     'captcha',
-    'comments'
+    'comments',
+    'tax-meta/tax-meta-class',
 );
 
 $autoload['controller']=array(

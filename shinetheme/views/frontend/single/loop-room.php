@@ -285,7 +285,10 @@ if($diff < 0 )$diff = 0;
                                 if(!is_wp_error($term) and !empty($term->name)){
                                 ?>
                                 <div class="item col-33">
-                                    <input type="checkbox" checked onclick="return false">
+                                    <?php
+                                    $icon = get_tax_meta($term->term_id, 'wpbooking_icon');
+                                    ?>
+                                    <i class="<?php echo wpbooking_handle_icon($icon); ?>"></i>
                                     <?php echo esc_html($term->name) ?>
                                 </div>
                                 <?php

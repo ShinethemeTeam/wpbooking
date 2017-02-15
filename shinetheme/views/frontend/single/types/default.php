@@ -143,8 +143,9 @@ $hotel_id=get_the_ID();
                     <?php
                     foreach($amenities as $val){
                         $amenity = get_term_by('id',$val,'wpbooking_amenity');
+                        $icon = get_tax_meta($amenity->term_id, 'wpbooking_icon');
                         if(!empty($amenity)){
-                            echo '<li><i class="fa fa-check-square-o"></i> &nbsp;'.esc_html($amenity->name).'</li>';
+                            echo '<li><i class="fa fa-check-square-o"></i> &nbsp; <i class="'.wpbooking_handle_icon($icon).'"></i> '.esc_html($amenity->name).'</li>';
                         }
                     }
                     ?>

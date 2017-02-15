@@ -46,7 +46,13 @@ if(!empty($list_tax)){
                                         ?>
 
                                         <div class="term-item ">
-                                                <label><input <?php echo esc_html($checked) ?> name="<?php echo esc_attr($data['id']) ?>[<?php echo esc_attr($data['taxonomy']) ?>][]" value="<?php echo esc_attr($term->term_id) ?>" type="checkbox"><?php echo esc_html($term->name) ?></label>
+                                                <label><input <?php echo esc_html($checked) ?> name="<?php echo esc_attr($data['id']) ?>[<?php echo esc_attr($data['taxonomy']) ?>][]" value="<?php echo esc_attr($term->term_id) ?>" type="checkbox">
+                                                    <?php
+                                                    $icon = get_tax_meta($term->term_id, 'wpbooking_icon');
+                                                    ?>
+                                                    <i class="<?php echo wpbooking_handle_icon($icon); ?>"></i>
+                                                    <?php echo esc_html($term->name) ?>
+                                                </label>
                                             </div>
 
                                         <?php
