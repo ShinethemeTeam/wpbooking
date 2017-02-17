@@ -1056,6 +1056,17 @@ a.label:focus {
 .review-order-item .review-order-item-info .review-order-item-title .people-price-item .head-item,
 .review-order-item .review-order-item-info .review-order-item-title .from-detail .head-item {
   padding-right: 10px;
+}
+.review-order-item .review-order-item-info .review-order-item-title .people-price-item.bold,
+.review-order-item .review-order-item-info .review-order-item-title .from-detail.bold {
+  font-weight: bold;
+}
+.review-order-item .review-order-item-info .review-order-item-title .people-price-item.bold:after,
+.review-order-item .review-order-item-info .review-order-item-title .from-detail.bold:after {
+  background: none !important;
+}
+.review-order-item .review-order-item-info .review-order-item-title .people-price-item.bold .head-item,
+.review-order-item .review-order-item-info .review-order-item-title .from-detail.bold .head-item {
   font-weight: bold;
 }
 @media (max-width: 480px) {
@@ -7059,6 +7070,19 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
   padding: 20px 15px;
   font-size: 14px;
   background: #fafafa;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .btn_extra {
+  color: #f0ad4e;
+  cursor: pointer;
+  font-size: 12px;
+  font-style: italic;
+  text-decoration: underline;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .more-extra {
+  display: none;
+}
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .more-extra label .price {
+  float: right;
 }
 .service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .form-control {
   margin-bottom: 5px;

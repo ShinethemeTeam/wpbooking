@@ -752,7 +752,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'class' => 'small',
                             'min'=>1,
                             'rules'=>'required|integer|greater_than[0]',
-                            'rule_condition'=>'deposit_payment_status:not_empty'
+                            'condition'=>'deposit_payment_status:not()'
                         ),
                         array(
                             'label' => __('How many days in advance can guests cancel free of  charge?', 'wpbooking'),
@@ -2005,11 +2005,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 foreach( $data_rooms as $room_id => $data_room ) {
                     if(!empty($data_room['number_room'])){
                         $extra_service = array();
+                        $extra_service['title'] = esc_html__('Extra Service','wpbooking');
                         $my_extra_services = get_post_meta($room_id,'extra_services',true);
                         if(!empty($data_room['extra_service'])){
                             $post_extras = $data_room['extra_service'];
                             foreach($post_extras as $key=>$value){
-                                $extra_service['title'] = esc_html__('Extra Service','wpbooking');
                                 if(!empty($value['is_check'])){
                                     $price = 0;
                                     if(!empty($my_extra_services[$key]['money'])){

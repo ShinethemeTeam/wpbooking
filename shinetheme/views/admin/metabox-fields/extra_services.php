@@ -14,7 +14,7 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 				<div class="list-extra-services">
 					<?php
 					$old=get_post_meta($post_id,$data['id'],true);
-
+					
 					$extras=(!empty($data['extra_services']))?$data['extra_services']:array();
 					if(!empty($extras)){
 						foreach($extras as $k=>$value){
@@ -30,8 +30,18 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 									$selected_quantity = $old[$k]['quantity'];
 								}
 							}
+
+							$condition = '';
+							$service_types = get_term_meta($k,'service_type');
+							if(!empty($service_types)){
+								foreach($service_types as $k=>$v){
+									$condition .= 'wb_service_type:is('.$v.')';
+								}
+							}
+							if(empty($condition)) $condition = 'wb_service_type:is()';
+
 						?>
-							<div class="extra-item">
+							<div class="extra-item wpbooking-condition" data-condition="<?php echo esc_html($condition) ?>" data-operator="or">
 								<div class="service_detail">
 									<label class="title" ><input type="checkbox" value="<?php echo esc_html($value['title']) ?>" <?php echo esc_attr($checked) ?> name="<?php echo esc_attr($data['id'].'['.esc_attr($k).'][is_selected]') ?>">
 									<?php echo esc_html($value['title']) ?></label>
@@ -65,7 +75,6 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 							</div>
 						<?php
 						}
-
 					}?>
 				</div>
 				<div class="add-new-extra-service">

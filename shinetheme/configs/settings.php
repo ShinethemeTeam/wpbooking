@@ -94,6 +94,16 @@ $config['settings'] = array(
 						'type'  => 'page-select',
 						'id'    => 'myaccount-page'
 					),
+                    array(
+                        'label' => esc_html__('Google Map', 'wpbooking'),
+                        'type'  => 'title'
+                    ),
+                    array(
+                        'id'          => 'google_api_key',
+                        'label'       => __("Google API key", 'wpbooking'),
+                        'type'        => 'text',
+                        'desc'  => sprintf(esc_html__('You can get Google API %s'),'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key">here</a>'),
+                    ),
 				)
 			),
 		),

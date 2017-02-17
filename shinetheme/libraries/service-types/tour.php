@@ -318,8 +318,13 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     break;
                     break;
             }
-
-
+            if(!empty($cart['extra_fees'])){
+                foreach($cart['extra_fees'] as $k=>$v){
+                    foreach($v['data'] as $extra){
+                        $price += $extra['quantity'] * $extra['price'];
+                    }
+                }
+            }
             return $price;
         }
 
@@ -368,6 +373,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
         protected function show_review_tour_info($cart, $is_checkout = true)
         {
 
+
             // Price
             if (!empty($cart['price'])) {
                 printf('<span class="review-order-item-price tour-price">%s</span>', WPBooking_Currency::format_money($cart['price']));
@@ -403,7 +409,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             if (!empty($html)) {
                 echo '<ul class="wb-contact-list">' . $html . '</ul>';
             }
-
+            printf('<div class="people-price-item bold"><span class="head-item">%s</span></div>',esc_html__("Booking Info",'wpbooking'));
             // From
             if (!empty($cart['check_in_timestamp'])) {
                 $from_detail = date_i18n(get_option('date_format'), $cart['check_in_timestamp']);
@@ -443,6 +449,17 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         }
                     }
                     break;
+            }
+
+
+            if(!empty($cart['extra_fees'])){
+                $extra_fees = $cart['extra_fees'];
+                foreach($extra_fees as $k=>$v){
+                    printf('<div class="people-price-item bold"><span class="head-item">%s</span></div>',$v['title']);
+                    foreach($v['data'] as $key=>$value){
+                        printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', $value['title'], $value['quantity'],WPBooking_Currency::format_money($value['price']), WPBooking_Currency::format_money($value['price'] * $value['quantity']));
+                    }
+                }
             }
 
             if ($is_checkout) {
@@ -488,6 +505,46 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             $cart_params['infant_number'] = $this->post('infant_number');
             $cart_params['pricing_type'] = get_post_meta($post_id, 'pricing_type', true);
             $cart_params['duration'] = get_post_meta($post_id, 'duration', true);
+
+            $post_extras = $this->post('wpbooking_extra_service');
+            $extra_service = array();
+            $extra_service['title'] = esc_html__('Extra Service','wpbooking');
+            $my_extra_services = get_post_meta($post_id,'extra_services',true);
+
+            if(!empty($post_extras)){
+                foreach($post_extras as $key=>$value){
+                    $price = 0;
+                    $title= '';
+                    foreach($my_extra_services as $key1 => $value2){
+                        if(sanitize_title($value2['is_selected']) == $key){
+                            $price = $value2['money'];
+                            $title = $value2['is_selected'];
+                        }
+                    }
+                    if($value['quantity'] and $value['quantity']>0) {
+                        $extra_service['data'][$key] = array(
+                            'title'=>$title,
+                            'quantity'=>$value['quantity'],
+                            'price'=>$price
+                        );
+                    }
+                }
+            }
+            // Check require
+            if(!empty($my_extra_services)){
+                foreach($my_extra_services as $key=>$value){
+                    if($value['require'] == 'yes' and empty($extra_service['data'][sanitize_title($value['is_selected'])])){
+                        $extra_service['data'][sanitize_title($value['is_selected'])] = array(
+                            'title'=>$value['is_selected'],
+                            'quantity'=>1,
+                            'price'=>$value['money'],
+                        );
+                    }
+                }
+            }
+            $cart_params['extra_fees'] = array(
+                'extra_service'=>$extra_service
+            );
 
             $cart_params['calendar'] = $this->get_available_data($post_id, $cart_params['check_in_timestamp']);
 
@@ -942,6 +999,27 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'condition' => 'pricing_type:is(per_person)',
                             'rules'     => 'required'
                         ),
+                        array(
+                            'type' => 'close_section'
+                        ),
+                        array('type' => 'open_section'),
+                        array(
+                            'type'  => 'title',
+                            'label' => __('Extra Services', 'wpbooking'),
+                            'desc'  => esc_html__('Set the extended services for your property', 'wpbooking')
+                        ),
+                        array(
+                            'type'           => 'extra_services',
+                            'label'          => __('Choose extra services', 'wpbooking'),
+                            'id'             => 'extra_services',
+                            'extra_services' => $this->get_extra_services(),
+                            'service_type'   => $this->type_id
+                        ),
+                        array(
+                            'type' => 'close_section'
+                        ),
+                        array('type' => 'open_section'),
+
                         array(
                             'label' => __("Availability", 'wpbooking'),
                             'type'  => 'title',

@@ -202,11 +202,16 @@ if (!class_exists('WB_Order')) {
                 $post_author = get_post_field( 'post_author', $cart['post_id'] );
                 $cart['tax']=$tax;
 
+                $extra_fees = array();
+                if(!empty($cart['extra_fees'])){
+                    $extra_fees = $cart['extra_fees'];
+                }
+
                 update_post_meta($order_id, 'post_id', $cart['post_id']);
                 update_post_meta($order_id, 'service_type', $cart['service_type']);
                 update_post_meta($order_id, 'price', $booking->get_total_price_cart_with_tax()); // With Tax (With only Not Excluded Tax)
                 update_post_meta($order_id, 'discount', $cart['discount']);
-                update_post_meta($order_id, 'extra_fees', array());
+                update_post_meta($order_id, 'extra_fees', $extra_fees);
                 update_post_meta($order_id, 'tax',$tax);
                 update_post_meta($order_id, 'tax_total',$tax['tax_total']);
                 update_post_meta($order_id, 'currency', WPBooking_Currency::get_current_currency('currency'));

@@ -1039,7 +1039,16 @@
                 }
                 .head-item{
                     padding-right:10px;
+
+                }
+                &.bold{
                     font-weight: bold;
+                    &:after{
+                        background:none !important;
+                    }
+                    .head-item{
+                        font-weight: bold;
+                    }
                 }
               @media (max-width: 480px) {
                 text-align: left;
@@ -6981,6 +6990,21 @@ body{
         padding: 20px 15px;
         font-size: 14px;
         background: #fafafa;
+          .btn_extra{
+              color: #f0ad4e;
+              cursor: pointer;
+              font-size: 12px;
+              font-style: italic;
+              text-decoration: underline;
+          }
+          .more-extra{
+              display: none;
+              label{
+                  .price{
+                      float: right;
+                  }
+              }
+          }
         .form-control{
           margin-bottom: 5px;
           select.form-control{

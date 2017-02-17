@@ -113,6 +113,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 wpbooking_set_message(__("Sorry! Your cart is currently empty", 'wpbooking'), 'error');
             }
 
+
             $fields = $this->get_billing_form_fields();
             // Validate Form Billing
             $validator = new WPBooking_Form_Validator();
@@ -342,6 +343,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
 
             $is_validate = apply_filters('wpbooking_add_to_cart_validate', $is_validate, $service_type, $post_id,$cart_params);
             $is_validate = apply_filters('wpbooking_add_to_cart_validate_' . $service_type, $is_validate, $service_type, $post_id,$cart_params);
+
 
             if (!$is_validate) {
                 $res['status'] = FALSE;

@@ -243,6 +243,36 @@ $age_options=$service->get_meta('age_options');
                                 </select>
                             </div>
                         </div>
+                        <span class="btn_extra">Extra services</span>
+                        <?php
+                        $extra_service=get_post_meta(get_the_ID(),'extra_services',true);
+                        if(!empty($extra_service)){
+                            foreach($extra_service as $k=>$v) {
+                                $name = sanitize_title($v['is_selected']);
+                                ?>
+                                <div class="form-control more-extra">
+                                    <label class="form-control"><?php echo esc_html( $v[ 'is_selected' ] ) ?>
+                                        <span class="price"><?php echo WPBooking_Currency::format_money( $v[ 'money' ] ); ?></span>
+                                    </label>
+                                    <div class="controls">
+                                        <select class="form-control option_extra_quantity"
+                                                name="wpbooking_extra_service[<?php echo esc_attr( $name ) ?>][quantity]"
+                                                data-price-extra="<?php echo esc_attr( $v[ 'money' ] ) ?>">
+                                            <?php
+                                            $start = 0;
+                                            if($v[ 'require' ] == 'yes')
+                                                $start = 1;
+                                            for( $i = $start ; $i <= $v[ 'quantity' ] ; $i++ ) {
+                                                echo "<option value='{$i}'>{$i}</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        }
+                        ?>
                         <div class="booking-message"></div>
                         <button type="submit" class="wb-button wb-order-button"><?php esc_html_e('Book Now','wpbooking') ?>
                             <i class="fa fa-spinner fa-pulse "></i></button>
@@ -271,7 +301,6 @@ $age_options=$service->get_meta('age_options');
     <?php do_action('wpbooking_after_service_description') ?>
     <div class="service-content-section">
         <h5 class="service-info-title"><?php esc_html_e('Payment Policies', 'wpbooing') ?></h5>
-
         <div class="service-details">
             <?php
             $array = array(
@@ -285,7 +314,6 @@ $age_options=$service->get_meta('age_options');
                 'first_night' => esc_html__('100% of the first night','wpbooking'),
                 'full_stay' => esc_html__('100% of the full stay','wpbooking'),
             );
-
             $deposit_html = array();
             $allow_deposit = '';
             foreach ($array as $key => $val) {

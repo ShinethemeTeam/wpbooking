@@ -446,6 +446,18 @@ jQuery(document).ready(function($){
         }
         return false;
     });
+    $(document).on('click','.wb-tour-form-wrap .btn_extra',function(){
+        var parent=$(this).closest('.wb-tour-form-wrap');
+        var $extra = parent.find('.more-extra');
+        if($extra.hasClass('active')){
+            $extra.removeClass('active');
+            $extra.slideUp();
+        }else{
+            $extra.addClass('active');
+            $extra.slideDown();
+        }
+        return false;
+    });
     /**
      * Do Search Room
      * @param searchbox
