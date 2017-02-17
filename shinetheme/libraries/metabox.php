@@ -184,7 +184,7 @@ if (!class_exists('WPBooking_Metabox')) {
                     $res['message']=esc_html__('Please specify Service Type','wpbooking');
                 }
             }
-
+            $res = apply_filters('wpbooking_result_ajax_save_metabox',$res,$metabox[$section]);
             echo json_encode($res);
             wp_die();
 
@@ -758,10 +758,12 @@ if (!class_exists('WPBooking_Metabox')) {
                 $map_lat = (float)WPBooking_Input::post('map_lat', 0);
                 $map_long = (float)WPBooking_Input::post('map_long', 0);
                 $map_zoom = (int)WPBooking_Input::post('map_zoom', 0);
+                $is_show_map = (int)WPBooking_Input::post('is_show_map', 0);
 
                 update_post_meta($post_id, 'map_lat', $map_lat);
                 update_post_meta($post_id, 'map_long', $map_long);
                 update_post_meta($post_id, 'map_zoom', $map_zoom);
+                update_post_meta($post_id, 'is_show_map', $is_show_map);
             }
 
             return $post_id;

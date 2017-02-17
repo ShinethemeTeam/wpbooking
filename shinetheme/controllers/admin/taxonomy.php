@@ -33,9 +33,75 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 			add_action('wp_ajax_wpbooking_add_term',array($this,'_add_term'));
 
 			add_action('wp_ajax_wpbooking_add_extra_service',array($this,'_ajax_add_extra_service'));
+
+
+
+            $attr_list = $this->get_taxonomies();
+            $attr_list['wpbooking_amenity'] = array();
+            $attr_list['wb_hotel_room_facilities'] = array();
+            if (!empty($attr_list)) {
+                foreach ($attr_list as $key => $value) {
+                    add_filter('manage_edit-' . $key . '_columns', array(
+                        $this,
+                        'product_cat_columns'
+                    ));
+                    add_filter('manage_' . $key . '_custom_column', array(
+                        $this,
+                        'product_cat_column'
+                    ), 10, 3);
+                }
+            }
+            $this->add_meta_field();
+
 		}
+        function add_meta_field()
+        {
+            if (is_admin()) {
+                $attr_list = $this->get_taxonomies();
+                $attr_list['wpbooking_amenity'] = array();
+                $attr_list['wb_hotel_room_facilities'] = array();
+                $pages = array();
+                if (!empty($attr_list)) {
+                    foreach ($attr_list as $key => $value) {
+                        $pages[] = $key;
+                    }
+                }
+                $config = array(
+                    'id' => 'wpbooking_extra_infomation', // meta box id, unique per meta box
+                    'title' => __('Extra Information', 'wpbooking'), // meta box title
+                    'pages' => $pages, // taxonomy name, accept categories, post_tag and custom taxonomies
+                    'context' => 'normal', // where the meta box appear: normal (default), advanced, side; optional
+                    'fields' => array(), // list of meta fields (can be added by field arrays)
+                    'local_images' => false, // Use local or hosted images (meta box images for add/remove)
+                    'use_with_theme' => false //change path if used with theme set to true, false for a plugin or anything else for a custom path(default false).
+                );
+                $my_meta = new Tax_Meta_Class($config);
+                $my_meta->addText('wpbooking_icon', array(
+                    'name' => __('Icon Picker', 'wpbooking'),
+                    'desc' => ''
+                ));
+                $my_meta->Finish();
+            }
+        }
+        function product_cat_columns($columns)
+        {
+            $new_columns         = array();
+            if(!empty($columns['cb'])){
+                $new_columns['cb']   = $columns['cb'];
+                $new_columns['icon'] = __('Icon', 'wpbooking');
 
-
+                unset($columns['cb']);
+            }
+            return array_merge($new_columns, $columns);
+        }
+        function product_cat_column($columns, $column, $id)
+        {
+            if ($column == 'icon') {
+                $icon = get_tax_meta($id, 'wpbooking_icon');
+                $columns .= '<i style="font-size:24px" class="'.wpbooking_handle_icon($icon).'"></i>';
+            }
+            return $columns;
+        }
 		/**
 		 * Ajax create new extra service item for
 		 *

@@ -55,7 +55,12 @@ if( !empty( $value ) ){
                                 <div class="term-item <?php echo ($checked)?'active':false?>">
                                     <label>
                                         <input class="term-checkbox" <?php echo esc_attr($checked) ?> name="<?php echo esc_attr($data['id']) ?>[]"
-                                                  type="checkbox" value="<?php echo esc_attr($term->term_id) ?>"><?php echo esc_html($term->name) ?>
+                                                  type="checkbox" value="<?php echo esc_attr($term->term_id) ?>">
+                                        <?php
+                                        $icon = get_tax_meta($term->term_id, 'wpbooking_icon');
+                                        ?>
+                                        <i class="<?php echo wpbooking_handle_icon($icon); ?>"></i>
+                                        <?php echo esc_html($term->name) ?>
                                     </label>
 
                                 </div>

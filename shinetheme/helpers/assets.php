@@ -26,3 +26,23 @@ if(!function_exists('wpbooking_get_image_size'))
 
 	}
 }
+if(!function_exists('wpbooking_handle_icon'))
+{
+    function wpbooking_handle_icon($string)
+    {
+        if(strpos($string,'im-')===0)
+        {
+            $icon= "im ".$string;
+        }elseif(strpos($string,'fa-')===0)
+        {
+            $icon= "fa ".$string;
+        }elseif(strpos($string,'ion-')===0)
+        {
+            $icon= "ion ".$string;
+        }
+        else{
+            $icon=$string;
+        }
+        return $icon;
+    }
+}

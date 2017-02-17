@@ -2386,6 +2386,9 @@ a.label:focus {
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .modal-content .facilities .sub_title {
   color: #f0ad4e;
 }
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .modal-content .facilities .fa {
+  font-size: 19px;
+}
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .close {
   background: #f7f7f7 none repeat scroll 0 0;
   border: 1px solid #e9e9e9;

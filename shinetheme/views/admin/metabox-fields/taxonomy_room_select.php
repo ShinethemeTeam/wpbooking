@@ -59,7 +59,13 @@ $my_term =wp_get_post_terms($post_id,$data['taxonomy']);
                                 ?>
                                     <div class="wpbooking-row  <?php if(count($list_room) == 1){ echo 'one_room';}?>">
                                         <div class="wpbooking-col-sm-4">
-                                            <label><input class="item_base" <?php echo esc_html($checked) ?> onclick="return false" name="<?php echo esc_attr($data['id']) ?>[<?php echo esc_attr($i) ?>][<?php echo esc_attr($data['taxonomy']) ?>]" value="<?php echo esc_attr($term->term_id) ?>" type="checkbox"><?php echo esc_html($term->name) ?></label>
+                                            <label><input class="item_base" <?php echo esc_html($checked) ?> onclick="return false" name="<?php echo esc_attr($data['id']) ?>[<?php echo esc_attr($i) ?>][<?php echo esc_attr($data['taxonomy']) ?>]" value="<?php echo esc_attr($term->term_id) ?>" type="checkbox">
+                                                <?php
+                                                $icon = get_tax_meta($term->term_id, 'wpbooking_icon');
+                                                ?>
+                                                <i class="<?php echo wpbooking_handle_icon($icon); ?>"></i>
+                                                <?php echo esc_html($term->name) ?>
+                                            </label>
                                         </div>
                                          <?php if(count($list_room) != 1){?>
                                             <div class="wpbooking-col-sm-4 class_item_all">

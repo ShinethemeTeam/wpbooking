@@ -659,7 +659,18 @@ jQuery(document).ready(function( $ ){
     ///////////////////////////
     //////  Gmap    //////////
     ///////////////////////////
-    
+    setTimeout(function () {
+        $('.btn_show_map').trigger('change');
+    },2000);
+    $(document).on('change', '.btn_show_map', function(event) {
+        if ($(this).is(":checked"))
+        {
+            $(this).closest('.wpbooking-form-group').find('.content-gmap').show();
+            load_gmap();
+        }else{
+            $(this).closest('.wpbooking-form-group').find('.content-gmap').hide();
+        }
+    });
     function load_gmap(){
         if(typeof google=='undefined') return;
 
@@ -670,11 +681,8 @@ jQuery(document).ready(function( $ ){
                 var gmap = $('.gmap-content', t);
                 var map_lat = parseFloat( $('input[name="map_lat"]', t).val() );
                 var map_long = parseFloat( $('input[name="map_long"]', t).val() );
-
                 var map_zoom = parseInt( $('input[name="map_zoom"]', t).val() );
-
                 var bt_ot_searchbox = $('input.gmap-search', t);
-
                 var current_marker;
                 var map_options={
                     options:{
@@ -687,7 +695,6 @@ jQuery(document).ready(function( $ ){
                         scrollwheel: true,
                     },
                 };
-
                 if(map_zoom){
                     map_options.options.zoom=map_zoom;
                 }
@@ -707,7 +714,6 @@ jQuery(document).ready(function( $ ){
                 console.log(obj);
                 gmap.gmap3(obj);
                 var gmap_obj = gmap.gmap3('get');
-
                 // Map Click
                 gmap_obj.addListener('click', function(e) {
 
@@ -731,41 +737,15 @@ jQuery(document).ready(function( $ ){
                         }
                     });
                 });
-
-                if(!map_lat || !map_long){
-                     //Try to get current location
-                    /**
-                     * Hide it since 21-10-2016 by Dungdt
-                     */
-                    // if (navigator.geolocation) {
-                    //     navigator.geolocation.getCurrentPosition(function(showPosition){
-                    //         var gmap_obj = gmap.gmap3('get');
-                    //         map_lat=showPosition.coords.latitude;
-                    //         map_long=showPosition.coords.longitude;
-                    //         gmap_obj.setCenter(new google.maps.LatLng(map_lat,map_long));
-                    //         gmap_obj.setZoom(11);
-                    //         $('input[name="map_lat"]', t).val( map_lat );
-                    //         $('input[name="map_long"]', t).val( map_long );
-                    //         $('input[name="map_zoom"]', t).val( 11);
-                    //     });
-                    //
-                    // }
-                }
-
-
                 var geocoder = new google.maps.Geocoder;
-
                 var map_type = "roadmap";
-
                 if( bt_ot_searchbox.length ){
                     var searchBox = new google.maps.places.SearchBox( bt_ot_searchbox[0] );
-
                     google.maps.event.addListener(searchBox, 'places_changed', function() {
                         var places = searchBox.getPlaces();
                         if (places.length == 0) {
                             return;
                         }
-
                         // For each place, get the icon, place name, and location.
                         var bounds = new google.maps.LatLngBounds();
                         for (var i = 0, place; place = places[i]; i++) {
@@ -797,11 +777,8 @@ jQuery(document).ready(function( $ ){
 
                             }
                         }
-
                         gmap_obj.fitBounds(bounds);
-
                     });
-
                 }
                 bt_ot_searchbox.keypress(function(e){
                     if(e.which  == 13)
@@ -809,11 +786,9 @@ jQuery(document).ready(function( $ ){
                         return false; // returning false will prevent the event from bubbling up.
                     }
                 });
-
                 google.maps.event.addListener(gmap_obj, "zoom_changed", function(event) {
                     $('input[name="map_zoom"]', t).val( gmap_obj.getZoom() );
                 });
-
                 $(window).resize(function(){
                     google.maps.event.trigger(gmap_obj, 'resize');
                 });
@@ -864,31 +839,19 @@ jQuery(document).ready(function( $ ){
     $('.wpbooking-list-item-wrapper').on('click', '.btn_list_item_edit', function(event) {
         var parent = $(this).closest('.list-item-head');
         parent.next().stop(true, true).toggleClass('hidden');
-
         var list_item=$(this).closest('.wpbooking-list-item');
         if(parent.next().hasClass('hidden')){
             list_item.removeClass('active');
         }else{
             list_item.addClass('active');
         }
-
-        //if(list_item.hasClass('active')){
-        //    list_item.removeClass('active');
-        //}else{
-        //    wrap.find('.wpbooking-list-item').removeClass('active');
-        //    list_item.addClass('active');
-        //}
-
         event.preventDefault();
-        /* Act on the event */
     });
 
     $('.wpbooking-list-item-wrapper').on('click', '.btn_list_item_del', function(event) {
         var parent = $(this).closest('.wpbooking-list-item');
         parent.remove();
-
         event.preventDefault();
-        /* Act on the event */
     });
 
     
@@ -1001,8 +964,6 @@ jQuery(document).ready(function( $ ){
     });
 
     // Accordion
-    //$('.wpbooking-metabox-accordion').accordion();
-    //$('.wpbooking-accordion-title').click(function(){
     $(document).on('click','.wpbooking-accordion-title',function(){
        if($(this).parent().hasClass('active')){
            $(this).parent().find('.wpbooking-metabox-accordion-content').slideUp('fast');
@@ -1043,14 +1004,12 @@ jQuery(document).ready(function( $ ){
     });
 
     // Next, Prev Button
-    //$('.wb-prev-section').click(function(){
     $(document).on('click','.wb-prev-section',function(){
         var h=$('#st_post_metabox').offset().top;
         $('.st-metabox-nav li.ui-state-active').prev().find('a').trigger('click');
         $('html,body').animate({'scrollTop':parseInt(h)-200});
         return false;
     });
-    //$('.wb-next-section').click(function(){
     $(document).on('click','.wb-next-section',function(){
         t = $(this);
         var next_a,section;
@@ -1161,7 +1120,6 @@ jQuery(document).ready(function( $ ){
         })
     }
     // Ajax Create Term
-   // $('.wb-btn-add-term').click(function(){
     $(document).on('click','.wb-btn-add-term',function(){
 
         var parent=$(this).parent();
@@ -1211,7 +1169,6 @@ jQuery(document).ready(function( $ ){
 
 
     // Add Extra Services
-    //$('.wb-btn-add-extra-service').click(function(){
     $(document).on('click','.wb-btn-add-extra-service',function(){
         var parent=$(this).parent();
         var wrap=$(this).closest('.add-new-extra-service');
@@ -1275,13 +1232,10 @@ jQuery(document).ready(function( $ ){
     // Icon picker
     $('.icp-auto').iconpicker();
 
-
     // Show More Less
-    //$('.cart-item-order-form-fields-wrap .show-more-less').click(function(){
     $(document).on('click','.cart-item-order-form-fields-wrap .show-more-less',function(){
         $(this).parent().toggleClass('active');
     })
-
 
     // Datepicker Field
     $('.wb-date').datepicker();
@@ -1351,6 +1305,11 @@ jQuery(document).ready(function( $ ){
             //container:'body',
             template:'<div class="popover wb-help-popover-el" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
         });
+
+        setTimeout(function () {
+            $('.btn_show_map').trigger('change');
+        },2000);
+
 
         load_gmap();
 
@@ -2175,4 +2134,13 @@ jQuery(document).ready(function( $ ){
     });
 
 
+});
+
+jQuery(document).ready(function($){
+    $('input[name="wpbooking_icon"]').iconpicker({
+        placement: 'topLeft',
+        templates: {
+            popover: '<div class="iconpicker-popover popover" style="width: 275px"><div class="arrow"></div>' + '<div class="popover-title"></div><div class="popover-content"></div></div>',
+        }
+    });
 });

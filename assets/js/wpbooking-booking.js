@@ -1264,18 +1264,13 @@ jQuery(document).ready(function($){
             var last_center=false;
             if( $('.wpbooking-gmap-wrapper').length ){
                 $('.wpbooking-gmap-wrapper').each(function(index, el) {
-
                     var t = $(this);
                     var gmap = $('.gmap-content', t);
                     var map_lat = parseFloat( $('input[name="map_lat"]', t).val() );
                     var map_long = parseFloat( $('input[name="map_long"]', t).val() );
-
                     var map_zoom = parseInt( $('input[name="map_zoom"]', t).val() );
-
                     var bt_ot_searchbox = $('input.gmap-search', t);
-
                     var current_marker;
-
                     var map_options={
                         map:{
                             options:{
@@ -1318,33 +1313,25 @@ jQuery(document).ready(function($){
                                 [map_lat, map_long],
                             ],
                         }
-
                     };
                     if(map_lat && map_long){
                         map_options.map.options.center=[map_lat, map_long];
                         map_options.map.options.zoom=map_zoom;
                     }
                     gmap.gmap3(map_options);
-
                     var gmap_obj = gmap.gmap3('get');
-
                     if(!map_lat || !map_long){
-                        // Try to get current location
                         if (navigator.geolocation) {
                             navigator.geolocation.getCurrentPosition(function(showPosition){
-
                                 var gmap_obj = gmap.gmap3('get');
                                 map_lat=showPosition.coords.latitude;
                                 map_long=showPosition.coords.longitude;
-
                                 last_center=new google.maps.LatLng(map_lat,map_long);
-
                                 gmap_obj.setCenter(last_center);
                                 gmap_obj.setZoom(13);
                                 $('input[name="map_lat"]', t).val( map_lat );
                                 $('input[name="map_long"]', t).val( map_long );
                                 $('input[name="map_zoom"]', t).val( 13);
-
                                 gmap.gmap3({
                                     clear: {
                                         name:["marker"],
@@ -1362,30 +1349,21 @@ jQuery(document).ready(function($){
                                     }
                                 });
                             });
-
                         }
                     }
-
-
                     var geocoder = new google.maps.Geocoder;
-
                     var map_type = "roadmap";
-
                     if( bt_ot_searchbox.length ){
                         var searchBox = new google.maps.places.SearchBox( bt_ot_searchbox[0] );
-
                         google.maps.event.addListener(searchBox, 'places_changed', function() {
                             var places = searchBox.getPlaces();
                             if (places.length == 0) {
                                 return;
                             }
-
                             // For each place, get the icon, place name, and location.
                             var bounds = new google.maps.LatLngBounds();
                             for (var i = 0, place; place = places[i]; i++) {
-
                                 bounds.extend(place.geometry.location);
-
                                 if(i == 0){
 
                                     gmap.gmap3({
@@ -1411,17 +1389,12 @@ jQuery(document).ready(function($){
 
                                 }
                             }
-
                             //gmap_obj.fitBounds(bounds);
-
                         });
-
                     }
-
                     google.maps.event.addListener(gmap_obj, "zoom_changed", function(event) {
                         $('input[name="map_zoom"]', t).val( gmap_obj.getZoom() );
                     });
-
                     $(window).resize(function(){
                         google.maps.event.trigger(gmap_obj, 'resize');
                         if(last_center){
@@ -1431,7 +1404,6 @@ jQuery(document).ready(function($){
                 });
             }
         }
-
         load_gmap();
     });
 
