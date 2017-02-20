@@ -24,7 +24,7 @@ $jsonData = json_decode($data);
 
         <div class="control">
             <div class="desc">
-                <p><?php echo wp_kses(__('These extensions <strong>add functionality</strong> to your WPBooking powered store.','wpbooking'),array('strong' => array()))?></p>
+                <p><?php echo wp_kses(__('These extensions <strong>add functionality</strong> to your powered WPBooking store.','wpbooking'),array('strong' => array()))?></p>
             </div>
             <div class="all-extension">
                 <a href="<?php echo esc_url('https://wpbooking.org/?post_type=download&s=&no_scroll');?>" target="_blank" class="button button-primary"><?php echo esc_html__('Browse all extensions','wpbooking'); ?></a>
@@ -39,7 +39,7 @@ $jsonData = json_decode($data);
                     <h3 class="title"><?php echo esc_html__('Search','wpbooking'); ?></h3>
                     <div class="box-content">
                         <form class="search-extensions" method="get" action="">
-                            <p><?php echo esc_html__('Find an extensions','wpbooking');?></p>
+                            <p><?php echo esc_html__('Find an extension','wpbooking');?></p>
                             <input type="text" name="s" value="" class="search-field" placeholder="<?php echo esc_html__('Type to search','wpbooking')?>" />
                             <input type="submit" name="submit" class="wb-search-extension" value="<?php echo esc_html__('Search','wpbooking')?>" />
                         </form>

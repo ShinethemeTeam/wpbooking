@@ -39,7 +39,7 @@ if (!class_exists('WPBooking_User_Email_Field')) {
 						"title"            => __("Name", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'value'            => "user_email",
-						"desc"             => __("This is default attribute, you can not change it", 'wpbooking'),
+						"desc"             => __("This is default attribute, you cannot change ", 'wpbooking'),
 					),
 					array(
 						"type"             => "text",

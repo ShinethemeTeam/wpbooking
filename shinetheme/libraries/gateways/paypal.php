@@ -145,7 +145,7 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 
                         ?>
                         <a class="wb-btn wb-btn-blue wb-btn-md" href="<?php echo esc_url($response->getRedirectUrl())   ?>"><?php esc_html_e('Pay Now','wpbooking') ?></a>
-                        <p class="mgt-10"><?php esc_html_e('You will be redirect to PayPal.com to complete the payment','wpbooking') ?></p>
+                        <p class="mgt-10"><?php esc_html_e('You will be redirected to PayPal.com to complete the payment','wpbooking') ?></p>
                         <?php
                     }else{
                         wpbooking_set_message(esc_html__('Paypal Error:','wpbooking').' '.$response->getMessage(),'error');
@@ -162,14 +162,14 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 			if ($this->is_test_mode()) {
 				if(!$this->get_option('test_api_username') or !$this->get_option('test_api_password') or !$this->get_option('test_api_signature') )
 				{
-					wpbooking_set_message(__('Test PayPal API is not correctly! Please check with the Admin','wpbooking'),'error');
+					wpbooking_set_message(__('Test PayPal API is incorrect! Please check with the Admin','wpbooking'),'error');
 					return FALSE;
 				}
 			}else{
 
 				if(!$this->get_option('api_username') or !$this->get_option('api_password') or !$this->get_option('api_signature') )
 				{
-					wpbooking_set_message(__('PayPal API is not correctly! Please check with the Admin','wpbooking'),'error');
+					wpbooking_set_message(__('PayPal API is incorrect! Please check with the Admin','wpbooking'),'error');
 					return FALSE;
 				}
 			}

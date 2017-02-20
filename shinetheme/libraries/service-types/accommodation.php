@@ -16,7 +16,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         {
             $this->type_info = array(
                 'label' => __("Accommodation", 'wpbooking'),
-                'desc'  => esc_html__('You can post any kind of property like hotel, hostel, room like airbnb... anything called accommodation', 'wpbooking')
+                'desc'  => esc_html__('You can post any kind of property like hotels, hostels, room like airbnb... anything  is called accommodation', 'wpbooking')
             );
 
             $this->settings = array(
@@ -524,11 +524,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'id'    => 'star_rating',
                             'label' => __("Star Rating", 'wpbooking'),
                             'type'  => 'star-select',
-                            'desc'  => esc_html__('Standard of property from 1 to 5 star.', 'wpbooking'),
+                            'desc'  => esc_html__('Standard of property from 1 to 5 stars', 'wpbooking'),
                             'class' => 'small'
                         ),
                         array(
-                            'label'        => __('Contact Number', 'wpbooking'),
+                            'label'        => __('Contact Phone Number', 'wpbooking'),
                             'id'           => 'contact_number',
                             'desc'         => esc_html__('The contact phone', 'wpbooking'),
                             'type'         => 'number',
@@ -571,10 +571,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             )
                         ),
                         array(
-                            'label' => __('Map Lat & Long', 'wpbooking'),
+                            'label' => __('Map’s Latitude & Longitude', 'wpbooking'),
                             'id'    => 'gmap',
                             'type'  => 'gmap',
-                            'desc'  => esc_html__('This is the location we will provide guests. Click to move the marker if you need to move it', 'wpbooking')
+                            'desc'  => esc_html__('This is the location we will provide for guests. Click to move the marker if you need to move it', 'wpbooking')
                         ),
                         array(
                             'type'    => 'desc_section',
@@ -600,15 +600,15 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'desc'  => esc_html__('Time to check in, out in your property', 'wpbooking')
                         ),
                         array(
-                            'label'  => esc_html__('Check In time', 'wpbooking'),
-                            'desc'   => esc_html__('Check In time', 'wpbooking'),
+                            'label'  => esc_html__('Time for Check In ', 'wpbooking'),
+                            'desc'   => esc_html__('Time for Check In ', 'wpbooking'),
                             'type'   => 'check_in',
                             'id'     => 'check_in',
                             'fields' => array('checkin_from', 'checkin_to'),// Fields to save
                         ),
                         array(
-                            'label'  => esc_html__('Check Out time', 'wpbooking'),
-                            'desc'   => esc_html__('Check Out time', 'wpbooking'),
+                            'label'  => esc_html__('Time for Check Out', 'wpbooking'),
+                            'desc'   => esc_html__('Time for Check Out', 'wpbooking'),
                             'type'   => 'check_out',
                             'id'     => 'check_out',
                             'fields' => array('checkout_from', 'checkout_to'),// Fields to save
@@ -666,7 +666,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         array(
                             'label' => __("Space", 'wpbooking'),
                             'type'  => 'title',
-                            'desc'  => esc_html__("We display size guest room", "wpbooking")
+                            'desc'  => esc_html__("We display the size of guest room", "wpbooking")
                         ),
                         array(
                             'label' => __('What is your preferred  unit of measurement?', 'wpbooking'),
@@ -678,7 +678,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             ),
                             'std'   => 'metres',
                             'class' => 'radio_pro',
-                            'desc'  => esc_html__("Select the preferred unit of measure your", "wpbooking")
+                            'desc'  => esc_html__("Select the preferred unit of your measurement", "wpbooking")
                         ),
                         array(
                             'label'  => __('Room size', 'wpbooking'),
@@ -718,7 +718,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         array(
                             'label' => __("Payment information", 'wpbooking'),
                             'type'  => 'title',
-                            'desc'  => esc_html__("Specify the payment methods you accept at your accommodation as payment for the stay", "wpbooking")
+                            'desc'  => esc_html__("Specify the methods of payment you accept at your accommodation as payment for staying", "wpbooking")
                         ),
                         array(
                             'label' => __('We are accepted:', 'wpbooking'),
@@ -733,7 +733,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'desc'  => esc_html__("Pre-payment and cancellation policies", "wpbooking")
                         ),
                         array(
-                            'label' => __('Select deposit optional', 'wpbooking'),
+                            'label' => __('Select optional deposit ', 'wpbooking'),
                             'id'    => 'deposit_payment_status',
                             'type'  => 'dropdown',
                             'value' => array(
@@ -821,7 +821,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         array(
                             'label' => __("Term & condition", 'wpbooking'),
                             'type'  => 'title',
-                            'desc'  => esc_html__("Setting terms and condition for your property", "wpbooking")
+                            'desc'  => esc_html__("Set terms and conditions for your property", "wpbooking")
                         ),
                         array(
                             'label' => __('Minimum Stay', 'wpbooking'),
@@ -887,7 +887,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'id'    => 'gallery',
                             'type'  => 'gallery_hotel',
                             'rules'=>'array_key_required[gallery]',
-                            'error_message' => esc_html__('You must upload minimum one photo for your accommodation','wpbooking'),
+                            'error_message' => esc_html__('You must upload one minimum photo for your accommodation','wpbooking'),
                             'desc'  => __('Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wpbooking')
                         ),
                         array('type' => 'close_section'),
@@ -969,7 +969,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'taxonomy' => 'wb_hotel_room_type',
                     'parent'   => 0,
                     'class'    => 'small',
-                    'desc'  => __("Based on the amenities of room, select one type most accurate", 'wpbooking'),
+                    'desc'  => __("Based on the amenities of room, select one most accurate type", 'wpbooking'),
                 ),
                 array(
                     'label' => esc_html__('Room Number', 'wpbooking'),
@@ -1043,7 +1043,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 array(
                     'label' => __("Price Settings", 'wpbooking'),
                     'type'  => 'title',
-                    'desc'  => esc_html__('You can setting price for room', 'wpbooking')
+                    'desc'  => esc_html__('You can set price for room', 'wpbooking')
                 ),
                 array(
                     'id'   => 'calendar',
@@ -1081,7 +1081,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 } else {
                     $hotel = get_post($hotel_id);
                     if (!$hotel) {
-                        $res['message'] = esc_html__('Property is not exists', 'wpbooking');
+                        $res['message'] = esc_html__('Property does not exist', 'wpbooking');
                         echo json_encode($res);
                         die;
                     }
@@ -1105,7 +1105,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 ));
 
                 if (is_wp_error($room_id)) {
-                    $res['message'] = esc_html__('Can not create room, please check again', 'wpbooking');
+                    $res['message'] = esc_html__('Room cannot created, please check again', 'wpbooking');
                     echo json_encode($res);
                     die;
                 }
@@ -1360,7 +1360,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $result = array(
                         'status'  => 0,
                         'data'    => '',
-                        'message' => __('Our system is not found any room from your searching. You can change search now.', 'wpbooking'),
+                        'message' => __('Our system does not find any rooms from your searching. You can change search feature now.', 'wpbooking'),
                         'status_message' => 'default',
                     );
                     echo json_encode($result);
@@ -2118,13 +2118,13 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                 $is_validated = FALSE;
                                 // If there are some day not available, return the message
                                 if (!empty($res['can_not_check_in'])) {
-                                    wpbooking_set_message(sprintf("You can not check-in at: %s", 'wpbooking'), date(get_option('date_format'), $check_in_timestamp));
+                                    wpbooking_set_message(sprintf("You cannot check-in at: %s", 'wpbooking'), date(get_option('date_format'), $check_in_timestamp));
                                 }
                                 if (!empty($res['can_not_check_out'])) {
-                                    wpbooking_set_message(sprintf("You can not check-out at: %s", 'wpbooking'), date(get_option('date_format'), $check_out_timestamp));
+                                    wpbooking_set_message(sprintf("You cannot check-out at: %s", 'wpbooking'), date(get_option('date_format'), $check_out_timestamp));
                                 }
                                 if (!empty($res['unavailable_dates'])) {
-                                    $message = esc_html__('You can not book "%s" on: %s', 'wpbooking');
+                                    $message = esc_html__('You cannot book "%s" on: %s', 'wpbooking');
                                     $not_avai_string = FALSE;
                                     $not_avai_string .= date(get_option('date_format'), $res['unavailable_dates']);
                                     wpbooking_set_message(sprintf($message, get_the_title($room_id) , $not_avai_string), 'error');
@@ -2146,8 +2146,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             $is_validated = FALSE;
                             $message = '';
                             foreach($ids_room_not_availability as $k_not_availability=>$value_not_availability){
-                                //$message .= sprintf(esc_html__('Bạn không thể book. Room Type "%s" chỉ còn %s phòng trống!', 'wpbooking','error'), $value_not_availability['title'], $value_not_availability['number'])."</br>";
-                                $message = esc_html__("Number of room you booking is not enough, please change your search.","wpbooking");
+                                $message = esc_html__("Number of rooms you booked is not enough, please change your search.","wpbooking");
                             }
                             wpbooking_set_message($message, 'error');
                             return $is_validated;
@@ -2215,7 +2214,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $adult = $this->post('wpbooking_adults');
             if($total_number_room > $adult){
                 $is_validated = FALSE;
-                $message = esc_html__('Number of rooms bookable can not more than number of adults.', 'wpbooking');
+                $message = esc_html__('Number of bookable rooms cannot be more than number of adults.', 'wpbooking');
                 wpbooking_set_message($message, 'error');
                 return $is_validated;
             }
@@ -2234,7 +2233,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 }
 
                 if($check_out_timestamp < $check_in_timestamp){
-                    wpbooking_set_message(esc_html__("Day after day check out to check in","wpbooking"),'error');
+                    wpbooking_set_message(esc_html__("The day after check out day to check in","wpbooking"),'error');
                     $is_validated = FALSE;
                     return $is_validated;
                 }
@@ -2260,13 +2259,13 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             $is_validated = FALSE;
                             // If there are some day not available, return the message
                             if (!empty($res['can_not_check_in'])) {
-                                wpbooking_set_message(sprintf(esc_html__("You can not check-in at: %s", 'wpbooking'), date_i18n(get_option('date_format'), $check_in_timestamp)),'error');
+                                wpbooking_set_message(sprintf(esc_html__("You cannot check-in at: %s", 'wpbooking'), date_i18n(get_option('date_format'), $check_in_timestamp)),'error');
                             }
                             if (!empty($res['can_not_check_out'])) {
-                                wpbooking_set_message(sprintf(esc_html__("You can not check-out at: %s", 'wpbooking'), date_i18n(get_option('date_format'), $check_out_timestamp)),'error');
+                                wpbooking_set_message(sprintf(esc_html__("You cannot check-out at: %s", 'wpbooking'), date_i18n(get_option('date_format'), $check_out_timestamp)),'error');
                             }
                             if (!empty($res['unavailable_dates'])) {
-                                $message = esc_html__('You can not book "%s" on: %s', 'wpbooking');
+                                $message = esc_html__('You cannot book "%s" on: %s', 'wpbooking');
                                 $not_avai_string = FALSE;
                                 $not_avai_string .= date_i18n(get_option('date_format'), $res['unavailable_dates']);
                                 wpbooking_set_message(sprintf($message, get_the_title($room_id) , $not_avai_string), 'error');
@@ -2288,8 +2287,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         $is_validated = FALSE;
                         $message = '';
                         foreach($ids_room_not_availability as $k_not_availability=>$value_not_availability){
-                            //$message .= sprintf(esc_html__('Bạn không thể book. Room Type "%s" chỉ còn %s phòng trống!', 'wpbooking','error'), $value_not_availability['title'], $value_not_availability['number'])."</br>";
-                            $message = esc_html__("Number of room you booking is not enough, please change your search.","wpbooking");
+                            $message = esc_html__("Number of rooms you booked is not enough, please change your search.","wpbooking");
                         }
                         wpbooking_set_message($message, 'error');
                         return $is_validated;

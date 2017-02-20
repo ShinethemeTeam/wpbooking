@@ -8,23 +8,23 @@
 
 $config['order_status'] = array(
     'on_hold'        => array(
-        'label' => esc_html__('On Hold', 'wpbooking'),
+        'label' => esc_html__('On Holding', 'wpbooking'),
         'desc'  => esc_html__('Waiting for Payment', 'wpbooking'),
     ),
     'payment_failed' => array(
-        'label' => esc_html__('Payment Failed', 'wpbooking'),
-        'desc'  => esc_html__('Payment Failed because of Gateway Problem or Wrong API data of Gateway', 'wpbooking'),
+        'label' => esc_html__('Failed payment ', 'wpbooking'),
+        'desc'  => esc_html__('Failed payment because of Gateway’s problems or Wrong API data of Gateway', 'wpbooking'),
     ),
     'completed'      => array(
         'label' => esc_html__('Completed', 'wpbooking'),
     ),
     'completed_a_part'      => array(
-        'label' => esc_html__('Completed a Part', 'wpbooking'),
-        'desc'  => esc_html__('Completed with deposit payment', 'wpbooking'),
+        'label' => esc_html__('Completing a Part', 'wpbooking'),
+        'desc'  => esc_html__('Completing with deposit payment', 'wpbooking'),
     ),
     'cancelled'      => array(
         'label' => esc_html__('Cancelled', 'wpbooking'),
-        'desc'  => esc_html__('Customer or Admin cancel the booking', 'wpbooking'),
+        'desc'  => esc_html__('Customer or Admin cancels the booking', 'wpbooking'),
     ),
     'refunded'       => array(
         'label' => esc_html__('Refunded', 'wpbooking'),
@@ -43,7 +43,7 @@ $config['order_status'] = array(
  * @author dungdt
  */
 $config['breakfast_types'] = array(
-    'continental'        => esc_html__('Continental', 'wpbooking'),
+    'continental'        => esc_html__('Continent', 'wpbooking'),
     'italian'            => esc_html__('Italian', 'wpbooking'),
     'full_english_irish' => esc_html__('Full English/Irish', 'wpbooking'),
     'vegetarian'         => esc_html__('Vegetarian', 'wpbooking'),
@@ -134,7 +134,7 @@ $config['lang_spoken_by_staff'] = array(
 $config['smoking_policy'] = array(
     "non-smoking" => esc_html__("Non-smoking", 'wpbooking'),
     "smoking"     => esc_html__("Smoking", 'wpbooking'),
-    'both'        => esc_html__('I have both smoking and non-smoking options for this room type', 'wpbooking')
+    'both'        => esc_html__('I have both smoking and non-smoking options for this type of room', 'wpbooking')
 );
 
 /**
@@ -144,10 +144,10 @@ $config['smoking_policy'] = array(
  * @author dungdt
  */
 $config['bed_type'] = array(
-    "single-bed" => esc_html__("Single bed   /  90-130 cm wide", 'wpbooking'),
-    "double-bed" => esc_html__("Double bed  /  131-150 cm wide", 'wpbooking'),
-    "large-bed" => esc_html__("Large bed (King size) / 151-180 cm wide", 'wpbooking'),
-    "extra-large-bed" => esc_html__("Extra-large double bed (Super-king size) / 181-210 cm wide", 'wpbooking'),
+    "single-bed" => esc_html__("Single bed   /  90-130 cm of width", 'wpbooking'),
+    "double-bed" => esc_html__("Double bed  /  131-150 cm of width", 'wpbooking'),
+    "large-bed" => esc_html__("Large bed (King size) / 151-180 cm of width", 'wpbooking'),
+    "extra-large-bed" => esc_html__("Extra-large double bed (Super-king size) / 181-210 cm of width", 'wpbooking'),
     "bunk-bed" => esc_html__("Bunk bed / Variable Size", 'wpbooking'),
     "sofa-bed" => esc_html__("Sofa bed / Variable Size", 'wpbooking'),
     "futon-mat" => esc_html__("Futon Mat / Variable Size", 'wpbooking'),

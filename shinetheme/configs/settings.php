@@ -23,7 +23,7 @@ $config['settings'] = array(
 							array(
 								'id'    => 'symbol',
 								'label' => __('Symbol', 'wpbooking'),
-								'desc'  => __('Symbol of currency. Example: $', 'wpbooking'),
+								'desc'  => __('Symbol of currency. For example: $', 'wpbooking'),
 								'type'  => 'text',
 								'std'   => ''
 							),
@@ -124,7 +124,7 @@ $config['settings'] = array(
 
 					array(
 						'id'    => 'allow_guest_checkout',
-						'label' => __("Allow Guest Checkout?", 'wpbooking'),
+						'label' => __("Allow Guest to Checkout?", 'wpbooking'),
 						'type'  => 'checkbox',
 					),
                     array(
@@ -133,7 +133,7 @@ $config['settings'] = array(
                     ),
                     array(
                         'id'    => 'allow_captcha_google_checkout',
-                        'label' => __("Allow Captcha Google Checkout?", 'wpbooking'),
+                        'label' => __("Allow Captcha Google to be Checked out?", 'wpbooking'),
                         'type'  => 'checkbox',
                     ),
                     array(
@@ -175,7 +175,7 @@ $config['settings'] = array(
 					),
 					array(
 						'id'          => 'system_email',
-						'label'       => __("System Email to get Booking, Registration Notification...etc", 'wpbooking'),
+						'label'       => __("Email  System to get Booking, Registration Notifications...etc", 'wpbooking'),
 						'type'        => 'text',
 						'placeholder' => 'system@domain.com'
 					),
@@ -200,7 +200,7 @@ $config['settings'] = array(
 						'id'    => 'email_stylesheet',
 						'label' => __("Email CSS Code", 'wpbooking'),
 						'type'  => 'ace-editor',
-						'desc'  => esc_html__('We will use this to transmogrifies your Email HTML by parsing the CSS and inserting the CSS definitions into tags within your Email HTML based on the CSS selectors'),
+						'desc'  => esc_html__('We will use this to transmogrify your Email HTML by parsing the CSS and inserting the CSS definitions into tags within your Email HTML based on the CSS selectors'),
 					),
 				)
 			),

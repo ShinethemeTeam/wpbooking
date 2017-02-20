@@ -69,10 +69,10 @@ if(!$wp_query->have_posts()) return;
                 <a class="wb-btn wb-btn-list <?php echo ($layout == 'list'?'active':'')?>" href="<?php echo esc_url($list_url); ?>"><i class="fa fa-list"></i></a>
                 <?php
 				$sortby=array(
-					'date_asc'=>esc_html__('Date ASC','wpbooking'),
-					'date_desc'=>esc_html__('Date DESC','wpbooking'),
-					'price_asc'=>esc_html__('Price ASC','wpbooking'),
-					'price_desc'=>esc_html__('Price DESC','wpbooking'),
+					'date_asc'=>esc_html__('ASC Date ','wpbooking'),
+					'date_desc'=>esc_html__('DESC Date','wpbooking'),
+					'price_asc'=>esc_html__('ASC Price ','wpbooking'),
+					'price_desc'=>esc_html__('DESC Price','wpbooking'),
 				);
                 apply_filters('wpbooking_filter_list_sortby', $sortby, $service_type);
                 if(WPBooking_Input::get('service_type')){

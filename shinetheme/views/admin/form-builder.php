@@ -182,7 +182,7 @@ $form_id = WPBooking_Input::request('form_builder_id');
                                 }
                                 ?>
                             </select>
-                            <i class="desc"><?php _e("Select shortcode and configs",'wpbooking') ?></i>
+                            <i class="desc"><?php _e("Select shortcodes and configurations",'wpbooking') ?></i>
                         </div>
                         <div class="control-hidden hidden" >
                             <?php

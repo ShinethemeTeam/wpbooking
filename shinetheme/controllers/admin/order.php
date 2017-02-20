@@ -254,7 +254,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
 		{
 			?>
 			<div class="notice notice-success is-dismissible">
-				<p><?php esc_html_e('Email Resend Success!', 'wpbooking'); ?></p>
+				<p><?php esc_html_e('Email is resent successfully', 'wpbooking'); ?></p>
 			</div>
 			<?php
 		}
@@ -322,11 +322,11 @@ if (!class_exists('WPBooking_Admin_Order')) {
 				'new_item'           => __('New Booking', 'your-plugin-textdomain'),
 				'edit_item'          => __('Edit Booking', 'wpbooking'),
 				'view_item'          => __('View Booking', 'wpbooking'),
-				'all_items'          => __('All Booking', 'wpbooking'),
-				'search_items'       => __('Search Booking', 'wpbooking'),
+				'all_items'          => __('All Bookings', 'wpbooking'),
+				'search_items'       => __('Search for Booking', 'wpbooking'),
 				'parent_item_colon'  => __('Parent Booking:', 'wpbooking'),
-				'not_found'          => __('No Booking found.', 'wpbooking'),
-				'not_found_in_trash' => __('No Booking found in Trash.', 'wpbooking')
+				'not_found'          => __('Not found Booking.', 'wpbooking'),
+				'not_found_in_trash' => __('Not found Booking in Trash.', 'wpbooking')
 			);
 
 			$args = array(

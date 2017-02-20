@@ -9,11 +9,11 @@
                 <tbody>
                 <tr class="">
                     <th scope="row">
-                        <label for=""><?php esc_html_e("Allow Guest Checkout?","wpbooking") ?>:</label>
+                        <label for=""><?php esc_html_e("Allow Guest to Checkout?","wpbooking") ?>:</label>
                     </th>
                     <td>
                         <input type="checkbox" value="1" name="wpbooking_allow_guest_checkout" class="form-control min-width-500" id="wpbooking_allow_guest_checkout">
-                       <?php esc_html_e(" Allow Guest Checkout?","wpbooking") ?>
+                       <?php esc_html_e("Allow Guest to Checkout?","wpbooking") ?>
                     </td>
                 </tr>
                 <tr class="wpbooking_">
@@ -23,12 +23,12 @@
                 </tr>
                 <tr class="wpbooking_allow_captcha_google_checkout wpbooking-form-group  ">
                     <th scope="row">
-                        <label for="allow_captcha_google_checkout"><?php esc_html_e("Allow Captcha Google Checkout?:","wpbooking") ?></label>
+                        <label for="allow_captcha_google_checkout"><?php esc_html_e("Allow Captcha Google to be Checked out?:","wpbooking") ?></label>
                     </th>
                     <td>
                         <label>
                             <input id="wpbooking_allow_captcha_google_checkout" class="form-control min-width-500" name="wpbooking_allow_captcha_google_checkout" value="1" type="checkbox">
-                            <?php esc_html_e("Allow Captcha Google Checkout?","wpbooking") ?>
+                            <?php esc_html_e("Allow Captcha Google to be Checked out?","wpbooking") ?>
                         </label>
                         <i class="wpbooking-desc"></i>
                     </td>

@@ -52,7 +52,7 @@ if(!$allow_guest_checkout and !is_user_logged_in()){
                     </div>
                     <div class="col-md-5">
                         <?php echo wpbooking_load_view('checkout/cart-total-box') ?>
-                        <h5 class="checkout-form-title"><?php esc_html_e('Payment Method', 'wpbooking') ?></h5>
+                        <h5 class="checkout-form-title"><?php esc_html_e('Method of Payment', 'wpbooking') ?></h5>
                         <div class="wpbooking-gateways">
                             <?php echo wpbooking_load_view('checkout/gateways') ?>
                         </div>
@@ -65,7 +65,7 @@ if(!$allow_guest_checkout and !is_user_logged_in()){
                                 <?php
                                 $page_term_condition = wpbooking_get_option('term-page');
                                 $link = '<a class="term_condition" href="'.esc_url(get_permalink($page_term_condition)).'">'.esc_attr__("terms and conditions").'</a>';
-                                printf(esc_html__(" I have read and accept the %s","wpbooking"),$link);
+                                printf(esc_html__("I have read and accepted the %s","wpbooking"),$link);
                                 ?>
                             </label>
                         </div>

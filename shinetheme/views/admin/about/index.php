@@ -16,7 +16,7 @@ $tabs = array(
     ),
     array(
         'id' => 'functionality',
-        'name' => esc_html__('Get even more functionality','wpbooking'),
+        'name' => esc_html__('Get even more functionalities','wpbooking'),
         'url' => $extension_url
     ),
 );

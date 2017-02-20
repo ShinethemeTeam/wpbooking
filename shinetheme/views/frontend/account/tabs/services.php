@@ -74,7 +74,7 @@ $types = WPBooking_Service_Controller::inst()->get_service_types();
 				<?php
 			}
 		} else {
-			printf('<div class="alert alert-danger">%s</div>', esc_html__('No Service(s) Found', 'wpbooking'));
+			printf('<div class="alert alert-danger">%s</div>', esc_html__('Not Found Service(s)', 'wpbooking'));
 		}
 
 

@@ -69,7 +69,7 @@ $query=new WP_Query($args);
 		<?php } ?>
 		<div class="alignleft actions">
 			<select name="order_service_type" class="postform">
-                <option value=""><?php esc_html_e('All Service Types','wpbooking') ?></option>
+                <option value=""><?php esc_html_e('All Types of Service','wpbooking') ?></option>
                 <?php
                 $types = WPBooking_Service_Controller::inst()->get_service_types();
                 foreach($types as $k=>$v){
@@ -77,7 +77,7 @@ $query=new WP_Query($args);
                 } ?>
 			</select>
 			<select name="status" class="postform">
-                <option value=""><?php esc_html_e('All Status','wpbooking') ?></option>
+                <option value=""><?php esc_html_e('All Statuses','wpbooking') ?></option>
                 <?php
                 $status = WPBooking_Config::inst()->item('order_status');
                 if(!empty($status) && is_array($status)) {
@@ -90,7 +90,7 @@ $query=new WP_Query($args);
             wpbooking_get_months_dropdown_html('wpbooking_order');
             ?>
             <select name="payment_method" class="postform">
-                <option value=""><?php esc_html_e('All Payment Method','wpbooking') ?></option>
+                <option value=""><?php esc_html_e('All Methods of Payment','wpbooking') ?></option>
                 <?php
                 $getaway = WPBooking_Payment_Gateways::inst()->get_gateways();
 
@@ -121,7 +121,7 @@ $query=new WP_Query($args);
 				</th>
 				<th class="manage-column column-id sortable">
                     <p class="id"><?php esc_html_e('ID','wpbooking') ?></p>
-                    <p class="status"><?php esc_html_e('Status - Payment Method','wpbooking') ?></p>
+                    <p class="status"><?php esc_html_e('Status – Method of Payment','wpbooking') ?></p>
                     <p class="customer"><?php esc_html_e('Customer Information','wpbooking') ?></p>
                 </th>
 				<th class="manage-column column-primary"> <span class="wb-left-label"><?php esc_html_e('Booking Information','wpbooking') ?></span><span class="wb-right-label"><?php echo esc_html__('Total (Deposit/Remain) ','wpbooking').'('.WPBooking_Currency::get_current_currency('currency').')'?></span></th>
@@ -173,13 +173,10 @@ $query=new WP_Query($args);
                                 ?>
                             </div>
 							<div class="wb-row-actions none">
-<!--								<span class="on_hold"><a href="--><?php //echo esc_url($url_edit)  ?><!--" title="--><?php //esc_html_e('View this item','wpbooking')?><!--">--><?php //esc_html_e('On Hold','wpbooking')?><!--</a> </span>-->
 								<span class="complete"><a href="<?php echo esc_url($url_complete)  ?>" title="<?php esc_html_e('Complete this item','wpbooking')?>"><?php esc_html_e('Complete','wpbooking')?></a> </span>
-<!--								<span class="cancel"><a href="--><?php //echo esc_url($url_cancel)  ?><!--" title="--><?php //esc_html_e('Cancel this item','wpbooking')?><!--">--><?php //esc_html_e('Cancel','wpbooking')?><!--</a> </span>-->
-<!--								<span class="refund"><a href="--><?php //echo esc_url($url_refund)  ?><!--" title="--><?php //esc_html_e('Refund this item','wpbooking')?><!--">--><?php //esc_html_e('Refund','wpbooking')?><!--</a> </span>-->
-								<span class="move_trash trash"><a href="<?php echo add_query_arg(array('action'=>'trash','wpbooking_apply_changes'=>'1','wpbooking_order_item'=>array(get_the_ID()))) ?>" onclick="return confirm('<?php esc_html_e('Are you want to move to trash?','wpbooking') ?>')" title="<?php esc_html_e('Move to trash','wpbooking')?>"><?php esc_html_e('Trash','wpbooking')?></a> </span>
+								<span class="move_trash trash"><a href="<?php echo add_query_arg(array('action'=>'trash','wpbooking_apply_changes'=>'1','wpbooking_order_item'=>array(get_the_ID()))) ?>" onclick="return confirm('<?php esc_html_e('Do you want to move to trash?','wpbooking') ?>')" title="<?php esc_html_e('Move to trash','wpbooking')?>"><?php esc_html_e('Trash','wpbooking')?></a> </span>
 								<span class="resend_email">
-									<a href="<?php echo add_query_arg(array('wpbooking_resend_email'=>'true','order_id'=>get_the_ID())) ?>" title="<?php esc_html_e('Resend Email this item','wpbooking')?>">
+									<a href="<?php echo add_query_arg(array('wpbooking_resend_email'=>'true','order_id'=>get_the_ID())) ?>" title="<?php esc_html_e('Resend Email to this item','wpbooking')?>">
 										<?php esc_html_e('Resend Mail','wpbooking')?></a>
 								</span>
                                 <?php
@@ -282,7 +279,7 @@ $query=new WP_Query($args);
 			}else{
 				?>
 				<tr>
-					<td colspan="10"><?php esc_html_e('No Booking Found','wpbooking') ?></td>
+					<td colspan="10"><?php esc_html_e('Not Found Booking','wpbooking') ?></td>
 				</tr>
 				<?php
 			} ?>

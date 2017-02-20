@@ -22,8 +22,8 @@
     <?php } ?>
 
     <div class="wb-desc <?php echo(count($tabs) >1)?'':'full-width'; ?>">
-        <p><?php echo wp_kses(__('We are spending you <strong>four main settings</strong> to create a booking system.', 'wpbooking'), array('strong' => array()))?></p>
-        <p><?php echo esc_html__('There are below:','wpbooking'); ?></p>
+        <p><?php echo wp_kses(__('We are supporting you <strong>with four main settings</strong> to create a booking system.', 'wpbooking'), array('strong' => array()))?></p>
+        <p><?php echo esc_html__('Including:','wpbooking'); ?></p>
     </div>
     <?php
     if(!empty($tabs[$is_key+1])){
@@ -46,17 +46,17 @@
     <div class="content">
         <div class="step">
             <div class="left">
-                <h3><?php echo esc_html__('Create new accommodation','wpbooking')?></h3>
-                <p><?php echo esc_html__('Accommodations are the core of your Booking site. Without them, you do not really have a Booking site, so setting them up properly and making them easy to booking is extremely important.','wpbooking');?></p>
+                <h3><?php echo esc_html__('Create a new accommodation','wpbooking')?></h3>
+                <p><?php echo esc_html__('Accommodations are the core of your Booking site. You will not really have a Booking site without them, so it is extremely important to set them up properly and make them easy for booking.','wpbooking');?></p>
                 <ul>
                    <li><?php echo esc_html__('Create contact information of accommodation','wpbooking')?></li>
                    <li><?php echo esc_html__('Create location of accommodation','wpbooking')?></li>
-                   <li><?php echo esc_html__('Setting check-in/ check-out time','wpbooking')?></li>
-                   <li><?php echo esc_html__('Setting amenities of accommodation','wpbooking')?></li>
+                   <li><?php echo esc_html__('Set time for check-in/ check-out','wpbooking')?></li>
+                   <li><?php echo esc_html__('Set amenities of accommodation','wpbooking')?></li>
                    <li><?php echo esc_html__('Create room of accommodation','wpbooking')?></li>
-                   <li><?php echo esc_html__('Setting facilities of accommodation','wpbooking')?></li>
-                   <li><?php echo esc_html__('Setting policies of accommodation: tax, cancelation policies','wpbooking')?></li>
-                   <li><?php echo esc_html__('Setting photos of accommodation','wpbooking')?></li>
+                   <li><?php echo esc_html__('Set facilities of accommodation','wpbooking')?></li>
+                   <li><?php echo esc_html__('Set policies of accommodation such as tax, cancellation policies...','wpbooking')?></li>
+                   <li><?php echo esc_html__('Set photos of accommodation','wpbooking')?></li>
                 </ul>
             </div>
             <img src="<?php echo wpbooking_admin_assets_url('images/accommodation-final.png')?>" class="img-step"/>
@@ -64,26 +64,26 @@
         <div class="step">
             <div class="left">
                 <h3><?php echo esc_html__('Create accommodation’s room','wpbooking')?></h3>
-                <p><?php echo esc_html__('Per accommodation usually have multiple rooms. They are created in the accommodation. Includes:','wpbooking');?></p>
+                <p><?php echo esc_html__('Each accommodation often has multiple rooms. These rooms are created in a accommodation. Including:','wpbooking');?></p>
                 <ul>
-                    <li><?php echo esc_html__('Base information: name, number of rooms','wpbooking')?></li>
-                    <li><?php echo esc_html__('Create and setting extra service','wpbooking')?></li>
-                    <li><?php echo esc_html__('Setting price of room','wpbooking')?></li>
-                    <li><?php echo esc_html__('Setting available status of room','wpbooking')?></li>
+                    <li><?php echo esc_html__('Basic information: name, number of rooms','wpbooking')?></li>
+                    <li><?php echo esc_html__('Create and set extra services','wpbooking')?></li>
+                    <li><?php echo esc_html__('Set price of room','wpbooking')?></li>
+                    <li><?php echo esc_html__('Set available status of room','wpbooking')?></li>
                 </ul>
             </div>
             <img src="<?php echo wpbooking_admin_assets_url('images/room-final.png')?>" class="img-step"/>
         </div>
         <div class="step">
             <div class="left">
-                <h3><?php echo esc_html__('Create new tour','wpbooking')?></h3>
-                <p><?php echo esc_html__('Tour is a other part of WpBooking plugin. You can use it for tourism, events or workshops, etc. You need setting tour information following:','wpbooking');?></p>
+                <h3><?php echo esc_html__('Create a new tour','wpbooking')?></h3>
+                <p><?php echo esc_html__('Tour is another part of WpBooking plugin. You can use it for tourism, events or workshops, etc. You need to set tour according to the following information:','wpbooking');?></p>
                 <ul>
                     <li><?php echo esc_html__('Create contact information of tour','wpbooking')?></li>
-                    <li><?php echo esc_html__('Setting location of tour','wpbooking')?></li>
-                    <li><?php echo esc_html__('Setting pricing and status of tour','wpbooking')?></li>
-                    <li><?php echo esc_html__('Setting policies of tour: tax, cancellation policies','wpbooking')?></li>
-                    <li><?php echo esc_html__('Setting photos of tour','wpbooking')?></li>
+                    <li><?php echo esc_html__('Set location of tour','wpbooking')?></li>
+                    <li><?php echo esc_html__('Set pricing and status of tour','wpbooking')?></li>
+                    <li><?php echo esc_html__('Set policies of tour: tax, cancellation policies','wpbooking')?></li>
+                    <li><?php echo esc_html__('Set photos of tour','wpbooking')?></li>
                 </ul>
             </div>
             <img src="<?php echo wpbooking_admin_assets_url('images/tour-final.png')?>" class="img-step"/>
@@ -93,7 +93,7 @@
                 <h3><?php echo esc_html__('Manage your bookings','wpbooking')?></h3>
 
                 <ul>
-                    <li><?php echo esc_html__('After user booking success, you can replace booking status of user booking(s) easy to use Booking Admin Panel','wpbooking')?></li>
+                    <li><?php echo esc_html__('After users book successfully, you can replace booking status of user booking(s) easily to use Booking Admin Panel','wpbooking')?></li>
                     <li><?php echo esc_html__('You can view booking report by the chart','wpbooking')?></li>
                 </ul>
 
@@ -118,9 +118,9 @@
         </div>
     </div>
     <div class="footer">
-        <h3 class="question"><?php echo esc_html__('Have a questions?', 'wpbooking'); ?></h3>
+        <h3 class="question"><?php echo esc_html__('Make questions?', 'wpbooking'); ?></h3>
         <div class="link">
-            <a href="https://wpbooking.org" target="_blank"><?php echo esc_html__('Need Help?','wpbooking')?></a>
+            <a href="https://wpbooking.org" target="_blank"><?php echo esc_html__('Need any Help?','wpbooking')?></a>
             <a href="https://wpbooking.org/pricing-fqa" target="_blank"><?php echo esc_html__('FAQ','wpbooking')?></a>
             <a href="https://wpbooking.org" target="_blank"><?php echo esc_html__('Submit a Ticket?','wpbooking')?></a>
         </div>

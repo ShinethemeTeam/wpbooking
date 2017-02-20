@@ -660,7 +660,7 @@ a.label:hover, a.label:focus {
                 <span class=head-info-content-hl>[order_id]</span>
             </div>
             <div class=head-info>
-                <span class=head-info-title>Payment method:</span>
+                <span class=head-info-title>Method of Payment:</span>
                 <span class=head-info-content >[order_payment_gateway]</span>
             </div>
         </div>
@@ -695,7 +695,7 @@ a.label:hover, a.label:focus {
                 <span class=head-info-content-hl>[order_id]</span>
             </div>
             <div class=head-info>
-                <span class=head-info-title>Payment method:</span>
+                <span class=head-info-title>Method of Payment:</span>
                 <span class=head-info-content >[order_payment_gateway]</span>
             </div>
         </div>

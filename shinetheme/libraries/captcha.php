@@ -115,11 +115,11 @@ if(!class_exists('WPBooking_Captcha'))
                 if(isset($body_obj->success) and $body_obj->success){
                     return true;
                 }else{
-                    wpbooking_set_message(esc_html__('Your captcha is not correct','wpbooking'),'danger');
+                    wpbooking_set_message(esc_html__('Your captcha is incorrect','wpbooking'),'danger');
                     return FALSE;
                 }
             }else{
-                wpbooking_set_message(esc_html__('Can not verify captcha','wpbooking'),'danger');
+                wpbooking_set_message(esc_html__('Captcha cannot be verified','wpbooking'),'danger');
                 return FALSE;
             }
         }

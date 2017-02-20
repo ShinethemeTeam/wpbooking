@@ -593,13 +593,13 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
 
                         if (empty($total_people)) {
                             $is_validated = false;
-                            wpbooking_set_message(esc_html__('This tour require at least 1 person', 'wpbooking'), 'error');
+                            wpbooking_set_message(esc_html__('This tour requires 1 person at least', 'wpbooking'), 'error');
                         } else {
                             // Check Slot(s) Remain
                             // Check Slot(s) Remain
                             if ($total_people + $query['total_people_booked'] > $query['max_guests']) {
                                 $is_validated = false;
-                                wpbooking_set_message(sprintf(esc_html__('This tour only remain availability for %d people', 'wpbooking'), $query['max_guests'] - $query['total_people_booked']), 'error');
+                                wpbooking_set_message(sprintf(esc_html__('This tour only remains availability for %d people', 'wpbooking'), $query['max_guests'] - $query['total_people_booked']), 'error');
                             } else {
                                 // Check Max, Min
                                 $min = (int)$query['calendar_minimum'];
@@ -656,7 +656,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         // Check Slot(s) Remain
                         if ($total_people + $query['total_people_booked'] > $query['max_guests']) {
                             $is_validated = false;
-                            wpbooking_set_message(sprintf(esc_html__('This tour only remain availability for %d people', 'wpbooking'), $query['max_guests'] - $query['total_people_booked']), 'error');
+                            wpbooking_set_message(sprintf(esc_html__('This tour only remains availability for %d people', 'wpbooking'), $query['max_guests'] - $query['total_people_booked']), 'error');
                         } else {
 
                             $error_message = array();
@@ -673,10 +673,10 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
 
                             if (!empty($error_message)) {
                                 $is_validated = false;
-                                wpbooking_set_message(sprintf(esc_html__('This tour require at least %s people', 'wpbooking'), implode(', ', $error_message)), 'error');
+                                wpbooking_set_message(sprintf(esc_html__('This tour requires %s people at least', 'wpbooking'), implode(', ', $error_message)), 'error');
                             } elseif (!$total_people) {
                                 $is_validated = false;
-                                wpbooking_set_message(esc_html__('This tour require at least 1 person', 'wpbooking'), 'error');
+                                wpbooking_set_message(esc_html__('This tour requires 1 person at least', 'wpbooking'), 'error');
                             }
 
                         }
@@ -761,8 +761,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             $labels = array(
                 'name'              => _x('Tour Type', 'taxonomy general name', 'wpbooking'),
                 'singular_name'     => _x('Tour Type', 'taxonomy singular name', 'wpbooking'),
-                'search_items'      => __('Search Tour Type', 'wpbooking'),
-                'all_items'         => __('All Tour Type', 'wpbooking'),
+                'search_items'      => __('Search for Tour Type', 'wpbooking'),
+                'all_items'         => __('All Tour Types', 'wpbooking'),
                 'parent_item'       => __('Parent Tour Type', 'wpbooking'),
                 'parent_item_colon' => __('Parent Tour Type:', 'wpbooking'),
                 'edit_item'         => __('Edit Tour Type', 'wpbooking'),
@@ -880,7 +880,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'id'    => 'star_rating',
                             'label' => __("Star Rating", 'wpbooking'),
                             'type'  => 'star-select',
-                            'desc'  => esc_html__('Standard of tour from 1 to 5 star.', 'wpbooking'),
+                            'desc'  => esc_html__('Standard of tour from 1 to 5 stars.', 'wpbooking'),
                             'class' => 'small'
                         ),
                         array(
@@ -937,10 +937,10 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'rules'           => 'required'
                         ),
                         array(
-                            'label' => __('Map Lat & Long', 'wpbooking'),
+                            'label' => __('Map’s Latitude & Longitude', 'wpbooking'),
                             'id'    => 'gmap',
                             'type'  => 'gmap',
-                            'desc'  => esc_html__('This is the location we will provide guests. Click to move the marker if you need to move it', 'wpbooking')
+                            'desc'  => esc_html__('This is the location we will provide for guests. Click to move the marker if you need to move it', 'wpbooking')
                         ),
                         array(
                             'type'    => 'desc_section',
@@ -993,7 +993,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         ),
                         array(
                             'label'     => esc_html__('Age Options', 'wpbooking'),
-                            'desc'      => esc_html__('Provide your requirements for what age defines a child vs. adult.', 'wpbooking'),
+                            'desc'      => esc_html__('Provide your requirements for kinds of age defined as a child or adult.', 'wpbooking'),
                             'id'        => 'age_options',
                             'type'      => 'age_options',
                             'condition' => 'pricing_type:is(per_person)',
@@ -1047,7 +1047,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'desc'  => esc_html__("Pre-payment and cancellation policies", "wpbooking")
                         ),
                         array(
-                            'label' => __('Select deposit optional', 'wpbooking'),
+                            'label' => __('Select optional deposit ', 'wpbooking'),
                             'id'    => 'deposit_payment_status',
                             'type'  => 'dropdown',
                             'value' => array(
@@ -1115,7 +1115,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         array(
                             'label' => __("Term & condition", 'wpbooking'),
                             'type'  => 'title',
-                            'desc'  => esc_html__("Setting terms and condition for your property", "wpbooking")
+                            'desc'  => esc_html__("Set terms and conditions for your property", "wpbooking")
                         ),
                         array(
                             'label' => __('Terms & Conditions', 'wpbooking'),
@@ -1144,7 +1144,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'type'  => 'gallery',
                             'rules' => 'required',
                             'desc'  => __('Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wpbooking'),
-                            'error_message' => esc_html__('You must upload minimum one photo for your tour','wpbooking'),
+                            'error_message' => esc_html__('You must upload one minimum photo for your tour','wpbooking'),
                             'service_type' => esc_html__('tour','wpbooking')
                         ),
                         array('type' => 'close_section'),

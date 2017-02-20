@@ -486,7 +486,7 @@ if(!class_exists('WPBooking_Form_Validator'))
                     {
                         if (FALSE === ($line = $this->get_lang($type)))
                         {
-                            $line = __('The field was not set','wpbooking');
+                            $line = __('The field is not set','wpbooking');
                         }
                     }
                     else

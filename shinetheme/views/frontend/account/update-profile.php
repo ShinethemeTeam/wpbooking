@@ -26,7 +26,7 @@ global $current_user;
 							</span>
 					<input  type="text"  class="form-control image_url " value="<?php echo WPBooking_Input::post('u_avatar',get_user_meta(get_current_user_id(),'avatar',true)) ?>" readonly="" name="u_avatar">
 					</div>
-					<p class="help-block"><?php esc_html_e('Image format : jpg, png, gif . Image size 800x600 and max file size 2MB','wpbooking') ?></p>
+					<p class="help-block"><?php esc_html_e('Image formats : jpg, png, gif . Image size is 800x600 and max file size is 2MB','wpbooking') ?></p>
 					<div class="upload-message"></div>
 					<?php if($avatar=WPBooking_Input::post('u_avatar',get_user_meta(get_current_user_id(),'avatar',true))){
 						printf('<img alt="avatar" src="%s" class="uploaded_image_preview">',$avatar);

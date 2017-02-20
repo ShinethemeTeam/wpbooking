@@ -29,7 +29,7 @@ do_action('wpbooking_after_main_header');
 
 		}
 	} else {
-		printf('<h3>%s</h3>', esc_html__('Not found anything related with search conditions.', 'wpbooking'));
+		printf('<h3>%s</h3>', esc_html__('Not found anything related to search conditions.', 'wpbooking'));
 	}
 	?>
 <?php

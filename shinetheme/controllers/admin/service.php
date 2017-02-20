@@ -181,10 +181,10 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				'edit_item'          => __('Edit Service', 'wpbooking'),
 				'view_item'          => __('View Service', 'wpbooking'),
 				'all_items'          => __('All Services', 'wpbooking'),
-				'search_items'       => __('Search Services', 'wpbooking'),
+				'search_items'       => __('Search for Services', 'wpbooking'),
 				'parent_item_colon'  => __('Parent Services:', 'wpbooking'),
-				'not_found'          => __('No services found.', 'wpbooking'),
-				'not_found_in_trash' => __('No services found in Trash.', 'wpbooking')
+				'not_found'          => __('Not found services.', 'wpbooking'),
+				'not_found_in_trash' => __('Not found services in Trash.', 'wpbooking')
 			);
 
 			$args = array(
@@ -211,7 +211,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 			$labels = array(
 				'name'              => _x('Amenities', 'taxonomy general name', 'wpbooking'),
 				'singular_name'     => _x('Amenity', 'taxonomy singular name', 'wpbooking'),
-				'search_items'      => __('Search Amenity', 'wpbooking'),
+				'search_items'      => __('Search for Amenity', 'wpbooking'),
 				'all_items'         => __('All Amenities', 'wpbooking'),
 				'parent_item'       => __('Parent Amenity', 'wpbooking'),
 				'parent_item_colon' => __('Parent Amenity:', 'wpbooking'),
@@ -352,7 +352,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
                 $service_types = WPBooking_Service_Controller::inst()->get_service_types();
 
                 echo '<select name="service_type">';
-                echo '<option value="0">'.esc_html__('All service','wpbooking').'</option>';
+                echo '<option value="0">'.esc_html__('All services','wpbooking').'</option>';
                 foreach($service_types as $key => $val){
                     echo '<option '.selected(WPBooking_Input::get('service_type'),$key,false).' value="'.esc_attr($key).'">'.esc_html($val->get_info('label')).'</option>';
                 }

@@ -157,7 +157,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             wp_localize_script('jquery', 'wpbooking_params', array(
                 'ajax_url'              => admin_url('admin-ajax.php'),
                 'wpbooking_security'    => wp_create_nonce('wpbooking-nonce-field'),
-                'select_comment_review' => esc_html__('Please rating the criteria of this accommodation.', 'wpbooking'),
+                'select_comment_review' => esc_html__('Please rate the criteria of this accommodation.', 'wpbooking'),
                 'currency_symbol'=>WPBooking_Currency::get_current_currency('symbol'),
                 'currency_position'=> WPBooking_Currency::get_current_currency('position'),
                 'thousand_separator'=> WPBooking_Currency::get_current_currency('thousand_sep'),
@@ -166,9 +166,9 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             ));
 
             wp_localize_script('jquery', 'wpbooking_hotel_localize', array(
-                'booking_required_adult'          => __('Please select adult number', 'wpbooking'),
-                'booking_required_children'       => __('Please select children number', 'wpbooking'),
-                'booking_required_adult_children' => __('Please select adult and children number', 'wpbooking'),
+                'booking_required_adult'          => __('Please select the number of adults ', 'wpbooking'),
+                'booking_required_children'       => __('Please select the number of children ', 'wpbooking'),
+                'booking_required_adult_children' => __('Please select the number of adults and children', 'wpbooking'),
                 'is_not_select_date'              => __('To see price details, please select check-in and check-out date.', 'wpbooking'),
                 'is_not_select_check_in_date'     => __('Please select check-in date.', 'wpbooking'),
                 'is_not_select_check_out_date'    => __('Please select check-out date.', 'wpbooking'),
@@ -268,12 +268,12 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
                 'ajax_url'           => admin_url('admin-ajax.php'),
                 'api_url'            => $this->API_URL,
                 'wpbooking_security' => wp_create_nonce('wpbooking-nonce-field'),
-                'delete_confirm'     => esc_html__('Are you want to delete?', 'wpbooking'),
+                'delete_confirm'     => esc_html__('Do you want to delete?', 'wpbooking'),
                 'delete_string'      => esc_html__('delete', 'wpbooking'),
-                'delete_gallery'      => esc_html__('Do you want delete all image? ', 'wpbooking'),
+                'delete_gallery'      => esc_html__('Do you want to delete all image?', 'wpbooking'),
                 'room' => esc_html__('room','wpbooking'),
                 'rooms' => esc_html__('rooms','wpbooking'),
-                'delete_permanently_image' => esc_html__('You want delete permanently this image?','wpbooking'),
+                'delete_permanently_image' => esc_html__('You want to delete this image permanently?','wpbooking'),
                 'next' => esc_html__('Next','wpbooking'),
                 'prev' => esc_html__('Prev','wpbooking'),
                 'read_more' => esc_html__('Read More','wpbooking'),

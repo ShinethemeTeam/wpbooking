@@ -166,7 +166,7 @@ if (!class_exists('WPBooking_User')) {
                         WPBooking()->set('error_code',$user->get_error_code());
                         wpbooking_set_message($this->get_error_message($user->get_error_code()), 'danger');
                     }else{
-                        wpbooking_set_message(esc_html__('You need to enter a username and a password to login', 'wpbooking'), 'danger');
+                        wpbooking_set_message(esc_html__('You need to enter an username and a password to login', 'wpbooking'), 'danger');
                     }
                 } else {
                     // Login Success
@@ -211,7 +211,7 @@ if (!class_exists('WPBooking_User')) {
                 $error_field = $validate->get_error_fields();
 
                 if(WPBooking_Input::post('rg-email') && email_exists(WPBooking_Input::post('rg-email'))){
-                    wpbooking_set_message(esc_html__('This email ready registered. You can login ','wpbooking').'<a href="'.esc_url($this->get_login_url()).'">'.esc_html__('here','wpbooking').'</a>', 'danger');
+                    wpbooking_set_message(esc_html__('This email has been registered. You can login','wpbooking').'<a href="'.esc_url($this->get_login_url()).'">'.esc_html__('here','wpbooking').'</a>', 'danger');
                 }
                 if(WPBooking_Input::post('rg-login') && !validate_username(WPBooking_Input::post('rg-login'))){
                     wpbooking_set_message(esc_html__('The username can only contain underscores and alphanumeric characters and dashes. It must be unique, and must not include spaces.','wpbooking'), 'danger');
@@ -220,8 +220,8 @@ if (!class_exists('WPBooking_User')) {
                     }
                 }
                 if(WPBooking_Input::post('rg-login') && username_exists(WPBooking_Input::post('rg-login'))){
-                    wpbooking_set_message(esc_html__('This username ready registered. You can login ','wpbooking').'<a href="'.esc_url($this->get_login_url()).'">'.esc_html__('here','wpbooking').'</a>', 'danger');
-                    $error_field['rg-login'] = esc_html__('Username is exist','wpbooking');
+                    wpbooking_set_message(esc_html__('This username has been registered. You can login','wpbooking').'<a href="'.esc_url($this->get_login_url()).'">'.esc_html__('here','wpbooking').'</a>', 'danger');
+                    $error_field['rg-login'] = esc_html__('Username exist','wpbooking');
                 }
                 WPBooking()->set('error_r_field', $error_field);
                 $is_validated = FALSE;
@@ -239,7 +239,7 @@ if (!class_exists('WPBooking_User')) {
                     'user_email' => $user_email
                 ));
                 if (is_wp_error($user_id)) {
-                    wpbooking_set_message(esc_html__('Can not create user. Please try it again later', 'wpbooking'), 'danger');
+                    wpbooking_set_message(esc_html__('User cannot be created. Please try it again later', 'wpbooking'), 'danger');
                     do_action('wpbooking_register_failed', $user_id);
 
                 } else {
@@ -567,7 +567,7 @@ if (!class_exists('WPBooking_User')) {
                             if (is_wp_error($is_updated)) {
                                 wpbooking_set_message($is_updated->get_error_message(), 'danger');
                             } else {
-                                wpbooking_set_message(esc_html__('Change password successful! The new password changed successfully.', 'wpbooking'), 'success');
+                                wpbooking_set_message(esc_html__('Change password successfully! The new password is changed successfully.', 'wpbooking'), 'success');
                             }
                         }
                         do_action('wpbooking_after_change_password', $is_validate, $is_updated);
@@ -594,7 +594,7 @@ if (!class_exists('WPBooking_User')) {
 
             // Service Exists
             if (!$service or $service->post_type != 'wpbooking_service') {
-                wpbooking_set_message(esc_html__('Service does not exists', 'wpbooking'), 'danger');
+                wpbooking_set_message(esc_html__('Service does not exist', 'wpbooking'), 'danger');
                 wp_redirect(add_query_arg(array('tab' => 'services'), $myaccount_page));
                 die;
             }
@@ -912,7 +912,7 @@ if (!class_exists('WPBooking_User')) {
                     else
                         $redirect_url = wp_login_url();
 
-                    wpbooking_set_message(esc_html__('Your request for reset password has been sent. Please check your email for continue.','wpbooking'),'info');
+                    wpbooking_set_message(esc_html__('Your request for resetting password has been sent. Continuously, please check your email','wpbooking'),'info');
                     $redirect_url = add_query_arg( 'checkemail', 'confirm', $redirect_url );
                 }
                 remove_filter('wp_mail_content_type', array($this, 'set_html_content_type'));
@@ -950,7 +950,7 @@ if (!class_exists('WPBooking_User')) {
                 case 'incorrect_password':
                     return esc_html__('Your password is incorrect.','wpbooking');
                 case 'email':
-                    return esc_html__( 'Your email invalid.', 'wpbooking' );
+                    return esc_html__( 'Your email is invalid.', 'wpbooking' );
                 case 'email_exists':
                     return esc_html__( 'An account exists with this email address.', 'wpbooking' );
                 case 'invalid_email':
@@ -959,13 +959,13 @@ if (!class_exists('WPBooking_User')) {
                     return esc_html__( 'Username or email is incorrect.', 'wpbooking' );
                 case 'expiredkey':
                 case 'invalidkey':
-                    return esc_html__( 'The password reset link you used is not valid anymore.', 'wpbooking' );
+                    return esc_html__( 'The password for resetting link you used is invalid anymore.', 'wpbooking' );
 
                 default:
                     break;
             }
 
-            return esc_html__( 'An unknown error occurred. Please try again later.', 'wpbooking' );
+            return esc_html__( 'An unknown error occurs. Please try again later.', 'wpbooking' );
         }
 
 
@@ -1117,7 +1117,7 @@ if (!class_exists('WPBooking_User')) {
                         else
                             $blog_name = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 
-                        $subject = '['.$blog_name.'] '.esc_html__('Changed password successful','wpbooking');
+                        $subject = '['.$blog_name.'] '.esc_html__('Change password successfully','wpbooking');
                         $subject = apply_filters('wpbooking_title_changed_password_email',$subject);
 
                         $message = wpbooking_load_view('emails/templates/changed_password',array('user' => $user));

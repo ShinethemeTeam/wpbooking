@@ -26,7 +26,7 @@ if(WPBooking_Session::get('error_rs_field')){
             <input type="password" required name="confirm_password" id="confirm_password" class="form-control <?php echo (array_key_exists('confirm_password',$error_fields)?'wb-error':''); ?>" value="">
         </div>
         <div class="form-group">
-            <p class="note"><?php echo esc_html__('Tips: Use at least 8 characters. Don’t re-use passwords from other websites or include obvious words like your name or email.','wpbooking')?></p>
+            <p class="note"><?php echo esc_html__('Tips: Use 8 characters at least. Don’t re-use passwords from other websites or include obvious words like your name or email.','wpbooking')?></p>
         </div>
         <div class="form-group">
             <button class="wb-btn wb-btn-default wb-btn-lg" type="submit"><?php echo esc_html__('Reset Password'); ?></button>

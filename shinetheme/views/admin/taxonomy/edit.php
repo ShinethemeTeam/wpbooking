@@ -47,7 +47,7 @@
 						}
 					}
 					?>
-					<p class="description"><?php _e( 'Choose which Service type that the Taxonomy supported', 'wpbooking' ); ?></p>
+					<p class="description"><?php _e( 'Choose Types of Service that the Taxonomy supported', 'wpbooking' ); ?></p>
 				</td>
 			</tr>
 			

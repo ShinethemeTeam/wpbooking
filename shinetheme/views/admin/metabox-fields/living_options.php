@@ -38,7 +38,7 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
                 <div class="metabox-help"><?php echo do_shortcode( $data['desc'] ) ?></div>
             </div>
             <div class="st-metabox-left">
-                <label for="<?php echo esc_html( $data['id'] ); ?>"><?php esc_html_e('Enter the number of guests that can sleep here','wpbooking'); ?></label>
+                <label for="<?php echo esc_html( $data['id'] ); ?>"><?php esc_html_e('Enter the number of guests who can sleep here','wpbooking'); ?></label>
             </div>
             <div class="st-metabox-right">
                 <div class="st-metabox-content-wrapper">
@@ -84,7 +84,7 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
                         <div class="metabox-help"><?php echo do_shortcode( $data['desc'] ) ?></div>
                     </div>
                     <div class="st-metabox-left">
-                        <label for="<?php echo esc_html( $data['id'] ); ?>"><?php esc_html_e('Enter the number of guests that can sleep here','wp_booking'); ?></label>
+                        <label for="<?php echo esc_html( $data['id'] ); ?>"><?php esc_html_e('Enter the number of guests who can sleep here','wp_booking'); ?></label>
                     </div>
                     <div class="st-metabox-right">
                         <div class="st-metabox-content-wrapper">

@@ -214,9 +214,9 @@ $hotel_id=get_the_ID();
             $array = array(
                 'deposit_payment_status' => '',
                 'deposit_payment_amount' => wp_kses(__('Deposit: %s &nbsp;&nbsp;<span class="enforced_red">required</span>','wpbooking'),array('span'=>array('class'=>array()))),
-                'allow_cancel' => esc_html__('Cancellation allowed: Yes','wpbboking'),
+                'allow_cancel' => esc_html__('Allowed Cancellation: Yes','wpbboking'),
                 'cancel_free_days_prior' => esc_html__('Time allowed to free: %s','wpbooking'),
-                'cancel_guest_payment' => esc_html__('Fee cancel booking: %s','wpbooking'),
+                'cancel_guest_payment' => esc_html__('Fee cancel for booking: %s','wpbooking'),
             );
             $cancel_guest_payment = array(
                 'first_night' => esc_html__('100% of the first night','wpbooking'),
@@ -391,7 +391,7 @@ $hotel_id=get_the_ID();
             if(!empty($card)) {
                 ?>
                 <div class="service-detail-item">
-                    <div class="service-detail-title"><?php esc_html_e('Cards Accepted', 'wpbooking') ?></div>
+                    <div class="service-detail-title"><?php esc_html_e('Accepted Cards', 'wpbooking') ?></div>
                     <div class="service-detail-content">
                         <ul class="wb-list-card-acd">
                             <?php foreach($card as $key => $val){

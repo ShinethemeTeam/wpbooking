@@ -130,7 +130,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					if( !$check_in || !$check_out ){
 						echo json_encode( array(
 							'status' => 0,
-							'message' => __('The start date or end date field is invalid.', 'wpbooking')
+							'message' => __('The field of start date or end date is invalid.', 'wpbooking')
 						) );
 						die;
 					}
@@ -180,13 +180,13 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					if( $new_item > 0 ){
 						echo json_encode( array(
 							'status' => 1,
-							'message' => __('Added successfully.', 'wpbooking')
+							'message' => __('Successffully added', 'wpbooking')
 						) ); 
 						die;
 					}else{
 						echo json_encode( array(
 							'status' => 0,
-							'message' => __('Have an error when add new item.', 'wpbooking')
+							'message' => __('Getting an error when adding new item.', 'wpbooking')
 						) );
 						die;
 					}
@@ -227,7 +227,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 							echo json_encode( array(
 								'status' => 1,
-								'message' => __('Added successfully.', 'wpbooking')
+								'message' => __('Successffully added', 'wpbooking')
 							) );
 							die;
 						}else{

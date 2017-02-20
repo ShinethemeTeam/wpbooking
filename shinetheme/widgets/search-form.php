@@ -66,7 +66,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 					<?php if(!empty($search_more_fields)){
 						?>
 						<div class="wpbooking-search-form-more-wrap">
-							<a href="#" onclick="return false"  class="btn btn-link wpbooking-show-more-fields"><span class=""><?php esc_html_e('Advance Search','wpbooking') ?> <i class="fa fa-caret-down" aria-hidden="true"></i></span></a>
+							<a href="#" onclick="return false"  class="btn btn-link wpbooking-show-more-fields"><span class=""><?php esc_html_e('Advanced Search','wpbooking') ?> <i class="fa fa-caret-down" aria-hidden="true"></i></span></a>
 							<div class="wpbooking-search-form-more">
 								<?php
 									foreach($search_more_fields as $k=>$v){
@@ -394,7 +394,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
             ?>
             <p><label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><strong><?php _e('Title:',"wpbooking"); ?></strong> <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('service_type')); ?>"><strong><?php _e('Service Type:','wpbooking'); ?></strong>
+                <label for="<?php echo esc_attr($this->get_field_id('service_type')); ?>"><strong><?php _e('Types of service:','wpbooking'); ?></strong>
                     <?php
                     $data = WPBooking_Service_Controller::inst()->get_service_types();
                     ?>
@@ -502,7 +502,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                         <div class="widget-control-actions">
                             <div class="alignleft">
                                 <input type="button" value="<?php  esc_html_e('Add Field','wpbooking')?>" data-number="<?php echo esc_attr($number) ?>" data-name-field-search="<?php echo esc_attr($this->get_field_name('field_search')); ?>" data-post-type="<?php echo esc_attr($key) ?>" class="button button-primary left btn_add_field_search_form" id="#">
-                                <p><i><?php esc_html_e('Remember hit Save button after add or remove new search field','wpbooking') ?></i></p>
+                                <p><i><?php esc_html_e('Remember to hit Save button after adding or removing new search field','wpbooking') ?></i></p>
                             </div>
                             <br class="clear">
                         </div>

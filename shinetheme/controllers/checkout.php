@@ -132,7 +132,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $pay_amount = $this->get_cart_total();
             if ($is_validate and empty($pay_amount)) {
                 $is_validate = FALSE;
-                wpbooking_set_message(__("Price basket of 0. You can not make this payment!", 'wpbooking'), 'error');
+                wpbooking_set_message(__("Price of basket is 0. You cannot make this payment!", 'wpbooking'), 'error');
             }
 
             // Require Payment Gateways
@@ -143,10 +143,10 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             if ($is_validate and $pay_amount) {
                 if (empty($selected_gateway)) {
                     $is_validate = FALSE;
-                    wpbooking_set_message(__("Please select a payment method.", 'wpbooking'), 'error');
+                    wpbooking_set_message(__("Please select a method of payment.", 'wpbooking'), 'error');
                 } elseif (!$gateway and !$gateway->is_available()) {
                     $is_validate = FALSE;
-                    wpbooking_set_message(sprintf(__("Gateway: %s is not ready to use, please choose other gateway", 'wpbooking'), $selected_gateway), 'error');
+                    wpbooking_set_message(sprintf(__("Gateway: %s is not ready to use, please choose another gateway", 'wpbooking'), $selected_gateway), 'error');
                 }
             }
 
@@ -233,7 +233,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                             //Clear the Cart after create new order,
                             WPBooking_Session::set('wpbooking_cart', array());
 
-                            wpbooking_set_message(__('Booking Success', 'wpbooking'));
+                            wpbooking_set_message(__('Booking Successfully', 'wpbooking'));
                             //do checkout
                             $res['data'] = $data;
                             $res['message'] = wpbooking_get_message(TRUE);
@@ -263,7 +263,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 } else {
                     $res = array(
                         'status'  => 0,
-                        'message' => __('Can not create the order. Please contact the Admin', 'wpbooking')
+                        'message' => __('The order cannot be created. Please contact Admin', 'wpbooking')
                     );
                 }
 
@@ -529,7 +529,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
                 'user_email'           => array(
                     'title'       => esc_html__( "Email" , "wpbooking" ) ,
                     'placeholder' => esc_html__( "Email" , "wpbooking" ) ,
-                    'desc'        => esc_html__( "Email to confirmation" , "wpbooking" ) ,
+                    'desc'        => esc_html__( "Email for confirmation" , "wpbooking" ) ,
                     'type'        => 'text' ,
                     'name'        => 'user_email' ,
                     'size'        => '12' ,

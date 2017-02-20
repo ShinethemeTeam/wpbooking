@@ -43,7 +43,7 @@ $type_array=array(
 		<input type="hidden" name="report_type" value="<?php echo esc_attr($report_type) ?>">
 
 		<div class="select-service-type">
-			<h4><?php esc_html_e('Service type:','wpbooking') ?></h4>
+			<h4><?php esc_html_e('Types of service:','wpbooking') ?></h4>
 			<ul class="service_types">
                 <?php
                 $chked = '';
@@ -103,7 +103,7 @@ $type_array=array(
             if(empty($report_data)){
 				printf('<div class="notice-error"><p>%s</p></div>',esc_html__('There is no data for reporting','wpbooking'));
 			}elseif($range > 0 && ($range/86400) > 90 ){
-                printf('<div class="notice-error"><p>%s</p></div>',esc_html__('Please select a time period not exceed 90 days','wpbooking'));
+                printf('<div class="notice-error"><p>%s</p></div>',esc_html__('Please select a period of time not exceeding 90 days','wpbooking'));
             }else{
                 $total_sale = $chart->total_in_time_range($service_type,'total_sale',$report_type,$start_date, $end_date);
                 $net_profit = $chart->total_in_time_range($service_type,'net_profit',$report_type,$start_date, $end_date);
@@ -123,7 +123,7 @@ $type_array=array(
                         <th class="wb-report-column"><?php echo esc_html__('Total Bookings','wpbooking'); ?></th>
                         <th class="wb-report-column"><?php echo esc_html__('Completed','wpbooking'); ?></th>
                         <th class="wb-report-column"><?php echo esc_html__('Completed a Part','wpbooking'); ?></th>
-                        <th class="wb-report-column"><?php echo esc_html__('On Hold','wpbooking'); ?></th>
+                        <th class="wb-report-column"><?php echo esc_html__('On Holding','wpbooking'); ?></th>
                         <th class="wb-report-column"><?php echo esc_html__('Cancelled','wpbooking'); ?></th>
                         <th class="wb-report-column"><?php echo esc_html__('Refunded','wpbooking'); ?></th>
                     </tr>
@@ -241,7 +241,7 @@ $type_array=array(
                                             yAxisID: "y-axis-1",
                                         },
                                         {
-                                            label: '<?php echo esc_html__('On hold','wpbooking')?>',
+                                            label: '<?php echo esc_html__('On Holding','wpbooking')?>',
                                             data: <?php echo json_encode($data_on_hold); ?>,
                                             backgroundColor: 'rgba(54, 162, 235, 0.2)',
                                             fill: false,

@@ -55,7 +55,7 @@
 							<?php
 						endforeach;
 					else :
-						?><tr><td colspan="6"><?php _e( 'No custom taxonomies currently exist.', 'wpbooking' ) ?></td></tr><?php
+						?><tr><td colspan="6"><?php _e( 'Currently, there are no custom taxonomies existing.', 'wpbooking' ) ?></td></tr><?php
 					endif;
 					?>
 					</tbody>
@@ -91,7 +91,7 @@
 								}
 							}
 							?>
-							<p class="description"><?php _e( 'Choose which Service type that the Taxonomy supported', 'wpbooking' ); ?></p>
+							<p class="description"><?php _e( 'Choose Types of Service that the Taxonomy supported', 'wpbooking' ); ?></p>
 
 						</div>
 
@@ -106,7 +106,7 @@
 		/* <![CDATA[ */
 		
 		jQuery('a.delete').click(function(){
-			var answer = confirm ("<?php _e( 'Are you sure you want to delete this attribute?', 'wpbooking' ); ?>");
+			var answer = confirm ("<?php _e( 'Are you sure that you want to delete this attribute?', 'wpbooking' ); ?>");
 			if (answer) return true;
 			return false;
 		});

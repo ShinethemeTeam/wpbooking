@@ -36,8 +36,8 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                 </div>
                 <div class="wpbooking-calendar-sidebar">
                     <div class="form-container calendar-room-form">
-                        <h4 class="form-title"><?php echo esc_html__('Set price by date arrange','wpbooking') ?></h4>
-                        <p class="form-desc"><?php echo esc_html__('You can make room for any purpose (like discount, high price, ...)','wpbooking'); ?></p>
+                        <h4 class="form-title"><?php echo esc_html__('Set price by arranged date','wpbooking') ?></h4>
+                        <p class="form-desc"><?php echo esc_html__('You can book rooms for any purposes (like discount, high price, ...)','wpbooking'); ?></p>
                         <div class="calendar-room-form-item full-width" >
                             <label class="calendar-label" for="calendar-checkin"><?php echo __('Start Date', 'wpbooking'); ?></label>
                             <div class="calendar-input-icon">
@@ -151,11 +151,11 @@ if(empty($pricing_type)) $pricing_type = 'per_person';
                         <ul class="list">
                             <li>+ <?php esc_html_e('To set availability on your calendar:','wpbooking') ?>
                                 <ul>
-                                    <li>- <?php esc_html_e('A right sight table, click to Start Date picker to set a start date','wpbooking') ?></li>
-                                    <li>- <?php esc_html_e('A right sight table, click to End Date picker to set a end date of the period you want to edit','wpbooking') ?></li>
+                                    <li>- <?php esc_html_e('At the  right side of table, click to Start Date picker to set a start date','wpbooking') ?></li>
+                                    <li>- <?php esc_html_e('At the  right side of, click to End Date picker to set a end date of the period you want to edit','wpbooking') ?></li>
                                 </ul>
                             </li>
-                            <li>+ <?php esc_html_e('A right sight table, allowing you to set status and price for that period','wpbooking')?></li>
+                            <li>+ <?php esc_html_e('At the  right side of, allow you to set status and price for that period','wpbooking')?></li>
 
                         </ul>
                         <h4><strong><?php esc_html_e('Way 2:','wpbooking') ?></strong></h4>

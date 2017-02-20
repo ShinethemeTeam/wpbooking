@@ -32,7 +32,7 @@
                     </th>
                     <td>
                         <input type="text" name="setup_demo[currency][symbol]" class="form-control  min-width-500" id="setup_demo[currency][symbol]">
-                        <i class="wpbooking-desc"><?php esc_html_e("Symbol of currency. Example: $","wpbooking") ?></i>
+                        <i class="wpbooking-desc"><?php esc_html_e("Symbol of currency. For example: $","wpbooking") ?></i>
                     </td>
                 </tr>
                 <tr class="setup_demo[currency][position]">

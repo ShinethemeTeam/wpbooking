@@ -53,7 +53,7 @@ $data_value_currency = wp_parse_args($data_value, array(
                 <td>
                     <label for="symbol"><?php esc_html_e("Symbol","wpbooking") ?></label>
                     <input id="<?php echo esc_html($name) ?>[symbol]" class="form-control  min-width-250" value="<?php echo esc_attr($data_value_currency['symbol']) ?>" name="<?php echo esc_html($name) ?>[symbol]"  type="text">
-                    <i class="wpbooking-desc"><?php esc_html_e("Symbol of currency. Example: $","wpbooking") ?></i>
+                    <i class="wpbooking-desc"><?php esc_html_e("Symbol of currency. For example: $","wpbooking") ?></i>
                 </td>
             </tr>
             <tr class="<?php echo esc_html($name) ?>[position]">

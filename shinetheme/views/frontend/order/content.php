@@ -40,7 +40,7 @@ do_action('wpbooking_before_order_content');
                     <span class="head-info-content hl">#<?php the_ID() ?></span>
                 </div>
                 <div class="head-info">
-                    <span class="head-info-title"><?php  esc_html_e('Payment method:','wpbooking')?></span>
+                    <span class="head-info-title"><?php  esc_html_e('Method of Payment:','wpbooking')?></span>
                     <span class="head-info-content "><span class="bold"><?php echo esc_html($order->get_payment_gateway()) ?></span></span>
                 </div>
                 <div class="head-info">

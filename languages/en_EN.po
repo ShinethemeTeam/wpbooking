@@ -905,7 +905,7 @@ msgid "Delete Success"
 msgstr ""
 
 #: shinetheme/controllers/admin/taxonomy.php:186
-msgid "Please select an Taxonomy"
+msgid "Please select a Taxonomy"
 msgstr ""
 
 #: shinetheme/controllers/admin/taxonomy.php:299

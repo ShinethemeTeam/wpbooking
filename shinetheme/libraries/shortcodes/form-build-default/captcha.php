@@ -16,7 +16,7 @@ if (!class_exists('WPBooking_Captcha_Field')) {
 			$this->field_id = 'captcha';
 			$this->field_data = array(
 				"title"    => __("Captcha", 'wpbooking'),
-				"category" => __("Advance Field", 'wpbooking'),
+				"category" => __("Advanced Field", 'wpbooking'),
 				"options"  => array(
 					array(
 						"type"             => "checkbox" ,
@@ -40,7 +40,7 @@ if (!class_exists('WPBooking_Captcha_Field')) {
 						"title"            => __("Name", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'value'            => "captcha",
-						"desc"             => __("This is default attribute, you can not change it", 'wpbooking'),
+						"desc"             => __("This is default attribute, you cannot change ", 'wpbooking'),
 					),
 					array(
 						"type"             => "dropdown",
@@ -253,11 +253,11 @@ if (!class_exists('WPBooking_Captcha_Field')) {
 				if(isset($body_obj->success) and $body_obj->success){
 					return true;
 				}else{
-					wpbooking_set_message(esc_html__('Your captcha is not correct','wpbooking'),'danger');
+					wpbooking_set_message(esc_html__('Your captcha is incorrect','wpbooking'),'danger');
 					return FALSE;
 				}
 			}else{
-				wpbooking_set_message(esc_html__('Can not verify captcha','wpbooking'),'danger');
+				wpbooking_set_message(esc_html__('Captcha cannot be verified','wpbooking'),'danger');
 				return FALSE;
 			}
 		}

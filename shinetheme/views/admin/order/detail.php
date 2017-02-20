@@ -61,7 +61,7 @@ $checkout_form_data=$order->get_checkout_form_data();
 					<?php }?>
 
 					<hr>
-					<h3><?php esc_html_e('Payment Method','wpbooking') ?></h3>
+					<h3><?php esc_html_e('Method of Payment','wpbooking') ?></h3>
 					<?php
 					$selected_gateway=get_post_meta($order_id,'wpbooking_selected_gateway',true);
                     $selected_gateway=WPBooking_Payment_Gateways::inst()->get_gateway($selected_gateway);

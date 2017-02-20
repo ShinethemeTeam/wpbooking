@@ -27,7 +27,7 @@ if(!class_exists('WPBooking_Admin_Location'))
 			$labels = array(
 				'name'              => _x( 'Locations', 'taxonomy general name','wpbooking' ),
 				'singular_name'     => _x( 'Location', 'taxonomy singular name','wpbooking' ),
-				'search_items'      => __( 'Search Locations','wpbooking' ),
+				'search_items'      => __( 'Search for Locations','wpbooking' ),
 				'all_items'         => __( 'All Locations','wpbooking' ),
 				'parent_item'       => __( 'Parent Location' ,'wpbooking'),
 				'parent_item_colon' => __( 'Parent Location:' ,'wpbooking'),

@@ -8,9 +8,9 @@
 ?>
 <div class="content">
     <div class="content-header">
-        <h3 class="title"><?php echo esc_html__('Changed Password Successful','wpbooking'); ?></h3>
-        <p class="description"><?php echo sprintf(esc_html__('Hello %s, ','wpbooking'),$user['user_login']). esc_html__('You have changed password a few minutes ago,','wpbooking')?><br>
-            <?php echo esc_html__('Currently, here are your account information: ','wpbooking'); ?>
+        <h3 class="title"><?php echo esc_html__('Change password successfully','wpbooking'); ?></h3>
+        <p class="description"><?php echo sprintf(esc_html__('Hello %s, ','wpbooking'),$user['user_login']). esc_html__('You changed password a few minutes ago,','wpbooking')?><br>
+            <?php echo esc_html__('Currently, here is your account information:','wpbooking'); ?>
         </p>
     </div>
     <div class="content-center">

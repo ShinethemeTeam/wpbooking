@@ -62,7 +62,7 @@ if(!class_exists('WPBooking_Admin_Setting'))
 						update_option($option_key,$option);
 						$res['status']=1;
 					}else{
-						$res['message']=esc_html__('Service Exists. Please choose other name','wpbooking');
+						$res['message']=esc_html__('Service Exists. Please choose another name','wpbooking');
 					}
 				}
 			}

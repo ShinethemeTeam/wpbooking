@@ -29,7 +29,7 @@
                 </tr>
                 <tr class="wpbooking_system_email">
                     <th scope="row">
-                        <label for="system_email"><?php esc_html_e("System Email to get Booking, Registration Notification...etc:","wpbooking") ?></label>
+                        <label for="system_email"><?php esc_html_e("Email  System to get Booking, Registration Notifications...etc:","wpbooking") ?></label>
                     </th>
                     <td>
                         <input id="wpbooking_system_email" class="form-control  min-width-500" value="" name="wpbooking_system_email" placeholder="system@domain.com"  type="text">

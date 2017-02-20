@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="col-md-9 text-info">
-                <?php esc_html_e("Tips: Use at least 8 characters. Don’t re-use passwords from other websites or include obvious words like your name or email.","wpbooking") ?>
+                <?php esc_html_e("Tips: Use 8 characters at least. Don’t re-use passwords from other websites or include obvious words like your name or email.","wpbooking") ?>
             </div>
             <div class="col-md-12">
                 <?php if(WPBooking_Input::post('action')=='wpbooking_change_password') echo wpbooking_get_message(); ?>

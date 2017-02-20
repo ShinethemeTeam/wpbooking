@@ -247,7 +247,7 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
                 wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Delete Success','wpbooking')), 'success');
 
 			} else {
-                wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Please select an Taxonomy','wpbooking')), 'error');
+                wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Please select a Taxonomy','wpbooking')), 'error');
 			}
 			wp_redirect($this->get_page_url());
 			die;
@@ -360,7 +360,7 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 
 			// Error checking
 			if (!$taxonomy_label || !$taxonomy_name) {
-				$error = __('Please, provide an taxonomy name .', 'wpbooking');
+				$error = __('Please provide a taxonomy name', 'wpbooking');
 			} elseif (strlen($taxonomy_name) >= 28) {
 				$error = sprintf(__('Slug "%s" is too long (28 characters max). Shorten it, please.', 'wpbooking'), ($taxonomy_name));
 			} elseif (in_array($taxonomy_name, $reserved_terms)) {
@@ -394,9 +394,9 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 			update_option($this->_option_name, $all);
 			flush_rewrite_rules();
 			if ($action == 'add') {
-				wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Create Success','wpbooking')), 'success');
+				wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Create Successfully','wpbooking')), 'success');
 			} else {
-                wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Saved Success','wpbooking')), 'success');
+                wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Save Successfully','wpbooking')), 'success');
 			}
 		}
 

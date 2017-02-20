@@ -60,7 +60,7 @@ if(get_query_var('order-detail')){
 			<div class="alignleft actions">
 				<select name="service_type" class="postform">
 					<optgroup label="<?php esc_html_e('Service Type','wpbooking') ?>">
-						<option value="0"><?php esc_html_e('All Service Types','wpbooking') ?></option>
+						<option value="0"><?php esc_html_e('All Types of Service','wpbooking') ?></option>
 						<?php foreach($types as $k=>$v){
 							printf('<option value="%s" %s>%s</option>',$k,selected(WPBooking_Input::get('service_type'),$k,FALSE),$v->get_info('label'));
 						} ?>
@@ -68,7 +68,7 @@ if(get_query_var('order-detail')){
 				</select>
 				<select name="status" class="postform">
 					<optgroup label="<?php esc_html_e('Status','wpbooking') ?>">
-						<option value="0"><?php esc_html_e('All Status','wpbooking') ?></option>
+						<option value="0"><?php esc_html_e('All Statuses','wpbooking') ?></option>
 						<?php foreach($status as $k=>$v){
 							printf('<option value="%s" %s>%s</option>',$k,selected(WPBooking_Input::get('status'),$k,FALSE),$v['label']);
 						} ?>

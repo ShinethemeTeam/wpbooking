@@ -130,7 +130,7 @@ $field = '';
         <div class="clear"></div>
 
         <div class="st-metabox-left">
-            <label><?php esc_html_e('Enter the number of guests that can sleep here', 'wpbooking') ?></label>
+            <label><?php esc_html_e('Enter the number of guests who can sleep here', 'wpbooking') ?></label>
         </div>
         <div class="st-metabox-right">
             <div class="st-metabox-content-wrapper">
@@ -264,7 +264,7 @@ $field = '';
             <div class="clear"></div>
 
             <div class="st-metabox-left">
-                <label><?php esc_html_e('Enter the number of guests that can sleep here', 'wpbooking') ?></label>
+                <label><?php esc_html_e('Enter the number of guests who can sleep here', 'wpbooking') ?></label>
             </div>
             <div class="st-metabox-right">
                 <div class="st-metabox-content-wrapper">
@@ -418,7 +418,7 @@ $field = '';
                     <div class="clear"></div>
 
                     <div class="st-metabox-left">
-                        <label><?php esc_html_e('Enter the number of guests that can sleep here', 'wpbooking') ?></label>
+                        <label><?php esc_html_e('Enter the number of guests who can sleep here', 'wpbooking') ?></label>
                     </div>
                     <div class="st-metabox-right">
                         <div class="st-metabox-content-wrapper">

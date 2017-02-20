@@ -9,7 +9,7 @@ if (!class_exists('WPBooking_Country_Dropdown_Field')) {
 			$this->field_id = 'country_dropdown';
 			$this->field_data = array(
 				"title"    => __("Country Dropdown", 'wpbooking'),
-				"category" => __("Advance Field", 'wpbooking'),
+				"category" => __("Advanced Field", 'wpbooking'),
 				"options"  => array(
 					array(
 						"type"             => "required",
