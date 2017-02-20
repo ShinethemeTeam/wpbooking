@@ -1,12 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 3/11/2016
- * Time: 10:38 AM
- */
-
-/**
  * @see WPBooking_Loader::_autoload();
  */
 $autoload['config']=array(

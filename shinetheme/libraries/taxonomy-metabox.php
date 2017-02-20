@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 8/3/2016
- * Time: 3:30 PM
- */
 if(!class_exists('WPBooking_Taxonomy_Metabox'))
 {
 	class WPBooking_Taxonomy_Metabox

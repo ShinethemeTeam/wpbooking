@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: me664
- * Date: 12/11/15
- * Time: 6:50 PM
- */
-
 if(!class_exists('WPBooking_Session'))
 {
 	class WPBooking_Session

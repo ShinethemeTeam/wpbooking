@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 3/16/2016
- * Time: 5:07 PM
- */
 $config['lang'][ 'required' ]           = __( 'The %s field is required.' , 'wpbooking' );
 $config['lang'][ 'array_key_required' ] = __( 'The %s field is required.' , 'wpbooking' );
 $config['lang'][ 'required_integer' ] = __( 'The %s field is required.' , 'wpbooking' );

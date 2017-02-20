@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 4/5/2016
- * Time: 12:01 PM
- */
 if (!class_exists('WPBooking_Email')) {
     class WPBooking_Email
     {

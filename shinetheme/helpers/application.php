@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 3/14/2016
- * Time: 2:07 PM
- */
 if(!function_exists('wpbooking_admin_load_view')) {
 	function wpbooking_admin_load_view($view, $data = array())
 	{

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: me664
- * Date: 4/8/15
- * Time: 12:39 PM
- */
-
 if (!class_exists('WPBooking_Currency')) {
 	class WPBooking_Currency
 	{

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 8/5/2016
- * Time: 9:39 AM
- */
 if(!class_exists('WPBooking_Query_Inject')){
 	class WPBooking_Query_Inject{
 

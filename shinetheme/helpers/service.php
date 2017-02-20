@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 4/20/2016
- * Time: 6:00 PM
- */
 if(!function_exists('wpbooking_service_price'))
 {
 	function wpbooking_service_price($post_id=FALSE)

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 9/15/2016
- * Time: 9:47 AM
- */
 if (!class_exists('WB_Service_Helper')) {
 
     class WB_Service_Helper
