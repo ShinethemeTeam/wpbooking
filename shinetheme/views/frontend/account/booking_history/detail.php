@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 4/8/2016
- * Time: 4:59 PM
- */
 echo wpbooking_get_message();
 $order=new WB_Order(get_query_var('order-detail'));
 $booking=WPBooking_Order::inst();

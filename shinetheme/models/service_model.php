@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 3/14/2016
- * Time: 2:08 PM
- */
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }

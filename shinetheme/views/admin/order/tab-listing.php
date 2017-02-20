@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 6/14/2016
- * Time: 8:46 AM
- */
 global $wpdb;
 $paged = ( WPBooking_Input::get('page_number') ) ? WPBooking_Input::get('page_number') : 1;
 $args=array(
@@ -13,17 +7,14 @@ $args=array(
     'paged' => $paged,
     'status' => 'any'
 );
-
 $inject=WPBooking_Query_Inject::inst();
 $inject->inject();
 if(!empty(WPBooking_Input::get('search_keyword')) && $keyword = WPBooking_Input::get('keyword')){
     $args['p']= str_replace('#','',$keyword);
 }
-
 if($m = WPBooking_Input::get('m')){
     $args['m'] = $m;
 }
-
 $table = WPBooking_Order_Model::inst()->get_table_name(false);
 $table_prefix = WPBooking_Order_Model::inst()->get_table_name();
 $inject->join($table, $table_prefix . '.order_id=' . $wpdb->posts . '.ID');
@@ -42,7 +33,6 @@ if($payment_method = WPBooking_Input::get('payment_method')){
 if($author_id = WPBooking_Input::get('author_id')){
 	$inject->where($table_prefix.'.author_id',$author_id);
 }
-
 $query=new WP_Query($args);
 ?>
 <form action="<?php echo admin_url('admin.php') ?>" method="get" class="clear">

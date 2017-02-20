@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 6/3/2016
- * Time: 3:15 PM
- */
 if(!function_exists('wpbooking_email_name_customer_func'))
 {
 	function wpbooking_email_name_customer_func($attr=array(),$content=FALSE)

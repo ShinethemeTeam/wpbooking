@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 12/5/2016
- * Time: 4:24 PM
- */
-
 $old_data = esc_html( $data['std'] );
-
 if(!empty($data['custom_name'])){
     if(isset($data['custom_data'])) $old_data=$data['custom_data'];
 }else{
@@ -16,7 +8,6 @@ if(!empty($data['custom_name'])){
 if( !empty( $value ) ){
     $old_data = $value;
 }
-
 $class = ' wpbooking-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){
@@ -25,7 +16,6 @@ if(!empty($data['condition'])){
 }
 $class.=' width-'.$data['width'];
 if(!empty($data['container_class'])) $class.=' '.$data['container_class'];
-
 if(!is_array($old_data)) $old_data=array();
 $old_data=wp_parse_args($old_data,array(
     'adult'=>array(

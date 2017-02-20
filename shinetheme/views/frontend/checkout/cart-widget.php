@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: me664
- * Date: 4/26/16
- * Time: 5:15 PM
- */
 $booking=WPBooking_Order::inst();
 $cart=$booking->get_cart();
 ?>

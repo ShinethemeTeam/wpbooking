@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 7/7/2016
- * Time: 11:11 AM
- */
 global $current_user;
 ?>
 <div class="row">

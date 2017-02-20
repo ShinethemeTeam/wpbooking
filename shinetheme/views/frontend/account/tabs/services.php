@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 6/27/2016
- * Time: 10:45 AM
- */
 $args = array(
 	'posts_per_page' => 10,
 	'post_type'      => 'wpbooking_service',

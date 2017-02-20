@@ -1,14 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 6/20/2016
- * Time: 3:42 PM
- */
-?>
-
-<?php
-/**
  * @hooked wpbooking_content_wrapper_start_html - 15
  */
 do_action('wpbooking_after_main_header');

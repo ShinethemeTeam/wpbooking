@@ -1,11 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 12/9/2016
- * Time: 8:25 AM
- */
-?>
 <div class="wpbooking_dashboard_widget">
     <div class="table table_left table_current_month">
             <table>

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 7/27/2016
- * Time: 4:29 PM
- */
 global $wp_query;
 if(!$wp_query->have_posts()) return;
 ?>

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 8/3/2016
- * Time: 3:40 PM
- */
 if(empty($metabox['fields'])) return;
 switch($layout_type) {
 	case "edit_page":

@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 7/13/2016
- * Time: 3:42 PM
- */
-
 $old_data = esc_html( $data['std'] );
-
 if(!empty($data['custom_name'])){
 	if(isset($data['custom_data'])) $old_data=$data['custom_data'];
 }else{
@@ -16,7 +8,6 @@ if(!empty($data['custom_name'])){
 if( !empty( $value ) ){
 	$old_data = $value;
 }
-
 $class = ' wpbooking-form-group ';
 $data_class = '';
 if(!empty($data['condition'])){
@@ -25,17 +16,11 @@ if(!empty($data['condition'])){
 }
 if(!empty($data['container_class'])) $class.=' '.$data['container_class'];
 $class.=' width-'.$data['width'];
-
 $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
-
 $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
-
 $field .= '<div class="mb7"><input id="'. esc_html( $data['id'] ).'" type="text" name="'. $name .'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'"></div>';
-
 $field .= '</div></div>';
-
 ?>
-
 <div class="wpbooking-settings  <?php echo esc_html( $class ); ?> wb-property-size-field" <?php echo esc_html( $data_class ); ?>>
 	<div class="st-metabox-left">
 		<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>

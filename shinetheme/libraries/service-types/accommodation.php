@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 8/10/2016
- * Time: 3:47 PM
- */
 if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBooking_Abstract_Service_Type')) {
     class WPBooking_Accommodation_Service_Type extends WPBooking_Abstract_Service_Type
     {

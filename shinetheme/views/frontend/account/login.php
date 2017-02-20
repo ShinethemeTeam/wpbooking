@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 6/22/2016
- * Time: 3:32 PM
- */
 $full_url =  $current_url="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $error_field = array('u'=>'','p'=>'');
 if(!WPBooking_Input::post('action'))

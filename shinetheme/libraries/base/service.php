@@ -1,12 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 7/28/2016
- * Time: 1:47 PM
- */
-
-/**
  * Base Class for one Service
  *
  * @since 1.0

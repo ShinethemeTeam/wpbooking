@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 6/22/2016
- * Time: 3:32 PM
- */
 global $wp_query;
 $other_filter_tab_account = apply_filters('wpbbooking_other_tab_content_account',array());
 ?>

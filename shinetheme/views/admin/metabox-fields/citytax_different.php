@@ -1,12 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 7/13/2016
- * Time: 2:38 PM
- */
 $old_data = (isset($data['custom_data'])) ? esc_html($data['custom_data']) : get_post_meta($post_id, esc_html($data['id']), TRUE);
-
 $class = ' wpbooking-form-group ';
 $data_class = '';
 if (!empty($data['condition'])) {
@@ -14,11 +7,8 @@ if (!empty($data['condition'])) {
     $data_class .= ' data-condition=' . $data['condition'] . ' ';
 }
 if (!empty($data['container_class'])) $class .= ' ' . $data['container_class'];
-
 $class .= ' width-' . $data['width'];
 $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html($data['id']);
-
-
 ?>
 <div class="form-table content_tax_vat wpbooking-settings <?php echo esc_html($class); ?>" <?php echo esc_html($data_class); ?>>
     <h4 class="field-title"> <?php echo esc_html($data['label']); ?> </h4>

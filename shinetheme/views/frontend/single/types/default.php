@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 11/9/2016
- * Time: 1:49 PM
- */
-
 $service = wpbooking_get_service();
 $service_type=$service->get_type();
 $hotel_id=get_the_ID();

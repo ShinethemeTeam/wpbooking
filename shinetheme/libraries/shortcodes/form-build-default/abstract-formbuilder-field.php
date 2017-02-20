@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 4/27/2016
- * Time: 4:35 PM
- */
 if(!class_exists('WPBooking_Abstract_Formbuilder_Field') )
 {
 	/**

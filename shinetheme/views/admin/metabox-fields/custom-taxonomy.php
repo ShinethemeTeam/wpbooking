@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 10/18/2016
- * Time: 5:40 PM
- */
 $taxs = WPBooking_Admin_Taxonomy_Controller::inst()->get_tax_service_type($data['service_type']);
 if (!empty($taxs)) {
     foreach ($taxs as $tax) {

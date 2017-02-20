@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 7/28/2016
- * Time: 5:37 PM
- */
 if (!class_exists('WPBooking_User_Favorite_Model')) {
 	class WPBooking_User_Favorite_Model extends WPBooking_Model
 	{

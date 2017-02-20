@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 8/9/2016
- * Time: 12:07 PM
- */
 if (!class_exists('WB_Order')) {
     class WB_Order
     {

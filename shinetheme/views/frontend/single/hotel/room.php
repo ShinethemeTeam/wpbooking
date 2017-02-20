@@ -1,11 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 12/6/2016
- * Time: 9:08 AM
- */
-?>
 <div class="service-content-section">
     <?php
     global $wp_query;

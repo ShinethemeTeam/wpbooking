@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 6/14/2016
- * Time: 8:46 AM
- */
-
 $limit=20;
 $offset=$limit*(WPBooking_Input::get('page_number',1)-1);
 $order_model=WPBooking_Order_Model::inst();

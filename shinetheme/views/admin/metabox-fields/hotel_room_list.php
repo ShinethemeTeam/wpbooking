@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 9/30/2016
- * Time: 5:29 PM
- */
-
 $old_data = esc_html($data['std']);
-
 if (!empty($data['custom_name'])) {
     if (isset($data['custom_data'])) $old_data = $data['custom_data'];
 } else {
@@ -16,7 +8,6 @@ if (!empty($data['custom_name'])) {
 if (!empty($value)) {
     $old_data = $value;
 }
-
 $class = ' wpbooking-form-group ';
 $data_class = '';
 if (!empty($data['condition'])) {
@@ -27,9 +18,7 @@ $class .= ' width-' . $data['width'];
 if (!empty($data['container_class'])) $class .= ' ' . $data['container_class'];
 
 $field = '';
-
 $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html($data['id']);
-
 $query = new WP_Query(array(
     'post_parent'    => $post_id,
     'posts_per_page' => 200,
@@ -38,7 +27,6 @@ $query = new WP_Query(array(
 if($query->found_posts < 1){
     $class .= ' wpbooking-no-room ';
 }
-
 ?>
 <div class="wpbooking-settings hotel_room_list <?php echo esc_html($class); ?>" <?php echo esc_html($data_class); ?>>
     <div class="st-metabox-content-wrapper">

@@ -1,11 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 7/13/2016
- * Time: 1:33 PM
- */
-?>
 <div class="wpbooking-field-title">
 	<h4 class="field-title">
 		<?php echo esc_html($data['label']) ?>

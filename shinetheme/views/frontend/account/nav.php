@@ -1,12 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 6/27/2016
- * Time: 10:44 AM
- */
 $tabs=WPBooking_User::inst()->get_tabs();
-
 ?>
 <!-- Nav tabs -->
 <ul class="wb-account-nav" role="tablist">

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 9/29/2016
- * Time: 9:17 AM
- */
 $data = wp_parse_args($data, array(
     'taxonomy' => false
 ));
@@ -16,7 +10,6 @@ if (!empty($data['condition'])) {
 }
 $class .= ' width-' . $data['width'];
 if (!empty($data['container_class'])) $class .= ' ' . $data['container_class'];
-
 $posts_terms=wp_get_post_terms($post_id,$data['taxonomy']);
 $term_ids=array();
 if(!empty($posts_terms) and !is_wp_error($posts_terms)){
@@ -24,9 +17,7 @@ if(!empty($posts_terms) and !is_wp_error($posts_terms)){
         $term_ids[]=$terms->term_id;
     }
 }
-
 $old_data = esc_html( $data['std'] );
-
 if(!empty($data['custom_name'])){
     if(isset($data['custom_data'])) $old_data=$data['custom_data'];
 }else{

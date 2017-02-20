@@ -1,15 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 8/5/2016
- * Time: 11:22 AM
- */
 $service=new WB_Service();
 $service_type=$service->get_type();
-
 $related = $service->get_related_query();
-
 if(!$related or !$related->have_posts()) return FALSE;
 ?>
 <div class="service-content-section">

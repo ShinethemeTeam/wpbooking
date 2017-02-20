@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 7/18/2016
- * Time: 8:25 AM
- */
 $data=wp_parse_args($data,array(
 	'ajax_saving'=>1,
 	'next_label'=>esc_html__('Save','wpbooking')
@@ -29,7 +23,5 @@ $css = WPBooking_Assets::build_css_class('clear: both');
 		if($data['ajax_saving']) $class.=' ajax_saving';
 		printf('<a href="#" class="button wb-save-room %s">%s <i class="fa fa-spinner fa-pulse"></i></a>',$class,$data['next_label']);
 	}
-
 	?>
-
 </div>

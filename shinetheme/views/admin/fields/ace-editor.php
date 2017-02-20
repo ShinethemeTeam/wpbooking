@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 6/6/2016
- * Time: 2:35 PM
- */
 wp_enqueue_script('codeflask');
 wp_enqueue_style('codeflask');
 $data_value = wpbooking_get_option($data['id'],$data['std']);

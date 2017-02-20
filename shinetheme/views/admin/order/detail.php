@@ -1,23 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 6/2/2016
- * Time: 5:28 PM
- */
-
 $booking=WPBooking_Order::inst();
 $value=$order_item;
 $order=new WB_Order($order_id);
 $checkout_form_data=$order->get_checkout_form_data();
 ?>
-
 <div class="wrap">
 	<h1><?php esc_html_e('Order Item Detail','wpbooking') ?></h1>
-
 	<?php echo wpbooking_get_admin_message() ?>
 	<div id="poststuff">
-
 		<div class="wpbooking-order-information wpbooking-order-detail postbox ">
 			<h3 class="hndle"><?php esc_html_e('Order Items','wpbooking') ?></h3>
 				<div class="inside">
@@ -72,12 +62,8 @@ $checkout_form_data=$order->get_checkout_form_data();
                         echo esc_html($selected_gateway);
                     }
 					?>
-
-
 					<?php do_action('wpbooking_end_checkout_form_data');?>
 				</div>
-
 		</div>
-
 	</div>
 </div>

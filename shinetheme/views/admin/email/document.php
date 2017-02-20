@@ -1,12 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 4/21/2016
- * Time: 4:28 PM
- */
-?>
-
 <ol>
 	<li>[order_id] : <?php _e('Order ID','wpbooking') ?></li>
 	<li>[name_customer] : <?php _e('Name Customer','wpbooking') ?></li>

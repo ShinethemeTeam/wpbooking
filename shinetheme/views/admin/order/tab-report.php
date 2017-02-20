@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dungdt
- * Date: 6/14/2016
- * Time: 8:46 AM
- */
 $limit=10;
 $offset=$limit*(WPBooking_Input::get('page_number',1)-1);
 $args=array(
