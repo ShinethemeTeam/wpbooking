@@ -1,4 +1,6 @@
 <?php
+
+wp_enqueue_script('chart');
 $limit=10;
 $offset=$limit*(WPBooking_Input::get('page_number',1)-1);
 $args=array(
