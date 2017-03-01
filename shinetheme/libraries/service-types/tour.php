@@ -314,8 +314,10 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             }
             if(!empty($cart['extra_fees'])){
                 foreach($cart['extra_fees'] as $k=>$v){
-                    foreach($v['data'] as $extra){
-                        $price += $extra['quantity'] * $extra['price'];
+                    if(!empty($v['data'])){
+                        foreach($v['data'] as $extra){
+                            $price += $extra['quantity'] * $extra['price'];
+                        }
                     }
                 }
             }
