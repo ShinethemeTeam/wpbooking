@@ -3,7 +3,7 @@
  * Plugin Name: WpBooking
  * Plugin URI: wpbooking
  * Description: All in one Booking System
- * Version: 1.1
+ * Version: 1.2
  * Author: wpbooking
  * Author URI: http://www.wpbooking.org
  * Requires at least: 4.1
@@ -313,6 +313,20 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             $plugin = get_plugin_data(__FILE__);
             $this->_version = $plugin['Version'];
 
+        }
+
+        /**
+         * Get Version Plugin
+         *
+         * @since 1.2
+         * @author quandq
+         *
+         * @return mixed
+         */
+        function get_version_plugin()
+        {
+            $plugin = get_plugin_data(__FILE__);
+            return $plugin['Version'];
         }
 
         function _admin_init_menu_page()

@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by WpBooking Team.
- * User: NAZUMI
- * Date: 12/1/2016
- * Version: 1.0
- */
-
-$_version = '1.0';
-
+$_version = WPBooking_System::inst()->get_version_plugin();
 $extension_url = add_query_arg(array('page' => 'wpbooking_page_extensions'), admin_url('admin.php'));
 $tabs = array(
     array(
