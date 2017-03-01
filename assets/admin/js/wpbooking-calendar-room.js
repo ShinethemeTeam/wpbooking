@@ -122,17 +122,6 @@ jQuery(document).ready(function($) {
                                 $('input[name=calendar_infant_price]').val('');
                             }
 
-                           if(source.can_check_in==1){
-                               $('#calendar-can-check-in').iCheck('check');
-                           }else{
-                               $('#calendar-can-check-in').iCheck('uncheck');
-                           }
-
-                           if(source.can_check_out==1){
-                               $('#calendar-can-check-out').iCheck('check');
-                           }else{
-                               $('#calendar-can-check-out').iCheck('uncheck');
-                           }
                         }
                     },
                     onSelectionRange:function(start,end){
