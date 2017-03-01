@@ -791,7 +791,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                 'vat_unit',
                             ),
                             'extra_rules'=>array(
-                                'vat_amount'=>array('label'=>esc_html__('VAT amount','wpbooking'),'rules'=>'required|decimal|greater_than[0]','rule_condition'=>'vat_excluded:not_empty')
+                                'vat_amount'=>array('label'=>esc_html__('VAT amount','wpbooking'),'rules'=>'required|greater_than[0]','rule_condition'=>'vat_excluded:not_empty')
                             ),
 
                         ),
@@ -805,7 +805,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                                 'citytax_unit',
                             ),
                             'extra_rules'=>array(
-                                'citytax_amount'=>array('label'=>esc_html__('City Tax amount','wpbooking'),'rules'=>'required|decimal|greater_than[0]','rule_condition'=>'citytax_excluded:not_empty')
+                                'citytax_amount'=>array('label'=>esc_html__('City Tax amount','wpbooking'),'rules'=>'required|greater_than[0]','rule_condition'=>'citytax_excluded:not_empty')
                             ),
                         ),
 
