@@ -68,6 +68,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
              * @author dungdt
              */
             add_action('wpbooking_service_base_price_html_' . $this->type_id, array($this, '_edit_price'), 10, 4);
+            add_action('wpbooking_service_base_price_' . $this->type_id, array($this, '_edit_base_price'), 10, 3);
 
             /**
              * Filter to Validate Add To Cart
@@ -838,7 +839,58 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
 
             return $price_html;
         }
+        /**
+         * Query Minimum Price for Tour
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @param $price
+         * @param $post_id
+         * @return string
+         */
+        public function _edit_base_price( $price, $post_id, $service_type)
+        {
+            global $wpdb;
+            $calendar = WPBooking_Calendar_Model::inst();
 
+            $pricing_type = get_post_meta($post_id, 'pricing_type', true);
+
+            if ($pricing_type == 'per_person') {
+                $query = $calendar->select('
+                CASE
+                WHEN MIN(adult_price) <= MIN(child_price)
+                AND MIN(adult_price) <= MIN(infant_price) THEN
+                    MIN(adult_price)
+                WHEN MIN(child_price) <= MIN(adult_price)
+                AND MIN(child_price) <= MIN(infant_price) THEN
+                    MIN(child_price)
+                WHEN MIN(infant_price) <= MIN(adult_price)
+                AND MIN(infant_price) <= MIN(child_price) THEN
+                    MIN(infant_price)
+                END AS min_price
+                ')->where(array(
+                    'post_id'  => $post_id,
+                    'status'   => 'available',
+                    'start >=' => strtotime(date('d-m-Y'))
+
+                ))->where('(child_price > 0 or adult_price > 0)', false, true)->get(1)->row();
+            } else {
+                $query = $calendar->select('MIN(calendar_price) as min_price')->where(array(
+                    'post_id'          => $post_id,
+                    'status'           => 'available',
+                    'calendar_price >' => 0,
+                    'start >='         => strtotime(date('d-m-Y'))
+
+                ))->get(1)->row();
+            }
+
+            if ($query) {
+                $price = $query['min_price'];
+            }
+
+            return $price;
+        }
         /**
          * Register metabox fields
          *
