@@ -19,7 +19,7 @@
                         <?php if(!empty($data)){ ?>
                             <select name="setup_demo[currency][currency]" class="form-control min-width-500">
                                 <?php foreach($data as $k=>$v){ ?>
-                                    <option value="<?php echo esc_attr($k) ?>"><?php echo esc_html($v) ?></option>
+                                    <option <?php if($k=='USD') echo 'selected'; ?>  value="<?php echo esc_attr($k) ?>"><?php echo esc_html($v) ?></option>
                                 <?php } ?>
                             </select>
                         <?php } ?>
@@ -31,7 +31,7 @@
                         <label for="symbol"><?php esc_html_e("Symbol:","wpbooking") ?></label>
                     </th>
                     <td>
-                        <input type="text" name="setup_demo[currency][symbol]" class="form-control  min-width-500" id="setup_demo[currency][symbol]">
+                        <input type="text" value="$" name="setup_demo[currency][symbol]" class="form-control  min-width-500" id="setup_demo[currency][symbol]">
                         <i class="wpbooking-desc"><?php esc_html_e("Symbol of currency. For example: $","wpbooking") ?></i>
                     </td>
                 </tr>

@@ -95,6 +95,45 @@ if(!class_exists('WPBooking_Admin_Setup'))
                         }else{
                             update_option("wpbooking_myaccount-page",$page_my_acount->ID);
                         }
+
+                        $list_taxonomy = array(
+                            'wpbooking_amenity'=>array(
+                                'fa-safari'=>'Air Conditioning',
+                                'fa-briefcase'=>'Breakfast',
+                                'fa-wifi'=>'Buzzer/Wireless Intercom',
+                                'fa-tv'=>'Cable TV',
+                            ),
+                            'wb_hotel_room_facilities'=>array(
+                                'fa-clock-o'=>'Alarm clock',
+                                'fa-object-group'=>'Bathroom',
+                                'fa-tripadvisor'=>'iPod dock',
+                                'fa-laptop'=>'Laptop safe',
+                            ),
+                            'wpbooking_location'=>array(
+                                'New York',
+                                'Germany',
+                                'United States',
+                                'Russia',
+                                'Paris',
+                            ),
+                            'wb_tour_type'=>array(
+                                'City trips',
+                                'Ecotourism',
+                                'Sightseeing',
+                            ),
+                        );
+                        foreach($list_taxonomy as $taxonomy=>$terms){
+                            foreach($terms as $icon=>$term){
+                                $rs = wp_insert_term($term,$taxonomy);
+                                if(!is_wp_error($rs)){
+                                    $term_id = $rs['term_id'];
+                                    if(!is_numeric($icon)){
+                                        update_tax_meta($term_id,'wpbooking_icon',$icon);
+                                    }
+                                }
+                            }
+                        }
+
                         wp_redirect( add_query_arg( array('page'=>'wpbooking_setup_page_settings','wp_step'=>'wp_booking') , admin_url("admin.php") ) );
                         exit;
                         break;
@@ -163,12 +202,14 @@ if(!class_exists('WPBooking_Admin_Setup'))
                             }
                         }
                         update_option("wpbooking_setup_demo","false");
+
                         wp_redirect( add_query_arg( array('page'=>'wpbooking_page_settings') , admin_url("admin.php") ) );
                         exit;
                         break;
                 }
 
                 do_action('wpbooking_do_setup',$tab);
+
             }
         }
         static function _get_template_default($style){

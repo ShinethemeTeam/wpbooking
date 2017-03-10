@@ -1,5 +1,4 @@
-<?php $is_tab = WPBooking_Input::request('wp_step','wp_general');
-?>
+<?php $is_tab = WPBooking_Input::request('wp_step','wp_general'); ?>
 <form method="post">
     <?php wp_nonce_field('wpbooking_action','wpbooking_save_setup_demo') ?>
     <input type="hidden" name="is_tab" value="<?php echo esc_attr($is_tab) ?>">
@@ -45,11 +44,8 @@
                         <i class="wpbooking-desc"></i>
                     </td>
                 </tr>
-
-
                 </tbody>
             </table>
-
         </div>
         <div class="control">
             <button name="wpbooking_save_setup" value="true" class="button-primary button button-large"><?php esc_html_e("Save & Continue","wpbooking") ?></button>
