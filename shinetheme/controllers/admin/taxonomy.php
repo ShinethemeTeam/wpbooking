@@ -260,7 +260,7 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 
 			if ($action == 'add') {
 				$taxonomy_name = mb_strtolower($taxonomy_label);
-				$taxonomy_name = sanitize_title_with_dashes(stripslashes($taxonomy_name));
+				$taxonomy_name = $this->convert_vi_to_en($taxonomy_name);
 				$taxonomy_name = 'wb_tax_' . str_replace('-', '_', $taxonomy_name);
 			} else {
 				$taxonomy_name = WPBooking_Input::post('taxonomy_name');
@@ -349,14 +349,15 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 
 			if (!$taxonomy_slug) {
 				$taxonomy_slug = mb_strtolower($taxonomy_label);
+                $taxonomy_slug = $this->convert_vi_to_en($taxonomy_slug);
 				$taxonomy_slug = sanitize_title_with_dashes(stripslashes($taxonomy_slug));
 			}
 
 			// Error checking
 			if (!$taxonomy_label || !$taxonomy_name) {
 				$error = __('Please provide a taxonomy name', 'wpbooking');
-			} elseif (strlen($taxonomy_name) >= 28) {
-				$error = sprintf(__('Slug "%s" is too long (28 characters max). Shorten it, please.', 'wpbooking'), ($taxonomy_name));
+			} elseif (strlen($taxonomy_name) >= 35) {
+				$error = sprintf(__('Slug "%s" is too long (35 characters max). Shorten it, please.', 'wpbooking'), ($taxonomy_name));
 			} elseif (in_array($taxonomy_name, $reserved_terms)) {
 				$error = sprintf(__('Slug "%s" is not allowed because it is a reserved term. Change it, please.', 'wpbooking'), ($taxonomy_name));
 			} else {
@@ -485,6 +486,38 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
             }
 		}
 
+        /**
+         * Convert Title to EN
+         *
+         * @since 1.0
+         * @author dungdt
+         *
+         * @param $str
+         * @return mixed
+         */
+        function convert_vi_to_en($str) {
+            $str = preg_replace( '/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/' , 'a' , $str );
+            $str = preg_replace( '/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/' , 'e' , $str );
+            $str = preg_replace( '/(ì|í|ị|ỉ|ĩ)/' , 'i' , $str );
+            $str = preg_replace( '/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/' , 'o' , $str );
+            $str = preg_replace( '/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/' , 'u' , $str );
+            $str = preg_replace( '/(ỳ|ý|ỵ|ỷ|ỹ)/' , 'y' , $str );
+            $str = preg_replace( '/(đ)/' , 'd' , $str );
+            $str = preg_replace( '/(À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)/' , 'A' , $str );
+            $str = preg_replace( '/(È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ)/' , 'E' , $str );
+            $str = preg_replace( '/(Ì|Í|Ị|Ỉ|Ĩ)/' , 'I' , $str );
+            $str = preg_replace( '/(Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ)/' , 'O' , $str );
+            $str = preg_replace( '/(Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ)/' , 'U' , $str );
+            $str = preg_replace( '/(Ỳ|Ý|Ỵ|Ỷ|Ỹ)/' , 'Y' , $str );
+            $str = preg_replace( '/(Đ)/' , 'D' , $str );
+
+            $str = str_replace( ' ' , '-' , $str ); // Replaces all spaces with hyphens.
+            $str = preg_replace( '/[^A-Za-z0-9\-]/' , '' , $str ); // Removes special chars.
+
+            $str = preg_replace( '/-+/' , '-' , $str ); // Replaces multiple hyphens with single one.
+
+            return $str;
+        }
 		static function inst()
 		{
 			if (!self::$_inst) {
