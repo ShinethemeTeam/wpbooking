@@ -10,6 +10,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         {
             $this->type_info = array(
                 'label' => __("Accommodation", 'wpbooking'),
+                'labels' => __("Accommodations", 'wpbooking'),
                 'desc'  => esc_html__('You can post any kind of property like hotels, hostels, room like airbnb... anything  is called accommodation', 'wpbooking')
             );
 
@@ -1341,8 +1342,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'status' => 1,
                     'data'   => "",
                 );
-                $hotel_id = get_the_ID();
-                if(empty($hotel_id))$hotel_id = WPBooking_Input::request('hotel_id');
+                if(empty($hotel_id))$hotel_id = WPBooking_Input::request('hotel_id',0);
                 $query=$this->search_room($hotel_id);
                 if ($query->have_posts()) {
                     while ($query->have_posts()) {

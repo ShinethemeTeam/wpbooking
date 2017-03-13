@@ -10,6 +10,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
         {
             $this->type_info = array(
                 'label' => __("Tour", 'wpbooking'),
+                'labels' => __("Tours", 'wpbooking'),
                 'desc'  => esc_html__('You can post anything related to activities such as tourism, events, workshops, etc anything called tour', 'wpbooking')
             );
 

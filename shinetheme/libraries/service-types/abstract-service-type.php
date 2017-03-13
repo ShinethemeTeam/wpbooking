@@ -16,6 +16,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 			if (!$this->type_id) return FALSE;
 			$this->type_info = wp_parse_args($this->type_info, array(
 				'label'       => '',
+				'labels'       => '',
 				'description' => ''
 			));
 

@@ -112,7 +112,6 @@ $hotel_id=get_the_ID();
     </div>
     <div class="service-content-section">
         <h5 class="service-info-title"><?php esc_html_e('Description', 'wpbooing') ?></h5>
-
         <div class="service-content-wrap" itemprop="description">
             <?php
             if (have_posts()) {
@@ -130,15 +129,16 @@ $hotel_id=get_the_ID();
         ?>
         <div class="service-content-section">
             <h5 class="service-info-title"><?php esc_html_e('Amenities', 'wpbooing') ?></h5>
-
             <div class="service-content-wrap">
                 <ul class="wb-list-amenities">
                     <?php
                     foreach($amenities as $val){
                         $amenity = get_term_by('id',$val,'wpbooking_amenity');
-                        $icon = get_tax_meta($amenity->term_id, 'wpbooking_icon');
-                        if(!empty($amenity)){
-                            echo '<li><i class="fa fa-check-square-o"></i> &nbsp; <i class="'.wpbooking_handle_icon($icon).'"></i> '.esc_html($amenity->name).'</li>';
+                        if(!empty($amenity->term_id)){
+                            $icon = get_tax_meta($amenity->term_id, 'wpbooking_icon');
+                            if(!empty($amenity)){
+                                echo '<li><i class="fa fa-check-square-o"></i> &nbsp; <i class="'.wpbooking_handle_icon($icon).'"></i> '.esc_html($amenity->name).'</li>';
+                            }
                         }
                     }
                     ?>
