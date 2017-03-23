@@ -15,8 +15,7 @@ if(!$wp_query->have_posts()) return;
 		<h2 class="post-found-count"><?php
             $service_type = WPBooking_Input::get('service_type');
             $service = WPBooking_Service_Controller::inst()->get_service_type($service_type);
-
-            if($service_type){
+			if($service_type and !empty($service)){
                 printf(_n('Found %d ','Found %d ',$wp_query->found_posts, 'wpbooking').$service->get_info('label').esc_html__('(s)','wpbooking'), $wp_query->found_posts);
             }else{
                 printf(_n('Found %d service','Found %d services',$wp_query->found_posts, 'wpbooking'), $wp_query->found_posts);

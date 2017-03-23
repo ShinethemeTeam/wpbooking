@@ -88,8 +88,12 @@ if (!class_exists('WPBooking_User')) {
              *
              * @since 1.0
              * @author tienhd
+             *
+             * update 1.2
+             * disable redirect login admin
+             * @author quandq
              */
-            add_filter('login_url',array($this,'_redirect_login_url'),10,3);
+            //add_filter('login_url',array($this,'_redirect_login_url'),10,3);
 
             /**
              * Redirect reset password url
