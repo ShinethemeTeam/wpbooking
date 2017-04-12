@@ -148,6 +148,15 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
              */
             add_filter('wpbooking_min_max_price_' . $this->type_id, array($this, '_change_min_max_price'), 10, 1);
 
+            /**
+             * Update Metabox min_price Tour
+             *
+             * @since 1.3
+             * @author quandq
+             */
+            add_action('save_post', array($this, '_update_min_price_hotel'));
+            add_action('wpbooking_save_metabox_section', array($this, '_update_min_price_tour'));
+            add_action('wpbooking_after_add_availability', array($this, '_update_min_price_tour'));
         }
         /**
          * Get Min and Max Price
@@ -1510,6 +1519,25 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             }
 
             return $res;
+        }
+
+
+        /**
+         * Update min_price
+         *
+         * @since 1.3
+         * @author quandq
+         *
+         * @param $tour_id
+         * @return bool
+         */
+        function _update_min_price_tour($tour_id){
+            if (get_post_type($tour_id) != 'wpbooking_service') return FALSE;
+            $service_type  = get_post_meta( $tour_id ,'service_type', true);
+            if($service_type != $this->type_id)  return FALSE;
+            $min_price = $this->_edit_base_price(0,$tour_id,$service_type);
+            update_post_meta($tour_id , 'price' , $min_price);
+            WPBooking_Service_Model::inst()->save_extra($tour_id);
         }
 
         function _add_default_query_hook()

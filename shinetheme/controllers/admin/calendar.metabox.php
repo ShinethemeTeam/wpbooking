@@ -177,6 +177,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					}
 					$new_item = $this->wpbooking_insert_availability( $post_id, $base_id, $check_in, $check_out, $price, $status, $group_day,$weekly,$monthly,$can_check_in,$can_check_out,$calendar_minimum,$calendar_maximum,$calendar_price,$calendar_adult_minimum,$calendar_adult_price,$calendar_child_minimum,$calendar_child_price,$calendar_infant_minimum,$calendar_infant_price );
 
+                    do_action('wpbooking_after_add_availability',$post_id);
 					if( $new_item > 0 ){
 						echo json_encode( array(
 							'status' => 1,
@@ -190,7 +191,6 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 						) );
 						die;
 					}
-
 				}
 			}
 		}

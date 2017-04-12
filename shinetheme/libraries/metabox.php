@@ -432,6 +432,8 @@ if (!class_exists('WPBooking_Metabox')) {
         {
             if (empty($sections)) return;
 
+            do_action('wpbooking_before_save_metabox_section', $post_id,$section_id, $sections);
+
             foreach ($sections as $field) {
                 if (empty($field['id'])) continue;
 
@@ -440,7 +442,6 @@ if (!class_exists('WPBooking_Metabox')) {
                 }
                 $old = get_post_meta($post_id, $field['id'], TRUE);
                 $new = '';
-
                 /* there is data to validate */
                 if (isset($_POST[$field['id']])) {
 
@@ -448,11 +449,7 @@ if (!class_exists('WPBooking_Metabox')) {
                     $new = $_POST[$field['id']];
 
                 }
-
-
-
                 // Property Size
-
                 switch ($field['type']) {
                     case "property_size":
                         if (!empty($field['unit_id'])) update_post_meta($post_id, $field['unit_id'], WPBooking_Input::post($field['unit_id']));
@@ -550,7 +547,6 @@ if (!class_exists('WPBooking_Metabox')) {
                         }
                         break;
                 }
-
                 /**
                  * @todo Save Extra Fields
                  *

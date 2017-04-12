@@ -227,6 +227,16 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              */
             add_filter('wpbooking_min_max_price_' . $this->type_id, array($this, '_change_min_max_price'), 10, 1);
 
+            /**
+             * Update Metabox min_price Hotel by Room
+             *
+             * @since 1.3
+             * @author quandq
+             */
+            add_action('wpbooking_after_save_room_hotel',array($this, '_update_min_price_hotel'));
+            add_action('save_post', array($this, '_update_min_price_hotel'));
+            add_action('wpbooking_save_metabox_section', array($this, '_update_min_price_hotel'));
+
         }
 
         /**
@@ -1170,14 +1180,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         public function _ajax_save_room()
         {
             $res = array('status' => 0);
-
             $room_id = $this->post('wb_room_id');
-
             if ($room_id) {
                 // Validate
                 check_ajax_referer("wpbooking_hotel_room_" . $room_id, 'wb_hotel_room_security');
-
-
                 if ($name = $this->request('room_name')) {
                     $my_post = array(
                         'ID'         => $room_id,
@@ -1186,9 +1192,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     );
                     wp_update_post($my_post);
                 }
-
                 $fields = $this->get_room_meta_fields();
-
                 $form_validate=new WPBooking_Form_Validator();
                 $need_validate=false;
                 $is_validated=true;
@@ -1207,16 +1211,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     }
 
                 }
-
                 if($need_validate){
                     $is_validated=$form_validate->run();
 
                     if(!$is_validated) $res['error_fields']=$form_validate->get_error_fields();
                 }
-
-
-
-
                 if($is_validated){
                     WPBooking_Metabox::inst()->do_save_metabox($room_id, $fields, 'wpbooking_hotel_room_form');
 
@@ -1241,11 +1240,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $res['updated_content'] = apply_filters('wpbooking_hotel_room_form_updated_content', $updated_content, $room_id, $hotel_id);
 
                     $res['status'] = 1;
+
+                    do_action('wpbooking_after_save_room_hotel',$hotel_id);
                 }
-
             }
-
-
             echo json_encode($res);
             die;
         }
@@ -2625,8 +2623,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             }
         }
 
-
-
         /**
          * Get Price Room In Cart
          *
@@ -2884,6 +2880,10 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
         /**
          * Change Tax Room CheckOut
+         *
+         * @since 1.0
+         * @author quandq
+         *
          * @param $tax
          * @param $cart
          * @return mixed
@@ -2944,6 +2944,25 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $tax['total_price'] = $total_tax;
             $tax['tax_total'] = $tax_total;
             return $tax;
+        }
+
+        /**
+         * /**
+         * Update min_price hotel
+         *
+         * @since 1.2
+         * @author quandq
+         *
+         * @param $hotel_id
+         * @return bool
+         */
+        function _update_min_price_hotel($hotel_id){
+            if (get_post_type($hotel_id) != 'wpbooking_service') return FALSE;
+            $service_type  = get_post_meta( $hotel_id ,'service_type', true);
+            if($service_type != $this->type_id)  return FALSE;
+            $min_price = WPBooking_Meta_Model::inst()->get_price_accommodation($hotel_id);
+            update_post_meta($hotel_id , 'price' , $min_price);
+            WPBooking_Service_Model::inst()->save_extra($hotel_id);
         }
 
         static function inst()

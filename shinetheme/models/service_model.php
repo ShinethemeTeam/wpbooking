@@ -37,7 +37,6 @@ if (!class_exists('WPBooking_Service_Model')) {
 		{
 			$columns = $this->get_columns();
 			if (empty($columns)) return;
-
 			foreach ($columns as $k => $v) {
 				if (in_array($k, array('id', 'post_id'))) continue;
 				$data[$k] = get_post_meta($post_id, $k, TRUE);
@@ -52,12 +51,16 @@ if (!class_exists('WPBooking_Service_Model')) {
 						break;
 					case "service_type":
 						if (!$data[$k]) {
-							// Set the first Type
-							$all = WPBooking_Service_Controller::inst()->get_service_types();
-							if (!empty($all)) {
-								reset($all);
-								$data[$k] = key($all);
-							}
+                            if(get_post_type($post_id) == 'wpbooking_hotel_room'){
+                                $data[$k] = 'accommodation_room';
+                            }else{
+                                // Set the first Type
+                                $all = WPBooking_Service_Controller::inst()->get_service_types();
+                                if (!empty($all)) {
+                                    reset($all);
+                                    $data[$k] = key($all);
+                                }
+                            }
 						}
 						break;
 					case "number":
