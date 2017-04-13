@@ -797,10 +797,14 @@ jQuery(document).ready(function($){
         var min=$(this).data('min');
         var max=$(this).data('max');
         var type=$(this).data('type');
+        var prefix=$(this).data('prefix');
+        var postfix=$(this).data('postfix');
         $(this).ionRangeSlider({
             min: min,
             max: max,
-            type:type
+            type:type,
+            prefix:prefix,
+            postfix:postfix
         });
     });
 

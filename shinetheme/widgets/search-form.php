@@ -355,7 +355,21 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 						<?php if($v['title']) { ?><label for="<?php echo esc_html($v['field_type']) ?>"><?php echo esc_html($v['title']) ?></label> <?php } ?>
 
 						<div class="item-search-content">
-							<input type="text" data-type="double" data-min="<?php echo esc_attr($min_max_price['min']) ?>" data-max="<?php echo esc_attr($min_max_price['max']) ?>" class="wpbooking-ionrangeslider" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
+                            <?php
+                            $prefix = $postfix = '';
+                            switch (WPBooking_Currency::get_current_currency('position')) {
+                                case "right":
+                                case "right_with_space":
+                                    $postfix = WPBooking_Currency::get_current_currency('symbol');
+                                    break;
+                                case "left_with_space":
+                                case "left":
+                                default:
+                                    $prefix = WPBooking_Currency::get_current_currency('symbol');
+                                    break;
+                            }
+                            ?>
+							<input type="text" data-type="double" data-prefix="<?php echo esc_html($prefix) ?>" data-postfix="<?php echo esc_html($postfix) ?>" data-min="<?php echo esc_attr($min_max_price['min']) ?>" data-max="<?php echo esc_attr($min_max_price['max']) ?>" class="wpbooking-ionrangeslider" <?php echo esc_html($required) ?> id="<?php echo esc_html($v['field_type']) ?>" name="<?php echo esc_html($v['field_type']) ?>" placeholder="<?php echo esc_html($v['placeholder']) ?>" value="<?php echo esc_html($value) ?>">
 						</div>
 						<?php if($v['title']) { ?><div class="wb-collapse"></div> <?php } ?>
 					</div>
