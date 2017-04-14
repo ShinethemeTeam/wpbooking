@@ -154,7 +154,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
              * @since 1.3
              * @author quandq
              */
-            add_action('save_post', array($this, '_update_min_price_hotel'));
+            add_action('save_post', array($this, '_update_min_price_tour'));
             add_action('wpbooking_save_metabox_section', array($this, '_update_min_price_tour'));
             add_action('wpbooking_after_add_availability', array($this, '_update_min_price_tour'));
         }
