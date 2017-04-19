@@ -91,9 +91,9 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 		    $this->metabox=$metabox;
         }
 
-        function get_metabox(){
-            return $this->metabox;
-        }
+		function get_metabox(){
+			return apply_filters('wpbooking_metabox_service_'.$this->type_id, $this->metabox);
+		}
 		/**
 		 * Show Cart Item Information Based on Service Type ID
 		 *
