@@ -1727,6 +1727,14 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         $injection->add_arg('orderby', 'date');
                         $injection->add_arg('order', 'DESC');
                         break;
+                    case "name_a_z":
+                        $injection->add_arg('orderby', 'post_title');
+                        $injection->add_arg('order', 'asc');
+                        break;
+                    case "name_z_a":
+                        $injection->add_arg('orderby', 'post_title');
+                        $injection->add_arg('order', 'desc');
+                        break;
                 }
             }
 
