@@ -1155,6 +1155,8 @@ jQuery(document).ready(function( $ ){
                         list_terms.append('<div class="term-checkbox"><label><input type="checkbox" name="'+input_name+'[]" value="'+res.data.term_id+'">'+extra_html+'<span>'+res.data.name+'</span></label></div>')
                     }
                     parent.find('.term-name').val('');
+                    parent.find('.icon-show').attr('src',me.data('icon-default'));
+                    parent.find('.term-icon').val('');
                 }
                 if(res.message){
                     alert(res.message);

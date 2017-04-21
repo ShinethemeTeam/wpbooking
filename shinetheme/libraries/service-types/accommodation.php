@@ -591,7 +591,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'type' => 'section_navigation',
                             'prev' => false,
                             'step'=>'first'
-                        ),
+                        )
 
                     )
                 ),
