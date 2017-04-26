@@ -821,8 +821,9 @@ jQuery(document).ready(function( $ ){
     //$('.wpbooking-add-item').click(function(event) {
     $(document).on('click','.wpbooking-add-item',function(){
         /* Act on the event */
-        if( $('#wpbooking-list-item-draft').length ){
-            var content = $('#wpbooking-list-item-draft').html();
+        var p = $(this).closest('.st-metabox-right');
+        if(p.find('.wpbooking-list-item-draft').length ){
+            var content = p.find('.wpbooking-list-item-draft').html();
 
             var parent = $(this).closest('.wpbooking-list-item-wrapper');
 
