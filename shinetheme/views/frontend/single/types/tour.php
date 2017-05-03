@@ -135,8 +135,8 @@ $age_options=$service->get_meta('age_options');
                         <?php $service->get_price_html(true); ?>
                     </div>
                     <div class="wb-tour-form-wrap">
-                        <div class="form-group">
-                            <label class="form-group"><?php esc_html_e('Departure date','wpbooking') ?></label>
+                        <div class="wpbooking-form-group">
+                            <label class="wpbooking-form-group"><?php esc_html_e('Departure date','wpbooking') ?></label>
                             <div class="controls">
                                 <div class="departure-date-control">
                                     <label >
@@ -192,8 +192,8 @@ $age_options=$service->get_meta('age_options');
                                 </div>
                             </div>
                         </div>
-                        <div class="form-control">
-                            <label  class="form-control"><?php esc_html_e('Adults','wpbooking');
+                        <div class="wpbooking-form-control">
+                            <label  class="wpbooking-form-control"><?php esc_html_e('Adults','wpbooking');
                                 if(!$pricing_type or $pricing_type=='per_person'){
                                     if(!empty($age_options['adult']['minimum']) or !empty($age_options['adult']['maximum'])){
                                         printf(' (%s - %s)',$age_options['adult']['minimum'],$age_options['adult']['maximum']);
@@ -204,15 +204,15 @@ $age_options=$service->get_meta('age_options');
 
                             </label>
                             <div class="controls">
-                                <select class="form-control" name="adult_number">
+                                <select class="wpbooking-form-control" name="adult_number">
                                     <?php for($i=0;$i<=20;$i++){
                                         printf('<option value="%s">%s</option>',$i,$i);
                                     } ?>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-control">
-                            <label  class="form-control"><?php esc_html_e('Children','wpbooking');
+                        <div class="wpbooking-form-control">
+                            <label  class="wpbooking-form-control"><?php esc_html_e('Children','wpbooking');
                                 if(!$pricing_type or $pricing_type=='per_person'){
                                     if(!empty($age_options['child']['minimum']) or !empty($age_options['child']['maximum'])){
                                         printf(' (%s - %s)',$age_options['child']['minimum'],$age_options['child']['maximum']);
@@ -220,15 +220,15 @@ $age_options=$service->get_meta('age_options');
                                 }
                                 ?></label>
                             <div class="controls">
-                                <select class="form-control" name="children_number">
+                                <select class="wpbooking-form-control" name="children_number">
                                     <?php for($i=0;$i<=20;$i++){
                                         printf('<option value="%s">%s</option>',$i,$i);
                                     } ?>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-control">
-                            <label  class="form-control"><?php esc_html_e('Infant','wpbooking');
+                        <div class="wpbooking-form-control">
+                            <label  class="wpbooking-form-control"><?php esc_html_e('Infant','wpbooking');
                                 if(!$pricing_type or $pricing_type=='per_person'){
                                     if(!empty($age_options['infant']['minimum']) or !empty($age_options['infant']['maximum'])){
                                         printf(' (%s - %s)',$age_options['infant']['minimum'],$age_options['infant']['maximum']);
@@ -236,26 +236,26 @@ $age_options=$service->get_meta('age_options');
                                 }
                                 ?></label>
                             <div class="controls">
-                                <select class="form-control" name="infant_number">
+                                <select class="wpbooking-form-control" name="infant_number">
                                     <?php for($i=0;$i<=20;$i++){
                                         printf('<option value="%s">%s</option>',$i,$i);
                                     } ?>
                                 </select>
                             </div>
                         </div>
-                        <span class="btn_extra">Extra services</span>
                         <?php
                         $extra_service=get_post_meta(get_the_ID(),'extra_services',true);
                         if(!empty($extra_service)){
+                            echo '<span class="btn_extra">'.esc_html__("Extra services",'wpbooking').'</span>';
                             foreach($extra_service as $k=>$v) {
                                 $name = sanitize_title($v['is_selected']);
                                 ?>
-                                <div class="form-control more-extra">
-                                    <label class="form-control"><?php echo esc_html( $v[ 'is_selected' ] ) ?>
+                                <div class="wpbooking-form-control more-extra">
+                                    <label class="wpbooking-form-control"><?php echo esc_html( $v[ 'is_selected' ] ) ?>
                                         <span class="price"><?php echo WPBooking_Currency::format_money( $v[ 'money' ] ); ?></span>
                                     </label>
                                     <div class="controls">
-                                        <select class="form-control option_extra_quantity"
+                                        <select class="wpbooking-form-control option_extra_quantity"
                                                 name="wpbooking_extra_service[<?php echo esc_attr( $name ) ?>][quantity]"
                                                 data-price-extra="<?php echo esc_attr( $v[ 'money' ] ) ?>">
                                             <?php

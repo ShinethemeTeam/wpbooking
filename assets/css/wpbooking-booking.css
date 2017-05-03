@@ -185,6 +185,9 @@ a.label:focus {
 .form-group {
   margin-bottom: 15px;
 }
+.wpbooking-form-group {
+  margin-bottom: 15px;
+}
 /*
 // Rating Review
 */
@@ -7084,10 +7087,10 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
 .service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .more-extra label .price {
   float: right;
 }
-.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .form-control {
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .wpbooking-form-control {
   margin-bottom: 5px;
 }
-.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .form-control select.form-control {
+.service-type-tour .wb-tour-booking-form .wb-tour-form-wrap .wpbooking-form-control select.wpbooking-form-control {
   width: 100%;
   background: #fff;
   padding: 5px;

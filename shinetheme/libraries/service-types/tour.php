@@ -462,7 +462,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             if(!empty($cart['extra_fees'])){
                 $extra_fees = $cart['extra_fees'];
                 foreach($extra_fees as $k=>$v){
-                    if(empty($v['data'])){
+                    if(!empty($v['data'])){
                         printf('<div class="people-price-item bold"><span class="head-item">%s</span></div>',$v['title']);
                         foreach($v['data'] as $key=>$value){
                             printf('<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', $value['title'], $value['quantity'],WPBooking_Currency::format_money($value['price']), WPBooking_Currency::format_money($value['price'] * $value['quantity']));

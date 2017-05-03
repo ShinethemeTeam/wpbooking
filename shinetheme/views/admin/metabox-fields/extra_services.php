@@ -88,7 +88,7 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 							<div class="money-number">
 								<div class="input-group ">
 									<span class="input-group-addon" ><?php echo WPBooking_Currency::get_current_currency('title').' '.WPBooking_Currency::get_current_currency('symbol') ?></span>
-									<input type="text" class="form-control" value="" name=""  >
+									<input type="number" placeholder="0" min="0" class="form-control" value="" name=""  >
 								</div>
 							</div>
 							<div class="max-quantity">
@@ -109,8 +109,8 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 							</div>
 						</div>
 					</div>
-					<input type="text" class="service-name form-control" placeholder="<?php esc_html_e('Extra Service Name','wpbooking') ?>">
-					<input type="text" class="service-desc form-control" placeholder="<?php esc_html_e('Description','wpbooking') ?>">
+					<input type="text" class="service-name " placeholder="<?php esc_html_e('Extra Service Name','wpbooking') ?>">
+					<input type="text" class="service-desc" placeholder="<?php esc_html_e('Description','wpbooking') ?>">
 					<select class="max-quantity-sv" >
 						<option value=""><?php esc_html_e('Max Quantity','wpbooking') ?></option>
 						<?php for($i = 1; $i <=20; $i++ ) {

@@ -1416,11 +1416,11 @@ img.settings-demo-image-gallery {
   font-size: 18px;
 }
 .st-metabox-tab-content-wrap .content_tax_vat .tax_input_col_left {
-  float: left;
+  padding-bottom: 10px;
 }
 .st-metabox-tab-content-wrap .content_tax_vat .label_vat_unit {
-  padding-left: 20px;
-  padding-right: 10px;
+  display: block;
+  padding-bottom: 10px;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group {
   margin-bottom: 18px;
