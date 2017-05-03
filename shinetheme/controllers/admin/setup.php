@@ -199,6 +199,14 @@ if(!class_exists('WPBooking_Admin_Setup'))
                         if(!empty($all)){
                             foreach($all as $key=>$value){
                                 update_option("wpbooking_gateway_".$key."_enable",WPBooking_Input::request('wpbooking_gateway_'.$key.'_enable',0));
+                                if($key == 'bank_transfer'){
+                                    update_option("wpbooking_gateway_".$key."_title",esc_html__('Bank Transfer','wpbooking'));
+                                    update_option("wpbooking_gateway_".$key."_desc",esc_html__('Bank Transfer','wpbooking'));
+                                }
+                                if($key == 'paypal'){
+                                    update_option("wpbooking_gateway_".$key."_title",esc_html__('PayPal','wpbooking'));
+                                    update_option("wpbooking_gateway_".$key."_desc",esc_html__('You will be redirect to paypal website to finish the payment process','wpbooking'));
+                                }
                             }
                         }
                         update_option("wpbooking_setup_demo","false");
