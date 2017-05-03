@@ -3,7 +3,7 @@
  * Plugin Name: WpBooking
  * Plugin URI: wpbooking
  * Description: All in one Booking System
- * Version: 1.2
+ * Version: 1.3
  * Author: wpbooking
  * Author URI: http://www.wpbooking.org
  * Requires at least: 4.1
