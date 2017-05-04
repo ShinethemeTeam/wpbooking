@@ -536,7 +536,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'label'        => __('Contact Phone Number', 'wpbooking'),
                             'id'           => 'contact_number',
                             'desc'         => esc_html__('The contact phone', 'wpbooking'),
-                            'type'         => 'number',
+                            'type'         => 'text',
                             'class'        => 'small',
                             'rules'=>'required',
                             'min' => 0,
