@@ -27,7 +27,7 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
 
 
 
-$field .= '<div class="mb7"><textarea  cols="'. esc_html( $data['cols'] ).'" rows="'. esc_html( $data['rows'] ).'"  id="'. esc_html( $data['id'] ).'" name="'. $name .'" class=" form-control widefat '. esc_html( $data['class'] ).'">'. esc_html( $old_data ).'</textarea></div>';
+$field .= '<div class="mb7"><textarea  cols="'. esc_html( $data['cols'] ).'" rows="'. esc_html( $data['rows'] ).'"  id="'. esc_html( $data['id'] ).'" name="'. $name .'" class=" form-control widefat '. esc_html( $data['class'] ).'">'. esc_attr( $old_data ).'</textarea></div>';
 
 $field .= '</div></div>';
 
