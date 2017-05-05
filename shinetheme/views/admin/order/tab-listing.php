@@ -219,10 +219,12 @@ $query=new WP_Query($args);
 											foreach($extra_fees as $k=>$v){
 												echo '<li class=""><span class="wb-room-name"><strong>'.$v['title'].'</strong></span>';
 												echo '</li>';
-												foreach($v['data'] as $key=>$value){
-													echo '<li class="wb-room-item"><span class="wb-room-name"><strong>&nbsp&nbsp&nbsp&nbsp'.$value['title'].' x '.$value['quantity'].'</strong></span>';
-													echo '<span class="wb-room-price">' . WPBooking_Currency::format_money($value['quantity'] * $value['price']) . '</span>';
-													echo '</li>';
+												if(!empty($v['data'])){
+													foreach($v['data'] as $key=>$value){
+														echo '<li class="wb-room-item"><span class="wb-room-name"><strong>&nbsp&nbsp&nbsp&nbsp'.$value['title'].' x '.$value['quantity'].'</strong></span>';
+														echo '<span class="wb-room-price">' . WPBooking_Currency::format_money($value['quantity'] * $value['price']) . '</span>';
+														echo '</li>';
+													}
 												}
 											}
 										}
