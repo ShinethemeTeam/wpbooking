@@ -12,11 +12,11 @@ html, body {
 	margin-top: 1em;
 }
 .div-toggles .trigger {
-	border: 1px solid #666;
+	border: 1px solid #bbb;
 	border-radius: 5px;
 	display: inline-block;
-	height: 43px;
-	padding: 5px;
+	height: 31px;
+	padding: 4px;
 	position: relative;
 	width: 60px;
 }
@@ -50,7 +50,7 @@ html, body {
 }
 .div-toggles .trigger div {
 	display: inline-block;
-	height: 30px;
+	height: 22px;
 	width: 30px;
 	background: #fff url('data:image/gif;base64,R0lGODlhDAAMAIABAMzMzP///yH5BAEAAAEALAAAAAAMAAwAAAIWhB+ph5ps3IMyQFBvzVRq3zmfGC5QAQA7');
 }
