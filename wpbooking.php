@@ -227,6 +227,14 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             wp_register_script('chart', wpbooking_assets_url('js/Chart.min.js'), array('jquery'), null, true);
 
             /**
+             * Js Color
+             */
+            wp_enqueue_script('colorpicker-master', wpbooking_assets_url('colorpicker-master/colors.js'), array('jquery'), null, true);
+
+            wp_enqueue_style('colorpicker-master', wpbooking_assets_url('colorpicker-master/mod.css'));
+
+
+            /**
              * Flag icon
              * @since 1.0
              * @author dungdt

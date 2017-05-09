@@ -517,7 +517,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             'label' => __("About Your Property", 'wpbooking'),
                             'type'  => 'title',
                             'desc'  => esc_html__('Basic information', 'wpbooking'),
-                        ),
+                        )
                         array(
                             'id'    => 'enable_property',
                             'label' => __("Enable Property", 'wpbooking'),
