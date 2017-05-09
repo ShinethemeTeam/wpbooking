@@ -285,7 +285,7 @@ $age_options=$service->get_meta('age_options');
         </div>
     </div>
     <div class="service-content-section">
-        <h5 class="service-info-title"><?php esc_html_e('Description', 'wpbooing') ?></h5>
+        <h5 class="service-info-title"><?php esc_html_e('Description', 'wpbooking') ?></h5>
 
         <div class="service-content-wrap" itemprop="description">
             <?php
@@ -300,13 +300,13 @@ $age_options=$service->get_meta('age_options');
     </div>
     <?php do_action('wpbooking_after_service_description') ?>
     <div class="service-content-section">
-        <h5 class="service-info-title"><?php esc_html_e('Payment Policies', 'wpbooing') ?></h5>
+        <h5 class="service-info-title"><?php esc_html_e('Payment Policies', 'wpbooking') ?></h5>
         <div class="service-details">
             <?php
             $array = array(
                 'deposit_payment_status' => '',
                 'deposit_payment_amount' => wp_kses(__('Deposit: %s &nbsp;&nbsp;<span class="enforced_red">required</span>','wpbooking'),array('span'=>array('class'=>array()))),
-                'allow_cancel' => esc_html__('Allowed Cancellation: Yes','wpbboking'),
+                'allow_cancel' => esc_html__('Allowed Cancellation: Yes','wpbooking'),
                 'cancel_free_days_prior' => esc_html__('Time allowed to free: %s','wpbooking'),
                 'cancel_guest_payment' => esc_html__('Fee cancel for booking: %s','wpbooking'),
             );
