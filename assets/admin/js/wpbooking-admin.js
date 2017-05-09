@@ -1434,9 +1434,16 @@ jQuery(document).ready(function( $ ){
     $(document).on('change','.wpbooking-input-colorpicker',function(){
         var p = $(this).closest('.st-metabox-content-wrapper');
         var value = $(this).val();
-        console.log(value);
         p.find('.my_custom_colorpicker div div').css('background-color',value);
     });
+    $(document).on('click','.wpbooking-button-default-colorpicker',function(){
+        var p = $(this).closest('.st-metabox-content-wrapper');
+        var value = $(this).attr('value');
+        p.find('.my_custom_colorpicker div div').css('background-color',value);
+        p.find('.wpbooking-input-colorpicker').val(value);
+    });
+
+
 
     $('[name=service_type]').change(function(){
         var v=$(this).val();

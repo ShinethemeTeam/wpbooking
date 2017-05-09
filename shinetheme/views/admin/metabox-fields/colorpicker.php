@@ -39,7 +39,9 @@ $field .= '<div class="div-toggles wrapper">
                         <div></div>
                     </div>
                 </div>
-            </div>';
+            </div>
+            <span class="wpbooking-button-default-colorpicker" value="' .esc_html( $data['std'] ).'" >Default</span>
+            ';
 ?>
 
 <div class="wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>

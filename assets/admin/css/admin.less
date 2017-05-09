@@ -940,11 +940,28 @@ img.settings-demo-image-gallery{
         }
         .wpbooking-input-colorpicker{
             bottom: 0;
-            left: 75px;
+            left: 65px;
             position: absolute;
-            width: 138px;
             text-transform: uppercase;
+            width: 80px;
         }
+        .wpbooking-button-default-colorpicker{
+            background: transparent none repeat scroll 0 0;
+            border: 1px solid #cccccc;
+            bottom: 0;
+            color: #666666;
+            cursor: pointer;
+            font-size: 11px;
+            left: 149px;
+            padding: 5px 12px;
+            position: absolute;
+            transition: all 0.1s ease 0s;
+            &:hover{
+                color: @maincolor;
+                border: 1px solid @maincolor;
+            }
+        }
+
         .form-group{
             .clearfix;
             .from-group-col{
