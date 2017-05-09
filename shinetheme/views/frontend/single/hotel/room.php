@@ -9,7 +9,7 @@
             <input name="action" value="ajax_search_room" type="hidden">
             <input name="hotel_id" value="<?php the_ID() ?>" type="hidden">
             <div class="search-room-form">
-                <h5 class="service-info-title"><?php esc_html_e('Check availability', 'wpbooing') ?></h5>
+                <h5 class="service-info-title"><?php esc_html_e('Check availability', 'wpbooking') ?></h5>
                 <div class="form-search">
                     <?php
                     $check_in = WPBooking_Input::request('checkin_y')."-".WPBooking_Input::request('checkin_m')."-".WPBooking_Input::request('checkin_d');
@@ -18,24 +18,24 @@
                     if($check_out == '--')$check_out='';else$check_out = date(get_option('date_format'),strtotime($check_out));
                     ?>
                     <div class="form-item w20 form-item-icon">
-                        <label><?php esc_html_e('Check In', 'wpbooing') ?><i class="fa fa-calendar"></i>
+                        <label><?php esc_html_e('Check In', 'wpbooking') ?><i class="fa fa-calendar"></i>
                             <input class="checkin_d" name="checkin_d" value="<?php echo esc_html(WPBooking_Input::request('checkin_d')) ?>" type="hidden">
                             <input class="checkin_m" name="checkin_m" value="<?php echo esc_html(WPBooking_Input::request('checkin_m')) ?>" type="hidden">
                             <input class="checkin_y" name="checkin_y" value="<?php echo esc_html(WPBooking_Input::request('checkin_y')) ?>" type="hidden">
-                            <input type="text" readonly class="form-control wpbooking-search-start" value="<?php echo do_shortcode($check_in) ?>" name="check_in" placeholder="<?php esc_html_e('Check In', 'wpbooing') ?>">
+                            <input type="text" readonly class="form-control wpbooking-search-start" value="<?php echo do_shortcode($check_in) ?>" name="check_in" placeholder="<?php esc_html_e('Check In', 'wpbooking') ?>">
                         </label>
                     </div>
                     <div class="form-item w20 form-item-icon">
-                        <label><?php esc_html_e('Check Out', 'wpbooing') ?>
+                        <label><?php esc_html_e('Check Out', 'wpbooking') ?>
                             <input class="checkout_d" name="checkout_d" value="<?php echo esc_html(WPBooking_Input::request('checkout_d')) ?>" type="hidden">
                             <input class="checkout_m" name="checkout_m" value="<?php echo esc_html(WPBooking_Input::request('checkout_m')) ?>" type="hidden">
                             <input class="checkout_y" name="checkout_y" value="<?php echo esc_html(WPBooking_Input::request('checkout_y')) ?>" type="hidden">
-                            <input type="text" readonly class="form-control wpbooking-search-end" value="<?php echo do_shortcode($check_out) ?>"  name="check_out" placeholder="<?php esc_html_e('Check Out', 'wpbooing') ?>">
+                            <input type="text" readonly class="form-control wpbooking-search-end" value="<?php echo do_shortcode($check_out) ?>"  name="check_out" placeholder="<?php esc_html_e('Check Out', 'wpbooking') ?>">
                             <i class="fa fa-calendar"></i>
                         </label>
                     </div>
                     <div class="form-item w20">
-                        <label><?php esc_html_e('Rooms', 'wpbooing') ?></label>
+                        <label><?php esc_html_e('Rooms', 'wpbooking') ?></label>
                         <select name="room_number" class="form-control">
                             <?php
                             for($i=1 ; $i<=20 ; $i++ ){
@@ -45,7 +45,7 @@
                         </select>
                     </div>
                     <div class="form-item w20">
-                        <label><?php esc_html_e('Adults', 'wpbooing') ?></label>
+                        <label><?php esc_html_e('Adults', 'wpbooking') ?></label>
                         <select name="adults" class="form-control">
                             <?php
                             for($i=1 ; $i<=20 ; $i++ ){
@@ -55,7 +55,7 @@
                         </select>
                     </div>
                     <div class="form-item w20">
-                        <label><?php esc_html_e('Children', 'wpbooing') ?></label>
+                        <label><?php esc_html_e('Children', 'wpbooking') ?></label>
                         <select name="children" class="form-control">
                             <?php
                             for($i=0 ; $i<=20 ; $i++ ){

@@ -112,7 +112,7 @@ do_action('wpbooking_before_order_content');
                             <?php if (!empty($tax['citytax']['excluded']) and $tax['citytax']['excluded'] != 'no' and !empty($tax['citytax']['price'])) {
                                 ?>
                                 <span class="total-title">
-                                    <?php  esc_html_e("City Tax",'wpbookng'); ?>
+                                    <?php  esc_html_e("City Tax",'wpbooking'); ?>
                                 </span>
                                 <span class="total-amount"><?php echo WPBooking_Currency::format_money($tax['citytax']['price']); ?></span>
                             <?php } ?>
