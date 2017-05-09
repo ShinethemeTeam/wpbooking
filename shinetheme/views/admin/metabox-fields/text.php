@@ -10,7 +10,10 @@ $old_data = esc_html( $data['std'] );
 if(!empty($data['custom_name'])){
 	if(isset($data['custom_data'])) $old_data=$data['custom_data'];
 }else{
-	$old_data=get_post_meta( $post_id, esc_html( $data['id'] ), true);
+	$meta_data = get_post_meta( $post_id, esc_html( $data['id'] ), true);
+	if(!empty($meta_data)){
+		$old_data = $meta_data;
+	}
 }
 if( !empty( $value ) ){
 	$old_data = $value;
