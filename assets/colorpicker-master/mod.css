@@ -55,8 +55,7 @@ html, body {
 	background: #fff url('data:image/gif;base64,R0lGODlhDAAMAIABAMzMzP///yH5BAEAAAEALAAAAAAMAAwAAAIWhB+ph5ps3IMyQFBvzVRq3zmfGC5QAQA7');
 }
 .div-toggles .trigger div div {
-	border: 1px solid #666;
-	border-color: #666 #ccc #ccc #666;
+	border: 1px solid #aaa;
 	background: #aaa;
 }
 

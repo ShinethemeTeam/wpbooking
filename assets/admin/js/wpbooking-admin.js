@@ -996,6 +996,7 @@ jQuery(document).ready(function( $ ){
         }else{
             checkbox.val('off');
         }
+        checkbox.trigger('change');
     });
 
     //Popover
