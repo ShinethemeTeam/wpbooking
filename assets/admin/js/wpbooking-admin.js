@@ -1427,8 +1427,15 @@ jQuery(document).ready(function( $ ){
     };
     setTimeout(function () {
         jQuery('.my_custom_colorpicker').colorPicker(options_colorpicker);
-    },1000)
+    },1000);
 
+
+    $(document).on('change','.wpbooking-input-colorpicker',function(){
+        var p = $(this).closest('.st-metabox-content-wrapper');
+        var value = $(this).val();
+        console.log(value);
+        p.find('.my_custom_colorpicker div div').css('background-color',value);
+    });
 
     $('[name=service_type]').change(function(){
         var v=$(this).val();

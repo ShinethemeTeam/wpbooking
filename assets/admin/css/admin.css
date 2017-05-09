@@ -1039,6 +1039,7 @@ img.settings-demo-image-gallery {
   left: 75px;
   position: absolute;
   width: 138px;
+  text-transform: uppercase;
 }
 .st-metabox-tabs-content .st-metabox-content-wrapper .form-group:after {
   clear: both;

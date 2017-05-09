@@ -528,7 +528,7 @@
 	};
 
 	function extractValue(elm) {
-		return elm.value || elm.getAttribute('value') ||
+		return elm.getAttribute('value') ||
 			$(elm).css('background-color') || '#FFF';
 	}
 
@@ -574,7 +574,7 @@
 				_$xy_slider._height = _$xy_slider.height();
 				_$z_slider._height = _$z_slider.height();
 				_color.setColor(extractValue(_$trigger[0]));
-
+					console.log(extractValue(_$trigger[0]));
 				preRender(true);
 			})
 				.off('.tcp').on(_pointerdown,
@@ -772,18 +772,22 @@
 		});
 
 		return this.on('focusin.tcp click.tcp', function(event) {
-			_colorPicker.color.options = // swap options to fake new instance
-				$.extend(_colorPicker.color.options, _options = _this.options);
+			_colorPicker.color.options = $.extend(_colorPicker.color.options, _options = _this.options);
 			toggle.call(this, event);
+
+			console.log(_colorPicker.color.options);
 		})
 			.on('change.tcp', function() {
 				_color.setColor(this.value || '#FFF');
 				_this.colorPicker.render(true);
+
 			})
 			.each(function() {
 				var value = extractValue(this),
 					mode = value.split('('),
 					$elm = findElement($(this));
+
+
 
 				$elm.data('colorMode', mode[1] ? mode[0].substr(0, 3) : 'HEX')
 					.attr('readonly', _options.preventFocus);
