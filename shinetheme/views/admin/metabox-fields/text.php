@@ -35,7 +35,6 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
 $field .= '<input id="'. esc_html( $data['id'] ).'" type="text" placeholder="'.esc_html($data['placeholder']).'" name="'. $name .'" value="' .esc_html( $old_data ).'" class="widefat form-control '. esc_html( $data['class'] ).'">';
 
 ?>
-
 <div class="wpbooking-settings <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
 	<div class="st-metabox-left">
 		<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
