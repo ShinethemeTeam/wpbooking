@@ -131,19 +131,21 @@ if(!class_exists('WPBooking_Admin_Location'))
         function _update_parent_id_location($location_id){
             $list_location[] = $location_id;
             $parent  = get_term_by( 'id', $location_id, 'wpbooking_location');
-            while ($parent->parent != '0'){
-                $term_id = $parent->parent;
-                $list_location[]= $term_id;
-                $child = get_term_children( $location_id, 'wpbooking_location' );
-                $list_location = array_unique(array_merge($list_location,$child));
-                $service_types=WPBooking_Service_Controller::inst()->get_service_types();
-                if(!empty($service_types)){
-                    foreach($service_types as $service_type => $obj){
-                        $min_price = $this->_get_min_price_by_location_id($list_location,$service_type);
-                        update_tax_meta($term_id,'min_price_'.$service_type,$min_price);
+            if(!empty($parent->parent)){
+                while ($parent->parent != '0'){
+                    $term_id = $parent->parent;
+                    $list_location[]= $term_id;
+                    $child = get_term_children( $location_id, 'wpbooking_location' );
+                    $list_location = array_unique(array_merge($list_location,$child));
+                    $service_types=WPBooking_Service_Controller::inst()->get_service_types();
+                    if(!empty($service_types)){
+                        foreach($service_types as $service_type => $obj){
+                            $min_price = $this->_get_min_price_by_location_id($list_location,$service_type);
+                            update_tax_meta($term_id,'min_price_'.$service_type,$min_price);
+                        }
                     }
+                    $parent  = get_term_by( 'id', $term_id, 'wpbooking_location');
                 }
-                $parent  = get_term_by( 'id', $term_id, 'wpbooking_location');
             }
         }
         /**
