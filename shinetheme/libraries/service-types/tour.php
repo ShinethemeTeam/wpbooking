@@ -1682,10 +1682,35 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             if ($sortby = $this->request('wb_sort_by')) {
                 switch ($sortby) {
                     case "price_asc":
-                        $injection->select("CASE WHEN meta.meta_value='per_person' AND MIN(CAST(avail.child_price as DECIMAL)) < MIN(CAST(avail.adult_price as DECIMAL)) THEN MIN(CAST(avail.adult_price as DECIMAL))
-			                                WHEN meta.meta_value='per_person' AND MIN(CAST(avail.child_price as DECIMAL)) > MIN(CAST(avail.adult_price as DECIMAL)) THEN MIN(CAST(avail.child_price as DECIMAL))
-			                                ELSE MIN(CAST(avail.calendar_price as DECIMAL))
-			                                END as min_price");
+                        $injection->select("CASE
+                                            WHEN meta.meta_value = 'per_person' 
+                                            AND MIN( CAST(avail.adult_price AS DECIMAL) ) <= MIN( CAST(avail.child_price AS DECIMAL) ) 
+                                            AND MIN( CAST(avail.adult_price AS DECIMAL) ) <= MIN( CAST(avail.infant_price AS DECIMAL) ) 
+                                            THEN
+                                                MIN(
+                                                    CAST(avail.adult_price AS DECIMAL)
+                                                )
+                                            WHEN meta.meta_value = 'per_person' 
+                                            AND MIN( CAST(avail.child_price AS DECIMAL) ) <= MIN(	CAST(avail.adult_price AS DECIMAL) ) 
+                                            AND MIN( CAST(avail.child_price AS DECIMAL) ) <= MIN(	CAST(avail.infant_price AS DECIMAL) ) 
+                                            THEN
+                                                MIN(
+                                                    CAST(avail.child_price AS DECIMAL)
+                                                )
+                                            WHEN meta.meta_value = 'per_person' 
+                                            AND MIN( CAST(avail.infant_price AS DECIMAL) ) <= MIN(	CAST(avail.adult_price AS DECIMAL) ) 
+                                            AND MIN( CAST(avail.infant_price AS DECIMAL) ) <= MIN(	CAST(avail.child_price AS DECIMAL) ) 
+                                            THEN
+                                                MIN(
+                                                    CAST(avail.infant_price AS DECIMAL)
+                                                )
+                                            ELSE
+                                                MIN(
+                                                    CAST(
+                                                        avail.calendar_price AS DECIMAL
+                                                    )
+                                                )
+                                            END AS min_price");
                         $injection->join('postmeta as meta', "meta.post_id={$wpdb->posts}.ID AND meta.meta_key='pricing_type'",'left');
                         $injection->join('wpbooking_availability as avail', "avail.post_id = {$wpdb->posts}.ID");
                         $injection->where('avail.`status`', 'available');
@@ -1701,10 +1726,35 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         $injection->orderby('min_price', 'asc');
                         break;
                     case "price_desc":
-                        $injection->select("CASE WHEN meta.meta_value='per_person' AND MIN(CAST(avail.child_price as DECIMAL)) < MIN(CAST(avail.adult_price as DECIMAL)) THEN MIN(CAST(avail.adult_price as DECIMAL))
-			                                WHEN meta.meta_value='per_person' AND MIN(CAST(avail.child_price as DECIMAL)) > MIN(CAST(avail.adult_price as DECIMAL)) THEN MIN(CAST(avail.child_price as DECIMAL))
-			                                ELSE MIN(CAST(avail.calendar_price as DECIMAL))
-			                                END as min_price");
+                        $injection->select("CASE
+                                            WHEN meta.meta_value = 'per_person' 
+                                            AND MIN( CAST(avail.adult_price AS DECIMAL) ) <= MIN( CAST(avail.child_price AS DECIMAL) ) 
+                                            AND MIN( CAST(avail.adult_price AS DECIMAL) ) <= MIN( CAST(avail.infant_price AS DECIMAL) ) 
+                                            THEN
+                                                MIN(
+                                                    CAST(avail.adult_price AS DECIMAL)
+                                                )
+                                            WHEN meta.meta_value = 'per_person' 
+                                            AND MIN( CAST(avail.child_price AS DECIMAL) ) <= MIN(	CAST(avail.adult_price AS DECIMAL) ) 
+                                            AND MIN( CAST(avail.child_price AS DECIMAL) ) <= MIN(	CAST(avail.infant_price AS DECIMAL) ) 
+                                            THEN
+                                                MIN(
+                                                    CAST(avail.child_price AS DECIMAL)
+                                                )
+                                            WHEN meta.meta_value = 'per_person' 
+                                            AND MIN( CAST(avail.infant_price AS DECIMAL) ) <= MIN(	CAST(avail.adult_price AS DECIMAL) ) 
+                                            AND MIN( CAST(avail.infant_price AS DECIMAL) ) <= MIN(	CAST(avail.child_price AS DECIMAL) ) 
+                                            THEN
+                                                MIN(
+                                                    CAST(avail.infant_price AS DECIMAL)
+                                                )
+                                            ELSE
+                                                MIN(
+                                                    CAST(
+                                                        avail.calendar_price AS DECIMAL
+                                                    )
+                                                )
+                                            END AS min_price");
                         $injection->join('postmeta as meta', "meta.post_id={$wpdb->posts}.ID AND meta.meta_key='pricing_type'",'left');
                         $injection->join('wpbooking_availability as avail', "avail.post_id = {$wpdb->posts}.ID");
                         $injection->where('avail.`status`', 'available');
