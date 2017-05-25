@@ -258,13 +258,13 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
              $service->select( '
                MIN(
                     CAST(
-                        wp_postmeta.meta_value AS DECIMAL
+                        '.$wpdb->prefix.'postmeta.meta_value AS DECIMAL
                     )
                 ) AS min_price
                 ')
                  ->join( 'posts as wpb_hotel' , 'wpb_hotel.ID=' . $service->get_table_name( false ) . '.post_id' )
                  ->join( 'posts as wpb_room' , 'wpb_room.post_parent=' . $service->get_table_name( false ) . '.post_id' )
-                 ->join( 'postmeta' , 'postmeta.post_id= wpb_room.ID and meta_key = \'base_price\'' );
+                 ->join( 'postmeta' , "postmeta.post_id= wpb_room.ID and meta_key = 'base_price'" );
 
 
              $service->where( 'service_type' , $this->type_id );
