@@ -1985,7 +1985,7 @@ jQuery(document).ready(function( $ ){
         }
     });
 
-    $('.wb-itinerary-add-new').click(function (e) {
+    $(document).on('click','.wb-itinerary-add-new', function (e) {
         e.preventDefault();
         var id = $(this).data('id');
         var item = $('.item-itinerary-draft').html();

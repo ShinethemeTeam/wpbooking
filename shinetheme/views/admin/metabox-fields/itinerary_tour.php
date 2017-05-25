@@ -65,7 +65,7 @@ if( !empty( $value ) ){
     </div>
     <p class="iti-description"><?php echo esc_attr($data['desc']); ?></p>
     <div class="iti-footer">
-        <button data-id="<?php echo esc_attr($data['id'])?>" class="btn button button-primary wb-itinerary-add-new"><?php echo esc_html__('Add new','wpbooking'); ?></button>
+        <button data-id="<?php echo esc_attr($data['id'])?>" type="button" class="btn button button-primary wb-itinerary-add-new"><?php echo esc_html__('Add new','wpbooking'); ?></button>
     </div>
 </div>
 <div class="item-itinerary-draft hidden">
