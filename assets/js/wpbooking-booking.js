@@ -670,7 +670,7 @@ jQuery(document).ready(function($){
             if ($('#wpadminbar').length && $('#wpadminbar').css('position') == 'fixed') {
                 top -= 32;
             }
-            top -= 250;
+            top -= 450;
             $('html,body').animate({
                 'scrollTop': top
             }, 500);
