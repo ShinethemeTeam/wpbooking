@@ -609,6 +609,10 @@ jQuery(document).ready(function($){
         container.find('.loop-room').each(function(){
             var number = $(this).find('.option_number_room').val();
             var price = $(this).find('.option_number_room').data('price-base');
+            number = parseFloat(number);
+            if(number < 0){
+                number = 0;
+            }
             total_number_room += parseFloat(number);
             if(!price){
                 price = 0;

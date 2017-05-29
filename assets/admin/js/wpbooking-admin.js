@@ -1672,6 +1672,9 @@ jQuery(document).ready(function( $ ){
         data+='&action=wpbooking_save_hotel_room';
         parent.addClass('on-loading');
 
+        parent.find('.is_error').removeClass('is_error');
+        parent.find('.is_error_message').remove();
+
         $.ajax({
             type:'post',
             data:data,
@@ -1735,7 +1738,14 @@ jQuery(document).ready(function( $ ){
                             field=parent.find('.field-'+k+' .st-metabox-content-wrapper .form-group');
                         }
                         field.addClass('is_error');
-                        $('<span class="is_error_message">'+res.error_fields[k]+'</span>').insertAfter(field);
+
+                        if(k == 'base_price'){
+                            field=parent.find("[name='"+k+"']").parent();
+                            field.addClass('is_error');
+                            $('<span class="is_error_message">'+res.error_fields[k]+'</span>').insertAfter(field);
+                        }else{
+                            $('<span class="is_error_message">'+res.error_fields[k]+'</span>').insertAfter(field);
+                        }
                     }
 
                     var first_error=parent.find('.is_error:first-child');

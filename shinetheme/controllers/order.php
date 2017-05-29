@@ -132,12 +132,15 @@ if (!class_exists('WPBooking_Order')) {
                         //$order->cancel_purchase();
 						break;
 					case "complete_purchase":
-					    if(in_array($order->get_status(),array('payment_failed','on_hold'))){
-                            $return=WPBooking_Payment_Gateways::inst()->complete_purchase($gateway, $order_id);
-                            if($return){
-                                $order->complete_purchase();
-                            }else{
-                                $order->payment_failed();
+					    $payment = $order->get_payment_gateway('id');
+                        if( $payment != 'submit_form'){
+                            if(in_array($order->get_status(),array('payment_failed','on_hold'))){
+                                $return=WPBooking_Payment_Gateways::inst()->complete_purchase($gateway, $order_id);
+                                if($return){
+                                    $order->complete_purchase();
+                                }else{
+                                    $order->payment_failed();
+                                }
                             }
                         }
 						break;

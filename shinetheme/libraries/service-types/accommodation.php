@@ -1052,6 +1052,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 array(
                     'id'   => 'calendar',
                     'type' => 'calendar',
+                    'extra_rules' => array(
+                        'base_price' => array( 'label'          => esc_html__( 'Base Price' , 'wpbooking' ) ,
+                                                   'rule'          => 'required|greater_than[0]' ,
+                        )
+                    ) ,
                 ),
                 array('type' => 'close_section'),
             );
@@ -1306,7 +1311,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             }
 
             if($query->found_posts){
-                $text_count=sprintf('<span class="n text-color">%d </span><b>%s</b> ',$query->found_posts,esc_htmlesc_html__('room type(s)','wpbooking'));
+                $text_count=sprintf('<span class="n text-color">%d </span><b>%s</b> ',$query->found_posts,esc_html__('room type(s)','wpbooking'));
                 if($total_room){
                     $text_count.=sprintf(esc_html__('with %s ','wpbooking'),sprintf('<span class="n text-color">%d </span><b>%s</b>',$total_room,esc_html__('room(s)')));
                 }
@@ -2189,6 +2194,23 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 }
             }
 
+            // check max room
+            $check_max_number_room = false;
+            if(!empty($wpbooking_room)) {
+                foreach( $wpbooking_room as $k => $v ) {
+                    $number_room = get_post_meta($k,'room_number',true);
+                    if($number_room < $v['number_room']) {
+                        $check_max_number_room = true;
+                    }
+                }
+            }
+            if($check_max_number_room){
+                $is_validated = FALSE;
+                $message = esc_html__("Number of rooms you booked is not enough, please change your search.","wpbooking");
+                wpbooking_set_message($message, 'error');
+                return $is_validated;
+            }
+
             if(empty($check_in) and empty($check_out)){
                 wpbooking_set_message(esc_html__("To see price details, please select check-in and check-out date.","wpbooking"),'error');
                 $is_validated = FALSE;
@@ -2204,11 +2226,14 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 $is_validated = FALSE;
                 return $is_validated;
             }
-            if(empty($check_number_room)){
+            if(empty($check_number_room) or $total_number_room <= 0){
                 wpbooking_set_message(esc_html__("Please select number of room.","wpbooking"),'error');
                 $is_validated = FALSE;
                 return $is_validated;
             }
+
+
+
             //check number room and adult
             $adult = $this->post('wpbooking_adults');
             if($total_number_room > $adult){
@@ -2297,6 +2322,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             }
 
+            /*var_dump($wpbooking_room);
+            var_dump($check_number_room);
+            var_dump($is_validated);*/
 
             return $is_validated;
         }

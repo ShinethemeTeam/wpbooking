@@ -135,7 +135,15 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 						die;
 					}
 
-					$price = (float) WPBooking_Input::post('price', '');
+					$price = WPBooking_Input::post('price', '');
+
+                    if($price and $price < 0){
+                        echo json_encode( array(
+                            'status' => 0,
+                            'message' => esc_html__('The field of price is invalid.', 'wpbooking')
+                        ) );
+                        die;
+                    }
 
 					$status = WPBooking_Input::post('status', '');
 
@@ -146,14 +154,52 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					$monthly=WPBooking_Input::post('monthly');
 
 					$calendar_minimum=WPBooking_Input::post('calendar_minimum');
+                    if($calendar_minimum < 0) $calendar_minimum = 0;
+
 					$calendar_maximum=WPBooking_Input::post('calendar_maximum');
+                    if($calendar_maximum < 0) $calendar_maximum = 1;
+
 					$calendar_price=WPBooking_Input::post('calendar_price');
+                    if($calendar_price and $calendar_price < 0){
+                        echo json_encode( array(
+                            'status' => 0,
+                            'message' => esc_html__('The field of price is invalid.', 'wpbooking')
+                        ) );
+                        die;
+                    }
 					$calendar_adult_minimum=WPBooking_Input::post('calendar_adult_minimum');
+                    if($calendar_adult_minimum < 0) $calendar_adult_minimum = 0;
+
 					$calendar_adult_price=WPBooking_Input::post('calendar_adult_price');
+                    if($calendar_adult_price and $calendar_adult_price < 0){
+                        echo json_encode( array(
+                            'status' => 0,
+                            'message' => esc_html__('The field of adult price is invalid.', 'wpbooking')
+                        ) );
+                        die;
+                    }
 					$calendar_child_minimum=WPBooking_Input::post('calendar_child_minimum');
+                    if($calendar_child_minimum < 0) $calendar_child_minimum = 0;
+
 					$calendar_child_price=WPBooking_Input::post('calendar_child_price');
+                    if($calendar_child_price and $calendar_child_price < 0){
+                        echo json_encode( array(
+                            'status' => 0,
+                            'message' => esc_html__('The field of child price is invalid.', 'wpbooking')
+                        ) );
+                        die;
+                    }
 					$calendar_infant_minimum=WPBooking_Input::post('calendar_infant_minimum');
+                    if($calendar_infant_minimum < 0) $calendar_infant_minimum = 0;
+
 					$calendar_infant_price=WPBooking_Input::post('calendar_infant_price');
+                    if($calendar_infant_price and $calendar_infant_price < 0){
+                        echo json_encode( array(
+                            'status' => 0,
+                            'message' => esc_html__('The field of infant price is invalid.', 'wpbooking')
+                        ) );
+                        die;
+                    }
 
 					/* Get origin post id if use WPML */
 					$base_id = (int) wpbooking_origin_id( $post_id, 'wpbooking_service');

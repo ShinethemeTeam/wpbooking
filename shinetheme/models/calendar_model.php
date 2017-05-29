@@ -15,7 +15,7 @@ if (!class_exists('WPBooking_Calendar_Model')) {
 
 		public function __construct()
 		{
-			$this->table_version = '1.0.4';
+			$this->table_version = '1.0.6';
 			$this->table_name = 'wpbooking_availability';
 			$this->columns = array(
 				'id'            => array(
@@ -25,7 +25,7 @@ if (!class_exists('WPBooking_Calendar_Model')) {
 				'post_id'       => array('type' => 'int', 'length' => 11),
 				'start'         => array('type' => 'int' ),
 				'end'           => array('type' => 'int'),
-				'price'         => array('type' => 'int'),
+				'price'         => array('type' => 'varchar','length' => 255),
 				'calendar_minimum'  => array('type' => 'int', 'length' => 4),
 				'calendar_maximum'    => array('type' => 'int', 'length' => 4),
 				'calendar_price'    => array('type' => 'FLOAT', 'length' => 255),
