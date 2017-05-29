@@ -471,13 +471,13 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $args = array(
                 'hierarchical'      => true,
                 'labels'            => $labels,
-                'show_ui'           => false,
+                'show_ui'           => true,
                 'show_admin_column' => false,
                 'query_var'         => true,
                 'meta_box_cb'       => false,
                 'rewrite'           => array('slug' => 'hotel-room-type'),
             );
-            register_taxonomy('wb_hotel_room_type', array('wpbooking_hotel_room'), $args);
+            register_taxonomy('wb_hotel_room_type', array('wpbooking_hotel_room','wpbooking_service'), $args);
 
             // Register Taxonomy
             $labels = array(

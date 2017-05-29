@@ -53,6 +53,10 @@ if(!class_exists('WPBooking_Admin_Setup'))
                 $tab = WPBooking_Input::request("is_tab");
                 switch($tab){
                     case "wp_general":
+                        // Setup Plugin
+                        global $wp_rewrite;
+                        $wp_rewrite->set_permalink_structure( '/%postname%/' );
+
                         $value_request = WPBooking_Input::request("setup_demo");
                         $key_request = "wpbooking_currency";
                         update_option($key_request,$value_request['currency']);
@@ -120,6 +124,18 @@ if(!class_exists('WPBooking_Admin_Setup'))
                                 'City trips',
                                 'Ecotourism',
                                 'Sightseeing',
+                            ),
+                            'wb_hotel_room_type'=>array(
+                                'Apartment',
+                                'Bed in Dormitory',
+                                'Dormitory room',
+                                'Double',
+                                'Family',
+                                'Single',
+                                'Suite',
+                                'Triple',
+                                'Twin',
+                                'Twin/Double',
                             ),
                         );
                         foreach($list_taxonomy as $taxonomy=>$terms){
