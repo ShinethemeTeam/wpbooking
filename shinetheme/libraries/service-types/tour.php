@@ -1141,17 +1141,6 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'desc'  => esc_html__("Day of arrival ( 18: 00 ) , 1 day , 2 days, 3 days, 7 days, 14 days", "wpbooking"),
                             'class' => 'small'
                         ),
-                        array(
-                            'label' => esc_html__('Or guests will pay 100%', 'wpbooking'),
-                            'id'    => 'cancel_guest_payment',
-                            'type'  => 'dropdown',
-                            'value' => array(
-                                'first_night' => esc_html__('of the first night', 'wpbooking'),
-                                'full_stay'   => esc_html__('of the full stay', 'wpbooking'),
-                            ),
-                            'desc'  => esc_html__("Of the first night, of the full stay", "wpbooking"),
-                            'class' => 'small'
-                        ),
                         array('type' => 'close_section'),
                         array('type' => 'open_section'),
                         array(

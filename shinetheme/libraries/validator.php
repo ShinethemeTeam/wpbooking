@@ -1151,7 +1151,7 @@ if(!class_exists('WPBooking_Form_Validator'))
             {
                 return FALSE;
             }
-            return $str > $min;
+            return $str >= $min;
         }
 
         // --------------------------------------------------------------------
