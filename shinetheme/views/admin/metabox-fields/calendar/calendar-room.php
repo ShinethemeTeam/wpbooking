@@ -43,10 +43,10 @@ $df_price=get_post_meta($post_id,'base_price',true);
 						</div>
 
                         <div class="calendar-room-form-item full-width" >
-                            <h4 class="form-title"><?php echo __('This Property is available:', 'wpbooking'); ?></h4>
+                            <h4 class="form-title"><?php echo esc_html__('This Property is available:', 'wpbooking'); ?></h4>
                             <div class="calendar-input-icon mt20">
-                                <label class="calendar-label wb-radio-input" ><input data-style="iradio_square-orange" class="wb-icheck property_available_forever" type="radio"  name="property_available_for" data-post-id="<?php echo esc_attr($post_id); ?>" value="forever" <?php if($property_available_for=='forever' or !$property_available_for) echo 'checked' ?> > <?php echo __('Forever', 'wpbooking'); ?></label>
-                                <label class="calendar-label wb-radio-input" ><input data-style="iradio_square-orange" class="wb-icheck property_available_specific" type="radio"  name="property_available_for" data-post-id="<?php echo esc_attr($post_id); ?>" value="specific_periods" <?php if($property_available_for=='specific_periods') echo 'checked' ?> > <?php echo __('For specific periods', 'wpbooking'); ?></label>
+                                <label class="calendar-label wb-radio-input" ><input data-style="iradio_square-orange" class="wb-icheck property_available_forever" type="radio"  name="property_available_for" data-post-id="<?php echo esc_attr($post_id); ?>" value="forever" <?php if($property_available_for=='forever' or !$property_available_for) echo 'checked' ?> > <?php echo esc_html__('Forever', 'wpbooking'); ?></label>
+                                <label class="calendar-label wb-radio-input" ><input data-style="iradio_square-orange" class="wb-icheck property_available_specific" type="radio"  name="property_available_for" data-post-id="<?php echo esc_attr($post_id); ?>" value="specific_periods" <?php if($property_available_for=='specific_periods') echo 'checked' ?> > <?php echo esc_html__('For specific periods', 'wpbooking'); ?></label>
                             </div>
                         </div>
                     </div>
@@ -54,43 +54,43 @@ $df_price=get_post_meta($post_id,'base_price',true);
 						<h4 class="form-title"><?php echo esc_html__('Set price by arranged date','wpbooking') ?></h4>
 						<p class="form-desc"><?php echo esc_html__('You can book rooms for any purposes (like discount, high price, ...)','wpbooking'); ?></p>
 						<div class="calendar-room-form-item full-width" >
-							<label class="calendar-label" for="calendar-checkin"><?php echo __('Start Date', 'wpbooking'); ?></label>
+							<label class="calendar-label" for="calendar-checkin"><?php echo esc_html__('Start Date', 'wpbooking'); ?></label>
 							<div class="calendar-input-icon">
-								<input class="calendar-input date-picker" type="text" id="calendar-checkin" name="calendar-checkin" value="" readonly="readonly" placeholder="<?php echo __('From Date','wpbooking'); ?>">
+								<input class="calendar-input date-picker" type="text" id="calendar-checkin" name="calendar-checkin" value="" readonly="readonly" placeholder="<?php echo esc_html__('From Date','wpbooking'); ?>">
 								<label for="calendar-checkin" class="fa"><i class="fa fa-calendar"></i></label>
 							</div>
 						</div>
 						<div class="calendar-room-form-item full-width" >
-							<label class="calendar-label" for="calendar-checkout"><?php echo __('End Date', 'wpbooking'); ?></label>
+							<label class="calendar-label" for="calendar-checkout"><?php echo esc_html__('End Date', 'wpbooking'); ?></label>
 							<div class="calendar-input-icon">
-								<input class="calendar-input date-picker" type="text" id="calendar-checkout" name="calendar-checkout" value="" readonly="readonly" placeholder="<?php echo __('To Date','wpbooking'); ?>">
+								<input class="calendar-input date-picker" type="text" id="calendar-checkout" name="calendar-checkout" value="" readonly="readonly" placeholder="<?php echo esc_html__('To Date','wpbooking'); ?>">
 								<label for="calendar-checkout" class="fa"><i class="fa fa-calendar"></i></label>
 							</div>
 						</div>
 						<div class="calendar-room-form-item full-width" >
-							<label class="calendar-label" for="calendar-status"><?php echo __('Status', 'wpbooking'); ?></label>
+							<label class="calendar-label" for="calendar-status"><?php echo esc_html__('Status', 'wpbooking'); ?></label>
 							<select name="calendar-status" id="calendar-status">
-								<option value="available"><?php echo __('Available','wpbooking'); ?></option>
-								<option value="not_available"><?php echo __('Not Available','wpbooking'); ?></option>
+								<option value="available"><?php echo esc_html__('Available','wpbooking'); ?></option>
+								<option value="not_available"><?php echo esc_html__('Not Available','wpbooking'); ?></option>
 							</select>
 						</div>
 						<div class="calendar-room-form-item full-width clear_both">
-							<label class="calendar-label" for="calendar-price"><?php echo __('Price', 'wpbooking'); ?></label>
-							<input class="calendar-input" type="number" id="calendar-price" min="0" name="calendar-price" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
+							<label class="calendar-label" for="calendar-price"><?php echo esc_html__('Price', 'wpbooking'); ?></label>
+							<input class="calendar-input" type="number" id="calendar-price" min="0" name="calendar-price" value="" placeholder="<?php echo esc_html__('Price','wpbooking'); ?>">
 						</div>
 						<div class="calendar-room-form-item full-width hidden" >
-							<label class="calendar-label" for="calendar-price-week"><?php echo __('Price', 'wpbooking'); ?></label>
-							<input class="calendar-input-week" type="text" id="calendar-price-week" name="calendar-price-week" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
+							<label class="calendar-label" for="calendar-price-week"><?php echo esc_html__('Price', 'wpbooking'); ?></label>
+							<input class="calendar-input-week" type="text" id="calendar-price-week" name="calendar-price-week" value="" placeholder="<?php echo esc_html__('Price','wpbooking'); ?>">
 						</div>
 						<div class="calendar-room-form-item full-width hidden" >
-							<label class="calendar-label" for="calendar-price-month"><?php echo __('Price', 'wpbooking'); ?></label>
-							<input class="calendar-input-month" type="text" id="calendar-price-month" name="calendar-price-month" value="" placeholder="<?php echo __('Price','wpbooking'); ?>">
+							<label class="calendar-label" for="calendar-price-month"><?php echo esc_html__('Price', 'wpbooking'); ?></label>
+							<input class="calendar-input-month" type="text" id="calendar-price-month" name="calendar-price-month" value="" placeholder="<?php echo esc_html__('Price','wpbooking'); ?>">
 						</div>
 						<div class="clear"></div>
 						<div class="clearfix mb10" >
 							<input type="hidden" id="calendar-post-id" name="post_id" value="<?php echo esc_attr($post_id); ?>">
 							<input type="hidden" id="calendar-post-encrypt" name="calendar-post-encrypt" value="<?php echo wpbooking_encrypt( $post_id ); ?>">
-							<button type="button" id="calendar-save" class="button button-large wb-button-primary"><?php echo __('Save','wpbooking'); ?></button>
+							<button type="button" id="calendar-save" class="button button-large wb-button-primary"><?php echo esc_html__('Save','wpbooking'); ?></button>
 						</div>
 						<div class="mb10">
 							
@@ -127,29 +127,29 @@ $df_price=get_post_meta($post_id,'base_price',true);
 								<span class="spinner is-active"></span>
 							</div>
 							<div class="form-title">
-								<h3 class="clearfix"><?php echo __('Bulk Price Edit', 'wpbooking'); ?>
-									<button type="button" id="calendar-bulk-close" class="button button-small"><?php echo __('Close','wpbooking'); ?></button>
+								<h3 class="clearfix"><?php echo esc_html__('Bulk Price Edit', 'wpbooking'); ?>
+									<button type="button" id="calendar-bulk-close" class="button button-small"><?php echo esc_html__('Close','wpbooking'); ?></button>
 								</h3>
 							</div>
 							<div class="form-content clearfix">
-								<h4><?php echo __('Choose Date:', 'wpbooking'); ?></h4>
+								<h4><?php echo esc_html__('Choose Date:', 'wpbooking'); ?></h4>
 								<div class="form-group">
 									<div class="form-title">
-										<h4 class=""><input type="checkbox" class="check-all" data-name="day-of-week"> <?php echo __('Days Of Week', 'wpbooking'); ?></h4>
+										<h4 class=""><input type="checkbox" class="check-all" data-name="day-of-week"> <?php echo esc_html__('Days Of Week', 'wpbooking'); ?></h4>
 									</div>
 									<div class="form-content">
-										<label class="block"><input type="checkbox" name="day-of-week[]" value="Sunday" ><?php echo __('Sunday', 'wpbooking'); ?></label>
-										<label class="block"><input type="checkbox" name="day-of-week[]" value="Monday" ><?php echo __('Monday', 'wpbooking'); ?></label>
-										<label class="block"><input type="checkbox" name="day-of-week[]" value="Tuesday" ><?php echo __('Tuesday', 'wpbooking'); ?></label>
-										<label class="block"><input type="checkbox" name="day-of-week[]" value="Wednesday" ><?php echo __('Wednesday', 'wpbooking'); ?></label>
-										<label class="block"><input type="checkbox" name="day-of-week[]" value="Thursday" ><?php echo __('Thursday', 'wpbooking'); ?></label>
-										<label class="block"><input type="checkbox" name="day-of-week[]" value="Friday" ><?php echo __('Friday', 'wpbooking'); ?></label>
-										<label class="block"><input type="checkbox" name="day-of-week[]" value="Saturday" ><?php echo __('Saturday', 'wpbooking'); ?></label>
+										<label class="block"><input type="checkbox" name="day-of-week[]" value="Sunday" ><?php echo esc_html__('Sunday', 'wpbooking'); ?></label>
+										<label class="block"><input type="checkbox" name="day-of-week[]" value="Monday" ><?php echo esc_html__('Monday', 'wpbooking'); ?></label>
+										<label class="block"><input type="checkbox" name="day-of-week[]" value="Tuesday" ><?php echo esc_html__('Tuesday', 'wpbooking'); ?></label>
+										<label class="block"><input type="checkbox" name="day-of-week[]" value="Wednesday" ><?php echo esc_html__('Wednesday', 'wpbooking'); ?></label>
+										<label class="block"><input type="checkbox" name="day-of-week[]" value="Thursday" ><?php echo esc_html__('Thursday', 'wpbooking'); ?></label>
+										<label class="block"><input type="checkbox" name="day-of-week[]" value="Friday" ><?php echo esc_html__('Friday', 'wpbooking'); ?></label>
+										<label class="block"><input type="checkbox" name="day-of-week[]" value="Saturday" ><?php echo esc_html__('Saturday', 'wpbooking'); ?></label>
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="form-title">
-										<h4 class=""><input type="checkbox" class="check-all" data-name="day-of-month"> <?php echo __('Days Of Month', 'wpbooking'); ?></h4>
+										<h4 class=""><input type="checkbox" class="check-all" data-name="day-of-month"> <?php echo esc_html__('Days Of Month', 'wpbooking'); ?></h4>
 									</div>
 									<div class="form-content">
 									<?php for( $i = 1; $i <= 31; $i ++):
@@ -169,7 +169,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
 								</div>
 								<div class="form-group">
 									<div class="form-title">
-										<h4 class=""><input type="checkbox" class="check-all" data-name="months"> <?php echo __('Months', 'wpbooking'); ?>(*)</h4>
+										<h4 class=""><input type="checkbox" class="check-all" data-name="months"> <?php echo esc_html__('Months', 'wpbooking'); ?>(*)</h4>
 									</div>
 									<div class="form-content">
 									<?php 
@@ -193,7 +193,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
 								</div>
 								<div class="form-group">
 									<div class="form-title">
-										<h4 class=""><input type="checkbox" class="check-all" data-name="years"> <?php echo __('Years', 'wpbooking'); ?>(*)</h4>
+										<h4 class=""><input type="checkbox" class="check-all" data-name="years"> <?php echo esc_html__('Years', 'wpbooking'); ?>(*)</h4>
 									</div>
 									<div class="form-content">
 									<?php 
@@ -216,14 +216,14 @@ $df_price=get_post_meta($post_id,'base_price',true);
 								</div>
 							</div>
 							<div class="form-content clearfix">
-								<label class="block"><span><strong><?php echo __('Price', 'wpbooking'); ?>: </strong></span><input type="text" value="" name="price-bulk" id="price-bulk" placeholder="<?php echo __('Price', 'wpbooking'); ?>"></label>
+								<label class="block"><span><strong><?php echo esc_html__('Price', 'wpbooking'); ?>: </strong></span><input type="text" value="" name="price-bulk" id="price-bulk" placeholder="<?php echo esc_html__('Price', 'wpbooking'); ?>"></label>
 								<input type="hidden" name="post_id" value="<?php echo esc_attr($post_id); ?>">
 								<input type="hidden" name="post-encrypt" value="<?php echo wpbooking_encrypt( $post_id ); ?>">
 								<div class="form-message"></div>
 							</div>
 							<div class="form-footer">
-								<button type="button" id="calendar-bulk-save" class="button button-primary button-large"><?php echo __('Save','wpbooking'); ?></button><!-- 
-								<button type="button" id="calendar-bulk-cancel" class="button button-large"><?php echo __('Cancel','wpbooking'); ?></button> -->
+								<button type="button" id="calendar-bulk-save" class="button button-primary button-large"><?php echo esc_html__('Save','wpbooking'); ?></button><!--
+								<button type="button" id="calendar-bulk-cancel" class="button button-large"><?php echo esc_html__('Cancel','wpbooking'); ?></button> -->
 							</div>
 						</div>
 					</div>

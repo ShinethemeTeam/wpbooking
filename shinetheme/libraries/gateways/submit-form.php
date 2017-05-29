@@ -16,33 +16,33 @@ if(!class_exists('WPBooking_SubmitForm_Gateway') and class_exists('WPBooking_Abs
 		function __construct()
 		{
 			$this->gateway_info=array(
-				'label'=>__("Submit Form",'wpbooking')
+				'label'=>esc_html__("Submit Form",'wpbooking')
 			);
 			$this->settings=array(
 				array(
 					'id'    => 'enable',
-					'label' => __('Enable', 'wpbooking'),
+					'label' => esc_html__('Enable', 'wpbooking'),
 					'type'  => 'checkbox',
 					'std'   => '',
-					'checkbox_label'=>__("Yes, I want to enable Submit Form",'wpbooking')
+					'checkbox_label'=>esc_html__("Yes, I want to enable Submit Form",'wpbooking')
 				),
 				array(
 					'id'    => 'title',
-					'label' => __('Title', 'wpbooking'),
+					'label' => esc_html__('Title', 'wpbooking'),
 					'type'  => 'text',
 					'std'   => 'Submit Form',
 				),
 
 				array(
 					'id'    => 'desc',
-					'label' => __('Descriptions', 'wpbooking'),
+					'label' => esc_html__('Descriptions', 'wpbooking'),
 					'type'  => 'textarea',
 				),
 				array(
 					'id'    => 'bank_account',
-					'label' => __('Bank Account', 'wpbooking'),
+					'label' => esc_html__('Bank Account', 'wpbooking'),
 					'type'  => 'textarea',
-					'description'=>__("Write down your back account here",'wpbooking')
+					'description'=>esc_html__("Write down your back account here",'wpbooking')
 				),
 
 			);

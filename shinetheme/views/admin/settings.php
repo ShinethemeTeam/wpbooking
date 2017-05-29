@@ -1,6 +1,6 @@
 <div class="wrap">
     <div id="icon-tools" class="icon32"></div>
-    <h2><?php _e("Settings",'wpbooking') ?></h2>
+    <h2><?php esc_html_e("Settings",'wpbooking') ?></h2>
 </div>
 <?php
 $custom_settings = WPBooking_Admin_Setting::inst()->_get_settings();
@@ -79,7 +79,7 @@ $slug_page_menu = $menu_page['menu_slug'];
 
                 </tbody>
             </table>
-            <input type="submit" class="btn button button-primary" value="<?php _e("Save Settings",'wpbooking') ?>">
+            <input type="submit" class="btn button button-primary" value="<?php esc_html_e("Save Settings",'wpbooking') ?>">
         </form>
     </div>
 </div>

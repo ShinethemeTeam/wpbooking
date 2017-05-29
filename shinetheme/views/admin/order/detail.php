@@ -28,7 +28,7 @@ $checkout_form_data=$order->get_checkout_form_data();
 					if(!empty($checkout_form_data) and is_array($checkout_form_data)){?>
 						<hr>
 						<div class="checkout-form-data">
-							<h3><?php _e('Billing Details','wpbooking')?></h3>
+							<h3><?php esc_html_e('Billing Details','wpbooking')?></h3>
 
 							<ul class="checkout-form-list">
 								<?php foreach($checkout_form_data as $key=>$value){

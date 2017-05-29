@@ -27,7 +27,7 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
 	<div class="st-metabox-content-wrapper">
 		<div class="form-group">
 			<div class="wpbooking-select-loction">
-	            <input placeholder="<?php echo __('Type to search', 'wpbooking'); ?>" type="text" class="widefat form-control" name="search" value="">
+	            <input placeholder="<?php echo esc_html__('Type to search', 'wpbooking'); ?>" type="text" class="widefat form-control" name="search" value="">
 	            <div class="list-location-wrapper">
 	                <?php
 	                	/*	Old data */

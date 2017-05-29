@@ -597,7 +597,7 @@ if(!function_exists('wpbooking_months_dropdown')) {
                 $month = zeroise($arc_row->month, 2);
                 $year = $arc_row->year;
 
-                printf("<option %s value='%s'>%s</option>\n",selected($m, $year . $month, false), esc_attr($arc_row->year . $month), sprintf(__('%1$s %2$d'), $wp_locale->get_month($month), $year));
+                printf("<option %s value='%s'>%s</option>\n",selected($m, $year . $month, false), esc_attr($arc_row->year . $month), sprintf(esc_html__('%1$s %2$d'), $wp_locale->get_month($month), $year));
             }
             ?>
         </select>

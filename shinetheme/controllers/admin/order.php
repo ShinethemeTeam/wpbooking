@@ -115,8 +115,8 @@ if (!class_exists('WPBooking_Admin_Order')) {
 			$menu_page = WPBooking()->get_menu_page();
 			$page = array(
 				'parent_slug' => $menu_page['menu_slug'],
-				'page_title'  => __('All Bookings', 'wpbooking'),
-				'menu_title'  => __('All Bookings', 'wpbooking'),
+				'page_title'  => esc_html__('All Bookings', 'wpbooking'),
+				'menu_title'  => esc_html__('All Bookings', 'wpbooking'),
 				'capability'  => 'manage_options',
 				'menu_slug'   => 'wpbooking_page_orders',
 				'function'    => array($this, 'callback_menu_page')
@@ -312,20 +312,20 @@ if (!class_exists('WPBooking_Admin_Order')) {
 				'menu_name'          => _x('Booking', 'admin menu', 'wpbooking'),
 				'name_admin_bar'     => _x('Booking', 'add new on admin bar', 'wpbooking'),
 				'add_new'            => _x('Add New', 'Booking', 'wpbooking'),
-				'add_new_item'       => __('Add New Booking', 'wpbooking'),
-				'new_item'           => __('New Booking', 'your-plugin-textdomain'),
-				'edit_item'          => __('Edit Booking', 'wpbooking'),
-				'view_item'          => __('View Booking', 'wpbooking'),
-				'all_items'          => __('All Bookings', 'wpbooking'),
-				'search_items'       => __('Search for Booking', 'wpbooking'),
-				'parent_item_colon'  => __('Parent Booking:', 'wpbooking'),
-				'not_found'          => __('Not found Booking.', 'wpbooking'),
-				'not_found_in_trash' => __('Not found Booking in Trash.', 'wpbooking')
+				'add_new_item'       => esc_html__('Add New Booking', 'wpbooking'),
+				'new_item'           => esc_html__('New Booking', 'your-plugin-textdomain'),
+				'edit_item'          => esc_html__('Edit Booking', 'wpbooking'),
+				'view_item'          => esc_html__('View Booking', 'wpbooking'),
+				'all_items'          => esc_html__('All Bookings', 'wpbooking'),
+				'search_items'       => esc_html__('Search for Booking', 'wpbooking'),
+				'parent_item_colon'  => esc_html__('Parent Booking:', 'wpbooking'),
+				'not_found'          => esc_html__('Not found Booking.', 'wpbooking'),
+				'not_found_in_trash' => esc_html__('Not found Booking in Trash.', 'wpbooking')
 			);
 
 			$args = array(
 				'labels'             => $labels,
-				'description'        => __('Description.', 'wpbooking'),
+				'description'        => esc_html__('Description.', 'wpbooking'),
 				'public'             => TRUE,
 				'publicly_queryable' => TRUE,
 				'show_ui'            => FALSE,

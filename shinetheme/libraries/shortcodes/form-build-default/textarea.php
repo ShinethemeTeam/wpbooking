@@ -8,13 +8,13 @@ if(!class_exists('WPBooking_Form_Textarea_Field')){
 			$this->field_id = 'textarea';
 			$this->field_data =
 				array(
-					"title"    => __( "TextArea" , 'wpbooking' ) ,
+					"title"    => esc_html__( "TextArea" , 'wpbooking' ) ,
 					"name"     => 'wpbooking_form_field_textarea' ,
 					"category" => esc_attr__('Standard Fields','wpbooking') ,
 					"options"  => array(
 						array(
 							"type"             => "required" ,
-							"title"            => __( "Set as <strong>required</strong>" , 'wpbooking' ) ,
+							"title"            => esc_html__( "Set as <strong>required</strong>" , 'wpbooking' ) ,
 							"desc"             => "" ,
 							'edit_field_class' => 'wpbooking-col-md-6' ,
 						) ,
@@ -22,71 +22,71 @@ if(!class_exists('WPBooking_Form_Textarea_Field')){
 							"type"             => "checkbox" ,
 							'name'=>'hide_when_logged_in',
 							'options'=>array(
-								__( "Hide with <strong>Logged in user</strong>" , 'wpbooking' )=>1
+								esc_html__( "Hide with <strong>Logged in user</strong>" , 'wpbooking' )=>1
 							),
 							'single_checkbox'=>1,
 							'edit_field_class' => 'wpbooking-col-md-6' ,
 						) ,
 						array(
 							"type"             => "text" ,
-							"title"            => __( "Title" , 'wpbooking' ) ,
+							"title"            => esc_html__( "Title" , 'wpbooking' ) ,
 							"name"             => "title" ,
-							"desc"             => __( "Title" , 'wpbooking' ) ,
+							"desc"             => esc_html__( "Title" , 'wpbooking' ) ,
 							'edit_field_class' => 'wpbooking-col-md-6' ,
 							'value'            => ""
 						) ,
 						array(
 							"type"             => "text" ,
-							"title"            => __( "Name" , 'wpbooking' ) ,
+							"title"            => esc_html__( "Name" , 'wpbooking' ) ,
 							"name"             => "name" ,
-							"desc"             => __( "Name" , 'wpbooking' ) ,
+							"desc"             => esc_html__( "Name" , 'wpbooking' ) ,
 							'edit_field_class' => 'wpbooking-col-md-6' ,
 							'value'            => ""
 						) ,
 						array(
 							"type"             => "text" ,
-							"title"            => __( "ID" , 'wpbooking' ) ,
+							"title"            => esc_html__( "ID" , 'wpbooking' ) ,
 							"name"             => "id" ,
-							"desc"             => __( "ID" , 'wpbooking' ) ,
+							"desc"             => esc_html__( "ID" , 'wpbooking' ) ,
 							'edit_field_class' => 'wpbooking-col-md-6' ,
 							'value'            => ""
 						) ,
 						array(
 							"type"             => "text" ,
-							"title"            => __( "Class" , 'wpbooking' ) ,
+							"title"            => esc_html__( "Class" , 'wpbooking' ) ,
 							"name"             => "class" ,
-							"desc"             => __( "Class" , 'wpbooking' ) ,
+							"desc"             => esc_html__( "Class" , 'wpbooking' ) ,
 							'edit_field_class' => 'wpbooking-col-md-6' ,
 							'value'            => ""
 						) ,
 						array(
 							"type"             => "textarea" ,
-							"title"            => __( "Value" , 'wpbooking' ) ,
+							"title"            => esc_html__( "Value" , 'wpbooking' ) ,
 							"name"             => "value" ,
-							"desc"             => __( "Value" , 'wpbooking' ) ,
+							"desc"             => esc_html__( "Value" , 'wpbooking' ) ,
 							'edit_field_class' => 'wpbooking-col-md-12' ,
 							'value'            => ""
 						) ,
 						array(
 							"type"             => "textarea" ,
-							"title"            => __( "Placeholder" , 'wpbooking' ) ,
+							"title"            => esc_html__( "Placeholder" , 'wpbooking' ) ,
 							"name"             => "placeholder" ,
 							'edit_field_class' => 'wpbooking-col-md-12' ,
 							'value'            => ""
 						) ,
 						array(
 							"type"             => "text" ,
-							"title"            => __( "Rows" , 'wpbooking' ) ,
+							"title"            => esc_html__( "Rows" , 'wpbooking' ) ,
 							"name"             => "rows" ,
-							"desc"             => __( "Rows" , 'wpbooking' ) ,
+							"desc"             => esc_html__( "Rows" , 'wpbooking' ) ,
 							'edit_field_class' => 'wpbooking-col-md-6' ,
 							'value'            => ""
 						) ,
 						array(
 							"type"             => "text" ,
-							"title"            => __( "Columns" , 'wpbooking' ) ,
+							"title"            => esc_html__( "Columns" , 'wpbooking' ) ,
 							"name"             => "columns" ,
-							"desc"             => __( "Columns" , 'wpbooking' ) ,
+							"desc"             => esc_html__( "Columns" , 'wpbooking' ) ,
 							'edit_field_class' => 'wpbooking-col-md-6' ,
 							'value'            => ""
 						) ,

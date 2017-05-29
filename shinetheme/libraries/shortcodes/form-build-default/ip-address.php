@@ -8,39 +8,39 @@ if (!class_exists('WPBooking_Ip_Address_Field')) {
 		{
 			$this->field_id = 'ip_address';
 			$this->field_data = array(
-				"title"    => __("IP Address (Client)", 'wpbooking'),
-				"category" => __("Hidden Fields", 'wpbooking'),
+				"title"    => esc_html__("IP Address (Client)", 'wpbooking'),
+				"category" => esc_html__("Hidden Fields", 'wpbooking'),
 				"options"  => array(
 					array(
 						"type"             => "text",
-						"title"            => __("Title", 'wpbooking'),
+						"title"            => esc_html__("Title", 'wpbooking'),
 						"name"             => "title",
-						"desc"             => __("Title", 'wpbooking'),
+						"desc"             => esc_html__("Title", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'value'            => ""
 					),
 
 					array(
 						"type"             => "text",
-						"title"            => __("ID (optional)", 'wpbooking'),
+						"title"            => esc_html__("ID (optional)", 'wpbooking'),
 						"name"             => "id",
-						"desc"             => __("ID", 'wpbooking'),
+						"desc"             => esc_html__("ID", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'value'            => ""
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("Class (optional)", 'wpbooking'),
+						"title"            => esc_html__("Class (optional)", 'wpbooking'),
 						"name"             => "class",
-						"desc"             => __("Class", 'wpbooking'),
+						"desc"             => esc_html__("Class", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'value'            => ""
 					),
 //					array(
 //						"type"             => "text",
-//						"title"            => __("Value (optional)", 'wpbooking'),
+//						"title"            => esc_html__("Value (optional)", 'wpbooking'),
 //						"name"             => "value",
-//						"desc"             => __("Value", 'wpbooking'),
+//						"desc"             => esc_html__("Value", 'wpbooking'),
 //						'edit_field_class' => 'wpbooking-col-md-6',
 //						'value'            => ""
 //					),

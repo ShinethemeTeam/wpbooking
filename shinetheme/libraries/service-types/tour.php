@@ -9,8 +9,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
         function __construct()
         {
             $this->type_info = array(
-                'label' => __("Tour", 'wpbooking'),
-                'labels' => __("Tours", 'wpbooking'),
+                'label' => esc_html__("Tour", 'wpbooking'),
+                'labels' => esc_html__("Tours", 'wpbooking'),
                 'desc'  => esc_html__('You can post anything related to activities such as tourism, events, workshops, etc anything called tour', 'wpbooking')
             );
 
@@ -18,23 +18,23 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
 
                 array(
                     'id'    => 'title',
-                    'label' => __('Layout', 'wpbooking'),
+                    'label' => esc_html__('Layout', 'wpbooking'),
                     'type'  => 'title',
                 ),
                 array(
                     'id'    => 'posts_per_page',
-                    'label' => __("Item per page", 'wpbooking'),
+                    'label' => esc_html__("Item per page", 'wpbooking'),
                     'type'  => 'number',
                     'std'   => 10
                 ),
                 array(
                     'id'    => "thumb_size",
-                    'label' => __("Thumb Size", 'travel-booking'),
+                    'label' => esc_html__("Thumb Size", 'travel-booking'),
                     'type'  => 'image-size'
                 ),
                 array(
                     'id'    => "gallery_size",
-                    'label' => __("Gallery Size", 'travel-booking'),
+                    'label' => esc_html__("Gallery Size", 'travel-booking'),
                     'type'  => 'image-size'
                 ),
             );
@@ -770,15 +770,15 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             $labels = array(
                 'name'              => _x('Tour Type', 'taxonomy general name', 'wpbooking'),
                 'singular_name'     => _x('Tour Type', 'taxonomy singular name', 'wpbooking'),
-                'search_items'      => __('Search for Tour Type', 'wpbooking'),
-                'all_items'         => __('All Tour Types', 'wpbooking'),
-                'parent_item'       => __('Parent Tour Type', 'wpbooking'),
-                'parent_item_colon' => __('Parent Tour Type:', 'wpbooking'),
-                'edit_item'         => __('Edit Tour Type', 'wpbooking'),
-                'update_item'       => __('Update Tour Type', 'wpbooking'),
-                'add_new_item'      => __('Add New Tour Type', 'wpbooking'),
-                'new_item_name'     => __('New Tour Type Name', 'wpbooking'),
-                'menu_name'         => __('Tour Type', 'wpbooking'),
+                'search_items'      => esc_html__('Search for Tour Type', 'wpbooking'),
+                'all_items'         => esc_html__('All Tour Types', 'wpbooking'),
+                'parent_item'       => esc_html__('Parent Tour Type', 'wpbooking'),
+                'parent_item_colon' => esc_html__('Parent Tour Type:', 'wpbooking'),
+                'edit_item'         => esc_html__('Edit Tour Type', 'wpbooking'),
+                'update_item'       => esc_html__('Update Tour Type', 'wpbooking'),
+                'add_new_item'      => esc_html__('Add New Tour Type', 'wpbooking'),
+                'new_item_name'     => esc_html__('New Tour Type Name', 'wpbooking'),
+                'menu_name'         => esc_html__('Tour Type', 'wpbooking'),
             );
             $args = array(
                 'hierarchical'      => true,
@@ -845,7 +845,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
 
             $price_html = WPBooking_Currency::format_money($price);
 
-            $price_html = sprintf(__('from %s', 'wpbooking'), '<br><span class="price" itemprop="price" >' . $price_html . '</span>');
+            $price_html = sprintf(esc_html__('from %s', 'wpbooking'), '<br><span class="price" itemprop="price" >' . $price_html . '</span>');
 
             return $price_html;
         }
@@ -918,41 +918,41 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'type' => 'open_section',
                         ),
                         array(
-                            'label' => __("About Your Tour", 'wpbooking'),
+                            'label' => esc_html__("About Your Tour", 'wpbooking'),
                             'type'  => 'title',
                             'desc'  => esc_html__('Basic information', 'wpbooking'),
                         ),
                         array(
                             'id'    => 'enable_property',
-                            'label' => __("Enable Tour", 'wpbooking'),
+                            'label' => esc_html__("Enable Tour", 'wpbooking'),
                             'type'  => 'on-off',
                             'std'   => 'on',
                             'desc'  => esc_html__('Listing will appear in search results.', 'wpbooking'),
                         ),
                         array(
                             'id'       => 'tour_type',
-                            'label'    => __("Tour Type", 'wpbooking'),
+                            'label'    => esc_html__("Tour Type", 'wpbooking'),
                             'type'     => 'dropdown',
                             'taxonomy' => 'wb_tour_type',
                             'class'    => 'small'
                         ),
                         array(
                             'id'    => 'star_rating',
-                            'label' => __("Star Rating", 'wpbooking'),
+                            'label' => esc_html__("Star Rating", 'wpbooking'),
                             'type'  => 'star-select',
                             'desc'  => esc_html__('Standard of tour from 1 to 5 stars.', 'wpbooking'),
                             'class' => 'small'
                         ),
                         array(
                             'id'          => 'duration',
-                            'label'       => __("Duration", 'wpbooking'),
+                            'label'       => esc_html__("Duration", 'wpbooking'),
                             'type'        => 'text',
                             'placeholder' => esc_html__('Example: 10 days', 'wpbooking'),
                             'class'       => 'small',
                             'rules'       => 'required'
                         ),
                         array(
-                            'label' => __('Contact Number', 'wpbooking'),
+                            'label' => esc_html__('Contact Number', 'wpbooking'),
                             'id'    => 'contact_number',
                             'desc'  => esc_html__('The contact phone', 'wpbooking'),
                             'type'  => 'text',
@@ -961,7 +961,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'placeholder' => esc_html__('Phone number','wpbooking')
                         ),
                         array(
-                            'label'       => __('Contact Email', 'wpbooking'),
+                            'label'       => esc_html__('Contact Email', 'wpbooking'),
                             'id'          => 'contact_email',
                             'type'        => 'text',
                             'placeholder' => esc_html__('Example@domain.com', 'wpbooking'),
@@ -969,7 +969,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'rules'       => 'required|valid_email'
                         ),
                         array(
-                            'label'       => __('Website', 'wpbooking'),
+                            'label'       => esc_html__('Website', 'wpbooking'),
                             'id'          => 'website',
                             'type'        => 'text',
                             'desc'        => esc_html__('Property website (optional)', 'wpbooking'),
@@ -985,11 +985,11 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         array('type' => 'close_section'),
                         array('type' => 'open_section'),
                         array(
-                            'label' => __("Tour Destination", 'wpbooking'),
+                            'label' => esc_html__("Tour Destination", 'wpbooking'),
                             'type'  => 'title',
                         ),
                         array(
-                            'label'           => __('Address', 'wpbooking'),
+                            'label'           => esc_html__('Address', 'wpbooking'),
                             'id'              => 'address',
                             'type'            => 'address',
                             'container_class' => 'mb35',
@@ -997,7 +997,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'rules'           => 'required'
                         ),
                         array(
-                            'label' => __('Map’s Latitude & Longitude', 'wpbooking'),
+                            'label' => esc_html__('Map’s Latitude & Longitude', 'wpbooking'),
                             'id'    => 'gmap',
                             'type'  => 'gmap',
                             'desc'  => esc_html__('This is the location we will provide for guests. Click to move the marker if you need to move it', 'wpbooking')
@@ -1012,7 +1012,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         // Miscellaneous
                         /*array('type' => 'open_section'),
                         array(
-                            'label' => __("Amenity", 'wpbooking'),
+                            'label' => esc_html__("Amenity", 'wpbooking'),
                             'type'  => 'title',
                         ),
                         array('type' => 'close_section'),*/
@@ -1026,11 +1026,11 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     )
                 ),
                 'detail_tab'   => array(
-                    'label'  => __('2. Booking Details', 'wpbooking'),
+                    'label'  => esc_html__('2. Booking Details', 'wpbooking'),
                     'fields' => array(
                         array('type' => 'open_section'),
                         array(
-                            'label' => __("Pricing type", 'wpbooking'),
+                            'label' => esc_html__("Pricing type", 'wpbooking'),
                             'type'  => 'title',
                         ),
                         array(
@@ -1065,12 +1065,12 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         array('type' => 'open_section'),
                         array(
                             'type'  => 'title',
-                            'label' => __('Extra Services', 'wpbooking'),
+                            'label' => esc_html__('Extra Services', 'wpbooking'),
                             'desc'  => esc_html__('Set the extended services for your property', 'wpbooking')
                         ),
                         array(
                             'type'           => 'extra_services',
-                            'label'          => __('Choose extra services', 'wpbooking'),
+                            'label'          => esc_html__('Choose extra services', 'wpbooking'),
                             'id'             => 'extra_services',
                             'extra_services' => $this->get_extra_services(),
                             'service_type'   => $this->type_id
@@ -1081,7 +1081,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         array('type' => 'open_section'),
 
                         array(
-                            'label' => __("Availability", 'wpbooking'),
+                            'label' => esc_html__("Availability", 'wpbooking'),
                             'type'  => 'title',
                         ),
                         array(
@@ -1097,29 +1097,29 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     )
                 ),
                 'policies_tab' => array(
-                    'label'  => __('3. Policies & Checkout', 'wpbooking'),
+                    'label'  => esc_html__('3. Policies & Checkout', 'wpbooking'),
                     'fields' => array(
 
                         array('type' => 'open_section'),
                         array(
-                            'label' => __("Pre-payment and cancellation policies", 'wpbooking'),
+                            'label' => esc_html__("Pre-payment and cancellation policies", 'wpbooking'),
                             'type'  => 'title',
                             'desc'  => esc_html__("Pre-payment and cancellation policies", "wpbooking")
                         ),
                         array(
-                            'label' => __('Select optional deposit ', 'wpbooking'),
+                            'label' => esc_html__('Select optional deposit ', 'wpbooking'),
                             'id'    => 'deposit_payment_status',
                             'type'  => 'dropdown',
                             'value' => array(
-                                ''        => __('Disallow Deposit', 'wpbooking'),
-                                'percent' => __('Deposit by percent', 'wpbooking'),
-                                'amount'  => __('Deposit by amount', 'wpbooking'),
+                                ''        => esc_html__('Disallow Deposit', 'wpbooking'),
+                                'percent' => esc_html__('Deposit by percent', 'wpbooking'),
+                                'amount'  => esc_html__('Deposit by amount', 'wpbooking'),
                             ),
                             'desc'  => esc_html__("You can select Disallow Deposit, Deposit by percent, Deposit by amount", "wpbooking"),
                             'class' => 'small'
                         ),
                         array(
-                            'label' => __('Deposit payment amount', 'wpbooking'),
+                            'label' => esc_html__('Deposit payment amount', 'wpbooking'),
                             'id'    => 'deposit_payment_amount',
                             'type'  => 'number',
                             'desc'  => esc_html__("Leave empty for disallow deposit payment", "wpbooking"),
@@ -1127,27 +1127,27 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'min'   => 1
                         ),
                         array(
-                            'label' => __('How many days in advance can guests cancel free of  charge?', 'wpbooking'),
+                            'label' => esc_html__('How many days in advance can guests cancel free of  charge?', 'wpbooking'),
                             'id'    => 'cancel_free_days_prior',
                             'type'  => 'dropdown',
                             'value' => array(
-                                'day_of_arrival' => __('Day of arrival (6 pm)', 'wpbooking'),
-                                '1'              => __('1 day', 'wpbooking'),
-                                '2'              => __('2 days', 'wpbooking'),
-                                '3'              => __('3 days', 'wpbooking'),
-                                '7'              => __('7 days', 'wpbooking'),
-                                '14'             => __('14 days', 'wpbooking'),
+                                'day_of_arrival' => esc_html__('Day of arrival (6 pm)', 'wpbooking'),
+                                '1'              => esc_html__('1 day', 'wpbooking'),
+                                '2'              => esc_html__('2 days', 'wpbooking'),
+                                '3'              => esc_html__('3 days', 'wpbooking'),
+                                '7'              => esc_html__('7 days', 'wpbooking'),
+                                '14'             => esc_html__('14 days', 'wpbooking'),
                             ),
                             'desc'  => esc_html__("Day of arrival ( 18: 00 ) , 1 day , 2 days, 3 days, 7 days, 14 days", "wpbooking"),
                             'class' => 'small'
                         ),
                         array(
-                            'label' => __('Or guests will pay 100%', 'wpbooking'),
+                            'label' => esc_html__('Or guests will pay 100%', 'wpbooking'),
                             'id'    => 'cancel_guest_payment',
                             'type'  => 'dropdown',
                             'value' => array(
-                                'first_night' => __('of the first night', 'wpbooking'),
-                                'full_stay'   => __('of the full stay', 'wpbooking'),
+                                'first_night' => esc_html__('of the first night', 'wpbooking'),
+                                'full_stay'   => esc_html__('of the full stay', 'wpbooking'),
                             ),
                             'desc'  => esc_html__("Of the first night, of the full stay", "wpbooking"),
                             'class' => 'small'
@@ -1155,12 +1155,12 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         array('type' => 'close_section'),
                         array('type' => 'open_section'),
                         array(
-                            'label' => __("Tax", 'wpbooking'),
+                            'label' => esc_html__("Tax", 'wpbooking'),
                             'type'  => 'title',
                             'desc'  => esc_html__("Set your local VAT, so guests know what is included in the price of their stay.", "wpbooking")
                         ),
                         array(
-                            'label'  => __('VAT', 'wpbooking'),
+                            'label'  => esc_html__('VAT', 'wpbooking'),
                             'id'     => 'vat_different',
                             'type'   => 'vat_different',
                             'fields' => array(
@@ -1173,12 +1173,12 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
 
                         array('type' => 'open_section'),
                         array(
-                            'label' => __("Term & condition", 'wpbooking'),
+                            'label' => esc_html__("Term & condition", 'wpbooking'),
                             'type'  => 'title',
                             'desc'  => esc_html__("Set terms and conditions for your property", "wpbooking")
                         ),
                         array(
-                            'label' => __('Terms & Conditions', 'wpbooking'),
+                            'label' => esc_html__('Terms & Conditions', 'wpbooking'),
                             'id'    => 'terms_conditions',
                             'type'  => 'textarea',
                             'rows'  => '5',
@@ -1191,19 +1191,19 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                     ),
                 ),
                 'photo_tab'    => array(
-                    'label'  => __('4. Photos', 'wpbooking'),
+                    'label'  => esc_html__('4. Photos', 'wpbooking'),
                     'fields' => array(
                         array('type' => 'open_section'),
                         array(
-                            'label' => __("Pictures", 'wpbooking'),
+                            'label' => esc_html__("Pictures", 'wpbooking'),
                             'type'  => 'title',
                         ),
                         array(
-                            'label' => __("Gallery", 'wpbooking'),
+                            'label' => esc_html__("Gallery", 'wpbooking'),
                             'id'    => 'tour_gallery',
                             'type'  => 'gallery',
                             'rules' => 'required',
-                            'desc'  => __('Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wpbooking'),
+                            'desc'  => esc_html__('Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wpbooking'),
                             'error_message' => esc_html__('You must upload one minimum photo for your tour','wpbooking'),
                             'service_type' => esc_html__('tour','wpbooking')
                         ),
@@ -1280,69 +1280,69 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
             $search_fields = apply_filters('wpbooking_search_field_' . $this->type_id, array(
                 array(
                     'name'    => 'field_type',
-                    'label'   => __('Field Type', "wpbooking"),
+                    'label'   => esc_html__('Field Type', "wpbooking"),
                     'type'    => "dropdown",
                     'options' => array(
-                        ""            => __("-- Select --", "wpbooking"),
-                        "location_id" => __("Destination", "wpbooking"),
-                        "check_in"    => __("From date", "wpbooking"),
-                        "check_out"   => __("To date", "wpbooking"),
-                        "taxonomy"    => __("Taxonomy", "wpbooking"),
-                        "star_rating" => __("Star Of Tour", "wpbooking"),
-                        "price"       => __("Price", "wpbooking"),
+                        ""            => esc_html__("-- Select --", "wpbooking"),
+                        "location_id" => esc_html__("Destination", "wpbooking"),
+                        "check_in"    => esc_html__("From date", "wpbooking"),
+                        "check_out"   => esc_html__("To date", "wpbooking"),
+                        "taxonomy"    => esc_html__("Taxonomy", "wpbooking"),
+                        "star_rating" => esc_html__("Star Of Tour", "wpbooking"),
+                        "price"       => esc_html__("Price", "wpbooking"),
                     )
                 ),
                 array(
                     'name'  => 'title',
-                    'label' => __('Title', "wpbooking"),
+                    'label' => esc_html__('Title', "wpbooking"),
                     'type'  => "text",
                     'value' => ""
                 ),
                 array(
                     'name'  => 'placeholder',
-                    'label' => __('Placeholder', "wpbooking"),
-                    'desc'  => __('Placeholder', "wpbooking"),
+                    'label' => esc_html__('Placeholder', "wpbooking"),
+                    'desc'  => esc_html__('Placeholder', "wpbooking"),
                     'type'  => 'text',
                 ),
                 array(
                     'name'    => 'taxonomy',
-                    'label'   => __('- Taxonomy', "wpbooking"),
+                    'label'   => esc_html__('- Taxonomy', "wpbooking"),
                     'type'    => "dropdown",
                     'class'   => "hide",
                     'options' => $list_taxonomy
                 ),
                 array(
                     'name'    => 'taxonomy_show',
-                    'label'   => __('- Display Style', "wpbooking"),
+                    'label'   => esc_html__('- Display Style', "wpbooking"),
                     'type'    => "dropdown",
                     'class'   => "hide",
                     'options' => array(
-                        "dropdown"  => __("Dropdown", "wpbooking"),
-                        "check_box" => __("Check Box", "wpbooking"),
+                        "dropdown"  => esc_html__("Dropdown", "wpbooking"),
+                        "check_box" => esc_html__("Check Box", "wpbooking"),
                     )
                 ),
                 array(
                     'name'    => 'taxonomy_operator',
-                    'label'   => __('- Operator', "wpbooking"),
+                    'label'   => esc_html__('- Operator', "wpbooking"),
                     'type'    => "dropdown",
                     'class'   => "hide",
                     'options' => array(
-                        "AND" => __("And", "wpbooking"),
-                        "OR"  => __("Or", "wpbooking"),
+                        "AND" => esc_html__("And", "wpbooking"),
+                        "OR"  => esc_html__("Or", "wpbooking"),
                     )
                 ),
                 array(
                     'name'    => 'required',
-                    'label'   => __('Required', "wpbooking"),
+                    'label'   => esc_html__('Required', "wpbooking"),
                     'type'    => "dropdown",
                     'options' => array(
-                        "no"  => __("No", "wpbooking"),
-                        "yes" => __("Yes", "wpbooking"),
+                        "no"  => esc_html__("No", "wpbooking"),
+                        "yes" => esc_html__("Yes", "wpbooking"),
                     )
                 ),
                 array(
                     'name'  => 'in_more_filter',
-                    'label' => __('In Advance Search?', "wpbooking"),
+                    'label' => esc_html__('In Advance Search?', "wpbooking"),
                     'type'  => "checkbox",
                 ),
 

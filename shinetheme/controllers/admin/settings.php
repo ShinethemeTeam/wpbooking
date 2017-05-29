@@ -98,8 +98,8 @@ if(!class_exists('WPBooking_Admin_Setting'))
 			$menu_page=WPBooking()->get_menu_page();
 			$page=array(
 				'parent_slug'=>$menu_page['menu_slug'],
-				'page_title'=>__('Settings','wpbooking'),
-				'menu_title'=>__('Settings','wpbooking'),
+				'page_title'=>esc_html__('Settings','wpbooking'),
+				'menu_title'=>esc_html__('Settings','wpbooking'),
 				'capability'=>'manage_options',
 				'menu_slug'=>'wpbooking_page_settings',
 				'function'=> array($this,'callback_wpbooking_sub_menu')

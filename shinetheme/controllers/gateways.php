@@ -89,7 +89,7 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 		function _add_settings($settings)
 		{
 			$settings['payment_gateways']=array(
-				'name'=>__("Payment",'wpbooking'),
+				'name'=>esc_html__("Payment",'wpbooking'),
 				'sections'=>apply_filters('wpbooking_payment_settings_sections',array())
 			);
 			return $settings;
@@ -101,10 +101,10 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 			<div id="setting-error-tgmpa" class="updated settings-error notice is-dismissible">
 				<p>
 					<strong>
-						<?php printf(__('You must upgrade your PHP version to 5.3.0 at least to use WPBooking Plugin. Your current version is %s','wpbooking'),phpversion()) ?>
+						<?php printf(esc_html__('You must upgrade your PHP version to 5.3.0 at least to use WPBooking Plugin. Your current version is %s','wpbooking'),phpversion()) ?>
 					</strong>
 				</p>
-				<button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php _e('Dismiss this notice.','travel-booking')?></span></button>
+				<button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php esc_html_e('Dismiss this notice.','travel-booking')?></span></button>
 			</div>
 			<?php
 		}

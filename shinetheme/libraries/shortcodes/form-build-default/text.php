@@ -8,12 +8,12 @@ if(!class_exists('WPBooking_Form_Text_Field')){
 		{
 			$this->field_id='text';
 			$this->field_data=array(
-				"title"    => __( "Text" , 'wpbooking' ) ,
+				"title"    => esc_html__( "Text" , 'wpbooking' ) ,
 				"category" => 'Standard Fields' ,
 				"options"  => array(
 					array(
 						"type"             => "required" ,
-						"title"            => __( "Set as <strong>required</strong>" , 'wpbooking' ) ,
+						"title"            => esc_html__( "Set as <strong>required</strong>" , 'wpbooking' ) ,
 						"desc"             => "" ,
 						'edit_field_class' => 'wpbooking-col-md-6' ,
 					) ,
@@ -21,64 +21,64 @@ if(!class_exists('WPBooking_Form_Text_Field')){
 						"type"             => "checkbox" ,
 						'name'=>'hide_when_logged_in',
 						'options'=>array(
-							__( "Hide with <strong>Logged in user</strong>" , 'wpbooking' )=>1
+							esc_html__( "Hide with <strong>Logged in user</strong>" , 'wpbooking' )=>1
 						),
 						'single_checkbox'=>1,
 						'edit_field_class' => 'wpbooking-col-md-6' ,
 					) ,
 					array(
 						"type"             => "text" ,
-						"title"            => __( "Title" , 'wpbooking' ) ,
+						"title"            => esc_html__( "Title" , 'wpbooking' ) ,
 						"name"             => "title" ,
-						"desc"             => __( "Title" , 'wpbooking' ) ,
+						"desc"             => esc_html__( "Title" , 'wpbooking' ) ,
 						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
 						"type"             => "text" ,
-						"title"            => __( "Name" , 'wpbooking' ) ,
+						"title"            => esc_html__( "Name" , 'wpbooking' ) ,
 						"name"             => "name" ,
-						"desc"             => __( "Name" , 'wpbooking' ) ,
+						"desc"             => esc_html__( "Name" , 'wpbooking' ) ,
 						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
 						"type"             => "text" ,
-						"title"            => __( "ID" , 'wpbooking' ) ,
+						"title"            => esc_html__( "ID" , 'wpbooking' ) ,
 						"name"             => "id" ,
-						"desc"             => __( "ID" , 'wpbooking' ) ,
+						"desc"             => esc_html__( "ID" , 'wpbooking' ) ,
 						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
 						"type"             => "text" ,
-						"title"            => __( "Class" , 'wpbooking' ) ,
+						"title"            => esc_html__( "Class" , 'wpbooking' ) ,
 						"name"             => "class" ,
-						"desc"             => __( "Class" , 'wpbooking' ) ,
+						"desc"             => esc_html__( "Class" , 'wpbooking' ) ,
 						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
 						"type"             => "text" ,
-						"title"            => __( "Value" , 'wpbooking' ) ,
+						"title"            => esc_html__( "Value" , 'wpbooking' ) ,
 						"name"             => "value" ,
-						"desc"             => __( "Value" , 'wpbooking' ) ,
+						"desc"             => esc_html__( "Value" , 'wpbooking' ) ,
 						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
 						"type"             => "text" ,
-						"title"            => __( "Placeholder" , 'wpbooking' ) ,
+						"title"            => esc_html__( "Placeholder" , 'wpbooking' ) ,
 						"name"             => "placeholder" ,
-						"desc"             => __( "Placeholder" , 'wpbooking' ) ,
+						"desc"             => esc_html__( "Placeholder" , 'wpbooking' ) ,
 						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
 						"type"             => "text" ,
-						"title"            => __( "Maxlength" , 'wpbooking' ) ,
+						"title"            => esc_html__( "Maxlength" , 'wpbooking' ) ,
 						"name"             => "maxlength" ,
-						"desc"             => __( "Maxlength" , 'wpbooking' ) ,
+						"desc"             => esc_html__( "Maxlength" , 'wpbooking' ) ,
 						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					)

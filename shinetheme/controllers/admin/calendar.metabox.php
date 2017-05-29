@@ -130,7 +130,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					if( !$check_in || !$check_out ){
 						echo json_encode( array(
 							'status' => 0,
-							'message' => __('The field of start date or end date is invalid.', 'wpbooking')
+							'message' => esc_html__('The field of start date or end date is invalid.', 'wpbooking')
 						) );
 						die;
 					}
@@ -181,13 +181,13 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					if( $new_item > 0 ){
 						echo json_encode( array(
 							'status' => 1,
-							'message' => __('Successffully added', 'wpbooking')
+							'message' => esc_html__('Successffully added', 'wpbooking')
 						) ); 
 						die;
 					}else{
 						echo json_encode( array(
 							'status' => 0,
-							'message' => __('Getting an error when adding new item.', 'wpbooking')
+							'message' => esc_html__('Getting an error when adding new item.', 'wpbooking')
 						) );
 						die;
 					}
@@ -227,7 +227,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 							echo json_encode( array(
 								'status' => 1,
-								'message' => __('Successffully added', 'wpbooking')
+								'message' => esc_html__('Successffully added', 'wpbooking')
 							) );
 							die;
 						}else{
@@ -264,7 +264,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					if( !is_numeric( $price) ){
 						echo json_encode( array(
 							'status' => 0,
-							'message' => __('The price field is not a number.', 'wpbooking')
+							'message' => esc_html__('The price field is not a number.', 'wpbooking')
 						) );
 						die;
 					}
@@ -373,7 +373,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 						}else{
 							echo json_encode( array(
 								'status' => 0,
-								'message' => __('The months field is required.', 'wpbooking')
+								'message' => esc_html__('The months field is required.', 'wpbooking')
 							) );
 							die;
 						}
@@ -381,7 +381,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					}else{
 						echo json_encode( array(
 							'status' => 0,
-							'message' => __('The years field is required.', 'wpbooking')
+							'message' => esc_html__('The years field is required.', 'wpbooking')
 						) );
 						die;
 					}

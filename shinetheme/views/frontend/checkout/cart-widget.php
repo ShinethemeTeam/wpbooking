@@ -6,7 +6,7 @@ $cart=$booking->get_cart();
 		<div class="wpbooking-cart-widget-items">
 		<?php
 		if(empty($cart)){
-			printf('<p class="alert alert-warning">%s</p>',__('Your cart is currently empty','wpbooking'));
+			printf('<p class="alert alert-warning">%s</p>',esc_html__('Your cart is currently empty','wpbooking'));
 		}else{
 			$i=0;
 			foreach($cart as $key=>$value)

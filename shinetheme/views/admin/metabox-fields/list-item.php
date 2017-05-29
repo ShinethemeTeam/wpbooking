@@ -56,7 +56,7 @@ if(!empty($data['condition'])){
 											<td class="td-left" colspan="3">
 												<div class="form-table wpbooking-settings ">
 													<div class="st-metabox-left  wpbooking-form-group  title  wpbooking-form-group">
-														<?php echo __('Title', 'wpbooking'); ?>
+														<?php echo esc_html__('Title', 'wpbooking'); ?>
 													</div>
 													<div class="st-metabox-right">
 														<input type="text" class="widefat form-control input-title title_list-item" name="<?php echo esc_html( $data['id'] ); ?>[title][]" value="<?php echo esc_html( $convert_val['title'] ); ?>">
@@ -134,7 +134,7 @@ if(!empty($data['condition'])){
 							<td class="td-left" colspan="3">
 								<div class="form-table wpbooking-settings  wpbooking-form-group ">
 									<div class="st-metabox-left">
-										<label><?php echo __('Title', 'wpbooking'); ?></label>
+										<label><?php echo esc_html__('Title', 'wpbooking'); ?></label>
 									</div>
 									<div class="st-metabox-right">
 										<div class="st-metabox-content-wrapper">

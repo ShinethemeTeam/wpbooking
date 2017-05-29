@@ -8,59 +8,59 @@ if (!class_exists('WPBooking_Form_Check_In_Field')) {
 		{
 			$this->field_id = 'check_in';
 			$this->field_data = array(
-				"title"    => __("Check-in", 'wpbooking'),
-				"category" => __("Specific Fields", 'wpbooking'),
+				"title"    => esc_html__("Check-in", 'wpbooking'),
+				"category" => esc_html__("Specific Fields", 'wpbooking'),
 				"options"  => array(
 					array(
 						"type"             => "required",
-						"title"            => __("Set as <strong>required</strong>", 'wpbooking'),
+						"title"            => esc_html__("Set as <strong>required</strong>", 'wpbooking'),
 						"desc"             => "",
 						'edit_field_class' => 'wpbooking-col-md-12',
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("Title", 'wpbooking'),
+						"title"            => esc_html__("Title", 'wpbooking'),
 						"name"             => "title",
-						"desc"             => __("Title", 'wpbooking'),
+						"desc"             => esc_html__("Title", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'value'            => ""
 					),
 					array(
 						"type"             => "label",
-						"title"            => __("Name", 'wpbooking'),
+						"title"            => esc_html__("Name", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'value'            => "check_in",
-						"desc"             => __("This is default attribute, you cannot change ", 'wpbooking'),
+						"desc"             => esc_html__("This is default attribute, you cannot change ", 'wpbooking'),
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("CSS ID (optional)", 'wpbooking'),
+						"title"            => esc_html__("CSS ID (optional)", 'wpbooking'),
 						"name"             => "id",
-						"desc"             => __("ID", 'wpbooking'),
+						"desc"             => esc_html__("ID", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'value'            => ""
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("CSS Class (optional)", 'wpbooking'),
+						"title"            => esc_html__("CSS Class (optional)", 'wpbooking'),
 						"name"             => "class",
-						"desc"             => __("Class", 'wpbooking'),
+						"desc"             => esc_html__("Class", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'value'            => ""
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("Value (optional)", 'wpbooking'),
+						"title"            => esc_html__("Value (optional)", 'wpbooking'),
 						"name"             => "value",
-						"desc"             => __("Value", 'wpbooking'),
+						"desc"             => esc_html__("Value", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'value'            => ""
 					),
 					array(
 						"type"             => "text",
-						"title"            => __("Placeholder (optional)", 'wpbooking'),
+						"title"            => esc_html__("Placeholder (optional)", 'wpbooking'),
 						"name"             => "placeholder",
-						"desc"             => __("Placeholder", 'wpbooking'),
+						"desc"             => esc_html__("Placeholder", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'value'            => ""
 					),

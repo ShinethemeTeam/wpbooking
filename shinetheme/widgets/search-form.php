@@ -3,7 +3,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
     class WPBooking_Widget_Form_Search extends WP_Widget{
         public function __construct() {
             $widget_ops = array('classname' => '', 'description' => "[WPBooking] Search Form" );
-            parent::__construct(__CLASS__, __('WPBooking Search Form',"wpbooking"), $widget_ops);
+            parent::__construct(__CLASS__, esc_html__('WPBooking Search Form',"wpbooking"), $widget_ops);
         }
         /**
          * @param array $args
@@ -77,7 +77,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 						<?php
 					} ?>
 					<div class="search-button-wrap">
-						<button class="wb-button" type="submit"><?php _e("Search",'wpbooking') ?></button>
+						<button class="wb-button" type="submit"><?php esc_html_e("Search",'wpbooking') ?></button>
 					</div>
 				</div>
                 <?php
@@ -114,7 +114,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 							}
 							if($v['required']=='yes') $class.=' wb-required';
 							$args = array(
-								'show_option_none' => __( '-- Select --' , "wpbooking"  ),
+								'show_option_none' => esc_html__( '-- Select --' , "wpbooking"  ),
 								'option_none_value' => "",
 								'hierarchical'      => 1 ,
 								'name'              => 'location_id' ,
@@ -153,7 +153,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                             if($v['required']=='yes') $class=' wb-required';
 							if($v['taxonomy_show'] =='dropdown'){
 								$args = array(
-									'show_option_none' => __( '-- Select --' , "wpbooking" ),
+									'show_option_none' => esc_html__( '-- Select --' , "wpbooking" ),
 									'option_none_value' => "",
 									'hierarchical'      => 1 ,
 									'name'              => $v['field_type'].'['.$v['taxonomy'].']' ,
@@ -238,11 +238,11 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                             <div class="list-checkbox">
                                 <?php
                                 $data = array(
-                                    "5" => __('5 stars','wpbooking') ,
-                                    "4" => __('4 stars','wpbooking') ,
-                                    "3" => __('3 stars','wpbooking') ,
-                                    "2" => __('2 stars','wpbooking') ,
-                                    "1" => __('1 star','wpbooking') ,
+                                    "5" => esc_html__('5 stars','wpbooking') ,
+                                    "4" => esc_html__('4 stars','wpbooking') ,
+                                    "3" => esc_html__('3 stars','wpbooking') ,
+                                    "2" => esc_html__('2 stars','wpbooking') ,
+                                    "1" => esc_html__('1 star','wpbooking') ,
                                 );
                                 if(!empty( $data )) {
                                     foreach( $data as $key2 => $value2 ) {
@@ -406,14 +406,14 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
             ));
             extract($instance);
             ?>
-            <p><label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><strong><?php _e('Title:',"wpbooking"); ?></strong> <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
+            <p><label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><strong><?php esc_html_e('Title:',"wpbooking"); ?></strong> <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('service_type')); ?>"><strong><?php _e('Types of service:','wpbooking'); ?></strong>
+                <label for="<?php echo esc_attr($this->get_field_id('service_type')); ?>"><strong><?php esc_html_e('Types of service:','wpbooking'); ?></strong>
                     <?php
                     $data = WPBooking_Service_Controller::inst()->get_service_types();
                     ?>
                     <select name="<?php echo esc_attr($this->get_field_name('service_type')); ?>" class="option_service_search_form widefat" id="<?php echo esc_attr($this->get_field_id('service_type')); ?>">
-                        <option value=""><?php _e("-- Select --",'wpbooking') ?></option>
+                        <option value=""><?php esc_html_e("-- Select --",'wpbooking') ?></option>
                         <?php
                         if(!empty($data)){
                             foreach($data as $k=>$v){
@@ -433,7 +433,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                 foreach( $all_list_field as $key => $value ) {
                     ?>
                     <div class="list_item_widget  div_content_<?php echo esc_attr($key) ?> <?php if($key != $service_type) echo "hide"; ?>">
-                        <label><strong><?php _e("Search Fields:","wpbooking") ?></strong></label>
+                        <label><strong><?php esc_html_e("Search Fields:","wpbooking") ?></strong></label>
                         <div class="list-group content_list_search_form_widget">
 
                             <?php
@@ -445,8 +445,8 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                                     <div class="list-group-item">
 
                                         <div class="control">
-                                            <a class="btn_edit_field_search_form"><?php _e("Edit","wpbooking") ?></a> |
-                                            <a class="btn_remove_field_search_form"><?php _e("Remove","wpbooking") ?></a>
+                                            <a class="btn_edit_field_search_form"><?php esc_html_e("Edit","wpbooking") ?></a> |
+                                            <a class="btn_remove_field_search_form"><?php esc_html_e("Remove","wpbooking") ?></a>
                                         </div>
                                         <div class="control-hide hide">
                                             <table class="form-table wpbooking-settings">
@@ -533,8 +533,8 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                     <div class="div_content_hide_<?php echo esc_attr($key) ?> hide">
                         <div class="list-group-item">
                             <div class="control">
-                                <a class="btn_edit_field_search_form"><?php _e("Edit","wpbooking") ?></a> |
-                                <a class="btn_remove_field_search_form"><?php _e("Remove","wpbooking") ?></a>
+                                <a class="btn_edit_field_search_form"><?php esc_html_e("Edit","wpbooking") ?></a> |
+                                <a class="btn_remove_field_search_form"><?php esc_html_e("Remove","wpbooking") ?></a>
                             </div>
                             <div class="control-hide">
                                 <table class="form-table wpbooking-settings">

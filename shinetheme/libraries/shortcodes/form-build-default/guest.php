@@ -7,12 +7,12 @@ if(!class_exists('WPBooking_Form_Guest_Field')){
 		{
 			$this->field_id = 'guest';
 			$this->field_data =array(
-				"title"    => __( "Guest" , 'wpbooking' ) ,
+				"title"    => esc_html__( "Guest" , 'wpbooking' ) ,
 				"category" => 'Specific Fields' ,
 				"options"  => array(
 					array(
 						"type"             => "required" ,
-						"title"            => __( "Set as <strong>required</strong>" , 'wpbooking' ) ,
+						"title"            => esc_html__( "Set as <strong>required</strong>" , 'wpbooking' ) ,
 						"desc"             => "" ,
 						'edit_field_class' => 'wpbooking-col-md-6' ,
 					) ,
@@ -20,32 +20,32 @@ if(!class_exists('WPBooking_Form_Guest_Field')){
 						"type"             => "checkbox" ,
 						'name'=>'hide_when_logged_in',
 						'options'=>array(
-							__( "Hide with <strong>Logged in user</strong>" , 'wpbooking' )=>1
+							esc_html__( "Hide with <strong>Logged in user</strong>" , 'wpbooking' )=>1
 						),
 						'single_checkbox'=>1,
 						'edit_field_class' => 'wpbooking-col-md-6' ,
 					) ,
 					array(
 						"type"             => "text" ,
-						"title"            => __( "Title" , 'wpbooking' ) ,
+						"title"            => esc_html__( "Title" , 'wpbooking' ) ,
 						"name"             => "title" ,
-						"desc"             => __( "Title" , 'wpbooking' ) ,
+						"desc"             => esc_html__( "Title" , 'wpbooking' ) ,
 						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
 						"type"             => "text" ,
-						"title"            => __( "ID" , 'wpbooking' ) ,
+						"title"            => esc_html__( "ID" , 'wpbooking' ) ,
 						"name"             => "id" ,
-						"desc"             => __( "ID" , 'wpbooking' ) ,
+						"desc"             => esc_html__( "ID" , 'wpbooking' ) ,
 						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
 					array(
 						"type"             => "text" ,
-						"title"            => __( "Class" , 'wpbooking' ) ,
+						"title"            => esc_html__( "Class" , 'wpbooking' ) ,
 						"name"             => "class" ,
-						"desc"             => __( "Class" , 'wpbooking' ) ,
+						"desc"             => esc_html__( "Class" , 'wpbooking' ) ,
 						'edit_field_class' => 'wpbooking-col-md-6' ,
 						'value'            => ""
 					) ,
@@ -74,7 +74,7 @@ if(!class_exists('WPBooking_Form_Guest_Field')){
 				$class.=" wb-required";
 			}
 			$this->add_field($name,array('data'=>$data,'rule'=>$rule));
-			$list_item = "<option value=''>" . __( "-- Select --" , 'wpbooking' ) . '</option>';
+			$list_item = "<option value=''>" . esc_html__( "-- Select --" , 'wpbooking' ) . '</option>';
 
 			$max_guest=20;
 			if(is_singular()){

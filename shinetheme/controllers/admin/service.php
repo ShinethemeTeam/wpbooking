@@ -150,7 +150,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 		function _add_settings($settings)
 		{
 			$settings['services'] = array(
-				'name'     => __("Services", 'wpbooking'),
+				'name'     => esc_html__("Services", 'wpbooking'),
 				'sections' => apply_filters('wpbooking_service_setting_sections', array())
 			);
 
@@ -170,20 +170,20 @@ if (!class_exists('WPBooking_Admin_Service')) {
 				'menu_name'          => _x('Services', 'admin menu', 'wpbooking'),
 				'name_admin_bar'     => _x('Service', 'add new on admin bar', 'wpbooking'),
 				'add_new'            => _x('Add New', 'service', 'wpbooking'),
-				'add_new_item'       => __('Add New Service', 'wpbooking'),
-				'new_item'           => __('New Service', 'wpbooking'),
-				'edit_item'          => __('Edit Service', 'wpbooking'),
-				'view_item'          => __('View Service', 'wpbooking'),
-				'all_items'          => __('All Services', 'wpbooking'),
-				'search_items'       => __('Search for Services', 'wpbooking'),
-				'parent_item_colon'  => __('Parent Services:', 'wpbooking'),
-				'not_found'          => __('Not found services.', 'wpbooking'),
-				'not_found_in_trash' => __('Not found services in Trash.', 'wpbooking')
+				'add_new_item'       => esc_html__('Add New Service', 'wpbooking'),
+				'new_item'           => esc_html__('New Service', 'wpbooking'),
+				'edit_item'          => esc_html__('Edit Service', 'wpbooking'),
+				'view_item'          => esc_html__('View Service', 'wpbooking'),
+				'all_items'          => esc_html__('All Services', 'wpbooking'),
+				'search_items'       => esc_html__('Search for Services', 'wpbooking'),
+				'parent_item_colon'  => esc_html__('Parent Services:', 'wpbooking'),
+				'not_found'          => esc_html__('Not found services.', 'wpbooking'),
+				'not_found_in_trash' => esc_html__('Not found services in Trash.', 'wpbooking')
 			);
 
 			$args = array(
 				'labels'             => $labels,
-				'description'        => __('Description.', 'wpbooking'),
+				'description'        => esc_html__('Description.', 'wpbooking'),
 				'public'             => TRUE,
 				'publicly_queryable' => TRUE,
 				'show_ui'            => TRUE,
@@ -205,15 +205,15 @@ if (!class_exists('WPBooking_Admin_Service')) {
 			$labels = array(
 				'name'              => _x('Amenities', 'taxonomy general name', 'wpbooking'),
 				'singular_name'     => _x('Amenity', 'taxonomy singular name', 'wpbooking'),
-				'search_items'      => __('Search for Amenity', 'wpbooking'),
-				'all_items'         => __('All Amenities', 'wpbooking'),
-				'parent_item'       => __('Parent Amenity', 'wpbooking'),
-				'parent_item_colon' => __('Parent Amenity:', 'wpbooking'),
-				'edit_item'         => __('Edit Amenity', 'wpbooking'),
-				'update_item'       => __('Update Amenity', 'wpbooking'),
-				'add_new_item'      => __('Add New Amenity', 'wpbooking'),
-				'new_item_name'     => __('New Amenity Name', 'wpbooking'),
-				'menu_name'         => __('Amenity', 'wpbooking'),
+				'search_items'      => esc_html__('Search for Amenity', 'wpbooking'),
+				'all_items'         => esc_html__('All Amenities', 'wpbooking'),
+				'parent_item'       => esc_html__('Parent Amenity', 'wpbooking'),
+				'parent_item_colon' => esc_html__('Parent Amenity:', 'wpbooking'),
+				'edit_item'         => esc_html__('Edit Amenity', 'wpbooking'),
+				'update_item'       => esc_html__('Update Amenity', 'wpbooking'),
+				'add_new_item'      => esc_html__('Add New Amenity', 'wpbooking'),
+				'new_item_name'     => esc_html__('New Amenity Name', 'wpbooking'),
+				'menu_name'         => esc_html__('Amenity', 'wpbooking'),
 			);
 
 			$args = array(
@@ -236,15 +236,15 @@ if (!class_exists('WPBooking_Admin_Service')) {
 			$labels = array(
 				'name'              => _x('Extra Services', 'taxonomy general name', 'wpbooking'),
 				'singular_name'     => _x('Extra Service', 'taxonomy singular name', 'wpbooking'),
-				'search_items'      => __('Search Extra Services', 'wpbooking'),
-				'all_items'         => __('All Extra Services', 'wpbooking'),
-				'parent_item'       => __('Parent Extra Service', 'wpbooking'),
-				'parent_item_colon' => __('Parent Extra Service:', 'wpbooking'),
-				'edit_item'         => __('Edit Extra Service', 'wpbooking'),
-				'update_item'       => __('Update Extra Service', 'wpbooking'),
-				'add_new_item'      => __('Add New Extra Service', 'wpbooking'),
-				'new_item_name'     => __('New Extra Service Name', 'wpbooking'),
-				'menu_name'         => __('Extra Service', 'wpbooking'),
+				'search_items'      => esc_html__('Search Extra Services', 'wpbooking'),
+				'all_items'         => esc_html__('All Extra Services', 'wpbooking'),
+				'parent_item'       => esc_html__('Parent Extra Service', 'wpbooking'),
+				'parent_item_colon' => esc_html__('Parent Extra Service:', 'wpbooking'),
+				'edit_item'         => esc_html__('Edit Extra Service', 'wpbooking'),
+				'update_item'       => esc_html__('Update Extra Service', 'wpbooking'),
+				'add_new_item'      => esc_html__('Add New Extra Service', 'wpbooking'),
+				'new_item_name'     => esc_html__('New Extra Service Name', 'wpbooking'),
+				'menu_name'         => esc_html__('Extra Service', 'wpbooking'),
 			);
 
 			$args = array(
@@ -281,7 +281,7 @@ if (!class_exists('WPBooking_Admin_Service')) {
 
 			$settings = array(
 				'id'       => 'st_post_metabox',
-				'title'    => __('Information', 'wpbooking'),
+				'title'    => esc_html__('Information', 'wpbooking'),
 				'desc'     => '',
 				'pages'    => array('wpbooking_service'),
 				'context'  => 'normal',

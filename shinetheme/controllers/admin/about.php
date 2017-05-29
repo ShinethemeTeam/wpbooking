@@ -103,8 +103,8 @@ if(!class_exists('WPBooking_About')){
             $menu_page=WPBooking()->get_menu_page();
             $page=array(
                 'parent_slug'=>$menu_page['menu_slug'],
-                'page_title'=>__('Extensions','wpbooking'),
-                'menu_title'=>__('Extensions','wpbooking'),
+                'page_title'=>esc_html__('Extensions','wpbooking'),
+                'menu_title'=>esc_html__('Extensions','wpbooking'),
                 'capability'=>'manage_options',
                 'menu_slug'=>'wpbooking_page_extensions',
                 'function'=> array($this,'callback_wpbooking_extensions_sub_menu')

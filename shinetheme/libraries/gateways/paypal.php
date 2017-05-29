@@ -19,26 +19,26 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 		function __construct()
 		{
 			$this->gateway_info=array(
-				'label'=>__("PayPal",'wpbooking')
+				'label'=>esc_html__("PayPal",'wpbooking')
 			);
 			$this->settings=array(
 				array(
 					'id'    => 'enable',
-					'label' => __('Enable', 'wpbooking'),
+					'label' => esc_html__('Enable', 'wpbooking'),
 					'type'  => 'checkbox',
 					'std'   => '',
-					'checkbox_label'=>__("Yes, I want to enable PayPal",'wpbooking')
+					'checkbox_label'=>esc_html__("Yes, I want to enable PayPal",'wpbooking')
 				),
 				array(
 					'id'    => 'title',
-					'label' => __('Title', 'wpbooking'),
+					'label' => esc_html__('Title', 'wpbooking'),
 					'type'  => 'text',
 					'std'   => 'PayPal',
 				),
 
 				array(
 					'id'    => 'desc',
-					'label' => __('Descriptions', 'wpbooking'),
+					'label' => esc_html__('Descriptions', 'wpbooking'),
 					'type'  => 'textarea',
 					'std'   => 'You will be redirect to paypal website to finish the payment process',
 				),
@@ -47,44 +47,44 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 				),
 				array(
 					'id'    => 'api_username',
-					'label' => __('API Username', 'wpbooking'),
+					'label' => esc_html__('API Username', 'wpbooking'),
 					'type'  => 'text',
 					'std'   => '',
 				),
 				array(
 					'id'    => 'api_password',
-					'label' => __('API Password', 'wpbooking'),
+					'label' => esc_html__('API Password', 'wpbooking'),
 					'type'  => 'text',
 					'std'   => '',
 				),
 				array(
 					'id'    => 'api_signature',
-					'label' => __('API Signature', 'wpbooking'),
+					'label' => esc_html__('API Signature', 'wpbooking'),
 					'type'  => 'text',
 					'std'   => '',
 				),
 				array(
 					'id'    => 'test_mode',
-					'label' => __('Test Mode', 'wpbooking'),
+					'label' => esc_html__('Test Mode', 'wpbooking'),
 					'type'  => 'checkbox',
 					'std'   => '',
-					'checkbox_label'=>__("Yes, I want to enable PayPal Sandbox Mode",'wpbooking')
+					'checkbox_label'=>esc_html__("Yes, I want to enable PayPal Sandbox Mode",'wpbooking')
 				),
 				array(
 					'id'    => 'test_api_username',
-					'label' => __('Test API Username', 'wpbooking'),
+					'label' => esc_html__('Test API Username', 'wpbooking'),
 					'type'  => 'text',
 					'std'   => '',
 				),
 				array(
 					'id'    => 'test_api_password',
-					'label' => __('Test API Password', 'wpbooking'),
+					'label' => esc_html__('Test API Password', 'wpbooking'),
 					'type'  => 'text',
 					'std'   => '',
 				),
 				array(
 					'id'    => 'test_api_signature',
-					'label' => __('Test API Signature', 'wpbooking'),
+					'label' => esc_html__('Test API Signature', 'wpbooking'),
 					'type'  => 'text',
 					'std'   => '',
 				),
@@ -126,7 +126,7 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
                     $purchase = array(
                         'amount'      => (float)$total,
                         'currency'    => WPBooking_Currency::get_current_currency('currency'),
-                        'description' => __('WPBooking','wpbooking'),
+                        'description' => esc_html__('WPBooking','wpbooking'),
                         'returnUrl'   => $this->get_return_url($order_object->get_order_id()),
                         'cancelUrl'   => $this->get_cancel_url($order_object->get_order_id()),
                     );
@@ -156,14 +156,14 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 			if ($this->is_test_mode()) {
 				if(!$this->get_option('test_api_username') or !$this->get_option('test_api_password') or !$this->get_option('test_api_signature') )
 				{
-					wpbooking_set_message(__('Test PayPal API is incorrect! Please check with the Admin','wpbooking'),'error');
+					wpbooking_set_message(esc_html__('Test PayPal API is incorrect! Please check with the Admin','wpbooking'),'error');
 					return FALSE;
 				}
 			}else{
 
 				if(!$this->get_option('api_username') or !$this->get_option('api_password') or !$this->get_option('api_signature') )
 				{
-					wpbooking_set_message(__('PayPal API is incorrect! Please check with the Admin','wpbooking'),'error');
+					wpbooking_set_message(esc_html__('PayPal API is incorrect! Please check with the Admin','wpbooking'),'error');
 					return FALSE;
 				}
 			}
@@ -199,7 +199,7 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 			$purchase = array(
 				'amount'      => (float)$total,
 				'currency'    => WPBooking_Currency::get_current_currency('currency'),
-				'description' => __('WPBooking','wpbooking'),
+				'description' => esc_html__('WPBooking','wpbooking'),
 				'returnUrl'   => $this->get_return_url($order_id),
 				'cancelUrl'   => $this->get_cancel_url($order_id),
 			);
@@ -253,7 +253,7 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 			$purchase = array(
 				'amount'      => (float)$total,
 				'currency'    => WPBooking_Currency::get_current_currency('currency'),
-				'description' => __('WPBooking','wpbooking'),
+				'description' => esc_html__('WPBooking','wpbooking'),
 				'returnUrl'   => $this->get_return_url($order_id),
 				'cancelUrl'   => $this->get_cancel_url($order_id),
 			);

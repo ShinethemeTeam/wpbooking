@@ -33,7 +33,7 @@ $tax_total=0;
     <?php do_action("wpbooking_after_check_out_total_price") ?>
     <?php if(!empty($tax['total_price'])) echo '<span class="total-line"></span>' ?>
     <div class="review-cart-item total">
-        <span class="total-title text-up text-bold"><?php _e('Total Amount', 'wpbooking') ?></span>
+        <span class="total-title text-up text-bold"><?php esc_html_e('Total Amount', 'wpbooking') ?></span>
         <span class="total-amount text-up text-bold"><?php echo WPBooking_Currency::format_money($booking->get_total_price_cart_with_tax()); ?></span>
         <?php
 
@@ -42,10 +42,10 @@ $tax_total=0;
 
             $property = $booking->get_total_price_cart_with_tax() - $price_deposit;
             ?>
-            <span class="total-title text-color"> <?php _e('Deposit/Pay Now', 'wpbooking') ?></span>
+            <span class="total-title text-color"> <?php esc_html_e('Deposit/Pay Now', 'wpbooking') ?></span>
             <span class="total-amount text-color"><?php echo WPBooking_Currency::format_money($price_deposit); ?></span>
 
-            <span class="total-title text-bold"><?php _e('You’ll pay at the property', 'wpbooking') ?></span>
+            <span class="total-title text-bold"><?php esc_html_e('You’ll pay at the property', 'wpbooking') ?></span>
             <span class="total-amount text-bold"><?php echo WPBooking_Currency::format_money($property); ?></span>
         <?php } ?>
     </div>

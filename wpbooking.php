@@ -161,12 +161,12 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             ));
 
             wp_localize_script('jquery', 'wpbooking_hotel_localize', array(
-                'booking_required_adult'          => __('Please select the number of adults ', 'wpbooking'),
-                'booking_required_children'       => __('Please select the number of children ', 'wpbooking'),
-                'booking_required_adult_children' => __('Please select the number of adults and children', 'wpbooking'),
-                'is_not_select_date'              => __('To see price details, please select check-in and check-out date.', 'wpbooking'),
-                'is_not_select_check_in_date'     => __('Please select check-in date.', 'wpbooking'),
-                'is_not_select_check_out_date'    => __('Please select check-out date.', 'wpbooking'),
+                'booking_required_adult'          => esc_html__('Please select the number of adults ', 'wpbooking'),
+                'booking_required_children'       => esc_html__('Please select the number of children ', 'wpbooking'),
+                'booking_required_adult_children' => esc_html__('Please select the number of adults and children', 'wpbooking'),
+                'is_not_select_date'              => esc_html__('To see price details, please select check-in and check-out date.', 'wpbooking'),
+                'is_not_select_check_in_date'     => esc_html__('Please select check-in date.', 'wpbooking'),
+                'is_not_select_check_out_date'    => esc_html__('Please select check-out date.', 'wpbooking'),
                 'loading_url'     => admin_url('/images/wpspin_light.gif'),
             ));
         }
@@ -396,8 +396,8 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
         function get_menu_page()
         {
             $page = apply_filters('wpbooking_menu_page_args', array(
-                'page_title' => __("WPBooking", 'wpbooking'),
-                'menu_title' => __("WPBooking", 'wpbooking'),
+                'page_title' => esc_html__("WPBooking", 'wpbooking'),
+                'menu_title' => esc_html__("WPBooking", 'wpbooking'),
                 'capability' => 'manage_options',
                 'menu_slug'  => 'wpbooking',
                 'function'   => array($this, '_show_default_page'),

@@ -8,7 +8,7 @@ if(!$wp_query->have_posts()) return;
         <?php
         $action = WPBooking_Input::get('wpbooking_action');
         if($action == 'archive_filter'){
-            echo '<h2>'.__('Search Result','wpbooking').'</h2>';
+            echo '<h2>'.esc_html__('Search Result','wpbooking').'</h2>';
         }?>
     </div>
 	<div class="col-post-found">

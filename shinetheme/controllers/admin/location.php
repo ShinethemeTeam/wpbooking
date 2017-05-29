@@ -30,15 +30,15 @@ if(!class_exists('WPBooking_Admin_Location'))
 			$labels = array(
 				'name'              => _x( 'Locations', 'taxonomy general name','wpbooking' ),
 				'singular_name'     => _x( 'Location', 'taxonomy singular name','wpbooking' ),
-				'search_items'      => __( 'Search for Locations','wpbooking' ),
-				'all_items'         => __( 'All Locations','wpbooking' ),
-				'parent_item'       => __( 'Parent Location' ,'wpbooking'),
-				'parent_item_colon' => __( 'Parent Location:' ,'wpbooking'),
-				'edit_item'         => __( 'Edit Location' ,'wpbooking'),
-				'update_item'       => __( 'Update Location' ,'wpbooking'),
-				'add_new_item'      => __( 'Add New Location' ,'wpbooking'),
-				'new_item_name'     => __( 'New Location Name' ,'wpbooking'),
-				'menu_name'         => __( 'Location' ,'wpbooking'),
+				'search_items'      => esc_html__( 'Search for Locations','wpbooking' ),
+				'all_items'         => esc_html__( 'All Locations','wpbooking' ),
+				'parent_item'       => esc_html__( 'Parent Location' ,'wpbooking'),
+				'parent_item_colon' => esc_html__( 'Parent Location:' ,'wpbooking'),
+				'edit_item'         => esc_html__( 'Edit Location' ,'wpbooking'),
+				'update_item'       => esc_html__( 'Update Location' ,'wpbooking'),
+				'add_new_item'      => esc_html__( 'Add New Location' ,'wpbooking'),
+				'new_item_name'     => esc_html__( 'New Location Name' ,'wpbooking'),
+				'menu_name'         => esc_html__( 'Location' ,'wpbooking'),
 			);
 
 			$args = array(

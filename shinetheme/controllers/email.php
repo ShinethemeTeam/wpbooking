@@ -105,7 +105,7 @@ if (!class_exists('WPBooking_Email')) {
             $to = wpbooking_get_option('system_email');
             WPBooking()->set('is_email_to_admin', 1);
             WPBooking()->set('order_id', $order_id);
-            $subject = sprintf(__("New Order from %s", 'wpbooking'), get_bloginfo('title'));
+            $subject = sprintf(esc_html__("New Order from %s", 'wpbooking'), get_bloginfo('title'));
             $message = wpbooking_get_option('email_to_admin');
             $message = $this->replaceShortcode($message);
             $message = do_shortcode($message);
@@ -184,7 +184,7 @@ if (!class_exists('WPBooking_Email')) {
 
                     $authors_email[] = $to;
 
-                    $subject = sprintf(__("New Order from %s", 'wpbooking'), get_bloginfo('title'));
+                    $subject = sprintf(esc_html__("New Order from %s", 'wpbooking'), get_bloginfo('title'));
                     WPBooking()->set('items', $value);
                     WPBooking()->set('is_email_to_author', 1);
 
@@ -221,7 +221,7 @@ if (!class_exists('WPBooking_Email')) {
             $to = $order->get_customer_email();
 
             if ($to) {
-                $subject = sprintf(__("New Order from %s", 'wpbooking'), get_bloginfo('title'));
+                $subject = sprintf(esc_html__("New Order from %s", 'wpbooking'), get_bloginfo('title'));
 
                 WPBooking()->set('is_email_to_customer', 1);
 
@@ -277,11 +277,11 @@ if (!class_exists('WPBooking_Email')) {
 
             if (!$message) return array(
                 'status'  => 0,
-                'message' => __("Email content is empty", 'wpbooking')
+                'message' => esc_html__("Email content is empty", 'wpbooking')
             );
             if (!$to) return array(
                 'status'  => 0,
-                'message' => __("Email To Address is empty", 'wpbooking')
+                'message' => esc_html__("Email To Address is empty", 'wpbooking')
             );
             $from = wpbooking_get_option('email_from');
             $from_address = wpbooking_get_option('email_from_address');

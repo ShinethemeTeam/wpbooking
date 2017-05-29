@@ -8,7 +8,7 @@
 ?>
 <div class="wrap">
 	<div class="icon32 icon32-attributes"><br/></div>
-	<h2><?php _e( 'Edit Attribute', 'wpbooking' ) ?></h2>
+	<h2><?php esc_html_e( 'Edit Attribute', 'wpbooking' ) ?></h2>
 	<?php echo wpbooking_get_admin_message() ?>
 	<form action="" method="post">
 		<input type="hidden" name="taxonomy_name" value="<?php echo WPBooking_Input::get('taxonomy_name') ?>" class="hidden">
@@ -16,26 +16,26 @@
 			<tbody>
 			<tr class="form-field form-required">
 				<th scope="row" valign="top">
-					<label for="taxonomy_label"><?php _e( 'Name', 'wpbooking' ); ?></label>
+					<label for="taxonomy_label"><?php esc_html_e( 'Name', 'wpbooking' ); ?></label>
 				</th>
 				<td>
 					<input name="taxonomy_label" id="taxonomy_label" type="text" value="<?php echo esc_attr( $row['label'] ); ?>" />
-					<p class="description"><?php _e( 'Name for the taxonomy (shown on the front-end).', 'wpbooking' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Name for the taxonomy (shown on the front-end).', 'wpbooking' ); ?></p>
 				</td>
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row" valign="top">
-					<label for="taxonomy_slug"><?php _e( 'Slug', 'wpbooking' ); ?></label>
+					<label for="taxonomy_slug"><?php esc_html_e( 'Slug', 'wpbooking' ); ?></label>
 				</th>
 				<td>
 					<input name="taxonomy_slug" id="taxonomy_slug" type="text" value="<?php echo esc_attr( $row['slug'] ); ?>" maxlength="28" />
-					<p class="description"><?php _e( 'Unique slug/reference for the attribute; must be shorter than 28 characters.', 'wpbooking' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Unique slug/reference for the attribute; must be shorter than 28 characters.', 'wpbooking' ); ?></p>
 				</td>
 			</tr>
 
 			<tr class="form-field form-required">
 				<th scope="row" valign="top">
-					<label for=""><?php _e( 'Service Type', 'wpbooking' ); ?></label>
+					<label for=""><?php esc_html_e( 'Service Type', 'wpbooking' ); ?></label>
 				</th>
 				<td>
 					<?php
@@ -47,14 +47,14 @@
 						}
 					}
 					?>
-					<p class="description"><?php _e( 'Choose Types of Service that the Taxonomy supported', 'wpbooking' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Choose Types of Service that the Taxonomy supported', 'wpbooking' ); ?></p>
 				</td>
 			</tr>
 			
 			
 			</tbody>
 		</table>
-		<p class="submit"><input type="submit" name="wpbooking_create_taxonomy" id="submit" class="button-primary" value="<?php _e( 'Update', 'wpbooking' ); ?>"></p>
+		<p class="submit"><input type="submit" name="wpbooking_create_taxonomy" id="submit" class="button-primary" value="<?php esc_html_e( 'Update', 'wpbooking' ); ?>"></p>
 		<?php wp_nonce_field( 'wpbooking_create_taxonomy' ); ?>
 	</form>
 </div>

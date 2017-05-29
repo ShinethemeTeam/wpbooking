@@ -1,63 +1,63 @@
 <?php
 $config['settings'] = array(
 	"general" => array(
-		"name"     => __('General', 'wpbooking'),
+		"name"     => esc_html__('General', 'wpbooking'),
 		"sections" => array(
 			"general_option" => array(
 				'id'     => 'general_option',
-				'label'  => __('General Options', 'wpbooking'),
+				'label'  => esc_html__('General Options', 'wpbooking'),
 				'fields' => array(
 					array(
 						'id'    => 'currency',
-						'label' => __('Currency Options', 'wpbooking'),
-						'desc'  => __('Currency', 'wpbooking'),
+						'label' => esc_html__('Currency Options', 'wpbooking'),
+						'desc'  => esc_html__('Currency', 'wpbooking'),
 						'type'  => 'currency',
 						'std'   => '',
 						'value' => array(
 							array(
 								'id'    => 'currency',
-								'label' => __('Currency', 'wpbooking'),
+								'label' => esc_html__('Currency', 'wpbooking'),
 								'type'  => 'dropdown',
 								'value' => apply_filters('wpbooking_get_all_currency', array()),
 							),
 							array(
 								'id'    => 'symbol',
-								'label' => __('Symbol', 'wpbooking'),
-								'desc'  => __('Symbol of currency. For example: $', 'wpbooking'),
+								'label' => esc_html__('Symbol', 'wpbooking'),
+								'desc'  => esc_html__('Symbol of currency. For example: $', 'wpbooking'),
 								'type'  => 'text',
 								'std'   => ''
 							),
 							array(
 								'id'    => 'position',
-								'label' => __('Position', 'wpbooking'),
-								'desc'  => __('Position of Symbol', 'wpbooking'),
+								'label' => esc_html__('Position', 'wpbooking'),
+								'desc'  => esc_html__('Position of Symbol', 'wpbooking'),
 								'type'  => 'dropdown',
 								'std'   => 'left',
 								'value' => array(
-									'left'             => __('$99', "wpbooking"),
-									'right'            => __('99$', "wpbooking"),
-									'left_with_space'  => __('$ 99', "wpbooking"),
-									'right_with_space' => __('99 $', "wpbooking"),
+									'left'             => esc_html__('$99', "wpbooking"),
+									'right'            => esc_html__('99$', "wpbooking"),
+									'left_with_space'  => esc_html__('$ 99', "wpbooking"),
+									'right_with_space' => esc_html__('99 $', "wpbooking"),
 								)
 							),
 							array(
 								'id'    => 'thousand_sep',
-								'label' => __('Thousand Separator', 'wpbooking'),
-								'desc'  => __('Thousand Separator', 'wpbooking'),
+								'label' => esc_html__('Thousand Separator', 'wpbooking'),
+								'desc'  => esc_html__('Thousand Separator', 'wpbooking'),
 								'type'  => 'text',
 								'std'   => ',',
 							),
 							array(
 								'id'    => 'decimal_sep',
-								'label' => __('Decimal Separator', 'wpbooking'),
-								'desc'  => __('Decimal Separator', 'wpbooking'),
+								'label' => esc_html__('Decimal Separator', 'wpbooking'),
+								'desc'  => esc_html__('Decimal Separator', 'wpbooking'),
 								'type'  => 'text',
 								'std'   => '.',
 							),
 							array(
 								'id'    => 'decimal',
-								'label' => __('Decimal', 'wpbooking'),
-								'desc'  => __('Decimal', 'wpbooking'),
+								'label' => esc_html__('Decimal', 'wpbooking'),
+								'desc'  => esc_html__('Decimal', 'wpbooking'),
 								'type'  => 'number',
 								'std'   => 2,
 								'attr'  => array(
@@ -67,8 +67,8 @@ $config['settings'] = array(
 							),
 							array(
 								'id'    => 'rate',
-								'label' => __('Exchange Rate', 'wpbooking'),
-								'desc'  => __('Exchange Rate vs Main Currency', 'wpbooking'),
+								'label' => esc_html__('Exchange Rate', 'wpbooking'),
+								'desc'  => esc_html__('Exchange Rate vs Main Currency', 'wpbooking'),
 								'type'  => 'text',
 								'value' => 1
 							),
@@ -100,7 +100,7 @@ $config['settings'] = array(
                     ),
                     array(
                         'id'          => 'google_api_key',
-                        'label'       => __("Google API key", 'wpbooking'),
+                        'label'       => esc_html__("Google API key", 'wpbooking'),
                         'type'        => 'text',
                         'desc'  => sprintf(esc_html__('You can get Google API %s'),'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key">here</a>'),
                     ),
@@ -109,22 +109,22 @@ $config['settings'] = array(
 		),
 	),
 	'booking' => array(
-		'name'     => __("Booking", 'wpbooking'),
+		'name'     => esc_html__("Booking", 'wpbooking'),
 		'sections' => array(
 			'general_booking' => array(
 				'id'     => 'general_booking',
-				'label'  => __("General Options", 'wpbooking'),
+				'label'  => esc_html__("General Options", 'wpbooking'),
 				'fields' => array(
 
 					array(
 						'id'    => 'checkout_page',
-						'label' => __("Checkout Page", 'wpbooking'),
+						'label' => esc_html__("Checkout Page", 'wpbooking'),
 						'type'  => 'page-select',
 					),
 
 					array(
 						'id'    => 'allow_guest_checkout',
-						'label' => __("Allow Guest to Checkout?", 'wpbooking'),
+						'label' => esc_html__("Allow Guest to Checkout?", 'wpbooking'),
 						'type'  => 'checkbox',
 					),
                     array(
@@ -133,18 +133,18 @@ $config['settings'] = array(
                     ),
                     array(
                         'id'    => 'allow_captcha_google_checkout',
-                        'label' => __("Allow Captcha Google to be Checked out?", 'wpbooking'),
+                        'label' => esc_html__("Allow Captcha Google to be Checked out?", 'wpbooking'),
                         'type'  => 'checkbox',
                     ),
                     array(
                         'id'          => 'google_key_captcha',
-                        'label'       => __("Google key", 'wpbooking'),
+                        'label'       => esc_html__("Google key", 'wpbooking'),
                         'type'        => 'text',
                         'placeholder' => ''
                     ),
                     array(
                         'id'          => 'google_secret_key_captcha',
-                        'label'       => __("Google secret key", 'wpbooking'),
+                        'label'       => esc_html__("Google secret key", 'wpbooking'),
                         'type'        => 'text',
                         'placeholder' => ''
                     ),
@@ -154,34 +154,34 @@ $config['settings'] = array(
 		)
 	),
 	'email'   => array(
-		'name'     => __("Email", 'wpbooking'),
+		'name'     => esc_html__("Email", 'wpbooking'),
 		'sections' => array(
 			'general_booking' => array(
 				'id'     => 'general_booking',
-				'label'  => __("General Options", 'wpbooking'),
+				'label'  => esc_html__("General Options", 'wpbooking'),
 				'fields' => array(
 
 					array(
 						'id'    => 'email_from',
-						'label' => __("Email From Name", 'wpbooking'),
+						'label' => esc_html__("Email From Name", 'wpbooking'),
 						'type'  => 'text',
-						'std'   => __("WPBooking Plugin", 'wpbooking')
+						'std'   => esc_html__("WPBooking Plugin", 'wpbooking')
 					),
 					array(
 						'id'          => 'email_from_address',
-						'label'       => __("Email From Address", 'wpbooking'),
+						'label'       => esc_html__("Email From Address", 'wpbooking'),
 						'type'        => 'text',
 						'placeholder' => 'no-reply@domain.com'
 					),
 					array(
 						'id'          => 'system_email',
-						'label'       => __("Email  System to get Booking, Registration Notifications...etc", 'wpbooking'),
+						'label'       => esc_html__("Email  System to get Booking, Registration Notifications...etc", 'wpbooking'),
 						'type'        => 'text',
 						'placeholder' => 'system@domain.com'
 					),
                     array(
                         'id'          => 'email_header',
-                        'label'       => __("Email Header", 'wpbooking'),
+                        'label'       => esc_html__("Email Header", 'wpbooking'),
                         'type'        => 'texteditor',
                         'editor_args' => array(
                             'tinymce' => FALSE
@@ -189,7 +189,7 @@ $config['settings'] = array(
                     ),
                     array(
                         'id'          => 'email_footer',
-                        'label'       => __("Email Footer", 'wpbooking'),
+                        'label'       => esc_html__("Email Footer", 'wpbooking'),
                         'type'        => 'texteditor',
                         'editor_args' => array(
                             'tinymce' => FALSE
@@ -198,7 +198,7 @@ $config['settings'] = array(
 
 					array(
 						'id'    => 'email_stylesheet',
-						'label' => __("Email CSS Code", 'wpbooking'),
+						'label' => esc_html__("Email CSS Code", 'wpbooking'),
 						'type'  => 'ace-editor',
 						'desc'  => esc_html__('We will use this to transmogrify your Email HTML by parsing the CSS and inserting the CSS definitions into tags within your Email HTML based on the CSS selectors'),
 					),
@@ -206,18 +206,18 @@ $config['settings'] = array(
 			),
 			'booking_email'   => array(
 				'id'     => 'booking_email',
-				'label'  => __("Booking Email", 'wpbooking'),
+				'label'  => esc_html__("Booking Email", 'wpbooking'),
 				'fields' => array(
 
 					array(
 						'id'    => 'on_booking_email_customer',
-						'label' => __("Enable Email To Customer", 'wpbooking'),
+						'label' => esc_html__("Enable Email To Customer", 'wpbooking'),
 						'type'  => 'checkbox',
 						'std'   => '1'
 					),
 					array(
 						'id'          => 'email_to_customer',
-						'label'       => __("For Customer", 'wpbooking'),
+						'label'       => esc_html__("For Customer", 'wpbooking'),
 						'type'        => 'texteditor',
 						'desc'        => wpbooking_admin_load_view('email/document'),
 						'extra_html'=>'<a class="wpbooking-preview-modal thickbox button button-primary" href="'.add_query_arg(array('action'=>'wpbooking_booking_email_preview','email'=>'email_to_customer'),'admin-ajax.php').'">'.esc_html__('Preview','wpbooking').'</a>',
@@ -229,13 +229,13 @@ $config['settings'] = array(
 
 					array(
 						'id'    => 'on_booking_email_admin',
-						'label' => __("Enable Email To Admin", 'wpbooking'),
+						'label' => esc_html__("Enable Email To Admin", 'wpbooking'),
 						'type'  => 'checkbox',
 						'std'   => '1'
 					),
 					array(
 						'id'          => 'email_to_admin',
-						'label'       => __("For Administrator", 'wpbooking'),
+						'label'       => esc_html__("For Administrator", 'wpbooking'),
 						'type'        => 'texteditor',
 						'desc'        => wpbooking_admin_load_view('email/document'),
 						'extra_html'=>'<a class="wpbooking-preview-modal thickbox button button-primary" href="'.add_query_arg(array('action'=>'wpbooking_booking_email_preview','email'=>'email_to_admin'),'admin-ajax.php').'">'.esc_html__('Preview','wpbooking').'</a>',
@@ -248,7 +248,7 @@ $config['settings'] = array(
 			),
 			'partner_email'   => array(
 				'id'     => 'partner_email',
-				'label'  => __("Registration Email", 'wpbooking'),
+				'label'  => esc_html__("Registration Email", 'wpbooking'),
 				'fields' => array(
 
 					array(
@@ -257,13 +257,13 @@ $config['settings'] = array(
 					),
 					array(
 						'id'    => 'on_registration_email_customer',
-						'label' => __("Enable Email To Customer", 'wpbooking'),
+						'label' => esc_html__("Enable Email To Customer", 'wpbooking'),
 						'type'  => 'checkbox',
 						'std'   => '1'
 					),
 					array(
 						'id'          => 'registration_email_customer',
-						'label'       => __("Email To Customer", 'wpbooking'),
+						'label'       => esc_html__("Email To Customer", 'wpbooking'),
 						'type'        => 'texteditor',
 						'desc'        => wpbooking_admin_load_view('email/registration_document'),
 						'editor_args' => array(
@@ -274,12 +274,12 @@ $config['settings'] = array(
 					),
 					array(
 						'id'    => 'on_registration_email_admin',
-						'label' => __("Enable Email To Admin", 'wpbooking'),
+						'label' => esc_html__("Enable Email To Admin", 'wpbooking'),
 						'type'  => 'checkbox',
 					),
 					array(
 						'id'          => 'registration_email_admin',
-						'label'       => __("Email To Admin", 'wpbooking'),
+						'label'       => esc_html__("Email To Admin", 'wpbooking'),
 						'type'        => 'texteditor',
 						'desc'        => wpbooking_admin_load_view('email/registration_document'),
 						'editor_args' => array(

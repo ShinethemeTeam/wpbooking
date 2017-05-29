@@ -174,7 +174,7 @@ if (!class_exists('WB_Order')) {
         {
             $created = time();
             $order_data = array(
-                'post_title'  => sprintf(__('New Order In %s', 'wpbooking'), date(get_option('date_format') . ' @' . get_option('time_format'))),
+                'post_title'  => sprintf(esc_html__('New Order In %s', 'wpbooking'), date(get_option('date_format') . ' @' . get_option('time_format'))),
                 'post_type'   => 'wpbooking_order',
                 'post_status' => 'on_hold'
             );

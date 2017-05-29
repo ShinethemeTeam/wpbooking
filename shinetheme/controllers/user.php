@@ -241,7 +241,7 @@ if (!class_exists('WPBooking_User')) {
                     do_action('wpbooking_register_failed', $user_id);
 
                 } else {
-                    wpbooking_set_message(wp_kses(__('Your account is registered successfully. You can login now: <a href="'.esc_url($this->get_login_url()).'">Login</a>', 'wpbooking'),array('a'=>array('href'=> array()))), 'success');
+                    wpbooking_set_message(wp_kses(esc_html__('Your account is registered successfully. You can login now: <a href="'.esc_url($this->get_login_url()).'">Login</a>', 'wpbooking'),array('a'=>array('href'=> array()))), 'success');
                     WPBooking_Session::set('wpbooking_user_pass', $password);
                     WPBooking()->set('register','successful');
                     // Hook after Register Success, maybe sending some email...etc

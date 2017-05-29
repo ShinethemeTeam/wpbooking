@@ -15,36 +15,36 @@ if (!class_exists('WPBooking_Captcha_Field')) {
 		{
 			$this->field_id = 'captcha';
 			$this->field_data = array(
-				"title"    => __("Captcha", 'wpbooking'),
-				"category" => __("Advanced Field", 'wpbooking'),
+				"title"    => esc_html__("Captcha", 'wpbooking'),
+				"category" => esc_html__("Advanced Field", 'wpbooking'),
 				"options"  => array(
 					array(
 						"type"             => "checkbox" ,
 						'name'=>'hide_when_logged_in',
 						'options'=>array(
-							__( "Hide with <strong>Logged in user</strong>" , 'wpbooking' )=>1
+							esc_html__( "Hide with <strong>Logged in user</strong>" , 'wpbooking' )=>1
 						),
 						'single_checkbox'=>1,
 						'edit_field_class' => 'wpbooking-col-md-12' ,
 					) ,
 					array(
 						"type"             => "text",
-						"title"            => __("Title", 'wpbooking'),
+						"title"            => esc_html__("Title", 'wpbooking'),
 						"name"             => "title",
-						"desc"             => __("Title", 'wpbooking'),
+						"desc"             => esc_html__("Title", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'value'            => ""
 					),
 					array(
 						"type"             => "label",
-						"title"            => __("Name", 'wpbooking'),
+						"title"            => esc_html__("Name", 'wpbooking'),
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'value'            => "captcha",
-						"desc"             => __("This is default attribute, you cannot change ", 'wpbooking'),
+						"desc"             => esc_html__("This is default attribute, you cannot change ", 'wpbooking'),
 					),
 					array(
 						"type"             => "dropdown",
-						"title"            => __("Type", 'wpbooking'),
+						"title"            => esc_html__("Type", 'wpbooking'),
 						"name"             => "type",
 						'edit_field_class' => 'wpbooking-col-md-6',
 						'options'            => array(

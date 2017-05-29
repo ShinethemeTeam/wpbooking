@@ -2,7 +2,7 @@
 $booking = WPBooking_Checkout_Controller::inst();
 $cart = $booking->get_cart();
 if (empty($cart)) {
-    wpbooking_set_message(__('Sorry! Your cart is currently empty', 'wpbooking'), 'danger');
+    wpbooking_set_message(esc_html__('Sorry! Your cart is currently empty', 'wpbooking'), 'danger');
 }
 echo wpbooking_get_message();
 if (empty($cart)) {
@@ -64,13 +64,13 @@ if(!$allow_guest_checkout and !is_user_logged_in()){
                                 <input type="checkbox" id="term_condition" name="term_condition"  value="1">
                                 <?php
                                 $page_term_condition = wpbooking_get_option('term-page');
-                                $link = '<a class="term_condition" href="'.esc_url(get_permalink($page_term_condition)).'">'.esc_attr__("terms and conditions").'</a>';
+                                $link = '<a target="_blank" class="term_condition" href="'.esc_url(get_permalink($page_term_condition)).'">'.esc_attr__("terms and conditions").'</a>';
                                 printf(esc_html__("I have read and accepted the %s","wpbooking"),$link);
                                 ?>
                             </label>
                         </div>
                         <div class="checkout-submit-button">
-                            <button type="submit" class="wb-btn wb-btn-primary wb-btn-md submit-button" disabled><?php _e('CHECKOUT', 'wpbooking') ?></button>
+                            <button type="submit" class="wb-btn wb-btn-primary wb-btn-md submit-button" disabled><?php esc_html_e('CHECKOUT', 'wpbooking') ?></button>
                         </div>
                     </div>
                 </div>

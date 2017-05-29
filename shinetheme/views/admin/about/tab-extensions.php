@@ -24,7 +24,7 @@ $jsonData = json_decode($data);
 
         <div class="control">
             <div class="desc">
-                <p><?php echo wp_kses(__('These extensions <strong>add functionality</strong> to your powered WPBooking store.','wpbooking'),array('strong' => array()))?></p>
+                <p><?php echo wp_kses(esc_html__('These extensions <strong>add functionality</strong> to your powered WPBooking store.','wpbooking'),array('strong' => array()))?></p>
             </div>
             <div class="all-extension">
                 <a href="<?php echo esc_url('https://wpbooking.org/?post_type=download&s=&no_scroll');?>" target="_blank" class="button button-primary"><?php echo esc_html__('Browse all extensions','wpbooking'); ?></a>
@@ -32,7 +32,7 @@ $jsonData = json_decode($data);
         </div>
         <div class="content">
             <div class="result-text">
-                <p><?php echo __('Total ','wpbooking')?><?php echo '<span class="ex-total">'.esc_html($jsonData->data->post_count).'</span>';?><?php echo esc_html__(' extensions. Showing ','wpbooking')?><span class="ex-from">1</span> - <span class="ex-to"><?php echo ($jsonData->data->max_pages > 1)?esc_attr($jsonData->posts_per_page):$jsonData->data->post_count; ?></span></p>
+                <p><?php echo esc_html__('Total ','wpbooking')?><?php echo '<span class="ex-total">'.esc_html($jsonData->data->post_count).'</span>';?><?php echo esc_html__(' extensions. Showing ','wpbooking')?><span class="ex-from">1</span> - <span class="ex-to"><?php echo ($jsonData->data->max_pages > 1)?esc_attr($jsonData->posts_per_page):$jsonData->data->post_count; ?></span></p>
             </div>
             <div class="ex-sidebar">
                 <div class="box-search">

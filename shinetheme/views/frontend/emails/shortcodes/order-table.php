@@ -72,16 +72,16 @@ $service_type=$order_data['service_type'];
             <div class="content-total">
                 <br>
                 <?php $price_total = $order_data['price']; ?>
-                <span class="total-title bold"><?php _e('TOTAL AMOUNT', 'wpbooking') ?></span>
+                <span class="total-title bold"><?php esc_html_e('TOTAL AMOUNT', 'wpbooking') ?></span>
                 <span class="total-amount bold"><?php echo WPBooking_Currency::format_money($price_total); ?></span>
                 <?php
                 if(!empty($order_data['deposit_price'])){
                     $price_deposit = $order_data['deposit_price'];
                     $property = $price_total - $price_deposit;
                     ?>
-                    <span class="total-title color"> <?php _e('Deposit/Pay Now', 'wpbooking') ?></span>
+                    <span class="total-title color"> <?php esc_html_e('Deposit/Pay Now', 'wpbooking') ?></span>
                     <span class="total-amount color"><?php echo WPBooking_Currency::format_money($price_deposit); ?></span>
-                    <span class="total-title bold"><?php _e('You’ll pay at the property', 'wpbooking') ?></span>
+                    <span class="total-title bold"><?php esc_html_e('You’ll pay at the property', 'wpbooking') ?></span>
                     <span class="total-amount bold"><?php echo WPBooking_Currency::format_money($property); ?></span>
                 <?php } ?>
             </div>

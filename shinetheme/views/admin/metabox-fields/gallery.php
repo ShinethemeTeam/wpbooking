@@ -43,9 +43,9 @@ if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
 
 $field .= '</div>';        
 
-$field .= '<button id="" class="btn_upload_gallery mr10" type="button" name="">'. __("Add Gallery","wpbooking").'</button>';
+$field .= '<button id="" class="btn_upload_gallery mr10" type="button" name="">'. esc_html__("Add Gallery","wpbooking").'</button>';
 
-$field .= '<button class="btn_remove_demo_gallery '.((!empty($old_data) && count( $tmp ) > 0 )?'':'hidden').'" type="button" name="">'.__("Remove Gallery","wpbooking").'</button>';
+$field .= '<button class="btn_remove_demo_gallery '.((!empty($old_data) && count( $tmp ) > 0 )?'':'hidden').'" type="button" name="">'.esc_html__("Remove Gallery","wpbooking").'</button>';
 
 
 $field .= '</div></div>';

@@ -27,7 +27,7 @@ $name_long = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ).'[
 $name_zoom = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ).'[map_zoom][]' : 'map_zoom';
 
 $field .= '<div class="wpbooking-gmap-wrapper"><div class="gmap-container"><div id="'.esc_html( $data['id'] ).'" class="gmap-content"></div>
-<input type="text" name="gmap-search" value="" placeholder="'.__('Enter a address...', 'wpbooking').'" class="gmap-search">
+<input type="text" name="gmap-search" value="" placeholder="'.esc_html__('Enter a address...', 'wpbooking').'" class="gmap-search">
 </div>
 <input type="hidden" name="'. $name_lat .'" value="'.esc_html( $map_lat ).'">
 <input type="hidden" name="'. $name_long .'" value="'.esc_html( $map_long ).'">

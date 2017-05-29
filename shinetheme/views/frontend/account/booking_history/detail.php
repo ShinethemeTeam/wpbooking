@@ -9,13 +9,13 @@ do_action('wpbooking_before_order_content');
 ?>
 <div class="wpbooking-order-detail-page">
 
-	<h3 class="section-title"><?php _e('BOOKING DETAIL','wpbooking')?></h3>
+	<h3 class="section-title"><?php esc_html_e('BOOKING DETAIL','wpbooking')?></h3>
 	<table class="order-information-table">
 		<thead>
 		<tr>
-			<th class="review-order-item-info" valign="top"><?php _e('Property Items','wpbooking')?></th>
-			<th class="review-order-item-type"><?php _e('Property Type','wpbooking')?></th>
-			<th class="review-order-item-total"><?php _e('Total','wpbooking')?></th>
+			<th class="review-order-item-info" valign="top"><?php esc_html_e('Property Items','wpbooking')?></th>
+			<th class="review-order-item-type"><?php esc_html_e('Property Type','wpbooking')?></th>
+			<th class="review-order-item-total"><?php esc_html_e('Total','wpbooking')?></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -57,7 +57,7 @@ do_action('wpbooking_before_order_content');
 
 	if(!empty($checkout_form_data) and is_array($checkout_form_data)){?>
 		<div class="checkout-form-data">
-			<h3 class="section-title"><?php _e('Billing Details','wpbooking')?></h3>
+			<h3 class="section-title"><?php esc_html_e('Billing Details','wpbooking')?></h3>
 
 			<ul class="checkout-form-list">
 				<?php foreach($checkout_form_data as $key=>$value){
