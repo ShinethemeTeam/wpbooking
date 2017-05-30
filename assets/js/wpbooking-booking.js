@@ -635,10 +635,7 @@ jQuery(document).ready(function($){
                     }
                 });
             }
-
-
         });
-
         container.find('.info_number').html(total_number_room);
         container.find('.info_price').html(format_money(total_price));
     });

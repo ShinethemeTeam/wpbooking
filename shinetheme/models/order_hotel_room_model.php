@@ -46,6 +46,7 @@ if(!class_exists( 'WPBooking_Order_Hotel_Order_Model' )) {
          */
         function save_order_hotel_room($data, $room_id , $order_id)
         {
+            $data_room = array();
             $columns = $this->get_columns();
             if (empty($columns)) return;
             foreach ($columns as $k => $v) {
@@ -55,7 +56,7 @@ if(!class_exists( 'WPBooking_Order_Hotel_Order_Model' )) {
                 }
 
             }
-            if (!$check_exists = $this->find_by(array('room_id'=>$room_id,'order_id'=>$order_id))) {
+            if (!$check_exists = $this->find_by(array('room_id'=>$room_id,'order_id'=>$order_id),false)) {
                 $this->insert($data_room);
             } else {
                 $this->where('room_id', $room_id)

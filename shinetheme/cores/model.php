@@ -571,7 +571,7 @@ if (!class_exists('WPBooking_Model')) {
             }else{
                 $data = $this->where($key, $id)->limit(1)->get()->row();
             }
-
+          
 
 			$this->_clear_query();
 
