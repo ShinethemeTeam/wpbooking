@@ -2940,7 +2940,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     $number_room += $room['number'];
                 }
                 foreach($cart['tax'] as $key => $value){
-                    if($value['excluded'] != 'no'){
+                    if($value['excluded'] != '' and  !empty($value['amount'])){
                         $unit = $value['unit'];
                         $tax[$key] = $value;
                         $price = 0;

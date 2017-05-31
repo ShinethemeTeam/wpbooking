@@ -312,7 +312,7 @@ $hotel_id=get_the_ID();
 
                             if($vat_excluded == 'yes_included'){
                                 $tax_html[] = sprintf($val, $amount.' &nbsp;&nbsp;'.wp_kses(esc_html__('<span class="enforced_red">included</span>','wpbooking'),array('span' => array('class' => array()))));
-                            }elseif($vat_excluded != 'no'){
+                            }elseif($vat_excluded != ''){
                                 $tax_html[] = sprintf($val, $amount);
                             }
                             break;
@@ -330,7 +330,7 @@ $hotel_id=get_the_ID();
                                     $str_citytax = sprintf($val, WPBooking_Currency::format_money($value)) . $citytax_unit[$ct_unit];
                                 }
                             }
-                            if($citytax_excluded != 'no') {
+                            if($citytax_excluded != '') {
                                 if ($citytax_excluded == 'yes_included') {
                                     $tax_html[] = $str_citytax . '&nbsp;&nbsp; <span class="enforced_red">' . esc_html__('included', 'wpbooking') . '</span>';
                                 } else {

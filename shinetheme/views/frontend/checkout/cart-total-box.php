@@ -12,7 +12,7 @@ $tax_total=0;
         <?php
         $tax = $booking->get_cart_tax_price($price_total);
         $tax_total=!empty($tax['total_price'])?$tax['total_price']:0;
-        if (!empty($tax['vat']['excluded']) and $tax['vat']['excluded'] != 'no' and $tax['vat']['price']) {
+        if (!empty($tax['vat']['excluded']) and $tax['vat']['excluded'] != '' and $tax['vat']['price']) {
             $vat_amount = $tax['vat']['amount']."% ";
             $unit = $tax['vat']['unit'];
             if($unit == 'fixed') $vat_amount = '';
@@ -22,7 +22,7 @@ $tax_total=0;
 				</span>
             <span class="total-amount"><?php echo WPBooking_Currency::format_money($tax['vat']['price']); ?></span>
         <?php } ?>
-        <?php if (!empty($tax['citytax']['excluded']) and $tax['citytax']['excluded'] != 'no' and $tax['citytax']['price']) {
+        <?php if (!empty($tax['citytax']['excluded']) and $tax['citytax']['excluded'] != '' and $tax['citytax']['price']) {
             ?>
             <span class="total-title">
 					<?php  esc_html_e("City Tax",'wpbooking'); ?>

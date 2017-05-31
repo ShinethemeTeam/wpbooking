@@ -310,12 +310,12 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             );
 
             $cart_params['tax']['vat']['excluded'] = $service->get_meta('vat_excluded');
-            if($service->get_meta('vat_excluded') != 'no'){
+            if($service->get_meta('vat_excluded') != '' and $service->get_meta('vat_amount') != ''){
                 $cart_params['tax']['vat']['amount'] = $service->get_meta('vat_amount');
                 $cart_params['tax']['vat']['unit'] = $service->get_meta('vat_unit');
             }
             $cart_params['tax']['citytax']['excluded'] = $service->get_meta('citytax_excluded');
-            if($service->get_meta('citytax_excluded') != 'no'){
+            if($service->get_meta('citytax_excluded') != '' and $service->get_meta('citytax_amount') != ''){
                 $cart_params['tax']['citytax']['amount'] = $service->get_meta('citytax_amount');
                 $cart_params['tax']['citytax']['unit'] = $service->get_meta('citytax_unit');
             }
@@ -605,7 +605,7 @@ if(!class_exists('WPBooking_Checkout_Controller'))
             $service_type = $cart['service_type'];
             if(!empty($cart['tax'])){
                 foreach($cart['tax'] as $key => $value){
-                    if($value['excluded'] != 'no'){
+                    if($value['excluded'] != '' and !empty($value['amount'])){
                         $unit = $value['unit'];
                         $tax[$key] = $value;
                         switch($unit){

@@ -120,7 +120,8 @@ if (!class_exists('WPBooking_Currency')) {
 				'VEF' => 'Venezuela Bolivar',
 				'VND' => 'Viet Nam Dong',
 				'YER' => 'Yemen Rial',
-				'ZWD' => 'Zimbabwe Dollar'
+				'ZWD' => 'Zimbabwe Dollar',
+                'ZMW' => 'Zambian Kwacha'
 			);
 
 			/**
