@@ -422,11 +422,11 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
         public function _add_init_action()
         {
             $labels = array(
-                'name'               => _x('Accommodation Room', 'post type general name', 'wpbooking'),
-                'singular_name'      => _x('Accommodation Room', 'post type singular name', 'wpbooking'),
-                'menu_name'          => _x('Accommodation Room', 'admin menu', 'wpbooking'),
-                'name_admin_bar'     => _x('Accommodation Room', 'add new on admin bar', 'wpbooking'),
-                'add_new'            => _x('Add New', 'Accommodation Room', 'wpbooking'),
+                'name'               => esc_html__('Accommodation Room','wpbooking'),
+                'singular_name'      => esc_html__('Accommodation Room','wpbooking'),
+                'menu_name'          => esc_html__('Accommodation Room','wpbooking'),
+                'name_admin_bar'     => esc_html__('Accommodation Room','wpbooking'),
+                'add_new'            => esc_html__('Add New', 'Accommodation Room', 'wpbooking'),
                 'add_new_item'       => esc_html__('Add New Accommodation Room', 'wpbooking'),
                 'new_item'           => esc_html__('New Accommodation Room', 'wpbooking'),
                 'edit_item'          => esc_html__('Edit Accommodation Room', 'wpbooking'),
@@ -456,8 +456,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             // Register Taxonomy
             $labels = array(
-                'name'              => _x('Room Type', 'taxonomy general name', 'wpbooking'),
-                'singular_name'     => _x('Room Type', 'taxonomy singular name', 'wpbooking'),
+                'name'              => esc_html__('Room Type','wpbooking'),
+                'singular_name'     => esc_html__('Room Type','wpbooking'),
                 'search_items'      => esc_html__('Search Room Type', 'wpbooking'),
                 'all_items'         => esc_html__('All Room Type', 'wpbooking'),
                 'parent_item'       => esc_html__('Parent Room Type', 'wpbooking'),
@@ -481,8 +481,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             // Register Taxonomy
             $labels = array(
-                'name'              => _x('Room Facilities', 'taxonomy general name', 'wpbooking'),
-                'singular_name'     => _x('Room Facilities', 'taxonomy singular name', 'wpbooking'),
+                'name'              => esc_html__('Room Facilities','wpbooking'),
+                'singular_name'     => esc_html__('Room Facilities','wpbooking'),
                 'search_items'      => esc_html__('Search Room Facilities', 'wpbooking'),
                 'all_items'         => esc_html__('All Room Facilities', 'wpbooking'),
                 'parent_item'       => esc_html__('Parent Room Facilities', 'wpbooking'),

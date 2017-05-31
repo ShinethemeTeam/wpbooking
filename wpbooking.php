@@ -48,7 +48,7 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             $this->_dir_path = plugin_dir_path(__FILE__);
             $this->_dir_url = plugin_dir_url(__FILE__);
 
-            add_action('init', array($this, '_init'));
+            add_action('plugins_loaded', array($this, '_init'));
             add_action('admin_menu', array($this, '_admin_init_menu_page'));
             add_action('plugins_loaded', array($this, '_load_cores'));
 

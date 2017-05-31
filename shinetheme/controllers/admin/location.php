@@ -28,8 +28,8 @@ if(!class_exists('WPBooking_Admin_Location'))
 		function _register_taxonomy()
 		{
 			$labels = array(
-				'name'              => _x( 'Locations', 'taxonomy general name','wpbooking' ),
-				'singular_name'     => _x( 'Location', 'taxonomy singular name','wpbooking' ),
+				'name'              => esc_html__( 'Locations','wpbooking' ),
+				'singular_name'     => esc_html__( 'Location','wpbooking' ),
 				'search_items'      => esc_html__( 'Search for Locations','wpbooking' ),
 				'all_items'         => esc_html__( 'All Locations','wpbooking' ),
 				'parent_item'       => esc_html__( 'Parent Location' ,'wpbooking'),

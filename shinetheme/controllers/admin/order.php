@@ -309,11 +309,11 @@ if (!class_exists('WPBooking_Admin_Order')) {
 		{
 			$menu_page = WPBooking()->get_menu_page();
 			$labels = array(
-				'name'               => _x('Booking', 'post type general name', 'wpbooking'),
-				'singular_name'      => _x('Booking', 'post type singular name', 'wpbooking'),
-				'menu_name'          => _x('Booking', 'admin menu', 'wpbooking'),
-				'name_admin_bar'     => _x('Booking', 'add new on admin bar', 'wpbooking'),
-				'add_new'            => _x('Add New', 'Booking', 'wpbooking'),
+				'name'               => esc_html__('Booking', 'wpbooking'),
+				'singular_name'      => esc_html__('Booking', 'wpbooking'),
+				'menu_name'          => esc_html__('Booking', 'wpbooking'),
+				'name_admin_bar'     => esc_html__('Booking', 'wpbooking'),
+				'add_new'            => esc_html__('Add New', 'Booking', 'wpbooking'),
 				'add_new_item'       => esc_html__('Add New Booking', 'wpbooking'),
 				'new_item'           => esc_html__('New Booking', 'your-plugin-textdomain'),
 				'edit_item'          => esc_html__('Edit Booking', 'wpbooking'),

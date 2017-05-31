@@ -768,8 +768,8 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
         {
             // Register Taxonomy
             $labels = array(
-                'name'              => _x('Tour Type', 'taxonomy general name', 'wpbooking'),
-                'singular_name'     => _x('Tour Type', 'taxonomy singular name', 'wpbooking'),
+                'name'              => esc_html__('Tour Type','wpbooking'),
+                'singular_name'     => esc_html__('Tour Type','wpbooking'),
                 'search_items'      => esc_html__('Search for Tour Type', 'wpbooking'),
                 'all_items'         => esc_html__('All Tour Types', 'wpbooking'),
                 'parent_item'       => esc_html__('Parent Tour Type', 'wpbooking'),

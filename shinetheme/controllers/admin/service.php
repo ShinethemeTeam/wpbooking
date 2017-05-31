@@ -165,11 +165,11 @@ if (!class_exists('WPBooking_Admin_Service')) {
 		function _add_post_type()
 		{
 			$labels = array(
-				'name'               => _x('Service', 'post type general name', 'wpbooking'),
-				'singular_name'      => _x('Service', 'post type singular name', 'wpbooking'),
-				'menu_name'          => _x('Services', 'admin menu', 'wpbooking'),
-				'name_admin_bar'     => _x('Service', 'add new on admin bar', 'wpbooking'),
-				'add_new'            => _x('Add New', 'service', 'wpbooking'),
+				'name'               => esc_html__('Service','wpbooking'),
+				'singular_name'      => esc_html__('Service','wpbooking'),
+				'menu_name'          => esc_html__('Services','wpbooking'),
+				'name_admin_bar'     => esc_html__('Service','wpbooking'),
+				'add_new'            => esc_html__('Add New','wpbooking'),
 				'add_new_item'       => esc_html__('Add New Service', 'wpbooking'),
 				'new_item'           => esc_html__('New Service', 'wpbooking'),
 				'edit_item'          => esc_html__('Edit Service', 'wpbooking'),
@@ -203,8 +203,8 @@ if (!class_exists('WPBooking_Admin_Service')) {
 
 			// Default Taxonomy
 			$labels = array(
-				'name'              => _x('Amenities', 'taxonomy general name', 'wpbooking'),
-				'singular_name'     => _x('Amenity', 'taxonomy singular name', 'wpbooking'),
+				'name'              => esc_html__('Amenities',  'wpbooking'),
+				'singular_name'     => esc_html__('Amenity', 'wpbooking'),
 				'search_items'      => esc_html__('Search for Amenity', 'wpbooking'),
 				'all_items'         => esc_html__('All Amenities', 'wpbooking'),
 				'parent_item'       => esc_html__('Parent Amenity', 'wpbooking'),
@@ -234,8 +234,8 @@ if (!class_exists('WPBooking_Admin_Service')) {
 
 			// Extra Services
 			$labels = array(
-				'name'              => _x('Extra Services', 'taxonomy general name', 'wpbooking'),
-				'singular_name'     => _x('Extra Service', 'taxonomy singular name', 'wpbooking'),
+				'name'              => esc_html__('Extra Services',  'wpbooking'),
+				'singular_name'     => esc_html__('Extra Service',  'wpbooking'),
 				'search_items'      => esc_html__('Search Extra Services', 'wpbooking'),
 				'all_items'         => esc_html__('All Extra Services', 'wpbooking'),
 				'parent_item'       => esc_html__('Parent Extra Service', 'wpbooking'),

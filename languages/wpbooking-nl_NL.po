@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPBooking\n"
 "POT-Creation-Date: 2017-05-30 14:42+0200\n"
-"PO-Revision-Date: 2017-05-31 10:41+0700\n"
+"PO-Revision-Date: 2017-05-31 10:26+0200\n"
 "Last-Translator: Johan Velthuizen <da1050@gmail.com>\n"
 "Language-Team: WpBooking <contact@wpbooking.org>\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -884,7 +884,7 @@ msgstr "Informatie"
 
 #: shinetheme/controllers/admin/service.php:349
 msgid "All services"
-msgstr "Alle services"
+msgstr "Alle accommodaties"
 
 #: shinetheme/controllers/admin/settings.php:65
 msgid "Service Exists. Please choose another name"
@@ -1530,7 +1530,7 @@ msgstr "Test API Signature"
 #: shinetheme/libraries/gateways/paypal.php:256 wpbooking.php:382
 #: wpbooking.php:383
 msgid "WPBooking"
-msgstr "WPBooking NEW"
+msgstr "WPBooking"
 
 #: shinetheme/libraries/gateways/paypal.php:141
 msgid "Pay Now"
@@ -1751,39 +1751,39 @@ msgstr ""
 #: shinetheme/libraries/service-types/accommodation.php:474
 #: shinetheme/libraries/service-types/accommodation.php:483
 msgid "Room Facilities"
-msgstr "Facciliteiten van de accomodatie"
+msgstr "Accommodatie opties"
 
 #: shinetheme/libraries/service-types/accommodation.php:475
 msgid "Search Room Facilities"
-msgstr ""
+msgstr "Zoek accommodatie opties"
 
 #: shinetheme/libraries/service-types/accommodation.php:476
 msgid "All Room Facilities"
-msgstr ""
+msgstr "Alle accommodatie opties"
 
 #: shinetheme/libraries/service-types/accommodation.php:477
 msgid "Parent Room Facilities"
-msgstr ""
+msgstr "Neven accommodatie opties"
 
 #: shinetheme/libraries/service-types/accommodation.php:478
 msgid "Parent Room Facilities:"
-msgstr ""
+msgstr "Neven accommodatie opties:"
 
 #: shinetheme/libraries/service-types/accommodation.php:479
 msgid "Edit Room Facilities"
-msgstr ""
+msgstr "Bewerk accommodatie opties"
 
 #: shinetheme/libraries/service-types/accommodation.php:480
 msgid "Update Room Facilities"
-msgstr ""
+msgstr "Update accommodatie opties"
 
 #: shinetheme/libraries/service-types/accommodation.php:481
 msgid "Add New Room Facilities"
-msgstr ""
+msgstr "Nieuwe accommodaties opties toevoegen"
 
 #: shinetheme/libraries/service-types/accommodation.php:482
 msgid "New Room Facilities Name"
-msgstr ""
+msgstr "Nieuwe accommodatie optie naam"
 
 #: shinetheme/libraries/service-types/accommodation.php:500
 msgid "1. Property Information"
@@ -1962,7 +1962,7 @@ msgstr "Accommodatie maat"
 
 #: shinetheme/libraries/service-types/accommodation.php:688
 msgid "Room facilities"
-msgstr "Accommodatie faciliteiten "
+msgstr "Accommodatie opties"
 
 #: shinetheme/libraries/service-types/accommodation.php:693
 msgid "Facilities"
@@ -2038,7 +2038,7 @@ msgstr ""
 #: shinetheme/views/frontend/single/types/default.php:244
 #: shinetheme/views/frontend/single/types/tour.php:342
 msgid "Day of arrival (6 pm)"
-msgstr ""
+msgstr "Dag van aankomst (18:00)"
 
 #: shinetheme/libraries/service-types/accommodation.php:757
 #: shinetheme/libraries/service-types/tour.php:1069
@@ -2074,7 +2074,7 @@ msgstr ""
 #: shinetheme/libraries/service-types/accommodation.php:767
 #: shinetheme/libraries/service-types/tour.php:1079
 msgid "Or guests will pay 100%"
-msgstr "Of gasten betalen 1005"
+msgstr "Of gasten betalen 100%"
 
 #: shinetheme/libraries/service-types/accommodation.php:771
 #: shinetheme/libraries/service-types/tour.php:1083
@@ -2215,7 +2215,7 @@ msgstr "Based on the amenities of room, select one most accurate type"
 
 #: shinetheme/libraries/service-types/accommodation.php:969
 msgid "Room Number"
-msgstr "Accommodatie nummer"
+msgstr "Aantal units"
 
 #: shinetheme/libraries/service-types/accommodation.php:977
 msgid "Bed Rooms"
@@ -2281,7 +2281,7 @@ msgstr "Met %s"
 #: shinetheme/views/frontend/single/loop-room.php:272
 #: shinetheme/views/frontend/single/loop-room.php:273
 msgid "room(s)"
-msgstr "accommodaties"
+msgstr "Unit(s)"
 
 #: shinetheme/libraries/service-types/accommodation.php:1315
 #, php-format
@@ -2297,8 +2297,8 @@ msgid ""
 "Our system does not find any rooms from your searching. You can change "
 "search feature now."
 msgstr ""
-"Voor deze datum is geen accommodatie meer beschikbaar, pas uw datum aan om "
-"verder te zoeken."
+"Voor deze datum of het aantal personen is geen accommodatie meer "
+"beschikbaar, pas uw zoekcriteria aan."
 
 #: shinetheme/libraries/service-types/accommodation.php:1375
 #, php-format
@@ -2481,6 +2481,8 @@ msgstr ""
 #: shinetheme/libraries/service-types/accommodation.php:2284
 msgid "Number of rooms you booked is not enough, please change your search."
 msgstr ""
+"Het aantal beschikbare units van de accommodatie is niet genoeg, pas je "
+"zoekcriteria aan."
 
 #: shinetheme/libraries/service-types/accommodation.php:2188 wpbooking.php:172
 msgid "To see price details, please select check-in and check-out date."
@@ -2496,7 +2498,7 @@ msgstr ""
 
 #: shinetheme/libraries/service-types/accommodation.php:2203
 msgid "Please select number of room."
-msgstr ""
+msgstr "Selecteer het aantal accommodaties"
 
 #: shinetheme/libraries/service-types/accommodation.php:2211
 msgid "Number of bookable rooms cannot be more than number of adults."
@@ -4040,7 +4042,7 @@ msgstr ""
 #: shinetheme/views/admin/metabox-fields/hotel_room_list.php:94
 #, php-format
 msgid "%d room(s)"
-msgstr ""
+msgstr "%d unit(s)"
 
 #: shinetheme/views/admin/metabox-fields/hotel_room_list.php:75
 #: shinetheme/views/admin/metabox-fields/hotel_room_list.php:101
@@ -4954,7 +4956,7 @@ msgstr ""
 #: shinetheme/views/frontend/checkout/index.php:35
 #: shinetheme/views/frontend/checkout/index.php:39
 msgid "Billing Information"
-msgstr ""
+msgstr "Betaal informatie"
 
 #: shinetheme/views/frontend/checkout/index.php:41
 msgid "Already have an account?"
@@ -4974,7 +4976,7 @@ msgstr ""
 #: shinetheme/views/frontend/order/other/order-item-room.php:9
 #: shinetheme/views/frontend/single/hotel/room.php:38
 msgid "Rooms"
-msgstr ""
+msgstr "Units"
 
 #: shinetheme/views/frontend/checkout/other/checkout-item-room.php:12
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:14
@@ -5080,7 +5082,7 @@ msgstr ""
 #: shinetheme/views/frontend/emails/templates/changed_password.php:12
 #, php-format
 msgid "Hello %s, "
-msgstr ""
+msgstr "Hallo %s,"
 
 #: shinetheme/views/frontend/emails/templates/changed_password.php:12
 msgid "You changed password a few minutes ago,"
@@ -5096,7 +5098,7 @@ msgstr ""
 
 #: shinetheme/views/frontend/order/content.php:17
 msgid "Booking Details"
-msgstr ""
+msgstr "Boeking details"
 
 #: shinetheme/views/frontend/order/content.php:19
 msgid "Success Booking"
@@ -5262,7 +5264,7 @@ msgstr "Annuleren toegestaan: Ja"
 #: shinetheme/views/frontend/single/types/tour.php:310
 #, php-format
 msgid "Time allowed to free: %s"
-msgstr ""
+msgstr "Gratis annuleren tot: %s - "
 
 #: shinetheme/views/frontend/single/types/default.php:212
 #: shinetheme/views/frontend/single/types/tour.php:311
@@ -5274,23 +5276,23 @@ msgstr "Gratis annuleren voor boeking: %s"
 #: shinetheme/views/frontend/single/types/tour.php:314
 #, php-format
 msgid "100% of the first night"
-msgstr "100% of the first night"
+msgstr "100% van de eerste nacht"
 
 #: shinetheme/views/frontend/single/types/default.php:216
 #: shinetheme/views/frontend/single/types/tour.php:315
 #, php-format
 msgid "100% of the full stay"
-msgstr "100% of the full stay"
+msgstr "100% van het verblijf"
 
 #: shinetheme/views/frontend/single/types/default.php:246
 #: shinetheme/views/frontend/single/types/tour.php:344
 msgid " day"
-msgstr "dag"
+msgstr "-dag"
 
 #: shinetheme/views/frontend/single/types/default.php:261
 #: shinetheme/views/frontend/single/types/tour.php:359
 msgid "Prepayment / Cancellation"
-msgstr ""
+msgstr "Betalen en annuleren"
 
 #: shinetheme/views/frontend/single/types/default.php:278
 #: shinetheme/views/frontend/single/types/tour.php:376
