@@ -155,8 +155,8 @@ if (!class_exists('WPBooking_Admin_Order')) {
 		function _add_script()
 		{
 			if(WPBooking_Input::get('page')=='wpbooking_page_orders'){
-				wp_enqueue_script('bootstrap');
-				wp_enqueue_style('popover');
+				wp_enqueue_script('wpbooking-bootstrap');
+				wp_enqueue_style('wpbooking-popover');
 			}
 		}
 		function _ajax_order_calendar()

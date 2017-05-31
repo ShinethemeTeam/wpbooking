@@ -76,8 +76,8 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             /**
              * Css
              */
-            wp_enqueue_style('font-awesome', wpbooking_assets_url('fa4.5/css/font-awesome.min.css'), FALSE, '4.5.0');
-            wp_enqueue_style('fotorama', wpbooking_assets_url('fotorama4.6.4/fotorama.css'));
+            wp_enqueue_style('wpbooking-font-awesome', wpbooking_assets_url('fa4.5/css/font-awesome.min.css'), FALSE, '4.5.0');
+            wp_enqueue_style('wpbooking-fotorama', wpbooking_assets_url('fotorama4.6.4/fotorama.css'));
             /**
              * WPBooking Icon
              */
@@ -85,69 +85,63 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             /**
              * Magnific
              */
-            wp_register_script('magnific', wpbooking_assets_url('magnific/jquery.magnific-popup.min.js'), array('jquery'), null, true);
-            wp_register_style('magnific', wpbooking_assets_url('magnific/magnific-popup.css'));
+            wp_register_script('wpbooking-magnific', wpbooking_assets_url('magnific/jquery.magnific-popup.min.js'), array('jquery'), null, true);
+            wp_register_style('wpbooking-magnific', wpbooking_assets_url('magnific/magnific-popup.css'));
 
             /**
              * Fotorama
              */
-            wp_register_script('fotorama', wpbooking_assets_url('fotorama4.6.4/fotorama.js'), array('jquery'), null, true);
-            wp_register_style('fotorama', wpbooking_assets_url('fotorama4.6.4/fotorama.css'));
-
+            wp_register_script('wpbooking-fotorama', wpbooking_assets_url('fotorama4.6.4/fotorama.js'), array('jquery'), null, true);
+            wp_register_style('wpbooking-fotorama', wpbooking_assets_url('fotorama4.6.4/fotorama.css'));
 
             /**
              * OwlCarousel
              */
-            wp_register_script('owlcarousel', wpbooking_assets_url('owl.carousel/owl.carousel.min.js'), array('jquery'), null, true);
-            wp_register_style('owlcarousel', wpbooking_assets_url('owl.carousel/assets/owl.carousel.css'));
+            wp_register_script('wpbooking-owlcarousel', wpbooking_assets_url('owl.carousel/owl.carousel.min.js'), array('jquery'), null, true);
+            wp_register_style('wpbooking-owlcarousel', wpbooking_assets_url('owl.carousel/assets/owl.carousel.css'));
 
             /**
              * Select2 CSS
              */
             wp_enqueue_style('wpbooking-select2', wpbooking_assets_url('select2/css/select2.min.css'));
-            wp_enqueue_style('jquery-ui-datepicker', wpbooking_assets_url('css/datepicker.css'));
+            wp_enqueue_style('wpbooking-jquery-ui-datepicker', wpbooking_assets_url('css/datepicker.css'));
             if (is_singular('wpbooking_service')) {
-                wp_enqueue_style('magnific');
-                wp_enqueue_script('magnific');
-                wp_enqueue_style('fororama');
-                wp_enqueue_script('fotorama');
+                wp_enqueue_style('wpbooking-magnific');
+                wp_enqueue_script('wpbooking-magnific');
+                wp_enqueue_style('wpbooking-fororama');
+                wp_enqueue_script('wpbooking-fotorama');
             }
-            wp_enqueue_style('wpbooking', wpbooking_assets_url('css/wpbooking-booking.css'), array( 'owlcarousel', 'wpbooking-icon'));
+            wp_enqueue_style('wpbooking', wpbooking_assets_url('css/wpbooking-booking.css'), array( 'wpbooking-owlcarousel', 'wpbooking-icon'));
 
             /**
              * Ion RangeSlider for Price Search Field
              * @author dungdt
              * @since 1.0
              */
-            wp_register_script('ion-range-slider', wpbooking_assets_url('ion-range-slider/js/ion.rangeSlider.min.js'), array('jquery'), null, true);
-            wp_register_style('ion-range-slider', wpbooking_assets_url('ion-range-slider/css/ion.rangeSlider.css'));
-            wp_register_style('ion-range-slider-flatui', wpbooking_assets_url('ion-range-slider/css/ion.rangeSlider.skinFlat.css'));
-            wp_register_style('ion-range-slider-html5', wpbooking_assets_url('ion-range-slider/css/ion.rangeSlider.skinHTML5.css'));
-
+            wp_register_script('wpbooking-ion-range-slider', wpbooking_assets_url('ion-range-slider/js/ion.rangeSlider.min.js'), array('jquery'), null, true);
+            wp_register_style('wpbooking-ion-range-slider', wpbooking_assets_url('ion-range-slider/css/ion.rangeSlider.css'));
+            wp_register_style('wpbooking-ion-range-slider-flatui', wpbooking_assets_url('ion-range-slider/css/ion.rangeSlider.skinFlat.css'));
+            wp_register_style('wpbooking-ion-range-slider-html5', wpbooking_assets_url('ion-range-slider/css/ion.rangeSlider.skinHTML5.css'));
 
             /**
              * Javascripts
              */
-            wp_enqueue_script('fotorama-js', wpbooking_assets_url('fotorama4.6.4/fotorama.js'), array('jquery'), null, true);
+            wp_enqueue_script('wpbooking-fotorama-js', wpbooking_assets_url('fotorama4.6.4/fotorama.js'), array('jquery'), null, true);
             $google_api_key = wpbooking_get_option('google_api_key','AIzaSyAwXoW3vyBK0C5k2G-0l1D3n10UJ3LwZ3k');
-            wp_enqueue_script('google-map-js', '//maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key='.$google_api_key, array('jquery'), null, true);
-            wp_enqueue_script('gmap3.min-js', wpbooking_assets_url('js/gmap3.min.js'), array('jquery'), null, true);
-
+            wp_enqueue_script('wpbooking-google-map-js', '//maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key='.$google_api_key, array('jquery'), null, true);
+            wp_enqueue_script('wpbooking-gmap3.min-js', wpbooking_assets_url('js/gmap3.min.js'), array('jquery'), null, true);
 
             /**
              * Moment Js
              */
-            wp_register_script('moment', wpbooking_admin_assets_url('js/moment.min.js'), array(), null, true);
+            wp_register_script('wpbooking-moment', wpbooking_admin_assets_url('js/moment.min.js'), array(), null, true);
 
             /**
              * Select2 Jquery
              */
             wp_enqueue_script('wpbooking-select2', wpbooking_assets_url('select2/js/select2.full.min.js'), array('jquery'), null, true);
-
             wp_enqueue_script('wpbooking-nicescroll', wpbooking_assets_url('js/nicescroll.js'), array('jquery'), null, true);
-
-            wp_enqueue_script('wpbooking-booking', wpbooking_assets_url('js/wpbooking-booking.js'), array('jquery', 'jquery-ui-datepicker', 'owlcarousel', 'moment'), null, true);
-
+            wp_enqueue_script('wpbooking-booking', wpbooking_assets_url('js/wpbooking-booking.js'), array('jquery', 'jquery-ui-datepicker', 'wpbooking-owlcarousel', 'wpbooking-moment'), null, true);
 
             wp_localize_script('jquery', 'wpbooking_params', array(
                 'ajax_url'              => admin_url('admin-ajax.php'),
@@ -177,7 +171,6 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
          */
         function _admin_default_scripts()
         {
-
             /**
              * WPBooking Icon
              */
@@ -187,22 +180,20 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
              * JQuery Sticky
              *
              */
-            wp_register_script('sticky',wpbooking_assets_url('admin/js/jquery.sticky.js'),array('jquery'),null,true);
+            wp_register_script('wpbooking-sticky',wpbooking_assets_url('admin/js/jquery.sticky.js'),array('jquery'),null,true);
             /**
              * Code Flask
              */
-            wp_register_style('prismjs', wpbooking_assets_url('codeflask/themes/prism.css'));
-            wp_register_style('codeflask', wpbooking_assets_url('codeflask/codeflask.css'),array('prismjs'));
-            wp_register_script('prismjs', wpbooking_assets_url('codeflask/prism.js'), array(), null, true);
-            wp_register_script('codeflask', wpbooking_assets_url('codeflask/codeflask.js'), array('prismjs'), null, true);
-            wp_register_script('bootstrap', wpbooking_assets_url('bootstrap/js/bootstrap.min.js'), array('jquery'), null, true);
+            wp_register_style('wpbooking-prismjs', wpbooking_assets_url('codeflask/themes/prism.css'));
+            wp_register_style('wpbooking-codeflask', wpbooking_assets_url('codeflask/codeflask.css'),array('wpbooking-prismjs'));
+            wp_register_script('wpbooking-prismjs', wpbooking_assets_url('codeflask/prism.js'), array(), null, true);
+            wp_register_script('wpbooking-codeflask', wpbooking_assets_url('codeflask/codeflask.js'), array('wpbooking-prismjs'), null, true);
+            wp_register_script('wpbooking-bootstrap', wpbooking_assets_url('bootstrap/js/bootstrap.min.js'), array('jquery'), null, true);
 
             /**
              * Icon Picker
              */
-            wp_register_script('iconpicker', wpbooking_assets_url('iconpicker/js/fontawesome-iconpicker.min.js'), array('jquery'), null, true);
-
-
+            wp_register_script('wpbooking-iconpicker', wpbooking_assets_url('iconpicker/js/fontawesome-iconpicker.min.js'), array('jquery'), null, true);
 
             /**
              * Select2 Jquery
@@ -213,21 +204,19 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
             /**
              * wbCalendar
              */
-            wp_enqueue_script('wbCalendar', wpbooking_assets_url('js/wb-calendar.js'), array('jquery'), null, true);
-            wp_enqueue_style('wbCalendar', wpbooking_assets_url('css/wb-calendar.css'));
+            wp_enqueue_script('wpbooking-Calendar', wpbooking_assets_url('js/wb-calendar.js'), array('jquery'), null, true);
+            wp_enqueue_style('wpbooking-Calendar', wpbooking_assets_url('css/wb-calendar.css'));
 
             /**
              * Chart Report
              */
-            wp_register_script('chart', wpbooking_assets_url('js/Chart.min.js'), array('jquery'), null, true);
+            wp_register_script('wpbooking-chart', wpbooking_assets_url('js/Chart.min.js'), array('jquery'), null, true);
 
             /**
              * Js Color
              */
-            wp_enqueue_script('colorpicker-master', wpbooking_assets_url('colorpicker-master/colors.js'), array('jquery'), null, true);
-
-            wp_enqueue_style('colorpicker-master', wpbooking_assets_url('colorpicker-master/mod.css'));
-
+            wp_enqueue_script('wpbooking-colorpicker-master', wpbooking_assets_url('colorpicker-master/colors.js'), array('jquery'), null, true);
+            wp_enqueue_style('wpbooking-colorpicker-master', wpbooking_assets_url('colorpicker-master/mod.css'));
 
             /**
              * Flag icon
@@ -236,21 +225,19 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
              *
              */
 
-            wp_enqueue_script('wpbooking-admin', wpbooking_admin_assets_url('js/wpbooking-admin.js'), array('jquery', 'bootstrap', 'jquery-ui-core', 'iconpicker', 'jquery-ui-datepicker', 'jquery-ui-accordion','wpbooking-calendar-room','sticky'), null, true);
+            wp_enqueue_script('wpbooking-admin', wpbooking_admin_assets_url('js/wpbooking-admin.js'), array('jquery', 'wpbooking-bootstrap', 'jquery-ui-core', 'wpbooking-iconpicker', 'jquery-ui-datepicker', 'jquery-ui-accordion','wpbooking-calendar-room','wpbooking-sticky'), null, true);
             wp_enqueue_script('wpbooking-admin-form-build', wpbooking_admin_assets_url('js/wpbooking-admin-form-build.js'), array('jquery'), null, true);
 
-            wp_enqueue_script('moment-js', wpbooking_admin_assets_url('js/moment.min.js'), array('jquery'), null, true);
+            wp_enqueue_script('wpbooking-moment-js', wpbooking_admin_assets_url('js/moment.min.js'), array('jquery'), null, true);
 
-            wp_enqueue_script('full-calendar', wpbooking_admin_assets_url('js/fullcalendar.min.js'), array('jquery', 'moment-js'), null, true);
+            wp_enqueue_script('wpbooking-full-calendar', wpbooking_admin_assets_url('js/fullcalendar.min.js'), array('jquery', 'wpbooking-moment-js'), null, true);
 
-            wp_enqueue_script('fullcalendar-lang', wpbooking_admin_assets_url('/js/lang-all.js'), array('jquery'), null, true);
+            wp_enqueue_script('wpbooking-fullcalendar-lang', wpbooking_admin_assets_url('/js/lang-all.js'), array('jquery'), null, true);
 
             wp_enqueue_script('wpbooking-calendar-room', wpbooking_admin_assets_url('js/wpbooking-calendar-room.js'), array('jquery', 'jquery-ui-datepicker'), null, true);
 
-
             //Popover
-            wp_register_style('popover', wpbooking_assets_url('bootstrap/less/popovers.css'));
-
+            wp_register_style('wpbooking-popover', wpbooking_assets_url('bootstrap/less/popovers.css'));
 
             // Admin Fonts
             $fonts = add_query_arg(array(
@@ -258,14 +245,13 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
                 'subset' => 'vietnamese',
             ), 'https://fonts.googleapis.com/css');
 
-            wp_enqueue_style('open-sans-bold', $fonts);
-            wp_enqueue_style('iconpicker', wpbooking_assets_url('iconpicker/css/fontawesome-iconpicker.min.css'));
-            wp_enqueue_style('full-calendar', wpbooking_admin_assets_url('/css/fullcalendar.min.css'), FALSE, '1.1.6');
+            wp_enqueue_style('wpbooking-open-sans-bold', $fonts);
+            wp_enqueue_style('wpbooking-iconpicker', wpbooking_assets_url('iconpicker/css/fontawesome-iconpicker.min.css'));
+            wp_enqueue_style('wpbooking-full-calendar', wpbooking_admin_assets_url('/css/fullcalendar.min.css'), FALSE, '1.1.6');
 
-            wp_enqueue_style('font-awesome', wpbooking_assets_url('fa4.5/css/font-awesome.min.css'), FALSE, '4.5.0');
+            wp_enqueue_style('wpbooking-font-awesome', wpbooking_assets_url('fa4.5/css/font-awesome.min.css'), FALSE, '4.5.0');
             wp_enqueue_style('wpbooking-admin', wpbooking_admin_assets_url('css/admin.css'), array('wpbooking-icon'));
             wp_enqueue_style('wpbooking-admin-form-build', wpbooking_admin_assets_url('css/wpbooking-admin-form-build.css'));
-
 
             wp_localize_script('jquery', 'wpbooking_params', array(
                 'ajax_url'           => admin_url('admin-ajax.php'),
@@ -304,7 +290,6 @@ if (!class_exists('WPBooking_System') and !function_exists('WPBooking')) {
         function _init()
         {
             load_plugin_textdomain('wpbooking', FALSE, plugin_basename(dirname(__FILE__)) . '/languages');
-
 
         }
 

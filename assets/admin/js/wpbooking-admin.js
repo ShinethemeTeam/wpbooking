@@ -1203,7 +1203,7 @@ jQuery(document).ready(function( $ ){
                     var input_name=me.data('name');
                     var html=wrap.find('.extra-item-default .extra-item').clone();
                     var count=list_terms.find('.extra-item').length;
-                    html.find('.title input').attr('name',id+'['+(count)+'][is_selected]');
+                    html.find('.title input').attr('name',id+'['+(res.data.term_id)+'][is_selected]');
                     html.find('.title input').val(term_name);
                     html.find('.service_desc').html(term_desc);
                     html.find('.extra-item-name').html(term_name);
@@ -1212,9 +1212,9 @@ jQuery(document).ready(function( $ ){
                             $(this).attr('selected','');
                         }
                     });
-                    html.find('.money-number input').attr('name',id+'['+(count)+'][money]');
-                    html.find('.require-options select').attr('name',id+'['+(count)+'][require]');
-                    html.find('.max-quantity .max-quantity-select').attr('name',id+'['+(count)+'][quantity]');
+                    html.find('.money-number input').attr('name',id+'['+(res.data.term_id)+'][money]');
+                    html.find('.require-options select').attr('name',id+'['+(res.data.term_id)+'][require]');
+                    html.find('.max-quantity .max-quantity-select').attr('name',id+'['+(res.data.term_id)+'][quantity]');
 
                     list_terms.append(html);
 

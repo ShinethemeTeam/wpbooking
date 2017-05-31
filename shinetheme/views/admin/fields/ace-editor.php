@@ -1,6 +1,6 @@
 <?php
-wp_enqueue_script('codeflask');
-wp_enqueue_style('codeflask');
+wp_enqueue_script('wpbooking-codeflask');
+wp_enqueue_style('wpbooking-codeflask');
 $data_value = wpbooking_get_option($data['id'],$data['std']);
 $name = 'wpbooking_'.$data['id'];
 

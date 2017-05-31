@@ -34,8 +34,8 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 							$condition = '';
 							$service_types = get_term_meta($k,'service_type');
 							if(!empty($service_types)){
-								foreach($service_types as $k=>$v){
-									$condition .= 'wb_service_type:is('.$v.')';
+								foreach($service_types as $k2=>$v2){
+									$condition .= 'wb_service_type:is('.$v2.')';
 								}
 							}
 							if(empty($condition)) $condition = 'wb_service_type:is()';
