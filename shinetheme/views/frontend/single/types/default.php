@@ -212,8 +212,8 @@ $hotel_id=get_the_ID();
                 'cancel_guest_payment' => esc_html__('Fee cancel for booking: %s','wpbooking'),
             );
             $cancel_guest_payment = array(
-                'first_night' => esc_html__('100% of the first night','wpbooking'),
-                'full_stay' => esc_html__('100% of the full stay','wpbooking'),
+                'first_night' => esc_html__('100&#37; of the first night','wpbooking'),
+                'full_stay' => esc_html__('100&#37; of the full stay','wpbooking'),
             );
 
             $deposit_html = array();

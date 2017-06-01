@@ -311,8 +311,8 @@ $age_options=$service->get_meta('age_options');
                 'cancel_guest_payment' => esc_html__('Fee cancel for booking: %s','wpbooking'),
             );
             $cancel_guest_payment = array(
-                'first_night' => esc_html__('100% of the first night','wpbooking'),
-                'full_stay' => esc_html__('100% of the full stay','wpbooking'),
+                'first_night' => esc_html__('100&#37; of the first night','wpbooking'),
+                'full_stay' => esc_html__('100&#37; of the full stay','wpbooking'),
             );
             $deposit_html = array();
             $allow_deposit = '';
@@ -409,7 +409,7 @@ $age_options=$service->get_meta('age_options');
                             }
 
                             if($vat_excluded == 'yes_included'){
-                                $tax_html[] = sprintf($val, $amount.' &nbsp;&nbsp;'.wp_kses(esc_html__('<span class="enforced_red">included</span>','wpbooking'),array('span' => array('class' => array()))));
+                                $tax_html[] = sprintf($val, $amount.' &nbsp;&nbsp;'.wp_kses('<span class="enforced_red">'.esc_html__('included','wpbooking').'</span>',array('span' => array('class' => array()))));
                             }elseif($vat_excluded != ''){
                                 $tax_html[] = sprintf($val, $amount);
                             }
