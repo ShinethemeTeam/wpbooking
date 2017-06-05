@@ -576,67 +576,73 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
         {
             $service = wpbooking_get_service($post_id);
             $start = $cart_params['check_in_timestamp'];
-            $calendar = WPBooking_Calendar_Model::inst();
-            global $wpdb;
 
-            switch ($service->get_meta('pricing_type')) {
-                case "per_unit":
-                    $query = $calendar->select($wpdb->prefix . 'wpbooking_availability.id,
+            if($start < strtotime('today')){
+                $is_validated = false;
+                wpbooking_set_message(esc_html__('Your date is incorrect.', 'wpbooking'), 'error');
+            }
+
+            if($is_validated){
+                $calendar = WPBooking_Calendar_Model::inst();
+                global $wpdb;
+                switch ($service->get_meta('pricing_type')) {
+                    case "per_unit":
+                        $query = $calendar->select($wpdb->prefix . 'wpbooking_availability.id,
 	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_minimum,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price')
-                        ->join('wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id")
-                        ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id AND check_in_timestamp = `start` and wpbooking_order.STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
-                        ->where(array(
-                            $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
-                            $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
-                            'start'                                          => $start,
-                        ))
-                        ->groupby($wpdb->prefix . 'wpbooking_availability.id')
-                        ->having(' total_people_booked IS NULL OR total_people_booked < max_guests')
-                        ->get()->row();
-                    if (!$query) {
-                        $is_validated = false;
-                        wpbooking_set_message(esc_html__('Sorry! This tour is not available at your selected time', 'wpbooking'), 'error');
-                    } else {
-                        $total_people = $cart_params['adult_number'] + $cart_params['children_number'] + $cart_params['infant_number'];
-
-
-                        if (empty($total_people)) {
+                            ->join('wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id")
+                            ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id AND check_in_timestamp = `start` and wpbooking_order.STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
+                            ->where(array(
+                                $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
+                                $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
+                                'start'                                          => $start,
+                            ))
+                            ->groupby($wpdb->prefix . 'wpbooking_availability.id')
+                            ->having(' total_people_booked IS NULL OR total_people_booked < max_guests')
+                            ->get()->row();
+                        if (!$query) {
                             $is_validated = false;
-                            wpbooking_set_message(esc_html__('This tour requires 1 person at least', 'wpbooking'), 'error');
+                            wpbooking_set_message(esc_html__('Sorry! This tour is not available at your selected time', 'wpbooking'), 'error');
                         } else {
-                            // Check Slot(s) Remain
-                            // Check Slot(s) Remain
-                            if ($total_people + $query['total_people_booked'] > $query['max_guests']) {
+                            $total_people = $cart_params['adult_number'] + $cart_params['children_number'] + $cart_params['infant_number'];
+
+
+                            if (empty($total_people)) {
                                 $is_validated = false;
-                                wpbooking_set_message(sprintf(esc_html__('This tour only remains availability for %d people', 'wpbooking'), $query['max_guests'] - $query['total_people_booked']), 'error');
+                                wpbooking_set_message(esc_html__('This tour requires 1 person at least', 'wpbooking'), 'error');
                             } else {
-                                // Check Max, Min
-                                $min = (int)$query['calendar_minimum'];
-                                $max = (int)$query['calendar_maximum'];
-                                if ($min <= $max) {
-                                    if ($min) {
-                                        if ($total_people < $min) {
-                                            $is_validated = false;
-                                            wpbooking_set_message(sprintf(esc_html__('Minimum Travelers must be %d', 'wpbooking'), $min), 'error');
+                                // Check Slot(s) Remain
+                                // Check Slot(s) Remain
+                                if ($total_people + $query['total_people_booked'] > $query['max_guests']) {
+                                    $is_validated = false;
+                                    wpbooking_set_message(sprintf(esc_html__('This tour only remains availability for %d people', 'wpbooking'), $query['max_guests'] - $query['total_people_booked']), 'error');
+                                } else {
+                                    // Check Max, Min
+                                    $min = (int)$query['calendar_minimum'];
+                                    $max = (int)$query['calendar_maximum'];
+                                    if ($min <= $max) {
+                                        if ($min) {
+                                            if ($total_people < $min) {
+                                                $is_validated = false;
+                                                wpbooking_set_message(sprintf(esc_html__('Minimum Travelers must be %d', 'wpbooking'), $min), 'error');
+                                            }
                                         }
-                                    }
-                                    if ($max) {
-                                        if ($total_people > $max) {
-                                            $is_validated = false;
-                                            wpbooking_set_message(sprintf(esc_html__('Maximum Travelers must be %d', 'wpbooking'), $max), 'error');
+                                        if ($max) {
+                                            if ($total_people > $max) {
+                                                $is_validated = false;
+                                                wpbooking_set_message(sprintf(esc_html__('Maximum Travelers must be %d', 'wpbooking'), $max), 'error');
+                                            }
                                         }
                                     }
                                 }
                             }
+
+
                         }
+                        break;
 
-
-                    }
-                    break;
-
-                case "per_person":
-                default:
-                    $query = $query = $calendar->select($wpdb->prefix . 'wpbooking_availability.id,
+                    case "per_person":
+                    default:
+                        $query = $query = $calendar->select($wpdb->prefix . 'wpbooking_availability.id,
                                                 ' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,
                                                 ' . $wpdb->prefix . 'wpbooking_availability.adult_price,
                                                 ' . $wpdb->prefix . 'wpbooking_availability.child_price,
@@ -645,54 +651,55 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                                                 child_minimum,
                                                 infant_minimum
 ')
-                        ->join('wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id")
-                        ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id AND check_in_timestamp = `start` and wpbooking_order.STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
-                        ->where(array(
-                            $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
-                            $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
-                            'start'                                          => $start,
-                        ))
-                        ->where("({$wpdb->prefix}wpbooking_availability.adult_price > 0 or {$wpdb->prefix}wpbooking_availability.child_price>0 or {$wpdb->prefix}wpbooking_availability.infant_price>0)", false, true)
-                        ->groupby($wpdb->prefix . 'wpbooking_availability.id')
-                        ->having(' total_people_booked IS NULL OR total_people_booked < max_guests')
-                        ->get()->row();
-                    if (!$query) {
-                        $is_validated = false;
-                        wpbooking_set_message(esc_html__('Sorry! This tour is not available at your selected time', 'wpbooking'), 'error');
-                    } else {
-                        $total_people = $cart_params['adult_number'] + $cart_params['children_number'] + $cart_params['infant_number'];
-
-                        // Check Slot(s) Remain
-                        if ($total_people + $query['total_people_booked'] > $query['max_guests']) {
+                            ->join('wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id")
+                            ->join('wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id AND check_in_timestamp = `start` and wpbooking_order.STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left')
+                            ->where(array(
+                                $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
+                                $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
+                                'start'                                          => $start,
+                            ))
+                            ->where("({$wpdb->prefix}wpbooking_availability.adult_price > 0 or {$wpdb->prefix}wpbooking_availability.child_price>0 or {$wpdb->prefix}wpbooking_availability.infant_price>0)", false, true)
+                            ->groupby($wpdb->prefix . 'wpbooking_availability.id')
+                            ->having(' total_people_booked IS NULL OR total_people_booked < max_guests')
+                            ->get()->row();
+                        if (!$query) {
                             $is_validated = false;
-                            wpbooking_set_message(sprintf(esc_html__('This tour only remains availability for %d people', 'wpbooking'), $query['max_guests'] - $query['total_people_booked']), 'error');
+                            wpbooking_set_message(esc_html__('Sorry! This tour is not available at your selected time', 'wpbooking'), 'error');
                         } else {
+                            $total_people = $cart_params['adult_number'] + $cart_params['children_number'] + $cart_params['infant_number'];
 
-                            $error_message = array();
-
-                            if ((!empty($query['adult_minimum']) and $cart_params['adult_number'] < $query['adult_minimum'])) {
-                                $error_message[] = sprintf(esc_html__('%d adult(s)', 'wpbooking'), $query['adult_minimum']);
-                            }
-                            if ((!empty($query['child_minimum']) and $cart_params['children_number'] < $query['child_minimum'])) {
-                                $error_message[] = sprintf(esc_html__('%d children', 'wpbooking'), $query['child_minimum']);
-                            }
-                            if ((!empty($query['infant_minimum']) and $cart_params['infant_number'] < $query['infant_minimum'])) {
-                                $error_message[] = sprintf(esc_html__('%d infant(s)', 'wpbooking'), $query['infant_minimum']);
-                            }
-
-                            if (!empty($error_message)) {
+                            // Check Slot(s) Remain
+                            if ($total_people + $query['total_people_booked'] > $query['max_guests']) {
                                 $is_validated = false;
-                                wpbooking_set_message(sprintf(esc_html__('This tour requires %s people at least', 'wpbooking'), implode(', ', $error_message)), 'error');
-                            } elseif (!$total_people) {
-                                $is_validated = false;
-                                wpbooking_set_message(esc_html__('This tour requires 1 person at least', 'wpbooking'), 'error');
+                                wpbooking_set_message(sprintf(esc_html__('This tour only remains availability for %d people', 'wpbooking'), $query['max_guests'] - $query['total_people_booked']), 'error');
+                            } else {
+
+                                $error_message = array();
+
+                                if ((!empty($query['adult_minimum']) and $cart_params['adult_number'] < $query['adult_minimum'])) {
+                                    $error_message[] = sprintf(esc_html__('%d adult(s)', 'wpbooking'), $query['adult_minimum']);
+                                }
+                                if ((!empty($query['child_minimum']) and $cart_params['children_number'] < $query['child_minimum'])) {
+                                    $error_message[] = sprintf(esc_html__('%d children', 'wpbooking'), $query['child_minimum']);
+                                }
+                                if ((!empty($query['infant_minimum']) and $cart_params['infant_number'] < $query['infant_minimum'])) {
+                                    $error_message[] = sprintf(esc_html__('%d infant(s)', 'wpbooking'), $query['infant_minimum']);
+                                }
+
+                                if (!empty($error_message)) {
+                                    $is_validated = false;
+                                    wpbooking_set_message(sprintf(esc_html__('This tour requires %s people at least', 'wpbooking'), implode(', ', $error_message)), 'error');
+                                } elseif (!$total_people) {
+                                    $is_validated = false;
+                                    wpbooking_set_message(esc_html__('This tour requires 1 person at least', 'wpbooking'), 'error');
+                                }
+
                             }
+
 
                         }
-
-
-                    }
-                    break;
+                        break;
+                }
             }
 
             return $is_validated;
