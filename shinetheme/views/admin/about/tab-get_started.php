@@ -22,7 +22,7 @@
     <?php } ?>
 
     <div class="wb-desc <?php echo(count($tabs) >1)?'':'full-width'; ?>">
-        <p><?php echo wp_kses(esc_html__('We are supporting you <strong>with four main settings</strong> to create a booking system.', 'wpbooking'), array('strong' => array()))?></p>
+        <p><?php echo wp_kses(esc_html__('We are supporting you with four main settings to create a booking system.', 'wpbooking'), array('strong' => array()))?></p>
         <p><?php echo esc_html__('Including:','wpbooking'); ?></p>
     </div>
     <?php

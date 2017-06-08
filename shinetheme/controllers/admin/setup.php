@@ -114,7 +114,7 @@ if(!class_exists('WPBooking_Admin_Setup'))
                                 'fa-laptop'=>'Laptop safe',
                             ),
                             'wpbooking_location'=>array(
-                                'New York',
+                                'Italy',
                                 'Germany',
                                 'United States',
                                 'Russia',
