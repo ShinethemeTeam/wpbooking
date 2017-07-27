@@ -27,7 +27,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
 
 			$search_more_fields=array();
             ?>
-            <form class="wpbooking-search-form is_search_form" action="<?php echo esc_url( $page_search ) ?>" xmlns="http://www.w3.org/1999/html">
+            <form class="wpbooking-search-form is_search_form" action="<?php echo esc_url( $page_search ) ?>">
 
             	<?php
 					if ( ! empty( $instance['title'] ) ) {
@@ -251,7 +251,7 @@ if(!class_exists('WPBooking_Widget_Form_Search')){
                                             $check = "checked";
                                         }
                                         ?>
-                                        <label ><input class="wb-checkbox-search <?php if($v['required']=='yes') echo 'wb-required' ?>" type="checkbox" <?php echo esc_html($check) ?> class="item_taxonomy" id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
+                                        <label ><input class="wb-checkbox-search item_taxonomy <?php if($v['required']=='yes') echo 'wb-required' ?>" type="checkbox" <?php echo esc_html($check) ?>  id="<?php echo "item_".$key2 ?>" value="<?php echo esc_html( $key2 ) ?>">
                                             <?php echo ( $value2 ) ?></label>
                                         <?php
                                     }
