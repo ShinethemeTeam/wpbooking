@@ -211,7 +211,7 @@ if(!function_exists('wpbooking_pagination_room')){
         if($paged < $i-1){
             $html.= ' <a class="page-numbers" data-page="'.($paged+1).'">'.__( 'Next', "helios" ).'</a>';
         }
-        $html . '</div>';
+        $html .= '</div>';
         return $html;
     }
 }
