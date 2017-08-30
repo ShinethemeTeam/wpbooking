@@ -1612,7 +1612,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 $inject->where_not_in('ID',$ids_not_in);
 
             }
-            
+
             $post_per_page = $this->request('wpbooking_post_per_page',10);
             $page = $this->request('wpbooking_paged');
             $arg = array(

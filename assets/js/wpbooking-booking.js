@@ -365,7 +365,7 @@ jQuery(document).ready(function($){
                 p.find('.checkout_y').val(check_out.getFullYear());
                 start.datepicker("option","maxDate", new Date(check_out.getFullYear(),check_out.getMonth(),check_out.getDate()-1));
                 start.trigger('change');
-
+                $(this).trigger('change');
             }
         });
     });
@@ -548,6 +548,7 @@ jQuery(document).ready(function($){
             'success': function(data) {
                 searchbox.removeClass('loading');
                 searchbox.find('.btn-do-search-room').removeClass('loading');
+                content_pagination_room.html('');
                 console.log(data);
                 if (data.status) {
                     if (typeof data.data != "undefined" && data.data) {
@@ -558,7 +559,6 @@ jQuery(document).ready(function($){
                     } else {
                         content_list_room.html('');
                         content_search_room.hide();
-                        content_pagination_room.html('');
                     }
                 }
                 if (data.message) {
