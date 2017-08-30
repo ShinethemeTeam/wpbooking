@@ -432,7 +432,8 @@ jQuery(document).ready(function($){
     });
     $('.form-search-room .btn-do-search-room').click(function(){
         var searchbox = $(this).closest('.form-search-room');
-        do_search_room(searchbox);
+        searchbox.find('.wpbooking_paged').val('1');
+        do_search_room(searchbox,true);
     });
     $(document).on('click','.content-search-room .btn_extra',function(){
         var parent=$(this).closest('.loop-room');
@@ -458,12 +459,21 @@ jQuery(document).ready(function($){
         }
         return false;
     });
+    $(document).on('click','.search-room-availablity .pagination-room a',function(){
+        var parent=$(this).closest('.search-room-availablity');
+        var paged = $(this).data('page');
+        parent.find('.form-search-room .wpbooking_paged').val(paged);
+
+        var searchbox = parent.find('.form-search-room');
+        do_search_room(searchbox,false);
+    });
     /**
      * Do Search Room
      * @param searchbox
+     * @param is_validate
      * @returns {boolean}
      */
-    function do_search_room(searchbox){
+    function do_search_room(searchbox,is_validate){
         var parent = searchbox.closest('.search-room-availablity');
         var data = {
             'nonce': searchbox.find('input[name=room_search]').val()
@@ -482,7 +492,7 @@ jQuery(document).ready(function($){
         var holder = $('.search_room_alert');
         holder.html('');
         searchbox.find('.form-control').removeClass('error');
-        if (dataobj.check_in == "" && dataobj.check_out == "") {
+        if (dataobj.check_in == "" && dataobj.check_out == "" && is_validate) {
             if (dataobj.check_in == "") {
                 searchbox.find('[name=check_in]').addClass('error');
             }
@@ -497,7 +507,7 @@ jQuery(document).ready(function($){
             setMessage(holder, wpbooking_hotel_localize.is_not_select_date, 'danger');
             return false;
         }
-        if (dataobj.check_in == "") {
+        if (dataobj.check_in == "" && is_validate) {
             if (dataobj.check_in == "") {
                 searchbox.find('[name=check_in]').addClass('error');
             }
@@ -509,7 +519,7 @@ jQuery(document).ready(function($){
             setMessage(holder, wpbooking_hotel_localize.is_not_select_check_in_date, 'danger');
             return false;
         }
-        if (dataobj.check_out == '') {
+        if (dataobj.check_out == '' && is_validate) {
             if (dataobj.check_out == "") {
                 searchbox.find('[name=check_out]').addClass('error');
             }
@@ -529,6 +539,7 @@ jQuery(document).ready(function($){
         searchbox.find('.btn-do-search-room').addClass('loading');
         var content_list_room = parent.find('.content-loop-room');
         var content_search_room = parent.find('.content-search-room');
+        var content_pagination_room = parent.find('.pagination-room');
         $.ajax({
             'type': 'post',
             'dataType': 'json',
@@ -543,10 +554,11 @@ jQuery(document).ready(function($){
                         content_list_room.html(data.data);
                         content_search_room.show();
                         content_search_room.find('.wpbooking_order_form').removeClass('no_date');
-
+                        content_pagination_room.html(data.pagination);
                     } else {
                         content_list_room.html('');
                         content_search_room.hide();
+                        content_pagination_room.html('');
                     }
                 }
                 if (data.message) {
@@ -636,8 +648,8 @@ jQuery(document).ready(function($){
                 });
             }
         });
-        container.find('.info_number').html(total_number_room);
-        container.find('.info_price').html(format_money(total_price));
+        container.find('.info_number').html(total_number_room).trigger('change');
+        container.find('.info_price').html(format_money(total_price)).trigger('change');
     });
     $(document).on('change','.content-search-room .content-loop-room .loop-room .option_extra_quantity',function(){
         $('.content-search-room .content-loop-room .loop-room .option_number_room').trigger('change');

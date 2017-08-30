@@ -170,7 +170,7 @@ if (!class_exists('WB_Service')) {
                 'thumb_url'   => wpbooking_assets_url('images/default.png'),
                 'gallery'     => sprintf('<img src="%s" alt="%s"/>', wpbooking_assets_url('images/default.png'), get_the_title($this->ID)),
                 'gallery_url' => wpbooking_assets_url('images/default.png'),
-
+                'feature_image_id'=>false,
             );
             if($this->ID){
                 $image_id = '';
@@ -191,6 +191,7 @@ if (!class_exists('WB_Service')) {
                         'gallery'     => $gallery,
                         'gallery_url' => $gallery,
                         'thumb300'       => wp_get_attachment_image($image_id,array(300,300)),
+                        'feature_image_id'=>$image_id
                     );
                 }
             }

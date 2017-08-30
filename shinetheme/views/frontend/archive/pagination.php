@@ -1,5 +1,6 @@
 <?php
 global $wp_query;
+var_dump($wp_query);
 ?>
 
 <div class="wpbooking-pagination" >

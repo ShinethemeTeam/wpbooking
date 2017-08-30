@@ -179,7 +179,40 @@ if(!function_exists('wpbooking_post_query_desc'))
 	}
 }
 if(!function_exists('wpbooking_get_service')){
-	function wpbooking_get_service($post_id=false){
-		return WPBooking_Service_Controller::inst()->get_service_instance($post_id);
-	}
+    function wpbooking_get_service($post_id=false){
+        return WPBooking_Service_Controller::inst()->get_service_instance($post_id);
+    }
 }
+
+if(!function_exists('wpbooking_pagination_room')){
+    function wpbooking_pagination_room($c_wp_query=false){
+        global $wp_query;
+        if(!empty($c_wp_query)){
+            $wp_query = $c_wp_query;
+        }
+        if ( $wp_query->max_num_pages < 2 ) {
+            return;
+        }
+        $paged        = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
+        $max = $wp_query->found_posts;
+        $posts_per_page = $wp_query->query['posts_per_page'];
+        $number = ceil($max / $posts_per_page);
+        $html = ' <div class="wpbooking-pagination paged_room">';
+        if($paged > 1){
+            $html.= ' <a class="page-numbers" data-page="'.($paged-1).'">'.__('Previous',"helios").'</a> ';
+        }
+        for($i=1 ; $i<= $number  ; $i++){
+            if($i == $paged){
+                $html.= ' <span class="page-numbers current" data-page="'.$i.'">'.$i.'</span> ';
+            }else{
+                $html.= ' <a class="page-numbers" data-page="'.$i.'">'.$i.'</a> ';
+            }
+        }
+        if($paged < $i-1){
+            $html.= ' <a class="page-numbers" data-page="'.($paged+1).'">'.__( 'Next', "helios" ).'</a>';
+        }
+        $html . '</div>';
+        return $html;
+    }
+}
+

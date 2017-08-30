@@ -2507,6 +2507,13 @@ a.label:focus {
     text-align: center !important;
   }
 }
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .pagination-room {
+  margin: 10px 0;
+}
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .pagination-room .wpbooking-pagination {
+  margin-top: 0px;
+  text-align: left;
+}
 .single-wpbooking_service .wpbooking-single-content .service-content-section .service-info-title {
   font-size: 20px;
   margin-top: 0px;

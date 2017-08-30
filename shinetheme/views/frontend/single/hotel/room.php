@@ -8,6 +8,7 @@
             <?php wp_nonce_field('room_search','room_search')?>
             <input name="action" value="ajax_search_room" type="hidden">
             <input name="hotel_id" value="<?php the_ID() ?>" type="hidden">
+            <input name="wpbooking_paged" class="wpbooking_paged" value="1" type="hidden">
             <div class="search-room-form">
                 <h5 class="service-info-title"><?php esc_html_e('Check availability', 'wpbooking') ?></h5>
                 <div class="form-search">
@@ -106,6 +107,7 @@
                 <input name="wpbooking_room_number" class="form_book_room_number"  type="hidden">
                 <input name="wpbooking_adults" class="form_book_adults"  type="hidden">
                 <input name="wpbooking_children" class="form_book_children"  type="hidden">
+
                 <div class="content-loop-room">
                     <?php
                     $hotel_id = get_the_ID();
@@ -124,11 +126,12 @@
                         <button type="button" class="wb-button submit-button"><?php esc_html_e("BOOK NOW",'wpbooking') ?></button>
                     </div>
                 </div>
+
             </form>
         </div>
+        <div class="pagination-room">
+            <?php echo wpbooking_pagination_room($rooms); ?>
+        </div>
     </div>
-    <?php
-    wp_reset_postdata();
-
-    ?>
+    <?php wp_reset_postdata(); ?>
 </div>

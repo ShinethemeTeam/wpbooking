@@ -1352,6 +1352,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                         $query->the_post();
                         $result['data'] .= wpbooking_load_view('single/loop-room', array('hotel_id' => $hotel_id));
                     }
+                    $result['pagination'] = wpbooking_pagination_room($query);
                 } else {
                     $result = array(
                         'status'  => 0,
@@ -1611,12 +1612,15 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 $inject->where_not_in('ID',$ids_not_in);
 
             }
-
+            
+            $post_per_page = $this->request('wpbooking_post_per_page',10);
+            $page = $this->request('wpbooking_paged');
             $arg = array(
-                'post_type'      => 'wpbooking_hotel_room',
-                'posts_per_page' => '200',
-                'post_status'    => 'publish',
-                'post_parent'    => $hotel_id
+                'post_type'      => 'wpbooking_hotel_room' ,
+                'posts_per_page' => $post_per_page ,
+                'post_status'    => 'publish' ,
+                'post_parent'    => $hotel_id ,
+                'paged'          => $page
             );
             $adults = $this->request('adults');
             $children = $this->request('children');
@@ -1636,7 +1640,6 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'type' => 'NUMERIC',
             );
             $query = new WP_Query($arg);
-
 
             $inject->clear();
 
