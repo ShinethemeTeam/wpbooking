@@ -2087,7 +2087,8 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if(!empty($wpbooking_children)){
                 $cart_item['person']+=$wpbooking_children;
             }
-
+            $cart_item['adult_number'] = WPBooking_Input::post('wpbooking_adults');
+            $cart_item['children_number'] = WPBooking_Input::post('wpbooking_children');
             return $cart_item;
         }
 
