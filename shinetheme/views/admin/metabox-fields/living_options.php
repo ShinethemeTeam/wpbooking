@@ -62,7 +62,7 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
                 <div class="multi-item-row">
                     <label class="multi-item-title"><?php printf(esc_html__('Living room #%d', 'wpbooking'), $number) ?></label>
                     <div class="st-metabox-left">
-                        <label for="<?php echo esc_html( $data['id'] ); ?>"><?php esc_html_e('Number of sofa beds in the room','wp_booking'); ?></label>
+                        <label for="<?php echo esc_html( $data['id'] ); ?>"><?php esc_html_e('Number of sofa beds in the room','wpbooking'); ?></label>
                     </div>
                     <div class="st-metabox-right">
                         <div class="st-metabox-content-wrapper">
@@ -84,7 +84,7 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
                         <div class="metabox-help"><?php echo do_shortcode( $data['desc'] ) ?></div>
                     </div>
                     <div class="st-metabox-left">
-                        <label for="<?php echo esc_html( $data['id'] ); ?>"><?php esc_html_e('Enter the number of guests who can sleep here','wp_booking'); ?></label>
+                        <label for="<?php echo esc_html( $data['id'] ); ?>"><?php esc_html_e('Enter the number of guests who can sleep here','wpbooking'); ?></label>
                     </div>
                     <div class="st-metabox-right">
                         <div class="st-metabox-content-wrapper">

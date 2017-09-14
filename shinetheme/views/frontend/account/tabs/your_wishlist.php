@@ -58,9 +58,9 @@ $types = WPBooking_Service_Controller::inst()->get_service_types();
 <?php } ?>
 <div class="wpbooking-account-services">
     <?php if (!empty($res)) {
-        $title = sprintf('You are wishing %d service(s)',$total_item);
+        $title = sprintf(esc_html__('You are wishing %d service(s)', 'wpbooking'),$total_item);
         if($service_type and $service_type_object=WPBooking_Service_Controller::inst()->get_service_type($service_type)){
-            $title=sprintf('You are wishing %d %s(s)',$total_item,strtolower($service_type_object->get_info('label')));
+            $title=sprintf(esc_html__('You are wishing %d %s(s)','wpbooking'),$total_item,strtolower($service_type_object->get_info('label')));
         }
         echo "<div class='lable'>{$title}</div>";
         global $post;

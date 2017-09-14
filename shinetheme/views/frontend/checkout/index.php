@@ -64,7 +64,7 @@ if(!$allow_guest_checkout and !is_user_logged_in()){
                                 <input type="checkbox" id="term_condition" name="term_condition"  value="1">
                                 <?php
                                 $page_term_condition = wpbooking_get_option('term-page');
-                                $link = '<a target="_blank" class="term_condition" href="'.esc_url(get_permalink($page_term_condition)).'">'.esc_attr__("terms and conditions").'</a>';
+                                $link = '<a target="_blank" class="term_condition" href="'.esc_url(get_permalink($page_term_condition)).'">'.esc_attr__("terms and conditions", 'wpbooking').'</a>';
                                 printf(esc_html__("I have read and accepted the %s","wpbooking"),$link);
                                 ?>
                             </label>

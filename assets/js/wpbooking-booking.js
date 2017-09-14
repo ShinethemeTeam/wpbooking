@@ -49,8 +49,6 @@ jQuery(document).ready(function($){
 
         var data=form.serialize();
 
-        console.log(data);
-
         $.ajax({
             url:wpbooking_params.ajax_url,
             data:data,
@@ -334,7 +332,6 @@ jQuery(document).ready(function($){
     $('.wpbooking-search-form-wrap').each(function(){
         var start=$(this).find('.wpbooking-date-start');
         var end=$(this).find('.wpbooking-date-end');
-        console.log(start);
         start.datepicker(
             {
                 minDate:0,
@@ -549,7 +546,6 @@ jQuery(document).ready(function($){
                 searchbox.removeClass('loading');
                 searchbox.find('.btn-do-search-room').removeClass('loading');
                 content_pagination_room.html('');
-                console.log(data);
                 if (data.status) {
                     if (typeof data.data != "undefined" && data.data) {
                         content_list_room.html(data.data);
@@ -870,7 +866,7 @@ jQuery(document).ready(function($){
     });
     order_end_date.datepicker({minDate:0,
         onClose:function(){
-            console.log(2);
+
         },
         onSelect:function(selected) {
             if(selected){
@@ -1062,7 +1058,6 @@ jQuery(document).ready(function($){
 
             form_filter.find('.wb-required').each(function(){
                 if($(this).val()==false){
-                    console.log($(this));
                     is_validated=false;
                     $(this).addClass('wb-error');
                     $(this).closest('.item-search').addClass('wb-error');
@@ -1963,7 +1958,6 @@ jQuery(document).ready(function($){
         $(this).each(function(){
             var number = $(this).val();
             number = parseFloat(number);
-            console.log(number);
             if (isNaN(number)) {
                 number = 0;
             }

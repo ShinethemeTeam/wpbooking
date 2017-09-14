@@ -105,7 +105,7 @@ $type_id=!empty($data['service_type'])?$data['service_type']:false;
 									<option value="no"><?php esc_html_e('No','wpbooking') ?></option>
 									<option value="yes"><?php esc_html_e('Yes','wpbooking') ?></option>
 								</select>
-								<span class="help_inline"><?php esc_html_e('Required') ?></span>
+								<span class="help_inline"><?php esc_html_e('Required', 'wpbooking') ?></span>
 							</div>
 						</div>
 					</div>

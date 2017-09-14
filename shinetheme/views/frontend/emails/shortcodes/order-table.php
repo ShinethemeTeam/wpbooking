@@ -81,7 +81,7 @@ $service_type=$order_data['service_type'];
                     ?>
                     <span class="total-title color"> <?php esc_html_e('Deposit/Pay Now', 'wpbooking') ?></span>
                     <span class="total-amount color"><?php echo WPBooking_Currency::format_money($price_deposit); ?></span>
-                    <span class="total-title bold"><?php esc_html_e('You’ll pay at the property', 'wpbooking') ?></span>
+                    <span class="total-title bold"><?php esc_html_e('You\'ll pay at the property', 'wpbooking') ?></span>
                     <span class="total-amount bold"><?php echo WPBooking_Currency::format_money($property); ?></span>
                 <?php } ?>
             </div>

@@ -199,7 +199,7 @@ if(!function_exists('wpbooking_pagination_room')){
         $number = ceil($max / $posts_per_page);
         $html = ' <div class="wpbooking-pagination paged_room">';
         if($paged > 1){
-            $html.= ' <a class="page-numbers" data-page="'.($paged-1).'">'.__('Previous',"helios").'</a> ';
+            $html.= ' <a class="page-numbers" data-page="'.($paged-1).'">'.__('Previous',"wpbooking").'</a> ';
         }
         for($i=1 ; $i<= $number  ; $i++){
             if($i == $paged){
@@ -209,7 +209,7 @@ if(!function_exists('wpbooking_pagination_room')){
             }
         }
         if($paged < $i-1){
-            $html.= ' <a class="page-numbers" data-page="'.($paged+1).'">'.__( 'Next', "helios" ).'</a>';
+            $html.= ' <a class="page-numbers" data-page="'.($paged+1).'">'.__( 'Next', "wpbooking" ).'</a>';
         }
         $html .= '</div>';
         return $html;

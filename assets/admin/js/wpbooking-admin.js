@@ -522,7 +522,6 @@ jQuery(document).ready(function( $ ){
                     var selection = state.get('selection');
                     if ( ! selection ) return;
                     selection.each(function(attachment) {
-                        console.log(attachment);
                         container.find('#st_url_media').val(attachment.attributes.url);
                         container.find('#demo_img').attr("src",attachment.attributes.url).show();
                     });
@@ -563,9 +562,7 @@ jQuery(document).ready(function( $ ){
         }else{
             var crop = 'off';
         }
-        console.log(crop);
         var value = width+","+height+","+crop;
-        console.log(value);
         container.find('.data_value').val(value);
     }
 
@@ -651,7 +648,6 @@ jQuery(document).ready(function( $ ){
         $(this).keyup(function () {
             var $value = $(this).val();
             var container = $(this).parent().parent().parent().parent().parent().parent().parent();
-            console.log(container);
             container.find('.list-title').html($value);
         });
     });
@@ -676,7 +672,6 @@ jQuery(document).ready(function( $ ){
 
         if( $('.wpbooking-gmap-wrapper').length ){
             $('.wpbooking-gmap-wrapper').each(function(index, el) {
-                console.log('map load ...');
                 var t = $(this);
                 var gmap = $('.gmap-content', t);
                 var map_lat = parseFloat( $('input[name="map_lat"]', t).val() );
@@ -711,7 +706,6 @@ jQuery(document).ready(function( $ ){
                         },
                     };
                 }
-                console.log(obj);
                 gmap.gmap3(obj);
                 var gmap_obj = gmap.gmap3('get');
                 // Map Click
@@ -898,7 +892,6 @@ jQuery(document).ready(function( $ ){
             var flask = new CodeFlask;
             var me=$(this);
             var next=me.next('textarea');
-            console.log('#'+$(this).attr('id'));
             flask.run('#'+$(this).attr('id'),{
                 language: 'css'
             });
@@ -975,7 +968,6 @@ jQuery(document).ready(function( $ ){
            s.removeClass('active');
            $(this).parent().find('.wpbooking-metabox-accordion-content').slideDown('fast');
            $(this).parent().addClass('active');
-            console.log(1);
            $(window).trigger('resize');
        }
     });
@@ -1103,7 +1095,6 @@ jQuery(document).ready(function( $ ){
     }
 
     function wpbooking_reload_image_room(data) {
-        console.log(data.name);
         data = data.serialize()
         data+='&action=wpbooking_reload_image_list_room';
         $.ajax({
@@ -1129,7 +1120,6 @@ jQuery(document).ready(function( $ ){
         var list_terms=$(this).closest('.st-metabox-right').find('.list-terms-checkbox');
         var term_name=parent.find('.term-name').val();
         var tax_name=me.data('tax');
-        console.log(term_name);
         if(!term_name) return false;
 
         parent.addClass('loading');
@@ -1927,7 +1917,6 @@ jQuery(document).ready(function( $ ){
         $(this).each(function(){
             var number = $(this).val();
             number = parseFloat(number);
-            console.log(number);
             if (isNaN(number)) {
                 var min = $(this).attr('min');
                 if(min != undefined && min != ''){
@@ -2170,7 +2159,6 @@ jQuery(document).ready(function( $ ){
                     if(res.paged == 1){
                         $('.result-text .ex-from').text(1);
                     }
-                    console.log(res.data.post_count);
                     $('.result-text .ex-to').text(res.posts_per_page*res.paged);
                     if(res.paged == res.data.max_pages){
                         $('.result-text .ex-to').text(res.data.post_count);

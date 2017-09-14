@@ -111,7 +111,7 @@ $query=new WP_Query($args);
 				</th>
 				<th class="manage-column column-id sortable">
                     <p class="id"><?php esc_html_e('ID','wpbooking') ?></p>
-                    <p class="status"><?php esc_html_e('Status – Method of Payment','wpbooking') ?></p>
+                    <p class="status"><?php esc_html_e('Status - Method of Payment','wpbooking') ?></p>
                     <p class="customer"><?php esc_html_e('Customer Information','wpbooking') ?></p>
                 </th>
 				<th class="manage-column column-primary"> <span class="wb-left-label"><?php esc_html_e('Booking Information','wpbooking') ?></span><span class="wb-right-label"><?php echo esc_html__('Total (Deposit/Remain) ','wpbooking').'('.WPBooking_Currency::get_current_currency('currency').')'?></span></th>

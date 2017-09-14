@@ -89,9 +89,6 @@ $type_array=array(
 			</ul>
 		</div>
 		<div class="report-content">
-            <?
-
-            ?>
 			<?php
             $start = strtotime($start_date);
             $end = strtotime($end_date);
@@ -128,31 +125,31 @@ $type_array=array(
                         <td class="wb-report-d-column wb-net-profit"><?php echo WPBooking_Currency::format_money($net_profit); ?></td>
                         <td class="wb-report-d-column">
                             <span class="number"><?php echo esc_attr($items)?></span>
-                            <?php echo _n('item','items',wpbooking_covert_to_one($items)); ?>
+                            <?php echo _n('item','items',wpbooking_covert_to_one($items), 'wpbooking'); ?>
                         </td>
                         <td class="wb-report-d-column">
                             <span class="number"><?php echo esc_attr($total_bookings)?></span>
-                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($total_bookings)); ?>
+                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($total_bookings), 'wpbooking'); ?>
                         </td>
                         <td class="wb-report-d-column">
                             <span class="number"><?php echo esc_attr($completed)?></span>
-                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($completed)); ?>
+                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($completed), 'wpbooking'); ?>
                         </td>
                         <td class="wb-report-d-column">
                             <span class="number"><?php echo esc_attr($completed_a_part)?></span>
-                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($completed_a_part)); ?>
+                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($completed_a_part), 'wpbooking'); ?>
                         </td>
                         <td class="wb-report-d-column">
                             <span class="number"><?php echo esc_attr($on_hold)?></span>
-                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($on_hold)); ?>
+                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($on_hold), 'wpbooking'); ?>
                         </td>
                         <td class="wb-report-d-column">
                             <span class="number"><?php echo esc_attr($cancelled)?></span>
-                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($cancelled)); ?>
+                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($cancelled), 'wpbooking'); ?>
                         </td>
                         <td class="wb-report-d-column">
                             <span class="number"><?php echo esc_attr($refunded)?></span>
-                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($refunded)); ?>
+                            <?php echo _n('booking','bookings',wpbooking_covert_to_one($refunded), 'wpbooking'); ?>
                         </td>
                     </tr>
                 </table>

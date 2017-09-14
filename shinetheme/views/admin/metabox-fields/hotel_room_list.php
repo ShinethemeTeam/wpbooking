@@ -104,7 +104,7 @@ if($query->found_posts < 1){
                 </div>
             </div>
             <div class="wb-no-room-message hidden">
-                <span><?php echo esc_html__('There isn\'t room you listing'); ?> <a href="#" data-hotel-id="<?php echo esc_attr($post_id)?> " class="create-room"><?php esc_html_e('Create New Room','wpbooking') ?></a></span>
+                <span><?php echo esc_html__('There isn\'t room you listing', 'wpbooking'); ?> <a href="#" data-hotel-id="<?php echo esc_attr($post_id)?> " class="create-room"><?php esc_html_e('Create New Room','wpbooking') ?></a></span>
             </div>
         </div>
     </div>

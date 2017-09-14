@@ -45,7 +45,7 @@ $tax_total=0;
             <span class="total-title text-color"> <?php esc_html_e('Deposit/Pay Now', 'wpbooking') ?></span>
             <span class="total-amount text-color"><?php echo WPBooking_Currency::format_money($price_deposit); ?></span>
 
-            <span class="total-title text-bold"><?php esc_html_e('You’ll pay at the property', 'wpbooking') ?></span>
+            <span class="total-title text-bold"><?php esc_html_e('You\'ll pay at the property', 'wpbooking') ?></span>
             <span class="total-amount text-bold"><?php echo WPBooking_Currency::format_money($property); ?></span>
         <?php } ?>
     </div>

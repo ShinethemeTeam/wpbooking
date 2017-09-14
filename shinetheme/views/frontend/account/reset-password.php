@@ -18,7 +18,7 @@ if(WPBooking_Session::get('error_rs_field')){
     <h3 class="form-title"><?php esc_html_e('Reset Password','wpbooking'); ?></h3>
     <div class="form-group-wrap">
         <div class="form-group">
-            <label for="new_password" class="control-label"><?php esc_html_e('New Password')?> <span class="required">*</span></label>
+            <label for="new_password" class="control-label"><?php esc_html_e('New Password', 'wpbooking')?> <span class="required">*</span></label>
             <input type="password" required name="new_password" id="new_password" class="form-control <?php echo (array_key_exists('new_password',$error_fields)?'wb-error':''); ?>" value="">
         </div>
         <div class="form-group">
@@ -26,10 +26,10 @@ if(WPBooking_Session::get('error_rs_field')){
             <input type="password" required name="confirm_password" id="confirm_password" class="form-control <?php echo (array_key_exists('confirm_password',$error_fields)?'wb-error':''); ?>" value="">
         </div>
         <div class="form-group">
-            <p class="note"><?php echo esc_html__('Tips: Use 8 characters at least. Don’t re-use passwords from other websites or include obvious words like your name or email.','wpbooking')?></p>
+            <p class="note"><?php echo esc_html__('Tips: Use 8 characters at least. Don\'t re-use passwords from other websites or include obvious words like your name or email.','wpbooking')?></p>
         </div>
         <div class="form-group">
-            <button class="wb-btn wb-btn-default wb-btn-lg" type="submit"><?php echo esc_html__('Reset Password'); ?></button>
+            <button class="wb-btn wb-btn-default wb-btn-lg" type="submit"><?php echo esc_html__('Reset Password', 'wpbooking'); ?></button>
         </div>
     </div>
     <?php

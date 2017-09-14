@@ -102,7 +102,7 @@ $config['settings'] = array(
                         'id'          => 'google_api_key',
                         'label'       => esc_html__("Google API key", 'wpbooking'),
                         'type'        => 'text',
-                        'desc'  => sprintf(esc_html__('You can get Google API %s'),'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key">here</a>'),
+                        'desc'  => sprintf(esc_html__('You can get Google API %s', 'wpbooking'),'<a href="'.esc_url('https://developers.google.com/maps/documentation/javascript/get-api-key').'">here</a>'),
                     ),
 				)
 			),
@@ -200,7 +200,7 @@ $config['settings'] = array(
 						'id'    => 'email_stylesheet',
 						'label' => esc_html__("Email CSS Code", 'wpbooking'),
 						'type'  => 'ace-editor',
-						'desc'  => esc_html__('We will use this to transmogrify your Email HTML by parsing the CSS and inserting the CSS definitions into tags within your Email HTML based on the CSS selectors'),
+						'desc'  => esc_html__('We will use this to transmogrify your Email HTML by parsing the CSS and inserting the CSS definitions into tags within your Email HTML based on the CSS selectors', 'wpbooking'),
 					),
 				)
 			),
