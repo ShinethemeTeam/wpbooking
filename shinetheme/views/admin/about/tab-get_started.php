@@ -63,7 +63,7 @@
         </div>
         <div class="step">
             <div class="left">
-                <h3><?php echo esc_html__('Create accommodation’s room','wpbooking')?></h3>
+                <h3><?php echo esc_html__('Create accommodation\'s room','wpbooking')?></h3>
                 <p><?php echo esc_html__('Each accommodation often has multiple rooms. These rooms are created in a accommodation. Including:','wpbooking');?></p>
                 <ul>
                     <li><?php echo esc_html__('Basic information: name, number of rooms','wpbooking')?></li>
@@ -120,9 +120,9 @@
     <div class="footer">
         <h3 class="question"><?php echo esc_html__('Make questions?', 'wpbooking'); ?></h3>
         <div class="link">
-            <a href="https://wpbooking.org" target="_blank"><?php echo esc_html__('Need any Help?','wpbooking')?></a>
-            <a href="https://wpbooking.org/pricing-fqa" target="_blank"><?php echo esc_html__('FAQ','wpbooking')?></a>
-            <a href="https://wpbooking.org" target="_blank"><?php echo esc_html__('Submit a Ticket?','wpbooking')?></a>
+            <a href="<?php echo esc_url('https://wpbooking.org'); ?>" target="_blank"><?php echo esc_html__('Need any Help?','wpbooking')?></a>
+            <a href="<?php echo esc_url('https://wpbooking.org/pricing-fqa'); ?>" target="_blank"><?php echo esc_html__('FAQ','wpbooking')?></a>
+            <a href="<?php echo esc_url('https://wpbooking.org'); ?>" target="_blank"><?php echo esc_html__('Submit a Ticket?','wpbooking')?></a>
         </div>
     </div>
 </div>

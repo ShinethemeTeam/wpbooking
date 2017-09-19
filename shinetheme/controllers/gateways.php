@@ -104,7 +104,7 @@ if(!class_exists('WPBooking_Payment_Gateways'))
 						<?php printf(esc_html__('You must upgrade your PHP version to 5.3.0 at least to use WPBooking Plugin. Your current version is %s','wpbooking'),phpversion()) ?>
 					</strong>
 				</p>
-				<button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php esc_html_e('Dismiss this notice.','travel-booking')?></span></button>
+				<button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php esc_html_e('Dismiss this notice.','wpbooking')?></span></button>
 			</div>
 			<?php
 		}

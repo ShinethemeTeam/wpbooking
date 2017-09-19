@@ -1054,7 +1054,6 @@ jQuery(document).ready(function($){
 
             form_filter.find('.wb-required').each(function(){
                 if($(this).val()==false){
-
                     is_validated=false;
                     $(this).addClass('wb-error');
                     $(this).closest('.item-search').addClass('wb-error');

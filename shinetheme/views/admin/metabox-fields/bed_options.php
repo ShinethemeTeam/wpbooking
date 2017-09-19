@@ -152,7 +152,7 @@ $field = '';
                 <div class="form-group">
                     <label>
                         <input type="checkbox" name="<?php echo esc_attr($name) ?>_single_private_bathroom"
-                               value="1" <?php checked(get_post_meta($post_id, $name . '_single_private_bathroom', true),1) ?> > <?php esc_html_e('Yes') ?>
+                               value="1" <?php checked(get_post_meta($post_id, $name . '_single_private_bathroom', true),1) ?> > <?php esc_html_e('Yes', 'wpbooking') ?>
                     </label>
                 </div>
             </div>
@@ -287,7 +287,7 @@ $field = '';
                     <div class="form-group">
                         <label>
                             <input type="checkbox" name="<?php echo esc_attr($name) ?>_multi_[__number_room__][private_bath]"
-                                   value="1" <?php checked($multi_meta['private_bath'],1) ?> > <?php esc_html_e('Yes') ?>
+                                   value="1" <?php checked($multi_meta['private_bath'],1) ?> > <?php esc_html_e('Yes', 'wpbooking') ?>
                         </label>
                     </div>
                 </div>
@@ -441,7 +441,7 @@ $field = '';
                             <div class="form-group">
                                 <label>
                                     <input type="checkbox" name="<?php echo esc_attr($name) ?>_multi_[<?php echo esc_html($i) ?>][private_bath]"
-                                           value="1" <?php checked($data_multi_meta['private_bath'],1) ?> > <?php esc_html_e('Yes') ?>
+                                           value="1" <?php checked($data_multi_meta['private_bath'],1) ?> > <?php esc_html_e('Yes', 'wpbooking') ?>
                                 </label>
                             </div>
                         </div>

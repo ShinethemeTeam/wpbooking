@@ -29,12 +29,12 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                 ),
                 array(
                     'id'    => "thumb_size",
-                    'label' => esc_html__("Thumb Size", 'travel-booking'),
+                    'label' => esc_html__("Thumb Size", 'wpbooking'),
                     'type'  => 'image-size'
                 ),
                 array(
                     'id'    => "gallery_size",
-                    'label' => esc_html__("Gallery Size", 'travel-booking'),
+                    'label' => esc_html__("Gallery Size", 'wpbooking'),
                     'type'  => 'image-size'
                 ),
             );
@@ -1004,7 +1004,7 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                             'rules'           => 'required'
                         ),
                         array(
-                            'label' => esc_html__('Map’s Latitude & Longitude', 'wpbooking'),
+                            'label' => esc_html__('Map\'s Latitude & Longitude', 'wpbooking'),
                             'id'    => 'gmap',
                             'type'  => 'gmap',
                             'desc'  => esc_html__('This is the location we will provide for guests. Click to move the marker if you need to move it', 'wpbooking')

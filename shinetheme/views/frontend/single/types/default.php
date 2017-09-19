@@ -275,10 +275,10 @@ $hotel_id=get_the_ID();
             $array = array(
                 'vat_excluded'          => '',
                 'vat_unit'          => '',
-                'vat_amount' => esc_html__('V.A.T: %s &nbsp;&nbsp;'),
+                'vat_amount' => esc_html__('V.A.T: %s &nbsp;&nbsp;', 'wpbooking'),
                 'citytax_excluded' => '',
                 'citytax_unit' => '',
-                'citytax_amount' => esc_html__('City tax: %s'),
+                'citytax_amount' => esc_html__('City tax: %s', 'wpbooking'),
             );
             $citytax_unit = array(
                 'stay' => esc_html__(' /stay','wpbooking'),

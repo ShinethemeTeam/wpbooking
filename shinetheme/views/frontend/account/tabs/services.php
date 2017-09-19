@@ -36,9 +36,9 @@ $types = WPBooking_Service_Controller::inst()->get_service_types();
 <?php } ?>
 	<div class="wpbooking-account-services">
 		<?php if ($query->have_posts()) {
-			$title = sprintf('You have %d service(s)',$query->found_posts);
+			$title = sprintf(esc_html__('You have %d service(s),','wpbooking'),$query->found_posts);
 			if($service_type and $service_type_object=WPBooking_Service_Controller::inst()->get_service_type($service_type)){
-				$title=sprintf('You have %d %s(s)',$query->found_posts,strtolower($service_type_object->get_info('label')));
+				$title=sprintf(esc_html__('You have %d %s(s)','wpbooking'),$query->found_posts,strtolower($service_type_object->get_info('label')));
 			}
 
 			while($query->have_posts()){

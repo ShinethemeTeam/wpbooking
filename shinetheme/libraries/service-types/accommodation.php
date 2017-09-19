@@ -426,7 +426,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 'singular_name'      => esc_html__('Accommodation Room','wpbooking'),
                 'menu_name'          => esc_html__('Accommodation Room','wpbooking'),
                 'name_admin_bar'     => esc_html__('Accommodation Room','wpbooking'),
-                'add_new'            => esc_html__('Add New', 'Accommodation Room', 'wpbooking'),
+                'add_new'            => esc_html__('Add New', 'wpbooking'),
                 'add_new_item'       => esc_html__('Add New Accommodation Room', 'wpbooking'),
                 'new_item'           => esc_html__('New Accommodation Room', 'wpbooking'),
                 'edit_item'          => esc_html__('Edit Accommodation Room', 'wpbooking'),
@@ -576,7 +576,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                             )
                         ),
                         array(
-                            'label' => esc_html__('Map’s Latitude & Longitude', 'wpbooking'),
+                            'label' => esc_html__('Map\'s Latitude & Longitude', 'wpbooking'),
                             'id'    => 'gmap',
                             'type'  => 'gmap',
                             'desc'  => esc_html__('This is the location we will provide for guests. Click to move the marker if you need to move it', 'wpbooking')
@@ -1313,7 +1313,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             if($query->found_posts){
                 $text_count=sprintf('<span class="n text-color">%d </span><b>%s</b> ',$query->found_posts,esc_html__('room type(s)','wpbooking'));
                 if($total_room){
-                    $text_count.=sprintf(esc_html__('with %s ','wpbooking'),sprintf('<span class="n text-color">%d </span><b>%s</b>',$total_room,esc_html__('room(s)')));
+                    $text_count.=sprintf(esc_html__('with %s ','wpbooking'),sprintf('<span class="n text-color">%d </span><b>%s</b>',$total_room,esc_html__('room(s)', 'wpbooking')));
                 }
                 $html='<div class="room-count">'.sprintf(esc_html__('There are %s in your listing','wpbooking'),$text_count).'</div>';
             }else{

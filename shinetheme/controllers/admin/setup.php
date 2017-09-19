@@ -822,7 +822,7 @@ a.label:hover, a.label:focus {
                                 <a href="#"><img src="'.wpbooking_assets_url('images/twitter.png').'"/></a>
                                 <a href="#"><img src="'.wpbooking_assets_url('images/google.png').'"/></a>
                                 <a href="#"><img src="'.wpbooking_assets_url('images/linkedin.png').'"/></a>
-                                <p>Copyright © WP Booking. All rights reserved.</p>
+                                <p>Copyright &copy; WP Booking. All rights reserved.</p>
                             </div>
                         </div>';
                     break;

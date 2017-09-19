@@ -9,7 +9,7 @@ jQuery(document).ready(function( $ ){
         var url = container.find('.url_layout').data('url');
         url = url.replace(/__form__id/g, value);
         container.find('.url_layout').attr('href',url);
-        console.log(url);
+
     });
 
     $(".btn_del_layout").click(function(){
@@ -65,7 +65,6 @@ jQuery(document).ready(function( $ ){
     $(document).on('keyup change','.content-flied-control .item',function(){
         var container  = $(this).parent().parent().parent().parent();
         var name_shortcode = $(this).data('name-shortcode');
-        console.log(name_shortcode);
         var shortcode = "["+name_shortcode;
         var content = "";
         container.find('.item').each(function(){
@@ -118,7 +117,6 @@ jQuery(document).ready(function( $ ){
         var post_type = $(this).data('post-type');
         var number = $(this).attr("data-number");
         var name_field_search = $(this).attr("data-name-field-search");
-        console.log(number);
         var item_html = container_full.find('.div_content_hide_'+post_type).html();
         item_html = item_html.replace(/__number__/g, number);
         item_html = item_html.replace(/__name_field_search__/g, name_field_search);
@@ -144,7 +142,6 @@ jQuery(document).ready(function( $ ){
     $(document).on('change','.option_service_search_form',function(){
         var container = $(this).parent().parent().parent();
         var post_type = $(this).val();
-        console.log(post_type);
         container.find(".list_item_widget").hide();
         container.find(".div_content_"+post_type).show();
     });
@@ -168,7 +165,6 @@ jQuery(document).ready(function( $ ){
         }else{
             container.find('.control-hide').hide(500);
         }
-         console.log(check);
     });
 
     /////////////////////////////////

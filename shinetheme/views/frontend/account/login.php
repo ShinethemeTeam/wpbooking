@@ -34,7 +34,7 @@ if(!empty(WPBooking()->get('error_code'))){
 		<a href="<?php echo esc_url(wp_lostpassword_url()); ?>" class="lost-password"><?php esc_html_e('Is your password lost?','wpbooking') ?></a>
         <?php if(wpbooking_is_any_register()){ ?>
             <hr>
-            <p class="register-url"><?php echo esc_html__('Don\'t have an account yet? ');?><a href="<?php echo WPBooking_User::inst()->get_register_url(); ?>"><?php echo esc_html__('Create an account','wpbooking'); ?></a></p>
+            <p class="register-url"><?php echo esc_html__('Don\'t have an account yet? ', 'wpbooking');?><a href="<?php echo WPBooking_User::inst()->get_register_url(); ?>"><?php echo esc_html__('Create an account','wpbooking'); ?></a></p>
         	<?php do_action("wpbooking_after_register_user_link") ?>
 		<?php } ?>
 	</div>

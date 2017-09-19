@@ -8,6 +8,6 @@
 
 ?>
 <div class="wb-breadcrumb-room wb-room-form">
-    <a href="#" class="wb-all-rooms"><?php echo esc_html__('Room details','wpbookinf'); ?></a> /
+    <a href="#" class="wb-all-rooms"><?php echo esc_html__('Room details','wpbooking'); ?></a> /
     <span><?php echo ($data['new_text'])?></span>
 </div>
