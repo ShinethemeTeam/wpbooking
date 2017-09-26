@@ -136,7 +136,6 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					}
 
 					$price = WPBooking_Input::post('price', '');
-
                     if($price and $price < 0){
                         echo json_encode( array(
                             'status' => 0,
@@ -577,8 +576,6 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 
 			$result = $wpdb->get_results( $sql, ARRAY_A );
 
-            $service_type = get_post_meta( $base_id ,'service_type', true);
-
 			$return = array();
 
 			if( !empty( $result ) ){
@@ -590,7 +587,7 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 						'start' => date( 'Y-m-d', $item['start'] ),
 						'end' => date('Y-m-d', strtotime( '+1 day', $item['end'] ) ),
 						'price' => (float) $item['price'],
-						'price_text' => ($service_type == 'tour')?WPBooking_Currency::format_money($item['calendar_price']):WPBooking_Currency::format_money($item['price']),
+						'price_text' => WPBooking_Currency::format_money($item['price']),
 						'weekly' => (float) $item['weekly'],
 						'monthly' => (float) $item['monthly'],
 						'status' => $item['status'],
@@ -612,7 +609,6 @@ if( !class_exists('WPBooking_Calendar_Metabox') ){
 					$return[] =$item_array;
 				}
 			}
-
 			return $return;
 		}
 

@@ -5,6 +5,7 @@ if(!function_exists('wpbooking_admin_load_view')) {
 		$file=WPBooking()->get_dir('shinetheme/views/admin/'.$view.'.php');
 
         $file=apply_filters('wpbooking_admin_load_view_'.$view,$file,$view,$data);
+		$file=apply_filters('wpbooking_admin_load_view',$file,$view,$data);
 
 		if(file_exists($file)){
 
