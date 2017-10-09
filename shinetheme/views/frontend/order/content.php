@@ -105,7 +105,13 @@ do_action('wpbooking_before_order_content');
                                 if($unit == 'fixed') $vat_amount = '';
                                 ?>
                                 <span class="total-title">
-                                    <?php  echo sprintf(esc_html__("%s V.A.T",'wpbooking'),$vat_amount); ?>
+                                    <?php
+                                    if($tax['vat']['excluded'] == 'yes_included'){
+                                        echo sprintf(esc_html__("%s V.A.T (included)",'wpbooking'),$vat_amount);
+                                    }else{
+                                        echo sprintf(esc_html__("%s V.A.T",'wpbooking'),$vat_amount);
+                                    }
+                                    ?>
                                 </span>
                                 <span class="total-amount"><?php echo WPBooking_Currency::format_money($tax['vat']['price']); ?></span>
                             <?php } ?>

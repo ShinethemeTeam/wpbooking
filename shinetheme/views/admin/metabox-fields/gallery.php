@@ -8,6 +8,9 @@ $old_data = esc_html( $data['std'] );
 $value = get_post_meta( $post_id, esc_html( $data['id'] ), true );
 
 if( !empty( $value ) ){
+    if(is_array($value)){
+        $value = $value['gallery'];
+    }
 	$old_data = $value;
 }
 
@@ -28,6 +31,7 @@ $field = '<div class="st-metabox-content-wrapper wpbooking-settings"><div class=
 $field .= '<input type="text" id="fg_metadata" class="fg_metadata none" value="'. esc_html( $old_data ) .'" name="'. $name .'">
 			<br>
         <div class="featuredgallerydiv max-width-500">';
+
 $tmp = explode( ',', $old_data );
 
 if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){

@@ -189,65 +189,9 @@ $query=new WP_Query($args);
 								<?php do_action("wpbooking_admin_after_order_detail_total_price",get_the_ID(),$order_data) ?>
                             </span>
                             <ul class="none wb-booking-detail">
-                                <?php
-                                if($service_type == 'tour') {
-                                    if(!empty($order_data['raw_data'])){
-                                        $raw_data = json_decode($order_data['raw_data']);
-                                        if(!empty($raw_data->pricing_type)){
-                                            if(!empty($raw_data->adult_number)){
-                                                $calendar_price = ($raw_data->pricing_type == 'per_person')?$raw_data->calendar->adult_price:$raw_data->calendar->calendar_price;
-                                                echo '<li class="wb-room-item"><span class="wb-room-name"><strong>'.esc_html__('Adult','wpbooking').' x '.esc_html($raw_data->adult_number).'</strong></span>';
-                                                echo '<span class="wb-room-price">' . WPBooking_Currency::format_money($calendar_price) . '</span>';
-                                                echo '</li>';
-                                            }
-                                            if(!empty($raw_data->children_number)){
-                                                $calendar_price = ($raw_data->pricing_type == 'per_person')?$raw_data->calendar->child_price:$raw_data->calendar->calendar_price;
-                                                echo '<li class="wb-room-item"><span class="wb-room-name"><strong>'.esc_html__('Children','wpbooking').' x '.esc_html($raw_data->children_number).'</strong></span>';
-                                                echo '<span class="wb-room-price">' . WPBooking_Currency::format_money($calendar_price) . '</span>';
-                                                echo '</li>';
-                                            }
-                                            if(!empty($raw_data->infant_number)){
-                                                $calendar_price = ($raw_data->pricing_type == 'per_person')?$raw_data->calendar->infant_price:$raw_data->calendar->calendar_price;
-                                                echo '<li class="wb-room-item"><span class="wb-room-name"><strong>'.esc_html__('Infant','wpbooking').' x '.esc_html($raw_data->infant_number).'</strong></span>';
-                                                echo '<span class="wb-room-price">' . WPBooking_Currency::format_money($calendar_price) . '</span>';
-                                                echo '</li>';
-                                            }
-                                        }
 
-										$extra_fees = unserialize($order_data['extra_fees']);
-										if(!empty($extra_fees)){
-											foreach($extra_fees as $k=>$v){
-												echo '<li class=""><span class="wb-room-name"><strong>'.$v['title'].'</strong></span>';
-												echo '</li>';
-												if(!empty($v['data'])){
-													foreach($v['data'] as $key=>$value){
-														echo '<li class="wb-room-item"><span class="wb-room-name"><strong>&nbsp&nbsp&nbsp&nbsp'.$value['title'].' x '.$value['quantity'].'</strong></span>';
-														echo '<span class="wb-room-price">' . WPBooking_Currency::format_money($value['quantity'] * $value['price']) . '</span>';
-														echo '</li>';
-													}
-												}
-											}
-										}
-                                    }
+								<?php do_action("wpbooking_admin_after_order_detail_other_info_".$service_type,get_the_ID(),$order_data) ?>
 
-                                }else{
-                                    echo '<li>'.esc_html__('Rooms: ','wpbooking').'</li>';
-                                    foreach ($room_data as $key => $value) {
-                                        $extra_fees = unserialize($value['extra_fees']);
-                                        $price = WPBooking_Currency::format_money($value['price']);
-                                        echo '<li class="wb-room-item"><span class="wb-room-name"><strong>' . get_the_title($value['room_id']) . ' x' . esc_html($value['number']) . '</strong></span>';
-                                        echo '<span class="wb-room-price">' . do_shortcode($price) . '</span>';
-                                        echo '</li>';
-                                        if (!empty($extra_fees['extra_service']['data']) && is_array($extra_fees['extra_service']['data'])) {
-                                            foreach ($extra_fees['extra_service']['data'] as $k => $v) {
-                                                echo '<li class="wb-room-item"><span class="wb-extra-title">' . esc_html($v['title']) . ' x' . esc_html($v['quantity']) . '</span>';
-                                                echo '<span class="wb-extra-price">' . WPBooking_Currency::format_money($v['price']) . '</span>';
-                                                echo '</li>';
-                                            }
-                                        }
-                                    }
-                                }
-                                ?>
                             </ul>
                             <button type="button" class="toggle-row"><span class="screen-reader-text"><?php echo esc_html__('Show more details','wpbooking'); ?></span></button>
 						</td>

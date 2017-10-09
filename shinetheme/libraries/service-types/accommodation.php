@@ -176,6 +176,17 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
 
             add_action('wpbooking_email_detail_item_information_'.$this->type_id, array($this, '_add_information_email_detail_item'),10,2);
 
+
+            /**
+             * Show More Order Info for Booking Admin
+             *
+             * @since 1.0
+             * @author quandq
+             */
+            add_action('wpbooking_admin_after_order_detail_other_info_' . $this->type_id, array($this, '_show_order_info_after_order_detail_in_booking_admin'),10,2);
+
+
+
             /**
              * Delete Item Room
              *
@@ -3003,6 +3014,35 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
             $min_price = WPBooking_Meta_Model::inst()->get_price_accommodation($hotel_id);
             update_post_meta($hotel_id , 'price' , $min_price);
             WPBooking_Service_Model::inst()->save_extra($hotel_id);
+        }
+
+        /**
+         * Show Other Info Order In Booking Admin
+         *
+         * @since 1.0
+         * @author quandq
+         *
+         * @param $order_id
+         * @param $order_data
+         */
+        function _show_order_info_after_order_detail_in_booking_admin($order_id,$order_data){
+            $order=new WB_Order($order_id);
+            $room_data = $order->get_order_room_data();
+            echo '<li>'.esc_html__('Rooms: ','wpbooking').'</li>';
+            foreach ($room_data as $key => $value) {
+                $extra_fees = unserialize($value['extra_fees']);
+                $price = WPBooking_Currency::format_money($value['price']);
+                echo '<li class="wb-room-item"><span class="wb-room-name"><strong>' . get_the_title($value['room_id']) . ' x' . esc_html($value['number']) . '</strong></span>';
+                echo '<span class="wb-room-price">' . do_shortcode($price) . '</span>';
+                echo '</li>';
+                if (!empty($extra_fees['extra_service']['data']) && is_array($extra_fees['extra_service']['data'])) {
+                    foreach ($extra_fees['extra_service']['data'] as $k => $v) {
+                        echo '<li class="wb-room-item"><span class="wb-extra-title">' . esc_html($v['title']) . ' x' . esc_html($v['quantity']) . '</span>';
+                        echo '<span class="wb-extra-price">' . WPBooking_Currency::format_money($v['price']) . '</span>';
+                        echo '</li>';
+                    }
+                }
+            }
         }
 
         static function inst()

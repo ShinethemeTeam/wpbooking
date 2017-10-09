@@ -305,7 +305,7 @@ $age_options=$service->get_meta('age_options');
             <?php
             $array = array(
                 'deposit_payment_status' => '',
-                'deposit_payment_amount' => wp_kses(esc_html__('Deposit: %s &nbsp;&nbsp;<span class="enforced_red">required</span>','wpbooking'),array('span'=>array('class'=>array()))),
+                'deposit_payment_amount' => wp_kses(esc_html__('Deposit: %s &nbsp;&nbsp; required','wpbooking'),array('span'=>array('class'=>array()))),
                 'allow_cancel' => esc_html__('Allowed Cancellation: Yes','wpbooking'),
                 'cancel_free_days_prior' => esc_html__('Time allowed to free: %s','wpbooking'),
                 'cancel_guest_payment' => esc_html__('Fee cancel for booking: %s','wpbooking'),

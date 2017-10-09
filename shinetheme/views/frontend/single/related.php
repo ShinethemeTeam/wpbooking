@@ -12,4 +12,4 @@ if(!$related or !$related->have_posts()) return FALSE;
 	 ?>
 	</div>
 </div>
-<?php wp_reset_postdata();
+<?php wp_reset_query();

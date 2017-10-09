@@ -1897,6 +1897,14 @@ jQuery(document).ready(function( $ ){
         }
     });
 
+    $(document).on('change','.age_adult_min',function(){
+        if(parseInt($(this).val()) > parseInt($(this).closest('.wb-age-options-table').find('.age_adult_max').val())){
+            $('.adult_notice').show();
+        }else{
+            $('.adult_notice').hide();
+        }
+    });
+
     $(document).on('change','.age_child_max',function(){
         if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_child_min').val())){
             $('.adult_notice').show();
@@ -1905,8 +1913,23 @@ jQuery(document).ready(function( $ ){
         }
     });
 
+    $(document).on('change','.age_child_min',function(){
+        if(parseInt($(this).val()) > parseInt($(this).closest('.wb-age-options-table').find('.age_child_max').val())){
+            $('.adult_notice').show();
+        }else{
+            $('.adult_notice').hide();
+        }
+    });
+
     $(document).on('change','.age_infant_max',function(){
         if(parseInt($(this).val()) < parseInt($(this).closest('.wb-age-options-table').find('.age_infant_min').val())){
+            $('.adult_notice').show();
+        }else{
+            $('.adult_notice').hide();
+        }
+    });
+    $(document).on('change','.age_infant_min',function(){
+        if(parseInt($(this).val()) > parseInt($(this).closest('.wb-age-options-table').find('.age_infant_max').val())){
             $('.adult_notice').show();
         }else{
             $('.adult_notice').hide();
