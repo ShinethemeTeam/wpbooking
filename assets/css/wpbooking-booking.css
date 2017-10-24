@@ -188,6 +188,13 @@ a.label:focus {
 .wpbooking-form-group {
   margin-bottom: 15px;
 }
+.wpbooking-check-in-out {
+  height: 0 !important;
+  padding: 0 !important;
+  visibility: hidden;
+  line-height: 0 !important;
+  display: inherit !important;
+}
 /*
 // Rating Review
 */
@@ -710,8 +717,6 @@ a.label:focus {
 .wpbooking-loop-wrap .wpbooking-loop-items.list .loop-item .content-item .service-content .service-content-inner .wpbooking-room-type {
   margin-top: 0px;
 }
-@media (min-width: 1200px) {
-}
 .wpbooking-loop-wrap .wpbooking-loop-items.list .loop-item .content-item .service-content .service-price-book-now {
   margin-top: 0px;
   float: right;
@@ -836,6 +841,35 @@ a.label:focus {
 }
 .wpbooking-container .info-item {
   font-size: 13px;
+}
+.date-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+.date-group .title {
+  width: 100%;
+  font-weight: bold;
+  float: left;
+  margin-bottom: 11px;
+}
+.date-group .item-search {
+  margin-bottom: 0 !important;
+  width: 50%;
+  float: left;
+}
+.date-group .item-search .wpbooking-date-start {
+  border-right: none !important;
+}
+.date-group .item-search .wpbooking-date-end {
+  border-left: none !important;
+  padding-left: 15px !important;
+}
+.date-group .arrow-icon {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  margin-left: -10px;
+  z-index: 1;
 }
 .wb-archive-wrapper {
   padding-left: 8%;
@@ -1178,7 +1212,7 @@ a.label:focus {
 }
 @media (max-width: 480px) {
   .review-order-item .review-order-item-table {
-    overflow-x: auto ;
+    overflow-x: auto;
   }
   .review-order-item .review-order-item-table > table {
     width: 400px;
@@ -1320,7 +1354,7 @@ a.label:focus {
 .wpbooking-service-edit .wpbooking-service-metabox .wpbooking-metabox-accordion .wpbooking-accordion-title {
   cursor: pointer;
   border: 1px solid #d3d3d3;
-  background: #e6e6e6 ;
+  background: #e6e6e6;
   padding: 7px 10px;
   margin-bottom: 0px;
   font-size: 14px;
@@ -3181,7 +3215,7 @@ a.label:focus {
   display: none;
 }
 .wpbooking-coupon-form .wb-coupon-apply:hover {
-  border-bottom: 1px solid #cccccc ;
+  border-bottom: 1px solid #cccccc;
 }
 .wpbooking-coupon-form.loading .loading {
   display: inline-block;
@@ -4995,7 +5029,7 @@ a.label:focus {
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .user-paginate a {
   border: 1px solid #b8b8b8;
   padding: 5px 10px;
-  color: #666666 ;
+  color: #666666;
   text-decoration: none;
 }
 .wpbooking-myaccount-wrap .wpbooking-account-tab.profile .user-reviews .user-paginate .current {
@@ -5582,7 +5616,7 @@ a.label:focus {
   left: auto;
   right: -7px;
   border-width: 10px 0 10px 7px;
-  border-color: transparent  transparent transparent #e6e6e6;
+  border-color: transparent transparent transparent #e6e6e6;
 }
 .wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form:before,
 .wpbooking-myaccount-wrap .reply-inbox .wb-send-message-form:after {
@@ -6952,7 +6986,7 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
 #rc-imageselect,
 .g-recaptcha {
   transform: scale(0.85);
-  -webkit-transform: scale(0.88ss);
+  -webkit-transform: scale(0.88 ss);
   transform-origin: 0 0;
   -webkit-transform-origin: 0 0;
 }
@@ -7018,6 +7052,9 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
 }
 .mgt-10 {
   margin-top: 10px;
+}
+.wb-hide {
+  display: none;
 }
 /*---------- Tour -----------*/
 .wpbooking-single-content .wb-service-contact {

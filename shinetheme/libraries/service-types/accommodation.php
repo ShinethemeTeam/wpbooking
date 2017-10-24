@@ -1843,6 +1843,7 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
          *
          * @since: 1.0
          * @author: quandq
+         * @updated 1.5
          *
          * @return array
          */
@@ -1867,6 +1868,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                 }
             }
 
+            /*
+             * remove check_out field
+             * */
             $search_fields = apply_filters('wpbooking_search_field_'.$this->type_id, array(
                 array(
                     'name'    => 'field_type',
@@ -1875,9 +1879,9 @@ if (!class_exists('WPBooking_Accommodation_Service_Type') and class_exists('WPBo
                     'options' => array(
                         ""            => esc_html__("-- Select --", "wpbooking"),
                         "location_id" => esc_html__("Location Dropdown", "wpbooking"),
-                        "check_in"    => esc_html__("Check In", "wpbooking"),
-                        "check_out"   => esc_html__("Check Out", "wpbooking"),
-                        "adult_child" => esc_html__("Adult And Children", "wpbooking"),
+                        "check_in"    => esc_html__("Date", "wpbooking"),
+                        /*"check_out"   => esc_html__("Check Out", "wpbooking"),*/
+                        "adult_child" => esc_html__("Adult & Children", "wpbooking"),
                         "taxonomy"    => esc_html__("Taxonomy", "wpbooking"),
                         "star_rating" => esc_html__("Star Of Property", "wpbooking"),
                         "price"       => esc_html__("Price", "wpbooking"),
