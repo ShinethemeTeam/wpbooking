@@ -74,12 +74,12 @@ Please see https://.wpbooking.org for more information and ask your questions th
 
 == Screenshots ==
 
-1. Font-end: Single Accommodation
-2. Fong-end: Single Room 
-3. Font-end: Checkout Page
-4. Font-end: Successful booking
-5. Font-end: Booking History
-6. Font-end: Search Results
+1. Front-end: Single Accommodation
+2. Front-end: Single Room
+3. Front-end: Checkout Page
+4. Front-end: Successful booking
+5. Front-end: Booking History
+6. Front-end: Search Results
 7. Back-end: Create New Tour
 8. Back-end: List Rooms in Accommodation
 9. Back-end: Booking Management
@@ -100,6 +100,9 @@ First release
 == Changelog ==
 
 = 1.0: Dec 16, 2016 =
+
+= 1.5 =
+    + Change datepicker style
 
 * WPBooking is born. This release was only available via download at https://wpbooking.org or via GitHub. We consider Dec 16, 2016, WPBooking of birthday.
 
