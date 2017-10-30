@@ -101,8 +101,11 @@ First release
 
 = 1.0: Dec 16, 2016 =
 
-= 1.5 =
+= 1.4: Oct 30, 2017 =
+    + [Fix bug] List of related services
+    + [Fix bug] Convert date format
     + Change datepicker style
+    + Update translation
 
 * WPBooking is born. This release was only available via download at https://wpbooking.org or via GitHub. We consider Dec 16, 2016, WPBooking of birthday.
 

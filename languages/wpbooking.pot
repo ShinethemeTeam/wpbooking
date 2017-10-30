@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPBooking\n"
-"POT-Creation-Date: 2017-10-27 15:26+0700\n"
+"POT-Creation-Date: 2017-10-30 10:36+0700\n"
 "PO-Revision-Date: 2016-05-27 10:45+0700\n"
 "Last-Translator: \n"
 "Language-Team: WpBooking <contact@wpbooking.org>\n"
@@ -800,7 +800,7 @@ msgid "Not found services in Trash."
 msgstr ""
 
 #: shinetheme/controllers/admin/service.php:206
-#: shinetheme/views/frontend/single/types/default.php:131
+#: shinetheme/views/frontend/single/types/default.php:133
 msgid "Amenities"
 msgstr ""
 
@@ -1177,7 +1177,7 @@ msgstr ""
 
 #: shinetheme/controllers/user.php:204
 #: shinetheme/views/frontend/account/register.php:40
-#: shinetheme/views/frontend/single/types/default.php:363
+#: shinetheme/views/frontend/single/types/default.php:366
 #: shinetheme/views/frontend/single/types/tour.php:459
 msgid "Term & Condition"
 msgstr ""
@@ -1437,8 +1437,8 @@ msgid "from %s"
 msgstr ""
 
 #: shinetheme/helpers/service.php:164
-#: shinetheme/views/frontend/single/types/default.php:157
-#: shinetheme/views/frontend/single/types/default.php:161
+#: shinetheme/views/frontend/single/types/default.php:159
+#: shinetheme/views/frontend/single/types/default.php:163
 #, php-format
 msgid "to %s"
 msgstr ""
@@ -2078,7 +2078,7 @@ msgstr ""
 
 #: shinetheme/libraries/service-types/accommodation.php:777
 #: shinetheme/libraries/service-types/tour.php:1201
-#: shinetheme/views/frontend/single/types/default.php:244
+#: shinetheme/views/frontend/single/types/default.php:246
 #: shinetheme/views/frontend/single/types/tour.php:342
 msgid "Day of arrival (6 pm)"
 msgstr ""
@@ -2131,7 +2131,7 @@ msgstr ""
 
 #: shinetheme/libraries/service-types/accommodation.php:801
 #: shinetheme/libraries/service-types/tour.php:1214
-#: shinetheme/views/frontend/single/types/default.php:349
+#: shinetheme/views/frontend/single/types/default.php:352
 #: shinetheme/views/frontend/single/types/tour.php:447
 msgid "Tax"
 msgstr ""
@@ -4015,7 +4015,7 @@ msgid "Extra Service Name"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/extra_services.php:113
-#: shinetheme/views/frontend/single/types/default.php:114
+#: shinetheme/views/frontend/single/types/default.php:116
 #: shinetheme/views/frontend/single/types/tour.php:288
 msgid "Description"
 msgstr ""
@@ -5301,126 +5301,126 @@ msgstr ""
 msgid "Related "
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:38
+#: shinetheme/views/frontend/single/types/default.php:39
 #: shinetheme/views/frontend/single/types/tour.php:77
 msgid "Photos"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:40
+#: shinetheme/views/frontend/single/types/default.php:42
 #: shinetheme/views/frontend/single/types/tour.php:79
 msgid "On the map"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:151
+#: shinetheme/views/frontend/single/types/default.php:153
 msgid "Accommodation Policies"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:156
-#: shinetheme/views/frontend/single/types/default.php:160
+#: shinetheme/views/frontend/single/types/default.php:158
+#: shinetheme/views/frontend/single/types/default.php:162
 #, php-format
 msgid "from %s "
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:164
+#: shinetheme/views/frontend/single/types/default.php:166
 msgid "Check In: "
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:165
+#: shinetheme/views/frontend/single/types/default.php:167
 msgid "Check Out: "
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:200
+#: shinetheme/views/frontend/single/types/default.php:202
 msgid "Time"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:209
+#: shinetheme/views/frontend/single/types/default.php:211
 #: shinetheme/views/frontend/single/types/tour.php:308
 #, php-format
 msgid "Deposit: %s &nbsp;&nbsp; required"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:210
+#: shinetheme/views/frontend/single/types/default.php:212
 #: shinetheme/views/frontend/single/types/tour.php:309
 msgid "Allowed Cancellation: Yes"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:211
+#: shinetheme/views/frontend/single/types/default.php:213
 #: shinetheme/views/frontend/single/types/tour.php:310
 #, php-format
 msgid "Time allowed to free: %s"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:212
+#: shinetheme/views/frontend/single/types/default.php:214
 #: shinetheme/views/frontend/single/types/tour.php:311
 #, php-format
 msgid "Fee cancel for booking: %s"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:215
+#: shinetheme/views/frontend/single/types/default.php:217
 #: shinetheme/views/frontend/single/types/tour.php:314
 msgid "100&#37; of the first night"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:216
+#: shinetheme/views/frontend/single/types/default.php:218
 #: shinetheme/views/frontend/single/types/tour.php:315
 msgid "100&#37; of the full stay"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:246
+#: shinetheme/views/frontend/single/types/default.php:248
 #: shinetheme/views/frontend/single/types/tour.php:344
 msgid " day"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:261
+#: shinetheme/views/frontend/single/types/default.php:264
 #: shinetheme/views/frontend/single/types/tour.php:359
 msgid "Prepayment / Cancellation"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:278
+#: shinetheme/views/frontend/single/types/default.php:281
 #: shinetheme/views/frontend/single/types/tour.php:376
 #, php-format
 msgid "V.A.T: %s &nbsp;&nbsp;"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:281
+#: shinetheme/views/frontend/single/types/default.php:284
 #: shinetheme/views/frontend/single/types/tour.php:379
 #, php-format
 msgid "City tax: %s"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:284
+#: shinetheme/views/frontend/single/types/default.php:287
 #: shinetheme/views/frontend/single/types/tour.php:382
 msgid " /stay"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:285
+#: shinetheme/views/frontend/single/types/default.php:288
 #: shinetheme/views/frontend/single/types/tour.php:383
 msgid " /person per stay"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:286
+#: shinetheme/views/frontend/single/types/default.php:289
 #: shinetheme/views/frontend/single/types/tour.php:384
 msgid " /night"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:287
+#: shinetheme/views/frontend/single/types/default.php:290
 #: shinetheme/views/frontend/single/types/tour.php:385
 msgid "%"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:288
+#: shinetheme/views/frontend/single/types/default.php:291
 #: shinetheme/views/frontend/single/types/tour.php:386
 msgid " /person per night"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:314
-#: shinetheme/views/frontend/single/types/default.php:335
+#: shinetheme/views/frontend/single/types/default.php:317
+#: shinetheme/views/frontend/single/types/default.php:338
 #: shinetheme/views/frontend/single/types/tour.php:412
 #: shinetheme/views/frontend/single/types/tour.php:433
 msgid "included"
 msgstr ""
 
-#: shinetheme/views/frontend/single/types/default.php:387
+#: shinetheme/views/frontend/single/types/default.php:390
 msgid "Accepted Cards"
 msgstr ""
 

@@ -3,7 +3,7 @@
      * Plugin Name: WpBooking
      * Plugin URI: wpbooking
      * Description: All in one Booking System
-     * Version: 1.5
+     * Version: 1.4
      * Author: wpbooking
      * Author URI: http://www.wpbooking.org
      * Requires at least: 4.1
@@ -27,7 +27,7 @@
         {
             static $_inst = false;
 
-            private $_version = 1.0;
+            private $_version = 1.4;
 
             /**
              * Get and Access Global Variable
