@@ -1314,6 +1314,8 @@
                             left : 9
                         });
                     }
+
+
                 } else if (this.opens == 'center') {
                     this.container.css({
                         top  : containerTop,
@@ -1333,11 +1335,13 @@
                         left : this.element.offset().left - parentOffset.left,
                         right: 'auto'
                     });
-                    if (this.container.offset().left + this.container.outerWidth() > $(window).width()) {
+                    this.container.removeClass('but-move-left');
+                    if (this.container.offset().left + this.container.outerWidth() >= $(window).width()) {
                         this.container.css({
                             left : 'auto',
-                            right: 0
+                            right: $(window).width()- ((this.element.offset().left - parentOffset.left) + this.element.outerWidth() - 9)
                         });
+                        this.container.addClass('but-move-left');
                     }
                 }
             }

@@ -336,13 +336,12 @@ jQuery(document).ready(function ($) {
                 $('.checkin_d', date_group).val(start.format('DD'));
                 $('.checkin_m', date_group).val(start.format('MM'));
                 $('.checkin_y', date_group).val(start.format('YYYY'));
-                check_in.val(start.format(wpbooking_params.dateformat));
+                check_in.val(start.format(wpbooking_params.dateformat)).trigger('change');
 
                 $('.checkout_d', date_group).val(end.format('DD'));
                 $('.checkout_m', date_group).val(end.format('MM'));
                 $('.checkout_y', date_group).val(end.format('YYYY'));
-                check_out.val(end.format(wpbooking_params.dateformat));
-
+                check_out.val(end.format(wpbooking_params.dateformat)).trigger('change');
             });
         check_in.focus(function () {
             check_in_out.trigger('click');
