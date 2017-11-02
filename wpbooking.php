@@ -147,7 +147,6 @@
                  * Select2 Jquery
                  */
                 wp_enqueue_script( 'wpbooking-select2', wpbooking_assets_url( 'select2/js/select2.full.min.js' ), [ 'jquery' ], null, true );
-                wp_enqueue_script( 'wpbooking-nicescroll', wpbooking_assets_url( 'js/nicescroll.js' ), [ 'jquery' ], null, true );
                 wp_enqueue_script( 'wpbooking-booking', wpbooking_assets_url( 'js/wpbooking-booking.js' ), [ 'jquery', 'jquery-ui-datepicker', 'wpbooking-owlcarousel', 'wpbooking-moment' ], null, true );
 
                 wp_localize_script( 'jquery', 'wpbooking_params', [

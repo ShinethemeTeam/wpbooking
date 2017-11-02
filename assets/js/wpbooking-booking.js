@@ -321,16 +321,18 @@ jQuery(document).ready(function ($) {
 
 
     $('.wpbooking-search-form-wrap').each(function () {
-        var check_in        = $(this).find('.wpbooking-date-start');
-        var check_out          = $(this).find('.wpbooking-date-end');
+        var check_in     = $(this).find('.wpbooking-date-start');
+        var check_out    = $(this).find('.wpbooking-date-end');
         var check_in_out = $(this).find('.wpbooking-check-in-out');
         var date_group   = $(this).find('.date-group');
+        var customClass  = check_in_out.data('custom-class');
 
         check_in_out.daterangepicker({
                 singleDatePicker: false,
                 autoApply       : true,
                 disabledPast    : true,
-                dateFormat      : wpbooking_params.dateformat
+                dateFormat      : wpbooking_params.dateformat,
+                customClass     : customClass
             },
             function (start, end, label) {
                 $('.checkin_d', date_group).val(start.format('DD'));
