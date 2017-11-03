@@ -1344,6 +1344,11 @@
                         this.container.addClass('but-move-left');
                     }
                 }
+                if(this.element.hasClass('fixed')){
+                    this.container.css({
+                        top: this.element.offset().top +  this.element.height() - $(window).scrollTop()
+                    });
+                }
             }
 
         },
