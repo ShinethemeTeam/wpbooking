@@ -11,7 +11,6 @@ $autoload['helper']=array(
 	'application',
 	'assets',
     'settings',
-    'form-build',
     'service',
 	'email'
 );

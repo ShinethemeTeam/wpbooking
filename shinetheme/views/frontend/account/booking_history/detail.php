@@ -61,7 +61,7 @@ do_action('wpbooking_before_order_content');
 
 			<ul class="checkout-form-list">
 				<?php foreach($checkout_form_data as $key=>$value){
-					$value_html= WPBooking_Admin_Form_Build::inst()->get_form_field_data($value);
+					$value_html= '';
 					if($value_html){
 						?>
 						<li class="form-item">

@@ -1,44 +1,53 @@
 @import "label.less";
 @import "popovers.less";
-@maincolor:#ec8223;
+
+@maincolor: #ec8223;
 #poststuff #st_post_metabox .inside {
-    background: #f7f7f7 none repeat scroll 0 0;
-    margin: 0;
+  background: #f7f7f7 none repeat scroll 0 0;
+  margin: 0;
 }
 
-.mb20{
-    margin-bottom: 20px;
+.mb20 {
+  margin-bottom: 20px;
 }
-.mb10{
-    margin-bottom: 10px;
+
+.mb10 {
+  margin-bottom: 10px;
 }
-.mt20{
-    margin-top: 20px;
+
+.mt20 {
+  margin-top: 20px;
 }
-.mr10{
+
+.mr10 {
   margin-right: 10px;
 }
-.clear_both{
+
+.clear_both {
   clear: both;
 }
-.clearfix{
-    &:after{
-        clear: both;
-        content: " ";
-        display: table;
-    }
+
+.clearfix {
+  &:after {
+    clear: both;
+    content: " ";
+    display: table;
+  }
 }
+
 .subsubsub {
-    color: #666;
-    font-size: 13px;
-    list-style: outside none none;
-    margin: 10px 0 5px;
-    padding: 0;
+  color: #666;
+  font-size: 13px;
+  list-style: outside none none;
+  margin: 10px 0 5px;
+  padding: 0;
 }
-.hidden{
-    display: none;
+
+.hidden {
+  display: none;
 }
-i.wpbooking-desc{
+
+i.wpbooking-desc {
   color: #999999;
   font-style: italic;
   font-weight: 300;
@@ -46,707 +55,737 @@ i.wpbooking-desc{
   font-size: 12px;
   display: block;
 }
-ul.padding-0{
-    margin: 0px;
+
+ul.padding-0 {
+  margin: 0px;
 }
-ul.padding-0 li{
-    margin: 0px;
+
+ul.padding-0 li {
+  margin: 0px;
 }
-.width-800{
-    width: 800px;
+
+.width-800 {
+  width: 800px;
 }
-.width-70{
-    width: 70px;
+
+.width-70 {
+  width: 70px;
 }
-.mb25{
-    margin-bottom: 25px;
+
+.mb25 {
+  margin-bottom: 25px;
 }
-.mb35{
-    margin-bottom: 35px!important;
+
+.mb35 {
+  margin-bottom: 35px !important;
 }
-.min-width-800{
-    min-width: 800px;
+
+.min-width-800 {
+  min-width: 800px;
 }
-.max-width-800{
-    max-width: 800px;
+
+.max-width-800 {
+  max-width: 800px;
 }
-.min-width-500{
-    min-width: 500px;
+
+.min-width-500 {
+  min-width: 500px;
 }
-.max-width-500{
-    max-width: 500px;
+
+.max-width-500 {
+  max-width: 500px;
 }
-.min-width-250{
-    min-width: 250px;
+
+.min-width-250 {
+  min-width: 250px;
 }
-.max-width-250{
-    max-width: 250px;
+
+.max-width-250 {
+  max-width: 250px;
 }
-.none{
+
+.none {
+  display: none;
+}
+
+.wpbooking-switch-wrap {
+  .checkbox {
     display: none;
-}
-.wpbooking-switch-wrap{
-    .checkbox{
-        display: none;
+  }
+  .wpbooking-switch {
+    width: 54px;
+    height: 26px;
+    background: #cccccc;
+    z-index: 0;
+    margin: 0;
+    padding: 0;
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    border-radius: 16px;
+    -moz-border-radius: 16px;
+    -webkit-border-radius: 16px;
+    &:before {
+      content: 'OFF';
+      position: absolute;
+      left: 1px;
+      top: 1px;
+      width: 52px;
+      height: 24px;
+      //background: #cccccc;
+      z-index: 1;
+      border-radius: 16px;
+      -moz-border-radius: 16px;
+      -webkit-border-radius: 16px;
+      color: white;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 25px;
+      text-align: right;
+      box-sizing: border-box;
+      padding: 0px 4px;
     }
-    .wpbooking-switch{
-        width: 54px;
-        height: 26px;
-        background: #cccccc;
-        z-index: 0;
-        margin: 0;
-        padding: 0;
-        appearance: none;
-        border: none;
-        cursor: pointer;
-        position: relative;
-        border-radius: 16px;
-        -moz-border-radius: 16px;
-        -webkit-border-radius: 16px;
-        &:before{
-            content: 'OFF';
-            position: absolute;
-            left: 1px;
-            top: 1px;
-            width: 52px;
-            height: 24px;
-            //background: #cccccc;
-            z-index: 1;
-            border-radius: 16px;
-            -moz-border-radius: 16px;
-            -webkit-border-radius: 16px;
-            color: white;
-            font-weight: bold;
-            font-size: 12px;
-            line-height: 25px;
-            text-align: right;
-            box-sizing: border-box;
-            padding:0px 4px;
-        }
-        &:after{
-            content: ' ';
-            height: 23px;
-            width: 23px;
-            border-radius: 50%;
-            background: white;
-            position: absolute;
-            z-index: 2;
-            top: 1px;
-            left: 1px;
-            -webkit-transition-duration: 300ms;
-            transition-duration: 300ms;
-            //-webkit-box-shadow: 0 2px 5px #999999;
-            //box-shadow: 0 2px 5px #999999;
-        }
-        &.switchOn{
-            background: #ed8323 !important;
-            &:before{
-                background: #ed8323 !important;
-                content:"ON";
-                text-align: left;
-            }
-            &:after{
-                left: 30px !important;
-            }
-        }
+    &:after {
+      content: ' ';
+      height: 23px;
+      width: 23px;
+      border-radius: 50%;
+      background: white;
+      position: absolute;
+      z-index: 2;
+      top: 1px;
+      left: 1px;
+      -webkit-transition-duration: 300ms;
+      transition-duration: 300ms;
+      //-webkit-box-shadow: 0 2px 5px #999999;
+      //box-shadow: 0 2px 5px #999999;
     }
-}
-img.settings-demo-image{
-    max-height: 200px;
-    max-width: 300px;
-    background: white none repeat scroll 0 0;
-    border: 1px solid #bbb;
-    border-radius: 2px;
-    margin: 0 10px 10px 0;
-    padding: 4px;
-}
-img.settings-demo-gallery{
-    height: 70px;
-    width: 70px;
-
-    background: white none repeat scroll 0 0;
-    border: 1px solid #bbb;
-    border-radius: 2px;
-
-    margin: 0 10px 10px 0;
-    padding: 4px;
-
-}
-.wb-form-group-gallery{
-    margin-bottom: 18px;
-    margin-top: 20px;
-    padding-left: 15px;
-    padding-right: 15px;
-  >div label{
-    display: block;margin-bottom: 20px;
+    &.switchOn {
+      background: #ed8323 !important;
+      &:before {
+        background: #ed8323 !important;
+        content: "ON";
+        text-align: left;
+      }
+      &:after {
+        left: 30px !important;
+      }
+    }
   }
 }
-.wpbooking-no-gallery{
+
+img.settings-demo-image {
+  max-height: 200px;
+  max-width: 300px;
+  background: white none repeat scroll 0 0;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+  margin: 0 10px 10px 0;
+  padding: 4px;
+}
+
+img.settings-demo-gallery {
+  height: 70px;
+  width: 70px;
+
+  background: white none repeat scroll 0 0;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+
+  margin: 0 10px 10px 0;
+  padding: 4px;
+
+}
+
+.wb-form-group-gallery {
+  margin-bottom: 18px;
+  margin-top: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  > div label {
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+.wpbooking-no-gallery {
   background: #fff;
   padding: 20px 10px;
   border: 1px dashed #ccc;
   text-align: center;
 
-    display: block !important;
-    margin: 10px;
-    width: auto;
-  i.wpbooking-desc{
+  display: block !important;
+  margin: 10px;
+  width: auto;
+  i.wpbooking-desc {
     display: none;
   }
-  .st-metabox-left, .st-metabox-right{
+  .st-metabox-left, .st-metabox-right {
     width: 100% !important;
     margin-left: 0 !important;
-    .st-metabox-content-wrapper{
+    .st-metabox-content-wrapper {
       width: 100% !important;
-      .btn_upload_gallery{
+      .btn_upload_gallery {
         margin-top: 20px;
       }
     }
   }
-  .btn_upload_gallery_hotel,.btn_upload_gallery{
+  .btn_upload_gallery_hotel, .btn_upload_gallery {
     margin-top: 0 !important;
     color: @maincolor !important;
     border-color: @maincolor !important;
-    &:hover{
+    &:hover {
       color: #666666 !important;
       border-color: #ccc !important;
     }
   }
-  >div label{
+  > div label {
     display: none;
   }
-  .no-gallery-notice{
+  .no-gallery-notice {
     display: block;
     //margin-bottom: -20px;
-    h3{
+    h3 {
       margin: 5px 0;
       color: #666;
       margin-top: 10px;
     }
-    p{
+    p {
       margin: 5px 0;
       color: #666;
     }
   }
 }
-.wb-breadcrumb-room{
+
+.wb-breadcrumb-room {
   margin-bottom: 30px;
   font-size: 17px;
-  a{
+  a {
     text-decoration: none;
     font-weight: bold;
     color: #333;
-    &:hover{
+    &:hover {
       color: @maincolor;
     }
   }
-  span{
+  span {
     color: @maincolor;
   }
 }
-.gallery-row{
-    margin-left: -15px;
-    margin-right: -15px;
-    display: inline-block;
-    width: ~"calc(100% + 15px)";
-    clear: both;
-    .gallery-item{
-        width: 20%;
-        float: left;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-bottom: 25px;
-        .gallery-item-control{
-            margin-top: 15px;
-            .gallery-item-btn{
-                padding: 2px 17px;
-                border: 1px solid #e9e9e9;
-                background: transparent;
-                margin: 0 10px;
-                color: #999999;
-                transition: all .2s;
-                &:hover{
-                    background: @maincolor;
-                    color: #FFFFFF;
-                    border-color: @maincolor;
-                }
-                cursor: pointer;
-            }
+
+.gallery-row {
+  margin-left: -15px;
+  margin-right: -15px;
+  display: inline-block;
+  width: ~"calc(100% + 15px)";
+  clear: both;
+  .gallery-item {
+    width: 20%;
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 25px;
+    .gallery-item-control {
+      margin-top: 15px;
+      .gallery-item-btn {
+        padding: 2px 17px;
+        border: 1px solid #e9e9e9;
+        background: transparent;
+        margin: 0 10px;
+        color: #999999;
+        transition: all .2s;
+        &:hover {
+          background: @maincolor;
+          color: #FFFFFF;
+          border-color: @maincolor;
         }
+        cursor: pointer;
+      }
     }
-    @media (min-width: 1457px){
-        .gallery-item:nth-child(5n+6){
-            clear: both;
-        }
+  }
+  @media (min-width: 1457px) {
+    .gallery-item:nth-child(5n+6) {
+      clear: both;
     }
-    @media (max-width: 1456px) {
-        .gallery-item{
-            width: 33.33%;
-        }
+  }
+  @media (max-width: 1456px) {
+    .gallery-item {
+      width: 33.33%;
     }
-    @media (max-width: 1112px) {
-        .gallery-item{
-            width: 50%;
-        }
+  }
+  @media (max-width: 1112px) {
+    .gallery-item {
+      width: 50%;
     }
-    @media (max-width: 479px) {
-        .gallery-item{
-            width: 100%;
-        }
+  }
+  @media (max-width: 479px) {
+    .gallery-item {
+      width: 100%;
     }
+  }
 
 }
 
 #wb-modal-overlay {
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:#000;
-    opacity:0.5;
-    filter:alpha(opacity=50);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
   z-index: 9991;
 }
 
 .modal_image {
-    position:absolute;
-    background:rgba(0,0,0,0.2);
-    z-index: 9992;
-    .title_popup{
-        background: #FFF;
-        font-size: 22px;
-        padding: 15px;
-        margin: 0;
-        color: #232323;
-        border-bottom: 1px solid #ccc;
-      box-shadow: 0 1px 2px #ccc;
-      z-index: 1;
-      position: relative;
-    }
-    .content_detail {
-        background:#fff;
-        display: inline-flex;
-        width: 100%;
-        .content_left{
-            width: 70%;
-            float: left;
-            .content_image{
-                padding: 15px;
-                img{
-                    width: 100%;
-                }
-            }
-        }
-        .content_right{
-            width: 30%;
-            float: left;
-            background: #f3f3f3;
-            position: relative;
-            .content_rooms{
-                padding: 15px;
-                overflow: auto;
-                max-height: 400px;
-            }
-            .del-image-perman a{
-                position: absolute;
-                bottom: 40px;
-                left: 15px;
-                color: #bc0b0b;
-                font-size: 12px;
-                text-decoration: none;
-            }
-        }
-    }
-
-    .close_modal {
-        position: absolute;
-        width: 48px;
-        height: 48px;
-        display: block;
-        top: 0;
-        right: 0;
-        color: #232323;
-        text-align: center;
-        line-height: 3.4;
-        border-left: 1px solid #ccc;
-        text-decoration: none;
-        &:hover{
-            color: #000000;
-        }
-    }
-
-}
-
-@media (max-width: 1200px){
-    .modal_image{
-        width: 768px !important;
-    }
-}
-@media (max-width: 767px){
-    .modal_image{
-        width: 480px !important;
-        .content_detail{
-            display: block;
-            .content_left{
-                width: 100%;
-                .content_image{
-                    background: #fff;
-                }
-            }
-            .content_right{
-                padding-bottom: 70px;
-                width: 100%;
-            }
-        }
-    }
-}
-
-
-.st-metabox-full{
-    padding-left: 15px;
-    padding-right: 15px;
-}
-img.settings-demo-image-gallery{
+  position: absolute;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 9992;
+  .title_popup {
+    background: #FFF;
+    font-size: 22px;
+    padding: 15px;
+    margin: 0;
+    color: #232323;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0 1px 2px #ccc;
+    z-index: 1;
+    position: relative;
+  }
+  .content_detail {
+    background: #fff;
+    display: inline-flex;
     width: 100%;
-    height: auto;
-}
-.button-gallery-primary{
-    background: transparent;
-    color: #666666;
-    border: 1px solid #CCCCCC;
-    padding: 8px 12px;
-    font-weight: bold;
-    font-size: 15px;
-    cursor: pointer;
-    transition: .1s;
-    &:hover, &:focus{
-        background: #FFFFFF;
-        color: @maincolor;
-        border-color: @maincolor;
+    .content_left {
+      width: 70%;
+      float: left;
+      .content_image {
+        padding: 15px;
+        img {
+          width: 100%;
+        }
+      }
     }
+    .content_right {
+      width: 30%;
+      float: left;
+      background: #f3f3f3;
+      position: relative;
+      .content_rooms {
+        padding: 15px;
+        overflow: auto;
+        max-height: 400px;
+      }
+      .del-image-perman a {
+        position: absolute;
+        bottom: 40px;
+        left: 15px;
+        color: #bc0b0b;
+        font-size: 12px;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .close_modal {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    display: block;
+    top: 0;
+    right: 0;
+    color: #232323;
+    text-align: center;
+    line-height: 3.4;
+    border-left: 1px solid #ccc;
+    text-decoration: none;
+    &:hover {
+      color: #000000;
+    }
+  }
+
 }
-.demo-url-image.min-width-500{
-    min-width: 420px;
+
+@media (max-width: 1200px) {
+  .modal_image {
+    width: 768px !important;
+  }
 }
+
+@media (max-width: 767px) {
+  .modal_image {
+    width: 480px !important;
+    .content_detail {
+      display: block;
+      .content_left {
+        width: 100%;
+        .content_image {
+          background: #fff;
+        }
+      }
+      .content_right {
+        padding-bottom: 70px;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.st-metabox-full {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+img.settings-demo-image-gallery {
+  width: 100%;
+  height: auto;
+}
+
+.button-gallery-primary {
+  background: transparent;
+  color: #666666;
+  border: 1px solid #CCCCCC;
+  padding: 8px 12px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  transition: .1s;
+  &:hover, &:focus {
+    background: #FFFFFF;
+    color: @maincolor;
+    border-color: @maincolor;
+  }
+}
+
+.demo-url-image.min-width-500 {
+  min-width: 420px;
+}
+
 .wpbooking-settings {
-    .list-terms-checkbox{
-        margin-bottom: 20px;
+  .list-terms-checkbox {
+    margin-bottom: 20px;
+  }
+  .add-new-terms {
+    .wb-btn-add-term {
+      margin-left: 10px;
+      .loading-icon {
+        display: none;
+      }
     }
-    .add-new-terms{
-        .wb-btn-add-term{
-            margin-left: 10px;
-            .loading-icon{
-                display: none;
-            }
-        }
-        .small-input{
-            display: inline-block;
-            .icp{
+    .small-input {
+      display: inline-block;
+      .icp {
 
-                width: 50px;
-                display: inline-block;
-            }
-            .input-group-addon{
-                height: 30px;
-                display: inline-block;
-                padding: 4px 8px;
-                line-height: 23px;
-                margin-top: 1px;
-            }
-        }
-        &.loading{
-            .wb-btn-add-term{
-                .loading-icon{
-                    display: inline-block;
-                }
-            }
-        }
+        width: 50px;
+        display: inline-block;
+      }
+      .input-group-addon {
+        height: 30px;
+        display: inline-block;
+        padding: 4px 8px;
+        line-height: 23px;
+        margin-top: 1px;
+      }
     }
-    &.repeat_dropdown{
-        .form-control{
-            margin-bottom: 7px;
+    &.loading {
+      .wb-btn-add-term {
+        .loading-icon {
+          display: inline-block;
         }
-        .wb-repeat-dropdown-add{
-            color: #0073aa;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 20px;
-        }
-        .wb-repeat-dropdown-remove{
-            color: #e06666;
-            cursor: pointer;
-            margin-left: 15px;
-        }
+      }
     }
-    .service_type.active{
-        position: relative;
-        &:before{
-            border-color: transparent transparent #fff;
-            border-style: solid;
-            border-width: 10px;
-            bottom: -12px;
-            content: "";
-            left: 0;
-            position: absolute;
-        }
-
+  }
+  &.repeat_dropdown {
+    .form-control {
+      margin-bottom: 7px;
     }
-    .service-type-desc{
-        .desc-item{
-            color: #666;
-            font-style: italic;
-            padding-left: 10px;
-        }
-        background: #fff none repeat scroll 0 0;
-        margin-top: 10px;
-        padding: 5px;
-        color: #808080;
-        margin-bottom: 10px;
+    .wb-repeat-dropdown-add {
+      color: #0073aa;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
     }
-    &.wb-money-input-field{
-        .input-group{
-            float: left;
-        }
-        .help_inline{
-            line-height: 30px;
-        }
+    .wb-repeat-dropdown-remove {
+      color: #e06666;
+      cursor: pointer;
+      margin-left: 15px;
     }
-    .button-secondary {
-        background: #b73b27 none repeat scroll 0 0;
-        border-color: #7f291b;
-        box-shadow: 0 1px 0 rgba(229, 134, 119, 0.5) inset, 0 1px 0 rgba(0, 0, 0, 0.15);
-        color: #fff;
-        text-shadow: none;
-    }
-    &.cancellation_text{
-        &:before,&:after{
-            clear: both;
-            content: "";
-            display: table;
-        }
-        .cancellation_text_content{
-            float: left;
-            margin-left: 30px;
-            width: 750px;
-            .first-text{
-                font-style: italic;
-                margin-bottom: 30px;
-            }
-
-            .wb-well{
-                background: #f1f1f1;
-                padding:20px;
-                border:1px solid #cccccc;
-                border-radius: 2px;
-
-                .wb-well-title{
-                    font-weight: bold;
-                    color: #ff9933;
-                    margin-top:0px;
-                    margin-bottom: 20px;
-                    font-size: 20px;
-                }
-                color: #666666;
-
-                .cancellation_rules{
-                    margin-left: 20px;
-                }
-
-            }
-        }
-        .cancellation-help{
-            color: #999999;
-            font-style: italic;
-            float: right;
-            width: 440px;
-        }
-
-        @media(max-width: 1366px){
-            .cancellation-help{
-                float: none;
-                margin-left: 35px;
-                width:auto;
-                margin-top: 0px;
-            }
-            .cancellation_text_content{
-                float: none;
-            }
-        }
+  }
+  .service_type.active {
+    position: relative;
+    &:before {
+      border-color: transparent transparent #fff;
+      border-style: solid;
+      border-width: 10px;
+      bottom: -12px;
+      content: "";
+      left: 0;
+      position: absolute;
     }
 
-    .wpbooking_currency{
-        td{
-            padding-left: 5px;
-        }
-        label{
-            display: block;
-            margin-bottom: 10px;
-        }
+  }
+  .service-type-desc {
+    .desc-item {
+      color: #666;
+      font-style: italic;
+      padding-left: 10px;
     }
-  .div_taxonomy{
-    .taxonomy{
-      option[value="wpbooking_review_stats"]{
+    background: #fff none repeat scroll 0 0;
+    margin-top: 10px;
+    padding: 5px;
+    color: #808080;
+    margin-bottom: 10px;
+  }
+  &.wb-money-input-field {
+    .input-group {
+      float: left;
+    }
+    .help_inline {
+      line-height: 30px;
+    }
+  }
+  .button-secondary {
+    background: #b73b27 none repeat scroll 0 0;
+    border-color: #7f291b;
+    box-shadow: 0 1px 0 rgba(229, 134, 119, 0.5) inset, 0 1px 0 rgba(0, 0, 0, 0.15);
+    color: #fff;
+    text-shadow: none;
+  }
+  &.cancellation_text {
+    &:before, &:after {
+      clear: both;
+      content: "";
+      display: table;
+    }
+    .cancellation_text_content {
+      float: left;
+      margin-left: 30px;
+      width: 750px;
+      .first-text {
+        font-style: italic;
+        margin-bottom: 30px;
+      }
+
+      .wb-well {
+        background: #f1f1f1;
+        padding: 20px;
+        border: 1px solid #cccccc;
+        border-radius: 2px;
+
+        .wb-well-title {
+          font-weight: bold;
+          color: #ff9933;
+          margin-top: 0px;
+          margin-bottom: 20px;
+          font-size: 20px;
+        }
+        color: #666666;
+
+        .cancellation_rules {
+          margin-left: 20px;
+        }
+
+      }
+    }
+    .cancellation-help {
+      color: #999999;
+      font-style: italic;
+      float: right;
+      width: 440px;
+    }
+
+    @media (max-width: 1366px) {
+      .cancellation-help {
+        float: none;
+        margin-left: 35px;
+        width: auto;
+        margin-top: 0px;
+      }
+
+      .cancellation_text_content {
+        float: none;
+      }
+    }
+  }
+
+  .wpbooking_currency {
+    td {
+      padding-left: 5px;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
+  .div_taxonomy {
+    .taxonomy {
+      option[value="wpbooking_review_stats"] {
         display: none;
       }
     }
   }
 }
+
 .wpbooking-settings .button-secondary.hover, .wpbooking-settings .button-secondary:hover, .wpbooking-settings .button-secondary.focus, .wpbooking-settings .button-secondary:focus {
-    background: #9b3221 none repeat scroll 0 0;
-    border-color: #7f291b;
-    box-shadow: 0 1px 0 rgba(229, 134, 119, 0.6) inset;
-    color: #fff;
+  background: #9b3221 none repeat scroll 0 0;
+  border-color: #7f291b;
+  box-shadow: 0 1px 0 rgba(229, 134, 119, 0.6) inset;
+  color: #fff;
 }
-.wpbooking-setting-list-item{
-    .list-content{
-        background-color: #fff;
-        position: relative;
-        border: 1px solid #ccc;
-        border-radius: 2px;
-        overflow: hidden;
-    }
-    .list-title{
-        padding: 10px;
-        min-height: 18px;
-    }
-    .wpbooking-setting-setting-body {
-        background: #fff none repeat scroll 0 0;
-        border-bottom-left-radius: 2px;
-        border-bottom-right-radius: 2px;
-        border-top: 1px solid #eee;
-        display: none;
-        padding: 10px;
-        .wpbooking-settings{
-           /* margin-left: 20px;*/
-        }
-    }
-    .content_list_item_hide
-    {
-        display: none;
-    }
-    .wpbooking-list-item-wrap{
-        width: 800px;
-        border: 1px solid #e5e5e5;
-        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
-        background: white;
-        margin-bottom: 10px;
 
-        .td{
-            padding: 8px 4px;
-            line-height: 1.4em;
-            vertical-align: top;
-            &.td-small{
-                width: 80px;
-            }
+.wpbooking-setting-list-item {
+  .list-content {
+    background-color: #fff;
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .list-title {
+    padding: 10px;
+    min-height: 18px;
+  }
+  .wpbooking-setting-setting-body {
+    background: #fff none repeat scroll 0 0;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-top: 1px solid #eee;
+    display: none;
+    padding: 10px;
+    .wpbooking-settings {
+      /* margin-left: 20px;*/
+    }
+  }
+  .content_list_item_hide {
+    display: none;
+  }
+  .wpbooking-list-item-wrap {
+    width: 800px;
+    border: 1px solid #e5e5e5;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    background: white;
+    margin-bottom: 10px;
+
+    .td {
+      padding: 8px 4px;
+      line-height: 1.4em;
+      vertical-align: top;
+      &.td-small {
+        width: 80px;
+      }
+    }
+    .td-left {
+      width: 5%;
+      .dashicons {
+        padding-left: 6px;
+        padding-top: 10px;
+        cursor: pointer;
+      }
+    }
+    th {
+      .dashicons {
+        padding-left: 6px;
+        padding-top: 0px !important;
+        cursor: default;
+      }
+
+    }
+
+    .td-center {
+      width: 85%;
+    }
+    .td-right {
+      width: 80px;
+      .button-section {
+        padding-top: 5px;
+      }
+    }
+    thead {
+      .td {
+
+        color: #32373c;
+        text-align: left;
+        vertical-align: top;
+        font-weight: 600;
+        border-bottom: 1px solid #e1e1e1;
+      }
+    }
+
+    tbody {
+      .td {
+      }
+      > tr {
+
+        &:nth-child(odd) {
+          background: #EBEEF0;
         }
-        .td-left{
-          width: 5%;
-          .dashicons{
-            padding-left: 6px;
-            padding-top: 10px;
-            cursor: pointer;
+      }
+    ;
+
+    }
+    .list-item {
+      tbody {
+        .td {
+        }
+        > tr {
+
+          &:nth-child(odd) {
+            background: none;
           }
         }
-        th{
-             .dashicons{
-               padding-left: 6px;
-               padding-top: 0px !important;
-               cursor: default;
-             }
+      ;
 
-         }
-
-        .td-center{
-          width: 85%;
-        }
-        .td-right{
-          width: 80px;
-          .button-section{
-            padding-top: 5px;
-          }
-        }
-        thead{
-            .td{
-
-                color: #32373c;
-                text-align: left;
-                vertical-align: top;
-                font-weight: 600;
-                border-bottom: 1px solid #e1e1e1;
-            }
-        }
-
-        tbody{
-            .td{
-            }
-          >tr{
-
-            &:nth-child(odd){
-              background: #EBEEF0;
-            }
-          };
-
-
-        }
-        .list-item{
-            tbody{
-                .td{
-                }
-                >tr{
-
-                    &:nth-child(odd){
-                        background: none;
-                    }
-                };
-
-
-            }
-        }
+      }
     }
+  }
 }
 
-.st-metabox-nav{
-    //width: 160px;
-    li{
+.st-metabox-nav {
+  //width: 160px;
+  li {
 
-        display: inline-block;
-        a{
-           // border: 1px solid transparent;
-            text-decoration: none;
-            color: #999999;
-        }
-        &.ui-state-active{
-            a{
-                color: #ec8223;
-            }
-        }
-        //&.ui-tabs-active {
-        //    a{
-        //        border: 1px solid #CCC; border-right: 1px solid #FFF; border-radius: 3px 0 0 3px;
-        //        font-weight: bold;
-        //        background-color: #fff;
-        //        opacity: 1;
-        //    }
-        //}
+    display: inline-block;
+    a {
+      // border: 1px solid transparent;
+      text-decoration: none;
+      color: #999999;
     }
+    &.ui-state-active {
+      a {
+        color: #ec8223;
+      }
+    }
+    //&.ui-tabs-active {
+    //    a{
+    //        border: 1px solid #CCC; border-right: 1px solid #FFF; border-radius: 3px 0 0 3px;
+    //        font-weight: bold;
+    //        background-color: #fff;
+    //        opacity: 1;
+    //    }
+    //}
+  }
 
 }
-.st-metabox-tabs-content{
-    width: auto !important; min-height: 200px; float: none !important;
-    .form-label{
-        padding-bottom: 10px;
-        font-weight: bold;
-        font-size: 15px;
-        border-bottom: none;
-        margin-bottom: 10px;
+
+.st-metabox-tabs-content {
+  width: auto !important;
+  min-height: 200px;
+  float: none !important;
+  .form-label {
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    border-bottom: none;
+    margin-bottom: 10px;
+  }
+  .input-group {
+    &.small {
+      width: 215px;
     }
-    .input-group{
-        &.small{
-            width: 215px;
-        }
-    }
+  }
   ::-webkit-input-placeholder {
     font-style: italic;
     color: #999;
@@ -763,428 +802,499 @@ img.settings-demo-image-gallery{
     font-style: italic;
     color: #999;
   }
-    .form-control{
+  .form-control {
+    height: 30px;
+    padding: 4px 8px;
+    font-size: 13px;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    //-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    //box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: none;
+    -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    &.small {
+      width: 215px;
+    }
+    &.is_error {
+      border-color: red;
+    }
+    .form-label {
+      padding-bottom: 10px;
+      padding-top: 5px;
+    }
+    .form-group {
+
+      .form-control {
         height: 30px;
         padding: 4px 8px;
-        font-size: 13px;
+        font-size: 14px;
         color: #555;
         background-color: #fff;
         background-image: none;
         border: 1px solid #ccc;
         border-radius: 0px;
-        //-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        //box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: none;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
         -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
         -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
         transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        &.small{
-            width: 215px;
-        }
-        &.is_error{
-            border-color:red;
-        }
-        .form-label{
-            padding-bottom: 10px;
-            padding-top: 5px;
-        }
-        .form-group{
 
-            .form-control{
-                height: 30px;
-                padding: 4px 8px;
-                font-size: 14px;
-                color: #555;
-                background-color: #fff;
-                background-image: none;
-                border: 1px solid #ccc;
-                border-radius: 0px;
-                -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-                box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-                -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
-                -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-                transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-
-
-                &[type=text],&[type=password],
-                &[type=number],
-                &select
-                {
-                    width: 320px;
-                }
-            }
+        &[type=text], &[type=password],
+        &[type=number],
+        &select {
+          width: 320px;
         }
+      }
     }
-    .is_error_message{
-        color: red;
-        display: block;
-        margin-top: 5px;
-    }
-    textarea.form-control{
-        min-height: 300px !important;
-    }
-    .desc_section_metabox{
-        border: 1px solid #d3d3d3;
-        padding: 45px;
+  }
+  .is_error_message {
+    color: red;
+    display: block;
+    margin-top: 5px;
+  }
+  textarea.form-control {
+    min-height: 300px !important;
+  }
+  .desc_section_metabox {
+    border: 1px solid #d3d3d3;
+    padding: 45px;
+    position: absolute;
+    right: 40px;
+    text-align: center;
+    bottom: 30%;
+    width: 30%;
+    .border_section_metabox {
+      border: 1px solid #d3d3d3;
+      bottom: 0;
+      height: 60px;
+      left: 0;
+      position: absolute;
+      width: 27px;
+      &:after {
+        width: 30px;
+        height: 65px;
+        border-right: 1px solid #d3d3d3;
+        -webkit-transform: rotate(30deg);
+        -moz-transform: rotate(30deg);
+        -ms-transform: rotate(30deg);
+        -o-transform: rotate(30deg);
+        transform: rotate(-24deg);
+        content: '';
         position: absolute;
-        right: 40px;
-        text-align: center;
-        bottom: 30%;
-        width: 30%;
-        .border_section_metabox{
-            border: 1px solid #d3d3d3;
-            bottom: 0;
-            height: 60px;
-            left: 0;
-            position: absolute;
-            width: 27px;
-            &:after{
-                width: 30px;
-                height: 65px;
-                border-right: 1px solid #d3d3d3;
-                -webkit-transform: rotate(30deg);
-                -moz-transform: rotate(30deg);
-                -ms-transform: rotate(30deg);
-                -o-transform: rotate(30deg);
-                transform: rotate(-24deg);
-                content: '';
-                position: absolute;
-                left: -17px;
-                background: #FFF;
-                bottom: -10px;
-            }
-            background: #FFF;
-        }
-        .fa{
-            font-size: 30px;
-            margin-bottom: 20px;
-        }
-        .title{
-            display: block;
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
-
-        }
-        .content{
-            color: #666666;
-            font-style: italic;
-        }
+        left: -17px;
+        background: #FFF;
+        bottom: -10px;
+      }
+      background: #FFF;
     }
-    .st-metabox-content-wrapper{
-        position: relative;
-
-        .zoom_size{
-            .input-group-addon{
-                padding: 5px;
-            }
-        }
-        .radio_pro{
-            &.checked{
-                border: 1px solid @maincolor;
-            }
-            label{
-                padding: 5px 10px ;
-                display: block;
-            }
-            background: #f7f7f7 none repeat scroll 0 0;
-            border: 1px solid #e1e1e1;
-            float: left;
-            margin-right: 10px;
-
-        }
-        .phone_country_number{
-            .input-group-addon{
-                padding: 0 0 0 10px;
-                position: relative;
-                &:hover,&.focus{
-                    border: 1px solid @maincolor;
-                }
-                cursor: pointer;
-            }
-            .btn-default{
-                background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-                border: medium none;
-                margin: 0;
-                padding: 0 0 0 5px;
-                position: absolute;
-                right: 7px;
-            }
-            .flag-icon{
-                font-size: 20px;
-                margin-right: 20px;
-            }
-            .list_phone_country_number{
-                li{
-                    &:hover{
-                        border:1px solid @maincolor;
-                    }
-                    &.active{
-                        border:1px solid @maincolor;
-                        background: @maincolor;
-                    }
-                    border:1px solid transparent;
-                    padding: 5px;
-                    cursor: pointer;
-                }
-                max-height: 202px;
-                overflow-y: scroll;
-                padding-left: 5px !important;
-                padding-right: 5px !important;
-                padding-top: 5px !important;
-            }
-        }
-
-        .st-metabox-content-right{
-            font-style: italic;
-        }
-        .wpbooking-input-colorpicker{
-            bottom: 0;
-            left: 65px;
-            position: absolute;
-            text-transform: uppercase;
-            width: 80px;
-        }
-        .wpbooking-button-default-colorpicker{
-            background: transparent none repeat scroll 0 0;
-            border: 1px solid #cccccc;
-            bottom: 0;
-            color: #666666;
-            cursor: pointer;
-            font-size: 11px;
-            left: 149px;
-            padding: 5px 12px;
-            position: absolute;
-            transition: all 0.1s ease 0s;
-            &:hover{
-                color: @maincolor;
-                border: 1px solid @maincolor;
-            }
-        }
-
-        .form-group{
-            .clearfix;
-            .from-group-col{
-                width: 220px;
-                float: left;
-                margin-right: 30px;
-                .form-control{
-                    display: block;
-                    margin-top: 12px;
-                }
-            }
-        }
-        .wpbooking-row{
-            margin-bottom: 15px;
-        }
-
-        .input-group {
-            position: relative;
-            display: table;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-        .input-group[class*="col-"] {
-            float: none;
-            padding-right: 0;
-            padding-left: 0;
-        }
-        .input-group .form-control {
-            position: relative;
-            z-index: 2;
-            float: left;
-            width: 100%;
-            margin: 0px;
-        }
-        .input-group .form-control:focus {
-            z-index: 3;
-        }
-        .input-group-lg > .form-control,
-        .input-group-lg > .input-group-addon,
-        .input-group-lg > .input-group-btn > .btn {
-            height: 46px;
-            line-height: 1.3333333;
-            background: #cccccc;
-            border-color: #ccc;
-            font-size: 12px;
-            padding:6px;
-            border-radius: 1px;
-        }
-        .input-group-addon:first-child {
-            border-right: 0;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-
-        }
-        .input-group-addon, .input-group-btn {
-            width: 1%;
-            white-space: nowrap;
-            vertical-align: middle;
-        }
-        .input-group-addon {
-            display: table-cell;
-            font-weight: 400;
-            line-height: 1;
-            color: #555;
-            text-align: center;
-            border: 1px solid #ccc;
-            background: #cccccc;
-            font-size: 12px;
-            padding:6px;
-            border-radius: 1px;
-            .dropdown-menu {
-                position: absolute;
-                top: 98%;
-                left: 0;
-                z-index: 1000;
-                display: none;
-                float: left;
-                min-width: 160px;
-                padding: 5px 0;
-                margin: 2px 0 0;
-                font-size: 14px;
-                text-align: left;
-                list-style: none;
-                background-color: #fff;
-                -webkit-background-clip: padding-box;
-                background-clip: padding-box;
-                border: 1px solid rgba(0,0,0,.15);
-                border-radius: 4px;
-                -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
-                box-shadow: 0 6px 12px rgba(0,0,0,.175);
-            }
-            .caret {
-                display: inline-block;
-                width: 0;
-                height: 0;
-                margin-left: 2px;
-                vertical-align: middle;
-                border-top: 4px dashed;
-                border-top: 4px solid\9;
-                border-right: 4px solid transparent;
-                border-left: 4px solid transparent;
-            }
-
-            .addon-button{
-                padding:0px;
-
-                .btn{
-                    background: none;
-                    padding:6px;
-                    font-size: 14px;
-
-                }
-            }
-        }
+    .fa {
+      font-size: 30px;
+      margin-bottom: 20px;
     }
-}
-.postbox{
-    .hndle>span{
+    .title {
+      display: block;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+
+    }
+    .content {
+      color: #666666;
+      font-style: italic;
+    }
+  }
+  .st-metabox-content-wrapper {
+    position: relative;
+
+    .zoom_size {
+      .input-group-addon {
+        padding: 5px;
+      }
+    }
+    .radio_pro {
+      &.checked {
+        border: 1px solid @maincolor;
+      }
+      label {
+        padding: 5px 10px;
         display: block;
-        line-height: 24px;
-        label{
-            margin-left: 15px;
-        }
+      }
+      background: #f7f7f7 none repeat scroll 0 0;
+      border: 1px solid #e1e1e1;
+      float: left;
+      margin-right: 10px;
+
     }
+    .phone_country_number {
+      .input-group-addon {
+        padding: 0 0 0 10px;
+        position: relative;
+        &:hover, &.focus {
+          border: 1px solid @maincolor;
+        }
+        cursor: pointer;
+      }
+      .btn-default {
+        background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+        border: medium none;
+        margin: 0;
+        padding: 0 0 0 5px;
+        position: absolute;
+        right: 7px;
+      }
+      .flag-icon {
+        font-size: 20px;
+        margin-right: 20px;
+      }
+      .list_phone_country_number {
+        li {
+          &:hover {
+            border: 1px solid @maincolor;
+          }
+          &.active {
+            border: 1px solid @maincolor;
+            background: @maincolor;
+          }
+          border: 1px solid transparent;
+          padding: 5px;
+          cursor: pointer;
+        }
+        max-height: 202px;
+        overflow-y: scroll;
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+        padding-top: 5px !important;
+      }
+    }
+
+    .st-metabox-content-right {
+      font-style: italic;
+    }
+    .wpbooking-input-colorpicker {
+      bottom: 0;
+      left: 65px;
+      position: absolute;
+      text-transform: uppercase;
+      width: 80px;
+    }
+    .wpbooking-button-default-colorpicker {
+      background: transparent none repeat scroll 0 0;
+      border: 1px solid #cccccc;
+      bottom: 0;
+      color: #666666;
+      cursor: pointer;
+      font-size: 11px;
+      left: 149px;
+      padding: 5px 12px;
+      position: absolute;
+      transition: all 0.1s ease 0s;
+      &:hover {
+        color: @maincolor;
+        border: 1px solid @maincolor;
+      }
+    }
+
+    .form-group {
+      .clearfix;
+      .from-group-col {
+        width: 220px;
+        float: left;
+        margin-right: 30px;
+        .form-control {
+          display: block;
+          margin-top: 12px;
+        }
+      }
+    }
+    .wpbooking-row {
+      margin-bottom: 15px;
+    }
+
+    .input-group {
+      position: relative;
+      display: table;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+    .input-group[class*="col-"] {
+      float: none;
+      padding-right: 0;
+      padding-left: 0;
+    }
+    .input-group .form-control {
+      position: relative;
+      z-index: 2;
+      float: left;
+      width: 100%;
+      margin: 0px;
+    }
+    .input-group .form-control:focus {
+      z-index: 3;
+    }
+    .input-group-lg > .form-control,
+    .input-group-lg > .input-group-addon,
+    .input-group-lg > .input-group-btn > .btn {
+      height: 46px;
+      line-height: 1.3333333;
+      background: #cccccc;
+      border-color: #ccc;
+      font-size: 12px;
+      padding: 6px;
+      border-radius: 1px;
+    }
+    .input-group-addon:first-child {
+      border-right: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+
+    }
+    .input-group-addon, .input-group-btn {
+      width: 1%;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+    .input-group-addon {
+      display: table-cell;
+      font-weight: 400;
+      line-height: 1;
+      color: #555;
+      text-align: center;
+      border: 1px solid #ccc;
+      background: #cccccc;
+      font-size: 12px;
+      padding: 6px;
+      border-radius: 1px;
+      .dropdown-menu {
+        position: absolute;
+        top: 98%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        float: left;
+        min-width: 160px;
+        padding: 5px 0;
+        margin: 2px 0 0;
+        font-size: 14px;
+        text-align: left;
+        list-style: none;
+        background-color: #fff;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, .15);
+        border-radius: 4px;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+      }
+      .caret {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        margin-left: 2px;
+        vertical-align: middle;
+        border-top: 4px dashed;
+        border-top: 4px solid \9;
+        border-right: 4px solid transparent;
+        border-left: 4px solid transparent;
+      }
+
+      .addon-button {
+        padding: 0px;
+
+        .btn {
+          background: none;
+          padding: 6px;
+          font-size: 14px;
+
+        }
+      }
+    }
+  }
+}
+
+.postbox {
+  .hndle > span {
+    display: block;
+    line-height: 24px;
+    label {
+      margin-left: 15px;
+    }
+  }
 }
 
 // -------------------- Select 2 -----------------------------------------
-.select2-result-repository { padding-top: 4px; padding-bottom: 3px; }
-.select2-result-repository__avatar { float: left; width: 60px; margin-right: 10px; }
-.select2-result-repository__avatar img { width: 100%; height: auto; border-radius: 2px; }
-.select2-result-repository__meta { margin-left: 70px; }
-.select2-result-repository__title { color: black; font-weight: bold; word-wrap: break-word; line-height: 1.1; margin-bottom: 4px; }
-.select2-result-repository__forks, .select2-result-repository__stargazers { margin-right: 1em; }
-.select2-result-repository__forks, .select2-result-repository__stargazers, .select2-result-repository__watchers { display: inline-block; color: #aaa; font-size: 11px; }
-.select2-result-repository__description { font-size: 13px; color: #777; margin-top: 4px; }
-.select2-results__option--highlighted .select2-result-repository__title { color: white; }
-.select2-results__option--highlighted .select2-result-repository__forks, .select2-results__option--highlighted .select2-result-repository__stargazers, .select2-results__option--highlighted .select2-result-repository__description, .select2-results__option--highlighted .select2-result-repository__watchers { color: #c6dcef; }
+.select2-result-repository {
+  padding-top: 4px;
+  padding-bottom: 3px;
+}
+
+.select2-result-repository__avatar {
+  float: left;
+  width: 60px;
+  margin-right: 10px;
+}
+
+.select2-result-repository__avatar img {
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+
+.select2-result-repository__meta {
+  margin-left: 70px;
+}
+
+.select2-result-repository__title {
+  color: black;
+  font-weight: bold;
+  word-wrap: break-word;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.select2-result-repository__forks, .select2-result-repository__stargazers {
+  margin-right: 1em;
+}
+
+.select2-result-repository__forks, .select2-result-repository__stargazers, .select2-result-repository__watchers {
+  display: inline-block;
+  color: #aaa;
+  font-size: 11px;
+}
+
+.select2-result-repository__description {
+  font-size: 13px;
+  color: #777;
+  margin-top: 4px;
+}
+
+.select2-results__option--highlighted .select2-result-repository__title {
+  color: white;
+}
+
+.select2-results__option--highlighted .select2-result-repository__forks, .select2-results__option--highlighted .select2-result-repository__stargazers, .select2-results__option--highlighted .select2-result-repository__description, .select2-results__option--highlighted .select2-result-repository__watchers {
+  color: #c6dcef;
+}
 
 // -------------------- END Select 2 -----------------------------------------
-
 
 //.st-metabox-content-left{ width: 70%; float: left; padding-right: 15px;}
 //.st-metabox-content-right{ margin-left: 70% }
 //.st-metabox-tabs { width: 100%; }
 .st-metabox-tabs .st-metabox-nav {
-    padding: .2em .1em .2em 15px;
+  padding: .2em .1em .2em 15px;
 }
+
 .st-metabox-tabs .st-metabox-nav li {
-    border: 1px solid #999999;
-    clear: left;
-    color: #666666;
-    cursor: pointer;
-    margin: 0 0 0.2em;
+  border: 1px solid #999999;
+  clear: left;
+  color: #666666;
+  cursor: pointer;
+  margin: 0 0 0.2em;
 
-    a{
-        display: block;
-        padding: 10px 20px !important;
-        color: #666666;
+  a {
+    display: block;
+    padding: 10px 20px !important;
+    color: #666666;
+  }
+  &:hover {
+    a {
+      color: @maincolor;
     }
-    &:hover{
-        a{
-            color: @maincolor;
-        }
-        border-color: @maincolor;
-    }
+    border-color: @maincolor;
+  }
 
 }
-.st-metabox-tabs .st-metabox-nav li.ui-tabs-active{
-    a{
-        color: #fff;
-    }
-    &::before{
-        border-style: solid;
-        border-width: 6px;
-        bottom: -12px;
-        content: "";
-        left: 44%;
-        position: absolute;
-        border-color: @maincolor transparent transparent transparent;
 
-    }
-    position: relative;
-    background-color: @maincolor;
-    border-color: @maincolor;
+.st-metabox-tabs .st-metabox-nav li.ui-tabs-active {
+  a {
+    color: #fff;
+  }
+  &::before {
+    border-style: solid;
+    border-width: 6px;
+    bottom: -12px;
+    content: "";
+    left: 44%;
+    position: absolute;
+    border-color: @maincolor transparent transparent transparent;
+
+  }
+  position: relative;
+  background-color: @maincolor;
+  border-color: @maincolor;
 }
 
 .st-metabox-tabs .st-metabox-nav li a {
-    i{
-        margin-right: 5px;
-    }
-}
-.st-metabox-tabs .st-metabox-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; }
-.st-metabox-tabs .ui-tabs-panel {
-    padding: 1em;
+  i {
+    margin-right: 5px;
+  }
 }
 
-.st-metabox-tabs .st-metabox-nav li a:focus{
-    -webkit-box-shadow: none;
-    box-shadow: none;
+.st-metabox-tabs .st-metabox-nav li.ui-tabs-active {
+  padding-bottom: 0;
+  padding-right: .1em;
+  border-right-width: 1px;
 }
-@media( max-width: 1023px){
-    .st-metabox-nav .ui-tabs-active a{ border-color: #CCC !important;
-    border-bottom: 1px solid #FFF !important;}
-    .st-metabox-tabs-content{ margin-top: 2px; padding: 15px; width: auto !important; margin-left: 0; float: none !important; padding-top: 10px; padding-bottom: 10px;}
+
+.st-metabox-tabs .ui-tabs-panel {
+  padding: 1em;
 }
-@media( max-width: 1023px){
-    .st-metabox-content-left{ width: 100%; float: none; }
-    .st-metabox-content-right{ width: 100%; margin: 10px 0; border-top: 1px dotted #CCC; padding-right: 0}
+
+.st-metabox-tabs .st-metabox-nav li a:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
-.st-metabox-tab-content-wrap {
-    color: #666666;
-    display: table;
+
+@media ( max-width: 1023px) {
+  .st-metabox-nav .ui-tabs-active a {
+    border-color: #CCC !important;
+    border-bottom: 1px solid #FFF !important;
+  }
+
+  .st-metabox-tabs-content {
+    margin-top: 2px;
+    padding: 15px;
+    width: auto !important;
+    margin-left: 0;
+    float: none !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+@media ( max-width: 1023px) {
+  .st-metabox-content-left {
     width: 100%;
-    .help-block{
-        color: #999999;
-        font-style: italic;
-        font-weight: 300;
-      margin-top: 5px;
-      font-size: 12px;
-    }
-    .wpbooking-field-title{
-        position: relative;
-        /*&:before{
+    float: none;
+  }
+
+  .st-metabox-content-right {
+    width: 100%;
+    margin: 10px 0;
+    border-top: 1px dotted #CCC;
+    padding-right: 0
+  }
+}
+
+.st-metabox-tab-content-wrap {
+  color: #666666;
+  display: table;
+  width: 100%;
+  .help-block {
+    color: #999999;
+    font-style: italic;
+    font-weight: 300;
+    margin-top: 5px;
+    font-size: 12px;
+  }
+  .wpbooking-field-title {
+    position: relative;
+    /*&:before{
             content: "";
             position: absolute;
             top:10px;
@@ -1192,687 +1302,695 @@ img.settings-demo-image-gallery{
             right:0px;
             border-bottom: 1px solid #ececec;
         }*/
-        padding-left: 30px;
-        .field-title{
-            display: inline-block;
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 0px;
-            margin-top: 10px;
-            position: relative;
-            padding-right: 20px;
-            .wb-help-popover{
-                i{
-                  color:#ed8323;
-                }
-            }
+    padding-left: 30px;
+    .field-title {
+      display: inline-block;
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 0px;
+      margin-top: 10px;
+      position: relative;
+      padding-right: 20px;
+      .wb-help-popover {
+        i {
+          color: #ed8323;
         }
-        .field-desc{
-            margin-bottom: 25px;
-            color: @maincolor;
-            font-size: 14px;
-            font-style: italic;
-        }
+      }
     }
+    .field-desc {
+      margin-bottom: 25px;
+      color: @maincolor;
+      font-size: 14px;
+      font-style: italic;
+    }
+  }
 }
-.popover.wb-help-popover-el{
-    background: #ed8323;
-    color: white;
-    font-style: italic;
-    border-color: #ed8323;
-    border-radius: 2px;
+
+.popover.wb-help-popover-el {
+  background: #ed8323;
+  color: white;
+  font-style: italic;
+  border-color: #ed8323;
+  border-radius: 2px;
+  box-shadow: none;
+  width: 580px;
+  max-width: none;
+  margin-left: -100px;
+  left: 100% !important;
+  &.bottom {
+    > .arrow {
+      border-bottom-color: #ed8323;
+      top: -8px;
+      border-bottom-width: 8px;
+      left: 69px !important;
+    }
+  }
+  .popover-content {
     box-shadow: none;
-    width: 580px;
-    max-width: none;
-    margin-left: -100px;
-    left: 100% !important;
-    &.bottom{
-        > .arrow{
-            border-bottom-color: #ed8323;
-            top:-8px;
-            border-bottom-width: 8px;
-            left: 69px!important;
-        }
-    }
-    .popover-content{
-        box-shadow: none;
-        padding:10px;
-    }
+    padding: 10px;
+  }
 }
-.st-metabox-wrapper{
-    position: relative;
-    min-height: 100px;
-    .overlay-content{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #FFF;
+
+.st-metabox-wrapper {
+  position: relative;
+  min-height: 100px;
+  .overlay-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #FFF;
+  }
+  .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+  }
+  .content-accodition {
+    &:hover {
+      border-color: @maincolor;
+      color: @maincolor;
     }
-    .spinner{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-left: -10px;
-        margin-top: -10px;
+    &.active {
+      background: @maincolor none repeat scroll 0 0;
+      border-color: @maincolor;
+      color: #fff;
     }
-    .content-accodition{
-        &:hover{
-            border-color: @maincolor;
-            color: @maincolor;
-        }
-        &.active{
-            background: @maincolor none repeat scroll 0 0;
-            border-color: @maincolor;
-            color: #fff;
-        }
-        background: #f7f7f7 none repeat scroll 0 0;
-        border: 1px solid #e9e9e9;
-        color: #999999;
-        cursor: pointer;
-        padding: 15px 8px;
-        position: absolute;
-        right: 15px;
-        z-index: 99;
-        top: 25px;
-    }
-    .content-metabox.no-active{
-        height: 70px;
-        overflow: hidden;
-    }
+    background: #f7f7f7 none repeat scroll 0 0;
+    border: 1px solid #e9e9e9;
+    color: #999999;
+    cursor: pointer;
+    padding: 15px 8px;
+    position: absolute;
+    right: 15px;
+    z-index: 99;
+    top: 25px;
+  }
+  .content-metabox.no-active {
+    height: 70px;
+    overflow: hidden;
+  }
 
 }
+
 //content_meta_box
-.st-metabox-tab-content-wrap{
-    *{
-        box-sizing: border-box;
-    }
-    .taxonomy_room_select{
-        .wpbooking-row.one_room{
-            .class_item_custom{
-                >label{
-                    display: none;
-                }
-                .list_post{
-                    display: block;
-                    p{
-                        margin: 0px !important;
-                    }
-                }
-            }
-        }
-    }
-    textarea.form-control{
-        min-height: inherit !important;
-        height: auto !important;
-    }
-    .content_tax_vat{
-        background: #f1f1f1 none repeat scroll 0 0;
-        padding: 10px 30px;
-        .field-title{
-            font-size: 18px;
-        }
-        .tax_input_col_left{
-            padding-bottom: 10px;
-        }
-        .label_vat_unit{
-            display: block;
-            padding-bottom: 10px;
-        }
-    }
-    .wpbooking-form-group{
-        margin-bottom: 18px;
-        margin-left: 15px;
-        margin-top: 20px;
-        width: auto;
-        .wpbooking-form-group{
-            margin-left: 0px;
-        }
-        .st-metabox-left{
-            font-weight: bold;
-            width: 14%;
-            float: left;
-            padding-left: 15px;
-            padding-right: 15px;
-            label{
-                font-weight: normal;
-                font-size: 13px;
-            }
-        }
-        .st-metabox-right{
-            padding-left: 15px;
-            padding-right: 15px;
-            width: auto;
-            margin-left: 14%;
-
-            .st-metabox-left{
-                float: none;
-                margin-bottom: 10px;
-                padding:0px;
-                label{
-                    color: #999999;
-                }
-            }
-            .st-metabox-right{
-                padding:0px;
-                margin-left: 0px;
-            }
-
-            .st-metabox-content-wrapper{
-                //float: left;
-                margin-right: 40px;
-                width: 53%;
-                .st-metabox-content-wrapper{
-                    width: 100%;
-                    float: none;
-                    margin-right: 0px;
-                    margin-left: 0px;
-                }
-
-            }
-          .wb-extra-services-wrapper{
-            width: 100%;
-          }
-            .metabox-help{
-                //float: left;
-                color: #999999;
-                font-style: italic;
-                font-weight: 300;
-                margin-top: 5px;
-                font-size: 12px;
-            }
-            .help_inline{
-                color: #999999;
-                font-style: italic;
-                font-weight: 300;
-                margin-left: 20px;
-            }
-            .wb-radio-button{
-                margin-right: 15px;
-            }
-        }
-
-        &.taxonomy_fee_select{
-            .st-metabox-content-wrapper{
-                width: 80%;
-            }
-            .term-item{
-                width: 320px;
-                float: left;
-                margin-right: 30px;
-                padding:10px 0px;
-                border-bottom: 1px solid #f1f1f1;
-                .clearfix;
-                label{
-                    float: left;
-                    padding: 6px 0px;
-                }
-                select{
-                    display: none;
-                    border:1px solid #999999;
-                    background: white;
-                    float: right;
-                }
-
-                &.active{
-                    select{
-                        display: block;
-                    }
-                }
-
-                &:nth-child(2n+1){
-                    clear: both;
-                }
-            }
-        }
-
-        &.hotel_room_list{
-
-            margin:0px;
-            .field-label{
-                color: #666666;
-                font-weight: bold;
-                margin-bottom: 10px;
-                padding:0px;
-                font-size: 16px;
-            }
-            .field-desc{
-                color: @maincolor;
-                font-style: italic;
-            }
-
-            .wb-room-list{
-                padding: 30px 0px;
-                margin: 0px -15px;
-                margin-bottom: 30px;
-
-                .room-item{
-                    box-sizing: border-box;
-                    width: 25%;
-                    padding: 0px 15px;
-                    float: left;
-                    margin-bottom: 30px;
-
-                    .room-item-wrap{
-                        padding:10px 15px 30px;
-                        box-sizing: border-box;
-                        background: white;
-                        border:1px solid white;
-                        &:hover{
-                            border-color:@maincolor;
-                        }
-                        .room-remain{
-                            text-align: center;
-                            margin-bottom: 30px;
-                            span{
-                                background: #f7f7f7;
-                                display: inline-block;
-                                margin: 0px 5px;
-                                border:1px solid #e9e9e9;
-                                padding: 5px 13px;
-                                color: #666666;
-                                &.room-remain-count{
-                                    color: white;
-                                    background: #0073aa;
-                                    border-color: #0073aa;
-                                }
-                                &.no-left{
-                                    color: white;
-                                    background: #cc6666;
-                                    border-color: #cc6666;
-                                }
-                            }
-                        }
-                        .room-image{
-                            margin-bottom: 17px;
-                            img{
-                                width: 100%;
-                                height: auto;
-                            }
-                        }
-                        .room-type{
-                            margin:0px;
-                            padding:0px;
-                            color:#666;
-                            text-align: center;
-                            display: block;
-                            margin-bottom: 10px;
-                            font-size: 14px;
-                            font-weight: bold;
-                        }
-                        .room-actions{
-                            text-align: center;
-                            a{
-                                display: inline-block;
-                                color: #999999;
-                                margin: 0px 10px;
-                                border:1px solid #e9e9e9;
-                                padding: 5px 13px;
-                                &:hover{
-                                    color:white;
-                                    background: @maincolor;
-                                    border-color: @maincolor;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            .wp-room-actions{
-                margin-bottom: 30px;
-                display: table;
-                width: 100%;
-                >div{
-                    display: table-cell;
-                }
-                &.top{
-                    margin-bottom: 0px;
-                }
-                .room-create{
-                    &.top{
-                        display: block;
-                    }
-                    width: 35%;
-                    padding-right: 30px;
-                    font-size: 16px;
-                    a{
-                        display: block;
-                        background: white;
-                        color: @maincolor;
-                        font-weight: bold;
-                        border:1px solid @maincolor;
-                        padding: 15px;
-                        text-align: center;
-                        text-decoration: none;
-                        &:hover{
-                            background: @maincolor;
-                            color: white;
-                        }
-                    }
-                }
-                .room-count{
-                    background: #f1f1f1;
-                    padding: 15px;
-                    color: #666666;
-                    text-align: right;
-                    .text-color{
-                        color: @maincolor;
-                    }
-                }
-            }
-        }
-      &.wpbooking-no-room{
-        .wp-room-actions, .wb-room-list{
+.st-metabox-tab-content-wrap {
+  * {
+    box-sizing: border-box;
+  }
+  .taxonomy_room_select {
+    .wpbooking-row.one_room {
+      .class_item_custom {
+        > label {
           display: none;
         }
-        .wb-no-room-message{
-          margin: 20px 0;
-          padding: 10px;
-          background: #f0f0f0;
+        .list_post {
           display: block;
-          a.create-room{
-            color: @maincolor;
-            font-weight: bold;
-            &:hover{
-              text-decoration: none;
+          p {
+            margin: 0px !important;
+          }
+        }
+      }
+    }
+  }
+  textarea.form-control {
+    min-height: inherit !important;
+    height: auto !important;
+  }
+  .content_tax_vat {
+    background: #f1f1f1 none repeat scroll 0 0;
+    padding: 10px 30px;
+    .field-title {
+      font-size: 18px;
+    }
+    .tax_input_col_left {
+      padding-bottom: 10px;
+    }
+    .label_vat_unit {
+      display: block;
+      padding-bottom: 10px;
+    }
+  }
+  .wpbooking-form-group {
+    margin-bottom: 18px;
+    margin-left: 15px;
+    margin-top: 20px;
+    width: auto;
+    .wpbooking-form-group {
+      margin-left: 0px;
+    }
+    .st-metabox-left {
+      font-weight: bold;
+      width: 14%;
+      float: left;
+      padding-left: 15px;
+      padding-right: 15px;
+      label {
+        font-weight: normal;
+        font-size: 13px;
+      }
+    }
+    .st-metabox-right {
+      padding-left: 15px;
+      padding-right: 15px;
+      width: auto;
+      margin-left: 14%;
+
+      .st-metabox-left {
+        float: none;
+        margin-bottom: 10px;
+        padding: 0px;
+        label {
+          color: #999999;
+        }
+      }
+      .st-metabox-right {
+        padding: 0px;
+        margin-left: 0px;
+      }
+
+      .st-metabox-content-wrapper {
+        //float: left;
+        margin-right: 40px;
+        width: 53%;
+        .st-metabox-content-wrapper {
+          width: 100%;
+          float: none;
+          margin-right: 0px;
+          margin-left: 0px;
+        }
+
+      }
+      .wb-extra-services-wrapper {
+        width: 100%;
+      }
+      .metabox-help {
+        //float: left;
+        color: #999999;
+        font-style: italic;
+        font-weight: 300;
+        margin-top: 5px;
+        font-size: 12px;
+      }
+      .help_inline {
+        color: #999999;
+        font-style: italic;
+        font-weight: 300;
+        margin-left: 20px;
+      }
+      .wb-radio-button {
+        margin-right: 15px;
+      }
+    }
+
+    &.taxonomy_fee_select {
+      .st-metabox-content-wrapper {
+        width: 80%;
+      }
+      .term-item {
+        width: 320px;
+        float: left;
+        margin-right: 30px;
+        padding: 10px 0px;
+        border-bottom: 1px solid #f1f1f1;
+        .clearfix;
+        label {
+          float: left;
+          padding: 6px 0px;
+        }
+        select {
+          display: none;
+          border: 1px solid #999999;
+          background: white;
+          float: right;
+        }
+
+        &.active {
+          select {
+            display: block;
+          }
+        }
+
+        &:nth-child(2n+1) {
+          clear: both;
+        }
+      }
+    }
+
+    &.hotel_room_list {
+
+      margin: 0px;
+      .field-label {
+        color: #666666;
+        font-weight: bold;
+        margin-bottom: 10px;
+        padding: 0px;
+        font-size: 16px;
+      }
+      .field-desc {
+        color: @maincolor;
+        font-style: italic;
+      }
+
+      .wb-room-list {
+        padding: 30px 0px;
+        margin: 0px -15px;
+        margin-bottom: 30px;
+
+        .room-item {
+          box-sizing: border-box;
+          width: 25%;
+          padding: 0px 15px;
+          float: left;
+          margin-bottom: 30px;
+
+          .room-item-wrap {
+            padding: 10px 15px 30px;
+            box-sizing: border-box;
+            background: white;
+            border: 1px solid white;
+            &:hover {
+              border-color: @maincolor;
+            }
+            .room-remain {
+              text-align: center;
+              margin-bottom: 30px;
+              span {
+                background: #f7f7f7;
+                display: inline-block;
+                margin: 0px 5px;
+                border: 1px solid #e9e9e9;
+                padding: 5px 13px;
+                color: #666666;
+                &.room-remain-count {
+                  color: white;
+                  background: #0073aa;
+                  border-color: #0073aa;
+                }
+                &.no-left {
+                  color: white;
+                  background: #cc6666;
+                  border-color: #cc6666;
+                }
+              }
+            }
+            .room-image {
+              margin-bottom: 17px;
+              img {
+                width: 100%;
+                height: auto;
+              }
+            }
+            .room-type {
+              margin: 0px;
+              padding: 0px;
+              color: #666;
+              text-align: center;
+              display: block;
+              margin-bottom: 10px;
+              font-size: 14px;
+              font-weight: bold;
+            }
+            .room-actions {
+              text-align: center;
+              a {
+                display: inline-block;
+                color: #999999;
+                margin: 0px 10px;
+                border: 1px solid #e9e9e9;
+                padding: 5px 13px;
+                &:hover {
+                  color: white;
+                  background: @maincolor;
+                  border-color: @maincolor;
+                }
+              }
             }
           }
         }
       }
-
-        &.bed_options{
-            .default-item{
-                margin-bottom: 10px;
-            }
-            .default-item,.add-more-box{
-                select{
-                   /* margin: 0px 10px;*/
-                    &:first-child{
-                        margin-left: 0px;
-                    }
-                }
-            }
-            .more-item{
-                margin-bottom: 10px;
-            }
-            .wb-repeat-dropdown-add{
-                margin-top: 10px;
-                display: inline-block;
-                display: inline-block;
-                text-decoration: none;
-            }
-            .wb-repeat-dropdown-remove{
-                color: #e06666;
-            }
-            .single-bed-option{
-                display: block;
-
-            }
-            .multi-bed-option{
-                display: none;
-                .multi-item-default{
-                    display: none;
-                }
-            }
-            &.is-multi-room{
-                .single-bed-option{
-                    display: none;
-
-                }
-                .multi-bed-option{
-                    display: block;
-                }
-            }
-            .multi-item-row{
-                background: #f1f1f1;
-                margin-bottom: 10px;
-                padding:20px 15px;
-                .multi-item-title{
-                    display: block;
-                    color: @maincolor;
-                    margin-bottom: 20px;
-                    font-size: 16px;
-
-                }
-            }
-
-        }
-        &.living_options{
-            .multi-item-default{
-                display: none;
-            }
-            .default-item{
-                margin-bottom: 10px;
-            }
-            .default-item,.add-more-box{
-                select{
-                    margin: 0px 10px;
-                    &:first-child{
-                        margin-left: 0px;
-                    }
-                }
-            }
-            .more-item{
-                margin-bottom: 10px;
-            }
-            .wb-repeat-dropdown-add{
-                margin-top: 10px;
-                display: inline-block;
-                text-decoration: none;
-            }
-            .wb-repeat-dropdown-remove{
-                color: #e06666;
-            }
-            .single-bed-option{
-                display: block;
-
-            }
-            .multi-bed-option{
-                display: none;
-                .multi-item-default{
-                    display: none;
-                }
-            }
-            &.is-multi-room{
-                .single-bed-option{
-                    display: none;
-
-                }
-                .multi-bed-option{
-                    display: block;
-                }
-            }
-            .multi-item-row{
-                background: #f1f1f1;
-                margin-bottom: 10px;
-                padding:20px 15px;
-                .multi-item-title{
-                    display: block;
-                    color: @maincolor;
-                    margin-bottom: 20px;
-                    font-size: 16px;
-
-                }
-            }
-
-        }
-
-        @media(max-width: 1100px){
-            .st-metabox-left{
-                width: 100%;
-                float: none;
-                margin-bottom: 10px;
-            }
-            .st-metabox-right{
-                width: 100%;
-                margin-left: auto;
-                .st-metabox-content-wrapper, .wb-extra-services-wrapper{
-                    width: 100%;
-                    margin-right: 0px;
-                }
-            }
-        }
-    }
-
-
-    // Edit Room
-    position: relative;
-    &.on-create{
-        .hotel_room_list,>.wb-section-navigation{
-            display: none;
-        }
-
-    }
-    &.on-loading{
-        &:before{
-            content: "";
-            position: absolute;
-            top:0px;
-            left:0px;
-            right:0px;
-            bottom:0px;
-            z-index: 101;
-            background: rgba(0,0,0,0.6);
-        }
-    }
-
-    .wpbooking-form-group-gallery{
-        margin-bottom: 18px;
-        margin-top: 20px;
-    }
-    .form-table:after,
-    .form-table:before{
-        content: " ";
+      .wp-room-actions {
+        margin-bottom: 30px;
         display: table;
-    }
-    .form-table:after{
-        clear: both;
-    }
-    .open_section_metabox{
-        background: #fff;
-        padding: 15px 0;
-        margin-bottom: 10px;
-        border: solid 1px #fff;
-        position: relative;
-        overflow: hidden;
-        &.active{
-            border: solid 1px @maincolor;
+        width: 100%;
+        > div {
+          display: table-cell;
         }
-
-    }
-}
-.sticky-wrapper{
-    position: relative;
-    z-index: 4;
-}
-.wb-back-all-rooms-wrap{
-    //position: absolute;
-    //right:25px;
-    //top:53px;    float: right;
-    float: right;
-    text-align: right;
-}
-.wb-back-all-rooms{
-    z-index: 999;
-    width: 185px;
-    background: white;
-    border:1px solid @maincolor;
-    color: @maincolor;
-    padding: 10px 18px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 15px;
-    position: absolute;
-    right: 30px;
-    top: 70px;
-    &:hover,&:focus{
-        color: @maincolor;
-    }
-}
-.is-sticky{
-    >.wb-back-all-rooms{
-        position: static;
-    }
-}
-//meta_box
-.st-metabox-content-wrapper{
-
-    //padding-bottom: 20px;
-    .creditcard{
-        background: url(../../images/creditcard.png) no-repeat;
-        position: relative;
-        line-height: 30px;
-        padding-left: 55px;
-        &.americanexpress{
-            background-position:  0 -145px;
+        &.top {
+          margin-bottom: 0px;
         }
-        &.visa{
-            background-position: 0 1px
-        }
-        &.euromastercard{
-            background-position:   0 -24px;
-        }
-        &.dinersclub{
-            background-position: 0 -96px;
-        }
-        &.jcb{
-            background-position:  0 -121px;
-        }
-        &.maestro{
-            background-position: 0 -48px;
-        }
-        &.discover{
-            background-position: 0 -73px;
-        }
-        &.unionpaydebitcard{
-            background-position: 0 -194px;
-        }
-        &.unionpaycreditcard{
-            background-position: 0 -194px;
-        }
-        &.bankcard{
-            background-position: 0 -584px;
-        }
-    }
-
-    .taxonomy_room_select .wpbooking-row{
-        border-bottom: 1px solid #ccc;
-        margin-bottom: 7px !important;
-        padding-bottom: 10px;
-    }
-    .taxonomy_room_select{
-        &.wpbooking-col-sm-4 {
-            padding-left: 0px;
-        }
-        p{
-            margin: 7px 0;
-        }
-        .list_post{
-            display: none;
-        }
-        .list_post.active{
+        .room-create {
+          &.top {
             display: block;
+          }
+          width: 35%;
+          padding-right: 30px;
+          font-size: 16px;
+          a {
+            display: block;
+            background: white;
+            color: @maincolor;
+            font-weight: bold;
+            border: 1px solid @maincolor;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            &:hover {
+              background: @maincolor;
+              color: white;
+            }
+          }
         }
-        .item_base{
-            opacity: 0.6;
-            cursor: default;
+        .room-count {
+          background: #f1f1f1;
+          padding: 15px;
+          color: #666666;
+          text-align: right;
+          .text-color {
+            color: @maincolor;
+          }
         }
+      }
     }
-    .wpbooking-gmap-wrapper{
-        margin-bottom: 7px;
-    }
-    .gmap-container{
-        position: relative;
-        z-index: 1;
-        .gmap-content{
-            border: 1px dashed #C0C0C0;
-            width: 100%;
-            min-height: 300px;
+    &.wpbooking-no-room {
+      .wp-room-actions, .wb-room-list {
+        display: none;
+      }
+      .wb-no-room-message {
+        margin: 20px 0;
+        padding: 10px;
+        background: #f0f0f0;
+        display: block;
+        a.create-room {
+          color: @maincolor;
+          font-weight: bold;
+          &:hover {
+            text-decoration: none;
+          }
         }
+      }
     }
 
-  .btn_upload_gallery, .btn_remove_demo_gallery{
+    &.bed_options {
+      .default-item {
+        margin-bottom: 10px;
+      }
+      .default-item, .add-more-box {
+        select {
+          /* margin: 0px 10px;*/
+          &:first-child {
+            margin-left: 0px;
+          }
+        }
+      }
+      .more-item {
+        margin-bottom: 10px;
+      }
+      .wb-repeat-dropdown-add {
+        margin-top: 10px;
+        display: inline-block;
+        display: inline-block;
+        text-decoration: none;
+      }
+      .wb-repeat-dropdown-remove {
+        color: #e06666;
+      }
+      .single-bed-option {
+        display: block;
+
+      }
+      .multi-bed-option {
+        display: none;
+        .multi-item-default {
+          display: none;
+        }
+      }
+      &.is-multi-room {
+        .single-bed-option {
+          display: none;
+
+        }
+        .multi-bed-option {
+          display: block;
+        }
+      }
+      .multi-item-row {
+        background: #f1f1f1;
+        margin-bottom: 10px;
+        padding: 20px 15px;
+        .multi-item-title {
+          display: block;
+          color: @maincolor;
+          margin-bottom: 20px;
+          font-size: 16px;
+
+        }
+      }
+
+    }
+    &.living_options {
+      .multi-item-default {
+        display: none;
+      }
+      .default-item {
+        margin-bottom: 10px;
+      }
+      .default-item, .add-more-box {
+        select {
+          margin: 0px 10px;
+          &:first-child {
+            margin-left: 0px;
+          }
+        }
+      }
+      .more-item {
+        margin-bottom: 10px;
+      }
+      .wb-repeat-dropdown-add {
+        margin-top: 10px;
+        display: inline-block;
+        text-decoration: none;
+      }
+      .wb-repeat-dropdown-remove {
+        color: #e06666;
+      }
+      .single-bed-option {
+        display: block;
+
+      }
+      .multi-bed-option {
+        display: none;
+        .multi-item-default {
+          display: none;
+        }
+      }
+      &.is-multi-room {
+        .single-bed-option {
+          display: none;
+
+        }
+        .multi-bed-option {
+          display: block;
+        }
+      }
+      .multi-item-row {
+        background: #f1f1f1;
+        margin-bottom: 10px;
+        padding: 20px 15px;
+        .multi-item-title {
+          display: block;
+          color: @maincolor;
+          margin-bottom: 20px;
+          font-size: 16px;
+
+        }
+      }
+
+    }
+
+    @media (max-width: 1100px) {
+      .st-metabox-left {
+        width: 100%;
+        float: none;
+        margin-bottom: 10px;
+      }
+
+      .st-metabox-right {
+        width: 100%;
+        margin-left: auto;
+        .st-metabox-content-wrapper, .wb-extra-services-wrapper {
+          width: 100%;
+          margin-right: 0px;
+        }
+      }
+    }
+  }
+
+  // Edit Room
+  position: relative;
+  &.on-create {
+    .hotel_room_list, > .wb-section-navigation {
+      display: none;
+    }
+
+  }
+  &.on-loading {
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      z-index: 101;
+      background: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  .wpbooking-form-group-gallery {
+    margin-bottom: 18px;
+    margin-top: 20px;
+  }
+  .form-table:after,
+  .form-table:before {
+    content: " ";
+    display: table;
+  }
+  .form-table:after {
+    clear: both;
+  }
+  .open_section_metabox {
+    background: #fff;
+    padding: 15px 0;
+    margin-bottom: 10px;
+    border: solid 1px #fff;
+    position: relative;
+    overflow: hidden;
+    &.active {
+      border: solid 1px @maincolor;
+    }
+
+  }
+}
+
+.sticky-wrapper {
+  position: relative;
+  z-index: 4;
+}
+
+.wb-back-all-rooms-wrap {
+  //position: absolute;
+  //right:25px;
+  //top:53px;    float: right;
+  float: right;
+  text-align: right;
+}
+
+.wb-back-all-rooms {
+  z-index: 999;
+  width: 185px;
+  background: white;
+  border: 1px solid @maincolor;
+  color: @maincolor;
+  padding: 10px 18px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+  position: absolute;
+  right: 30px;
+  top: 70px;
+  &:hover, &:focus {
+    color: @maincolor;
+  }
+}
+
+.is-sticky {
+  > .wb-back-all-rooms {
+    position: static;
+  }
+}
+
+//meta_box
+.st-metabox-content-wrapper {
+
+  //padding-bottom: 20px;
+  .creditcard {
+    background: url(../../images/creditcard.png) no-repeat;
+    position: relative;
+    line-height: 30px;
+    padding-left: 55px;
+    &.americanexpress {
+      background-position: 0 -145px;
+    }
+    &.visa {
+      background-position: 0 1px
+    }
+    &.euromastercard {
+      background-position: 0 -24px;
+    }
+    &.dinersclub {
+      background-position: 0 -96px;
+    }
+    &.jcb {
+      background-position: 0 -121px;
+    }
+    &.maestro {
+      background-position: 0 -48px;
+    }
+    &.discover {
+      background-position: 0 -73px;
+    }
+    &.unionpaydebitcard {
+      background-position: 0 -194px;
+    }
+    &.unionpaycreditcard {
+      background-position: 0 -194px;
+    }
+    &.bankcard {
+      background-position: 0 -584px;
+    }
+  }
+
+  .taxonomy_room_select .wpbooking-row {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 7px !important;
+    padding-bottom: 10px;
+  }
+  .taxonomy_room_select {
+    &.wpbooking-col-sm-4 {
+      padding-left: 0px;
+    }
+    p {
+      margin: 7px 0;
+    }
+    .list_post {
+      display: none;
+    }
+    .list_post.active {
+      display: block;
+    }
+    .item_base {
+      opacity: 0.6;
+      cursor: default;
+    }
+  }
+  .wpbooking-gmap-wrapper {
+    margin-bottom: 7px;
+  }
+  .gmap-container {
+    position: relative;
+    z-index: 1;
+    .gmap-content {
+      border: 1px dashed #C0C0C0;
+      width: 100%;
+      min-height: 300px;
+    }
+  }
+
+  .btn_upload_gallery, .btn_remove_demo_gallery {
     background: transparent;
     color: #666666;
     border: 1px solid #CCCCCC;
@@ -1883,7 +2001,7 @@ img.settings-demo-image-gallery{
     transition: .1s;
     margin-bottom: 10px;
     margin-right: 10px;
-    &:hover{
+    &:hover {
       border-color: @maincolor;
       color: @maincolor;
       background: #fff;
@@ -1891,143 +2009,148 @@ img.settings-demo-image-gallery{
   }
 
 }
-input.gmap-search{
-    display: block;
-    position: absolute;
-    top: 10px;
-    left: 100px;
-    height: 31px;
-    z-index: 9;
-    border: 1px solid #CCC;
+
+input.gmap-search {
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 100px;
+  height: 31px;
+  z-index: 9;
+  border: 1px solid #CCC;
 }
-.st-metabox-content-wrapper:after{
-    display: table;
-    content: " ";
-    clear: both;
+
+.st-metabox-content-wrapper:after {
+  display: table;
+  content: " ";
+  clear: both;
 }
+
 .form-build {
 
   content: " ";
   display: table;
   clear: both;
-    td{
-      padding: 0px;
-    }
-  .head-control-left{
+  td {
+    padding: 0px;
+  }
+  .head-control-left {
     float: left;
     font-size: 18px;
     font-weight: bold;
     width: 60%;
   }
-  .head-control-right{
+  .head-control-right {
     float: left;
     margin-left: 20px;
     width: 35%;
     padding-bottom: 10px;
   }
 
-  .control-left{
+  .control-left {
     float: left;
     width: 60%;
-    textarea{
+    textarea {
       min-height: 200px;
       width: 100%;
     }
   }
-  .control-right{
+  .control-right {
     background: #ddd none repeat scroll 0 0;
     margin-left: 20px;
     padding: 20px 5px 20px 15px;
     width: 35%;
     float: left;
   }
-  .form-field{
+  .form-field {
     padding-bottom: 15px;
   }
 
 }
+
 // List Item
-.wpbooking-list-item-wrapper{
+.wpbooking-list-item-wrapper {
+  width: 100%;
+  @media (min-width: 1600px) {
+    //width: 60%;
+  }
+  table {
     width: 100%;
-    @media(min-width: 1600px){
-        //width: 60%;
+  }
+  .wpbooking-list-item {
+    display: table;
+    width: 100%;
+    border: 1px solid #cccccc;
+    margin-bottom: 5px;
+    &.active {
+      border: 1px solid @maincolor;
+      .list-item-head {
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top: 0px;
+      }
     }
-    table{
-        width: 100%;
+    .td-left {
+      .title {
+        width: 200px;
+      }
     }
-    .wpbooking-list-item{
-        display: table;
-        width: 100%;
-        border: 1px solid #cccccc;
-        margin-bottom: 5px;
-        &.active{
-            border:1px solid @maincolor;
-            .list-item-head{
-                margin-left: 0px;
-                margin-right: 0px;
-                margin-top: 0px;
-            }
-        }
-        .td-left{
-            .title{
-                width: 200px;
-            }
-        }
 
-        .list-item-head{
-            position: relative;
-            clear: both;
-            background: #ebebeb none repeat scroll 0% 0%;
-            display: block;
-            padding: 5px;
-            margin-bottom: -2px;
-            height: 30px;
-            border: 1px solid #cccccc;
-            margin-left: -1px;
-            margin-top: -1px;
-            margin-right: -1px;
-            .dashicons{
-                float: left;
-                margin-top: 6px;
-            }
-            .item-title{
-                height: 100%;
-                position: absolute;
-                top: 0px;
-                left: 0px;
-                width: 100%;
-                line-height: 30px;
-                padding-left: 25px;
-                z-index: 8;
-                color: #666666;
-            }
-            .button-control{
-                position: relative;
-                z-index: 9;
-                float: right;
-                margin-top: 0px;
-                margin-right: 10px;
-                a{
-                    color: #666666;
-                    text-decoration: none;
-                    margin-left: 5px;
-                    font-weight: bold;
-                    cursor: pointer;
-                    i{
-                        font-weight: bold;
-                    }
-                }
-            }
+    .list-item-head {
+      position: relative;
+      clear: both;
+      background: #ebebeb none repeat scroll 0% 0%;
+      display: block;
+      padding: 5px;
+      margin-bottom: -2px;
+      height: 30px;
+      border: 1px solid #cccccc;
+      margin-left: -1px;
+      margin-top: -1px;
+      margin-right: -1px;
+      .dashicons {
+        float: left;
+        margin-top: 6px;
+      }
+      .item-title {
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        line-height: 30px;
+        padding-left: 25px;
+        z-index: 8;
+        color: #666666;
+      }
+      .button-control {
+        position: relative;
+        z-index: 9;
+        float: right;
+        margin-top: 0px;
+        margin-right: 10px;
+        a {
+          color: #666666;
+          text-decoration: none;
+          margin-left: 5px;
+          font-weight: bold;
+          cursor: pointer;
+          i {
+            font-weight: bold;
+          }
         }
+      }
+    }
 
-    }
-    .hidden{
-        display: none !important;
-    }
-    .wpbooking-add-item{
-        margin-top: 20px;
-    }
+  }
+  .hidden {
+    display: none !important;
+  }
+  .wpbooking-add-item {
+    margin-top: 20px;
+  }
 }
+
 //@import "calendar.less";
 .wp-core-ui {
   .button.wb-button-primary {
@@ -2041,438 +2164,448 @@ input.gmap-search{
     box-shadow: 0 1px 0 @maincolor;
   }
 }
-.wpbooking-calendar-wrapper{
-    margin-top: 20px;
-    .wpbooking-calendar-content{
-        position: relative;
-        width: 100%;
-        float: left;
-        padding-left: 15px;
-        padding-right: 20px;
-        z-index: 1;
-      .wb-heading{
-        padding-right: 15px;
-      }
-        .fc-scroller{
-            height: auto!important;
-        }
-        .fc-highlight{
-            background: none;
-        }
-        .fc-unthemed .fc-divider, .fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead {
-             border-color: #cfd4d4;
 
-         }
-        .fc-past {
-            background: #dce0e0;
-            cursor: not-allowed;
-        }
-        .fc-content-skeleton{
-            .fc-day-number{
-                text-align: left;
-                font-size: 14px;
-                background: none;
-                color: #777676;
-                font-weight: bold;
-            }
-        }
-        .fc-highlight-skeleton{
-            z-index: 0;
-        }
-        .fc-bg{
-            .fc-day{
-                cursor: pointer;
-                &.fc-past{
-                    cursor: not-allowed;
-                }
-            }
-        }
-        .fc-unthemed .fc-today{
-            background: none;
-        }
-        .fc-bgevent{
-            opacity: 1;
-            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAJTpkz5zwjjgzg5OTmMYAEYB8RmROaABADNNQ7Ag/fD+gAAAABJRU5ErkJggg==");
-        }
-        .fc-row .fc-bg {
-            z-index: 3;
-        }
-        .calendar-room{
-            &.on-selected{
-                .fc-bg,.fc-content-skeleton{
-                    .fc-day{
-                        opacity: 0.32;
-                        background-color: #ccc;
-                        &.bg-disable{
-                            opacity: 0.6;
-
-                        }
-                        &.wb-highlight{
-                            position: relative;
-                            background: white;
-                            z-index: 2;
-                            -webkit-animation: anim-cal-tile-raised .4s ease;
-                            -moz-animation: anim-cal-tile-raised .4s ease;
-                            -o-animation: anim-cal-tile-raised .4s ease;
-                            animation: anim-cal-tile-raised .4s ease;
-                            //-webkit-box-shadow: 0 8px 16px rgba(0,0,0,0.12);
-                            //-moz-box-shadow: 0 8px 16px rgba(0,0,0,0.12);
-                            //box-shadow: 0 8px 1px rgba(0,0,0,0.75);
-                            opacity: 1;
-                            &:before{
-                                content: "";
-                                border: 2px solid @maincolor;
-                                position: absolute;
-                                bottom:0px;
-                                left: 0px;
-                                right: 0px;
-                            }
-
-                        }
-                        &.fc-past{
-                            background: #4a4a4a;
-                        }
-                    }
-                    .fc-day-number{
-                        opacity: 0.32;
-                    }
-
-
-                }
-
-            }
-            .bg-disable{
-                background-color: #dce0e0;
-                background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAJTpkz5zwjjgzg5OTmMYAEYB8RmROaABADNNQ7Ag/fD+gAAAABJRU5ErkJggg==");
-            }
-            //&.specific_periods{
-            //    .fc-day{
-            //        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAJTpkz5zwjjgzg5OTmMYAEYB8RmROaABADNNQ7Ag/fD+gAAAABJRU5ErkJggg==");
-            //        background-color: #dce0e0;
-            //    }
-            //}
-            .fc-content-skeleton{
-                cursor: pointer;
-                height: 100%;
-                >table{
-                    height: 100%;
-                    .fc-event-container{
-                        vertical-align: bottom;
-                        position: relative;
-                        .fc-event{
-                            position: static;
-                            background: none;
-                            color: #de8650;
-                            border:none;
-                            font-weight: bold;
-                            font-size: 13px;
-                            margin-bottom: 2px;
-                            .fc-content{
-                                position: static;
-                                .not_available{
-                                    //background-color: #dce0e0;
-                                    //position: absolute;
-                                    top:-22px;
-                                    right:0px;
-                                    bottom:-3px;
-                                    left: 0px;
-                                    //background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAJTpkz5zwjjgzg5OTmMYAEYB8RmROaABADNNQ7Ag/fD+gAAAABJRU5ErkJggg==");
-                                }
-
-                                .price{
-                                    position: absolute;
-                                    top:50%;
-                                    right:0px;
-                                    bottom:-3px;
-                                    left: 0px;
-                                    .price-title{
-                                        position: absolute;
-                                        bottom: 5px;
-                                        left: 3px;
-
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    .wpbooking-calendar-sidebar{
-        width: 100%;
-        float: left;
-        .form-container{
-            border: 1px solid #e9e9e9;
-            background: #FFFFFF;
-            padding:20px;
-            margin-bottom: 20px;
-            input[type=text],select{
-                padding:5px;
-              border-color: #999999;
-              border-radius: 0;
-              height: 31px;
-            }
-            .form-title{
-                color: #666666;
-                margin: 0px;
-                margin-bottom: 10px;
-                margin-top: 10px;
-                font-weight: bold;
-                font-size: 20px;
-            }
-          .form-desc{
-            font-style: italic;
-            margin-top: 0;
-            margin-bottom: 20px;
-          }
-            .calendar-label{
-                display: block;
-                margin-bottom: 10px;
-                font-size: 15px;
-                color: #666666;
-                &.wb-radio-input{
-                    display: inline-block;
-                    margin-right: 20px;
-                }
-            }
-            .calendar-input{
-                //width: 100%;
-            }
-            .calendar-room-form-item{
-                .mb20;
-                float: left;
-                width: 50%;
-                input[type=text],select,input[type=number]{
-                    width: 100%;
-                }
-
-                &.full-width{
-                    float: none;
-                    clear: both;
-                    width: auto;
-                }
-            }
-            .calendar-room-price-table{
-                margin-bottom: 20px;
-                th,td{
-                    padding: 5px;
-                }
-
-                input.number-select{
-                    width: 50px;
-                }
-            }
-            .calendar-input-icon{
-                position: relative;
-                input[type=text]{
-                    background: white;
-                    width: 100%;
-                }
-                >.fa{
-                    position: absolute;
-                    top: 2px;
-                    right: 0;
-                  border-left: 1px solid #999999;
-                    background: #ebebeb;
-                  padding: 8px 9px;
-                }
-            }
-            .button-success{
-                background: #66cc66;
-                color: white;
-                border-color: #66cc66;
-            }
-        }
-      .calendar-price-df-form{
-        .calendar-room-form-item{
-          margin-top: 30px;
-        }
-        .form-group{
-          max-width: 215px;
-          input.form-control,span.input-group-addon{
-            border-color: #999999;
-          }
-        }
-      }
-        .property-form{
-            background-color: #f1f1f1;
-          padding-bottom: 0;
-        }
-        .calendar-help{
-            .help-label{
-                font-weight: bold;
-                margin-bottom: 20px;
-                font-size: 18px;
-            }
-            .list{
-                padding:0px;
-                margin:0px;
-                list-style: none;
-                ul{
-                    list-style: none;
-                    padding-left: 50px;
-                    margin:0px;
-                }
-            }
-        }
-
-        #form-bulk-edit{
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            background: rgba(0, 0, 0, 0.7) none repeat scroll 0% 0%;
-            display: none;
-            .form-container{
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                z-index: 1;
-                background: rgb(255, 255, 255) none repeat scroll 0% 0%;
-                transform: translateX(-50%) translateY(-50%);
-                border: 1px solid rgb(36, 35, 35);
-                padding: 15px;
-                max-width: 90%;
-                width: 950px;
-                h4,h3{
-                    margin: 0;
-                    padding: 0;
-                }
-                .form-title{
-                    padding-bottom: 15px;
-                    border-bottom: 1px solid #CCC;
-                    font-size: 12px;
-                }
-                .form-footer{
-                    padding-top: 15px;
-                    border-top: 1px solid #CCC;
-                }
-                .form-content{
-                    padding-top: 15px;
-                    padding-bottom: 15px;
-                    .form-group{
-                        width: auto !important;
-                        margin-left: 5px;
-                        margin-right: 5px;
-                        float: left;
-                        padding: 10px;
-                        border-radius: 3px;
-                        border: 1px solid #CCC;
-                        margin-bottom: 10px;
-                        label{
-                            display: inline-block;
-                            margin-right: 5px;
-                            margin-bottom: 5px;
-                            &.block{
-                                display: block;
-                                margin-bottom: 5px;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-    }
-
-    //@media(max-width: 1366px){
-    //    .wpbooking-calendar-content{
-    //        float: left;
-    //        padding: 0px;
-    //        width: 68%;
-    //        margin-bottom: 30px;
-    //        margin-right: 2%;
-    //    }
-    //    .wpbooking-calendar-sidebar{
-    //        width: 30%;
-    //        float: left;
-    //        .form-container{
-    //            padding: 10px;
-    //        }
-    //    }
-    //
-    //}
-    @media (max-width: 1600px){
-        .wpbooking-calendar-content{
-            float: none;
-            width: 100%;
-        }
-        .wpbooking-calendar-sidebar{
-            width: 100%;
-            float: none;
-        }
-    }
-}
-@media( max-width: 1040px ){
-    #form-bulk-edit{
-        .form-container{
-            max-height: 480px;
-            overflow-y: scroll;
-        }
-    }
-}
-.wpbooking-calendar-wrapper:after,
-.wpbooking-calendar-wrapper:before{
-    content: " ";
-    display: table;
-}
-.wpbooking-calendar-wrapper:after{
-    clear: both;
-}
-@media( min-width: 1400px){
-    .wpbooking-calendar-wrapper{
-        .wpbooking-calendar-content{
-            width: 60%
-        }
-        .wpbooking-calendar-sidebar{
-            width: 40%;
-            padding-right: 30px;
-        }
-
-    }
-}
-.form-message{
-    font-style: italic;
-    &.error{
-        color: red;
-      box-shadow: none;
-    }
-    &.success{
-        color: #72b916;
-    }
-}
-.clearfix:after,
-.clearfix:before{
-    content: " ";
-    display: table;
-}
-.clearfix:after{
-    clear: both;
-}
-.overlay{
-    position: absolute;
-    top: 0;
-    left: 0;
+.wpbooking-calendar-wrapper {
+  margin-top: 20px;
+  .wpbooking-calendar-content {
+    position: relative;
     width: 100%;
-    height: 100%;
-    z-index: 9;
-    background: rgba(255, 255, 255, 0.6);
-    display: none;
-    .spinner{
+    float: left;
+    padding-left: 15px;
+    padding-right: 20px;
+    z-index: 1;
+    .wb-heading {
+      padding-right: 15px;
+    }
+    .fc-scroller {
+      height: auto !important;
+    }
+    .fc-highlight {
+      background: none;
+    }
+    .fc-unthemed .fc-divider, .fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead {
+      border-color: #cfd4d4;
+
+    }
+    .fc-past {
+      background: #dce0e0;
+      cursor: not-allowed;
+    }
+    .fc-content-skeleton {
+      .fc-day-number {
+        text-align: left;
+        font-size: 14px;
+        background: none;
+        color: #777676;
+        font-weight: bold;
+      }
+    }
+    .fc-highlight-skeleton {
+      z-index: 0;
+    }
+    .fc-bg {
+      .fc-day {
+        cursor: pointer;
+        &.fc-past {
+          cursor: not-allowed;
+        }
+      }
+    }
+    .fc-unthemed .fc-today {
+      background: none;
+    }
+    .fc-bgevent {
+      opacity: 1;
+      background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAJTpkz5zwjjgzg5OTmMYAEYB8RmROaABADNNQ7Ag/fD+gAAAABJRU5ErkJggg==");
+    }
+    .fc-row .fc-bg {
+      z-index: 3;
+    }
+    .calendar-room {
+      &.on-selected {
+        .fc-bg, .fc-content-skeleton {
+          .fc-day {
+            opacity: 0.32;
+            background-color: #ccc;
+            &.bg-disable {
+              opacity: 0.6;
+
+            }
+            &.wb-highlight {
+              position: relative;
+              background: white;
+              z-index: 2;
+              -webkit-animation: anim-cal-tile-raised .4s ease;
+              -moz-animation: anim-cal-tile-raised .4s ease;
+              -o-animation: anim-cal-tile-raised .4s ease;
+              animation: anim-cal-tile-raised .4s ease;
+              //-webkit-box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+              //-moz-box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+              //box-shadow: 0 8px 1px rgba(0,0,0,0.75);
+              opacity: 1;
+              &:before {
+                content: "";
+                border: 2px solid @maincolor;
+                position: absolute;
+                bottom: 0px;
+                left: 0px;
+                right: 0px;
+              }
+
+            }
+            &.fc-past {
+              background: #4a4a4a;
+            }
+          }
+          .fc-day-number {
+            opacity: 0.32;
+          }
+
+        }
+
+      }
+      .bg-disable {
+        background-color: #dce0e0;
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAJTpkz5zwjjgzg5OTmMYAEYB8RmROaABADNNQ7Ag/fD+gAAAABJRU5ErkJggg==");
+      }
+      //&.specific_periods{
+      //    .fc-day{
+      //        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAJTpkz5zwjjgzg5OTmMYAEYB8RmROaABADNNQ7Ag/fD+gAAAABJRU5ErkJggg==");
+      //        background-color: #dce0e0;
+      //    }
+      //}
+      .fc-content-skeleton {
+        cursor: pointer;
+        height: 100%;
+        > table {
+          height: 100%;
+          .fc-event-container {
+            vertical-align: bottom;
+            position: relative;
+            .fc-event {
+              position: static;
+              background: none;
+              color: #de8650;
+              border: none;
+              font-weight: bold;
+              font-size: 13px;
+              margin-bottom: 2px;
+              .fc-content {
+                position: static;
+                .not_available {
+                  //background-color: #dce0e0;
+                  //position: absolute;
+                  top: -22px;
+                  right: 0px;
+                  bottom: -3px;
+                  left: 0px;
+                  //background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAJTpkz5zwjjgzg5OTmMYAEYB8RmROaABADNNQ7Ag/fD+gAAAABJRU5ErkJggg==");
+                }
+
+                .price {
+                  position: absolute;
+                  top: 50%;
+                  right: 0px;
+                  bottom: -3px;
+                  left: 0px;
+                  .price-title {
+                    position: absolute;
+                    bottom: 5px;
+                    left: 3px;
+
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .wpbooking-calendar-sidebar {
+    width: 100%;
+    float: left;
+    .form-container {
+      border: 1px solid #e9e9e9;
+      background: #FFFFFF;
+      padding: 20px;
+      margin-bottom: 20px;
+      input[type=text], select {
+        padding: 5px;
+        border-color: #999999;
+        border-radius: 0;
+        height: 31px;
+      }
+      .form-title {
+        color: #666666;
+        margin: 0px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 20px;
+      }
+      .form-desc {
+        font-style: italic;
+        margin-top: 0;
+        margin-bottom: 20px;
+      }
+      .calendar-label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 15px;
+        color: #666666;
+        &.wb-radio-input {
+          display: inline-block;
+          margin-right: 20px;
+        }
+      }
+      .calendar-input {
+        //width: 100%;
+      }
+      .calendar-room-form-item {
+        .mb20;
+        float: left;
+        width: 50%;
+        input[type=text], select, input[type=number] {
+          width: 100%;
+        }
+
+        &.full-width {
+          float: none;
+          clear: both;
+          width: auto;
+        }
+      }
+      .calendar-room-price-table {
+        margin-bottom: 20px;
+        th, td {
+          padding: 5px;
+        }
+
+        input.number-select {
+          width: 50px;
+        }
+      }
+      .calendar-input-icon {
+        position: relative;
+        input[type=text] {
+          background: white;
+          width: 100%;
+        }
+        > .fa {
+          position: absolute;
+          top: 2px;
+          right: 0;
+          border-left: 1px solid #999999;
+          background: #ebebeb;
+          padding: 8px 9px;
+        }
+      }
+      .button-success {
+        background: #66cc66;
+        color: white;
+        border-color: #66cc66;
+      }
+    }
+    .calendar-price-df-form {
+      .calendar-room-form-item {
+        margin-top: 30px;
+      }
+      .form-group {
+        max-width: 215px;
+        input.form-control, span.input-group-addon {
+          border-color: #999999;
+        }
+      }
+    }
+    .property-form {
+      background-color: #f1f1f1;
+      padding-bottom: 0;
+    }
+    .calendar-help {
+      .help-label {
+        font-weight: bold;
+        margin-bottom: 20px;
+        font-size: 18px;
+      }
+      .list {
+        padding: 0px;
+        margin: 0px;
+        list-style: none;
+        ul {
+          list-style: none;
+          padding-left: 50px;
+          margin: 0px;
+        }
+      }
+    }
+
+    #form-bulk-edit {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.7) none repeat scroll 0% 0%;
+      display: none;
+      .form-container {
         position: absolute;
         top: 50%;
         left: 50%;
-        margin-left: -10px;
-        margin-right: -10px;
-        z-index: 10;
+        z-index: 1;
+        background: rgb(255, 255, 255) none repeat scroll 0% 0%;
+        transform: translateX(-50%) translateY(-50%);
+        border: 1px solid rgb(36, 35, 35);
+        padding: 15px;
+        max-width: 90%;
+        width: 950px;
+        h4, h3 {
+          margin: 0;
+          padding: 0;
+        }
+        .form-title {
+          padding-bottom: 15px;
+          border-bottom: 1px solid #CCC;
+          font-size: 12px;
+        }
+        .form-footer {
+          padding-top: 15px;
+          border-top: 1px solid #CCC;
+        }
+        .form-content {
+          padding-top: 15px;
+          padding-bottom: 15px;
+          .form-group {
+            width: auto !important;
+            margin-left: 5px;
+            margin-right: 5px;
+            float: left;
+            padding: 10px;
+            border-radius: 3px;
+            border: 1px solid #CCC;
+            margin-bottom: 10px;
+            label {
+              display: inline-block;
+              margin-right: 5px;
+              margin-bottom: 5px;
+              &.block {
+                display: block;
+                margin-bottom: 5px;
+              }
+            }
+          }
+        }
+      }
     }
-    &.open{
-        display: block !important;
+
+  }
+
+  //@media(max-width: 1366px){
+  //    .wpbooking-calendar-content{
+  //        float: left;
+  //        padding: 0px;
+  //        width: 68%;
+  //        margin-bottom: 30px;
+  //        margin-right: 2%;
+  //    }
+  //    .wpbooking-calendar-sidebar{
+  //        width: 30%;
+  //        float: left;
+  //        .form-container{
+  //            padding: 10px;
+  //        }
+  //    }
+  //
+  //}
+  @media (max-width: 1600px) {
+    .wpbooking-calendar-content {
+      float: none;
+      width: 100%;
     }
+
+    .wpbooking-calendar-sidebar {
+      width: 100%;
+      float: none;
+    }
+  }
 }
+
+@media ( max-width: 1040px ) {
+  #form-bulk-edit {
+    .form-container {
+      max-height: 480px;
+      overflow-y: scroll;
+    }
+  }
+}
+
+.wpbooking-calendar-wrapper:after,
+.wpbooking-calendar-wrapper:before {
+  content: " ";
+  display: table;
+}
+
+.wpbooking-calendar-wrapper:after {
+  clear: both;
+}
+
+@media ( min-width: 1400px) {
+  .wpbooking-calendar-wrapper {
+    .wpbooking-calendar-content {
+      width: 60%
+    }
+    .wpbooking-calendar-sidebar {
+      width: 40%;
+      padding-right: 30px;
+    }
+
+  }
+}
+
+.form-message {
+  font-style: italic;
+  &.error {
+    color: red;
+    box-shadow: none;
+  }
+  &.success {
+    color: #72b916;
+  }
+}
+
+.clearfix:after,
+.clearfix:before {
+  content: " ";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  background: rgba(255, 255, 255, 0.6);
+  display: none;
+  .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-right: -10px;
+    z-index: 10;
+  }
+  &.open {
+    display: block !important;
+  }
+}
+
 /* --------------------------------------------------
   :: Date Picker
   ---------------------------------------------------*/
@@ -2484,17 +2617,20 @@ input.gmap-search{
   width: 216px;
   z-index: 101 !important;
   -webkit-border-radius: 2px;
-     -moz-border-radius: 2px;
-          border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
 }
+
 .ui-datepicker a {
   text-decoration: none;
 }
+
 .ui-datepicker table {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
 }
+
 .ui-datepicker .ui-widget-header {
   left: -1px;
   line-height: 30px;
@@ -2502,12 +2638,14 @@ input.gmap-search{
   top: -1px;
   width: 218px;
   -webkit-border-radius: 2px 2px 0 0;
-     -moz-border-radius: 2px 2px 0 0;
-          border-radius: 2px 2px 0 0;
+  -moz-border-radius: 2px 2px 0 0;
+  border-radius: 2px 2px 0 0;
 }
+
 .ui-datepicker .ui-datepicker-title {
   text-align: center;
 }
+
 .ui-datepicker-prev,
 .ui-datepicker-next {
   color: #ccc;
@@ -2519,22 +2657,26 @@ input.gmap-search{
   text-align: center;
   cursor: pointer;
   -webkit-border-radius: 2px 0 0 0;
-     -moz-border-radius: 2px 0 0 0;
-          border-radius: 2px 0 0 0;
+  -moz-border-radius: 2px 0 0 0;
+  border-radius: 2px 0 0 0;
 }
+
 .ui-datepicker-next {
   -webkit-border-radius: 0 2px 0 0;
-     -moz-border-radius: 0 2px 0 0;
-          border-radius: 0 2px 0 0;
+  -moz-border-radius: 0 2px 0 0;
+  border-radius: 0 2px 0 0;
 }
+
 .ui-datepicker-prev span,
 .ui-datepicker-next span {
   display: none;
 }
+
 .ui-datepicker-prev:hover,
 .ui-datepicker-next:hover {
   color: #fff;
 }
+
 .ui-datepicker-prev:before {
   border-right: 1px solid #555;
   content: "<";
@@ -2543,10 +2685,12 @@ input.gmap-search{
   width: 31px;
   height: 30px;
 }
+
 .ui-datepicker-prev {
   border-right: 1px solid #333;
   float: left;
 }
+
 .ui-datepicker-next:before {
   border-left: 1px solid #555;
   content: ">";
@@ -2555,39 +2699,48 @@ input.gmap-search{
   width: 30px;
   height: 30px;
 }
+
 .ui-datepicker-next {
   border-left: 1px solid #333;
   float: right;
   width: 31px;
 }
+
 a.ui-datepicker-prev,
 a.ui-datepicker-next {
   outline: 0;
 }
+
 .ui-datepicker thead {
   background-color: #fafafa;
   border-bottom: 1px solid #ccc;
 }
+
 .ui-datepicker th {
   text-transform: uppercase;
   font-size: 9px;
   padding: 5px 0;
   color: #555;
-  text-shadow: 1px 0px 0px rgba(255,255,255,0.5);
+  text-shadow: 1px 0px 0px rgba(255, 255, 255, 0.5);
 }
+
 .ui-datepicker tbody td {
   border-right: 1px solid #ccc;
   padding: 0;
 }
+
 .ui-datepicker tbody td:last-child {
   border-right: 0px;
 }
+
 .ui-datepicker tbody tr {
   border-bottom: 1px solid #ccc;
 }
+
 .ui-datepicker tbody tr:last-child {
   border-bottom: 0px;
 }
+
 .ui-datepicker td span,
 .ui-datepicker td a {
   display: inline-block;
@@ -2597,41 +2750,50 @@ a.ui-datepicker-next {
   height: 29px;
   line-height: 30px;
   color: #555;
-  text-shadow: 1px 0px 0px rgba(255,255,255,0.5);
+  text-shadow: 1px 0px 0px rgba(255, 255, 255, 0.5);
 }
+
 .ui-datepicker-calendar .ui-state-default {
   background-color: #f1f1f1;
 }
+
 .ui-datepicker-calendar .ui-state-highlight {
   border-radius: 0px;
   border: none;
   color: #0074a2;
 }
+
 .ui-datepicker-calendar .ui-state-hover {
   background: #fff;
 }
+
 .ui-datepicker-calendar .ui-state-active {
   background-color: #0074a2;
   color: #fff !important;
-  text-shadow: 0px 1px 0px rgba(0,0,0,0.25);
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.25);
   position: relative;
 }
+
 .ui-datepicker-unselectable .ui-state-default {
   background: #fff;
   color: #aaa;
 }
+
 .ui-datepicker-calendar td:first-child .ui-state-active {
   margin-left: 0;
   width: 30px;
 }
+
 .ui-datepicker-calendar td:last-child .ui-state-active {
   margin-right: 0;
   width: 30px;
 }
+
 .ui-datepicker-calendar tr:last-child .ui-state-active {
   height: 30px;
   margin-bottom: 0;
 }
+
 .ui-datepicker .ui-datepicker-buttonpane {
   background-image: none;
   border-left: 0;
@@ -2640,6 +2802,7 @@ a.ui-datepicker-next {
   margin: 0;
   padding: 0 .7em;
 }
+
 .ui-datepicker .ui-datepicker-buttonpane button {
   background: #f7f7f7;
   border: 1px solid #ccc;
@@ -2651,18 +2814,20 @@ a.ui-datepicker-next {
   padding: 5px 14px;
   width: auto;
   -webkit-border-radius: 3px;
-     -moz-border-radius: 3px;
-          border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0,0,0,.08);
-     -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0,0,0,.08);
-          box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0,0,0,.08);
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0, 0, 0, .08);
+  -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0, 0, 0, .08);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0, 0, 0, .08);
 }
+
 .ui-datepicker .ui-datepicker-buttonpane button::-moz-focus-inner {
   border-width: 1px 0;
   border-style: solid none;
   border-color: transparent;
   padding: 0;
 }
+
 .ui-datepicker .ui-datepicker-buttonpane button:hover,
 .ui-datepicker .ui-datepicker-buttonpane button:focus {
   background: #fafafa;
@@ -2670,44 +2835,54 @@ a.ui-datepicker-next {
   color: #222;
   outline: 0;
 }
+
 .ui-datepicker .ui-datepicker-buttonpane button:focus {
-  -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.2);
-     -moz-box-shadow: 1px 1px 1px rgba(0,0,0,.2);
-          box-shadow: 1px 1px 1px rgba(0,0,0,.2);
+  -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
 }
+
 .ui-datepicker .ui-datepicker-buttonpane button:active {
   background: #eee;
   border-color: #999;
   color: #333;
   outline: 0;
-  -webkit-box-shadow: inset 0 2px 5px -3px rgba( 0, 0, 0, 0.5 );
-     -moz-box-shadow: inset 0 2px 5px -3px rgba( 0, 0, 0, 0.5 );
-           box-shadow: inset 0 2px 5px -3px rgba( 0, 0, 0, 0.5 );
+  -webkit-box-shadow: inset 0 2px 5px -3px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: inset 0 2px 5px -3px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 2px 5px -3px rgba(0, 0, 0, 0.5);
 }
+
 .ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
   float: left;
 }
+
 .ui-datepicker-calendar + .ui-datepicker-buttonpane {
   border-bottom: 1px solid #ccc;
 }
+
 .ui-datepicker-multi-2 {
   width: 432px !important;
 }
+
 .ui-datepicker-multi-3 {
   width: 648px !important;
 }
+
 .ui-datepicker-multi-4 {
   width: 864px !important;
 }
+
 .ui-datepicker-group {
   float: left;
   width: 216px !important;
 }
+
 .ui-datepicker-row-break {
   clear: both;
   width: 100%;
   font-size: 0;
 }
+
 .ui-datepicker-multi .ui-datepicker-buttonpane {
   border-top: 1px solid #ccc !important;
 }
@@ -2717,164 +2892,203 @@ a.ui-datepicker-next {
   background: #333;
   color: #bbb;
 }
+
 .ui-datepicker .ui-widget-header a {
   color: #999;
 }
+
 .ui-datepicker-prev,
 .ui-datepicker-next:before {
   border-color: #000;
 }
+
 .ui-datepicker-next,
 .ui-datepicker-prev:before {
   border-color: #444;
 }
+
 .ui-datepicker-prev:hover,
 .ui-datepicker-next:hover {
   background: #222;
   color: #0074a2 !important;
 }
+
 /* light */
 .admin-color-light .ui-datepicker .ui-widget-header {
   background: #888;
   color: #fff;
 }
+
 .admin-color-light .ui-datepicker .ui-widget-header a {
   color: #ccc;
 }
+
 .admin-color-light .ui-datepicker-prev,
 .admin-color-light .ui-datepicker-next:before {
   border-color: #3c3c3c;
 }
+
 .admin-color-light .ui-datepicker-next,
 .admin-color-light .ui-datepicker-prev:before {
   border-color: #999;
 }
+
 .admin-color-light .ui-datepicker-prev:hover,
 .admin-color-light .ui-datepicker-next:hover {
   background: #777;
   color: #eee !important;
 }
+
 /* blue */
 .admin-color-blue .ui-datepicker .ui-widget-header {
   background: #52accc;
   color: #fff;
 }
+
 .admin-color-blue .ui-datepicker .ui-widget-header a {
   color: #e2f8ff;
 }
+
 .admin-color-blue .ui-datepicker-prev,
 .admin-color-blue .ui-datepicker-next:before {
   border-color: #002b39;
 }
+
 .admin-color-blue .ui-datepicker-next,
 .admin-color-blue .ui-datepicker-prev:before {
   border-color: #5dc2e6;
 }
+
 .admin-color-blue .ui-datepicker-prev:hover,
 .admin-color-blue .ui-datepicker-next:hover {
   background: #006484;
   color: #fff !important;
 }
+
 /* coffee */
 .admin-color-coffee .ui-datepicker .ui-widget-header {
   background: #59524c;
   color: #c7cbc9;
 }
+
 .admin-color-coffee .ui-datepicker .ui-widget-header a {
   color: #f3f2f1;
 }
+
 .admin-color-coffee .ui-datepicker-prev,
 .admin-color-coffee .ui-datepicker-next:before {
   border-color: #0f0e0d;
 }
+
 .admin-color-coffee .ui-datepicker-next,
 .admin-color-coffee .ui-datepicker-prev:before {
   border-color: #675f58;
 }
+
 .admin-color-coffee .ui-datepicker-prev:hover,
 .admin-color-coffee .ui-datepicker-next:hover {
   background: #cca588;
   color: #fff !important;
 }
+
 /* ectoplasm */
 .admin-color-ectoplasm .ui-datepicker .ui-widget-header {
   background: #523f6d;
   color: #c6c6d3;
 }
+
 .admin-color-ectoplasm .ui-datepicker .ui-widget-header a {
   color: #f3f2f1;
 }
+
 .admin-color-ectoplasm .ui-datepicker-prev,
 .admin-color-ectoplasm .ui-datepicker-next:before {
   border-color: #181220;
 }
+
 .admin-color-ectoplasm .ui-datepicker-next,
 .admin-color-ectoplasm .ui-datepicker-prev:before {
   border-color: #644d85;
 }
+
 .admin-color-ectoplasm .ui-datepicker-prev:hover,
 .admin-color-ectoplasm .ui-datepicker-next:hover {
   background: #a3b542;
   color: #fff !important;
 }
+
 /* midnight */
 .admin-color-midnight .ui-datepicker .ui-widget-header {
   background: #363b3f;
   color: #f1f2f3;
 }
+
 .admin-color-midnight .ui-datepicker .ui-widget-header a {
   color: #f1f2f3;
 }
+
 .admin-color-midnight .ui-datepicker-prev,
 .admin-color-midnight .ui-datepicker-next:before {
   border-color: #090a0b;
 }
+
 .admin-color-midnight .ui-datepicker-next,
 .admin-color-midnight .ui-datepicker-prev:before {
   border-color: #4c5359;
 }
+
 .admin-color-midnight .ui-datepicker-prev:hover,
 .admin-color-midnight .ui-datepicker-next:hover {
   background: #ed543f;
   color: #fff !important;
 }
+
 /* ocean */
 .admin-color-ocean .ui-datepicker .ui-widget-header {
   background: #738e96;
   color: #f1fcff;
 }
+
 .admin-color-ocean .ui-datepicker .ui-widget-header a {
   color: #f1fcff;
 }
+
 .admin-color-ocean .ui-datepicker-prev,
 .admin-color-ocean .ui-datepicker-next:before {
   border-color: #39464a;
 }
+
 .admin-color-ocean .ui-datepicker-next,
 .admin-color-ocean .ui-datepicker-prev:before {
   border-color: #87a6af;
 }
+
 .admin-color-ocean .ui-datepicker-prev:hover,
 .admin-color-ocean .ui-datepicker-next:hover {
   background: #9ab8a0;
   color: #fff !important;
 }
+
 /* sunrise */
 .admin-color-sunrise .ui-datepicker .ui-widget-header {
   background: #da4f41;
   color: #fff;
 }
+
 .admin-color-sunrise .ui-datepicker .ui-widget-header a {
   color: #f3f1f1;
 }
+
 .admin-color-sunrise .ui-datepicker-prev,
 .admin-color-sunrise .ui-datepicker-next:before {
   border-color: #8a322a;
 }
+
 .admin-color-sunrise .ui-datepicker-next,
 .admin-color-sunrise .ui-datepicker-prev:before {
   border-color: #e75546;
 }
+
 .admin-color-sunrise .ui-datepicker-prev:hover,
 .admin-color-sunrise .ui-datepicker-next:hover {
   background: #e88436;
@@ -2888,24 +3102,28 @@ a.ui-datepicker-next {
   border-top: 1px solid #ccc;
   padding: 0 .4em;
 }
+
 .ui-timepicker-div .ui-widget-content {
   border: 1px solid #aaa;
   background: #fff;
   font-weight: normal;
   color: #212121;
 }
+
 .ui-timepicker-div .ui-slider {
   position: relative;
   text-align: left;
 }
+
 .ui-timepicker-div .ui-slider-horizontal {
   height: .8em;
   bottom: -.3em;
   position: relative;
   -webkit-border-radius: 2px;
-     -moz-border-radius: 2px;
-          border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
 }
+
 .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle {
   background: #f7f7f7;
   border: 1px solid #ccc;
@@ -2918,32 +3136,37 @@ a.ui-datepicker-next {
   position: absolute;
   top: -.325em;
   width: .8em;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 0 rgba(0,0,0,.08);
-     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 0 rgba(0,0,0,.08);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 0 rgba(0,0,0,.08);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 0 rgba(0, 0, 0, .08);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 0 rgba(0, 0, 0, .08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 0 rgba(0, 0, 0, .08);
   -webkit-border-radius: 2px;
-     -moz-border-radius: 2px;
-          border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
 }
+
 .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle:hover {
   background: #fafafa;
   border-color: #999;
   color: #222;
 }
+
 .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle.ui-state-active {
   background: #eee;
   border-color: #999;
   color: #333;
   outline: none;
 }
+
 .ui-datepicker-prev,
 .ui-datepicker-next:before {
   border-color: #000;
 }
+
 .ui-datepicker-next,
 .ui-datepicker-prev:before {
   border-color: #444;
 }
+
 .ui-datepicker-prev:hover,
 .ui-datepicker-next:hover {
   background: #222;
@@ -2953,741 +3176,772 @@ a.ui-datepicker-next {
 .ui-timepicker-div dl {
   text-align: left;
 }
+
 .ui-timepicker-div dl dt {
   float: left;
   clear: left;
   padding: 0 0 0 5px;
 }
+
 .ui-timepicker-div dl dd {
   margin: 0 10px 10px 45%;
 }
+
 .ui-timepicker-div td {
   font-size: 90%;
 }
+
 .ui-tpicker-grid-label {
   background: none;
   border: none;
   margin: 0;
   padding: 0;
 }
+
 /* default */
 .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle {
   background: #333;
   border-color: #000;
 }
+
 .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle:hover,
 .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle.ui-state-active {
   background: #444;
   border-color: #111;
 }
+
 /* light */
 .admin-color-light .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle {
   background: #888;
   border-color: #3c3c3c;
 }
+
 .admin-color-light .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle:hover,
 .admin-color-light .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle.ui-state-active {
   background: #999;
   border-color: #777;
 }
+
 /* blue */
 .admin-color-blue .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle {
   background: #52accc;
   border-color: #002b39;
 }
+
 .admin-color-blue .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle:hover,
 .admin-color-blue .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle.ui-state-active {
   background: #5dc2e6;
   border-color: #006484;
 }
+
 /* coffee */
 .admin-color-coffee .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle {
   background: #59524c;
   border-color: #0f0e0d;
 }
+
 .admin-color-coffee .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle:hover,
 .admin-color-coffee .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle.ui-state-active {
   background: #cca588;
   border-color: #675f58;
 }
+
 /* ectoplasm */
 .admin-color-ectoplasm .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle {
   background: #523f6d;
   border-color: #181220;
 }
+
 .admin-color-ectoplasm .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle:hover,
 .admin-color-ectoplasm .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle.ui-state-active {
   background: #a3b542;
   border-color: #644d85;
 }
+
 /* midnight */
 .admin-color-midnight .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle {
   background: #363b3f;
   border-color: #090a0b;
 }
+
 .admin-color-midnight .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle:hover,
 .admin-color-midnight .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle.ui-state-active {
   background: #ed543f;
   border-color: #a0382a;
 }
+
 /* ocean */
 .admin-color-ocean .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle {
   background: #738e96;
   border-color: #39464a;
 }
+
 .admin-color-ocean .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle:hover,
 .admin-color-ocean .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle.ui-state-active {
   background: #9ab8a0;
   border-color: #5a6c5e;
 }
+
 /* sunrise */
 .admin-color-sunrise .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle {
   background: #da4f41;
   border-color: #8a322a;
 }
+
 .admin-color-sunrise .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle:hover,
 .admin-color-sunrise .ui-timepicker-div .ui-slider-horizontal .ui-slider-handle.ui-state-active {
   background: #e88436;
   border-color: #e75546;
 }
 
-.wpbooking-select-loction{
-    position: relative;
-    z-index: 1;
-    input[name="search"]{
-        width: 100% !important;
-        display: block;
-    }
-    .list-location-wrapper{
-        padding: 15px;
-        margin-top: 5px;
-        border: 1px solid #CCC;
-        max-height: 300px;
-        overflow-y: scroll;
-    }
+.wpbooking-select-loction {
+  position: relative;
+  z-index: 1;
+  input[name="search"] {
+    width: 100% !important;
+    display: block;
+  }
+  .list-location-wrapper {
+    padding: 15px;
+    margin-top: 5px;
+    border: 1px solid #CCC;
+    max-height: 300px;
+    overflow-y: scroll;
+  }
 }
-.wpbooking-list-taxonomies{
-    .wpbooking-list-taxonomy-item{
-        width: 25%;
-        float: left;
-        margin-left: 15px;
-        margin-right: 15px;
-        margin-bottom: 15px;
-        span{
-            font-weight: normal;
-            margin-left: 5px;
-            font-size: 12px;
-        }
+
+.wpbooking-list-taxonomies {
+  .wpbooking-list-taxonomy-item {
+    width: 25%;
+    float: left;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    span {
+      font-weight: normal;
+      margin-left: 5px;
+      font-size: 12px;
     }
+  }
 }
+
 /*
 // Rating Review
 */
 .wpbooking-rating-result-wrap,
-.wpbooking-rating-review{
-    label{
-        br{
-            display: none;
-        }
+.wpbooking-rating-review {
+  label {
+    br {
+      display: none;
     }
-    .rating-stars{
+  }
+  .rating-stars {
 
-        a{
-            &.active{
-                .icon-star{
-                    &:before{
-                        content: "\f005";
-                    }
-                }
-            }
+    a {
+      &.active {
+        .icon-star {
+          &:before {
+            content: "\f005";
+          }
         }
+      }
     }
-}
-.wpbooking-order-information
-{
-    .wpbooking-order-table{
-        &,tr{
-            border-top:1px solid #dcdcdc;
-            border-left:1px solid #dcdcdc;
-        }
-        td,th{
-            border-bottom:1px solid #dcdcdc;
-            border-right:1px solid #dcdcdc;
-            padding:10px;
-        }
-    }
-}
-.clear{
-    clear: both;
+  }
 }
 
-.wpbooking-paginate{
-    margin:20px 0px;
-    text-align: right;
-    a,span{
-        display: inline-block;
-        min-width: 17px;
-        border: 1px solid #d2d2d2;
-        padding: 3px 5px 7px;
-        background: #e4e4e4;
-        font-size: 16px;
-        line-height: 1;
-        font-weight: 400;
-        text-align: center;
-        text-decoration: none;
+.wpbooking-order-information {
+  .wpbooking-order-table {
+    &, tr {
+      border-top: 1px solid #dcdcdc;
+      border-left: 1px solid #dcdcdc;
     }
+    td, th {
+      border-bottom: 1px solid #dcdcdc;
+      border-right: 1px solid #dcdcdc;
+      padding: 10px;
+    }
+  }
 }
+
+.clear {
+  clear: both;
+}
+
+.wpbooking-paginate {
+  margin: 20px 0px;
+  text-align: right;
+  a, span {
+    display: inline-block;
+    min-width: 17px;
+    border: 1px solid #d2d2d2;
+    padding: 3px 5px 7px;
+    background: #e4e4e4;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+  }
+}
+
 // All Booking Calendar
-#wpbooking_order_calendar{
-    background: white;
-    margin-top: 30px;
-    padding:20px;
-    .fc-event{
+#wpbooking_order_calendar {
+  background: white;
+  margin-top: 30px;
+  padding: 20px;
+  .fc-event {
 
-        border-radius: 0px;
-        font-size: 13px;
-        padding: 3px;
-        margin-bottom: 2px;
-    }
+    border-radius: 0px;
+    font-size: 13px;
+    padding: 3px;
+    margin-bottom: 2px;
+  }
 }
-.wpbooking-metabox-accordion{
-    .wpbooking-accordion-title{
-        cursor: pointer;
-        border:1px solid #d3d3d3;
-        background: #e6e6e6 ;
-        padding:7px 10px;
-        margin-bottom: 0px;
-        font-size: 14px;
-        font-weight: bold;
-    }
 
-    &.active{
-        .wpbooking-accordion-title{
-            background: white;
+.wpbooking-metabox-accordion {
+  .wpbooking-accordion-title {
+    cursor: pointer;
+    border: 1px solid #d3d3d3;
+    background: #e6e6e6;
+    padding: 7px 10px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-weight: bold;
+  }
 
-            i{
-                &:before{
-                    content:"\f0ab";
-                }
-            }
+  &.active {
+    .wpbooking-accordion-title {
+      background: white;
+
+      i {
+        &:before {
+          content: "\f0ab";
         }
+      }
     }
-    .wpbooking-metabox-accordion-content{
-        display: none;
-        margin-top: -1px;
-        border:1px solid #d3d3d3;
-        padding:0px 10px;
-    }
+  }
+  .wpbooking-metabox-accordion-content {
+    display: none;
+    margin-top: -1px;
+    border: 1px solid #d3d3d3;
+    padding: 0px 10px;
+  }
 }
-.st-metabox-tabs-content
-{
-    position: relative;
-    .wb-section-navigation{
-        .fa{
-            display: none;
-            &.fa-force-show{
-                display: inline-block;
-            }
-        }
+
+.st-metabox-tabs-content {
+  position: relative;
+  .wb-section-navigation {
+    .fa {
+      display: none;
+      &.fa-force-show {
+        display: inline-block;
+      }
     }
-    &.loading{
-        &:after{
-            content: "";
-            position: absolute;
-            top:0px;
-            left:0px;
-            right:0px;
-            bottom:0px;
-            background: rgba(255,255,255,0.67);
-            z-index: 99;
-        }
-        .wb-section-navigation{
-            .loading{
-                .fa{
-                    display: inline-block;
-                }
-            }
-        }
+  }
+  &.loading {
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      background: rgba(255, 255, 255, 0.67);
+      z-index: 99;
     }
-    .wpbooking-form-group{
+    .wb-section-navigation {
+      .loading {
+        .fa {
+          display: inline-block;
+        }
+      }
+    }
+  }
+  .wpbooking-form-group {
+    .clearfix;
+    &.width-two {
+      float: left;
+      width: 50%;
+      .st-metabox-content-wrapper {
+        .form-group {
+          width: 100%;
+        }
+
+      }
+    }
+    .wb-age-options-table {
+      th, td {
+        padding: 10px;
+      }
+      input {
+        width: 50px;
+      }
+    }
+
+    &.wb-taxonomy-field {
+      margin-bottom: 50px;
+      .list-terms-checkbox {
+        width: 440px;
+        margin-bottom: 15px;
         .clearfix;
-        &.width-two{
-            float: left;
-            width: 50%;
-            .st-metabox-content-wrapper {
-                .form-group {
-                    width: 100%;
-                }
-
-
-            }
-        }
-        .wb-age-options-table{
-            th,td{
-                padding: 10px ;
-            }
-            input{
-                width: 50px;
-            }
-        }
-
-        &.wb-taxonomy-field{
-            margin-bottom: 50px;
-            .list-terms-checkbox{
-                width: 440px;
-                margin-bottom: 15px;
-                .clearfix;
-                .term-checkbox{
-                    width: 213px;
-                    float: left;
-                    margin-bottom: 10px;
-                    .icon{
-                        margin-right: 5px;
-                    }
-                }
-            }
-            .add-new-terms{
-                .wb-btn-add-term{
-                    height: 30px;
-                    line-height: 30px;
-                    background: white;
-                    box-shadow: none;
-                    margin-left: 10px;
-                    .loading-icon{
-                        display: none;
-                    }
-                }
-                .small-input{
-                    display: inline-block;
-                    .icp{
-
-                        width: 50px;
-                        display: inline-block;
-                    }
-                    .input-group-addon{
-                        height: 30px;
-                        display: inline-block;
-                        padding: 4px 8px;
-                        line-height: 23px;
-                        margin-top: 1px;
-                    }
-                }
-                &.loading{
-                    .wb-btn-add-term{
-                        .loading-icon{
-                            display: inline-block;
-                        }
-                    }
-                }
-            }
-        }
-        &.wb-property-size-field{
-            .st-metabox-content-wrapper{
-                input{
-                    float: left;
-                  font-size: 13px;
-                }
-                .unit_type{
-                    height: 30px;
-                    line-height: 20px;
-                }
-            }
-        }
-
-        &.wpbooking_extra_service_type{
-            .list-extra-services{
-                margin-bottom: 20px;
-            }
-            .extra-item{
-                .clearfix;
-                margin-bottom: 35px;
-                .service_detail{
-                    float: left;
-                    width: 200px;
-                    margin-right: 15px;
-                  font-size: 15px;
-                    .service_desc{
-                        font-size: 12px;
-                      padding-left: 24px;
-                    }
-                }
-                .title{
-                    float: left;
-                    width: 215px;
-                    margin-right: 15px;
-                  //margin-bottom: 10px;
-                }
-              .max-quantity{
-                float: left;
-                margin-right: 20px;
-                  //margin-bottom: 20px;
-                select{
-                  min-width: 44px;
-                }
-              }
-                .money-number{
-                    float: left;
-                    width: 120px;
-                    margin-right: 20px;
-                    //margin-bottom: 20px;
-                }
-                .require-options{
-                    float: left;
-                    //margin-bottom: 20px;
-                }
-                .service_desc{
-                    width: 100%; float: left;
-                }
-            }
-            @media (max-width: 1365px){
-                .extra-item{
-                    border-bottom: 1px solid #e6e6e6;
-                }
-            }
-            .add-new-extra-service{
-                .loading-icon{
-                    display: none;
-                }
-                &.loading{
-                    .loading-icon{
-                        display: inline-block;
-                    }
-                }
-                .button{
-                    height: 30px;
-                    line-height: 30px;
-                }
-                @media (max-width: 782px) {
-                    .button{
-                        height: 30px;
-                        line-height: 1;
-                    }
-                    select{
-                        height: 30px !important;
-                    }
-                }
-
-            }
-          .service-desc{
-            width: 260px;
+        .term-checkbox {
+          width: 213px;
+          float: left;
+          margin-bottom: 10px;
+          .icon {
+            margin-right: 5px;
           }
-          .max-quantity-sv{
+        }
+      }
+      .add-new-terms {
+        .wb-btn-add-term {
+          height: 30px;
+          line-height: 30px;
+          background: white;
+          box-shadow: none;
+          margin-left: 10px;
+          .loading-icon {
+            display: none;
+          }
+        }
+        .small-input {
+          display: inline-block;
+          .icp {
+
+            width: 50px;
+            display: inline-block;
+          }
+          .input-group-addon {
             height: 30px;
-            vertical-align: baseline;
+            display: inline-block;
+            padding: 4px 8px;
+            line-height: 23px;
+            margin-top: 1px;
           }
         }
-
+        &.loading {
+          .wb-btn-add-term {
+            .loading-icon {
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+    &.wb-property-size-field {
+      .st-metabox-content-wrapper {
+        input {
+          float: left;
+          font-size: 13px;
+        }
+        .unit_type {
+          height: 30px;
+          line-height: 20px;
+        }
+      }
     }
 
-}
-.fc-highlight{
-    background: #0073aa;
-    opacity: .7;
-}
-.fc-past
-{
-    background: #f1f1f1;
-}
-.wpbooking-extra-html{
-    margin-top: 20px;
-
-
-}
-.wb-section-navigation{
-    padding-top: 10px;
-    .button{
-        &.wb-next-section,&.wb-save-room{
-            background: @maincolor;
-            &:focus{
-                color: white;
-            }
-            &:hover{
-                border: solid 1px transparent;
-                color: #fff;
-                background: @maincolor;
-            }
-        }
-        &.wb-prev-section,&.wb-all-rooms{
-            background: white;
-            border-color: #ed8323;
-            color: #ed8323;
-            &:focus{
-                color: #ed8323;
-            }
-            &:hover{
-                color: @maincolor;
-                border: solid 1px @maincolor;
-            }
-        }
-      &.wb-save-now-section{
-        background: @maincolor;
-        &:hover{
-          border: solid 1px transparent;
-          color: #fff;
-          background: @maincolor;
-        }
+    &.wpbooking_extra_service_type {
+      .list-extra-services {
+        margin-bottom: 20px;
       }
-      &.wb-next{
-        background: #31b0d5;
-          &:focus{
-              color: white;
+      .extra-item {
+        .clearfix;
+        margin-bottom: 35px;
+        .service_detail {
+          float: left;
+          width: 200px;
+          margin-right: 15px;
+          font-size: 15px;
+          .service_desc {
+            font-size: 12px;
+            padding-left: 24px;
           }
-        &:hover{
-          background: #31b0d5;
+        }
+        .title {
+          float: left;
+          width: 215px;
+          margin-right: 15px;
+          //margin-bottom: 10px;
+        }
+        .max-quantity {
+          float: left;
+          margin-right: 20px;
+          //margin-bottom: 20px;
+          select {
+            min-width: 44px;
+          }
+        }
+        .money-number {
+          float: left;
+          width: 120px;
+          margin-right: 20px;
+          //margin-bottom: 20px;
+        }
+        .require-options {
+          float: left;
+          //margin-bottom: 20px;
+        }
+        .service_desc {
+          width: 100%;
+          float: left;
         }
       }
-        &.full{
-            width: 100%;
+      @media (max-width: 1365px) {
+        .extra-item {
+          border-bottom: 1px solid #e6e6e6;
         }
-        &.w50{
-            &.wb-next-section,&.wb-save-room{
-                float: right;
-            }
-            &.wb-prev-section,&.wb-all-rooms{
-                float: left;
-            }
-            width: 49%;
-        }
-      &.w30{
-        width: 30%;
-        display: table-cell;
       }
-        color: #fff;
+      .add-new-extra-service {
+        .loading-icon {
+          display: none;
+        }
+        &.loading {
+          .loading-icon {
+            display: inline-block;
+          }
+        }
+        .button {
+          height: 30px;
+          line-height: 30px;
+        }
+        @media (max-width: 782px) {
+          .button {
+            height: 30px;
+            line-height: 1;
+          }
+
+          select {
+            height: 30px !important;
+          }
+        }
+
+      }
+      .service-desc {
+        width: 260px;
+      }
+      .max-quantity-sv {
+        height: 30px;
+        vertical-align: baseline;
+      }
+    }
+
+  }
+
+}
+
+.fc-highlight {
+  background: #0073aa;
+  opacity: .7;
+}
+
+.fc-past {
+  background: #f1f1f1;
+}
+
+.wpbooking-extra-html {
+  margin-top: 20px;
+
+}
+
+.wb-section-navigation {
+  padding-top: 10px;
+  .button {
+    &.wb-next-section, &.wb-save-room {
+      background: @maincolor;
+      &:focus {
+        color: white;
+      }
+      &:hover {
         border: solid 1px transparent;
-        border-radius: 0;
-        box-shadow: none;
-        text-align: center;
-        height: 38px;
-        line-height: 35px;
-        font-size: 15px;
-        font-weight: bold;
+        color: #fff;
+        background: @maincolor;
+      }
     }
+    &.wb-prev-section, &.wb-all-rooms {
+      background: white;
+      border-color: #ed8323;
+      color: #ed8323;
+      &:focus {
+        color: #ed8323;
+      }
+      &:hover {
+        color: @maincolor;
+        border: solid 1px @maincolor;
+      }
+    }
+    &.wb-save-now-section {
+      background: @maincolor;
+      &:hover {
+        border: solid 1px transparent;
+        color: #fff;
+        background: @maincolor;
+      }
+    }
+    &.wb-next {
+      background: #31b0d5;
+      &:focus {
+        color: white;
+      }
+      &:hover {
+        background: #31b0d5;
+      }
+    }
+    &.full {
+      width: 100%;
+    }
+    &.w50 {
+      &.wb-next-section, &.wb-save-room {
+        float: right;
+      }
+      &.wb-prev-section, &.wb-all-rooms {
+        float: left;
+      }
+      width: 49%;
+    }
+    &.w30 {
+      width: 30%;
+      display: table-cell;
+    }
+    color: #fff;
+    border: solid 1px transparent;
+    border-radius: 0;
+    box-shadow: none;
+    text-align: center;
+    height: 38px;
+    line-height: 35px;
+    font-size: 15px;
+    font-weight: bold;
+  }
 }
-.wb-action-edit{
+
+.wb-action-edit {
   display: table;
   width: 100%;
   border-spacing: 10px;
 }
-.iconpicker{
-    .iconpicker-item{
-        height: auto;
-        width: 37px;
-        padding: 14px 0px;
-        &.iconpicker-selected{
-            background: @maincolor;
-            color: white;
-        }
+
+.iconpicker {
+  .iconpicker-item {
+    height: auto;
+    width: 37px;
+    padding: 14px 0px;
+    &.iconpicker-selected {
+      background: @maincolor;
+      color: white;
     }
+  }
 
 }
-.wpbooking-taxonomy-metabox{
-    .small-input{
-        max-width: 350px;
+
+.wpbooking-taxonomy-metabox {
+  .small-input {
+    max-width: 350px;
+  }
+  .input-group {
+    input[type=text] {
+      width: auto;
     }
-    .input-group{
-        input[type=text]{
-            width: auto;
-        }
-    }
+  }
 }
 
 // Hide Quick Edit
-.wpbooking_extra_service-checklist{
-    display: none;
+.wpbooking_extra_service-checklist {
+  display: none;
 }
+
 .wpbooking_location-checklist,
 label[for=wpbooking_extra_servicediv-hide],
 label[for=wpbooking_amenitydiv-hide],
 label[for=wpbooking_room_typediv-hide],
-label[for=wpbooking_locationdiv-hide]
-{
+label[for=wpbooking_locationdiv-hide] {
+  display: none;
+}
+
+.cart-item-order-form-fields-wrap {
+  .cart-item-order-form-fields {
     display: none;
+  }
+  .show-more-less {
+    display: block;
+    color: @maincolor;
+    font-style: italic;
+    .less {
+      display: none;
+    }
+  }
+
+  &.active {
+    .cart-item-order-form-fields {
+      display: block;
+    }
+    .more {
+      display: none;
+    }
+    .less {
+      display: inline-block;
+    }
+  }
 }
-
-.cart-item-order-form-fields-wrap{
-    .cart-item-order-form-fields{
-        display: none;
-    }
-    .show-more-less{
-        display: block;
-        color:@maincolor;
-        font-style: italic;
-        .less{
-            display: none;
-        }
-    }
-
-    &.active{
-        .cart-item-order-form-fields{
-            display: block;
-        }
-        .more{
-            display: none;
-        }
-        .less{
-            display: inline-block;
-        }
-    }
-}
-
 
 // calendar popover
-.popover.bottom.in{
-    margin-top: -18px;
-}
-.calendar-order-popover-information,.wpbooking-order-detail{
-    .booking-detail-label{
-        font-weight: bold;
-    }
-    .cart-item-order-form-fields{
-        display: block;
-        .field-title{
-
-            font-weight: bold;
-        }
-    }
-    .wpbooking-room-type{
-        a{
-            font-size: 14px;
-            color: #333;
-            border-radius: 4px;
-            border:1px solid #999999;
-            padding:1px 3px;
-            display: inline-block;
-            text-decoration: none;
-            margin: 3px 0px;
-        }
-    }
-    .show-more-less{
-        display: none;
-    }
+.popover.bottom.in {
+  margin-top: -18px;
 }
 
+.calendar-order-popover-information, .wpbooking-order-detail {
+  .booking-detail-label {
+    font-weight: bold;
+  }
+  .cart-item-order-form-fields {
+    display: block;
+    .field-title {
 
-.wb-autocomplete-wrap{
-    .select2-selection{
-        border: 1px solid #ccc;
-        border-radius: 0px;
-        min-width: 300px;
-        height: 30px;
+      font-weight: bold;
     }
-    .select2-container{
-        min-width: 300px;
+  }
+  .wpbooking-room-type {
+    a {
+      font-size: 14px;
+      color: #333;
+      border-radius: 4px;
+      border: 1px solid #999999;
+      padding: 1px 3px;
+      display: inline-block;
+      text-decoration: none;
+      margin: 3px 0px;
     }
-    .select2-selection__choice{
-        border-radius: 0px;
-        margin-top: 2px;
-        margin-bottom: 2px;
-        padding: 2px 5px;
-    }
+  }
+  .show-more-less {
+    display: none;
+  }
 }
 
-.wp-setup-demo{
-    margin-left: auto;
-    margin-right: auto;
-    width: 1024px;
-    .setup-steps {
-        color: #ccc;
-        display: inline-flex;
-        list-style: outside none none;
-        margin: 0;
-        overflow: hidden;
-        padding: 0 0 24px;
-        width: 100%;
-    }
-    .setup-steps li::before {
-        background: #fff none repeat scroll 0 0;
-        border: 4px solid #ccc;
-        border-radius: 100%;
-        bottom: 0;
-        content: "";
-        height: 4px;
-        left: 50%;
-        margin-bottom: -8px;
-        margin-left: -6px;
-        position: absolute;
-        width: 4px;
-    }
-    .setup-steps li {
-        border-bottom: 4px solid #ccc;
-        float: left;
-        line-height: 1.4em;
-        margin: 0;
-        padding: 0 0 0.8em;
-        position: relative;
-        text-align: center;
-        width: 100%;
-    }
-    .setup-steps li.active::before {
-        border-color: #ffb900;
-    }
-    .setup-steps li.active {
-        border-color: #ffb900;
-        color: #ffb900;
-    }
-    .setup-steps li.done {
-        border-color: #ffb900;
-        color: #ffb900;
-    }
-    .setup-content {
-        background: #fff none repeat scroll 0 0;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
-        overflow: hidden;
-        padding: 24px 24px 0;
-    }
-    .control{
-        margin-bottom: 30px;
-        margin-top: 10px;
-        text-align: center
-    }
-    .wp_booking{
-        textarea{
-            width: 100%;
-        }
-    }
+.wb-autocomplete-wrap {
+  .select2-selection {
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    min-width: 300px;
+    height: 30px;
+  }
+  .select2-container {
+    min-width: 300px;
+  }
+  .select2-selection__choice {
+    border-radius: 0px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding: 2px 5px;
+  }
 }
-.tooltip_desc{
+
+.wp-setup-demo {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1024px;
+  .setup-steps {
+    color: #ccc;
+    display: inline-flex;
+    list-style: outside none none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0 0 24px;
+    width: 100%;
+  }
+  .setup-steps li::before {
+    background: #fff none repeat scroll 0 0;
+    border: 4px solid #ccc;
+    border-radius: 100%;
+    bottom: 0;
+    content: "";
+    height: 4px;
+    left: 50%;
+    margin-bottom: -8px;
+    margin-left: -6px;
+    position: absolute;
+    width: 4px;
+  }
+  .setup-steps li {
+    border-bottom: 4px solid #ccc;
+    float: left;
+    line-height: 1.4em;
+    margin: 0;
+    padding: 0 0 0.8em;
     position: relative;
-    display: inline-block;
-    >i{
-        font-size: 17px;
+    text-align: center;
+    width: 100%;
+  }
+  .setup-steps li.active::before {
+    border-color: #ffb900;
+  }
+  .setup-steps li.active {
+    border-color: #ffb900;
+    color: #ffb900;
+  }
+  .setup-steps li.done {
+    border-color: #ffb900;
+    color: #ffb900;
+  }
+  .setup-content {
+    background: #fff none repeat scroll 0 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
+    overflow: hidden;
+    padding: 24px 24px 0;
+  }
+  .control {
+    margin-bottom: 30px;
+    margin-top: 10px;
+    text-align: center
+  }
+  .wp_booking {
+    textarea {
+      width: 100%;
     }
-    .tooltip_content{
-        position: absolute !important;
-        background: #333;
-        white-space: nowrap;
-        color: white;
-        padding: 8px 12px !important;
-        box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.2);
-        bottom: 100%;
-        font-weight: 300;
-        margin-bottom: 7px;
-        display: none;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 14px;
-    }
-    &:hover{
-        .tooltip_content{
-            display: block;
-        }
-        &:after{
-            display: block;
-        }
-    }
-    &:after{
-        content: "";
-        position: absolute;
-        bottom: 100%;
-        display: none;
-        border: 5px solid transparent;
-        border-top: 5px solid #333;
-        margin-bottom: -3px;
-    }
+  }
 }
 
-.tooltip_desc{
-    margin-left: 20px;
+.tooltip_desc {
+  position: relative;
+  display: inline-block;
+  > i {
+    font-size: 17px;
+  }
+  .tooltip_content {
+    position: absolute !important;
+    background: #333;
+    white-space: nowrap;
+    color: white;
+    padding: 8px 12px !important;
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2);
+    bottom: 100%;
+    font-weight: 300;
+    margin-bottom: 7px;
+    display: none;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+  }
+  &:hover {
+    .tooltip_content {
+      display: block;
+    }
+    &:after {
+      display: block;
+    }
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    display: none;
+    border: 5px solid transparent;
+    border-top: 5px solid #333;
+    margin-bottom: -3px;
+  }
+}
+
+.tooltip_desc {
+  margin-left: 20px;
 }
 
 #wb_hotel_room_amenitydiv,
@@ -3711,7 +3965,6 @@ label[for=wpbooking_locationdiv-hide]
 #wb_hotel_miscellaneousdiv,
 #wpbooking_room_typediv,
 #wb_hotel_room_facilitiesdiv,
-
 label[for=wb_hotel_room_amenitydiv-hide],
 label[for=wb_hotel_room_bathroomdiv-hide],
 label[for=wb_hotel_room_media_technologydiv-hide],
@@ -3731,172 +3984,170 @@ label[for=wb_hotel_cleaning_servicediv-hide],
 label[for=wb_hotel_business_facilitydiv-hide],
 label[for=wb_hotel_shopdiv-hide],
 label[for=wb_hotel_miscellaneousdiv-hide],
-label[for=wpbooking_room_typediv-hide]
-{
-    display: none!important;
+label[for=wpbooking_room_typediv-hide] {
+  display: none !important;
 }
 
-
-.wb-tab-report-wrap{
-    clear:both;
-    border:1px solid #cccccc;
-    .select-service-type{
-        padding: 30px 15px;
-        border-bottom:1px solid #cccccc;
+.wb-tab-report-wrap {
+  clear: both;
+  border: 1px solid #cccccc;
+  .select-service-type {
+    padding: 30px 15px;
+    border-bottom: 1px solid #cccccc;
+    .clearfix;
+    > h4 {
+      font-size: 18px;
+      color: #666666;
+      margin: 0px;
+      display: inline-block;
+      float: left;
+    }
+    .service_types {
+      margin: 0px;
+      margin-left: 40px;
+      float: left;
+      li {
+        display: inline-block;
+        margin-right: 30px;
+      }
+    }
+  }
+  .filter-by-tabs {
+    border-bottom: 1px solid #cccccc;
+    background: #f1f1f1;
+    font-size: 14px;
+    .filter-by-lists {
+      margin: 0px;
+      .clearfix;
+      font-weight: bold;
+      color: #666666;
+      > li {
         .clearfix;
-        >h4{
-            font-size: 18px;
-            color: #666666;
-            margin:0px;
-            display: inline-block;
-            float: left;
+        display: block;
+        float: left;
+        margin-bottom: -1px;
+        border-right: 1px solid #cccccc;
+        border-bottom: 1px solid transparent;
+        &:first-child {
+          font-weight: 600;
         }
-        .service_types{
-            margin:0px;
-            margin-left: 40px;
-            float: left;
-            li{
-                display: inline-block;
-                margin-right: 30px;
-            }
+        &.active {
+          background: white;
+          border-bottom-color: white;
+          font-weight: bold;
         }
-    }
-    .filter-by-tabs{
-        border-bottom:1px solid #cccccc;
-        background: #f1f1f1;
-        font-size: 14px;
-        .filter-by-lists{
-            margin:0px;
-            .clearfix;
-            font-weight: bold;
-            color: #666666;
-            >li{
-                .clearfix;
-                display: block;
-                float: left;
-                margin-bottom: -1px;
-                border-right:1px solid #cccccc;
-                border-bottom:1px solid transparent;
-                &:first-child{
-                    font-weight: 600;
-                }
-                &.active{
-                    background: white;
-                    border-bottom-color: white;
-                    font-weight: bold;
-                }
 
-                .filter-date{
-                    float: left;
-                    padding:6px 15px;
-                    position: relative;
-                    input{
-                        height: 34px;
-                        padding:10px;
-                        background: white;
-                        box-sizing: border-box;
-                        border-color: #ccc;
-                        box-shadow: none;
-                        width: 165px;
-                        color: inherit;
-                        font-weight:normal;
-                        &.error{
-                            border-color: red;
-                        }
-                    }
-                    i{
-                        position: absolute;
-                        top:15px;
-                        right:25px;
-                        font-size: 15px;
-
-                    }
-                }
-                .do-search{
-                    background: white;
-                }
-
-                a{
-                    display: inline-block;
-                    color: inherit;
-                    text-decoration: none;
-                }
-                >a,>label{
-                    padding:15px 15px;
-                }
-                >select{
-                    margin:10px 15px;
-                    padding: 0px 5px;
-                    background: none;
-                    border: none;
-                    box-shadow: none;
-                    color: inherit;
-                }
-            }
-        }
-    }
-
-    .report-content{
-        padding:15px;
-        background: white;
-      .wb-report-total{
-        width: 100%;
-        margin-bottom: 20px;
-        table-layout: fixed;
-        border-spacing: 0;
-        border-collapse: collapse;
-        tr{
-          th{
-            width: 12.5%;
-            border: 1px solid #cccccc;
-            background: #f6f6f6;
-            font-size: 16px;
-            padding: 12px 3px;
+        .filter-date {
+          float: left;
+          padding: 6px 15px;
+          position: relative;
+          input {
+            height: 34px;
+            padding: 10px;
+            background: white;
+            box-sizing: border-box;
+            border-color: #ccc;
+            box-shadow: none;
+            width: 165px;
+            color: inherit;
             font-weight: normal;
+            &.error {
+              border-color: red;
+            }
           }
-          td{
-            text-align: center;
-            border: 1px solid #cccccc;
-            padding: 40px 3px;
+          i {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 15px;
+
           }
-          .wb-total-sale{
-            color: @maincolor;
-            font-size: 20px;
-          }
-          .wb-net-profit{
-            font-size: 20px;
-            color: #4bc0c0;
-          }
-          .number{
-            width: 100%;
-            display: block;
-            font-size: 35px;
-            padding-bottom: 15px;
-          }
+        }
+        .do-search {
+          background: white;
+        }
+
+        a {
+          display: inline-block;
+          color: inherit;
+          text-decoration: none;
+        }
+        > a, > label {
+          padding: 15px 15px;
+        }
+        > select {
+          margin: 10px 15px;
+          padding: 0px 5px;
+          background: none;
+          border: none;
+          box-shadow: none;
+          color: inherit;
         }
       }
     }
+  }
 
-    .notice-error{
-        border:1px solid #dedede;
-        border-left:4px solid #dc3232;
-        padding-left: 10px;
-        p{
-            margin: .5em 0;
-            padding: 2px;
+  .report-content {
+    padding: 15px;
+    background: white;
+    .wb-report-total {
+      width: 100%;
+      margin-bottom: 20px;
+      table-layout: fixed;
+      border-spacing: 0;
+      border-collapse: collapse;
+      tr {
+        th {
+          width: 12.5%;
+          border: 1px solid #cccccc;
+          background: #f6f6f6;
+          font-size: 16px;
+          padding: 12px 3px;
+          font-weight: normal;
         }
+        td {
+          text-align: center;
+          border: 1px solid #cccccc;
+          padding: 40px 3px;
+        }
+        .wb-total-sale {
+          color: @maincolor;
+          font-size: 20px;
+        }
+        .wb-net-profit {
+          font-size: 20px;
+          color: #4bc0c0;
+        }
+        .number {
+          width: 100%;
+          display: block;
+          font-size: 35px;
+          padding-bottom: 15px;
+        }
+      }
     }
+  }
+
+  .notice-error {
+    border: 1px solid #dedede;
+    border-left: 4px solid #dc3232;
+    padding-left: 10px;
+    p {
+      margin: .5em 0;
+      padding: 2px;
+    }
+  }
 }
 
 //order page
-.wp-list-table{
-  .wb-column-action{
+.wp-list-table {
+  .wb-column-action {
     position: relative;
     padding-bottom: 45px;
-    .wb-row-actions{
+    .wb-row-actions {
       position: absolute;
       bottom: 10px;
-      a{
+      a {
         display: inline-block;
         text-decoration: none;
         line-height: 20px;
@@ -3918,12 +4169,12 @@ label[for=wpbooking_room_typediv-hide]
         color: #23282d;
         box-shadow: 0 1px 0 #ccc;
         vertical-align: top;
-        &:hover{
+        &:hover {
           border-color: #252525;
         }
       }
       @media (max-width: 2000px ) {
-        a{
+        a {
           height: auto;
           background: transparent;
           padding: 0 3px;
@@ -3933,14 +4184,15 @@ label[for=wpbooking_room_typediv-hide]
           border-radius: 0;
           line-height: 14px;
           color: #0073aa;
-          &:hover{
+          &:hover {
             background: transparent;
             text-decoration: underline;
 
           }
         }
-        span:last-child{
-          a{
+
+        span:last-child {
+          a {
             border: none;
           }
         }
@@ -3948,98 +4200,98 @@ label[for=wpbooking_room_typediv-hide]
     }
 
   }
-  .check-column{
+  .check-column {
     padding: 12px 0 8px;
   }
-  .column-id{
+  .column-id {
     width: 33%;
     //padding: 8px 10px !important;
-    p{
+    p {
       display: inline-flex;
     }
-    .id{
+    .id {
       width: 9%;
       padding-left: 10px;
     }
-    .status{
+    .status {
       width: 38%;
     }
-    .customer{
+    .customer {
       width: 45%;
     }
-    p{
+    p {
       margin: 0 !important;
     }
   }
-  .column-primary{
+  .column-primary {
     /*width: 32%;*/
   }
-  .wb-column-action{
-    .id{
+  .wb-column-action {
+    .id {
       width: 10%;
       float: left;
     }
-    .status{
+    .status {
       width: 40%;
       float: left;
-      label.text_up{
+      label.text_up {
         padding: 2px 7px;
         border: 1px solid #777777;
         color: #777777;
         text-transform: uppercase;
       }
-      label.on_hold{
+      label.on_hold {
         border-color: #f0ad4e;
         color: #f0ad4e;
       }
-      label.completed{
+      label.completed {
         border-color: #39b54a;
         color: #39b54a;
       }
-      label.cancelled{
+      label.cancelled {
         border-color: #fd4100;
         color: #fd4100;
       }
-      span.payment{
+      span.payment {
         display: block;
         padding-top: 7px;
       }
     }
-    .customer{
+    .customer {
       width: 50%;
       float: left;
     }
   }
-  .column-status{
+  .column-status {
     width: 12%;
   }
-  .column-customer{
+  .column-customer {
     width: 20%;
   }
-  .column-service{
+  .column-service {
     width: 10%;
   }
-  .wb-right-label{
+  .wb-right-label {
     float: right;
   }
-  .wb-price-total{
+  .wb-price-total {
     float: right;
     width: 40%;
     text-align: right;
-    .wb-deposit-remain{
+    .wb-deposit-remain {
       color: #aaa;
     }
   }
-  .wb-booking-info{
+  .wb-booking-info {
     width: 60%;
     float: left;
   }
-  .wb-column-empty{
+  .wb-column-empty {
     width: 30px;
   }
-  .wb-button-customer,.wp-button-booking{
+  .wb-button-customer, .wp-button-booking {
     cursor: pointer;
-    .caret:before{
+    .caret:before {
       content: '\f139';
       font-family: dashicons;
       font-size: 18px;
@@ -4047,10 +4299,10 @@ label[for=wpbooking_room_typediv-hide]
       top: 4px;
     }
   }
-  .wb-booking-detail{
+  .wb-booking-detail {
     clear: both;
     padding-top: 20px;
-    .wb-room-item:before{
+    .wb-room-item:before {
       width: 100%;
       border-bottom: 1px dotted #777;
       content: '';
@@ -4058,99 +4310,97 @@ label[for=wpbooking_room_typediv-hide]
       position: absolute;
       bottom: 4px;
     }
-    .wb-room-name, .wb-extra-title{
+    .wb-room-name, .wb-extra-title {
       position: relative;
       z-index: 1;
       padding-right: 5px;
       background: #FFF;
     }
-    .wb-room-price, .wb-extra-price{
+    .wb-room-price, .wb-extra-price {
       position: relative;
       z-index: 1;
       padding-left: 5px;
       background: #FFF;
       float: right;
     }
-    .wb-room-item{
+    .wb-room-item {
       position: relative;
     }
-    .wb-extra-title{
+    .wb-extra-title {
       padding-left: 20px;
     }
   }
-  >tbody>:nth-child(odd){
-    .wb-room-name,.wb-room-price, .wb-extra-title, .wb-extra-price{
+  > tbody > :nth-child(odd) {
+    .wb-room-name, .wb-room-price, .wb-extra-title, .wb-extra-price {
       background: #f9f9f9;
     }
   }
   @media (max-width: 782px) {
-    .column-id{
+    .column-id {
       display: none;
     }
   }
 }
 
-
-
 //WPBooking About
 
-.wpbooking-info, .wpbooking-extension{
+.wpbooking-info, .wpbooking-extension {
   margin-left: 10px;
   margin-top: 20px;
   width: 1200px;
   font-size: 14px;
-  p{
+  p {
     font-size: 14px;
   }
   @media (max-width: 1400px) {
     width: 100%;
-    .wb-content{
+    .wb-content {
       margin-right: 15px;
     }
   }
-  h1{
+  h1 {
     font-size: 35px;
   }
-  .description{
+  .description {
     font-style: normal;
     font-size: 15px;
     margin: 15px 0 15px;
   }
-  .wb-control{
+  .wb-control {
     width: 100%;
     display: inline-block;
-    .wb-left{
+    .wb-left {
       float: left;
       margin-right: 42px;
       padding-top: 20px;
     }
-    .wb-desc{
+    .wb-desc {
       float: left;
       margin-right: 40px;
       padding-top: 5px;
-      p{
+      p {
         margin: 8px 0;
       }
     }
-    .wb-right{
+    .wb-right {
       padding-top: 20px;
       float: right;
     }
-    .full-width{
+    .full-width {
       width: 100%;
     }
   }
-  .wb-content{
+  .wb-content {
     overflow: hidden;
     clear: both;
     background: #fff;
     margin-top: 20px;
     border: 1px solid #cfcfcf;
-    .header{
+    .header {
       padding: 32px;
       background: #F9F9F9;
       border-bottom: 1px solid #cfcfcf;
-      h2{
+      h2 {
         color: #f0ad4e;
         font-size: 28px;
         margin: 10px 0;
@@ -4159,34 +4409,34 @@ label[for=wpbooking_room_typediv-hide]
         }
       }
     }
-    .content{
+    .content {
       padding: 38px 100px 45px 70px;
       @media (max-width: 480px) {
         padding: 20px 30px 30px 30px;
       }
-      .step{
+      .step {
         clear: both;
         display: inline-block;
         margin-bottom: 57px;
         width: 100%;
-        .left{
+        .left {
           float: left;
           width: 45%;
           padding-right: 30px;
-          h3{
+          h3 {
             font-size: 20px;
             font-weight: bold;
-            span{
+            span {
               color: #f0ad4e;
               font-size: 24px;
             }
           }
-          ul{
+          ul {
             margin-top: 30px;
             padding-left: 30px;
-            li{
+            li {
               position: relative;
-              &:before{
+              &:before {
                 content: '';
                 width: 7px;
                 height: 7px;
@@ -4197,62 +4447,63 @@ label[for=wpbooking_room_typediv-hide]
               }
             }
           }
-          img{
+          img {
             width: 100%;
             margin-top: 20px;
           }
         }
-        .full{
+        .full {
           margin-top: 30px;
           width: 100%;
           display: inline-table;
-          img{
-            &:first-child{
+          img {
+            &:first-child {
               float: left;
             }
             width: 47%;
-            @media (max-width: 768px){
+            @media (max-width: 768px) {
               width: 100%;
             }
           }
         }
-        img{
+        img {
           float: right;
           width: 47%;
-          -webkit-box-shadow: 0px 10px 50px -15px rgba(0,0,0,0.75);
-          -moz-box-shadow: 0px 10px 50px -15px rgba(0,0,0,0.75);
-          box-shadow: 0px 10px 50px -15px rgba(0,0,0,0.75);
+          -webkit-box-shadow: 0px 10px 50px -15px rgba(0, 0, 0, 0.75);
+          -moz-box-shadow: 0px 10px 50px -15px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 10px 50px -15px rgba(0, 0, 0, 0.75);
         }
 
-        &:last-child{
+        &:last-child {
           margin-bottom: 0;
         }
         @media (max-width: 768px) {
-          .left{
+          .left {
             width: 100%;
           }
-          img{
+
+          img {
             margin-top: 20px;
             width: 100%;
           }
         }
       }
     }
-    .footer{
+    .footer {
       padding: 32px;
       background: #F9F9F9;
       border-top: 1px solid #cfcfcf;
-      h3{
+      h3 {
         font-size: 27px;
         font-weight: 300;
         margin-top: 10px;
       }
-      a{
+      a {
         display: block;
         color: #f0ad4e;
         text-decoration: underline;
         margin: 10px 0 10px 17px;
-        &:focus{
+        &:focus {
           box-shadow: none;
         }
       }
@@ -4260,65 +4511,78 @@ label[for=wpbooking_room_typediv-hide]
   }
 }
 
-.wpbooking-extension{
+.wpbooking-extension {
   margin-top: 30px;
-  .control{
+  .nav-tab-wrapper{
+    .nav-tab{
+      &.nav-tab-active{
+        background: #FFF;
+      }
+    }
+  }
+  .wb-content {
+    margin-top: 0;
+    border: none;
+  }
+  .control {
     border-bottom: 1px solid #cfcfcf;
     display: inline-block;
     width: 100%;
-    .desc{
+    .desc {
       width: 70%;
       float: left;
-      p{
+      p {
         padding: 0 32px;
       }
     }
-    .all-extension{
+    .all-extension {
       text-align: right;
       width: 30%;
       float: right;
-      a{
+      margin-bottom: 10px;
+      a {
         margin-right: 32px;
         margin-top: 10px;
       }
     }
     @media (max-width: 639px) {
-      .desc,.all-extension{
+      .desc, .all-extension {
         width: 100%;
       }
-      .all-extension{
+
+      .all-extension {
         margin-bottom: 10px;
       }
     }
   }
-  .content{
+  .content {
     clear: both;
     padding: 32px !important;
 
-    .result-text{
+    .result-text {
       width: 100%;
       float: left;
-      p{
+      p {
         margin-top: 0;
         margin-bottom: 30px;
       }
     }
-    .ex-sidebar{
+    .ex-sidebar {
       width: ~'calc(25% - 15px)';
       float: left;
       padding-right: 15px;
       position: relative;
-      >div{
+      > div {
         border: 1px solid #cfcfcf;
         margin-bottom: 50px;
-        .box-content{
+        .box-content {
           padding: 15px;
-          .search-extensions{
-            p{
+          .search-extensions {
+            p {
               font-size: 16px;
               margin-top: 0;
             }
-            input[type=text]{
+            input[type=text] {
               width: 100%;
               box-shadow: none;
               background: #f9f9f9;
@@ -4327,47 +4591,47 @@ label[for=wpbooking_room_typediv-hide]
               font-style: italic;
               color: #777;
             }
-            input[type=submit]{
+            input[type=submit] {
               background: #31b0d5;
               color: #FFF;
               padding: 9px 15px;
               border: 1px solid #31b0d5;
               margin-top: 15px;
               cursor: pointer;
-              &:hover{
+              &:hover {
                 background: #ededed;
                 border: 1px solid #cfcfcf;
                 color: #333;
               }
             }
           }
-          .list-cat{
+          .list-cat {
             padding-left: 10px;
-            li{
+            li {
               padding: 5px 0;
               position: relative;
-              a{
+              a {
                 color: #333;
                 text-decoration: none;
                 z-index: 1;
                 position: relative;
                 background: #fff;
                 padding-right: 5px;
-                i{
+                i {
                   margin-right: 3px;
                   color: #ccc;
                 }
-                &:hover{
+                &:hover {
                   color: #f0ad4e;
-                  i{
+                  i {
                     color: #f0ad4e;
                   }
                 }
               }
-              &.active{
+              &.active {
                 font-weight: bold;
               }
-              span{
+              span {
                 position: absolute;
                 right: 0;
                 top: 5px;
@@ -4378,7 +4642,7 @@ label[for=wpbooking_room_typediv-hide]
                 background: #f5f5f5;
                 z-index: 1;
               }
-              &:after{
+              &:after {
                 position: absolute;
                 content: '';
                 width: 84%;
@@ -4390,7 +4654,7 @@ label[for=wpbooking_room_typediv-hide]
           }
         }
       }
-      h3.title{
+      h3.title {
         padding: 15px;
         background: #ededed;
         margin: 0;
@@ -4398,35 +4662,35 @@ label[for=wpbooking_room_typediv-hide]
       }
 
     }
-    .extension-list{
+    .extension-list {
       padding-left: 15px;
       width: ~'calc(75% - 15px)';
       float: left;
       position: relative;
-      .list{
+      .list {
         margin-left: -15px;
         margin-right: -15px;
       }
-      .item{
+      .item {
         width: ~'calc(33.33% - 30px)';
         float: left;
         padding-left: 15px;
         padding-right: 15px;
         margin-bottom: 30px;
-        .extension{
+        .extension {
           background: #f9f9f9;
           height: 100%;
-          .thumnail{
+          .thumnail {
             width: 100%;
             background: #f0ad4e;
             overflow: hidden;
             position: relative;
-            img{
+            img {
               width: 100%;
               max-height: 100%;
               display: block;
             }
-            .featured{
+            .featured {
               background: #cc0000;
               color: #fff;
               position: absolute;
@@ -4438,13 +4702,13 @@ label[for=wpbooking_room_typediv-hide]
               left: -20px;
             }
           }
-          .info{
+          .info {
             padding: 10px 15px;
-            h3.title{
+            h3.title {
               margin: 12px 0;
               font-weight: normal;
             }
-            a.read-more{
+            a.read-more {
               padding: 10px 15px;
               background: #ededed;
               border: 1px solid #cfcfcf;
@@ -4453,7 +4717,7 @@ label[for=wpbooking_room_typediv-hide]
               margin-top: 5px;
               color: #333;
               text-decoration: none;
-              &:hover{
+              &:hover {
                 color: #fff;
                 background: #31b0d5;
                 border-color: #31b0d5;
@@ -4467,43 +4731,43 @@ label[for=wpbooking_room_typediv-hide]
         @media (max-width: 768px) {
           width: ~'calc(100% - 30px)';
         }
-          &:nth-child(3n+1){
-              clear: both;
-          }
+        &:nth-child(3n+1) {
+          clear: both;
+        }
       }
 
-      .pagination{
+      .pagination {
         clear: both;
         padding-top: 20px;
         padding-bottom: 40px;
-        .ex-pagination{
+        .ex-pagination {
           text-align: center;
-          li{
+          li {
             display: inline-flex;
-            a,span{
+            a, span {
               background: #f9f9f9;
               padding: 10px 15px;
               margin: 0 2px;
               color: #333;
               text-decoration: none;
             }
-            a:hover{
+            a:hover {
               background: #31b0d5;
               color: #fff;
             }
-            &.active{
-              span{
+            &.active {
+              span {
                 background: #31b0d5;
                 color: #fff;
               }
             }
-            &.hidden{
+            &.hidden {
               display: none !important;
             }
           }
         }
       }
-      .ex-loading{
+      .ex-loading {
         position: absolute;
         width: 100%;
         height: 100%;
@@ -4514,36 +4778,39 @@ label[for=wpbooking_room_typediv-hide]
       }
     }
     @media (max-width: 1024px) {
-      .ex-sidebar{
+      .ex-sidebar {
         width: ~'calc(33.33% - 15px)';
       }
-      .extension-list{
+
+      .extension-list {
         width: ~'calc(66.66% - 15px)';
       }
     }
     @media (max-width: 768px) {
-      .ex-sidebar{
+      .ex-sidebar {
         width: ~'calc(40% - 15px)';
       }
-      .extension-list{
+
+      .extension-list {
         width: ~'calc(60% - 15px)';
       }
     }
     @media (max-width: 639px) {
-      .ex-sidebar{
+      .ex-sidebar {
         width: 100%;
         padding-right: 0;
       }
-      .extension-list{
+
+      .extension-list {
         width: 100%;
         padding-left: 0;
       }
     }
   }
-  .footer{
+  .footer {
     clear: both;
     padding: 10px 32px !important;
-    a{
+    a {
       display: inline-block !important;
       color: #fff !important;
       text-decoration: none !important;
@@ -4553,13 +4820,13 @@ label[for=wpbooking_room_typediv-hide]
 }
 
 //Tour
-.wb-itinerary-wrap{
+.wb-itinerary-wrap {
   padding-left: 20px;
   width: 80%;
   @media (max-width: 1399px) {
     width: 100%;
   }
-  h3.title{
+  h3.title {
     margin-top: 10px;
     margin-bottom: 30px;
   }
@@ -4575,37 +4842,37 @@ label[for=wpbooking_room_typediv-hide]
       float: left;
     }
   }
-  .itinerary-content{
+  .itinerary-content {
     clear: both;
     width: 100%;
-    .item-itinerary{
+    .item-itinerary {
       display: inline-block;
       width: 100%;
-      .input-title{
+      .input-title {
         width: 30%;
         float: left;
         padding-right: 20px;
-        input{
+        input {
           width: 100%;
         }
       }
-      .input-desc{
+      .input-desc {
         width: 60%;
         float: left;
         padding-right: 20px;
-        textarea{
+        textarea {
           width: 100%;
         }
       }
-      div:last-child{
+      div:last-child {
         width: 10%;
         float: left;
         padding-top: 3px;
-        a{
+        a {
           border: 1px solid #cc0000;
           padding: 2px 6px;
           color: #c00;
-          &:hover{
+          &:hover {
             background: #c00;
             color: #fff;
           }
@@ -4614,174 +4881,199 @@ label[for=wpbooking_room_typediv-hide]
       }
     }
   }
-  .iti-description{
+  .iti-description {
     color: #999999;
     font-style: italic;
     font-weight: 300;
     font-size: 12px;
   }
-  .iti-footer{
+  .iti-footer {
     width: 100%;
     clear: both;
     margin-top: 20px;
 
   }
 }
-.title-no-ex{
+
+.title-no-ex {
   margin-bottom: 50px;
 }
 
-@media(max-width: 1300px){
-    .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .service_detail {
-        width: 130px;
-    }
+@media (max-width: 1300px) {
+  .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .service_detail {
+    width: 130px;
+  }
 }
-@media(max-width: 1200px){
-    .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .service_detail {
-        width: 100%;
-    }
-}
-@media(max-width: 1200px){
-    .desc_section_metabox{
-        display: none;
-    }
-    .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .st-metabox-content-wrapper {
-        width: 95%;
-    }
-    .st-metabox-tab-content-wrap .wpbooking-form-group.hotel_room_list .wb-room-list .room-item {
-        width: 50%;
-    }
-    .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
-        width: 30%;
-    }
-    .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right {
-        margin-left: 30%;
-    }
-    .st-metabox-tab-content-wrap .content_tax_vat .label_vat_unit {
-        display: block;
-        padding: 20px 10px 10px 0;
-    }
-}
-@media(max-width: 1100px){
-    .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
-        float: left;
-    }
-}
-@media(max-width: 980px){
-    .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right {
-        width: auto;
-    }
-    .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
-        float: left;
-    }
-    .wpbooking-row .wpbooking-col-sm-6{
-        width: 100%;
-    }
-}
-@media(max-width: 800px){
-    .wb-section-navigation .button {
 
-        height: 45px;
+@media (max-width: 1200px) {
+  .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .extra-item .service_detail {
+    width: 100%;
+  }
+}
 
-    }
+@media (max-width: 1200px) {
+  .desc_section_metabox {
+    display: none;
+  }
+
+  .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right .st-metabox-content-wrapper {
+    width: 95%;
+  }
+
+  .st-metabox-tab-content-wrap .wpbooking-form-group.hotel_room_list .wb-room-list .room-item {
+    width: 50%;
+  }
+
+  .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
+    width: 30%;
+  }
+
+  .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right {
+    margin-left: 30%;
+  }
+
+  .st-metabox-tab-content-wrap .content_tax_vat .label_vat_unit {
+    display: block;
+    padding: 20px 10px 10px 0;
+  }
+}
+
+@media (max-width: 1100px) {
+  .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
+    float: left;
+  }
+}
+
+@media (max-width: 980px) {
+  .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-right {
+    width: auto;
+  }
+
+  .st-metabox-tab-content-wrap .wpbooking-form-group .st-metabox-left {
+    float: left;
+  }
+
+  .wpbooking-row .wpbooking-col-sm-6 {
+    width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  .wb-section-navigation .button {
+
+    height: 45px;
+
+  }
 
 }
-@media(max-width: 480px){
-    .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .service-desc {
-        width: auto;
-    }
 
-    input.gmap-search {
-        width: 100px;
-    }
-    .wb-section-navigation .button {
-        height: 48px;
+@media (max-width: 480px) {
+  .st-metabox-tabs-content .wpbooking-form-group.wpbooking_extra_service_type .service-desc {
+    width: auto;
+  }
 
-    }
+  input.gmap-search {
+    width: 100px;
+  }
 
-    .st-metabox-tabs-content .form-control.small {
-        width: 100%;
-    }
+  .wb-section-navigation .button {
+    height: 48px;
+
+  }
+
+  .st-metabox-tabs-content .form-control.small {
+    width: 100%;
+  }
 }
+
 .st-metabox-tabs .st-metabox-nav li {
-    margin: 0 0 0.4em;
+  margin: 0 0 0.4em;
 }
+
 .st-metabox-nav .ui-tabs-active a {
-    border-bottom: none !important;
+  border-bottom: none !important;
 }
 
 .st-metabox-tabs-content .st-metabox-content-wrapper .radio_pro {
-    margin-bottom: 10px;
-}
-.wpbooking_dashboard_widget{
-    table  {
-
-        width: 100%;
-        margin-left: 0;
-        margin-bottom: 1em;
-
-        thead td{
-            border-bottom: 1px solid #ececec;
-            color: #777;
-        }
-        td{
-            padding: 3px 0;
-            &.b,&.t{
-                line-height: 1.5;
-                vertical-align: middle;
-            }
-            &.t{
-                font-size: 12px;
-                padding-right: 12px;
-                color: #777;
-                width: 50%;
-            }
-          &:last-child{
-            text-align: right;
-          }
-        }
-    }
-    .table_left {
-        float: left;
-        width: 45%;
-    }
-    .table_right {
-        float: right;
-        width: 45%;
-    }
-
-}
-.column-wpbooking_service_type{
-
-    width: 7%;
-    white-space: nowrap;
-    word-break: initial;
-    word-wrap: initial;
+  margin-bottom: 10px;
 }
 
-.wb-hidden{
+.wpbooking_dashboard_widget {
+  table {
+
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 1em;
+
+    thead td {
+      border-bottom: 1px solid #ececec;
+      color: #777;
+    }
+    td {
+      padding: 3px 0;
+      &.b, &.t {
+        line-height: 1.5;
+        vertical-align: middle;
+      }
+      &.t {
+        font-size: 12px;
+        padding-right: 12px;
+        color: #777;
+        width: 50%;
+      }
+      &:last-child {
+        text-align: right;
+      }
+    }
+  }
+  .table_left {
+    float: left;
+    width: 45%;
+  }
+  .table_right {
+    float: right;
+    width: 45%;
+  }
+
+}
+
+.column-wpbooking_service_type {
+
+  width: 7%;
+  white-space: nowrap;
+  word-break: initial;
+  word-wrap: initial;
+}
+
+.wb-hidden {
   display: none !important;
 }
-.mb7{
+
+.mb7 {
   margin-bottom: 7px;
 }
+
 .full-width {
   width: 100%;
 }
 
-.h_400{
-    height: 400px
+.h_400 {
+  height: 400px
 }
-.mr_10{
-    margin-right: 10px;
+
+.mr_10 {
+  margin-right: 10px;
 }
-.mb_7{
-    margin-bottom: 7px;
+
+.mb_7 {
+  margin-bottom: 7px;
 }
-.ace-editor{
-    background: white;
+
+.ace-editor {
+  background: white;
 }
-.CodeFlask__code{
-    margin: 0px;
-    padding: 0px;
+
+.CodeFlask__code {
+  margin: 0px;
+  padding: 0px;
 }

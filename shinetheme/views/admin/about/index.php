@@ -7,8 +7,8 @@ $tabs = array(
         'name' => esc_html__('Get Started','wpbooking'),
     ),
     array(
-        'id' => 'functionality',
-        'name' => esc_html__('Get even more functionalities','wpbooking'),
+        'id' => 'extensions',
+        'name' => esc_html__('Extensions','wpbooking'),
         'url' => $extension_url
     ),
 );

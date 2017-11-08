@@ -145,7 +145,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 						'field_type' => ''
 					));
 
-					$value_html = WPBooking_Admin_Form_Build::inst()->get_form_field_data($value);
+					$value_html = '';
 
 					if ($value_html) {
 						printf("<li class='field-item %s'>
@@ -200,7 +200,7 @@ if (!class_exists('WPBooking_Abstract_Service_Type')) {
 						'field_type' => ''
 					));
 
-					$value_html = WPBooking_Admin_Form_Build::inst()->get_form_field_data($value);
+					$value_html = '';
 
 					if ($value_html) {
 						printf("<li class='field-item %s'>
