@@ -247,6 +247,239 @@
                 add_action( 'save_post', [ $this, '_update_min_price_hotel' ] );
                 add_action( 'wpbooking_save_metabox_section', [ $this, '_update_min_price_hotel' ] );
 
+                /**
+                 * Get inventory data
+                 *
+                 * @since   1.4
+                 * @updated 1.4
+                 * @author  haint
+                 */
+                add_action( 'wp_ajax_fetch_inventory_accommodation', [ $this, 'fetch_inventory_accommodation' ] );
+
+
+                /**
+                 * Update price of the room in inventory
+                 *
+                 * @since   1.4
+                 * @updated 1.4
+                 * @author  haint
+                 */
+                add_action( 'wp_ajax_add_price_inventory', [ $this, 'add_price_inventory_accommodation' ] );
+
+
+            }
+
+            public function fetch_inventory_accommodation()
+            {
+                $post_id = WPBooking_Input::post( 'post_id', '' );
+                if ( get_post_type( $post_id ) == 'wpbooking_service' ) {
+                    $start = strtotime( WPBooking_Input::post( 'start', '' ) );
+                    $end   = strtotime( WPBooking_Input::post( 'end', '' ) );
+                    if ( $start > 0 && $end > 0 ) {
+                        $args = [
+                            'post_type'      => 'wpbooking_hotel_room',
+                            'posts_per_page' => -1,
+                            'post_parent'    => $post_id
+                        ];
+
+                        $rooms = [];
+                        $query = new WP_Query( $args );
+                        while ( $query->have_posts() ): $query->the_post();
+                            $rooms[] = [
+                                'id'   => get_the_ID(),
+                                'name' => get_the_title()
+                            ];
+                        endwhile;
+                        wp_reset_postdata();
+
+                        $datarooms = [];
+                        if ( !empty( $rooms ) ) {
+                            foreach ( $rooms as $key => $value ) {
+                                $datarooms[] = $this->featch_dataroom( $post_id, $value[ 'id' ], $value[ 'name' ], $start, $end );
+                            }
+                        }
+                        echo json_encode( [
+                            'status' => 1,
+                            'rooms'  => $datarooms
+                        ] );
+                        die;
+                    }
+                }
+                echo json_encode( [
+                    'status'  => 0,
+                    'message' => esc_html__( 'Can not fetch data', 'wpbooking' ),
+                    'rooms'   => ''
+                ] );
+                die;
+            }
+
+            public function featch_dataroom( $hotel_id, $post_id, $post_name, $start, $end )
+            {
+                $number_room = (int)get_post_meta( $post_id, 'room_number', true );
+                $base_price  = (float)get_post_meta( $post_id, 'base_price', true );
+
+                global $wpdb;
+                $sql     = "SELECT
+                    *
+                FROM
+                    {$wpdb->prefix}wpbooking_availability AS avai
+                WHERE
+                    (
+                        (
+                            avai.`start` <= {$start}
+                            AND avai.`end` >= {$start}
+                        )
+                        OR (
+                            avai.`start` <= {$end}
+                            AND avai.`end` >= {$end}
+                        )
+                        OR (
+                            avai.`start` <= {$start}
+                            AND avai.`end` >= {$end}
+                        )
+                        OR (
+                            avai.`start` >= {$start}
+                            AND avai.`end` <= {$end}
+                        )
+                    )
+                and avai.post_id = {$post_id}";
+                $avai_rs = $wpdb->get_results( $sql );
+
+
+                $sql      = "SELECT
+                    *
+                FROM
+                    {$wpdb->prefix}wpbooking_order AS _order
+                WHERE
+                    (
+                        (
+                            _order.check_in_timestamp <= {$start}
+                            AND _order.check_out_timestamp >= {$start}
+                        )
+                        OR (
+                            _order.check_in_timestamp <= {$end}
+                            AND _order.check_out_timestamp >= {$end}
+                        )
+                        OR (
+                            _order.check_in_timestamp <= {$start}
+                            AND _order.check_out_timestamp >= {$end}
+                        )
+                        OR (
+                            _order.check_in_timestamp >= {$start}
+                            AND _order.check_out_timestamp <= {$end}
+                        )
+                    )
+                AND _order.post_id = {$post_id} AND _order.`status` NOT IN ('cancelled')";
+                $order_rs = $wpdb->get_results( $sql );
+                $return   = [
+                    'name'   => esc_html( $post_name ),
+                    'values' => [],
+                    'id'     => $post_id
+                ];
+                for ( $i = $start; $i <= $end; $i = strtotime( '+1 day', $i ) ) {
+                    $date      = $i * 1000;
+                    $available = true;
+                    $price     = $base_price;
+                    if ( !empty( $avai_rs ) ) {
+                        foreach ( $avai_rs as $key => $value ) {
+                            if ($i >= $value->start && $i <= $value->end) {
+                                if ( $value->status == 'available' ) {
+                                    $price = (float)$value->price;
+                                } else {
+                                    $available = false;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    if ( $available ) {
+                        $ordered = 0;
+                        if ( !empty( $order_rs ) ) {
+                            foreach ( $order_rs as $key => $value ) {
+                                if ( $i >= $value->check_in_timestamp && $i <= $value->check_out_timestamp ) {
+                                    $ordered += (int)$value->room_num_search;
+                                }
+                            }
+                        }
+                        if ( $number_room - $ordered > 0 ) {
+                            $return[ 'values' ][] = [
+                                'from'        => "/Date({$date})/",
+                                'to'          => "/Date({$date})/",
+                                'label'       => $number_room - $ordered,
+                                'desc'        => sprintf( esc_html__( '%s left', 'wpbooking' ), $number_room - $ordered ),
+                                'customClass' => 'ganttBlue',
+                                'price'       => WPBooking_Currency::format_money( $price, [ 'simple_html' => true ] )
+                            ];
+                        } else {
+                            $return[ 'values' ][] = [
+                                'from'        => "/Date({$date})/",
+                                'to'          => "/Date({$date})/",
+                                'label'       => esc_html__( 'O', 'wpbooking' ),
+                                'desc'        => esc_html__( 'Out of stock', 'wpbooking' ),
+                                'customClass' => 'ganttOrange',
+                                'price'       => WPBooking_Currency::format_money( $price, [ 'simple_html' => true ] )
+                            ];
+                        }
+                    } else {
+                        $return[ 'values' ][] = [
+                            'from'        => "/Date({$date})/",
+                            'to'          => "/Date({$date})/",
+                            'label'       => esc_html__( 'N', 'wpbooking' ),
+                            'desc'        => esc_html__( 'Not Available', 'wpbooking' ),
+                            'customClass' => 'ganttRed',
+                            'price'       => ''
+                        ];
+                    }
+                }
+
+                return $return;
+
+            }
+
+            public function add_price_inventory_accommodation()
+            {
+                $post_id = (int)WPBooking_Input::post( 'post_id' );
+                $price   = WPBooking_Input::post( 'price' );
+                $status  = WPBooking_Input::post( 'status', 'available' );
+                $start   = (float)WPBooking_Input::post( 'start' );
+                $end     = (float)WPBooking_Input::post( 'end' );
+                $start /= 1000;
+                $end /= 1000;
+                $start = strtotime( date( 'Y-m-d', $start ) );
+                $end   = strtotime( date( 'Y-m-d', $end ) );
+
+                if ( get_post_type( $post_id ) != 'wpbooking_hotel_room' ) {
+                    echo json_encode( [
+                        'status'  => 0,
+                        'message' => esc_html__( 'Can not set price for this room', 'wpbooking' )
+                    ] );
+                    die;
+                }
+                if ( ( $status == 'available' ) && ( $price == '' || !is_numeric( $price ) || (float)$price < 0 ) ) {
+                    echo json_encode( [
+                        'status'  => 0,
+                        'message' => esc_html__( 'Price is incorrect', 'wpbooking' )
+                    ] );
+                    die;
+                }
+
+                $base_id = (int)wpbooking_origin_id( $post_id, 'wpbooking_hotel_room' );
+
+                $new_item = WPBooking_Calendar_Metabox::inst()->_calendar_save_data( $post_id, $base_id, $start, $end, $price, $status, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
+
+                if ( $new_item > 0 ) {
+                    echo json_encode( [
+                        'status'  => 1,
+                        'message' => esc_html__( 'Successffully added', 'wpbooking' )
+                    ] );
+                    die;
+                } else {
+                    echo json_encode( [
+                        'status'  => 0,
+                        'message' => esc_html__( 'Getting an error when adding new item.', 'wpbooking' )
+                    ] );
+                    die;
+                }
             }
 
             /**
@@ -684,8 +917,21 @@
 
                         ]
                     ],
+                    'inventory_tab'   => [
+                        'label'  => esc_html__( '4. Inventory', 'wpbooking' ),
+                        'fields' => [
+                            [
+                                'label' => esc_html__( 'Inventory', 'wpbooking' ),
+                                'type'  => 'accommodation_inventory',
+                                'desc'  => ''
+                            ],
+                            [
+                                'type' => 'section_navigation',
+                            ],
+                        ]
+                    ],
                     'facilities_tab'  => [
-                        'label'  => esc_html__( '4. Facilities', 'wpbooking' ),
+                        'label'  => esc_html__( '5. Facilities', 'wpbooking' ),
                         'fields' => [
                             [
                                 'type' => 'open_section',
@@ -738,7 +984,7 @@
                         ]
                     ],
                     'policies_tab'    => [
-                        'label'  => esc_html__( '5. Policies & Checkout', 'wpbooking' ),
+                        'label'  => esc_html__( '6. Policies & Checkout', 'wpbooking' ),
                         'fields' => [
                             [ 'type' => 'open_section' ],
                             [
@@ -901,7 +1147,7 @@
                         ],
                     ],
                     'photo_tab'       => [
-                        'label'  => esc_html__( '6. Photos', 'wpbooking' ),
+                        'label'  => esc_html__( '7. Photos', 'wpbooking' ),
                         'fields' => [
                             [ 'type' => 'open_section' ],
                             [

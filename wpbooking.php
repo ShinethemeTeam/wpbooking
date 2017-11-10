@@ -237,6 +237,15 @@
 
                 wp_enqueue_script( 'wpbooking-moment-js', wpbooking_admin_assets_url( 'js/moment.min.js' ), [ 'jquery' ], null, true );
 
+                /**
+                 * Gantt
+                 */
+
+                wp_register_script( 'prettify', wpbooking_admin_assets_url( '/js/gantt/prettify.js' ), [ 'wpbooking-moment-js' ], null, true );
+                wp_register_script( 'jquery.lang.gantt', wpbooking_admin_assets_url( '/js/gantt/lang.js' ), [ 'jquery', 'prettify' ], null, true );
+                wp_register_script( 'gantt-js', wpbooking_admin_assets_url( 'js/gantt/jquery.fn.gantt.js' ), [ 'wpbooking-moment-js' ], null, true );
+                wp_register_script( 'inventory-js', wpbooking_admin_assets_url( 'js/gantt/inventory.js' ), [ 'gantt-js' ], null, true );
+                wp_register_style( 'gantt-css', wpbooking_admin_assets_url( 'js/gantt/css/style.css' ) );
 
                 wp_enqueue_script( 'wpbooking-full-calendar', wpbooking_admin_assets_url( 'js/fullcalendar.min.js' ), [ 'jquery', 'wpbooking-moment-js' ], null, true );
 
