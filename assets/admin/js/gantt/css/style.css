@@ -430,7 +430,8 @@
 .fn-gantt .navigate .nav-slider-left, .fn-gantt .navigate .nav-slider-right {
     text-align: center;
     height: 20px;
-    display: inline-block;
+    display: flex;
+    align-items: center;
 }
 
 .fn-gantt .navigate .nav-slider-left {
@@ -521,6 +522,7 @@
     width: auto;
     padding-left: 3px;
     padding-right: 3px;
+    padding-bottom: 1px;
     height: 20px;
     font-size: 11px;
     text-align: center;
