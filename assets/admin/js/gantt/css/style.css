@@ -342,12 +342,17 @@
     box-shadow: none;
 }
 
+.wpbooking-inventory-color .inventory-color-item{
+    display: inline-block;
+    margin-right: 15px;
+}
 .wpbooking-inventory-color span {
     display: inline-block;
     width: 30px;
     height: 10px;
     margin-right: 5px;
 }
+
 
 .wpbooking-inventory-color .unavailable {
     background: #F5837A;
