@@ -1,13 +1,13 @@
 <?php
     /**
-     * Plugin Name: WpBooking
+     * Plugin Name: WPBooking
      * Plugin URI: wpbooking
-     * Description: All in one Booking System
+     * Description: WP Booking helps you to setup an hotel booking, tour booking , marketplace booking system like booking.com, viator.com ... quickly, friendly, pleasantly and easily.
      * Version: 1.4
      * Author: wpbooking
-     * Author URI: http://www.wpbooking.org
+     * Author URI: https://wpbooking.org
      * Requires at least: 4.1
-     * Tested up to: 4.3
+     * Tested up to: 4.8.3
      * License URI: https://www.gnu.org/licenses/gpl-2.0.html
      *
      * Text Domain: wpbooking
@@ -139,7 +139,7 @@
                  * Daterangepicker
                  * */
                 $locale = get_locale();
-                wp_register_script( 'locale-daterangepicker-js', get_template_directory_uri() . 'js/daterangepicker/languages/' . $locale . '.js', [], null, true );
+                wp_register_script( 'locale-daterangepicker-js', wpbooking_assets_url( '/js/daterangepicker/languages/' . $locale . '.js' ), [], null, true );
                 wp_register_script( 'wpbooking-daterangepicker-js', wpbooking_assets_url( 'js/daterangepicker/daterangepicker.js' ), [ 'jquery', 'wpbooking-moment', 'locale-daterangepicker-js' ], null, true );
                 wp_register_style( 'wpbooking-daterangepicker', wpbooking_assets_url( 'js/daterangepicker/daterangepicker.css' ) );
 

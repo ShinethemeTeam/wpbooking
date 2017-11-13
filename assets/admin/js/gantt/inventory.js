@@ -40,7 +40,6 @@
             if (typeof loader == 'undefined') {
                 loader = true;
             }
-            console.log('f');
             var base   = this;
             base.gantt = base.$elem.gantt({
                 source      : base.rooms,
@@ -65,7 +64,7 @@
         },
         setEnd  : function (end) {
             var base     = this;
-            base.endDate = moment().add(1, 'month').format();
+            base.endDate = moment().add(30, 'days').format();
             if (typeof end != 'undefined') {
                 base.endDate = end;
             }
@@ -99,7 +98,7 @@
         var inventory_data = inventory.data('Inventory');
         $('a[href="#st-metabox-tab-item-inventory_tab"]').click(function () {
             var start = moment().format();
-            var end   = moment().add(1, 'month').format();
+            var end   = moment().add(30, 'days').format();
             var data  = {
                 'action' : 'fetch_inventory_accommodation',
                 'start'  : moment(start).format("YYYY-MM-DD"),
@@ -109,7 +108,63 @@
             inventory_data.render(start, end, wpbooking_params.ajax_url, data);
         });
         $('.wpbooking-inventory', body).on('wpbooking_update_price_inventory', function (ev, start, end) {
-            inventory_data.render(start, end);
+            var data = {
+                'action' : 'fetch_inventory_accommodation',
+                'start'  : moment(start).format("YYYY-MM-DD"),
+                'end'    : moment(end).format("YYYY-MM-DD"),
+                'post_id': $('.wpbooking-inventory', body).data('id')
+            };
+            inventory_data.render(start, end, wpbooking_params.ajax_url, data);
+        });
+        $('.wpbooking-inventory', body).on('wpbooking_next_month_inventory', function (ev, start, end) {
+            var data = {
+                'action' : 'fetch_inventory_accommodation',
+                'start'  : moment(end).format("YYYY-MM-DD"),
+                'end'    : moment(end).add(30, 'days').format("YYYY-MM-DD"),
+                'post_id': $('.wpbooking-inventory', body).data('id')
+            };
+            inventory_data.render(moment(end).format(), moment(end).add(30, 'days').format(), wpbooking_params.ajax_url, data);
+        });
+        $('.wpbooking-inventory', body).on('wpbooking_prev_month_inventory', function (ev, start, end) {
+            var data = {
+                'action' : 'fetch_inventory_accommodation',
+                'start'  : moment(start).subtract(30, 'days').format("YYYY-MM-DD"),
+                'end'    : moment(start).format("YYYY-MM-DD"),
+                'post_id': $('.wpbooking-inventory', body).data('id')
+            };
+            inventory_data.render(moment(start).subtract(30, 'days').format(), moment(start).format(), wpbooking_params.ajax_url, data);
+        });
+        $('.wpbooking-inventory', body).on('wpbooking_now_inventory', function (ev, start, end) {
+            var data = {
+                'action' : 'fetch_inventory_accommodation',
+                'start'  : moment().format("YYYY-MM-DD"),
+                'end'    : moment().add(30, 'days').format("YYYY-MM-DD"),
+                'post_id': $('.wpbooking-inventory', body).data('id')
+            };
+            inventory_data.render(moment().format(), moment().add(30, 'days').format(), wpbooking_params.ajax_url, data);
+        });
+
+        var form      = $('.wpbooking-inventory-form');
+        var check_in  = $('.wpbooking-inventory-start', form).datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+        var check_out = $('.wpbooking-inventory-end', form).datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+
+        var goto = $('.wpbooking-inventory-goto', form).click(function (ev) {
+            ev.preventDefault();
+            var start = check_in.val();
+            var end   = check_out.val();
+            if (start != '' && end != '') {
+                var data = {
+                    'action' : 'fetch_inventory_accommodation',
+                    'start'  : moment(start).format("YYYY-MM-DD"),
+                    'end'    : moment(end).format("YYYY-MM-DD"),
+                    'post_id': $('.wpbooking-inventory', body).data('id')
+                };
+                inventory_data.render(moment(start).format(), moment(end).format(), wpbooking_params.ajax_url, data);
+            }
         });
     });
 })(jQuery, window, document);

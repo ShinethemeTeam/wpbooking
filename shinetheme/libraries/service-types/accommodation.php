@@ -345,11 +345,11 @@
                 and avai.post_id = {$post_id}";
                 $avai_rs = $wpdb->get_results( $sql );
 
-
-                $sql      = "SELECT
-                    *
+                $sql = "SELECT
+                    _order.*, _order_room.number
                 FROM
                     {$wpdb->prefix}wpbooking_order AS _order
+                    INNER JOIN {$wpdb->prefix}wpbooking_order_hotel_room _order_room on _order_room.order_id = _order.order_id
                 WHERE
                     (
                         (
@@ -369,20 +369,24 @@
                             AND _order.check_out_timestamp <= {$end}
                         )
                     )
-                AND _order.post_id = {$post_id} AND _order.`status` NOT IN ('cancelled')";
+                AND _order_room.room_id = {$post_id} AND _order.`status` NOT IN ('cancelled')
+                GROUP BY _order.id";
+
                 $order_rs = $wpdb->get_results( $sql );
-                $return   = [
+
+                $return = [
                     'name'   => esc_html( $post_name ),
                     'values' => [],
                     'id'     => $post_id
                 ];
                 for ( $i = $start; $i <= $end; $i = strtotime( '+1 day', $i ) ) {
+                    $i         = strtotime( date( 'Y-m-d', $i ) );
                     $date      = $i * 1000;
                     $available = true;
                     $price     = $base_price;
                     if ( !empty( $avai_rs ) ) {
                         foreach ( $avai_rs as $key => $value ) {
-                            if ($i >= $value->start && $i <= $value->end) {
+                            if ( $i >= (int)$value->start && $i <= (int)$value->end ) {
                                 if ( $value->status == 'available' ) {
                                     $price = (float)$value->price;
                                 } else {
@@ -397,7 +401,7 @@
                         if ( !empty( $order_rs ) ) {
                             foreach ( $order_rs as $key => $value ) {
                                 if ( $i >= $value->check_in_timestamp && $i <= $value->check_out_timestamp ) {
-                                    $ordered += (int)$value->room_num_search;
+                                    $ordered += (int)$value->number;
                                 }
                             }
                         }
@@ -414,7 +418,7 @@
                             $return[ 'values' ][] = [
                                 'from'        => "/Date({$date})/",
                                 'to'          => "/Date({$date})/",
-                                'label'       => esc_html__( 'O', 'wpbooking' ),
+                                'label'       => $number_room - $ordered . '',
                                 'desc'        => esc_html__( 'Out of stock', 'wpbooking' ),
                                 'customClass' => 'ganttOrange',
                                 'price'       => WPBooking_Currency::format_money( $price, [ 'simple_html' => true ] )
@@ -424,10 +428,10 @@
                         $return[ 'values' ][] = [
                             'from'        => "/Date({$date})/",
                             'to'          => "/Date({$date})/",
-                            'label'       => esc_html__( 'N', 'wpbooking' ),
+                            'label'       => $number_room,
                             'desc'        => esc_html__( 'Not Available', 'wpbooking' ),
                             'customClass' => 'ganttRed',
-                            'price'       => ''
+                            'price'       => WPBooking_Currency::format_money( $price, [ 'simple_html' => true ] )
                         ];
                     }
                 }
@@ -445,6 +449,7 @@
                 $end     = (float)WPBooking_Input::post( 'end' );
                 $start /= 1000;
                 $end /= 1000;
+
                 $start = strtotime( date( 'Y-m-d', $start ) );
                 $end   = strtotime( date( 'Y-m-d', $end ) );
 
@@ -462,6 +467,7 @@
                     ] );
                     die;
                 }
+                $price = (float)$price;
 
                 $base_id = (int)wpbooking_origin_id( $post_id, 'wpbooking_hotel_room' );
 
