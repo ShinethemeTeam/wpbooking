@@ -166,5 +166,17 @@
                 inventory_data.render(moment(start).format(), moment(end).format(), wpbooking_params.ajax_url, data);
             }
         });
+
+        $('.calendar-bulk-close').click(function (ev) {
+            ev.preventDefault();
+            $(this).closest('.form-bulk-edit').fadeOut();
+            var data = {
+                'action' : 'fetch_inventory_accommodation',
+                'start'  : moment().format("YYYY-MM-DD"),
+                'end'    : moment().add(30, 'days').format("YYYY-MM-DD"),
+                'post_id': $('.wpbooking-inventory', body).data('id')
+            };
+            inventory_data.render(moment().format(), moment().add(30, 'days').format(), wpbooking_params.ajax_url, data);
+        });
     });
 })(jQuery, window, document);

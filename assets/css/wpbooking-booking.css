@@ -548,11 +548,11 @@ a.label:focus {
   font-size: 11px;
   margin-bottom: 5px;
 }
-.wb-hotel-star .icon-star {
+.wb-hotel-star .wpbooking-icon-star {
   margin-right: 3px;
   color: #ff9966;
 }
-.wb-hotel-star .active .icon-star:before {
+.wb-hotel-star .active .wpbooking-icon-star:before {
   content: "\f005";
 }
 .wb-hotel-star span:last-child {

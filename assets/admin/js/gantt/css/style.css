@@ -39,11 +39,13 @@
 
 .fn-gantt .row {
     float: left;
-    height: 40px;
-    line-height: 40px;
+    height: 28px;
+    line-height: 28px;
     margin-left: -1px;
 }
-
+.fn-gantt .row.header{
+    line-height: 40px;
+}
 .leftPanel .row {
     height: 60px;
     line-height: 60px;
@@ -102,7 +104,7 @@
     border-right: 1px solid #DDD;
     background-image: url(../img/grid.png);
     background-repeat: repeat;
-    background-position: 0 39px;
+    background-position: 0 14px;
     position: relative;
 }
 
@@ -120,14 +122,15 @@
 .fn-gantt .gantt-range.selected {
     background: rgba(98, 212, 187, 0.4);
 }
-
+.fn-gantt .day{
+    border-bottom: 1px solid #DDD;
+}
 .fn-gantt .day, .fn-gantt .date {
     overflow: visible;
     width: 102px;
-    line-height: 40px;
+    line-height: 28px;
     text-align: center;
     border-left: 1px solid #DDD;
-    border-bottom: 1px solid #DDD;
     margin: -1px 0 0 -1px;
     font-size: 11px;
     color: #484a4d;
@@ -136,20 +139,20 @@
 
 .fn-gantt .holiday {
     background-color: #ffd263;
-    height: 60px;
+    height: 28px;
     margin: 0 0 -1px -1px;
 }
 
 .fn-gantt .today {
     background-color: #fff8da;
-    height: 40px;
+    height: 28px;
     margin: 0 0 -1px -1px;
     font-weight: bold;
     text-align: center;
 }
 
 .fn-gantt .sa, .fn-gantt .sn, .fn-gantt .wd {
-    height: 40px;
+    height: 28px;
     margin: 0;
     text-align: center;
 }
@@ -404,6 +407,7 @@
     justify-content: center;
     background: #d48383;
     color: #FFF;
+    text-decoration: none;
 }
 
 .wpbooking-inventory-color .available {

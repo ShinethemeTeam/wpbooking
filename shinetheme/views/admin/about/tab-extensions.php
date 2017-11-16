@@ -17,7 +17,7 @@
 ?>
 <div class="wpbooking-extension">
     <div class="wrap">
-        <h1><?php echo sprintf( esc_html__( 'Welcome to Wp Booking %s', 'gotrips' ), $_version ); ?></h1>
+        <h1><?php echo sprintf( esc_html__( 'Welcome to Wp Booking %s', 'wpbooking' ), $_version ); ?></h1>
         <h2 class="nav-tab-wrapper">
             <a class="nav-tab"
                href="<?php echo esc_url( $started_url ); ?>"><?php echo esc_html__( 'Get Started', 'wpbooking' ); ?></a>

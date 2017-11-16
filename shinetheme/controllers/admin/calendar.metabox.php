@@ -259,196 +259,241 @@
 
                 // Validate Permission
                 $post = get_post( $post_id );
-                if ( !$post or $post->post_author != get_current_user_id() or !current_user_can( 'manage_options' ) ) {
+                if ( !$post ) {
                     echo json_encode( [
                         'status'  => 0,
-                        'message' => esc_html__( 'You do not have permission to do it', 'wpbooking' )
+                        'message' => esc_html__( 'Please select a service', 'wpbooking' )
                     ] );
                     die;
                 }
 
                 if ( wp_verify_nonce( $_POST[ 'security' ], 'wpbooking-nonce-field' ) ) {
-                    $post_id      = (int)WPBooking_Input::post( 'post_id', 0 );
-                    $post_encrypt = WPBooking_Input::post( 'post_encrypt', '' );
+                    $post_id = (int)WPBooking_Input::post( 'post_id', 0 );
 
-                    if ( $post_id > 0 && wpbooking_encrypt_compare( $post_id, $post_encrypt ) ) {
+                    if ( isset( $_POST[ 'all_days' ] ) && !empty( $_POST[ 'all_days' ] ) ) {
 
-                        if ( isset( $_POST[ 'all_days' ] ) && !empty( $_POST[ 'all_days' ] ) ) {
+                        $data           = WPBooking_Input::post( 'data', '' );
+                        $all_days       = WPBooking_Input::post( 'all_days', '' );
+                        $posts_per_page = (int)WPBooking_Input::post( 'posts_per_page', '' );
+                        $current_page   = (int)WPBooking_Input::post( 'current_page', '' );
+                        $total          = (int)WPBooking_Input::post( 'total', '' );
 
-                            $data           = WPBooking_Input::post( 'data', '' );
-                            $all_days       = WPBooking_Input::post( 'all_days', '' );
-                            $posts_per_page = (int)WPBooking_Input::post( 'posts_per_page', '' );
-                            $current_page   = (int)WPBooking_Input::post( 'current_page', '' );
-                            $total          = (int)WPBooking_Input::post( 'total', '' );
+                        if ( $current_page > ceil( $total / $posts_per_page ) ) {
 
-                            if ( $current_page > ceil( $total / $posts_per_page ) ) {
-
-                                echo json_encode( [
-                                    'status'  => 1,
-                                    'message' => esc_html__( 'Successffully added', 'wpbooking' )
-                                ] );
-                                die;
-                            } else {
-                                $return = $this->insert_calendar_bulk( $data, $posts_per_page, $total, $current_page, $all_days, $post_id, $post_encrypt );
-                                echo json_encode( $return );
-                                die;
-                            }
+                            echo json_encode( [
+                                'status'  => 1,
+                                'message' => esc_html__( 'Successffully added', 'wpbooking' )
+                            ] );
+                            die;
+                        } else {
+                            $return = $this->insert_calendar_bulk( $data, $posts_per_page, $total, $current_page, $all_days, $post_id );
+                            echo json_encode( $return );
+                            die;
                         }
+                    }
 
-                        $day_of_week  = WPBooking_Input::post( 'day-of-week', '' );
-                        $day_of_month = WPBooking_Input::post( 'day-of-month', '' );
+                    $day_of_week  = WPBooking_Input::post( 'day-of-week', '' );
+                    $day_of_month = WPBooking_Input::post( 'day-of-month', '' );
 
-                        $array_month = [
-                            'January'   => '1',
-                            'February'  => '2',
-                            'March'     => '3',
-                            'April'     => '4',
-                            'May'       => '5',
-                            'June'      => '6',
-                            'July'      => '7',
-                            'August'    => '8',
-                            'September' => '9',
-                            'October'   => '10',
-                            'November'  => '11',
-                            'December'  => '12',
-                        ];
+                    $array_month = [
+                        'January'   => '1',
+                        'February'  => '2',
+                        'March'     => '3',
+                        'April'     => '4',
+                        'May'       => '5',
+                        'June'      => '6',
+                        'July'      => '7',
+                        'August'    => '8',
+                        'September' => '9',
+                        'October'   => '10',
+                        'November'  => '11',
+                        'December'  => '12',
+                    ];
 
-                        $months = WPBooking_Input::post( 'months', '' );
+                    $months = WPBooking_Input::post( 'months', '' );
 
-                        $years = WPBooking_Input::post( 'years', '' );
+                    $years = WPBooking_Input::post( 'years', '' );
 
-                        $price = WPBooking_Input::post( 'price_bulk', '' );
+                    $price = WPBooking_Input::post( 'price_bulk', '' );
 
-                        if ( !is_numeric( $price ) ) {
+                    $adult  = WPBooking_Input::post( 'adult_bulk', '' );
+                    $child  = WPBooking_Input::post( 'child_bulk', '' );
+                    $infant = WPBooking_Input::post( 'infant_bulk', '' );
+
+                    $status     = WPBooking_Input::post( 'status_bulk', 'available' );
+                    $price_type = WPBooking_Input::post( 'price_type', '' );
+
+                    $post_type = WPBooking_Input::post( 'post_type', 'accommodation' );
+
+                    if ( $post_type == 'accommodation' ) {
+
+                        if ( $status == 'available' && ( !is_numeric( $price ) || (float)$price < 0 ) ) {
                             echo json_encode( [
                                 'status'  => 0,
-                                'message' => esc_html__( 'The price field is not a number.', 'wpbooking' )
+                                'message' => esc_html__( 'The price is not a number.', 'wpbooking' )
                             ] );
                             die;
                         }
-                        $price = (float)$price;
+                    } elseif ( $post_type == 'tour' ) {
+                        if ( $price_type == 'per_unit' ) {
+                            if ( $status == 'available' ) {
+                                if ( !is_numeric( $price ) || (float)$price < 0 ) {
+                                    echo json_encode( [
+                                        'status'  => 0,
+                                        'message' => esc_html__( 'The price is not a number.', 'wpbooking' )
+                                    ] );
+                                    die;
+                                }
+                            }
+                        } else {
+                            if ( $status == 'available' ) {
+                                if ( !is_numeric( $adult ) || (float)$adult < 0 ) {
+                                    echo json_encode( [
+                                        'status'  => 0,
+                                        'message' => esc_html__( 'The adult is not a number.', 'wpbooking' )
+                                    ] );
+                                    die;
+                                }
+                                if ( !empty( $child ) && !is_numeric( $child ) ) {
+                                    echo json_encode( [
+                                        'status'  => 0,
+                                        'message' => esc_html__( 'The child is not a number.', 'wpbooking' )
+                                    ] );
+                                    die;
+                                }
+                                if ( !empty( $infant ) && !is_numeric( $infant ) ) {
+                                    echo json_encode( [
+                                        'status'  => 0,
+                                        'message' => esc_html__( 'The infant is not a number.', 'wpbooking' )
+                                    ] );
+                                    die;
+                                }
+                            }
+                        }
+                    }
+                    $price = (float)$price;
 
-                        $status = WPBooking_Input::post( 'status', 'available' );
+                    $group_day = WPBooking_Input::post( 'group_bulk', '' );
 
-                        $group_day = WPBooking_Input::post( 'group_day', '' );
+                    $base_id = (int)wpbooking_origin_id( $post_id, 'wpbooking_service' );
 
-                        $base_id = (int)wpbooking_origin_id( $post_id, 'wpbooking_service' );
+                    /*	Start, End is a timestamp */
+                    $all_years  = [];
+                    $all_months = [];
+                    $all_days   = [];
+                    $link       = '';
 
-                        /*	Start, End is a timestamp */
-                        $all_years  = [];
-                        $all_months = [];
-                        $all_days   = [];
-                        $link       = '';
+                    if ( !empty( $years ) ) {
 
-                        if ( !empty( $years ) ) {
+                        sort( $years, 1 );
 
-                            sort( $years, 1 );
+                        foreach ( $years as $year ) {
+                            $all_years[] = $year;
+                        }
 
-                            foreach ( $years as $year ) {
-                                $all_years[] = $year;
+                        if ( !empty( $months ) ) {
+
+                            foreach ( $months as $month ) {
+                                foreach ( $all_years as $year ) {
+                                    $all_months[] = $month . ' ' . $year;
+                                }
                             }
 
-                            if ( !empty( $months ) ) {
+                            if ( !empty( $day_of_week ) && !empty( $day_of_month ) ) {
+                                // Each day in month
+                                foreach ( $day_of_month as $day ) {
+                                    // Each day in week
+                                    foreach ( $day_of_week as $day_week ) {
+                                        // Each month year
+                                        foreach ( $all_months as $month ) {
+                                            $time = strtotime( $day . ' ' . $month );
 
-                                foreach ( $months as $month ) {
-                                    foreach ( $all_years as $year ) {
-                                        $all_months[] = $month . ' ' . $year;
-                                    }
-                                }
-
-                                if ( !empty( $day_of_week ) && !empty( $day_of_month ) ) {
-                                    // Each day in month
-                                    foreach ( $day_of_month as $day ) {
-                                        // Each day in week
-                                        foreach ( $day_of_week as $day_week ) {
-                                            // Each month year
-                                            foreach ( $all_months as $month ) {
-                                                $time = strtotime( $day . ' ' . $month );
-
-                                                if ( date( 'l', $time ) == $day_of_week ) {
-                                                    $all_days[] = $time;
-                                                }
-
+                                            if ( date( 'l', $time ) == $day_of_week ) {
+                                                $all_days[] = $time;
                                             }
+
                                         }
                                     }
-                                    foreach ( $day_of_month as $day ) {
-                                        foreach ( $all_months as $month ) {
-                                            $day        = str_pad( $day, 2, '0', STR_PAD_LEFT );
+                                }
+                                foreach ( $day_of_month as $day ) {
+                                    foreach ( $all_months as $month ) {
+                                        $day        = str_pad( $day, 2, '0', STR_PAD_LEFT );
+                                        $all_days[] = strtotime( $day . ' ' . $month );
+                                    }
+                                }
+                            } elseif ( empty( $day_of_week ) && empty( $day_of_month ) ) {
+                                foreach ( $all_months as $month ) {
+                                    for ( $i = strtotime( 'first day of ' . $month ); $i <= strtotime( 'last day of ' . $month ); $i = strtotime( '+1 day', $i ) ) {
+                                        $all_days[] = $i;
+                                    }
+                                }
+                            } elseif ( empty( $day_of_week ) && !empty( $day_of_month ) ) {
+
+                                foreach ( $day_of_month as $day ) {
+                                    foreach ( $all_months as $month ) {
+                                        $month_tmp = trim( $month );
+                                        $month_tmp = explode( ' ', $month );
+
+                                        $num_day = cal_days_in_month( CAL_GREGORIAN, $array_month[ $month_tmp[ 0 ] ], $month_tmp[ 1 ] );
+
+                                        if ( $day <= $num_day ) {
                                             $all_days[] = strtotime( $day . ' ' . $month );
                                         }
                                     }
-                                } elseif ( empty( $day_of_week ) && empty( $day_of_month ) ) {
+                                }
+                            } elseif ( !empty( $day_of_week ) && empty( $day_of_month ) ) {
+                                foreach ( $day_of_week as $day ) {
                                     foreach ( $all_months as $month ) {
-                                        for ( $i = strtotime( 'first day of ' . $month ); $i <= strtotime( 'last day of ' . $month ); $i = strtotime( '+1 day', $i ) ) {
+                                        for ( $i = strtotime( 'first ' . $day . ' of ' . $month ); $i <= strtotime( 'last ' . $day . ' of ' . $month ); $i = strtotime( '+1 week', $i ) ) {
                                             $all_days[] = $i;
                                         }
                                     }
-                                } elseif ( empty( $day_of_week ) && !empty( $day_of_month ) ) {
-
-                                    foreach ( $day_of_month as $day ) {
-                                        foreach ( $all_months as $month ) {
-                                            $month_tmp = trim( $month );
-                                            $month_tmp = explode( ' ', $month );
-
-                                            $num_day = cal_days_in_month( CAL_GREGORIAN, $array_month[ $month_tmp[ 0 ] ], $month_tmp[ 1 ] );
-
-                                            if ( $day <= $num_day ) {
-                                                $all_days[] = strtotime( $day . ' ' . $month );
-                                            }
-                                        }
-                                    }
-                                } elseif ( !empty( $day_of_week ) && empty( $day_of_month ) ) {
-                                    foreach ( $day_of_week as $day ) {
-                                        foreach ( $all_months as $month ) {
-                                            for ( $i = strtotime( 'first ' . $day . ' of ' . $month ); $i <= strtotime( 'last ' . $day . ' of ' . $month ); $i = strtotime( '+1 week', $i ) ) {
-                                                $all_days[] = $i;
-                                            }
-                                        }
-                                    }
                                 }
-
-
-                                if ( !empty( $all_days ) ) {
-                                    $posts_per_page = 10;
-                                    $total          = count( $all_days );
-
-                                    $current_page = 1;
-
-                                    $data = [
-                                        'post_id'   => $post_id,
-                                        'base_id'   => $base_id,
-                                        'status'    => $status,
-                                        'group_day' => $group_day,
-                                        'price'     => $price,
-                                    ];
-
-                                    $return = $this->insert_calendar_bulk( $data, $posts_per_page, $total, $current_page, $all_days, $post_id, $post_encrypt );
-
-                                    echo json_encode( $return );
-                                    die;
-                                }
-                            } else {
-                                echo json_encode( [
-                                    'status'  => 0,
-                                    'message' => esc_html__( 'The months field is required.', 'wpbooking' )
-                                ] );
-                                die;
                             }
 
+
+                            if ( !empty( $all_days ) ) {
+                                $posts_per_page = 10;
+                                $total          = count( $all_days );
+
+                                $current_page = 1;
+
+                                $data = [
+                                    'post_id'        => $post_id,
+                                    'base_id'        => $base_id,
+                                    'status'         => $status,
+                                    'group_day'      => $group_day,
+                                    'price'          => $price,
+                                    'calendar_price' => $price,
+                                    'adult_price'    => $adult,
+                                    'child_price'    => $child,
+                                    'infant_price'   => $infant,
+                                ];
+
+                                $return = $this->insert_calendar_bulk( $data, $posts_per_page, $total, $current_page, $all_days, $post_id );
+
+                                echo json_encode( $return );
+                                die;
+                            }
                         } else {
                             echo json_encode( [
                                 'status'  => 0,
-                                'message' => esc_html__( 'The years field is required.', 'wpbooking' )
+                                'message' => esc_html__( 'The months field is required.', 'wpbooking' )
                             ] );
                             die;
                         }
 
+                    } else {
+                        echo json_encode( [
+                            'status'  => 0,
+                            'message' => esc_html__( 'The years field is required.', 'wpbooking' )
+                        ] );
+                        die;
                     }
                 }
             }
 
-            public function insert_calendar_bulk( $data, $posts_per_page, $total, $current_page, $all_days, $post_id, $post_encrypt )
+            public function insert_calendar_bulk( $data, $posts_per_page, $total, $current_page, $all_days, $post_id )
             {
                 global $wpdb;
                 $table = $wpdb->prefix . 'wpbooking_availability';
@@ -477,7 +522,7 @@
                     /*	.End */
 
 
-                    $this->wpbooking_insert_availability( $data[ 'post_id' ], $data[ 'base_id' ], $data[ 'start' ], $data[ 'end' ], $data[ 'price' ], $data[ 'status' ], $data[ 'group_day' ] );
+                    $this->wpbooking_insert_availability( $data[ 'post_id' ], $data[ 'base_id' ], $data[ 'start' ], $data[ 'end' ], $data[ 'price' ], $data[ 'status' ], $data[ 'group_day' ], false, false, false, false, false, false, $data[ 'price' ], false, $data[ 'adult_price' ], false, $data[ 'child_price' ], false, $data[ 'child_price' ] );
                 }
 
 
@@ -493,8 +538,7 @@
                     'status'         => 2,
                     'data'           => $data,
                     'progress'       => $progress,
-                    'post_id'        => $post_id,
-                    'post_encrypt'   => $post_encrypt
+                    'post_id'        => $post_id
                 ];
 
                 return $return;
@@ -649,6 +693,9 @@
                                 'start'        => strtotime( $item[ 'start' ] ),
                                 'end'          => strtotime( '-1 day', $check_in ),
                                 'price'        => (float)$item[ 'price' ],
+                                'adult_price'  => (float)$item[ 'adult_price' ],
+                                'child_price'  => (float)$item[ 'child_price' ],
+                                'infant_price' => (float)$item[ 'infant_price' ],
                                 'price_init'   => (float)$item[ 'price_init' ],
                                 'price_person' => (float)$item[ 'price_person' ],
                                 'status'       => $item[ 'status' ],
@@ -664,6 +711,9 @@
                                 'start'        => strtotime( '+1 day', $check_out ),
                                 'end'          => strtotime( '-1 day', strtotime( $item[ 'end' ] ) ),
                                 'price'        => (float)$item[ 'price' ],
+                                'adult_price'  => (float)$item[ 'adult_price' ],
+                                'child_price'  => (float)$item[ 'child_price' ],
+                                'infant_price' => (float)$item[ 'infant_price' ],
                                 'price_init'   => (float)$item[ 'price_init' ],
                                 'price_person' => (float)$item[ 'price_person' ],
                                 'status'       => $item[ 'status' ],

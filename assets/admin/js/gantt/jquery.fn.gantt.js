@@ -356,7 +356,7 @@
                 /* Left panel */
                 var ganttLeftPanel = $('<div class="leftPanel"/>')
                     .append($('<div class="row spacer"/>')
-                        .css("height", 40 * element.headerRows + 1 + "px")
+                        .css("height", 80 + 56 + "px")
                         .css("width", "100%"));
 
                 var entries = [];
@@ -445,9 +445,9 @@
                     } else {
                         row = $(row);
                     }
-                    var row_offset = parseInt(row.attr('offset')) + (element.headerRows * 40);
+                    var row_offset = parseInt(row.attr('offset')) + 80 + 55;
                     if (parseInt(row.attr('offset')) > 0) {
-                        row_offset = parseInt(row.attr('offset')) + (parseInt(row.attr('offset')) / 40 + 20) + (element.headerRows * 40);
+                        row_offset -=2;
                     }
                     var post_id = parseInt(row.find('.fn-label').attr('data-id'));
 
@@ -1355,9 +1355,9 @@
                                     // find row
                                     var topEl = $(element).find("#rowheader" + i);
 
-                                    var top = 40 * 4 + parseInt(topEl.attr("offset"));
+                                    var top = 80 + 56 + parseInt(topEl.attr("offset"));
                                     if (parseInt(topEl.attr("offset")) > 0) {
-                                        top = 40 * 4 + parseInt(topEl.attr("offset"), 10) + (parseInt(topEl.attr("offset"), 10) / 40 + 20);
+                                        top -= 1;
                                     }
                                     _bar.css({
                                         'top' : top,
@@ -1905,7 +1905,7 @@
                     tools._getCellSize = $("#measureCellWidth .row").height();
                     $("#measureCellWidth").empty().remove();
                 }
-                return tools._getCellSize;
+                return 60;
             },
 
             // Get the current size of the right panel

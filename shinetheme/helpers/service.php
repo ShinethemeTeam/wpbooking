@@ -45,7 +45,7 @@ if(!function_exists('wpbooking_service_star_rating')){
         for($i=1; $i<=5; $i++){
             $active=FALSE;
             if($hotel_star >= $i) $active='active';
-            echo sprintf('<span class="%s"><i class="fa fa-star-o icon-star"></i></span>',$active);
+            echo sprintf('<span class="%s"><i class="fa fa-star-o wpbooking-icon-star"></i></span>',$active);
         }
         $star_rating = '<span>'.$hotel_star.' '._n('star','stars',(int)$hotel_star,'wpbooking').'</span>';
 

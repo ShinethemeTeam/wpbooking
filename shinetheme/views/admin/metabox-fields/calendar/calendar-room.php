@@ -25,7 +25,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
 						<span class="spinner is-active"></span>
 					</div>
 					<div class="calendar-room2 <?php echo ($property_available_for=='specific_periods')?'specific_periods':FALSE ?>">
-						
+
 					</div>
 					<div class="calendar-room <?php echo ($property_available_for=='specific_periods')?'specific_periods':FALSE ?>">
 
@@ -91,9 +91,8 @@ $df_price=get_post_meta($post_id,'base_price',true);
 							<input type="hidden" id="calendar-post-id" name="post_id" value="<?php echo esc_attr($post_id); ?>">
 							<input type="hidden" id="calendar-post-encrypt" name="calendar-post-encrypt" value="<?php echo wpbooking_encrypt( $post_id ); ?>">
 							<button type="button" id="calendar-save" class="button button-large wb-button-primary"><?php echo esc_html__('Save','wpbooking'); ?></button>
-						</div>
-						<div class="mb10">
-							
+
+							<button type="button" class="calendar-bulk-edit button button-large right"><?php echo esc_html__('Bulk Edit','wpbooking'); ?></button>
 						</div>
 						<div class="form-message mb10">
 						</div>
@@ -121,18 +120,17 @@ $df_price=get_post_meta($post_id,'base_price',true);
 
 						</ul>
 					</div>
-					<div id="form-bulk-edit">
+					<div class="form-bulk-edit">
 						<div class="form-container">
 							<div class="overlay">
 								<span class="spinner is-active"></span>
 							</div>
 							<div class="form-title">
 								<h3 class="clearfix"><?php echo esc_html__('Bulk Price Edit', 'wpbooking'); ?>
-									<button type="button" id="calendar-bulk-close" class="button button-small"><?php echo esc_html__('Close','wpbooking'); ?></button>
+									<button type="button" class="calendar-bulk-close button button-small right"><?php echo esc_html__('Close','wpbooking'); ?></button>
 								</h3>
 							</div>
 							<div class="form-content clearfix">
-								<h4><?php echo esc_html__('Choose Date:', 'wpbooking'); ?></h4>
 								<div class="form-group">
 									<div class="form-title">
 										<h4 class=""><input type="checkbox" class="check-all" data-name="day-of-week"> <?php echo esc_html__('Days Of Week', 'wpbooking'); ?></h4>
@@ -147,32 +145,33 @@ $df_price=get_post_meta($post_id,'base_price',true);
 										<label class="block"><input type="checkbox" name="day-of-week[]" value="Saturday" ><?php echo esc_html__('Saturday', 'wpbooking'); ?></label>
 									</div>
 								</div>
-								<div class="form-group">
+								<div class="form-group group-day">
 									<div class="form-title">
 										<h4 class=""><input type="checkbox" class="check-all" data-name="day-of-month"> <?php echo esc_html__('Days Of Month', 'wpbooking'); ?></h4>
 									</div>
-									<div class="form-content">
+									<div class="form-inner">
 									<?php for( $i = 1; $i <= 31; $i ++):
 										if( $i == 1){
 											echo '<div>';
 										}
+										$day = sprintf('%02d', $i);
 									?>
-										<label><input type="checkbox" name="day-of-month[]" value="<?php echo esc_attr($i); ?>"><?php echo esc_attr($i); ?></label>
-					
-									<?php 
+										<label><input type="checkbox" name="day-of-month[]" value="<?php echo esc_attr($i); ?>"><?php echo esc_attr($day); ?></label>
+
+									<?php
 										if( $i != 1 && $i % 5 == 0 ) echo '</div><div>';
 										if( $i == 31 ) echo '</div>';
 									?>
-						
+
 									<?php endfor; ?>
 									</div>
 								</div>
-								<div class="form-group">
+								<div class="form-group group-month">
 									<div class="form-title">
 										<h4 class=""><input type="checkbox" class="check-all" data-name="months"> <?php echo esc_html__('Months', 'wpbooking'); ?>(*)</h4>
 									</div>
-									<div class="form-content">
-									<?php 
+									<div class="form-inner">
+									<?php
 									$months = array(
 										'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
 									);
@@ -182,12 +181,11 @@ $df_price=get_post_meta($post_id,'base_price',true);
 										}
 									?>
 										<label><input type="checkbox" name="months[]" value="<?php echo esc_attr($month); ?>"><?php echo esc_html($month); ?></label>
-					
-									<?php 
+									<?php
 										if( $key != 0 && ($key + 1) % 2 == 0 ) echo '</div><div>';
 										if( $key + 1 == count( $months ) ) echo '</div>';
 									?>
-						
+
 									<?php endforeach; ?>
 									</div>
 								</div>
@@ -196,40 +194,48 @@ $df_price=get_post_meta($post_id,'base_price',true);
 										<h4 class=""><input type="checkbox" class="check-all" data-name="years"> <?php echo esc_html__('Years', 'wpbooking'); ?>(*)</h4>
 									</div>
 									<div class="form-content">
-									<?php 
+									<?php
 									$year = date('Y');
 									$j = $year -1 ;
-									for( $i = $year; $i <= $year + 13; $i ++ ):
+									for( $i = $year; $i <= $year + 4; $i ++ ):
 										if( $i == $year ){
 											echo '<div>';
 										}
 									?>
 										<label><input type="checkbox" name="years[]" value="<?php echo esc_attr($i); ?>"><?php echo esc_attr($i); ?></label>
-					
-									<?php 
+
+									<?php
 										if( $i != $year && ($i == $j + 2 ) ) { echo '</div><div>'; $j = $i; }
-										if( $i == $year + 13 ) echo '</div>';
+										if( $i == $year + 4 ) echo '</div>';
 									?>
-						
 									<?php endfor; ?>
 									</div>
 								</div>
 							</div>
-							<div class="form-content clearfix">
-								<label class="block"><span><strong><?php echo esc_html__('Price', 'wpbooking'); ?>: </strong></span><input type="text" value="" name="price-bulk" id="price-bulk" placeholder="<?php echo esc_html__('Price', 'wpbooking'); ?>"></label>
-								<input type="hidden" name="post_id" value="<?php echo esc_attr($post_id); ?>">
+							<div class="clear"></div>
+							<div class="form-content flex clearfix">
+								<label class="block mr10"><span><strong><?php echo esc_html__('Price', 'wpbooking'); ?>: </strong></span><input type="text" value="" name="price-bulk" id="price-bulk" placeholder="<?php echo esc_html__('Price', 'wpbooking'); ?>"></label>
+								<label class="block">
+									<span><strong><?php echo esc_html__('Status', 'wpbooking'); ?>: </strong></span>
+									<select name="status-bulk">
+										<option value="available"><?php echo esc_html__('Available', 'wpbooking') ?></option>
+										<option value="not_available"><?php echo esc_html__('Unavailable', 'wpbooking') ?></option>
+									</select>
+								</label>
+								<input type="hidden" class="post-bulk" name="post_id" value="<?php echo esc_attr($post_id); ?>">
+								<input type="hidden" class="type-bulk" name="type-bulk" value="accommodation">
 								<input type="hidden" name="post-encrypt" value="<?php echo wpbooking_encrypt( $post_id ); ?>">
-								<div class="form-message"></div>
+                                <div class="clear"></div>
 							</div>
+                            <div class="form-message"></div>
 							<div class="form-footer">
-								<button type="button" id="calendar-bulk-save" class="button button-primary button-large"><?php echo esc_html__('Save','wpbooking'); ?></button><!--
-								<button type="button" id="calendar-bulk-cancel" class="button button-large"><?php echo esc_html__('Cancel','wpbooking'); ?></button> -->
+								<button type="button" class="calendar-bulk-save button button-primary button-large"><?php echo esc_html__('Save','wpbooking'); ?></button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
 	<i class="wpbooking-desc"><?php echo do_shortcode( $data['desc'] ) ?></i>
 </div>

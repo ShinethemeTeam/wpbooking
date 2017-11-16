@@ -6,8 +6,8 @@
      * Version: 1.4
      * Author: wpbooking
      * Author URI: https://wpbooking.org
-     * Requires at least: 4.1
-     * Tested up to: 4.8.3
+     * Requires at least: 4.8
+     * Tested up to: 4.9
      * License URI: https://www.gnu.org/licenses/gpl-2.0.html
      *
      * Text Domain: wpbooking
