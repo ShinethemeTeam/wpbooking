@@ -144,13 +144,26 @@
             inventory_data.render(moment().format(), moment().add(30, 'days').format(), wpbooking_params.ajax_url, data);
         });
 
-        var form      = $('.wpbooking-inventory-form');
-        var check_in  = $('.wpbooking-inventory-start', form).datepicker({
-            dateFormat: 'yy-mm-dd'
-        });
+        var form = $('.wpbooking-inventory-form');
+
         var check_out = $('.wpbooking-inventory-end', form).datepicker({
             dateFormat: 'yy-mm-dd'
         });
+
+        var check_in = $('.wpbooking-inventory-start', form).datepicker({
+            dateFormat: 'yy-mm-dd',
+            onSelect  : function (selected) {
+                console.log(selected);
+                var m    = new moment(selected, 'YYYY-MM-DD');
+                selected = m.format('YYYY-MM-DD');
+                check_out.datepicker("option", "minDate", selected);
+                window.setTimeout(function () {
+                    check_out.datepicker("show");
+                }, 100);
+
+            }
+        });
+
 
         var goto = $('.wpbooking-inventory-goto', form).click(function (ev) {
             ev.preventDefault();
