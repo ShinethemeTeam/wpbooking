@@ -101,7 +101,7 @@ First release
 
 = 1.0: Dec 16, 2016 =
 
-= 1.4: Nov 16, 2017 =
+= 1.4: Nov 17, 2017 =
     + [Fix bug] List of related services
     + [Fix bug] Convert date format
     + Change datepicker style

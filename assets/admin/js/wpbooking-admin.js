@@ -258,6 +258,7 @@ jQuery(document).ready(function ($) {
         return method;
     }());
 
+
     jQuery(document).ready(function ($) {
         //if empty will remove all data
         if ($('.featuredgallerydiv').html() == '') {
@@ -269,6 +270,12 @@ jQuery(document).ready(function ($) {
         $("body").on('click', '.close_modal', function (e) {
             e.preventDefault();
             modal.close();
+        });
+
+        $('input.disabled').each(function () {
+            $(this).keydown(function () {
+                return false;
+            });
         });
 
         // Save

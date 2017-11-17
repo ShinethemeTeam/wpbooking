@@ -41,9 +41,9 @@
         <div class="wpbooking-calendar-wrapper">
             <div class="wpbooking-inventory-form">
                 <span class="mr10"><strong><?php echo esc_html__( 'View by period:', 'wpbooking' ); ?></strong></span>
-                <input type="text" name="wpbooking-inventory-start" class="wpbooking-inventory-start" value=""
+                <input type="text" name="wpbooking-inventory-start" class="wpbooking-inventory-start disabled" value="" autocomplete="off"
                        placeholder="<?php echo esc_html__( 'Start date', 'wpbooking' ) ?>">
-                <input type="text" name="wpbooking-inventory-end" class="wpbooking-inventory-end" value=""
+                <input type="text" name="wpbooking-inventory-end" class="wpbooking-inventory-end disabled" value="" autocomplete="off"
                        placeholder="<?php echo esc_html__( 'End date', 'wpbooking' ) ?>">
                 <button class="wpbooking-inventory-goto"><?php echo esc_html__( 'View', 'wpbooking' ); ?></button>
                 <button type="button"
