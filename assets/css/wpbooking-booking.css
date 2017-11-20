@@ -717,6 +717,8 @@ a.label:focus {
 .wpbooking-loop-wrap .wpbooking-loop-items.list .loop-item .content-item .service-content .service-content-inner .wpbooking-room-type {
   margin-top: 0px;
 }
+@media (min-width: 1200px) {
+}
 .wpbooking-loop-wrap .wpbooking-loop-items.list .loop-item .content-item .service-content .service-price-book-now {
   margin-top: 0px;
   float: right;
