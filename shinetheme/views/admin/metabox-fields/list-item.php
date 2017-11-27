@@ -93,6 +93,10 @@ if(!empty($data['condition'])){
 
 													$file = 'metabox-fields/' . $item['type'];
 
+													$field_html = apply_filters('wpbooking_metabox_field_html_' . $item['type'], FALSE, $item, $post_id);
+
+													if ($field_html) echo do_shortcode($field_html);
+													else
 													echo wpbooking_admin_load_view( $file, array( 'data' => $item,'is_sub_item'=>true, 'post_id' => $post_id ) );
 													?>
 
@@ -173,6 +177,10 @@ if(!empty($data['condition'])){
 
 									$file = 'metabox-fields/' . $item['type'];
 
+                                    $field_html = apply_filters('wpbooking_metabox_field_html_' . $item['type'], FALSE, $item, $post_id);
+
+                                    if ($field_html) echo do_shortcode($field_html);
+                                    else
 									echo wpbooking_admin_load_view( $file, array( 'data' => $item , 'post_id' => $post_id) );
 
 									unset( $data['value'][ $key ] );
