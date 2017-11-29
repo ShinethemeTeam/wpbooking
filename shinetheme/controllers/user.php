@@ -93,7 +93,7 @@ if (!class_exists('WPBooking_User')) {
              * disable redirect login admin
              * @author quandq
              */
-            //add_filter('login_url',array($this,'_redirect_login_url'),10,3);
+//            add_filter('login_url',array($this,'_redirect_login_url'),10,3);
 
             /**
              * Redirect reset password url
@@ -1150,7 +1150,8 @@ if (!class_exists('WPBooking_User')) {
          */
         function _redirect_login_url($login_url,$redirect){
             $account_page = wpbooking_get_option('myaccount-page');
-            if($account_page) {
+            $account_page = apply_filters('wpbooking_set_page_login', $account_page);
+            if(!empty($account_page)) {
                 $redir = add_query_arg('redirect_to',$redirect,get_permalink($account_page));
                 return esc_url($redir);
             }else {

@@ -7,7 +7,7 @@
  */
 ?>
 <form class="wb-form-lost-password" action="<?php echo wp_lostpassword_url(); ?>" method="post">
-    <h3 class="form-title"><?php esc_html_e('Lose password','wpbooking'); ?></h3>
+    <h3 class="form-title"><?php esc_html_e('Lost password','wpbooking'); ?></h3>
     <div class="form-group-wrap">
         <div class="form-group">
             <label for="username_email" class="control-label"><?php echo esc_html__('Username or email address','wpbooking'); ?> <span class="required">*</span></label>
