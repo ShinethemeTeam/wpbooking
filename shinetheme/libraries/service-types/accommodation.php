@@ -2773,6 +2773,7 @@
 
                 $res = $wpdb->get_row( $sql, ARRAY_A );
                 if ( !is_wp_error( $res ) ) {
+                    $res          = (array)$res;
                     $room_id      = array_shift( $res );
                     $r[ 'total' ] = 0;
                     $r[ 'id' ]    = $room_id;

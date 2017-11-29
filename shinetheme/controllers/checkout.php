@@ -253,6 +253,10 @@
                             $res[ 'redirect' ] = $data[ 'redirect' ];
                             WPBooking_Session::set( 'wpbooking_order_id', '' );
                         }
+                        if ( !empty( $data[ 'redirect_form' ] ) ) {
+                            echo balanceTags( $data[ 'redirect_form' ] );
+                            exit();
+                        }
                         if ( isset( $data[ 'complete_purchase' ] ) and !$data[ 'complete_purchase' ] ) {
                             $res[ 'redirect' ] = "";
                         }

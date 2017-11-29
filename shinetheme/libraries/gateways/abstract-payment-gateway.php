@@ -130,7 +130,7 @@ if (!class_exists('WPBooking_Abstract_Payment_Gateway')) {
         {
 
             $array = array(
-                //'action'  => 'cancel_purchase',
+                'action'  => 'cancel_purchase',
                 'gateway' => $this->gateway_id
             );
 
