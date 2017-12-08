@@ -73,6 +73,9 @@ a.label:focus {
 .mb20 {
   margin-bottom: 20px;
 }
+.mt10 {
+  margin-top: 10px;
+}
 .clearfix:before,
 .clearfix:after {
   display: table;
@@ -80,6 +83,28 @@ a.label:focus {
 }
 .clearfix:after {
   clear: both;
+}
+.block {
+  display: block !important;
+}
+.spinner {
+  background: url(../images/spinner.gif) no-repeat;
+  background-size: auto auto;
+  background-size: 20px 20px;
+  display: inline-block;
+  float: right;
+  vertical-align: middle;
+  opacity: .7;
+  filter: alpha(opacity=70);
+  width: 20px;
+  height: 20px;
+  margin: 4px 10px 0;
+  margin-top: 4px;
+  margin-left: 10px;
+  visibility: hidden;
+}
+.spinner.is-active {
+  visibility: visible;
 }
 .wb-btn {
   font-size: 12px;
@@ -716,8 +741,6 @@ a.label:focus {
 }
 .wpbooking-loop-wrap .wpbooking-loop-items.list .loop-item .content-item .service-content .service-content-inner .wpbooking-room-type {
   margin-top: 0px;
-}
-@media (min-width: 1200px) {
 }
 .wpbooking-loop-wrap .wpbooking-loop-items.list .loop-item .content-item .service-content .service-price-book-now {
   margin-top: 0px;
@@ -4467,6 +4490,15 @@ a.label:focus {
   .wpbooking-myaccount-wrap .wb-account-nav li {
     width: 100%;
   }
+}
+.wpbooking-myaccount-wrap .wpbooking-calendar-wrapper .wpbooking-inventory {
+  z-index: 0;
+}
+.wpbooking-myaccount-wrap .wpbooking-calendar-wrapper .wpbooking-inventory-start,
+.wpbooking-myaccount-wrap .wpbooking-calendar-wrapper .wpbooking-inventory-end {
+  width: auto;
+  max-width: 100px;
+  font-size: 13px;
 }
 .wpbooking-myaccount-wrap .wb-disabled {
   cursor: not-allowed;

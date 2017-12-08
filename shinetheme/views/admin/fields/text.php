@@ -18,6 +18,7 @@ if(!empty($data['condition'])){
     $class .= ' wpbooking-condition wpbooking-form-group ';
     $data_class .= ' data-condition=wpbooking_'.$data['condition'].' ' ;
 }
+
 ?>
 <tr class="<?php echo esc_html($class) ?>" <?php echo esc_attr($data_class) ?>>
     <th scope="row">

@@ -12,6 +12,9 @@
 .mb20 {
   margin-bottom: 20px;
 }
+.mt10{
+  margin-top: 10px;
+}
 
 .clearfix {
   &:before, &:after {
@@ -22,7 +25,28 @@
     clear: both;
   }
 }
-
+.block{
+  display: block !important;
+}
+.spinner {
+  background: url(../images/spinner.gif) no-repeat;
+  background-size: auto auto;
+  background-size: 20px 20px;
+  display: inline-block;
+  float: right;
+  vertical-align: middle;
+  opacity: .7;
+  filter: alpha(opacity=70);
+  width: 20px;
+  height: 20px;
+  margin: 4px 10px 0;
+  margin-top: 4px;
+  margin-left: 10px;
+  visibility: hidden;
+  &.is-active{
+    visibility: visible;
+  }
+}
 // Button
 .wb-btn {
   font-size: 12px;
@@ -4644,6 +4668,17 @@
       li {
         width: 100%;
       }
+    }
+  }
+  .wpbooking-calendar-wrapper{
+    .wpbooking-inventory{
+      z-index:0;
+    }
+    .wpbooking-inventory-start,
+    .wpbooking-inventory-end{
+      width: auto;
+      max-width: 100px;
+      font-size: 13px;
     }
   }
   .wb-disabled {

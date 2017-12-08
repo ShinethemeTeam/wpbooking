@@ -1076,14 +1076,6 @@ if (!class_exists('WPBooking_Tour_Service_Type') and class_exists('WPBooking_Abs
                         ),
 
                         array('type' => 'close_section'),
-                        // Miscellaneous
-                        /*array('type' => 'open_section'),
-                        array(
-                            'label' => esc_html__("Amenity", 'wpbooking'),
-                            'type'  => 'title',
-                        ),
-                        array('type' => 'close_section'),*/
-                        // End Miscellaneous
                         array(
                             'type' => 'section_navigation',
                             'prev' => false,

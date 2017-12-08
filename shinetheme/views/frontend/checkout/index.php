@@ -27,7 +27,7 @@ if(!$allow_guest_checkout and !is_user_logged_in()){
             </div>
         </div>
         <div class="wpbooking-checkout-form wpbooking-bootstrap">
-            <form action="<?php echo home_url('/') ?>" onsubmit="return false" method="post" novalidate enctype="multipart/form-data">
+            <form id="wpbooking-checkout-form" action="<?php echo home_url('/') ?>" onsubmit="return false" method="post" novalidate enctype="multipart/form-data">
                 <input class="wpbooking_check_empty_cart" type="hidden" value="true">
                 <div class="row">
                     <div class="col-md-7">

@@ -211,7 +211,7 @@
                             <div class="form-title">
                                 <h3 class="clearfix"><?php echo esc_html__( 'Bulk Price Edit', 'wpbooking' ); ?>
                                     <button type="button"
-                                            class="calendar-bulk-close button button-small right"><?php echo esc_html__( 'Close', 'wpbooking' ); ?></button>
+                                            class="calendar-bulk-close wpbooking-btn-close pull-right">x</button>
                                 </h3>
                             </div>
                             <div class="form-content clearfix">
@@ -331,31 +331,31 @@
                             <div class="clear"></div>
                             <div class="form-content flex clearfix">
                                 <label
-                                    class="block mr10 wpbooking-condition" data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Adult', 'wpbooking' ); ?>
+                                    class="mr10 wpbooking-condition" data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Adult', 'wpbooking' ); ?>
                                             : </strong></span>
                                     <input type="text" value="" name="adult-bulk" id="adult-bulk"
                                            placeholder="<?php echo esc_html__( 'Adult', 'wpbooking' ); ?>">
                                 </label>
                                 <label
-                                    class="block mr10 wpbooking-condition" data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Child', 'wpbooking' ); ?>
+                                    class="mr10 wpbooking-condition" data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Child', 'wpbooking' ); ?>
                                             : </strong></span>
                                     <input type="text" value="" name="child-bulk" id="child-bulk"
                                            placeholder="<?php echo esc_html__( 'Child', 'wpbooking' ); ?>">
                                 </label>
                                 <label
-                                    class="block mr10 wpbooking-condition" data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Infant', 'wpbooking' ); ?>
+                                    class="mr10 wpbooking-condition" data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Infant', 'wpbooking' ); ?>
                                             : </strong></span>
                                     <input type="text" value="" name="infant-bulk" id="infant-bulk"
                                            placeholder="<?php echo esc_html__( 'Infant', 'wpbooking' ); ?>">
                                 </label>
                                 <label
-                                    class="block mr10 wpbooking-condition"
+                                    class=" mr10 wpbooking-condition"
                                     data-condition="pricing_type:is(per_unit)"><span><strong><?php echo esc_html__( 'Price', 'wpbooking' ); ?>
                                             : </strong></span>
                                     <input type="text" value="" name="price-bulk" id="price-bulk"
                                            placeholder="<?php echo esc_html__( 'Price', 'wpbooking' ); ?>">
                                 </label>
-                                <label class="block">
+                                <label class="">
                                     <span><strong><?php echo esc_html__( 'Status', 'wpbooking' ); ?>: </strong></span>
                                     <select name="status-bulk">
                                         <option

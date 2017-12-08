@@ -1265,7 +1265,6 @@
                         'value' => [
                             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
                         ],
-                        /* 'condition' => 'room_type:is(on)',*/
                         'class' => 'small'
                     ],
                     [
@@ -1297,7 +1296,6 @@
                         'class' => 'small'
                     ],
                     [ 'type' => 'close_section' ],
-
 
                     // Extra Service
                     [ 'type' => 'open_section' ],
@@ -2539,16 +2537,15 @@
                     return $is_validated;
                 }
 
-
-                //check number room and adult
                 $adult = $this->post( 'wpbooking_adults' );
-                if ( $total_number_room > $adult ) {
+
+                /*if ( $total_number_room > $adult ) {
                     $is_validated = false;
                     $message      = esc_html__( 'Number of bookable rooms cannot be more than number of adults.', 'wpbooking' );
                     wpbooking_set_message( $message, 'error' );
 
                     return $is_validated;
-                }
+                }*/
 
 
                 if ( $check_in ) {

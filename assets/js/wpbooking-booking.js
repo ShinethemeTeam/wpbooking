@@ -1,6 +1,70 @@
 /**
  * Created by Dungdt on 3/30/2016.
  */
+;(function ($) {
+    $.fn.wpbookingSendAjax = function () {
+        this.each(function () {
+            var form = $(this);
+            form.find('[name]').removeClass('input-error');
+            var me = $('.submit-button', this);
+            me.addClass('loading').removeClass('error');
+            form.find('.wpbooking-message').remove();
+            data = form.serialize();
+
+            $.ajax({
+                url     : wpbooking_params.ajax_url,
+                data    : data,
+                dataType: 'json',
+                type    : 'post',
+                success : function (res) {
+                    if (typeof grecaptcha != 'undefined')
+                        grecaptcha.reset();
+                    if (res.status) {
+                        me.addClass('success');
+                    } else {
+                        me.addClass('error');
+                    }
+
+                    if (res.message) {
+                        form.find('.wpbooking-message').remove();
+                        var message = $('<div/>');
+                        message.addClass('wpbooking-message');
+                        message.html(res.message);
+                        me.after(message);
+                    }
+                    if (typeof res.data != 'undefined' && typeof res.data.redirect != 'undefined' && res.data.redirect) {
+                        window.location.href = res.data.redirect;
+                    }
+                    if (res.redirect) {
+                        window.location.href = res.redirect;
+                    }
+
+                    if (typeof res.error_fields != 'undefined') {
+                        for (var k in res.error_fields) {
+                            form.find("[name='" + k + "']").addClass('input-error');
+                        }
+                    }
+                    if (typeof res.data != 'undefined' && typeof res.data.error_fields != 'undefined') {
+                        for (var k in res.data.error_fields) {
+                            form.find("[name='" + k + "']").addClass('input-error');
+                        }
+                    }
+                    me.removeClass('loading');
+                },
+                error   : function (e) {
+                    if (typeof grecaptcha != 'undefined')
+                        grecaptcha.reset();
+                    me.removeClass('loading').addClass('error');
+                    var message = $('<div/>');
+                    message.addClass('wpbooking-message');
+                    message.html(e.responseText);
+                    me.after(message);
+                }
+            })
+        });
+    };
+})(jQuery);
+
 jQuery(document).ready(function ($) {
 
     // Single Services
@@ -22,7 +86,6 @@ jQuery(document).ready(function ($) {
         return dataobj;
     };
 
-
     setTimeout(function () {
         $('.form-search-room input').trigger('change');
     }, 500);
@@ -37,12 +100,9 @@ jQuery(document).ready(function ($) {
     $('.wpbooking_order_form .submit-button').click(function () {
         var container = $(this).closest('.search-room-availablity');
         var form      = $(this).closest('.wpbooking_order_form');
-        //form.find('[name]').removeClass('input-error');
         var me        = $(this);
         me.addClass('loading').removeClass('error');
-        //form.find('.wpbooking-message').remove();
         container.find('.search_room_alert').html('');
-        var me = $(this);
         me.addClass('loading');
         var data = form.serialize();
         $.ajax({
@@ -105,67 +165,22 @@ jQuery(document).ready(function ($) {
         } else {
             $('.wpbooking_checkout_form .submit-button').attr('disabled', 'disabled');
         }
-    })
+    });
     // Checkout Form
     $('.wpbooking_checkout_form .submit-button').click(function () {
         var form = $(this).closest('form');
-        form.find('[name]').removeClass('input-error');
-        var me = $(this);
-        me.addClass('loading').removeClass('error');
-        form.find('.wpbooking-message').remove();
 
-        data = form.serialize();
+        form.trigger('wpbooking_before_checkout');
 
-        $.ajax({
-            url     : wpbooking_params.ajax_url,
-            data    : data,
-            dataType: 'json',
-            type    : 'post',
-            success : function (res) {
-                if (typeof grecaptcha != 'undefined')
-                    grecaptcha.reset();
-                if (res.status) {
-                    me.addClass('success');
-                } else {
-                    me.addClass('error');
-                }
+        var payment       = $('input[name="payment_gateway"]:checked', this).val();
+        var wait_validate = $('input[name="wait_validate_' + payment + '"]', form).val();
+        if (wait_validate === 'wait') {
+            form.trigger('wpbooking_wait_checkout');
+            return false;
+        }
 
-                if (res.message) {
-                    form.find('.wpbooking-message').remove();
-                    var message = $('<div/>');
-                    message.addClass('wpbooking-message');
-                    message.html(res.message);
-                    me.after(message);
-                }
-                if (typeof res.data != 'undefined' && typeof res.data.redirect != 'undefined' && res.data.redirect) {
-                    window.location.href = res.data.redirect;
-                }
-                if (res.redirect) {
-                    window.location.href = res.redirect;
-                }
+        form.wpbookingSendAjax();
 
-                if (typeof res.error_fields != 'undefined') {
-                    for (var k in res.error_fields) {
-                        form.find("[name='" + k + "']").addClass('input-error');
-                    }
-                }
-                if (typeof res.data != 'undefined' && typeof res.data.error_fields != 'undefined') {
-                    for (var k in res.data.error_fields) {
-                        form.find("[name='" + k + "']").addClass('input-error');
-                    }
-                }
-                me.removeClass('loading');
-            },
-            error   : function (e) {
-                if (typeof grecaptcha != 'undefined')
-                    grecaptcha.reset();
-                me.removeClass('loading').addClass('error');
-                var message = $('<div/>');
-                message.addClass('wpbooking-message');
-                message.html(e.responseText);
-                me.after(message);
-            }
-        })
     });
 
     // Coupon Apply

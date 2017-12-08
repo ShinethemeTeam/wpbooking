@@ -33,11 +33,11 @@
 
                 // Validate Permission
                 $post = get_post( $post_id );
-                if ( !$post or ( $post->post_author != get_current_user_id() and !current_user_can( 'manage_options' ) ) ) {
+                if ( !$post or ( $post->post_author != get_current_user_id() ) ) {
                     return false;
                 }
 
-                if ( wp_verify_nonce( $_POST[ 'security' ], 'wpbooking-nonce-field' ) ) {
+                if ( check_ajax_referer('wpbooking-nonce-field', 'security') ) {
 
                     $post_encrypt = (int)WPBooking_Input::post( 'post_encrypt', '' );
 

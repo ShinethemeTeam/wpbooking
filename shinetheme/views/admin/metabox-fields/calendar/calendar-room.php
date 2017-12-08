@@ -127,7 +127,7 @@ $df_price=get_post_meta($post_id,'base_price',true);
 							</div>
 							<div class="form-title">
 								<h3 class="clearfix"><?php echo esc_html__('Bulk Price Edit', 'wpbooking'); ?>
-									<button type="button" class="calendar-bulk-close button button-small right"><?php echo esc_html__('Close','wpbooking'); ?></button>
+									<button type="button" class="calendar-bulk-close wpbooking-btn-close pull-right">x</button>
 								</h3>
 							</div>
 							<div class="form-content clearfix">
@@ -214,8 +214,8 @@ $df_price=get_post_meta($post_id,'base_price',true);
 							</div>
 							<div class="clear"></div>
 							<div class="form-content flex clearfix">
-								<label class="block mr10"><span><strong><?php echo esc_html__('Price', 'wpbooking'); ?>: </strong></span><input type="text" value="" name="price-bulk" id="price-bulk" placeholder="<?php echo esc_html__('Price', 'wpbooking'); ?>"></label>
-								<label class="block">
+								<label class=" mr10"><span><strong><?php echo esc_html__('Price', 'wpbooking'); ?>: </strong></span><input type="text" value="" name="price-bulk" id="price-bulk" placeholder="<?php echo esc_html__('Price', 'wpbooking'); ?>"></label>
+								<label class="">
 									<span><strong><?php echo esc_html__('Status', 'wpbooking'); ?>: </strong></span>
 									<select name="status-bulk">
 										<option value="available"><?php echo esc_html__('Available', 'wpbooking') ?></option>

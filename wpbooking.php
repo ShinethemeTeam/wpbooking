@@ -3,7 +3,7 @@
      * Plugin Name: WPBooking
      * Plugin URI: wpbooking
      * Description: WP Booking helps you to setup an hotel booking, tour booking , marketplace booking system like booking.com, viator.com ... quickly, friendly, pleasantly and easily.
-     * Version: 1.4
+     * Version: 1.5
      * Author: wpbooking
      * Author URI: https://wpbooking.org
      * Requires at least: 4.8
@@ -134,6 +134,14 @@
                  * Moment Js
                  */
                 wp_register_script( 'wpbooking-moment', wpbooking_admin_assets_url( 'js/moment.min.js' ), [], null, true );
+
+
+                wp_enqueue_script( 'wpbooking-calendar-room', wpbooking_admin_assets_url( 'js/wpbooking-calendar-room.js' ), [ 'jquery' ], null, true );
+
+                wp_register_script( 'jquery.lang.gantt', wpbooking_admin_assets_url( '/js/gantt/lang.js' ), [ 'jquery', 'prettify' ], null, true );
+                wp_register_script( 'gantt-js', wpbooking_admin_assets_url( 'js/gantt/jquery.fn.gantt.js' ), [ 'wpbooking-moment' ], null, true );
+                wp_register_script( 'inventory-js', wpbooking_admin_assets_url( 'js/gantt/inventory.js' ), [ 'gantt-js' ], null, true );
+                wp_register_style( 'gantt-css', wpbooking_admin_assets_url( 'js/gantt/css/style.css' ) );
 
                 /*
                  * Daterangepicker

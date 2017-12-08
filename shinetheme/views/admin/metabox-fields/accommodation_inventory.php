@@ -11,7 +11,6 @@
     wp_enqueue_script( 'inventory-js' );
     wp_enqueue_style( 'gantt-css' );
 
-    $post_id = ( isset( $_GET[ 'post' ] ) ) ? (int)$_GET[ 'post' ] : 0;
     if ( !$post_id ):
         ?>
         <div class="wpbooking-condition desc-item service-type-accommodation">
@@ -62,7 +61,7 @@
                     <span class="out_stock"></span> <?php echo esc_html__( 'Out of Stock', 'wpbooking' ); ?>
                 </div>
             </div>
-            <div class="form-bulk-edit fixed">
+            <div class="form-bulk-edit wpbooking-fixed">
                 <div class="form-container">
                     <div class="overlay">
                         <span class="spinner is-active"></span>
@@ -202,11 +201,11 @@
                     </div>
                     <div class="clear"></div>
                     <div class="form-content flex lh30 clearfix">
-                        <label class="block mr10"><span><strong><?php echo esc_html__( 'Price', 'wpbooking' ); ?>
+                        <label class=" mr10"><span><strong><?php echo esc_html__( 'Price', 'wpbooking' ); ?>
                                     : </strong></span><input
                                 type="text" value="" name="price-bulk" id="price-bulk"
                                 placeholder="<?php echo esc_html__( 'Price', 'wpbooking' ); ?>"></label>
-                        <label class="block">
+                        <label class="">
                             <span><strong><?php echo esc_html__( 'Status', 'wpbooking' ); ?>: </strong></span>
                             <select name="status-bulk">
                                 <option value="available"><?php echo esc_html__( 'Available', 'wpbooking' ) ?></option>

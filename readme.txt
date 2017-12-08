@@ -92,15 +92,13 @@ Please see https://.wpbooking.org for more information and ask your questions th
 16. Settings Price by Calendar
 
 
-== Upgrade Notice ==
+* WPBooking is born. This release was only available via download at https://wpbooking.org or via GitHub. We consider Dec 16, 2016, WPBooking of birthday.
 
-= 1.0 =
-First release
+== Upgrade Notice ==
 
 == Changelog ==
 
 = 1.0: Dec 16, 2016 =
-
 = 1.4: Nov 17, 2017 =
     + [Fix bug] List of related services
     + [Fix bug] Convert date format
@@ -109,5 +107,7 @@ First release
     + Inventory for accommodation
     + Bulk edit for calendar
 
-* WPBooking is born. This release was only available via download at https://wpbooking.org or via GitHub. We consider Dec 16, 2016, WPBooking of birthday.
+=== 1.5 Dec 07 2017 ===
+    + Update payment gateways core
+
 
