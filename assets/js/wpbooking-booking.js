@@ -172,7 +172,7 @@ jQuery(document).ready(function ($) {
 
         form.trigger('wpbooking_before_checkout');
 
-        var payment       = $('input[name="payment_gateway"]:checked', this).val();
+        var payment       = $('input[name="payment_gateway"]:checked', form).val();
         var wait_validate = $('input[name="wait_validate_' + payment + '"]', form).val();
         if (wait_validate === 'wait') {
             form.trigger('wpbooking_wait_checkout');

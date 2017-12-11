@@ -43,7 +43,7 @@
 
                     if ( $post_id > 0 || wpbooking_encrypt_compare( $post_id, $post_encrypt ) ) {
 
-                        $base_id = (int)wpbooking_origin_id( $post_id, 'wpbooking_service', true );
+                        $base_id = (int)wpbooking_origin_id( $post_id, 'wpbooking_service' );
 
                         $check_in  = WPBooking_Input::post( 'start', '' );
                         $check_out = WPBooking_Input::post( 'end', '' );

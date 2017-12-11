@@ -15,7 +15,6 @@
                 ];
 
                 $this->settings = [
-
                     [
                         'id'    => 'title',
                         'label' => esc_html__( 'Layout', 'wpbooking' ),
