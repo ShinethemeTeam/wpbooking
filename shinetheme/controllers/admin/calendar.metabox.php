@@ -36,81 +36,71 @@
                 if ( !$post or ( $post->post_author != get_current_user_id() ) ) {
                     return false;
                 }
+                $post_encrypt = (int)WPBooking_Input::post( 'post_encrypt', '' );
+                if ( $post_id > 0 || wpbooking_encrypt_compare( $post_id, $post_encrypt ) ) {
 
-                if ( check_ajax_referer('wpbooking-nonce-field', 'security') ) {
+                    $base_id = (int)wpbooking_origin_id( $post_id, 'wpbooking_service' );
 
-                    $post_encrypt = (int)WPBooking_Input::post( 'post_encrypt', '' );
+                    $check_in  = WPBooking_Input::post( 'start', '' );
+                    $check_out = WPBooking_Input::post( 'end', '' );
+                    $check_in  = strtotime( $check_in );
+                    $check_out = strtotime( $check_out );
 
-                    if ( $post_id > 0 || wpbooking_encrypt_compare( $post_id, $post_encrypt ) ) {
-
-                        $base_id = (int)wpbooking_origin_id( $post_id, 'wpbooking_service' );
-
-                        $check_in  = WPBooking_Input::post( 'start', '' );
-                        $check_out = WPBooking_Input::post( 'end', '' );
-                        $check_in  = strtotime( $check_in );
-                        $check_out = strtotime( $check_out );
-
-                        if ( $check_in < strtotime( 'today' ) ) {
-                            $check_in = strtotime( 'today' );
-                        }
-
-                        $return = $this->get_availability( $base_id, $check_in, $check_out );
-
-
-                        // Other day, in case Specific Periods Available
-
-                        $all_days = [];
-
-                        $begin = new DateTime();
-                        $begin->setTimestamp( $check_in );
-                        $end = new DateTime();
-                        $end->setTimestamp( $check_out );
-
-                        $interval = DateInterval::createFromDateString( '1 day' );
-                        $period   = new DatePeriod( $begin, $interval, $end );
-
-                        foreach ( $period as $dt ) {
-                            $all_days[ $dt->format( 'Y-m-d' ) ] = [
-                                'start'         => $dt->format( 'Y-m-d' ),
-                                'end'           => $dt->format( 'Y-m-d' ),
-                                'status'        => 'available',
-                                'can_check_in'  => 1,
-                                'can_check_out' => 1,
-
-                            ];
-                            if ( get_post_meta( $post_id, 'property_available_for', true ) == 'specific_periods' ) {
-                                $all_days[ $dt->format( 'Y-m-d' ) ][ 'status' ] = 'wb-disable';
-                            } else {
-                                $all_days[ $dt->format( 'Y-m-d' ) ][ 'price_text' ] = WPBooking_Currency::format_money( get_post_meta( $post_id, 'base_price', true ) );
-                            }
-
-                        }
-                        // Foreach Data
-                        if ( !empty( $return ) ) {
-                            foreach ( $return as $day ) {
-                                if ( array_key_exists( $day[ 'start' ], $all_days ) ) {
-                                    unset( $all_days[ $day[ 'start' ] ] );
-                                }
-                            }
-                        }
-                        // Now append the exsits
-                        if ( !empty( $all_days ) ) {
-                            foreach ( $all_days as $day ) {
-                                $return[] = $day;
-                            }
-                        }
-                        $data = [
-                            'data' => $return
-                        ];
-                        echo json_encode( $data );
-                        die;
+                    if ( $check_in < strtotime( 'today' ) ) {
+                        $check_in = strtotime( 'today' );
                     }
+
+                    $return = $this->get_availability( $base_id, $check_in, $check_out );
+
+
+                    // Other day, in case Specific Periods Available
+
+                    $all_days = [];
+
+                    $begin = new DateTime();
+                    $begin->setTimestamp( $check_in );
+                    $end = new DateTime();
+                    $end->setTimestamp( $check_out );
+
+                    $interval = DateInterval::createFromDateString( '1 day' );
+                    $period   = new DatePeriod( $begin, $interval, $end );
+
+                    foreach ( $period as $dt ) {
+                        $all_days[ $dt->format( 'Y-m-d' ) ] = [
+                            'start'         => $dt->format( 'Y-m-d' ),
+                            'end'           => $dt->format( 'Y-m-d' ),
+                            'status'        => 'available',
+                            'can_check_in'  => 1,
+                            'can_check_out' => 1,
+
+                        ];
+                        if ( get_post_meta( $post_id, 'property_available_for', true ) == 'specific_periods' ) {
+                            $all_days[ $dt->format( 'Y-m-d' ) ][ 'status' ] = 'wb-disable';
+                        } else {
+                            $all_days[ $dt->format( 'Y-m-d' ) ][ 'price_text' ] = WPBooking_Currency::format_money( get_post_meta( $post_id, 'base_price', true ) );
+                        }
+
+                    }
+                    // Foreach Data
+                    if ( !empty( $return ) ) {
+                        foreach ( $return as $day ) {
+                            if ( array_key_exists( $day[ 'start' ], $all_days ) ) {
+                                unset( $all_days[ $day[ 'start' ] ] );
+                            }
+                        }
+                    }
+                    // Now append the exsits
+                    if ( !empty( $all_days ) ) {
+                        foreach ( $all_days as $day ) {
+                            $return[] = $day;
+                        }
+                    }
+                    $data = [
+                        'data' => $return
+                    ];
+                    echo json_encode( $data );
+                    die;
                 }
-            }
-
-            public function _save_base_price()
-            {
-
             }
 
             public function _add_availability()

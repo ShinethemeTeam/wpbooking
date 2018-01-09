@@ -265,7 +265,27 @@
                  */
                 add_action( 'wp_ajax_add_price_inventory', [ $this, 'add_price_inventory_accommodation' ] );
 
+                /**
+                 * @since   1.5
+                 * @updated 1.5
+                 * @author  haint
+                 */
+                add_action( 'wpbooking_review_before_address', [ $this, 'before_address_checkout' ] );
 
+            }
+
+            public function before_address_checkout( $cart )
+            {
+                if ( $cart[ 'service_type' ] == 'accommodation' ) {
+                    ?>
+                    <div class="wb-hotel-star">
+                        <?php
+                            $service = wpbooking_get_service( $cart[ 'post_id' ] );
+                            $service->get_star_rating_html();
+                        ?>
+                    </div>
+                    <?php
+                }
             }
 
             public function fetch_inventory_accommodation()
@@ -2292,7 +2312,6 @@
              */
             function _change_cart_item_params( $cart_item, $post_id = false )
             {
-
                 $calendar   = WPBooking_Calendar_Model::inst();
                 $cart_item  = wp_parse_args( $cart_item, [
                     'check_in_timestamp'  => false,
@@ -2319,7 +2338,6 @@
                                             'price'    => $price
                                         ];
                                     }
-
                                 }
                             }
                             // Check require

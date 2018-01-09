@@ -29,8 +29,6 @@ if (!class_exists('WB_Service_Helper')) {
                         $number = $extra_services[$key]['number'];
                         $extra_service_price += ($number * $value['money']);
                     }
-
-
                 }
             }
 

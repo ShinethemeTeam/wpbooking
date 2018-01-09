@@ -72,7 +72,7 @@ if (!class_exists('WPBooking_Model')) {
 			global $wpdb;
 			if ($this->ignore_create_table == FALSE and $this->table_name) {
 
-				add_action('after_setup_theme', array($this, '_check_meta_table_is_working'));
+				add_action('after_setup_theme', array($this, '_check_meta_table_is_working'), 20);
 			}
 		}
 
