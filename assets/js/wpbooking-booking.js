@@ -341,32 +341,33 @@ jQuery(document).ready(function ($) {
         var check_in_out = $(this).find('.wpbooking-check-in-out');
         var date_group   = $(this).find('.date-group');
         var customClass  = check_in_out.data('custom-class');
+        if(check_in_out.length){
+            check_in_out.daterangepicker({
+                    singleDatePicker: false,
+                    autoApply       : true,
+                    disabledPast    : true,
+                    dateFormat      : wpbooking_params.dateformat,
+                    customClass     : customClass
+                },
+                function (start, end, label) {
+                    $('.checkin_d', date_group).val(start.format('DD'));
+                    $('.checkin_m', date_group).val(start.format('MM'));
+                    $('.checkin_y', date_group).val(start.format('YYYY'));
+                    check_in.val(start.format(wpbooking_params.dateformat)).trigger('change');
 
-        check_in_out.daterangepicker({
-                singleDatePicker: false,
-                autoApply       : true,
-                disabledPast    : true,
-                dateFormat      : wpbooking_params.dateformat,
-                customClass     : customClass
-            },
-            function (start, end, label) {
-                $('.checkin_d', date_group).val(start.format('DD'));
-                $('.checkin_m', date_group).val(start.format('MM'));
-                $('.checkin_y', date_group).val(start.format('YYYY'));
-                check_in.val(start.format(wpbooking_params.dateformat)).trigger('change');
-
-                $('.checkout_d', date_group).val(end.format('DD'));
-                $('.checkout_m', date_group).val(end.format('MM'));
-                $('.checkout_y', date_group).val(end.format('YYYY'));
-                check_out.val(end.format(wpbooking_params.dateformat)).trigger('change');
+                    $('.checkout_d', date_group).val(end.format('DD'));
+                    $('.checkout_m', date_group).val(end.format('MM'));
+                    $('.checkout_y', date_group).val(end.format('YYYY'));
+                    check_out.val(end.format(wpbooking_params.dateformat)).trigger('change');
+                });
+            check_in.focus(function () {
+                check_in_out.trigger('click');
             });
-        check_in.focus(function () {
-            check_in_out.trigger('click');
-        });
 
-        check_out.focus(function () {
-            check_in_out.trigger('click');
-        });
+            check_out.focus(function () {
+                check_in_out.trigger('click');
+            });
+        }
     });
 
 

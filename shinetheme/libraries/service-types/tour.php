@@ -786,10 +786,7 @@
                                         $is_validated = false;
                                         wpbooking_set_message( esc_html__( 'This tour requires 1 person at least', 'wpbooking' ), 'error' );
                                     }
-
                                 }
-
-
                             }
                             break;
                     }
@@ -841,7 +838,7 @@
                                                 adult_minimum,
                                                 child_minimum,
                                                 infant_minimum
-' )
+                                ' )
                             ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id" )
                             ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and check_in_timestamp=`start` and wpbooking_order.STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left' )
                             ->where( [
@@ -1196,7 +1193,6 @@
                     'policies_tab' => [
                         'label'  => esc_html__( '3. Policies & Checkout', 'wpbooking' ),
                         'fields' => [
-
                             [ 'type' => 'open_section' ],
                             [
                                 'label' => esc_html__( "Pre-payment and cancellation policies", 'wpbooking' ),
