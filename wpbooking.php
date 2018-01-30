@@ -166,7 +166,8 @@
                     'thousand_separator'    => WPBooking_Currency::get_current_currency( 'thousand_sep' ),
                     'decimal_separator'     => WPBooking_Currency::get_current_currency( 'decimal_sep' ),
                     'currency_precision'    => WPBooking_Currency::get_current_currency( 'decimal' ),
-                    'dateformat'            => wpbooking_get_date_format_js()
+                    'dateformat'            => wpbooking_get_date_format_js(),
+                    'locale'                => get_locale()
                 ] );
 
                 wp_localize_script( 'jquery', 'wpbooking_hotel_localize', [

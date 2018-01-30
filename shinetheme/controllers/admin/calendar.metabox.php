@@ -32,10 +32,6 @@
                 $post_id = (int)WPBooking_Input::post( 'post_id', '' );
 
                 // Validate Permission
-                $post = get_post( $post_id );
-                if ( !$post or ( $post->post_author != get_current_user_id() ) ) {
-                    return false;
-                }
                 $post_encrypt = (int)WPBooking_Input::post( 'post_encrypt', '' );
                 if ( $post_id > 0 || wpbooking_encrypt_compare( $post_id, $post_encrypt ) ) {
 
