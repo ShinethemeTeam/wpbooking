@@ -109,5 +109,7 @@ Please see https://.wpbooking.org for more information and ask your questions th
 
 === 1.5 Dec 07 2017 ===
     + Update payment gateways core
+=== 1.6 Dec 07 2017 ===
+    + Update daterangepicker library
 
 
