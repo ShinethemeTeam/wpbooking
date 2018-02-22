@@ -2007,7 +2007,6 @@ jQuery(document).ready(function ($) {
         $('.wb-departure-date option').hide();
         $('.wb-departure-date option.' + v).show();
         $('.wb-departure-date').trigger('change');
-
     });
 
     $('.wb-departure-month').trigger('change');
