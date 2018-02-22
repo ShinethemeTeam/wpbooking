@@ -5,7 +5,7 @@
 <div class="service-content-section">
     <?php
         global $wp_query;
-        $rooms = WPBooking_Restaurant_Service_Type::inst()->search_room();
+        $rooms = WPBooking_Accommodation_Service_Type::inst()->search_room();
     ?>
     <div class="search-room-availablity">
         <form method="post" name="form-search-room" class="form-search-room">

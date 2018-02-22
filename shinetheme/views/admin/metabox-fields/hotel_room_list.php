@@ -85,7 +85,7 @@ if($query->found_posts < 1){
                 <div class="room-create">
                     <a href="#" data-hotel-id="<?php echo esc_attr($post_id)?> " class="create-room"><?php esc_html_e('Create New Room','wpbooking') ?></a>
                 </div>
-                <?php echo do_shortcode(WPBooking_Restaurant_Service_Type::inst()->_get_room_count_text($post_id)); ?>
+                <?php echo do_shortcode(WPBooking_Accommodation_Service_Type::inst()->_get_room_count_text($post_id)); ?>
             </div>
             <div class="room-item-default hidden">
                 <div class="room-item">

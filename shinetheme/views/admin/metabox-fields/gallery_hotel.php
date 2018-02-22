@@ -34,7 +34,7 @@ if(!empty($old_data['gallery'])){
 if(!empty($old_data['room_data'])){
     $room_data = $old_data['room_data'];
 }
-$list_room = WPBooking_Restaurant_Service_Type::inst()->_get_room_by_hotel($post_id);
+$list_room = WPBooking_Accommodation_Service_Type::inst()->_get_room_by_hotel($post_id);
 
 $list_room = json_encode($list_room);
 

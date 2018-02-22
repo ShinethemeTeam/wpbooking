@@ -1646,11 +1646,11 @@ msgid "Less"
 msgstr "Menos"
 
 #: shinetheme/libraries/service-types/accommodation.php:12
-msgid "Restaurant"
+msgid "Accommodation"
 msgstr "Alojamiento"
 
 #: shinetheme/libraries/service-types/accommodation.php:13
-msgid "Restaurants"
+msgid "Accommodations"
 msgstr "Alojamientos"
 
 #: shinetheme/libraries/service-types/accommodation.php:14
@@ -1747,43 +1747,43 @@ msgstr "Cambiar Fecha"
 #: shinetheme/libraries/service-types/accommodation.php:687
 #: shinetheme/libraries/service-types/accommodation.php:688
 #: shinetheme/libraries/service-types/accommodation.php:689
-msgid "Restaurant Room"
+msgid "Accommodation Room"
 msgstr "Habitación de alojamiento"
 
 #: shinetheme/libraries/service-types/accommodation.php:691
-msgid "Add New Restaurant Room"
+msgid "Add New Accommodation Room"
 msgstr "Añadir nueva Habitación de Alojamiento"
 
 #: shinetheme/libraries/service-types/accommodation.php:692
-msgid "New Restaurant Room"
+msgid "New Accommodation Room"
 msgstr "Nueva Habitación de Alojamiento"
 
 #: shinetheme/libraries/service-types/accommodation.php:693
-msgid "Edit Restaurant Room"
+msgid "Edit Accommodation Room"
 msgstr "Editar Habitación de Alojamiento"
 
 #: shinetheme/libraries/service-types/accommodation.php:694
-msgid "View Restaurant Room"
+msgid "View Accommodation Room"
 msgstr "Ver Habitación de Alojamiento"
 
 #: shinetheme/libraries/service-types/accommodation.php:695
-msgid "All Restaurant Room"
+msgid "All Accommodation Room"
 msgstr "Todas las Habitaciones"
 
 #: shinetheme/libraries/service-types/accommodation.php:696
-msgid "Search Restaurant Room"
+msgid "Search Accommodation Room"
 msgstr "Buscar Habitación"
 
 #: shinetheme/libraries/service-types/accommodation.php:697
-msgid "Parent Restaurant Room:"
+msgid "Parent Accommodation Room:"
 msgstr ""
 
 #: shinetheme/libraries/service-types/accommodation.php:698
-msgid "No Restaurant Room found."
+msgid "No Accommodation Room found."
 msgstr ""
 
 #: shinetheme/libraries/service-types/accommodation.php:699
-msgid "No Restaurant Room found in Trash."
+msgid "No Accommodation Room found in Trash."
 msgstr "No se encuentró Habitación en Basura."
 
 #: shinetheme/libraries/service-types/accommodation.php:720
@@ -3054,7 +3054,7 @@ msgstr "Crear una nueva reservación"
 
 #: shinetheme/views/admin/about/tab-get_started.php:64
 msgid ""
-"Restaurants are the core of your Booking site. You will not really have a "
+"Accommodations are the core of your Booking site. You will not really have a "
 "Booking site without them, so it is extremely important to set them up "
 "properly and make them easy for booking."
 msgstr ""
@@ -5157,7 +5157,7 @@ msgid "On the map"
 msgstr "En el mapa"
 
 #: shinetheme/views/frontend/single/types/default.php:153
-msgid "Restaurant Policies"
+msgid "Accommodation Policies"
 msgstr "Políticas de alojamiento"
 
 #: shinetheme/views/frontend/single/types/default.php:158

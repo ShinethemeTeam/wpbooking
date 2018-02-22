@@ -150,7 +150,7 @@
         <?php } ?>
     <?php do_action( 'wpbooking_after_service_amenity' ) ?>
     <div class="service-content-section">
-        <h5 class="service-info-title"><?php esc_html_e( 'Restaurant Policies', 'wpbooking' ) ?></h5>
+        <h5 class="service-info-title"><?php esc_html_e( 'Accommodation Policies', 'wpbooking' ) ?></h5>
 
         <div class="service-details">
             <?php
