@@ -697,7 +697,7 @@
                 $list_base  = WPBooking_Input::post( $field_id . '_base' );
                 $terms      = [];
                 $terms_meta = [];
-                $list_room  = WPBooking_Accommodation_Service_Type::inst()->_get_room_by_hotel( $post_id );
+                $list_room  = WPBooking_Restaurant_Service_Type::inst()->_get_room_by_hotel( $post_id );
 
 
                 if ( !empty( $list ) ) {

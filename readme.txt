@@ -10,7 +10,7 @@ Stable tag: 1.4
 
 License: GNU Version 2 or Any Later Version
 
-Complete solution for Accommodation and Tour booking with WordPress. We not make a system for all booking type. We just focus on what you need.
+Complete solution for Restaurant and Tour booking with WordPress. We not make a system for all booking type. We just focus on what you need.
 
 == Description ==
 
@@ -53,11 +53,11 @@ Features of the this version:
 
 = What is a ‘Service’ in WP Booking? =
 
-Each kind of data like Accommodation, Tour in WP Booking called a Service. You can base on your requirement to create new a service and its unlimited.
+Each kind of data like Restaurant, Tour in WP Booking called a Service. You can base on your requirement to create new a service and its unlimited.
 
-= How can I add room for an Accommodation? =
+= How can I add room for an Restaurant? =
 
-You can going to Room Details tab in an Accommodation and will see the button ‘Create New Room’. Click on it to add new room.
+You can going to Room Details tab in an Restaurant and will see the button ‘Create New Room’. Click on it to add new room.
 
 = Will this booking system work for me? =
 
@@ -65,7 +65,7 @@ Yes its total free for everyone.
 
 = Our company just for hotel management, can I disable Tour service? =
 
-We are build each kind of service on plugin like Accommodation and Tour. When create new service you can choose just for Accommodation.
+We are build each kind of service on plugin like Restaurant and Tour. When create new service you can choose just for Restaurant.
 
 = I have another question? =
 
@@ -74,14 +74,14 @@ Please see https://.wpbooking.org for more information and ask your questions th
 
 == Screenshots ==
 
-1. Front-end: Single Accommodation
+1. Front-end: Single Restaurant
 2. Front-end: Single Room
 3. Front-end: Checkout Page
 4. Front-end: Successful booking
 5. Front-end: Booking History
 6. Front-end: Search Results
 7. Back-end: Create New Tour
-8. Back-end: List Rooms in Accommodation
+8. Back-end: List Rooms in Restaurant
 9. Back-end: Booking Management
 10. Back-end: Booking Reports
 11. Back-end: General Settings

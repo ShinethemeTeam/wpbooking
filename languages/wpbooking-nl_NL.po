@@ -1640,11 +1640,11 @@ msgid "Less"
 msgstr "Minder"
 
 #: shinetheme/libraries/service-types/accommodation.php:12
-msgid "Accommodation"
+msgid "Restaurant"
 msgstr "Accommodatie"
 
 #: shinetheme/libraries/service-types/accommodation.php:13
-msgid "Accommodations"
+msgid "Restaurants"
 msgstr "Accommodaties"
 
 #: shinetheme/libraries/service-types/accommodation.php:14
@@ -1710,43 +1710,43 @@ msgstr "Wijzig datum"
 #: shinetheme/libraries/service-types/accommodation.php:437
 #: shinetheme/libraries/service-types/accommodation.php:438
 #: shinetheme/libraries/service-types/accommodation.php:439
-msgid "Accommodation Room"
+msgid "Restaurant Room"
 msgstr "Accommodatie unit"
 
 #: shinetheme/libraries/service-types/accommodation.php:441
-msgid "Add New Accommodation Room"
+msgid "Add New Restaurant Room"
 msgstr "Voeg een accommodatie unit toe"
 
 #: shinetheme/libraries/service-types/accommodation.php:442
-msgid "New Accommodation Room"
+msgid "New Restaurant Room"
 msgstr "Nieuwe accommodatie unit"
 
 #: shinetheme/libraries/service-types/accommodation.php:443
-msgid "Edit Accommodation Room"
-msgstr "Edit Accommodation Room"
+msgid "Edit Restaurant Room"
+msgstr "Edit Restaurant Room"
 
 #: shinetheme/libraries/service-types/accommodation.php:444
-msgid "View Accommodation Room"
+msgid "View Restaurant Room"
 msgstr "Bekijk accommodatie unit"
 
 #: shinetheme/libraries/service-types/accommodation.php:445
-msgid "All Accommodation Room"
+msgid "All Restaurant Room"
 msgstr "Alle accommodatie units"
 
 #: shinetheme/libraries/service-types/accommodation.php:446
-msgid "Search Accommodation Room"
+msgid "Search Restaurant Room"
 msgstr "Zoek accommodatie units"
 
 #: shinetheme/libraries/service-types/accommodation.php:447
-msgid "Parent Accommodation Room:"
-msgstr "Parent Accommodation Room:"
+msgid "Parent Restaurant Room:"
+msgstr "Parent Restaurant Room:"
 
 #: shinetheme/libraries/service-types/accommodation.php:448
-msgid "No Accommodation Room found."
+msgid "No Restaurant Room found."
 msgstr "Geen accommodatie unit gevonden"
 
 #: shinetheme/libraries/service-types/accommodation.php:449
-msgid "No Accommodation Room found in Trash."
+msgid "No Restaurant Room found in Trash."
 msgstr "Geen accommodatieunit gevonden in de prullenbak."
 
 #: shinetheme/libraries/service-types/accommodation.php:470
@@ -3288,7 +3288,7 @@ msgstr "Nieuwe accommodatoe toevoegen"
 
 #: shinetheme/views/admin/about/tab-get_started.php:50
 msgid ""
-"Accommodations are the core of your Booking site. You will not really have a "
+"Restaurants are the core of your Booking site. You will not really have a "
 "Booking site without them, so it is extremely important to set them up "
 "properly and make them easy for booking."
 msgstr ""
@@ -5306,7 +5306,7 @@ msgid "On the map"
 msgstr "Op de kaart"
 
 #: shinetheme/views/frontend/single/types/default.php:151
-msgid "Accommodation Policies"
+msgid "Restaurant Policies"
 msgstr "Accommodatie voorwaarden"
 
 #: shinetheme/views/frontend/single/types/default.php:156

@@ -108,7 +108,7 @@ if($diff < 0 )$diff = 0;
         ?>
             <div class="room-total-price">
                 <?php
-                    $price = WPBooking_Accommodation_Service_Type::inst()->_get_price_room_with_date(get_the_ID(),$check_in,$check_out);
+                    $price = WPBooking_Restaurant_Service_Type::inst()->_get_price_room_with_date(get_the_ID(),$check_in,$check_out);
                     echo WPBooking_Currency::format_money($price);
                 ?>
                 <br>

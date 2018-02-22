@@ -18,8 +18,8 @@ if(!empty($cart['rooms'])){
             foreach($cart['rooms'] as $k=>$v){
                 $service_room=new WB_Service($k);
                 $featured=$service_room->get_featured_image_room();
-                $price_room = WPBooking_Accommodation_Service_Type::inst()->_get_price_room_in_cart($cart,$k);
-                $price_total_room = WPBooking_Accommodation_Service_Type::inst()->_get_total_price_room_in_cart($cart,$k);
+                $price_room = WPBooking_Restaurant_Service_Type::inst()->_get_price_room_in_cart($cart,$k);
+                $price_total_room = WPBooking_Restaurant_Service_Type::inst()->_get_total_price_room_in_cart($cart,$k);
                 ?>
                 <tr class="room-<?php echo esc_attr($k) ?> ">
                     <td width="5%"  class="text-center">

@@ -61,7 +61,7 @@
         <div class="step">
             <div class="left">
                 <h3><?php echo esc_html__( 'Create a new accommodation', 'wpbooking' ) ?></h3>
-                <p><?php echo esc_html__( 'Accommodations are the core of your Booking site. You will not really have a Booking site without them, so it is extremely important to set them up properly and make them easy for booking.', 'wpbooking' ); ?></p>
+                <p><?php echo esc_html__( 'Restaurants are the core of your Booking site. You will not really have a Booking site without them, so it is extremely important to set them up properly and make them easy for booking.', 'wpbooking' ); ?></p>
                 <ul>
                     <li><?php echo esc_html__( 'Create contact information of accommodation', 'wpbooking' ) ?></li>
                     <li><?php echo esc_html__( 'Create location of accommodation', 'wpbooking' ) ?></li>

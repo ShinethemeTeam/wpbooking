@@ -1,6 +1,6 @@
 <?php
-    if ( !class_exists( 'WPBooking_Accommodation_Service_Type' ) and class_exists( 'WPBooking_Abstract_Service_Type' ) ) {
-        class WPBooking_Accommodation_Service_Type extends WPBooking_Abstract_Service_Type
+    if ( !class_exists( 'WPBooking_Restaurant_Service_Type' ) and class_exists( 'WPBooking_Abstract_Service_Type' ) ) {
+        class WPBooking_Restaurant_Service_Type extends WPBooking_Abstract_Service_Type
         {
             static $_inst = false;
 
@@ -9,8 +9,8 @@
             function __construct()
             {
                 $this->type_info = [
-                    'label'  => esc_html__( "Accommodation", 'wpbooking' ),
-                    'labels' => esc_html__( "Accommodations", 'wpbooking' ),
+                    'label'  => esc_html__( "Restaurant", 'wpbooking' ),
+                    'labels' => esc_html__( "Restaurants", 'wpbooking' ),
                     'desc'   => esc_html__( 'You can post any kind of property like hotels, hostels, room like airbnb... anything  is called accommodation', 'wpbooking' )
                 ];
 
@@ -702,20 +702,20 @@
             public function _add_init_action()
             {
                 $labels = [
-                    'name'               => esc_html__( 'Accommodation Room', 'wpbooking' ),
-                    'singular_name'      => esc_html__( 'Accommodation Room', 'wpbooking' ),
-                    'menu_name'          => esc_html__( 'Accommodation Room', 'wpbooking' ),
-                    'name_admin_bar'     => esc_html__( 'Accommodation Room', 'wpbooking' ),
+                    'name'               => esc_html__( 'Restaurant Room', 'wpbooking' ),
+                    'singular_name'      => esc_html__( 'Restaurant Room', 'wpbooking' ),
+                    'menu_name'          => esc_html__( 'Restaurant Room', 'wpbooking' ),
+                    'name_admin_bar'     => esc_html__( 'Restaurant Room', 'wpbooking' ),
                     'add_new'            => esc_html__( 'Add New', 'wpbooking' ),
-                    'add_new_item'       => esc_html__( 'Add New Accommodation Room', 'wpbooking' ),
-                    'new_item'           => esc_html__( 'New Accommodation Room', 'wpbooking' ),
-                    'edit_item'          => esc_html__( 'Edit Accommodation Room', 'wpbooking' ),
-                    'view_item'          => esc_html__( 'View Accommodation Room', 'wpbooking' ),
-                    'all_items'          => esc_html__( 'All Accommodation Room', 'wpbooking' ),
-                    'search_items'       => esc_html__( 'Search Accommodation Room', 'wpbooking' ),
-                    'parent_item_colon'  => esc_html__( 'Parent Accommodation Room:', 'wpbooking' ),
-                    'not_found'          => esc_html__( 'No Accommodation Room found.', 'wpbooking' ),
-                    'not_found_in_trash' => esc_html__( 'No Accommodation Room found in Trash.', 'wpbooking' )
+                    'add_new_item'       => esc_html__( 'Add New Restaurant Room', 'wpbooking' ),
+                    'new_item'           => esc_html__( 'New Restaurant Room', 'wpbooking' ),
+                    'edit_item'          => esc_html__( 'Edit Restaurant Room', 'wpbooking' ),
+                    'view_item'          => esc_html__( 'View Restaurant Room', 'wpbooking' ),
+                    'all_items'          => esc_html__( 'All Restaurant Room', 'wpbooking' ),
+                    'search_items'       => esc_html__( 'Search Restaurant Room', 'wpbooking' ),
+                    'parent_item_colon'  => esc_html__( 'Parent Restaurant Room:', 'wpbooking' ),
+                    'not_found'          => esc_html__( 'No Restaurant Room found.', 'wpbooking' ),
+                    'not_found_in_trash' => esc_html__( 'No Restaurant Room found in Trash.', 'wpbooking' )
                 ];
 
                 $args = [
@@ -3229,8 +3229,8 @@
                     $hotel_id = $cart[ 'post_id' ];
                     foreach ( $cart[ 'rooms' ] as $room_id => $room ) {
                         $order            = WPBooking_Order_Hotel_Order_Model::inst();
-                        $price_room       = WPBooking_Accommodation_Service_Type::inst()->_get_price_room_in_cart( $cart, $room_id );
-                        $price_total_room = WPBooking_Accommodation_Service_Type::inst()->_get_total_price_room_in_cart( $cart, $room_id );
+                        $price_room       = WPBooking_Restaurant_Service_Type::inst()->_get_price_room_in_cart( $cart, $room_id );
+                        $price_total_room = WPBooking_Restaurant_Service_Type::inst()->_get_total_price_room_in_cart( $cart, $room_id );
                         $data             = [
                             'order_id'            => $order_id,
                             'hotel_id'            => $hotel_id,
@@ -3403,5 +3403,5 @@
             }
         }
 
-        WPBooking_Accommodation_Service_Type::inst();
+        WPBooking_Restaurant_Service_Type::inst();
     }
