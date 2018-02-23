@@ -159,7 +159,7 @@
          */
         function wpbooking_origin_id( $post_id, $service_type = 'post' )
         {
-            if ( function_exists( 'wpml_object_id_filter' ) ) {
+            if ( function_exists( 'wpml_object_id' ) ) {
                 global $sitepress;
                 $a = wpml_object_id_filter( $post_id, $service_type, true, $sitepress->get_default_language() );
 
