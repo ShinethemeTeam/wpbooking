@@ -10,6 +10,7 @@ if(!empty($data['element_list_item'])){
 }
 $class = $name;
 $data_class = '';
+$class.=' wpbooking-form-group ';
 if(!empty($data['condition'])){
     $class .= ' wpbooking-condition wpbooking-form-group ';
     $data_class .= ' data-condition=wpbooking_'.$data['condition'].' ' ;

@@ -2122,7 +2122,7 @@
                 $taxonomy           = get_object_taxonomies( 'wpbooking_service', 'array' );
                 $wpbooking_taxonomy = get_option( 'wpbooking_taxonomies' );
                 $list_taxonomy      = [];
-                if ( !empty( $taxonomy ) and !empty( $wpbooking_taxonomy ) ) {
+                if ( !empty( $taxonomy ) ) {
                     foreach ( $taxonomy as $k => $v ) {
                         if ( $k == 'wpbooking_location' ) continue;
                         if ( $k == 'wpbooking_extra_service' ) continue;

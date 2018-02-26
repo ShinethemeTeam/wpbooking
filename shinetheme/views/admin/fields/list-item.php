@@ -49,11 +49,11 @@ $id_list_item    = $data[ 'id' ];
                                                 foreach( $custom_settings as $k2 => $v2 ) {
                                                     $id            = $v2[ 'id' ];
                                                     $cusstom_value = "";
-                                                    if(!empty( $v[ $id ] )) {
-                                                        $cusstom_value = $v[ $id ];
-                                                    }
                                                     if(!empty($v2['std'])){
                                                         $cusstom_value = $v2['std'];
+                                                    }
+                                                    if(!empty( $v[ $id ] )) {
+                                                        $cusstom_value = $v[ $id ];
                                                     }
                                                     $default = array(
                                                         'id'                => '' ,

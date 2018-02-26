@@ -139,7 +139,7 @@ if (!class_exists('WB_Order')) {
                         $total = $order_data['deposit_price'];
                     }
                 }
-                $total = apply_filters('wpbooking_get_order_total', $total);
+                $total = apply_filters('wpbooking_get_order_total', $total, $args);
                 return $total;
             }
         }

@@ -344,8 +344,9 @@
                 if ( !empty( $all_currency ) ) {
                     return $all_currency = self::get_added_currencies();
                 }
+                $currency_obj = apply_filters('wpbooking_find_currency_array',false, $currency_name, $compare_key);
 
-                return false;
+                return $currency_obj;
             }
 
             /**
@@ -355,14 +356,8 @@
              * */
             static function get_current_currency( $need = false, $default = false )
             {
-                $current = self::get_currency();
                 //Check session of user first
-                if ( $need and $current ) {
-                    if ( isset( $current[ $need ] ) ) return $current[ $need ];
-
-                    return $default;
-                } else
-                    return self::get_default_currency( $need, $default );
+                return apply_filters('wpbooking_get_current_currency', self::get_default_currency( $need, $default ), $need, $default );
             }
 
 
@@ -386,7 +381,7 @@
             static function convert_money( $money = false, $args = [] )
             {
                 $args = wp_parse_args( $args, [
-                    'currency'     => false,
+                    'currency'     => self::get_default_currency( 'currency' ),
                     'need_convert' => true,
                     'rate'         => 1
                 ] );
@@ -457,7 +452,7 @@
                 $need_convert = $args[ 'need_convert' ];
 
                 $money  = (float)$money;
-                $symbol = self::get_current_currency( 'symbol' );
+                $symbol = self::get_current_currency( 'symbol');
 
                 if ( $args[ 'simple_html' ] ) {
                     $symbol = esc_html( $symbol );

@@ -194,7 +194,7 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 				$gateway->setSignature($this->get_option('api_signature'));
 			}
 
-			$total=$order->get_total();
+			$total = WPBooking_Currency::convert_money($order->get_total());
 
 			$purchase = array(
 				'amount'      => (float)$total,
@@ -248,7 +248,7 @@ if(!class_exists('WPBooking_Paypal_Gateway') and class_exists('WPBooking_Abstrac
 				$gateway->setSignature($this->get_option('api_signature'));
 			}
 
-			$total=$order->get_total();
+			$total=WPBooking_Currency::convert_money($order->get_total());
 
 			$purchase = array(
 				'amount'      => (float)$total,
