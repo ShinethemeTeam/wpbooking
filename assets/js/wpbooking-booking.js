@@ -341,32 +341,34 @@ jQuery(document).ready(function ($) {
         var check_in_out = $(this).find('.wpbooking-check-in-out');
         var date_group   = $(this).find('.date-group');
         var customClass  = check_in_out.data('custom-class');
+        if (check_in_out.length) {
+            check_in_out.daterangepicker({
+                    singleDatePicker: false,
+                    autoApply       : true,
+                    disabledPast    : true,
+                    dateFormat      : wpbooking_params.dateformat,
+                    customClass     : customClass
+                },
+                function (start, end, label) {
+                    $('.checkin_d', date_group).val(start.format('DD'));
+                    $('.checkin_m', date_group).val(start.format('MM'));
+                    $('.checkin_y', date_group).val(start.format('YYYY'));
+                    check_in.val(start.format(wpbooking_params.dateformat)).trigger('change');
 
-        check_in_out.daterangepicker({
-                singleDatePicker: false,
-                autoApply       : true,
-                disabledPast    : true,
-                dateFormat      : wpbooking_params.dateformat,
-                customClass     : customClass
-            },
-            function (start, end, label) {
-                $('.checkin_d', date_group).val(start.format('DD'));
-                $('.checkin_m', date_group).val(start.format('MM'));
-                $('.checkin_y', date_group).val(start.format('YYYY'));
-                check_in.val(start.format(wpbooking_params.dateformat)).trigger('change');
-
-                $('.checkout_d', date_group).val(end.format('DD'));
-                $('.checkout_m', date_group).val(end.format('MM'));
-                $('.checkout_y', date_group).val(end.format('YYYY'));
-                check_out.val(end.format(wpbooking_params.dateformat)).trigger('change');
+                    $('.checkout_d', date_group).val(end.format('DD'));
+                    $('.checkout_m', date_group).val(end.format('MM'));
+                    $('.checkout_y', date_group).val(end.format('YYYY'));
+                    check_out.val(end.format(wpbooking_params.dateformat)).trigger('change');
+                    check_in_out.trigger('daterangepicker_change', [start, end]);
+                });
+            check_in.focus(function () {
+                check_in_out.trigger('click');
             });
-        check_in.focus(function () {
-            check_in_out.trigger('click');
-        });
 
-        check_out.focus(function () {
-            check_in_out.trigger('click');
-        });
+            check_out.focus(function () {
+                check_in_out.trigger('click');
+            });
+        }
     });
 
 
@@ -452,6 +454,7 @@ jQuery(document).ready(function ($) {
         var searchbox = parent.find('.form-search-room');
         do_search_room(searchbox, false);
     });
+
     /**
      * Do Search Room
      * @param searchbox
@@ -645,6 +648,7 @@ jQuery(document).ready(function ($) {
     setTimeout(function () {
         $('.content-search-room .content-loop-room .loop-room .option_number_room').trigger('change');
     }, 500);
+
     /**
      * setMessage
      * @author quadq
@@ -729,7 +733,7 @@ jQuery(document).ready(function ($) {
             toFixedFix = function (n, prec) {
                 var k = Math.pow(10, prec);
                 return '' + (Math.round(n * k) / k)
-                        .toFixed(prec);
+                    .toFixed(prec);
             };
         // Fix for IE parseFloat(0.55).toFixed(0) = 0;
         s              = (prec ? toFixedFix(n, prec) : '' + Math.round(n))
@@ -1174,19 +1178,20 @@ jQuery(document).ready(function ($) {
         run_condition_engine();
     });
     run_condition_engine();
+
     function run_condition_engine() {
         $('.wpbooking-condition[data-condition]').each(function () {
 
             var passed;
             var conditions = get_match_condition($(this).data('condition'));
-            var operator   = ( $(this).data('operator') || 'and' ).toLowerCase();
+            var operator   = ($(this).data('operator') || 'and').toLowerCase();
             $.each(conditions, function (index, condition) {
 
                 var target = $('[name=' + condition.check + ']');
 
                 var targetEl = !!target.length && target.first();
 
-                if (!target.length || ( !targetEl.length && condition.value.toString() != '' )) {
+                if (!target.length || (!targetEl.length && condition.value.toString() != '')) {
                     return;
                 }
 
@@ -1205,25 +1210,25 @@ jQuery(document).ready(function ($) {
 
                 switch (condition.rule) {
                     case 'less_than':
-                        result = ( parseInt(v1) < parseInt(v2) );
+                        result = (parseInt(v1) < parseInt(v2));
                         break;
                     case 'less_than_or_equal_to':
-                        result = ( parseInt(v1) <= parseInt(v2) );
+                        result = (parseInt(v1) <= parseInt(v2));
                         break;
                     case 'greater_than':
-                        result = ( parseInt(v1) > parseInt(v2) );
+                        result = (parseInt(v1) > parseInt(v2));
                         break;
                     case 'greater_than_or_equal_to':
-                        result = ( parseInt(v1) >= parseInt(v2) );
+                        result = (parseInt(v1) >= parseInt(v2));
                         break;
                     case 'contains':
-                        result = ( v1.indexOf(v2) !== -1 ? true : false );
+                        result = (v1.indexOf(v2) !== -1 ? true : false);
                         break;
                     case 'is':
-                        result = ( v1 == v2 );
+                        result = (v1 == v2);
                         break;
                     case 'not':
-                        result = ( v1 != v2 );
+                        result = (v1 != v2);
                         break;
                 }
 
@@ -1233,11 +1238,11 @@ jQuery(document).ready(function ($) {
 
                 switch (operator) {
                     case 'or':
-                        passed = ( passed || result );
+                        passed = (passed || result);
                         break;
                     case 'and':
                     default:
-                        passed = ( passed && result );
+                        passed = (passed && result);
                         break;
                 }
 
@@ -2002,7 +2007,6 @@ jQuery(document).ready(function ($) {
         $('.wb-departure-date option').hide();
         $('.wb-departure-date option.' + v).show();
         $('.wb-departure-date').trigger('change');
-
     });
 
     $('.wb-departure-month').trigger('change');

@@ -170,6 +170,36 @@
         }
     }
 
+    if ( !function_exists( 'wpbooking_is_location' ) ) {
+        function wpbooking_is_location( $location_id )
+        {
+            $location = get_term_by( 'id', $location_id, 'wpbooking_location' );
+            if ( !$location ) {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    if ( !function_exists( 'wpbooking_get_location' ) ) {
+        function wpbooking_get_location( $id, $get = 'name' )
+        {
+            $location = get_term_by( 'id', $id, 'wpbooking_location' );
+            $value    = '';
+            switch ( $get ) {
+                case 'name':
+                    $value = $location->name;
+                    break;
+                case 'slug':
+                    $value = $location->slug;
+                    break;
+            }
+
+            return $value;
+        }
+    }
+
 
     if ( !function_exists( 'wpbooking_show_tree_terms' ) ) {
         function wpbooking_show_tree_terms( array &$terms, array &$returns, $parent = 0, $deep = 0 )

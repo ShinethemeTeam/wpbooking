@@ -21,7 +21,7 @@
                     <i class="fa fa-map-marker"></i> <?php echo esc_html( $address ) ?>
                 </div>
             <?php } ?>
-        <?php do_action( 'wpbooking_after_service_address_rate', get_the_ID(), $service->get_type(), $service ) ?>
+        <?php do_action( 'wpbooking_after_service_address_rate', $hotel_id, $service->get_type(), $service ) ?>
     </div>
     <div class="wb-price-html" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <?php $service->get_price_html( true ); ?>
@@ -30,9 +30,9 @@
         <div class="col-service-gallery">
             <div class="wb-tabs-gallery-map">
                 <?php
-                    $map_lat  = get_post_meta( get_the_ID(), 'map_lat', true );
-                    $map_lng  = get_post_meta( get_the_ID(), 'map_long', true );
-                    $map_zoom = get_post_meta( get_the_ID(), 'map_zoom', true );
+                    $map_lat  = get_post_meta( $hotel_id, 'map_lat', true );
+                    $map_lng  = get_post_meta( $hotel_id, 'map_long', true );
+                    $map_zoom = get_post_meta( $hotel_id, 'map_zoom', true );
                 ?>
                 <ul class="wb-tabs">
                     <li class="active"><a href="#photos"><i class="fa fa-camera"></i>
@@ -85,7 +85,7 @@
                     ];
                     $html         = '';
                     foreach ( $contact_meta as $key => $val ) {
-                        if ( $value = get_post_meta( get_the_ID(), $key, true ) ) {
+                        if ( $value = get_post_meta( $hotel_id, $key, true ) ) {
                             switch ( $key ) {
                                 case 'contact_number':
                                     $value = sprintf( '<a href="tel:%s" itemprop="telephone" >%s</a>', esc_html( $value ), do_shortcode( $value ) );
@@ -126,7 +126,7 @@
         </div>
     </div>
     <?php
-        $amenities = get_post_meta( get_the_ID(), 'wpbooking_select_amenity', true );
+        $amenities = get_post_meta( $hotel_id, 'wpbooking_select_amenity', true );
         if ( !empty( $amenities ) ) {
             ?>
             <div class="service-content-section">
@@ -166,7 +166,7 @@
                 $checkin_html  = esc_html__( 'Check In: ', 'wpbooking' );
                 $checkout_html = esc_html__( 'Check Out: ', 'wpbooking' );
                 foreach ( $check_in as $key => $val ) {
-                    $value = get_post_meta( get_the_ID(), $key, true );
+                    $value = get_post_meta( $hotel_id, $key, true );
                     if ( $key == 'checkin_from' && empty( $value ) ) {
                         $checkin_html = '';
                         break;
@@ -181,7 +181,7 @@
                 }
                 $bool = false;
                 foreach ( $check_out as $key => $val ) {
-                    $value = get_post_meta( get_the_ID(), $key, true );
+                    $value = get_post_meta( $hotel_id, $key, true );
                     if ( $key == 'checkout_to' && empty( $value ) ) {
                         $checkout_html = '';
                         break;
@@ -221,7 +221,7 @@
                 $deposit_html  = [];
                 $allow_deposit = '';
                 foreach ( $array as $key => $val ) {
-                    $meta = get_post_meta( get_the_ID(), $key, true );
+                    $meta = get_post_meta( $hotel_id, $key, true );
                     if ( $key == 'deposit_payment_status' ) {
                         $allow_deposit = $meta;
                         continue;
@@ -261,7 +261,7 @@
                     ?>
                     <div class="service-detail-item">
                         <div
-                            class="service-detail-title"><?php esc_html_e( 'Prepayment / Cancellation', 'wpbooking' ) ?></div>
+                                class="service-detail-title"><?php esc_html_e( 'Prepayment / Cancellation', 'wpbooking' ) ?></div>
                         <div class="service-detail-content">
                             <?php
                                 foreach ( $deposit_html as $value ) {
@@ -294,7 +294,7 @@
                 $citytax_excluded = '';
                 $ct_unit          = '';
                 foreach ( $array as $key => $val ) {
-                    $value = get_post_meta( get_the_ID(), $key, true );
+                    $value = get_post_meta( $hotel_id, $key, true );
                     if ( !empty( $value ) ) {
                         switch ( $key ) {
                             case 'vat_excluded':
@@ -349,7 +349,7 @@
                     ?>
                     <div class="service-detail-item">
                         <div
-                            class="service-detail-title"><?php esc_html_e( 'Tax', 'wpbooking' ) ?></div>
+                                class="service-detail-title"><?php esc_html_e( 'Tax', 'wpbooking' ) ?></div>
                         <div class="service-detail-content">
                             <?php foreach ( $tax_html as $value ) {
                                 echo ( $value ) . '<br>';
@@ -361,7 +361,7 @@
 
 
             <?php
-                if ( $terms_conditions = get_post_meta( get_the_ID(), 'terms_conditions', true ) ) { ?>
+                if ( $terms_conditions = get_post_meta( $hotel_id, 'terms_conditions', true ) ) { ?>
                     <div class="service-detail-item">
                         <div class="service-detail-title"><?php esc_html_e( 'Term & Condition', 'wpbooking' ) ?></div>
                         <div class="service-detail-content">
@@ -371,7 +371,7 @@
                 <?php } ?>
 
             <?php
-                $card       = get_post_meta( get_the_ID(), 'creditcard_accepted', true );
+                $card       = get_post_meta( $hotel_id, 'creditcard_accepted', true );
                 $card_image = [
                     'americanexpress'    => 'wb-americanexpress',
                     'visa'               => 'wb-visa',
@@ -406,7 +406,7 @@
 
     <div class="service-content-section comment-section">
         <?php
-            if ( comments_open( get_the_ID() ) || get_comments_number() ) :
+            if ( comments_open( $hotel_id ) || get_comments_number() ) :
                 comments_template();
             endif;
             wp_reset_query();

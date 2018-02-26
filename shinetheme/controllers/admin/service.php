@@ -13,7 +13,7 @@
                 add_action( 'init', [ $this, '_add_taxonomy' ] );
                 add_action( 'init', [ $this, '_add_post_type' ], 5 );
                 add_action( 'init', [ $this, '_add_metabox' ] );
-                add_action( 'save_post', [ $this, '_save_extra_field' ] );
+                add_action( 'save_post', [ $this, '_save_extra_field' ], 10, 2 );
                 add_filter( 'wpbooking_settings', [ $this, '_add_settings' ] );
 
                 // Merge Data
@@ -143,12 +143,12 @@
                 die;
             }
 
-            function _save_extra_field( $post_id = false )
+            function _save_extra_field( $post_id, $post_object )
             {
                 if ( get_post_type( $post_id ) != 'wpbooking_service' ) return false;
 
                 WPBooking_Service_Model::inst()->save_extra( $post_id );
-
+                do_action( 'wpbooking_saved_service', $post_id, $post_object );
             }
 
             function _add_settings( $settings )

@@ -143,6 +143,72 @@
                         </div>
                         <?php
                         break;
+                    case "pickup":
+                        ?>
+                        <div class="item-search">
+                            <label
+                                for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
+
+                            <div class="item-search-content">
+                                <?php
+                                    $class = false;
+                                    if ( $v[ 'required' ] == 'yes' ) $class .= ' wb-required';
+                                    $args        = [
+                                        'show_option_none'  => esc_html__( '-- Select --', "wpbooking" ),
+                                        'option_none_value' => "",
+                                        'hierarchical'      => 1,
+                                        'name'              => 'pickup',
+                                        'class'             => $class,
+                                        'id'                => $v[ 'field_type' ],
+                                        'taxonomy'          => 'wpbooking_location',
+                                        'orderby'           => 'name',
+                                        'order'             => 'ASC',
+                                        'hide_empty'        => 0,
+                                    ];
+                                    $is_taxonomy = WPBooking_Input::get( 'pickup' );
+                                    if ( !empty( $is_taxonomy ) ) {
+                                        $args[ 'selected' ] = $is_taxonomy;
+                                    }
+                                    wp_dropdown_categories( $args );
+                                ?>
+                            </div>
+                            <div class="wb-collapse"></div>
+                        </div>
+                        <?php
+                        break;
+                    case "dropoff":
+                        ?>
+                        <div class="item-search">
+                            <label
+                                for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
+
+                            <div class="item-search-content">
+                                <?php
+                                    $class = false;
+                                    if ( $v[ 'required' ] == 'yes' ) $class .= ' wb-required';
+                                    $args        = [
+                                        'show_option_none'  => esc_html__( '-- Select --', "wpbooking" ),
+                                        'option_none_value' => "",
+                                        'hierarchical'      => 1,
+                                        'name'              => 'dropoff',
+                                        'class'             => $class,
+                                        'id'                => $v[ 'field_type' ],
+                                        'taxonomy'          => 'wpbooking_location',
+                                        'orderby'           => 'name',
+                                        'order'             => 'ASC',
+                                        'hide_empty'        => 0,
+                                    ];
+                                    $is_taxonomy = WPBooking_Input::get( 'dropoff' );
+                                    if ( !empty( $is_taxonomy ) ) {
+                                        $args[ 'selected' ] = $is_taxonomy;
+                                    }
+                                    wp_dropdown_categories( $args );
+                                ?>
+                            </div>
+                            <div class="wb-collapse"></div>
+                        </div>
+                        <?php
+                        break;
                     case "taxonomy":
                         if ( !empty( $v[ 'taxonomy' ] ) )
                             $tax = get_taxonomy( $v[ 'taxonomy' ] );
@@ -313,7 +379,8 @@
                         wp_enqueue_style( 'wpbooking-daterangepicker' );
                         ?>
                         <div class="date-group clearfix">
-                            <label class="title" for="<?php echo esc_attr( $id ) ?>"><?php echo esc_html( $title); ?></label>
+                            <label class="title"
+                                   for="<?php echo esc_attr( $id ) ?>"><?php echo esc_html( $title ); ?></label>
                             <div class="item-search datepicker-field">
                                 <div class="item-search-content">
                                     <label>
