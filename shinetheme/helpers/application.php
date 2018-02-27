@@ -34,13 +34,15 @@
 
             if ( file_exists( $file ) ) {
 
-                if ( is_array( $data ) )
+                if ( is_array( $data ) ) {
                     extract( $data );
+                }
 
                 ob_start();
                 include( $file );
+                $html = @ob_get_clean();
 
-                return @ob_get_clean();
+                return balanceTags( $html );
             }
         }
     }
@@ -146,6 +148,16 @@
             return false;
         }
     }
+    if ( !function_exists( 'wpbooking_is_wpml' ) ) {
+        function wpbooking_is_wpml()
+        {
+            if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
+                return true;
+            }
+
+            return false;
+        }
+    }
     if ( !function_exists( 'wpbooking_origin_id' ) ) {
         /**
          * Get Origin Post ID in case of use WPML plugin
@@ -159,9 +171,9 @@
          */
         function wpbooking_origin_id( $post_id, $service_type = 'post' )
         {
-            if ( function_exists( 'wpml_object_id_filter' ) ) {
+            if ( wpbooking_is_wpml() ) {
                 global $sitepress;
-                $a = wpml_object_id_filter( $post_id, $service_type, true, $sitepress->get_default_language() );
+                $a = apply_filters( 'wpml_object_id', $post_id, $service_type, true, $sitepress->get_default_language() );
 
                 return $a;
             } else {

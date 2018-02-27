@@ -26,7 +26,7 @@ $cart=$booking->get_cart();
 						<a href="<?php echo get_permalink($post_id)?>" target="_blank"><?php echo wp_kses($featured['thumb'],array('img'=>array('src'=>array(),'alt'=>array())))?></a>
 					</div>
 					<div class="review-order-item-info">
-						<h4 class="service-name"><a href="<?php echo get_permalink($value['post_id'])?>" target="_blank"><?php echo get_the_title($value['post_id'])?></a></h4>
+						<h4 class="service-name"><a href="<?php echo esc_url(get_permalink($value['post_id']))?>" target="_blank"><?php echo esc_html(get_the_title($value['post_id']))?></a></h4>
 						<?php if($address=$service->get_address()){
 							printf('<p class="service-address">%s</p>',$address);
 						} ?>

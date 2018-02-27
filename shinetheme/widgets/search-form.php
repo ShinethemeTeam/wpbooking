@@ -70,8 +70,8 @@
                             ?>
                             <div class="wpbooking-search-form-more-wrap">
                                 <a href="#" onclick="return false" class="btn btn-link wpbooking-show-more-fields"><span
-                                        class=""><?php esc_html_e( 'Advanced Search', 'wpbooking' ) ?> <i
-                                            class="fa fa-caret-down" aria-hidden="true"></i></span></a>
+                                            class=""><?php esc_html_e( 'Advanced Search', 'wpbooking' ) ?> <i
+                                                class="fa fa-caret-down" aria-hidden="true"></i></span></a>
                                 <div class="wpbooking-search-form-more">
                                     <?php
                                         foreach ( $search_more_fields as $k => $v ) {
@@ -111,7 +111,7 @@
                         ?>
                         <div class="item-search">
                             <label
-                                for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
+                                    for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
 
                             <div class="item-search-content">
                                 <?php
@@ -147,7 +147,7 @@
                         ?>
                         <div class="item-search">
                             <label
-                                for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
+                                    for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
 
                             <div class="item-search-content">
                                 <?php
@@ -180,7 +180,7 @@
                         ?>
                         <div class="item-search">
                             <label
-                                for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
+                                    for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
 
                             <div class="item-search-content">
                                 <?php
@@ -219,7 +219,7 @@
                         ?>
                         <div class="item-search">
                             <label
-                                for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
+                                    for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
 
                             <div class="item-search-content">
                                 <?php
@@ -274,12 +274,12 @@
                                                                     }
                                                                     ?>
                                                                     <div
-                                                                        class="term-item <?php echo esc_attr( $class ) ?>">
+                                                                            class="term-item <?php echo esc_attr( $class ) ?>">
                                                                         <label><input
-                                                                                class="wb-checkbox-search item_taxonomy"
-                                                                                type="checkbox" <?php echo esc_html( $check ) ?>
-                                                                                id="<?php echo "item_" . $value2->term_id ?>"
-                                                                                value="<?php echo esc_html( $value2->term_id ) ?>">
+                                                                                    class="wb-checkbox-search item_taxonomy"
+                                                                                    type="checkbox" <?php echo esc_html( $check ) ?>
+                                                                                    id="<?php echo "item_" . $value2->term_id ?>"
+                                                                                    value="<?php echo esc_html( $value2->term_id ) ?>">
                                                                             <?php echo esc_html( $value2->name ) ?>
                                                                         </label>
                                                                     </div>
@@ -288,7 +288,7 @@
                                                                         ?>
                                                                         <div class="">
                                                                             <label
-                                                                                class="show-more-terms"><?php esc_html_e( 'More...', 'wpbooking' ) ?></label>
+                                                                                    class="show-more-terms"><?php esc_html_e( 'More...', 'wpbooking' ) ?></label>
                                                                         </div>
                                                                         <?php
                                                                     }
@@ -319,7 +319,7 @@
                         ?>
                         <div class="item-search">
                             <label
-                                for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
+                                    for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
 
                             <div class="item-search-content">
                                 <div class="list-checkbox">
@@ -339,10 +339,10 @@
                                                 }
                                                 ?>
                                                 <label><input
-                                                        class="wb-checkbox-search item_taxonomy <?php if ( $v[ 'required' ] == 'yes' ) echo 'wb-required' ?>"
-                                                        type="checkbox" <?php echo esc_html( $check ) ?>
-                                                        id="<?php echo "item_" . $key2 ?>"
-                                                        value="<?php echo esc_html( $key2 ) ?>">
+                                                            class="wb-checkbox-search item_taxonomy <?php if ( $v[ 'required' ] == 'yes' ) echo 'wb-required' ?>"
+                                                            type="checkbox" <?php echo esc_html( $check ) ?>
+                                                            id="<?php echo "item_" . $key2 ?>"
+                                                            value="<?php echo esc_html( $key2 ) ?>">
                                                     <?php echo( $value2 ) ?></label>
                                                 <?php
                                             }
@@ -385,17 +385,17 @@
                                 <div class="item-search-content">
                                     <label>
                                         <input type="hidden" class="checkin_d" name="checkin_d"
-                                               value="<?php echo WPBooking_Input::get( 'checkin_d' ) ?>"/>
+                                               value="<?php echo esc_attr( WPBooking_Input::get( 'checkin_d' ) ); ?>"/>
                                         <input type="hidden" class="checkin_m" name="checkin_m"
-                                               value="<?php echo WPBooking_Input::get( 'checkin_m' ) ?>"/>
+                                               value="<?php echo esc_attr( WPBooking_Input::get( 'checkin_m' ) ); ?>"/>
                                         <input type="hidden" class="checkin_y" name="checkin_y"
-                                               value="<?php echo WPBooking_Input::get( 'checkin_y' ) ?>"/>
+                                               value="<?php echo esc_attr( WPBooking_Input::get( 'checkin_y' ) ) ?>"/>
                                         <input
-                                            class="wpbooking-date-start <?php if ( $v[ 'required' ] == 'yes' ) echo 'wb-required' ?>"
-                                            readonly type="text" <?php echo esc_html( $required ) ?>
-                                            id="<?php echo esc_attr( $id ) ?>"
-                                            placeholder="<?php echo esc_html( $v[ 'placeholder' ] ) ?>"
-                                            value="<?php echo esc_html( $check_in ) ?>">
+                                                class="wpbooking-date-start <?php if ( $v[ 'required' ] == 'yes' ) echo 'wb-required' ?>"
+                                                readonly type="text" <?php echo esc_html( $required ) ?>
+                                                id="<?php echo esc_attr( $id ) ?>"
+                                                placeholder="<?php echo esc_html( $v[ 'placeholder' ] ) ?>"
+                                                value="<?php echo esc_html( $check_in ) ?>">
 
                                         <input class="wpbooking-check-in-out" type="text" name="check_in_out"
                                                value="<?php echo esc_html( WPBooking_Input::request( 'check_in_out', $check_in_out ) ); ?>">
@@ -408,17 +408,17 @@
                                 <div class="item-search-content">
                                     <label>
                                         <input type="hidden" class="checkout_d" name="checkout_d"
-                                               value="<?php echo WPBooking_Input::get( 'checkout_d' ) ?>"/>
+                                               value="<?php echo esc_attr( WPBooking_Input::get( 'checkout_d' ) ) ?>"/>
                                         <input type="hidden" class="checkout_m" name="checkout_m"
-                                               value="<?php echo WPBooking_Input::get( 'checkout_m' ) ?>"/>
+                                               value="<?php echo esc_attr( WPBooking_Input::get( 'checkout_m' ) ) ?>"/>
                                         <input type="hidden" class="checkout_y" name="checkout_y"
-                                               value="<?php echo WPBooking_Input::get( 'checkout_y' ) ?>"/>
+                                               value="<?php echo esc_attr( WPBooking_Input::get( 'checkout_y' ) ) ?>"/>
                                         <input
-                                            class="wpbooking-date-end <?php if ( $v[ 'required' ] == 'yes' ) echo 'wb-required' ?>"
-                                            readonly type="text" <?php echo esc_html( $required ) ?>
-                                            id="<?php echo esc_attr( $id ) ?>"
-                                            placeholder="<?php echo esc_html( $v[ 'placeholder' ] ) ?>"
-                                            value="<?php echo esc_html( $check_out ) ?>">
+                                                class="wpbooking-date-end <?php if ( $v[ 'required' ] == 'yes' ) echo 'wb-required' ?>"
+                                                readonly type="text" <?php echo esc_html( $required ) ?>
+                                                id="<?php echo esc_attr( $id ) ?>"
+                                                placeholder="<?php echo esc_html( $v[ 'placeholder' ] ) ?>"
+                                                value="<?php echo esc_html( $check_out ) ?>">
                                     </label>
                                 </div>
                                 <div class="wb-collapse"></div>
@@ -537,13 +537,13 @@
                 extract( $instance );
                 ?>
                 <p><label
-                        for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><strong><?php esc_html_e( 'Title:', "wpbooking" ); ?></strong>
+                            for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><strong><?php esc_html_e( 'Title:', "wpbooking" ); ?></strong>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
                                name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text"
                                value="<?php echo esc_attr( $title ); ?>"/></label></p>
                 <p>
                     <label
-                        for="<?php echo esc_attr( $this->get_field_id( 'service_type' ) ); ?>"><strong><?php esc_html_e( 'Types of service:', 'wpbooking' ); ?></strong>
+                            for="<?php echo esc_attr( $this->get_field_id( 'service_type' ) ); ?>"><strong><?php esc_html_e( 'Types of service:', 'wpbooking' ); ?></strong>
                         <?php
                             $data = WPBooking_Service_Controller::inst()->get_service_types();
                         ?>
@@ -570,7 +570,7 @@
                     foreach ( $all_list_field as $key => $value ) {
                         ?>
                         <div
-                            class="list_item_widget  div_content_<?php echo esc_attr( $key ) ?> <?php if ( $key != $service_type ) echo "hide"; ?>">
+                                class="list_item_widget  div_content_<?php echo esc_attr( $key ) ?> <?php if ( $key != $service_type ) echo "hide"; ?>">
                             <label><strong><?php esc_html_e( "Search Fields:", "wpbooking" ) ?></strong></label>
                             <div class="list-group content_list_search_form_widget">
 
@@ -621,10 +621,10 @@
                                                                         <th> <?php echo esc_html( $v1[ 'label' ] ) ?>:
                                                                         </th>
                                                                         <td><label><input
-                                                                                    type="checkbox" <?php checked( 1, $data_value ) ?>
-                                                                                    value="1"
-                                                                                    name="<?php echo esc_attr( $this->get_field_name( 'field_search' ) ); ?>[<?php echo esc_attr( $key ) ?>][<?php echo esc_attr( $number ) ?>][<?php echo esc_attr( $v1[ 'name' ] ) ?>]"
-                                                                                    class=" <?php echo esc_attr( $v1[ 'name' ] ) ?>"> <?php esc_html_e( 'Yes', 'wpbooking' ) ?>
+                                                                                        type="checkbox" <?php checked( 1, $data_value ) ?>
+                                                                                        value="1"
+                                                                                        name="<?php echo esc_attr( $this->get_field_name( 'field_search' ) ); ?>[<?php echo esc_attr( $key ) ?>][<?php echo esc_attr( $number ) ?>][<?php echo esc_attr( $v1[ 'name' ] ) ?>]"
+                                                                                        class=" <?php echo esc_attr( $v1[ 'name' ] ) ?>"> <?php esc_html_e( 'Yes', 'wpbooking' ) ?>
                                                                             </label></td>
                                                                     </tr>
                                                                     <?php
@@ -637,8 +637,8 @@
                                                                         </th>
                                                                         <td>
                                                                             <select
-                                                                                class="form-control <?php echo esc_attr( $v1[ 'name' ] ) ?>"
-                                                                                name="<?php echo esc_attr( $this->get_field_name( 'field_search' ) ); ?>[<?php echo esc_attr( $key ) ?>][<?php echo esc_attr( $number ) ?>][<?php echo esc_attr( $v1[ 'name' ] ) ?>]">
+                                                                                    class="form-control <?php echo esc_attr( $v1[ 'name' ] ) ?>"
+                                                                                    name="<?php echo esc_attr( $this->get_field_name( 'field_search' ) ); ?>[<?php echo esc_attr( $key ) ?>][<?php echo esc_attr( $number ) ?>][<?php echo esc_attr( $v1[ 'name' ] ) ?>]">
                                                                                 <?php
                                                                                     if ( !empty( $options ) ) {
                                                                                         foreach ( $options as $k2 => $v2 ) {
@@ -659,7 +659,7 @@
                                                     </table>
                                                 </div>
                                                 <div
-                                                    class="head-title"><?php echo esc_html( $hteml_title_form ) ?></div>
+                                                        class="head-title"><?php echo esc_html( $hteml_title_form ) ?></div>
                                             </div>
                                             <?php
                                             $number++;
@@ -732,8 +732,8 @@
                                                     <th> <?php echo esc_html( $v[ 'label' ] ) ?>:</th>
                                                     <td>
                                                         <select
-                                                            class="form-control <?php echo esc_attr( $v[ 'name' ] ) ?>"
-                                                            name="__name_field_search__[<?php echo esc_attr( $key ) ?>][__number__][<?php echo esc_attr( $v[ 'name' ] ) ?>]">
+                                                                class="form-control <?php echo esc_attr( $v[ 'name' ] ) ?>"
+                                                                name="__name_field_search__[<?php echo esc_attr( $key ) ?>][__number__][<?php echo esc_attr( $v[ 'name' ] ) ?>]">
                                                             <?php
                                                                 if ( !empty( $options ) ) {
                                                                     foreach ( $options as $k1 => $v1 ) {

@@ -15,7 +15,7 @@ $checkout_form_data=$order->get_checkout_form_data();
 					$service_type=$value['service_type'];
 					?>
 					<div class="review-order-item-info">
-						<a class="service-name" href="<?php echo get_permalink($value['post_id'])?>" target="_blank"><?php echo get_the_title($value['post_id'])?></a>
+						<a class="service-name" href="<?php echo get_permalink($value['post_id'])?>" target="_blank"><?php echo esc_html(get_the_title($value['post_id']))?></a>
 						<?php do_action('wpbooking_order_item_information',$value) ?>
 						<?php do_action('wpbooking_order_item_information_'.$service_type,$value) ?>
 					</div>

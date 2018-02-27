@@ -32,7 +32,7 @@ if(!empty($order_data['rooms'])){
                                 </div>
                                 <div class="col-md-9">
                                     <div class="room-info">
-                                        <div class="title"><?php echo get_the_title($room_id) ?></div>
+                                        <div class="title"><?php echo esc_html(get_the_title($room_id)) ?></div>
                                         <?php if($max = $service_room->get_meta('max_guests')){ ?>
                                             <div class="sub-title"><?php esc_html_e("Max","wpbooking") ?> <?php echo esc_attr($max) ?> <?php esc_html_e("people","wpbooking") ?></div>
                                         <?php } ?>

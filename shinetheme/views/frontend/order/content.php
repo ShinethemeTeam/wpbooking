@@ -76,7 +76,7 @@ do_action('wpbooking_before_order_content');
                     </div>
                     <div class="review-order-item-title">
                         <h4 class="service-name">
-                            <a href="<?php echo get_permalink($order_data['post_id'])?>" target="_blank"><?php echo get_the_title($order_data['post_id'])?></a>
+                            <a href="<?php echo get_permalink($order_data['post_id'])?>" target="_blank"><?php echo esc_html(get_the_title($order_data['post_id']))?></a>
                         </h4>
                         <div class="wb-hotel-star">
                             <?php

@@ -1451,33 +1451,30 @@
              */
             public function get_available_days( $post_id, $month, $year )
             {
-
                 $calendar = WPBooking_Calendar_Model::inst();
-
-                $start = strtotime( date( '1-' . $month . '-' . $year ) );
+                $start    = strtotime( date( '1-' . $month . '-' . $year ) );
                 if ( $start < strtotime( date( 'd-m-Y' ) ) ) $start = strtotime( date( 'd-m-Y' ) );
-                $end = strtotime( date( 't-' . $month . '-' . $year ) );
+                $end = strtotime( date( 't-m-Y', $start ) );
                 global $wpdb;
 
                 switch ( get_post_meta( $post_id, 'pricing_type', true ) ) {
                     case "per_unit":
                         $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability.id,
-	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price' )
+	                    ' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price' )
                             ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id" )
                             ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left' )
                             ->where( [
                                 $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
                                 $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
-                                'calendar_price >'                               => 0,
-                                'start >='                                       => $start,
-                                'end <='                                         => $end,
+                                'calendar_price >='                              => 0,
+                                'CAST(`start` as UNSIGNED) >='                   => (int)$start,
+                                'CAST(`end` as UNSIGNED) <='                     => (int)$end,
                             ] )
                             ->groupby( $wpdb->prefix . 'wpbooking_availability.id' )
                             ->orderby( $wpdb->prefix . 'wpbooking_availability.start' )
                             ->having( ' total_people_booked IS NULL OR total_people_booked < max_guests' )
                             ->get()->result();
                         $calendar->_clear_query();
-
                         break;
                     case "per_person":
                         $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability.id,
@@ -1517,6 +1514,7 @@
              */
             public function getNext10MonthAvailable( $post_id = false )
             {
+                $month = apply_filters( 'wpbooking_change_number_of_month', 24 );
                 if ( !$post_id ) $post_id = get_the_ID();
 
                 $calendar = WPBooking_Calendar_Model::inst();
@@ -1551,16 +1549,16 @@
                                 ORDER BY
                                     START ASC
                                 LIMIT 0,
-                                 10
+                                 {$month}
                     
                     ", ARRAY_A );
                         break;
                     case "per_person":
                         $from_query = $calendar->select( $wpdb->prefix . 'wpbooking_availability.id,
-	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,
-' . $wpdb->prefix . 'wpbooking_availability.adult_price,
-' . $wpdb->prefix . 'wpbooking_availability.child_price,
-' . $wpdb->prefix . 'wpbooking_availability.infant_price' )
+                        ' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,
+                    ' . $wpdb->prefix . 'wpbooking_availability.adult_price,
+                    ' . $wpdb->prefix . 'wpbooking_availability.child_price,
+                    ' . $wpdb->prefix . 'wpbooking_availability.infant_price' )
                             ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id" )
                             ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','trash','payment_failed')", 'left' )
                             ->where( [
@@ -1588,7 +1586,7 @@
                                 ORDER BY
                                     START ASC
                                 LIMIT 0,
-                                 10
+                                 {$month}
                     ", ARRAY_A );
                     default:
                         break;

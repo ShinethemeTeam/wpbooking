@@ -20,7 +20,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="u_password"><?php esc_html_e('Old Password','wpbooking') ?></label>
-                    <input type="password" class="form-control <?php echo esc_attr($old_pass); ?>" required id="u_password" name="u_password" value="<?php echo WPBooking_Input::post('u_password'); ?>">
+                    <input type="password" class="form-control <?php echo esc_attr($old_pass); ?>" required id="u_password" name="u_password" value="<?php echo esc_attr(WPBooking_Input::post('u_password')); ?>">
                 </div>
             </div>
             <div class="col-md-12">

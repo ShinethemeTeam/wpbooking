@@ -97,8 +97,8 @@ Please see https://.wpbooking.org for more information and ask your questions th
 == Upgrade Notice ==
 
 == Changelog ==
-
 = 1.0: Dec 16, 2016 =
+    + First release
 = 1.4: Nov 17, 2017 =
     + [Fix bug] List of related services
     + [Fix bug] Convert date format
@@ -106,10 +106,11 @@ Please see https://.wpbooking.org for more information and ask your questions th
     + Update translation
     + Inventory for accommodation
     + Bulk edit for calendar
-
-=== 1.5 Dec 07 2017 ===
+=== 1.5 Feb 26 2018 ===
     + Update payment gateways core
-=== 1.6 Dec 07 2017 ===
+    + Bug fix: Can not get accommodation's policy
+    + Bug fix: Security Vulnerability in Plugin
+    + Bug fix: Get the available months of the tour
     + Update daterangepicker library
 
 

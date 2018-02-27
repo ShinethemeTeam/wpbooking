@@ -65,7 +65,7 @@ $rows=$order_model->get()->result();
 				<td>
 					<a href="<?php echo esc_url($url)  ?>">#<?php echo esc_attr($row['id']) ?></a>
 					-
-					<a class="service-name" href="<?php echo get_permalink($row['post_id'])?>" target="_blank"><?php echo get_the_title($row['post_id'])?></a>
+					<a class="service-name" href="<?php echo esc_attr(get_permalink($row['post_id']))?>" target="_blank"><?php echo get_the_title($row['post_id'])?></a>
 					- <?php esc_html_e('by','wpbooking') ?>
 					<?php if($row['customer_id']){
 						$user=get_userdata($row['customer_id']);

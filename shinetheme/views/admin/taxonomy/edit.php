@@ -11,7 +11,7 @@
 	<h2><?php esc_html_e( 'Edit Attribute', 'wpbooking' ) ?></h2>
 	<?php echo wpbooking_get_admin_message() ?>
 	<form action="" method="post">
-		<input type="hidden" name="taxonomy_name" value="<?php echo WPBooking_Input::get('taxonomy_name') ?>" class="hidden">
+		<input type="hidden" name="taxonomy_name" value="<?php echo esc_attr(WPBooking_Input::get('taxonomy_name')) ?>" class="hidden">
 		<table class="form-table">
 			<tbody>
 			<tr class="form-field form-required">

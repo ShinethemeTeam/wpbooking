@@ -97,7 +97,7 @@ $query=new WP_Query($args);
 		<div class="tablenav-pages">
 			<p class="search-box">
 				<label class="screen-reader-text" for="post-search-input"><?php esc_html_e('Search Order','wpbooking') ?></label>
-				<input type="search" name="keyword" value="<?php echo WPBooking_Input::get('keyword') ?>" placeholder="<?php echo esc_html__('ID','wpbooking') ?>">
+				<input type="search" name="keyword" value="<?php echo esc_attr(WPBooking_Input::get('keyword')) ?>" placeholder="<?php echo esc_html__('ID','wpbooking') ?>">
 				<input type="submit" name="search_keyword" class="button" value="<?php esc_html_e('Search Order','wpbooking') ?>"></p>
 		</div>
 	</div>
@@ -176,7 +176,7 @@ $query=new WP_Query($args);
 						</td>
 						<td class="wb-booking-information">
                             <span class="wb-booking-info">
-                                <a href="<?php echo esc_url(get_permalink($order_data['post_id'])); ?>" target="_blank"><strong><?php echo get_the_title($order_data['post_id']); ?></strong></a><br>
+                                <a href="<?php echo esc_url(get_permalink($order_data['post_id'])); ?>" target="_blank"><strong><?php echo esc_html(get_the_title($order_data['post_id'])); ?></strong></a><br>
                                 <span class="wp-button-booking"><em><?php echo esc_html__('details ','wpbooking'); ?></em><span class="caret"></span></span>
                             </span>
                             <span class="wb-price-total">

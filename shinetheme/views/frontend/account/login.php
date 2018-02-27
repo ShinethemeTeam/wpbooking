@@ -19,7 +19,7 @@ if(!empty(WPBooking()->get('error_code'))){
 	<div class="form-group-wrap">
 		<div class="form-group">
 			<label for="input-login" class="control-label"><?php esc_html_e('Username or email address','wpbooking') ?> <span class="required">*</span></label>
-			<input type="text" class="form-control <?php echo esc_attr($error_field['u']); ?>" required value="<?php echo WPBooking_Input::post('login') ?>" name="login" id="input-login">
+			<input type="text" class="form-control <?php echo esc_attr($error_field['u']); ?>" required value="<?php echo esc_attr(WPBooking_Input::post('login')) ?>" name="login" id="input-login">
 		</div>
 		<div class="form-group">
 			<label for="input-password" class="control-label"><?php esc_html_e('Password','wpbooking') ?> <span class="required">*</span></label>

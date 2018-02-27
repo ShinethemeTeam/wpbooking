@@ -12,12 +12,12 @@ $cart=$booking->get_cart();
 		<div class="review-order-item">
 			<div class="review-order-item-info">
 				<div class="review-order-item-img">
-					<a href="<?php echo get_permalink($post_id)?>" target="_blank">
+					<a href="<?php echo esc_url(get_permalink($post_id))?>" target="_blank">
 						<?php echo wp_kses($featured['thumb'],array('img'=>array('src'=>array(),'alt'=>array())))?>
 					</a>
 				</div>
 				<div class="review-order-item-title">
-					<h4 class="service-name"><a href="<?php echo get_permalink($cart['post_id'])?>" target="_blank"><?php echo get_the_title($cart['post_id'])?></a></h4>
+					<h4 class="service-name"><a href="<?php echo esc_url(get_permalink($cart['post_id']))?>" target="_blank"><?php echo get_the_title($cart['post_id'])?></a></h4>
 					<?php do_action('wpbooking_review_before_address',$cart) ?>
 					<?php if($address=$service->get_address()){
 						printf('<p class="service-address"><i class="fa fa-map-marker"></i> %s</p>',$address);

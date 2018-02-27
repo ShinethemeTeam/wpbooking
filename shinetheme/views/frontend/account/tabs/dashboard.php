@@ -50,7 +50,7 @@ global $current_user;
 			<?php } ?>
 			<?php  ?>
 			<div class="col-md-12">
-				<a class="change_pass" href="<?php echo get_the_permalink(get_the_ID()) ?>tab/change_password/"><?php esc_html_e("Change Password","wpbooking") ?></a>
+				<a class="change_pass" href="<?php echo esc_attr(get_the_permalink(get_the_ID())) ?>tab/change_password/"><?php esc_html_e("Change Password","wpbooking") ?></a>
 
 			</div>
 		</div>

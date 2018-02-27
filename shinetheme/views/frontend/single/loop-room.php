@@ -268,9 +268,9 @@ if($diff < 0 )$diff = 0;
                              ?>
                         </span>
                 </div>
-                <div class="item"><b><?php esc_html_e("Bath rooms","wpbooking") ?>: </b><?php echo get_post_meta(get_the_ID(),'bath_rooms',true) ?> <?php esc_html_e('room(s)','wpbooking') ?></div>
-                <div class="item"><b><?php esc_html_e("Living rooms","wpbooking") ?>: </b><?php echo get_post_meta(get_the_ID(),'living_rooms',true) ?> <?php esc_html_e('room(s)','wpbooking') ?></div>
-                <div class="item"><b><?php esc_html_e("Bed rooms","wpbooking") ?>: </b><?php echo get_post_meta(get_the_ID(),'bed_rooms',true) ?> <?php esc_html_e('room(s)','wpbooking') ?></div>
+                <div class="item"><b><?php esc_html_e("Bath rooms","wpbooking") ?>: </b><?php echo esc_attr(get_post_meta(get_the_ID(),'bath_rooms',true)) ?> <?php esc_html_e('room(s)','wpbooking') ?></div>
+                <div class="item"><b><?php esc_html_e("Living rooms","wpbooking") ?>: </b><?php echo esc_attr(get_post_meta(get_the_ID(),'living_rooms',true)) ?> <?php esc_html_e('room(s)','wpbooking') ?></div>
+                <div class="item"><b><?php esc_html_e("Bed rooms","wpbooking") ?>: </b><?php echo esc_attr(get_post_meta(get_the_ID(),'bed_rooms',true)) ?> <?php esc_html_e('room(s)','wpbooking') ?></div>
             </div>
             <div class="facilities">
                 <?php $facilities = get_post_meta(get_the_ID(),'taxonomy_room',true);?>

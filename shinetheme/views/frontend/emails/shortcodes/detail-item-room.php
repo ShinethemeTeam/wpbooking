@@ -8,13 +8,13 @@ if(!empty($order_data['rooms'])){
             <?php esc_html_e('Rooms','wpbooking') ?>
         </th>
         <th class=text-center>
-            <?php esc_html_e('Price','wpbooking') ?> (<?php echo get_post_meta($order_id,'currency',true) ?>)
+            <?php esc_html_e('Price','wpbooking') ?> (<?php echo esc_attr(get_post_meta($order_id,'currency',true)) ?>)
         </th>
         <th width=15% class=text-center>
             <?php esc_html_e('Number','wpbooking') ?>
         </th>
         <th class=text-center>
-            <?php esc_html_e('Total','wpbooking') ?>(<?php echo get_post_meta($order_id,'currency',true) ?>)
+            <?php esc_html_e('Total','wpbooking') ?>(<?php echo esc_attr(get_post_meta($order_id,'currency',true)) ?>)
         </th>
     </tr>
     <tr>
@@ -36,7 +36,7 @@ if(!empty($order_data['rooms'])){
                 </div>
                 <div class=col-7>
                     <div class=bold>
-                        <h3> <?php echo get_the_title($room_id) ?> </h3>
+                        <h3> <?php echo esc_html(get_the_title($room_id)) ?> </h3>
                     </div>
                     <div>
                         <?php if($max = $service_room->get_meta('max_guests')){ ?>
