@@ -334,7 +334,6 @@ jQuery(document).ready(function ($) {
     has_date_picker.datepicker()
         .datepicker('widget');
 
-
     $('.wpbooking-search-form-wrap').each(function () {
         var check_in     = $(this).find('.wpbooking-date-start');
         var check_out    = $(this).find('.wpbooking-date-end');
@@ -370,10 +369,84 @@ jQuery(document).ready(function ($) {
             });
         }
     });
+    $(window).on('resize', function(){
+        var single_calendar = false;
+        if (window.matchMedia("(max-width: 767px)").matches) {
+            single_calendar = true;
+        }
+        if ($('.departure-date-group', 'body').length) {
+            $('.departure-date-group', 'body').each(function () {
+                var t            = $(this);
+                var check_in_out = $('.wpbooking-check-in-out', t);
+                var check_in     = $('.wpbooking-date-start', t);
+                var check_out    = $('.wpbooking-date-end', t);
+                var customClass  = check_in_out.data('custom-class');
+                var start_date   = $(this).data('start-month');
+                check_in_out.daterangepicker({
+                        singleDatePicker : single_calendar,
+                        autoApply        : true,
+                        disabledPast     : true,
+                        dateFormat       : wpbooking_params.dateformat,
+                        customClass      : customClass,
+                        singleDay        : true,
+                        sameDate         : true,
+                        hideOldMonth     : true,
+                        classNotAvailable: ['disabled'],
+                        enableLoading    : true,
+                        minDate          : start_date,
+                        fetchEvents      : function (start, end, el, callback) {
+                            var events = [];
+                            if (el.flag_get_events) {
+                                return false;
+                            }
+                            el.flag_get_events = true;
+                            el.container.find('.overlay-load').removeClass('hidden');
+                            var data = {
+                                action  : 'wpbooking_get_availability_tour',
+                                start   : start.format('YYYY-MM-DD'),
+                                end     : end.format('YYYY-MM-DD'),
+                                post_id : t.data('post_id'),
+                                security: wpbooking_params.wpbooking_security
+                            };
+                            el.container.find('.overlay-load').removeClass('hidden');
+                            $.post(wpbooking_params.ajax_url, data, function (respon) {
+                                if (typeof respon === 'object') {
+                                    if (typeof respon.events === 'object') {
+                                        events = respon.events;
+                                    }
+                                } else {
+                                    console.log('Can not get data');
+                                }
+                                callback(events, el);
+                                el.flag_get_events = false;
+                                el.container.find('.overlay-load').addClass('hidden');
+                            }, 'json');
+                        }
+                    },
+                    function (start, end, label) {
+                        $('.checkin_d', t).val(start.format('DD'));
+                        $('.checkin_m', t).val(start.format('MM'));
+                        $('.checkin_y', t).val(start.format('YYYY'));
+                        check_in.val(start.format(wpbooking_params.dateformat)).trigger('change');
 
+                        $('.checkout_d', t).val(end.format('DD'));
+                        $('.checkout_m', t).val(end.format('MM'));
+                        $('.checkout_y', t).val(end.format('YYYY'));
+                        check_out.val(end.format(wpbooking_params.dateformat)).trigger('change');
+                        check_in_out.trigger('daterangepicker_change', [start, end]);
+                    });
+                check_in.focus(function () {
+                    check_in_out.trigger('click');
+                });
+
+                check_out.focus(function () {
+                    check_in_out.trigger('click');
+                });
+            });
+        }
+    }).resize();
 
     $('.wpbooking-select2').select2();
-
 
     $('.search-room-availablity').each(function () {
         var t            = $(this);

@@ -99,6 +99,14 @@ Please see https://.wpbooking.org for more information and ask your questions th
 == Changelog ==
 = 1.0: Dec 16, 2016 =
     + First release
+= 1.1: Jan 19 2017 =
+    + Update optimize code & libraries
+= 1.2: Mar 01 2017 =
+    + Update chart.js library
+    + Update extra price for tour service
+= 1.3: Sep 20 2017 =
+    + Bug fix: Translation
+    + Update: Calendar picker
 = 1.4: Nov 17, 2017 =
     + [Fix bug] List of related services
     + [Fix bug] Convert date format
@@ -112,5 +120,7 @@ Please see https://.wpbooking.org for more information and ask your questions th
     + Bug fix: Security Vulnerability in Plugin
     + Bug fix: Get the available months of the tour
     + Update daterangepicker library
-
-
+=== 1.6 Mar 20 2018 ===
+    + [Update] Add datepicker to the tour service
+    + [Update] Display price, status on the tour
+    + [Update] Displays the nearest month for the tour

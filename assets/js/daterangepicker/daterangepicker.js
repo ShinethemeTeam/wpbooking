@@ -1691,7 +1691,12 @@
                     if (!this.timePicker)
                         this.clickApply(e);
                 }
-
+            }else{
+                if(this.sameDate){
+                    this.setEndDate(this.startDate);
+                    if (!this.timePicker)
+                        this.clickApply(e);
+                }
             }
             this.clickedDate = true;
             this.updateView();
