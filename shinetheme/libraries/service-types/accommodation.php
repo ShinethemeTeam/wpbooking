@@ -466,8 +466,8 @@
                 $status  = WPBooking_Input::post( 'status', 'available' );
                 $start   = (float)WPBooking_Input::post( 'start' );
                 $end     = (float)WPBooking_Input::post( 'end' );
-                $start /= 1000;
-                $end /= 1000;
+                $start   /= 1000;
+                $end     /= 1000;
 
                 $start = strtotime( date( 'Y-m-d', $start ) );
                 $end   = strtotime( date( 'Y-m-d', $end ) );
@@ -621,7 +621,7 @@
                         if ( !isset( $cart[ 'is_cart_page' ] ) or $cart[ 'is_cart_page' ] ) {
                             ?>
                             <small><a
-                                    href="<?php echo esc_url( $url_change_date ) ?>"><?php esc_html_e( "Change Date", "wpbooking" ) ?></a>
+                                        href="<?php echo esc_url( $url_change_date ) ?>"><?php esc_html_e( "Change Date", "wpbooking" ) ?></a>
                             </small>
                         <?php } ?>
                 </div>
@@ -661,9 +661,9 @@
                 ?>
                 <h4 class=color_black>
                     <span
-                        class=bold><?php esc_html_e( "From:", "wpbooking" ) ?> </span> <?php echo date_i18n( get_option( 'date_format' ), $order_data[ 'check_in_timestamp' ] ) ?>
+                            class=bold><?php esc_html_e( "From:", "wpbooking" ) ?> </span> <?php echo date_i18n( get_option( 'date_format' ), $order_data[ 'check_in_timestamp' ] ) ?>
                     <span
-                        class=bold><?php esc_html_e( "To:", "wpbooking" ) ?> </span><?php echo date_i18n( get_option( 'date_format' ), $order_data[ 'check_out_timestamp' ] ) ?>
+                            class=bold><?php esc_html_e( "To:", "wpbooking" ) ?> </span><?php echo date_i18n( get_option( 'date_format' ), $order_data[ 'check_out_timestamp' ] ) ?>
                     <?php
                         $diff = $order_data[ 'check_out_timestamp' ] - $order_data[ 'check_in_timestamp' ];
                         $diff = $diff / ( 60 * 60 * 24 );
@@ -1121,7 +1121,7 @@
                                 'desc'  => esc_html__( "Set terms and conditions for your property", "wpbooking" )
                             ],
                             [
-                                'label' => esc_html__( 'Minimum Stay', 'wpbooking' ),
+                                'label' => esc_html__( 'Minimum Stay (night)', 'wpbooking' ),
                                 'id'    => 'minimum_stay',
                                 'type'  => 'dropdown',
                                 'value' => [
@@ -1156,6 +1156,13 @@
                                     29,
                                     30
                                 ],
+                                'class' => 'small'
+                            ],
+                            [
+                                'label' => esc_html__( 'Maximum Stay (night)', 'wpbooking' ),
+                                'id'    => 'maximum_stay',
+                                'type'  => 'number',
+                                'value' => '',
                                 'class' => 'small'
                             ],
                             [
@@ -1418,10 +1425,10 @@
             
                 <input name='wb_room_id' type='hidden' value='" . esc_attr( $room_id ) . "'>
             ";
-                $res[ 'html' ] .= sprintf( '<input type="hidden" name="wb_hotel_room_security" value="%s">', wp_create_nonce( "wpbooking_hotel_room_" . $room_id ) );
+                $res[ 'html' ]   .= sprintf( '<input type="hidden" name="wb_hotel_room_security" value="%s">', wp_create_nonce( "wpbooking_hotel_room_" . $room_id ) );
 
                 $res[ 'html' ] .= '<div class="wb-back-all-rooms-wrap"><a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> ' . esc_html__( 'Back to All Rooms', 'wpbooking' ) . '</a></div>';
-                $fields = $this->get_room_meta_fields();
+                $fields        = $this->get_room_meta_fields();
                 foreach ( (array)$fields as $field_id => $field ):
 
                     if ( empty( $field[ 'type' ] ) )
@@ -1673,6 +1680,11 @@
                         $dDiff               = wpbooking_timestamp_diff_day( $check_in_timestamp, $check_out_timestamp );
                         if ( $dDiff < $minimum_stay ) {
                             $result[ 'message' ] = sprintf( esc_html__( 'This %s required minimum stay is %s night(s).', 'wpbooking' ), $service->get_type(), $minimum_stay );
+                            $result[ 'status' ]  = 2;
+                        }
+                        $maximum_stay = $service->get_maximum_stay();
+                        if ( $maximum_stay > 0 && $dDiff > $maximum_stay ) {
+                            $result[ 'message' ] = sprintf( esc_html__( 'This %s required maximum stay is %s night(s).', 'wpbooking' ), $service->get_type(), $maximum_stay );
                             $result[ 'status' ]  = 2;
                         }
                     }
@@ -2592,6 +2604,13 @@
 
                             return $is_validated;
                         }
+                        $maximum_stay = $service->get_maximum_stay();
+                        if ( (int)$maximum_stay > 0 && $dDiff > (int)$maximum_stay ) {
+                            $is_validated = false;
+                            wpbooking_set_message( sprintf( esc_html__( 'This %s required maximum stay is %s night(s)', 'wpbooking' ), $service->get_type(), $maximum_stay ), 'error' );
+
+                            return $is_validated;
+                        }
                     }
 
 
@@ -3332,7 +3351,7 @@
                             if ( $value[ 'excluded' ] == 'yes_not_included' ) {
                                 $total_tax += $price;
                             }
-                            $tax_total += $price;
+                            $tax_total              += $price;
                             $tax[ $key ][ 'price' ] = floatval( $price );
                         }
                     }

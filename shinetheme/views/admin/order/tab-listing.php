@@ -51,7 +51,7 @@ $query=new WP_Query($args);
 					<option value="complete_booking"><?php esc_html_e('Mark as Completed','wpbooking') ?></option>
 					<option value="cancel_booking"><?php esc_html_e('Mark as Cancelled','wpbooking')  ?></option>
 					<option value="refunded_booking"><?php esc_html_e('Mark as Refunded','wpbooking')  ?></option>
-					<option value="trash"><?php esc_html_e('Move to Trash','wpbooking')  ?></option>
+					<option value="cancel"><?php esc_html_e('Move to Trash','wpbooking')  ?></option>
 					<option value="permanently_delete"><?php esc_html_e('Permanently Delete','wpbooking')  ?></option>
 				</select>
 				<input type="submit" id="wpbooking_apply_order" name="wpbooking_apply_changes" class="button action" value="Apply">
@@ -164,7 +164,7 @@ $query=new WP_Query($args);
                             </div>
 							<div class="wb-row-actions none">
 								<span class="complete"><a href="<?php echo esc_url($url_complete)  ?>" title="<?php esc_html_e('Complete this item','wpbooking')?>"><?php esc_html_e('Complete','wpbooking')?></a> </span>
-								<span class="move_trash trash"><a href="<?php echo add_query_arg(array('action'=>'trash','wpbooking_apply_changes'=>'1','wpbooking_order_item'=>array(get_the_ID()))) ?>" onclick="return confirm('<?php esc_html_e('Do you want to move to trash?','wpbooking') ?>')" title="<?php esc_html_e('Move to trash','wpbooking')?>"><?php esc_html_e('Trash','wpbooking')?></a> </span>
+								<span class="move_trash trash"><a href="<?php echo add_query_arg(array('action'=>'cancel','wpbooking_apply_changes'=>'1','wpbooking_order_item'=>array(get_the_ID()))) ?>" onclick="return confirm('<?php esc_html_e('Do you want to move to trash?','wpbooking') ?>')" title="<?php esc_html_e('Move to trash','wpbooking')?>"><?php esc_html_e('Cancel','wpbooking')?></a> </span>
 								<span class="resend_email">
 									<a href="<?php echo add_query_arg(array('wpbooking_resend_email'=>'true','order_id'=>get_the_ID())) ?>" title="<?php esc_html_e('Resend Email to this item','wpbooking')?>">
 										<?php esc_html_e('Resend Mail','wpbooking')?></a>

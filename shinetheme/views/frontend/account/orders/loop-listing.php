@@ -79,7 +79,7 @@ $rows=$order_model->get()->result();
 					} ?>
 					<div class="row-actions">
 						<span class="edit"><a href="<?php echo esc_url($url)  ?>" title="<?php esc_html_e('View Detail','wpbooking')?>"><?php esc_html_e('Detail','wpbooking')?></a> | </span>
-						<span class="move_trash trash"><a href="<?php echo add_query_arg(array('action'=>'trash','wpbooking_apply_changes'=>'1','wpbooking_order_item'=>array($row['id']))) ?>" onclick="return confirm('<?php esc_html_e('Are you want to move to trash?','wpbooking') ?>')" title="<?php esc_html_e('Move to trash','wpbooking')?>"><?php esc_html_e('Trash','wpbooking')?></a></span>
+						<span class="move_trash trash"><a href="<?php echo add_query_arg(array('action'=>'cancel','wpbooking_apply_changes'=>'1','wpbooking_order_item'=>array($row['id']))) ?>" onclick="return confirm('<?php esc_html_e('Are you want to move to trash?','wpbooking') ?>')" title="<?php esc_html_e('Move to trash','wpbooking')?>"><?php esc_html_e('Trash','wpbooking')?></a></span>
 					</div>
 				</td>
 				<td class="booking-data">

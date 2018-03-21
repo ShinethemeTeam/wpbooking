@@ -56,8 +56,8 @@ if (!class_exists('WPBooking_Admin_Order')) {
                 case 'refunded_booking':
                     $order->update_status($order_ids,'refunded');
                     break;
-                case 'trash':
-                    $order->update_status($order_ids,'trash');
+                case 'cancel':
+                    $order->update_status($order_ids,'cancel');
                     break;
                 case 'permanently_delete':
 					if(current_user_can('manage_options')){

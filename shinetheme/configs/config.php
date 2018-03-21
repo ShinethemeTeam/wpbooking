@@ -24,9 +24,9 @@ $config['order_status'] = array(
         'label' => esc_html__('Refunded', 'wpbooking'),
         'desc'  => esc_html__('Refunded by Admin', 'wpbooking'),
     ),
-    'trash'          => array(
-        'label' => esc_html__('Trash', 'wpbooking'),
-        'desc'  => esc_html__('Moved to Trash by Admin', 'wpbooking'),
+    'cancel'          => array(
+        'label' => esc_html__('Cancel', 'wpbooking'),
+        'desc'  => esc_html__('Customer or Admin is canceling the booking', 'wpbooking'),
     ),
 );
 

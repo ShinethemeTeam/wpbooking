@@ -629,8 +629,8 @@
             global $wpdb, $wp_locale;
 
             $extra_checks = "AND post_status != 'auto-draft'";
-            if ( !isset( $_GET[ 'post_status' ] ) || 'trash' !== $_GET[ 'post_status' ] ) {
-                $extra_checks .= " AND post_status != 'trash'";
+            if ( !isset( $_GET[ 'post_status' ] ) || 'cancel' !== $_GET[ 'post_status' ] ) {
+                $extra_checks .= " AND post_status != 'cancel'";
             } elseif ( isset( $_GET[ 'post_status' ] ) ) {
                 $extra_checks = $wpdb->prepare( ' AND post_status = %s', $_GET[ 'post_status' ] );
             }

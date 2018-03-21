@@ -452,6 +452,21 @@ if (!class_exists('WB_Service')) {
 			}
 		}
 
+        /**
+         * Get Number of Maximum Stay
+         *
+         * @since 1.6
+         * @author haint
+         *
+         * @return mixed
+         */
+        function get_maximum_stay()
+        {
+            if($this->ID){
+                return (int)get_post_meta($this->ID,'maximum_stay',TRUE);
+            }
+        }
+
 		/**
 		 * Get Max Guests of Service
 		 *
