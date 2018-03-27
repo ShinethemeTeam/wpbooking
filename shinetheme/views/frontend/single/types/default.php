@@ -361,6 +361,7 @@
 
 
             <?php
+                var_dump($hotel_id);
                 if ( $terms_conditions = get_post_meta( $hotel_id, 'terms_conditions', true ) ) { ?>
                     <div class="service-detail-item">
                         <div class="service-detail-title"><?php esc_html_e( 'Term & Condition', 'wpbooking' ) ?></div>

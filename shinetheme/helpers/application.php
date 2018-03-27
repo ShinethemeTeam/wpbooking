@@ -148,6 +148,55 @@
             return false;
         }
     }
+    if ( !function_exists( 'wpbooking_all_langs' ) ) {
+        function wpbooking_all_langs( $not_current = false, $return_all = false )
+        {
+            $langs = [];
+            if ( wpbooking_is_wpml() ) {
+                $languages = apply_filters( 'wpml_active_languages', null, [ 'skip_missing' => 0, 'orderby' => 'custom' ] );
+                if ( is_array( $languages ) && !empty( $languages ) ) {
+                    foreach ( $languages as $lang ) {
+                        if ( $not_current && $lang[ 'language_code' ] == wpbooking_current_lang() ) {
+                            continue;
+                        } else {
+                            if ( $return_all ) {
+                                $langs[] = $lang;
+                            } else {
+                                $langs[] = $lang[ 'language_code' ];
+                            }
+                        }
+                    }
+                }
+            }
+
+            return $langs;
+        }
+    }
+
+    if ( !function_exists( 'wpbooking_default_lang' ) ) {
+        function wpbooking_default_lang()
+        {
+            $lang = '';
+            if ( wpbooking_is_wpml() ) {
+                global $sitepress;
+                $lang = $sitepress->get_default_language();
+            }
+
+            return $lang;
+        }
+    }
+    if ( !function_exists( 'wpbooking_current_lang' ) ) {
+        function wpbooking_current_lang()
+        {
+            $lang = '';
+            if ( wpbooking_is_wpml() ) {
+                global $sitepress;
+                $lang = $sitepress->get_current_language();
+            }
+
+            return $lang;
+        }
+    }
     if ( !function_exists( 'wpbooking_is_wpml' ) ) {
         function wpbooking_is_wpml()
         {
@@ -179,6 +228,23 @@
             } else {
                 return $post_id;
             }
+        }
+    }
+
+    if ( !function_exists( 'wpbooking_post_translated' ) ) {
+        function wpbooking_post_translated( $post_id, $service_type = 'post', $lang = '' )
+        {
+            if ( wpbooking_is_wpml() ) {
+                if ( empty( $lang ) ) {
+                    $lang = ICL_LANGUAGE_CODE;
+                }
+                global $sitepress;
+                $a = apply_filters( 'wpml_object_id', $post_id, $service_type, true, $lang );
+
+                return $a;
+            }
+
+            return $post_id;
         }
     }
 

@@ -12,12 +12,13 @@ jQuery(document).ready(function ($) {
         run_condition_engine();
     });
     run_condition_engine();
+
     function run_condition_engine() {
         $('.wpbooking-condition[data-condition]').each(function () {
 
             var passed;
             var conditions = get_match_condition($(this).data('condition'));
-            var operator   = ( $(this).data('operator') || 'and' ).toLowerCase();
+            var operator   = ($(this).data('operator') || 'and').toLowerCase();
 
             $.each(conditions, function (index, condition) {
 
@@ -25,7 +26,7 @@ jQuery(document).ready(function ($) {
 
                 var targetEl = !!target.length && target.first();
 
-                if (!target.length || ( !targetEl.length && condition.value.toString() != '' )) {
+                if (!target.length || (!targetEl.length && condition.value.toString() != '')) {
                     return;
                 }
 
@@ -43,25 +44,25 @@ jQuery(document).ready(function ($) {
 
                 switch (condition.rule) {
                     case 'less_than':
-                        result = ( parseInt(v1) < parseInt(v2) );
+                        result = (parseInt(v1) < parseInt(v2));
                         break;
                     case 'less_than_or_equal_to':
-                        result = ( parseInt(v1) <= parseInt(v2) );
+                        result = (parseInt(v1) <= parseInt(v2));
                         break;
                     case 'greater_than':
-                        result = ( parseInt(v1) > parseInt(v2) );
+                        result = (parseInt(v1) > parseInt(v2));
                         break;
                     case 'greater_than_or_equal_to':
-                        result = ( parseInt(v1) >= parseInt(v2) );
+                        result = (parseInt(v1) >= parseInt(v2));
                         break;
                     case 'contains':
-                        result = ( v1.indexOf(v2) !== -1 ? true : false );
+                        result = (v1.indexOf(v2) !== -1 ? true : false);
                         break;
                     case 'is':
-                        result = ( v1 == v2 );
+                        result = (v1 == v2);
                         break;
                     case 'not':
-                        result = ( v1 != v2 );
+                        result = (v1 != v2);
                         break;
                 }
 
@@ -71,11 +72,11 @@ jQuery(document).ready(function ($) {
 
                 switch (operator) {
                     case 'or':
-                        passed = ( passed || result );
+                        passed = (passed || result);
                         break;
                     case 'and':
                     default:
-                        passed = ( passed && result );
+                        passed = (passed && result);
                         break;
                 }
 
@@ -559,6 +560,7 @@ jQuery(document).ready(function ($) {
         var container = $(this).closest('td');
         _save_data_image_thumb(container);
     });
+
     function _save_data_image_thumb(container) {
         var height = container.find('.wpbooking_image_thumb_height').val();
         var width  = container.find('.wpbooking_image_thumb_width').val();
@@ -671,6 +673,7 @@ jQuery(document).ready(function ($) {
             $(this).closest('.wpbooking-form-group').find('.content-gmap').hide();
         }
     });
+
     function load_gmap() {
         if (typeof google == 'undefined') return;
 
@@ -1396,11 +1399,11 @@ jQuery(document).ready(function ($) {
                 'left': (_$UI._left = position.left) -
                 ((_$UI._left += _$UI._width -
                     ($window.scrollLeft() + $window.width())) + gap > 0 ?
-                _$UI._left + gap : 0),
+                    _$UI._left + gap : 0),
                 'top' : (_$UI._top = position.top + $elm.outerHeight()) -
                 ((_$UI._top += _$UI._height -
                     ($window.scrollTop() + $window.height())) + gap > 0 ?
-                _$UI._top + gap : 0)
+                    _$UI._top + gap : 0)
             }
         },
         renderCallback  : function ($elm, toggled) {
@@ -1557,6 +1560,27 @@ jQuery(document).ready(function ($) {
         showRoomForm(parent, 0, '', $(this).data('hotel-id'));
         return false;
     });
+    //Duplicate room
+    $(document).on('click', '.hotel_room_list .room-synchronization', function () {
+        var parent = $(this).closest('.st-metabox-tab-content-wrap');
+        parent.addClass('on-loading');
+        var data = {
+            'action'  : 'wpbooking_duplicate_post',
+            'id_post' : $(this).data('post-id'),
+            'security': wpbooking_params.wpbooking_security
+        };
+        $.post(wpbooking_params.ajax_url, data, function (respon) {
+            if (typeof respon == 'object') {
+                $('.wb-room-list', parent).show().html(respon.html);
+            }
+            parent.removeClass('on-loading');
+            $('.duplicate-post-wrapper', parent).hide();
+
+            console.log(respon.message);
+        }, 'json');
+        return false;
+    });
+
 
     // Room Edit
     $(document).on('click', '.hotel_room_list .room-edit', function () {

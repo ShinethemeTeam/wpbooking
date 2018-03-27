@@ -16,6 +16,7 @@
     $pricing_type = get_post_meta( $post_id, 'pricing_type', true );
     if ( empty( $pricing_type ) ) $pricing_type = 'per_person';
 
+    $post_id  = wpbooking_origin_id( $post_id, 'wpbooking_service' );
 ?>
 
 <div class="<?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>

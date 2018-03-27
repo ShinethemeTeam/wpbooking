@@ -2,7 +2,6 @@
 /**
 *@since 1.0.0
 **/
-
 $old_data = esc_html( $data['std'] );
 
 $data=wp_parse_args($data,array(

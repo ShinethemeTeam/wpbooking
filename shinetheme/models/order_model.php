@@ -13,9 +13,14 @@
             static $_inst = false;
 
 
+            /**
+             * WPBooking_Order_Model constructor.
+             * @since   1.0
+             * @updated 1.7
+             */
             public function __construct()
             {
-                $this->table_version = '1.0.4';
+                $this->table_version = '1.0.5';
                 $this->table_name    = 'wpbooking_order';
                 $this->columns       = [
                     'id'                  => [
@@ -44,21 +49,38 @@
                     'adult_number'        => [ 'type' => 'int', ],
                     'children_number'     => [ 'type' => 'int', ],
                     'infant_number'       => [ 'type' => 'int', ],
+                    'post_origin'         => [ 'type' => 'int', ],
                 ];
 
                 parent::__construct();
 
+                $updated_1_7 = get_option( 'wpbooking_update_1_0_7', '' );
+                if ( !$updated_1_7 ) {
+                    $this->updated_post_origin_order();
+                }
+            }
+
+            private function updated_post_origin_order()
+            {
+                global $wpdb;
+                $table = $wpdb->prefix . $this->table_name;
+                $sql   = "UPDATE {$table} SET post_origin = post_id";
+                $wpdb->query( $sql );
+
+                update_option( 'wpbooking_update_1_0_7', 'updated' );
             }
 
             /**
              * Save Order
              *
-             * @since  1.0
-             * @author quandq
+             * @since   1.0
+             * @author  quandq
              *
              * @param $cart
              * @param $order_id
              * @param $customer_id
+             *
+             * @updated 1.7
              */
             function save_order( $cart, $order_id, $customer_id )
             {
@@ -77,10 +99,13 @@
                     $data[ $k ] = $value;
 
                 }
-                $data[ 'raw_data' ] = json_encode( $cart );
-                $post_id            = $cart[ 'post_id' ];
-                $data[ 'order_id' ] = $order_id;
-                $data[ 'status' ]   = get_post_field( 'post_status', $order_id );
+                $data[ 'raw_data' ]    = json_encode( $cart );
+                $post_id               = $cart[ 'post_id' ];
+                $post_origin           = wpbooking_origin_id( $post_id, get_post_type( $post_id ) );
+                $data[ 'order_id' ]    = $order_id;
+                $data[ 'post_origin' ] = $post_origin;
+                $data[ 'status' ]      = get_post_field( 'post_status', $order_id );
+
                 if ( !$check_exists = $this->find_by( 'order_id', $order_id ) ) {
                     $data[ 'post_id' ] = $post_id;
                     $this->insert( $data );

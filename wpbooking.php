@@ -157,8 +157,13 @@
                 wp_enqueue_script( 'wpbooking-select2', wpbooking_assets_url( 'select2/js/select2.full.min.js' ), [ 'jquery' ], null, true );
                 wp_enqueue_script( 'wpbooking-booking', wpbooking_assets_url( 'js/wpbooking-booking.js' ), [ 'jquery', 'jquery-ui-datepicker', 'wpbooking-owlcarousel', 'wpbooking-moment' ], null, true );
 
+                $ajax_url        = admin_url( 'admin-ajax.php' );
+                $my_current_lang = wpbooking_current_lang();
+                if ( $my_current_lang ) {
+                    $ajax_url = add_query_arg( 'wpml_lang', $my_current_lang, $ajax_url );
+                }
                 wp_localize_script( 'jquery', 'wpbooking_params', [
-                    'ajax_url'              => admin_url( 'admin-ajax.php' ),
+                    'ajax_url'              => $ajax_url,
                     'wpbooking_security'    => wp_create_nonce( 'wpbooking-nonce-field' ),
                     'select_comment_review' => esc_html__( 'Please rate the criteria of this accommodation.', 'wpbooking' ),
                     'currency_symbol'       => WPBooking_Currency::get_current_currency( 'symbol' ),
@@ -279,8 +284,13 @@
                 wp_enqueue_style( 'wpbooking-admin', wpbooking_admin_assets_url( 'css/admin.css' ), [ 'wpbooking-icon' ] );
                 wp_enqueue_style( 'wpbooking-admin-form-build', wpbooking_admin_assets_url( 'css/wpbooking-admin-form-build.css' ) );
 
+                $ajax_url        = admin_url( 'admin-ajax.php' );
+                $my_current_lang = wpbooking_current_lang();
+                if ( $my_current_lang ) {
+                    $ajax_url = add_query_arg( 'wpml_lang', $my_current_lang, $ajax_url );
+                }
                 wp_localize_script( 'jquery', 'wpbooking_params', [
-                    'ajax_url'                 => admin_url( 'admin-ajax.php' ),
+                    'ajax_url'                 => $ajax_url,
                     'api_url'                  => $this->API_URL,
                     'wpbooking_security'       => wp_create_nonce( 'wpbooking-nonce-field' ),
                     'delete_confirm'           => esc_html__( 'Do you want to delete?', 'wpbooking' ),

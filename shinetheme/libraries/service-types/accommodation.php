@@ -52,6 +52,14 @@
                 add_action( 'wp_ajax_wpbooking_show_room_form', [ $this, '_ajax_room_edit_template' ] );
 
                 /**
+                 * Ajax duplicate room
+                 * @since   1.7
+                 * @updated 1.7
+                 * @author  haint
+                 */
+                add_action( 'wp_ajax_wpbooking_duplicate_post', [ $this, '_duplicate_post' ] );
+
+                /**
                  * Ajax Save Room Data
                  *
                  * @since  1.0
@@ -290,7 +298,7 @@
 
             public function fetch_inventory_accommodation()
             {
-                $post_id = WPBooking_Input::post( 'post_id', '' );
+                $post_id = WPBooking_Input::post( 'id_post', '' );
                 if ( get_post_type( $post_id ) == 'wpbooking_service' ) {
                     $start = strtotime( WPBooking_Input::post( 'start', '' ) );
                     $end   = strtotime( WPBooking_Input::post( 'end', '' ) );
@@ -300,7 +308,11 @@
                             'posts_per_page' => -1,
                             'post_parent'    => $post_id
                         ];
-
+                        $current = wpbooking_current_lang();
+                        if ( wpbooking_is_wpml() ) {
+                            global $sitepress;
+                            $sitepress->switch_lang( wpbooking_default_lang(), true );
+                        }
                         $rooms = [];
                         $query = new WP_Query( $args );
                         while ( $query->have_posts() ): $query->the_post();
@@ -310,7 +322,11 @@
                             ];
                         endwhile;
                         wp_reset_postdata();
-
+                        if ( wpbooking_is_wpml() ) {
+                            global $sitepress;
+                            $current = wpbooking_current_lang();
+                            $sitepress->switch_lang( $current, true );
+                        }
                         $datarooms = [];
                         if ( !empty( $rooms ) ) {
                             foreach ( $rooms as $key => $value ) {
@@ -534,7 +550,6 @@
                     ->join( 'posts as wpb_hotel', 'wpb_hotel.ID=' . $service->get_table_name( false ) . '.post_id' )
                     ->join( 'posts as wpb_room', 'wpb_room.post_parent=' . $service->get_table_name( false ) . '.post_id' )
                     ->join( 'postmeta', "postmeta.post_id= wpb_room.ID and meta_key = 'base_price'" );
-
 
                 $service->where( 'service_type', $this->type_id );
                 $service->where( 'enable_property', 'on' );
@@ -1455,8 +1470,7 @@
                     if ( $field[ 'location' ] == 'hndle-tag' ) {
                         $class_extra = 'wpbooking-hndle-tag-input';
                     }
-                    $file = 'metabox-fields/' . $field[ 'type' ];
-
+                    $file       = 'metabox-fields/' . $field[ 'type' ];
                     $field_html = apply_filters( 'wpbooking_metabox_field_html_' . $field[ 'type' ], false, $field );
 
                     if ( $field_html )
@@ -1475,6 +1489,192 @@
 
                 echo json_encode( $res );
                 die;
+            }
+
+            public function _duplicate_post()
+            {
+                check_ajax_referer( 'wpbooking-nonce-field', 'security' );
+                $post_id         = WPBooking_Input::post( 'id_post' );
+                $post_translated = wpbooking_post_translated( $post_id, get_post_type( $post_id ) );
+
+                global $sitepress;
+                $current_lang = wpbooking_current_lang();
+                $sitepress->switch_lang( wpbooking_default_lang(), true );
+
+                if ( wpbooking_is_wpml() ) {
+                    $query = new WP_Query( [
+                        'post_parent'    => $post_id,
+                        'posts_per_page' => 200,
+                        'post_type'      => 'wpbooking_hotel_room'
+                    ] );
+                    if ( $query->have_posts() ) {
+                        while ( $query->have_posts() ) {
+                            $query->the_post();
+                            $this->duplicate_service( get_the_ID() );
+                        }
+                    }
+                    wp_reset_postdata();
+
+                    $sitepress->switch_lang( $current_lang, true );
+
+                    update_post_meta( $post_id, 'wpbooking_duplicated', 'duplicated' );
+
+                    $query = new WP_Query( [
+                        'post_parent'      => $post_translated,
+                        'posts_per_page'   => 200,
+                        'post_type'        => 'wpbooking_hotel_room',
+                        'suppress_filters' => 0
+                    ] );
+                    $html  = '';
+                    if ( $query->have_posts() ) {
+                        @ob_start();
+                        while ( $query->have_posts() ): $query->the_post(); ?>
+                            <div class="room-item item-hotel-room-<?php echo (int)get_the_ID(); ?>">
+                                <div class="room-item-wrap">
+                                    <div class="room-remain">
+                                        <span class="room-remain-left"><?php printf( esc_html__( '%d room(s)', 'wpbooking' ), get_post_meta( get_the_ID(), 'room_number', true ) ) ?></span>
+                                    </div>
+                                    <div class="room-image">
+                                        <?php
+                                            $thumbnail = wp_get_attachment_image( get_post_thumbnail_id( get_the_ID() ), [ 220, 120 ] );
+                                            echo do_shortcode( $thumbnail );
+                                        ?>
+                                    </div>
+                                    <h3 class="room-type"><?php the_title(); ?></h3>
+                                    <div class="room-actions">
+                                        <a href="#" data-room_id="<?php the_ID() ?>" class="room-edit tooltip_desc"><i
+                                                    class="fa fa-pencil-square-o"></i> <span
+                                                    class="tooltip_content"><?php esc_html_e( 'Edit', 'wpbooking' ) ?></span></a>
+                                        <?php $del_security_post = wp_create_nonce( 'del_security_post_' . get_the_ID() ); ?>
+                                        <a href="javascript:void(0)" data-room_id="<?php the_ID(); ?>"
+                                           data-del-security="<?php echo esc_attr( $del_security_post ); ?>"
+                                           data-confirm="<?php echo esc_html__( 'Do you want delete this room?', 'wpbooking' ); ?>"
+                                           class="room-delete tooltip_desc"><i class="fa fa-trash"></i><span
+                                                    class="tooltip_content"><?php esc_html_e( 'Delete', 'wpbooking' ) ?></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endwhile;
+                        $html = @ob_get_clean();
+                    }
+                    wp_reset_postdata();
+                    echo json_encode( [
+                        'status'  => 1,
+                        'html'    => $html,
+                        'message' => 'duplicated'
+                    ] );
+                    die;
+                }
+                echo json_encode( [
+                    'status'  => 0,
+                    'message' => 'Error'
+                ] );
+                die;
+            }
+
+            private function duplicate_service( $post_id )
+            {
+                global $sitepress;
+                $translation_management = new TranslationManagement();
+                $sitepress->switch_lang( wpbooking_default_lang(), true );
+
+                $languages   = wpbooking_all_langs( true );
+                $master_post = get_post( $post_id );
+                foreach ( $languages as $code ) {
+                    $title          = $master_post->post_title;
+                    $content        = $master_post->post_content;
+                    $excerpt        = $master_post->post_excerpt;
+                    $post_type      = $master_post->post_type;
+                    $author         = get_current_user_id();
+                    $status         = 'publish';
+                    $featured_image = get_post_thumbnail_id( $post_id );
+                    $args           = [
+                        'post_type'    => $post_type,
+                        'post_author'  => $author,
+                        'post_status'  => $status,
+                        'post_title'   => $title,
+                        'post_name'    => sanitize_title( $title ),
+                        'post_content' => $content,
+                        'post_excerpt' => $excerpt
+                    ];
+                    if ( $master_post->post_parent ) {
+                        $parent                = $sitepress->get_object_id( $master_post->post_parent, $master_post->post_type, false, trim( $code ) );
+                        $args[ 'post_parent' ] = $parent;
+                    }
+
+                    $post_translated = wpbooking_post_translated( $post_id, $post_type, trim( $code ) );
+                    if ( $post_translated == $post_id ) {
+                        $create_post_helper = wpml_get_create_post_helper();
+
+                        $post_translated = $create_post_helper->insert_post( $args, $code, true );
+
+                        $trid = $sitepress->get_element_trid( $post_id, 'post_' . $post_type );
+                        $sitepress->set_element_language_details( $post_translated, 'post_' . $post_type, $trid, trim( $code ) );
+
+                        require_once WPML_PLUGIN_PATH . '/inc/cache.php';
+
+                        icl_cache_clear();
+
+                        if ( $sitepress->get_option( 'sync_post_taxonomies' ) ) {
+                            $this->duplicate_taxonomies( $post_id, trim( $code ) );
+                        }
+                        update_post_meta( $post_translated, '_icl_lang_duplicate_of', $post_id );
+
+                        $status_helper = wpml_get_post_status_helper();
+                        $status_helper->set_status( $post_translated, ICL_TM_DUPLICATE );
+                        $status_helper->set_update_status( $post_translated, false );
+
+                        global $wpdb;
+                        $sql = "INSERT INTO {$wpdb->prefix}postmeta (
+                            post_id,
+                            meta_key,
+                            meta_value
+                        ) SELECT
+                            {$post_translated},
+                            meta_key,
+                            meta_value
+                        FROM
+                            {$wpdb->prefix}postmeta
+                        WHERE
+                            post_id = {$post_id}";
+                        $wpdb->query( $sql );
+                        $translation_management->reset_duplicate_flag( $post_translated );
+                        do_action( 'icl_make_duplicate', $post_id, trim( $code ), $args, $post_translated );
+
+                        if ( $featured_image ) {
+                            update_post_meta( $post_translated, '_thumbnail_id', $featured_image );
+                        }
+
+
+                    }
+
+                }
+                wp_reset_query();
+
+            }
+
+            private function duplicate_taxonomies( $master_post_id, $lang )
+            {
+                global $sitepress;
+                $post_type  = get_post_field( 'post_type', $master_post_id );
+                $taxonomies = get_object_taxonomies( $post_type );
+                $trid       = $sitepress->get_element_trid( $master_post_id, 'post_' . $post_type );
+                if ( $trid ) {
+                    $translations = $sitepress->get_element_translations( $trid, 'post_' . $post_type, false, false, true );
+                    if ( isset( $translations[ $lang ] ) ) {
+                        $duplicate_post_id = $translations[ $lang ]->element_id;
+                        /* If we have an existing post, we first of all remove all terms currently attached to it.
+                         * The main reason behind is the removal of the potentially present default category on the post.
+                         */
+                        wp_delete_object_term_relationships( $duplicate_post_id, $taxonomies );
+                    } else {
+                        return false; // translation not found!
+                    }
+                }
+                $term_helper = wpml_get_term_translation_util();
+                $term_helper->duplicate_terms( $master_post_id, $lang );
+
+                return true;
             }
 
             /**

@@ -103,7 +103,7 @@
                 'action' : 'fetch_inventory_accommodation',
                 'start'  : moment(start).format("YYYY-MM-DD"),
                 'end'    : moment(end).format("YYYY-MM-DD"),
-                'post_id': $('.wpbooking-inventory', body).data('id')
+                'id_post': $('.wpbooking-inventory', body).data('id')
             };
             inventory_data.render(start, end, wpbooking_params.ajax_url, data);
         });
@@ -112,7 +112,7 @@
                 'action' : 'fetch_inventory_accommodation',
                 'start'  : moment(start).format("YYYY-MM-DD"),
                 'end'    : moment(end).format("YYYY-MM-DD"),
-                'post_id': $('.wpbooking-inventory', body).data('id')
+                'id_post': $('.wpbooking-inventory', body).data('id')
             };
             inventory_data.render(start, end, wpbooking_params.ajax_url, data);
         });
@@ -121,7 +121,7 @@
                 'action' : 'fetch_inventory_accommodation',
                 'start'  : moment(end).format("YYYY-MM-DD"),
                 'end'    : moment(end).add(30, 'days').format("YYYY-MM-DD"),
-                'post_id': $('.wpbooking-inventory', body).data('id')
+                'id_post': $('.wpbooking-inventory', body).data('id')
             };
             inventory_data.render(moment(end).format(), moment(end).add(30, 'days').format(), wpbooking_params.ajax_url, data);
         });
@@ -130,7 +130,7 @@
                 'action' : 'fetch_inventory_accommodation',
                 'start'  : moment(start).subtract(30, 'days').format("YYYY-MM-DD"),
                 'end'    : moment(start).format("YYYY-MM-DD"),
-                'post_id': $('.wpbooking-inventory', body).data('id')
+                'id_post': $('.wpbooking-inventory', body).data('id')
             };
             inventory_data.render(moment(start).subtract(30, 'days').format(), moment(start).format(), wpbooking_params.ajax_url, data);
         });

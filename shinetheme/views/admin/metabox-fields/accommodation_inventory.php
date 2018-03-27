@@ -19,6 +19,8 @@
     <?php else:
         global $post;
         $old_post = $post;
+        $post_id_origin = $post_id;
+        $post_id  = wpbooking_origin_id( $post_id, 'wpbooking_service' );
         $args     = [
             'post_type'      => 'wpbooking_hotel_room',
             'posts_per_page' => -1,
@@ -34,15 +36,19 @@
             ];
         endwhile;
         wp_reset_postdata();
+
         $post = $old_post;
+        $post_id = $post_id_origin;
         ?>
 
         <div class="wpbooking-calendar-wrapper">
             <div class="wpbooking-inventory-form">
                 <span class="mr10"><strong><?php echo esc_html__( 'View by period:', 'wpbooking' ); ?></strong></span>
-                <input type="text" name="wpbooking-inventory-start" class="wpbooking-inventory-start disabled" value="" autocomplete="off"
+                <input type="text" name="wpbooking-inventory-start" class="wpbooking-inventory-start disabled" value=""
+                       autocomplete="off"
                        placeholder="<?php echo esc_html__( 'Start date', 'wpbooking' ) ?>">
-                <input type="text" name="wpbooking-inventory-end" class="wpbooking-inventory-end disabled" value="" autocomplete="off"
+                <input type="text" name="wpbooking-inventory-end" class="wpbooking-inventory-end disabled" value=""
+                       autocomplete="off"
                        placeholder="<?php echo esc_html__( 'End date', 'wpbooking' ) ?>">
                 <button class="wpbooking-inventory-goto"><?php echo esc_html__( 'View', 'wpbooking' ); ?></button>
                 <button type="button"
@@ -71,7 +77,7 @@
                             <?php echo esc_html__( 'Select a Room', 'wpbooking' ); ?>
                             <select name="room_id" class="ml20 post-bulk">
                                 <option
-                                    value=""><?php echo esc_html__( '---- room ----', 'wpbooking' ); ?></option>
+                                        value=""><?php echo esc_html__( '---- room ----', 'wpbooking' ); ?></option>
                                 <?php
                                     foreach ( $rooms as $room ) {
                                         echo '<option value="' . esc_attr( $room[ 'id' ] ) . '">' . esc_html( $room[ 'name' ] ) . '</option>';
@@ -169,7 +175,7 @@
                             <div class="form-title">
                                 <h4 class="">
                                     <input type="checkbox" class="check-all"
-                                                    data-name="years"> <?php echo esc_html__( 'Years', 'wpbooking' ); ?>
+                                           data-name="years"> <?php echo esc_html__( 'Years', 'wpbooking' ); ?>
                                     (*)
                                 </h4>
                             </div>
@@ -184,7 +190,7 @@
                                         ?>
                                         <label>
                                             <input type="checkbox" name="years[]"
-                                                      value="<?php echo esc_attr( $i ); ?>"><?php echo esc_attr( $i ); ?>
+                                                   value="<?php echo esc_attr( $i ); ?>"><?php echo esc_attr( $i ); ?>
                                         </label>
 
                                         <?php
@@ -203,14 +209,14 @@
                     <div class="form-content flex lh30 clearfix">
                         <label class=" mr10"><span><strong><?php echo esc_html__( 'Price', 'wpbooking' ); ?>
                                     : </strong></span><input
-                                type="text" value="" name="price-bulk" id="price-bulk"
-                                placeholder="<?php echo esc_html__( 'Price', 'wpbooking' ); ?>"></label>
+                                    type="text" value="" name="price-bulk" id="price-bulk"
+                                    placeholder="<?php echo esc_html__( 'Price', 'wpbooking' ); ?>"></label>
                         <label class="">
                             <span><strong><?php echo esc_html__( 'Status', 'wpbooking' ); ?>: </strong></span>
                             <select name="status-bulk">
                                 <option value="available"><?php echo esc_html__( 'Available', 'wpbooking' ) ?></option>
                                 <option
-                                    value="not_available"><?php echo esc_html__( 'Unavailable', 'wpbooking' ) ?></option>
+                                        value="not_available"><?php echo esc_html__( 'Unavailable', 'wpbooking' ) ?></option>
                             </select>
                         </label>
                         <input type="hidden" class="type-bulk" name="type-bulk" value="accommodation">
