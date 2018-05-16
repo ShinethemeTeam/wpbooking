@@ -1,83 +1,85 @@
 <?php
-/**
- * @see WPBooking_Loader::_autoload();
- */
-$autoload['config']=array(
-	'config',
-	'lang'
-);
+    /**
+     * @see WPBooking_Loader::_autoload();
+     */
+    $autoload[ 'config' ] = [
+        'config',
+        'lang'
+    ];
 
-$autoload['helper']=array(
-	'application',
-	'assets',
-    'settings',
-    'service',
-	'email'
-);
+    $autoload[ 'helper' ] = [
+        'application',
+        'assets',
+        'settings',
+        'service',
+        'email'
+    ];
 
-$autoload['library']=array(
-	'helper',
-    'input',
-    'assets',
-	'session',
-	'currency',
-	'validator',
-	'metabox',
-	'email/emogrifier',
-	'query',
-	'base/service',
-	'base/order',
-    'base/chart',
-	'taxonomy-metabox',
-	'query-inject',
-    'service',
-    'captcha',
-    'comments',
-    'tax-meta/tax-meta-class',
-);
+    $autoload[ 'library' ] = [
+        'helper',
+        'input',
+        'assets',
+        'session',
+        'currency',
+        'validator',
+        'metabox',
+        'email/emogrifier',
+        'query',
+        'base/service',
+        'base/order',
+        'base/chart',
+        'taxonomy-metabox',
+        'query-inject',
+        'service',
+        'captcha',
+        'comments',
+        'tax-meta/tax-meta-class',
+        'regen_thumbs'
+    ];
 
-$autoload['controller']=array(
-	'user',
-	'service',
-	'order',
-	'admin/order',
-	'admin/location',
-	'admin/taxonomy',
-	'admin/service',
-    'admin/about',
-    'admin/settings',
-	'admin/taxonomy',
-	'admin/calendar.metabox',
-	'admin/setup',
-	'gateways',
-	'email',
-	'checkout',
-);
+    $autoload[ 'controller' ] = [
+        'user',
+        'service',
+        'order',
+        'admin/order',
+        'admin/location',
+        'admin/taxonomy',
+        'admin/service',
+        'admin/about',
+        'admin/settings',
+        'admin/taxonomy',
+        'admin/calendar.metabox',
+        'admin/setup',
+        'gateways',
+        'email',
+        'checkout',
+    ];
 
-$autoload['model']=array(
-	'service_model',
-	'order_model',
-	'order_hotel_room_model',
-	'calendar_model',
-	'payment_model',
-	'comments_model',
-	'inbox_model',
-	'user_favorite_model',
-	'review_helpful',
-    'query_model',
-    'meta_model',
-    'user_model'
-);
+    $autoload[ 'model' ] = [
+        'service_model',
+        'order_model',
+        'order_hotel_room_model',
+        'calendar_model',
+        'payment_model',
+        'comments_model',
+        'inbox_model',
+        'user_favorite_model',
+        'review_helpful',
+        'query_model',
+        'meta_model',
+        'user_model',
+        'availability_tour_model',
+    ];
 
-$autoload['widget']=array(
-    'search-form',
-    'currency-switcher',
-	'cart-widget'
-);
+    $autoload[ 'widget' ] = [
+        'search-form',
+        'currency-switcher',
+        'cart-widget'
+    ];
 
-$autoload['frontend'] = array(
-    'template-hooks',
-    'template-func'
-);
+    $autoload[ 'frontend' ] = [
+        'template-hooks',
+        'template-func'
+    ];
 
-$autoload['encrypr_key'] = 'wpbooking';
+    $autoload[ 'encrypr_key' ] = 'wpbooking';

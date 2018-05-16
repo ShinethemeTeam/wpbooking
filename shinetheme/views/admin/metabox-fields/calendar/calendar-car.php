@@ -20,7 +20,7 @@
     <div class="st-metabox-content-wrapper">
         <div class="form-group full-width">
             <div class="wpbooking-calendar-wrapper wb_room" data-post-id="<?php echo esc_attr( $post_id ); ?>"
-                 data-post-encrypt="<?php echo wpbooking_encrypt( $post_id ); ?>">
+                 data-post-encrypt="<?php echo wpbooking_encrypt( $post_id ); ?>" data-table="wpbooking_availability_car">
                 <div class="wpbooking-calendar-content">
                     <div class="overlay">
                         <span class="spinner is-active"></span>
@@ -91,6 +91,8 @@
                                    value="<?php echo esc_attr( $post_id ); ?>">
                             <input type="hidden" id="calendar-post-encrypt" name="calendar-post-encrypt"
                                    value="<?php echo wpbooking_encrypt( $post_id ); ?>">
+                            <input id="table_name" type="hidden" name="table"
+                                   value="wpbooking_availability_car">
                             <button type="button" id="calendar-save"
                                     class="button button-large wb-button-primary"><?php echo esc_html__( 'Save', 'wpbooking' ); ?></button>
 
@@ -270,6 +272,8 @@
                                 <input type="hidden" class="type-bulk" name="type-bulk" value="accommodation">
                                 <input type="hidden" name="post-encrypt"
                                        value="<?php echo wpbooking_encrypt( $post_id ); ?>">
+                                <input type="hidden" name="table"
+                                       value="wpbooking_availability_car">
                                 <div class="clear"></div>
                             </div>
                             <div class="form-message"></div>

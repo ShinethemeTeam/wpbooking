@@ -6,11 +6,14 @@
      * Version: 1.0
      */
 
-    $service      = wpbooking_get_service();
-    $service_type = $service->get_type();
-    $hotel_id     = get_the_ID();
-    $tour         = WPBooking_Tour_Service_Type::inst();
-    $start_month  = $tour->get_first_month_has_tour();
+    $service       = wpbooking_get_service();
+    $service_type  = $service->get_type();
+    $tour_id       = get_the_ID();
+    $tour_origin   = wpbooking_origin_id( $tour_id, 'wpbooking_service' );
+    $external_link = get_post_meta( $tour_origin, 'external_link', true );
+
+    $tour        = WPBooking_Tour_Service_Type::inst();
+    $start_month = $tour->get_first_month_has_tour();
     if ( !$start_month ) {
         $start_month = date( 'm' );
     }
@@ -146,115 +149,140 @@
                     <div class="wb-price-html" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                         <?php $service->get_price_html( true ); ?>
                     </div>
-                    <div class="wb-tour-form-wrap">
-                        <div class="wpbooking-form-group">
-                            <div class="departure-date-group clearfix" data-post_id="<?php echo get_the_ID(); ?>"
-                                 data-start-month="<?php echo esc_attr( $start_date ); ?>">
-                                <label class="title"
-                                       for="departure-date-field"><?php echo esc_html__( 'Departure Date', 'wpbooking' ); ?></label>
-                                <div class="item-search datepicker-field">
-                                    <div class="item-search-content">
-                                        <i class="fa fa-calendar"></i>
-                                        <input type="hidden" class="checkin_d" name="checkin_d"
-                                               value="<?php echo esc_attr( WPBooking_Input::get( 'checkin_d' ) ); ?>"/>
-                                        <input type="hidden" class="checkin_m" name="checkin_m"
-                                               value="<?php echo esc_attr( WPBooking_Input::get( 'checkin_m' ) ); ?>"/>
-                                        <input type="hidden" class="checkin_y" name="checkin_y"
-                                               value="<?php echo esc_attr( WPBooking_Input::get( 'checkin_y' ) ) ?>"/>
-                                        <input
-                                                class="wpbooking-date-start wb-required"
-                                                readonly type="text">
-                                        <input class="wpbooking-check-in-out" type="text" name="check_in_out">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="wpbooking-form-control">
-                            <label class="wpbooking-form-control"><?php esc_html_e( 'Adults', 'wpbooking' );
-                                    if ( !$pricing_type or $pricing_type == 'per_person' ) {
-                                        if ( !empty( $age_options[ 'adult' ][ 'minimum' ] ) or !empty( $age_options[ 'adult' ][ 'maximum' ] ) ) {
-                                            printf( ' (%s - %s)', $age_options[ 'adult' ][ 'minimum' ], $age_options[ 'adult' ][ 'maximum' ] );
-                                        }
-                                    }
-
-                                ?>
-
-                            </label>
-                            <div class="controls">
-                                <select class="wpbooking-form-control" name="adult_number">
-                                    <?php for ( $i = 0; $i <= 20; $i++ ) {
-                                        printf( '<option value="%s">%s</option>', $i, $i );
-                                    } ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="wpbooking-form-control">
-                            <label class="wpbooking-form-control"><?php esc_html_e( 'Children', 'wpbooking' );
-                                    if ( !$pricing_type or $pricing_type == 'per_person' ) {
-                                        if ( !empty( $age_options[ 'child' ][ 'minimum' ] ) or !empty( $age_options[ 'child' ][ 'maximum' ] ) ) {
-                                            printf( ' (%s - %s)', $age_options[ 'child' ][ 'minimum' ], $age_options[ 'child' ][ 'maximum' ] );
-                                        }
-                                    }
-                                ?></label>
-                            <div class="controls">
-                                <select class="wpbooking-form-control" name="children_number">
-                                    <?php for ( $i = 0; $i <= 20; $i++ ) {
-                                        printf( '<option value="%s">%s</option>', $i, $i );
-                                    } ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="wpbooking-form-control">
-                            <label class="wpbooking-form-control"><?php esc_html_e( 'Infant', 'wpbooking' );
-                                    if ( !$pricing_type or $pricing_type == 'per_person' ) {
-                                        if ( !empty( $age_options[ 'infant' ][ 'minimum' ] ) or !empty( $age_options[ 'infant' ][ 'maximum' ] ) ) {
-                                            printf( ' (%s - %s)', $age_options[ 'infant' ][ 'minimum' ], $age_options[ 'infant' ][ 'maximum' ] );
-                                        }
-                                    }
-                                ?></label>
-                            <div class="controls">
-                                <select class="wpbooking-form-control" name="infant_number">
-                                    <?php for ( $i = 0; $i <= 20; $i++ ) {
-                                        printf( '<option value="%s">%s</option>', $i, $i );
-                                    } ?>
-                                </select>
-                            </div>
-                        </div>
-                        <?php
-                            $extra_service = get_post_meta( get_the_ID(), 'extra_services', true );
-                            if ( !empty( $extra_service ) ) {
-                                echo '<span class="btn_extra">' . esc_html__( "Extra services", 'wpbooking' ) . '</span>';
-                                foreach ( $extra_service as $k => $v ) {
-                                    $name = sanitize_title( $v[ 'is_selected' ] );
-                                    ?>
-                                    <div class="wpbooking-form-control more-extra">
-                                        <label class="wpbooking-form-control"><?php echo esc_html( $v[ 'is_selected' ] ) ?>
-                                            <span class="price"><?php echo WPBooking_Currency::format_money( $v[ 'money' ] ); ?></span>
-                                        </label>
-                                        <div class="controls">
-                                            <select class="wpbooking-form-control option_extra_quantity"
-                                                    name="wpbooking_extra_service[<?php echo esc_attr( $name ) ?>][quantity]"
-                                                    data-price-extra="<?php echo esc_attr( $v[ 'money' ] ) ?>">
-                                                <?php
-                                                    $start = 0;
-                                                    if ( $v[ 'require' ] == 'yes' )
-                                                        $start = 1;
-                                                    for ( $i = $start; $i <= $v[ 'quantity' ]; $i++ ) {
-                                                        echo "<option value='{$i}'>{$i}</option>";
-                                                    }
-                                                ?>
-                                            </select>
+                    <?php
+                        if ( empty( $external_link ) ) {
+                            ?>
+                            <div class="wb-tour-form-wrap">
+                                <div class="wpbooking-form-group">
+                                    <div class="departure-date-group clearfix"
+                                         data-post_id="<?php echo get_the_ID(); ?>"
+                                         data-start-month="<?php echo esc_attr( $start_date ); ?>">
+                                        <label class="title"
+                                               for="departure-date-field"><?php echo esc_html__( 'Departure Date', 'wpbooking' ); ?></label>
+                                        <div class="item-search datepicker-field">
+                                            <div class="item-search-content">
+                                                <i class="fa fa-calendar"></i>
+                                                <input type="hidden" class="checkin_d" name="checkin_d"
+                                                       value="<?php echo esc_attr( WPBooking_Input::get( 'checkin_d' ) ); ?>"/>
+                                                <input type="hidden" class="checkin_m" name="checkin_m"
+                                                       value="<?php echo esc_attr( WPBooking_Input::get( 'checkin_m' ) ); ?>"/>
+                                                <input type="hidden" class="checkin_y" name="checkin_y"
+                                                       value="<?php echo esc_attr( WPBooking_Input::get( 'checkin_y' ) ) ?>"/>
+                                                <input
+                                                        class="wpbooking-date-start wb-required"
+                                                        readonly type="text">
+                                                <input class="wpbooking-check-in-out" type="text" name="check_in_out">
+                                            </div>
                                         </div>
                                     </div>
-                                    <?php
-                                }
-                            }
-                        ?>
-                        <div class="booking-message"></div>
-                        <button type="submit"
-                                class="wb-button wb-order-button"><?php esc_html_e( 'Book Now', 'wpbooking' ) ?>
-                            <i class="fa fa-spinner fa-pulse "></i></button>
-                    </div>
+                                </div>
+                                <?php
+                                    $onoff_people = (array)get_post_meta( get_the_ID(), 'onoff_people', true );
+                                    if ( !in_array( 'adult', $onoff_people ) ) {
+                                        ?>
+                                        <div class="wpbooking-form-control">
+                                            <label class="wpbooking-form-control"><?php esc_html_e( 'Adults', 'wpbooking' );
+                                                    if ( !$pricing_type or $pricing_type == 'per_person' ) {
+                                                        if ( !empty( $age_options[ 'adult' ][ 'minimum' ] ) or !empty( $age_options[ 'adult' ][ 'maximum' ] ) ) {
+                                                            printf( ' (%s - %s)', $age_options[ 'adult' ][ 'minimum' ], $age_options[ 'adult' ][ 'maximum' ] );
+                                                        }
+                                                    }
+
+                                                ?>
+
+                                            </label>
+                                            <div class="controls">
+                                                <select class="wpbooking-form-control" name="adult_number">
+                                                    <?php for ( $i = 0; $i <= 20; $i++ ) {
+                                                        printf( '<option value="%s">%s</option>', $i, $i );
+                                                    } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                <?php
+                                    if ( !in_array( 'child', $onoff_people ) ) {
+                                        ?>
+                                        <div class="wpbooking-form-control">
+                                            <label class="wpbooking-form-control"><?php esc_html_e( 'Children', 'wpbooking' );
+                                                    if ( !$pricing_type or $pricing_type == 'per_person' ) {
+                                                        if ( !empty( $age_options[ 'child' ][ 'minimum' ] ) or !empty( $age_options[ 'child' ][ 'maximum' ] ) ) {
+                                                            printf( ' (%s - %s)', $age_options[ 'child' ][ 'minimum' ], $age_options[ 'child' ][ 'maximum' ] );
+                                                        }
+                                                    }
+                                                ?></label>
+                                            <div class="controls">
+                                                <select class="wpbooking-form-control" name="children_number">
+                                                    <?php for ( $i = 0; $i <= 20; $i++ ) {
+                                                        printf( '<option value="%s">%s</option>', $i, $i );
+                                                    } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                <?php
+                                    if ( !in_array( 'infant', $onoff_people ) ) {
+                                        ?>
+                                        <div class="wpbooking-form-control">
+                                            <label class="wpbooking-form-control"><?php esc_html_e( 'Infant', 'wpbooking' );
+                                                    if ( !$pricing_type or $pricing_type == 'per_person' ) {
+                                                        if ( !empty( $age_options[ 'infant' ][ 'minimum' ] ) or !empty( $age_options[ 'infant' ][ 'maximum' ] ) ) {
+                                                            printf( ' (%s - %s)', $age_options[ 'infant' ][ 'minimum' ], $age_options[ 'infant' ][ 'maximum' ] );
+                                                        }
+                                                    }
+                                                ?></label>
+                                            <div class="controls">
+                                                <select class="wpbooking-form-control" name="infant_number">
+                                                    <?php for ( $i = 0; $i <= 20; $i++ ) {
+                                                        printf( '<option value="%s">%s</option>', $i, $i );
+                                                    } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                <?php
+                                    $extra_service = get_post_meta( get_the_ID(), 'extra_services', true );
+                                    if ( !empty( $extra_service ) ) {
+                                        echo '<span class="btn_extra">' . esc_html__( "Extra services", 'wpbooking' ) . '</span>';
+                                        foreach ( $extra_service as $k => $v ) {
+                                            $name = sanitize_title( $v[ 'is_selected' ] );
+                                            ?>
+                                            <div class="wpbooking-form-control more-extra">
+                                                <label class="wpbooking-form-control"><?php echo esc_html( $v[ 'is_selected' ] ) ?>
+                                                    <span class="price"><?php echo WPBooking_Currency::format_money( $v[ 'money' ] ); ?></span>
+                                                </label>
+                                                <div class="controls">
+                                                    <select class="wpbooking-form-control option_extra_quantity"
+                                                            name="wpbooking_extra_service[<?php echo esc_attr( $name ) ?>][quantity]"
+                                                            data-price-extra="<?php echo esc_attr( $v[ 'money' ] ) ?>">
+                                                        <?php
+                                                            $start = 0;
+                                                            if ( $v[ 'require' ] == 'yes' )
+                                                                $start = 1;
+                                                            for ( $i = $start; $i <= $v[ 'quantity' ]; $i++ ) {
+                                                                echo "<option value='{$i}'>{$i}</option>";
+                                                            }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
+                                    }
+                                ?>
+                                <div class="booking-message"></div>
+                                <button type="submit"
+                                        class="wb-button wb-order-button"><?php esc_html_e( 'Book Now', 'wpbooking' ) ?>
+                                    <i class="fa fa-spinner fa-pulse "></i></button>
+
+                            </div>
+                        <?php } else { ?>
+                            <div class="wb-tour-form-wrap text-center">
+                                <a class="wb-btn wb-btn-default" href="<?php echo esc_url( $external_link ) ?>"
+                                   target="_blank"><?php echo esc_html__( 'Book Now', 'wpbooking' ); ?></a>
+
+                            </div>
+                        <?php } ?>
                 </form>
                 <?php
                     do_action( 'wpbooking_after_booking_form' );

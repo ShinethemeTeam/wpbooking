@@ -6,7 +6,7 @@
     $class      = ' wpbooking-form-group ';
     $data_class = '';
     if ( !empty( $data[ 'condition' ] ) ) {
-        $class .= ' wpbooking-condition';
+        $class      .= ' wpbooking-condition';
         $data_class .= ' data-condition=' . $data[ 'condition' ] . ' ';
     }
     $property_available_for = get_post_meta( $post_id, 'property_available_for', true );
@@ -16,26 +16,27 @@
     $pricing_type = get_post_meta( $post_id, 'pricing_type', true );
     if ( empty( $pricing_type ) ) $pricing_type = 'per_person';
 
-    $post_id  = wpbooking_origin_id( $post_id, 'wpbooking_service' );
+    $post_id = wpbooking_origin_id( $post_id, 'wpbooking_service' );
 ?>
 
 <div class="<?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
     <label
-        for="<?php echo esc_html( $data[ 'id' ] ); ?>"><strong><?php echo esc_html( $data[ 'label' ] ); ?></strong></label>
+            for="<?php echo esc_html( $data[ 'id' ] ); ?>"><strong><?php echo esc_html( $data[ 'label' ] ); ?></strong></label>
     <div class="st-metabox-content-wrapper">
         <div class="form-group full-width">
             <div class="wpbooking-calendar-wrapper wb_tour" data-post-id="<?php echo esc_attr( $post_id ); ?>"
-                 data-post-encrypt="<?php echo wpbooking_encrypt( $post_id ); ?>">
+                 data-post-encrypt="<?php echo wpbooking_encrypt( $post_id ); ?>"
+                 data-table="wpbooking_availability_tour">
                 <div class="wpbooking-calendar-content">
                     <div class="overlay">
                         <span class="spinner is-active"></span>
                     </div>
                     <div
-                        class="calendar-room2 tour <?php echo esc_attr( $pricing_type ); ?> <?php echo ( $property_available_for == 'specific_periods' ) ? 'specific_periods' : false ?>">
+                            class="calendar-room2 tour <?php echo esc_attr( $pricing_type ); ?> <?php echo ( $property_available_for == 'specific_periods' ) ? 'specific_periods' : false ?>">
 
                     </div>
                     <div
-                        class="calendar-room <?php echo ( $property_available_for == 'specific_periods' ) ? 'specific_periods' : false ?>">
+                            class="calendar-room <?php echo ( $property_available_for == 'specific_periods' ) ? 'specific_periods' : false ?>">
 
                     </div>
                 </div>
@@ -69,7 +70,7 @@
                             <select name="calendar-status" id="calendar-status">
                                 <option value="available"><?php echo esc_html__( 'Available', 'wpbooking' ); ?></option>
                                 <option
-                                    value="not_available"><?php echo esc_html__( 'Not Available', 'wpbooking' ); ?></option>
+                                        value="not_available"><?php echo esc_html__( 'Not Available', 'wpbooking' ); ?></option>
                             </select>
                         </div>
 
@@ -83,7 +84,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr >
                                 <td>
                                     <input type="number" name="calendar_minimum" min="1" class="number-select"
                                            value="1"></td>
@@ -94,7 +95,7 @@
                                 <td>
                                     <div class="input-group ">
                                         <span
-                                            class="input-group-addon"><?php echo WPBooking_Currency::get_current_currency( 'title' ) . ' ' . WPBooking_Currency::get_current_currency( 'symbol' ) ?></span>
+                                                class="input-group-addon"><?php echo WPBooking_Currency::get_current_currency( 'title' ) . ' ' . WPBooking_Currency::get_current_currency( 'symbol' ) ?></span>
                                         <input type="number" class="form-control" value="" id="calendar-price"
                                                name="calendar_price" placeholder="0">
                                     </div>
@@ -112,7 +113,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr class="wpbooking-condition" data-condition="onoff_people__:not_in(adult)">
                                 <td><?php esc_html_e( 'Adult', 'wpbooking' ) ?></td>
                                 <td>
                                     <input type="number" name="calendar_adult_minimum" min="0" class="number-select"
@@ -121,13 +122,13 @@
                                 <td>
                                     <div class="input-group ">
                                         <span
-                                            class="input-group-addon"><?php echo WPBooking_Currency::get_current_currency( 'title' ) . ' ' . WPBooking_Currency::get_current_currency( 'symbol' ) ?></span>
+                                                class="input-group-addon"><?php echo WPBooking_Currency::get_current_currency( 'title' ) . ' ' . WPBooking_Currency::get_current_currency( 'symbol' ) ?></span>
                                         <input type="number" class="form-control" value="" name="calendar_adult_price"
                                                placeholder="0">
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr class="wpbooking-condition" data-condition="onoff_people__:not_in(child)">
                                 <td><?php esc_html_e( 'Child', 'wpbooking' ) ?></td>
                                 <td>
                                     <input type="number" name="calendar_child_minimum" min="0" class="number-select"
@@ -136,13 +137,13 @@
                                 <td>
                                     <div class="input-group ">
                                         <span
-                                            class="input-group-addon"><?php echo WPBooking_Currency::get_current_currency( 'title' ) . ' ' . WPBooking_Currency::get_current_currency( 'symbol' ) ?></span>
+                                                class="input-group-addon"><?php echo WPBooking_Currency::get_current_currency( 'title' ) . ' ' . WPBooking_Currency::get_current_currency( 'symbol' ) ?></span>
                                         <input type="number" class="form-control" value="" name="calendar_child_price"
                                                placeholder="0">
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr class="wpbooking-condition" data-condition="onoff_people__:not_in(infant)">
                                 <td><?php esc_html_e( 'Infant', 'wpbooking' ) ?></td>
                                 <td>
                                     <input type="number" name="calendar_infant_minimum" min="0" class="number-select"
@@ -151,7 +152,7 @@
                                 <td>
                                     <div class="input-group ">
                                         <span
-                                            class="input-group-addon"><?php echo WPBooking_Currency::get_current_currency( 'title' ) . ' ' . WPBooking_Currency::get_current_currency( 'symbol' ) ?></span>
+                                                class="input-group-addon"><?php echo WPBooking_Currency::get_current_currency( 'title' ) . ' ' . WPBooking_Currency::get_current_currency( 'symbol' ) ?></span>
                                         <input type="number" class="form-control" value="" name="calendar_infant_price"
                                                min="0" placeholder="0">
                                     </div>
@@ -165,6 +166,8 @@
                                    value="<?php echo esc_attr( $post_id ); ?>">
                             <input type="hidden" id="calendar-post-encrypt" name="calendar-post-encrypt"
                                    value="<?php echo wpbooking_encrypt( $post_id ); ?>">
+                            <input id="table_name" type="hidden" name="table"
+                                   value="wpbooking_availability_tour">
                             <button type="button" id="calendar-save"
                                     class="button button-large wb-button-primary"><?php echo esc_html__( 'Save', 'wpbooking' ); ?></button>
                             <button type="button"
@@ -212,7 +215,8 @@
                             <div class="form-title">
                                 <h3 class="clearfix"><?php echo esc_html__( 'Bulk Price Edit', 'wpbooking' ); ?>
                                     <button type="button"
-                                            class="calendar-bulk-close wpbooking-btn-close pull-right">x</button>
+                                            class="calendar-bulk-close wpbooking-btn-close pull-right">x
+                                    </button>
                                 </h3>
                             </div>
                             <div class="form-content clearfix">
@@ -332,26 +336,29 @@
                             <div class="clear"></div>
                             <div class="form-content flex clearfix">
                                 <label
-                                    class="mr10 wpbooking-condition" data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Adult', 'wpbooking' ); ?>
+                                        class="mr10 wpbooking-condition"
+                                        data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Adult', 'wpbooking' ); ?>
                                             : </strong></span>
                                     <input type="text" value="" name="adult-bulk" id="adult-bulk"
                                            placeholder="<?php echo esc_html__( 'Adult', 'wpbooking' ); ?>">
                                 </label>
                                 <label
-                                    class="mr10 wpbooking-condition" data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Child', 'wpbooking' ); ?>
+                                        class="mr10 wpbooking-condition"
+                                        data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Child', 'wpbooking' ); ?>
                                             : </strong></span>
                                     <input type="text" value="" name="child-bulk" id="child-bulk"
                                            placeholder="<?php echo esc_html__( 'Child', 'wpbooking' ); ?>">
                                 </label>
                                 <label
-                                    class="mr10 wpbooking-condition" data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Infant', 'wpbooking' ); ?>
+                                        class="mr10 wpbooking-condition"
+                                        data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Infant', 'wpbooking' ); ?>
                                             : </strong></span>
                                     <input type="text" value="" name="infant-bulk" id="infant-bulk"
                                            placeholder="<?php echo esc_html__( 'Infant', 'wpbooking' ); ?>">
                                 </label>
                                 <label
-                                    class=" mr10 wpbooking-condition"
-                                    data-condition="pricing_type:is(per_unit)"><span><strong><?php echo esc_html__( 'Price', 'wpbooking' ); ?>
+                                        class=" mr10 wpbooking-condition"
+                                        data-condition="pricing_type:is(per_unit)"><span><strong><?php echo esc_html__( 'Price', 'wpbooking' ); ?>
                                             : </strong></span>
                                     <input type="text" value="" name="price-bulk" id="price-bulk"
                                            placeholder="<?php echo esc_html__( 'Price', 'wpbooking' ); ?>">
@@ -360,9 +367,9 @@
                                     <span><strong><?php echo esc_html__( 'Status', 'wpbooking' ); ?>: </strong></span>
                                     <select name="status-bulk">
                                         <option
-                                            value="available"><?php echo esc_html__( 'Available', 'wpbooking' ) ?></option>
+                                                value="available"><?php echo esc_html__( 'Available', 'wpbooking' ) ?></option>
                                         <option
-                                            value="not_available"><?php echo esc_html__( 'Unavailable', 'wpbooking' ) ?></option>
+                                                value="not_available"><?php echo esc_html__( 'Unavailable', 'wpbooking' ) ?></option>
                                     </select>
                                 </label>
                                 <input type="hidden" class="post-bulk" name="post_id"
@@ -371,6 +378,8 @@
                                 <input type="hidden" class="price-type" name="price-type" value="persion">
                                 <input type="hidden" name="post-encrypt"
                                        value="<?php echo wpbooking_encrypt( $post_id ); ?>">
+                                <input type="hidden" name="table"
+                                       value="wpbooking_availability_tour">
                                 <div class="clear"></div>
                             </div>
                             <div class="form-message"></div>

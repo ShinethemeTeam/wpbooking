@@ -1,7 +1,9 @@
 <?php
-    $service      = wpbooking_get_service();
-    $service_type = $service->get_type();
-    $hotel_id     = get_the_ID();
+    $service       = wpbooking_get_service();
+    $service_type  = $service->get_type();
+    $hotel_id      = get_the_ID();
+    $hotel_origin  = wpbooking_origin_id( $hotel_id, 'wpbookign_service' );
+    $external_link = get_post_meta( $hotel_origin, 'external_link', true );
 ?>
 <div itemscope itemtype="http://schema.org/Place" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
 
@@ -106,6 +108,9 @@
                     }
                     if ( !empty( $html ) ) {
                         echo '<div class="wb-contact-box wp-box-item">' . do_shortcode( $html ) . '</div>';
+                    }
+                    if ( !empty( $external_link ) ) {
+                        echo '<a class="wb-btn wb-btn-default" target="_blank" href="' . esc_url( $external_link ) . '">' . esc_html__( 'Book Now', 'wpbooking' ) . '</a>';
                     }
                     do_action( 'wpbooking_after_contact_meta' );
                 ?>
@@ -361,7 +366,6 @@
 
 
             <?php
-                var_dump($hotel_id);
                 if ( $terms_conditions = get_post_meta( $hotel_id, 'terms_conditions', true ) ) { ?>
                     <div class="service-detail-item">
                         <div class="service-detail-title"><?php esc_html_e( 'Term & Condition', 'wpbooking' ) ?></div>

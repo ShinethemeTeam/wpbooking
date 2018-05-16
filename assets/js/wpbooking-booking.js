@@ -333,7 +333,12 @@ jQuery(document).ready(function ($) {
     var has_date_picker = $('.has-date-picker');
     has_date_picker.datepicker()
         .datepicker('widget');
-
+    if ($('.wpbooking-date-start', 'body').length) {
+        $('.wpbooking-date-start', 'body').blur();
+    }
+    if ($('.wpbooking-date-end', 'body').length) {
+        $('.wpbooking-date-end', 'body').blur();
+    }
     $('.wpbooking-search-form-wrap').each(function () {
         var check_in     = $(this).find('.wpbooking-date-start');
         var check_out    = $(this).find('.wpbooking-date-end');
@@ -360,16 +365,18 @@ jQuery(document).ready(function ($) {
                     check_out.val(end.format(wpbooking_params.dateformat)).trigger('change');
                     check_in_out.trigger('daterangepicker_change', [start, end]);
                 });
-            check_in.focus(function () {
+            check_in.focus(function (e) {
                 check_in_out.trigger('click');
+                this.blur();
             });
 
-            check_out.focus(function () {
+            check_out.focus(function (e) {
                 check_in_out.trigger('click');
+                this.blur();
             });
         }
     });
-    $(window).on('resize', function(){
+    $(window).on('resize', function () {
         var single_calendar = false;
         if (window.matchMedia("(max-width: 767px)").matches) {
             single_calendar = true;
@@ -437,10 +444,12 @@ jQuery(document).ready(function ($) {
                     });
                 check_in.focus(function () {
                     check_in_out.trigger('click');
+                    this.blur();
                 });
 
                 check_out.focus(function () {
                     check_in_out.trigger('click');
+                    this.blur();
                 });
             });
         }
@@ -472,12 +481,14 @@ jQuery(document).ready(function ($) {
                 $('.wpbooking-search-end', t).val(end.format(wpbooking_params.dateformat));
 
             });
-        check_in.focus(function () {
+        check_in.focus(function (e) {
             check_in_out.trigger('click');
+            this.blur();
         });
 
-        check_out.focus(function () {
+        check_out.focus(function (e) {
             check_in_out.trigger('click');
+            this.blur();
         });
     });
 
@@ -673,7 +684,7 @@ jQuery(document).ready(function ($) {
                 $('.modal').fadeOut();
             }
         }
-    }
+    };
     $(document).on('change', '.content-search-room .content-loop-room .loop-room .option_number_room', function () {
         var container         = $(this).closest('.content-search-room');
         var total_number_room = 0;
@@ -682,7 +693,11 @@ jQuery(document).ready(function ($) {
         container.find('.loop-room').each(function () {
             var number = $(this).find('.option_number_room').val();
             var price  = $(this).find('.option_number_room').data('price-base');
-            number     = parseFloat(number);
+            var diff   = parseFloat($('.more-extra', this).attr('data-diff'));
+            if (diff <= 0) {
+                diff = 1;
+            }
+            number = parseFloat(number);
             if (number < 0) {
                 number = 0;
             }
@@ -701,7 +716,7 @@ jQuery(document).ready(function ($) {
                         if (!price_extra) {
                             price_extra = 0;
                         }
-                        price_extra = parseFloat(price_extra) * number_extra;
+                        price_extra = parseFloat(price_extra) * number_extra * diff;
                         if (price_extra) {
                             total_price += price_extra * number;
                         }
@@ -815,7 +830,7 @@ jQuery(document).ready(function ($) {
             s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
         }
         if ((s[1] || '')
-                .length < prec) {
+            .length < prec) {
             s[1] = s[1] || '';
             s[1] += new Array(prec - s[1].length + 1)
                 .join('0');
@@ -2143,6 +2158,31 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
+    $('.wpbooking-location-item').each(function () {
+        var t        = $(this);
+        var location = t.data().address;
+        var unit     = t.data().unit;
+        $.simpleWeather({
+            location: location.trim(),
+            woeid   : '',
+            unit    : unit.trim(),
+            success : function (weather) {
+                /*
+                html = '<h2><i class="icon-location icon-' + weather.code + '"></i> ' + weather.temp + '&deg;' + weather.units.temp + '</h2>';
+                html += '<ul><li>' + weather.city + ', ' + weather.region + '</li>';
+                html += '<li class="currently">' + weather.currently + '</li>';
+                html += '<li>' + weather.wind.direction + ' ' + weather.wind.speed + ' ' + weather.units.speed + '</li></ul>';*/
+                $('.wpbooking-location-temp', t).html('<i class="icon-location icon-' + weather.code + '"></i> ' + weather.temp + '&deg;' + weather.units.temp);
+            },
+            error   : function (error) {
+                $("#weather").html('<p>' + error + '</p>');
+            }
+        });
+    });
+
+    if ($('ul.wpbooking-all-gateways').length) {
+        $('ul.wpbooking-all-gateways li:first-child input').prop('checked', true);
+    }
 });
 
 

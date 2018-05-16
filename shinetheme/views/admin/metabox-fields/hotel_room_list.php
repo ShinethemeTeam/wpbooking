@@ -38,10 +38,12 @@
                 <h3 class="field-label"><?php echo esc_html( $data[ 'label' ] ) ?></h3>
                 <p class="field-desc"><?php echo esc_html( $data[ 'desc' ] ) ?></p>
                 <div class="wp-room-actions top">
-                    <div class="room-create top">
-                        <a href="#" data-hotel-id="<?php echo esc_attr( $post_id ) ?> "
-                           class="create-room"><?php esc_html_e( 'Create New Room', 'wpbooking' ) ?></a>
-                    </div>
+                    <?php if ( $duplicated || ( $hotel_id == $hotel_translated ) ) { ?>
+                        <div class="room-create top">
+                            <a href="#" data-hotel-id="<?php echo esc_attr( $post_id ) ?> "
+                               class="create-room"><?php esc_html_e( 'Create New Room', 'wpbooking' ) ?></a>
+                        </div>
+                    <?php } ?>
                 </div>
                 <div class="wb-room-list clearfix">
                     <?php
@@ -119,7 +121,7 @@
                     </div>
                 </div>
                 <div class="wb-no-room-message hidden">
-                    <?php if ( !$duplicated && wpbooking_is_wpml() ) { ?>
+                    <?php if ( !$duplicated && ( $hotel_id == $hotel_translated ) ) { ?>
                         <span class="duplicate-post-wrapper">
                             <a href="#" data-post-id="<?php echo esc_attr( $hotel_id ) ?>"
                                class="room-synchronization"><?php esc_html_e( 'Room synchronization', 'wpbooking' ) ?></a>

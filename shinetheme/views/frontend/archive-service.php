@@ -9,9 +9,8 @@ echo wpbooking_load_view('wrap/start');
         <?php echo wpbooking_load_view('archive/loop')?>
         <?php echo wpbooking_load_view('archive/pagination')?>
     </div>
-
 </div>
 <?php
+    get_sidebar('wpbooking');
 echo wpbooking_load_view('wrap/end');
-get_sidebar('wpbooking');
 get_footer();

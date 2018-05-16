@@ -31,6 +31,7 @@ jQuery(document).ready(function ($) {
                                 action      : 'wpbooking_load_availability',
                                 post_id     : self.container.data('post-id'),
                                 post_encrypt: self.container.data('post-encrypt'),
+                                table       : self.container.data('table'),
                                 start       : start,
                                 end         : end,
                                 security    : wpbooking_params.wpbooking_security
@@ -44,7 +45,6 @@ jQuery(document).ready(function ($) {
                             error   : function (e) {
                                 alert('Can not get the availability slot. Lost connect with your sever');
                                 //self.clearDateRange();
-
                             }
                         });
                     },
@@ -52,7 +52,7 @@ jQuery(document).ready(function ($) {
 
                         if ($('.calendar-room2').hasClass('tour')) {
                             if ($('.calendar-room2').hasClass('per_person')) {
-                                if (source.status == 'available' && (source.adult_price != 0 || source.infant_price != 0 || source.child_price != 0 )) {
+                                if (source.status == 'available' && (source.adult_price != 0 || source.infant_price != 0 || source.child_price != 0)) {
                                     var html_info = '<span class="wb-person">';
                                     if (source.adult_price != undefined && source.adult_price != 0) {
                                         html_info += 'Adult: ' + source.adult_price;
@@ -230,6 +230,7 @@ jQuery(document).ready(function ($) {
                         'status'                 : $('#calendar-status', parent).val(),
                         'post-id'                : $('#calendar-post-id', parent).val(),
                         'post-encrypt'           : $('#calendar-post-encrypt', parent).val(),
+                        'table'                  : $('#table_name', parent).val(),
                         'action'                 : 'wpbooking_add_availability',
                         'security'               : wpbooking_params.wpbooking_security,
                         'weekly'                 : $('#calendar-price-week').val(),
@@ -260,7 +261,7 @@ jQuery(document).ready(function ($) {
                         data    : data,
                     })
                         .done(function (respon) {
-                            if (typeof( respon ) == 'object') {
+                            if (typeof(respon) == 'object') {
                                 if (respon.status == 0) {
                                     $('.form-message', parent).html(respon.message).addClass('error');
                                 }
@@ -383,7 +384,7 @@ jQuery(document).ready(function ($) {
                     room_calendar.init();
                 });
             }
-        }, 2000);
+        }, 3000);
     });
 
     $(document).on('click', '.hotel_room_list .create-room', function () {
@@ -461,6 +462,7 @@ jQuery(document).ready(function ($) {
             'price_type'  : $('input[name="price-type"]', parent).val(),
             'post_id'     : $('.post-bulk', parent).val(),
             'post_encrypt': $('input[name="post-encrypt"]', parent).val(),
+            'table'       : $('input[name="table"]', parent).val(),
             'action'      : 'wpbooking_calendar_bulk_edit',
             'security'    : wpbooking_params.wpbooking_security
         };
@@ -475,7 +477,7 @@ jQuery(document).ready(function ($) {
 
     function step_add_bulk(data1, posts_per_page, total, current_page, all_days, post_id, post_encrypt, container, data_first) {
         var data;
-        if (typeof( data_first) == 'object') {
+        if (typeof(data_first) == 'object') {
             data = data_first;
         } else {
             data = {
@@ -486,6 +488,7 @@ jQuery(document).ready(function ($) {
                 'all_days'      : all_days,
                 'post_id'       : post_id,
                 'post_encrypt'  : post_encrypt,
+                'table'         : data1.table,
                 'action'        : 'wpbooking_calendar_bulk_edit',
                 'security'      : wpbooking_params.wpbooking_security
             }
@@ -498,7 +501,7 @@ jQuery(document).ready(function ($) {
             data    : data
         })
             .done(function (respon) {
-                if (typeof( respon ) == 'object') {
+                if (typeof(respon) == 'object') {
                     if (respon.status == 2) {
                         step_add_bulk(respon.data, respon.posts_per_page, respon.total, respon.current_page, respon.all_days, respon.post_id, respon.post_encrypt, container, '');
                     } else {

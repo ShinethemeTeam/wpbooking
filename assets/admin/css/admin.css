@@ -1663,12 +1663,11 @@ img.settings-demo-image-gallery {
   background: #f1f1f1;
   padding: 15px;
   color: #666666;
-  text-align: right;
+  text-align: left;
 }
 .st-metabox-tab-content-wrap .wpbooking-form-group.hotel_room_list .wp-room-actions .room-count .text-color {
   color: #ec8223;
 }
-.st-metabox-tab-content-wrap .wpbooking-form-group.wpbooking-no-room .wp-room-actions,
 .st-metabox-tab-content-wrap .wpbooking-form-group.wpbooking-no-room .wb-room-list {
   display: none;
 }
@@ -4696,6 +4695,9 @@ label[for=wpbooking_room_typediv-hide] {
 .st-metabox-tabs-content .st-metabox-content-wrapper .radio_pro {
   margin-bottom: 10px;
 }
+.field-day-range input {
+  max-width: 60px;
+}
 .wpbooking_dashboard_widget table {
   width: 100%;
   margin-left: 0;
@@ -4778,4 +4780,28 @@ label[for=wpbooking_room_typediv-hide] {
 .CodeFlask__code {
   margin: 0px;
   padding: 0px;
+}
+.st_location_map {
+  position: relative;
+  width: 95%;
+  height: 300px;
+}
+.st_location_map .gmap-search {
+  width: 150px !important;
+  top: 9px;
+  height: 30px;
+}
+.st_location_map .gmap-content {
+  width: 100%;
+  max-width: 560px;
+  height: 100%;
+  border: 1px solid #ddd;
+}
+.upload-wrapper {
+  padding-bottom: 30px;
+}
+.upload-wrapper .upload-item img {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  max-width: 100%;
 }

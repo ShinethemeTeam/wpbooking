@@ -18,15 +18,14 @@
         </div>
     <?php else:
         global $post;
-        $old_post = $post;
+        $old_post       = $post;
         $post_id_origin = $post_id;
-        $post_id  = wpbooking_origin_id( $post_id, 'wpbooking_service' );
-        $args     = [
+        $post_id        = wpbooking_origin_id( $post_id, 'wpbooking_service' );
+        $args  = [
             'post_type'      => 'wpbooking_hotel_room',
             'posts_per_page' => -1,
             'post_parent'    => $post_id
         ];
-
         $rooms = [];
         $query = new WP_Query( $args );
         while ( $query->have_posts() ): $query->the_post();
@@ -36,9 +35,6 @@
             ];
         endwhile;
         wp_reset_postdata();
-
-        $post = $old_post;
-        $post_id = $post_id_origin;
         ?>
 
         <div class="wpbooking-calendar-wrapper">
@@ -231,4 +227,8 @@
             </div>
         </div>
 
-    <?php endif; ?>
+        <?php
+        $post    = $old_post;
+        $post_id = $post_id_origin;
+    endif;
+?>

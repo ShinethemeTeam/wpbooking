@@ -93,7 +93,7 @@
     jQuery(document).ready(function ($) {
         'use strict';
 
-        var body           = $('body');
+        var body           = $('.st-metabox-wrapper');
         var inventory      = $('.wpbooking-inventory', body).wpInventory();
         var inventory_data = inventory.data('Inventory');
         $('a[href="#st-metabox-tab-item-inventory_tab"]').click(function () {
@@ -139,16 +139,17 @@
                 'action' : 'fetch_inventory_accommodation',
                 'start'  : moment().format("YYYY-MM-DD"),
                 'end'    : moment().add(30, 'days').format("YYYY-MM-DD"),
-                'post_id': $('.wpbooking-inventory', body).data('id')
+                'id_post': $('.wpbooking-inventory', body).data('id')
             };
             inventory_data.render(moment().format(), moment().add(30, 'days').format(), wpbooking_params.ajax_url, data);
         });
 
-        var form = $('.wpbooking-inventory-form');
+        var form = $('.wpbooking-inventory-form', body);
 
         var check_out = $('.wpbooking-inventory-end', form).datepicker({
             dateFormat: 'yy-mm-dd'
         });
+        console.log(check_out);
 
         var check_in = $('.wpbooking-inventory-start', form).datepicker({
             dateFormat: 'yy-mm-dd',
@@ -174,7 +175,7 @@
                     'action' : 'fetch_inventory_accommodation',
                     'start'  : moment(start).format("YYYY-MM-DD"),
                     'end'    : moment(end).format("YYYY-MM-DD"),
-                    'post_id': $('.wpbooking-inventory', body).data('id')
+                    'id_post': $('.wpbooking-inventory', body).data('id')
                 };
                 inventory_data.render(moment(start).format(), moment(end).format(), wpbooking_params.ajax_url, data);
             }
@@ -187,7 +188,7 @@
                 'action' : 'fetch_inventory_accommodation',
                 'start'  : moment().format("YYYY-MM-DD"),
                 'end'    : moment().add(30, 'days').format("YYYY-MM-DD"),
-                'post_id': $('.wpbooking-inventory', body).data('id')
+                'id_post': $('.wpbooking-inventory', body).data('id')
             };
             inventory_data.render(moment().format(), moment().add(30, 'days').format(), wpbooking_params.ajax_url, data);
         });

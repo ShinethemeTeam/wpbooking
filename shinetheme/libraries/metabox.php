@@ -219,8 +219,8 @@
 
             function _add_js_template()
             {
-                $post_id       = get_the_ID();
-                $post_id       = wpbooking_origin_id( $post_id );
+                $post_id = get_the_ID();
+                //$post_id       = wpbooking_origin_id( $post_id );
                 $service_types = WPBooking_Service_Controller::inst()->get_service_types();
                 if ( !empty( $service_types ) ) {
                     foreach ( $service_types as $type_id => $type ) {
@@ -235,13 +235,13 @@
                                             $class = '';
                                             $data_class = '';
                                             if ( !empty( $field[ 'condition' ] ) ) {
-                                                $class .= ' wpbooking-condition ';
+                                                $class      .= ' wpbooking-condition ';
                                                 $data_class .= ' data-condition=' . $field[ 'condition' ] . ' ';
                                             }
                                             ?>
                                             <li class=""><a
-                                                    class="<?php echo esc_attr( $class ) ?>" <?php echo esc_attr( $data_class ) ?>
-                                                    href="#<?php echo 'st-metabox-tab-item-' . esc_html( $key ); ?>"><?php echo( $field[ 'label' ] ); ?></a>
+                                                        class="<?php echo esc_attr( $class ) ?>" <?php echo esc_attr( $data_class ) ?>
+                                                        href="#<?php echo 'st-metabox-tab-item-' . esc_html( $key ); ?>"><?php echo( $field[ 'label' ] ); ?></a>
                                             </li>
                                         <?php endforeach; ?>
                                 </ul>
@@ -252,14 +252,14 @@
                                         $class = '';
                                         $data_class = '';
                                         if ( !empty( $section[ 'condition' ] ) ) {
-                                            $class .= ' wpbooking-condition ';
+                                            $class      .= ' wpbooking-condition ';
                                             $data_class .= ' data-condition=' . $section[ 'condition' ] . ' ';
                                         }
                                         ?>
                                         <div id="<?php echo 'st-metabox-tab-item-' . esc_html( $key ); ?>"
                                              class="st-metabox-tabs-content ">
                                             <div
-                                                class="st-metabox-tab-content-wrap <?php echo esc_attr( $class ) ?> row" <?php echo esc_attr( $data_class ) ?> >
+                                                    class="st-metabox-tab-content-wrap <?php echo esc_attr( $class ) ?> row" <?php echo esc_attr( $data_class ) ?> >
                                                 <input type="hidden" name="wb_meta_section"
                                                        value="<?php echo esc_attr( $key ) ?>">
                                                 <input type="hidden" name="wb_security"
@@ -309,7 +309,7 @@
                                                     <?php endforeach; ?>
                                             </div>
                                         </div>
-                                        <?php
+                                    <?php
                                     endforeach; ?>
                             </div>
 
@@ -335,7 +335,7 @@
 
                     $google_api_key = wpbooking_get_option( 'google_api_key', 'AIzaSyAwXoW3vyBK0C5k2G-0l1D3n10UJ3LwZ3k' );
 
-                    wp_enqueue_script( 'google-map-js', '//maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key=' . $google_api_key, [ 'jquery' ], null, true );
+                    wp_enqueue_script( 'google-map-js', '//maps.googleapis.com/maps/api/js?libraries=places&key=' . $google_api_key, [ 'jquery' ], null, true );
 
                     wp_enqueue_script( 'gmap3.js ', wpbooking_admin_assets_url( 'js/gmap3.min.js' ), [ 'jquery' ], null, true );
                 }
@@ -764,16 +764,18 @@
 
             public function wpbooking_save_gmap( $post_id, $post_object )
             {
-                if ( isset( $_POST[ 'map_lat' ] ) && isset( $_POST[ 'map_long' ] ) && isset( $_POST[ 'map_zoom' ] ) ) {
+                if ( isset( $_POST[ 'map_lat' ] ) && isset( $_POST[ 'map_long' ] ) ) {
                     $map_lat     = (float)WPBooking_Input::post( 'map_lat', 0 );
                     $map_long    = (float)WPBooking_Input::post( 'map_long', 0 );
-                    $map_zoom    = (int)WPBooking_Input::post( 'map_zoom', 0 );
                     $is_show_map = (int)WPBooking_Input::post( 'is_show_map', 0 );
 
                     update_post_meta( $post_id, 'map_lat', $map_lat );
                     update_post_meta( $post_id, 'map_long', $map_long );
-                    update_post_meta( $post_id, 'map_zoom', $map_zoom );
                     update_post_meta( $post_id, 'is_show_map', $is_show_map );
+                }
+                if ( isset( $_POST[ 'map_zoom' ] ) ) {
+                    $map_zoom = (int)WPBooking_Input::post( 'map_zoom', 0 );
+                    update_post_meta( $post_id, 'map_zoom', $map_zoom );
                 }
 
                 return $post_id;
@@ -870,15 +872,19 @@
                         if ( isset( $_POST[ $field[ 'id' ] ] ) && is_array( $_POST[ $field[ 'id' ] ] ) ) {
                             $new_list = [];
                             $list     = $_POST[ $field[ 'id' ] ];
-
-                            $i = 0;
+                            $i        = 0;
                             for ( $j = 0; $j < count( $list[ 'title' ] ) - 1; $j++ ) {
                                 foreach ( $list as $key1 => $val1 ) {
                                     $new_list[ $i ][ $key1 ] = $list[ $key1 ][ $i ];
+                                    foreach ( $val1 as $key2 => $val2 ) {
+                                        if ( !is_array( $val2 ) ) {
+                                            break;
+                                        }
+                                        $new_list[ $i ][ $key1 ][ $key2 ] = $list[ $key1 ][ $key2 ][ $i ];
+                                    }
                                 }
                                 $i++;
                             }
-
                             update_post_meta( $post_id, $field[ 'id' ], $new_list );
                         } else {
                             continue;

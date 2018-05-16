@@ -5,6 +5,7 @@
             static $_inst = false;
 
             protected $type_id = 'tour';
+            protected $table_availability = 'wpbooking_availability_tour';
 
             function __construct()
             {
@@ -181,6 +182,25 @@
                  */
                 add_action( 'wp_ajax_wpbooking_get_availability_tour', [ $this, 'wpbooking_get_availability_tour' ] );
                 add_action( 'wp_ajax_nopriv_wpbooking_get_availability_tour', [ $this, 'wpbooking_get_availability_tour' ] );
+
+                add_filter( 'wpbooking_table_availability', [ $this, '__set_availability_table' ] );
+            }
+
+            /**
+             * @since   1.7
+             * @updated 1.7
+             *
+             * @param $table
+             *
+             * @return string
+             */
+            public function __set_availability_table( $table )
+            {
+                if ( $this->type_id == 'tour' ) {
+                    $table = $this->table_availability;
+                }
+
+                return $table;
             }
 
             /**
@@ -203,7 +223,7 @@
                 $tour_unit   = get_post_meta( $post_id, 'pricing_type', true );
                 $max_people  = (int)get_post_meta( $post_id, 'max_guests', true );
                 $adult_price = $child_price = $infant_price = $price = 0;
-
+                $onoff_people = (array)get_post_meta( $post_id, 'onoff_people', true );
                 if ( !empty( $availability ) ) {
                     foreach ( $availability as $key => $item ) {
                         $status = $item->status;
@@ -222,7 +242,16 @@
                         if ( $item->start == $item->end ) {
                             $list_date[] = $item->start;
                             if ( $tour_unit == 'per_person' ) {
-                                $list_price[ $item->start ] = esc_html__( 'Adult', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->adult_price ) . '<br/>' . esc_html__( 'Children', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->child_price ) . '<br/>' . esc_html__( 'Infant', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->infant_price );
+                                $list_price[$item->start] = '';
+                                if(!in_array('adult', $onoff_people)){
+                                    $list_price[ $item->start ] .= esc_html__( 'Adult', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->adult_price). '<br/>' ;
+                                }
+                                if(!in_array('child', $onoff_people)){
+                                    $list_price[ $item->start ] .= esc_html__( 'Children', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->child_price). '<br/>' ;
+                                }
+                                if(!in_array('infant', $onoff_people)){
+                                    $list_price[ $item->start ] .= esc_html__( 'Infant', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->infant_price). '<br/>' ;
+                                }
                             } else {
                                 $list_price[ $item->start ] = WPBooking_Currency::format_money( $item->calendar_price );
                             }
@@ -230,7 +259,16 @@
                             for ( $i = $item->start; $i <= $item->end; $i = strtotime( '+1 day', $i ) ) {
                                 $list_date[] = $i;
                                 if ( $tour_unit == 'per_person' ) {
-                                    $list_price[ $i ] = esc_html__( 'Adult', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->adult_price ) . '<br/>' . esc_html__( 'Children', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->child_price ) . '<br/>' . esc_html__( 'Infant', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->infant_price );
+                                    $list_price[$item->start] = '';
+                                    if(!in_array('adult', $onoff_people)){
+                                        $list_price[ $item->start ] .= esc_html__( 'Adult', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->adult_price). '<br/>' ;
+                                    }
+                                    if(!in_array('child', $onoff_people)){
+                                        $list_price[ $item->start ] .= esc_html__( 'Children', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->child_price). '<br/>' ;
+                                    }
+                                    if(!in_array('infant', $onoff_people)){
+                                        $list_price[ $item->start ] .= esc_html__( 'Infant', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->infant_price). '<br/>' ;
+                                    }
                                 } else {
                                     $list_price[ $i ] = WPBooking_Currency::format_money( $item->calendar_price );
                                 }
@@ -286,7 +324,7 @@
             public function get_availability( $check_in, $check_out, $base_id )
             {
                 global $wpdb;
-                $table = $wpdb->prefix . 'wpbooking_availability';
+                $table = $wpdb->prefix . 'wpbooking_availability_tour';
                 $sql   = "SELECT * FROM {$table} WHERE base_id = {$base_id} AND ( ( CAST( `start` AS UNSIGNED ) >= CAST( {$check_in} AS UNSIGNED) AND CAST( `start` AS UNSIGNED ) <= CAST( {$check_out} AS UNSIGNED ) ) OR ( CAST( `end` AS UNSIGNED ) >= CAST( {$check_in} AS UNSIGNED ) AND ( CAST( `end` AS UNSIGNED ) <= CAST( {$check_out} AS UNSIGNED ) ) ) ) ";
 
                 $result = $wpdb->get_results( $sql );
@@ -348,22 +386,13 @@
                 CASE
                     WHEN wpb_meta.meta_value = 'per_person'
                     THEN
-                            CASE WHEN 
-                                        (CAST(avail.adult_price AS DECIMAL)) <= ( CAST(avail.child_price AS DECIMAL) ) 
-                                        AND (CAST(avail.adult_price AS DECIMAL)) <= ( CAST(avail.infant_price AS DECIMAL) ) 
-                                        THEN
-                                            ( CAST(avail.adult_price AS DECIMAL) )
-                            
-                                        WHEN 
-                                                 ( CAST(avail.child_price AS DECIMAL) ) <= ( CAST(avail.adult_price AS DECIMAL) ) 
-                                                AND ( CAST(avail.child_price AS DECIMAL) ) <= ( CAST(avail.infant_price AS DECIMAL) ) 
-                                        THEN
-                                            (CAST(avail.child_price AS DECIMAL))
-                                        WHEN  ( CAST(avail.infant_price AS DECIMAL) ) <= ( CAST(avail.adult_price AS DECIMAL) ) 
-                                                AND ( CAST(avail.infant_price AS DECIMAL) ) <= ( CAST(avail.child_price AS DECIMAL) ) 
-                                            THEN
-                                                    (CAST(avail.infant_price AS DECIMAL))
-                                END
+                        CASE WHEN 
+                                (CAST(avail.adult_price AS DECIMAL)) <= ( CAST(avail.child_price AS DECIMAL) )  
+                                THEN
+                                    ( CAST(avail.adult_price AS DECIMAL) )
+                                ELSE
+                                    (CAST(avail.child_price AS DECIMAL))
+                        END
                 ELSE
                             CAST(avail.calendar_price AS DECIMAL)
                 END
@@ -372,7 +401,7 @@
             " )
                     ->join( 'posts', 'posts.ID=' . $service->get_table_name( false ) . '.post_id' )
                     ->join( 'postmeta as wpb_meta', $wpdb->prefix . 'posts.ID=wpb_meta.post_id and wpb_meta.meta_key = \'pricing_type\'' )
-                    ->join( 'wpbooking_availability AS avail', $wpdb->prefix . 'posts.ID= avail.post_id ' );
+                    ->join( 'wpbooking_availability_tour AS avail', $wpdb->prefix . 'posts.ID= avail.post_id ' );
 
 
                 $service->where( 'avail.start >', strtotime( 'today' ) );
@@ -730,16 +759,17 @@
             public function _change_cart_params( $cart_params, $post_id )
             {
 
-                $day   = $this->post( 'checkin_d' );
-                $month = $this->post( 'checkin_m' );
-                $year  = $this->post( 'checkin_y' );
+                $day         = $this->post( 'checkin_d' );
+                $month       = $this->post( 'checkin_m' );
+                $year        = $this->post( 'checkin_y' );
+                $post_origin = wpbooking_origin_id( $post_id, 'wpbooking_service' );
 
                 $cart_params[ 'check_in_timestamp' ]  = strtotime( $year . '-' . $month . '-' . $day );
                 $cart_params[ 'check_out_timestamp' ] = strtotime( $year . '-' . $month . '-' . $day );
                 $cart_params[ 'adult_number' ]        = $this->post( 'adult_number' );
                 $cart_params[ 'children_number' ]     = $this->post( 'children_number' );
                 $cart_params[ 'infant_number' ]       = $this->post( 'infant_number' );
-                $cart_params[ 'pricing_type' ]        = get_post_meta( $post_id, 'pricing_type', true );
+                $cart_params[ 'pricing_type' ]        = get_post_meta( $post_origin, 'pricing_type', true );
                 $cart_params[ 'duration' ]            = get_post_meta( $post_id, 'duration', true );
 
                 $post_extras              = $this->post( 'wpbooking_extra_service' );
@@ -782,7 +812,7 @@
                     'extra_service' => $extra_service
                 ];
 
-                $cart_params[ 'calendar' ] = $this->get_available_data( $post_id, $cart_params[ 'check_in_timestamp' ] );
+                $cart_params[ 'calendar' ] = $this->get_available_data( $post_origin, $cart_params[ 'check_in_timestamp' ] );
 
                 return $cart_params;
             }
@@ -802,29 +832,30 @@
              */
             public function _add_to_cart_validate( $is_validated, $service_type, $post_id, $cart_params )
             {
-                $service = wpbooking_get_service( $post_id );
-                $start   = $cart_params[ 'check_in_timestamp' ];
-
+                $service        = wpbooking_get_service( $post_id );
+                $start          = $cart_params[ 'check_in_timestamp' ];
+                $post_id_origin = wpbooking_origin_id( $post_id, 'wpbooking_service' );
                 if ( $start < strtotime( 'today' ) ) {
                     $is_validated = false;
                     wpbooking_set_message( esc_html__( 'Your date is incorrect.', 'wpbooking' ), 'error' );
                 }
 
                 if ( $is_validated ) {
-                    $calendar = WPBooking_Calendar_Model::inst();
+                    $calendar = new WPBooking_Model();
+                    $calendar->table( $this->table_availability );
                     global $wpdb;
                     switch ( $service->get_meta( 'pricing_type' ) ) {
                         case "per_unit":
-                            $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability.id,
+                            $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability_tour.id,
 	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_minimum,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price' )
-                                ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id" )
-                                ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id AND check_in_timestamp = `start` and wpbooking_order.STATUS NOT IN ('cancelled','refunded','payment_failed', 'cancel')", 'left' )
+                                ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability_tour.post_id" )
+                                ->join( 'wpbooking_order', "wpbooking_order.post_origin = wpbooking_availability_tour.post_id AND check_in_timestamp = `start` and wpbooking_order.STATUS NOT IN ('cancelled','refunded','payment_failed', 'cancel')", 'left' )
                                 ->where( [
-                                    $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
-                                    $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
-                                    'start'                                          => $start,
+                                    $wpdb->prefix . 'wpbooking_availability_tour.post_id' => $post_id_origin,
+                                    $wpdb->prefix . 'wpbooking_availability_tour.status'  => 'available',
+                                    'start'                                               => $start,
                                 ] )
-                                ->groupby( $wpdb->prefix . 'wpbooking_availability.id' )
+                                ->groupby( $wpdb->prefix . 'wpbooking_availability_tour.id' )
                                 ->having( ' total_people_booked IS NULL OR total_people_booked < max_guests' )
                                 ->get()->row();
                             if ( !$query ) {
@@ -870,24 +901,24 @@
 
                         case "per_person":
                         default:
-                            $query = $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability.id,
+                            $query = $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability_tour.id,
                                                 ' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,
-                                                ' . $wpdb->prefix . 'wpbooking_availability.adult_price,
-                                                ' . $wpdb->prefix . 'wpbooking_availability.child_price,
-                                                ' . $wpdb->prefix . 'wpbooking_availability.infant_price,
+                                                ' . $wpdb->prefix . 'wpbooking_availability_tour.adult_price,
+                                                ' . $wpdb->prefix . 'wpbooking_availability_tour.child_price,
+                                                ' . $wpdb->prefix . 'wpbooking_availability_tour.infant_price,
                                                 adult_minimum,
                                                 child_minimum,
                                                 infant_minimum
 ' )
-                                ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id" )
-                                ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id AND check_in_timestamp = `start` and wpbooking_order.STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
+                                ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability_tour.post_id" )
+                                ->join( 'wpbooking_order', "wpbooking_order.post_origin = wpbooking_availability_tour.post_id AND check_in_timestamp = `start` and wpbooking_order.STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
                                 ->where( [
-                                    $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
-                                    $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
-                                    'start'                                          => $start,
+                                    $wpdb->prefix . 'wpbooking_availability_tour.post_id' => $post_id_origin,
+                                    $wpdb->prefix . 'wpbooking_availability_tour.status'  => 'available',
+                                    'start'                                               => $start,
                                 ] )
-                                ->where( "({$wpdb->prefix}wpbooking_availability.adult_price > 0 or {$wpdb->prefix}wpbooking_availability.child_price>0 or {$wpdb->prefix}wpbooking_availability.infant_price>0)", false, true )
-                                ->groupby( $wpdb->prefix . 'wpbooking_availability.id' )
+                                ->where( "({$wpdb->prefix}wpbooking_availability_tour.adult_price > 0 or {$wpdb->prefix}wpbooking_availability_tour.child_price>0 or {$wpdb->prefix}wpbooking_availability_tour.infant_price>0)", false, true )
+                                ->groupby( $wpdb->prefix . 'wpbooking_availability_tour.id' )
                                 ->having( ' total_people_booked IS NULL OR total_people_booked < max_guests' )
                                 ->get()->row();
                             if ( !$query ) {
@@ -940,23 +971,24 @@
              */
             public function get_available_data( $post_id, $start )
             {
-
-                $service  = wpbooking_get_service( $post_id );
-                $calendar = WPBooking_Calendar_Model::inst();
+                $post_origin = wpbooking_origin_id( $post_id, 'wpbooking_service' );
+                $service     = wpbooking_get_service( $post_id );
+                $calendar    = new WPBooking_Model();
+                $calendar->table( $this->table_availability );
                 global $wpdb;
 
                 switch ( $service->get_meta( 'pricing_type' ) ) {
                     case "per_unit":
-                        $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability.id,
+                        $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability_tour.id,
 	' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price' )
-                            ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id" )
-                            ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and check_in_timestamp=`start` and wpbooking_order.STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
+                            ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability_tour.post_id" )
+                            ->join( 'wpbooking_order', "wpbooking_order.post_origin = wpbooking_availability_tour.post_id and check_in_timestamp=`start` and wpbooking_order.STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
                             ->where( [
-                                $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
-                                $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
-                                'start'                                          => $start,
+                                $wpdb->prefix . 'wpbooking_availability_tour.post_id' => $post_origin,
+                                $wpdb->prefix . 'wpbooking_availability_tour.status'  => 'available',
+                                'start'                                               => $start,
                             ] )
-                            ->groupby( $wpdb->prefix . 'wpbooking_availability.id' )
+                            ->groupby( $wpdb->prefix . 'wpbooking_availability_tour.id' )
                             ->having( ' total_people_booked IS NULL OR total_people_booked < max_guests' )
                             ->get()->row();
 
@@ -965,24 +997,24 @@
 
                     case "per_person":
                     default:
-                        $query = $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability.id,
+                        $query = $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability_tour.id,
                                                 ' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,
-                                                ' . $wpdb->prefix . 'wpbooking_availability.adult_price,
-                                                ' . $wpdb->prefix . 'wpbooking_availability.child_price,
-                                                ' . $wpdb->prefix . 'wpbooking_availability.infant_price,
+                                                ' . $wpdb->prefix . 'wpbooking_availability_tour.adult_price,
+                                                ' . $wpdb->prefix . 'wpbooking_availability_tour.child_price,
+                                                ' . $wpdb->prefix . 'wpbooking_availability_tour.infant_price,
                                                 adult_minimum,
                                                 child_minimum,
                                                 infant_minimum
                                 ' )
-                            ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id" )
-                            ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and check_in_timestamp=`start` and wpbooking_order.STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
+                            ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability_tour.post_id" )
+                            ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability_tour.post_id and check_in_timestamp=`start` and wpbooking_order.STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
                             ->where( [
-                                $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
-                                $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
-                                'start'                                          => $start,
+                                $wpdb->prefix . 'wpbooking_availability_tour.post_id' => $post_id,
+                                $wpdb->prefix . 'wpbooking_availability_tour.status'  => 'available',
+                                'start'                                               => $start,
                             ] )
-                            ->where( "({$wpdb->prefix}wpbooking_availability.adult_price > 0 or {$wpdb->prefix}wpbooking_availability.child_price>0 or {$wpdb->prefix}wpbooking_availability.infant_price>0)", false, true )
-                            ->groupby( $wpdb->prefix . 'wpbooking_availability.id' )
+                            ->where( "({$wpdb->prefix}wpbooking_availability_tour.adult_price > 0 or {$wpdb->prefix}wpbooking_availability_tour.child_price>0 or {$wpdb->prefix}wpbooking_availability_tour.infant_price>0)", false, true )
+                            ->groupby( $wpdb->prefix . 'wpbooking_availability_tour.id' )
                             ->having( ' total_people_booked IS NULL OR total_people_booked < max_guests' )
                             ->get()->row();
 
@@ -1040,22 +1072,17 @@
             public function _edit_price( $price_html, $price, $post_id, $service_type )
             {
                 global $wpdb;
-                $calendar = WPBooking_Calendar_Model::inst();
-
+                $calendar = new WPBooking_Model();
+                $calendar->table( $this->table_availability );
                 $pricing_type = get_post_meta( $post_id, 'pricing_type', true );
 
                 if ( $pricing_type == 'per_person' ) {
                     $query = $calendar->select( '
                 CASE
-                WHEN MIN(adult_price) <= MIN(child_price)
-                AND MIN(adult_price) <= MIN(infant_price) THEN
+                WHEN MIN(adult_price) <= MIN(child_price) THEN
                     MIN(adult_price)
-                WHEN MIN(child_price) <= MIN(adult_price)
-                AND MIN(child_price) <= MIN(infant_price) THEN
+                ELSE
                     MIN(child_price)
-                WHEN MIN(infant_price) <= MIN(adult_price)
-                AND MIN(infant_price) <= MIN(child_price) THEN
-                    MIN(infant_price)
                 END AS min_price
                 ' )->where( [
                         'post_id'  => $post_id,
@@ -1098,22 +1125,18 @@
             public function _edit_base_price( $price, $post_id, $service_type )
             {
                 global $wpdb;
-                $calendar = WPBooking_Calendar_Model::inst();
+                $calendar = new WPBooking_Model();
+                $calendar->table( $this->table_availability );
 
                 $pricing_type = get_post_meta( $post_id, 'pricing_type', true );
 
                 if ( $pricing_type == 'per_person' ) {
                     $query = $calendar->select( '
                 CASE
-                WHEN MIN(adult_price) <= MIN(child_price)
-                AND MIN(adult_price) <= MIN(infant_price) THEN
+                WHEN MIN(adult_price) <= MIN(child_price)  THEN
                     MIN(adult_price)
-                WHEN MIN(child_price) <= MIN(adult_price)
-                AND MIN(child_price) <= MIN(infant_price) THEN
+                ELSE
                     MIN(child_price)
-                WHEN MIN(infant_price) <= MIN(adult_price)
-                AND MIN(infant_price) <= MIN(child_price) THEN
-                    MIN(infant_price)
                 END AS min_price
                 ' )->where( [
                         'post_id'  => $post_id,
@@ -1281,6 +1304,15 @@
                                 'min'   => 1
                             ],
                             [
+                                'label' => esc_html__( 'Disable type of Passenger', 'wpbooking' ),
+                                'id'    => 'onoff_people',
+                                'type'  => 'checkbox',
+                                'choices' => [
+                                    'child'  => esc_html__( 'Child', 'wpbooking' ),
+                                    'infant' => esc_html__( 'Infant', 'wpbooking' )
+                                ]
+                            ],
+                            [
                                 'label'     => esc_html__( 'Age Options', 'wpbooking' ),
                                 'desc'      => esc_html__( 'Provide your requirements for kinds of age defined as a child or adult.', 'wpbooking' ),
                                 'id'        => 'age_options',
@@ -1329,6 +1361,12 @@
                         'label'  => esc_html__( '3. Policies & Checkout', 'wpbooking' ),
                         'fields' => [
                             [ 'type' => 'open_section' ],
+                            [
+                                'label' => esc_html__( 'External Link', 'wpbooking' ),
+                                'id'    => 'external_link',
+                                'type'  => 'text',
+                                'desc'  => esc_html__( 'Enter an external link to use this feature.', 'wpbooking' )
+                            ],
                             [
                                 'label' => esc_html__( "Pre-payment and cancellation policies", 'wpbooking' ),
                                 'type'  => 'title',
@@ -1586,48 +1624,49 @@
              */
             public function get_available_days( $post_id, $month, $year )
             {
-                $calendar = WPBooking_Calendar_Model::inst();
-                $start    = strtotime( date( '1-' . $month . '-' . $year ) );
+                $calendar = new WPBooking_Model();
+                $calendar->table( $this->table_availability );
+                $start = strtotime( date( '1-' . $month . '-' . $year ) );
                 if ( $start < strtotime( date( 'd-m-Y' ) ) ) $start = strtotime( date( 'd-m-Y' ) );
                 $end = strtotime( date( 't-m-Y', $start ) );
                 global $wpdb;
 
                 switch ( get_post_meta( $post_id, 'pricing_type', true ) ) {
                     case "per_unit":
-                        $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability.id,
+                        $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability_tour.id,
 	                    ' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price' )
-                            ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id" )
-                            ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
+                            ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability_tour.post_id" )
+                            ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability_tour.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
                             ->where( [
-                                $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
-                                $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
-                                'calendar_price >='                              => 0,
-                                'CAST(`start` as UNSIGNED) >='                   => (int)$start,
-                                'CAST(`end` as UNSIGNED) <='                     => (int)$end,
+                                $wpdb->prefix . 'wpbooking_availability_tour.post_id' => $post_id,
+                                $wpdb->prefix . 'wpbooking_availability_tour.status'  => 'available',
+                                'calendar_price >='                                   => 0,
+                                'CAST(`start` as UNSIGNED) >='                        => (int)$start,
+                                'CAST(`end` as UNSIGNED) <='                          => (int)$end,
                             ] )
-                            ->groupby( $wpdb->prefix . 'wpbooking_availability.id' )
-                            ->orderby( $wpdb->prefix . 'wpbooking_availability.start' )
+                            ->groupby( $wpdb->prefix . 'wpbooking_availability_tour.id' )
+                            ->orderby( $wpdb->prefix . 'wpbooking_availability_tour.start' )
                             ->having( ' total_people_booked IS NULL OR total_people_booked < max_guests' )
                             ->get()->result();
                         $calendar->_clear_query();
                         break;
                     case "per_person":
-                        $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability.id,
+                        $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability_tour.id,
                                     ' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,
-                                    ' . $wpdb->prefix . 'wpbooking_availability.adult_price,
-                                    ' . $wpdb->prefix . 'wpbooking_availability.child_price,
-                                    ' . $wpdb->prefix . 'wpbooking_availability.infant_price' )
-                            ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id" )
-                            ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
+                                    ' . $wpdb->prefix . 'wpbooking_availability_tour.adult_price,
+                                    ' . $wpdb->prefix . 'wpbooking_availability_tour.child_price,
+                                    ' . $wpdb->prefix . 'wpbooking_availability_tour.infant_price' )
+                            ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability_tour.post_id" )
+                            ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability_tour.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
                             ->where( [
-                                $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
-                                $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
-                                'start >='                                       => $start,
-                                'end <='                                         => $end,
+                                $wpdb->prefix . 'wpbooking_availability_tour.post_id' => $post_id,
+                                $wpdb->prefix . 'wpbooking_availability_tour.status'  => 'available',
+                                'start >='                                            => $start,
+                                'end <='                                              => $end,
                             ] )
-                            ->where( "({$wpdb->prefix}wpbooking_availability.adult_price > 0 or {$wpdb->prefix}wpbooking_availability.child_price>0 or {$wpdb->prefix}wpbooking_availability.infant_price>0)", false, true )
-                            ->groupby( $wpdb->prefix . 'wpbooking_availability.id' )
-                            ->orderby( $wpdb->prefix . 'wpbooking_availability.start' )
+                            ->where( "({$wpdb->prefix}wpbooking_availability_tour.adult_price > 0 or {$wpdb->prefix}wpbooking_availability_tour.child_price>0 or {$wpdb->prefix}wpbooking_availability_tour.infant_price>0)", false, true )
+                            ->groupby( $wpdb->prefix . 'wpbooking_availability_tour.id' )
+                            ->orderby( $wpdb->prefix . 'wpbooking_availability_tour.start' )
                             ->having( ' total_people_booked IS NULL OR total_people_booked < max_guests' )
                             ->get()->result();
                     default:
@@ -1640,8 +1679,8 @@
             /**
              * Get Next Available 10 Month
              *
-             * @since  1.0
-             * @author dungdt
+             * @since   1.0
+             * @author  dungdt
              *
              * @param bool $post_id
              *
@@ -1652,20 +1691,22 @@
             {
                 if ( !$post_id ) $post_id = get_the_ID();
 
-                $calendar = WPBooking_Calendar_Model::inst();
+                $calendar = new WPBooking_Model();
+                $calendar->table( $this->table_availability );
+                $query = '';
 
                 global $wpdb;
                 switch ( get_post_meta( $post_id, 'pricing_type', true ) ) {
                     case "per_unit":
-                        $from_query = $calendar->select( $wpdb->prefix . 'wpbooking_availability.id,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price' )
-                            ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
+                        $from_query = $calendar->select( $wpdb->prefix . 'wpbooking_availability_tour.id,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price' )
+                            ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability_tour.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
                             ->where( [
-                                $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
-                                $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
-                                'calendar_price >'                               => 0,
-                                'start >='                                       => strtotime( date( 'd-m-Y' ) ),
+                                $wpdb->prefix . 'wpbooking_availability_tour.post_id' => $post_id,
+                                $wpdb->prefix . 'wpbooking_availability_tour.status'  => 'available',
+                                'calendar_price >'                                    => 0,
+                                'start >='                                            => strtotime( date( 'd-m-Y' ) ),
                             ] )
-                            ->groupby( $wpdb->prefix . 'wpbooking_availability.id' )
+                            ->groupby( $wpdb->prefix . 'wpbooking_availability_tour.id' )
                             ->having( ' total_people_booked IS NULL OR total_people_booked < calendar_maximum' )
                             ->_get_query();
                         $calendar->_clear_query();
@@ -1681,20 +1722,20 @@
                     " );
                         break;
                     case "per_person":
-                        $from_query = $calendar->select( $wpdb->prefix . 'wpbooking_availability.id,
+                        $from_query = $calendar->select( $wpdb->prefix . 'wpbooking_availability_tour.id,
                         ' . $wpdb->prefix . 'wpbooking_service.max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,
-                    ' . $wpdb->prefix . 'wpbooking_availability.adult_price,
-                    ' . $wpdb->prefix . 'wpbooking_availability.child_price,
-                    ' . $wpdb->prefix . 'wpbooking_availability.infant_price' )
-                            ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability.post_id" )
-                            ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
+                    ' . $wpdb->prefix . 'wpbooking_availability_tour.adult_price,
+                    ' . $wpdb->prefix . 'wpbooking_availability_tour.child_price,
+                    ' . $wpdb->prefix . 'wpbooking_availability_tour.infant_price' )
+                            ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability_tour.post_id" )
+                            ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability_tour.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
                             ->where( [
-                                $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
-                                $wpdb->prefix . 'wpbooking_availability.status'  => 'available',
-                                'start >='                                       => strtotime( date( 'd-m-Y' ) ),
+                                $wpdb->prefix . 'wpbooking_availability_tour.post_id' => $post_id,
+                                $wpdb->prefix . 'wpbooking_availability_tour.status'  => 'available',
+                                'start >='                                            => strtotime( date( 'd-m-Y' ) ),
                             ] )
-                            ->where( "({$wpdb->prefix}wpbooking_availability.adult_price > 0 or {$wpdb->prefix}wpbooking_availability.child_price>0 or {$wpdb->prefix}wpbooking_availability.infant_price>0)", false, true )
-                            ->groupby( $wpdb->prefix . 'wpbooking_availability.id' )
+                            ->where( "({$wpdb->prefix}wpbooking_availability_tour.adult_price > 0 or {$wpdb->prefix}wpbooking_availability_tour.child_price>0 or {$wpdb->prefix}wpbooking_availability_tour.infant_price>0)", false, true )
+                            ->groupby( $wpdb->prefix . 'wpbooking_availability_tour.id' )
                             ->having( ' total_people_booked IS NULL OR total_people_booked < max_guests' )
                             ->_get_query();
                         $calendar->_clear_query();
@@ -1709,6 +1750,7 @@
                     default:
                         break;
                 }
+
                 return $query;
             }
 
@@ -1811,7 +1853,7 @@
                     if ( $this->request( 'checkin_d' ) && $this->request( 'checkin_m' ) && $this->request( 'checkin_y' ) ) {
                         $from_date = strtotime( $this->request( 'checkin_d' ) . '-' . $this->request( 'checkin_m' ) . '-' . $this->request( 'checkin_y' ) );
 
-                        $injection->join( 'wpbooking_availability as avail', "avail.post_id={$wpdb->posts}.ID" );
+                        $injection->join( 'wpbooking_availability_tour as avail', "avail.post_id={$wpdb->posts}.ID" );
                         $injection->where( 'avail.`start`', $from_date );
                         $injection->where( 'avail.`status`', 'available' );
                         $injection->groupby( 'avail.post_id' );
@@ -1839,27 +1881,18 @@
                                                 WHEN wpb_meta.meta_value = 'per_person'
                                                 THEN
                                                         CASE WHEN 
-                                                                    (CAST(avail.adult_price AS DECIMAL)) <= ( CAST(avail.child_price AS DECIMAL) ) 
-                                                                    AND (CAST(avail.adult_price AS DECIMAL)) <= ( CAST(avail.infant_price AS DECIMAL) ) 
-                                                                    THEN
-                                                                        ( CAST(avail.adult_price AS DECIMAL) )
-                                                        
-                                                                    WHEN 
-                                                                             ( CAST(avail.child_price AS DECIMAL) ) <= ( CAST(avail.adult_price AS DECIMAL) ) 
-                                                                            AND ( CAST(avail.child_price AS DECIMAL) ) <= ( CAST(avail.infant_price AS DECIMAL) ) 
-                                                                    THEN
-                                                                        (CAST(avail.child_price AS DECIMAL))
-                                                                    WHEN  ( CAST(avail.infant_price AS DECIMAL) ) <= ( CAST(avail.adult_price AS DECIMAL) ) 
-                                                                            AND ( CAST(avail.infant_price AS DECIMAL) ) <= ( CAST(avail.child_price AS DECIMAL) ) 
-                                                                        THEN
-                                                                                (CAST(avail.infant_price AS DECIMAL))
-                                                            END
+                                                            (CAST(avail.adult_price AS DECIMAL)) <= ( CAST(avail.child_price AS DECIMAL) ) 
+                                                            THEN
+                                                                ( CAST(avail.adult_price AS DECIMAL) )
+                                                            ELSE
+                                                                (CAST(avail.child_price AS DECIMAL))
+                                                    END
                                             ELSE
                                                         CAST(avail.calendar_price AS DECIMAL)
                                             END
                                         ) as wpb_base_price" )
                         ->join( 'postmeta as wpb_meta', $wpdb->prefix . 'posts.ID=wpb_meta.post_id and wpb_meta.meta_key = \'pricing_type\'' )
-                        ->join( 'wpbooking_availability as avail', $wpdb->prefix . 'posts.ID= avail.post_id ' );
+                        ->join( 'wpbooking_availability_tour as avail', $wpdb->prefix . 'posts.ID= avail.post_id ' );
 
                     $injection->where( 'avail.start>=', strtotime( 'today' ) );
                     if ( !empty( $array[ 0 ] ) ) {
@@ -1877,24 +1910,13 @@
                             $injection->select( "CASE
                                             WHEN meta.meta_value = 'per_person' 
                                             AND MIN( CAST(avail.adult_price AS DECIMAL) ) <= MIN( CAST(avail.child_price AS DECIMAL) ) 
-                                            AND MIN( CAST(avail.adult_price AS DECIMAL) ) <= MIN( CAST(avail.infant_price AS DECIMAL) ) 
                                             THEN
                                                 MIN(
                                                     CAST(avail.adult_price AS DECIMAL)
                                                 )
-                                            WHEN meta.meta_value = 'per_person' 
-                                            AND MIN( CAST(avail.child_price AS DECIMAL) ) <= MIN(	CAST(avail.adult_price AS DECIMAL) ) 
-                                            AND MIN( CAST(avail.child_price AS DECIMAL) ) <= MIN(	CAST(avail.infant_price AS DECIMAL) ) 
-                                            THEN
+                                            ELSE
                                                 MIN(
                                                     CAST(avail.child_price AS DECIMAL)
-                                                )
-                                            WHEN meta.meta_value = 'per_person' 
-                                            AND MIN( CAST(avail.infant_price AS DECIMAL) ) <= MIN(	CAST(avail.adult_price AS DECIMAL) ) 
-                                            AND MIN( CAST(avail.infant_price AS DECIMAL) ) <= MIN(	CAST(avail.child_price AS DECIMAL) ) 
-                                            THEN
-                                                MIN(
-                                                    CAST(avail.infant_price AS DECIMAL)
                                                 )
                                             ELSE
                                                 MIN(
@@ -1904,7 +1926,7 @@
                                                 )
                                             END AS min_price" );
                             $injection->join( 'postmeta as meta', "meta.post_id={$wpdb->posts}.ID AND meta.meta_key='pricing_type'", 'left' );
-                            $injection->join( 'wpbooking_availability as avail', "avail.post_id = {$wpdb->posts}.ID" );
+                            $injection->join( 'wpbooking_availability_tour as avail', "avail.post_id = {$wpdb->posts}.ID" );
                             $injection->where( 'avail.`status`', 'available' );
                             $injection->where( "((
                                             (meta.meta_value = 'per_person' and
@@ -1948,7 +1970,7 @@
                                                 )
                                             END AS min_price" );
                             $injection->join( 'postmeta as meta', "meta.post_id={$wpdb->posts}.ID AND meta.meta_key='pricing_type'", 'left' );
-                            $injection->join( 'wpbooking_availability as avail', "avail.post_id = {$wpdb->posts}.ID" );
+                            $injection->join( 'wpbooking_availability_tour as avail', "avail.post_id = {$wpdb->posts}.ID" );
                             $injection->where( 'avail.`status`', 'available' );
                             $injection->where( "((
                                             (meta.meta_value = 'per_person' and

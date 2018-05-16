@@ -21,15 +21,15 @@ jQuery(document).ready(function ($) {
             var operator   = ($(this).data('operator') || 'and').toLowerCase();
 
             $.each(conditions, function (index, condition) {
-
                 var target = $('[name=' + condition.check + ']');
 
+                if (condition.check.substring(condition.check.length - 2, condition.check.length) === '__') {
+                    target = $('.input-' + condition.check);
+                }
                 var targetEl = !!target.length && target.first();
-
                 if (!target.length || (!targetEl.length && condition.value.toString() != '')) {
                     return;
                 }
-
 
                 var v1 = targetEl.length ? targetEl.val().toString() : '';
                 var v2 = condition.value.toString();
@@ -41,7 +41,14 @@ jQuery(document).ready(function ($) {
                 if (targetEl.length && targetEl.attr('type') == 'checkbox') {
                     v1 = targetEl.is(':checked') ? v1 : '';
                 }
-
+                if (condition.check.substring(condition.check.length - 2, condition.check.length) === '__') {
+                    v1 = [];
+                    target.each(function () {
+                        if ($(this).prop('checked')) {
+                            v1.push($(this).val());
+                        }
+                    });
+                }
                 switch (condition.rule) {
                     case 'less_than':
                         result = (parseInt(v1) < parseInt(v2));
@@ -63,6 +70,12 @@ jQuery(document).ready(function ($) {
                         break;
                     case 'not':
                         result = (v1 != v2);
+                        break;
+                    case 'in':
+                        result = ($.inArray(v2, v1) >= 0) ? true : false;
+                        break;
+                    case 'not_in':
+                        result = ($.inArray(v2, v1) < 0) ? true : false;
                         break;
                 }
 
@@ -95,7 +108,7 @@ jQuery(document).ready(function ($) {
 
     function get_match_condition(condition) {
         var match;
-        var regex      = /(.+?):(is|not|contains|less_than|less_than_or_equal_to|greater_than|greater_than_or_equal_to)\((.*?)\),?/g;
+        var regex      = /(.+?):(not_in|in|is|not|contains|less_than|less_than_or_equal_to|greater_than|greater_than_or_equal_to)\((.*?)\),?/g;
         var conditions = [];
 
         while (match = regex.exec(condition)) {
@@ -796,6 +809,132 @@ jQuery(document).ready(function ($) {
         }
     }
 
+    $('body').on('click', '.st-metabox-nav .ui-tabs-anchor', function () {
+        load_pickup_location();
+    });
+
+    function load_pickup_location() {
+        if ($('.wpbooking-pickup-location-wrapper').length) {
+            $('.wpbooking-pickup-location-wrapper').each(function () {
+                var t              = $(this),
+                    mapCanvas      = $('.gmap-content', t).get(0),
+                    search         = $('.gmap-search', t),
+                    input          = $('.pickup-location-input', t),
+                    markers        = [],
+                    markers_addess = [],
+                    zoom           = $('.map-zoom', t),
+                    stringMarkers  = '';
+                var mapOptions     = {
+                    center          : new google.maps.LatLng(51.5, -0.2),
+                    zoom            : parseInt(zoom.val()),
+                    disableDefaultUI: true
+                };
+                var map            = new google.maps.Map(mapCanvas, mapOptions);
+                var bounds         = new google.maps.LatLngBounds();
+
+                var searchBox = new google.maps.places.SearchBox(search.get(0));
+
+                var old_location = input.val();
+                if (typeof old_location == 'string' && old_location != '') {
+                    old_location = Base64.decode(old_location);
+                    old_location = JSON.parse(old_location);
+                    $.each(old_location, function (index, val) {
+                        setMarker(val.latLng);
+                        var data = {
+                            latLng : val.latLng,
+                            address: val.address,
+                            country: val.country
+                        };
+                        markers_addess.push(data);
+                        save_results(data);
+                        var latlng = new google.maps.LatLng(val.latLng.lat, val.latLng.lng);
+                        bounds.extend(latlng);
+                    });
+                    map.fitBounds(bounds);
+                }
+                google.maps.event.addListener(searchBox, 'places_changed', function () {
+
+                    var places = searchBox.getPlaces();
+                    if (places.length == 0) {
+                        return;
+                    }
+                    var place = places[0];
+                    setMarker({lat: place.geometry.location.lat(), lng: place.geometry.location.lng()});
+                    var data = {
+                        latLng : {lat: place.geometry.location.lat(), lng: place.geometry.location.lng()},
+                        address: search.val()
+                    };
+                    $.each(place.address_components, function (index, names) {
+                        if ($.inArray('country', names.types) != -1) {
+                            data['country'] = names.short_name;
+                        }
+                    });
+                    markers_addess.push(data);
+                    var latlng = new google.maps.LatLng(place.geometry.location);
+                    bounds.extend(latlng);
+                    map.fitBounds(bounds);
+
+                    save_results();
+                });
+                var geocoder = new google.maps.Geocoder();
+                google.maps.event.addListener(map, 'click', function (event) {
+                    geocoder.geocode({
+                        'latLng': event.latLng
+                    }, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            if (results[0]) {
+                                setMarker({lat: event.latLng.lat(), lng: event.latLng.lng()});
+                                var data = {
+                                    latLng : {lat: event.latLng.lat(), lng: event.latLng.lng()},
+                                    address: results[0].formatted_address
+                                };
+                                $.each(results[0].address_components, function (index, names) {
+                                    if ($.inArray('country', names.types) != -1) {
+                                        data['country'] = names.short_name;
+                                    }
+                                });
+                                markers_addess.push(data);
+                                save_results();
+                            }
+                        }
+                    });
+                });
+
+                function save_results() {
+                    if (markers_addess.length) {
+                        stringMarkers = JSON.stringify(markers_addess);
+                        stringMarkers = Base64.encode(stringMarkers);
+                    } else {
+                        stringMarkers = '';
+                    }
+                    input.val(stringMarkers);
+                }
+
+                function setMarker(latLng) {
+                    var marker = new google.maps.Marker({
+                        position : latLng,
+                        map      : map,
+                        draggable: false
+                    });
+
+                    markers.push(marker);
+                    google.maps.event.addListener(marker, 'click', function (event) {
+                        deleteMarker(marker);
+                    });
+                }
+
+                function deleteMarker(marker) {
+                    marker.setMap(null);
+                    var index = $.inArray(marker, markers);
+                    if (index >= 0) {
+                        markers.splice(index, 1);
+                        markers_addess.splice(index, 1);
+                    }
+                    save_results();
+                }
+            });
+        }
+    }
 
     $('.wpbooking_extra_service-checklist,.wpbooking_location-checklist').prev().prev().hide();
 
@@ -2301,6 +2440,122 @@ jQuery(document).ready(function ($) {
             return false;
         });
     });
+
+    if ($('.st_location_map').length) {
+        $('.st_location_map').each(function () {
+            var t         = $(this),
+                mapCanvas = $('.gmap-content', t).get(0),
+                search    = $('.gmap-search', t),
+                lat       = $('input[name="map_lat"]', t),
+                lng       = $('input[name="map_long"]', t),
+                zoom      = $('input[name="map_zoom"]', t);
+
+            lat_val        = (lat.val()) ? parseFloat(lat.val()) : 0;
+            lng_val        = (lng.val()) ? parseFloat(lng.val()) : 0;
+            var mapOptions = {
+                center          : new google.maps.LatLng(lat_val, lng_val),
+                zoom            : (zoom.val() == '') ? 8 : parseInt(zoom.val()),
+                disableDefaultUI: true
+            };
+            var map        = new google.maps.Map(mapCanvas, mapOptions);
+
+            var marker    = new google.maps.Marker({
+                position : {lat: lat_val, lng: lng_val},
+                map      : map,
+                draggable: false
+            });
+            var searchBox = new google.maps.places.SearchBox(search.get(0));
+
+            google.maps.event.addListener(searchBox, 'places_changed', function () {
+                var places = searchBox.getPlaces();
+                if (places.length == 0) {
+                    return;
+                }
+                var place = places[0];
+                lat.val(place.geometry.location.lat());
+                lng.val(place.geometry.location.lng());
+                var marker = new google.maps.Marker({
+                    position : {lat: place.geometry.location.lat(), lng: place.geometry.location.lng()},
+                    map      : map,
+                    draggable: false
+                });
+                map.setCenter(new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()));
+                zoom.val(map.getZoom());
+            });
+
+            var geocoder = new google.maps.Geocoder();
+            google.maps.event.addListener(map, 'click', function (event) {
+                geocoder.geocode({
+                    'latLng': event.latLng
+                }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[0]) {
+                            lat.val(event.latLng.lat());
+                            lng.val(event.latLng.lng());
+                            var marker = new google.maps.Marker({
+                                position : {lat: event.latLng.lat(), lng: event.latLng.lng()},
+                                map      : map,
+                                draggable: false
+                            });
+                            map.setCenter(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
+                            zoom.val(map.getZoom());
+                        }
+                    }
+                });
+            });
+
+            google.maps.event.addListener(map, "zoom_changed", function (event) {
+                zoom.val(map.getZoom());
+            });
+        });
+    }
+
+    var media_uploader;
+    $('body').on('click', '.upload-button', function (event) {
+        event.preventDefault();
+        var parent     = $(this).closest('.upload-wrapper');
+        media_uploader = wp.media.frames.file_frame = wp.media({
+            title   : $(this).data('uploader_title'),
+            button  : {
+                text: $(this).data('uploader_button_text')
+            },
+            multiple: false
+        });
+        media_uploader.open();
+        select_media(parent);
+    });
+
+    $('body').on('click', '.delete-button', function (event) {
+        event.preventDefault();
+        var title = $(this).data('delete-title');
+        if (confirm(title)) {
+            var parent = $(this).closest('.upload-wrapper');
+            parent.find('.save-image-id').val('');
+            parent.find('.upload-items').empty();
+            $(this).addClass('none');
+        }
+    });
+
+    function select_media(parent) {
+        media_uploader.on("select", function (event) {
+
+            var json      = media_uploader.state().get("selection").first().toJSON();
+            var image_url = json.url;
+            if (typeof image_url == 'string' && image_url != '') {
+                console.log(image_url);
+                var html = '<div class="upload-item"> ' +
+                    '<img src="' + image_url + '" alt="" class="frontend-image img-responsive">' +
+                    '</div>';
+                $('.upload-items', parent).html(html);
+                parent.find('.upload-button').removeClass('no_image');
+            } else {
+                $('.upload-items', parent).empty();
+            }
+            $('.save-image-id', parent).val(json.id);
+            $('.delete-button', parent).removeClass('none');
+        });
+    }
+
 });
 
 jQuery(document).ready(function ($) {

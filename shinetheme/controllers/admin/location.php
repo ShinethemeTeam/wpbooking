@@ -23,6 +23,143 @@
 
                 add_action( 'create_term', [ $this, '_update_min_price_location' ], 99, 3 );
                 add_action( 'edit_term', [ $this, '_update_min_price_location' ], 99, 3 );
+
+                add_action( 'wpbooking_location_edit_form_fields', [ $this, '_edit_custom_fields' ] );
+                add_action( 'wpbooking_location_add_form_fields', [ $this, '_edit_custom_fields' ] );
+                add_action( 'edited_wpbooking_location', [ $this, '_save_custom_fields' ] );
+                add_action( 'created_wpbooking_location', [ $this, '_save_custom_fields' ], 10, 2 );
+
+                add_shortcode( 'wpbooking_location', [ $this, 'add_location_shortcode' ] );
+            }
+
+            public function add_location_shortcode( $atts )
+            {
+                $atts = shortcode_atts( [
+                    'location_id' => 0,
+                    'unit'        => 'c',
+                    'image_size'  => 'thumbnail'
+                ], $atts, 'wpbooking_location' );
+
+                extract( $atts );
+                $image_id = get_tax_meta( $location_id, 'featured_image', true );
+                $location = get_term( $location_id, 'wpbooking_location' );
+                if ( strpos( $image_size, 'x' ) ) {
+                    $image_size = explode( 'x', $image_size );
+                }
+                $image = wp_get_attachment_image_url( $image_id, $image_size );
+
+                wp_enqueue_script( 'wpbooking-simpleWeather' );
+
+                return '
+                    <div class="wpbooking-location-item" data-address="' . esc_attr( $location->name ) . '" data-unit="' . esc_attr( $unit ) . '">
+                        <div class="wpbooking-location-image">
+                            <img src="' . esc_url( $image ) . '" alt="' . esc_attr( $location->name ) . '" class="img-responsive">
+                        </div>
+                        <h4 class="wpbooking-location-temp"></h4>
+                        <h2 class="wpbooking-location-title"><a href="'.get_term_link($location).'" target="_blank">' . esc_html( $location->name ) . '</a></h2>
+                    </div>
+                ';
+
+            }
+
+            function _save_custom_fields( $location_id )
+            {
+                if ( empty( $location_id ) ) return;
+                $map_lat  = WPBooking_Input::post( 'map_lat' );
+                $map_long = WPBooking_Input::post( 'map_long' );
+                $map_zoom = WPBooking_Input::post( 'map_zoom' );
+                if ( !empty( $map_lat ) && !empty( $map_long ) && !empty( $map_zoom ) ) {
+                    update_tax_meta( $location_id, 'map_lat', $map_lat );
+                    update_tax_meta( $location_id, 'map_long', $map_long );
+                    update_tax_meta( $location_id, 'map_zoom', $map_zoom );
+                }
+                $featured_image = WPBooking_Input::post( 'featured_image' );
+                update_tax_meta( $location_id, 'featured_image', $featured_image );
+            }
+
+            function _add_map_custom_fields()
+            {
+                ?>
+                <div class="form-field st-custom-location-map">
+                    <label for="map_lat_log"><?php echo esc_html__( 'Map Lat & Long', 'oceaus' ); ?></label>
+                    <div class="st_location_map">
+                        <input type="hidden" name="map_lat" id="map_lat" value="">
+                        <input type="hidden" name="map_long" id="map_long" value="">
+                        <input type="hidden" name="map_zoom" id="map_zoom" value="">
+                        <input type="text" name="gmap-search" value=""
+                               placeholder="<?php echo esc_html__( 'Enter a address...', 'oceaus' ); ?>"
+                               class="gmap-search">
+                        <div class="gmap-content"></div>
+                    </div>
+                    <p><?php echo esc_html__( 'This is the location we will provide guests. Click to move the marker if you need to move it', 'oceaus' ); ?></p>
+                </div>
+                <?php
+            }
+
+            function _edit_custom_fields( $term_object )
+            {
+                if ( empty( $term_object->term_id ) ) $location_id = 0; else $location_id = $term_object->term_id;
+                $lat  = get_tax_meta( $location_id, 'map_lat' );
+                $lng  = get_tax_meta( $location_id, 'map_long' );
+                $zoom = get_tax_meta( $location_id, 'map_zoom' );
+                ?>
+                <tr class="form-field">
+                    <th scope="row" valign="top">
+                        <label for="map_lat_log"><?php echo esc_html__( 'Map Lat & Long', 'oceaus' ); ?></label>
+                    </th>
+                    <td>
+                        <div class="st_location_map">
+                            <input type="hidden" name="map_lat" id="map_lat"
+                                   value="<?php echo( !empty( $lat ) ? esc_html( $lat ) : '' ) ?>">
+                            <input type="hidden" name="map_long" id="map_long"
+                                   value="<?php echo( !empty( $lng ) ? esc_html( $lng ) : '' ) ?>">
+                            <input type="hidden" name="map_zoom" id="map_zoom"
+                                   value="<?php echo( !empty( $zoom ) ? esc_html( $zoom ) : '' ) ?>">
+                            <input type="text" name="gmap-search" value=""
+                                   placeholder="<?php echo esc_html__( 'Enter a address...', 'oceaus' ); ?>"
+                                   class="gmap-search">
+                            <div class="gmap-content"></div>
+                        </div>
+                        <p><?php echo esc_html__( 'This is the location we will provide guests. Click to move the marker if you need to move it', 'oceaus' ); ?></p>
+                    </td>
+                </tr>
+
+                <?php
+                $wpbooking_featured_image = get_tax_meta( $location_id, 'featured_image' );
+                $thumbnail_url            = wp_get_attachment_url( $wpbooking_featured_image );
+                ?>
+                <tr class="form-field">
+                    <th scope="row" valign="top">
+                        <label><?php echo esc_html__( 'Location Featured Image', 'oceaus' ); ?></label>
+                    </th>
+                    <td>
+                        <div class="upload-wrapper">
+                            <div class="upload-items">
+                                <?php
+                                    if ( !empty( $thumbnail_url ) ):
+                                        ?>
+                                        <div class="upload-item">
+                                            <img src="<?php echo esc_url( $thumbnail_url ); ?>"
+                                                 alt="<?php echo esc_html__( 'Featured Thumb', 'oceaus' ) ?>"
+                                                 class="frontend-image img-responsive">
+                                        </div>
+                                    <?php endif; ?>
+                            </div>
+                            <input type="hidden" class="save-image-id" name="featured_image"
+                                   value="<?php echo esc_attr( $wpbooking_featured_image ); ?>">
+                            <button type="button"
+                                    class="upload-button <?php if ( empty( $thumbnail_url ) ) echo 'no_image'; ?>"
+                                    data-uploader_title="<?php esc_html_e( 'Select an image to upload', 'oceaus' ); ?>"
+                                    data-uploader_button_text="<?php esc_html_e( 'Use this image', 'oceaus' ); ?>"><?php echo esc_html__( 'Upload', 'oceaus' ); ?></button>
+                            <button type="button"
+                                    class="delete-button <?php if ( empty( $thumbnail_url ) ) echo 'none'; ?>"
+                                    data-delete-title="<?php echo esc_html__( 'Do you want delete this image?', 'oceaus' ) ?>"><?php echo esc_html__( 'Delete', 'oceaus' ); ?></button>
+                        </div>
+                    </td>
+                </tr>
+
+
+                <?php
             }
 
             function _register_taxonomy()

@@ -3,7 +3,7 @@
      * Plugin Name: WPBooking
      * Plugin URI: wpbooking
      * Description: WP Booking helps you to setup an hotel booking, tour booking , marketplace booking system like booking.com, viator.com ... quickly, friendly, pleasantly and easily.
-     * Version: 1.6
+     * Version: 1.8
      * Author: wpbooking
      * Author URI: https://wpbooking.org
      * Requires at least: 4.8
@@ -26,7 +26,7 @@
         {
             static $_inst = false;
 
-            private $_version = 1.6;
+            private $_version = 1.8;
 
             /**
              * Get and Access Global Variable
@@ -111,7 +111,9 @@
                     wp_enqueue_script( 'wpbooking-fotorama' );
                 }
                 wp_enqueue_style( 'wpbooking', wpbooking_assets_url( 'css/wpbooking-booking.css' ), [ 'wpbooking-owlcarousel', 'wpbooking-icon' ] );
-
+                if ( is_rtl() ) {
+                    wp_enqueue_style( 'wpbooking-rtl', wpbooking_assets_url( 'css/rtl.css' ), [ 'wpbooking' ] );
+                }
                 /**
                  * Ion RangeSlider for Price Search Field
                  * @author dungdt
@@ -127,14 +129,15 @@
                  */
                 wp_enqueue_script( 'wpbooking-fotorama-js', wpbooking_assets_url( 'fotorama4.6.4/fotorama.js' ), [ 'jquery' ], null, true );
                 $google_api_key = wpbooking_get_option( 'google_api_key', 'AIzaSyAwXoW3vyBK0C5k2G-0l1D3n10UJ3LwZ3k' );
-                wp_enqueue_script( 'wpbooking-google-map-js', '//maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key=' . $google_api_key, [ 'jquery' ], null, true );
+                wp_enqueue_script( 'wpbooking-google-map-js', '//maps.googleapis.com/maps/api/js?libraries=places&key=' . $google_api_key, [ 'jquery' ], null, true );
                 wp_enqueue_script( 'wpbooking-gmap3.min-js', wpbooking_assets_url( 'js/gmap3.min.js' ), [ 'jquery' ], null, true );
 
                 /**
                  * Moment Js
                  */
                 wp_register_script( 'wpbooking-moment', wpbooking_admin_assets_url( 'js/moment.min.js' ), [], null, true );
-
+                wp_register_script( 'wpbooking-base64', wpbooking_assets_url( 'js/base64.min.js' ), [ 'jquery' ], null, true );
+                wp_register_script( 'wpbooking-simpleWeather', wpbooking_assets_url( 'js/jquery.simpleWeather.min.js' ), [ 'jquery' ], null, true );
 
                 wp_enqueue_script( 'wpbooking-calendar-room', wpbooking_admin_assets_url( 'js/wpbooking-calendar-room.js' ), [ 'jquery' ], null, true );
 
@@ -216,6 +219,8 @@
                  */
                 wp_register_script( 'wpbooking-iconpicker', wpbooking_assets_url( 'iconpicker/js/fontawesome-iconpicker.min.js' ), [ 'jquery' ], null, true );
 
+                wp_register_script( 'wpbooking-base64', wpbooking_assets_url( 'js/base64.min.js' ), [ 'jquery' ], null, true );
+
                 /**
                  * Select2 Jquery
                  */
@@ -283,7 +288,9 @@
                 wp_enqueue_style( 'wpbooking-font-awesome', wpbooking_assets_url( 'fa4.5/css/font-awesome.min.css' ), false, '4.5.0' );
                 wp_enqueue_style( 'wpbooking-admin', wpbooking_admin_assets_url( 'css/admin.css' ), [ 'wpbooking-icon' ] );
                 wp_enqueue_style( 'wpbooking-admin-form-build', wpbooking_admin_assets_url( 'css/wpbooking-admin-form-build.css' ) );
-
+                if ( is_rtl() ) {
+                    wp_enqueue_style( 'wpbooking-admin-rtl', wpbooking_admin_assets_url( 'css/rtl.css' ), [ 'wpbooking-admin' ] );
+                }
                 $ajax_url        = admin_url( 'admin-ajax.php' );
                 $my_current_lang = wpbooking_current_lang();
                 if ( $my_current_lang ) {
@@ -314,6 +321,7 @@
                     'cores/model',
                     'cores/controllers',
                     'cores/loader',
+                    'cores/updater',
                 ];
                 $this->load( $files );
 

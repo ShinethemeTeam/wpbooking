@@ -207,6 +207,15 @@
             return false;
         }
     }
+    if ( !function_exists( 'wpbooking_switch_lang' ) ) {
+        function wpbooking_switch_lang( $lang )
+        {
+            if ( wpbooking_is_wpml() ) {
+                global $sitepress;
+                $sitepress->switch_lang( $lang, true );
+            }
+        }
+    }
     if ( !function_exists( 'wpbooking_origin_id' ) ) {
         /**
          * Get Origin Post ID in case of use WPML plugin
@@ -228,6 +237,13 @@
             } else {
                 return $post_id;
             }
+        }
+    }
+
+    if ( !function_exists( 'wpbooking_current_url' ) ) {
+        function wpbooking_current_url()
+        {
+            return esc_url( wp_unslash( $_SERVER[ 'REQUEST_URI' ] ) );
         }
     }
 
@@ -259,6 +275,30 @@
             return true;
         }
     }
+    if ( !function_exists( 'wpbooking_decode_base64' ) ) {
+        /**
+         * @param $data
+         *
+         * @return mixed|string
+         * @since   1.0.0
+         * @updated 1.0.0
+         */
+        function wpbooking_decode_base64( $data, $decode = false )
+        {
+            $data = strtr( $data, '-_,', '+/=' );
+            $data = base64_decode( $data );
+            if ( $decode ) {
+                $data = json_decode( $data );
+            }
+            $is_serialized = maybe_unserialize( $data );
+            if ( !$is_serialized ) {
+                return $data;
+            } else {
+                return $is_serialized;
+            }
+        }
+    }
+
 
     if ( !function_exists( 'wpbooking_get_location' ) ) {
         function wpbooking_get_location( $id, $get = 'name' )

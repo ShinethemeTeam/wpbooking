@@ -48,17 +48,17 @@ $old_data=wp_parse_args($old_data,array(
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr class="wpbooking-condition" data-condition="onoff_people__:not_in(adult)">
                             <td><?php esc_html_e('Adult','wpbooking') ?></td>
                             <td><input type="number" class="age_adult_min" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[adult][minimum]" value="<?php echo esc_attr($old_data['adult']['minimum']) ?>" /></td>
                             <td><input type="number" class="age_adult_max" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[adult][maximum]" value="<?php echo esc_attr($old_data['adult']['maximum']) ?>" /></td>
                         </tr>
-                        <tr>
+                        <tr class="wpbooking-condition" data-condition="onoff_people__:not_in(child)">
                             <td><?php esc_html_e('Child','wpbooking') ?></td>
                             <td><input type="number" class="age_child_min" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[child][minimum]" value="<?php echo esc_attr($old_data['child']['minimum']) ?>" /></td>
                             <td><input type="number" class="age_child_max" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[child][maximum]" value="<?php echo esc_attr($old_data['child']['maximum']) ?>" /></td>
                         </tr>
-                        <tr>
+                        <tr class="wpbooking-condition" data-condition="onoff_people__:not_in(infant)">
                             <td><?php esc_html_e('Infant','wpbooking') ?></td>
                             <td><input type="number" class="age_infant_min" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[infant][minimum]" value="<?php echo esc_attr($old_data['infant']['minimum']) ?>" /></td>
                             <td><input type="number" class="age_infant_max" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[infant][maximum]" value="<?php echo esc_attr($old_data['infant']['maximum']) ?>" /></td>

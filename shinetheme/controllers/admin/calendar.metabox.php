@@ -7,6 +7,8 @@
         {
             static $_inst;
 
+            public $table = 'wpbooking_availability';
+
             public function __construct()
             {
                 parent::__construct();
@@ -19,6 +21,13 @@
 
                 // Ajax Save Property For
                 add_action( 'wp_ajax_wpbooking_save_property_available_for', [ $this, '_save_property_available_for' ] );
+            }
+
+            public function set_table( $table = '' )
+            {
+                if ( !empty( $table ) ) {
+                    $this->table = $table;
+                }
             }
 
             /**
@@ -34,7 +43,7 @@
                 // Validate Permission
                 $post_encrypt = (int)WPBooking_Input::post( 'post_encrypt', '' );
                 if ( $post_id > 0 || wpbooking_encrypt_compare( $post_id, $post_encrypt ) ) {
-
+                    $this->set_table( WPBooking_Input::post( 'table' ) );
                     $base_id = (int)wpbooking_origin_id( $post_id, 'wpbooking_service' );
 
                     $check_in  = WPBooking_Input::post( 'start', '' );
@@ -193,6 +202,7 @@
                             ] );
                             die;
                         }
+                        $this->set_table( WPBooking_Input::post( 'table' ) );
                         $base_id = (int)wpbooking_origin_id( $post_id, 'wpbooking_hotel_room' );
 
                         $new_item = $this->_calendar_save_data( $post_id, $base_id, $check_in, $check_out, $price, $status, $group_day, $weekly, $monthly, $can_check_in, $can_check_out, $calendar_minimum, $calendar_maximum, $calendar_price, $calendar_adult_minimum, $calendar_adult_price, $calendar_child_minimum, $calendar_child_price, $calendar_infant_minimum, $calendar_infant_price );
@@ -257,15 +267,12 @@
                     $post_id = (int)WPBooking_Input::post( 'post_id', 0 );
 
                     if ( isset( $_POST[ 'all_days' ] ) && !empty( $_POST[ 'all_days' ] ) ) {
-
                         $data           = WPBooking_Input::post( 'data', '' );
                         $all_days       = WPBooking_Input::post( 'all_days', '' );
                         $posts_per_page = (int)WPBooking_Input::post( 'posts_per_page', '' );
                         $current_page   = (int)WPBooking_Input::post( 'current_page', '' );
                         $total          = (int)WPBooking_Input::post( 'total', '' );
-
                         if ( $current_page > ceil( $total / $posts_per_page ) ) {
-
                             echo json_encode( [
                                 'status'  => 1,
                                 'message' => esc_html__( 'Successffully added', 'wpbooking' )
@@ -362,7 +369,6 @@
                     $group_day = WPBooking_Input::post( 'group_bulk', '' );
 
                     $base_id = (int)wpbooking_origin_id( $post_id, 'wpbooking_service' );
-
                     /*	Start, End is a timestamp */
                     $all_years  = [];
                     $all_months = [];
@@ -481,8 +487,8 @@
 
             public function insert_calendar_bulk( $data, $posts_per_page, $total, $current_page, $all_days, $post_id )
             {
+                $this->set_table(WPBooking_Input::post( 'table' ));
                 global $wpdb;
-                $table = $wpdb->prefix . 'wpbooking_availability';
 
                 $start = ( $current_page - 1 ) * $posts_per_page;
 
@@ -514,9 +520,9 @@
 
                 $next_page = (int)$current_page + 1;
 
-                $progress = ( $current_page / $total ) * 100;
-
-                $return = [
+                $progress        = ( $current_page / $total ) * 100;
+                $data[ 'table' ] = WPBooking_Input::post( 'table' );
+                $return          = [
                     'all_days'       => $all_days,
                     'current_page'   => $next_page,
                     'posts_per_page' => $posts_per_page,
@@ -535,7 +541,7 @@
 
                 global $wpdb;
 
-                $table = $wpdb->prefix . 'wpbooking_availability';
+                $table = $wpdb->prefix . $this->table;
 
                 $wpdb->delete(
                     $table,
@@ -549,8 +555,7 @@
             public function wpbooking_insert_availability( $post_id = '', $base_id = '', $check_in = '', $check_out = '', $price = '', $status = '', $group_day = '', $weekly = false, $monthly = false, $can_check_in = 1, $can_check_out = 1, $calendar_minimum = '', $calendar_maximum = '', $calendar_price = '', $adult_minimum = '', $adult_price = '', $child_minimum = '', $child_price = '', $infant_minimum = '', $infant_price = '' )
             {
                 global $wpdb;
-
-                $table = $wpdb->prefix . 'wpbooking_availability';
+                $table = $wpdb->prefix . $this->table;
                 if ( $group_day == 'group' ) {
                     $wpdb->insert(
                         $table,
@@ -615,12 +620,11 @@
             {
                 global $wpdb;
 
-                $table = $wpdb->prefix . 'wpbooking_availability';
+                $table = $wpdb->prefix . $this->table;
 
                 $where = apply_filters( 'wpbooking_get_availability_where_clause', false, $base_id );
 
                 $sql = "SELECT * FROM {$table} WHERE base_id = {$base_id} AND ( ( CAST( `start` AS UNSIGNED ) >= CAST( {$check_in} AS UNSIGNED) AND CAST( `start` AS UNSIGNED ) <= CAST( {$check_out} AS UNSIGNED ) ) OR ( CAST( `end` AS UNSIGNED ) >= CAST( {$check_in} AS UNSIGNED ) AND ( CAST( `end` AS UNSIGNED ) <= CAST( {$check_out} AS UNSIGNED ) ) ) ) " . $where;
-
                 $result = $wpdb->get_results( $sql, ARRAY_A );
 
                 $return = [];
