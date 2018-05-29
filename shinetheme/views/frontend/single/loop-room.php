@@ -112,7 +112,8 @@
                     ?>
                     <div class="room-total-price">
                         <?php
-                            $price = WPBooking_Accommodation_Service_Type::inst()->_get_price_room_with_date( get_the_ID(), $check_in, $check_out );
+                            $price = WPBooking_Accommodation_Service_Type::inst()->_get_price_room_with_date( $room_origin, $check_in, $check_out );
+                            $price = WPBooking_Accommodation_Service_Type::inst()->get_discount_by_day( $room_origin, $price, $diff );
                             echo WPBooking_Currency::format_money( $price );
                         ?>
                         <br>

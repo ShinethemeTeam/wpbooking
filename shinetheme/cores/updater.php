@@ -24,6 +24,27 @@
 
                 add_action( 'init', [ $this, '__run_update' ] );
                 add_action( 'admin_notices', [ $this, '__admin_notice_wpbooking_update' ] );
+
+                add_action( 'admin_menu', [ $this, 'edd_license_menu' ], 20 );
+            }
+
+            public function edd_license_menu()
+            {
+                add_submenu_page( 'wpbooking', 'Add-Ons License', 'Add-Ons License', 'manage_options', 'wpbooking_addons_updater_page', [ $this, 'edd_license_page' ] );
+            }
+
+            public function edd_license_page()
+            {
+                ?>
+                <div class="wrap">
+                    <h2><?php _e( 'Plugin License Options' ); ?></h2>
+                    <form method="post" action="options.php">
+                        <?php settings_fields( 'wpbooking_edd_license' ); ?>
+                        <?php do_action( 'wpbooking_licenses_page' ); ?>
+                        <?php submit_button(); ?>
+                    </form>
+                </div>
+                <?php
             }
 
             public function __run_update()
@@ -79,7 +100,7 @@
 
             public function wpbooking_update_availability_tour()
             {
-                if(!$this->isset_table('wpbooking_availability_tour')){
+                if ( !$this->isset_table( 'wpbooking_availability_tour' ) ) {
                     return;
                 }
                 global $wpdb;
@@ -129,7 +150,7 @@
 
             public function wpbooking_update_availability_car()
             {
-                if(!$this->isset_table('wpbooking_availability_car')){
+                if ( !$this->isset_table( 'wpbooking_availability_car' ) ) {
                     return;
                 }
                 global $wpdb;

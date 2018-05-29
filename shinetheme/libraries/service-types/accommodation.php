@@ -1025,10 +1025,7 @@
                                 'taxonomy' => 'wb_hotel_room_facilities',
                                 'rules'    => 'required'
                             ],
-
                             [ 'type' => 'close_section' ],
-
-
                             //Room amenities
                             [
                                 'type' => 'section_navigation',
@@ -1400,6 +1397,23 @@
                                 'rule'  => 'required|greater_than[0]',
                             ]
                         ],
+                    ],
+                    [
+                        'id'    => 'discount_by_no_day',
+                        'label' => esc_html__( 'Discount by Number of days', 'wpbooking' ),
+                        'type'  => 'list-item',
+                        'value' => [
+                            [
+                                'id'    => 'no_days',
+                                'label' => esc_html__( 'No. Days', 'wpbooking' ),
+                                'type'  => 'text',
+                            ],
+                            [
+                                'id'    => 'price',
+                                'label' => esc_html__( 'Discount(%)', 'wpbooking' ),
+                                'type'  => 'text'
+                            ]
+                        ]
                     ],
                     [ 'type' => 'close_section' ],
                 ];
@@ -3362,6 +3376,8 @@
                             $price_room += $price_tmp;
                         }
                     }
+                    $diff       = wpbooking_date_diff( $cart[ 'check_in_timestamp' ], $cart[ 'check_out_timestamp' ] );
+                    $price_room = $this->get_discount_by_day( $room_id, $price_room, $diff );
                     // Extra Price
                     if ( !empty( $cart[ 'rooms' ][ $room_id ][ 'extra_fees' ] ) ) {
                         $extra_fees = $cart[ 'rooms' ][ $room_id ][ 'extra_fees' ];
@@ -3423,6 +3439,38 @@
                 }
 
                 return $price_room;
+            }
+
+            public function get_discount_by_day( $room_id, $price, $number_day = 1 )
+            {
+                $ranges = get_post_meta( $room_id, 'discount_by_no_day', true );
+                if ( !empty( $ranges ) ) {
+                    $ranges = $this->_sort_range_list_item( $ranges, 'no_days' );
+                    foreach ( $ranges as $key => $range ) {
+                        if ( $number_day >= (float)$range[ 'no_days' ] ) {
+                            $price = $price - ( $price * $range[ 'price' ] / 100 );
+                            break;
+                        }
+                    }
+                }
+
+                return $price;
+            }
+
+            protected function _sort_range_list_item( $list, $key = 'price' )
+            {
+                $size = count( $list );
+                for ( $i = 0; $i <= $size - 1; $i++ ) {
+                    for ( $j = $i + 1; $j < $size; $j++ ) {
+                        if ( (float)$list[ $i ][ $key ] < (float)$list[ $j ][ $key ] ) {
+                            $tmp        = $list[ $i ];
+                            $list[ $i ] = $list[ $j ];
+                            $list[ $j ] = $tmp;
+                        }
+                    }
+                }
+
+                return $list;
             }
 
             /**
