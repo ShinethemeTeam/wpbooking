@@ -2674,6 +2674,7 @@
                                 }
                             }
 
+                            $cart_item['rooms'][$room_id]['discount_by_day'] = $this->get_discount_by_day_range($room_id, wpbooking_date_diff( $cart_item[ 'check_in_timestamp' ], $cart_item[ 'check_out_timestamp' ] ));
                         }
 
                     }
@@ -3439,6 +3440,21 @@
                 }
 
                 return $price_room;
+            }
+
+            public function get_discount_by_day_range( $room_id, $number_day = 1 )
+            {
+                $ranges = get_post_meta( $room_id, 'discount_by_no_day', true );
+                if ( !empty( $ranges ) ) {
+                    $ranges = $this->_sort_range_list_item( $ranges, 'no_days' );
+                    foreach ( $ranges as $key => $range ) {
+                        if ( $number_day >= (float)$range[ 'no_days' ] ) {
+                            return $range;
+                        }
+                    }
+                }
+
+                return false;
             }
 
             public function get_discount_by_day( $room_id, $price, $number_day = 1 )
