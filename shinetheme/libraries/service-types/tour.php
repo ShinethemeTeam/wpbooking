@@ -10,32 +10,32 @@
             function __construct()
             {
                 $this->type_info = [
-                    'label'  => esc_html__( "Tour", 'wpbooking' ),
-                    'labels' => esc_html__( "Tours", 'wpbooking' ),
-                    'desc'   => esc_html__( 'You can post anything related to activities such as tourism, events, workshops, etc anything called tour', 'wpbooking' )
+                    'label'  => esc_html__( "Tour", 'wp-booking-management-system' ),
+                    'labels' => esc_html__( "Tours", 'wp-booking-management-system' ),
+                    'desc'   => esc_html__( 'You can post anything related to activities such as tourism, events, workshops, etc anything called tour', 'wp-booking-management-system' )
                 ];
 
                 $this->settings = [
 
                     [
                         'id'    => 'title',
-                        'label' => esc_html__( 'Layout', 'wpbooking' ),
+                        'label' => esc_html__( 'Layout', 'wp-booking-management-system' ),
                         'type'  => 'title',
                     ],
                     [
                         'id'    => 'posts_per_page',
-                        'label' => esc_html__( "Item per page", 'wpbooking' ),
+                        'label' => esc_html__( "Item per page", 'wp-booking-management-system' ),
                         'type'  => 'number',
                         'std'   => 10
                     ],
                     [
                         'id'    => "thumb_size",
-                        'label' => esc_html__( "Thumb Size", 'wpbooking' ),
+                        'label' => esc_html__( "Thumb Size", 'wp-booking-management-system' ),
                         'type'  => 'image-size'
                     ],
                     [
                         'id'    => "gallery_size",
-                        'label' => esc_html__( "Gallery Size", 'wpbooking' ),
+                        'label' => esc_html__( "Gallery Size", 'wp-booking-management-system' ),
                         'type'  => 'image-size'
                     ],
                 ];
@@ -220,17 +220,17 @@
                 $availability       = $this->get_availability( $start, $end, $post_origin );
                 $order              = $this->get_order( $start, $end, $post_origin );
 
-                $tour_unit   = get_post_meta( $post_id, 'pricing_type', true );
-                $max_people  = (int)get_post_meta( $post_id, 'max_guests', true );
-                $adult_price = $child_price = $infant_price = $price = 0;
+                $tour_unit    = get_post_meta( $post_id, 'pricing_type', true );
+                $max_people   = (int)get_post_meta( $post_id, 'max_guests', true );
+                $adult_price  = $child_price = $infant_price = $price = 0;
                 $onoff_people = (array)get_post_meta( $post_id, 'onoff_people', true );
                 if ( !empty( $availability ) ) {
                     foreach ( $availability as $key => $item ) {
                         $status = $item->status;
                         if ( $status == 'available' ) {
-                            $_event = esc_html__( 'Available', 'wpbooking' );
+                            $_event = esc_html__( 'Available', 'wp-booking-management-system' );
                         } else {
-                            $_event = esc_html__( 'Unavailable', 'wpbooking' );
+                            $_event = esc_html__( 'Unavailable', 'wp-booking-management-system' );
                         }
                         $events[ 'events' ][] = [
                             'start'  => date( 'Y-m-d', $item->start ),
@@ -242,15 +242,15 @@
                         if ( $item->start == $item->end ) {
                             $list_date[] = $item->start;
                             if ( $tour_unit == 'per_person' ) {
-                                $list_price[$item->start] = '';
-                                if(!in_array('adult', $onoff_people)){
-                                    $list_price[ $item->start ] .= esc_html__( 'Adult', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->adult_price). '<br/>' ;
+                                $list_price[ $item->start ] = '';
+                                if ( !in_array( 'adult', $onoff_people ) ) {
+                                    $list_price[ $item->start ] .= esc_html__( 'Adult', 'wp-booking-management-system' ) . ': ' . WPBooking_Currency::format_money( $item->adult_price ) . '<br/>';
                                 }
-                                if(!in_array('child', $onoff_people)){
-                                    $list_price[ $item->start ] .= esc_html__( 'Children', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->child_price). '<br/>' ;
+                                if ( !in_array( 'child', $onoff_people ) ) {
+                                    $list_price[ $item->start ] .= esc_html__( 'Children', 'wp-booking-management-system' ) . ': ' . WPBooking_Currency::format_money( $item->child_price ) . '<br/>';
                                 }
-                                if(!in_array('infant', $onoff_people)){
-                                    $list_price[ $item->start ] .= esc_html__( 'Infant', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->infant_price). '<br/>' ;
+                                if ( !in_array( 'infant', $onoff_people ) ) {
+                                    $list_price[ $item->start ] .= esc_html__( 'Infant', 'wp-booking-management-system' ) . ': ' . WPBooking_Currency::format_money( $item->infant_price ) . '<br/>';
                                 }
                             } else {
                                 $list_price[ $item->start ] = WPBooking_Currency::format_money( $item->calendar_price );
@@ -259,15 +259,15 @@
                             for ( $i = $item->start; $i <= $item->end; $i = strtotime( '+1 day', $i ) ) {
                                 $list_date[] = $i;
                                 if ( $tour_unit == 'per_person' ) {
-                                    $list_price[$item->start] = '';
-                                    if(!in_array('adult', $onoff_people)){
-                                        $list_price[ $item->start ] .= esc_html__( 'Adult', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->adult_price). '<br/>' ;
+                                    $list_price[ $item->start ] = '';
+                                    if ( !in_array( 'adult', $onoff_people ) ) {
+                                        $list_price[ $item->start ] .= esc_html__( 'Adult', 'wp-booking-management-system' ) . ': ' . WPBooking_Currency::format_money( $item->adult_price ) . '<br/>';
                                     }
-                                    if(!in_array('child', $onoff_people)){
-                                        $list_price[ $item->start ] .= esc_html__( 'Children', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->child_price). '<br/>' ;
+                                    if ( !in_array( 'child', $onoff_people ) ) {
+                                        $list_price[ $item->start ] .= esc_html__( 'Children', 'wp-booking-management-system' ) . ': ' . WPBooking_Currency::format_money( $item->child_price ) . '<br/>';
                                     }
-                                    if(!in_array('infant', $onoff_people)){
-                                        $list_price[ $item->start ] .= esc_html__( 'Infant', 'wpbooking' ) . ': ' . WPBooking_Currency::format_money( $item->infant_price). '<br/>' ;
+                                    if ( !in_array( 'infant', $onoff_people ) ) {
+                                        $list_price[ $item->start ] .= esc_html__( 'Infant', 'wp-booking-management-system' ) . ': ' . WPBooking_Currency::format_money( $item->infant_price ) . '<br/>';
                                     }
                                 } else {
                                     $list_price[ $i ] = WPBooking_Currency::format_money( $item->calendar_price );
@@ -281,7 +281,7 @@
                         $events[ 'events' ][] = [
                             'start'  => date( 'Y-m-d', $i ),
                             'end'    => date( 'Y-m-d', $i ),
-                            'event'  => esc_html__( 'Unavailable', 'wpbooking' ),
+                            'event'  => esc_html__( 'Unavailable', 'wp-booking-management-system' ),
                             'status' => 'not_available'
                         ];
                     } else {
@@ -296,14 +296,14 @@
                                 $events[ 'events' ][] = [
                                     'start'  => date( 'Y-m-d', $i ),
                                     'end'    => date( 'Y-m-d', $i ),
-                                    'event'  => ( isset( $list_price[ $i ] ) ) ? $list_price[ $i ] : esc_html__( 'Available', 'wpbooking' ),
+                                    'event'  => ( isset( $list_price[ $i ] ) ) ? $list_price[ $i ] : esc_html__( 'Available', 'wp-booking-management-system' ),
                                     'status' => 'available'
                                 ];
                             } else {
                                 $events[ 'events' ][] = [
                                     'start'  => date( 'Y-m-d', $i ),
                                     'end'    => date( 'Y-m-d', $i ),
-                                    'event'  => esc_html__( 'Unavailable', 'wpbooking' ),
+                                    'event'  => esc_html__( 'Unavailable', 'wp-booking-management-system' ),
                                     'status' => 'not_available'
                                 ];
                             }
@@ -311,7 +311,7 @@
                             $events[ 'events' ][] = [
                                 'start'  => date( 'Y-m-d', $i ),
                                 'end'    => date( 'Y-m-d', $i ),
-                                'event'  => ( isset( $list_price[ $i ] ) ) ? $list_price[ $i ] : esc_html__( 'Available', 'wpbooking' ),
+                                'event'  => ( isset( $list_price[ $i ] ) ) ? $list_price[ $i ] : esc_html__( 'Available', 'wp-booking-management-system' ),
                                 'status' => 'available'
                             ];
                         }
@@ -386,13 +386,7 @@
                 CASE
                     WHEN wpb_meta.meta_value = 'per_person'
                     THEN
-                        CASE WHEN 
-                                (CAST(avail.adult_price AS DECIMAL)) <= ( CAST(avail.child_price AS DECIMAL) )  
-                                THEN
-                                    ( CAST(avail.adult_price AS DECIMAL) )
-                                ELSE
-                                    (CAST(avail.child_price AS DECIMAL))
-                        END
+                          (CAST(avail.adult_price AS DECIMAL))
                 ELSE
                             CAST(avail.calendar_price AS DECIMAL)
                 END
@@ -419,6 +413,9 @@
 
                 $res = $wpdb->get_row( $sql, 'ARRAY_A' );
                 if ( !is_wp_error( $res ) ) {
+                    if ( $res[ 'min' ] == $res[ 'max' ] ) {
+                        $res[ 'min' ] = 0;
+                    }
                     $args = $res;
                 }
 
@@ -441,19 +438,19 @@
                     if ( !empty( $raw_data->pricing_type ) ) {
                         if ( !empty( $raw_data->adult_number ) ) {
                             $calendar_price = ( $raw_data->pricing_type == 'per_person' ) ? $raw_data->calendar->adult_price : $raw_data->calendar->calendar_price;
-                            echo '<li class="wb-room-item"><span class="wb-room-name"><strong>' . esc_html__( 'Adult', 'wpbooking' ) . ' x ' . esc_html( $raw_data->adult_number ) . '</strong></span>';
+                            echo '<li class="wb-room-item"><span class="wb-room-name"><strong>' . esc_html__( 'Adult', 'wp-booking-management-system' ) . ' x ' . esc_html( $raw_data->adult_number ) . '</strong></span>';
                             echo '<span class="wb-room-price">' . WPBooking_Currency::format_money( $calendar_price ) . '</span>';
                             echo '</li>';
                         }
                         if ( !empty( $raw_data->children_number ) ) {
                             $calendar_price = ( $raw_data->pricing_type == 'per_person' ) ? $raw_data->calendar->child_price : $raw_data->calendar->calendar_price;
-                            echo '<li class="wb-room-item"><span class="wb-room-name"><strong>' . esc_html__( 'Children', 'wpbooking' ) . ' x ' . esc_html( $raw_data->children_number ) . '</strong></span>';
+                            echo '<li class="wb-room-item"><span class="wb-room-name"><strong>' . esc_html__( 'Children', 'wp-booking-management-system' ) . ' x ' . esc_html( $raw_data->children_number ) . '</strong></span>';
                             echo '<span class="wb-room-price">' . WPBooking_Currency::format_money( $calendar_price ) . '</span>';
                             echo '</li>';
                         }
                         if ( !empty( $raw_data->infant_number ) ) {
                             $calendar_price = ( $raw_data->pricing_type == 'per_person' ) ? $raw_data->calendar->infant_price : $raw_data->calendar->calendar_price;
-                            echo '<li class="wb-room-item"><span class="wb-room-name"><strong>' . esc_html__( 'Infant', 'wpbooking' ) . ' x ' . esc_html( $raw_data->infant_number ) . '</strong></span>';
+                            echo '<li class="wb-room-item"><span class="wb-room-name"><strong>' . esc_html__( 'Infant', 'wp-booking-management-system' ) . ' x ' . esc_html( $raw_data->infant_number ) . '</strong></span>';
                             echo '<span class="wb-room-price">' . WPBooking_Currency::format_money( $calendar_price ) . '</span>';
                             echo '</li>';
                         }
@@ -488,7 +485,7 @@
             public function _add_total_box_info( $cart )
             {
                 if ( $cart[ 'price' ] ) {
-                    echo '<span class="total-title">' . esc_html__( 'Tour Price', 'wpbooking' ) . '</span>
+                    echo '<span class="total-title">' . esc_html__( 'Tour Price', 'wp-booking-management-system' ) . '</span>
                       <span class="total-amount">' . WPBooking_Currency::format_money( $cart[ 'price' ] ) . '</span>';
 
                 }
@@ -666,25 +663,25 @@
                 if ( !empty( $html ) ) {
                     echo '<ul class="wb-contact-list">' . $html . '</ul>';
                 }
-                printf( '<div class="people-price-item bold"><span class="head-item">%s</span></div>', esc_html__( "Booking Info", 'wpbooking' ) );
+                printf( '<div class="people-price-item bold"><span class="head-item">%s</span></div>', esc_html__( "Booking Info", 'wp-booking-management-system' ) );
                 // From
                 if ( !empty( $cart[ 'check_in_timestamp' ] ) ) {
                     $from_detail = date_i18n( get_option( 'date_format' ), $cart[ 'check_in_timestamp' ] );
                     if ( !empty( $cart[ 'duration' ] ) ) {
                         $from_detail .= ' (' . $cart[ 'duration' ] . ')';
                     }
-                    printf( '<div class="from-detail"><span class="head-item">%s:</span> <span class="from-detail-duration">%s</span></div>', esc_html__( 'From', 'wpbooking' ), $from_detail );
+                    printf( '<div class="from-detail"><span class="head-item">%s:</span> <span class="from-detail-duration">%s</span></div>', esc_html__( 'From', 'wp-booking-management-system' ), $from_detail );
                 }
                 switch ( $cart[ 'pricing_type' ] ) {
                     case "per_unit":
                         if ( !empty( $cart[ 'adult_number' ] ) ) {
-                            printf( '<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d</span></div>', esc_html__( 'Adult(s)', 'wpbooking' ), $cart[ 'adult_number' ] );
+                            printf( '<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d</span></div>', esc_html__( 'Adult(s)', 'wp-booking-management-system' ), $cart[ 'adult_number' ] );
                         }
                         if ( !empty( $cart[ 'children_number' ] ) ) {
-                            printf( '<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d</span></div>', esc_html__( 'Children', 'wpbooking' ), $cart[ 'children_number' ] );
+                            printf( '<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d</span></div>', esc_html__( 'Children', 'wp-booking-management-system' ), $cart[ 'children_number' ] );
                         }
                         if ( !empty( $cart[ 'infant_number' ] ) ) {
-                            printf( '<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d</span></div>', esc_html__( 'Infant(s)', 'wpbooking' ), $cart[ 'infant_number' ] );
+                            printf( '<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d</span></div>', esc_html__( 'Infant(s)', 'wp-booking-management-system' ), $cart[ 'infant_number' ] );
                         }
                         break;
                     case "per_person":
@@ -696,13 +693,13 @@
                                 'infant_price' => ''
                             ] );
                             if ( !empty( $cart[ 'adult_number' ] ) ) {
-                                printf( '<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__( 'Adult(s)', 'wpbooking' ), $cart[ 'adult_number' ], WPBooking_Currency::format_money( $calendar[ 'adult_price' ] ), WPBooking_Currency::format_money( $calendar[ 'adult_price' ] * $cart[ 'adult_number' ] ) );
+                                printf( '<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__( 'Adult(s)', 'wp-booking-management-system' ), $cart[ 'adult_number' ], WPBooking_Currency::format_money( $calendar[ 'adult_price' ] ), WPBooking_Currency::format_money( $calendar[ 'adult_price' ] * $cart[ 'adult_number' ] ) );
                             }
                             if ( !empty( $cart[ 'children_number' ] ) ) {
-                                printf( '<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__( 'Children', 'wpbooking' ), $cart[ 'children_number' ], WPBooking_Currency::format_money( $calendar[ 'child_price' ] ), WPBooking_Currency::format_money( $calendar[ 'child_price' ] * $cart[ 'children_number' ] ) );
+                                printf( '<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__( 'Children', 'wp-booking-management-system' ), $cart[ 'children_number' ], WPBooking_Currency::format_money( $calendar[ 'child_price' ] ), WPBooking_Currency::format_money( $calendar[ 'child_price' ] * $cart[ 'children_number' ] ) );
                             }
                             if ( !empty( $cart[ 'infant_number' ] ) ) {
-                                printf( '<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__( 'Infant(s)', 'wpbooking' ), $cart[ 'infant_number' ], WPBooking_Currency::format_money( $calendar[ 'infant_price' ] ), WPBooking_Currency::format_money( $calendar[ 'infant_price' ] * $cart[ 'infant_number' ] ) );
+                                printf( '<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d x %s = %s</span></div>', esc_html__( 'Infant(s)', 'wp-booking-management-system' ), $cart[ 'infant_number' ], WPBooking_Currency::format_money( $calendar[ 'infant_price' ] ), WPBooking_Currency::format_money( $calendar[ 'infant_price' ] * $cart[ 'infant_number' ] ) );
                             }
                         }
                         break;
@@ -774,7 +771,7 @@
 
                 $post_extras              = $this->post( 'wpbooking_extra_service' );
                 $extra_service            = [];
-                $extra_service[ 'title' ] = esc_html__( 'Extra Service', 'wpbooking' );
+                $extra_service[ 'title' ] = esc_html__( 'Extra Service', 'wp-booking-management-system' );
                 $my_extra_services        = get_post_meta( $post_id, 'extra_services', true );
 
                 if ( !empty( $post_extras ) ) {
@@ -837,7 +834,7 @@
                 $post_id_origin = wpbooking_origin_id( $post_id, 'wpbooking_service' );
                 if ( $start < strtotime( 'today' ) ) {
                     $is_validated = false;
-                    wpbooking_set_message( esc_html__( 'Your date is incorrect.', 'wpbooking' ), 'error' );
+                    wpbooking_set_message( esc_html__( 'Your date is incorrect.', 'wp-booking-management-system' ), 'error' );
                 }
 
                 if ( $is_validated ) {
@@ -860,20 +857,20 @@
                                 ->get()->row();
                             if ( !$query ) {
                                 $is_validated = false;
-                                wpbooking_set_message( esc_html__( 'Sorry! This tour is not available at your selected time', 'wpbooking' ), 'error' );
+                                wpbooking_set_message( esc_html__( 'Sorry! This tour is not available at your selected time', 'wp-booking-management-system' ), 'error' );
                             } else {
                                 $total_people = $cart_params[ 'adult_number' ] + $cart_params[ 'children_number' ] + $cart_params[ 'infant_number' ];
 
 
                                 if ( empty( $total_people ) ) {
                                     $is_validated = false;
-                                    wpbooking_set_message( esc_html__( 'This tour requires 1 person at least', 'wpbooking' ), 'error' );
+                                    wpbooking_set_message( esc_html__( 'This tour requires 1 person at least', 'wp-booking-management-system' ), 'error' );
                                 } else {
                                     // Check Slot(s) Remain
                                     // Check Slot(s) Remain
                                     if ( $total_people + $query[ 'total_people_booked' ] > $query[ 'max_guests' ] ) {
                                         $is_validated = false;
-                                        wpbooking_set_message( sprintf( esc_html__( 'This tour only remains availability for %d people', 'wpbooking' ), $query[ 'max_guests' ] - $query[ 'total_people_booked' ] ), 'error' );
+                                        wpbooking_set_message( sprintf( esc_html__( 'This tour only remains availability for %d people', 'wp-booking-management-system' ), $query[ 'max_guests' ] - $query[ 'total_people_booked' ] ), 'error' );
                                     } else {
                                         // Check Max, Min
                                         $min = (int)$query[ 'calendar_minimum' ];
@@ -882,13 +879,13 @@
                                             if ( $min ) {
                                                 if ( $total_people < $min ) {
                                                     $is_validated = false;
-                                                    wpbooking_set_message( sprintf( esc_html__( 'Minimum Travelers must be %d', 'wpbooking' ), $min ), 'error' );
+                                                    wpbooking_set_message( sprintf( esc_html__( 'Minimum Travelers must be %d', 'wp-booking-management-system' ), $min ), 'error' );
                                                 }
                                             }
                                             if ( $max ) {
                                                 if ( $total_people > $max ) {
                                                     $is_validated = false;
-                                                    wpbooking_set_message( sprintf( esc_html__( 'Maximum Travelers must be %d', 'wpbooking' ), $max ), 'error' );
+                                                    wpbooking_set_message( sprintf( esc_html__( 'Maximum Travelers must be %d', 'wp-booking-management-system' ), $max ), 'error' );
                                                 }
                                             }
                                         }
@@ -923,34 +920,34 @@
                                 ->get()->row();
                             if ( !$query ) {
                                 $is_validated = false;
-                                wpbooking_set_message( esc_html__( 'Sorry! This tour is not available at your selected time', 'wpbooking' ), 'error' );
+                                wpbooking_set_message( esc_html__( 'Sorry! This tour is not available at your selected time', 'wp-booking-management-system' ), 'error' );
                             } else {
                                 $total_people = $cart_params[ 'adult_number' ] + $cart_params[ 'children_number' ] + $cart_params[ 'infant_number' ];
 
                                 // Check Slot(s) Remain
                                 if ( $total_people + $query[ 'total_people_booked' ] > $query[ 'max_guests' ] ) {
                                     $is_validated = false;
-                                    wpbooking_set_message( sprintf( esc_html__( 'This tour only remains availability for %d people', 'wpbooking' ), $query[ 'max_guests' ] - $query[ 'total_people_booked' ] ), 'error' );
+                                    wpbooking_set_message( sprintf( esc_html__( 'This tour only remains availability for %d people', 'wp-booking-management-system' ), $query[ 'max_guests' ] - $query[ 'total_people_booked' ] ), 'error' );
                                 } else {
 
                                     $error_message = [];
 
                                     if ( ( !empty( $query[ 'adult_minimum' ] ) and $cart_params[ 'adult_number' ] < $query[ 'adult_minimum' ] ) ) {
-                                        $error_message[] = sprintf( esc_html__( '%d adult(s)', 'wpbooking' ), $query[ 'adult_minimum' ] );
+                                        $error_message[] = sprintf( esc_html__( '%d adult(s)', 'wp-booking-management-system' ), $query[ 'adult_minimum' ] );
                                     }
                                     if ( ( !empty( $query[ 'child_minimum' ] ) and $cart_params[ 'children_number' ] < $query[ 'child_minimum' ] ) ) {
-                                        $error_message[] = sprintf( esc_html__( '%d children', 'wpbooking' ), $query[ 'child_minimum' ] );
+                                        $error_message[] = sprintf( esc_html__( '%d children', 'wp-booking-management-system' ), $query[ 'child_minimum' ] );
                                     }
                                     if ( ( !empty( $query[ 'infant_minimum' ] ) and $cart_params[ 'infant_number' ] < $query[ 'infant_minimum' ] ) ) {
-                                        $error_message[] = sprintf( esc_html__( '%d infant(s)', 'wpbooking' ), $query[ 'infant_minimum' ] );
+                                        $error_message[] = sprintf( esc_html__( '%d infant(s)', 'wp-booking-management-system' ), $query[ 'infant_minimum' ] );
                                     }
 
                                     if ( !empty( $error_message ) ) {
                                         $is_validated = false;
-                                        wpbooking_set_message( sprintf( esc_html__( 'This tour requires %s people at least', 'wpbooking' ), implode( ', ', $error_message ) ), 'error' );
+                                        wpbooking_set_message( sprintf( esc_html__( 'This tour requires %s people at least', 'wp-booking-management-system' ), implode( ', ', $error_message ) ), 'error' );
                                     } elseif ( !$total_people ) {
                                         $is_validated = false;
-                                        wpbooking_set_message( esc_html__( 'This tour requires 1 person at least', 'wpbooking' ), 'error' );
+                                        wpbooking_set_message( esc_html__( 'This tour requires 1 person at least', 'wp-booking-management-system' ), 'error' );
                                     }
                                 }
                             }
@@ -1033,17 +1030,17 @@
             {
                 // Register Taxonomy
                 $labels = [
-                    'name'              => esc_html__( 'Tour Type', 'wpbooking' ),
-                    'singular_name'     => esc_html__( 'Tour Type', 'wpbooking' ),
-                    'search_items'      => esc_html__( 'Search for Tour Type', 'wpbooking' ),
-                    'all_items'         => esc_html__( 'All Tour Types', 'wpbooking' ),
-                    'parent_item'       => esc_html__( 'Parent Tour Type', 'wpbooking' ),
-                    'parent_item_colon' => esc_html__( 'Parent Tour Type:', 'wpbooking' ),
-                    'edit_item'         => esc_html__( 'Edit Tour Type', 'wpbooking' ),
-                    'update_item'       => esc_html__( 'Update Tour Type', 'wpbooking' ),
-                    'add_new_item'      => esc_html__( 'Add New Tour Type', 'wpbooking' ),
-                    'new_item_name'     => esc_html__( 'New Tour Type Name', 'wpbooking' ),
-                    'menu_name'         => esc_html__( 'Tour Type', 'wpbooking' ),
+                    'name'              => esc_html__( 'Tour Type', 'wp-booking-management-system' ),
+                    'singular_name'     => esc_html__( 'Tour Type', 'wp-booking-management-system' ),
+                    'search_items'      => esc_html__( 'Search for Tour Type', 'wp-booking-management-system' ),
+                    'all_items'         => esc_html__( 'All Tour Types', 'wp-booking-management-system' ),
+                    'parent_item'       => esc_html__( 'Parent Tour Type', 'wp-booking-management-system' ),
+                    'parent_item_colon' => esc_html__( 'Parent Tour Type:', 'wp-booking-management-system' ),
+                    'edit_item'         => esc_html__( 'Edit Tour Type', 'wp-booking-management-system' ),
+                    'update_item'       => esc_html__( 'Update Tour Type', 'wp-booking-management-system' ),
+                    'add_new_item'      => esc_html__( 'Add New Tour Type', 'wp-booking-management-system' ),
+                    'new_item_name'     => esc_html__( 'New Tour Type Name', 'wp-booking-management-system' ),
+                    'menu_name'         => esc_html__( 'Tour Type', 'wp-booking-management-system' ),
                 ];
                 $args   = [
                     'hierarchical'      => true,
@@ -1078,18 +1075,13 @@
 
                 if ( $pricing_type == 'per_person' ) {
                     $query = $calendar->select( '
-                CASE
-                WHEN MIN(adult_price) <= MIN(child_price) THEN
-                    MIN(adult_price)
-                ELSE
-                    MIN(child_price)
-                END AS min_price
+                    MIN(adult_price) AS min_price
                 ' )->where( [
                         'post_id'  => $post_id,
                         'status'   => 'available',
                         'start >=' => strtotime( date( 'd-m-Y' ) )
 
-                    ] )->where( '(child_price > 0 or adult_price > 0)', false, true )->get( 1 )->row();
+                    ] )->where( '(adult_price > 0)', false, true )->get( 1 )->row();
                 } else {
                     $query = $calendar->select( 'MIN(calendar_price) as min_price' )->where( [
                         'post_id'          => $post_id,
@@ -1106,7 +1098,7 @@
 
                 $price_html = WPBooking_Currency::format_money( $price );
 
-                $price_html = sprintf( esc_html__( 'from %s', 'wpbooking' ), '<br><span class="price" itemprop="price" >' . $price_html . '</span>' );
+                $price_html = sprintf( esc_html__( 'from %s', 'wp-booking-management-system' ), '<br><span class="price" itemprop="price" >' . $price_html . '</span>' );
 
                 return $price_html;
             }
@@ -1172,68 +1164,68 @@
                 // Metabox
                 $this->set_metabox( [
                     'general_tab'  => [
-                        'label'  => esc_html__( '1. Basic Information', 'wpbooking' ),
+                        'label'  => esc_html__( '1. Basic Information', 'wp-booking-management-system' ),
                         'fields' => [
                             [
                                 'type' => 'open_section',
                             ],
                             [
-                                'label' => esc_html__( "About Your Tour", 'wpbooking' ),
+                                'label' => esc_html__( "About Your Tour", 'wp-booking-management-system' ),
                                 'type'  => 'title',
-                                'desc'  => esc_html__( 'Basic information', 'wpbooking' ),
+                                'desc'  => esc_html__( 'Basic information', 'wp-booking-management-system' ),
                             ],
                             [
                                 'id'    => 'enable_property',
-                                'label' => esc_html__( "Enable Tour", 'wpbooking' ),
+                                'label' => esc_html__( "Enable Tour", 'wp-booking-management-system' ),
                                 'type'  => 'on-off',
                                 'std'   => 'on',
-                                'desc'  => esc_html__( 'Listing will appear in search results.', 'wpbooking' ),
+                                'desc'  => esc_html__( 'Listing will appear in search results.', 'wp-booking-management-system' ),
                             ],
                             [
                                 'id'       => 'tour_type',
-                                'label'    => esc_html__( "Tour Type", 'wpbooking' ),
+                                'label'    => esc_html__( "Tour Type", 'wp-booking-management-system' ),
                                 'type'     => 'dropdown',
                                 'taxonomy' => 'wb_tour_type',
                                 'class'    => 'small'
                             ],
                             [
                                 'id'    => 'star_rating',
-                                'label' => esc_html__( "Star Rating", 'wpbooking' ),
+                                'label' => esc_html__( "Star Rating", 'wp-booking-management-system' ),
                                 'type'  => 'star-select',
-                                'desc'  => esc_html__( 'Standard of tour from 1 to 5 stars.', 'wpbooking' ),
+                                'desc'  => esc_html__( 'Standard of tour from 1 to 5 stars.', 'wp-booking-management-system' ),
                                 'class' => 'small'
                             ],
                             [
                                 'id'          => 'duration',
-                                'label'       => esc_html__( "Duration", 'wpbooking' ),
+                                'label'       => esc_html__( "Duration", 'wp-booking-management-system' ),
                                 'type'        => 'text',
-                                'placeholder' => esc_html__( 'Example: 10 days', 'wpbooking' ),
+                                'placeholder' => esc_html__( 'Example: 10 days', 'wp-booking-management-system' ),
                                 'class'       => 'small',
                                 'rules'       => 'required'
                             ],
                             [
-                                'label'       => esc_html__( 'Contact Number', 'wpbooking' ),
+                                'label'       => esc_html__( 'Contact Number', 'wp-booking-management-system' ),
                                 'id'          => 'contact_number',
-                                'desc'        => esc_html__( 'The contact phone', 'wpbooking' ),
+                                'desc'        => esc_html__( 'The contact phone', 'wp-booking-management-system' ),
                                 'type'        => 'text',
                                 'class'       => 'small',
                                 'rules'       => 'required',
-                                'placeholder' => esc_html__( 'Phone number', 'wpbooking' )
+                                'placeholder' => esc_html__( 'Phone number', 'wp-booking-management-system' )
                             ],
                             [
-                                'label'       => esc_html__( 'Contact Email', 'wpbooking' ),
+                                'label'       => esc_html__( 'Contact Email', 'wp-booking-management-system' ),
                                 'id'          => 'contact_email',
                                 'type'        => 'text',
-                                'placeholder' => esc_html__( 'Example@domain.com', 'wpbooking' ),
+                                'placeholder' => esc_html__( 'Example@domain.com', 'wp-booking-management-system' ),
                                 'class'       => 'small',
                                 'rules'       => 'required|valid_email'
                             ],
                             [
-                                'label'       => esc_html__( 'Website', 'wpbooking' ),
+                                'label'       => esc_html__( 'Website', 'wp-booking-management-system' ),
                                 'id'          => 'website',
                                 'type'        => 'text',
-                                'desc'        => esc_html__( 'Property website (optional)', 'wpbooking' ),
-                                'placeholder' => esc_html__( 'http://exampledomain.com', 'wpbooking' ),
+                                'desc'        => esc_html__( 'Property website (optional)', 'wp-booking-management-system' ),
+                                'placeholder' => esc_html__( 'http://exampledomain.com', 'wp-booking-management-system' ),
                                 'class'       => 'small',
                                 'rules'       => 'valid_url'
                             ],
@@ -1245,11 +1237,11 @@
                             [ 'type' => 'close_section' ],
                             [ 'type' => 'open_section' ],
                             [
-                                'label' => esc_html__( "Tour Destination", 'wpbooking' ),
+                                'label' => esc_html__( "Tour Destination", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                             ],
                             [
-                                'label'           => esc_html__( 'Address', 'wpbooking' ),
+                                'label'           => esc_html__( 'Address', 'wp-booking-management-system' ),
                                 'id'              => 'address',
                                 'type'            => 'address',
                                 'container_class' => 'mb35',
@@ -1257,15 +1249,15 @@
                                 'rules'           => 'required'
                             ],
                             [
-                                'label' => esc_html__( 'Map\'s Latitude & Longitude', 'wpbooking' ),
+                                'label' => esc_html__( 'Map\'s Latitude & Longitude', 'wp-booking-management-system' ),
                                 'id'    => 'gmap',
                                 'type'  => 'gmap',
-                                'desc'  => esc_html__( 'This is the location we will provide for guests. Click to move the marker if you need to move it', 'wpbooking' )
+                                'desc'  => esc_html__( 'This is the location we will provide for guests. Click to move the marker if you need to move it', 'wp-booking-management-system' )
                             ],
                             [
                                 'type'    => 'desc_section',
-                                'title'   => esc_html__( 'Your address matters! ', 'wpbooking' ),
-                                'content' => esc_html__( 'Please make sure to enter your full address ', 'wpbooking' )
+                                'title'   => esc_html__( 'Your address matters! ', 'wp-booking-management-system' ),
+                                'content' => esc_html__( 'Please make sure to enter your full address ', 'wp-booking-management-system' )
                             ],
 
                             [ 'type' => 'close_section' ],
@@ -1278,25 +1270,25 @@
                         ]
                     ],
                     'detail_tab'   => [
-                        'label'  => esc_html__( '2. Booking Details', 'wpbooking' ),
+                        'label'  => esc_html__( '2. Booking Details', 'wp-booking-management-system' ),
                         'fields' => [
                             [ 'type' => 'open_section' ],
                             [
-                                'label' => esc_html__( "Pricing type", 'wpbooking' ),
+                                'label' => esc_html__( "Pricing type", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                             ],
                             [
-                                'label' => esc_html__( 'Pricing Type', 'wpbooking' ),
+                                'label' => esc_html__( 'Pricing Type', 'wp-booking-management-system' ),
                                 'type'  => 'dropdown',
                                 'id'    => 'pricing_type',
                                 'value' => [
-                                    'per_person' => esc_html__( 'Per person', 'wpbooking' ),
-                                    'per_unit'   => esc_html__( 'Per unit', 'wpbooking' ),
+                                    'per_person' => esc_html__( 'Per person', 'wp-booking-management-system' ),
+                                    'per_unit'   => esc_html__( 'Per unit', 'wp-booking-management-system' ),
                                 ],
                                 'class' => 'small'
                             ],
                             [
-                                'label' => esc_html__( 'Maximum people', 'wpbooking' ),
+                                'label' => esc_html__( 'Maximum people', 'wp-booking-management-system' ),
                                 'id'    => 'max_guests',
                                 'type'  => 'number',
                                 'std'   => 1,
@@ -1304,17 +1296,17 @@
                                 'min'   => 1
                             ],
                             [
-                                'label' => esc_html__( 'Disable type of Passenger', 'wpbooking' ),
-                                'id'    => 'onoff_people',
-                                'type'  => 'checkbox',
+                                'label'   => esc_html__( 'Disable type of Passenger', 'wp-booking-management-system' ),
+                                'id'      => 'onoff_people',
+                                'type'    => 'checkbox',
                                 'choices' => [
-                                    'child'  => esc_html__( 'Child', 'wpbooking' ),
-                                    'infant' => esc_html__( 'Infant', 'wpbooking' )
+                                    'child'  => esc_html__( 'Child', 'wp-booking-management-system' ),
+                                    'infant' => esc_html__( 'Infant', 'wp-booking-management-system' )
                                 ]
                             ],
                             [
-                                'label'     => esc_html__( 'Age Options', 'wpbooking' ),
-                                'desc'      => esc_html__( 'Provide your requirements for kinds of age defined as a child or adult.', 'wpbooking' ),
+                                'label'     => esc_html__( 'Age Options', 'wp-booking-management-system' ),
+                                'desc'      => esc_html__( 'Provide your requirements for kinds of age defined as a child or adult.', 'wp-booking-management-system' ),
                                 'id'        => 'age_options',
                                 'type'      => 'age_options',
                                 'condition' => 'pricing_type:is(per_person)',
@@ -1326,12 +1318,12 @@
                             [ 'type' => 'open_section' ],
                             [
                                 'type'  => 'title',
-                                'label' => esc_html__( 'Extra Services', 'wpbooking' ),
-                                'desc'  => esc_html__( 'Set the extended services for your property', 'wpbooking' )
+                                'label' => esc_html__( 'Extra Services', 'wp-booking-management-system' ),
+                                'desc'  => esc_html__( 'Set the extended services for your property', 'wp-booking-management-system' )
                             ],
                             [
                                 'type'           => 'extra_services',
-                                'label'          => esc_html__( 'Choose extra services', 'wpbooking' ),
+                                'label'          => esc_html__( 'Choose extra services', 'wp-booking-management-system' ),
                                 'id'             => 'extra_services',
                                 'extra_services' => $this->get_extra_services(),
                                 'service_type'   => $this->type_id
@@ -1342,7 +1334,7 @@
                             [ 'type' => 'open_section' ],
 
                             [
-                                'label' => esc_html__( "Availability", 'wpbooking' ),
+                                'label' => esc_html__( "Availability", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                             ],
                             [
@@ -1358,34 +1350,34 @@
                         ]
                     ],
                     'policies_tab' => [
-                        'label'  => esc_html__( '3. Policies & Checkout', 'wpbooking' ),
+                        'label'  => esc_html__( '3. Policies & Checkout', 'wp-booking-management-system' ),
                         'fields' => [
                             [ 'type' => 'open_section' ],
                             [
-                                'label' => esc_html__( 'External Link', 'wpbooking' ),
+                                'label' => esc_html__( 'External Link', 'wp-booking-management-system' ),
                                 'id'    => 'external_link',
                                 'type'  => 'text',
-                                'desc'  => esc_html__( 'Enter an external link to use this feature.', 'wpbooking' )
+                                'desc'  => esc_html__( 'Enter an external link to use this feature.', 'wp-booking-management-system' )
                             ],
                             [
-                                'label' => esc_html__( "Pre-payment and cancellation policies", 'wpbooking' ),
+                                'label' => esc_html__( "Pre-payment and cancellation policies", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                                 'desc'  => esc_html__( "Pre-payment and cancellation policies", "wpbooking" )
                             ],
                             [
-                                'label' => esc_html__( 'Select optional deposit ', 'wpbooking' ),
+                                'label' => esc_html__( 'Select optional deposit ', 'wp-booking-management-system' ),
                                 'id'    => 'deposit_payment_status',
                                 'type'  => 'dropdown',
                                 'value' => [
-                                    ''        => esc_html__( 'Disallow Deposit', 'wpbooking' ),
-                                    'percent' => esc_html__( 'Deposit by percent', 'wpbooking' ),
-                                    'amount'  => esc_html__( 'Deposit by amount', 'wpbooking' ),
+                                    ''        => esc_html__( 'Disallow Deposit', 'wp-booking-management-system' ),
+                                    'percent' => esc_html__( 'Deposit by percent', 'wp-booking-management-system' ),
+                                    'amount'  => esc_html__( 'Deposit by amount', 'wp-booking-management-system' ),
                                 ],
                                 'desc'  => esc_html__( "You can select Disallow Deposit, Deposit by percent, Deposit by amount", "wpbooking" ),
                                 'class' => 'small'
                             ],
                             [
-                                'label' => esc_html__( 'Deposit payment amount', 'wpbooking' ),
+                                'label' => esc_html__( 'Deposit payment amount', 'wp-booking-management-system' ),
                                 'id'    => 'deposit_payment_amount',
                                 'type'  => 'number',
                                 'desc'  => esc_html__( "Leave empty for disallow deposit payment", "wpbooking" ),
@@ -1393,16 +1385,16 @@
                                 'min'   => 1
                             ],
                             [
-                                'label' => esc_html__( 'How many days in advance can guests cancel free of  charge?', 'wpbooking' ),
+                                'label' => esc_html__( 'How many days in advance can guests cancel free of  charge?', 'wp-booking-management-system' ),
                                 'id'    => 'cancel_free_days_prior',
                                 'type'  => 'dropdown',
                                 'value' => [
-                                    'day_of_arrival' => esc_html__( 'Day of arrival (6 pm)', 'wpbooking' ),
-                                    '1'              => esc_html__( '1 day', 'wpbooking' ),
-                                    '2'              => esc_html__( '2 days', 'wpbooking' ),
-                                    '3'              => esc_html__( '3 days', 'wpbooking' ),
-                                    '7'              => esc_html__( '7 days', 'wpbooking' ),
-                                    '14'             => esc_html__( '14 days', 'wpbooking' ),
+                                    'day_of_arrival' => esc_html__( 'Day of arrival (6 pm)', 'wp-booking-management-system' ),
+                                    '1'              => esc_html__( '1 day', 'wp-booking-management-system' ),
+                                    '2'              => esc_html__( '2 days', 'wp-booking-management-system' ),
+                                    '3'              => esc_html__( '3 days', 'wp-booking-management-system' ),
+                                    '7'              => esc_html__( '7 days', 'wp-booking-management-system' ),
+                                    '14'             => esc_html__( '14 days', 'wp-booking-management-system' ),
                                 ],
                                 'desc'  => esc_html__( "Day of arrival ( 18: 00 ) , 1 day , 2 days, 3 days, 7 days, 14 days", "wpbooking" ),
                                 'class' => 'small'
@@ -1410,12 +1402,12 @@
                             [ 'type' => 'close_section' ],
                             [ 'type' => 'open_section' ],
                             [
-                                'label' => esc_html__( "Tax", 'wpbooking' ),
+                                'label' => esc_html__( "Tax", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                                 'desc'  => esc_html__( "Set your local VAT, so guests know what is included in the price of their stay.", "wpbooking" )
                             ],
                             [
-                                'label'  => esc_html__( 'VAT', 'wpbooking' ),
+                                'label'  => esc_html__( 'VAT', 'wp-booking-management-system' ),
                                 'id'     => 'vat_different',
                                 'type'   => 'vat_different',
                                 'fields' => [
@@ -1428,12 +1420,12 @@
 
                             [ 'type' => 'open_section' ],
                             [
-                                'label' => esc_html__( "Term & condition", 'wpbooking' ),
+                                'label' => esc_html__( "Term & condition", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                                 'desc'  => esc_html__( "Set terms and conditions for your property", "wpbooking" )
                             ],
                             [
-                                'label' => esc_html__( 'Terms & Conditions', 'wpbooking' ),
+                                'label' => esc_html__( 'Terms & Conditions', 'wp-booking-management-system' ),
                                 'id'    => 'terms_conditions',
                                 'type'  => 'textarea',
                                 'rows'  => '5',
@@ -1446,26 +1438,26 @@
                         ],
                     ],
                     'photo_tab'    => [
-                        'label'  => esc_html__( '4. Photos', 'wpbooking' ),
+                        'label'  => esc_html__( '4. Photos', 'wp-booking-management-system' ),
                         'fields' => [
                             [ 'type' => 'open_section' ],
                             [
-                                'label' => esc_html__( "Pictures", 'wpbooking' ),
+                                'label' => esc_html__( "Pictures", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                             ],
                             [
-                                'label'         => esc_html__( "Gallery", 'wpbooking' ),
+                                'label'         => esc_html__( "Gallery", 'wp-booking-management-system' ),
                                 'id'            => 'tour_gallery',
                                 'type'          => 'gallery',
                                 'rules'         => 'required',
-                                'desc'          => esc_html__( 'Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wpbooking' ),
-                                'error_message' => esc_html__( 'You must upload one minimum photo for your tour', 'wpbooking' ),
-                                'service_type'  => esc_html__( 'tour', 'wpbooking' )
+                                'desc'          => esc_html__( 'Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wp-booking-management-system' ),
+                                'error_message' => esc_html__( 'You must upload one minimum photo for your tour', 'wp-booking-management-system' ),
+                                'service_type'  => esc_html__( 'tour', 'wp-booking-management-system' )
                             ],
                             [ 'type' => 'close_section' ],
                             [
                                 'type'       => 'section_navigation',
-                                'next_label' => esc_html__( 'Save', 'wpbooking' ),
+                                'next_label' => esc_html__( 'Save', 'wp-booking-management-system' ),
                                 'step'       => 'finish'
                             ],
                         ]
@@ -1524,7 +1516,7 @@
             {
                 $wpbooking_taxonomy = get_option( 'wpbooking_taxonomies' );
 
-                $list_taxonomy = [ 'wb_tour_type' => esc_html__( 'Tour type', 'wpbooking' ) ];
+                $list_taxonomy = [ 'wb_tour_type' => esc_html__( 'Tour type', 'wp-booking-management-system' ) ];
                 if ( !empty( $wpbooking_taxonomy ) && is_array( $wpbooking_taxonomy ) ) {
                     foreach ( $wpbooking_taxonomy as $key => $val ) {
                         if ( !empty( $val[ 'service_type' ] ) && in_array( 'tour', $val[ 'service_type' ] ) ) {
@@ -1838,29 +1830,6 @@
                     ];
                 }
 
-                //Check in
-                if ( $this->request( 'checkout_d' ) ) {
-                    $end_date = strtotime( $this->request( 'checkout_d' ) . '-' . $this->request( 'checkout_m' ) . '-' . $this->request( 'checkout_y' ) );
-                    if ( $this->request( 'checkin_d' ) && $this->request( 'checkin_m' ) && $this->request( 'checkin_y' ) ) {
-                        $from_date = strtotime( $this->request( 'checkin_d' ) . '-' . $this->request( 'checkin_m' ) . '-' . $this->request( 'checkin_y' ) );
-
-                        $injection->join( 'wpbooking_availability as avail', "avail.post_id={$wpdb->posts}.ID" );
-                        $injection->where( "(avail.`start` >= {$from_date} AND avail.`start` <= {$end_date})", false, true );
-                        $injection->where( 'avail.status', 'available' );
-                        $injection->groupby( 'avail.post_id' );
-                    }
-                } else {
-                    if ( $this->request( 'checkin_d' ) && $this->request( 'checkin_m' ) && $this->request( 'checkin_y' ) ) {
-                        $from_date = strtotime( $this->request( 'checkin_d' ) . '-' . $this->request( 'checkin_m' ) . '-' . $this->request( 'checkin_y' ) );
-
-                        $injection->join( 'wpbooking_availability_tour as avail', "avail.post_id={$wpdb->posts}.ID" );
-                        $injection->where( 'avail.`start`', $from_date );
-                        $injection->where( 'avail.`status`', 'available' );
-                        $injection->groupby( 'avail.post_id' );
-                    }
-                }
-
-
                 if ( !empty( $tax_query ) )
                     $injection->add_arg( 'tax_query', $tax_query );
 
@@ -1871,137 +1840,103 @@
 
                 $injection->add_arg( 'post_status', 'publish' );
 
-                // Price
-                if ( $price = WPBooking_Input::get( 'price' ) ) {
-                    $array = explode( ';', $price );
+                if ( WPBooking_Input::request( 'service_type' ) == 'tour' ) {
+                    //Check in
+                    $from_date = strtotime( $this->request( 'checkin_d' ) . '-' . $this->request( 'checkin_m' ) . '-' . $this->request( 'checkin_y' ) );
+                    $end_date  = strtotime( $this->request( 'checkout_d' ) . '-' . $this->request( 'checkout_m' ) . '-' . $this->request( 'checkout_y' ) );
+                    if ( !$end_date ) {
+                        $end_date = $from_date;
+                    }
+                    if ( $from_date ) {
+                        $injection->join( 'wpbooking_availability_tour as avail', "avail.post_id={$wpdb->posts}.ID" );
+                        $injection->where( "(avail.`start` >= {$from_date} AND avail.`start` <= {$end_date})", false, true );
+                        $injection->where( 'avail.status', 'available' );
+                        $injection->groupby( 'avail.post_id' );
 
-                    $injection->select( "
-                                        MIN(
-                                            CASE
-                                                WHEN wpb_meta.meta_value = 'per_person'
-                                                THEN
-                                                        CASE WHEN 
-                                                            (CAST(avail.adult_price AS DECIMAL)) <= ( CAST(avail.child_price AS DECIMAL) ) 
-                                                            THEN
-                                                                ( CAST(avail.adult_price AS DECIMAL) )
-                                                            ELSE
-                                                                (CAST(avail.child_price AS DECIMAL))
-                                                    END
+                        // Order By
+                        if ( $sortby = $this->request( 'wb_sort_by' ) ) {
+                            switch ( $sortby ) {
+                                case "price_asc":
+                                    $injection->select( "CASE
+                                            WHEN meta.meta_value = 'per_person' 
+                                            THEN
+                                                MIN(
+                                                    CAST(avail.adult_price AS DECIMAL)
+                                                )
                                             ELSE
-                                                        CAST(avail.calendar_price AS DECIMAL)
+                                                MIN(
+                                                    CAST(
+                                                        avail.calendar_price AS DECIMAL
+                                                    )
+                                                )
+                                            END AS min_price" );
+                                    $injection->join( 'postmeta as meta', "meta.post_id={$wpdb->posts}.ID AND meta.meta_key='pricing_type'", 'left' );
+                                    $injection->where( "((
+                                            (meta.meta_value = 'per_person' and CAST(avail.adult_price AS DECIMAL) > 0) )
+                                        or (meta.meta_value = 'per_unit' AND CAST(avail.calendar_price AS DECIMAL) > 0))", false, true );
+                                    $injection->orderby( 'min_price', 'asc' );
+                                    break;
+                                case "price_desc":
+                                    $injection->select( "CASE
+                                            WHEN meta.meta_value = 'per_person'
+                                            THEN
+                                                MIN(
+                                                    CAST(avail.adult_price AS DECIMAL)
+                                                )
+                                            ELSE
+                                                MIN(
+                                                    CAST(
+                                                        avail.calendar_price AS DECIMAL
+                                                    )
+                                                )
+                                            END AS min_price" );
+                                    $injection->join( 'postmeta as meta', "meta.post_id={$wpdb->posts}.ID AND meta.meta_key='pricing_type'", 'left' );
+                                    $injection->where( "((
+                                            (meta.meta_value = 'per_person' and CAST(avail.adult_price AS DECIMAL) > 0) )  or (meta.meta_value = 'per_unit' AND CAST(avail.calendar_price AS DECIMAL) > 0))", false, true );
+                                    $injection->orderby( 'min_price', 'desc' );
+                                    break;
+                                case "date_asc":
+                                    $injection->add_arg( 'orderby', 'date' );
+                                    $injection->add_arg( 'order', 'ASC' );
+                                    break;
+                                case "date_desc":
+                                    $injection->add_arg( 'orderby', 'date' );
+                                    $injection->add_arg( 'order', 'DESC' );
+                                    break;
+                                case "name_a_z":
+                                    $injection->add_arg( 'orderby', 'post_title' );
+                                    $injection->add_arg( 'order', 'asc' );
+                                    break;
+                                case "name_z_a":
+                                    $injection->add_arg( 'orderby', 'post_title' );
+                                    $injection->add_arg( 'order', 'desc' );
+                                    break;
+                            }
+                        }
+
+                        // Price
+                        if ( $price = WPBooking_Input::get( 'price' ) ) {
+                            $array = explode( ';', $price );
+                            $injection->select( "
+                                        MIN(
+                                            CASE WHEN wpb_meta.meta_value = 'per_person'
+                                            THEN
+                                                CAST(avail.adult_price AS DECIMAL) 
+                                            ELSE
+                                                CAST(avail.calendar_price AS DECIMAL)
                                             END
                                         ) as wpb_base_price" )
-                        ->join( 'postmeta as wpb_meta', $wpdb->prefix . 'posts.ID=wpb_meta.post_id and wpb_meta.meta_key = \'pricing_type\'' )
-                        ->join( 'wpbooking_availability_tour as avail', $wpdb->prefix . 'posts.ID= avail.post_id ' );
+                                ->join( 'postmeta as wpb_meta', "{$wpdb->posts}.ID=wpb_meta.post_id and wpb_meta.meta_key = 'pricing_type'" );
 
-                    $injection->where( 'avail.start>=', strtotime( 'today' ) );
-                    if ( !empty( $array[ 0 ] ) ) {
-                        $injection->having( ' CAST(wpb_base_price AS DECIMAL) >= ' . $array[ 0 ] );
-                    }
-                    if ( !empty( $array[ 1 ] ) ) {
-                        $injection->having( ' CAST(wpb_base_price AS DECIMAL) <= ' . $array[ 1 ] );
-                    }
-                }
-
-                // Order By
-                if ( $sortby = $this->request( 'wb_sort_by' ) ) {
-                    switch ( $sortby ) {
-                        case "price_asc":
-                            $injection->select( "CASE
-                                            WHEN meta.meta_value = 'per_person' 
-                                            AND MIN( CAST(avail.adult_price AS DECIMAL) ) <= MIN( CAST(avail.child_price AS DECIMAL) ) 
-                                            THEN
-                                                MIN(
-                                                    CAST(avail.adult_price AS DECIMAL)
-                                                )
-                                            ELSE
-                                                MIN(
-                                                    CAST(avail.child_price AS DECIMAL)
-                                                )
-                                            ELSE
-                                                MIN(
-                                                    CAST(
-                                                        avail.calendar_price AS DECIMAL
-                                                    )
-                                                )
-                                            END AS min_price" );
-                            $injection->join( 'postmeta as meta', "meta.post_id={$wpdb->posts}.ID AND meta.meta_key='pricing_type'", 'left' );
-                            $injection->join( 'wpbooking_availability_tour as avail', "avail.post_id = {$wpdb->posts}.ID" );
-                            $injection->where( 'avail.`status`', 'available' );
-                            $injection->where( "((
-                                            (meta.meta_value = 'per_person' and
-                                        CAST(avail.adult_price AS DECIMAL) > 0)
-                                        or (
-                                        meta.meta_value = 'per_person' and
-                                        CAST(avail.child_price AS DECIMAL) > 0
-                                        )
-                                        )
-                                        or (meta.meta_value = 'per_unit' AND CAST(avail.calendar_price AS DECIMAL) > 0))", false, true );
-                            $injection->orderby( 'min_price', 'asc' );
-                            break;
-                        case "price_desc":
-                            $injection->select( "CASE
-                                            WHEN meta.meta_value = 'per_person' 
-                                            AND MIN( CAST(avail.adult_price AS DECIMAL) ) <= MIN( CAST(avail.child_price AS DECIMAL) ) 
-                                            AND MIN( CAST(avail.adult_price AS DECIMAL) ) <= MIN( CAST(avail.infant_price AS DECIMAL) ) 
-                                            THEN
-                                                MIN(
-                                                    CAST(avail.adult_price AS DECIMAL)
-                                                )
-                                            WHEN meta.meta_value = 'per_person' 
-                                            AND MIN( CAST(avail.child_price AS DECIMAL) ) <= MIN(	CAST(avail.adult_price AS DECIMAL) ) 
-                                            AND MIN( CAST(avail.child_price AS DECIMAL) ) <= MIN(	CAST(avail.infant_price AS DECIMAL) ) 
-                                            THEN
-                                                MIN(
-                                                    CAST(avail.child_price AS DECIMAL)
-                                                )
-                                            WHEN meta.meta_value = 'per_person' 
-                                            AND MIN( CAST(avail.infant_price AS DECIMAL) ) <= MIN(	CAST(avail.adult_price AS DECIMAL) ) 
-                                            AND MIN( CAST(avail.infant_price AS DECIMAL) ) <= MIN(	CAST(avail.child_price AS DECIMAL) ) 
-                                            THEN
-                                                MIN(
-                                                    CAST(avail.infant_price AS DECIMAL)
-                                                )
-                                            ELSE
-                                                MIN(
-                                                    CAST(
-                                                        avail.calendar_price AS DECIMAL
-                                                    )
-                                                )
-                                            END AS min_price" );
-                            $injection->join( 'postmeta as meta', "meta.post_id={$wpdb->posts}.ID AND meta.meta_key='pricing_type'", 'left' );
-                            $injection->join( 'wpbooking_availability_tour as avail', "avail.post_id = {$wpdb->posts}.ID" );
-                            $injection->where( 'avail.`status`', 'available' );
-                            $injection->where( "((
-                                            (meta.meta_value = 'per_person' and
-                                        CAST(avail.adult_price AS DECIMAL) > 0)
-                                        or (
-                                        meta.meta_value = 'per_person' and
-                                        CAST(avail.child_price AS DECIMAL) > 0
-                                        )
-                                        )
-                                        or (meta.meta_value = 'per_unit' AND CAST(avail.calendar_price AS DECIMAL) > 0))", false, true );
-                            $injection->orderby( 'min_price', 'desc' );
-                            break;
-                        case "date_asc":
-                            $injection->add_arg( 'orderby', 'date' );
-                            $injection->add_arg( 'order', 'ASC' );
-                            break;
-                        case "date_desc":
-                            $injection->add_arg( 'orderby', 'date' );
-                            $injection->add_arg( 'order', 'DESC' );
-                            break;
-                        case "name_a_z":
-                            $injection->add_arg( 'orderby', 'post_title' );
-                            $injection->add_arg( 'order', 'asc' );
-                            break;
-                        case "name_z_a":
-                            $injection->add_arg( 'orderby', 'post_title' );
-                            $injection->add_arg( 'order', 'desc' );
-                            break;
+                            if ( !empty( $array[ 0 ] ) ) {
+                                $injection->having( ' CAST(wpb_base_price AS DECIMAL) >= ' . $array[ 0 ] );
+                            }
+                            if ( !empty( $array[ 1 ] ) ) {
+                                $injection->having( ' CAST(wpb_base_price AS DECIMAL) <= ' . $array[ 1 ] );
+                            }
+                        }
                     }
                 }
-
 
                 parent::_add_default_query_hook();
             }

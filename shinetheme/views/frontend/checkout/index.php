@@ -2,7 +2,7 @@
 $booking = WPBooking_Checkout_Controller::inst();
 $cart = $booking->get_cart();
 if (empty($cart)) {
-    wpbooking_set_message(esc_html__('Sorry! Your cart is currently empty', 'wpbooking'), 'danger');
+    wpbooking_set_message(esc_html__('Sorry! Your cart is currently empty', 'wp-booking-management-system'), 'danger');
 }
 echo wpbooking_get_message();
 if (empty($cart)) {
@@ -32,11 +32,11 @@ if(!$allow_guest_checkout and !is_user_logged_in()){
                 <div class="row">
                     <div class="col-md-7">
                         <div class="checkout-form-wrap">
-                            <h5 class="checkout-form-title"><?php esc_html_e('Billing Information', 'wpbooking') ?></h5>
+                            <h5 class="checkout-form-title"><?php esc_html_e('Billing Information', 'wp-booking-management-system') ?></h5>
                             <h5 class="checkout-form-sub-title">
                                 <?php
                                 if(is_user_logged_in()){
-                                    esc_html_e('Billing Information', 'wpbooking');
+                                    esc_html_e('Billing Information', 'wp-booking-management-system');
                                 }else{
                                     esc_html_e("Already have an account?","wpbooking");
                                     $url_check_out = get_permalink(wpbooking_get_option('checkout_page'));
@@ -52,7 +52,7 @@ if(!$allow_guest_checkout and !is_user_logged_in()){
                     </div>
                     <div class="col-md-5">
                         <?php echo wpbooking_load_view('checkout/cart-total-box') ?>
-                        <h5 class="checkout-form-title"><?php esc_html_e('Method of Payment', 'wpbooking') ?></h5>
+                        <h5 class="checkout-form-title"><?php esc_html_e('Method of Payment', 'wp-booking-management-system') ?></h5>
                         <div class="wpbooking-gateways">
                             <?php echo wpbooking_load_view('checkout/gateways') ?>
                         </div>
@@ -64,13 +64,13 @@ if(!$allow_guest_checkout and !is_user_logged_in()){
                                 <input type="checkbox" id="term_condition" name="term_condition"  value="1">
                                 <?php
                                 $page_term_condition = wpbooking_get_option('term-page');
-                                $link = '<a target="_blank" class="term_condition" href="'.esc_url(get_permalink($page_term_condition)).'">'.esc_attr__("terms and conditions", 'wpbooking').'</a>';
+                                $link = '<a target="_blank" class="term_condition" href="'.esc_url(get_permalink($page_term_condition)).'">'.esc_attr__("terms and conditions", 'wp-booking-management-system').'</a>';
                                 printf(esc_html__("I have read and accepted the %s","wpbooking"),$link);
                                 ?>
                             </label>
                         </div>
                         <div class="checkout-submit-button">
-                            <button type="submit" class="wb-btn wb-btn-primary wb-btn-md submit-button" disabled><?php esc_html_e('CHECKOUT', 'wpbooking') ?></button>
+                            <button type="submit" class="wb-btn wb-btn-primary wb-btn-md submit-button" disabled><?php esc_html_e('CHECKOUT', 'wp-booking-management-system') ?></button>
                         </div>
                     </div>
                 </div>

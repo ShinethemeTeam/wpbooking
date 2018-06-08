@@ -38,7 +38,7 @@ $types = WPBooking_Service_Controller::inst()->get_service_types();
 ?>
 <h3 class="tab-page-title">
     <?php
-    echo esc_html__('Your Wishlist', 'wpbooking');
+    echo esc_html__('Your Wishlist', 'wp-booking-management-system');
     ?>
 </h3>
 <?php if (!empty($types) and count($types) > 1) { ?>
@@ -46,7 +46,7 @@ $types = WPBooking_Service_Controller::inst()->get_service_types();
         <?php
         $class = FALSE;
         if (!WPBooking_Input::get('service_type')) $class = 'active';
-        printf('<li class="%s"><a href="%s">%s</a></li>', $class, get_permalink(wpbooking_get_option('myaccount-page') ). 'tab/your_wishlist', esc_html__('All', 'wpbooking'));
+        printf('<li class="%s"><a href="%s">%s</a></li>', $class, get_permalink(wpbooking_get_option('myaccount-page') ). 'tab/your_wishlist', esc_html__('All', 'wp-booking-management-system'));
         foreach ($types as $type_id => $type) {
             $class = FALSE;
             if(WPBooking_Input::get('service_type')==$type_id) $class='active';
@@ -58,9 +58,9 @@ $types = WPBooking_Service_Controller::inst()->get_service_types();
 <?php } ?>
 <div class="wpbooking-account-services">
     <?php if (!empty($res)) {
-        $title = sprintf(esc_html__('You are wishing %d service(s)', 'wpbooking'),$total_item);
+        $title = sprintf(esc_html__('You are wishing %d service(s)', 'wp-booking-management-system'),$total_item);
         if($service_type and $service_type_object=WPBooking_Service_Controller::inst()->get_service_type($service_type)){
-            $title=sprintf(esc_html__('You are wishing %d %s(s)','wpbooking'),$total_item,strtolower($service_type_object->get_info('label')));
+            $title=sprintf(esc_html__('You are wishing %d %s(s)','wp-booking-management-system'),$total_item,strtolower($service_type_object->get_info('label')));
         }
         echo "<div class='lable'>{$title}</div>";
         global $post;
@@ -87,7 +87,7 @@ $types = WPBooking_Service_Controller::inst()->get_service_types();
             <?php
         }
     } else {
-        printf('<div class="alert alert-danger">%s</div>', esc_html__('Not Found Service(s)', 'wpbooking'));
+        printf('<div class="alert alert-danger">%s</div>', esc_html__('Not Found Service(s)', 'wp-booking-management-system'));
     }
     ?>
     <div class="wpbooking-pagination">

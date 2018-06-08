@@ -10,14 +10,14 @@ if(get_query_var('order-detail')){
 ?>
 	<h3 class="tab-page-title">
 		<?php
-		echo esc_html__('All Orders','wpbooking');
+		echo esc_html__('All Orders','wp-booking-management-system');
 		?>
 	</h3>
 	<ul class="subsubsub">
 		<?php
 		$tabs=array(
-			'listing'=>esc_html__('Listing','wpbooking'),
-			'calendar'=>esc_html__('Calendar','wpbooking'),
+			'listing'=>esc_html__('Listing','wp-booking-management-system'),
+			'calendar'=>esc_html__('Calendar','wp-booking-management-system'),
 		);
 		$i=0;
 		foreach($tabs as $k=>$v){
@@ -53,22 +53,22 @@ if(get_query_var('order-detail')){
 		<div class="tablenav top">
 			<div class="alignleft actions">
 				<select name="service_type" class="postform">
-					<optgroup label="<?php esc_html_e('Service Type','wpbooking') ?>">
-						<option value="0"><?php esc_html_e('All Types of Service','wpbooking') ?></option>
+					<optgroup label="<?php esc_html_e('Service Type','wp-booking-management-system') ?>">
+						<option value="0"><?php esc_html_e('All Types of Service','wp-booking-management-system') ?></option>
 						<?php foreach($types as $k=>$v){
 							printf('<option value="%s" %s>%s</option>',$k,selected(WPBooking_Input::get('service_type'),$k,FALSE),$v->get_info('label'));
 						} ?>
 					</optgroup>
 				</select>
 				<select name="status" class="postform">
-					<optgroup label="<?php esc_html_e('Status','wpbooking') ?>">
-						<option value="0"><?php esc_html_e('All Statuses','wpbooking') ?></option>
+					<optgroup label="<?php esc_html_e('Status','wp-booking-management-system') ?>">
+						<option value="0"><?php esc_html_e('All Statuses','wp-booking-management-system') ?></option>
 						<?php foreach($status as $k=>$v){
 							printf('<option value="%s" %s>%s</option>',$k,selected(WPBooking_Input::get('status'),$k,FALSE),$v['label']);
 						} ?>
 					</optgroup>
 				</select>
-				<input type="submit" id="doaction" class="button action" value="<?php esc_html_e('Filter','wpbooking') ?>">
+				<input type="submit" id="doaction" class="button action" value="<?php esc_html_e('Filter','wp-booking-management-system') ?>">
 			</div>
 
 			<div class="clear"></div>

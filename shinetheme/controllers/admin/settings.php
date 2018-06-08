@@ -61,7 +61,7 @@
                             update_option( $option_key, $option );
                             $res[ 'status' ] = 1;
                         } else {
-                            $res[ 'message' ] = esc_html__( 'Service Exists. Please choose another name', 'wpbooking' );
+                            $res[ 'message' ] = esc_html__( 'Service Exists. Please choose another name', 'wp-booking-management-system' );
                         }
                     }
                 }
@@ -102,8 +102,8 @@
                 $menu_page = WPBooking()->get_menu_page();
                 $page      = [
                     'parent_slug' => $menu_page[ 'menu_slug' ],
-                    'page_title'  => esc_html__( 'Settings', 'wpbooking' ),
-                    'menu_title'  => esc_html__( 'Settings', 'wpbooking' ),
+                    'page_title'  => esc_html__( 'Settings', 'wp-booking-management-system' ),
+                    'menu_title'  => esc_html__( 'Settings', 'wp-booking-management-system' ),
                     'capability'  => 'manage_options',
                     'menu_slug'   => 'wpbooking_page_settings',
                     'function'    => [ $this, 'callback_wpbooking_sub_menu' ]

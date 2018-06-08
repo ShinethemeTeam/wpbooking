@@ -107,8 +107,8 @@
                 $menu_page = WPBooking()->get_menu_page();
                 $page      = [
                     'parent_slug' => $menu_page[ 'menu_slug' ],
-                    'page_title'  => esc_html__( 'Extensions', 'wpbooking' ),
-                    'menu_title'  => esc_html__( 'Extensions', 'wpbooking' ),
+                    'page_title'  => esc_html__( 'Extensions', 'wp-booking-management-system' ),
+                    'menu_title'  => esc_html__( 'Extensions', 'wp-booking-management-system' ),
                     'capability'  => 'manage_options',
                     'menu_slug'   => 'wpbooking_page_extensions',
                     'function'    => [ $this, 'callback_wpbooking_extensions_sub_menu' ]
@@ -141,7 +141,7 @@
             public function add_dashboard_widgets()
             {
                 if ( current_user_can( 'manage_options' ) ) {
-                    wp_add_dashboard_widget( 'wpbooking_report', esc_html__( 'WPBooking Sales Summary', 'wpbooking' ), [ $this, '_report_widget_callback' ] );
+                    wp_add_dashboard_widget( 'wpbooking_report', esc_html__( 'WPBooking Sales Summary', 'wp-booking-management-system' ), [ $this, '_report_widget_callback' ] );
                 }
             }
 

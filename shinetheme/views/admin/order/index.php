@@ -4,13 +4,13 @@ $status=WPBooking_Config::inst()->item('order_status');
 $payment_status=WPBooking_Config::inst()->item('payment_status');
 ?>
 <div class="wrap">
-	<h1><?php esc_html_e('All Bookings','wpbooking') ?></h1>
+	<h1><?php esc_html_e('All Bookings','wp-booking-management-system') ?></h1>
 	<?php echo wpbooking_get_admin_message() ?>
 	<ul class="subsubsub">
 		<?php
 		$tabs=array(
-			'listing'=>esc_html__('Listing','wpbooking'),
-			'report'=>esc_html__('Report','wpbooking'),
+			'listing'=>esc_html__('Listing','wp-booking-management-system'),
+			'report'=>esc_html__('Report','wp-booking-management-system'),
 		);
 		$i=0;
 		foreach($tabs as $k=>$v){

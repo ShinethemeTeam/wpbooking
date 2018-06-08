@@ -41,12 +41,12 @@
         <input type="hidden" name="type_ical" value="<?php echo esc_attr( $data[ 'post_type' ] ); ?>">
         <div class="clear block mt10"></div>
         <label><input type="checkbox" class="overwrite" name="overwrite"
-                      value="yes"><?php echo esc_html__( 'Overwrite previous sync', 'wpbooking' ); ?></label>
+                      value="yes"><?php echo esc_html__( 'Overwrite previous sync', 'wp-booking-management-system' ); ?></label>
         <div class="clear block mt10"></div>
         <button
-            class="button button-primary button-medium wb-button save"><?php echo esc_html__( 'Synchronized', 'wpbooking' ) ?> </button>
+            class="button button-primary button-medium wb-button save"><?php echo esc_html__( 'Synchronized', 'wp-booking-management-system' ) ?> </button>
         <?php if ( $ical_des ): ?>
-            <p class="wpbooking-ical-des mt15"><?php echo sprintf( esc_html__( 'Last synchronized on %s', 'wpbooking' ), date( 'Y-m-d H:i:s', $ical_des ) ); ?></p>
+            <p class="wpbooking-ical-des mt15"><?php echo sprintf( esc_html__( 'Last synchronized on %s', 'wp-booking-management-system' ), date( 'Y-m-d H:i:s', $ical_des ) ); ?></p>
         <?php endif; ?>
         <div class="clear block mt20"></div>
         <div class="form-message block"></div>

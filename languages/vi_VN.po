@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpbooking\n"
-"POT-Creation-Date: 2018-03-21 11:03+0700\n"
-"PO-Revision-Date: 2018-04-12 14:56+0700\n"
+"POT-Creation-Date: 2018-06-07 16:19+0700\n"
+"PO-Revision-Date: 2018-06-07 16:20+0700\n"
 "Last-Translator: \n"
 "Language-Team: wpbooking\n"
 "Language: vi_VN\n"
@@ -10,11 +10,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.5\n"
-"X-Poedit-Basepath: ..\n"
+"X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-KeywordsList: __(;esc_html__(;_n(;esc_attr__(;__n(\n"
-"X-Poedit-SearchPath-0: languages\n"
-"X-Poedit-SearchPath-1: .\n"
 
 #: shinetheme/configs/config.php:5
 #: shinetheme/views/admin/order/tab-report.php:119
@@ -88,31 +86,31 @@ msgstr "Italia"
 
 #: shinetheme/configs/config.php:42
 msgid "Full English/Irish"
-msgstr ""
+msgstr "Full English/Irish"
 
 #: shinetheme/configs/config.php:43
 msgid "Vegetarian"
-msgstr ""
+msgstr "Vegetarian"
 
 #: shinetheme/configs/config.php:44
 msgid "Vegan"
-msgstr ""
+msgstr "Vegan"
 
 #: shinetheme/configs/config.php:45
 msgid "Halal"
-msgstr ""
+msgstr "Halal"
 
 #: shinetheme/configs/config.php:46
 msgid "Gluten-free"
-msgstr ""
+msgstr "Gluten-free"
 
 #: shinetheme/configs/config.php:47
 msgid "Kosher"
-msgstr ""
+msgstr "Kosher"
 
 #: shinetheme/configs/config.php:48
 msgid "Asian"
-msgstr ""
+msgstr "Asian"
 
 #: shinetheme/configs/config.php:129
 msgid "Non-smoking"
@@ -316,22 +314,22 @@ msgstr "Vị trí của biểu tượng"
 #: shinetheme/configs/settings.php:37
 #: shinetheme/views/admin/setup_demo/wp_general.php:44
 msgid "$99"
-msgstr ""
+msgstr "$99"
 
 #: shinetheme/configs/settings.php:38
 #: shinetheme/views/admin/setup_demo/wp_general.php:45
 msgid "99$"
-msgstr ""
+msgstr "99$"
 
 #: shinetheme/configs/settings.php:39
 #: shinetheme/views/admin/setup_demo/wp_general.php:46
 msgid "$ 99"
-msgstr ""
+msgstr "$ 99"
 
 #: shinetheme/configs/settings.php:40
 #: shinetheme/views/admin/setup_demo/wp_general.php:47
 msgid "99 $"
-msgstr ""
+msgstr "99 $"
 
 #: shinetheme/configs/settings.php:45 shinetheme/configs/settings.php:46
 #: shinetheme/views/admin/fields/currency.php:71
@@ -380,11 +378,11 @@ msgstr "Trang Thông tin tài khoản"
 
 #: shinetheme/configs/settings.php:98
 msgid "Google Map"
-msgstr ""
+msgstr "Bản đồ Google"
 
 #: shinetheme/configs/settings.php:103
 msgid "Google API key"
-msgstr ""
+msgstr "Google API key"
 
 #: shinetheme/configs/settings.php:105
 #, php-format
@@ -412,7 +410,7 @@ msgstr "Đồng ý cho khách vãng lai thanh toán?"
 #: shinetheme/configs/settings.php:131
 #: shinetheme/views/admin/setup_demo/wp_booking.php:21
 msgid "Captcha Google"
-msgstr ""
+msgstr "Captcha Google"
 
 #: shinetheme/configs/settings.php:136
 msgid "Allow Captcha Google to be Checked out"
@@ -431,12 +429,12 @@ msgstr ""
 #: shinetheme/configs/settings.php:142
 #: shinetheme/views/admin/setup_demo/wp_booking.php:38
 msgid "Google key"
-msgstr ""
+msgstr "Google key"
 
 #: shinetheme/configs/settings.php:149
 #: shinetheme/views/admin/setup_demo/wp_booking.php:47
 msgid "Google secret key"
-msgstr ""
+msgstr "Google secret key"
 
 #: shinetheme/configs/settings.php:160 shinetheme/controllers/checkout.php:539
 #: shinetheme/controllers/checkout.php:540
@@ -445,7 +443,7 @@ msgstr ""
 #: shinetheme/views/frontend/account/update-profile.php:45
 #: shinetheme/views/frontend/emails/templates/changed_password.php:19
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: shinetheme/configs/settings.php:169
 msgid "Email From Name"
@@ -454,7 +452,7 @@ msgstr "Tên email gửi"
 #: shinetheme/configs/settings.php:171
 #: shinetheme/views/admin/setup_demo/wp_email.php:16
 msgid "WPBooking Plugin"
-msgstr ""
+msgstr "WPBooking Plugin"
 
 #: shinetheme/configs/settings.php:175
 msgid "Email From Address"
@@ -466,15 +464,15 @@ msgstr "Hệ thống  mail để nhận thông tin đặt phòng, thông báo"
 
 #: shinetheme/configs/settings.php:187
 msgid "Email Header"
-msgstr ""
+msgstr "Đầu Email"
 
 #: shinetheme/configs/settings.php:195
 msgid "Email Footer"
-msgstr ""
+msgstr "Cuối Email"
 
 #: shinetheme/configs/settings.php:204
 msgid "Email CSS Code"
-msgstr ""
+msgstr "Mã CSS Email"
 
 #: shinetheme/configs/settings.php:206
 msgid ""
@@ -482,21 +480,24 @@ msgid ""
 "inserting the CSS definitions into tags within your Email HTML based on the "
 "CSS selectors"
 msgstr ""
+"We will use this to transmogrify your Email HTML by parsing the CSS and "
+"inserting the CSS definitions into tags within your Email HTML based on the "
+"CSS selectors"
 
 #: shinetheme/configs/settings.php:212
 #: shinetheme/views/admin/setup_demo/wp_email.php:8
 msgid "Booking Email"
-msgstr ""
+msgstr "Email Đặt phòng"
 
 #: shinetheme/configs/settings.php:217 shinetheme/configs/settings.php:263
 #: shinetheme/views/admin/setup_demo/wp_email.php:46
 #: shinetheme/views/admin/setup_demo/wp_email.php:74
 msgid "Enable Email To Customer"
-msgstr ""
+msgstr "Bật email gửi cho khách hàng"
 
 #: shinetheme/configs/settings.php:223
 msgid "For Customer"
-msgstr ""
+msgstr "Cho khách hàng"
 
 #: shinetheme/configs/settings.php:226 shinetheme/configs/settings.php:244
 #: shinetheme/configs/settings.php:275 shinetheme/configs/settings.php:291
@@ -541,111 +542,164 @@ msgstr "Tiện ích"
 msgid "WPBooking Sales Summary"
 msgstr "Tổng quan bán hàng WPBooking"
 
-#: shinetheme/controllers/admin/calendar.metabox.php:112
-#: shinetheme/libraries/service-types/accommodation.php:1400
+#: shinetheme/controllers/admin/calendar.metabox.php:121
+#: shinetheme/libraries/service-types/accommodation.php:1446
 msgid "You do not have permission to do it"
 msgstr "Bạn không có quyền truy cập"
 
-#: shinetheme/controllers/admin/calendar.metabox.php:127
+#: shinetheme/controllers/admin/calendar.metabox.php:136
 msgid "The field of start date or end date is invalid."
 msgstr "Trường Ngày bắt đầu hoặc Ngày kết thúc không hợp lệ."
 
-#: shinetheme/controllers/admin/calendar.metabox.php:136
-#: shinetheme/controllers/admin/calendar.metabox.php:159
+#: shinetheme/controllers/admin/calendar.metabox.php:145
+#: shinetheme/controllers/admin/calendar.metabox.php:168
 msgid "The field of price is invalid."
 msgstr "Trường Giá không hợp lệ."
 
-#: shinetheme/controllers/admin/calendar.metabox.php:170
+#: shinetheme/controllers/admin/calendar.metabox.php:179
 msgid "The field of adult price is invalid."
 msgstr "Trường Giá người lớn không hợp lệ."
 
-#: shinetheme/controllers/admin/calendar.metabox.php:181
+#: shinetheme/controllers/admin/calendar.metabox.php:190
 msgid "The field of child price is invalid."
 msgstr "Trường Giá trẻ em không hợp lệ."
 
-#: shinetheme/controllers/admin/calendar.metabox.php:192
+#: shinetheme/controllers/admin/calendar.metabox.php:201
 msgid "The field of infant price is invalid."
 msgstr "Trường Giá trẻ sơ sinh không hợp lệ."
 
-#: shinetheme/controllers/admin/calendar.metabox.php:203
-#: shinetheme/controllers/admin/calendar.metabox.php:271
-#: shinetheme/libraries/service-types/accommodation.php:498
+#: shinetheme/controllers/admin/calendar.metabox.php:213
+#: shinetheme/controllers/admin/calendar.metabox.php:278
+#: shinetheme/libraries/service-types/accommodation.php:522
 msgid "Successffully added"
 msgstr "Thêm thành công"
 
-#: shinetheme/controllers/admin/calendar.metabox.php:209
-#: shinetheme/libraries/service-types/accommodation.php:504
+#: shinetheme/controllers/admin/calendar.metabox.php:219
+#: shinetheme/libraries/service-types/accommodation.php:528
 msgid "Getting an error when adding new item."
 msgstr "Có lỗi khi thêm dữ liệu."
 
-#: shinetheme/controllers/admin/calendar.metabox.php:251
+#: shinetheme/controllers/admin/calendar.metabox.php:261
 msgid "Please select a service"
 msgstr "Hãy chọn một loại dịch vụ"
 
-#: shinetheme/controllers/admin/calendar.metabox.php:319
-#: shinetheme/controllers/admin/calendar.metabox.php:329
+#: shinetheme/controllers/admin/calendar.metabox.php:326
+#: shinetheme/controllers/admin/calendar.metabox.php:336
 msgid "The price is not a number."
 msgstr "Trường Giá không phải là số."
 
-#: shinetheme/controllers/admin/calendar.metabox.php:339
+#: shinetheme/controllers/admin/calendar.metabox.php:346
 msgid "The adult is not a number."
 msgstr "Trường Người lớn không phải là số."
 
-#: shinetheme/controllers/admin/calendar.metabox.php:346
+#: shinetheme/controllers/admin/calendar.metabox.php:353
 msgid "The child is not a number."
 msgstr "Trường Trẻ em không phải là số."
 
-#: shinetheme/controllers/admin/calendar.metabox.php:353
+#: shinetheme/controllers/admin/calendar.metabox.php:360
 msgid "The infant is not a number."
 msgstr "Trường Trẻ sơ sinh không phải là số."
 
-#: shinetheme/controllers/admin/calendar.metabox.php:467
+#: shinetheme/controllers/admin/calendar.metabox.php:473
 msgid "The months field is required."
 msgstr "Trường Tháng là bắt buộc."
 
-#: shinetheme/controllers/admin/calendar.metabox.php:475
+#: shinetheme/controllers/admin/calendar.metabox.php:481
 msgid "The years field is required."
 msgstr "Trường Năm là bắt buộc."
 
-#: shinetheme/controllers/admin/location.php:31
+#: shinetheme/controllers/admin/location.php:84
+#: shinetheme/controllers/admin/location.php:108
+msgid "Map Lat & Long"
+msgstr "Địa chỉ Lat & Lng"
+
+#: shinetheme/controllers/admin/location.php:90
+#: shinetheme/controllers/admin/location.php:119
+#: shinetheme/views/admin/metabox-fields/gmap.php:30
+#: shinetheme/views/admin/metabox-fields/pickup_location.php:24
+msgid "Enter a address..."
+msgstr "Nhập địa chỉ..."
+
+#: shinetheme/controllers/admin/location.php:94
+#: shinetheme/controllers/admin/location.php:123
+msgid ""
+"This is the location we will provide guests. Click to move the marker if you "
+"need to move it"
+msgstr ""
+
+#: shinetheme/controllers/admin/location.php:133
+msgid "Location Featured Image"
+msgstr "Tên địa điểm"
+
+#: shinetheme/controllers/admin/location.php:143
+msgid "Featured Thumb"
+msgstr "Ảnh nổi bật"
+
+#: shinetheme/controllers/admin/location.php:152
+msgid "Select an image to upload"
+msgstr "Chọn 1 màu"
+
+#: shinetheme/controllers/admin/location.php:153
+msgid "Use this image"
+msgstr "Sử dụng ảnh này"
+
+#: shinetheme/controllers/admin/location.php:153
+#: shinetheme/views/admin/fields/upload.php:28
+msgid "Upload"
+msgstr "Tải lên"
+
+#: shinetheme/controllers/admin/location.php:156
+msgid "Do you want delete this image?"
+msgstr "Bạn muốn xóa ảnh này?"
+
+#: shinetheme/controllers/admin/location.php:156
+#: shinetheme/libraries/service-types/accommodation.php:1586
+#: shinetheme/views/admin/fields/list-item.php:91
+#: shinetheme/views/admin/fields/list-item.php:159
+#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:88
+#: shinetheme/views/admin/taxonomy/index.php:42
+msgid "Delete"
+msgstr "Xóa"
+
+#: shinetheme/controllers/admin/location.php:168
 msgid "Locations"
 msgstr "Địa điểm"
 
-#: shinetheme/controllers/admin/location.php:32
-#: shinetheme/controllers/admin/location.php:41
-#: shinetheme/libraries/service-types/accommodation.php:854
+#: shinetheme/controllers/admin/location.php:169
+#: shinetheme/controllers/admin/location.php:178
+#: shinetheme/libraries/service-types/accommodation.php:881
 msgid "Location"
 msgstr "Địa điểm"
 
-#: shinetheme/controllers/admin/location.php:33
+#: shinetheme/controllers/admin/location.php:170
 msgid "Search for Locations"
 msgstr "Tìm kiếm địa điểm"
 
-#: shinetheme/controllers/admin/location.php:34
+#: shinetheme/controllers/admin/location.php:171
 msgid "All Locations"
 msgstr "Tất cả địa điểm"
 
-#: shinetheme/controllers/admin/location.php:35
+#: shinetheme/controllers/admin/location.php:172
 msgid "Parent Location"
 msgstr "Địa điểm cha"
 
-#: shinetheme/controllers/admin/location.php:36
+#: shinetheme/controllers/admin/location.php:173
 msgid "Parent Location:"
 msgstr "Địa điểm cha:"
 
-#: shinetheme/controllers/admin/location.php:37
+#: shinetheme/controllers/admin/location.php:174
 msgid "Edit Location"
 msgstr "Chỉnh sửa địa điểm"
 
-#: shinetheme/controllers/admin/location.php:38
+#: shinetheme/controllers/admin/location.php:175
 msgid "Update Location"
 msgstr "Cập nhật địa điểm"
 
-#: shinetheme/controllers/admin/location.php:39
+#: shinetheme/controllers/admin/location.php:176
 msgid "Add New Location"
 msgstr "Thêm một địa điểm"
 
-#: shinetheme/controllers/admin/location.php:40
+#: shinetheme/controllers/admin/location.php:177
 msgid "New Location Name"
 msgstr "Tên địa điểm"
 
@@ -714,7 +768,7 @@ msgstr "Gửi lại Email"
 
 #: shinetheme/controllers/admin/order.php:280
 msgid "Test Partner Email"
-msgstr ""
+msgstr "Kiểm thử email đối tác"
 
 #: shinetheme/controllers/admin/order.php:295
 msgid "Order Information"
@@ -722,11 +776,11 @@ msgstr "Thông tin hóa đơn"
 
 #: shinetheme/controllers/admin/order.php:316
 #: shinetheme/controllers/admin/service.php:176
-#: shinetheme/libraries/service-types/accommodation.php:709
+#: shinetheme/libraries/service-types/accommodation.php:736
 #: shinetheme/views/admin/fields/list-item.php:171
 #: shinetheme/views/admin/fields/taxonomy-checkbox.php:53
 #: shinetheme/views/admin/metabox-fields/bed_options.php:6
-#: shinetheme/views/admin/metabox-fields/extra_services.php:121
+#: shinetheme/views/admin/metabox-fields/extra_services.php:151
 #: shinetheme/views/admin/metabox-fields/repeat_dropdown.php:6
 #: shinetheme/views/admin/metabox-fields/taxonomies.php:77
 msgid "Add New"
@@ -754,7 +808,7 @@ msgstr "Tìm kiếm đặt phòng"
 
 #: shinetheme/controllers/admin/order.php:323
 msgid "Parent Booking:"
-msgstr ""
+msgstr "Parent Booking:"
 
 #: shinetheme/controllers/admin/order.php:324
 msgid "Not found Booking."
@@ -766,11 +820,13 @@ msgstr "Không có booking rác."
 
 #: shinetheme/controllers/admin/order.php:330
 #: shinetheme/controllers/admin/service.php:190
-#: shinetheme/libraries/service-types/accommodation.php:723
+#: shinetheme/libraries/service-types/accommodation.php:750
 msgid "Description."
 msgstr "Mô tả."
 
 #: shinetheme/controllers/admin/service.php:84
+#: shinetheme/views/admin/metabox-fields/extra_services.php:65
+#: shinetheme/views/frontend/single/loop-room.php:169
 msgid "Type"
 msgstr "Loại"
 
@@ -811,7 +867,7 @@ msgstr "Tìm kiếm Dịch vụ"
 
 #: shinetheme/controllers/admin/service.php:183
 msgid "Parent Services:"
-msgstr ""
+msgstr "Parent Services:"
 
 #: shinetheme/controllers/admin/service.php:184
 msgid "Not found services."
@@ -819,17 +875,17 @@ msgstr "Không tìm thấy Dịch vụ nào."
 
 #: shinetheme/controllers/admin/service.php:185
 msgid "Not found services in Trash."
-msgstr ""
+msgstr "Không tìm thấy dịch vụ trong thùng rác."
 
 #: shinetheme/controllers/admin/service.php:210
-#: shinetheme/views/frontend/single/types/default.php:133
+#: shinetheme/views/frontend/single/types/default.php:138
 msgid "Amenities"
 msgstr "Tiện ích"
 
 #: shinetheme/controllers/admin/service.php:211
 #: shinetheme/controllers/admin/service.php:220
-#: shinetheme/libraries/service-types/accommodation.php:906
-#: shinetheme/libraries/service-types/accommodation.php:910
+#: shinetheme/libraries/service-types/accommodation.php:933
+#: shinetheme/libraries/service-types/accommodation.php:937
 msgid "Amenity"
 msgstr "Tiện ích"
 
@@ -843,11 +899,11 @@ msgstr "Tất cả Tiện ích"
 
 #: shinetheme/controllers/admin/service.php:214
 msgid "Parent Amenity"
-msgstr ""
+msgstr "Parent Amenity"
 
 #: shinetheme/controllers/admin/service.php:215
 msgid "Parent Amenity:"
-msgstr ""
+msgstr "Parent Amenity:"
 
 #: shinetheme/controllers/admin/service.php:216
 msgid "Edit Amenity"
@@ -866,16 +922,16 @@ msgid "New Amenity Name"
 msgstr "Tên tiện ích"
 
 #: shinetheme/controllers/admin/service.php:241
-#: shinetheme/libraries/service-types/accommodation.php:1331
-#: shinetheme/libraries/service-types/tour.php:1297
+#: shinetheme/libraries/service-types/accommodation.php:1360
+#: shinetheme/libraries/service-types/tour.php:1321
 msgid "Extra Services"
 msgstr "Dịch vụ thêm"
 
 #: shinetheme/controllers/admin/service.php:242
 #: shinetheme/controllers/admin/service.php:251
 #: shinetheme/controllers/admin/service.php:274
-#: shinetheme/libraries/service-types/accommodation.php:2338
-#: shinetheme/libraries/service-types/tour.php:747
+#: shinetheme/libraries/service-types/accommodation.php:2596
+#: shinetheme/libraries/service-types/tour.php:774
 msgid "Extra Service"
 msgstr "Dịch vụ thêm"
 
@@ -889,27 +945,27 @@ msgstr "Tất cả dịch vụ thêm"
 
 #: shinetheme/controllers/admin/service.php:245
 msgid "Parent Extra Service"
-msgstr ""
+msgstr "Parent Extra Service"
 
 #: shinetheme/controllers/admin/service.php:246
 msgid "Parent Extra Service:"
-msgstr ""
+msgstr "Parent Extra Service"
 
 #: shinetheme/controllers/admin/service.php:247
 msgid "Edit Extra Service"
-msgstr ""
+msgstr "Sửa dịch vụ thêm"
 
 #: shinetheme/controllers/admin/service.php:248
 msgid "Update Extra Service"
-msgstr ""
+msgstr "Cập nhật Extra Service"
 
 #: shinetheme/controllers/admin/service.php:249
 msgid "Add New Extra Service"
-msgstr ""
+msgstr "Thêm mới Extra Service"
 
 #: shinetheme/controllers/admin/service.php:250
 msgid "New Extra Service Name"
-msgstr ""
+msgstr "Tên Extra Service"
 
 #: shinetheme/controllers/admin/service.php:288
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:18
@@ -939,12 +995,12 @@ msgstr "Cài đặt"
 #: shinetheme/controllers/admin/setup.php:220
 #: shinetheme/libraries/gateways/submit-form.php:19
 msgid "Submit Form"
-msgstr ""
+msgstr "Submit Form"
 
 #: shinetheme/controllers/admin/setup.php:223
-#: shinetheme/libraries/gateways/paypal.php:22
+#: shinetheme/libraries/gateways/paypal.php:23
 msgid "PayPal"
-msgstr ""
+msgstr "PayPal"
 
 #: shinetheme/controllers/admin/setup.php:224
 msgid "You will be redirect to paypal website to finish the payment process"
@@ -957,11 +1013,11 @@ msgstr "Thông tin Extra"
 
 #: shinetheme/controllers/admin/taxonomy.php:74
 msgid "Icon Picker"
-msgstr ""
+msgstr "Chọn Icon"
 
 #: shinetheme/controllers/admin/taxonomy.php:85
 msgid "Icon"
-msgstr ""
+msgstr "Icon"
 
 #: shinetheme/controllers/admin/taxonomy.php:122
 msgid "Term exists"
@@ -970,12 +1026,12 @@ msgstr ""
 #: shinetheme/controllers/admin/taxonomy.php:209
 #, php-format
 msgid "Add New %s"
-msgstr ""
+msgstr "Thêm mới %s"
 
 #: shinetheme/controllers/admin/taxonomy.php:210
 #, php-format
 msgid "New %s Name"
-msgstr ""
+msgstr "Tên %s mới"
 
 #: shinetheme/controllers/admin/taxonomy.php:241
 msgid "Delete Success"
@@ -983,27 +1039,27 @@ msgstr "Xóa thành công"
 
 #: shinetheme/controllers/admin/taxonomy.php:244
 msgid "Please select a Taxonomy"
-msgstr ""
+msgstr "Hãy chọn một phân loại"
 
 #: shinetheme/controllers/admin/taxonomy.php:358
 msgid "Please provide a taxonomy name"
-msgstr ""
+msgstr "Hãy nhập một tên của phân loại"
 
 #: shinetheme/controllers/admin/taxonomy.php:360
 #, php-format
 msgid "Slug \"%s\" is too long (35 characters max). Shorten it, please."
-msgstr ""
+msgstr "Tên phụ \"%s\" quá dài. Hãy nhập ngắn hơn 35 ký tự."
 
 #: shinetheme/controllers/admin/taxonomy.php:362
 #, php-format
 msgid ""
 "Slug \"%s\" is not allowed because it is a reserved term. Change it, please."
-msgstr ""
+msgstr "Tên phụ \"%s\" không hợp lệ. Hãy thay đổi nó."
 
 #: shinetheme/controllers/admin/taxonomy.php:368
 #, php-format
 msgid "Slug \"%s\" is already in use. Change it, please."
-msgstr ""
+msgstr "Tên phụ \"%s\" đã được sử dụng. Hãy đổi tên khác."
 
 #: shinetheme/controllers/admin/taxonomy.php:392
 msgid "Create Successfully"
@@ -1082,9 +1138,9 @@ msgstr "Số điện thoại"
 
 #: shinetheme/controllers/checkout.php:558
 #: shinetheme/controllers/checkout.php:559
-#: shinetheme/libraries/service-types/accommodation.php:849
-#: shinetheme/libraries/service-types/accommodation.php:855
-#: shinetheme/libraries/service-types/tour.php:1229
+#: shinetheme/libraries/service-types/accommodation.php:876
+#: shinetheme/libraries/service-types/accommodation.php:882
+#: shinetheme/libraries/service-types/tour.php:1244
 #: shinetheme/views/admin/metabox-fields/address.php:43
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:48
 msgid "Address"
@@ -1094,12 +1150,12 @@ msgstr "Địa chỉ"
 #: shinetheme/controllers/checkout.php:568
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:54
 msgid "Postcode / ZIP"
-msgstr ""
+msgstr "Mã bưu chính"
 
 #: shinetheme/controllers/checkout.php:576
 #: shinetheme/controllers/checkout.php:577
 msgid "Apt/ Unit"
-msgstr ""
+msgstr "Apt/ Unit"
 
 #: shinetheme/controllers/checkout.php:585
 msgid "Special Request"
@@ -1115,7 +1171,7 @@ msgstr "Tên đăng nhập"
 
 #: shinetheme/controllers/email.php:43 shinetheme/controllers/user.php:327
 msgid "email@domain.com"
-msgstr ""
+msgstr "email@domain.com"
 
 #: shinetheme/controllers/email.php:45
 #: shinetheme/libraries/shortcodes/emails/booking_status.php:8
@@ -1183,15 +1239,15 @@ msgstr "Bạn cần nhập tên người dùng và mật khẩu để đăng nh�
 
 #: shinetheme/controllers/user.php:200
 msgid "username"
-msgstr ""
+msgstr "tên đăng nhập"
 
 #: shinetheme/controllers/user.php:201 shinetheme/controllers/user.php:493
 msgid "email"
-msgstr ""
+msgstr "email"
 
 #: shinetheme/controllers/user.php:202
 msgid "password"
-msgstr ""
+msgstr "mật khẩu"
 
 #: shinetheme/controllers/user.php:203
 msgid "re-type password"
@@ -1199,8 +1255,8 @@ msgstr "nhập lại password"
 
 #: shinetheme/controllers/user.php:204
 #: shinetheme/views/frontend/account/register.php:40
-#: shinetheme/views/frontend/single/types/default.php:366
-#: shinetheme/views/frontend/single/types/tour.php:437
+#: shinetheme/views/frontend/single/types/default.php:371
+#: shinetheme/views/frontend/single/types/tour.php:465
 msgid "Term & Condition"
 msgstr "Điều khoản và điều kiện"
 
@@ -1256,11 +1312,11 @@ msgstr "Đăng ký mới: %s"
 
 #: shinetheme/controllers/user.php:328
 msgid "http://domain.com/profile.php"
-msgstr ""
+msgstr "http://domain.com/profile.php"
 
 #: shinetheme/controllers/user.php:329
 msgid "http://domain.com/wp-admin/user-edit.php"
-msgstr ""
+msgstr "http://domain.com/wp-admin/user-edit.php"
 
 #: shinetheme/controllers/user.php:330
 msgid "Default Password"
@@ -1276,11 +1332,11 @@ msgstr "Tạo thành công"
 
 #: shinetheme/controllers/user.php:491
 msgid "first name"
-msgstr ""
+msgstr "họ tên"
 
 #: shinetheme/controllers/user.php:492
 msgid "last name"
-msgstr ""
+msgstr "tên"
 
 #: shinetheme/controllers/user.php:494
 msgid "phone number"
@@ -1299,14 +1355,14 @@ msgstr "Cập nhật thành công"
 #: shinetheme/views/frontend/account/register.php:31
 #: shinetheme/views/frontend/emails/templates/changed_password.php:18
 msgid "Password"
-msgstr ""
+msgstr "Mật khẩu"
 
 #: shinetheme/controllers/user.php:541
 #: shinetheme/views/frontend/account/reset-password.php:21
 #: shinetheme/views/frontend/account/tabs/change_password.php:28
 #: shinetheme/views/frontend/account/update-profile.php:70
 msgid "New Password"
-msgstr ""
+msgstr "Mật khẩu mới"
 
 #: shinetheme/controllers/user.php:542
 #: shinetheme/views/frontend/account/tabs/change_password.php:34
@@ -1332,11 +1388,11 @@ msgstr "Bạn không có quyền truy cập vào trang này"
 
 #: shinetheme/controllers/user.php:661
 msgid "Dashboard"
-msgstr ""
+msgstr "Bảng điều khiển"
 
 #: shinetheme/controllers/user.php:665
 msgid "Your Booking"
-msgstr ""
+msgstr "Đặt phòng của bạn"
 
 #: shinetheme/controllers/user.php:667
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:13
@@ -1349,7 +1405,7 @@ msgstr "Đăng xuất"
 
 #: shinetheme/controllers/user.php:822
 msgid "wpbooking_"
-msgstr ""
+msgstr "wpbooking_"
 
 #: shinetheme/controllers/user.php:913
 msgid ""
@@ -1416,9 +1472,9 @@ msgid "Change password successfully"
 msgstr "Đổi mật khẩu thành công"
 
 #: shinetheme/controllers/user.php:1301 shinetheme/helpers/service.php:77
-#: shinetheme/helpers/service.php:126 shinetheme/libraries/base/order.php:407
-#: shinetheme/libraries/base/order.php:443
-#: shinetheme/libraries/base/order.php:507
+#: shinetheme/helpers/service.php:128 shinetheme/libraries/base/order.php:421
+#: shinetheme/libraries/base/order.php:457
+#: shinetheme/libraries/base/order.php:525
 #: shinetheme/views/frontend/account/orders/loop-listing.php:73
 msgid "Unknown"
 msgstr "Không biết"
@@ -1427,65 +1483,77 @@ msgstr "Không biết"
 msgid "Unknow"
 msgstr "Không biết"
 
-#: shinetheme/helpers/application.php:654
+#: shinetheme/cores/updater.php:40
+msgid "Plugin License Options"
+msgstr "Tùy chọn độ tuổi"
+
+#: shinetheme/cores/updater.php:78
+msgid "WPBooking needs to be updated database."
+msgstr "WPBooking cần được cập nhật cơ sở dữ liệu."
+
+#: shinetheme/cores/updater.php:81 shinetheme/views/admin/taxonomy/edit.php:57
+msgid "Update"
+msgstr "Cập nhật"
+
+#: shinetheme/helpers/application.php:760
 msgid "All dates"
 msgstr "Tất cả ngày"
 
-#: shinetheme/helpers/application.php:663
+#: shinetheme/helpers/application.php:769
 #, php-format
 msgid "%1$s %2$d"
-msgstr ""
+msgstr "%1$s %2$d"
 
-#: shinetheme/helpers/service.php:28
+#: shinetheme/helpers/service.php:26
 #, php-format
 msgid "from %s/night"
 msgstr "từ  %s/đêm"
 
-#: shinetheme/helpers/service.php:50
+#: shinetheme/helpers/service.php:49
 msgid "star"
 msgid_plural "stars"
-msgstr[0] ""
+msgstr[0] "sao"
 
-#: shinetheme/helpers/service.php:139
+#: shinetheme/helpers/service.php:142
 msgid "Unknown Gateway"
 msgstr "Không biết cổng thanh toán"
 
-#: shinetheme/helpers/service.php:156
+#: shinetheme/helpers/service.php:158
 #, php-format
 msgid "in %s"
 msgstr "trong %s"
 
-#: shinetheme/helpers/service.php:160
-#: shinetheme/libraries/service-types/tour.php:1082
+#: shinetheme/helpers/service.php:162
+#: shinetheme/libraries/service-types/tour.php:1101
 #, php-format
 msgid "from %s"
 msgstr "từ %s"
 
-#: shinetheme/helpers/service.php:164
-#: shinetheme/views/frontend/single/types/default.php:159
-#: shinetheme/views/frontend/single/types/default.php:163
+#: shinetheme/helpers/service.php:166
+#: shinetheme/views/frontend/single/types/default.php:164
+#: shinetheme/views/frontend/single/types/default.php:168
 #, php-format
 msgid "to %s"
 msgstr "đến %s"
 
-#: shinetheme/helpers/service.php:202
+#: shinetheme/helpers/service.php:206
 #: shinetheme/views/admin/metabox-fields/section_navigation.php:22
 #: shinetheme/views/frontend/archive/pagination.php:24
 msgid "Previous"
 msgstr "Trước"
 
-#: shinetheme/helpers/service.php:212
+#: shinetheme/helpers/service.php:216
 #: shinetheme/views/admin/about/tab-extensions.php:118
-#: shinetheme/views/frontend/archive/pagination.php:25 wpbooking.php:292
+#: shinetheme/views/frontend/archive/pagination.php:25 wpbooking.php:308
 msgid "Next"
 msgstr "Sau"
 
-#: shinetheme/libraries/base/order.php:177
+#: shinetheme/libraries/base/order.php:192
 #, php-format
 msgid "New Order In %s"
 msgstr "Đơn hàng mới từ %s"
 
-#: shinetheme/libraries/base/order.php:471
+#: shinetheme/libraries/base/order.php:486
 #, php-format
 msgid "%s night"
 msgid_plural "%s nights"
@@ -1504,111 +1572,111 @@ msgstr "Mã Captcha không hợp lệ"
 msgid "Captcha cannot be verified"
 msgstr "Captcha không được xác minh"
 
-#: shinetheme/libraries/gateways/paypal.php:27
+#: shinetheme/libraries/gateways/paypal.php:28
 #: shinetheme/libraries/gateways/submit-form.php:24
 msgid "Enable"
 msgstr "Bật"
 
-#: shinetheme/libraries/gateways/paypal.php:30
+#: shinetheme/libraries/gateways/paypal.php:31
 msgid "Yes, I want to enable PayPal"
-msgstr ""
+msgstr "Vâng, Tôi muốn bật Paypal"
 
-#: shinetheme/libraries/gateways/paypal.php:34
+#: shinetheme/libraries/gateways/paypal.php:35
 #: shinetheme/libraries/gateways/submit-form.php:31
-#: shinetheme/libraries/service-types/accommodation.php:2195
-#: shinetheme/libraries/service-types/tour.php:1516
+#: shinetheme/libraries/service-types/accommodation.php:2453
+#: shinetheme/libraries/service-types/tour.php:1546
 #: shinetheme/views/admin/fields/list-item.php:14
 #: shinetheme/views/admin/fields/list-item.php:37
 #: shinetheme/views/admin/fields/list-item.php:117
 #: shinetheme/views/admin/metabox-fields/itinerary_tour.php:26
-#: shinetheme/views/admin/metabox-fields/list-item.php:59
-#: shinetheme/views/admin/metabox-fields/list-item.php:141
+#: shinetheme/views/admin/metabox-fields/list-item.php:60
+#: shinetheme/views/admin/metabox-fields/list-item.php:145
 msgid "Title"
 msgstr "Tiêu đề"
 
-#: shinetheme/libraries/gateways/paypal.php:41
+#: shinetheme/libraries/gateways/paypal.php:42
 #: shinetheme/libraries/gateways/submit-form.php:38
 msgid "Descriptions"
 msgstr "Mô tả"
 
-#: shinetheme/libraries/gateways/paypal.php:50
+#: shinetheme/libraries/gateways/paypal.php:51
 msgid "API Username"
-msgstr ""
+msgstr "Tên đăng nhập API"
 
-#: shinetheme/libraries/gateways/paypal.php:56
+#: shinetheme/libraries/gateways/paypal.php:57
 msgid "API Password"
-msgstr ""
+msgstr "Mật khẩu API"
 
-#: shinetheme/libraries/gateways/paypal.php:62
+#: shinetheme/libraries/gateways/paypal.php:63
 msgid "API Signature"
-msgstr ""
+msgstr "Chữ ký API"
 
-#: shinetheme/libraries/gateways/paypal.php:68
+#: shinetheme/libraries/gateways/paypal.php:69
 msgid "Test Mode"
-msgstr ""
+msgstr "Chế độ test"
 
-#: shinetheme/libraries/gateways/paypal.php:71
+#: shinetheme/libraries/gateways/paypal.php:72
 msgid "Yes, I want to enable PayPal Sandbox Mode"
-msgstr ""
+msgstr "Tôi muốn bật chế độ Paypal Sandbox"
 
-#: shinetheme/libraries/gateways/paypal.php:75
+#: shinetheme/libraries/gateways/paypal.php:76
 msgid "Test API Username"
-msgstr ""
+msgstr "Test API Username"
 
-#: shinetheme/libraries/gateways/paypal.php:81
+#: shinetheme/libraries/gateways/paypal.php:82
 msgid "Test API Password"
-msgstr ""
+msgstr "Test API Password"
 
-#: shinetheme/libraries/gateways/paypal.php:87
+#: shinetheme/libraries/gateways/paypal.php:88
 msgid "Test API Signature"
-msgstr ""
+msgstr "Test API Signature"
 
-#: shinetheme/libraries/gateways/paypal.php:129
-#: shinetheme/libraries/gateways/paypal.php:202
-#: shinetheme/libraries/gateways/paypal.php:256 wpbooking.php:416
-#: wpbooking.php:417
+#: shinetheme/libraries/gateways/paypal.php:130
+#: shinetheme/libraries/gateways/paypal.php:204
+#: shinetheme/libraries/gateways/paypal.php:259 wpbooking.php:433
+#: wpbooking.php:434
 msgid "WPBooking"
-msgstr ""
+msgstr "WPBooking"
 
-#: shinetheme/libraries/gateways/paypal.php:141
+#: shinetheme/libraries/gateways/paypal.php:143
 msgid "Pay Now"
 msgstr "Trả Ngay"
 
-#: shinetheme/libraries/gateways/paypal.php:142
+#: shinetheme/libraries/gateways/paypal.php:144
 msgid "You will be redirected to PayPal.com to complete the payment"
-msgstr ""
+msgstr "Bạn sẽ được chuyển sang Paypal.com để hoàn thành thanh toán"
 
-#: shinetheme/libraries/gateways/paypal.php:145
+#: shinetheme/libraries/gateways/paypal.php:147
 msgid "Paypal Error:"
-msgstr ""
+msgstr "Paypal Error:"
 
-#: shinetheme/libraries/gateways/paypal.php:159
+#: shinetheme/libraries/gateways/paypal.php:160
 msgid "Test PayPal API is incorrect! Please check with the Admin"
-msgstr ""
+msgstr "Test PayPal API is incorrect! Please check with the Admin"
 
-#: shinetheme/libraries/gateways/paypal.php:166
+#: shinetheme/libraries/gateways/paypal.php:167
 msgid "PayPal API is incorrect! Please check with the Admin"
-msgstr ""
+msgstr "PayPal API is incorrect! Please check with the Admin"
 
 #: shinetheme/libraries/gateways/submit-form.php:27
 msgid "Yes, I want to enable Submit Form"
-msgstr ""
+msgstr "Tôi muốn bật Submit Form"
 
 #: shinetheme/libraries/gateways/submit-form.php:43
 msgid "Bank Account"
-msgstr ""
+msgstr "Tài khoản ngân hàng"
 
 #: shinetheme/libraries/gateways/submit-form.php:45
 msgid "Write down your back account here"
-msgstr ""
+msgstr "Write down your back account here"
 
 #: shinetheme/libraries/metabox.php:169
 msgid "You don't have permission to do that"
-msgstr ""
+msgstr "Bạn không có quyền truy cập"
 
 #: shinetheme/libraries/metabox.php:185
 msgid "Please specify Service Type"
-msgstr ""
+msgstr "Hãy chỉ định loại dịch vụ"
 
 #: shinetheme/libraries/metabox.php:411
 #: shinetheme/views/admin/order/tab-listing.php:120
@@ -1638,11 +1706,11 @@ msgstr "Thu gọn"
 
 #: shinetheme/libraries/service-types/accommodation.php:12
 msgid "Accommodation"
-msgstr ""
+msgstr "Chỗ ở"
 
 #: shinetheme/libraries/service-types/accommodation.php:13
 msgid "Accommodations"
-msgstr ""
+msgstr "Chỗ ở"
 
 #: shinetheme/libraries/service-types/accommodation.php:14
 msgid ""
@@ -1653,401 +1721,413 @@ msgstr ""
 "airbnb ... bất cứ điều gì được gọi là nhà ở"
 
 #: shinetheme/libraries/service-types/accommodation.php:20
-#: shinetheme/libraries/service-types/tour.php:21
+#: shinetheme/libraries/service-types/tour.php:22
 msgid "Layout"
-msgstr ""
+msgstr "Bố trí"
 
 #: shinetheme/libraries/service-types/accommodation.php:25
-#: shinetheme/libraries/service-types/tour.php:26
+#: shinetheme/libraries/service-types/tour.php:27
 msgid "Item per page"
-msgstr ""
+msgstr "Số item trên trang"
 
 #: shinetheme/libraries/service-types/accommodation.php:31
-#: shinetheme/libraries/service-types/tour.php:32
+#: shinetheme/libraries/service-types/tour.php:33
 msgid "Thumb Size"
-msgstr ""
+msgstr "Cỡ ảnh thumbnail"
 
 #: shinetheme/libraries/service-types/accommodation.php:36
-#: shinetheme/libraries/service-types/tour.php:37
+#: shinetheme/libraries/service-types/tour.php:38
 msgid "Gallery Size"
-msgstr ""
+msgstr "Cỡ ảnh thư viện"
 
-#: shinetheme/libraries/service-types/accommodation.php:329
+#: shinetheme/libraries/service-types/accommodation.php:353
 msgid "Can not fetch data"
-msgstr ""
+msgstr "Không thể lấy dữ liệu"
 
-#: shinetheme/libraries/service-types/accommodation.php:432
+#: shinetheme/libraries/service-types/accommodation.php:456
 #, php-format
 msgid "%s left"
-msgstr ""
+msgstr "còn lại %s"
 
-#: shinetheme/libraries/service-types/accommodation.php:441
+#: shinetheme/libraries/service-types/accommodation.php:465
 msgid "Out of stock"
 msgstr "Hết phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:451
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:56
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:74
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:71
+#: shinetheme/libraries/service-types/accommodation.php:475
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:64
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:95
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:73
 msgid "Not Available"
 msgstr "Không có sẵn"
 
-#: shinetheme/libraries/service-types/accommodation.php:478
+#: shinetheme/libraries/service-types/accommodation.php:502
 msgid "Can not set price for this room"
 msgstr "Không thể đặt giá cho phòng này"
 
-#: shinetheme/libraries/service-types/accommodation.php:485
+#: shinetheme/libraries/service-types/accommodation.php:509
 msgid "Price is incorrect"
 msgstr "Giá không hợp lệ"
 
-#: shinetheme/libraries/service-types/accommodation.php:565
-#: shinetheme/libraries/service-types/accommodation.php:598
-#: shinetheme/libraries/service-types/accommodation.php:664
+#: shinetheme/libraries/service-types/accommodation.php:592
+#: shinetheme/libraries/service-types/accommodation.php:625
+#: shinetheme/libraries/service-types/accommodation.php:691
 msgid "From:"
 msgstr "Từ:"
 
-#: shinetheme/libraries/service-types/accommodation.php:567
-#: shinetheme/libraries/service-types/accommodation.php:600
-#: shinetheme/libraries/service-types/accommodation.php:666
+#: shinetheme/libraries/service-types/accommodation.php:594
+#: shinetheme/libraries/service-types/accommodation.php:627
+#: shinetheme/libraries/service-types/accommodation.php:693
 msgid "To:"
 msgstr "Đến:"
 
-#: shinetheme/libraries/service-types/accommodation.php:574
-#: shinetheme/libraries/service-types/accommodation.php:606
-#: shinetheme/libraries/service-types/accommodation.php:671
+#: shinetheme/libraries/service-types/accommodation.php:601
+#: shinetheme/libraries/service-types/accommodation.php:633
+#: shinetheme/libraries/service-types/accommodation.php:698
 #, php-format
 msgid "(%s nights)"
 msgstr "(%s đêm)"
 
-#: shinetheme/libraries/service-types/accommodation.php:576
-#: shinetheme/libraries/service-types/accommodation.php:608
-#: shinetheme/libraries/service-types/accommodation.php:673
+#: shinetheme/libraries/service-types/accommodation.php:603
+#: shinetheme/libraries/service-types/accommodation.php:635
+#: shinetheme/libraries/service-types/accommodation.php:700
 #, php-format
 msgid "(%s night)"
 msgstr "(%s đêm)"
 
-#: shinetheme/libraries/service-types/accommodation.php:624
-#: shinetheme/libraries/service-types/tour.php:701
+#: shinetheme/libraries/service-types/accommodation.php:651
+#: shinetheme/libraries/service-types/tour.php:727
 msgid "Change Date"
 msgstr "Thay đổi ngày"
 
-#: shinetheme/libraries/service-types/accommodation.php:705
-#: shinetheme/libraries/service-types/accommodation.php:706
-#: shinetheme/libraries/service-types/accommodation.php:707
-#: shinetheme/libraries/service-types/accommodation.php:708
+#: shinetheme/libraries/service-types/accommodation.php:732
+#: shinetheme/libraries/service-types/accommodation.php:733
+#: shinetheme/libraries/service-types/accommodation.php:734
+#: shinetheme/libraries/service-types/accommodation.php:735
 msgid "Accommodation Room"
-msgstr ""
+msgstr "Phòng ở"
 
-#: shinetheme/libraries/service-types/accommodation.php:710
+#: shinetheme/libraries/service-types/accommodation.php:737
 msgid "Add New Accommodation Room"
-msgstr ""
+msgstr "Thêm phòng ở mới"
 
-#: shinetheme/libraries/service-types/accommodation.php:711
+#: shinetheme/libraries/service-types/accommodation.php:738
 msgid "New Accommodation Room"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:712
-msgid "Edit Accommodation Room"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:713
-msgid "View Accommodation Room"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:714
-msgid "All Accommodation Room"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:715
-msgid "Search Accommodation Room"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:716
-msgid "Parent Accommodation Room:"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:717
-msgid "No Accommodation Room found."
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:718
-msgid "No Accommodation Room found in Trash."
-msgstr ""
+msgstr "Thêm phòng ở mới"
 
 #: shinetheme/libraries/service-types/accommodation.php:739
+msgid "Edit Accommodation Room"
+msgstr "Sửa phòng ở"
+
 #: shinetheme/libraries/service-types/accommodation.php:740
-#: shinetheme/libraries/service-types/accommodation.php:749
-#: shinetheme/libraries/service-types/accommodation.php:1272
-msgid "Room Type"
-msgstr ""
+msgid "View Accommodation Room"
+msgstr "Xem phòng"
 
 #: shinetheme/libraries/service-types/accommodation.php:741
-msgid "Search Room Type"
-msgstr ""
+msgid "All Accommodation Room"
+msgstr "Tất cả phòng"
 
 #: shinetheme/libraries/service-types/accommodation.php:742
-msgid "All Room Type"
-msgstr ""
+msgid "Search Accommodation Room"
+msgstr "Tìm kiếm phòng"
 
 #: shinetheme/libraries/service-types/accommodation.php:743
-msgid "Parent Room Type"
-msgstr ""
+msgid "Parent Accommodation Room:"
+msgstr "Phòng cha:"
 
 #: shinetheme/libraries/service-types/accommodation.php:744
-msgid "Parent Room Type:"
-msgstr ""
+msgid "No Accommodation Room found."
+msgstr "Không tìm thấy phòng."
 
 #: shinetheme/libraries/service-types/accommodation.php:745
-msgid "Edit Room Type"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:746
-msgid "Update Room Type"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:747
-msgid "Add New Room Type"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:748
-msgid "New Room Type Name"
-msgstr ""
-
-#: shinetheme/libraries/service-types/accommodation.php:764
-#: shinetheme/libraries/service-types/accommodation.php:765
-#: shinetheme/libraries/service-types/accommodation.php:774
-msgid "Room Facilities"
-msgstr ""
+msgid "No Accommodation Room found in Trash."
+msgstr "Không có phòng trong thung rác."
 
 #: shinetheme/libraries/service-types/accommodation.php:766
-msgid "Search Room Facilities"
-msgstr ""
-
 #: shinetheme/libraries/service-types/accommodation.php:767
-msgid "All Room Facilities"
-msgstr ""
+#: shinetheme/libraries/service-types/accommodation.php:776
+#: shinetheme/libraries/service-types/accommodation.php:1301
+msgid "Room Type"
+msgstr "Loại phòng"
 
 #: shinetheme/libraries/service-types/accommodation.php:768
-msgid "Parent Room Facilities"
-msgstr ""
+msgid "Search Room Type"
+msgstr "Tìm loại phòng"
 
 #: shinetheme/libraries/service-types/accommodation.php:769
-msgid "Parent Room Facilities:"
-msgstr ""
+msgid "All Room Type"
+msgstr "Tất cả loại phòng"
 
 #: shinetheme/libraries/service-types/accommodation.php:770
-msgid "Edit Room Facilities"
-msgstr ""
+msgid "Parent Room Type"
+msgstr "Loại phòng cha"
 
 #: shinetheme/libraries/service-types/accommodation.php:771
-msgid "Update Room Facilities"
-msgstr ""
+msgid "Parent Room Type:"
+msgstr "Loại phòng cha:"
 
 #: shinetheme/libraries/service-types/accommodation.php:772
-msgid "Add New Room Facilities"
-msgstr ""
+msgid "Edit Room Type"
+msgstr "Sửa loại phòng"
 
 #: shinetheme/libraries/service-types/accommodation.php:773
-msgid "New Room Facilities Name"
-msgstr ""
+msgid "Update Room Type"
+msgstr "Cập nhật loại phòng"
+
+#: shinetheme/libraries/service-types/accommodation.php:774
+msgid "Add New Room Type"
+msgstr "Thêm loại phòng mới"
+
+#: shinetheme/libraries/service-types/accommodation.php:775
+msgid "New Room Type Name"
+msgstr "Tên loại phòng mới"
 
 #: shinetheme/libraries/service-types/accommodation.php:791
+#: shinetheme/libraries/service-types/accommodation.php:792
+#: shinetheme/libraries/service-types/accommodation.php:801
+msgid "Room Facilities"
+msgstr "Tiện ích phòng"
+
+#: shinetheme/libraries/service-types/accommodation.php:793
+msgid "Search Room Facilities"
+msgstr "Tìm tiện ích phòng"
+
+#: shinetheme/libraries/service-types/accommodation.php:794
+msgid "All Room Facilities"
+msgstr "Tất cả Tiện ích phòng"
+
+#: shinetheme/libraries/service-types/accommodation.php:795
+msgid "Parent Room Facilities"
+msgstr "Tiện ích phòng cha"
+
+#: shinetheme/libraries/service-types/accommodation.php:796
+msgid "Parent Room Facilities:"
+msgstr "Tiện ích phòng cha:"
+
+#: shinetheme/libraries/service-types/accommodation.php:797
+msgid "Edit Room Facilities"
+msgstr "Sửa Tiện ích phòng"
+
+#: shinetheme/libraries/service-types/accommodation.php:798
+msgid "Update Room Facilities"
+msgstr "Cập nhật Tiện ích phòng"
+
+#: shinetheme/libraries/service-types/accommodation.php:799
+msgid "Add New Room Facilities"
+msgstr "Thêm Tiện ích phòng"
+
+#: shinetheme/libraries/service-types/accommodation.php:800
+msgid "New Room Facilities Name"
+msgstr "Thêm tên Tiện ích phòng"
+
+#: shinetheme/libraries/service-types/accommodation.php:818
 msgid "1. Property Information"
 msgstr "1. Thông tin thuộc tính"
 
-#: shinetheme/libraries/service-types/accommodation.php:797
+#: shinetheme/libraries/service-types/accommodation.php:824
 msgid "About Your Property"
 msgstr "Thông tin thuộc tính của bạn"
 
-#: shinetheme/libraries/service-types/accommodation.php:799
-#: shinetheme/libraries/service-types/tour.php:1160
+#: shinetheme/libraries/service-types/accommodation.php:826
+#: shinetheme/libraries/service-types/tour.php:1175
 msgid "Basic information"
 msgstr "Thông tin cơ bản"
 
-#: shinetheme/libraries/service-types/accommodation.php:803
+#: shinetheme/libraries/service-types/accommodation.php:830
 msgid "Enable Property"
 msgstr "Bật thuộc tính"
 
-#: shinetheme/libraries/service-types/accommodation.php:806
-#: shinetheme/libraries/service-types/tour.php:1167
+#: shinetheme/libraries/service-types/accommodation.php:833
+#: shinetheme/libraries/service-types/tour.php:1182
 msgid "Listing will appear in search results."
 msgstr "Danh sách xuất hiện ở trang kết quả tìm kiếm."
 
-#: shinetheme/libraries/service-types/accommodation.php:810
-#: shinetheme/libraries/service-types/tour.php:1178
+#: shinetheme/libraries/service-types/accommodation.php:837
+#: shinetheme/libraries/service-types/tour.php:1193
 msgid "Star Rating"
 msgstr "Đánh giá"
 
-#: shinetheme/libraries/service-types/accommodation.php:812
+#: shinetheme/libraries/service-types/accommodation.php:839
 msgid "Standard of property from 1 to 5 stars"
 msgstr "Tiêu chuển của thuộc tính"
 
-#: shinetheme/libraries/service-types/accommodation.php:816
+#: shinetheme/libraries/service-types/accommodation.php:843
 msgid "Contact Phone Number"
 msgstr "Số điện thoại liên hệ"
 
-#: shinetheme/libraries/service-types/accommodation.php:818
-#: shinetheme/libraries/service-types/tour.php:1194
+#: shinetheme/libraries/service-types/accommodation.php:845
+#: shinetheme/libraries/service-types/tour.php:1209
 msgid "The contact phone"
 msgstr "Số điện thoại"
 
-#: shinetheme/libraries/service-types/accommodation.php:823
-#: shinetheme/libraries/service-types/tour.php:1198
+#: shinetheme/libraries/service-types/accommodation.php:850
+#: shinetheme/libraries/service-types/tour.php:1213
 msgid "Phone number"
 msgstr "Số điện thoại"
 
-#: shinetheme/libraries/service-types/accommodation.php:826
-#: shinetheme/libraries/service-types/tour.php:1201
+#: shinetheme/libraries/service-types/accommodation.php:853
+#: shinetheme/libraries/service-types/tour.php:1216
 msgid "Contact Email"
 msgstr "Email liên hệ"
 
-#: shinetheme/libraries/service-types/accommodation.php:829
-#: shinetheme/libraries/service-types/tour.php:1204
+#: shinetheme/libraries/service-types/accommodation.php:856
+#: shinetheme/libraries/service-types/tour.php:1219
 msgid "Example@domain.com"
-msgstr ""
+msgstr "Example@domain.com"
 
-#: shinetheme/libraries/service-types/accommodation.php:834
-#: shinetheme/libraries/service-types/tour.php:1209
+#: shinetheme/libraries/service-types/accommodation.php:861
+#: shinetheme/libraries/service-types/tour.php:1224
 msgid "Website"
-msgstr ""
+msgstr "Website"
 
-#: shinetheme/libraries/service-types/accommodation.php:837
-#: shinetheme/libraries/service-types/tour.php:1212
+#: shinetheme/libraries/service-types/accommodation.php:864
+#: shinetheme/libraries/service-types/tour.php:1227
 msgid "Property website (optional)"
-msgstr ""
+msgstr "Property website (optional)"
 
-#: shinetheme/libraries/service-types/accommodation.php:838
-#: shinetheme/libraries/service-types/tour.php:1213
+#: shinetheme/libraries/service-types/accommodation.php:865
+#: shinetheme/libraries/service-types/tour.php:1228
 msgid "http://exampledomain.com"
-msgstr ""
+msgstr "http://exampledomain.com"
 
-#: shinetheme/libraries/service-types/accommodation.php:844
+#: shinetheme/libraries/service-types/accommodation.php:871
 msgid "Property Location"
-msgstr ""
+msgstr "Property Location"
 
-#: shinetheme/libraries/service-types/accommodation.php:846
+#: shinetheme/libraries/service-types/accommodation.php:873
 msgid "Property's address and your contact number"
-msgstr ""
+msgstr "Property's address and your contact number"
 
-#: shinetheme/libraries/service-types/accommodation.php:859
-#: shinetheme/libraries/service-types/tour.php:1237
+#: shinetheme/libraries/service-types/accommodation.php:886
+#: shinetheme/libraries/service-types/tour.php:1252
 msgid "Map's Latitude & Longitude"
-msgstr ""
+msgstr "Địa chỉ Lat & Lng"
 
-#: shinetheme/libraries/service-types/accommodation.php:862
-#: shinetheme/libraries/service-types/tour.php:1240
+#: shinetheme/libraries/service-types/accommodation.php:889
+#: shinetheme/libraries/service-types/tour.php:1255
 msgid ""
 "This is the location we will provide for guests. Click to move the marker if "
 "you need to move it"
 msgstr ""
+"Đây là vị trí chúng tôi sẽ cung cấp cho khách. Nhấp để di chuyển điểm đánh "
+"dấu nếu bạn cần di chuyển"
 
-#: shinetheme/libraries/service-types/accommodation.php:866
-#: shinetheme/libraries/service-types/tour.php:1244
+#: shinetheme/libraries/service-types/accommodation.php:893
+#: shinetheme/libraries/service-types/tour.php:1259
 msgid "Your address matters! "
-msgstr ""
+msgstr "Địa chỉ của bạn! "
 
-#: shinetheme/libraries/service-types/accommodation.php:867
+#: shinetheme/libraries/service-types/accommodation.php:894
 msgid ""
 "Please make sure to enter your full address including building name, "
 "apartment number, etc."
 msgstr ""
 "Hãy đảm bảo nhập địa chỉ đầy đủ của bạn bao gồm tên tòa nhà, số căn hộ, v.v."
 
-#: shinetheme/libraries/service-types/accommodation.php:879
+#: shinetheme/libraries/service-types/accommodation.php:906
 msgid "2. Property Details"
 msgstr "2. Chi tiết thuộc tính"
 
-#: shinetheme/libraries/service-types/accommodation.php:883
+#: shinetheme/libraries/service-types/accommodation.php:910
 msgid "Check In & Check Out"
 msgstr "Ngày đến & Ngày đi"
 
-#: shinetheme/libraries/service-types/accommodation.php:885
+#: shinetheme/libraries/service-types/accommodation.php:912
 msgid "Time to check in, out in your property"
-msgstr ""
+msgstr "Thời gian đến và đi trong loại hình của bạn"
 
-#: shinetheme/libraries/service-types/accommodation.php:888
-#: shinetheme/libraries/service-types/accommodation.php:889
+#: shinetheme/libraries/service-types/accommodation.php:915
+#: shinetheme/libraries/service-types/accommodation.php:916
 msgid "Time for Check In "
 msgstr "Thời gian đến "
 
-#: shinetheme/libraries/service-types/accommodation.php:895
-#: shinetheme/libraries/service-types/accommodation.php:896
+#: shinetheme/libraries/service-types/accommodation.php:922
+#: shinetheme/libraries/service-types/accommodation.php:923
 msgid "Time for Check Out"
 msgstr "Thời gian đi"
 
-#: shinetheme/libraries/service-types/accommodation.php:930
+#: shinetheme/libraries/service-types/accommodation.php:957
 msgid "3. Room Details"
 msgstr "3. Chi tiết phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:933
+#: shinetheme/libraries/service-types/accommodation.php:960
 msgid "Your Rooms"
 msgstr "Phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:935
+#: shinetheme/libraries/service-types/accommodation.php:962
 msgid "Here is an overview of your rooms"
 msgstr "Thông tin tổng quan các phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:939
+#: shinetheme/libraries/service-types/accommodation.php:966
 msgid "Next Step"
 msgstr "Bước tiếp"
 
-#: shinetheme/libraries/service-types/accommodation.php:946
+#: shinetheme/libraries/service-types/accommodation.php:973
 msgid "4. Inventory"
 msgstr "4. Kiểm kê phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:949
+#: shinetheme/libraries/service-types/accommodation.php:976
 msgid "Inventory"
 msgstr "Kiểm kê phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:959
+#: shinetheme/libraries/service-types/accommodation.php:986
 msgid "5. Facilities"
 msgstr "5. Cơ sở vật chất"
 
-#: shinetheme/libraries/service-types/accommodation.php:965
+#: shinetheme/libraries/service-types/accommodation.php:992
 msgid "Space"
 msgstr "Không gian"
 
-#: shinetheme/libraries/service-types/accommodation.php:967
+#: shinetheme/libraries/service-types/accommodation.php:994
 msgid "We display the size of guest room"
 msgstr "Chúng tối sẽ hiển thị kích thước phòng khách"
 
-#: shinetheme/libraries/service-types/accommodation.php:970
+#: shinetheme/libraries/service-types/accommodation.php:997
 msgid "What is your preferred  unit of measurement?"
 msgstr "Đơn vị đo lường của bạn là gì?"
 
-#: shinetheme/libraries/service-types/accommodation.php:974
+#: shinetheme/libraries/service-types/accommodation.php:1001
 msgid "Square metres"
 msgstr "Mét vuông"
 
-#: shinetheme/libraries/service-types/accommodation.php:975
+#: shinetheme/libraries/service-types/accommodation.php:1002
 msgid "Square feet"
 msgstr "Thước vuông"
 
-#: shinetheme/libraries/service-types/accommodation.php:979
+#: shinetheme/libraries/service-types/accommodation.php:1006
 msgid "Select the preferred unit of your measurement"
 msgstr "Chọn đơn vị của phép đo của bạn"
 
-#: shinetheme/libraries/service-types/accommodation.php:982
+#: shinetheme/libraries/service-types/accommodation.php:1009
 msgid "Room size"
 msgstr "Kích thước phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:991
+#: shinetheme/libraries/service-types/accommodation.php:1018
 msgid "Room facilities"
 msgstr "Cơ sở vật chất của phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:996
+#: shinetheme/libraries/service-types/accommodation.php:1023
 msgid "Facilities"
 msgstr "Cơ sở vật chất"
 
-#: shinetheme/libraries/service-types/accommodation.php:1012
+#: shinetheme/libraries/service-types/accommodation.php:1036
 msgid "6. Policies & Checkout"
 msgstr "6. Chính sách và thanh toán"
 
-#: shinetheme/libraries/service-types/accommodation.php:1016
+#: shinetheme/libraries/service-types/accommodation.php:1040
+#: shinetheme/libraries/service-types/tour.php:1357
+msgid "External Link"
+msgstr "Liên kết ngoài"
+
+#: shinetheme/libraries/service-types/accommodation.php:1043
+#: shinetheme/libraries/service-types/tour.php:1360
+msgid "Enter an external link to use this feature."
+msgstr "Nhập một liên kết ngoài để sử dụng tính năng này."
+
+#: shinetheme/libraries/service-types/accommodation.php:1046
 msgid "Payment information"
 msgstr "Thông tin thanh toán"
 
-#: shinetheme/libraries/service-types/accommodation.php:1018
+#: shinetheme/libraries/service-types/accommodation.php:1048
 msgid ""
 "Specify the methods of payment you accept at your accommodation as payment "
 "for staying"
@@ -2055,189 +2135,191 @@ msgstr ""
 "Chỉ định phương thức thanh toán bạn chấp nhận ở nơi ở của bạn như là khoản "
 "thanh toán cho lưu trú"
 
-#: shinetheme/libraries/service-types/accommodation.php:1021
+#: shinetheme/libraries/service-types/accommodation.php:1051
 msgid "We are accepted:"
 msgstr "Chúng tôi chấp nhận:"
 
-#: shinetheme/libraries/service-types/accommodation.php:1028
-#: shinetheme/libraries/service-types/accommodation.php:1030
-#: shinetheme/libraries/service-types/tour.php:1333
-#: shinetheme/libraries/service-types/tour.php:1335
+#: shinetheme/libraries/service-types/accommodation.php:1058
+#: shinetheme/libraries/service-types/accommodation.php:1060
+#: shinetheme/libraries/service-types/tour.php:1363
+#: shinetheme/libraries/service-types/tour.php:1365
 msgid "Pre-payment and cancellation policies"
 msgstr "Trước khi thanh toán và chính sách hủy"
 
-#: shinetheme/libraries/service-types/accommodation.php:1033
-#: shinetheme/libraries/service-types/tour.php:1338
+#: shinetheme/libraries/service-types/accommodation.php:1063
+#: shinetheme/libraries/service-types/tour.php:1368
 msgid "Select optional deposit "
 msgstr "Tùy chọn đặt cọc "
 
-#: shinetheme/libraries/service-types/accommodation.php:1037
-#: shinetheme/libraries/service-types/tour.php:1342
+#: shinetheme/libraries/service-types/accommodation.php:1067
+#: shinetheme/libraries/service-types/tour.php:1372
 msgid "Disallow Deposit"
 msgstr "Tắt đặt cọc"
 
-#: shinetheme/libraries/service-types/accommodation.php:1038
-#: shinetheme/libraries/service-types/tour.php:1343
+#: shinetheme/libraries/service-types/accommodation.php:1068
+#: shinetheme/libraries/service-types/tour.php:1373
 msgid "Deposit by percent"
 msgstr "Đặt cọc theo phần trăm"
 
-#: shinetheme/libraries/service-types/accommodation.php:1039
-#: shinetheme/libraries/service-types/tour.php:1344
+#: shinetheme/libraries/service-types/accommodation.php:1069
+#: shinetheme/libraries/service-types/tour.php:1374
 msgid "Deposit by amount"
 msgstr "Đặt cọc theo số tiền"
 
-#: shinetheme/libraries/service-types/accommodation.php:1041
-#: shinetheme/libraries/service-types/tour.php:1346
+#: shinetheme/libraries/service-types/accommodation.php:1071
+#: shinetheme/libraries/service-types/tour.php:1376
 msgid "You can select Disallow Deposit, Deposit by percent, Deposit by amount"
 msgstr ""
 "Bạn có thể chọn Tắt đặt cọc, Đặt cọc theo phần trăm, Đặt cọc theo số tiền"
 
-#: shinetheme/libraries/service-types/accommodation.php:1045
-#: shinetheme/libraries/service-types/tour.php:1350
+#: shinetheme/libraries/service-types/accommodation.php:1075
+#: shinetheme/libraries/service-types/tour.php:1380
 msgid "Deposit payment amount"
-msgstr ""
+msgstr "Đặt cọc theo phần trăm"
 
-#: shinetheme/libraries/service-types/accommodation.php:1048
-#: shinetheme/libraries/service-types/tour.php:1353
+#: shinetheme/libraries/service-types/accommodation.php:1078
+#: shinetheme/libraries/service-types/tour.php:1383
 msgid "Leave empty for disallow deposit payment"
 msgstr "Để trống để tắt đặt cọc"
 
-#: shinetheme/libraries/service-types/accommodation.php:1055
-#: shinetheme/libraries/service-types/tour.php:1358
+#: shinetheme/libraries/service-types/accommodation.php:1085
+#: shinetheme/libraries/service-types/tour.php:1388
 msgid "How many days in advance can guests cancel free of  charge?"
 msgstr "Bao nhiêu ngày trước khách có thể hủy?"
 
-#: shinetheme/libraries/service-types/accommodation.php:1059
-#: shinetheme/libraries/service-types/tour.php:1362
-#: shinetheme/views/frontend/single/types/default.php:246
-#: shinetheme/views/frontend/single/types/tour.php:320
+#: shinetheme/libraries/service-types/accommodation.php:1089
+#: shinetheme/libraries/service-types/tour.php:1392
+#: shinetheme/views/frontend/single/types/default.php:251
+#: shinetheme/views/frontend/single/types/tour.php:348
 msgid "Day of arrival (6 pm)"
 msgstr "Ngày đến"
 
-#: shinetheme/libraries/service-types/accommodation.php:1060
-#: shinetheme/libraries/service-types/tour.php:1363
+#: shinetheme/libraries/service-types/accommodation.php:1090
+#: shinetheme/libraries/service-types/tour.php:1393
 msgid "1 day"
-msgstr ""
+msgstr "1 ngày"
 
-#: shinetheme/libraries/service-types/accommodation.php:1061
-#: shinetheme/libraries/service-types/tour.php:1364
+#: shinetheme/libraries/service-types/accommodation.php:1091
+#: shinetheme/libraries/service-types/tour.php:1394
 msgid "2 days"
-msgstr ""
+msgstr "2 ngày"
 
-#: shinetheme/libraries/service-types/accommodation.php:1062
-#: shinetheme/libraries/service-types/tour.php:1365
+#: shinetheme/libraries/service-types/accommodation.php:1092
+#: shinetheme/libraries/service-types/tour.php:1395
 msgid "3 days"
-msgstr ""
+msgstr "3 ngày"
 
-#: shinetheme/libraries/service-types/accommodation.php:1063
-#: shinetheme/libraries/service-types/tour.php:1366
+#: shinetheme/libraries/service-types/accommodation.php:1093
+#: shinetheme/libraries/service-types/tour.php:1396
 msgid "7 days"
-msgstr ""
+msgstr "7 ngày"
 
-#: shinetheme/libraries/service-types/accommodation.php:1064
-#: shinetheme/libraries/service-types/tour.php:1367
+#: shinetheme/libraries/service-types/accommodation.php:1094
+#: shinetheme/libraries/service-types/tour.php:1397
 msgid "14 days"
-msgstr ""
+msgstr "14 ngày"
 
-#: shinetheme/libraries/service-types/accommodation.php:1066
-#: shinetheme/libraries/service-types/tour.php:1369
+#: shinetheme/libraries/service-types/accommodation.php:1096
+#: shinetheme/libraries/service-types/tour.php:1399
 msgid "Day of arrival ( 18: 00 ) , 1 day , 2 days, 3 days, 7 days, 14 days"
-msgstr ""
+msgstr "Ngày đến (18:00), 1 dày, 2 ngày"
 
-#: shinetheme/libraries/service-types/accommodation.php:1070
+#: shinetheme/libraries/service-types/accommodation.php:1100
 msgid "Or guests will pay 100%"
 msgstr "Hoặc khách sẽ trả 100%"
 
-#: shinetheme/libraries/service-types/accommodation.php:1074
+#: shinetheme/libraries/service-types/accommodation.php:1104
 msgid "of the first night"
 msgstr "của đêm đầu tiên"
 
-#: shinetheme/libraries/service-types/accommodation.php:1075
+#: shinetheme/libraries/service-types/accommodation.php:1105
 msgid "of the full stay"
 msgstr "của toàn bộ"
 
-#: shinetheme/libraries/service-types/accommodation.php:1077
+#: shinetheme/libraries/service-types/accommodation.php:1107
 msgid "Of the first night, of the full stay"
 msgstr "Của đêm đầu tiên, của toàn bộ"
 
-#: shinetheme/libraries/service-types/accommodation.php:1083
-#: shinetheme/libraries/service-types/tour.php:1375
-#: shinetheme/views/frontend/single/types/default.php:352
-#: shinetheme/views/frontend/single/types/tour.php:425
+#: shinetheme/libraries/service-types/accommodation.php:1113
+#: shinetheme/libraries/service-types/tour.php:1405
+#: shinetheme/views/frontend/single/types/default.php:357
+#: shinetheme/views/frontend/single/types/tour.php:453
 msgid "Tax"
 msgstr "Thuế"
 
-#: shinetheme/libraries/service-types/accommodation.php:1085
+#: shinetheme/libraries/service-types/accommodation.php:1115
 msgid ""
 "Set your local VAT or city tax, so guests know what is included in the price "
 "of their stay."
 msgstr ""
+"Cài đặt thuế thành phố, để khách biết những gì được bao gồm trong giá của kỳ "
+"nghỉ của họ."
 
-#: shinetheme/libraries/service-types/accommodation.php:1088
-#: shinetheme/libraries/service-types/tour.php:1380
+#: shinetheme/libraries/service-types/accommodation.php:1118
+#: shinetheme/libraries/service-types/tour.php:1410
 msgid "VAT"
-msgstr ""
+msgstr "VAT"
 
-#: shinetheme/libraries/service-types/accommodation.php:1097
+#: shinetheme/libraries/service-types/accommodation.php:1127
 #: shinetheme/views/admin/metabox-fields/vat_different.php:32
 msgid "VAT amount"
-msgstr ""
+msgstr "VAT"
 
-#: shinetheme/libraries/service-types/accommodation.php:1102
+#: shinetheme/libraries/service-types/accommodation.php:1132
 #: shinetheme/views/frontend/checkout/cart-total-box.php:35
 #: shinetheme/views/frontend/emails/shortcodes/order-table.php:65
 #: shinetheme/views/frontend/order/content.php:121
 msgid "City Tax"
 msgstr "Thuế thành phố"
 
-#: shinetheme/libraries/service-types/accommodation.php:1111
+#: shinetheme/libraries/service-types/accommodation.php:1141
 #: shinetheme/views/admin/metabox-fields/citytax_different.php:32
 msgid "City Tax amount"
 msgstr "Thuế thành phố"
 
-#: shinetheme/libraries/service-types/accommodation.php:1119
-#: shinetheme/libraries/service-types/tour.php:1393
+#: shinetheme/libraries/service-types/accommodation.php:1149
+#: shinetheme/libraries/service-types/tour.php:1423
 msgid "Term & condition"
 msgstr "Điều khoản và Điều kiện"
 
-#: shinetheme/libraries/service-types/accommodation.php:1121
-#: shinetheme/libraries/service-types/tour.php:1395
+#: shinetheme/libraries/service-types/accommodation.php:1151
+#: shinetheme/libraries/service-types/tour.php:1425
 msgid "Set terms and conditions for your property"
 msgstr "Cài đặt điều khoản và điều kiện cho thuộc tính của bạn"
 
-#: shinetheme/libraries/service-types/accommodation.php:1124
-msgid "Minimum Stay"
+#: shinetheme/libraries/service-types/accommodation.php:1154
+msgid "Minimum Stay (night)"
 msgstr "Nghỉ tối thiểu"
 
-#: shinetheme/libraries/service-types/accommodation.php:1162
-msgid "Maximum Stay"
+#: shinetheme/libraries/service-types/accommodation.php:1192
+msgid "Maximum Stay (night)"
 msgstr "Nghỉ tối đa"
 
-#: shinetheme/libraries/service-types/accommodation.php:1170
-#: shinetheme/libraries/service-types/tour.php:1398
+#: shinetheme/libraries/service-types/accommodation.php:1199
+#: shinetheme/libraries/service-types/tour.php:1428
 msgid "Terms & Conditions"
 msgstr "Điều khoản và Điều kiện"
 
-#: shinetheme/libraries/service-types/accommodation.php:1183
+#: shinetheme/libraries/service-types/accommodation.php:1212
 msgid "7. Photos"
 msgstr "7. Hình ảnh"
 
-#: shinetheme/libraries/service-types/accommodation.php:1187
-#: shinetheme/libraries/service-types/tour.php:1415
+#: shinetheme/libraries/service-types/accommodation.php:1216
+#: shinetheme/libraries/service-types/tour.php:1445
 msgid "Pictures"
 msgstr "Ảnh"
 
-#: shinetheme/libraries/service-types/accommodation.php:1191
-#: shinetheme/libraries/service-types/tour.php:1419
+#: shinetheme/libraries/service-types/accommodation.php:1220
+#: shinetheme/libraries/service-types/tour.php:1449
 msgid "Gallery"
 msgstr "Thư viện ảnh"
 
-#: shinetheme/libraries/service-types/accommodation.php:1195
+#: shinetheme/libraries/service-types/accommodation.php:1224
 msgid "You must upload one minimum photo for your accommodation"
 msgstr "Hãy tải lên tối thiểu một ảnh"
 
-#: shinetheme/libraries/service-types/accommodation.php:1196
-#: shinetheme/libraries/service-types/tour.php:1423
+#: shinetheme/libraries/service-types/accommodation.php:1225
+#: shinetheme/libraries/service-types/tour.php:1453
 msgid ""
 "Great photos invite guests to get the full experience of your property. Be "
 "sure to include high-resolution photos of the building, facilities, and "
@@ -2248,154 +2330,192 @@ msgstr ""
 "nhà, tiện nghi và tiện nghi. Chúng tôi sẽ hiển thị những ảnh này trên trang "
 "thuộc tính của bạn"
 
-#: shinetheme/libraries/service-types/accommodation.php:1201
-#: shinetheme/libraries/service-types/tour.php:1430
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:222
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:75
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:214
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:93
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:232
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:168
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:378
+#: shinetheme/libraries/service-types/accommodation.php:1230
+#: shinetheme/libraries/service-types/tour.php:1460
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:224
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:97
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:282
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:128
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:313
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:172
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:388
 #: shinetheme/views/admin/metabox-fields/room-form-button.php:4
 #: shinetheme/views/admin/metabox-fields/section_navigation.php:44
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:69
 msgid "Save"
 msgstr "Lưu"
 
-#: shinetheme/libraries/service-types/accommodation.php:1257
+#: shinetheme/libraries/service-types/accommodation.php:1286
 msgid "Add new room"
 msgstr "Thêm phòng mới"
 
-#: shinetheme/libraries/service-types/accommodation.php:1259
-#: shinetheme/libraries/service-types/accommodation.php:1431
+#: shinetheme/libraries/service-types/accommodation.php:1288
+#: shinetheme/libraries/service-types/accommodation.php:1477
 #: shinetheme/views/admin/metabox-fields/room-form-button.php:15
 msgid "Back to All Rooms"
 msgstr "Trở lại"
 
-#: shinetheme/libraries/service-types/accommodation.php:1261
+#: shinetheme/libraries/service-types/accommodation.php:1290
 msgid "Room Name"
 msgstr "Tên phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:1265
+#: shinetheme/libraries/service-types/accommodation.php:1294
 msgid "Room name"
 msgstr "Tên phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:1268
+#: shinetheme/libraries/service-types/accommodation.php:1297
 msgid "Create an optional, custom name for your reference."
 msgstr "Tạo một tùy chọn, tên tùy chỉnh để bạn tham khảo."
 
-#: shinetheme/libraries/service-types/accommodation.php:1278
+#: shinetheme/libraries/service-types/accommodation.php:1307
 msgid "Based on the amenities of room, select one most accurate type"
 msgstr "Căn cứ vào các tiện nghi của phòng, chọn một loại chính xác nhất"
 
-#: shinetheme/libraries/service-types/accommodation.php:1281
+#: shinetheme/libraries/service-types/accommodation.php:1310
 msgid "Room Number"
 msgstr "Số lượng phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:1289
+#: shinetheme/libraries/service-types/accommodation.php:1318
 msgid "Bed Rooms"
 msgstr "Phòng ngủ"
 
-#: shinetheme/libraries/service-types/accommodation.php:1298
+#: shinetheme/libraries/service-types/accommodation.php:1327
 msgid "Bath Rooms"
 msgstr "Phòng tắm"
 
-#: shinetheme/libraries/service-types/accommodation.php:1308
+#: shinetheme/libraries/service-types/accommodation.php:1337
 msgid "Living Rooms"
 msgstr "Phòng khách"
 
-#: shinetheme/libraries/service-types/accommodation.php:1317
+#: shinetheme/libraries/service-types/accommodation.php:1346
 msgid "Max guests"
 msgstr "Số người tối đa"
 
-#: shinetheme/libraries/service-types/accommodation.php:1332
-#: shinetheme/libraries/service-types/tour.php:1298
+#: shinetheme/libraries/service-types/accommodation.php:1361
+#: shinetheme/libraries/service-types/tour.php:1322
 msgid "Set the extended services for your property"
 msgstr "Đặt các dịch vụ mở rộng cho thuộc tính của bạn"
 
-#: shinetheme/libraries/service-types/accommodation.php:1336
-#: shinetheme/libraries/service-types/tour.php:1302
+#: shinetheme/libraries/service-types/accommodation.php:1365
+#: shinetheme/libraries/service-types/tour.php:1326
 msgid "Choose extra services"
 msgstr "Chọn dịch vụ thêm"
 
-#: shinetheme/libraries/service-types/accommodation.php:1348
+#: shinetheme/libraries/service-types/accommodation.php:1377
 msgid "Price Settings"
 msgstr "Cài đặt giá"
 
-#: shinetheme/libraries/service-types/accommodation.php:1350
+#: shinetheme/libraries/service-types/accommodation.php:1379
 msgid "You can set price for room"
 msgstr "Có thể cài đặt giá cho phòng này"
 
-#: shinetheme/libraries/service-types/accommodation.php:1357
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:36
+#: shinetheme/libraries/service-types/accommodation.php:1386
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:37
 msgid "Base Price"
 msgstr "Giá cơ bản"
 
-#: shinetheme/libraries/service-types/accommodation.php:1388
+#: shinetheme/libraries/service-types/accommodation.php:1393
+msgid "Discount by Number of days"
+msgstr "Giảm giá theo số đêm"
+
+#: shinetheme/libraries/service-types/accommodation.php:1398
+msgid "No. Days"
+msgstr "Số đêm"
+
+#: shinetheme/libraries/service-types/accommodation.php:1403
+msgid "Discount(%)"
+msgstr "Giá giảm (%)"
+
+#: shinetheme/libraries/service-types/accommodation.php:1434
 msgid "Please specify Property ID"
 msgstr "Chỉ định ID cho thuộc tính"
 
-#: shinetheme/libraries/service-types/accommodation.php:1394
+#: shinetheme/libraries/service-types/accommodation.php:1440
 msgid "Property does not exist"
 msgstr "Thuộc tính không tồn tại"
 
-#: shinetheme/libraries/service-types/accommodation.php:1411
+#: shinetheme/libraries/service-types/accommodation.php:1457
 msgid "Room Draft"
-msgstr ""
+msgstr "Phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:1418
+#: shinetheme/libraries/service-types/accommodation.php:1464
 msgid "Room cannot created, please check again"
 msgstr "Phòng không được tạo. Hãy kiểm tra lại"
 
-#: shinetheme/libraries/service-types/accommodation.php:1618
+#: shinetheme/libraries/service-types/accommodation.php:1568
+#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:73
+#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:107
+#, php-format
+msgid "%d room(s)"
+msgstr "%d phòng"
+
+#: shinetheme/libraries/service-types/accommodation.php:1580
+#: shinetheme/views/admin/fields/list-item.php:87
+#: shinetheme/views/admin/fields/list-item.php:155
+#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:82
+#: shinetheme/views/admin/metabox-fields/list-item.php:45
+#: shinetheme/views/admin/taxonomy/index.php:39
+#: shinetheme/widgets/search-form.php:586
+#: shinetheme/widgets/search-form.php:696
+msgid "Edit"
+msgstr "Sửa"
+
+#: shinetheme/libraries/service-types/accommodation.php:1584
+#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:86
+#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:117
+msgid "Do you want delete this room?"
+msgstr "Muốn xóa phòng này?"
+
+#: shinetheme/libraries/service-types/accommodation.php:1850
 msgid "room type(s)"
 msgstr "loại phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:1620
+#: shinetheme/libraries/service-types/accommodation.php:1852
 #, php-format
 msgid "with %s "
 msgstr "với %s "
 
-#: shinetheme/libraries/service-types/accommodation.php:1620
-#: shinetheme/views/frontend/single/loop-room.php:271
-#: shinetheme/views/frontend/single/loop-room.php:272
-#: shinetheme/views/frontend/single/loop-room.php:273
+#: shinetheme/libraries/service-types/accommodation.php:1852
+#: shinetheme/views/frontend/single/loop-room.php:301
+#: shinetheme/views/frontend/single/loop-room.php:304
+#: shinetheme/views/frontend/single/loop-room.php:307
 msgid "room(s)"
 msgstr "phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:1622
+#: shinetheme/libraries/service-types/accommodation.php:1854
 #, php-format
 msgid "There are %s in your listing"
 msgstr "Có %s trong danh sách của bạn"
 
-#: shinetheme/libraries/service-types/accommodation.php:1624
-msgid "There is <b>no room</b> in your listing"
+#: shinetheme/libraries/service-types/accommodation.php:1856
+msgid "There is no room in your listing"
 msgstr "Không có phòng nào trong danh sách"
 
-#: shinetheme/libraries/service-types/accommodation.php:1665
+#: shinetheme/libraries/service-types/accommodation.php:1897
 msgid ""
 "Our system does not find any rooms from your searching. You can change "
 "search feature now."
 msgstr ""
+"Hệ thống của chúng tôi không tìm thấy bất kỳ phòng nào từ tìm kiếm của bạn. "
+"Bạn có thể thay đổi tính năng tìm kiếm ngay bây giờ."
 
-#: shinetheme/libraries/service-types/accommodation.php:1683
+#: shinetheme/libraries/service-types/accommodation.php:1915
 #, php-format
 msgid "This %s required minimum stay is %s night(s)."
-msgstr ""
+msgstr "Phòng %s này yêu cầu tối thiểu là %s đêm."
 
-#: shinetheme/libraries/service-types/accommodation.php:1688
+#: shinetheme/libraries/service-types/accommodation.php:1920
 #, php-format
 msgid "This %s required maximum stay is %s night(s)."
-msgstr ""
+msgstr "Phòng %s này yêu cầu tối đa là %s đêm."
 
-#: shinetheme/libraries/service-types/accommodation.php:2180
-#: shinetheme/libraries/service-types/tour.php:1502
+#: shinetheme/libraries/service-types/accommodation.php:2438
+#: shinetheme/libraries/service-types/tour.php:1532
 msgid "Field Type"
 msgstr "Loại"
 
-#: shinetheme/libraries/service-types/accommodation.php:2183
-#: shinetheme/libraries/service-types/tour.php:1505
+#: shinetheme/libraries/service-types/accommodation.php:2441
+#: shinetheme/libraries/service-types/tour.php:1535
 #: shinetheme/widgets/search-form.php:124
 #: shinetheme/widgets/search-form.php:157
 #: shinetheme/widgets/search-form.php:190
@@ -2404,52 +2524,54 @@ msgstr "Loại"
 msgid "-- Select --"
 msgstr "-- Lựa chọn --"
 
-#: shinetheme/libraries/service-types/accommodation.php:2184
+#: shinetheme/libraries/service-types/accommodation.php:2442
 msgid "Location Dropdown"
 msgstr "Danh sách địa điểm"
 
-#: shinetheme/libraries/service-types/accommodation.php:2185
+#: shinetheme/libraries/service-types/accommodation.php:2443
 msgid "Date"
 msgstr "Ngày"
 
-#: shinetheme/libraries/service-types/accommodation.php:2187
+#: shinetheme/libraries/service-types/accommodation.php:2445
 msgid "Adult & Children"
 msgstr "Người lớn & Trẻ em"
 
-#: shinetheme/libraries/service-types/accommodation.php:2188
-#: shinetheme/libraries/service-types/tour.php:1509
+#: shinetheme/libraries/service-types/accommodation.php:2446
+#: shinetheme/libraries/service-types/tour.php:1539
 msgid "Taxonomy"
-msgstr ""
+msgstr "Phân loại"
 
-#: shinetheme/libraries/service-types/accommodation.php:2189
+#: shinetheme/libraries/service-types/accommodation.php:2447
 msgid "Star Of Property"
-msgstr ""
+msgstr "Đánh giá"
 
-#: shinetheme/libraries/service-types/accommodation.php:2190
-#: shinetheme/libraries/service-types/tour.php:1511
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:204
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:207
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:60
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:61
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:64
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:65
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:68
+#: shinetheme/libraries/service-types/accommodation.php:2448
+#: shinetheme/libraries/service-types/tour.php:1541
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:206
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:209
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:69
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:199
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:78
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:79
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:82
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:83
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:86
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:87
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:217
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:81
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:110
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:353
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:356
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:72
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:76
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:79
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:83
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:86
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:259
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:262
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:100
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:103
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:107
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:110
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:114
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:117
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:290
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:293
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:83
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:112
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:361
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:364
 #: shinetheme/views/frontend/checkout/other/checkout-item-room.php:11
-#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:62
-#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:103
+#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:69
+#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:111
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:11
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:58
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:95
@@ -2459,427 +2581,440 @@ msgstr ""
 msgid "Price"
 msgstr "Giá"
 
-#: shinetheme/libraries/service-types/accommodation.php:2201
-#: shinetheme/libraries/service-types/accommodation.php:2202
-#: shinetheme/libraries/service-types/tour.php:1522
-#: shinetheme/libraries/service-types/tour.php:1523
+#: shinetheme/libraries/service-types/accommodation.php:2459
+#: shinetheme/libraries/service-types/accommodation.php:2460
+#: shinetheme/libraries/service-types/tour.php:1552
+#: shinetheme/libraries/service-types/tour.php:1553
 msgid "Placeholder"
-msgstr ""
+msgstr "Placeholder"
 
-#: shinetheme/libraries/service-types/accommodation.php:2207
-#: shinetheme/libraries/service-types/tour.php:1528
+#: shinetheme/libraries/service-types/accommodation.php:2465
+#: shinetheme/libraries/service-types/tour.php:1558
 msgid "- Taxonomy"
-msgstr ""
+msgstr "- Phân loại"
 
-#: shinetheme/libraries/service-types/accommodation.php:2214
-#: shinetheme/libraries/service-types/tour.php:1535
+#: shinetheme/libraries/service-types/accommodation.php:2472
+#: shinetheme/libraries/service-types/tour.php:1565
 msgid "- Display Style"
-msgstr ""
+msgstr "- Display Style"
 
-#: shinetheme/libraries/service-types/accommodation.php:2218
-#: shinetheme/libraries/service-types/tour.php:1539
+#: shinetheme/libraries/service-types/accommodation.php:2476
+#: shinetheme/libraries/service-types/tour.php:1569
 msgid "Dropdown"
-msgstr ""
+msgstr "Dropdown"
 
-#: shinetheme/libraries/service-types/accommodation.php:2219
-#: shinetheme/libraries/service-types/tour.php:1540
+#: shinetheme/libraries/service-types/accommodation.php:2477
+#: shinetheme/libraries/service-types/tour.php:1570
 msgid "Check Box"
-msgstr ""
+msgstr "Check Box"
 
-#: shinetheme/libraries/service-types/accommodation.php:2224
-#: shinetheme/libraries/service-types/tour.php:1545
+#: shinetheme/libraries/service-types/accommodation.php:2482
+#: shinetheme/libraries/service-types/tour.php:1575
 msgid "- Operator"
-msgstr ""
+msgstr "- Operator"
 
-#: shinetheme/libraries/service-types/accommodation.php:2228
-#: shinetheme/libraries/service-types/tour.php:1549
+#: shinetheme/libraries/service-types/accommodation.php:2486
+#: shinetheme/libraries/service-types/tour.php:1579
 msgid "And"
 msgstr "Và"
 
-#: shinetheme/libraries/service-types/accommodation.php:2229
-#: shinetheme/libraries/service-types/tour.php:1550
+#: shinetheme/libraries/service-types/accommodation.php:2487
+#: shinetheme/libraries/service-types/tour.php:1580
 msgid "Or"
 msgstr "Hoặc"
 
-#: shinetheme/libraries/service-types/accommodation.php:2234
-#: shinetheme/libraries/service-types/tour.php:1555
-#: shinetheme/views/admin/metabox-fields/extra_services.php:68
-#: shinetheme/views/admin/metabox-fields/extra_services.php:108
+#: shinetheme/libraries/service-types/accommodation.php:2492
+#: shinetheme/libraries/service-types/tour.php:1585
+#: shinetheme/views/admin/metabox-fields/extra_services.php:92
+#: shinetheme/views/admin/metabox-fields/extra_services.php:135
 msgid "Required"
 msgstr "Bắt buộc"
 
-#: shinetheme/libraries/service-types/accommodation.php:2237
-#: shinetheme/libraries/service-types/tour.php:1558
+#: shinetheme/libraries/service-types/accommodation.php:2495
+#: shinetheme/libraries/service-types/tour.php:1588
 #: shinetheme/views/admin/metabox-fields/citytax_different.php:22
-#: shinetheme/views/admin/metabox-fields/extra_services.php:65
-#: shinetheme/views/admin/metabox-fields/extra_services.php:105
+#: shinetheme/views/admin/metabox-fields/extra_services.php:88
+#: shinetheme/views/admin/metabox-fields/extra_services.php:132
 #: shinetheme/views/admin/metabox-fields/vat_different.php:22
 msgid "No"
 msgstr "Không"
 
-#: shinetheme/libraries/service-types/accommodation.php:2238
-#: shinetheme/libraries/service-types/tour.php:1559
+#: shinetheme/libraries/service-types/accommodation.php:2496
+#: shinetheme/libraries/service-types/tour.php:1589
 #: shinetheme/views/admin/metabox-fields/bed_options.php:155
 #: shinetheme/views/admin/metabox-fields/bed_options.php:290
 #: shinetheme/views/admin/metabox-fields/bed_options.php:444
-#: shinetheme/views/admin/metabox-fields/extra_services.php:66
-#: shinetheme/views/admin/metabox-fields/extra_services.php:106
+#: shinetheme/views/admin/metabox-fields/extra_services.php:90
+#: shinetheme/views/admin/metabox-fields/extra_services.php:133
 #: shinetheme/widgets/search-form.php:627
 #: shinetheme/widgets/search-form.php:723
 msgid "Yes"
 msgstr "Có"
 
-#: shinetheme/libraries/service-types/accommodation.php:2243
-#: shinetheme/libraries/service-types/tour.php:1564
+#: shinetheme/libraries/service-types/accommodation.php:2501
+#: shinetheme/libraries/service-types/tour.php:1594
 msgid "In Advance Search?"
 msgstr "Trong Tìm kiếm nâng cao?"
 
-#: shinetheme/libraries/service-types/accommodation.php:2294
+#: shinetheme/libraries/service-types/accommodation.php:2552
 #, php-format
 msgid "from %s /%s nights"
-msgstr ""
+msgstr "từ %s / %s đêm"
 
-#: shinetheme/libraries/service-types/accommodation.php:2296
+#: shinetheme/libraries/service-types/accommodation.php:2554
 #, php-format
 msgid "from %s /night"
-msgstr ""
+msgstr "từ %s /đêm"
 
-#: shinetheme/libraries/service-types/accommodation.php:2459
-#: shinetheme/libraries/service-types/accommodation.php:2633
+#: shinetheme/libraries/service-types/accommodation.php:2725
+#: shinetheme/libraries/service-types/accommodation.php:2899
 #, php-format
 msgid "You cannot book \"%s\" on: %s"
-msgstr ""
+msgstr "Bạn không thể đặt \"%s\" vào: %s"
 
-#: shinetheme/libraries/service-types/accommodation.php:2481
-#: shinetheme/libraries/service-types/accommodation.php:2539
-#: shinetheme/libraries/service-types/accommodation.php:2655
+#: shinetheme/libraries/service-types/accommodation.php:2747
+#: shinetheme/libraries/service-types/accommodation.php:2805
+#: shinetheme/libraries/service-types/accommodation.php:2921
 msgid "Number of rooms you booked is not enough, please change your search."
-msgstr ""
+msgstr "Số phòng bạn đã đặt không đủ, vui lòng thay đổi tìm kiếm của bạn."
 
-#: shinetheme/libraries/service-types/accommodation.php:2546 wpbooking.php:177
+#: shinetheme/libraries/service-types/accommodation.php:2812 wpbooking.php:184
 msgid "To see price details, please select check-in and check-out date."
-msgstr ""
+msgstr "Để xem chi tiết giá, vui lòng chọn ngày nhận phòng và ngày trả phòng."
 
-#: shinetheme/libraries/service-types/accommodation.php:2552 wpbooking.php:178
+#: shinetheme/libraries/service-types/accommodation.php:2818 wpbooking.php:185
 msgid "Please select check-in date."
 msgstr "Chọn ngày đến."
 
-#: shinetheme/libraries/service-types/accommodation.php:2558 wpbooking.php:179
+#: shinetheme/libraries/service-types/accommodation.php:2824 wpbooking.php:186
 msgid "Please select check-out date."
 msgstr "Chọn ngày đi."
 
-#: shinetheme/libraries/service-types/accommodation.php:2564
+#: shinetheme/libraries/service-types/accommodation.php:2830
 msgid "Please select number of room."
 msgstr "Chọn số phòng."
 
-#: shinetheme/libraries/service-types/accommodation.php:2592
+#: shinetheme/libraries/service-types/accommodation.php:2858
 msgid "The day after check out day to check in"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:2604
+#: shinetheme/libraries/service-types/accommodation.php:2870
 #, php-format
 msgid "This %s required minimum stay is %s night(s)"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:2611
+#: shinetheme/libraries/service-types/accommodation.php:2877
 #, php-format
 msgid "This %s required maximum stay is %s night(s)"
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:2627
+#: shinetheme/libraries/service-types/accommodation.php:2893
 #, php-format
 msgid "You cannot check-in at: %s"
 msgstr "Không thể đến vào ngày %s"
 
-#: shinetheme/libraries/service-types/accommodation.php:2630
+#: shinetheme/libraries/service-types/accommodation.php:2896
 #, php-format
 msgid "You cannot check-out at: %s"
 msgstr "Không thể đi vào ngày %s"
 
-#: shinetheme/libraries/service-types/accommodation.php:2914
-#: shinetheme/libraries/service-types/accommodation.php:2989
+#: shinetheme/libraries/service-types/accommodation.php:3175
+#: shinetheme/libraries/service-types/accommodation.php:3250
 #, php-format
 msgid "%s rooms"
 msgstr "%s phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:2916
-#: shinetheme/libraries/service-types/accommodation.php:2991
+#: shinetheme/libraries/service-types/accommodation.php:3177
+#: shinetheme/libraries/service-types/accommodation.php:3252
 #, php-format
 msgid "%s room"
 msgstr "%s phòng"
 
-#: shinetheme/libraries/service-types/accommodation.php:3290
+#: shinetheme/libraries/service-types/accommodation.php:3600
 msgid "Delete item successfully"
 msgstr "Xóa thành công"
 
-#: shinetheme/libraries/service-types/accommodation.php:3400
+#: shinetheme/libraries/service-types/accommodation.php:3710
 msgid "Rooms: "
 msgstr "Phòng: "
 
-#: shinetheme/libraries/service-types/tour.php:12
+#: shinetheme/libraries/service-types/tour.php:13
 msgid "Tour"
 msgstr ""
 
-#: shinetheme/libraries/service-types/tour.php:13
+#: shinetheme/libraries/service-types/tour.php:14
 msgid "Tours"
 msgstr ""
 
-#: shinetheme/libraries/service-types/tour.php:14
+#: shinetheme/libraries/service-types/tour.php:15
 msgid ""
 "You can post anything related to activities such as tourism, events, "
 "workshops, etc anything called tour"
 msgstr ""
 "Bạn có thể đăng bất kỳ thể loại nào tương tự như tour, sự kiện, hội thảo"
 
-#: shinetheme/libraries/service-types/tour.php:211
-#: shinetheme/libraries/service-types/tour.php:261
-#: shinetheme/libraries/service-types/tour.php:276
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:55
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:211
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:55
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:203
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:73
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:221
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:69
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:362
+#: shinetheme/libraries/service-types/tour.php:231
+#: shinetheme/libraries/service-types/tour.php:299
+#: shinetheme/libraries/service-types/tour.php:314
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:57
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:213
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:63
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:266
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:94
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:297
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:71
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:370
 msgid "Available"
 msgstr "Có sẵn"
 
-#: shinetheme/libraries/service-types/tour.php:213
-#: shinetheme/libraries/service-types/tour.php:246
-#: shinetheme/libraries/service-types/tour.php:268
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:58
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:213
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:204
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:222
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:364
+#: shinetheme/libraries/service-types/tour.php:233
+#: shinetheme/libraries/service-types/tour.php:284
+#: shinetheme/libraries/service-types/tour.php:306
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:60
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:215
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:267
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:298
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:372
 msgid "Unavailable"
 msgstr "Không có sẵn"
 
-#: shinetheme/libraries/service-types/tour.php:225
-#: shinetheme/libraries/service-types/tour.php:233
-#: shinetheme/libraries/service-types/tour.php:415
+#: shinetheme/libraries/service-types/tour.php:247
+#: shinetheme/libraries/service-types/tour.php:264
+#: shinetheme/libraries/service-types/tour.php:441
 #: shinetheme/views/admin/metabox-fields/age_options.php:52
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:115
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:334
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:337
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:117
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:340
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:343
 #: shinetheme/widgets/search-form.php:432
 msgid "Adult"
 msgstr "Người lớn"
 
-#: shinetheme/libraries/service-types/tour.php:225
-#: shinetheme/libraries/service-types/tour.php:233
-#: shinetheme/libraries/service-types/tour.php:421
-#: shinetheme/libraries/service-types/tour.php:655
-#: shinetheme/libraries/service-types/tour.php:673
-#: shinetheme/views/frontend/single/hotel/room.php:90
-#: shinetheme/views/frontend/single/types/tour.php:192
+#: shinetheme/libraries/service-types/tour.php:250
+#: shinetheme/libraries/service-types/tour.php:267
+#: shinetheme/libraries/service-types/tour.php:447
+#: shinetheme/libraries/service-types/tour.php:681
+#: shinetheme/libraries/service-types/tour.php:699
+#: shinetheme/views/frontend/single/hotel/room.php:94
+#: shinetheme/views/frontend/single/types/tour.php:207
 #: shinetheme/widgets/search-form.php:445
 msgid "Children"
 msgstr "Trẻ em"
 
-#: shinetheme/libraries/service-types/tour.php:225
-#: shinetheme/libraries/service-types/tour.php:233
-#: shinetheme/libraries/service-types/tour.php:427
+#: shinetheme/libraries/service-types/tour.php:253
+#: shinetheme/libraries/service-types/tour.php:270
+#: shinetheme/libraries/service-types/tour.php:453
+#: shinetheme/libraries/service-types/tour.php:1304
 #: shinetheme/views/admin/metabox-fields/age_options.php:62
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:145
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:346
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:349
-#: shinetheme/views/frontend/single/types/tour.php:208
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:147
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:354
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:357
+#: shinetheme/views/frontend/single/types/tour.php:227
 msgid "Infant"
 msgstr "Trẻ sơ sinh"
 
-#: shinetheme/libraries/service-types/tour.php:462
+#: shinetheme/libraries/service-types/tour.php:488
 msgid "Tour Price"
 msgstr "Giá tour"
 
-#: shinetheme/libraries/service-types/tour.php:640
+#: shinetheme/libraries/service-types/tour.php:666
 msgid "Booking Info"
 msgstr "Thong tin đặt phòng"
 
-#: shinetheme/libraries/service-types/tour.php:647
+#: shinetheme/libraries/service-types/tour.php:673
 #: shinetheme/views/admin/order/tab-report.php:82
 msgid "From"
 msgstr "Từ"
 
-#: shinetheme/libraries/service-types/tour.php:652
-#: shinetheme/libraries/service-types/tour.php:670
+#: shinetheme/libraries/service-types/tour.php:678
+#: shinetheme/libraries/service-types/tour.php:696
 msgid "Adult(s)"
 msgstr "Người lớn"
 
-#: shinetheme/libraries/service-types/tour.php:658
-#: shinetheme/libraries/service-types/tour.php:676
+#: shinetheme/libraries/service-types/tour.php:684
+#: shinetheme/libraries/service-types/tour.php:702
 msgid "Infant(s)"
 msgstr "Trẻ sơ sinh"
 
-#: shinetheme/libraries/service-types/tour.php:810
+#: shinetheme/libraries/service-types/tour.php:837
 msgid "Your date is incorrect."
 msgstr "Ngày tháng không hợp lệ."
 
-#: shinetheme/libraries/service-types/tour.php:832
-#: shinetheme/libraries/service-types/tour.php:895
+#: shinetheme/libraries/service-types/tour.php:860
+#: shinetheme/libraries/service-types/tour.php:923
 msgid "Sorry! This tour is not available at your selected time"
 msgstr "Xin lỗi! Tour này không có sẵn trong khoảng thời gian bạn chọn"
 
-#: shinetheme/libraries/service-types/tour.php:839
-#: shinetheme/libraries/service-types/tour.php:922
+#: shinetheme/libraries/service-types/tour.php:867
+#: shinetheme/libraries/service-types/tour.php:950
 msgid "This tour requires 1 person at least"
 msgstr "Tour này yêu cầu tối thiểu 1 người"
 
-#: shinetheme/libraries/service-types/tour.php:845
-#: shinetheme/libraries/service-types/tour.php:902
+#: shinetheme/libraries/service-types/tour.php:873
+#: shinetheme/libraries/service-types/tour.php:930
 #, php-format
 msgid "This tour only remains availability for %d people"
 msgstr "Tour này chỉ có sẵn cho %d người"
 
-#: shinetheme/libraries/service-types/tour.php:854
+#: shinetheme/libraries/service-types/tour.php:882
 #, php-format
 msgid "Minimum Travelers must be %d"
 msgstr "Số du khách tối thiểu là %d"
 
-#: shinetheme/libraries/service-types/tour.php:860
+#: shinetheme/libraries/service-types/tour.php:888
 #, php-format
 msgid "Maximum Travelers must be %d"
 msgstr "Số du khách tối đa là %d"
 
-#: shinetheme/libraries/service-types/tour.php:908
+#: shinetheme/libraries/service-types/tour.php:936
 #, php-format
 msgid "%d adult(s)"
 msgstr "%d người lớn"
 
-#: shinetheme/libraries/service-types/tour.php:911
+#: shinetheme/libraries/service-types/tour.php:939
 #, php-format
 msgid "%d children"
 msgstr "%d trẻ em"
 
-#: shinetheme/libraries/service-types/tour.php:914
+#: shinetheme/libraries/service-types/tour.php:942
 #, php-format
 msgid "%d infant(s)"
 msgstr "%d trẻ sơ sinh"
 
-#: shinetheme/libraries/service-types/tour.php:919
+#: shinetheme/libraries/service-types/tour.php:947
 #, php-format
 msgid "This tour requires %s people at least"
 msgstr "Tour này yêu cầu tối thiểu %s"
 
-#: shinetheme/libraries/service-types/tour.php:1004
-#: shinetheme/libraries/service-types/tour.php:1005
-#: shinetheme/libraries/service-types/tour.php:1014
-#: shinetheme/libraries/service-types/tour.php:1171
+#: shinetheme/libraries/service-types/tour.php:1033
+#: shinetheme/libraries/service-types/tour.php:1034
+#: shinetheme/libraries/service-types/tour.php:1043
+#: shinetheme/libraries/service-types/tour.php:1186
 msgid "Tour Type"
 msgstr "Loại tour"
 
-#: shinetheme/libraries/service-types/tour.php:1006
+#: shinetheme/libraries/service-types/tour.php:1035
 msgid "Search for Tour Type"
 msgstr "Tìm kiếm tour"
 
-#: shinetheme/libraries/service-types/tour.php:1007
+#: shinetheme/libraries/service-types/tour.php:1036
 msgid "All Tour Types"
 msgstr "Tất cả loại tour"
 
-#: shinetheme/libraries/service-types/tour.php:1008
+#: shinetheme/libraries/service-types/tour.php:1037
 msgid "Parent Tour Type"
 msgstr ""
 
-#: shinetheme/libraries/service-types/tour.php:1009
+#: shinetheme/libraries/service-types/tour.php:1038
 msgid "Parent Tour Type:"
 msgstr ""
 
-#: shinetheme/libraries/service-types/tour.php:1010
+#: shinetheme/libraries/service-types/tour.php:1039
 msgid "Edit Tour Type"
 msgstr "Chỉnh sửa loại tour"
 
-#: shinetheme/libraries/service-types/tour.php:1011
+#: shinetheme/libraries/service-types/tour.php:1040
 msgid "Update Tour Type"
 msgstr "Cập nhật loại tour"
 
-#: shinetheme/libraries/service-types/tour.php:1012
+#: shinetheme/libraries/service-types/tour.php:1041
 msgid "Add New Tour Type"
 msgstr "Thêm loại tour"
 
-#: shinetheme/libraries/service-types/tour.php:1013
+#: shinetheme/libraries/service-types/tour.php:1042
 msgid "New Tour Type Name"
 msgstr "Tên loại tour"
 
-#: shinetheme/libraries/service-types/tour.php:1152
+#: shinetheme/libraries/service-types/tour.php:1167
 msgid "1. Basic Information"
 msgstr "1. Thông tin cơ bản"
 
-#: shinetheme/libraries/service-types/tour.php:1158
+#: shinetheme/libraries/service-types/tour.php:1173
 msgid "About Your Tour"
 msgstr "Thông tin về tour"
 
-#: shinetheme/libraries/service-types/tour.php:1164
+#: shinetheme/libraries/service-types/tour.php:1179
 msgid "Enable Tour"
 msgstr "Mở tour"
 
-#: shinetheme/libraries/service-types/tour.php:1180
+#: shinetheme/libraries/service-types/tour.php:1195
 msgid "Standard of tour from 1 to 5 stars."
 msgstr "Tiêu chuẩn của tour từ 1 to 5 sao."
 
-#: shinetheme/libraries/service-types/tour.php:1185
+#: shinetheme/libraries/service-types/tour.php:1200
 msgid "Duration"
 msgstr "Thời lượng"
 
-#: shinetheme/libraries/service-types/tour.php:1187
+#: shinetheme/libraries/service-types/tour.php:1202
 msgid "Example: 10 days"
 msgstr "Ví dụ: 10 ngày"
 
-#: shinetheme/libraries/service-types/tour.php:1192
+#: shinetheme/libraries/service-types/tour.php:1207
 msgid "Contact Number"
 msgstr "Số liên hệ"
 
-#: shinetheme/libraries/service-types/tour.php:1225
+#: shinetheme/libraries/service-types/tour.php:1240
 msgid "Tour Destination"
 msgstr "Địa điểm tour"
 
-#: shinetheme/libraries/service-types/tour.php:1245
+#: shinetheme/libraries/service-types/tour.php:1260
 msgid "Please make sure to enter your full address "
-msgstr "Hãy chắc chắn bạn đã nhập đầy đủ đi chỉ"
+msgstr "Hãy chắc chắn bạn đã nhập đầy đủ đi chỉ "
 
-#: shinetheme/libraries/service-types/tour.php:1258
+#: shinetheme/libraries/service-types/tour.php:1273
 msgid "2. Booking Details"
 msgstr "2. Chi tiết đặt phòng"
 
-#: shinetheme/libraries/service-types/tour.php:1262
+#: shinetheme/libraries/service-types/tour.php:1277
 msgid "Pricing type"
 msgstr "Loại giá"
 
-#: shinetheme/libraries/service-types/tour.php:1266
+#: shinetheme/libraries/service-types/tour.php:1281
 msgid "Pricing Type"
 msgstr "Loại giá"
 
-#: shinetheme/libraries/service-types/tour.php:1270
+#: shinetheme/libraries/service-types/tour.php:1285
 msgid "Per person"
 msgstr "Trên người"
 
-#: shinetheme/libraries/service-types/tour.php:1271
+#: shinetheme/libraries/service-types/tour.php:1286
 msgid "Per unit"
-msgstr "trên mỗi đơn vị"
+msgstr "Trên mỗi đơn vị"
 
-#: shinetheme/libraries/service-types/tour.php:1276
+#: shinetheme/libraries/service-types/tour.php:1291
 msgid "Maximum people"
 msgstr "Số người tối đa"
 
-#: shinetheme/libraries/service-types/tour.php:1284
+#: shinetheme/libraries/service-types/tour.php:1299
+msgid "Disable type of Passenger"
+msgstr "Ẩn loại hành khách"
+
+#: shinetheme/libraries/service-types/tour.php:1303
+#: shinetheme/views/admin/metabox-fields/age_options.php:57
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:132
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:347
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:350
+msgid "Child"
+msgstr "Trẻ em"
+
+#: shinetheme/libraries/service-types/tour.php:1308
 msgid "Age Options"
 msgstr "Tùy chọn độ tuổi"
 
-#: shinetheme/libraries/service-types/tour.php:1285
+#: shinetheme/libraries/service-types/tour.php:1309
 msgid "Provide your requirements for kinds of age defined as a child or adult."
 msgstr ""
 "Cung cấp các yêu cầu của bạn cho các loại độ tuổi được xác định như là một "
 "đứa trẻ hoặc người lớn."
 
-#: shinetheme/libraries/service-types/tour.php:1313
+#: shinetheme/libraries/service-types/tour.php:1337
 msgid "Availability"
 msgstr "Cài đặt giá / trạng thái"
 
-#: shinetheme/libraries/service-types/tour.php:1329
+#: shinetheme/libraries/service-types/tour.php:1353
 msgid "3. Policies & Checkout"
 msgstr "3. Chính sách và thanh toán"
 
-#: shinetheme/libraries/service-types/tour.php:1377
+#: shinetheme/libraries/service-types/tour.php:1407
 msgid ""
 "Set your local VAT, so guests know what is included in the price of their "
 "stay."
@@ -2887,37 +3022,37 @@ msgstr ""
 "Đặt VAT địa phương của bạn, vì vậy khách hàng biết giá bao gồm trong giá "
 "thuê của họ."
 
-#: shinetheme/libraries/service-types/tour.php:1411
+#: shinetheme/libraries/service-types/tour.php:1441
 msgid "4. Photos"
 msgstr "4. Hình ảnh"
 
-#: shinetheme/libraries/service-types/tour.php:1424
+#: shinetheme/libraries/service-types/tour.php:1454
 msgid "You must upload one minimum photo for your tour"
 msgstr "Bạn phải tải lên tối thiểu 1 ảnh cho tour"
 
-#: shinetheme/libraries/service-types/tour.php:1425
+#: shinetheme/libraries/service-types/tour.php:1455
 msgid "tour"
-msgstr ""
+msgstr "tour"
 
-#: shinetheme/libraries/service-types/tour.php:1489
+#: shinetheme/libraries/service-types/tour.php:1519
 msgid "Tour type"
 msgstr "Loại tour"
 
-#: shinetheme/libraries/service-types/tour.php:1506
+#: shinetheme/libraries/service-types/tour.php:1536
 msgid "Destination"
 msgstr "Điểm đến"
 
-#: shinetheme/libraries/service-types/tour.php:1507
+#: shinetheme/libraries/service-types/tour.php:1537
 msgid "From date"
 msgstr "Từ ngày"
 
-#: shinetheme/libraries/service-types/tour.php:1508
+#: shinetheme/libraries/service-types/tour.php:1538
 msgid "To date"
 msgstr "Đến ngày"
 
-#: shinetheme/libraries/service-types/tour.php:1510
+#: shinetheme/libraries/service-types/tour.php:1540
 msgid "Star Of Tour"
-msgstr ""
+msgstr "Đánh giá tour"
 
 #: shinetheme/libraries/tax-meta/tax-meta-class.php:373
 #: shinetheme/libraries/tax-meta/tax-meta-class.php:420
@@ -2957,7 +3092,7 @@ msgstr "Bắt đầu"
 #: shinetheme/views/admin/about/tab-extensions.php:20
 #, php-format
 msgid "Welcome to Wp Booking %s"
-msgstr ""
+msgstr "Chào mừng đến WPBooking %s"
 
 #: shinetheme/views/admin/about/index.php:22
 msgid "Wpbooking is ready to receive and manage bookings from visitor"
@@ -2970,11 +3105,11 @@ msgstr "Duyệt tất cả Extensions"
 
 #: shinetheme/views/admin/about/tab-extensions.php:39
 msgid "Total "
-msgstr "Tổng"
+msgstr "Tổng "
 
 #: shinetheme/views/admin/about/tab-extensions.php:39
 msgid " extensions. Showing "
-msgstr ""
+msgstr "Tiện tích. Showing "
 
 #: shinetheme/views/admin/about/tab-extensions.php:46
 #: shinetheme/views/admin/about/tab-extensions.php:53
@@ -3007,7 +3142,7 @@ msgstr "Tất cả"
 msgid "Get this Extension"
 msgstr ""
 
-#: shinetheme/views/admin/about/tab-extensions.php:107 wpbooking.php:293
+#: shinetheme/views/admin/about/tab-extensions.php:107 wpbooking.php:309
 msgid "Prev"
 msgstr "Lùi"
 
@@ -3278,7 +3413,7 @@ msgstr "Thêm trường ỏ đây:"
 
 #: shinetheme/views/admin/fields/form-build.php:32
 msgid "-- Select Field Type --"
-msgstr " - Chọn loại -"
+msgstr "- Chọn loại -"
 
 #: shinetheme/views/admin/fields/gallery.php:37
 #: shinetheme/views/admin/metabox-fields/gallery.php:50
@@ -3304,23 +3439,6 @@ msgstr "Chiều cao"
 msgid "Actions"
 msgstr "Hành động"
 
-#: shinetheme/views/admin/fields/list-item.php:87
-#: shinetheme/views/admin/fields/list-item.php:155
-#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:73
-#: shinetheme/views/admin/metabox-fields/list-item.php:46
-#: shinetheme/views/admin/taxonomy/index.php:39
-#: shinetheme/widgets/search-form.php:586
-#: shinetheme/widgets/search-form.php:696
-msgid "Edit"
-msgstr "Sửa"
-
-#: shinetheme/views/admin/fields/list-item.php:91
-#: shinetheme/views/admin/fields/list-item.php:159
-#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:75
-#: shinetheme/views/admin/taxonomy/index.php:42
-msgid "Delete"
-msgstr "Xóa"
-
 #: shinetheme/views/admin/fields/page-select.php:25
 #: shinetheme/views/admin/fields/post-select.php:28
 #: shinetheme/views/admin/fields/taxonomy-select.php:28
@@ -3334,130 +3452,126 @@ msgstr "Chọn một"
 msgid "%s name"
 msgstr "%s tên"
 
-#: shinetheme/views/admin/fields/upload.php:28
-msgid "Upload"
-msgstr "Tải lên"
-
 #: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:42
 msgid "View by period:"
-msgstr "Xem theo khoảng"
+msgstr "Xem theo khoảng:"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:44
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:45
 msgid "Start date"
 msgstr "Ngày bắt đầu"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:46
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:48
 msgid "End date"
 msgstr "Ngày kết thúc"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:47
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:49
 #: shinetheme/views/frontend/account/tabs/profile.php:106
 msgid "View"
 msgstr "Xem"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:49
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:77
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:95
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:170
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:51
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:100
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:131
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:174
 msgid "Bulk Edit"
 msgstr "Sửa nhanh"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:61
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:63
 msgid "Out of Stock"
 msgstr "Hết phòng"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:71
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:73
 msgid "Select a Room"
 msgstr "Chọn phòng"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:74
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:76
 msgid "---- room ----"
 msgstr "---- phòng ----"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:90
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:118
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:136
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:221
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:92
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:148
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:179
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:226
 msgid "Days Of Week"
 msgstr "Ngày trong tuần"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:95
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:121
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:139
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:226
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:97
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:153
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:184
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:231
 msgid "Sunday"
 msgstr "Chủ nhật"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:98
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:122
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:140
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:229
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:100
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:156
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:187
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:234
 msgid "Monday"
 msgstr "Thứ Hai"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:101
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:123
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:141
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:232
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:103
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:159
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:190
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:237
 msgid "Tuesday"
 msgstr "Thứ Ba"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:104
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:124
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:142
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:235
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:106
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:162
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:193
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:240
 msgid "Wednesday"
 msgstr "Thứ Tư"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:107
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:125
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:143
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:238
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:109
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:165
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:196
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:243
 msgid "Thursday"
 msgstr "Thứ Năm"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:110
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:126
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:144
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:241
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:112
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:168
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:199
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:246
 msgid "Friday"
 msgstr "Thứ Sáu"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:113
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:127
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:145
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:244
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:115
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:171
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:202
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:249
 msgid "Saturday"
 msgstr "Thứ Bảy"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:120
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:132
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:150
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:251
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:122
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:178
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:209
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:256
 msgid "Days Of Month"
 msgstr "Ngày trong tháng"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:145
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:153
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:171
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:276
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:147
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:203
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:234
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:281
 msgid "Months"
 msgstr "Tháng"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:172
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:176
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:194
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:303
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:174
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:230
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:261
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:308
 msgid "Years"
 msgstr "Năm"
 
-#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:209
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:53
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:201
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:71
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:219
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:67
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:359
+#: shinetheme/views/admin/metabox-fields/accommodation_inventory.php:211
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:61
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:264
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:92
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:295
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:69
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:367
 #: shinetheme/views/frontend/account/tabs/booking_history.php:37
 #: shinetheme/views/frontend/account/tabs/orders.php:64
 msgid "Status"
@@ -3480,11 +3594,11 @@ msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/address.php:37
 msgid "Zip/Postcode"
-msgstr ""
+msgstr "Zip/Postcode"
 
 #: shinetheme/views/admin/metabox-fields/address.php:40
 msgid "Zip/ postcode"
-msgstr ""
+msgstr "Zip/ postcode"
 
 #: shinetheme/views/admin/metabox-fields/address.php:46
 msgid "The address of neighborhood, organization and clusters"
@@ -3509,13 +3623,6 @@ msgstr "Tuổi nhỏ nhất"
 #: shinetheme/views/admin/metabox-fields/age_options.php:47
 msgid "Maximum Age"
 msgstr "Tuổi lớn nhất"
-
-#: shinetheme/views/admin/metabox-fields/age_options.php:57
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:130
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:340
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:343
-msgid "Child"
-msgstr "Trẻ em"
 
 #: shinetheme/views/admin/metabox-fields/age_options.php:68
 msgid "Please enter the maximum age greater or equal to the minimum age"
@@ -3542,150 +3649,152 @@ msgstr ""
 #: shinetheme/views/admin/metabox-fields/bed_options.php:308
 #, php-format
 msgid "Bed room #%d"
-msgstr ""
+msgstr "Phòng ngủ #%d"
 
 #: shinetheme/views/admin/metabox-fields/breadcrumb.php:11
 msgid "Room details"
 msgstr "Chi tiết phòng"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:36
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:54
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:43
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:37
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:68
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:45
 msgid "Set price by arranged date"
 msgstr "Đặt giá theo ngày sắp xếp"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:37
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:55
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:44
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:38
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:69
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:46
 msgid "You can book rooms for any purposes (like discount, high price, ...)"
 msgstr ""
 "Bạn có thể đặt phòng cho bất kỳ mục đích nào (như giảm giá, giá cao, ...)"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:39
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:57
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:47
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:41
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:72
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:49
 msgid "Start Date"
 msgstr "Ngày đến"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:41
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:59
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:51
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:45
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:76
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:53
 msgid "From Date"
 msgstr "Từ ngày"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:46
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:64
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:57
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:51
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:82
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:59
 msgid "End Date"
 msgstr "Ngày kết thúc"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:48
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:66
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:61
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:55
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:86
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:63
 msgid "To Date"
 msgstr "Đến ngày"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:85
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:103
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:181
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:108
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:139
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:185
 msgid "How to set Availability ?"
 msgstr "Cài đặt như thế nào?"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:86
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:104
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:182
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:109
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:140
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:186
 msgid "Way 1:"
 msgstr "Cách 1:"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:88
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:106
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:184
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:111
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:142
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:188
 msgid "To set availability on your calendar:"
-msgstr ""
+msgstr "Để đặt availability trên lịch của bạn"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:90
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:108
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:114
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:145
 msgid "A right sight table, click to Start Date picker to set a start date"
-msgstr ""
+msgstr "Bảng bên phải, click vào Start Date để chọn ngày bắt đầu"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:91
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:109
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:116
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:147
 msgid ""
 "A right sight table, click to End Date picker to set a end date of the "
 "period you want to edit"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:94
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:101
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:112
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:119
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:202
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:120
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:129
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:151
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:160
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:206
 msgid ""
 "A right sight table, allowing you to set status and price for that period"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:97
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:115
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:196
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:123
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:154
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:200
 msgid "Way 2:"
-msgstr ""
+msgstr "Cách 2:"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:99
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:117
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:199
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:126
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:157
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:203
 msgid "Drag the mouse in the left calendar to get start date and end date"
-msgstr ""
+msgstr "Kéo chuột vào lịch bên trái để có ngày bắt đầu và ngày kết thúc"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:111
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:129
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:212
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-car.php:139
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:170
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:216
 msgid "Bulk Price Edit"
-msgstr ""
+msgstr "Chỉnh sửa nhiều giá"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:37
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:38
 msgid "Default price for room"
-msgstr ""
-
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:46
-msgid "This Property is available:"
-msgstr ""
+msgstr "Giá cơ bản của phòng"
 
 #: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:48
+msgid "This Property is available:"
+msgstr "Thuộc tính này sẵn có"
+
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:55
 msgid "Forever"
-msgstr ""
+msgstr "Mãi mãi"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:49
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-room.php:62
 msgid "For specific periods"
-msgstr ""
+msgstr "Trong khoảng cụ thể"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:79
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:109
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:81
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:111
 msgid "Min Travelers"
-msgstr ""
+msgstr "Số khách tối thiểu"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:80
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:82
 msgid "Max Travelers"
-msgstr ""
+msgstr "Số khách tối đa"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:108
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:110
 msgid "Age band"
-msgstr ""
+msgstr "Tuổi"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:187
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:191
 msgid ""
 "At the  right side of table, click to Start Date picker to set a start date"
 msgstr ""
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:189
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:193
 msgid ""
 "At the  right side of, click to End Date picker to set a end date of the "
 "period you want to edit"
 msgstr ""
+"Ở bên phải, nhấp vào End Date để đặt ngày kết thúc của khoảng thời gian bạn "
+"muốn chỉnh sửa"
 
-#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:193
+#: shinetheme/views/admin/metabox-fields/calendar/calendar-tour.php:197
 msgid ""
 "At the  right side of, allow you to set status and price for that period"
-msgstr ""
+msgstr "Ở bên phải, cho phép bạn đặt trạng thái và giá cho khoảng thời gian đó"
 
 #: shinetheme/views/admin/metabox-fields/check_in.php:28
 msgid "from"
@@ -3710,17 +3819,17 @@ msgstr "Bạn có sử dụng City Tax không?"
 #: shinetheme/views/admin/metabox-fields/citytax_different.php:23
 #: shinetheme/views/admin/metabox-fields/vat_different.php:23
 msgid "Yes, Included"
-msgstr ""
+msgstr "Có, Bao gồm"
 
 #: shinetheme/views/admin/metabox-fields/citytax_different.php:24
 #: shinetheme/views/admin/metabox-fields/vat_different.php:24
 msgid "Yes, Not included"
-msgstr ""
+msgstr "Có, Không bao gồm"
 
 #: shinetheme/views/admin/metabox-fields/citytax_different.php:26
 #: shinetheme/views/admin/metabox-fields/vat_different.php:26
 msgid "Yes, Included / Yes, Not included / No"
-msgstr ""
+msgstr "Có, dduocj bao gồm / Có, không bao gồm/ Không"
 
 #: shinetheme/views/admin/metabox-fields/citytax_different.php:41
 #: shinetheme/views/admin/metabox-fields/vat_different.php:41
@@ -3735,7 +3844,7 @@ msgstr "%s /lượt"
 #: shinetheme/views/admin/metabox-fields/citytax_different.php:44
 #, php-format
 msgid "%s /person per stay"
-msgstr ""
+msgstr "%s /người trên ngày"
 
 #: shinetheme/views/admin/metabox-fields/citytax_different.php:45
 #, php-format
@@ -3754,64 +3863,75 @@ msgstr "Phần trăm (%)"
 
 #: shinetheme/views/admin/metabox-fields/creditcard.php:32
 msgid "American Express"
-msgstr ""
+msgstr "American Express"
 
 #: shinetheme/views/admin/metabox-fields/creditcard.php:40
 msgid "Visa"
-msgstr ""
+msgstr "Visa"
 
 #: shinetheme/views/admin/metabox-fields/creditcard.php:48
 msgid "Euro/Mastercard"
-msgstr ""
+msgstr "Euro/Mastercard"
 
 #: shinetheme/views/admin/metabox-fields/creditcard.php:55
 msgid "Diners Club"
-msgstr ""
+msgstr "Diners Club"
 
 #: shinetheme/views/admin/metabox-fields/creditcard.php:63
 msgid "JCB"
-msgstr ""
+msgstr "JCB"
 
 #: shinetheme/views/admin/metabox-fields/creditcard.php:71
 msgid "Maestro"
-msgstr ""
+msgstr "Maestro"
 
 #: shinetheme/views/admin/metabox-fields/creditcard.php:79
 msgid "Discover"
-msgstr ""
+msgstr "Discover"
 
 #: shinetheme/views/admin/metabox-fields/creditcard.php:87
 msgid "UnionPay debit card"
-msgstr ""
+msgstr "UnionPay debit card"
 
 #: shinetheme/views/admin/metabox-fields/creditcard.php:95
 msgid "UnionPay credit card"
-msgstr ""
+msgstr "UnionPay credit card"
 
 #: shinetheme/views/admin/metabox-fields/creditcard.php:103
 msgid "Bankcard"
-msgstr ""
+msgstr "Thẻ ngân hàng"
 
 #: shinetheme/views/admin/metabox-fields/extra_services.php:61
-#: shinetheme/views/admin/metabox-fields/extra_services.php:101
+#: shinetheme/views/admin/metabox-fields/vat_different.php:44
+#: shinetheme/views/frontend/single/loop-room.php:197
+msgid "Fixed"
+msgstr "Cố định"
+
+#: shinetheme/views/admin/metabox-fields/extra_services.php:63
+#: shinetheme/views/frontend/single/loop-room.php:195
+msgid "per Night"
+msgstr "trên Đêm"
+
+#: shinetheme/views/admin/metabox-fields/extra_services.php:84
+#: shinetheme/views/admin/metabox-fields/extra_services.php:128
 msgid "Max quantity"
 msgstr "Số lượng tối đa"
 
-#: shinetheme/views/admin/metabox-fields/extra_services.php:96
+#: shinetheme/views/admin/metabox-fields/extra_services.php:123
 msgid "-"
-msgstr ""
+msgstr "-"
 
-#: shinetheme/views/admin/metabox-fields/extra_services.php:112
+#: shinetheme/views/admin/metabox-fields/extra_services.php:140
 msgid "Extra Service Name"
 msgstr "Tên Extra"
 
-#: shinetheme/views/admin/metabox-fields/extra_services.php:113
-#: shinetheme/views/frontend/single/types/default.php:116
-#: shinetheme/views/frontend/single/types/tour.php:266
+#: shinetheme/views/admin/metabox-fields/extra_services.php:142
+#: shinetheme/views/frontend/single/types/default.php:121
+#: shinetheme/views/frontend/single/types/tour.php:294
 msgid "Description"
 msgstr "Mô tả"
 
-#: shinetheme/views/admin/metabox-fields/extra_services.php:115
+#: shinetheme/views/admin/metabox-fields/extra_services.php:144
 msgid "Max Quantity"
 msgstr "Số lượng tối đa"
 
@@ -3845,36 +3965,25 @@ msgstr "Xóa vĩnh viễn"
 msgid "No accommodation photo yet."
 msgstr "Phong có ảnh nào."
 
-#: shinetheme/views/admin/metabox-fields/gmap.php:30
-msgid "Enter a address..."
-msgstr "Nhập địa chỉ..."
-
 #: shinetheme/views/admin/metabox-fields/gmap.php:45
 msgid "Show Map"
 msgstr "Hiển thị bản đồ"
 
-#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:38
-#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:86
-#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:107
+#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:44
+#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:99
+#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:132
 msgid "Create New Room"
 msgstr "Tạo phòng mới"
 
-#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:66
-#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:94
-#, php-format
-msgid "%d room(s)"
-msgstr "%d phòng"
-
-#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:75
-#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:101
-msgid "Do you want delete this room?"
-msgstr "Muốn xóa phòng này?"
-
-#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:100
+#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:114
 msgid "Edit room"
 msgstr "Sửa phòng"
 
-#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:107
+#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:127
+msgid "Room synchronization"
+msgstr "Đồng bộ phòng"
+
+#: shinetheme/views/admin/metabox-fields/hotel_room_list.php:130
 msgid "There isn't room you listing"
 msgstr "Không có phòng trong danh sach"
 
@@ -3906,16 +4015,16 @@ msgstr ""
 #: shinetheme/views/admin/metabox-fields/living_options.php:24
 #: shinetheme/views/admin/metabox-fields/living_options.php:65
 msgid "Number of sofa beds in the room"
-msgstr ""
+msgstr "Số ghế trong phòng"
 
 #: shinetheme/views/admin/metabox-fields/living_options.php:63
 #, php-format
 msgid "Living room #%d"
-msgstr ""
+msgstr "Phòng khách #%d"
 
 #: shinetheme/views/admin/metabox-fields/property_size.php:30
 msgid "Eg: 100"
-msgstr ""
+msgstr "Eg: 100"
 
 #: shinetheme/views/admin/metabox-fields/property_size.php:33
 msgid "Meter"
@@ -3926,7 +4035,7 @@ msgid "Feet"
 msgstr "Thước"
 
 #: shinetheme/views/admin/metabox-fields/repeat_dropdown.php:91
-#: wpbooking.php:287
+#: wpbooking.php:303
 msgid "delete"
 msgstr "xóa"
 
@@ -3945,28 +4054,24 @@ msgstr "Một vài"
 
 #: shinetheme/views/admin/metabox-fields/taxonomy_room_select.php:97
 msgid "No Data"
-msgstr ""
+msgstr "Khong có dữ liệu"
 
 #: shinetheme/views/admin/metabox-fields/vat_different.php:16
 msgid "Do you use V.A.T ?"
-msgstr ""
-
-#: shinetheme/views/admin/metabox-fields/vat_different.php:44
-msgid "Fixed"
-msgstr "Cố định"
+msgstr "Sử dụng thuế"
 
 #: shinetheme/views/admin/order/detail.php:8
 msgid "Order Item Detail"
-msgstr ""
+msgstr "Chi tiết hóa đơn"
 
 #: shinetheme/views/admin/order/detail.php:12
 msgid "Order Items"
-msgstr ""
+msgstr "Mục hóa đơn"
 
 #: shinetheme/views/admin/order/detail.php:23
 #: shinetheme/views/frontend/account/booking_history/detail.php:18
 #: shinetheme/views/frontend/account/orders/loop-listing.php:50
-#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:13
+#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:15
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:17
 #: shinetheme/views/frontend/order/content.php:53
 #: shinetheme/views/frontend/order/other/order-item-room.php:12
@@ -3976,12 +4081,12 @@ msgstr "Tổng"
 #: shinetheme/views/admin/order/detail.php:31
 #: shinetheme/views/frontend/account/booking_history/detail.php:60
 msgid "Billing Details"
-msgstr ""
+msgstr "Chi tiết thanh toán"
 
 #: shinetheme/views/admin/order/detail.php:54
 #: shinetheme/views/frontend/checkout/index.php:55
 msgid "Method of Payment"
-msgstr ""
+msgstr "Phương thức thanh toán"
 
 #: shinetheme/views/admin/order/index.php:12
 #: shinetheme/views/frontend/account/tabs/orders.php:19
@@ -3999,7 +4104,7 @@ msgstr "Chọn hành động nhanh"
 
 #: shinetheme/views/admin/order/tab-listing.php:49
 msgid "Bulk Actions"
-msgstr ""
+msgstr "Tahy đổi nhiều"
 
 #: shinetheme/views/admin/order/tab-listing.php:50
 msgid "Mark as On-Hold"
@@ -4054,7 +4159,7 @@ msgstr "Tìm kiếm đơn hàng"
 #: shinetheme/views/admin/order/tab-listing.php:113
 #: shinetheme/views/frontend/account/booking_history/loop-listing.php:27
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: shinetheme/views/admin/order/tab-listing.php:114
 msgid "Status - Method of Payment"
@@ -4085,15 +4190,15 @@ msgstr "chi tiết "
 
 #: shinetheme/views/admin/order/tab-listing.php:157
 msgid "Email address: "
-msgstr ""
+msgstr "Email address: "
 
 #: shinetheme/views/admin/order/tab-listing.php:158
 msgid "Phone: "
-msgstr ""
+msgstr "Phone: "
 
 #: shinetheme/views/admin/order/tab-listing.php:159
 msgid "Address: "
-msgstr ""
+msgstr "Địa chỉ: "
 
 #: shinetheme/views/admin/order/tab-listing.php:166
 msgid "Complete this item"
@@ -4200,15 +4305,15 @@ msgstr "Tổng sale"
 
 #: shinetheme/views/admin/order/tab-report.php:114
 msgid "Net Profit"
-msgstr ""
+msgstr "Lợi nhuận"
 
 #: shinetheme/views/admin/order/tab-report.php:115
 msgid "Items"
-msgstr ""
+msgstr "Items"
 
 #: shinetheme/views/admin/order/tab-report.php:116
 msgid "Total Bookings"
-msgstr ""
+msgstr "Tổng đặt phòng"
 
 #: shinetheme/views/admin/order/tab-report.php:118
 #: shinetheme/views/admin/order/tab-report.php:249
@@ -4218,7 +4323,7 @@ msgstr "Hoàn thành một phần"
 #: shinetheme/views/admin/order/tab-report.php:128
 msgid "item"
 msgid_plural "items"
-msgstr[0] ""
+msgstr[0] "item"
 
 #: shinetheme/views/admin/order/tab-report.php:132
 #: shinetheme/views/admin/order/tab-report.php:136
@@ -4228,41 +4333,41 @@ msgstr[0] ""
 #: shinetheme/views/admin/order/tab-report.php:152
 msgid "booking"
 msgid_plural "bookings"
-msgstr[0] ""
+msgstr[0] "item"
 
 #: shinetheme/views/admin/order/tab-report.php:178
 msgid "Total sale"
-msgstr ""
+msgstr "Tổng sale"
 
 #: shinetheme/views/admin/order/tab-report.php:202
 msgid "Net profit"
-msgstr ""
+msgstr "Lợi nhuận"
 
 #: shinetheme/views/admin/report-widget.php:6
 msgid "Current Month"
-msgstr ""
+msgstr "Tháng hiện tại"
 
 #: shinetheme/views/admin/report-widget.php:11
 #: shinetheme/views/admin/report-widget.php:28
 #: shinetheme/views/admin/report-widget.php:51
 #: shinetheme/views/admin/report-widget.php:71
 msgid "Earnings"
-msgstr ""
+msgstr "Thu nhập"
 
 #: shinetheme/views/admin/report-widget.php:15
 #: shinetheme/views/admin/report-widget.php:33
 #: shinetheme/views/admin/report-widget.php:56
 #: shinetheme/views/admin/report-widget.php:75
 msgid "Sales"
-msgstr ""
+msgstr "Sales"
 
 #: shinetheme/views/admin/report-widget.php:23
 msgid "Last Month"
-msgstr ""
+msgstr "Tháng trước"
 
 #: shinetheme/views/admin/report-widget.php:66
 msgid "Totals"
-msgstr ""
+msgstr "Tổng"
 
 #: shinetheme/views/admin/settings.php:82
 msgid "Save Settings"
@@ -4270,7 +4375,7 @@ msgstr "Lưu cài đặt"
 
 #: shinetheme/views/admin/setup_demo.php:3
 msgid "Setup Wpbooking plugin"
-msgstr ""
+msgstr "Cài đặt WPBooking"
 
 #: shinetheme/views/admin/setup_demo.php:9
 #: shinetheme/views/admin/setup_demo/wp_general.php:6
@@ -4294,11 +4399,11 @@ msgstr "Cài đặt thanh toán"
 
 #: shinetheme/views/admin/setup_demo/wp_booking.php:26
 msgid "Allow Captcha Google to be Checked out?:"
-msgstr "Bật Google Captche trang thanh toán"
+msgstr "Bật Google Captche trang thanh toán?:"
 
 #: shinetheme/views/admin/setup_demo/wp_booking.php:31
 msgid "Allow Captcha Google to be Checked out?"
-msgstr "Bật Google Captche trang thanh toán"
+msgstr "Bật Google Captche trang thanh toán?"
 
 #: shinetheme/views/admin/setup_demo/wp_booking.php:58
 #: shinetheme/views/admin/setup_demo/wp_email.php:94
@@ -4309,25 +4414,25 @@ msgstr "Lưu và tiếp tục"
 
 #: shinetheme/views/admin/setup_demo/wp_email.php:13
 msgid "Email From Name:"
-msgstr ""
+msgstr "Email From Name:"
 
 #: shinetheme/views/admin/setup_demo/wp_email.php:22
 msgid "Email From Address:"
-msgstr ""
+msgstr "Email From Address:"
 
 #: shinetheme/views/admin/setup_demo/wp_email.php:32
 msgid "Email  System to get Booking, Registration Notifications...etc:"
-msgstr ""
+msgstr "Hệ thống email để nhận thông tin đặt phòng, đăng ký tài khoản, ..."
 
 #: shinetheme/views/admin/setup_demo/wp_email.php:41
 #: shinetheme/views/admin/setup_demo/wp_email.php:69
 msgid "Enable Email To Customer:"
-msgstr ""
+msgstr "Bật email khách hàng:"
 
 #: shinetheme/views/admin/setup_demo/wp_email.php:53
 #: shinetheme/views/admin/setup_demo/wp_email.php:80
 msgid "Enable Email To Admin:"
-msgstr ""
+msgstr "Bật email người quản trị"
 
 #: shinetheme/views/admin/setup_demo/wp_general.php:13
 msgid "Currency:"
@@ -4356,7 +4461,7 @@ msgstr "Thập phân:"
 #: shinetheme/views/admin/setup_demo/wp_payment.php:26
 #, php-format
 msgid "Yes, I want to enable %s"
-msgstr ""
+msgstr "Tôi muốn bật %s"
 
 #: shinetheme/views/admin/setup_demo/wp_payment.php:40
 msgid "Finish"
@@ -4380,7 +4485,7 @@ msgstr "Cho phép người dùng xem lại mà không đặt dịch vụ"
 
 #: shinetheme/views/admin/setup_demo/wp_service.php:30
 msgid "Show Rate (Help-full) button in each review?"
-msgstr ""
+msgstr "Hiển thị nút Rate trong mỗi đánh giá"
 
 #: shinetheme/views/admin/setup_demo/wp_service.php:35
 msgid "User can write review on their own listing?"
@@ -4392,7 +4497,7 @@ msgstr "Người dùng có thể bỏ phiếu cho đánh giá của họ?"
 
 #: shinetheme/views/admin/taxonomy/edit.php:11
 msgid "Edit Attribute"
-msgstr ""
+msgstr "Chỉnh sửa thuộc tính"
 
 #: shinetheme/views/admin/taxonomy/edit.php:19
 #: shinetheme/views/admin/taxonomy/index.php:21
@@ -4402,28 +4507,24 @@ msgstr "Tên"
 
 #: shinetheme/views/admin/taxonomy/edit.php:23
 msgid "Name for the taxonomy (shown on the front-end)."
-msgstr ""
+msgstr "Tên của phân loại."
 
 #: shinetheme/views/admin/taxonomy/edit.php:28
 #: shinetheme/views/admin/taxonomy/index.php:22
 #: shinetheme/views/admin/taxonomy/index.php:78
 msgid "Slug"
-msgstr ""
+msgstr "Tên phụ"
 
 #: shinetheme/views/admin/taxonomy/edit.php:32
 #: shinetheme/views/admin/taxonomy/index.php:80
 msgid ""
 "Unique slug/reference for the attribute; must be shorter than 28 characters."
-msgstr ""
+msgstr "Tên riêng của thuộc tính phải ít hơn 28 ký tự."
 
 #: shinetheme/views/admin/taxonomy/edit.php:50
 #: shinetheme/views/admin/taxonomy/index.php:94
 msgid "Choose Types of Service that the Taxonomy supported"
-msgstr ""
-
-#: shinetheme/views/admin/taxonomy/edit.php:57
-msgid "Update"
-msgstr "Cập nhật"
+msgstr "Chọn loại dịch vụ mà Phân loại hỗ trợ"
 
 #: shinetheme/views/admin/taxonomy/index.php:23
 msgid "Service Type(s)"
@@ -4431,28 +4532,30 @@ msgstr "Loại dịch vụ"
 
 #: shinetheme/views/admin/taxonomy/index.php:58
 msgid "Currently, there are no custom taxonomies existing."
-msgstr ""
+msgstr "Hiện tại, không có phân loại tùy chỉnh nào tồn tại."
 
 #: shinetheme/views/admin/taxonomy/index.php:68
 msgid "Add New Taxonomy"
-msgstr ""
+msgstr "Thêm phân loại mới"
 
 #: shinetheme/views/admin/taxonomy/index.php:69
 msgid ""
 "Taxonomies let you define unlimited extra information for Hotel, Car ..etc"
 msgstr ""
+"Phân loại cho phép bạn xác định thông tin bổ sung không giới hạn cho Khách "
+"sạn, Xe, ..."
 
 #: shinetheme/views/admin/taxonomy/index.php:74
 msgid "Name for the attribute (shown on the front-end)."
-msgstr ""
+msgstr "Tên của thuộc tính"
 
 #: shinetheme/views/admin/taxonomy/index.php:98
 msgid "Add Taxonomy"
-msgstr ""
+msgstr "Thêm phân loại"
 
 #: shinetheme/views/admin/taxonomy/index.php:109
 msgid "Are you sure that you want to delete this attribute?"
-msgstr ""
+msgstr "Bạn muốn xóa thuộc tính này?"
 
 #: shinetheme/views/frontend/account/booking_history/detail.php:12
 msgid "BOOKING DETAIL"
@@ -4460,16 +4563,16 @@ msgstr "THÔNG TIN BOOKING"
 
 #: shinetheme/views/frontend/account/booking_history/detail.php:16
 msgid "Property Items"
-msgstr ""
+msgstr "Tính chất"
 
 #: shinetheme/views/frontend/account/booking_history/detail.php:17
 msgid "Property Type"
-msgstr ""
+msgstr "Loại"
 
 #: shinetheme/views/frontend/account/booking_history/detail.php:48
 #, php-format
 msgid "Total: %s"
-msgstr ""
+msgstr "Thổng: %s"
 
 #: shinetheme/views/frontend/account/booking_history/loop-listing.php:30
 msgid "SERVICE"
@@ -4477,7 +4580,7 @@ msgstr "DỊCH VỤ"
 
 #: shinetheme/views/frontend/account/booking_history/loop-listing.php:33
 msgid "STATUS - PAYMENT"
-msgstr ""
+msgstr "Trạng thái - Thanh toán"
 
 #: shinetheme/views/frontend/account/booking_history/loop-listing.php:36
 msgid "TOTAL"
@@ -4488,11 +4591,11 @@ msgid "(DEPOSIT / REMAIN)"
 msgstr "(ĐĂT DỌC / CÒN LẠI)"
 
 #: shinetheme/views/frontend/account/booking_history/loop-listing.php:69
-#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:46
+#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:52
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:47
 #: shinetheme/views/frontend/order/other/order-item-room.php:42
 msgid "Details"
-msgstr ""
+msgstr "Chi tiết"
 
 #: shinetheme/views/frontend/account/booking_history/loop-listing.php:108
 #: shinetheme/views/frontend/account/orders/loop-listing.php:125
@@ -4502,11 +4605,11 @@ msgstr "Không tìm thấy booking"
 #: shinetheme/views/frontend/account/login.php:21
 #: shinetheme/views/frontend/account/lost-password.php:13
 msgid "Username or email address"
-msgstr ""
+msgstr "Tên đăng nhập hoặc email"
 
 #: shinetheme/views/frontend/account/login.php:31
 msgid "Remember Me"
-msgstr ""
+msgstr "Ghi nhớ"
 
 #: shinetheme/views/frontend/account/login.php:34
 msgid "Is your password lost?"
@@ -4533,11 +4636,11 @@ msgstr "Đặt lại mật khẩu"
 
 #: shinetheme/views/frontend/account/orders/loop-listing.php:44
 msgid "ID - Customer"
-msgstr ""
+msgstr "Id - Khách hàng"
 
 #: shinetheme/views/frontend/account/orders/loop-listing.php:47
 msgid "Booking Data"
-msgstr ""
+msgstr "Dữ liệu đặt phòng"
 
 #: shinetheme/views/frontend/account/orders/loop-listing.php:69
 msgid "by"
@@ -4618,7 +4721,7 @@ msgstr "Bảng điều khiển"
 
 #: shinetheme/views/frontend/account/tabs/dashboard.php:23
 msgid "Email Address:"
-msgstr ""
+msgstr "Email:"
 
 #: shinetheme/views/frontend/account/tabs/dashboard.php:29
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:24
@@ -4632,22 +4735,22 @@ msgstr "Số điện thoại:"
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:18
 #: shinetheme/views/frontend/order/customer_information.php:38
 msgid "Address:"
-msgstr ""
+msgstr "Địa chỉ:"
 
 #: shinetheme/views/frontend/account/tabs/dashboard.php:41
 msgid "Apt / Unit:"
-msgstr ""
+msgstr "Apt / Unit:"
 
 #: shinetheme/views/frontend/account/tabs/dashboard.php:47
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:36
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:22
 #: shinetheme/views/frontend/order/customer_information.php:44
 msgid "Postcode / Zip:"
-msgstr ""
+msgstr "Mã bưu chính:"
 
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:36
 msgid "Email Address"
-msgstr ""
+msgstr "Email:"
 
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:42
 msgid "Phone"
@@ -4655,7 +4758,7 @@ msgstr "Số điện thoại"
 
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:60
 msgid "Apt / Unit"
-msgstr ""
+msgstr "Apt / Unit"
 
 #: shinetheme/views/frontend/account/tabs/orders.php:13
 msgid "All Orders"
@@ -4663,7 +4766,7 @@ msgstr "Tất cả đơn hàng"
 
 #: shinetheme/views/frontend/account/tabs/orders.php:20
 msgid "Calendar"
-msgstr ""
+msgstr "Lịch"
 
 #: shinetheme/views/frontend/account/tabs/profile.php:22
 #, php-format
@@ -4685,17 +4788,17 @@ msgstr "Danh sách của bạn"
 #: shinetheme/views/frontend/account/tabs/services.php:39
 #, php-format
 msgid "You have %d service(s),"
-msgstr ""
+msgstr "Bạn có %d dịch vụ,"
 
 #: shinetheme/views/frontend/account/tabs/services.php:41
 #, php-format
 msgid "You have %d %s(s)"
-msgstr ""
+msgstr "Bạn có %d %s"
 
 #: shinetheme/views/frontend/account/tabs/services.php:71
 #: shinetheme/views/frontend/account/tabs/your_wishlist.php:90
 msgid "Not Found Service(s)"
-msgstr ""
+msgstr "Không tìm thấy dịch vụ"
 
 #: shinetheme/views/frontend/account/tabs/your_wishlist.php:41
 msgid "Your Wishlist"
@@ -4704,12 +4807,12 @@ msgstr "Danh sách yêu thích"
 #: shinetheme/views/frontend/account/tabs/your_wishlist.php:61
 #, php-format
 msgid "You are wishing %d service(s)"
-msgstr ""
+msgstr "Bạn đang thích %d dịch vụ"
 
 #: shinetheme/views/frontend/account/tabs/your_wishlist.php:63
 #, php-format
 msgid "You are wishing %d %s(s)"
-msgstr ""
+msgstr "Bạn đang thích %d %s"
 
 #: shinetheme/views/frontend/account/update-profile.php:9
 msgid "Update Profile"
@@ -4717,7 +4820,7 @@ msgstr "Câp nhật cấu hình"
 
 #: shinetheme/views/frontend/account/update-profile.php:12
 msgid "Avatar"
-msgstr ""
+msgstr "Avatar"
 
 #: shinetheme/views/frontend/account/update-profile.php:14
 #: shinetheme/views/frontend/account/update-profile.php:36
@@ -4726,17 +4829,19 @@ msgstr ""
 #: shinetheme/views/frontend/account/update-profile.php:72
 #: shinetheme/views/frontend/account/update-profile.php:77
 msgid "Display Name"
-msgstr ""
+msgstr "Tên hiển thị"
 
 #: shinetheme/views/frontend/account/update-profile.php:20
 msgid "Browse..."
-msgstr ""
+msgstr "Duyệt..."
 
 #: shinetheme/views/frontend/account/update-profile.php:28
 msgid ""
 "Image formats : jpg, png, gif . Image size is 800x600 and max file size is "
 "2MB"
 msgstr ""
+"Image formats : jpg, png, gif . Image size is 800x600 and max file size is "
+"2MB"
 
 #: shinetheme/views/frontend/account/update-profile.php:49
 #: shinetheme/views/frontend/account/update-profile.php:51
@@ -4746,7 +4851,7 @@ msgstr "Số điện thoại"
 #: shinetheme/views/frontend/account/update-profile.php:55
 #: shinetheme/views/frontend/account/update-profile.php:80
 msgid "Submit"
-msgstr ""
+msgstr "Gửi"
 
 #: shinetheme/views/frontend/archive/header.php:11
 msgid "Search Result"
@@ -4756,33 +4861,33 @@ msgstr "Kết quả tìm kiếm"
 #, php-format
 msgid "Found %d "
 msgid_plural "Found %d "
-msgstr[0] ""
+msgstr[0] "Tìm thấy %d"
 
 #: shinetheme/views/frontend/archive/header.php:19
 msgid "(s)"
-msgstr ""
+msgstr "(s)"
 
 #: shinetheme/views/frontend/archive/header.php:21
 #, php-format
 msgid "Found %d service"
 msgid_plural "Found %d services"
-msgstr[0] ""
+msgstr[0] "Timg thấy %d dịch vụ"
 
 #: shinetheme/views/frontend/archive/header.php:65
 msgid "ASC Date "
-msgstr ""
+msgstr "ASC Date "
 
 #: shinetheme/views/frontend/archive/header.php:66
 msgid "DESC Date"
-msgstr ""
+msgstr "DESC Date"
 
 #: shinetheme/views/frontend/archive/header.php:67
 msgid "ASC Price "
-msgstr ""
+msgstr "ASC Price "
 
 #: shinetheme/views/frontend/archive/header.php:68
 msgid "DESC Price"
-msgstr ""
+msgstr "DESC Price"
 
 #: shinetheme/views/frontend/archive/header.php:74
 msgid "Sort by"
@@ -4790,7 +4895,9 @@ msgstr "Sắp xếp theo"
 
 #: shinetheme/views/frontend/archive/item.php:77
 #: shinetheme/views/frontend/single/order-form.php:4
-#: shinetheme/views/frontend/single/types/tour.php:255
+#: shinetheme/views/frontend/single/types/default.php:113
+#: shinetheme/views/frontend/single/types/tour.php:275
+#: shinetheme/views/frontend/single/types/tour.php:282
 msgid "Book Now"
 msgstr "Đặt ngay"
 
@@ -4800,7 +4907,7 @@ msgstr "Không tìm thấy bất cứ điều gì liên quan đến điều ki�
 
 #: shinetheme/views/frontend/checkout/captcha.php:5
 msgid "Captcha"
-msgstr ""
+msgstr "Captcha"
 
 #: shinetheme/views/frontend/checkout/cart-total-box.php:8
 msgid "Cart Detail"
@@ -4811,14 +4918,14 @@ msgstr "Chi tiết giỏ hàng"
 #: shinetheme/views/frontend/order/content.php:110
 #, php-format
 msgid "%s V.A.T (included)"
-msgstr ""
+msgstr "%s V.A.T (được bao gồm)"
 
 #: shinetheme/views/frontend/checkout/cart-total-box.php:25
 #: shinetheme/views/frontend/emails/shortcodes/order-table.php:56
 #: shinetheme/views/frontend/order/content.php:112
 #, php-format
 msgid "%s V.A.T"
-msgstr ""
+msgstr "%s V.A.T"
 
 #: shinetheme/views/frontend/checkout/cart-total-box.php:44
 #: shinetheme/views/frontend/order/content.php:131
@@ -4842,7 +4949,7 @@ msgid "Your cart is currently empty"
 msgstr "Giỏ hàng của bạn trống"
 
 #: shinetheme/views/frontend/checkout/cart-widget.php:37
-#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:26
+#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:31
 msgid "Do you want to delete it?"
 msgstr "Bạn muốn xóa?"
 
@@ -4855,8 +4962,8 @@ msgid "Cart"
 msgstr "Giỏ hàng"
 
 #: shinetheme/views/frontend/checkout/cart-widget.php:57
-#: shinetheme/views/frontend/single/hotel/room.php:53
-#: shinetheme/views/frontend/single/hotel/room.php:65
+#: shinetheme/views/frontend/single/hotel/room.php:57
+#: shinetheme/views/frontend/single/hotel/room.php:69
 msgid "Check Out"
 msgstr "Ngày đi"
 
@@ -4881,41 +4988,41 @@ msgstr "THANH TOÁN"
 #: shinetheme/views/frontend/checkout/other/checkout-item-room.php:10
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:8
 #: shinetheme/views/frontend/order/other/order-item-room.php:9
-#: shinetheme/views/frontend/single/hotel/room.php:70
+#: shinetheme/views/frontend/single/hotel/room.php:74
 msgid "Rooms"
 msgstr "Phòng"
 
-#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:12
+#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:14
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:14
 #: shinetheme/views/frontend/order/other/order-item-room.php:11
 msgid "Number"
 msgstr "Số lượng"
 
-#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:28
+#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:34
 msgid "Remove this room"
 msgstr "Xóa item này"
 
-#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:42
+#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:48
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:43
 #: shinetheme/views/frontend/order/other/order-item-room.php:37
-#: shinetheme/views/frontend/single/loop-room.php:37
+#: shinetheme/views/frontend/single/loop-room.php:40
 msgid "Max"
 msgstr "Tối đa"
 
-#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:42
+#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:48
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:43
 #: shinetheme/views/frontend/order/other/order-item-room.php:37
 msgid "people"
 msgstr "người"
 
-#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:53
+#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:60
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:49
 #: shinetheme/views/frontend/order/other/order-item-room.php:49
 msgid "Price by Night"
 msgstr "Giá trên đêm"
 
-#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:59
-#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:70
+#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:66
+#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:78
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:55
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:66
 #: shinetheme/views/frontend/order/other/order-item-room.php:55
@@ -4923,12 +5030,16 @@ msgstr "Giá trên đêm"
 msgid "Night"
 msgstr "Đêm"
 
-#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:100
+#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:108
 #: shinetheme/views/frontend/emails/shortcodes/detail-item-room.php:92
 #: shinetheme/views/frontend/order/other/order-item-room.php:94
-#: shinetheme/views/frontend/single/loop-room.php:155
+#: shinetheme/views/frontend/single/loop-room.php:166
 msgid "Service name"
 msgstr "Tên dịch vụ"
+
+#: shinetheme/views/frontend/checkout/other/checkout-item-room.php:159
+msgid "Discount"
+msgstr "Giảm giá"
 
 #: shinetheme/views/frontend/checkout/review.php:5
 msgid "Your booking details"
@@ -4950,7 +5061,7 @@ msgstr "Email xác nhận:"
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:26
 #: shinetheme/views/frontend/order/customer_information.php:50
 msgid "Apt/ Unit:"
-msgstr ""
+msgstr "Apt/ Unit:"
 
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:48
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:30
@@ -4964,27 +5075,27 @@ msgstr "TỔNG TIỀN"
 
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:7
 msgid "Jonathan & Leo"
-msgstr ""
+msgstr "Jonathan & Leo"
 
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:11
 msgid "test@gmail.com"
-msgstr ""
+msgstr "test@gmail.com"
 
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:15
 msgid "12345678"
-msgstr ""
+msgstr "12345678"
 
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:19
 msgid "48 Boulevard des Invalides"
-msgstr ""
+msgstr "48 Boulevard des Invalides"
 
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:23
 msgid "12345"
-msgstr ""
+msgstr "12345"
 
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:27
 msgid "8888"
-msgstr ""
+msgstr "8888"
 
 #: shinetheme/views/frontend/emails/templates/changed_password.php:12
 #, php-format
@@ -4993,7 +5104,7 @@ msgstr "Xin chào %s, "
 
 #: shinetheme/views/frontend/emails/templates/changed_password.php:12
 msgid "You changed password a few minutes ago,"
-msgstr "Mật khẩu được thay đổi trong ít phút"
+msgstr "Mật khẩu được thay đổi trong ít phút,"
 
 #: shinetheme/views/frontend/emails/templates/changed_password.php:13
 msgid "Currently, here is your account information:"
@@ -5001,7 +5112,7 @@ msgstr "Đây là thông tin tài khoản của bạn:"
 
 #: shinetheme/views/frontend/emails/templates/changed_password.php:20
 msgid "Profile URL"
-msgstr ""
+msgstr "Profile URL"
 
 #: shinetheme/views/frontend/order/content.php:17
 msgid "Booking Details"
@@ -5022,7 +5133,7 @@ msgstr ""
 
 #: shinetheme/views/frontend/order/content.php:30
 msgid "Thank you, your order has been received!"
-msgstr "Cảm ơn, hóa đơn của bạn đã được nhận"
+msgstr "Cảm ơn, hóa đơn của bạn đã được nhận!"
 
 #: shinetheme/views/frontend/order/content.php:39
 msgid "Booking code:"
@@ -5040,91 +5151,91 @@ msgstr "Trạng thái đặt phòng:"
 msgid "your booking information"
 msgstr "thông tin đặt phòng của bạn"
 
-#: shinetheme/views/frontend/single/hotel/room.php:17
+#: shinetheme/views/frontend/single/hotel/room.php:21
 msgid "Check availability"
 msgstr "Kiểm tra sẵn có"
 
-#: shinetheme/views/frontend/single/hotel/room.php:35
-#: shinetheme/views/frontend/single/hotel/room.php:47
+#: shinetheme/views/frontend/single/hotel/room.php:39
+#: shinetheme/views/frontend/single/hotel/room.php:51
 msgid "Check In"
 msgstr "Ngày đến"
 
-#: shinetheme/views/frontend/single/hotel/room.php:80
-#: shinetheme/views/frontend/single/types/tour.php:173
+#: shinetheme/views/frontend/single/hotel/room.php:84
+#: shinetheme/views/frontend/single/types/tour.php:184
 msgid "Adults"
 msgstr "Người lớn"
 
-#: shinetheme/views/frontend/single/hotel/room.php:101
+#: shinetheme/views/frontend/single/hotel/room.php:105
 msgid "CHECK AVAILABILITY "
 msgstr "KIỂM TRA SẴN CÓ "
 
-#: shinetheme/views/frontend/single/hotel/room.php:165
+#: shinetheme/views/frontend/single/hotel/room.php:170
 msgid "room(s) selected"
 msgstr "phòng đã chọn"
 
-#: shinetheme/views/frontend/single/hotel/room.php:169
+#: shinetheme/views/frontend/single/hotel/room.php:174
 msgid "BOOK NOW"
 msgstr "ĐẶT NGAY"
 
 #: shinetheme/views/frontend/single/loop-room-none.php:1
 msgid "No Room"
-msgstr ""
+msgstr "Không có phòng"
 
-#: shinetheme/views/frontend/single/loop-room.php:118
-#: shinetheme/views/frontend/single/loop-room.php:211
+#: shinetheme/views/frontend/single/loop-room.php:123
+#: shinetheme/views/frontend/single/loop-room.php:240
 #, php-format
 msgid "/ %s nights"
 msgstr "/ %s đêm"
 
-#: shinetheme/views/frontend/single/loop-room.php:120
-#: shinetheme/views/frontend/single/loop-room.php:213
+#: shinetheme/views/frontend/single/loop-room.php:125
+#: shinetheme/views/frontend/single/loop-room.php:242
 #, php-format
 msgid "/ %s night"
 msgstr "/ %s đêm"
 
-#: shinetheme/views/frontend/single/loop-room.php:138
-#: shinetheme/views/frontend/single/types/tour.php:226
+#: shinetheme/views/frontend/single/loop-room.php:145
+#: shinetheme/views/frontend/single/types/tour.php:246
 msgid "Extra services"
 msgstr "Dịch vụ thêm"
 
-#: shinetheme/views/frontend/single/loop-room.php:142
+#: shinetheme/views/frontend/single/loop-room.php:150
 msgid "Show Price"
 msgstr "Hiển thị giá"
 
-#: shinetheme/views/frontend/single/loop-room.php:158
+#: shinetheme/views/frontend/single/loop-room.php:172
 msgid "Quantity"
 msgstr "Số lượng"
 
-#: shinetheme/views/frontend/single/loop-room.php:162
+#: shinetheme/views/frontend/single/loop-room.php:176
 #, php-format
 msgid "Price (%s)"
 msgstr "Giá (%s)"
 
-#: shinetheme/views/frontend/single/loop-room.php:247
+#: shinetheme/views/frontend/single/loop-room.php:276
 msgid "Max Guest:"
 msgstr "Khách tối đa:"
 
-#: shinetheme/views/frontend/single/loop-room.php:247
+#: shinetheme/views/frontend/single/loop-room.php:276
 msgid "guests"
 msgstr "kahcsh"
 
-#: shinetheme/views/frontend/single/loop-room.php:247
+#: shinetheme/views/frontend/single/loop-room.php:276
 msgid "guest"
 msgstr "khách"
 
-#: shinetheme/views/frontend/single/loop-room.php:260
+#: shinetheme/views/frontend/single/loop-room.php:289
 msgid "Room Size:"
 msgstr "Kích thước phòng:"
 
-#: shinetheme/views/frontend/single/loop-room.php:271
+#: shinetheme/views/frontend/single/loop-room.php:300
 msgid "Bath rooms"
 msgstr "Pphòng tắm"
 
-#: shinetheme/views/frontend/single/loop-room.php:272
+#: shinetheme/views/frontend/single/loop-room.php:303
 msgid "Living rooms"
 msgstr "Phòng khách"
 
-#: shinetheme/views/frontend/single/loop-room.php:273
+#: shinetheme/views/frontend/single/loop-room.php:306
 msgid "Bed rooms"
 msgstr "Phòng ngủ"
 
@@ -5132,146 +5243,146 @@ msgstr "Phòng ngủ"
 msgid "Related "
 msgstr "Liên quan "
 
-#: shinetheme/views/frontend/single/types/default.php:39
-#: shinetheme/views/frontend/single/types/tour.php:87
+#: shinetheme/views/frontend/single/types/default.php:41
+#: shinetheme/views/frontend/single/types/tour.php:90
 msgid "Photos"
 msgstr "Ảnh"
 
-#: shinetheme/views/frontend/single/types/default.php:42
-#: shinetheme/views/frontend/single/types/tour.php:90
+#: shinetheme/views/frontend/single/types/default.php:44
+#: shinetheme/views/frontend/single/types/tour.php:93
 msgid "On the map"
 msgstr "Bản đồ"
 
-#: shinetheme/views/frontend/single/types/default.php:153
+#: shinetheme/views/frontend/single/types/default.php:158
 msgid "Accommodation Policies"
 msgstr "Chính sách chỗ ở"
 
-#: shinetheme/views/frontend/single/types/default.php:158
-#: shinetheme/views/frontend/single/types/default.php:162
+#: shinetheme/views/frontend/single/types/default.php:163
+#: shinetheme/views/frontend/single/types/default.php:167
 #, php-format
 msgid "from %s "
 msgstr "từ %s "
 
-#: shinetheme/views/frontend/single/types/default.php:166
+#: shinetheme/views/frontend/single/types/default.php:171
 msgid "Check In: "
 msgstr "Ngày đến: "
 
-#: shinetheme/views/frontend/single/types/default.php:167
+#: shinetheme/views/frontend/single/types/default.php:172
 msgid "Check Out: "
 msgstr "Ngày đi: "
 
-#: shinetheme/views/frontend/single/types/default.php:202
+#: shinetheme/views/frontend/single/types/default.php:207
 msgid "Time"
 msgstr "Thời gian"
 
-#: shinetheme/views/frontend/single/types/default.php:211
-#: shinetheme/views/frontend/single/types/tour.php:286
+#: shinetheme/views/frontend/single/types/default.php:216
+#: shinetheme/views/frontend/single/types/tour.php:314
 #, php-format
 msgid "Deposit: %s &nbsp;&nbsp; required"
 msgstr "Đặt cọc: %s &nbsp;&nbsp; được yêu cầu"
 
-#: shinetheme/views/frontend/single/types/default.php:212
-#: shinetheme/views/frontend/single/types/tour.php:287
+#: shinetheme/views/frontend/single/types/default.php:217
+#: shinetheme/views/frontend/single/types/tour.php:315
 msgid "Allowed Cancellation: Yes"
 msgstr "Chấp nhận Hủy: Có"
 
-#: shinetheme/views/frontend/single/types/default.php:213
-#: shinetheme/views/frontend/single/types/tour.php:288
+#: shinetheme/views/frontend/single/types/default.php:218
+#: shinetheme/views/frontend/single/types/tour.php:316
 #, php-format
 msgid "Time allowed to free: %s"
 msgstr "Thời gian được miễn phí: %s"
 
-#: shinetheme/views/frontend/single/types/default.php:214
-#: shinetheme/views/frontend/single/types/tour.php:289
+#: shinetheme/views/frontend/single/types/default.php:219
+#: shinetheme/views/frontend/single/types/tour.php:317
 #, php-format
 msgid "Fee cancel for booking: %s"
 msgstr "Phí hủy: %s"
 
-#: shinetheme/views/frontend/single/types/default.php:217
-#: shinetheme/views/frontend/single/types/tour.php:292
+#: shinetheme/views/frontend/single/types/default.php:222
+#: shinetheme/views/frontend/single/types/tour.php:320
 msgid "100&#37; of the first night"
 msgstr "100&#37; của đêm đầu tiên"
 
-#: shinetheme/views/frontend/single/types/default.php:218
-#: shinetheme/views/frontend/single/types/tour.php:293
+#: shinetheme/views/frontend/single/types/default.php:223
+#: shinetheme/views/frontend/single/types/tour.php:321
 msgid "100&#37; of the full stay"
 msgstr "100&#37; của toàn bộ"
 
-#: shinetheme/views/frontend/single/types/default.php:248
-#: shinetheme/views/frontend/single/types/tour.php:322
+#: shinetheme/views/frontend/single/types/default.php:253
+#: shinetheme/views/frontend/single/types/tour.php:350
 msgid " day"
 msgstr " ngày"
 
-#: shinetheme/views/frontend/single/types/default.php:264
-#: shinetheme/views/frontend/single/types/tour.php:337
+#: shinetheme/views/frontend/single/types/default.php:269
+#: shinetheme/views/frontend/single/types/tour.php:365
 msgid "Prepayment / Cancellation"
 msgstr "Thanh toán trước / Hủy"
 
-#: shinetheme/views/frontend/single/types/default.php:281
-#: shinetheme/views/frontend/single/types/tour.php:354
+#: shinetheme/views/frontend/single/types/default.php:286
+#: shinetheme/views/frontend/single/types/tour.php:382
 #, php-format
 msgid "V.A.T: %s &nbsp;&nbsp;"
-msgstr ""
+msgstr "V.A.T: %s &nbsp;&nbsp;"
 
-#: shinetheme/views/frontend/single/types/default.php:284
-#: shinetheme/views/frontend/single/types/tour.php:357
+#: shinetheme/views/frontend/single/types/default.php:289
+#: shinetheme/views/frontend/single/types/tour.php:385
 #, php-format
 msgid "City tax: %s"
 msgstr "Thuế thành phố: %s"
 
-#: shinetheme/views/frontend/single/types/default.php:287
-#: shinetheme/views/frontend/single/types/tour.php:360
+#: shinetheme/views/frontend/single/types/default.php:292
+#: shinetheme/views/frontend/single/types/tour.php:388
 msgid " /stay"
 msgstr " /lần ở"
 
-#: shinetheme/views/frontend/single/types/default.php:288
-#: shinetheme/views/frontend/single/types/tour.php:361
+#: shinetheme/views/frontend/single/types/default.php:293
+#: shinetheme/views/frontend/single/types/tour.php:389
 msgid " /person per stay"
 msgstr " /người trên mỗi lần ở"
 
-#: shinetheme/views/frontend/single/types/default.php:289
-#: shinetheme/views/frontend/single/types/tour.php:362
+#: shinetheme/views/frontend/single/types/default.php:294
+#: shinetheme/views/frontend/single/types/tour.php:390
 msgid " /night"
 msgstr " /đêm"
 
-#: shinetheme/views/frontend/single/types/default.php:290
-#: shinetheme/views/frontend/single/types/tour.php:363
+#: shinetheme/views/frontend/single/types/default.php:295
+#: shinetheme/views/frontend/single/types/tour.php:391
 msgid "%"
-msgstr ""
+msgstr "%"
 
-#: shinetheme/views/frontend/single/types/default.php:291
-#: shinetheme/views/frontend/single/types/tour.php:364
+#: shinetheme/views/frontend/single/types/default.php:296
+#: shinetheme/views/frontend/single/types/tour.php:392
 msgid " /person per night"
 msgstr " /người trên đêm"
 
-#: shinetheme/views/frontend/single/types/default.php:317
-#: shinetheme/views/frontend/single/types/default.php:338
-#: shinetheme/views/frontend/single/types/tour.php:390
-#: shinetheme/views/frontend/single/types/tour.php:411
+#: shinetheme/views/frontend/single/types/default.php:322
+#: shinetheme/views/frontend/single/types/default.php:343
+#: shinetheme/views/frontend/single/types/tour.php:418
+#: shinetheme/views/frontend/single/types/tour.php:439
 msgid "included"
 msgstr "được bao gồm"
 
-#: shinetheme/views/frontend/single/types/default.php:390
+#: shinetheme/views/frontend/single/types/default.php:395
 msgid "Accepted Cards"
 msgstr "Thẻ được chấp nhận"
 
-#: shinetheme/views/frontend/single/types/tour.php:133
+#: shinetheme/views/frontend/single/types/tour.php:136
 msgid "Duration: "
 msgstr "Thời lượng: "
 
-#: shinetheme/views/frontend/single/types/tour.php:136
+#: shinetheme/views/frontend/single/types/tour.php:139
 msgid "Max: "
 msgstr "Tối đa: "
 
-#: shinetheme/views/frontend/single/types/tour.php:136
+#: shinetheme/views/frontend/single/types/tour.php:139
 msgid " people"
 msgstr " người"
 
-#: shinetheme/views/frontend/single/types/tour.php:154
+#: shinetheme/views/frontend/single/types/tour.php:161
 msgid "Departure Date"
 msgstr "Ngày khởi hành"
 
-#: shinetheme/views/frontend/single/types/tour.php:281
+#: shinetheme/views/frontend/single/types/tour.php:309
 msgid "Payment Policies"
 msgstr "Chính sách thanh toán"
 
@@ -5328,46 +5439,49 @@ msgstr "Thêm trường"
 msgid "Remember to hit Save button after adding or removing new search field"
 msgstr "Hãy nhớ nhấn nút Lưu sau khi thêm hoặc xóa trường tìm kiếm mới"
 
-#: wpbooking.php:163
+#: wpbooking.php:170
 msgid "Please rate the criteria of this accommodation."
 msgstr "Hãy đánh giá tiêu chí của chỗ ở này."
 
-#: wpbooking.php:174
+#: wpbooking.php:181
 msgid "Please select the number of adults "
 msgstr "Hãy chọn số người lớn "
 
-#: wpbooking.php:175
+#: wpbooking.php:182
 msgid "Please select the number of children "
 msgstr "Hãy chọn số trẻ em "
 
-#: wpbooking.php:176
+#: wpbooking.php:183
 msgid "Please select the number of adults and children"
 msgstr "Hãy chọn số người lớn và trẻ em"
 
-#: wpbooking.php:286
+#: wpbooking.php:302
 msgid "Do you want to delete?"
 msgstr "Bạn muốn xóa?"
 
-#: wpbooking.php:288
+#: wpbooking.php:304
 msgid "Do you want to delete all image?"
 msgstr "Bạn muốn xóa tất cả ảnh?"
 
-#: wpbooking.php:289
+#: wpbooking.php:305
 msgid "room"
 msgstr "phòng"
 
-#: wpbooking.php:290
+#: wpbooking.php:306
 msgid "rooms"
 msgstr "phòng"
 
-#: wpbooking.php:291
+#: wpbooking.php:307
 msgid "You want to delete this image permanently?"
 msgstr "Bạn muốn xóa ảnh này?"
 
-#: wpbooking.php:294
+#: wpbooking.php:310
 msgid "Read More"
 msgstr "Đọc thêm"
 
-#: wpbooking.php:295
+#: wpbooking.php:311
 msgid "Room Name:"
 msgstr "Tên phòng:"
+
+#~ msgid "Type of Extra price"
+#~ msgstr "Loại dịch vụ"

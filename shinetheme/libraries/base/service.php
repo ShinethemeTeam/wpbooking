@@ -235,7 +235,7 @@ if (!class_exists('WB_Service')) {
 				if ($need) {
 					switch ($need) {
 						case "since":
-							return sprintf(esc_html__('since %s', 'wpbooking'), date_i18n('Y M', strtotime($author_info['user_registered'])));
+							return sprintf(esc_html__('since %s', 'wp-booking-management-system'), date_i18n('Y M', strtotime($author_info['user_registered'])));
 							break;
 						default:
 							return !empty($author_info[$need]) ? $author_info[$need] : FALSE;

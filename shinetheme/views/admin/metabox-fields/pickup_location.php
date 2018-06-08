@@ -21,7 +21,7 @@
     $field = '<div class="st-metabox-content-wrapper"><div class="form-group">';
 
     $field .= '<div class="wpbooking-pickup-location-wrapper"><div class="gmap-container"><div id="' . esc_html( $data[ 'id' ] ) . '" class="gmap-content"></div>
-    <input type="text" name="gmap-search" value="" placeholder="' . esc_html__( 'Enter a address...', 'wpbooking' ) . '" class="gmap-search">
+    <input type="text" name="gmap-search" value="" placeholder="' . esc_html__( 'Enter a address...', 'wp-booking-management-system' ) . '" class="gmap-search">
     </div>
     <input class="pickup-location-input" type="hidden" name="' . esc_attr( $data[ 'id' ] ) . '" value="' . esc_attr( $locations ) . '">
     <input class="map-zoom" type="hidden" name="map_zoom" value="' . esc_attr( $map_zoom ) . '">

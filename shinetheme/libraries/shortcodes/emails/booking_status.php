@@ -5,7 +5,7 @@ if(!function_exists('wpbooking_email_order_status_func'))
 	{
 		$order_id=WPBooking()->get('order_id');
 		if(!$order_id){
-			return '<span class="completed">'.esc_html__('STATUS','wpbooking').'</span>';
+			return '<span class="completed">'.esc_html__('STATUS','wp-booking-management-system').'</span>';
 		}
 		$order=new WB_Order($order_id);
         return $order->get_status_email_html();

@@ -81,7 +81,7 @@
 
                 if ( $this->get( 'post_type' ) == 'wpbooking_service' ) {
                     $new                             = [];
-                    $new[ 'wpbooking_service_type' ] = esc_html__( 'Type', 'wpbooking' );
+                    $new[ 'wpbooking_service_type' ] = esc_html__( 'Type', 'wp-booking-management-system' );
 
                     $columns = array_slice( $columns, 0, 1, true ) +
                         $new +
@@ -154,7 +154,7 @@
             function _add_settings( $settings )
             {
                 $settings[ 'services' ] = [
-                    'name'     => esc_html__( "Services", 'wpbooking' ),
+                    'name'     => esc_html__( "Services", 'wp-booking-management-system' ),
                     'sections' => apply_filters( 'wpbooking_service_setting_sections', [] )
                 ];
 
@@ -169,31 +169,31 @@
             function _add_post_type()
             {
                 $labels = [
-                    'name'               => esc_html__( 'Service', 'wpbooking' ),
-                    'singular_name'      => esc_html__( 'Service', 'wpbooking' ),
-                    'menu_name'          => esc_html__( 'Services', 'wpbooking' ),
-                    'name_admin_bar'     => esc_html__( 'Service', 'wpbooking' ),
-                    'add_new'            => esc_html__( 'Add New', 'wpbooking' ),
-                    'add_new_item'       => esc_html__( 'Add New Service', 'wpbooking' ),
-                    'new_item'           => esc_html__( 'New Service', 'wpbooking' ),
-                    'edit_item'          => esc_html__( 'Edit Service', 'wpbooking' ),
-                    'view_item'          => esc_html__( 'View Service', 'wpbooking' ),
-                    'all_items'          => esc_html__( 'All Services', 'wpbooking' ),
-                    'search_items'       => esc_html__( 'Search for Services', 'wpbooking' ),
-                    'parent_item_colon'  => esc_html__( 'Parent Services:', 'wpbooking' ),
-                    'not_found'          => esc_html__( 'Not found services.', 'wpbooking' ),
-                    'not_found_in_trash' => esc_html__( 'Not found services in Trash.', 'wpbooking' )
+                    'name'               => esc_html__( 'Service', 'wp-booking-management-system' ),
+                    'singular_name'      => esc_html__( 'Service', 'wp-booking-management-system' ),
+                    'menu_name'          => esc_html__( 'Services', 'wp-booking-management-system' ),
+                    'name_admin_bar'     => esc_html__( 'Service', 'wp-booking-management-system' ),
+                    'add_new'            => esc_html__( 'Add New', 'wp-booking-management-system' ),
+                    'add_new_item'       => esc_html__( 'Add New Service', 'wp-booking-management-system' ),
+                    'new_item'           => esc_html__( 'New Service', 'wp-booking-management-system' ),
+                    'edit_item'          => esc_html__( 'Edit Service', 'wp-booking-management-system' ),
+                    'view_item'          => esc_html__( 'View Service', 'wp-booking-management-system' ),
+                    'all_items'          => esc_html__( 'All Services', 'wp-booking-management-system' ),
+                    'search_items'       => esc_html__( 'Search for Services', 'wp-booking-management-system' ),
+                    'parent_item_colon'  => esc_html__( 'Parent Services:', 'wp-booking-management-system' ),
+                    'not_found'          => esc_html__( 'Not found services.', 'wp-booking-management-system' ),
+                    'not_found_in_trash' => esc_html__( 'Not found services in Trash.', 'wp-booking-management-system' )
                 ];
 
                 $args = [
                     'labels'             => $labels,
-                    'description'        => esc_html__( 'Description.', 'wpbooking' ),
+                    'description'        => esc_html__( 'Description.', 'wp-booking-management-system' ),
                     'public'             => true,
                     'publicly_queryable' => true,
                     'show_ui'            => true,
                     'show_in_menu'       => true,
                     'query_var'          => true,
-                    'rewrite'            => [ 'slug' => 'service' ],
+                    'rewrite'            => [ 'slug' => apply_filters( 'wpbooking_service_slug', 'service' ) ],
                     'capability_type'    => 'post',
                     'has_archive'        => ( $page_id = wpbooking_get_option( 'archive-page' ) ) && get_post( $page_id ) ? get_page_uri( $page_id ) : 'all-services',
                     'hierarchical'       => false,
@@ -207,17 +207,17 @@
 
                 // Default Taxonomy
                 $labels = [
-                    'name'              => esc_html__( 'Amenities', 'wpbooking' ),
-                    'singular_name'     => esc_html__( 'Amenity', 'wpbooking' ),
-                    'search_items'      => esc_html__( 'Search for Amenity', 'wpbooking' ),
-                    'all_items'         => esc_html__( 'All Amenities', 'wpbooking' ),
-                    'parent_item'       => esc_html__( 'Parent Amenity', 'wpbooking' ),
-                    'parent_item_colon' => esc_html__( 'Parent Amenity:', 'wpbooking' ),
-                    'edit_item'         => esc_html__( 'Edit Amenity', 'wpbooking' ),
-                    'update_item'       => esc_html__( 'Update Amenity', 'wpbooking' ),
-                    'add_new_item'      => esc_html__( 'Add New Amenity', 'wpbooking' ),
-                    'new_item_name'     => esc_html__( 'New Amenity Name', 'wpbooking' ),
-                    'menu_name'         => esc_html__( 'Amenity', 'wpbooking' ),
+                    'name'              => esc_html__( 'Amenities', 'wp-booking-management-system' ),
+                    'singular_name'     => esc_html__( 'Amenity', 'wp-booking-management-system' ),
+                    'search_items'      => esc_html__( 'Search for Amenity', 'wp-booking-management-system' ),
+                    'all_items'         => esc_html__( 'All Amenities', 'wp-booking-management-system' ),
+                    'parent_item'       => esc_html__( 'Parent Amenity', 'wp-booking-management-system' ),
+                    'parent_item_colon' => esc_html__( 'Parent Amenity:', 'wp-booking-management-system' ),
+                    'edit_item'         => esc_html__( 'Edit Amenity', 'wp-booking-management-system' ),
+                    'update_item'       => esc_html__( 'Update Amenity', 'wp-booking-management-system' ),
+                    'add_new_item'      => esc_html__( 'Add New Amenity', 'wp-booking-management-system' ),
+                    'new_item_name'     => esc_html__( 'New Amenity Name', 'wp-booking-management-system' ),
+                    'menu_name'         => esc_html__( 'Amenity', 'wp-booking-management-system' ),
                 ];
 
                 $args = [
@@ -238,17 +238,17 @@
 
                 // Extra Services
                 $labels = [
-                    'name'              => esc_html__( 'Extra Services', 'wpbooking' ),
-                    'singular_name'     => esc_html__( 'Extra Service', 'wpbooking' ),
-                    'search_items'      => esc_html__( 'Search Extra Services', 'wpbooking' ),
-                    'all_items'         => esc_html__( 'All Extra Services', 'wpbooking' ),
-                    'parent_item'       => esc_html__( 'Parent Extra Service', 'wpbooking' ),
-                    'parent_item_colon' => esc_html__( 'Parent Extra Service:', 'wpbooking' ),
-                    'edit_item'         => esc_html__( 'Edit Extra Service', 'wpbooking' ),
-                    'update_item'       => esc_html__( 'Update Extra Service', 'wpbooking' ),
-                    'add_new_item'      => esc_html__( 'Add New Extra Service', 'wpbooking' ),
-                    'new_item_name'     => esc_html__( 'New Extra Service Name', 'wpbooking' ),
-                    'menu_name'         => esc_html__( 'Extra Service', 'wpbooking' ),
+                    'name'              => esc_html__( 'Extra Services', 'wp-booking-management-system' ),
+                    'singular_name'     => esc_html__( 'Extra Service', 'wp-booking-management-system' ),
+                    'search_items'      => esc_html__( 'Search Extra Services', 'wp-booking-management-system' ),
+                    'all_items'         => esc_html__( 'All Extra Services', 'wp-booking-management-system' ),
+                    'parent_item'       => esc_html__( 'Parent Extra Service', 'wp-booking-management-system' ),
+                    'parent_item_colon' => esc_html__( 'Parent Extra Service:', 'wp-booking-management-system' ),
+                    'edit_item'         => esc_html__( 'Edit Extra Service', 'wp-booking-management-system' ),
+                    'update_item'       => esc_html__( 'Update Extra Service', 'wp-booking-management-system' ),
+                    'add_new_item'      => esc_html__( 'Add New Extra Service', 'wp-booking-management-system' ),
+                    'new_item_name'     => esc_html__( 'New Extra Service Name', 'wp-booking-management-system' ),
+                    'menu_name'         => esc_html__( 'Extra Service', 'wp-booking-management-system' ),
                 ];
 
                 $args = [
@@ -271,7 +271,7 @@
                         [
                             'type'     => 'service-type-checkbox',
                             'id'       => 'service_type',
-                            'label'    => esc_html__( 'Extra Service', 'wpbooking' ),
+                            'label'    => esc_html__( 'Extra Service', 'wp-booking-management-system' ),
                             'add_meta' => true // ,
                         ]
                     ]
@@ -285,7 +285,7 @@
 
                 $settings = [
                     'id'       => 'st_post_metabox',
-                    'title'    => esc_html__( 'Information', 'wpbooking' ),
+                    'title'    => esc_html__( 'Information', 'wp-booking-management-system' ),
                     'desc'     => '',
                     'pages'    => [ 'wpbooking_service' ],
                     'context'  => 'normal',
@@ -353,7 +353,7 @@
                     $service_types = WPBooking_Service_Controller::inst()->get_service_types();
 
                     echo '<select name="service_type">';
-                    echo '<option value="0">' . esc_html__( 'All services', 'wpbooking' ) . '</option>';
+                    echo '<option value="0">' . esc_html__( 'All services', 'wp-booking-management-system' ) . '</option>';
                     foreach ( $service_types as $key => $val ) {
                         echo '<option ' . selected( WPBooking_Input::get( 'service_type' ), $key, false ) . ' value="' . esc_attr( $key ) . '">' . esc_html( $val->get_info( 'label' ) ) . '</option>';
                     }

@@ -42,35 +42,35 @@
                 </div>
                 <div class="wpbooking-calendar-sidebar">
                     <div class="form-container calendar-room-form">
-                        <h4 class="form-title"><?php echo esc_html__( 'Set price by arranged date', 'wpbooking' ) ?></h4>
-                        <p class="form-desc"><?php echo esc_html__( 'You can book rooms for any purposes (like discount, high price, ...)', 'wpbooking' ); ?></p>
+                        <h4 class="form-title"><?php echo esc_html__( 'Set price by arranged date', 'wp-booking-management-system' ) ?></h4>
+                        <p class="form-desc"><?php echo esc_html__( 'You can book rooms for any purposes (like discount, high price, ...)', 'wp-booking-management-system' ); ?></p>
                         <div class="calendar-room-form-item full-width">
                             <label class="calendar-label"
-                                   for="calendar-checkin"><?php echo esc_html__( 'Start Date', 'wpbooking' ); ?></label>
+                                   for="calendar-checkin"><?php echo esc_html__( 'Start Date', 'wp-booking-management-system' ); ?></label>
                             <div class="calendar-input-icon">
                                 <input class="calendar-input date-picker" type="text" id="calendar-checkin"
                                        name="calendar-checkin" value="" readonly="readonly"
-                                       placeholder="<?php echo esc_html__( 'From Date', 'wpbooking' ); ?>">
+                                       placeholder="<?php echo esc_html__( 'From Date', 'wp-booking-management-system' ); ?>">
                                 <label for="calendar-checkin" class="fa"><i class="fa fa-calendar"></i></label>
                             </div>
                         </div>
                         <div class="calendar-room-form-item full-width">
                             <label class="calendar-label"
-                                   for="calendar-checkout"><?php echo esc_html__( 'End Date', 'wpbooking' ); ?></label>
+                                   for="calendar-checkout"><?php echo esc_html__( 'End Date', 'wp-booking-management-system' ); ?></label>
                             <div class="calendar-input-icon">
                                 <input class="calendar-input date-picker" type="text" id="calendar-checkout"
                                        name="calendar-checkout" value="" readonly="readonly"
-                                       placeholder="<?php echo esc_html__( 'To Date', 'wpbooking' ); ?>">
+                                       placeholder="<?php echo esc_html__( 'To Date', 'wp-booking-management-system' ); ?>">
                                 <label for="calendar-checkout" class="fa"><i class="fa fa-calendar"></i></label>
                             </div>
                         </div>
                         <div class="calendar-room-form-item full-width">
                             <label class="calendar-label"
-                                   for="calendar-status"><?php echo esc_html__( 'Status', 'wpbooking' ); ?></label>
+                                   for="calendar-status"><?php echo esc_html__( 'Status', 'wp-booking-management-system' ); ?></label>
                             <select name="calendar-status" id="calendar-status">
-                                <option value="available"><?php echo esc_html__( 'Available', 'wpbooking' ); ?></option>
+                                <option value="available"><?php echo esc_html__( 'Available', 'wp-booking-management-system' ); ?></option>
                                 <option
-                                        value="not_available"><?php echo esc_html__( 'Not Available', 'wpbooking' ); ?></option>
+                                        value="not_available"><?php echo esc_html__( 'Not Available', 'wp-booking-management-system' ); ?></option>
                             </select>
                         </div>
 
@@ -78,9 +78,9 @@
                                data-condition="pricing_type:is(per_unit)" cellpadding="0" cellspacing="0">
                             <thead>
                             <tr>
-                                <th><?php esc_html_e( 'Min Travelers', 'wpbooking' ) ?></th>
-                                <th><?php esc_html_e( 'Max Travelers', 'wpbooking' ) ?></th>
-                                <th><?php esc_html_e( 'Price', 'wpbooking' ) ?></th>
+                                <th><?php esc_html_e( 'Min Travelers', 'wp-booking-management-system' ) ?></th>
+                                <th><?php esc_html_e( 'Max Travelers', 'wp-booking-management-system' ) ?></th>
+                                <th><?php esc_html_e( 'Price', 'wp-booking-management-system' ) ?></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -107,14 +107,14 @@
                                data-condition="pricing_type:is(per_person)" cellpadding="0" cellspacing="0">
                             <thead>
                             <tr>
-                                <th><?php esc_html_e( 'Age band', 'wpbooking' ) ?></th>
-                                <th><?php esc_html_e( 'Min Travelers', 'wpbooking' ) ?></th>
-                                <th><?php esc_html_e( 'Price', 'wpbooking' ) ?></th>
+                                <th><?php esc_html_e( 'Age band', 'wp-booking-management-system' ) ?></th>
+                                <th><?php esc_html_e( 'Min Travelers', 'wp-booking-management-system' ) ?></th>
+                                <th><?php esc_html_e( 'Price', 'wp-booking-management-system' ) ?></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr class="wpbooking-condition" data-condition="onoff_people__:not_in(adult)">
-                                <td><?php esc_html_e( 'Adult', 'wpbooking' ) ?></td>
+                                <td><?php esc_html_e( 'Adult', 'wp-booking-management-system' ) ?></td>
                                 <td>
                                     <input type="number" name="calendar_adult_minimum" min="0" class="number-select"
                                            value="" placeholder="0">
@@ -129,7 +129,7 @@
                                 </td>
                             </tr>
                             <tr class="wpbooking-condition" data-condition="onoff_people__:not_in(child)">
-                                <td><?php esc_html_e( 'Child', 'wpbooking' ) ?></td>
+                                <td><?php esc_html_e( 'Child', 'wp-booking-management-system' ) ?></td>
                                 <td>
                                     <input type="number" name="calendar_child_minimum" min="0" class="number-select"
                                            value="" placeholder="0">
@@ -144,7 +144,7 @@
                                 </td>
                             </tr>
                             <tr class="wpbooking-condition" data-condition="onoff_people__:not_in(infant)">
-                                <td><?php esc_html_e( 'Infant', 'wpbooking' ) ?></td>
+                                <td><?php esc_html_e( 'Infant', 'wp-booking-management-system' ) ?></td>
                                 <td>
                                     <input type="number" name="calendar_infant_minimum" min="0" class="number-select"
                                            value="" placeholder="0">
@@ -169,9 +169,9 @@
                             <input id="table_name" type="hidden" name="table"
                                    value="wpbooking_availability_tour">
                             <button type="button" id="calendar-save"
-                                    class="button button-large wb-button-primary"><?php echo esc_html__( 'Save', 'wpbooking' ); ?></button>
+                                    class="button button-large wb-button-primary"><?php echo esc_html__( 'Save', 'wp-booking-management-system' ); ?></button>
                             <button type="button"
-                                    class="calendar-bulk-edit button button-large right"><?php echo esc_html__( 'Bulk Edit', 'wpbooking' ); ?></button>
+                                    class="calendar-bulk-edit button button-large right"><?php echo esc_html__( 'Bulk Edit', 'wp-booking-management-system' ); ?></button>
                         </div>
                         <div class="mb10">
 
@@ -182,28 +182,28 @@
 
 
                     <div class="calendar-help">
-                        <div class="help-label"><?php esc_html_e( 'How to set Availability ?', 'wpbooking' ) ?></div>
-                        <h4><strong><?php esc_html_e( 'Way 1:', 'wpbooking' ) ?></strong></h4>
+                        <div class="help-label"><?php esc_html_e( 'How to set Availability ?', 'wp-booking-management-system' ) ?></div>
+                        <h4><strong><?php esc_html_e( 'Way 1:', 'wp-booking-management-system' ) ?></strong></h4>
                         <ul class="list">
-                            <li>+ <?php esc_html_e( 'To set availability on your calendar:', 'wpbooking' ) ?>
+                            <li>+ <?php esc_html_e( 'To set availability on your calendar:', 'wp-booking-management-system' ) ?>
                                 <ul>
                                     <li>
-                                        - <?php esc_html_e( 'At the  right side of table, click to Start Date picker to set a start date', 'wpbooking' ) ?></li>
+                                        - <?php esc_html_e( 'At the  right side of table, click to Start Date picker to set a start date', 'wp-booking-management-system' ) ?></li>
                                     <li>
-                                        - <?php esc_html_e( 'At the  right side of, click to End Date picker to set a end date of the period you want to edit', 'wpbooking' ) ?></li>
+                                        - <?php esc_html_e( 'At the  right side of, click to End Date picker to set a end date of the period you want to edit', 'wp-booking-management-system' ) ?></li>
                                 </ul>
                             </li>
                             <li>
-                                + <?php esc_html_e( 'At the  right side of, allow you to set status and price for that period', 'wpbooking' ) ?></li>
+                                + <?php esc_html_e( 'At the  right side of, allow you to set status and price for that period', 'wp-booking-management-system' ) ?></li>
 
                         </ul>
-                        <h4><strong><?php esc_html_e( 'Way 2:', 'wpbooking' ) ?></strong></h4>
+                        <h4><strong><?php esc_html_e( 'Way 2:', 'wp-booking-management-system' ) ?></strong></h4>
                         <ul class="list">
                             <li>
-                                + <?php esc_html_e( 'Drag the mouse in the left calendar to get start date and end date', 'wpbooking' ) ?>
+                                + <?php esc_html_e( 'Drag the mouse in the left calendar to get start date and end date', 'wp-booking-management-system' ) ?>
                             </li>
                             <li>
-                                + <?php esc_html_e( 'A right sight table, allowing you to set status and price for that period', 'wpbooking' ) ?></li>
+                                + <?php esc_html_e( 'A right sight table, allowing you to set status and price for that period', 'wp-booking-management-system' ) ?></li>
 
                         </ul>
                     </div>
@@ -213,7 +213,7 @@
                                 <span class="spinner is-active"></span>
                             </div>
                             <div class="form-title">
-                                <h3 class="clearfix"><?php echo esc_html__( 'Bulk Price Edit', 'wpbooking' ); ?>
+                                <h3 class="clearfix"><?php echo esc_html__( 'Bulk Price Edit', 'wp-booking-management-system' ); ?>
                                     <button type="button"
                                             class="calendar-bulk-close wpbooking-btn-close pull-right">x
                                     </button>
@@ -223,37 +223,37 @@
                                 <div class="form-group">
                                     <div class="form-title">
                                         <h4 class=""><input type="checkbox" class="check-all"
-                                                            data-name="day-of-week"> <?php echo esc_html__( 'Days Of Week', 'wpbooking' ); ?>
+                                                            data-name="day-of-week"> <?php echo esc_html__( 'Days Of Week', 'wp-booking-management-system' ); ?>
                                         </h4>
                                     </div>
                                     <div class="form-content">
                                         <label class="block"><input type="checkbox" name="day-of-week[]"
-                                                                    value="Sunday"><?php echo esc_html__( 'Sunday', 'wpbooking' ); ?>
+                                                                    value="Sunday"><?php echo esc_html__( 'Sunday', 'wp-booking-management-system' ); ?>
                                         </label>
                                         <label class="block"><input type="checkbox" name="day-of-week[]"
-                                                                    value="Monday"><?php echo esc_html__( 'Monday', 'wpbooking' ); ?>
+                                                                    value="Monday"><?php echo esc_html__( 'Monday', 'wp-booking-management-system' ); ?>
                                         </label>
                                         <label class="block"><input type="checkbox" name="day-of-week[]"
-                                                                    value="Tuesday"><?php echo esc_html__( 'Tuesday', 'wpbooking' ); ?>
+                                                                    value="Tuesday"><?php echo esc_html__( 'Tuesday', 'wp-booking-management-system' ); ?>
                                         </label>
                                         <label class="block"><input type="checkbox" name="day-of-week[]"
-                                                                    value="Wednesday"><?php echo esc_html__( 'Wednesday', 'wpbooking' ); ?>
+                                                                    value="Wednesday"><?php echo esc_html__( 'Wednesday', 'wp-booking-management-system' ); ?>
                                         </label>
                                         <label class="block"><input type="checkbox" name="day-of-week[]"
-                                                                    value="Thursday"><?php echo esc_html__( 'Thursday', 'wpbooking' ); ?>
+                                                                    value="Thursday"><?php echo esc_html__( 'Thursday', 'wp-booking-management-system' ); ?>
                                         </label>
                                         <label class="block"><input type="checkbox" name="day-of-week[]"
-                                                                    value="Friday"><?php echo esc_html__( 'Friday', 'wpbooking' ); ?>
+                                                                    value="Friday"><?php echo esc_html__( 'Friday', 'wp-booking-management-system' ); ?>
                                         </label>
                                         <label class="block"><input type="checkbox" name="day-of-week[]"
-                                                                    value="Saturday"><?php echo esc_html__( 'Saturday', 'wpbooking' ); ?>
+                                                                    value="Saturday"><?php echo esc_html__( 'Saturday', 'wp-booking-management-system' ); ?>
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group group-day">
                                     <div class="form-title">
                                         <h4 class=""><input type="checkbox" class="check-all"
-                                                            data-name="day-of-month"> <?php echo esc_html__( 'Days Of Month', 'wpbooking' ); ?>
+                                                            data-name="day-of-month"> <?php echo esc_html__( 'Days Of Month', 'wp-booking-management-system' ); ?>
                                         </h4>
                                     </div>
                                     <div class="form-inner">
@@ -278,7 +278,7 @@
                                 <div class="form-group group-month">
                                     <div class="form-title">
                                         <h4 class=""><input type="checkbox" class="check-all"
-                                                            data-name="months"> <?php echo esc_html__( 'Months', 'wpbooking' ); ?>
+                                                            data-name="months"> <?php echo esc_html__( 'Months', 'wp-booking-management-system' ); ?>
                                             (*)</h4>
                                     </div>
                                     <div class="form-inner">
@@ -305,7 +305,7 @@
                                 <div class="form-group">
                                     <div class="form-title">
                                         <h4 class=""><input type="checkbox" class="check-all"
-                                                            data-name="years"> <?php echo esc_html__( 'Years', 'wpbooking' ); ?>
+                                                            data-name="years"> <?php echo esc_html__( 'Years', 'wp-booking-management-system' ); ?>
                                             (*)</h4>
                                     </div>
                                     <div class="form-content">
@@ -337,39 +337,39 @@
                             <div class="form-content flex clearfix">
                                 <label
                                         class="mr10 wpbooking-condition"
-                                        data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Adult', 'wpbooking' ); ?>
+                                        data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Adult', 'wp-booking-management-system' ); ?>
                                             : </strong></span>
                                     <input type="text" value="" name="adult-bulk" id="adult-bulk"
-                                           placeholder="<?php echo esc_html__( 'Adult', 'wpbooking' ); ?>">
+                                           placeholder="<?php echo esc_html__( 'Adult', 'wp-booking-management-system' ); ?>">
                                 </label>
                                 <label
                                         class="mr10 wpbooking-condition"
-                                        data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Child', 'wpbooking' ); ?>
+                                        data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Child', 'wp-booking-management-system' ); ?>
                                             : </strong></span>
                                     <input type="text" value="" name="child-bulk" id="child-bulk"
-                                           placeholder="<?php echo esc_html__( 'Child', 'wpbooking' ); ?>">
+                                           placeholder="<?php echo esc_html__( 'Child', 'wp-booking-management-system' ); ?>">
                                 </label>
                                 <label
                                         class="mr10 wpbooking-condition"
-                                        data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Infant', 'wpbooking' ); ?>
+                                        data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Infant', 'wp-booking-management-system' ); ?>
                                             : </strong></span>
                                     <input type="text" value="" name="infant-bulk" id="infant-bulk"
-                                           placeholder="<?php echo esc_html__( 'Infant', 'wpbooking' ); ?>">
+                                           placeholder="<?php echo esc_html__( 'Infant', 'wp-booking-management-system' ); ?>">
                                 </label>
                                 <label
                                         class=" mr10 wpbooking-condition"
-                                        data-condition="pricing_type:is(per_unit)"><span><strong><?php echo esc_html__( 'Price', 'wpbooking' ); ?>
+                                        data-condition="pricing_type:is(per_unit)"><span><strong><?php echo esc_html__( 'Price', 'wp-booking-management-system' ); ?>
                                             : </strong></span>
                                     <input type="text" value="" name="price-bulk" id="price-bulk"
-                                           placeholder="<?php echo esc_html__( 'Price', 'wpbooking' ); ?>">
+                                           placeholder="<?php echo esc_html__( 'Price', 'wp-booking-management-system' ); ?>">
                                 </label>
                                 <label class="">
-                                    <span><strong><?php echo esc_html__( 'Status', 'wpbooking' ); ?>: </strong></span>
+                                    <span><strong><?php echo esc_html__( 'Status', 'wp-booking-management-system' ); ?>: </strong></span>
                                     <select name="status-bulk">
                                         <option
-                                                value="available"><?php echo esc_html__( 'Available', 'wpbooking' ) ?></option>
+                                                value="available"><?php echo esc_html__( 'Available', 'wp-booking-management-system' ) ?></option>
                                         <option
-                                                value="not_available"><?php echo esc_html__( 'Unavailable', 'wpbooking' ) ?></option>
+                                                value="not_available"><?php echo esc_html__( 'Unavailable', 'wp-booking-management-system' ) ?></option>
                                     </select>
                                 </label>
                                 <input type="hidden" class="post-bulk" name="post_id"
@@ -385,7 +385,7 @@
                             <div class="form-message"></div>
                             <div class="form-footer">
                                 <button type="button"
-                                        class="calendar-bulk-save button button-primary button-large"><?php echo esc_html__( 'Save', 'wpbooking' ); ?></button>
+                                        class="calendar-bulk-save button button-primary button-large"><?php echo esc_html__( 'Save', 'wp-booking-management-system' ); ?></button>
                             </div>
                         </div>
                     </div>

@@ -141,7 +141,7 @@
                 $order_form = $cart_item[ 'order_form' ];
                 if ( ( !empty( $order_form ) and is_array( $order_form ) ) or !empty( $extra_price_html ) ) {
                     echo '<div class="cart-item-order-form-fields-wrap">';
-                    echo '<span class="booking-detail-label">' . esc_html__( 'Booking Details:', 'wpbooking' ) . '</span>';
+                    echo '<span class="booking-detail-label">' . esc_html__( 'Booking Details:', 'wp-booking-management-system' ) . '</span>';
                     echo "<ul class='cart-item-order-form-fields'>";
                     foreach ( $order_form as $key => $value ) {
 
@@ -167,7 +167,7 @@
                         echo implode( "\r\n", $extra_price_html );
                     }
                     echo "</ul>";
-                    echo '<span class="show-more-less"><span class="more">' . esc_html__( 'More', 'wpbooking' ) . ' <i class="fa fa-angle-double-down"></i></span><span class="less">' . esc_html__( 'Less', 'wpbooking' ) . ' <i class="fa fa-angle-double-up"></i></span></span>';
+                    echo '<span class="show-more-less"><span class="more">' . esc_html__( 'More', 'wp-booking-management-system' ) . ' <i class="fa fa-angle-double-down"></i></span><span class="less">' . esc_html__( 'Less', 'wp-booking-management-system' ) . ' <i class="fa fa-angle-double-up"></i></span></span>';
                     echo "</div>";
                 }
 
@@ -196,7 +196,7 @@
                 if ( $order_form_string and $order_form = unserialize( $order_form_string ) and !empty( $order_form ) and is_array( $order_form ) ) {
 
                     echo '<div class="order-item-form-fields-wrap">';
-                    echo '<span class="booking-detail-label">' . esc_html__( 'Booking Details:', 'wpbooking' ) . '</span>';
+                    echo '<span class="booking-detail-label">' . esc_html__( 'Booking Details:', 'wp-booking-management-system' ) . '</span>';
                     echo "<ul class='order-item-form-fields'>";
                     foreach ( $order_form as $key => $value ) {
 
@@ -218,7 +218,7 @@
                         do_action( 'wpbooking_form_field_to_html_' . $value[ 'field_type' ], $value );
                     }
                     echo "</ul>";
-                    echo '<span class="show-more-less"><span class="more">' . esc_html__( 'More', 'wpbooking' ) . ' <i class="fa fa-angle-double-down"></i></span><span class="less">' . esc_html__( 'Less', 'wpbooking' ) . ' <i class="fa fa-angle-double-up"></i></span></span>';
+                    echo '<span class="show-more-less"><span class="more">' . esc_html__( 'More', 'wp-booking-management-system' ) . ' <i class="fa fa-angle-double-down"></i></span><span class="less">' . esc_html__( 'Less', 'wp-booking-management-system' ) . ' <i class="fa fa-angle-double-up"></i></span></span>';
                     echo "</div>";
                 }
 

@@ -9,13 +9,13 @@ do_action('wpbooking_before_order_content');
 ?>
 <div class="wpbooking-order-detail-page">
 
-	<h3 class="section-title"><?php esc_html_e('BOOKING DETAIL','wpbooking')?></h3>
+	<h3 class="section-title"><?php esc_html_e('BOOKING DETAIL','wp-booking-management-system')?></h3>
 	<table class="order-information-table">
 		<thead>
 		<tr>
-			<th class="review-order-item-info" valign="top"><?php esc_html_e('Property Items','wpbooking')?></th>
-			<th class="review-order-item-type"><?php esc_html_e('Property Type','wpbooking')?></th>
-			<th class="review-order-item-total"><?php esc_html_e('Total','wpbooking')?></th>
+			<th class="review-order-item-info" valign="top"><?php esc_html_e('Property Items','wp-booking-management-system')?></th>
+			<th class="review-order-item-type"><?php esc_html_e('Property Type','wp-booking-management-system')?></th>
+			<th class="review-order-item-total"><?php esc_html_e('Total','wp-booking-management-system')?></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -45,7 +45,7 @@ do_action('wpbooking_before_order_content');
 				<td >&nbsp;</td>
 				<td colspan="2" class="text-right">
 					<div class="order-total">
-						<?php printf(esc_html__('Total: %s','wpbooking'),'<span class="price">'.WPBooking_Currency::format_money($order->get_total()).'</span>');?>
+						<?php printf(esc_html__('Total: %s','wp-booking-management-system'),'<span class="price">'.WPBooking_Currency::format_money($order->get_total()).'</span>');?>
 					</div>
 				</td>
 			</tr>
@@ -57,7 +57,7 @@ do_action('wpbooking_before_order_content');
 
 	if(!empty($checkout_form_data) and is_array($checkout_form_data)){?>
 		<div class="checkout-form-data">
-			<h3 class="section-title"><?php esc_html_e('Billing Details','wpbooking')?></h3>
+			<h3 class="section-title"><?php esc_html_e('Billing Details','wp-booking-management-system')?></h3>
 
 			<ul class="checkout-form-list">
 				<?php foreach($checkout_form_data as $key=>$value){

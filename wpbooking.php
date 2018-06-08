@@ -3,15 +3,14 @@
      * Plugin Name: WPBooking
      * Plugin URI: wpbooking
      * Description: WP Booking helps you to setup an hotel booking, tour booking , marketplace booking system like booking.com, viator.com ... quickly, friendly, pleasantly and easily.
-     * Version: 1.8
+     * Version: 1.8.1
      * Author: wpbooking
      * Author URI: https://wpbooking.org
      * Requires at least: 4.8
      * Tested up to: 4.9
      * License URI: https://www.gnu.org/licenses/gpl-2.0.html
-     *
-     * Text Domain: wpbooking
-     * Domain Path: languages/
+     * Text Domain: wp-booking-management-system
+     * Domain Path: /languages/
      *
      * @package wpbooking
      * @author  shinetheme
@@ -26,7 +25,7 @@
         {
             static $_inst = false;
 
-            private $_version = 1.8;
+            private $_version = '1.8.1';
 
             /**
              * Get and Access Global Variable
@@ -168,7 +167,7 @@
                 wp_localize_script( 'jquery', 'wpbooking_params', [
                     'ajax_url'              => $ajax_url,
                     'wpbooking_security'    => wp_create_nonce( 'wpbooking-nonce-field' ),
-                    'select_comment_review' => esc_html__( 'Please rate the criteria of this accommodation.', 'wpbooking' ),
+                    'select_comment_review' => esc_html__( 'Please rate the criteria of this accommodation.', 'wp-booking-management-system' ),
                     'currency_symbol'       => WPBooking_Currency::get_current_currency( 'symbol' ),
                     'currency_position'     => WPBooking_Currency::get_current_currency( 'position' ),
                     'thousand_separator'    => WPBooking_Currency::get_current_currency( 'thousand_sep' ),
@@ -179,12 +178,12 @@
                 ] );
 
                 wp_localize_script( 'jquery', 'wpbooking_hotel_localize', [
-                    'booking_required_adult'          => esc_html__( 'Please select the number of adults ', 'wpbooking' ),
-                    'booking_required_children'       => esc_html__( 'Please select the number of children ', 'wpbooking' ),
-                    'booking_required_adult_children' => esc_html__( 'Please select the number of adults and children', 'wpbooking' ),
-                    'is_not_select_date'              => esc_html__( 'To see price details, please select check-in and check-out date.', 'wpbooking' ),
-                    'is_not_select_check_in_date'     => esc_html__( 'Please select check-in date.', 'wpbooking' ),
-                    'is_not_select_check_out_date'    => esc_html__( 'Please select check-out date.', 'wpbooking' ),
+                    'booking_required_adult'          => esc_html__( 'Please select the number of adults ', 'wp-booking-management-system' ),
+                    'booking_required_children'       => esc_html__( 'Please select the number of children ', 'wp-booking-management-system' ),
+                    'booking_required_adult_children' => esc_html__( 'Please select the number of adults and children', 'wp-booking-management-system' ),
+                    'is_not_select_date'              => esc_html__( 'To see price details, please select check-in and check-out date.', 'wp-booking-management-system' ),
+                    'is_not_select_check_in_date'     => esc_html__( 'Please select check-in date.', 'wp-booking-management-system' ),
+                    'is_not_select_check_out_date'    => esc_html__( 'Please select check-out date.', 'wp-booking-management-system' ),
                     'loading_url'                     => admin_url( '/images/wpspin_light.gif' ),
                 ] );
             }
@@ -300,16 +299,16 @@
                     'ajax_url'                 => $ajax_url,
                     'api_url'                  => $this->API_URL,
                     'wpbooking_security'       => wp_create_nonce( 'wpbooking-nonce-field' ),
-                    'delete_confirm'           => esc_html__( 'Do you want to delete?', 'wpbooking' ),
-                    'delete_string'            => esc_html__( 'delete', 'wpbooking' ),
-                    'delete_gallery'           => esc_html__( 'Do you want to delete all image?', 'wpbooking' ),
-                    'room'                     => esc_html__( 'room', 'wpbooking' ),
-                    'rooms'                    => esc_html__( 'rooms', 'wpbooking' ),
-                    'delete_permanently_image' => esc_html__( 'You want to delete this image permanently?', 'wpbooking' ),
-                    'next'                     => esc_html__( 'Next', 'wpbooking' ),
-                    'prev'                     => esc_html__( 'Prev', 'wpbooking' ),
-                    'read_more'                => esc_html__( 'Read More', 'wpbooking' ),
-                    'room_name'                => esc_html__( 'Room Name:', 'wpbooking' )
+                    'delete_confirm'           => esc_html__( 'Do you want to delete?', 'wp-booking-management-system' ),
+                    'delete_string'            => esc_html__( 'delete', 'wp-booking-management-system' ),
+                    'delete_gallery'           => esc_html__( 'Do you want to delete all image?', 'wp-booking-management-system' ),
+                    'room'                     => esc_html__( 'room', 'wp-booking-management-system' ),
+                    'rooms'                    => esc_html__( 'rooms', 'wp-booking-management-system' ),
+                    'delete_permanently_image' => esc_html__( 'You want to delete this image permanently?', 'wp-booking-management-system' ),
+                    'next'                     => esc_html__( 'Next', 'wp-booking-management-system' ),
+                    'prev'                     => esc_html__( 'Prev', 'wp-booking-management-system' ),
+                    'read_more'                => esc_html__( 'Read More', 'wp-booking-management-system' ),
+                    'room_name'                => esc_html__( 'Room Name:', 'wp-booking-management-system' )
                 ] );
 
             }
@@ -324,7 +323,6 @@
                     'cores/updater',
                 ];
                 $this->load( $files );
-
             }
 
             /**
@@ -333,8 +331,7 @@
 
             function _init()
             {
-                load_plugin_textdomain( 'wpbooking', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
-
+                load_plugin_textdomain( 'wp-booking-management-system', false, plugin_basename( dirname( __FILE__ ) ) . '/languages/' );
             }
 
             /**
@@ -431,8 +428,8 @@
             function get_menu_page()
             {
                 $page = apply_filters( 'wpbooking_menu_page_args', [
-                    'page_title' => esc_html__( "WPBooking", 'wpbooking' ),
-                    'menu_title' => esc_html__( "WPBooking", 'wpbooking' ),
+                    'page_title' => esc_html__( "WPBooking", 'wp-booking-management-system' ),
+                    'menu_title' => esc_html__( "WPBooking", 'wp-booking-management-system' ),
                     'capability' => 'manage_options',
                     'menu_slug'  => 'wpbooking',
                     'function'   => [ $this, '_show_default_page' ],

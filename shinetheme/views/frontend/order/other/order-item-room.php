@@ -6,10 +6,10 @@ if(!empty($order_data['rooms'])){
         <table>
             <thead>
             <tr>
-                <td width="50%" class="col-title"><?php esc_html_e('Rooms','wpbooking') ?></td>
-                <td class="text-center"><?php esc_html_e('Price','wpbooking') ?> (<?php echo WPBooking_Currency::get_current_currency('currency') ?>)</td>
-                <td class="text-center" width="15%"><?php esc_html_e('Number','wpbooking') ?></td>
-                <td class="text-center"><?php esc_html_e('Total','wpbooking') ?> (<?php echo WPBooking_Currency::get_current_currency('currency') ?>)</td>
+                <td width="50%" class="col-title"><?php esc_html_e('Rooms','wp-booking-management-system') ?></td>
+                <td class="text-center"><?php esc_html_e('Price','wp-booking-management-system') ?> (<?php echo WPBooking_Currency::get_current_currency('currency') ?>)</td>
+                <td class="text-center" width="15%"><?php esc_html_e('Number','wp-booking-management-system') ?></td>
+                <td class="text-center"><?php esc_html_e('Total','wp-booking-management-system') ?> (<?php echo WPBooking_Currency::get_current_currency('currency') ?>)</td>
             </tr>
             </thead>
             <tbody>
@@ -91,10 +91,10 @@ if(!empty($order_data['rooms'])){
                                                                     <thead>
                                                                     <tr>
                                                                         <th width="60%" >
-                                                                            <?php esc_html_e("Service name",'wpbooking') ?>
+                                                                            <?php esc_html_e("Service name",'wp-booking-management-system') ?>
                                                                         </th>
                                                                         <th class="text-center">
-                                                                            <?php esc_html_e("Price",'wpbooking') ?>
+                                                                            <?php esc_html_e("Price",'wp-booking-management-system') ?>
                                                                         </th>
                                                                     </tr>
                                                                     </thead>

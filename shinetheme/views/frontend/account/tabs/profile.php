@@ -19,7 +19,7 @@ $data_current_user = get_userdata( $user_id );
 	$name = get_user_meta($user_id,"last_name",true);
 	if(empty($name)) $name = $data_current_user->data->display_name;
 	if(!empty($name))
-	echo sprintf(esc_html__("Hello I'm %s",'wpbooking'),$name);
+	echo sprintf(esc_html__("Hello I'm %s",'wp-booking-management-system'),$name);
 	?>
 </h3>
 <div class="user-detail">
@@ -50,7 +50,7 @@ $data_current_user = get_userdata( $user_id );
 			<div class="text-info"><?php echo esc_html($profile_address) ?></div>
 		<?php } ?>
 
-		<div class="text-info"><?php esc_html_e("Member since",'wpbooking') ?> <?php echo date_i18n(' Y M',strtotime($data_current_user->data->user_registered)) ?></div>
+		<div class="text-info"><?php esc_html_e("Member since",'wp-booking-management-system') ?> <?php echo date_i18n(' Y M',strtotime($data_current_user->data->user_registered)) ?></div>
 		<div class="quote">
 			<?php if(!empty($description = get_user_meta($user_id,'description',true))){ ?>
 				<div class="icon"> <i class="fa fa-quote-left"></i></div>
@@ -85,7 +85,7 @@ $data_current_user = get_userdata( $user_id );
 	?>
 	<?php if(have_posts()): ?>
 		<h3 class="tab-page-title">
-			<?php esc_html_e("Listing",'wpbooking') ?>
+			<?php esc_html_e("Listing",'wp-booking-management-system') ?>
 		</h3>
 		<div class="list-item">
 			<?php

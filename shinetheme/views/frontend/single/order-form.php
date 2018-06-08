@@ -1,7 +1,7 @@
 <?php
 // External Booking
 if($url=get_post_meta(get_the_ID(),'external_booking_url',true) ){
-	printf('<a href="%s" class="mt20 wb-btn wb-btn-blue" target="_blank">%s</a>',$url,esc_html__('Book Now','wpbooking'));
+	printf('<a href="%s" class="mt20 wb-btn wb-btn-blue" target="_blank">%s</a>',$url,esc_html__('Book Now','wp-booking-management-system'));
 	return;
 }
 $booking=WPBooking_Order::inst();

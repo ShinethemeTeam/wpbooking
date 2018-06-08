@@ -62,7 +62,7 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
                 }
                 $config = array(
                     'id' => 'wpbooking_extra_infomation', // meta box id, unique per meta box
-                    'title' => esc_html__('Extra Information', 'wpbooking'), // meta box title
+                    'title' => esc_html__('Extra Information', 'wp-booking-management-system'), // meta box title
                     'pages' => $pages, // taxonomy name, accept categories, post_tag and custom taxonomies
                     'context' => 'normal', // where the meta box appear: normal (default), advanced, side; optional
                     'fields' => array(), // list of meta fields (can be added by field arrays)
@@ -71,7 +71,7 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
                 );
                 $my_meta = new Tax_Meta_Class($config);
                 $my_meta->addText('wpbooking_icon', array(
-                    'name' => esc_html__('Icon Picker', 'wpbooking'),
+                    'name' => esc_html__('Icon Picker', 'wp-booking-management-system'),
                     'desc' => ''
                 ));
                 $my_meta->Finish();
@@ -82,7 +82,7 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
             $new_columns         = array();
             if(!empty($columns['cb'])){
                 $new_columns['cb']   = $columns['cb'];
-                $new_columns['icon'] = esc_html__('Icon', 'wpbooking');
+                $new_columns['icon'] = esc_html__('Icon', 'wp-booking-management-system');
 
                 unset($columns['cb']);
             }
@@ -119,7 +119,7 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 						$res['status']=1;
                         update_term_meta($parent_term['term_id'],'service_type',$service_type);
 					}else{
-						$res['message']=esc_html__('Term exists','wpbooking');
+						$res['message']=esc_html__('Term exists','wp-booking-management-system');
 					}
 				}else{
 					$q=wp_insert_term($service_name,$tax,$args);
@@ -206,8 +206,8 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 				foreach ($all as $key => $value) {
 					$labels = array(
 						'name' => $value['label'],
-						'add_new_item'      => sprintf(esc_html__('Add New %s','wpbooking'),$value['label']),
-						'new_item_name'     => sprintf(esc_html__('New %s Name','wpbooking'),$value['label']),
+						'add_new_item'      => sprintf(esc_html__('Add New %s','wp-booking-management-system'),$value['label']),
+						'new_item_name'     => sprintf(esc_html__('New %s Name','wp-booking-management-system'),$value['label']),
 					);
 
 					$args = array(
@@ -238,10 +238,10 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 				$all = $this->get_taxonomies();
 				unset($all[$tax_name]);
 				update_option($this->_option_name, $all);
-                wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Delete Success','wpbooking')), 'success');
+                wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Delete Success','wp-booking-management-system')), 'success');
 
 			} else {
-                wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Please select a Taxonomy','wpbooking')), 'error');
+                wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Please select a Taxonomy','wp-booking-management-system')), 'error');
 			}
 			wp_redirect($this->get_page_url());
 			die;
@@ -355,17 +355,17 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 
 			// Error checking
 			if (!$taxonomy_label || !$taxonomy_name) {
-				$error = esc_html__('Please provide a taxonomy name', 'wpbooking');
+				$error = esc_html__('Please provide a taxonomy name', 'wp-booking-management-system');
 			} elseif (strlen($taxonomy_name) >= 35) {
-				$error = sprintf(esc_html__('Slug "%s" is too long (35 characters max). Shorten it, please.', 'wpbooking'), ($taxonomy_name));
+				$error = sprintf(esc_html__('Slug "%s" is too long (35 characters max). Shorten it, please.', 'wp-booking-management-system'), ($taxonomy_name));
 			} elseif (in_array($taxonomy_name, $reserved_terms)) {
-				$error = sprintf(esc_html__('Slug "%s" is not allowed because it is a reserved term. Change it, please.', 'wpbooking'), ($taxonomy_name));
+				$error = sprintf(esc_html__('Slug "%s" is not allowed because it is a reserved term. Change it, please.', 'wp-booking-management-system'), ($taxonomy_name));
 			} else {
 				
 				$taxonomy_exists = taxonomy_exists($taxonomy_name);
 				
 				if ('add' === $action && $taxonomy_exists) {
-					$error = sprintf(esc_html__('Slug "%s" is already in use. Change it, please.', 'wpbooking'), sanitize_title($taxonomy_name));
+					$error = sprintf(esc_html__('Slug "%s" is already in use. Change it, please.', 'wp-booking-management-system'), sanitize_title($taxonomy_name));
 				}
 			}
 			if ($error) {
@@ -389,9 +389,9 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 			update_option($this->_option_name, $all);
 			flush_rewrite_rules();
 			if ($action == 'add') {
-				wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Create Successfully','wpbooking')), 'success');
+				wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Create Successfully','wp-booking-management-system')), 'success');
 			} else {
-                wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Save Successfully','wpbooking')), 'success');
+                wpbooking_set_admin_message(sprintf('<p>%s</p>',esc_html__('Save Successfully','wp-booking-management-system')), 'success');
 			}
 		}
 
@@ -436,8 +436,8 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 			$menu_page = WPBooking()->get_menu_page();
 			$page = array(
 				'parent_slug' => $menu_page['menu_slug'],
-				'page_title'  => esc_html__('Taxonomies', 'wpbooking'),
-				'menu_title'  => esc_html__('Taxonomies', 'wpbooking'),
+				'page_title'  => esc_html__('Taxonomies', 'wp-booking-management-system'),
+				'menu_title'  => esc_html__('Taxonomies', 'wp-booking-management-system'),
 				'capability'  => 'manage_options',
 				'menu_slug'   => 'wpbooking_page_taxonomy',
 				'function'    => array($this, '_show_taxonomy_page')

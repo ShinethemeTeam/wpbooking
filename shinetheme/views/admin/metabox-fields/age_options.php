@@ -42,30 +42,30 @@ $old_data=wp_parse_args($old_data,array(
                 <table cellspacing="0" cellpadding="0" class=" wb-age-options-table">
                     <thead>
                         <tr>
-                            <th><?php esc_html_e('Age Band','wpbooking') ?></th>
-                            <th><?php esc_html_e('Minimum Age','wpbooking')?></th>
-                            <th><?php esc_html_e('Maximum Age','wpbooking')?></th>
+                            <th><?php esc_html_e('Age Band','wp-booking-management-system') ?></th>
+                            <th><?php esc_html_e('Minimum Age','wp-booking-management-system')?></th>
+                            <th><?php esc_html_e('Maximum Age','wp-booking-management-system')?></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="wpbooking-condition" data-condition="onoff_people__:not_in(adult)">
-                            <td><?php esc_html_e('Adult','wpbooking') ?></td>
+                            <td><?php esc_html_e('Adult','wp-booking-management-system') ?></td>
                             <td><input type="number" class="age_adult_min" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[adult][minimum]" value="<?php echo esc_attr($old_data['adult']['minimum']) ?>" /></td>
                             <td><input type="number" class="age_adult_max" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[adult][maximum]" value="<?php echo esc_attr($old_data['adult']['maximum']) ?>" /></td>
                         </tr>
                         <tr class="wpbooking-condition" data-condition="onoff_people__:not_in(child)">
-                            <td><?php esc_html_e('Child','wpbooking') ?></td>
+                            <td><?php esc_html_e('Child','wp-booking-management-system') ?></td>
                             <td><input type="number" class="age_child_min" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[child][minimum]" value="<?php echo esc_attr($old_data['child']['minimum']) ?>" /></td>
                             <td><input type="number" class="age_child_max" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[child][maximum]" value="<?php echo esc_attr($old_data['child']['maximum']) ?>" /></td>
                         </tr>
                         <tr class="wpbooking-condition" data-condition="onoff_people__:not_in(infant)">
-                            <td><?php esc_html_e('Infant','wpbooking') ?></td>
+                            <td><?php esc_html_e('Infant','wp-booking-management-system') ?></td>
                             <td><input type="number" class="age_infant_min" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[infant][minimum]" value="<?php echo esc_attr($old_data['infant']['minimum']) ?>" /></td>
                             <td><input type="number" class="age_infant_max" min="0" placeholder="0" name="<?php echo esc_attr($data['id']) ?>[infant][maximum]" value="<?php echo esc_attr($old_data['infant']['maximum']) ?>" /></td>
                         </tr>
                     </tbody>
                 </table>
-                <div class="form-message error adult_notice hidden"><?php echo esc_html__('Please enter the maximum age greater or equal to the minimum age','wpbooking');?></div>
+                <div class="form-message error adult_notice hidden"><?php echo esc_html__('Please enter the maximum age greater or equal to the minimum age','wp-booking-management-system');?></div>
                 <?php
                 if(!empty($data['help_inline'])){
                     printf('<span class="help_inline">%s</span>',$data['help_inline']);

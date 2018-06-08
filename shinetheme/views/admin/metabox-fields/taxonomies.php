@@ -61,7 +61,7 @@ foreach ($taxs as $tax_id=>$tax){
 			 ?>
 			</div>
 			<div class="add-new-terms">
-				<input type="text" class="term-name form-control" placeholder="<?php printf(esc_html__('%s name','wpbooking'),$tax->label) ?>">
+				<input type="text" class="term-name form-control" placeholder="<?php printf(esc_html__('%s name','wp-booking-management-system'),$tax->label) ?>">
 				<?php
 				if($has_icon_field){
 					?>
@@ -74,7 +74,7 @@ foreach ($taxs as $tax_id=>$tax){
 					<?php
 				}
 				?>
-				<a href="#" onclick="return false" class="button wb-btn-add-term" data-name="<?php echo esc_attr($name) ?>" data-tax="<?php echo esc_attr($tax_id) ?>"><?php esc_html_e('Add New','wpbooking') ?> <i class="fa fa-spin  fa-spinner loading-icon"></i></a>
+				<a href="#" onclick="return false" class="button wb-btn-add-term" data-name="<?php echo esc_attr($name) ?>" data-tax="<?php echo esc_attr($tax_id) ?>"><?php esc_html_e('Add New','wp-booking-management-system') ?> <i class="fa fa-spin  fa-spinner loading-icon"></i></a>
 			</div>
 
 		</div>

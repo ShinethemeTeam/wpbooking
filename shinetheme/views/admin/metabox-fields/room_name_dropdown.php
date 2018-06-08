@@ -27,7 +27,7 @@ if(!is_wp_error($terms) and   !empty( $terms ) ){
 	$field .= '<div class="mb7"><select name="'. $name .'" id="'. esc_html( $data['id'] ) .'" class="widefat form-control '. esc_html( $data['class'] ).'">';
 	foreach( $terms as $parent_key => $parent_term ){
 
-        $field .= '<option value="">'. esc_html__('Please Select','wpbooking').'</option>';
+        $field .= '<option value="">'. esc_html__('Please Select','wp-booking-management-system').'</option>';
 
 	    $child=get_terms(array('taxonomy'=>'wb_hotel_room_type','hide_empty'=>false,'parent'=>$parent_term->term_id));
         if(!empty($child)){

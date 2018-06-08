@@ -9,31 +9,31 @@
             function __construct()
             {
                 $this->type_info = [
-                    'label'  => esc_html__( "Accommodation", 'wpbooking' ),
-                    'labels' => esc_html__( "Accommodations", 'wpbooking' ),
-                    'desc'   => esc_html__( 'You can post any kind of property like hotels, hostels, room like airbnb... anything  is called accommodation', 'wpbooking' )
+                    'label'  => esc_html__( "Accommodation", 'wp-booking-management-system' ),
+                    'labels' => esc_html__( "Accommodations", 'wp-booking-management-system' ),
+                    'desc'   => esc_html__( 'You can post any kind of property like hotels, hostels, room like airbnb... anything  is called accommodation', 'wp-booking-management-system' )
                 ];
 
                 $this->settings = [
                     [
                         'id'    => 'title',
-                        'label' => esc_html__( 'Layout', 'wpbooking' ),
+                        'label' => esc_html__( 'Layout', 'wp-booking-management-system' ),
                         'type'  => 'title',
                     ],
                     [
                         'id'    => 'posts_per_page',
-                        'label' => esc_html__( "Item per page", 'wpbooking' ),
+                        'label' => esc_html__( "Item per page", 'wp-booking-management-system' ),
                         'type'  => 'number',
                         'std'   => 10
                     ],
                     [
                         'id'    => "thumb_size",
-                        'label' => esc_html__( "Thumb Size", 'wpbooking' ),
+                        'label' => esc_html__( "Thumb Size", 'wp-booking-management-system' ),
                         'type'  => 'image-size'
                     ],
                     [
                         'id'    => "gallery_size",
-                        'label' => esc_html__( "Gallery Size", 'wpbooking' ),
+                        'label' => esc_html__( "Gallery Size", 'wp-booking-management-system' ),
                         'type'  => 'image-size'
                     ],
                 ];
@@ -350,7 +350,7 @@
                 }
                 echo json_encode( [
                     'status'  => 0,
-                    'message' => esc_html__( 'Can not fetch data', 'wpbooking' ),
+                    'message' => esc_html__( 'Can not fetch data', 'wp-booking-management-system' ),
                     'rooms'   => ''
                 ] );
                 die;
@@ -453,7 +453,7 @@
                                 'from'        => "/Date({$date})/",
                                 'to'          => "/Date({$date})/",
                                 'label'       => $number_room - $ordered,
-                                'desc'        => sprintf( esc_html__( '%s left', 'wpbooking' ), $number_room - $ordered ),
+                                'desc'        => sprintf( esc_html__( '%s left', 'wp-booking-management-system' ), $number_room - $ordered ),
                                 'customClass' => 'ganttBlue',
                                 'price'       => WPBooking_Currency::format_money( $price, [ 'simple_html' => true ] )
                             ];
@@ -462,7 +462,7 @@
                                 'from'        => "/Date({$date})/",
                                 'to'          => "/Date({$date})/",
                                 'label'       => $number_room - $ordered . '',
-                                'desc'        => esc_html__( 'Out of stock', 'wpbooking' ),
+                                'desc'        => esc_html__( 'Out of stock', 'wp-booking-management-system' ),
                                 'customClass' => 'ganttOrange',
                                 'price'       => WPBooking_Currency::format_money( $price, [ 'simple_html' => true ] )
                             ];
@@ -472,7 +472,7 @@
                             'from'        => "/Date({$date})/",
                             'to'          => "/Date({$date})/",
                             'label'       => $number_room,
-                            'desc'        => esc_html__( 'Not Available', 'wpbooking' ),
+                            'desc'        => esc_html__( 'Not Available', 'wp-booking-management-system' ),
                             'customClass' => 'ganttRed',
                             'price'       => WPBooking_Currency::format_money( $price, [ 'simple_html' => true ] )
                         ];
@@ -499,14 +499,14 @@
                 if ( get_post_type( $post_id ) != 'wpbooking_hotel_room' ) {
                     echo json_encode( [
                         'status'  => 0,
-                        'message' => esc_html__( 'Can not set price for this room', 'wpbooking' )
+                        'message' => esc_html__( 'Can not set price for this room', 'wp-booking-management-system' )
                     ] );
                     die;
                 }
                 if ( ( $status == 'available' ) && ( $price == '' || !is_numeric( $price ) || (float)$price < 0 ) ) {
                     echo json_encode( [
                         'status'  => 0,
-                        'message' => esc_html__( 'Price is incorrect', 'wpbooking' )
+                        'message' => esc_html__( 'Price is incorrect', 'wp-booking-management-system' )
                     ] );
                     die;
                 }
@@ -519,13 +519,13 @@
                 if ( $new_item > 0 ) {
                     echo json_encode( [
                         'status'  => 1,
-                        'message' => esc_html__( 'Successffully added', 'wpbooking' )
+                        'message' => esc_html__( 'Successffully added', 'wp-booking-management-system' )
                     ] );
                     die;
                 } else {
                     echo json_encode( [
                         'status'  => 0,
-                        'message' => esc_html__( 'Getting an error when adding new item.', 'wpbooking' )
+                        'message' => esc_html__( 'Getting an error when adding new item.', 'wp-booking-management-system' )
                     ] );
                     die;
                 }
@@ -598,9 +598,9 @@
                         $diff = $order_data[ 'check_out_timestamp' ] - $order_data[ 'check_in_timestamp' ];
                         $diff = $diff / ( 60 * 60 * 24 );
                         if ( $diff > 1 ) {
-                            echo sprintf( esc_html__( '(%s nights)', 'wpbooking' ), $diff );
+                            echo sprintf( esc_html__( '(%s nights)', 'wp-booking-management-system' ), $diff );
                         } else {
-                            echo sprintf( esc_html__( '(%s night)', 'wpbooking' ), $diff );
+                            echo sprintf( esc_html__( '(%s night)', 'wp-booking-management-system' ), $diff );
                         }
                     ?>
 
@@ -630,9 +630,9 @@
                         $diff = $cart[ 'check_out_timestamp' ] - $cart[ 'check_in_timestamp' ];
                         $diff = $diff / ( 60 * 60 * 24 );
                         if ( $diff > 1 ) {
-                            echo sprintf( esc_html__( '(%s nights)', 'wpbooking' ), $diff );
+                            echo sprintf( esc_html__( '(%s nights)', 'wp-booking-management-system' ), $diff );
                         } else {
-                            echo sprintf( esc_html__( '(%s night)', 'wpbooking' ), $diff );
+                            echo sprintf( esc_html__( '(%s night)', 'wp-booking-management-system' ), $diff );
                         }
 
                         $url_change_date = add_query_arg( [
@@ -695,9 +695,9 @@
                         $diff = $order_data[ 'check_out_timestamp' ] - $order_data[ 'check_in_timestamp' ];
                         $diff = $diff / ( 60 * 60 * 24 );
                         if ( $diff > 1 ) {
-                            echo sprintf( esc_html__( '(%s nights)', 'wpbooking' ), $diff );
+                            echo sprintf( esc_html__( '(%s nights)', 'wp-booking-management-system' ), $diff );
                         } else {
-                            echo sprintf( esc_html__( '(%s night)', 'wpbooking' ), $diff );
+                            echo sprintf( esc_html__( '(%s night)', 'wp-booking-management-system' ), $diff );
                         }
                     ?>
 
@@ -729,25 +729,25 @@
             public function _add_init_action()
             {
                 $labels = [
-                    'name'               => esc_html__( 'Accommodation Room', 'wpbooking' ),
-                    'singular_name'      => esc_html__( 'Accommodation Room', 'wpbooking' ),
-                    'menu_name'          => esc_html__( 'Accommodation Room', 'wpbooking' ),
-                    'name_admin_bar'     => esc_html__( 'Accommodation Room', 'wpbooking' ),
-                    'add_new'            => esc_html__( 'Add New', 'wpbooking' ),
-                    'add_new_item'       => esc_html__( 'Add New Accommodation Room', 'wpbooking' ),
-                    'new_item'           => esc_html__( 'New Accommodation Room', 'wpbooking' ),
-                    'edit_item'          => esc_html__( 'Edit Accommodation Room', 'wpbooking' ),
-                    'view_item'          => esc_html__( 'View Accommodation Room', 'wpbooking' ),
-                    'all_items'          => esc_html__( 'All Accommodation Room', 'wpbooking' ),
-                    'search_items'       => esc_html__( 'Search Accommodation Room', 'wpbooking' ),
-                    'parent_item_colon'  => esc_html__( 'Parent Accommodation Room:', 'wpbooking' ),
-                    'not_found'          => esc_html__( 'No Accommodation Room found.', 'wpbooking' ),
-                    'not_found_in_trash' => esc_html__( 'No Accommodation Room found in Trash.', 'wpbooking' )
+                    'name'               => esc_html__( 'Accommodation Room', 'wp-booking-management-system' ),
+                    'singular_name'      => esc_html__( 'Accommodation Room', 'wp-booking-management-system' ),
+                    'menu_name'          => esc_html__( 'Accommodation Room', 'wp-booking-management-system' ),
+                    'name_admin_bar'     => esc_html__( 'Accommodation Room', 'wp-booking-management-system' ),
+                    'add_new'            => esc_html__( 'Add New', 'wp-booking-management-system' ),
+                    'add_new_item'       => esc_html__( 'Add New Accommodation Room', 'wp-booking-management-system' ),
+                    'new_item'           => esc_html__( 'New Accommodation Room', 'wp-booking-management-system' ),
+                    'edit_item'          => esc_html__( 'Edit Accommodation Room', 'wp-booking-management-system' ),
+                    'view_item'          => esc_html__( 'View Accommodation Room', 'wp-booking-management-system' ),
+                    'all_items'          => esc_html__( 'All Accommodation Room', 'wp-booking-management-system' ),
+                    'search_items'       => esc_html__( 'Search Accommodation Room', 'wp-booking-management-system' ),
+                    'parent_item_colon'  => esc_html__( 'Parent Accommodation Room:', 'wp-booking-management-system' ),
+                    'not_found'          => esc_html__( 'No Accommodation Room found.', 'wp-booking-management-system' ),
+                    'not_found_in_trash' => esc_html__( 'No Accommodation Room found in Trash.', 'wp-booking-management-system' )
                 ];
 
                 $args = [
                     'labels'             => $labels,
-                    'description'        => esc_html__( 'Description.', 'wpbooking' ),
+                    'description'        => esc_html__( 'Description.', 'wp-booking-management-system' ),
                     'public'             => true,
                     'publicly_queryable' => true,
                     'show_ui'            => true,
@@ -763,17 +763,17 @@
 
                 // Register Taxonomy
                 $labels = [
-                    'name'              => esc_html__( 'Room Type', 'wpbooking' ),
-                    'singular_name'     => esc_html__( 'Room Type', 'wpbooking' ),
-                    'search_items'      => esc_html__( 'Search Room Type', 'wpbooking' ),
-                    'all_items'         => esc_html__( 'All Room Type', 'wpbooking' ),
-                    'parent_item'       => esc_html__( 'Parent Room Type', 'wpbooking' ),
-                    'parent_item_colon' => esc_html__( 'Parent Room Type:', 'wpbooking' ),
-                    'edit_item'         => esc_html__( 'Edit Room Type', 'wpbooking' ),
-                    'update_item'       => esc_html__( 'Update Room Type', 'wpbooking' ),
-                    'add_new_item'      => esc_html__( 'Add New Room Type', 'wpbooking' ),
-                    'new_item_name'     => esc_html__( 'New Room Type Name', 'wpbooking' ),
-                    'menu_name'         => esc_html__( 'Room Type', 'wpbooking' ),
+                    'name'              => esc_html__( 'Room Type', 'wp-booking-management-system' ),
+                    'singular_name'     => esc_html__( 'Room Type', 'wp-booking-management-system' ),
+                    'search_items'      => esc_html__( 'Search Room Type', 'wp-booking-management-system' ),
+                    'all_items'         => esc_html__( 'All Room Type', 'wp-booking-management-system' ),
+                    'parent_item'       => esc_html__( 'Parent Room Type', 'wp-booking-management-system' ),
+                    'parent_item_colon' => esc_html__( 'Parent Room Type:', 'wp-booking-management-system' ),
+                    'edit_item'         => esc_html__( 'Edit Room Type', 'wp-booking-management-system' ),
+                    'update_item'       => esc_html__( 'Update Room Type', 'wp-booking-management-system' ),
+                    'add_new_item'      => esc_html__( 'Add New Room Type', 'wp-booking-management-system' ),
+                    'new_item_name'     => esc_html__( 'New Room Type Name', 'wp-booking-management-system' ),
+                    'menu_name'         => esc_html__( 'Room Type', 'wp-booking-management-system' ),
                 ];
                 $args   = [
                     'hierarchical'      => true,
@@ -788,17 +788,17 @@
 
                 // Register Taxonomy
                 $labels = [
-                    'name'              => esc_html__( 'Room Facilities', 'wpbooking' ),
-                    'singular_name'     => esc_html__( 'Room Facilities', 'wpbooking' ),
-                    'search_items'      => esc_html__( 'Search Room Facilities', 'wpbooking' ),
-                    'all_items'         => esc_html__( 'All Room Facilities', 'wpbooking' ),
-                    'parent_item'       => esc_html__( 'Parent Room Facilities', 'wpbooking' ),
-                    'parent_item_colon' => esc_html__( 'Parent Room Facilities:', 'wpbooking' ),
-                    'edit_item'         => esc_html__( 'Edit Room Facilities', 'wpbooking' ),
-                    'update_item'       => esc_html__( 'Update Room Facilities', 'wpbooking' ),
-                    'add_new_item'      => esc_html__( 'Add New Room Facilities', 'wpbooking' ),
-                    'new_item_name'     => esc_html__( 'New Room Facilities Name', 'wpbooking' ),
-                    'menu_name'         => esc_html__( 'Room Facilities', 'wpbooking' ),
+                    'name'              => esc_html__( 'Room Facilities', 'wp-booking-management-system' ),
+                    'singular_name'     => esc_html__( 'Room Facilities', 'wp-booking-management-system' ),
+                    'search_items'      => esc_html__( 'Search Room Facilities', 'wp-booking-management-system' ),
+                    'all_items'         => esc_html__( 'All Room Facilities', 'wp-booking-management-system' ),
+                    'parent_item'       => esc_html__( 'Parent Room Facilities', 'wp-booking-management-system' ),
+                    'parent_item_colon' => esc_html__( 'Parent Room Facilities:', 'wp-booking-management-system' ),
+                    'edit_item'         => esc_html__( 'Edit Room Facilities', 'wp-booking-management-system' ),
+                    'update_item'       => esc_html__( 'Update Room Facilities', 'wp-booking-management-system' ),
+                    'add_new_item'      => esc_html__( 'Add New Room Facilities', 'wp-booking-management-system' ),
+                    'new_item_name'     => esc_html__( 'New Room Facilities Name', 'wp-booking-management-system' ),
+                    'menu_name'         => esc_html__( 'Room Facilities', 'wp-booking-management-system' ),
                 ];
                 $args   = [
                     'hierarchical'      => true,
@@ -815,83 +815,83 @@
                 // Metabox
                 $this->set_metabox( [
                     'general_tab'     => [
-                        'label'  => esc_html__( '1. Property Information', 'wpbooking' ),
+                        'label'  => esc_html__( '1. Property Information', 'wp-booking-management-system' ),
                         'fields' => [
                             [
                                 'type' => 'open_section',
                             ],
                             [
-                                'label' => esc_html__( "About Your Property", 'wpbooking' ),
+                                'label' => esc_html__( "About Your Property", 'wp-booking-management-system' ),
                                 'type'  => 'title',
-                                'desc'  => esc_html__( 'Basic information', 'wpbooking' ),
+                                'desc'  => esc_html__( 'Basic information', 'wp-booking-management-system' ),
                             ],
                             [
                                 'id'    => 'enable_property',
-                                'label' => esc_html__( "Enable Property", 'wpbooking' ),
+                                'label' => esc_html__( "Enable Property", 'wp-booking-management-system' ),
                                 'type'  => 'on-off',
                                 'std'   => 'on',
-                                'desc'  => esc_html__( 'Listing will appear in search results.', 'wpbooking' ),
+                                'desc'  => esc_html__( 'Listing will appear in search results.', 'wp-booking-management-system' ),
                             ],
                             [
                                 'id'    => 'star_rating',
-                                'label' => esc_html__( "Star Rating", 'wpbooking' ),
+                                'label' => esc_html__( "Star Rating", 'wp-booking-management-system' ),
                                 'type'  => 'star-select',
-                                'desc'  => esc_html__( 'Standard of property from 1 to 5 stars', 'wpbooking' ),
+                                'desc'  => esc_html__( 'Standard of property from 1 to 5 stars', 'wp-booking-management-system' ),
                                 'class' => 'small'
                             ],
                             [
-                                'label'       => esc_html__( 'Contact Phone Number', 'wpbooking' ),
+                                'label'       => esc_html__( 'Contact Phone Number', 'wp-booking-management-system' ),
                                 'id'          => 'contact_number',
-                                'desc'        => esc_html__( 'The contact phone', 'wpbooking' ),
+                                'desc'        => esc_html__( 'The contact phone', 'wp-booking-management-system' ),
                                 'type'        => 'text',
                                 'class'       => 'small',
                                 'rules'       => 'required',
                                 'min'         => 0,
-                                'placeholder' => esc_html__( 'Phone number', 'wpbooking' ),
+                                'placeholder' => esc_html__( 'Phone number', 'wp-booking-management-system' ),
                             ],
                             [
-                                'label'       => esc_html__( 'Contact Email', 'wpbooking' ),
+                                'label'       => esc_html__( 'Contact Email', 'wp-booking-management-system' ),
                                 'id'          => 'contact_email',
                                 'type'        => 'text',
-                                'placeholder' => esc_html__( 'Example@domain.com', 'wpbooking' ),
+                                'placeholder' => esc_html__( 'Example@domain.com', 'wp-booking-management-system' ),
                                 'class'       => 'small',
                                 'rules'       => 'required|valid_email'
                             ],
                             [
-                                'label'       => esc_html__( 'Website', 'wpbooking' ),
+                                'label'       => esc_html__( 'Website', 'wp-booking-management-system' ),
                                 'id'          => 'website',
                                 'type'        => 'text',
-                                'desc'        => esc_html__( 'Property website (optional)', 'wpbooking' ),
-                                'placeholder' => esc_html__( 'http://exampledomain.com', 'wpbooking' ),
+                                'desc'        => esc_html__( 'Property website (optional)', 'wp-booking-management-system' ),
+                                'placeholder' => esc_html__( 'http://exampledomain.com', 'wp-booking-management-system' ),
                                 'class'       => 'small'
                             ],
                             [ 'type' => 'close_section' ],
                             [ 'type' => 'open_section' ],
                             [
-                                'label' => esc_html__( "Property Location", 'wpbooking' ),
+                                'label' => esc_html__( "Property Location", 'wp-booking-management-system' ),
                                 'type'  => 'title',
-                                'desc'  => esc_html__( "Property's address and your contact number", 'wpbooking' ),
+                                'desc'  => esc_html__( "Property's address and your contact number", 'wp-booking-management-system' ),
                             ],
                             [
-                                'label'           => esc_html__( 'Address', 'wpbooking' ),
+                                'label'           => esc_html__( 'Address', 'wp-booking-management-system' ),
                                 'id'              => 'address',
                                 'type'            => 'address',
                                 'container_class' => 'mb35',
                                 'extra_rules'     => [
-                                    'location_id' => [ 'label' => esc_html__( 'Location', 'wpbooking' ), 'rule' => 'required_integer' ],
-                                    'address'     => [ 'label' => esc_html__( 'Address', 'wpbooking' ), 'rule' => 'required' ],
+                                    'location_id' => [ 'label' => esc_html__( 'Location', 'wp-booking-management-system' ), 'rule' => 'required_integer' ],
+                                    'address'     => [ 'label' => esc_html__( 'Address', 'wp-booking-management-system' ), 'rule' => 'required' ],
                                 ]
                             ],
                             [
-                                'label' => esc_html__( 'Map\'s Latitude & Longitude', 'wpbooking' ),
+                                'label' => esc_html__( 'Map\'s Latitude & Longitude', 'wp-booking-management-system' ),
                                 'id'    => 'gmap',
                                 'type'  => 'gmap',
-                                'desc'  => esc_html__( 'This is the location we will provide for guests. Click to move the marker if you need to move it', 'wpbooking' )
+                                'desc'  => esc_html__( 'This is the location we will provide for guests. Click to move the marker if you need to move it', 'wp-booking-management-system' )
                             ],
                             [
                                 'type'    => 'desc_section',
-                                'title'   => esc_html__( 'Your address matters! ', 'wpbooking' ),
-                                'content' => esc_html__( 'Please make sure to enter your full address including building name, apartment number, etc.', 'wpbooking' )
+                                'title'   => esc_html__( 'Your address matters! ', 'wp-booking-management-system' ),
+                                'content' => esc_html__( 'Please make sure to enter your full address including building name, apartment number, etc.', 'wp-booking-management-system' )
                             ],
                             [ 'type' => 'close_section' ],
                             [
@@ -903,24 +903,24 @@
                         ]
                     ],
                     'detail_tab'      => [
-                        'label'  => esc_html__( '2. Property Details', 'wpbooking' ),
+                        'label'  => esc_html__( '2. Property Details', 'wp-booking-management-system' ),
                         'fields' => [
                             [ 'type' => 'open_section' ],
                             [
-                                'label' => esc_html__( "Check In & Check Out", 'wpbooking' ),
+                                'label' => esc_html__( "Check In & Check Out", 'wp-booking-management-system' ),
                                 'type'  => 'title',
-                                'desc'  => esc_html__( 'Time to check in, out in your property', 'wpbooking' )
+                                'desc'  => esc_html__( 'Time to check in, out in your property', 'wp-booking-management-system' )
                             ],
                             [
-                                'label'  => esc_html__( 'Time for Check In ', 'wpbooking' ),
-                                'desc'   => esc_html__( 'Time for Check In ', 'wpbooking' ),
+                                'label'  => esc_html__( 'Time for Check In ', 'wp-booking-management-system' ),
+                                'desc'   => esc_html__( 'Time for Check In ', 'wp-booking-management-system' ),
                                 'type'   => 'check_in',
                                 'id'     => 'check_in',
                                 'fields' => [ 'checkin_from', 'checkin_to' ],// Fields to save
                             ],
                             [
-                                'label'  => esc_html__( 'Time for Check Out', 'wpbooking' ),
-                                'desc'   => esc_html__( 'Time for Check Out', 'wpbooking' ),
+                                'label'  => esc_html__( 'Time for Check Out', 'wp-booking-management-system' ),
+                                'desc'   => esc_html__( 'Time for Check Out', 'wp-booking-management-system' ),
                                 'type'   => 'check_out',
                                 'id'     => 'check_out',
                                 'fields' => [ 'checkout_from', 'checkout_to' ],// Fields to save
@@ -930,11 +930,11 @@
                             // Miscellaneous
                             [ 'type' => 'open_section' ],
                             [
-                                'label' => esc_html__( "Amenity", 'wpbooking' ),
+                                'label' => esc_html__( "Amenity", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                             ],
                             [
-                                'label'    => esc_html__( "Amenity", 'wpbooking' ),
+                                'label'    => esc_html__( "Amenity", 'wp-booking-management-system' ),
                                 'id'       => 'wpbooking_select_amenity',
                                 'taxonomy' => 'wpbooking_amenity',
                                 'type'     => 'taxonomy_select',
@@ -954,26 +954,26 @@
                         ]
                     ],
                     'room_detail_tab' => [
-                        'label'  => esc_html__( '3. Room Details', 'wpbooking' ),
+                        'label'  => esc_html__( '3. Room Details', 'wp-booking-management-system' ),
                         'fields' => [
                             [
-                                'label' => esc_html__( 'Your Rooms', 'wpbooking' ),
+                                'label' => esc_html__( 'Your Rooms', 'wp-booking-management-system' ),
                                 'type'  => 'hotel_room_list',
-                                'desc'  => esc_html__( 'Here is an overview of your rooms', 'wpbooking' )
+                                'desc'  => esc_html__( 'Here is an overview of your rooms', 'wp-booking-management-system' )
                             ],
                             [
                                 'type'        => 'section_navigation',
-                                'next_label'  => esc_html__( 'Next Step', 'wpbooking' ),
+                                'next_label'  => esc_html__( 'Next Step', 'wp-booking-management-system' ),
                                 'ajax_saving' => 0
                             ],
 
                         ]
                     ],
                     'inventory_tab'   => [
-                        'label'  => esc_html__( '4. Inventory', 'wpbooking' ),
+                        'label'  => esc_html__( '4. Inventory', 'wp-booking-management-system' ),
                         'fields' => [
                             [
-                                'label' => esc_html__( 'Inventory', 'wpbooking' ),
+                                'label' => esc_html__( 'Inventory', 'wp-booking-management-system' ),
                                 'type'  => 'accommodation_inventory',
                                 'desc'  => ''
                             ],
@@ -983,30 +983,30 @@
                         ]
                     ],
                     'facilities_tab'  => [
-                        'label'  => esc_html__( '5. Facilities', 'wpbooking' ),
+                        'label'  => esc_html__( '5. Facilities', 'wp-booking-management-system' ),
                         'fields' => [
                             [
                                 'type' => 'open_section',
                             ],
                             [
-                                'label' => esc_html__( "Space", 'wpbooking' ),
+                                'label' => esc_html__( "Space", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                                 'desc'  => esc_html__( "We display the size of guest room", "wpbooking" )
                             ],
                             [
-                                'label' => esc_html__( 'What is your preferred  unit of measurement?', 'wpbooking' ),
+                                'label' => esc_html__( 'What is your preferred  unit of measurement?', 'wp-booking-management-system' ),
                                 'id'    => 'room_measunit',
                                 'type'  => 'radio',
                                 'value' => [
-                                    "metres" => esc_html__( "Square metres", 'wpbooking' ),
-                                    "feet"   => esc_html__( "Square feet", 'wpbooking' ),
+                                    "metres" => esc_html__( "Square metres", 'wp-booking-management-system' ),
+                                    "feet"   => esc_html__( "Square feet", 'wp-booking-management-system' ),
                                 ],
                                 'std'   => 'metres',
                                 'class' => 'radio_pro',
                                 'desc'  => esc_html__( "Select the preferred unit of your measurement", "wpbooking" )
                             ],
                             [
-                                'label' => esc_html__( 'Room size', 'wpbooking' ),
+                                'label' => esc_html__( 'Room size', 'wp-booking-management-system' ),
                                 'id'    => 'room_size',
                                 'type'  => 'text',
                             ],
@@ -1015,12 +1015,12 @@
                                 'type' => 'open_section',
                             ],
                             [
-                                'label' => esc_html__( "Room facilities", 'wpbooking' ),
+                                'label' => esc_html__( "Room facilities", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                             ],
                             [
                                 'id'       => 'hotel_room_facilities',
-                                'label'    => esc_html__( "Facilities", 'wpbooking' ),
+                                'label'    => esc_html__( "Facilities", 'wp-booking-management-system' ),
                                 'type'     => 'taxonomy_room_select',
                                 'taxonomy' => 'wb_hotel_room_facilities',
                                 'rules'    => 'required'
@@ -1033,46 +1033,46 @@
                         ]
                     ],
                     'policies_tab'    => [
-                        'label'  => esc_html__( '6. Policies & Checkout', 'wpbooking' ),
+                        'label'  => esc_html__( '6. Policies & Checkout', 'wp-booking-management-system' ),
                         'fields' => [
                             [ 'type' => 'open_section' ],
                             [
-                                'label' => esc_html__( 'External Link', 'wpbooking' ),
+                                'label' => esc_html__( 'External Link', 'wp-booking-management-system' ),
                                 'id'    => 'external_link',
                                 'type'  => 'text',
-                                'desc'  => esc_html__( 'Enter an external link to use this feature.', 'wpbooking' )
+                                'desc'  => esc_html__( 'Enter an external link to use this feature.', 'wp-booking-management-system' )
                             ],
                             [
-                                'label' => esc_html__( "Payment information", 'wpbooking' ),
+                                'label' => esc_html__( "Payment information", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                                 'desc'  => esc_html__( "Specify the methods of payment you accept at your accommodation as payment for staying", "wpbooking" )
                             ],
                             [
-                                'label' => esc_html__( 'We are accepted:', 'wpbooking' ),
+                                'label' => esc_html__( 'We are accepted:', 'wp-booking-management-system' ),
                                 'id'    => 'creditcard_accepted',
                                 'type'  => 'creditcard',
                             ],
                             [ 'type' => 'close_section' ],
                             [ 'type' => 'open_section' ],
                             [
-                                'label' => esc_html__( "Pre-payment and cancellation policies", 'wpbooking' ),
+                                'label' => esc_html__( "Pre-payment and cancellation policies", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                                 'desc'  => esc_html__( "Pre-payment and cancellation policies", "wpbooking" )
                             ],
                             [
-                                'label' => esc_html__( 'Select optional deposit ', 'wpbooking' ),
+                                'label' => esc_html__( 'Select optional deposit ', 'wp-booking-management-system' ),
                                 'id'    => 'deposit_payment_status',
                                 'type'  => 'dropdown',
                                 'value' => [
-                                    ''        => esc_html__( 'Disallow Deposit', 'wpbooking' ),
-                                    'percent' => esc_html__( 'Deposit by percent', 'wpbooking' ),
-                                    'amount'  => esc_html__( 'Deposit by amount', 'wpbooking' ),
+                                    ''        => esc_html__( 'Disallow Deposit', 'wp-booking-management-system' ),
+                                    'percent' => esc_html__( 'Deposit by percent', 'wp-booking-management-system' ),
+                                    'amount'  => esc_html__( 'Deposit by amount', 'wp-booking-management-system' ),
                                 ],
                                 'desc'  => esc_html__( "You can select Disallow Deposit, Deposit by percent, Deposit by amount", "wpbooking" ),
                                 'class' => 'small'
                             ],
                             [
-                                'label'     => esc_html__( 'Deposit payment amount', 'wpbooking' ),
+                                'label'     => esc_html__( 'Deposit payment amount', 'wp-booking-management-system' ),
                                 'id'        => 'deposit_payment_amount',
                                 'type'      => 'number',
                                 'desc'      => esc_html__( "Leave empty for disallow deposit payment", "wpbooking" ),
@@ -1082,27 +1082,27 @@
                                 'condition' => 'deposit_payment_status:not()'
                             ],
                             [
-                                'label' => esc_html__( 'How many days in advance can guests cancel free of  charge?', 'wpbooking' ),
+                                'label' => esc_html__( 'How many days in advance can guests cancel free of  charge?', 'wp-booking-management-system' ),
                                 'id'    => 'cancel_free_days_prior',
                                 'type'  => 'dropdown',
                                 'value' => [
-                                    'day_of_arrival' => esc_html__( 'Day of arrival (6 pm)', 'wpbooking' ),
-                                    '1'              => esc_html__( '1 day', 'wpbooking' ),
-                                    '2'              => esc_html__( '2 days', 'wpbooking' ),
-                                    '3'              => esc_html__( '3 days', 'wpbooking' ),
-                                    '7'              => esc_html__( '7 days', 'wpbooking' ),
-                                    '14'             => esc_html__( '14 days', 'wpbooking' ),
+                                    'day_of_arrival' => esc_html__( 'Day of arrival (6 pm)', 'wp-booking-management-system' ),
+                                    '1'              => esc_html__( '1 day', 'wp-booking-management-system' ),
+                                    '2'              => esc_html__( '2 days', 'wp-booking-management-system' ),
+                                    '3'              => esc_html__( '3 days', 'wp-booking-management-system' ),
+                                    '7'              => esc_html__( '7 days', 'wp-booking-management-system' ),
+                                    '14'             => esc_html__( '14 days', 'wp-booking-management-system' ),
                                 ],
                                 'desc'  => esc_html__( "Day of arrival ( 18: 00 ) , 1 day , 2 days, 3 days, 7 days, 14 days", "wpbooking" ),
                                 'class' => 'small'
                             ],
                             [
-                                'label' => esc_html__( 'Or guests will pay 100%', 'wpbooking' ),
+                                'label' => esc_html__( 'Or guests will pay 100%', 'wp-booking-management-system' ),
                                 'id'    => 'cancel_guest_payment',
                                 'type'  => 'dropdown',
                                 'value' => [
-                                    'first_night' => esc_html__( 'of the first night', 'wpbooking' ),
-                                    'full_stay'   => esc_html__( 'of the full stay', 'wpbooking' ),
+                                    'first_night' => esc_html__( 'of the first night', 'wp-booking-management-system' ),
+                                    'full_stay'   => esc_html__( 'of the full stay', 'wp-booking-management-system' ),
                                 ],
                                 'desc'  => esc_html__( "Of the first night, of the full stay", "wpbooking" ),
                                 'class' => 'small'
@@ -1110,12 +1110,12 @@
                             [ 'type' => 'close_section' ],
                             [ 'type' => 'open_section' ],
                             [
-                                'label' => esc_html__( "Tax", 'wpbooking' ),
+                                'label' => esc_html__( "Tax", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                                 'desc'  => esc_html__( "Set your local VAT or city tax, so guests know what is included in the price of their stay.", "wpbooking" )
                             ],
                             [
-                                'label'       => esc_html__( 'VAT', 'wpbooking' ),
+                                'label'       => esc_html__( 'VAT', 'wp-booking-management-system' ),
                                 'id'          => 'vat_different',
                                 'type'        => 'vat_different',
                                 'fields'      => [
@@ -1124,12 +1124,12 @@
                                     'vat_unit',
                                 ],
                                 'extra_rules' => [
-                                    'vat_amount' => [ 'label' => esc_html__( 'VAT amount', 'wpbooking' ), 'rules' => 'required|greater_than[0]', 'rule_condition' => 'vat_excluded:not_empty' ]
+                                    'vat_amount' => [ 'label' => esc_html__( 'VAT amount', 'wp-booking-management-system' ), 'rules' => 'required|greater_than[0]', 'rule_condition' => 'vat_excluded:not_empty' ]
                                 ],
 
                             ],
                             [
-                                'label'       => esc_html__( 'City Tax', 'wpbooking' ),
+                                'label'       => esc_html__( 'City Tax', 'wp-booking-management-system' ),
                                 'id'          => 'citytax_different',
                                 'type'        => 'citytax_different',
                                 'fields'      => [
@@ -1138,7 +1138,7 @@
                                     'citytax_unit',
                                 ],
                                 'extra_rules' => [
-                                    'citytax_amount' => [ 'label' => esc_html__( 'City Tax amount', 'wpbooking' ), 'rules' => 'required|greater_than[0]', 'rule_condition' => 'citytax_excluded:not_empty' ]
+                                    'citytax_amount' => [ 'label' => esc_html__( 'City Tax amount', 'wp-booking-management-system' ), 'rules' => 'required|greater_than[0]', 'rule_condition' => 'citytax_excluded:not_empty' ]
                                 ],
                             ],
 
@@ -1146,12 +1146,12 @@
 
                             [ 'type' => 'open_section' ],
                             [
-                                'label' => esc_html__( "Term & condition", 'wpbooking' ),
+                                'label' => esc_html__( "Term & condition", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                                 'desc'  => esc_html__( "Set terms and conditions for your property", "wpbooking" )
                             ],
                             [
-                                'label' => esc_html__( 'Minimum Stay (night)', 'wpbooking' ),
+                                'label' => esc_html__( 'Minimum Stay (night)', 'wp-booking-management-system' ),
                                 'id'    => 'minimum_stay',
                                 'type'  => 'dropdown',
                                 'value' => [
@@ -1189,14 +1189,14 @@
                                 'class' => 'small'
                             ],
                             [
-                                'label' => esc_html__( 'Maximum Stay (night)', 'wpbooking' ),
+                                'label' => esc_html__( 'Maximum Stay (night)', 'wp-booking-management-system' ),
                                 'id'    => 'maximum_stay',
                                 'type'  => 'number',
                                 'value' => '',
                                 'class' => 'small'
                             ],
                             [
-                                'label' => esc_html__( 'Terms & Conditions', 'wpbooking' ),
+                                'label' => esc_html__( 'Terms & Conditions', 'wp-booking-management-system' ),
                                 'id'    => 'terms_conditions',
                                 'type'  => 'textarea',
                                 'rows'  => '5',
@@ -1209,25 +1209,25 @@
                         ],
                     ],
                     'photo_tab'       => [
-                        'label'  => esc_html__( '7. Photos', 'wpbooking' ),
+                        'label'  => esc_html__( '7. Photos', 'wp-booking-management-system' ),
                         'fields' => [
                             [ 'type' => 'open_section' ],
                             [
-                                'label' => esc_html__( "Pictures", 'wpbooking' ),
+                                'label' => esc_html__( "Pictures", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                             ],
                             [
-                                'label'         => esc_html__( "Gallery", 'wpbooking' ),
+                                'label'         => esc_html__( "Gallery", 'wp-booking-management-system' ),
                                 'id'            => 'gallery',
                                 'type'          => 'gallery_hotel',
                                 'rules'         => 'array_key_required[gallery]',
-                                'error_message' => esc_html__( 'You must upload one minimum photo for your accommodation', 'wpbooking' ),
-                                'desc'          => esc_html__( 'Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wpbooking' )
+                                'error_message' => esc_html__( 'You must upload one minimum photo for your accommodation', 'wp-booking-management-system' ),
+                                'desc'          => esc_html__( 'Great photos invite guests to get the full experience of your property. Be sure to include high-resolution photos of the building, facilities, and amenities. We will display these photos on your property\'s page', 'wp-booking-management-system' )
                             ],
                             [ 'type' => 'close_section' ],
                             [
                                 'type'       => 'section_navigation',
-                                'next_label' => esc_html__( 'Save', 'wpbooking' ),
+                                'next_label' => esc_html__( 'Save', 'wp-booking-management-system' ),
                                 'step'       => 'finish'
                             ],
                         ]
@@ -1283,31 +1283,31 @@
                 $fields = [
                     [
                         'type'     => 'breadcrumb',
-                        'new_text' => esc_html__( 'Add new room', 'wpbooking' ),
+                        'new_text' => esc_html__( 'Add new room', 'wp-booking-management-system' ),
                     ],
-                    [ 'type' => 'open_section', 'conner_button' => '<a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> ' . esc_html__( 'Back to All Rooms', 'wpbooking' ) . '</a>' ],
+                    [ 'type' => 'open_section', 'conner_button' => '<a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> ' . esc_html__( 'Back to All Rooms', 'wp-booking-management-system' ) . '</a>' ],
                     [
-                        'label' => esc_html__( "Room Name", 'wpbooking' ),
+                        'label' => esc_html__( "Room Name", 'wp-booking-management-system' ),
                         'type'  => 'title',
                     ],
                     [
-                        'label' => esc_html__( 'Room name', 'wpbooking' ),
+                        'label' => esc_html__( 'Room name', 'wp-booking-management-system' ),
                         'type'  => 'text',
                         'id'    => 'room_name',
-                        'desc'  => esc_html__( "Create an optional, custom name for your reference.", 'wpbooking' ),
+                        'desc'  => esc_html__( "Create an optional, custom name for your reference.", 'wp-booking-management-system' ),
                         'rules' => 'required'
                     ],
                     [
-                        'label'    => esc_html__( 'Room Type', 'wpbooking' ),
+                        'label'    => esc_html__( 'Room Type', 'wp-booking-management-system' ),
                         'type'     => 'dropdown',
                         'id'       => 'room_type',
                         'taxonomy' => 'wb_hotel_room_type',
                         'parent'   => 0,
                         'class'    => 'small',
-                        'desc'     => esc_html__( "Based on the amenities of room, select one most accurate type", 'wpbooking' ),
+                        'desc'     => esc_html__( "Based on the amenities of room, select one most accurate type", 'wp-booking-management-system' ),
                     ],
                     [
-                        'label' => esc_html__( 'Room Number', 'wpbooking' ),
+                        'label' => esc_html__( 'Room Number', 'wp-booking-management-system' ),
                         'type'  => 'number',
                         'id'    => 'room_number',
                         'class' => 'small',
@@ -1315,7 +1315,7 @@
                         'min'   => 1
                     ],
                     [
-                        'label' => esc_html__( 'Bed Rooms', 'wpbooking' ),
+                        'label' => esc_html__( 'Bed Rooms', 'wp-booking-management-system' ),
                         'type'  => 'dropdown',
                         'id'    => 'bed_rooms',
                         'value' => [
@@ -1324,7 +1324,7 @@
                         'class' => 'small'
                     ],
                     [
-                        'label' => esc_html__( 'Bath Rooms', 'wpbooking' ),
+                        'label' => esc_html__( 'Bath Rooms', 'wp-booking-management-system' ),
                         'type'  => 'dropdown',
                         'id'    => 'bath_rooms',
                         'value' => [
@@ -1334,7 +1334,7 @@
                         'class' => 'small'
                     ],
                     [
-                        'label' => esc_html__( 'Living Rooms', 'wpbooking' ),
+                        'label' => esc_html__( 'Living Rooms', 'wp-booking-management-system' ),
                         'type'  => 'dropdown',
                         'id'    => 'living_rooms',
                         'value' => [
@@ -1343,7 +1343,7 @@
                         'class' => 'small'
                     ],
                     [
-                        'label' => esc_html__( 'Max guests', 'wpbooking' ),
+                        'label' => esc_html__( 'Max guests', 'wp-booking-management-system' ),
                         'type'  => 'dropdown',
                         'id'    => 'max_guests',
                         'value' => [
@@ -1357,25 +1357,15 @@
                     [ 'type' => 'open_section' ],
                     [
                         'type'  => 'title',
-                        'label' => esc_html__( 'Extra Services', 'wpbooking' ),
-                        'desc'  => esc_html__( 'Set the extended services for your property', 'wpbooking' )
+                        'label' => esc_html__( 'Extra Services', 'wp-booking-management-system' ),
+                        'desc'  => esc_html__( 'Set the extended services for your property', 'wp-booking-management-system' )
                     ],
                     [
                         'type'           => 'extra_services',
-                        'label'          => esc_html__( 'Choose extra services', 'wpbooking' ),
+                        'label'          => esc_html__( 'Choose extra services', 'wp-booking-management-system' ),
                         'id'             => 'extra_services',
                         'extra_services' => $this->get_extra_services(),
                         'service_type'   => $this->type_id
-                    ],
-                    [
-                        'type'  => 'dropdown',
-                        'label' => esc_html__( 'Type of Extra price', 'wpbooking' ),
-                        'id'    => 'type_extra',
-                        'value' => [
-                            ''         => esc_html__( 'Fixed', 'wpbooking' ),
-                            'by_night' => esc_html__( 'per Night', 'wpbooking' )
-                        ],
-                        'std'   => ''
                     ],
                     [
                         'type' => 'close_section'
@@ -1384,33 +1374,33 @@
                     // Calendar
                     [ 'type' => 'open_section' ],
                     [
-                        'label' => esc_html__( "Price Settings", 'wpbooking' ),
+                        'label' => esc_html__( "Price Settings", 'wp-booking-management-system' ),
                         'type'  => 'title',
-                        'desc'  => esc_html__( 'You can set price for room', 'wpbooking' )
+                        'desc'  => esc_html__( 'You can set price for room', 'wp-booking-management-system' )
                     ],
                     [
                         'id'          => 'calendar',
                         'type'        => 'calendar',
                         'extra_rules' => [
                             'base_price' => [
-                                'label' => esc_html__( 'Base Price', 'wpbooking' ),
+                                'label' => esc_html__( 'Base Price', 'wp-booking-management-system' ),
                                 'rule'  => 'required|greater_than[0]',
                             ]
                         ],
                     ],
                     [
                         'id'    => 'discount_by_no_day',
-                        'label' => esc_html__( 'Discount by Number of days', 'wpbooking' ),
+                        'label' => esc_html__( 'Discount by Number of days', 'wp-booking-management-system' ),
                         'type'  => 'list-item',
                         'value' => [
                             [
                                 'id'    => 'no_days',
-                                'label' => esc_html__( 'No. Days', 'wpbooking' ),
+                                'label' => esc_html__( 'No. Days', 'wp-booking-management-system' ),
                                 'type'  => 'text',
                             ],
                             [
                                 'id'    => 'price',
-                                'label' => esc_html__( 'Discount(%)', 'wpbooking' ),
+                                'label' => esc_html__( 'Discount(%)', 'wp-booking-management-system' ),
                                 'type'  => 'text'
                             ]
                         ]
@@ -1441,19 +1431,19 @@
 
                     // Validate Permission
                     if ( !$hotel_id ) {
-                        $res[ 'message' ] = esc_html__( 'Please specify Property ID', 'wpbooking' );
+                        $res[ 'message' ] = esc_html__( 'Please specify Property ID', 'wp-booking-management-system' );
                         echo json_encode( $res );
                         die;
                     } else {
                         $hotel = get_post( $hotel_id );
                         if ( !$hotel ) {
-                            $res[ 'message' ] = esc_html__( 'Property does not exist', 'wpbooking' );
+                            $res[ 'message' ] = esc_html__( 'Property does not exist', 'wp-booking-management-system' );
                             echo json_encode( $res );
                             die;
                         }
                         // Check Role
                         if ( !current_user_can( 'edit_posts' ) and $hotel->post_parent != get_current_user_id() ) {
-                            $res[ 'message' ] = esc_html__( 'You do not have permission to do it', 'wpbooking' );
+                            $res[ 'message' ] = esc_html__( 'You do not have permission to do it', 'wp-booking-management-system' );
                             echo json_encode( $res );
                             die;
                         }
@@ -1464,14 +1454,14 @@
                     // Create Draft Room
                     $room_id = wp_insert_post( [
                         'post_author' => get_current_user_id(),
-                        'post_title'  => esc_html__( 'Room Draft', 'wpbooking' ),
+                        'post_title'  => esc_html__( 'Room Draft', 'wp-booking-management-system' ),
                         'post_type'   => 'wpbooking_hotel_room',
                         'post_status' => 'draft',
                         'post_parent' => $hotel_id
                     ] );
 
                     if ( is_wp_error( $room_id ) ) {
-                        $res[ 'message' ] = esc_html__( 'Room cannot created, please check again', 'wpbooking' );
+                        $res[ 'message' ] = esc_html__( 'Room cannot created, please check again', 'wp-booking-management-system' );
                         echo json_encode( $res );
                         die;
                     }
@@ -1484,7 +1474,7 @@
             ";
                 $res[ 'html' ]   .= sprintf( '<input type="hidden" name="wb_hotel_room_security" value="%s">', wp_create_nonce( "wpbooking_hotel_room_" . $room_id ) );
 
-                $res[ 'html' ] .= '<div class="wb-back-all-rooms-wrap"><a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> ' . esc_html__( 'Back to All Rooms', 'wpbooking' ) . '</a></div>';
+                $res[ 'html' ] .= '<div class="wb-back-all-rooms-wrap"><a href="#" onclick="return false" class="wb-button wb-back-all-rooms"><i class="fa fa-chevron-circle-left fa-force-show" aria-hidden="true"></i> ' . esc_html__( 'Back to All Rooms', 'wp-booking-management-system' ) . '</a></div>';
                 $fields        = $this->get_room_meta_fields();
                 foreach ( (array)$fields as $field_id => $field ):
 
@@ -1575,7 +1565,7 @@
                             <div class="room-item item-hotel-room-<?php echo (int)get_the_ID(); ?>">
                                 <div class="room-item-wrap">
                                     <div class="room-remain">
-                                        <span class="room-remain-left"><?php printf( esc_html__( '%d room(s)', 'wpbooking' ), get_post_meta( get_the_ID(), 'room_number', true ) ) ?></span>
+                                        <span class="room-remain-left"><?php printf( esc_html__( '%d room(s)', 'wp-booking-management-system' ), get_post_meta( get_the_ID(), 'room_number', true ) ) ?></span>
                                     </div>
                                     <div class="room-image">
                                         <?php
@@ -1587,13 +1577,13 @@
                                     <div class="room-actions">
                                         <a href="#" data-room_id="<?php the_ID() ?>" class="room-edit tooltip_desc"><i
                                                     class="fa fa-pencil-square-o"></i> <span
-                                                    class="tooltip_content"><?php esc_html_e( 'Edit', 'wpbooking' ) ?></span></a>
+                                                    class="tooltip_content"><?php esc_html_e( 'Edit', 'wp-booking-management-system' ) ?></span></a>
                                         <?php $del_security_post = wp_create_nonce( 'del_security_post_' . get_the_ID() ); ?>
                                         <a href="javascript:void(0)" data-room_id="<?php the_ID(); ?>"
                                            data-del-security="<?php echo esc_attr( $del_security_post ); ?>"
-                                           data-confirm="<?php echo esc_html__( 'Do you want delete this room?', 'wpbooking' ); ?>"
+                                           data-confirm="<?php echo esc_html__( 'Do you want delete this room?', 'wp-booking-management-system' ); ?>"
                                            class="room-delete tooltip_desc"><i class="fa fa-trash"></i><span
-                                                    class="tooltip_content"><?php esc_html_e( 'Delete', 'wpbooking' ) ?></span></a>
+                                                    class="tooltip_content"><?php esc_html_e( 'Delete', 'wp-booking-management-system' ) ?></span></a>
                                     </div>
                                 </div>
                             </div>
@@ -1857,13 +1847,13 @@
                 }
 
                 if ( $query->found_posts ) {
-                    $text_count = sprintf( '<span class="n text-color">%d </span><b>%s</b> ', $query->found_posts, esc_html__( 'room type(s)', 'wpbooking' ) );
+                    $text_count = sprintf( '<span class="n text-color">%d </span><b>%s</b> ', $query->found_posts, esc_html__( 'room type(s)', 'wp-booking-management-system' ) );
                     if ( $total_room ) {
-                        $text_count .= sprintf( esc_html__( 'with %s ', 'wpbooking' ), sprintf( '<span class="n text-color">%d </span><b>%s</b>', $total_room, esc_html__( 'room(s)', 'wpbooking' ) ) );
+                        $text_count .= sprintf( esc_html__( 'with %s ', 'wp-booking-management-system' ), sprintf( '<span class="n text-color">%d </span><b>%s</b>', $total_room, esc_html__( 'room(s)', 'wp-booking-management-system' ) ) );
                     }
-                    $html = '<div class="room-count">' . sprintf( esc_html__( 'There are %s in your listing', 'wpbooking' ), $text_count ) . '</div>';
+                    $html = '<div class="room-count">' . sprintf( esc_html__( 'There are %s in your listing', 'wp-booking-management-system' ), $text_count ) . '</div>';
                 } else {
-                    $html = '<div class="room-count">' . esc_html__( 'There is no room in your listing', 'wpbooking' ) . '</div>';
+                    $html = '<div class="room-count">' . esc_html__( 'There is no room in your listing', 'wp-booking-management-system' ) . '</div>';
                 }
 
                 wp_reset_postdata();
@@ -1904,7 +1894,7 @@
                         $result = [
                             'status'         => 0,
                             'data'           => '',
-                            'message'        => esc_html__( 'Our system does not find any rooms from your searching. You can change search feature now.', 'wpbooking' ),
+                            'message'        => esc_html__( 'Our system does not find any rooms from your searching. You can change search feature now.', 'wp-booking-management-system' ),
                             'status_message' => 'default',
                         ];
                         echo json_encode( $result );
@@ -1922,12 +1912,12 @@
                         $minimum_stay        = $service->get_minimum_stay();
                         $dDiff               = wpbooking_timestamp_diff_day( $check_in_timestamp, $check_out_timestamp );
                         if ( $dDiff < $minimum_stay ) {
-                            $result[ 'message' ] = sprintf( esc_html__( 'This %s required minimum stay is %s night(s).', 'wpbooking' ), $service->get_type(), $minimum_stay );
+                            $result[ 'message' ] = sprintf( esc_html__( 'This %s required minimum stay is %s night(s).', 'wp-booking-management-system' ), $service->get_type(), $minimum_stay );
                             $result[ 'status' ]  = 2;
                         }
                         $maximum_stay = $service->get_maximum_stay();
                         if ( $maximum_stay > 0 && $dDiff > $maximum_stay ) {
-                            $result[ 'message' ] = sprintf( esc_html__( 'This %s required maximum stay is %s night(s).', 'wpbooking' ), $service->get_type(), $maximum_stay );
+                            $result[ 'message' ] = sprintf( esc_html__( 'This %s required maximum stay is %s night(s).', 'wp-booking-management-system' ), $service->get_type(), $maximum_stay );
                             $result[ 'status' ]  = 2;
                         }
                     }
@@ -2559,9 +2549,9 @@
                 $diff       = strtotime( $check_out ) - strtotime( $check_in );
                 $diff       = $diff / ( 60 * 60 * 24 );
                 if ( $diff > 1 ) {
-                    $price_html = sprintf( esc_html__( 'from %s /%s nights', 'wpbooking' ), '<br><span class="price">' . $price_html . '</span>', $diff );
+                    $price_html = sprintf( esc_html__( 'from %s /%s nights', 'wp-booking-management-system' ), '<br><span class="price">' . $price_html . '</span>', $diff );
                 } else {
-                    $price_html = sprintf( esc_html__( 'from %s /night', 'wpbooking' ), '<br><span class="price">' . $price_html . '</span>' );
+                    $price_html = sprintf( esc_html__( 'from %s /night', 'wp-booking-management-system' ), '<br><span class="price">' . $price_html . '</span>' );
                 }
 
                 return $price_html;
@@ -2603,14 +2593,10 @@
                     foreach ( $data_rooms as $room_id => $data_room ) {
                         if ( !empty( $data_room[ 'number_room' ] ) ) {
                             $extra_service            = [];
-                            $extra_service[ 'title' ] = esc_html__( 'Extra Service', 'wpbooking' );
+                            $extra_service[ 'title' ] = esc_html__( 'Extra Service', 'wp-booking-management-system' );
                             $my_extra_services        = get_post_meta( $room_id, 'extra_services', true );
 
-                            $type_extra   = get_post_meta( $room_id, 'type_extra', true );
-                            $number_night = 1;
-                            if ( $type_extra == 'by_night' ) {
-                                $number_night = wpbooking_date_diff( $cart_item[ 'check_in_timestamp' ], $cart_item[ 'check_out_timestamp' ] );
-                            }
+                            $number_night = wpbooking_date_diff( $cart_item[ 'check_in_timestamp' ], $cart_item[ 'check_out_timestamp' ] );
 
                             if ( !empty( $data_room[ 'extra_service' ] ) ) {
                                 $post_extras = $data_room[ 'extra_service' ];
@@ -2620,6 +2606,9 @@
                                         $price = 0;
                                         if ( !empty( $my_extra_services[ $key ][ 'money' ] ) ) {
                                             $price = $my_extra_services[ $key ][ 'money' ];
+                                        }
+                                        if ( $value[ 'type' ] != 'per_night' ) {
+                                            $number_night = 1;
                                         }
                                         $extra_service[ 'data' ][ $key ] = [
                                             'title'    => $value[ 'is_check' ],
@@ -2674,7 +2663,7 @@
                                 }
                             }
 
-                            $cart_item['rooms'][$room_id]['discount_by_day'] = $this->get_discount_by_day_range($room_id, wpbooking_date_diff( $cart_item[ 'check_in_timestamp' ], $cart_item[ 'check_out_timestamp' ] ));
+                            $cart_item[ 'rooms' ][ $room_id ][ 'discount_by_day' ] = $this->get_discount_by_day_range( $room_id, wpbooking_date_diff( $cart_item[ 'check_in_timestamp' ], $cart_item[ 'check_out_timestamp' ] ) );
                         }
 
                     }
@@ -2727,13 +2716,13 @@
                                     $is_validated = false;
                                     // If there are some day not available, return the message
                                     if ( !empty( $res[ 'can_not_check_in' ] ) ) {
-                                        wpbooking_set_message( sprintf( "You cannot check-in at: %s", 'wpbooking' ), date( get_option( 'date_format' ), $check_in_timestamp ) );
+                                        wpbooking_set_message( sprintf( "You cannot check-in at: %s", 'wp-booking-management-system' ), date( get_option( 'date_format' ), $check_in_timestamp ) );
                                     }
                                     if ( !empty( $res[ 'can_not_check_out' ] ) ) {
-                                        wpbooking_set_message( sprintf( "You cannot check-out at: %s", 'wpbooking' ), date( get_option( 'date_format' ), $check_out_timestamp ) );
+                                        wpbooking_set_message( sprintf( "You cannot check-out at: %s", 'wp-booking-management-system' ), date( get_option( 'date_format' ), $check_out_timestamp ) );
                                     }
                                     if ( !empty( $res[ 'unavailable_dates' ] ) ) {
-                                        $message         = esc_html__( 'You cannot book "%s" on: %s', 'wpbooking' );
+                                        $message         = esc_html__( 'You cannot book "%s" on: %s', 'wp-booking-management-system' );
                                         $not_avai_string = false;
                                         $not_avai_string .= date( get_option( 'date_format' ), $res[ 'unavailable_dates' ] );
                                         wpbooking_set_message( sprintf( $message, get_the_title( $room_id ), $not_avai_string ), 'error' );
@@ -2848,7 +2837,7 @@
 
                 /*if ( $total_number_room > $adult ) {
                     $is_validated = false;
-                    $message      = esc_html__( 'Number of bookable rooms cannot be more than number of adults.', 'wpbooking' );
+                    $message      = esc_html__( 'Number of bookable rooms cannot be more than number of adults.', 'wp-booking-management-system' );
                     wpbooking_set_message( $message, 'error' );
 
                     return $is_validated;
@@ -2878,14 +2867,14 @@
                         $dDiff        = wpbooking_timestamp_diff_day( $check_in_timestamp, $check_out_timestamp );
                         if ( $dDiff < $minimum_stay ) {
                             $is_validated = false;
-                            wpbooking_set_message( sprintf( esc_html__( 'This %s required minimum stay is %s night(s)', 'wpbooking' ), $service->get_type(), $minimum_stay ), 'error' );
+                            wpbooking_set_message( sprintf( esc_html__( 'This %s required minimum stay is %s night(s)', 'wp-booking-management-system' ), $service->get_type(), $minimum_stay ), 'error' );
 
                             return $is_validated;
                         }
                         $maximum_stay = $service->get_maximum_stay();
                         if ( (int)$maximum_stay > 0 && $dDiff > (int)$maximum_stay ) {
                             $is_validated = false;
-                            wpbooking_set_message( sprintf( esc_html__( 'This %s required maximum stay is %s night(s)', 'wpbooking' ), $service->get_type(), $maximum_stay ), 'error' );
+                            wpbooking_set_message( sprintf( esc_html__( 'This %s required maximum stay is %s night(s)', 'wp-booking-management-system' ), $service->get_type(), $maximum_stay ), 'error' );
 
                             return $is_validated;
                         }
@@ -2901,13 +2890,13 @@
                                 $is_validated = false;
                                 // If there are some day not available, return the message
                                 if ( !empty( $res[ 'can_not_check_in' ] ) ) {
-                                    wpbooking_set_message( sprintf( esc_html__( "You cannot check-in at: %s", 'wpbooking' ), date_i18n( get_option( 'date_format' ), $check_in_timestamp ) ), 'error' );
+                                    wpbooking_set_message( sprintf( esc_html__( "You cannot check-in at: %s", 'wp-booking-management-system' ), date_i18n( get_option( 'date_format' ), $check_in_timestamp ) ), 'error' );
                                 }
                                 if ( !empty( $res[ 'can_not_check_out' ] ) ) {
-                                    wpbooking_set_message( sprintf( esc_html__( "You cannot check-out at: %s", 'wpbooking' ), date_i18n( get_option( 'date_format' ), $check_out_timestamp ) ), 'error' );
+                                    wpbooking_set_message( sprintf( esc_html__( "You cannot check-out at: %s", 'wp-booking-management-system' ), date_i18n( get_option( 'date_format' ), $check_out_timestamp ) ), 'error' );
                                 }
                                 if ( !empty( $res[ 'unavailable_dates' ] ) ) {
-                                    $message         = esc_html__( 'You cannot book "%s" on: %s', 'wpbooking' );
+                                    $message         = esc_html__( 'You cannot book "%s" on: %s', 'wp-booking-management-system' );
                                     $not_avai_string = false;
                                     $not_avai_string .= date_i18n( get_option( 'date_format' ), $res[ 'unavailable_dates' ] );
                                     wpbooking_set_message( sprintf( $message, get_the_title( $room_id ), $not_avai_string ), 'error' );
@@ -3183,9 +3172,9 @@
                         $number += $room[ 'number' ];
                     }
                     if ( $number > 1 ) {
-                        $html = sprintf( esc_html__( "%s rooms", 'wpbooking' ), $number );
+                        $html = sprintf( esc_html__( "%s rooms", 'wp-booking-management-system' ), $number );
                     } else {
-                        $html = sprintf( esc_html__( "%s room", 'wpbooking' ), $number );
+                        $html = sprintf( esc_html__( "%s room", 'wp-booking-management-system' ), $number );
                     }
                     $price = $this->_get_total_price_all_room_in_cart( $cart, false );
                     echo '<span class="total-title">' . esc_html( $html ) . '</span>
@@ -3258,9 +3247,9 @@
                         $number += $room[ 'number' ];
                     }
                     if ( $number > 1 ) {
-                        $html = sprintf( esc_html__( "%s rooms", 'wpbooking' ), $number );
+                        $html = sprintf( esc_html__( "%s rooms", 'wp-booking-management-system' ), $number );
                     } else {
-                        $html = sprintf( esc_html__( "%s room", 'wpbooking' ), $number );
+                        $html = sprintf( esc_html__( "%s room", 'wp-booking-management-system' ), $number );
                     }
                     $price = 0;
                     foreach ( $rooms as $room ) {
@@ -3608,7 +3597,7 @@
                         } else {
                             $booking->set_cart( $all );
                         }
-                        wpbooking_set_message( esc_html__( "Delete item successfully", 'wpbooking' ), 'success' );
+                        wpbooking_set_message( esc_html__( "Delete item successfully", 'wp-booking-management-system' ), 'success' );
                     }
                 }
             }
@@ -3718,7 +3707,7 @@
             {
                 $order     = new WB_Order( $order_id );
                 $room_data = $order->get_order_room_data();
-                echo '<li>' . esc_html__( 'Rooms: ', 'wpbooking' ) . '</li>';
+                echo '<li>' . esc_html__( 'Rooms: ', 'wp-booking-management-system' ) . '</li>';
                 foreach ( $room_data as $key => $value ) {
                     $extra_fees = unserialize( $value[ 'extra_fees' ] );
                     $price      = WPBooking_Currency::format_money( $value[ 'price' ] );

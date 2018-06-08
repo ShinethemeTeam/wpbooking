@@ -23,10 +23,10 @@ if( !empty( $value ) ){
 
     <div class="iti-header">
         <div class="title">
-            <strong><?php echo esc_html__('Title','wpbooking'); ?></strong>
+            <strong><?php echo esc_html__('Title','wp-booking-management-system'); ?></strong>
         </div>
         <div class="desc">
-            <strong><?php echo esc_html__('Desctiprion','wpbooking'); ?></strong>
+            <strong><?php echo esc_html__('Desctiprion','wp-booking-management-system'); ?></strong>
         </div>
     </div>
     <div class="itinerary-content">
@@ -65,7 +65,7 @@ if( !empty( $value ) ){
     </div>
     <p class="iti-description"><?php echo esc_attr($data['desc']); ?></p>
     <div class="iti-footer">
-        <button data-id="<?php echo esc_attr($data['id'])?>" type="button" class="btn button button-primary wb-itinerary-add-new"><?php echo esc_html__('Add new','wpbooking'); ?></button>
+        <button data-id="<?php echo esc_attr($data['id'])?>" type="button" class="btn button button-primary wb-itinerary-add-new"><?php echo esc_html__('Add new','wp-booking-management-system'); ?></button>
     </div>
 </div>
 <div class="item-itinerary-draft hidden">

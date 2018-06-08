@@ -6,7 +6,7 @@ $cart=$booking->get_cart();
 		<div class="wpbooking-cart-widget-items">
 		<?php
 		if(empty($cart)){
-			printf('<p class="alert alert-warning">%s</p>',esc_html__('Your cart is currently empty','wpbooking'));
+			printf('<p class="alert alert-warning">%s</p>',esc_html__('Your cart is currently empty','wp-booking-management-system'));
 		}else{
 			$i=0;
 			foreach($cart as $key=>$value)
@@ -34,7 +34,7 @@ $cart=$booking->get_cart();
 						<?php do_action('wpbooking_review_order_item_information',$value) ?>
 						<?php do_action('wpbooking_review_order_item_information_'.$service_type,$value) ?>
 					</div>
-					<a class="delete-cart-item" onclick="return confirm('<?php esc_html_e('Do you want to delete it?','wpbooking') ?>')" href="<?php echo esc_url(add_query_arg(array('delete_cart_item'=>$key),$booking->get_checkout_url())) ?>">
+					<a class="delete-cart-item" onclick="return confirm('<?php esc_html_e('Do you want to delete it?','wp-booking-management-system') ?>')" href="<?php echo esc_url(add_query_arg(array('delete_cart_item'=>$key),$booking->get_checkout_url())) ?>">
 						<i class="fa fa-times"></i>
 					</a>
 				</div>
@@ -42,19 +42,19 @@ $cart=$booking->get_cart();
 			}
 
 			if(count($cart)>3){
-				printf('<span class="show_more_review_order"><span class="more">%s <i class="fa fa-angle-double-down"></i></span><span class="less">%s <i class="fa fa-angle-double-up"></i></span></span>',esc_html__('More','wpbooking'),esc_html__('Less','wpbooking'));
+				printf('<span class="show_more_review_order"><span class="more">%s <i class="fa fa-angle-double-down"></i></span><span class="less">%s <i class="fa fa-angle-double-up"></i></span></span>',esc_html__('More','wp-booking-management-system'),esc_html__('Less','wp-booking-management-system'));
 			}
 		}
 		?>
 		</div>
 		<?php if(!empty($cart)){ ?>
 			<p class="cart-total">
-				<span><?php esc_html_e('Cart Total:','wpbooking') ?></span>
+				<span><?php esc_html_e('Cart Total:','wp-booking-management-system') ?></span>
 				<span class="total-amount"><?php echo WPBooking_Currency::format_money(WPBooking_Order::inst()->get_cart_total(array('without_deposit'=>true))) ?></span>
 			</p>
 			<p class="cart-actions">
-				<a href="<?php echo esc_url($booking->get_cart_url()) ?>" class="wb-btn wb-btn-default"><?php esc_html_e('Cart','wpbooking')?></a>
-				<a href="<?php echo esc_url($booking->get_checkout_url()) ?>" class="wb-btn wb-btn-blue wb-to-checkout"><?php esc_html_e('Check Out','wpbooking')?></a>
+				<a href="<?php echo esc_url($booking->get_cart_url()) ?>" class="wb-btn wb-btn-default"><?php esc_html_e('Cart','wp-booking-management-system')?></a>
+				<a href="<?php echo esc_url($booking->get_checkout_url()) ?>" class="wb-btn wb-btn-blue wb-to-checkout"><?php esc_html_e('Check Out','wp-booking-management-system')?></a>
 			</p>
 		<?php } ?>
 	</div>

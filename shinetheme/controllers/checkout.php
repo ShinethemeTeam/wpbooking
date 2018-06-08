@@ -104,12 +104,12 @@
 
                 if ( empty( WPBooking_Input::request( 'term_condition' ) ) ) {
                     $is_validate = false;
-                    wpbooking_set_message( esc_html__( "You do not accept our terms!", 'wpbooking' ), 'error' );
+                    wpbooking_set_message( esc_html__( "You do not accept our terms!", 'wp-booking-management-system' ), 'error' );
                 }
 
                 if ( empty( $cart ) ) {
                     $is_validate = false;
-                    wpbooking_set_message( esc_html__( "Sorry! Your cart is currently empty", 'wpbooking' ), 'error' );
+                    wpbooking_set_message( esc_html__( "Sorry! Your cart is currently empty", 'wp-booking-management-system' ), 'error' );
                 }
 
 
@@ -131,7 +131,7 @@
                 $pay_amount = $this->get_cart_total();
                 if ( $is_validate and empty( $pay_amount ) ) {
                     $is_validate = false;
-                    wpbooking_set_message( esc_html__( "Price of basket is 0. You cannot make this payment!", 'wpbooking' ), 'error' );
+                    wpbooking_set_message( esc_html__( "Price of basket is 0. You cannot make this payment!", 'wp-booking-management-system' ), 'error' );
                 }
 
                 // Require Payment Gateways
@@ -142,10 +142,10 @@
                 if ( $is_validate and $pay_amount ) {
                     if ( empty( $selected_gateway ) ) {
                         $is_validate = false;
-                        wpbooking_set_message( esc_html__( "Please select a method of payment.", 'wpbooking' ), 'error' );
+                        wpbooking_set_message( esc_html__( "Please select a method of payment.", 'wp-booking-management-system' ), 'error' );
                     } elseif ( !$gateway and !$gateway->is_available() ) {
                         $is_validate = false;
-                        wpbooking_set_message( sprintf( esc_html__( "Gateway: %s is not ready to use, please choose another gateway", 'wpbooking' ), $selected_gateway ), 'error' );
+                        wpbooking_set_message( sprintf( esc_html__( "Gateway: %s is not ready to use, please choose another gateway", 'wp-booking-management-system' ), $selected_gateway ), 'error' );
                     }
                 }
 
@@ -232,7 +232,7 @@
                                 //Clear the Cart after create new order,
                                 WPBooking_Session::set( 'wpbooking_cart', [] );
 
-                                wpbooking_set_message( esc_html__( 'Booking Successfully', 'wpbooking' ) );
+                                wpbooking_set_message( esc_html__( 'Booking Successfully', 'wp-booking-management-system' ) );
                                 //do checkout
                                 $res[ 'data' ]    = $data;
                                 $res[ 'message' ] = wpbooking_get_message( true );
@@ -266,7 +266,7 @@
                     } else {
                         $res = [
                             'status'  => 0,
-                            'message' => esc_html__( 'The order cannot be created. Please contact Admin', 'wpbooking' )
+                            'message' => esc_html__( 'The order cannot be created. Please contact Admin', 'wp-booking-management-system' )
                         ];
                     }
 
@@ -300,7 +300,7 @@
                 // Validate Post and Post Type
                 if ( !$post_id or get_post_type( $post_id ) != 'wpbooking_service' ) {
                     $is_validate = false;
-                    wpbooking_set_message( esc_html__( "You do not select any service", 'wpbooking' ), 'error' );
+                    wpbooking_set_message( esc_html__( "You do not select any service", 'wp-booking-management-system' ), 'error' );
                 }
 
                 $service = new WB_Service( $post_id );

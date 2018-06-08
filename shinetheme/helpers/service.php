@@ -23,7 +23,7 @@
             $service_type = get_post_meta( $post_id, 'service_type', true );
 
             $price_html = WPBooking_Currency::format_money( $price );
-            $price_html = sprintf( esc_html__( 'from %s/night', 'wpbooking' ), '<br><span class="price" itemprop="price">' . $price_html . '</span>' );
+            $price_html = sprintf( esc_html__( 'from %s/night', 'wp-booking-management-system' ), '<br><span class="price" itemprop="price">' . $price_html . '</span>' );
 
             $price_html = apply_filters( 'wpbooking_service_base_price_html', $price_html, $price, $post_id, $service_type );
             $price_html = apply_filters( 'wpbooking_service_base_price_html_' . $service_type, $price_html, $price, $post_id, $service_type );
@@ -46,7 +46,7 @@
                 if ( $hotel_star >= $i ) $active = 'active';
                 echo sprintf( '<span class="%s"><i class="fa fa-star-o wpbooking-icon-star"></i></span>', $active );
             }
-            $star_rating = '<span>' . $hotel_star . ' ' . _n( 'star', 'stars', (int)$hotel_star, 'wpbooking' ) . '</span>';
+            $star_rating = '<span>' . $hotel_star . ' ' . _n( 'star', 'stars', (int)$hotel_star, 'wp-booking-management-system' ) . '</span>';
 
             return $star_rating;
         }
@@ -74,7 +74,7 @@
                         break;
                 }
             } else {
-                return sprintf( '<label class="label label-default">%s</label>', esc_html__( 'Unknown', 'wpbooking' ) );
+                return sprintf( '<label class="label label-default">%s</label>', esc_html__( 'Unknown', 'wp-booking-management-system' ) );
             }
         }
     }
@@ -125,7 +125,7 @@
                         break;
                 }
             } else {
-                return sprintf( '<label class="label label-default">%s</label>', esc_html__( 'Unknown', 'wpbooking' ) );
+                return sprintf( '<label class="label label-default">%s</label>', esc_html__( 'Unknown', 'wp-booking-management-system' ) );
             }
         }
     }
@@ -139,7 +139,7 @@
                 if ( $gateway ) {
                     return $gateway->get_info( 'label' );
                 } else {
-                    return esc_html__( 'Unknown Gateway', 'wpbooking' );
+                    return esc_html__( 'Unknown Gateway', 'wp-booking-management-system' );
                 }
 
             }
@@ -155,15 +155,15 @@
             if ( !empty( $input[ 'location_id' ] ) and $location_id = $input[ 'location_id' ] ) {
                 $location = get_term( $location_id, 'wpbooking_location' );
                 if ( !is_wp_error( $location ) and $location )
-                    $q[] = sprintf( esc_html__( 'in %s', 'wpbooking' ), '<span>' . $location->name . '</span>' );
+                    $q[] = sprintf( esc_html__( 'in %s', 'wp-booking-management-system' ), '<span>' . $location->name . '</span>' );
             }
             if ( !empty( $input[ 'checkin_d' ] ) and $checkin_d = $input[ 'checkin_d' ] and !empty( $input[ 'checkin_m' ] ) and $checkin_m = $input[ 'checkin_m' ] and !empty( $input[ 'checkin_y' ] ) and $checkin_y = $input[ 'checkin_y' ] ) {
                 $from_date = date( get_option( 'date_format' ), strtotime( $checkin_d . '-' . $checkin_m . '-' . $checkin_y ) );
-                $q[]       = sprintf( esc_html__( 'from %s', 'wpbooking' ), '<span>' . $from_date . '</span>' );
+                $q[]       = sprintf( esc_html__( 'from %s', 'wp-booking-management-system' ), '<span>' . $from_date . '</span>' );
 
                 if ( !empty( $input[ 'checkout_d' ] ) and $checkout_d = $input[ 'checkout_d' ] and !empty( $input[ 'checkout_m' ] ) and $checkout_m = $input[ 'checkout_m' ] and !empty( $input[ 'checkout_y' ] ) and $checkout_y = $input[ 'checkout_y' ] ) {
                     $to_date = date( get_option( 'date_format' ), strtotime( $checkout_d . '-' . $checkout_m . '-' . $checkout_y ) );
-                    $q[]     = sprintf( esc_html__( 'to %s', 'wpbooking' ), '<span>' . $to_date . '</span>' );
+                    $q[]     = sprintf( esc_html__( 'to %s', 'wp-booking-management-system' ), '<span>' . $to_date . '</span>' );
                 }
             }
 

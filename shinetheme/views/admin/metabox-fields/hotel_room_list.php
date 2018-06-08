@@ -41,7 +41,7 @@
                     <?php if ( $duplicated || ( $hotel_id == $hotel_translated ) ) { ?>
                         <div class="room-create top">
                             <a href="#" data-hotel-id="<?php echo esc_attr( $post_id ) ?> "
-                               class="create-room"><?php esc_html_e( 'Create New Room', 'wpbooking' ) ?></a>
+                               class="create-room"><?php esc_html_e( 'Create New Room', 'wp-booking-management-system' ) ?></a>
                         </div>
                     <?php } ?>
                 </div>
@@ -70,7 +70,7 @@
                                         <?php $number = get_post_meta( get_the_ID(), 'room_number', true );
                                             if ( empty( $number ) ) $number = 0;
                                         ?>
-                                        <span class="room-remain-left"><?php printf( esc_html__( '%d room(s)', 'wpbooking' ), $number ) ?></span>
+                                        <span class="room-remain-left"><?php printf( esc_html__( '%d room(s)', 'wp-booking-management-system' ), $number ) ?></span>
                                     </div>
                                     <div class="room-image">
                                         <?php echo do_shortcode( $thumbnail ) ?>
@@ -79,13 +79,13 @@
                                     <div class="room-actions">
                                         <a href="#" data-room_id="<?php the_ID() ?>" class="room-edit tooltip_desc"><i
                                                     class="fa fa-pencil-square-o"></i> <span
-                                                    class="tooltip_content"><?php esc_html_e( 'Edit', 'wpbooking' ) ?></span></a>
+                                                    class="tooltip_content"><?php esc_html_e( 'Edit', 'wp-booking-management-system' ) ?></span></a>
                                         <?php $del_security_post = wp_create_nonce( 'del_security_post_' . get_the_ID() ); ?>
                                         <a href="javascript:void(0)" data-room_id="<?php the_ID(); ?>"
                                            data-del-security="<?php echo esc_attr( $del_security_post ); ?>"
-                                           data-confirm="<?php echo esc_html__( 'Do you want delete this room?', 'wpbooking' ); ?>"
+                                           data-confirm="<?php echo esc_html__( 'Do you want delete this room?', 'wp-booking-management-system' ); ?>"
                                            class="room-delete tooltip_desc"><i class="fa fa-trash"></i><span
-                                                    class="tooltip_content"><?php esc_html_e( 'Delete', 'wpbooking' ) ?></span></a>
+                                                    class="tooltip_content"><?php esc_html_e( 'Delete', 'wp-booking-management-system' ) ?></span></a>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                 <div class="wp-room-actions">
                     <div class="room-create">
                         <a href="#" data-hotel-id="<?php echo esc_attr( $post_id ) ?> "
-                           class="create-room"><?php esc_html_e( 'Create New Room', 'wpbooking' ) ?></a>
+                           class="create-room"><?php esc_html_e( 'Create New Room', 'wp-booking-management-system' ) ?></a>
                     </div>
                     <?php echo do_shortcode( WPBooking_Accommodation_Service_Type::inst()->_get_room_count_text( $post_id ) ); ?>
                 </div>
@@ -104,17 +104,17 @@
                     <div class="room-item">
                         <div class="room-item-wrap">
                             <div class="room-remain">
-                                <span class="room-remain-left"><?php printf( esc_html__( '%d room(s)', 'wpbooking' ), get_post_meta( get_the_ID(), 'number', true ) ) ?></span>
+                                <span class="room-remain-left"><?php printf( esc_html__( '%d room(s)', 'wp-booking-management-system' ), get_post_meta( get_the_ID(), 'number', true ) ) ?></span>
                             </div>
                             <div class="room-image">
                             </div>
                             <h3 class="room-type"></h3>
                             <div class="room-actions">
                                 <a href="#" data-room_id="<?php the_ID() ?>" class="room-edit"
-                                   data-edit-text="<?php echo esc_html__( 'Edit room', 'wpbooking' ) ?>"><i
+                                   data-edit-text="<?php echo esc_html__( 'Edit room', 'wp-booking-management-system' ) ?>"><i
                                             class="fa fa-pencil-square-o"></i></a>
                                 <a href="javascript:void(0)" class="room-delete"
-                                   data-confirm="<?php echo esc_html__( 'Do you want delete this room?', 'wpbooking' ); ?>"><i
+                                   data-confirm="<?php echo esc_html__( 'Do you want delete this room?', 'wp-booking-management-system' ); ?>"><i
                                             class="fa fa-trash"></i></a>
                             </div>
                         </div>
@@ -124,12 +124,12 @@
                     <?php if ( !$duplicated && ( $hotel_id == $hotel_translated ) ) { ?>
                         <span class="duplicate-post-wrapper">
                             <a href="#" data-post-id="<?php echo esc_attr( $hotel_id ) ?>"
-                               class="room-synchronization"><?php esc_html_e( 'Room synchronization', 'wpbooking' ) ?></a>
+                               class="room-synchronization"><?php esc_html_e( 'Room synchronization', 'wp-booking-management-system' ) ?></a>
                     </span>
                     <?php } else { ?>
-                        <span><?php echo esc_html__( 'There isn\'t room you listing', 'wpbooking' ); ?>
+                        <span><?php echo esc_html__( 'There isn\'t room you listing', 'wp-booking-management-system' ); ?>
                             <a href="#" data-hotel-id="<?php echo esc_attr( $hotel_id ) ?>"
-                               class="create-room ml10"><?php esc_html_e( 'Create New Room', 'wpbooking' ) ?></a>
+                               class="create-room ml10"><?php esc_html_e( 'Create New Room', 'wp-booking-management-system' ) ?></a>
                     </span>
                     <?php } ?>
                 </div>

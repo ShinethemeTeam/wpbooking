@@ -20,7 +20,7 @@
                 <div class="wpbooking-row">
                     <div class="wpbooking-col-sm-12">
                         <?php wp_dropdown_categories( [
-                            'show_option_all' => esc_html__( 'Please Select', 'wpbooking' ),
+                            'show_option_all' => esc_html__( 'Please Select', 'wp-booking-management-system' ),
                             'taxonomy'        => 'wpbooking_location',
                             'class'           => 'widefat form-control',
                             'name'            => 'location_id',
@@ -30,28 +30,28 @@
                             'hide_empty'      => false,
                             'hierarchical'    => 1
                         ] ) ?>
-                        <p class="help-block"><?php esc_html_e( 'Place, location, spot, site, locality', 'wpbooking' ) ?></p>
+                        <p class="help-block"><?php esc_html_e( 'Place, location, spot, site, locality', 'wp-booking-management-system' ) ?></p>
                     </div>
                     <div class="wpbooking-col-sm-12">
                         <input type="text" name="zip_code"
-                               placeholder="<?php esc_html_e( 'Zip/Postcode', 'wpbooking' ) ?>"
+                               placeholder="<?php esc_html_e( 'Zip/Postcode', 'wp-booking-management-system' ) ?>"
                                value="<?php echo esc_attr( get_post_meta( $post_id, 'zip_code', true ) ) ?>"
                                class="widefat form-control">
-                        <p class="help-block"><?php esc_html_e( 'Zip/ postcode', 'wpbooking' ) ?></p>
+                        <p class="help-block"><?php esc_html_e( 'Zip/ postcode', 'wp-booking-management-system' ) ?></p>
                     </div>
                     <div class="wpbooking-col-sm-12">
-                        <input type="text" name="address" placeholder="<?php esc_html_e( 'Address', 'wpbooking' ) ?>"
+                        <input type="text" name="address" placeholder="<?php esc_html_e( 'Address', 'wp-booking-management-system' ) ?>"
                                value="<?php echo esc_attr( get_post_meta( $post_id, 'address', true ) ) ?>"
                                class="widefat form-control">
-                        <p class="help-block"><?php esc_html_e( 'The address of neighborhood, organization and clusters', 'wpbooking' ) ?></p>
+                        <p class="help-block"><?php esc_html_e( 'The address of neighborhood, organization and clusters', 'wp-booking-management-system' ) ?></p>
                     </div>
                     <?php if ( empty( $data[ 'exclude' ] ) or !in_array( 'apt_unit', $data[ 'exclude' ] ) ) { ?>
                         <div class="wpbooking-col-sm-12">
                             <input type="text" name="apt_unit"
-                                   placeholder="<?php esc_html_e( 'Apt/Unit #', 'wpbooking' ) ?>"
+                                   placeholder="<?php esc_html_e( 'Apt/Unit #', 'wp-booking-management-system' ) ?>"
                                    value="<?php echo esc_attr( get_post_meta( $post_id, 'apt_unit', true ) ) ?>"
                                    class="widefat form-control">
-                            <p class="help-block"><?php esc_html_e( 'The number of house, floor, building', 'wpbooking' ) ?></p>
+                            <p class="help-block"><?php esc_html_e( 'The number of house, floor, building', 'wp-booking-management-system' ) ?></p>
                         </div>
                     <?php } ?>
                 </div>

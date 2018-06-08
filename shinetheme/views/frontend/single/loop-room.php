@@ -151,11 +151,7 @@
                 <?php } ?>
         </div>
         <?php
-        $type_extra   = get_post_meta( $room_origin, 'type_extra', true );
-        $number_night = 1;
-        if ( $type_extra == 'by_night' ) {
-            $number_night = $diff;
-        }
+        $number_night = $diff;
         ?>
         <div class="more-extra" data-diff="<?php echo esc_attr( $number_night ); ?>">
             <?php if ( !empty( $list_extra ) ) {
@@ -166,15 +162,18 @@
                         <td width="10%">
 
                         </td>
-                        <td width="48%">
-                            <?php esc_html_e( "Service name", 'wpbooking' ) ?>
+                        <td width="40%">
+                            <?php esc_html_e( "Service name", 'wp-booking-management-system' ) ?>
+                        </td>
+                        <td width="20%" class="text-center">
+                            <?php esc_html_e( "Type", 'wp-booking-management-system' ) ?>
                         </td>
                         <td class="text-center">
-                            <?php esc_html_e( "Quantity", 'wpbooking' ) ?>
+                            <?php esc_html_e( "Quantity", 'wp-booking-management-system' ) ?>
                         </td>
                         <td class="text-center">
                             <?php
-                                echo sprintf( esc_html__( "Price (%s)", 'wpbooking' ), WPBooking_Currency::get_current_currency( 'currency' ) )
+                                echo sprintf( esc_html__( "Price (%s)", 'wp-booking-management-system' ), WPBooking_Currency::get_current_currency( 'currency' ) )
                             ?>
                         </td>
                     </tr>
@@ -192,9 +191,17 @@
                                 <span class="desc"><?php echo ( !empty( $v[ 'desc' ] ) ) ? esc_html( $v[ 'desc' ] ) : '' ?></span>
                             </td>
                             <td>
+                                <?php if(isset($v['type']) && $v['type'] == 'per_night'){
+                                    echo esc_html__('per Night', 'wp-booking-management-system');
+                                }else{
+                                    echo esc_html__('Fixed', 'wp-booking-management-system');
+                                } ?>
+                            </td>
+                            <td>
                                 <select class="form-control option_extra_quantity"
                                         name="wpbooking_room[<?php the_ID() ?>][extra_service][<?php echo esc_attr( $k ) ?>][quantity]"
-                                        data-price-extra="<?php echo esc_attr( $v[ 'money' ] ) ?>">
+                                        data-price-extra="<?php echo esc_attr( $v[ 'money' ] ) ?>"
+                                        data-type-extra="<?php echo (isset($v['type']))? esc_attr($v['type']): ''; ?>">
                                     <?php
                                         $start = 0;
                                         if ( $v[ 'require' ] == 'yes' ) $start = 1;
@@ -203,6 +210,7 @@
                                         }
                                     ?>
                                 </select>
+                                <input type="hidden" name="wpbooking_room[<?php the_ID() ?>][extra_service][<?php echo esc_attr( $k ) ?>][type]" value="<?php echo (isset($v['type']))? esc_attr($v['type']): ''; ?>">
                             </td>
                             <td class="text-center text-color">
                                 <?php echo WPBooking_Currency::format_money( $v[ 'money' ] ); ?>
@@ -290,13 +298,13 @@
                         </span>
                 </div>
                 <div class="item"><b><?php esc_html_e( "Bath rooms", "wpbooking" ) ?>
-                        : </b><?php echo esc_attr( get_post_meta( get_the_ID(), 'bath_rooms', true ) ) ?> <?php esc_html_e( 'room(s)', 'wpbooking' ) ?>
+                        : </b><?php echo esc_attr( get_post_meta( get_the_ID(), 'bath_rooms', true ) ) ?> <?php esc_html_e( 'room(s)', 'wp-booking-management-system' ) ?>
                 </div>
                 <div class="item"><b><?php esc_html_e( "Living rooms", "wpbooking" ) ?>
-                        : </b><?php echo esc_attr( get_post_meta( get_the_ID(), 'living_rooms', true ) ) ?> <?php esc_html_e( 'room(s)', 'wpbooking' ) ?>
+                        : </b><?php echo esc_attr( get_post_meta( get_the_ID(), 'living_rooms', true ) ) ?> <?php esc_html_e( 'room(s)', 'wp-booking-management-system' ) ?>
                 </div>
                 <div class="item"><b><?php esc_html_e( "Bed rooms", "wpbooking" ) ?>
-                        : </b><?php echo esc_attr( get_post_meta( get_the_ID(), 'bed_rooms', true ) ) ?> <?php esc_html_e( 'room(s)', 'wpbooking' ) ?>
+                        : </b><?php echo esc_attr( get_post_meta( get_the_ID(), 'bed_rooms', true ) ) ?> <?php esc_html_e( 'room(s)', 'wp-booking-management-system' ) ?>
                 </div>
             </div>
             <div class="facilities">

@@ -23,12 +23,12 @@ if(!empty($data_value)){
     </th>
     <td>
 
-        <input type="text" class="form-control  width-70 wpbooking_image_thumb_width" value="<?php echo esc_html($width) ?>" placeholder="<?php esc_html_e("Width",'wpbooking') ?>">
+        <input type="text" class="form-control  width-70 wpbooking_image_thumb_width" value="<?php echo esc_html($width) ?>" placeholder="<?php esc_html_e("Width",'wp-booking-management-system') ?>">
         X
-        <input type="text" class="form-control  width-70 wpbooking_image_thumb_height" value="<?php echo esc_html($height) ?>" placeholder="<?php esc_html_e("Height",'wpbooking') ?>">
+        <input type="text" class="form-control  width-70 wpbooking_image_thumb_height" value="<?php echo esc_html($height) ?>" placeholder="<?php esc_html_e("Height",'wp-booking-management-system') ?>">
 		<!--<label >
         <input type="checkbox" class="form-control  width-70 wpbooking_image_thumb_crop" <?php if($crop == "on") echo "checked" ?>  >
-        <?php //esc_html_e("Crop the image ?",'wpbooking') ?>
+        <?php //esc_html_e("Crop the image ?",'wp-booking-management-system') ?>
 		</label>-->
         <input type="hidden" class="data_value" value="<?php echo esc_html($data_value) ?>" name="<?php echo esc_attr($name) ?>">
         <i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>

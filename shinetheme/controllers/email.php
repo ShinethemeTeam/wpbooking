@@ -39,10 +39,10 @@ if (!class_exists('WPBooking_Email')) {
         function get_email_shortcodes()
         {
             $all_shortcodes = array(
-                'checkout_info'         => esc_html__('Your Username', 'wpbooking'),// Default Value for Preview
-                'order_table'           => esc_html__('email@domain.com', 'wpbooking'),
+                'checkout_info'         => esc_html__('Your Username', 'wp-booking-management-system'),// Default Value for Preview
+                'order_table'           => esc_html__('email@domain.com', 'wp-booking-management-system'),
                 'order_id'              => '#111',
-                'order_status'          => '<span class="bold">' . esc_html__('STATUS', 'wpbooking') . '</label>',
+                'order_status'          => '<span class="bold">' . esc_html__('STATUS', 'wp-booking-management-system') . '</label>',
                 'order_total'           => '100$',
                 'order_payment_gateway' => 'PayPal',
                 'name_customer' => 'Jonathan & Leo',
@@ -105,7 +105,7 @@ if (!class_exists('WPBooking_Email')) {
             $to = wpbooking_get_option('system_email');
             WPBooking()->set('is_email_to_admin', 1);
             WPBooking()->set('order_id', $order_id);
-            $subject = sprintf(esc_html__("New Order from %s", 'wpbooking'), get_bloginfo('title'));
+            $subject = sprintf(esc_html__("New Order from %s", 'wp-booking-management-system'), get_bloginfo('title'));
             $message = wpbooking_get_option('email_to_admin');
             $message = $this->replaceShortcode($message);
             $message = do_shortcode($message);
@@ -184,7 +184,7 @@ if (!class_exists('WPBooking_Email')) {
 
                     $authors_email[] = $to;
 
-                    $subject = sprintf(esc_html__("New Order from %s", 'wpbooking'), get_bloginfo('title'));
+                    $subject = sprintf(esc_html__("New Order from %s", 'wp-booking-management-system'), get_bloginfo('title'));
                     WPBooking()->set('items', $value);
                     WPBooking()->set('is_email_to_author', 1);
 
@@ -221,7 +221,7 @@ if (!class_exists('WPBooking_Email')) {
             $to = $order->get_customer_email();
 
             if ($to) {
-                $subject = sprintf(esc_html__("New Order from %s", 'wpbooking'), get_bloginfo('title'));
+                $subject = sprintf(esc_html__("New Order from %s", 'wp-booking-management-system'), get_bloginfo('title'));
 
                 WPBooking()->set('is_email_to_customer', 1);
 
@@ -277,11 +277,11 @@ if (!class_exists('WPBooking_Email')) {
 
             if (!$message) return array(
                 'status'  => 0,
-                'message' => esc_html__("Email content is empty", 'wpbooking')
+                'message' => esc_html__("Email content is empty", 'wp-booking-management-system')
             );
             if (!$to) return array(
                 'status'  => 0,
-                'message' => esc_html__("Email To Address is empty", 'wpbooking')
+                'message' => esc_html__("Email To Address is empty", 'wp-booking-management-system')
             );
             $from = wpbooking_get_option('email_from');
             $from_address = wpbooking_get_option('email_from_address');

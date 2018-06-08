@@ -189,7 +189,7 @@
             {
                 $created    = time();
                 $order_data = [
-                    'post_title'  => sprintf( esc_html__( 'New Order In %s', 'wpbooking' ), date( get_option( 'date_format' ) . ' @' . get_option( 'time_format' ) ) ),
+                    'post_title'  => sprintf( esc_html__( 'New Order In %s', 'wp-booking-management-system' ), date( get_option( 'date_format' ) . ' @' . get_option( 'time_format' ) ) ),
                     'post_type'   => 'wpbooking_order',
                     'post_status' => 'on_hold'
                 ];
@@ -418,7 +418,7 @@
                                 break;
                         }
                     } else {
-                        return sprintf( '<label class="bold text_up">%s</label>', esc_html__( 'Unknown', 'wpbooking' ) );
+                        return sprintf( '<label class="bold text_up">%s</label>', esc_html__( 'Unknown', 'wp-booking-management-system' ) );
                     }
                 }
             }
@@ -454,7 +454,7 @@
                                 break;
                         }
                     } else {
-                        return sprintf( '<label class="on_hold">%s</label>', esc_html__( 'Unknown', 'wpbooking' ) );
+                        return sprintf( '<label class="on_hold">%s</label>', esc_html__( 'Unknown', 'wp-booking-management-system' ) );
                     }
                 }
             }
@@ -483,7 +483,7 @@
                     }
 
                     if ( !empty( $start ) and !empty( $end ) ) {
-                        $full_time = date_i18n( $format, $check_in ) . '&nbsp; &rarr; &nbsp;' . date_i18n( $format, $check_out ) . ' <br>(' . sprintf( _n( '%s night', '%s nights', $start->diff( $end )->days, 'wpbooking' ), $start->diff( $end )->days ) . ')';
+                        $full_time = date_i18n( $format, $check_in ) . '&nbsp; &rarr; &nbsp;' . date_i18n( $format, $check_out ) . ' <br>(' . sprintf( _n( '%s night', '%s nights', $start->diff( $end )->days, 'wp-booking-management-system' ), $start->diff( $end )->days ) . ')';
                     }
 
                     if ( !empty( $start ) and empty( $end ) ) {
@@ -522,7 +522,7 @@
                             return $gateway;
                         }
                     } else {
-                        return esc_html__( 'Unknown', 'wpbooking' );
+                        return esc_html__( 'Unknown', 'wp-booking-management-system' );
                     }
 
                 }

@@ -20,9 +20,9 @@
                 <span class="total-title">
 					<?php
                         if ( $tax[ 'vat' ][ 'excluded' ] == 'yes_included' ) {
-                            echo sprintf( esc_html__( "%s V.A.T (included)", 'wpbooking' ), $vat_amount );
+                            echo sprintf( esc_html__( "%s V.A.T (included)", 'wp-booking-management-system' ), $vat_amount );
                         } else {
-                            echo sprintf( esc_html__( "%s V.A.T", 'wpbooking' ), $vat_amount );
+                            echo sprintf( esc_html__( "%s V.A.T", 'wp-booking-management-system' ), $vat_amount );
                         }
                     ?>
 				</span>
@@ -32,7 +32,7 @@
         <?php if ( !empty( $tax[ 'citytax' ][ 'excluded' ] ) and $tax[ 'citytax' ][ 'excluded' ] != '' and $tax[ 'citytax' ][ 'price' ] ) {
             ?>
             <span class="total-title">
-					<?php esc_html_e( "City Tax", 'wpbooking' ); ?>
+					<?php esc_html_e( "City Tax", 'wp-booking-management-system' ); ?>
 				</span>
             <span
                 class="total-amount"><?php echo WPBooking_Currency::format_money( $tax[ 'citytax' ][ 'price' ] ); ?></span>
@@ -41,7 +41,7 @@
     <?php do_action( "wpbooking_after_check_out_total_price" ) ?>
     <?php if ( !empty( $tax[ 'total_price' ] ) ) echo '<span class="total-line"></span>' ?>
     <div class="review-cart-item total">
-        <span class="total-title text-up text-bold"><?php esc_html_e( 'Total Amount', 'wpbooking' ) ?></span>
+        <span class="total-title text-up text-bold"><?php esc_html_e( 'Total Amount', 'wp-booking-management-system' ) ?></span>
         <span
             class="total-amount text-up text-bold"><?php echo WPBooking_Currency::format_money( $booking->get_total_price_cart_with_tax() ); ?></span>
         <?php
@@ -51,12 +51,12 @@
 
                 $property = $booking->get_total_price_cart_with_tax() - $price_deposit;
                 ?>
-                <span class="total-title text-color"> <?php esc_html_e( 'Deposit/Pay Now', 'wpbooking' ) ?></span>
+                <span class="total-title text-color"> <?php esc_html_e( 'Deposit/Pay Now', 'wp-booking-management-system' ) ?></span>
                 <span
                     class="total-amount text-color"><?php echo WPBooking_Currency::format_money( $price_deposit ); ?></span>
 
                 <span
-                    class="total-title text-bold"><?php esc_html_e( 'You\'ll pay at the property', 'wpbooking' ) ?></span>
+                    class="total-title text-bold"><?php esc_html_e( 'You\'ll pay at the property', 'wp-booking-management-system' ) ?></span>
                 <span class="total-amount text-bold"><?php echo WPBooking_Currency::format_money( $property ); ?></span>
             <?php } ?>
     </div>

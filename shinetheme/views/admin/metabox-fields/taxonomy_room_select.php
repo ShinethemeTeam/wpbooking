@@ -94,7 +94,7 @@ $my_term =wp_get_post_terms($post_id,$data['taxonomy']);
                                                     }
                                                 }else{
                                                     ?>
-                                                    <p><?php esc_html_e("No Data",'wpbooking'); ?></p>
+                                                    <p><?php esc_html_e("No Data",'wp-booking-management-system'); ?></p>
                                                     <?php
                                                 }
                                                 ?>

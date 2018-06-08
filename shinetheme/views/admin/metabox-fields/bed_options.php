@@ -3,8 +3,8 @@
  * @since 1.0.0
  **/
 $data = wp_parse_args($data, array(
-    'add_new_label' => esc_html__('Add New', 'wpbooking'),
-    'select_label'  => esc_html__('Please Select', 'wpbooking')
+    'add_new_label' => esc_html__('Add New', 'wp-booking-management-system'),
+    'select_label'  => esc_html__('Please Select', 'wp-booking-management-system')
 ));
 $old_data = (isset($data['custom_data'])) ? esc_html($data['custom_data']) : get_post_meta($post_id, esc_html($data['id']), true);
 $class = ' wpbooking-form-group ';
@@ -130,7 +130,7 @@ $field = '';
         <div class="clear"></div>
 
         <div class="st-metabox-left">
-            <label><?php esc_html_e('Enter the number of guests who can sleep here', 'wpbooking') ?></label>
+            <label><?php esc_html_e('Enter the number of guests who can sleep here', 'wp-booking-management-system') ?></label>
         </div>
         <div class="st-metabox-right">
             <div class="st-metabox-content-wrapper">
@@ -145,14 +145,14 @@ $field = '';
         </div>
         <div class="clear"></div>
         <div class="st-metabox-left">
-            <label><?php esc_html_e('Private bath room', 'wpbooking') ?></label>
+            <label><?php esc_html_e('Private bath room', 'wp-booking-management-system') ?></label>
         </div>
         <div class="st-metabox-right">
             <div class="st-metabox-content-wrapper">
                 <div class="form-group">
                     <label>
                         <input type="checkbox" name="<?php echo esc_attr($name) ?>_single_private_bathroom"
-                               value="1" <?php checked(get_post_meta($post_id, $name . '_single_private_bathroom', true),1) ?> > <?php esc_html_e('Yes', 'wpbooking') ?>
+                               value="1" <?php checked(get_post_meta($post_id, $name . '_single_private_bathroom', true),1) ?> > <?php esc_html_e('Yes', 'wp-booking-management-system') ?>
                     </label>
                 </div>
             </div>
@@ -164,7 +164,7 @@ $field = '';
     ?>
     <div class="multi-bed-option">
         <div class="multi-item-default">
-            <label class="multi-item-title"><?php esc_html_e('Bed room #__number_room__', 'wpbooking') ?></label>
+            <label class="multi-item-title"><?php esc_html_e('Bed room #__number_room__', 'wp-booking-management-system') ?></label>
             <div class="clear"></div>
             <div class="st-metabox-left">
                 <label for="<?php echo esc_html($data['id']); ?>"><?php echo esc_html($data['label']); ?></label>
@@ -264,7 +264,7 @@ $field = '';
             <div class="clear"></div>
 
             <div class="st-metabox-left">
-                <label><?php esc_html_e('Enter the number of guests who can sleep here', 'wpbooking') ?></label>
+                <label><?php esc_html_e('Enter the number of guests who can sleep here', 'wp-booking-management-system') ?></label>
             </div>
             <div class="st-metabox-right">
                 <div class="st-metabox-content-wrapper">
@@ -280,14 +280,14 @@ $field = '';
             </div>
             <div class="clear"></div>
             <div class="st-metabox-left">
-                <label><?php esc_html_e('Private bath room', 'wpbooking') ?></label>
+                <label><?php esc_html_e('Private bath room', 'wp-booking-management-system') ?></label>
             </div>
             <div class="st-metabox-right">
                 <div class="st-metabox-content-wrapper">
                     <div class="form-group">
                         <label>
                             <input type="checkbox" name="<?php echo esc_attr($name) ?>_multi_[__number_room__][private_bath]"
-                                   value="1" <?php checked($multi_meta['private_bath'],1) ?> > <?php esc_html_e('Yes', 'wpbooking') ?>
+                                   value="1" <?php checked($multi_meta['private_bath'],1) ?> > <?php esc_html_e('Yes', 'wp-booking-management-system') ?>
                         </label>
                     </div>
                 </div>
@@ -305,7 +305,7 @@ $field = '';
 
                 ?>
                 <div class="multi-item-row <?php echo esc_html("number_".$i) ?>" data-number="<?php echo esc_html($i) ?>">
-                    <label class="multi-item-title"><?php printf(esc_html__('Bed room #%d', 'wpbooking'), $i) ?></label>
+                    <label class="multi-item-title"><?php printf(esc_html__('Bed room #%d', 'wp-booking-management-system'), $i) ?></label>
                     <div class="st-metabox-left">
                         <label for="<?php echo esc_html($data['id']); ?>"><?php echo esc_html($data['label']); ?></label>
                     </div>
@@ -418,7 +418,7 @@ $field = '';
                     <div class="clear"></div>
 
                     <div class="st-metabox-left">
-                        <label><?php esc_html_e('Enter the number of guests who can sleep here', 'wpbooking') ?></label>
+                        <label><?php esc_html_e('Enter the number of guests who can sleep here', 'wp-booking-management-system') ?></label>
                     </div>
                     <div class="st-metabox-right">
                         <div class="st-metabox-content-wrapper">
@@ -434,14 +434,14 @@ $field = '';
                     </div>
                     <div class="clear"></div>
                     <div class="st-metabox-left">
-                        <label><?php esc_html_e('Private bath room', 'wpbooking') ?></label>
+                        <label><?php esc_html_e('Private bath room', 'wp-booking-management-system') ?></label>
                     </div>
                     <div class="st-metabox-right">
                         <div class="st-metabox-content-wrapper">
                             <div class="form-group">
                                 <label>
                                     <input type="checkbox" name="<?php echo esc_attr($name) ?>_multi_[<?php echo esc_html($i) ?>][private_bath]"
-                                           value="1" <?php checked($data_multi_meta['private_bath'],1) ?> > <?php esc_html_e('Yes', 'wpbooking') ?>
+                                           value="1" <?php checked($data_multi_meta['private_bath'],1) ?> > <?php esc_html_e('Yes', 'wp-booking-management-system') ?>
                                 </label>
                             </div>
                         </div>

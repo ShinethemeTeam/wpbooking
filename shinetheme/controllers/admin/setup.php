@@ -36,8 +36,8 @@ if(!class_exists('WPBooking_Admin_Setup'))
             $menu_page=WPBooking()->get_menu_page();
             $page=array(
                 'parent_slug'=>$menu_page['menu_slug'],
-                'page_title'=>esc_html__('Setup','wpbooking'),
-                'menu_title'=>esc_html__('Setup','wpbooking'),
+                'page_title'=>esc_html__('Setup','wp-booking-management-system'),
+                'menu_title'=>esc_html__('Setup','wp-booking-management-system'),
                 'capability'=>'manage_options',
                 'menu_slug'=>'wpbooking_setup_page_settings',
                 'function'=> array($this,'callback_wpbooking_sub_menu')
@@ -216,12 +216,12 @@ if(!class_exists('WPBooking_Admin_Setup'))
                             foreach($all as $key=>$value){
                                 update_option("wpbooking_gateway_".$key."_enable",WPBooking_Input::request('wpbooking_gateway_'.$key.'_enable',0));
                                 if($key == 'submit_form'){
-                                    update_option("wpbooking_gateway_".$key."_title",esc_html__('Submit Form','wpbooking'));
-                                    update_option("wpbooking_gateway_".$key."_desc",esc_html__('Submit Form','wpbooking'));
+                                    update_option("wpbooking_gateway_".$key."_title",esc_html__('Submit Form','wp-booking-management-system'));
+                                    update_option("wpbooking_gateway_".$key."_desc",esc_html__('Submit Form','wp-booking-management-system'));
                                 }
                                 if($key == 'paypal'){
-                                    update_option("wpbooking_gateway_".$key."_title",esc_html__('PayPal','wpbooking'));
-                                    update_option("wpbooking_gateway_".$key."_desc",esc_html__('You will be redirect to paypal website to finish the payment process','wpbooking'));
+                                    update_option("wpbooking_gateway_".$key."_title",esc_html__('PayPal','wp-booking-management-system'));
+                                    update_option("wpbooking_gateway_".$key."_desc",esc_html__('You will be redirect to paypal website to finish the payment process','wp-booking-management-system'));
                                 }
                             }
                         }

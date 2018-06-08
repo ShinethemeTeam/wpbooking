@@ -75,10 +75,10 @@
                     ?>
                     <div class="notice notice-warning is-dismissible">
                         <p>
-                            <?php _e( 'WPBooking needs to be updated database.', 'wpbooking' ); ?>
+                            <?php _e( 'WPBooking needs to be updated database.', 'wp-booking-management-system' ); ?>
                             <a href="<?php echo esc_url( $url ); ?>" id="wppbooking-run-update"
                                class="button button-primary">
-                                <?php echo esc_html__( 'Update', 'wpbooking' ); ?>
+                                <?php echo esc_html__( 'Update', 'wp-booking-management-system' ); ?>
                             </a>
                         </p>
                     </div>

@@ -51,9 +51,9 @@ $service_type=$order_data['service_type'];
                     <span class="total-title">
                                     <?php
                                     if($tax['vat']['excluded'] == 'yes_included'){
-                                        echo sprintf(esc_html__("%s V.A.T (included)",'wpbooking'),$vat_amount);
+                                        echo sprintf(esc_html__("%s V.A.T (included)",'wp-booking-management-system'),$vat_amount);
                                     }else{
-                                        echo sprintf(esc_html__("%s V.A.T",'wpbooking'),$vat_amount);
+                                        echo sprintf(esc_html__("%s V.A.T",'wp-booking-management-system'),$vat_amount);
                                     }
                                     ?>
                                 </span>
@@ -62,7 +62,7 @@ $service_type=$order_data['service_type'];
                 <?php if (!empty($tax['citytax']['excluded']) and $tax['citytax']['excluded'] != '' and !empty($tax['citytax']['price'])) {
                     ?>
                     <span class="total-title">
-                                    <?php  esc_html_e("City Tax",'wpbooking'); ?>
+                                    <?php  esc_html_e("City Tax",'wp-booking-management-system'); ?>
                                 </span>
                     <span class="total-amount"><?php echo WPBooking_Currency::format_money($tax['citytax']['price']); ?></span>
                 <?php } ?>
@@ -78,16 +78,16 @@ $service_type=$order_data['service_type'];
             <div class="content-total">
                 <br>
                 <?php $price_total = $order_data['price']; ?>
-                <span class="total-title bold"><?php esc_html_e('TOTAL AMOUNT', 'wpbooking') ?></span>
+                <span class="total-title bold"><?php esc_html_e('TOTAL AMOUNT', 'wp-booking-management-system') ?></span>
                 <span class="total-amount bold"><?php echo WPBooking_Currency::format_money($price_total); ?></span>
                 <?php
                 if(!empty($order_data['deposit_price'])){
                     $price_deposit = $order_data['deposit_price'];
                     $property = $price_total - $price_deposit;
                     ?>
-                    <span class="total-title color"> <?php esc_html_e('Deposit/Pay Now', 'wpbooking') ?></span>
+                    <span class="total-title color"> <?php esc_html_e('Deposit/Pay Now', 'wp-booking-management-system') ?></span>
                     <span class="total-amount color"><?php echo WPBooking_Currency::format_money($price_deposit); ?></span>
-                    <span class="total-title bold"><?php esc_html_e('You\'ll pay at the property', 'wpbooking') ?></span>
+                    <span class="total-title bold"><?php esc_html_e('You\'ll pay at the property', 'wp-booking-management-system') ?></span>
                     <span class="total-amount bold"><?php echo WPBooking_Currency::format_money($property); ?></span>
                 <?php } ?>
             </div>

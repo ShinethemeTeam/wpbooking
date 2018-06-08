@@ -21,10 +21,10 @@ if(!empty($data['condition'])){
 $data_class.=' width-'.$data['width'];
 
 $text_domain = array();
-$text_domain[] = esc_html__('Do you want to delete this image?','wpbooking');
-$text_domain[] = esc_html__('Attachment Detail','wpbooking');
-$text_domain[] = esc_html__("Choose the list of room details",'wpbooking');
-$text_domain[] = esc_html__("Delete Permanently",'wpbooking');
+$text_domain[] = esc_html__('Do you want to delete this image?','wp-booking-management-system');
+$text_domain[] = esc_html__('Attachment Detail','wp-booking-management-system');
+$text_domain[] = esc_html__("Choose the list of room details",'wp-booking-management-system');
+$text_domain[] = esc_html__("Delete Permanently",'wp-booking-management-system');
 
 $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_html( $data['id'] );
 $gallery = $room_data = "";
@@ -60,8 +60,8 @@ if(!empty($old_data['gallery']) and count( $tmp = explode(',', $old_data['galler
     </div>
     <div class="st-metabox-full">
         <div class="no-gallery-notice hidden">
-            <h3><?php echo esc_html__('No accommodation photo yet.','wpbooking') ?></h3>
-            <p><?php echo esc_html__('Upload at least a photo','wpbooking'); ?></p>
+            <h3><?php echo esc_html__('No accommodation photo yet.','wp-booking-management-system') ?></h3>
+            <p><?php echo esc_html__('Upload at least a photo','wp-booking-management-system'); ?></p>
         </div>
         <div class="st-metabox-content-wrapper wpbooking-settings">
             <div class="form-group">

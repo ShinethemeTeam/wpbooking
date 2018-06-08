@@ -20,26 +20,26 @@
             function __construct()
             {
                 $this->gateway_info  = [
-                    'label' => esc_html__( "PayPal", 'wpbooking' )
+                    'label' => esc_html__( "PayPal", 'wp-booking-management-system' )
                 ];
                 $this->settings      = [
                     [
                         'id'             => 'enable',
-                        'label'          => esc_html__( 'Enable', 'wpbooking' ),
+                        'label'          => esc_html__( 'Enable', 'wp-booking-management-system' ),
                         'type'           => 'checkbox',
                         'std'            => '',
-                        'checkbox_label' => esc_html__( "Yes, I want to enable PayPal", 'wpbooking' )
+                        'checkbox_label' => esc_html__( "Yes, I want to enable PayPal", 'wp-booking-management-system' )
                     ],
                     [
                         'id'    => 'title',
-                        'label' => esc_html__( 'Title', 'wpbooking' ),
+                        'label' => esc_html__( 'Title', 'wp-booking-management-system' ),
                         'type'  => 'text',
                         'std'   => 'PayPal',
                     ],
 
                     [
                         'id'    => 'desc',
-                        'label' => esc_html__( 'Descriptions', 'wpbooking' ),
+                        'label' => esc_html__( 'Descriptions', 'wp-booking-management-system' ),
                         'type'  => 'textarea',
                         'std'   => 'You will be redirect to paypal website to finish the payment process',
                     ],
@@ -48,44 +48,44 @@
                     ],
                     [
                         'id'    => 'api_username',
-                        'label' => esc_html__( 'API Username', 'wpbooking' ),
+                        'label' => esc_html__( 'API Username', 'wp-booking-management-system' ),
                         'type'  => 'text',
                         'std'   => '',
                     ],
                     [
                         'id'    => 'api_password',
-                        'label' => esc_html__( 'API Password', 'wpbooking' ),
+                        'label' => esc_html__( 'API Password', 'wp-booking-management-system' ),
                         'type'  => 'text',
                         'std'   => '',
                     ],
                     [
                         'id'    => 'api_signature',
-                        'label' => esc_html__( 'API Signature', 'wpbooking' ),
+                        'label' => esc_html__( 'API Signature', 'wp-booking-management-system' ),
                         'type'  => 'text',
                         'std'   => '',
                     ],
                     [
                         'id'             => 'test_mode',
-                        'label'          => esc_html__( 'Test Mode', 'wpbooking' ),
+                        'label'          => esc_html__( 'Test Mode', 'wp-booking-management-system' ),
                         'type'           => 'checkbox',
                         'std'            => '',
-                        'checkbox_label' => esc_html__( "Yes, I want to enable PayPal Sandbox Mode", 'wpbooking' )
+                        'checkbox_label' => esc_html__( "Yes, I want to enable PayPal Sandbox Mode", 'wp-booking-management-system' )
                     ],
                     [
                         'id'    => 'test_api_username',
-                        'label' => esc_html__( 'Test API Username', 'wpbooking' ),
+                        'label' => esc_html__( 'Test API Username', 'wp-booking-management-system' ),
                         'type'  => 'text',
                         'std'   => '',
                     ],
                     [
                         'id'    => 'test_api_password',
-                        'label' => esc_html__( 'Test API Password', 'wpbooking' ),
+                        'label' => esc_html__( 'Test API Password', 'wp-booking-management-system' ),
                         'type'  => 'text',
                         'std'   => '',
                     ],
                     [
                         'id'    => 'test_api_signature',
-                        'label' => esc_html__( 'Test API Signature', 'wpbooking' ),
+                        'label' => esc_html__( 'Test API Signature', 'wp-booking-management-system' ),
                         'type'  => 'text',
                         'std'   => '',
                     ],
@@ -127,7 +127,7 @@
                         $purchase = [
                             'amount'      => (float)$total,
                             'currency'    => WPBooking_Currency::get_current_currency( 'currency' ),
-                            'description' => esc_html__( 'WPBooking', 'wpbooking' ),
+                            'description' => esc_html__( 'WPBooking', 'wp-booking-management-system' ),
                             'returnUrl'   => $this->get_return_url( $order_object->get_order_id() ),
                             'cancelUrl'   => $this->get_cancel_url( $order_object->get_order_id() ),
                         ];
@@ -140,11 +140,11 @@
 
                             ?>
                             <a class="wb-btn wb-btn-blue wb-btn-md"
-                               href="<?php echo esc_url( $response->getRedirectUrl() ) ?>"><?php esc_html_e( 'Pay Now', 'wpbooking' ) ?></a>
-                            <p class="mgt-10"><?php esc_html_e( 'You will be redirected to PayPal.com to complete the payment', 'wpbooking' ) ?></p>
+                               href="<?php echo esc_url( $response->getRedirectUrl() ) ?>"><?php esc_html_e( 'Pay Now', 'wp-booking-management-system' ) ?></a>
+                            <p class="mgt-10"><?php esc_html_e( 'You will be redirected to PayPal.com to complete the payment', 'wp-booking-management-system' ) ?></p>
                             <?php
                         } else {
-                            wpbooking_set_message( esc_html__( 'Paypal Error:', 'wpbooking' ) . ' ' . $response->getMessage(), 'error' );
+                            wpbooking_set_message( esc_html__( 'Paypal Error:', 'wp-booking-management-system' ) . ' ' . $response->getMessage(), 'error' );
                             echo wpbooking_get_message();
                         }
                     }
@@ -157,14 +157,14 @@
 
                 if ( $this->is_test_mode() ) {
                     if ( !$this->get_option( 'test_api_username' ) or !$this->get_option( 'test_api_password' ) or !$this->get_option( 'test_api_signature' ) ) {
-                        wpbooking_set_message( esc_html__( 'Test PayPal API is incorrect! Please check with the Admin', 'wpbooking' ), 'error' );
+                        wpbooking_set_message( esc_html__( 'Test PayPal API is incorrect! Please check with the Admin', 'wp-booking-management-system' ), 'error' );
 
                         return false;
                     }
                 } else {
 
                     if ( !$this->get_option( 'api_username' ) or !$this->get_option( 'api_password' ) or !$this->get_option( 'api_signature' ) ) {
-                        wpbooking_set_message( esc_html__( 'PayPal API is incorrect! Please check with the Admin', 'wpbooking' ), 'error' );
+                        wpbooking_set_message( esc_html__( 'PayPal API is incorrect! Please check with the Admin', 'wp-booking-management-system' ), 'error' );
 
                         return false;
                     }
@@ -201,7 +201,7 @@
                 $purchase = [
                     'amount'      => (float)$total,
                     'currency'    => WPBooking_Currency::get_current_currency( 'currency' ),
-                    'description' => esc_html__( 'WPBooking', 'wpbooking' ),
+                    'description' => esc_html__( 'WPBooking', 'wp-booking-management-system' ),
                     'returnUrl'   => $this->get_return_url( $order_id ),
                     'cancelUrl'   => $this->get_cancel_url( $order_id ),
                 ];
@@ -256,7 +256,7 @@
                 $purchase = [
                     'amount'      => (float)$total,
                     'currency'    => WPBooking_Currency::get_current_currency( 'currency' ),
-                    'description' => esc_html__( 'WPBooking', 'wpbooking' ),
+                    'description' => esc_html__( 'WPBooking', 'wp-booking-management-system' ),
                     'returnUrl'   => $this->get_return_url( $order_id ),
                     'cancelUrl'   => $this->get_cancel_url( $order_id ),
                 ];

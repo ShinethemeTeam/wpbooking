@@ -370,7 +370,7 @@ class Tax_Meta_Class {
         }else{
           echo 'http://i.imgur.com/g8Duj.png';
         }
-        echo '" alt="'.esc_html__('Remove','wpbooking').'" title="'.esc_html__('Remove','wpbooking').'" id="remove-'.$field['id'].'"></div>';
+        echo '" alt="'.esc_html__('Remove','wp-booking-management-system').'" title="'.esc_html__('Remove','wp-booking-management-system').'" id="remove-'.$field['id'].'"></div>';
         $c = $c + 1;
         
         }
@@ -383,7 +383,7 @@ class Tax_Meta_Class {
     }else{
       echo 'http://i.imgur.com/w5Tuc.png';
     }
-    echo '" alt="'.esc_html__('Add','wpbooking').'" title="'.esc_html__('Add','wpbooking').'" id="add-'.$field['id'].'"><br/></div>';
+    echo '" alt="'.esc_html__('Add','wp-booking-management-system').'" title="'.esc_html__('Add','wp-booking-management-system').'" id="add-'.$field['id'].'"><br/></div>';
     
     //create all fields once more for js function and catch with object buffer
     ob_start();
@@ -417,7 +417,7 @@ class Tax_Meta_Class {
     }else{
       echo 'http://i.imgur.com/g8Duj.png';
     }
-    echo '" alt="'.esc_html__('Remove','wpbooking').'" title="'.esc_html__('Remove','wpbooking').'" id="remove-'.$field['id'].'"></div>';
+    echo '" alt="'.esc_html__('Remove','wp-booking-management-system').'" title="'.esc_html__('Remove','wp-booking-management-system').'" id="remove-'.$field['id'].'"></div>';
     $counter = 'countadd_'.$field['id'];
     $js_code = ob_get_clean ();
     $js_code = str_replace("\n","",$js_code);
@@ -716,9 +716,9 @@ class Tax_Meta_Class {
 	echo "<input type='hidden' name='{$name}[id]' value='{$value['id']}'/>";
 	echo "<input type='hidden' name='{$name}[url]' value='{$value['url']}'/>";
 	if ($has_image)
-		echo "<input class='{$multiple} button  simplePanelimageUploadclear' id='{$id}' value='".esc_html__('Remove Image', 'wpbooking')."' type='button'/>";
+		echo "<input class='{$multiple} button  simplePanelimageUploadclear' id='{$id}' value='".esc_html__('Remove Image', 'wp-booking-management-system')."' type='button'/>";
 	else
-		echo "<input class='{$multiple} button simplePanelimageUpload' id='{$id}' value='".esc_html__('Upload Image', 'wpbooking')."' type='button'/>";
+		echo "<input class='{$multiple} button simplePanelimageUpload' id='{$id}' value='".esc_html__('Upload Image', 'wp-booking-management-system')."' type='button'/>";
 	$this->show_field_end( $field, $meta );
   }
   
@@ -738,7 +738,7 @@ class Tax_Meta_Class {
     $this->show_field_begin( $field, $meta );
       echo "<input class='at-color' type='text' name='{$field['id']}' id='{$field['id']}' value='{$meta}' size='8' />";
     //  echo "<a href='#' class='at-color-select button' rel='{$field['id']}'>" . esc_html__( 'Select a color' ) . "</a>";
-      echo "<input type='button' class='at-color-select button' rel='{$field['id']}' value='" . esc_html__( 'Select a color','wpbooking' ) . "'/>";
+      echo "<input type='button' class='at-color-select button' rel='{$field['id']}' value='" . esc_html__( 'Select a color','wp-booking-management-system' ) . "'/>";
       echo "<div style='display:none' class='at-color-picker' rel='{$field['id']}'></div>";
     $this->show_field_end($field, $meta);
     

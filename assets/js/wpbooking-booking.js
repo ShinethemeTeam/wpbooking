@@ -713,10 +713,15 @@ jQuery(document).ready(function ($) {
                         var parent_extra = $(this).closest('tr');
                         var number_extra = parent_extra.find('.option_extra_quantity').val();
                         var price_extra  = parent_extra.find('.option_extra_quantity').data('price-extra');
+                        var price_type  = parent_extra.find('.option_extra_quantity').data('type-extra');
                         if (!price_extra) {
                             price_extra = 0;
                         }
-                        price_extra = parseFloat(price_extra) * number_extra * diff;
+                        if(price_type == 'per_night'){
+                            price_extra = parseFloat(price_extra) * number_extra * diff;
+                        }else{
+                            price_extra = parseFloat(price_extra) * number_extra;
+                        }
                         if (price_extra) {
                             total_price += price_extra * number;
                         }
@@ -729,10 +734,10 @@ jQuery(document).ready(function ($) {
     });
     $(document).on('change', '.content-search-room .content-loop-room .loop-room .option_extra_quantity', function () {
         $('.content-search-room .content-loop-room .loop-room .option_number_room').trigger('change');
-    })
+    });
     $(document).on('change', '.content-search-room .content-loop-room .loop-room .option_is_extra', function () {
         $('.content-search-room .content-loop-room .loop-room .option_number_room').trigger('change');
-    })
+    });
     setTimeout(function () {
         $('.content-search-room .content-loop-room .loop-room .option_number_room').trigger('change');
     }, 500);

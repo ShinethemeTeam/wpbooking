@@ -4,7 +4,7 @@ $payment_status=WPBooking_Config::inst()->item('payment_status');
 ?>
 <h3 class="tab-page-title">
 	<?php
-	echo esc_html__('Booking History','wpbooking');
+	echo esc_html__('Booking History','wp-booking-management-system');
 	?>
 </h3>
 	<form action="" method="get">
@@ -19,7 +19,7 @@ $payment_status=WPBooking_Config::inst()->item('payment_status');
 						$wpbooking_service_type = WPBooking_Input::request('wpbooking_service_type');
 						?>
 						<select class="form-control" name="wpbooking_service_type">
-							<option value=""><?php esc_html_e("Service Type","wpbooking") ?></option>
+							<option value=""><?php esc_html_e("Service Type","wp-booking-management-system") ?></option>
 							<?php if(!empty($list_service_type)){
 								foreach($list_service_type as $k=>$v){
 									echo "<option ".selected($k,$wpbooking_service_type,false)." value='{$k}'>{$v->get_info('label')}</option>";

@@ -47,9 +47,9 @@ if( count( $tmp ) > 0 and !empty( $tmp[ 0 ] ) ){
 
 $field .= '</div>';        
 
-$field .= '<button id="" class="btn_upload_gallery mr10" type="button" name="">'. esc_html__("Add Gallery","wpbooking").'</button>';
+$field .= '<button id="" class="btn_upload_gallery mr10" type="button" name="">'. esc_html__("Add Gallery","wp-booking-management-system").'</button>';
 
-$field .= '<button class="btn_remove_demo_gallery '.((!empty($old_data) && count( $tmp ) > 0 )?'':'hidden').'" type="button" name="">'.esc_html__("Remove Gallery","wpbooking").'</button>';
+$field .= '<button class="btn_remove_demo_gallery '.((!empty($old_data) && count( $tmp ) > 0 )?'':'hidden').'" type="button" name="">'.esc_html__("Remove Gallery","wp-booking-management-system").'</button>';
 
 
 $field .= '</div></div>';
@@ -61,8 +61,8 @@ $field .= '</div></div>';
 </div>
 <div class="st-metabox-right">
     <div class="no-gallery-notice hidden">
-        <h3><?php echo sprintf(esc_html__('No %s photo yet.','wpbooking'), (isset($data['service_type'])?$data['service_type']:'')); ?></h3>
-        <p><?php echo esc_html__('Upload at least a photo','wpbooking'); ?></p>
+        <h3><?php echo sprintf(esc_html__('No %s photo yet.','wp-booking-management-system'), (isset($data['service_type'])?$data['service_type']:'')); ?></h3>
+        <p><?php echo esc_html__('Upload at least a photo','wp-booking-management-system'); ?></p>
     </div>
 	<?php echo do_shortcode($field); ?>
 	<i class="wpbooking-desc"><?php echo do_shortcode( $data['desc'] ) ?></i>

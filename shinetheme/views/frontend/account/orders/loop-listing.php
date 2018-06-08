@@ -41,13 +41,13 @@ $rows=$order_model->get()->result();
 			<input id="cb-select-all-1" type="checkbox">
 		</td>
 		<td class="manage-column column-title column-primary sortable">
-			<?php esc_html_e('ID - Customer','wpbooking') ?>
+			<?php esc_html_e('ID - Customer','wp-booking-management-system') ?>
 		</td>
 		<td class="manage-column column-title column-primary sortable">
-			<?php esc_html_e('Booking Data','wpbooking') ?>
+			<?php esc_html_e('Booking Data','wp-booking-management-system') ?>
 		</td>
-		<td class="manage-column column-date-booking asc"> <?php esc_html_e('Booking Date','wpbooking') ?></td>
-		<td class="manage-column column-date asc"> <?php esc_html_e('Total','wpbooking') ?></td>
+		<td class="manage-column column-date-booking asc"> <?php esc_html_e('Booking Date','wp-booking-management-system') ?></td>
+		<td class="manage-column column-date asc"> <?php esc_html_e('Total','wp-booking-management-system') ?></td>
 	</tr>
 	</thead>
 
@@ -66,20 +66,20 @@ $rows=$order_model->get()->result();
 					<a href="<?php echo esc_url($url)  ?>">#<?php echo esc_attr($row['id']) ?></a>
 					-
 					<a class="service-name" href="<?php echo esc_attr(get_permalink($row['post_id']))?>" target="_blank"><?php echo get_the_title($row['post_id'])?></a>
-					- <?php esc_html_e('by','wpbooking') ?>
+					- <?php esc_html_e('by','wp-booking-management-system') ?>
 					<?php if($row['customer_id']){
 						$user=get_userdata($row['customer_id']);
 						if(!$user){
-							printf('<label class="label label-warning">%s</label>',esc_html__('Unknown','wpbooking'));
+							printf('<label class="label label-warning">%s</label>',esc_html__('Unknown','wp-booking-management-system'));
 						}else{
 							printf('<label class="label label-info"><a href="%s" target="_blank"> %s</a></label>',get_edit_user_link($row['customer_id']),$user->display_name);
 						}
 					}else{
-						printf('<label class="label label-default">%s</label>',esc_html__('Guest','wpbooking'));
+						printf('<label class="label label-default">%s</label>',esc_html__('Guest','wp-booking-management-system'));
 					} ?>
 					<div class="row-actions">
-						<span class="edit"><a href="<?php echo esc_url($url)  ?>" title="<?php esc_html_e('View Detail','wpbooking')?>"><?php esc_html_e('Detail','wpbooking')?></a> | </span>
-						<span class="move_trash trash"><a href="<?php echo add_query_arg(array('action'=>'cancel','wpbooking_apply_changes'=>'1','wpbooking_order_item'=>array($row['id']))) ?>" onclick="return confirm('<?php esc_html_e('Are you want to move to trash?','wpbooking') ?>')" title="<?php esc_html_e('Move to trash','wpbooking')?>"><?php esc_html_e('Trash','wpbooking')?></a></span>
+						<span class="edit"><a href="<?php echo esc_url($url)  ?>" title="<?php esc_html_e('View Detail','wp-booking-management-system')?>"><?php esc_html_e('Detail','wp-booking-management-system')?></a> | </span>
+						<span class="move_trash trash"><a href="<?php echo add_query_arg(array('action'=>'cancel','wpbooking_apply_changes'=>'1','wpbooking_order_item'=>array($row['id']))) ?>" onclick="return confirm('<?php esc_html_e('Are you want to move to trash?','wp-booking-management-system') ?>')" title="<?php esc_html_e('Move to trash','wp-booking-management-system')?>"><?php esc_html_e('Trash','wp-booking-management-system')?></a></span>
 					</div>
 				</td>
 				<td class="booking-data">
@@ -122,7 +122,7 @@ $rows=$order_model->get()->result();
 	}else{
 		?>
 		<tr>
-			<td colspan="5"><?php esc_html_e('No Booking Found','wpbooking') ?></td>
+			<td colspan="5"><?php esc_html_e('No Booking Found','wp-booking-management-system') ?></td>
 		</tr>
 		<?php
 	} ?>

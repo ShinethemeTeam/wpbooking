@@ -2,31 +2,31 @@
 
 $config['order_status'] = array(
     'on_hold'        => array(
-        'label' => esc_html__('On Holding', 'wpbooking'),
-        'desc'  => esc_html__('Waiting for Payment', 'wpbooking'),
+        'label' => esc_html__('On Holding', 'wp-booking-management-system'),
+        'desc'  => esc_html__('Waiting for Payment', 'wp-booking-management-system'),
     ),
     'payment_failed' => array(
-        'label' => esc_html__('Failed payment ', 'wpbooking'),
-        'desc'  => esc_html__('Failed payment because of Gateway’s problems or Wrong API data of Gateway', 'wpbooking'),
+        'label' => esc_html__('Failed payment ', 'wp-booking-management-system'),
+        'desc'  => esc_html__('Failed payment because of Gateway’s problems or Wrong API data of Gateway', 'wp-booking-management-system'),
     ),
     'completed'      => array(
-        'label' => esc_html__('Completed', 'wpbooking'),
+        'label' => esc_html__('Completed', 'wp-booking-management-system'),
     ),
     'completed_a_part'      => array(
-        'label' => esc_html__('Completing a Part', 'wpbooking'),
-        'desc'  => esc_html__('Completing with deposit payment', 'wpbooking'),
+        'label' => esc_html__('Completing a Part', 'wp-booking-management-system'),
+        'desc'  => esc_html__('Completing with deposit payment', 'wp-booking-management-system'),
     ),
     'cancelled'      => array(
-        'label' => esc_html__('Cancelled', 'wpbooking'),
-        'desc'  => esc_html__('Customer or Admin cancels the booking', 'wpbooking'),
+        'label' => esc_html__('Cancelled', 'wp-booking-management-system'),
+        'desc'  => esc_html__('Customer or Admin cancels the booking', 'wp-booking-management-system'),
     ),
     'refunded'       => array(
-        'label' => esc_html__('Refunded', 'wpbooking'),
-        'desc'  => esc_html__('Refunded by Admin', 'wpbooking'),
+        'label' => esc_html__('Refunded', 'wp-booking-management-system'),
+        'desc'  => esc_html__('Refunded by Admin', 'wp-booking-management-system'),
     ),
     'cancel'          => array(
-        'label' => esc_html__('Cancel', 'wpbooking'),
-        'desc'  => esc_html__('Customer or Admin is canceling the booking', 'wpbooking'),
+        'label' => esc_html__('Cancel', 'wp-booking-management-system'),
+        'desc'  => esc_html__('Customer or Admin is canceling the booking', 'wp-booking-management-system'),
     ),
 );
 
@@ -37,15 +37,15 @@ $config['order_status'] = array(
  * @author dungdt
  */
 $config['breakfast_types'] = array(
-    'continental'        => esc_html__('Continent', 'wpbooking'),
-    'italian'            => esc_html__('Italian', 'wpbooking'),
-    'full_english_irish' => esc_html__('Full English/Irish', 'wpbooking'),
-    'vegetarian'         => esc_html__('Vegetarian', 'wpbooking'),
-    'vegan'              => esc_html__('Vegan', 'wpbooking'),
-    'Halal'              => esc_html__('Halal', 'wpbooking'),
-    'gluten-free'        => esc_html__('Gluten-free', 'wpbooking'),
-    'kosher'             => esc_html__('Kosher', 'wpbooking'),
-    'asian'              => esc_html__('Asian', 'wpbooking'),
+    'continental'        => esc_html__('Continent', 'wp-booking-management-system'),
+    'italian'            => esc_html__('Italian', 'wp-booking-management-system'),
+    'full_english_irish' => esc_html__('Full English/Irish', 'wp-booking-management-system'),
+    'vegetarian'         => esc_html__('Vegetarian', 'wp-booking-management-system'),
+    'vegan'              => esc_html__('Vegan', 'wp-booking-management-system'),
+    'Halal'              => esc_html__('Halal', 'wp-booking-management-system'),
+    'gluten-free'        => esc_html__('Gluten-free', 'wp-booking-management-system'),
+    'kosher'             => esc_html__('Kosher', 'wp-booking-management-system'),
+    'asian'              => esc_html__('Asian', 'wp-booking-management-system'),
 );
 
 /**
@@ -126,9 +126,9 @@ $config['lang_spoken_by_staff'] = array(
  * @author dungdt
  */
 $config['smoking_policy'] = array(
-    "non-smoking" => esc_html__("Non-smoking", 'wpbooking'),
-    "smoking"     => esc_html__("Smoking", 'wpbooking'),
-    'both'        => esc_html__('I have both smoking and non-smoking options for this type of room', 'wpbooking')
+    "non-smoking" => esc_html__("Non-smoking", 'wp-booking-management-system'),
+    "smoking"     => esc_html__("Smoking", 'wp-booking-management-system'),
+    'both'        => esc_html__('I have both smoking and non-smoking options for this type of room', 'wp-booking-management-system')
 );
 
 /**
@@ -138,11 +138,11 @@ $config['smoking_policy'] = array(
  * @author dungdt
  */
 $config['bed_type'] = array(
-    "single-bed" => esc_html__("Single bed   /  90-130 cm of width", 'wpbooking'),
-    "double-bed" => esc_html__("Double bed  /  131-150 cm of width", 'wpbooking'),
-    "large-bed" => esc_html__("Large bed (King size) / 151-180 cm of width", 'wpbooking'),
-    "extra-large-bed" => esc_html__("Extra-large double bed (Super-king size) / 181-210 cm of width", 'wpbooking'),
-    "bunk-bed" => esc_html__("Bunk bed / Variable Size", 'wpbooking'),
-    "sofa-bed" => esc_html__("Sofa bed / Variable Size", 'wpbooking'),
-    "futon-mat" => esc_html__("Futon Mat / Variable Size", 'wpbooking'),
+    "single-bed" => esc_html__("Single bed   /  90-130 cm of width", 'wp-booking-management-system'),
+    "double-bed" => esc_html__("Double bed  /  131-150 cm of width", 'wp-booking-management-system'),
+    "large-bed" => esc_html__("Large bed (King size) / 151-180 cm of width", 'wp-booking-management-system'),
+    "extra-large-bed" => esc_html__("Extra-large double bed (Super-king size) / 181-210 cm of width", 'wp-booking-management-system'),
+    "bunk-bed" => esc_html__("Bunk bed / Variable Size", 'wp-booking-management-system'),
+    "sofa-bed" => esc_html__("Sofa bed / Variable Size", 'wp-booking-management-system'),
+    "futon-mat" => esc_html__("Futon Mat / Variable Size", 'wp-booking-management-system'),
 );

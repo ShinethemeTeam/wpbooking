@@ -198,7 +198,7 @@ if (!class_exists('WPBooking_Service_Controller')) {
 
             if (is_user_logged_in()) {
                 if (!$post_id = WPBooking_Input::post('post_id')) {
-                    $res['message'] = esc_html__('Post ID is required', 'wpbooking');
+                    $res['message'] = esc_html__('Post ID is required', 'wp-booking-management-system');
                 } else {
                     $service = new WB_Service($post_id);
                     $res['status'] = 1;
@@ -498,15 +498,15 @@ if (!class_exists('WPBooking_Service_Controller')) {
                     if($latest->diff($current)->d > 3 || $latest->diff($current)->m > 0 || $latest->diff($current)->y > 0){
                         $latest_str = date(get_option('date_format'), $latest_time);
                     }elseif($latest->diff($current)->d > 0){
-                        $latest_str = $latest->diff($current)->d.esc_html__(' day(s) ago','wpbooking');
+                        $latest_str = $latest->diff($current)->d.esc_html__(' day(s) ago','wp-booking-management-system');
                     }elseif($latest->diff($current)->h > 0){
-                        $latest_str = $latest->diff($current)->h.esc_html__(' hour(s) ago','wpbooking');
+                        $latest_str = $latest->diff($current)->h.esc_html__(' hour(s) ago','wp-booking-management-system');
                     }elseif($latest->diff($current)->i > 0){
-                        $latest_str = $latest->diff($current)->i.esc_html__(' minute(s) ago','wpbooking');
+                        $latest_str = $latest->diff($current)->i.esc_html__(' minute(s) ago','wp-booking-management-system');
                     }else{
-                        $latest_str = esc_html__('just now','wpbooking');
+                        $latest_str = esc_html__('just now','wp-booking-management-system');
                     }
-                    $latest_booking = '<p class="wb-latest-booking">'.esc_html__('Latest booking: ','wpbooking').$latest_str.'</p>';
+                    $latest_booking = '<p class="wb-latest-booking">'.esc_html__('Latest booking: ','wp-booking-management-system').$latest_str.'</p>';
 
                     $latest_booking = apply_filters('wpbooking_latest_booking_html',$latest_booking,$service_type,$post_id,$latest_time,$current);
                     $latest_booking = apply_filters('wpbooking_latest_booking_html_'.$service_type,$latest_booking,$post_id,$latest_time,$current);

@@ -38,10 +38,10 @@
                 ?>
                 <ul class="wb-tabs">
                     <li class="active"><a href="#photos"><i class="fa fa-camera"></i>
-                            &nbsp;<?php esc_html_e( 'Photos', 'wpbooking' ); ?></a></li>
+                            &nbsp;<?php esc_html_e( 'Photos', 'wp-booking-management-system' ); ?></a></li>
                     <?php if ( !empty( $map_lat ) and !empty( $map_lng ) ) { ?>
                         <li><a href="#map"><i class="fa fa-map-marker"></i>
-                                &nbsp;<?php esc_html_e( 'On the map', 'wpbooking' ); ?></a></li>
+                                &nbsp;<?php esc_html_e( 'On the map', 'wp-booking-management-system' ); ?></a></li>
                     <?php } ?>
                 </ul>
                 <div class="wp-tabs-content">
@@ -110,7 +110,7 @@
                         echo '<div class="wb-contact-box wp-box-item">' . do_shortcode( $html ) . '</div>';
                     }
                     if ( !empty( $external_link ) ) {
-                        echo '<a class="wb-btn wb-btn-default" target="_blank" href="' . esc_url( $external_link ) . '">' . esc_html__( 'Book Now', 'wpbooking' ) . '</a>';
+                        echo '<a class="wb-btn wb-btn-default" target="_blank" href="' . esc_url( $external_link ) . '">' . esc_html__( 'Book Now', 'wp-booking-management-system' ) . '</a>';
                     }
                     do_action( 'wpbooking_after_contact_meta' );
                 ?>
@@ -118,7 +118,7 @@
         </div>
     </div>
     <div class="service-content-section">
-        <h5 class="service-info-title"><?php esc_html_e( 'Description', 'wpbooking' ) ?></h5>
+        <h5 class="service-info-title"><?php esc_html_e( 'Description', 'wp-booking-management-system' ) ?></h5>
         <div class="service-content-wrap" itemprop="description">
             <?php
                 if ( have_posts() ) {
@@ -135,7 +135,7 @@
         if ( !empty( $amenities ) ) {
             ?>
             <div class="service-content-section">
-                <h5 class="service-info-title"><?php esc_html_e( 'Amenities', 'wpbooking' ) ?></h5>
+                <h5 class="service-info-title"><?php esc_html_e( 'Amenities', 'wp-booking-management-system' ) ?></h5>
                 <div class="service-content-wrap">
                     <ul class="wb-list-amenities">
                         <?php
@@ -155,21 +155,21 @@
         <?php } ?>
     <?php do_action( 'wpbooking_after_service_amenity' ) ?>
     <div class="service-content-section">
-        <h5 class="service-info-title"><?php esc_html_e( 'Accommodation Policies', 'wpbooking' ) ?></h5>
+        <h5 class="service-info-title"><?php esc_html_e( 'Accommodation Policies', 'wp-booking-management-system' ) ?></h5>
 
         <div class="service-details">
             <?php
                 $check_in      = [
-                    'checkin_from' => esc_html__( 'from %s ', 'wpbooking' ),
-                    'checkin_to'   => esc_html__( 'to %s', 'wpbooking' )
+                    'checkin_from' => esc_html__( 'from %s ', 'wp-booking-management-system' ),
+                    'checkin_to'   => esc_html__( 'to %s', 'wp-booking-management-system' )
                 ];
                 $check_out     = [
-                    'checkout_from' => esc_html__( 'from %s ', 'wpbooking' ),
-                    'checkout_to'   => esc_html__( 'to %s', 'wpbooking' )
+                    'checkout_from' => esc_html__( 'from %s ', 'wp-booking-management-system' ),
+                    'checkout_to'   => esc_html__( 'to %s', 'wp-booking-management-system' )
                 ];
                 $time_html     = '';
-                $checkin_html  = esc_html__( 'Check In: ', 'wpbooking' );
-                $checkout_html = esc_html__( 'Check Out: ', 'wpbooking' );
+                $checkin_html  = esc_html__( 'Check In: ', 'wp-booking-management-system' );
+                $checkout_html = esc_html__( 'Check Out: ', 'wp-booking-management-system' );
                 foreach ( $check_in as $key => $val ) {
                     $value = get_post_meta( $hotel_id, $key, true );
                     if ( $key == 'checkin_from' && empty( $value ) ) {
@@ -204,7 +204,7 @@
                 if ( !empty( $checkin_html ) || !empty( $checkout_html ) ) {
                     ?>
                     <div class="service-detail-item">
-                        <div class="service-detail-title"><?php esc_html_e( 'Time', 'wpbooking' ) ?></div>
+                        <div class="service-detail-title"><?php esc_html_e( 'Time', 'wp-booking-management-system' ) ?></div>
                         <div class="service-detail-content">
                             <?php echo( $time_html ) ?>
                         </div>
@@ -213,14 +213,14 @@
                 }
                 $array                = [
                     'deposit_payment_status' => '',
-                    'deposit_payment_amount' => wp_kses( esc_html__( 'Deposit: %s &nbsp;&nbsp; required', 'wpbooking' ), [ 'span' => [ 'class' => [] ] ] ),
-                    'allow_cancel'           => esc_html__( 'Allowed Cancellation: Yes', 'wpbooking' ),
-                    'cancel_free_days_prior' => esc_html__( 'Time allowed to free: %s', 'wpbooking' ),
-                    'cancel_guest_payment'   => esc_html__( 'Fee cancel for booking: %s', 'wpbooking' ),
+                    'deposit_payment_amount' => wp_kses( esc_html__( 'Deposit: %s &nbsp;&nbsp; required', 'wp-booking-management-system' ), [ 'span' => [ 'class' => [] ] ] ),
+                    'allow_cancel'           => esc_html__( 'Allowed Cancellation: Yes', 'wp-booking-management-system' ),
+                    'cancel_free_days_prior' => esc_html__( 'Time allowed to free: %s', 'wp-booking-management-system' ),
+                    'cancel_guest_payment'   => esc_html__( 'Fee cancel for booking: %s', 'wp-booking-management-system' ),
                 ];
                 $cancel_guest_payment = [
-                    'first_night' => esc_html__( '100&#37; of the first night', 'wpbooking' ),
-                    'full_stay'   => esc_html__( '100&#37; of the full stay', 'wpbooking' ),
+                    'first_night' => esc_html__( '100&#37; of the first night', 'wp-booking-management-system' ),
+                    'full_stay'   => esc_html__( '100&#37; of the full stay', 'wp-booking-management-system' ),
                 ];
 
                 $deposit_html  = [];
@@ -248,9 +248,9 @@
                         }
                         if ( $key == 'cancel_free_days_prior' ) {
                             if ( $meta == 'day_of_arrival' )
-                                $deposit_html[] = sprintf( $val, esc_html__( 'Day of arrival (6 pm)', 'wpbooking' ) );
+                                $deposit_html[] = sprintf( $val, esc_html__( 'Day of arrival (6 pm)', 'wp-booking-management-system' ) );
                             else
-                                $deposit_html[] = sprintf( $val, $meta . esc_html__( ' day', 'wpbooking' ) );
+                                $deposit_html[] = sprintf( $val, $meta . esc_html__( ' day', 'wp-booking-management-system' ) );
 
                             continue;
                         }
@@ -266,7 +266,7 @@
                     ?>
                     <div class="service-detail-item">
                         <div
-                                class="service-detail-title"><?php esc_html_e( 'Prepayment / Cancellation', 'wpbooking' ) ?></div>
+                                class="service-detail-title"><?php esc_html_e( 'Prepayment / Cancellation', 'wp-booking-management-system' ) ?></div>
                         <div class="service-detail-content">
                             <?php
                                 foreach ( $deposit_html as $value ) {
@@ -283,17 +283,17 @@
                 $array            = [
                     'vat_excluded'     => '',
                     'vat_unit'         => '',
-                    'vat_amount'       => esc_html__( 'V.A.T: %s &nbsp;&nbsp;', 'wpbooking' ),
+                    'vat_amount'       => esc_html__( 'V.A.T: %s &nbsp;&nbsp;', 'wp-booking-management-system' ),
                     'citytax_excluded' => '',
                     'citytax_unit'     => '',
-                    'citytax_amount'   => esc_html__( 'City tax: %s', 'wpbooking' ),
+                    'citytax_amount'   => esc_html__( 'City tax: %s', 'wp-booking-management-system' ),
                 ];
                 $citytax_unit     = [
-                    'stay'             => esc_html__( ' /stay', 'wpbooking' ),
-                    'person_per_stay'  => esc_html__( ' /person per stay', 'wpbooking' ),
-                    'night'            => esc_html__( ' /night', 'wpbooking' ),
-                    'percent'          => esc_html__( '%', 'wpbooking' ),
-                    'person_per_night' => esc_html__( ' /person per night', 'wpbooking' ),
+                    'stay'             => esc_html__( ' /stay', 'wp-booking-management-system' ),
+                    'person_per_stay'  => esc_html__( ' /person per stay', 'wp-booking-management-system' ),
+                    'night'            => esc_html__( ' /night', 'wp-booking-management-system' ),
+                    'percent'          => esc_html__( '%', 'wp-booking-management-system' ),
+                    'person_per_night' => esc_html__( ' /person per night', 'wp-booking-management-system' ),
                 ];
                 $vat_excluded     = '';
                 $citytax_excluded = '';
@@ -319,7 +319,7 @@
                                 }
 
                                 if ( $vat_excluded == 'yes_included' ) {
-                                    $tax_html[] = sprintf( $val, $amount . ' &nbsp;&nbsp;<span class="enforced_red">' . wp_kses( esc_html__( 'included', 'wpbooking' ), [ 'span' => [ 'class' => [] ] ] ) . '</span>' );
+                                    $tax_html[] = sprintf( $val, $amount . ' &nbsp;&nbsp;<span class="enforced_red">' . wp_kses( esc_html__( 'included', 'wp-booking-management-system' ), [ 'span' => [ 'class' => [] ] ] ) . '</span>' );
                                 } elseif ( $vat_excluded != '' ) {
                                     $tax_html[] = sprintf( $val, $amount );
                                 }
@@ -340,7 +340,7 @@
                                 }
                                 if ( $citytax_excluded != '' ) {
                                     if ( $citytax_excluded == 'yes_included' ) {
-                                        $tax_html[] = $str_citytax . '&nbsp;&nbsp; <span class="enforced_red">' . esc_html__( 'included', 'wpbooking' ) . '</span>';
+                                        $tax_html[] = $str_citytax . '&nbsp;&nbsp; <span class="enforced_red">' . esc_html__( 'included', 'wp-booking-management-system' ) . '</span>';
                                     } else {
                                         $tax_html[] = $str_citytax;
                                     }
@@ -354,7 +354,7 @@
                     ?>
                     <div class="service-detail-item">
                         <div
-                                class="service-detail-title"><?php esc_html_e( 'Tax', 'wpbooking' ) ?></div>
+                                class="service-detail-title"><?php esc_html_e( 'Tax', 'wp-booking-management-system' ) ?></div>
                         <div class="service-detail-content">
                             <?php foreach ( $tax_html as $value ) {
                                 echo ( $value ) . '<br>';
@@ -368,7 +368,7 @@
             <?php
                 if ( $terms_conditions = get_post_meta( $hotel_id, 'terms_conditions', true ) ) { ?>
                     <div class="service-detail-item">
-                        <div class="service-detail-title"><?php esc_html_e( 'Term & Condition', 'wpbooking' ) ?></div>
+                        <div class="service-detail-title"><?php esc_html_e( 'Term & Condition', 'wp-booking-management-system' ) ?></div>
                         <div class="service-detail-content">
                             <?php echo( $terms_conditions ); ?>
                         </div>
@@ -392,7 +392,7 @@
                 if ( !empty( $card ) ) {
                     ?>
                     <div class="service-detail-item">
-                        <div class="service-detail-title"><?php esc_html_e( 'Accepted Cards', 'wpbooking' ) ?></div>
+                        <div class="service-detail-title"><?php esc_html_e( 'Accepted Cards', 'wp-booking-management-system' ) ?></div>
                         <div class="service-detail-content">
                             <ul class="wb-list-card-acd">
                                 <?php foreach ( $card as $key => $val ) {

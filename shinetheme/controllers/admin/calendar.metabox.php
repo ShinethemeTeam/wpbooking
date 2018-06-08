@@ -118,7 +118,7 @@
                 if ( !$post or ( $post->post_author != get_current_user_id() and !current_user_can( 'manage_options' ) ) ) {
                     echo json_encode( [
                         'status'  => 0,
-                        'message' => esc_html__( 'You do not have permission to do it', 'wpbooking' )
+                        'message' => esc_html__( 'You do not have permission to do it', 'wp-booking-management-system' )
                     ] );
                     die;
                 }
@@ -133,7 +133,7 @@
                         if ( !$check_in || !$check_out ) {
                             echo json_encode( [
                                 'status'  => 0,
-                                'message' => esc_html__( 'The field of start date or end date is invalid.', 'wpbooking' )
+                                'message' => esc_html__( 'The field of start date or end date is invalid.', 'wp-booking-management-system' )
                             ] );
                             die;
                         }
@@ -142,7 +142,7 @@
                         if ( $price and $price < 0 ) {
                             echo json_encode( [
                                 'status'  => 0,
-                                'message' => esc_html__( 'The field of price is invalid.', 'wpbooking' )
+                                'message' => esc_html__( 'The field of price is invalid.', 'wp-booking-management-system' )
                             ] );
                             die;
                         }
@@ -165,7 +165,7 @@
                         if ( $calendar_price and $calendar_price < 0 ) {
                             echo json_encode( [
                                 'status'  => 0,
-                                'message' => esc_html__( 'The field of price is invalid.', 'wpbooking' )
+                                'message' => esc_html__( 'The field of price is invalid.', 'wp-booking-management-system' )
                             ] );
                             die;
                         }
@@ -176,7 +176,7 @@
                         if ( $calendar_adult_price and $calendar_adult_price < 0 ) {
                             echo json_encode( [
                                 'status'  => 0,
-                                'message' => esc_html__( 'The field of adult price is invalid.', 'wpbooking' )
+                                'message' => esc_html__( 'The field of adult price is invalid.', 'wp-booking-management-system' )
                             ] );
                             die;
                         }
@@ -187,7 +187,7 @@
                         if ( $calendar_child_price and $calendar_child_price < 0 ) {
                             echo json_encode( [
                                 'status'  => 0,
-                                'message' => esc_html__( 'The field of child price is invalid.', 'wpbooking' )
+                                'message' => esc_html__( 'The field of child price is invalid.', 'wp-booking-management-system' )
                             ] );
                             die;
                         }
@@ -198,7 +198,7 @@
                         if ( $calendar_infant_price and $calendar_infant_price < 0 ) {
                             echo json_encode( [
                                 'status'  => 0,
-                                'message' => esc_html__( 'The field of infant price is invalid.', 'wpbooking' )
+                                'message' => esc_html__( 'The field of infant price is invalid.', 'wp-booking-management-system' )
                             ] );
                             die;
                         }
@@ -210,13 +210,13 @@
                         if ( $new_item > 0 ) {
                             echo json_encode( [
                                 'status'  => 1,
-                                'message' => esc_html__( 'Successffully added', 'wpbooking' )
+                                'message' => esc_html__( 'Successffully added', 'wp-booking-management-system' )
                             ] );
                             die;
                         } else {
                             echo json_encode( [
                                 'status'  => 0,
-                                'message' => esc_html__( 'Getting an error when adding new item.', 'wpbooking' )
+                                'message' => esc_html__( 'Getting an error when adding new item.', 'wp-booking-management-system' )
                             ] );
                             die;
                         }
@@ -258,7 +258,7 @@
                 if ( !$post ) {
                     echo json_encode( [
                         'status'  => 0,
-                        'message' => esc_html__( 'Please select a service', 'wpbooking' )
+                        'message' => esc_html__( 'Please select a service', 'wp-booking-management-system' )
                     ] );
                     die;
                 }
@@ -275,7 +275,7 @@
                         if ( $current_page > ceil( $total / $posts_per_page ) ) {
                             echo json_encode( [
                                 'status'  => 1,
-                                'message' => esc_html__( 'Successffully added', 'wpbooking' )
+                                'message' => esc_html__( 'Successffully added', 'wp-booking-management-system' )
                             ] );
                             die;
                         } else {
@@ -323,7 +323,7 @@
                         if ( $status == 'available' && ( !is_numeric( $price ) || (float)$price < 0 ) ) {
                             echo json_encode( [
                                 'status'  => 0,
-                                'message' => esc_html__( 'The price is not a number.', 'wpbooking' )
+                                'message' => esc_html__( 'The price is not a number.', 'wp-booking-management-system' )
                             ] );
                             die;
                         }
@@ -333,7 +333,7 @@
                                 if ( !is_numeric( $price ) || (float)$price < 0 ) {
                                     echo json_encode( [
                                         'status'  => 0,
-                                        'message' => esc_html__( 'The price is not a number.', 'wpbooking' )
+                                        'message' => esc_html__( 'The price is not a number.', 'wp-booking-management-system' )
                                     ] );
                                     die;
                                 }
@@ -343,21 +343,21 @@
                                 if ( !is_numeric( $adult ) || (float)$adult < 0 ) {
                                     echo json_encode( [
                                         'status'  => 0,
-                                        'message' => esc_html__( 'The adult is not a number.', 'wpbooking' )
+                                        'message' => esc_html__( 'The adult is not a number.', 'wp-booking-management-system' )
                                     ] );
                                     die;
                                 }
                                 if ( !empty( $child ) && !is_numeric( $child ) ) {
                                     echo json_encode( [
                                         'status'  => 0,
-                                        'message' => esc_html__( 'The child is not a number.', 'wpbooking' )
+                                        'message' => esc_html__( 'The child is not a number.', 'wp-booking-management-system' )
                                     ] );
                                     die;
                                 }
                                 if ( !empty( $infant ) && !is_numeric( $infant ) ) {
                                     echo json_encode( [
                                         'status'  => 0,
-                                        'message' => esc_html__( 'The infant is not a number.', 'wpbooking' )
+                                        'message' => esc_html__( 'The infant is not a number.', 'wp-booking-management-system' )
                                     ] );
                                     die;
                                 }
@@ -470,7 +470,7 @@
                         } else {
                             echo json_encode( [
                                 'status'  => 0,
-                                'message' => esc_html__( 'The months field is required.', 'wpbooking' )
+                                'message' => esc_html__( 'The months field is required.', 'wp-booking-management-system' )
                             ] );
                             die;
                         }
@@ -478,7 +478,7 @@
                     } else {
                         echo json_encode( [
                             'status'  => 0,
-                            'message' => esc_html__( 'The years field is required.', 'wpbooking' )
+                            'message' => esc_html__( 'The years field is required.', 'wp-booking-management-system' )
                         ] );
                         die;
                     }

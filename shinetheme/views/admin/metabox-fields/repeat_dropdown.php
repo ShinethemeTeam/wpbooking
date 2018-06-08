@@ -3,8 +3,8 @@
  * @since 1.0.0
  **/
 $data = wp_parse_args($data, array(
-    'add_new_label' => esc_html__('Add New', 'wpbooking'),
-    'select_label'=>esc_html__('Please Select','wpbooking')
+    'add_new_label' => esc_html__('Add New', 'wp-booking-management-system'),
+    'select_label'=>esc_html__('Please Select','wp-booking-management-system')
 ));
 $old_data = (isset($data['custom_data'])) ? esc_html($data['custom_data']) : get_post_meta($post_id, esc_html($data['id']), true);
 
@@ -88,7 +88,7 @@ if (is_array($data['value']) && !empty($data['value'])) {
                                     }
                                     ?>
                                 </select>
-                                <span class="wb-repeat-dropdown-remove"><i class="fa fa-trash"></i> <?php esc_html_e('delete','wpbooking')?></span>
+                                <span class="wb-repeat-dropdown-remove"><i class="fa fa-trash"></i> <?php esc_html_e('delete','wp-booking-management-system')?></span>
                             </div>
                             <?php
                         }

@@ -74,7 +74,7 @@
                 </div>
                 <div class="service-book-now">
                     <a class="wb-btn wb-btn-default wb-btn-sm"
-                       href="<?php echo esc_url( $url ) ?>"><?php esc_html_e( 'Book Now', 'wpbooking' ) ?></a>
+                       href="<?php echo esc_url( $url ) ?>"><?php esc_html_e( 'Book Now', 'wp-booking-management-system' ) ?></a>
                 </div>
             </div>
         </div>

@@ -4,11 +4,11 @@ $extension_url = add_query_arg(array('page' => 'wpbooking_page_extensions'), adm
 $tabs = array(
     array(
         'id' => 'get_started',
-        'name' => esc_html__('Get Started','wpbooking'),
+        'name' => esc_html__('Get Started','wp-booking-management-system'),
     ),
     array(
         'id' => 'extensions',
-        'name' => esc_html__('Extensions','wpbooking'),
+        'name' => esc_html__('Extensions','wp-booking-management-system'),
         'url' => $extension_url
     ),
 );
@@ -18,8 +18,8 @@ $slug_page_menu = $menu_page['menu_slug'];
 
 ?>
 <div class="wrap wpbooking-info">
-	<h1><?php echo sprintf(esc_html__('Welcome to Wp Booking %s','wpbooking'), $_version); ?></h1>
-    <p class="description"><?php echo esc_html__('Wpbooking is ready to receive and manage bookings from visitor','wpbooking');?></p>
+	<h1><?php echo sprintf(esc_html__('Welcome to Wp Booking %s','wp-booking-management-system'), $_version); ?></h1>
+    <p class="description"><?php echo esc_html__('Wpbooking is ready to receive and manage bookings from visitor','wp-booking-management-system');?></p>
     <?php $is_tab = WPBooking_Input::request('wb_tab'); $key = 0; ?>
     <?php if(count($tabs) > 1){ ?>
     <div class="wrap">

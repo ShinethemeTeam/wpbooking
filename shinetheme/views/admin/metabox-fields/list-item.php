@@ -42,11 +42,11 @@
                                                 <div class="item-title"><?php echo esc_html( $convert_val[ 'title' ] ); ?></div>
 
                                                 <div class="button-control">
-                                                    <a title="<?php esc_html_e( 'Edit', 'wpbooking' ) ?>"
+                                                    <a title="<?php esc_html_e( 'Edit', 'wp-booking-management-system' ) ?>"
                                                        class=" btn_list_item_edit" href="#">
                                                         <span class="fa fa-pencil"></span>
                                                     </a>
-                                                    <a title="<?php esc_attr_e( 'Delete', 'wpbooking' ) ?>"
+                                                    <a title="<?php esc_attr_e( 'Delete', 'wp-booking-management-system' ) ?>"
                                                        class="light right-item btn_list_item_del" href="#">
                                                         <span class="fa fa-trash-o"></span>
                                                     </a>
@@ -57,7 +57,7 @@
                                                     <td class="td-left" colspan="3">
                                                         <div class="form-table wpbooking-settings ">
                                                             <div class="st-metabox-left  wpbooking-form-group  title  wpbooking-form-group">
-                                                                <?php echo esc_html__( 'Title', 'wpbooking' ); ?>
+                                                                <?php echo esc_html__( 'Title', 'wp-booking-management-system' ); ?>
                                                             </div>
                                                             <div class="st-metabox-right">
                                                                 <input type="text"
@@ -142,7 +142,7 @@
                                 <td class="td-left" colspan="3">
                                     <div class="form-table wpbooking-settings  wpbooking-form-group ">
                                         <div class="st-metabox-left">
-                                            <label><?php echo esc_html__( 'Title', 'wpbooking' ); ?></label>
+                                            <label><?php echo esc_html__( 'Title', 'wp-booking-management-system' ); ?></label>
                                         </div>
                                         <div class="st-metabox-right">
                                             <div class="st-metabox-content-wrapper">

@@ -5,16 +5,16 @@ if(!empty($order_data['rooms'])){
     ?>
     <tr>
         <th width=50%>
-            <?php esc_html_e('Rooms','wpbooking') ?>
+            <?php esc_html_e('Rooms','wp-booking-management-system') ?>
         </th>
         <th class=text-center>
-            <?php esc_html_e('Price','wpbooking') ?> (<?php echo esc_attr(get_post_meta($order_id,'currency',true)) ?>)
+            <?php esc_html_e('Price','wp-booking-management-system') ?> (<?php echo esc_attr(get_post_meta($order_id,'currency',true)) ?>)
         </th>
         <th width=15% class=text-center>
-            <?php esc_html_e('Number','wpbooking') ?>
+            <?php esc_html_e('Number','wp-booking-management-system') ?>
         </th>
         <th class=text-center>
-            <?php esc_html_e('Total','wpbooking') ?>(<?php echo esc_attr(get_post_meta($order_id,'currency',true)) ?>)
+            <?php esc_html_e('Total','wp-booking-management-system') ?>(<?php echo esc_attr(get_post_meta($order_id,'currency',true)) ?>)
         </th>
     </tr>
     <tr>
@@ -89,10 +89,10 @@ if(!empty($order_data['rooms'])){
                                             <thead>
                                             <tr class=color_black>
                                                 <th width=60%>
-                                                    <?php esc_html_e("Service name",'wpbooking') ?>
+                                                    <?php esc_html_e("Service name",'wp-booking-management-system') ?>
                                                 </th>
                                                 <th class=text-center>
-                                                    <?php esc_html_e("Price",'wpbooking') ?>
+                                                    <?php esc_html_e("Price",'wp-booking-management-system') ?>
                                                 </th>
                                             </tr>
                                             </thead>

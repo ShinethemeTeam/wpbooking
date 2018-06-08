@@ -166,7 +166,7 @@
                                 $permission = false;
 
                             if ( !$permission ) {
-                                $res[ 'message' ] = esc_html__( 'You don\'t have permission to do that', 'wpbooking' );
+                                $res[ 'message' ] = esc_html__( 'You don\'t have permission to do that', 'wp-booking-management-system' );
                             } else {
 
                                 // Change Service Type
@@ -182,7 +182,7 @@
 
 
                     } else {
-                        $res[ 'message' ] = esc_html__( 'Please specify Service Type', 'wpbooking' );
+                        $res[ 'message' ] = esc_html__( 'Please specify Service Type', 'wp-booking-management-system' );
                     }
                 }
                 $res = apply_filters( 'wpbooking_result_ajax_save_metabox', $res, $metabox[ $section ] );
@@ -408,7 +408,7 @@
                                 $service_type_field = [
                                     'post_id' => $post_id,
                                     'id'      => 'service_type',
-                                    'label'   => esc_html__( 'Service Type', 'wpbooking' ),
+                                    'label'   => esc_html__( 'Service Type', 'wp-booking-management-system' ),
                                     'width'   => '',
                                     'desc'    => ''
                                 ];

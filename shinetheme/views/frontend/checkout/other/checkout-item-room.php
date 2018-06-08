@@ -7,12 +7,12 @@
                 <thead>
                 <tr>
                     <td width="5%"></td>
-                    <td width="50%"><?php esc_html_e( 'Rooms', 'wpbooking' ) ?></td>
-                    <td class="text-center"><?php esc_html_e( 'Price', 'wpbooking' ) ?>
+                    <td width="50%"><?php esc_html_e( 'Rooms', 'wp-booking-management-system' ) ?></td>
+                    <td class="text-center"><?php esc_html_e( 'Price', 'wp-booking-management-system' ) ?>
                         (<?php echo WPBooking_Currency::get_current_currency( 'currency' ) ?>)
                     </td>
-                    <td class="text-center" width="15%"><?php esc_html_e( 'Number', 'wpbooking' ) ?></td>
-                    <td class="text-center"><?php esc_html_e( 'Total', 'wpbooking' ) ?>
+                    <td class="text-center" width="15%"><?php esc_html_e( 'Number', 'wp-booking-management-system' ) ?></td>
+                    <td class="text-center"><?php esc_html_e( 'Total', 'wp-booking-management-system' ) ?>
                         (<?php echo WPBooking_Currency::get_current_currency( 'currency' ) ?>)
                     </td>
                 </tr>
@@ -28,10 +28,10 @@
                         <tr class="room-<?php echo esc_attr( $k ) ?> ">
                             <td width="5%" class="text-center">
                                 <a class="delete-cart-item tooltip_desc"
-                                   onclick="return confirm('<?php esc_html_e( 'Do you want to delete it?', 'wpbooking' ) ?>')"
+                                   onclick="return confirm('<?php esc_html_e( 'Do you want to delete it?', 'wp-booking-management-system' ) ?>')"
                                    href="<?php echo esc_url( add_query_arg( [ 'delete_item_hotel_room' => $k ], $booking->get_checkout_url() ) ) ?>">
                                     <i class="fa fa-trash-o"></i>
-                                    <span class="tooltip_content"><?php esc_html_e( "Remove this room", 'wpbooking' ) ?></span>
+                                    <span class="tooltip_content"><?php esc_html_e( "Remove this room", 'wp-booking-management-system' ) ?></span>
                                 </a>
                             </td>
                             <td width="50%">
@@ -105,10 +105,10 @@
                                                                                 <thead>
                                                                                 <tr>
                                                                                     <th width="60%">
-                                                                                        <?php esc_html_e( "Service name", 'wpbooking' ) ?>
+                                                                                        <?php esc_html_e( "Service name", 'wp-booking-management-system' ) ?>
                                                                                     </th>
                                                                                     <th class="text-center">
-                                                                                        <?php esc_html_e( "Price", 'wpbooking' ) ?>
+                                                                                        <?php esc_html_e( "Price", 'wp-booking-management-system' ) ?>
                                                                                     </th>
                                                                                 </tr>
                                                                                 </thead>
@@ -130,7 +130,6 @@
                                                                                         <?php
                                                                                     }
                                                                                 ?>
-
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
@@ -157,7 +156,7 @@
                                                     <?php
                                                         if ( isset( $v[ 'discount_by_day' ] ) && !empty( $v[ 'discount_by_day' ] ) ) {
                                                             ?>
-                                                            <?php echo esc_html__( 'Discount', 'wpbooking' ); ?>:
+                                                            <?php echo esc_html__( 'Discount', 'wp-booking-management-system' ); ?>:
                                                             <strong><?php echo (float)$v[ 'discount_by_day' ][ 'price' ] . '%'; ?></strong>
                                                             <?php
                                                         }

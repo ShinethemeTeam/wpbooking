@@ -11,8 +11,8 @@ $id_list_item    = $data[ 'id' ];
             <thead>
             <tr>
                 <th class="td td-left"><span class="dashicons dashicons-admin-tools"></span></th>
-                <th class="td td-center"><?php esc_html_e( 'Title' , 'wpbooking' ) ?></th>
-                <th class="td td-right"><?php esc_html_e( 'Actions' , 'wpbooking' ) ?></th>
+                <th class="td td-center"><?php esc_html_e( 'Title' , 'wp-booking-management-system' ) ?></th>
+                <th class="td td-right"><?php esc_html_e( 'Actions' , 'wp-booking-management-system' ) ?></th>
             </tr>
             </thead>
             <tbody class="data_content_list_item">
@@ -34,7 +34,7 @@ $id_list_item    = $data[ 'id' ];
                                             <tbody>
                                             <tr class="">
                                                 <th scope="row">
-                                                    <label for=""><?php esc_html_e( "Title" , 'wpbooking' ) ?>:</label>
+                                                    <label for=""><?php esc_html_e( "Title" , 'wp-booking-management-system' ) ?>:</label>
                                                 </th>
                                                 <td>
                                                     <input type="text"
@@ -84,11 +84,11 @@ $id_list_item    = $data[ 'id' ];
                         </td>
                         <td class="td td-right">
                             <div class="button-section">
-                                <a title="<?php esc_html_e( 'Edit' , 'wpbooking' ) ?>"
+                                <a title="<?php esc_html_e( 'Edit' , 'wp-booking-management-system' ) ?>"
                                    class="button button-primary btn_list_item_edit" href="javascript:void(0);">
                                     <span class="fa fa-pencil"></span>
                                 </a>
-                                <a title="<?php esc_html_e( 'Delete' , 'wpbooking' ) ?>"
+                                <a title="<?php esc_html_e( 'Delete' , 'wp-booking-management-system' ) ?>"
                                    class="button button-secondary light right-item btn_list_item_del"
                                    href="javascript:void(0);">
                                     <span class="fa fa-trash-o"></span>
@@ -114,7 +114,7 @@ $id_list_item    = $data[ 'id' ];
                                     <tbody>
                                     <tr class="">
                                         <th scope="row">
-                                            <label for=""><?php esc_html_e( "Title" , 'wpbooking' ) ?>:</label>
+                                            <label for=""><?php esc_html_e( "Title" , 'wp-booking-management-system' ) ?>:</label>
                                         </th>
                                         <td>
                                             <input type="text" class="form-control  min-width-500 list_item_title"
@@ -152,11 +152,11 @@ $id_list_item    = $data[ 'id' ];
                 </td>
                 <td class="td td-right">
                     <div class="button-section">
-                        <a title="<?php esc_html_e( 'Edit' , 'wpbooking' ) ?>"
+                        <a title="<?php esc_html_e( 'Edit' , 'wp-booking-management-system' ) ?>"
                            class="button button-primary btn_list_item_edit" href="javascript:void(0);">
                             <span class="fa fa-pencil"></span>
                         </a>
-                        <a title="<?php esc_html_e( 'Delete' , 'wpbooking' ) ?>"
+                        <a title="<?php esc_html_e( 'Delete' , 'wp-booking-management-system' ) ?>"
                            class="button button-secondary light right-item btn_list_item_del"
                            href="javascript:void(0);">
                             <span class="fa fa-trash-o"></span>
@@ -168,7 +168,7 @@ $id_list_item    = $data[ 'id' ];
         </table>
         <input type="hidden" class="wpbooking_number_last_list_item" value="<?php echo esc_html( $i ) ?>">
         <button type="button"
-                class="button button-primary btn_add_new_list_item"><?php esc_html_e( "Add New" , 'wpbooking' ) ?></button>
+                class="button button-primary btn_add_new_list_item"><?php esc_html_e( "Add New" , 'wp-booking-management-system' ) ?></button>
         <i class="wpbooking-desc"><?php echo do_shortcode( $data[ 'desc' ] ) ?></i>
     </td>
 </tr>

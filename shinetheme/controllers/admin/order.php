@@ -81,7 +81,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
 			$res=array();
 			$date_from=$this->get('date_from');
 			$date_to=$this->get('date_to');
-			$res['chart_data']['labels']=array(esc_html__("January",'wpbooking'), esc_html__("February",'wpbooking'), esc_html__("March",'wpbooking'), esc_html__("April",'wpbooking'), esc_html__("May",'wpbooking'), esc_html__("June",'wpbooking'),esc_html__("July",'wpbooking'),esc_html__("August",'wpbooking'),esc_html__("September",'wpbooking'),esc_html__("October",'wpbooking'),esc_html__("November",'wpbooking'),esc_html__("December",'wpbooking'));
+			$res['chart_data']['labels']=array(esc_html__("January",'wp-booking-management-system'), esc_html__("February",'wp-booking-management-system'), esc_html__("March",'wp-booking-management-system'), esc_html__("April",'wp-booking-management-system'), esc_html__("May",'wp-booking-management-system'), esc_html__("June",'wp-booking-management-system'),esc_html__("July",'wp-booking-management-system'),esc_html__("August",'wp-booking-management-system'),esc_html__("September",'wp-booking-management-system'),esc_html__("October",'wp-booking-management-system'),esc_html__("November",'wp-booking-management-system'),esc_html__("December",'wp-booking-management-system'));
 
 			if($date_from and $date_to){
 
@@ -117,8 +117,8 @@ if (!class_exists('WPBooking_Admin_Order')) {
 			$menu_page = WPBooking()->get_menu_page();
 			$page = array(
 				'parent_slug' => $menu_page['menu_slug'],
-				'page_title'  => esc_html__('All Bookings', 'wpbooking'),
-				'menu_title'  => esc_html__('All Bookings', 'wpbooking'),
+				'page_title'  => esc_html__('All Bookings', 'wp-booking-management-system'),
+				'menu_title'  => esc_html__('All Bookings', 'wp-booking-management-system'),
 				'capability'  => 'manage_options',
 				'menu_slug'   => 'wpbooking_page_orders',
 				'function'    => array($this, 'callback_menu_page')
@@ -250,7 +250,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
 		{
 			?>
 			<div class="notice notice-success is-dismissible">
-				<p><?php esc_html_e('Email is resent successfully', 'wpbooking'); ?></p>
+				<p><?php esc_html_e('Email is resent successfully', 'wp-booking-management-system'); ?></p>
 			</div>
 			<?php
 		}
@@ -270,14 +270,14 @@ if (!class_exists('WPBooking_Admin_Order')) {
 					'wpbooking_resend_email' => 1,
 
 				), admin_url('edit.php'));
-				$actions['wpbooking_resend_email'] = '<a href="' . esc_url($url) . '">' . esc_html__('Resend Booking Email', 'wpbooking') . '</a>';
+				$actions['wpbooking_resend_email'] = '<a href="' . esc_url($url) . '">' . esc_html__('Resend Booking Email', 'wp-booking-management-system') . '</a>';
 
 				if (defined('WP_DEBUG') and WP_DEBUG) {
 					$actions['wpbooking_test_email'] = '<a href="' . add_query_arg(array(
 							'test_email' => '1',
 							'post_id'    => $post->ID,
 
-						), admin_url('edit.php')) . '">' . esc_html__('Test Partner Email', 'wpbooking') . '</a>';
+						), admin_url('edit.php')) . '">' . esc_html__('Test Partner Email', 'wp-booking-management-system') . '</a>';
 				}
 
 			}
@@ -292,7 +292,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
 		 */
 		function _register_metabox()
 		{
-			add_meta_box('wpbooking_order_metabox', esc_html__('Order Information', 'wpbooking'), array($this, '_show_metabox'), 'wpbooking_order', 'normal', 'high');
+			add_meta_box('wpbooking_order_metabox', esc_html__('Order Information', 'wp-booking-management-system'), array($this, '_show_metabox'), 'wpbooking_order', 'normal', 'high');
 		}
 
 		/**
@@ -309,25 +309,25 @@ if (!class_exists('WPBooking_Admin_Order')) {
 		{
 			$menu_page = WPBooking()->get_menu_page();
 			$labels = array(
-				'name'               => esc_html__('Booking', 'wpbooking'),
-				'singular_name'      => esc_html__('Booking', 'wpbooking'),
-				'menu_name'          => esc_html__('Booking', 'wpbooking'),
-				'name_admin_bar'     => esc_html__('Booking', 'wpbooking'),
-				'add_new'            => esc_html__('Add New', 'wpbooking'),
-				'add_new_item'       => esc_html__('Add New Booking', 'wpbooking'),
-				'new_item'           => esc_html__('New Booking', 'wpbooking'),
-				'edit_item'          => esc_html__('Edit Booking', 'wpbooking'),
-				'view_item'          => esc_html__('View Booking', 'wpbooking'),
-				'all_items'          => esc_html__('All Bookings', 'wpbooking'),
-				'search_items'       => esc_html__('Search for Booking', 'wpbooking'),
-				'parent_item_colon'  => esc_html__('Parent Booking:', 'wpbooking'),
-				'not_found'          => esc_html__('Not found Booking.', 'wpbooking'),
-				'not_found_in_trash' => esc_html__('Not found Booking in Trash.', 'wpbooking')
+				'name'               => esc_html__('Booking', 'wp-booking-management-system'),
+				'singular_name'      => esc_html__('Booking', 'wp-booking-management-system'),
+				'menu_name'          => esc_html__('Booking', 'wp-booking-management-system'),
+				'name_admin_bar'     => esc_html__('Booking', 'wp-booking-management-system'),
+				'add_new'            => esc_html__('Add New', 'wp-booking-management-system'),
+				'add_new_item'       => esc_html__('Add New Booking', 'wp-booking-management-system'),
+				'new_item'           => esc_html__('New Booking', 'wp-booking-management-system'),
+				'edit_item'          => esc_html__('Edit Booking', 'wp-booking-management-system'),
+				'view_item'          => esc_html__('View Booking', 'wp-booking-management-system'),
+				'all_items'          => esc_html__('All Bookings', 'wp-booking-management-system'),
+				'search_items'       => esc_html__('Search for Booking', 'wp-booking-management-system'),
+				'parent_item_colon'  => esc_html__('Parent Booking:', 'wp-booking-management-system'),
+				'not_found'          => esc_html__('Not found Booking.', 'wp-booking-management-system'),
+				'not_found_in_trash' => esc_html__('Not found Booking in Trash.', 'wp-booking-management-system')
 			);
 
 			$args = array(
 				'labels'             => $labels,
-				'description'        => esc_html__('Description.', 'wpbooking'),
+				'description'        => esc_html__('Description.', 'wp-booking-management-system'),
 				'public'             => TRUE,
 				'publicly_queryable' => TRUE,
 				'show_ui'            => FALSE,

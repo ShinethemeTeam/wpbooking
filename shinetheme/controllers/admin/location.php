@@ -165,17 +165,17 @@
             function _register_taxonomy()
             {
                 $labels = [
-                    'name'              => esc_html__( 'Locations', 'wpbooking' ),
-                    'singular_name'     => esc_html__( 'Location', 'wpbooking' ),
-                    'search_items'      => esc_html__( 'Search for Locations', 'wpbooking' ),
-                    'all_items'         => esc_html__( 'All Locations', 'wpbooking' ),
-                    'parent_item'       => esc_html__( 'Parent Location', 'wpbooking' ),
-                    'parent_item_colon' => esc_html__( 'Parent Location:', 'wpbooking' ),
-                    'edit_item'         => esc_html__( 'Edit Location', 'wpbooking' ),
-                    'update_item'       => esc_html__( 'Update Location', 'wpbooking' ),
-                    'add_new_item'      => esc_html__( 'Add New Location', 'wpbooking' ),
-                    'new_item_name'     => esc_html__( 'New Location Name', 'wpbooking' ),
-                    'menu_name'         => esc_html__( 'Location', 'wpbooking' ),
+                    'name'              => esc_html__( 'Locations', 'wp-booking-management-system' ),
+                    'singular_name'     => esc_html__( 'Location', 'wp-booking-management-system' ),
+                    'search_items'      => esc_html__( 'Search for Locations', 'wp-booking-management-system' ),
+                    'all_items'         => esc_html__( 'All Locations', 'wp-booking-management-system' ),
+                    'parent_item'       => esc_html__( 'Parent Location', 'wp-booking-management-system' ),
+                    'parent_item_colon' => esc_html__( 'Parent Location:', 'wp-booking-management-system' ),
+                    'edit_item'         => esc_html__( 'Edit Location', 'wp-booking-management-system' ),
+                    'update_item'       => esc_html__( 'Update Location', 'wp-booking-management-system' ),
+                    'add_new_item'      => esc_html__( 'Add New Location', 'wp-booking-management-system' ),
+                    'new_item_name'     => esc_html__( 'New Location Name', 'wp-booking-management-system' ),
+                    'menu_name'         => esc_html__( 'Location', 'wp-booking-management-system' ),
                 ];
 
                 $args = [
