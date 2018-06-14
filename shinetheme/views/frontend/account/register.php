@@ -55,7 +55,7 @@
                    value="<?php echo( !$reset ? WPBooking_Input::post( 'rg-repassword' ) : '' ) ?>">
         </div>
         <?php
-            $page_privacy = get_option( 'page_for_privacy_policy' );
+            $page_privacy = get_option( 'wp_page_for_privacy_policy' );
             if ( $page_privacy ):
                 ?>
                 <div class="form-group">
