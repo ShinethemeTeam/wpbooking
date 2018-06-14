@@ -197,7 +197,6 @@
                     'capability_type'    => 'post',
                     'has_archive'        => ( $page_id = wpbooking_get_option( 'archive-page' ) ) && get_post( $page_id ) ? get_page_uri( $page_id ) : 'all-services',
                     'hierarchical'       => false,
-                    //'menu_position'      => '59.9',
                     'menu_icon'          => 'dashicons-tickets-alt',
                     'supports'           => [ 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ]
                 ];
