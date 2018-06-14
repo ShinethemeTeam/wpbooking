@@ -201,7 +201,7 @@ if (!class_exists('WPBooking_User')) {
             $validate->set_rules('rg-email', esc_html__('email', 'wp-booking-management-system'), 'required|max_length[100]|valid_emails|is_unique[users.user_email]');
             $validate->set_rules('rg-password', esc_html__('password', 'wp-booking-management-system'), 'required|min_length[8]|max_length[50]');
             $validate->set_rules('rg-repassword', esc_html__('re-type password', 'wp-booking-management-system'), 'required|min_length[8]|max_length[50]|matches[rg-password]');
-            $validate->set_rules('term_condition', esc_html__('Term & Condition', 'wp-booking-management-system'), 'required');
+            $validate->set_rules('privacy', esc_html__('Privacy policy', 'wp-booking-management-system'), 'required');
             $is_validated = TRUE;
             //Validate
             if (!$validate->run()) {
