@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPBooking\n"
-"POT-Creation-Date: 2018-06-07 16:19+0700\n"
+"POT-Creation-Date: 2018-06-15 11:10+0700\n"
 "PO-Revision-Date: 2016-05-27 10:45+0700\n"
 "Last-Translator: \n"
 "Language-Team: WpBooking <contact@wpbooking.org>\n"
@@ -440,7 +440,7 @@ msgstr ""
 
 #: shinetheme/configs/settings.php:160 shinetheme/controllers/checkout.php:539
 #: shinetheme/controllers/checkout.php:540
-#: shinetheme/views/frontend/account/register.php:27
+#: shinetheme/views/frontend/account/register.php:32
 #: shinetheme/views/frontend/account/update-profile.php:43
 #: shinetheme/views/frontend/account/update-profile.php:45
 #: shinetheme/views/frontend/emails/templates/changed_password.php:19
@@ -876,102 +876,102 @@ msgstr ""
 msgid "Not found services in Trash."
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:210
+#: shinetheme/controllers/admin/service.php:209
 #: shinetheme/views/frontend/single/types/default.php:138
 msgid "Amenities"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:211
-#: shinetheme/controllers/admin/service.php:220
+#: shinetheme/controllers/admin/service.php:210
+#: shinetheme/controllers/admin/service.php:219
 #: shinetheme/libraries/service-types/accommodation.php:933
 #: shinetheme/libraries/service-types/accommodation.php:937
 msgid "Amenity"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:212
+#: shinetheme/controllers/admin/service.php:211
 msgid "Search for Amenity"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:213
+#: shinetheme/controllers/admin/service.php:212
 msgid "All Amenities"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:214
+#: shinetheme/controllers/admin/service.php:213
 msgid "Parent Amenity"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:215
+#: shinetheme/controllers/admin/service.php:214
 msgid "Parent Amenity:"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:216
+#: shinetheme/controllers/admin/service.php:215
 msgid "Edit Amenity"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:217
+#: shinetheme/controllers/admin/service.php:216
 msgid "Update Amenity"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:218
+#: shinetheme/controllers/admin/service.php:217
 msgid "Add New Amenity"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:219
+#: shinetheme/controllers/admin/service.php:218
 msgid "New Amenity Name"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:241
+#: shinetheme/controllers/admin/service.php:240
 #: shinetheme/libraries/service-types/accommodation.php:1360
 #: shinetheme/libraries/service-types/tour.php:1321
 msgid "Extra Services"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:242
-#: shinetheme/controllers/admin/service.php:251
-#: shinetheme/controllers/admin/service.php:274
+#: shinetheme/controllers/admin/service.php:241
+#: shinetheme/controllers/admin/service.php:250
+#: shinetheme/controllers/admin/service.php:273
 #: shinetheme/libraries/service-types/accommodation.php:2596
 #: shinetheme/libraries/service-types/tour.php:774
 msgid "Extra Service"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:243
+#: shinetheme/controllers/admin/service.php:242
 msgid "Search Extra Services"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:244
+#: shinetheme/controllers/admin/service.php:243
 msgid "All Extra Services"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:245
+#: shinetheme/controllers/admin/service.php:244
 msgid "Parent Extra Service"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:246
+#: shinetheme/controllers/admin/service.php:245
 msgid "Parent Extra Service:"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:247
+#: shinetheme/controllers/admin/service.php:246
 msgid "Edit Extra Service"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:248
+#: shinetheme/controllers/admin/service.php:247
 msgid "Update Extra Service"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:249
+#: shinetheme/controllers/admin/service.php:248
 msgid "Add New Extra Service"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:250
+#: shinetheme/controllers/admin/service.php:249
 msgid "New Extra Service Name"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:288
+#: shinetheme/controllers/admin/service.php:287
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:18
 msgid "Information"
 msgstr ""
 
-#: shinetheme/controllers/admin/service.php:356
+#: shinetheme/controllers/admin/service.php:355
 msgid "All services"
 msgstr ""
 
@@ -1250,10 +1250,7 @@ msgid "re-type password"
 msgstr ""
 
 #: shinetheme/controllers/user.php:204
-#: shinetheme/views/frontend/account/register.php:40
-#: shinetheme/views/frontend/single/types/default.php:371
-#: shinetheme/views/frontend/single/types/tour.php:465
-msgid "Term & Condition"
+msgid "Privacy policy"
 msgstr ""
 
 #: shinetheme/controllers/user.php:212
@@ -1345,7 +1342,7 @@ msgstr ""
 
 #: shinetheme/controllers/user.php:540
 #: shinetheme/views/frontend/account/login.php:25
-#: shinetheme/views/frontend/account/register.php:31
+#: shinetheme/views/frontend/account/register.php:41
 #: shinetheme/views/frontend/emails/templates/changed_password.php:18
 msgid "Password"
 msgstr ""
@@ -1537,7 +1534,7 @@ msgstr ""
 
 #: shinetheme/helpers/service.php:216
 #: shinetheme/views/admin/about/tab-extensions.php:118
-#: shinetheme/views/frontend/archive/pagination.php:25 wpbooking.php:308
+#: shinetheme/views/frontend/archive/pagination.php:25 wpbooking.php:307
 msgid "Next"
 msgstr ""
 
@@ -1627,8 +1624,8 @@ msgstr ""
 
 #: shinetheme/libraries/gateways/paypal.php:130
 #: shinetheme/libraries/gateways/paypal.php:204
-#: shinetheme/libraries/gateways/paypal.php:259 wpbooking.php:433
-#: wpbooking.php:434
+#: shinetheme/libraries/gateways/paypal.php:259 wpbooking.php:430
+#: wpbooking.php:431
 msgid "WPBooking"
 msgstr ""
 
@@ -2656,15 +2653,15 @@ msgstr ""
 msgid "Number of rooms you booked is not enough, please change your search."
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:2812 wpbooking.php:184
+#: shinetheme/libraries/service-types/accommodation.php:2812 wpbooking.php:183
 msgid "To see price details, please select check-in and check-out date."
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:2818 wpbooking.php:185
+#: shinetheme/libraries/service-types/accommodation.php:2818 wpbooking.php:184
 msgid "Please select check-in date."
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:2824 wpbooking.php:186
+#: shinetheme/libraries/service-types/accommodation.php:2824 wpbooking.php:185
 msgid "Please select check-out date."
 msgstr ""
 
@@ -3115,7 +3112,7 @@ msgstr ""
 msgid "Get this Extension"
 msgstr ""
 
-#: shinetheme/views/admin/about/tab-extensions.php:107 wpbooking.php:309
+#: shinetheme/views/admin/about/tab-extensions.php:107 wpbooking.php:308
 msgid "Prev"
 msgstr ""
 
@@ -3995,7 +3992,7 @@ msgid "Feet"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/repeat_dropdown.php:91
-#: wpbooking.php:303
+#: wpbooking.php:302
 msgid "delete"
 msgstr ""
 
@@ -4575,11 +4572,11 @@ msgstr ""
 msgid "Is your password lost?"
 msgstr ""
 
-#: shinetheme/views/frontend/account/login.php:37
+#: shinetheme/views/frontend/account/login.php:39
 msgid "Don't have an account yet? "
 msgstr ""
 
-#: shinetheme/views/frontend/account/login.php:37
+#: shinetheme/views/frontend/account/login.php:39
 msgid "Create an account"
 msgstr ""
 
@@ -4626,18 +4623,22 @@ msgstr ""
 msgid "Trash"
 msgstr ""
 
-#: shinetheme/views/frontend/account/register.php:20
-#: shinetheme/views/frontend/account/register.php:43
+#: shinetheme/views/frontend/account/register.php:19
+#: shinetheme/views/frontend/account/register.php:70
 msgid "Register"
 msgstr ""
 
-#: shinetheme/views/frontend/account/register.php:35
+#: shinetheme/views/frontend/account/register.php:50
 msgid "Re-type Password"
 msgstr ""
 
-#: shinetheme/views/frontend/account/register.php:40
+#: shinetheme/views/frontend/account/register.php:64
 #, php-format
-msgid "Accept %s"
+msgid "Accept with %s"
+msgstr ""
+
+#: shinetheme/views/frontend/account/register.php:64
+msgid "our Privacy policy"
 msgstr ""
 
 #: shinetheme/views/frontend/account/reset-password.php:25
@@ -5318,6 +5319,11 @@ msgstr ""
 msgid "included"
 msgstr ""
 
+#: shinetheme/views/frontend/single/types/default.php:371
+#: shinetheme/views/frontend/single/types/tour.php:465
+msgid "Term & Condition"
+msgstr ""
+
 #: shinetheme/views/frontend/single/types/default.php:395
 msgid "Accepted Cards"
 msgstr ""
@@ -5395,46 +5401,46 @@ msgstr ""
 msgid "Remember to hit Save button after adding or removing new search field"
 msgstr ""
 
-#: wpbooking.php:170
+#: wpbooking.php:169
 msgid "Please rate the criteria of this accommodation."
 msgstr ""
 
-#: wpbooking.php:181
+#: wpbooking.php:180
 msgid "Please select the number of adults "
 msgstr ""
 
-#: wpbooking.php:182
+#: wpbooking.php:181
 msgid "Please select the number of children "
 msgstr ""
 
-#: wpbooking.php:183
+#: wpbooking.php:182
 msgid "Please select the number of adults and children"
 msgstr ""
 
-#: wpbooking.php:302
+#: wpbooking.php:301
 msgid "Do you want to delete?"
 msgstr ""
 
-#: wpbooking.php:304
+#: wpbooking.php:303
 msgid "Do you want to delete all image?"
 msgstr ""
 
-#: wpbooking.php:305
+#: wpbooking.php:304
 msgid "room"
 msgstr ""
 
-#: wpbooking.php:306
+#: wpbooking.php:305
 msgid "rooms"
 msgstr ""
 
-#: wpbooking.php:307
+#: wpbooking.php:306
 msgid "You want to delete this image permanently?"
 msgstr ""
 
-#: wpbooking.php:310
+#: wpbooking.php:309
 msgid "Read More"
 msgstr ""
 
-#: wpbooking.php:311
+#: wpbooking.php:310
 msgid "Room Name:"
 msgstr ""

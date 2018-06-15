@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpbooking\n"
-"POT-Creation-Date: 2018-06-07 16:19+0700\n"
-"PO-Revision-Date: 2018-06-07 16:20+0700\n"
+"POT-Creation-Date: 2018-06-15 11:10+0700\n"
+"PO-Revision-Date: 2018-06-15 11:10+0700\n"
 "Last-Translator: \n"
 "Language-Team: wpbooking\n"
 "Language: vi_VN\n"
@@ -438,7 +438,7 @@ msgstr "Google secret key"
 
 #: shinetheme/configs/settings.php:160 shinetheme/controllers/checkout.php:539
 #: shinetheme/controllers/checkout.php:540
-#: shinetheme/views/frontend/account/register.php:27
+#: shinetheme/views/frontend/account/register.php:32
 #: shinetheme/views/frontend/account/update-profile.php:43
 #: shinetheme/views/frontend/account/update-profile.php:45
 #: shinetheme/views/frontend/emails/templates/changed_password.php:19
@@ -877,102 +877,102 @@ msgstr "Không tìm thấy Dịch vụ nào."
 msgid "Not found services in Trash."
 msgstr "Không tìm thấy dịch vụ trong thùng rác."
 
-#: shinetheme/controllers/admin/service.php:210
+#: shinetheme/controllers/admin/service.php:209
 #: shinetheme/views/frontend/single/types/default.php:138
 msgid "Amenities"
 msgstr "Tiện ích"
 
-#: shinetheme/controllers/admin/service.php:211
-#: shinetheme/controllers/admin/service.php:220
+#: shinetheme/controllers/admin/service.php:210
+#: shinetheme/controllers/admin/service.php:219
 #: shinetheme/libraries/service-types/accommodation.php:933
 #: shinetheme/libraries/service-types/accommodation.php:937
 msgid "Amenity"
 msgstr "Tiện ích"
 
-#: shinetheme/controllers/admin/service.php:212
+#: shinetheme/controllers/admin/service.php:211
 msgid "Search for Amenity"
 msgstr "Tìm kiếm Tiện ích"
 
-#: shinetheme/controllers/admin/service.php:213
+#: shinetheme/controllers/admin/service.php:212
 msgid "All Amenities"
 msgstr "Tất cả Tiện ích"
 
-#: shinetheme/controllers/admin/service.php:214
+#: shinetheme/controllers/admin/service.php:213
 msgid "Parent Amenity"
 msgstr "Parent Amenity"
 
-#: shinetheme/controllers/admin/service.php:215
+#: shinetheme/controllers/admin/service.php:214
 msgid "Parent Amenity:"
 msgstr "Parent Amenity:"
 
-#: shinetheme/controllers/admin/service.php:216
+#: shinetheme/controllers/admin/service.php:215
 msgid "Edit Amenity"
 msgstr "Chỉnh sửa Tiện ích"
 
-#: shinetheme/controllers/admin/service.php:217
+#: shinetheme/controllers/admin/service.php:216
 msgid "Update Amenity"
 msgstr "Cập nhật tiện ích"
 
-#: shinetheme/controllers/admin/service.php:218
+#: shinetheme/controllers/admin/service.php:217
 msgid "Add New Amenity"
 msgstr "Thêm mới Tiện ích"
 
-#: shinetheme/controllers/admin/service.php:219
+#: shinetheme/controllers/admin/service.php:218
 msgid "New Amenity Name"
 msgstr "Tên tiện ích"
 
-#: shinetheme/controllers/admin/service.php:241
+#: shinetheme/controllers/admin/service.php:240
 #: shinetheme/libraries/service-types/accommodation.php:1360
 #: shinetheme/libraries/service-types/tour.php:1321
 msgid "Extra Services"
 msgstr "Dịch vụ thêm"
 
-#: shinetheme/controllers/admin/service.php:242
-#: shinetheme/controllers/admin/service.php:251
-#: shinetheme/controllers/admin/service.php:274
+#: shinetheme/controllers/admin/service.php:241
+#: shinetheme/controllers/admin/service.php:250
+#: shinetheme/controllers/admin/service.php:273
 #: shinetheme/libraries/service-types/accommodation.php:2596
 #: shinetheme/libraries/service-types/tour.php:774
 msgid "Extra Service"
 msgstr "Dịch vụ thêm"
 
-#: shinetheme/controllers/admin/service.php:243
+#: shinetheme/controllers/admin/service.php:242
 msgid "Search Extra Services"
 msgstr "Tìm kiếm dịch vụ thêm"
 
-#: shinetheme/controllers/admin/service.php:244
+#: shinetheme/controllers/admin/service.php:243
 msgid "All Extra Services"
 msgstr "Tất cả dịch vụ thêm"
 
-#: shinetheme/controllers/admin/service.php:245
+#: shinetheme/controllers/admin/service.php:244
 msgid "Parent Extra Service"
 msgstr "Parent Extra Service"
 
-#: shinetheme/controllers/admin/service.php:246
+#: shinetheme/controllers/admin/service.php:245
 msgid "Parent Extra Service:"
 msgstr "Parent Extra Service"
 
-#: shinetheme/controllers/admin/service.php:247
+#: shinetheme/controllers/admin/service.php:246
 msgid "Edit Extra Service"
 msgstr "Sửa dịch vụ thêm"
 
-#: shinetheme/controllers/admin/service.php:248
+#: shinetheme/controllers/admin/service.php:247
 msgid "Update Extra Service"
 msgstr "Cập nhật Extra Service"
 
-#: shinetheme/controllers/admin/service.php:249
+#: shinetheme/controllers/admin/service.php:248
 msgid "Add New Extra Service"
 msgstr "Thêm mới Extra Service"
 
-#: shinetheme/controllers/admin/service.php:250
+#: shinetheme/controllers/admin/service.php:249
 msgid "New Extra Service Name"
 msgstr "Tên Extra Service"
 
-#: shinetheme/controllers/admin/service.php:288
+#: shinetheme/controllers/admin/service.php:287
 #: shinetheme/views/frontend/account/tabs/edit_profile.php:18
 msgid "Information"
 msgstr "Thông tin"
 
-#: shinetheme/controllers/admin/service.php:356
+#: shinetheme/controllers/admin/service.php:355
 msgid "All services"
 msgstr "Tất cả dịch vụ"
 
@@ -1254,11 +1254,8 @@ msgid "re-type password"
 msgstr "nhập lại password"
 
 #: shinetheme/controllers/user.php:204
-#: shinetheme/views/frontend/account/register.php:40
-#: shinetheme/views/frontend/single/types/default.php:371
-#: shinetheme/views/frontend/single/types/tour.php:465
-msgid "Term & Condition"
-msgstr "Điều khoản và điều kiện"
+msgid "Privacy policy"
+msgstr ""
 
 #: shinetheme/controllers/user.php:212
 msgid "This email has been registered. You can login"
@@ -1352,7 +1349,7 @@ msgstr "Cập nhật thành công"
 
 #: shinetheme/controllers/user.php:540
 #: shinetheme/views/frontend/account/login.php:25
-#: shinetheme/views/frontend/account/register.php:31
+#: shinetheme/views/frontend/account/register.php:41
 #: shinetheme/views/frontend/emails/templates/changed_password.php:18
 msgid "Password"
 msgstr "Mật khẩu"
@@ -1544,7 +1541,7 @@ msgstr "Trước"
 
 #: shinetheme/helpers/service.php:216
 #: shinetheme/views/admin/about/tab-extensions.php:118
-#: shinetheme/views/frontend/archive/pagination.php:25 wpbooking.php:308
+#: shinetheme/views/frontend/archive/pagination.php:25 wpbooking.php:307
 msgid "Next"
 msgstr "Sau"
 
@@ -1633,8 +1630,8 @@ msgstr "Test API Signature"
 
 #: shinetheme/libraries/gateways/paypal.php:130
 #: shinetheme/libraries/gateways/paypal.php:204
-#: shinetheme/libraries/gateways/paypal.php:259 wpbooking.php:433
-#: wpbooking.php:434
+#: shinetheme/libraries/gateways/paypal.php:259 wpbooking.php:430
+#: wpbooking.php:431
 msgid "WPBooking"
 msgstr "WPBooking"
 
@@ -2678,15 +2675,15 @@ msgstr "Bạn không thể đặt \"%s\" vào: %s"
 msgid "Number of rooms you booked is not enough, please change your search."
 msgstr "Số phòng bạn đã đặt không đủ, vui lòng thay đổi tìm kiếm của bạn."
 
-#: shinetheme/libraries/service-types/accommodation.php:2812 wpbooking.php:184
+#: shinetheme/libraries/service-types/accommodation.php:2812 wpbooking.php:183
 msgid "To see price details, please select check-in and check-out date."
 msgstr "Để xem chi tiết giá, vui lòng chọn ngày nhận phòng và ngày trả phòng."
 
-#: shinetheme/libraries/service-types/accommodation.php:2818 wpbooking.php:185
+#: shinetheme/libraries/service-types/accommodation.php:2818 wpbooking.php:184
 msgid "Please select check-in date."
 msgstr "Chọn ngày đến."
 
-#: shinetheme/libraries/service-types/accommodation.php:2824 wpbooking.php:186
+#: shinetheme/libraries/service-types/accommodation.php:2824 wpbooking.php:185
 msgid "Please select check-out date."
 msgstr "Chọn ngày đi."
 
@@ -3142,7 +3139,7 @@ msgstr "Tất cả"
 msgid "Get this Extension"
 msgstr ""
 
-#: shinetheme/views/admin/about/tab-extensions.php:107 wpbooking.php:309
+#: shinetheme/views/admin/about/tab-extensions.php:107 wpbooking.php:308
 msgid "Prev"
 msgstr "Lùi"
 
@@ -4035,7 +4032,7 @@ msgid "Feet"
 msgstr "Thước"
 
 #: shinetheme/views/admin/metabox-fields/repeat_dropdown.php:91
-#: wpbooking.php:303
+#: wpbooking.php:302
 msgid "delete"
 msgstr "xóa"
 
@@ -4615,11 +4612,11 @@ msgstr "Ghi nhớ"
 msgid "Is your password lost?"
 msgstr "Mật khẩu của bạn bị mất?"
 
-#: shinetheme/views/frontend/account/login.php:37
+#: shinetheme/views/frontend/account/login.php:39
 msgid "Don't have an account yet? "
 msgstr "Vẫn chưa có tài khoản? "
 
-#: shinetheme/views/frontend/account/login.php:37
+#: shinetheme/views/frontend/account/login.php:39
 msgid "Create an account"
 msgstr "Tạo tài khoản"
 
@@ -4666,19 +4663,24 @@ msgstr "Bạn muốn chuyển vào thùng rác?"
 msgid "Trash"
 msgstr "Thùng rác"
 
-#: shinetheme/views/frontend/account/register.php:20
-#: shinetheme/views/frontend/account/register.php:43
+#: shinetheme/views/frontend/account/register.php:19
+#: shinetheme/views/frontend/account/register.php:70
 msgid "Register"
 msgstr "Đăng ký"
 
-#: shinetheme/views/frontend/account/register.php:35
+#: shinetheme/views/frontend/account/register.php:50
 msgid "Re-type Password"
 msgstr "Nhập lại mật khẩu"
 
-#: shinetheme/views/frontend/account/register.php:40
-#, php-format
-msgid "Accept %s"
+#: shinetheme/views/frontend/account/register.php:64
+#, fuzzy, php-format
+#| msgid "Accept %s"
+msgid "Accept with %s"
 msgstr "Đồng ý %s"
+
+#: shinetheme/views/frontend/account/register.php:64
+msgid "our Privacy policy"
+msgstr ""
 
 #: shinetheme/views/frontend/account/reset-password.php:25
 msgid "Confirm Password"
@@ -5362,6 +5364,11 @@ msgstr " /người trên đêm"
 msgid "included"
 msgstr "được bao gồm"
 
+#: shinetheme/views/frontend/single/types/default.php:371
+#: shinetheme/views/frontend/single/types/tour.php:465
+msgid "Term & Condition"
+msgstr "Điều khoản và điều kiện"
+
 #: shinetheme/views/frontend/single/types/default.php:395
 msgid "Accepted Cards"
 msgstr "Thẻ được chấp nhận"
@@ -5439,47 +5446,47 @@ msgstr "Thêm trường"
 msgid "Remember to hit Save button after adding or removing new search field"
 msgstr "Hãy nhớ nhấn nút Lưu sau khi thêm hoặc xóa trường tìm kiếm mới"
 
-#: wpbooking.php:170
+#: wpbooking.php:169
 msgid "Please rate the criteria of this accommodation."
 msgstr "Hãy đánh giá tiêu chí của chỗ ở này."
 
-#: wpbooking.php:181
+#: wpbooking.php:180
 msgid "Please select the number of adults "
 msgstr "Hãy chọn số người lớn "
 
-#: wpbooking.php:182
+#: wpbooking.php:181
 msgid "Please select the number of children "
 msgstr "Hãy chọn số trẻ em "
 
-#: wpbooking.php:183
+#: wpbooking.php:182
 msgid "Please select the number of adults and children"
 msgstr "Hãy chọn số người lớn và trẻ em"
 
-#: wpbooking.php:302
+#: wpbooking.php:301
 msgid "Do you want to delete?"
 msgstr "Bạn muốn xóa?"
 
-#: wpbooking.php:304
+#: wpbooking.php:303
 msgid "Do you want to delete all image?"
 msgstr "Bạn muốn xóa tất cả ảnh?"
 
-#: wpbooking.php:305
+#: wpbooking.php:304
 msgid "room"
 msgstr "phòng"
 
-#: wpbooking.php:306
+#: wpbooking.php:305
 msgid "rooms"
 msgstr "phòng"
 
-#: wpbooking.php:307
+#: wpbooking.php:306
 msgid "You want to delete this image permanently?"
 msgstr "Bạn muốn xóa ảnh này?"
 
-#: wpbooking.php:310
+#: wpbooking.php:309
 msgid "Read More"
 msgstr "Đọc thêm"
 
-#: wpbooking.php:311
+#: wpbooking.php:310
 msgid "Room Name:"
 msgstr "Tên phòng:"
 
