@@ -121,10 +121,14 @@
                             'label' => esc_html__( "Checkout Page", 'wp-booking-management-system' ),
                             'type'  => 'page-select',
                         ],
-
                         [
                             'id'    => 'allow_guest_checkout',
                             'label' => esc_html__( "Allow Guest to Checkout?", 'wp-booking-management-system' ),
+                            'type'  => 'checkbox',
+                        ],
+                        [
+                            'id'    => 'allow_passenger_information_checkout',
+                            'label' => esc_html__( "Passengers information on the checkout form", 'wp-booking-management-system' ),
                             'type'  => 'checkbox',
                         ],
                         [

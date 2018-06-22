@@ -771,7 +771,7 @@ if (!class_exists('WPBooking_User')) {
          */
         public function order_update_user($customer_id,$meta_fields){
             if(!empty($meta_fields) and is_array($meta_fields)){
-                $f = array('user_email', 'user_first_name', 'user_last_name', 'user_phone' , 'user_address','user_postcode','user_apt_unit');
+                $f = array('user_email', 'user_first_name', 'user_last_name', 'user_phone' , 'user_address','user_postcode','user_apt_unit', 'passengers');
                 foreach($meta_fields as $key=>$value){
                     if (array_key_exists($key, $f))
                         update_user_meta($customer_id, str_replace('user_','',$key) , $value['value']);

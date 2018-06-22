@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPBooking\n"
-"POT-Creation-Date: 2018-06-15 11:10+0700\n"
+"POT-Creation-Date: 2018-06-22 13:46+0700\n"
 "PO-Revision-Date: 2016-05-27 10:45+0700\n"
 "Last-Translator: \n"
 "Language-Team: WpBooking <contact@wpbooking.org>\n"
@@ -279,7 +279,7 @@ msgid "General"
 msgstr ""
 
 #: shinetheme/configs/settings.php:8 shinetheme/configs/settings.php:116
-#: shinetheme/configs/settings.php:164
+#: shinetheme/configs/settings.php:168
 msgid "General Options"
 msgstr ""
 
@@ -406,39 +406,43 @@ msgstr ""
 msgid "Checkout Page"
 msgstr ""
 
-#: shinetheme/configs/settings.php:127
+#: shinetheme/configs/settings.php:126
 #: shinetheme/views/admin/setup_demo/wp_booking.php:12
 #: shinetheme/views/admin/setup_demo/wp_booking.php:16
 msgid "Allow Guest to Checkout?"
 msgstr ""
 
 #: shinetheme/configs/settings.php:131
+msgid "Passengers information on the checkout form"
+msgstr ""
+
+#: shinetheme/configs/settings.php:135
 #: shinetheme/views/admin/setup_demo/wp_booking.php:21
 msgid "Captcha Google"
 msgstr ""
 
-#: shinetheme/configs/settings.php:136
+#: shinetheme/configs/settings.php:140
 msgid "Allow Captcha Google to be Checked out"
 msgstr ""
 
-#: shinetheme/configs/settings.php:138
+#: shinetheme/configs/settings.php:142
 msgid ""
 "To use this feature, you must create a google key. See more at <a href="
 "\"https://www.google.com/recaptcha/intro/android.html\" target=\"_blank"
 "\">Google Captcha</a>"
 msgstr ""
 
-#: shinetheme/configs/settings.php:142
+#: shinetheme/configs/settings.php:146
 #: shinetheme/views/admin/setup_demo/wp_booking.php:38
 msgid "Google key"
 msgstr ""
 
-#: shinetheme/configs/settings.php:149
+#: shinetheme/configs/settings.php:153
 #: shinetheme/views/admin/setup_demo/wp_booking.php:47
 msgid "Google secret key"
 msgstr ""
 
-#: shinetheme/configs/settings.php:160 shinetheme/controllers/checkout.php:539
+#: shinetheme/configs/settings.php:164 shinetheme/controllers/checkout.php:539
 #: shinetheme/controllers/checkout.php:540
 #: shinetheme/views/frontend/account/register.php:32
 #: shinetheme/views/frontend/account/update-profile.php:43
@@ -447,86 +451,86 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: shinetheme/configs/settings.php:169
+#: shinetheme/configs/settings.php:173
 msgid "Email From Name"
 msgstr ""
 
-#: shinetheme/configs/settings.php:171
+#: shinetheme/configs/settings.php:175
 #: shinetheme/views/admin/setup_demo/wp_email.php:16
 msgid "WPBooking Plugin"
 msgstr ""
 
-#: shinetheme/configs/settings.php:175
+#: shinetheme/configs/settings.php:179
 msgid "Email From Address"
 msgstr ""
 
-#: shinetheme/configs/settings.php:181
+#: shinetheme/configs/settings.php:185
 msgid "Email  System to get Booking, Registration Notifications...etc"
 msgstr ""
 
-#: shinetheme/configs/settings.php:187
+#: shinetheme/configs/settings.php:191
 msgid "Email Header"
 msgstr ""
 
-#: shinetheme/configs/settings.php:195
+#: shinetheme/configs/settings.php:199
 msgid "Email Footer"
 msgstr ""
 
-#: shinetheme/configs/settings.php:204
+#: shinetheme/configs/settings.php:208
 msgid "Email CSS Code"
 msgstr ""
 
-#: shinetheme/configs/settings.php:206
+#: shinetheme/configs/settings.php:210
 msgid ""
 "We will use this to transmogrify your Email HTML by parsing the CSS and "
 "inserting the CSS definitions into tags within your Email HTML based on the "
 "CSS selectors"
 msgstr ""
 
-#: shinetheme/configs/settings.php:212
+#: shinetheme/configs/settings.php:216
 #: shinetheme/views/admin/setup_demo/wp_email.php:8
 msgid "Booking Email"
 msgstr ""
 
-#: shinetheme/configs/settings.php:217 shinetheme/configs/settings.php:263
+#: shinetheme/configs/settings.php:221 shinetheme/configs/settings.php:267
 #: shinetheme/views/admin/setup_demo/wp_email.php:46
 #: shinetheme/views/admin/setup_demo/wp_email.php:74
 msgid "Enable Email To Customer"
 msgstr ""
 
-#: shinetheme/configs/settings.php:223
+#: shinetheme/configs/settings.php:227
 msgid "For Customer"
 msgstr ""
 
-#: shinetheme/configs/settings.php:226 shinetheme/configs/settings.php:244
-#: shinetheme/configs/settings.php:275 shinetheme/configs/settings.php:291
+#: shinetheme/configs/settings.php:230 shinetheme/configs/settings.php:248
+#: shinetheme/configs/settings.php:279 shinetheme/configs/settings.php:295
 msgid "Preview"
 msgstr ""
 
-#: shinetheme/configs/settings.php:235 shinetheme/configs/settings.php:280
+#: shinetheme/configs/settings.php:239 shinetheme/configs/settings.php:284
 #: shinetheme/views/admin/setup_demo/wp_email.php:58
 #: shinetheme/views/admin/setup_demo/wp_email.php:85
 msgid "Enable Email To Admin"
 msgstr ""
 
-#: shinetheme/configs/settings.php:241
+#: shinetheme/configs/settings.php:245
 msgid "For Administrator"
 msgstr ""
 
-#: shinetheme/configs/settings.php:254
+#: shinetheme/configs/settings.php:258
 msgid "Registration Email"
 msgstr ""
 
-#: shinetheme/configs/settings.php:259
+#: shinetheme/configs/settings.php:263
 #: shinetheme/views/admin/setup_demo/wp_email.php:64
 msgid "Customer Registration"
 msgstr ""
 
-#: shinetheme/configs/settings.php:269
+#: shinetheme/configs/settings.php:273
 msgid "Email To Customer"
 msgstr ""
 
-#: shinetheme/configs/settings.php:285
+#: shinetheme/configs/settings.php:289
 msgid "Email To Admin"
 msgstr ""
 
@@ -1156,11 +1160,34 @@ msgid "Apt/ Unit"
 msgstr ""
 
 #: shinetheme/controllers/checkout.php:585
+#: shinetheme/controllers/checkout.php:586
+msgid "Passengers"
+msgstr ""
+
+#: shinetheme/controllers/checkout.php:594
 msgid "Special Request"
 msgstr ""
 
-#: shinetheme/controllers/checkout.php:586
+#: shinetheme/controllers/checkout.php:595
 msgid "Notes about your order, e.g. special notes for  delivery."
+msgstr ""
+
+#: shinetheme/controllers/checkout.php:764
+#, php-format
+msgid "Passenger %s"
+msgstr ""
+
+#: shinetheme/controllers/checkout.php:767
+#: shinetheme/views/admin/taxonomy/edit.php:19
+#: shinetheme/views/admin/taxonomy/index.php:21
+#: shinetheme/views/admin/taxonomy/index.php:72
+#: shinetheme/views/frontend/order/customer_information.php:63
+msgid "Name"
+msgstr ""
+
+#: shinetheme/controllers/checkout.php:770
+#: shinetheme/views/frontend/order/customer_information.php:64
+msgid "Ages"
 msgstr ""
 
 #: shinetheme/controllers/email.php:42 shinetheme/controllers/user.php:326
@@ -4458,12 +4485,6 @@ msgstr ""
 msgid "Edit Attribute"
 msgstr ""
 
-#: shinetheme/views/admin/taxonomy/edit.php:19
-#: shinetheme/views/admin/taxonomy/index.php:21
-#: shinetheme/views/admin/taxonomy/index.php:72
-msgid "Name"
-msgstr ""
-
 #: shinetheme/views/admin/taxonomy/edit.php:23
 msgid "Name for the taxonomy (shown on the front-end)."
 msgstr ""
@@ -4655,7 +4676,7 @@ msgstr ""
 #: shinetheme/views/frontend/account/tabs/booking_history.php:7
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:59
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:35
-#: shinetheme/views/frontend/order/customer_information.php:70
+#: shinetheme/views/frontend/order/customer_information.php:99
 msgid "Booking History"
 msgstr ""
 
@@ -4685,14 +4706,14 @@ msgstr ""
 #: shinetheme/views/frontend/account/tabs/dashboard.php:29
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:24
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:14
-#: shinetheme/views/frontend/order/customer_information.php:32
+#: shinetheme/views/frontend/order/customer_information.php:33
 msgid "Telephone:"
 msgstr ""
 
 #: shinetheme/views/frontend/account/tabs/dashboard.php:35
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:30
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:18
-#: shinetheme/views/frontend/order/customer_information.php:38
+#: shinetheme/views/frontend/order/customer_information.php:39
 msgid "Address:"
 msgstr ""
 
@@ -4703,7 +4724,7 @@ msgstr ""
 #: shinetheme/views/frontend/account/tabs/dashboard.php:47
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:36
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:22
-#: shinetheme/views/frontend/order/customer_information.php:44
+#: shinetheme/views/frontend/order/customer_information.php:45
 msgid "Postcode / Zip:"
 msgstr ""
 
@@ -5006,25 +5027,25 @@ msgstr ""
 
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:12
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:6
-#: shinetheme/views/frontend/order/customer_information.php:20
+#: shinetheme/views/frontend/order/customer_information.php:21
 msgid "Full name:"
 msgstr ""
 
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:18
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:10
-#: shinetheme/views/frontend/order/customer_information.php:26
+#: shinetheme/views/frontend/order/customer_information.php:27
 msgid "Email confirmation:"
 msgstr ""
 
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:42
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:26
-#: shinetheme/views/frontend/order/customer_information.php:50
+#: shinetheme/views/frontend/order/customer_information.php:51
 msgid "Apt/ Unit:"
 msgstr ""
 
 #: shinetheme/views/frontend/emails/shortcodes/checkout_info.php:48
 #: shinetheme/views/frontend/emails/shortcodes/preview/checkout_info.php:30
-#: shinetheme/views/frontend/order/customer_information.php:56
+#: shinetheme/views/frontend/order/customer_information.php:84
 msgid "Special request:"
 msgstr ""
 
@@ -5106,6 +5127,10 @@ msgstr ""
 
 #: shinetheme/views/frontend/order/content.php:68
 msgid "your booking information"
+msgstr ""
+
+#: shinetheme/views/frontend/order/customer_information.php:60
+msgid "Passengers Information"
 msgstr ""
 
 #: shinetheme/views/frontend/single/hotel/room.php:21

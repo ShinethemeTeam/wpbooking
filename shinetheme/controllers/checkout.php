@@ -581,6 +581,15 @@
                         'required'    => false,
                         'rule'        => '',
                     ],
+                    'passengers'           => [
+                        'title'       => esc_html__( "Passengers", "wpbooking" ),
+                        'placeholder' => esc_html__( "Passengers", "wpbooking" ),
+                        'type'        => 'text',
+                        'name'        => 'passengers',
+                        'size'        => '12',
+                        'required'    => true,
+                        'rule'        => 'required',
+                    ],
                     'user_special_request' => [
                         'title'       => esc_html__( "Special Request", "wpbooking" ),
                         'placeholder' => esc_html__( "Notes about your order, e.g. special notes for  delivery.", "wpbooking" ),
@@ -745,28 +754,50 @@
                                             $value = get_user_meta( $customer_id, $key, true );
                                         }
                                     }
-                                    ?>
-                                    <div class="col-md-<?php echo esc_html( $data[ 'size' ] ) ?>">
-                                        <div class="form-group">
-                                            <label
-                                                for="<?php echo esc_html( $data[ 'name' ] ) ?>"><?php echo esc_html( $data[ 'title' ] ) ?><?php if ( $data[ 'required' ] ) echo '<span class="required">*</span>'; ?></label>
-                                            <?php if ( $data[ 'type' ] != 'textarea' ) { ?>
-                                                <input type="<?php echo esc_attr( $data[ 'type' ] ) ?>"
-                                                       class="form-control only_number"
-                                                       id="<?php echo esc_html( $data[ 'name' ] ) ?>"
-                                                       name="<?php echo esc_html( $data[ 'name' ] ) ?>"
-                                                       placeholder="<?php echo esc_html( $data[ 'placeholder' ] ) ?>" <?php if ( $data[ 'required' ] ) echo 'required'; ?>
-                                                       value="<?php echo esc_html( $value ) ?>">
-                                                <span class="desc"><?php echo esc_html( $data[ 'desc' ] ) ?></span>
-                                            <?php } else { ?>
-                                                <textarea name="<?php echo esc_html( $data[ 'name' ] ) ?>"
-                                                          class="form-control" rows="4"
-                                                          placeholder="<?php echo esc_html( $data[ 'placeholder' ] ) ?>" <?php if ( $data[ 'title' ] ) echo 'required'; ?>><?php echo esc_html( $value ) ?></textarea>
-                                                <span class="desc"><?php echo esc_html( $data[ 'desc' ] ) ?></span>
-                                            <?php } ?>
+                                    if ( $data[ 'name' ] == 'passengers' && wpbooking_get_option('allow_passenger_information_checkout') == 1 ) {
+                                        $cart       = $this->get_cart();
+                                        $passengers = (int)$cart[ 'person' ];
+                                        for ( $i = 1; $i <= $passengers; $i++ ) {
+                                            ?>
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="passenger-<?php echo esc_attr( $i ); ?>"><strong><?php echo sprintf( esc_html__( 'Passenger %s', 'wpbooking' ), $i ); ?></strong><?php if ( $data[ 'required' ] ) echo '<span class="required">*</span>'; ?></label>
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-9">
+                                                            <span><?php echo esc_html__('Name', 'wpbooking'); ?><input type="text" class="form-control <?php if ( $data[ 'required' ] ) echo 'required'; ?>" name="passengers[name][]" value="" <?php if ( $data[ 'required' ] ) echo 'required'; ?>></span>
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-3">
+                                                            <span><?php echo esc_html__('Ages', 'wpbooking'); ?><input type="number" min="0" class="form-control <?php if ( $data[ 'required' ] ) echo 'required'; ?>" name="passengers[age][]" value="0" <?php if ( $data[ 'required' ] ) echo 'required'; ?>></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
+                                    } elseif($data[ 'name' ] != 'passengers') {
+                                        ?>
+                                        <div class="col-md-<?php echo esc_html( $data[ 'size' ] ) ?>">
+                                            <div class="form-group">
+                                                <label
+                                                        for="<?php echo esc_html( $data[ 'name' ] ) ?>"><?php echo esc_html( $data[ 'title' ] ) ?><?php if ( $data[ 'required' ] ) echo '<span class="required">*</span>'; ?></label>
+                                                <?php if ( $data[ 'type' ] != 'textarea' ) { ?>
+                                                    <input type="<?php echo esc_attr( $data[ 'type' ] ) ?>"
+                                                           class="form-control only_number"
+                                                           id="<?php echo esc_html( $data[ 'name' ] ) ?>"
+                                                           name="<?php echo esc_html( $data[ 'name' ] ) ?>"
+                                                           placeholder="<?php echo esc_html( $data[ 'placeholder' ] ) ?>" <?php if ( $data[ 'required' ] ) echo 'required'; ?>
+                                                           value="<?php echo esc_html( $value ) ?>">
+                                                    <span class="desc"><?php echo esc_html( $data[ 'desc' ] ) ?></span>
+                                                <?php } else { ?>
+                                                    <textarea name="<?php echo esc_html( $data[ 'name' ] ) ?>"
+                                                              class="form-control" rows="4"
+                                                              placeholder="<?php echo esc_html( $data[ 'placeholder' ] ) ?>" <?php if ( $data[ 'title' ] ) echo 'required'; ?>><?php echo esc_html( $value ) ?></textarea>
+                                                    <span class="desc"><?php echo esc_html( $data[ 'desc' ] ) ?></span>
+                                                <?php } ?>
+                                            </div>
                                         </div>
-                                    </div>
-                                <?php } ?>
+                                    <?php }
+                                } ?>
                             <?php } ?>
                     </div>
                 </div>

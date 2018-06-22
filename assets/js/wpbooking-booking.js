@@ -169,7 +169,20 @@ jQuery(document).ready(function ($) {
     // Checkout Form
     $('.wpbooking_checkout_form .submit-button').click(function () {
         var form = $(this).closest('form');
-
+        if($('input[name^="passengers"]', form).length){
+            var validate = true;
+            $('input[name^="passengers"].required', form).removeClass('input-error');
+            $('input[name^="passengers"].required', form).each(function(){
+                var val = $(this).val();
+                if(val == ''){
+                    $(this).addClass('input-error');
+                    validate = false;
+                }
+            });
+            if(!validate){
+                return false;
+            }
+        }
         form.trigger('wpbooking_before_checkout');
 
         var payment       = $('input[name="payment_gateway"]:checked', form).val();
