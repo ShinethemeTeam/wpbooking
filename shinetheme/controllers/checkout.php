@@ -115,10 +115,13 @@
 
                 $fields = $this->get_billing_form_fields();
                 // Validate Form Billing
-                $validator = new WPBooking_Form_Validator();
+                $validator  = new WPBooking_Form_Validator();
+
                 if ( !empty( $fields ) and $is_validate ) {
                     foreach ( $fields as $key => $value ) {
-                        $validator->set_rules( $value[ 'name' ], strtolower( $value[ 'title' ] ), $value[ 'rule' ] );
+                        if ( $value[ 'name' ] != 'passengers' ) {
+                            $validator->set_rules( $value[ 'name' ], strtolower( $value[ 'title' ] ), $value[ 'rule' ] );
+                        }
                     }
                     if ( $is_validate and !$validator->run() ) {
                         $is_validate = false;
@@ -754,27 +757,47 @@
                                             $value = get_user_meta( $customer_id, $key, true );
                                         }
                                     }
-                                    if ( $data[ 'name' ] == 'passengers' && wpbooking_get_option('allow_passenger_information_checkout') == 1 ) {
+                                    if ( $data[ 'name' ] == 'passengers' && wpbooking_get_option( 'allow_passenger_information_checkout' ) == 1 ) {
                                         $cart       = $this->get_cart();
-                                        $passengers = (int)$cart[ 'person' ];
+                                        $passengers = 0;
+                                        switch ( $cart[ 'service_type' ] ) {
+                                            case 'accommodation':
+                                                $passengers = (int)$cart[ 'persion' ];
+                                                break;
+                                            case 'tour':
+                                                $passengers = (int)$cart[ 'adult_number' ] + (int)$cart[ 'children_number' ] + (int)$cart[ 'infant_number' ];
+                                                break;
+                                            case 'car':
+                                                $passengers = (int)$cart[ 'persion' ];
+                                                break;
+                                        }
                                         for ( $i = 1; $i <= $passengers; $i++ ) {
                                             ?>
                                             <div class="col-xs-12">
                                                 <div class="form-group">
-                                                    <label for="passenger-<?php echo esc_attr( $i ); ?>"><strong><?php echo sprintf( esc_html__( 'Passenger %s', 'wpbooking' ), $i ); ?></strong><?php if ( $data[ 'required' ] ) echo '<span class="required">*</span>'; ?></label>
+                                                    <label for="passenger-<?php echo esc_attr( $i ); ?>"><strong><?php echo sprintf( esc_html__( 'Passenger %s', 'wpbooking' ), $i ); ?></strong><?php if ( $data[ 'required' ] ) echo '<span class="required">*</span>'; ?>
+                                                    </label>
                                                     <div class="row">
                                                         <div class="col-xs-12 col-sm-9">
-                                                            <span><?php echo esc_html__('Name', 'wpbooking'); ?><input type="text" class="form-control <?php if ( $data[ 'required' ] ) echo 'required'; ?>" name="passengers[name][]" value="" <?php if ( $data[ 'required' ] ) echo 'required'; ?>></span>
+                                                            <span><?php echo esc_html__( 'Name', 'wpbooking' ); ?><input
+                                                                        type="text"
+                                                                        class="form-control <?php if ( $data[ 'required' ] ) echo 'required'; ?>"
+                                                                        name="passengers[name][]"
+                                                                        value="" <?php if ( $data[ 'required' ] ) echo 'required'; ?>></span>
                                                         </div>
                                                         <div class="col-xs-12 col-sm-3">
-                                                            <span><?php echo esc_html__('Ages', 'wpbooking'); ?><input type="number" min="0" class="form-control <?php if ( $data[ 'required' ] ) echo 'required'; ?>" name="passengers[age][]" value="0" <?php if ( $data[ 'required' ] ) echo 'required'; ?>></span>
+                                                            <span><?php echo esc_html__( 'Ages', 'wpbooking' ); ?><input
+                                                                        type="number" min="0"
+                                                                        class="form-control <?php if ( $data[ 'required' ] ) echo 'required'; ?>"
+                                                                        name="passengers[age][]"
+                                                                        value="0" <?php if ( $data[ 'required' ] ) echo 'required'; ?>></span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <?php
                                         }
-                                    } elseif($data[ 'name' ] != 'passengers') {
+                                    } elseif ( $data[ 'name' ] != 'passengers' ) {
                                         ?>
                                         <div class="col-md-<?php echo esc_html( $data[ 'size' ] ) ?>">
                                             <div class="form-group">
