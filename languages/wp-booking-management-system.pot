@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPBooking\n"
-"POT-Creation-Date: 2018-07-05 10:02+0700\n"
+"POT-Creation-Date: 2018-07-05 13:41+0700\n"
 "PO-Revision-Date: 2016-05-27 10:45+0700\n"
 "Last-Translator: \n"
 "Language-Team: WpBooking <contact@wpbooking.org>\n"
