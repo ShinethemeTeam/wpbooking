@@ -53,6 +53,7 @@
         'gateways',
         'email',
         'checkout',
+		'shortcode'
     ];
 
     $autoload[ 'model' ] = [

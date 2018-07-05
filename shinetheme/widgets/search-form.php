@@ -2,6 +2,7 @@
     if ( !class_exists( 'WPBooking_Widget_Form_Search' ) ) {
         class WPBooking_Widget_Form_Search extends WP_Widget
         {
+            static $_inst;
             public function __construct()
             {
                 $widget_ops = [ 'classname' => '', 'description' => "[WPBooking] Search Form" ];
@@ -41,6 +42,7 @@
                     ?>
                     <input type="hidden" name="wpbooking_action" value="archive_filter">
                     <input type="hidden" name="service_type" value="<?php echo esc_attr( $service_type ) ?>">
+                    <input type="hidden" name="wpbooking_search_form_archive" value="<?php echo esc_attr($this->number); ?>">
 
                     <div class="wpbooking-search-form-wrap">
                         <?php
@@ -66,8 +68,7 @@
                                 }
                             } ?>
 
-                        <?php if ( !empty( $search_more_fields ) ) {
-                            ?>
+                        <?php if ( !empty( $search_more_fields ) ) {  ?>
                             <div class="wpbooking-search-form-more-wrap">
                                 <a href="#" onclick="return false" class="btn btn-link wpbooking-show-more-fields"><span
                                             class=""><?php esc_html_e( 'Advanced Search', 'wp-booking-management-system' ) ?> <i
@@ -322,7 +323,7 @@
                                     for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
 
                             <div class="item-search-content">
-                                <div class="list-checkbox">
+                                <div class="list-checkbox list_star">
                                     <?php
                                         $data = [
                                             "5" => esc_html__( '5 stars', 'wp-booking-management-system' ),
@@ -343,7 +344,14 @@
                                                             type="checkbox" <?php echo esc_html( $check ) ?>
                                                             id="<?php echo "item_" . $key2 ?>"
                                                             value="<?php echo esc_html( $key2 ) ?>">
-                                                    <?php echo( $value2 ) ?></label>
+                                                    <span class="label_star"> <?php echo( $value2 ) ?></span>
+                                                <?php
+                                                /* #### */
+                                                    for($i=0;$i<$key2;$i++){
+                                                        echo '<span class="icon_star"><i class="fa fa-star"></i></span>';
+                                                    }
+                                                ?>
+                                                </label>
                                                 <?php
                                             }
                                         }
@@ -531,16 +539,24 @@
             {
                 $instance = wp_parse_args( (array)$instance, [
                     'title'        => '',
+                    'wpbooking_search_form'        => '',
                     'service_type' => '',
                     'field_search' => ""
                 ] );
                 extract( $instance );
+				 /* #### */
+                $wpbooking_shortcode = '[wpbooking_search_form id="'.$this->number.'"]';
                 ?>
                 <p><label
                             for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><strong><?php esc_html_e( 'Title:', "wpbooking" ); ?></strong>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
                                name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text"
                                value="<?php echo esc_attr( $title ); ?>"/></label></p>
+				   <p><label
+			for="<?php echo esc_attr( $this->get_field_id( 'wpbooking_search_form' ) ); ?>"><strong><?php esc_html_e( 'WPBooking Search Form Shortcode:', "wpbooking" ); ?></strong>
+			<input readonly="readonly" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'wpbooking_search_form' ) ); ?>"
+				   name="<?php echo esc_attr( $this->get_field_name( 'wpbooking_search_form' ) ); ?>" type="text"
+				   value="<?php echo esc_attr( $wpbooking_shortcode ); ?>"/></label></p>
                 <p>
                     <label
                             for="<?php echo esc_attr( $this->get_field_id( 'service_type' ) ); ?>"><strong><?php esc_html_e( 'Types of service:', 'wp-booking-management-system' ); ?></strong>
@@ -759,6 +775,12 @@
                 ?>
                 <?php
             }
+		 static function inst(){
+			if(!self::$_inst){
+				self::$_inst = new self();
+			}
+			return self::$_inst;
+		}
         }
 
         function wpbooking_widget_form_search()
@@ -767,4 +789,5 @@
         }
 
         add_action( 'widgets_init', 'wpbooking_widget_form_search' );
+		 WPBooking_Widget_Form_Search::inst();
     }

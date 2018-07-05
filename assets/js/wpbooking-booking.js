@@ -2201,6 +2201,27 @@ jQuery(document).ready(function ($) {
     if ($('ul.wpbooking-all-gateways').length) {
         $('ul.wpbooking-all-gateways li:first-child input').prop('checked', true);
     }
+
+    $(".wpbooking-loop-items.slide").owlCarousel({
+        nav:true,
+        items:2,
+        navText : ['<i class="fa fa-angle-left" aria-hidden="true"></i>','<i class="fa fa-angle-right" aria-hidden="true"></i>'],
+        dot:true,
+        loop: true,
+        autoplay:true,
+        margin:15,
+        responsive: {
+            0:{
+                items: 1
+            },
+            480:{
+                items: 2
+            },
+            769:{
+                items: 2
+            }
+        }
+    });
 });
 
 
