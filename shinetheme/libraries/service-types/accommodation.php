@@ -1008,7 +1008,7 @@
                             [
                                 'label' => esc_html__( 'Room size', 'wp-booking-management-system' ),
                                 'id'    => 'room_size',
-                                'type'  => 'text',
+                                'type'  => 'room_size',
                             ],
                             [ 'type' => 'close_section' ],
                             [

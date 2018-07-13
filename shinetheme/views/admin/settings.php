@@ -80,6 +80,7 @@ $slug_page_menu = $menu_page['menu_slug'];
                 </tbody>
             </table>
             <input type="submit" class="btn button button-primary" value="<?php esc_html_e("Save Settings",'wp-booking-management-system') ?>">
+            <?php echo wpbooking_get_admin_message(true) ?>
         </form>
     </div>
 </div>
