@@ -2270,33 +2270,35 @@
                 AND {$wpdb->posts}.post_parent = {$hotel_id}
                 AND (
                      {$wpdb->posts}.ID IN (
-                        SELECT
+                        SELECT 
                             room_id
                         FROM
                             (
                                 SELECT
-                                    {$wpdb->prefix}wpbooking_order_hotel_room.room_id,
-                                    count(id) AS total_booked,
-                                    SUM({$wpdb->prefix}wpbooking_order_hotel_room.number) as total_number,
+                                    order_room.room_id,
+                                    count(order_room.id) AS total_booked,
+                                    SUM(order_room.number) as total_number,
                                     {$wpdb->postmeta}.meta_value AS room_number
                                 FROM
-                                    {$wpdb->prefix}wpbooking_order_hotel_room
-                                JOIN {$wpdb->postmeta} ON {$wpdb->postmeta}.post_id = {$wpdb->prefix}wpbooking_order_hotel_room.room_id_origin
+                                    {$wpdb->prefix}wpbooking_order_hotel_room order_room
+                                INNER JOIN {$wpdb->prefix}wpbooking_order as _od ON _od.order_id = order_room.order_id
+                                JOIN {$wpdb->postmeta} ON {$wpdb->postmeta}.post_id = order_room.room_id_origin
                                 AND {$wpdb->postmeta}.meta_key = 'room_number'
                                 WHERE
                                     1 = 1
                                 AND (
                                     (
-                                        check_in_timestamp <= {$check_in}
-                                        AND check_out_timestamp >= {$check_in}
+                                        order_room.check_in_timestamp <= {$check_in}
+                                        AND order_room.check_out_timestamp >= {$check_in}
                                     )
                                     OR (
-                                        check_in_timestamp >= {$check_in}
-                                        AND check_in_timestamp <= {$check_out}
+                                        order_room.check_in_timestamp >= {$check_in}
+                                        AND order_room.check_in_timestamp <= {$check_out}
                                     )
                                 )
+                                AND _od.`status` NOT IN ('cancelled', 'payment_failed')
                                 GROUP BY
-                                    {$wpdb->prefix}wpbooking_order_hotel_room.room_id_origin
+                                    order_room.room_id_origin
                                 HAVING
                                     room_number - total_number < {$number_room}
                             ) AS table_booked
