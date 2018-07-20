@@ -2282,6 +2282,7 @@
                                 FROM
                                     {$wpdb->prefix}wpbooking_order_hotel_room order_room
                                 INNER JOIN {$wpdb->prefix}wpbooking_order as _od ON _od.order_id = order_room.order_id
+                                INNER JOIN {$wpdb->prefix}wpbooking_order as _od ON _od.order_id = order_room.order_id
                                 JOIN {$wpdb->postmeta} ON {$wpdb->postmeta}.post_id = order_room.room_id_origin
                                 AND {$wpdb->postmeta}.meta_key = 'room_number'
                                 WHERE
@@ -2585,11 +2586,17 @@
              */
             function _change_cart_item_params( $cart_item, $post_id = false )
             {
-                $calendar   = WPBooking_Calendar_Model::inst();
-                $cart_item  = wp_parse_args( $cart_item, [
+                $calendar              = WPBooking_Calendar_Model::inst();
+                $cart_item             = wp_parse_args( $cart_item, [
                     'check_in_timestamp'  => false,
                     'check_out_timestamp' => false,
                 ] );
+                $wpbooking_adults      = WPBooking_Input::post( 'wpbooking_adults', 1 );
+                $cart_item[ 'person' ] = $wpbooking_adults;
+                $wpbooking_children    = WPBooking_Input::post( 'wpbooking_children' );
+                if ( !empty( $wpbooking_children ) ) {
+                    $cart_item[ 'person' ] += $wpbooking_children;
+                }
                 $data_rooms = $this->post( 'wpbooking_room' );
                 if ( !empty( $data_rooms ) ) {
                     foreach ( $data_rooms as $room_id => $data_room ) {
@@ -2602,20 +2609,24 @@
 
                             if ( !empty( $data_room[ 'extra_service' ] ) ) {
                                 $post_extras = $data_room[ 'extra_service' ];
-
+                                $person      = (int)$cart_item[ 'person' ];
                                 foreach ( $post_extras as $key => $value ) {
                                     if ( !empty( $value[ 'is_check' ] ) ) {
                                         $price = 0;
                                         if ( !empty( $my_extra_services[ $key ][ 'money' ] ) ) {
                                             $price = $my_extra_services[ $key ][ 'money' ];
                                         }
-                                        if ( $value[ 'type' ] != 'per_night' ) {
+                                        if ( !in_array( $value[ 'type' ], [ 'per_night', 'per_night_people' ] )  ) {
                                             $number_night = 1;
                                         }
+                                        if ( !in_array( $value[ 'type' ], [ 'fixed_people', 'per_night_people' ] ) ) {
+                                            $person = 1;
+                                        }
+
                                         $extra_service[ 'data' ][ $key ] = [
                                             'title'    => $value[ 'is_check' ],
                                             'quantity' => $value[ 'quantity' ],
-                                            'price'    => (float)$price * (int)$number_night
+                                            'price'    => (float)$price * (int)$number_night * $person
                                         ];
                                     }
                                 }
@@ -2671,12 +2682,6 @@
                     }
                 }
 
-                $wpbooking_adults      = WPBooking_Input::post( 'wpbooking_adults', 1 );
-                $cart_item[ 'person' ] = $wpbooking_adults;
-                $wpbooking_children    = WPBooking_Input::post( 'wpbooking_children' );
-                if ( !empty( $wpbooking_children ) ) {
-                    $cart_item[ 'person' ] += $wpbooking_children;
-                }
                 $cart_item[ 'adult_number' ]    = WPBooking_Input::post( 'wpbooking_adults' );
                 $cart_item[ 'children_number' ] = WPBooking_Input::post( 'wpbooking_children' );
 

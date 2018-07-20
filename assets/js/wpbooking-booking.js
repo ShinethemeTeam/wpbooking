@@ -707,8 +707,12 @@ jQuery(document).ready(function ($) {
             var number = $(this).find('.option_number_room').val();
             var price  = $(this).find('.option_number_room').data('price-base');
             var diff   = parseFloat($('.more-extra', this).attr('data-diff'));
+            var person   = parseFloat($('.more-extra', this).attr('data-person'));
             if (diff <= 0) {
                 diff = 1;
+            }
+            if (person <= 0) {
+                person = 1;
             }
             number = parseFloat(number);
             if (number < 0) {
@@ -732,6 +736,10 @@ jQuery(document).ready(function ($) {
                         }
                         if(price_type == 'per_night'){
                             price_extra = parseFloat(price_extra) * number_extra * diff;
+                        }else if(price_type == 'per_night_people'){
+                            price_extra =parseFloat(price_extra) * number_extra * diff * person
+                        }else if(price_type == 'fixed_people'){
+                            price_extra = parseFloat(price_extra) * number_extra * person;
                         }else{
                             price_extra = parseFloat(price_extra) * number_extra;
                         }

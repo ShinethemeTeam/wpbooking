@@ -11,7 +11,7 @@
     $check_out    = WPBooking_Input::request( 'checkout_y' ) . "-" . WPBooking_Input::request( 'checkout_m' ) . "-" . WPBooking_Input::request( 'checkout_d' );
     if ( $check_in == '--' ) $check_in = '';
     if ( $check_out == '--' ) $check_out = '';
-
+    $person = (int) WPBooking_Input::request('adults') + (int) WPBooking_Input::request('children');
     $diff = strtotime( $check_out ) - strtotime( $check_in );
     $diff = $diff / ( 60 * 60 * 24 );
     if ( $diff < 0 ) $diff = 0;
@@ -153,7 +153,7 @@
         <?php
         $number_night = $diff;
         ?>
-        <div class="more-extra" data-diff="<?php echo esc_attr( $number_night ); ?>">
+        <div class="more-extra" data-diff="<?php echo esc_attr( $number_night ); ?>" data-person="<?php echo esc_attr($person); ?>">
             <?php if ( !empty( $list_extra ) ) {
                 ?>
                 <table>
@@ -164,9 +164,6 @@
                         </td>
                         <td width="40%">
                             <?php esc_html_e( "Service name", 'wp-booking-management-system' ) ?>
-                        </td>
-                        <td width="20%" class="text-center">
-                            <?php esc_html_e( "Type", 'wp-booking-management-system' ) ?>
                         </td>
                         <td class="text-center">
                             <?php esc_html_e( "Quantity", 'wp-booking-management-system' ) ?>
@@ -189,13 +186,6 @@
                             <td>
                                 <span class="title"><?php echo esc_html( $v[ 'is_selected' ] ) ?></span>
                                 <span class="desc"><?php echo ( !empty( $v[ 'desc' ] ) ) ? esc_html( $v[ 'desc' ] ) : '' ?></span>
-                            </td>
-                            <td>
-                                <?php if(isset($v['type']) && $v['type'] == 'per_night'){
-                                    echo esc_html__('per Night', 'wp-booking-management-system');
-                                }else{
-                                    echo esc_html__('Fixed', 'wp-booking-management-system');
-                                } ?>
                             </td>
                             <td>
                                 <select class="form-control option_extra_quantity"

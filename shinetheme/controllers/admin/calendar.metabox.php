@@ -58,6 +58,7 @@
                     $return = $this->get_availability( $base_id, $check_in, $check_out );
 
 
+
                     // Other day, in case Specific Periods Available
 
                     $all_days = [];
@@ -110,7 +111,6 @@
 
             public function _add_availability()
             {
-
                 $post_id = (int)WPBooking_Input::post( 'post-id', 0 );
 
                 // Validate Permission
@@ -556,7 +556,7 @@
             {
                 global $wpdb;
                 $table = $wpdb->prefix . $this->table;
-                if ( $group_day == 'group' ) {
+                if ( $group_day === 'group' ) {
                     $wpdb->insert(
                         $table,
                         [
@@ -612,7 +612,6 @@
                         );
                     }
                 }
-
                 return (int)$wpdb->insert_id;
             }
 

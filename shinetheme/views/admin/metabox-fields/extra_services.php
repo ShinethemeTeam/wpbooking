@@ -59,8 +59,12 @@
                                                             class="type-select">
                                                         <option <?php selected( $selected_type, '' ) ?>
                                                                 value=""><?php echo esc_html__( 'Fixed', 'wp-booking-management-system' ); ?></option>
+                                                        <option <?php selected( $selected_type, 'fixed_people' ) ?>
+                                                                value="fixed_people"><?php echo esc_html__( 'Fixed & per Person', 'wp-booking-management-system' ); ?></option>
                                                         <option <?php selected( $selected_type, 'per_night' ) ?>
                                                                 value="per_night"><?php echo esc_html__( 'per Night', 'wp-booking-management-system' ); ?></option>
+                                                        <option <?php selected( $selected_type, 'per_night_people' ) ?>
+                                                                value="per_night_people"><?php echo esc_html__( 'per Night & per Person', 'wp-booking-management-system' ); ?></option>
                                                     </select>
                                                     <span class="help_inline"><?php esc_html_e( 'Type', 'wp-booking-management-system' ) ?></span>
                                                 </div>
