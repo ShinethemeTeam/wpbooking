@@ -288,7 +288,7 @@
                         if ( !empty( $order ) ) {
                             $total_booked = 0;
                             foreach ( $order as $key => $item ) {
-                                if ( $i >= (int)$item->check_in_timestamp && $i <= (int)$item->check_out_timestamp ) {
+                                if ( $i >= (int)$item->check_in_timestamp && $i <= (int)$item->check_out_timestamp && !in_array( $item->status, [ 'cancelled', 'payment_failed', 'refunded' ] ) ) {
                                     $total_booked += (int)$item->adult_number + (int)$item->children_number + (int)$item->infant_number;
                                 }
                             }

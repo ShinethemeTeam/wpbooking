@@ -375,7 +375,7 @@
                                 <input type="hidden" class="post-bulk" name="post_id"
                                        value="<?php echo esc_attr( $post_id ); ?>">
                                 <input type="hidden" class="type-bulk" name="type-bulk" value="tour">
-                                <input type="hidden" class="price-type" name="price-type" value="persion">
+                                <input type="hidden" class="price-type" name="price-type" value="person">
                                 <input type="hidden" name="post-encrypt"
                                        value="<?php echo wpbooking_encrypt( $post_id ); ?>">
                                 <input type="hidden" name="table"

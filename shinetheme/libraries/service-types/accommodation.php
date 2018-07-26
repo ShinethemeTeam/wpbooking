@@ -2201,7 +2201,6 @@
              */
             function get_unavailability_hotel_room( $hotel_id, $check_in, $check_out, $number_room = 1 )
             {
-
                 if ( empty( $hotel_id ) or empty( $check_in ) or empty( $check_out ) or empty( $number_room ) ) {
                     return [];
                 }
@@ -2280,8 +2279,7 @@
                                     SUM(order_room.number) as total_number,
                                     {$wpdb->postmeta}.meta_value AS room_number
                                 FROM
-                                    {$wpdb->prefix}wpbooking_order_hotel_room order_room
-                                INNER JOIN {$wpdb->prefix}wpbooking_order as _od ON _od.order_id = order_room.order_id
+                                    {$wpdb->prefix}wpbooking_order_hotel_room as order_room
                                 INNER JOIN {$wpdb->prefix}wpbooking_order as _od ON _od.order_id = order_room.order_id
                                 JOIN {$wpdb->postmeta} ON {$wpdb->postmeta}.post_id = order_room.room_id_origin
                                 AND {$wpdb->postmeta}.meta_key = 'room_number'
@@ -2297,7 +2295,7 @@
                                         AND order_room.check_in_timestamp <= {$check_out}
                                     )
                                 )
-                                AND _od.`status` NOT IN ('cancelled', 'payment_failed')
+                                AND _od.`status` NOT IN ('cancelled', 'payment_failed', 'refunded')
                                 GROUP BY
                                     order_room.room_id_origin
                                 HAVING
@@ -2616,7 +2614,7 @@
                                         if ( !empty( $my_extra_services[ $key ][ 'money' ] ) ) {
                                             $price = $my_extra_services[ $key ][ 'money' ];
                                         }
-                                        if ( !in_array( $value[ 'type' ], [ 'per_night', 'per_night_people' ] )  ) {
+                                        if ( !in_array( $value[ 'type' ], [ 'per_night', 'per_night_people' ] ) ) {
                                             $number_night = 1;
                                         }
                                         if ( !in_array( $value[ 'type' ], [ 'fixed_people', 'per_night_people' ] ) ) {
@@ -3041,17 +3039,16 @@
             AND (
                  {$wpdb->posts}.ID IN (
                     SELECT
-                        room_id
+                        room_id 
                     FROM
                         (
                             SELECT
-                                {$wpdb->prefix}wpbooking_oRoom sizerder_hotel_room.room_id,
+                                {$wpdb->prefix}wpbooking_order_hotel_room.room_id,
                                 count(id) AS total_booked,
                                 SUM({$wpdb->prefix}wpbooking_order_hotel_room.number) as total_number,
                                 {$wpdb->postmeta}.meta_value AS room_number
-                            FROM
-                                {$wpdb->prefix}wpbooking_order_hotel_room
-                            JOIN {$wpdb->postmeta} ON {$wpdb->postmeta}.post_id = {$wpdb->prefix}wpbooking_order_hotel_room.room_id
+                            FROM {$wpdb->prefix}wpbooking_order_hotel_room
+                            JOIN {$wpdb->postmeta} ON {$wpdb->postmeta}.post_id = {$wpdb->prefix}wpbooking_order_hotel_room.room_id_origin
                             AND {$wpdb->postmeta}.meta_key = 'room_number'
                             WHERE
                                 1 = 1

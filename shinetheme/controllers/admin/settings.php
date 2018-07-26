@@ -15,6 +15,7 @@
                 add_action( 'admin_menu', [ $this, "register_wpbooking_sub_menu_page" ] );
 
                 add_action( 'admin_init', [ $this, "_save_settings" ] );
+                add_action( 'admin_init', [ $this, "_sync_settings_wpml" ] );
 
                 // add script and style
                 add_action( 'admin_enqueue_scripts', [ $this, "_add_scripts" ] );
@@ -25,6 +26,25 @@
             {
                 wp_enqueue_script( 'jquery-ui-tabs' );
                 wp_enqueue_media();
+            }
+
+            public function _sync_settings_wpml()
+            {
+                if ( wpbooking_is_wpml() && !get_option( 'wpbooking_sync_wettings_wpml', false ) ) {
+                    global $wpdb;
+                    $sql     = "select * from {$wpdb->options} where option_name LIKE 'wpbooking_%'";
+                    $results = $wpdb->get_results( $sql );
+                    if ( !empty( $results ) ) {
+                        $langs = wpbooking_all_langs();
+                        foreach ( $langs as $lang ) {
+                            foreach ( $results as $row ) {
+                                $name = str_replace( 'wpbooking_', 'wpbooking_' . $lang . '_', $row->option_name );
+                                update_option( $name, $row->option_value, false );
+                            }
+                        }
+                        update_option( 'wpbooking_sync_wettings_wpml', 'updated' );
+                    }
+                }
             }
 
             /**
@@ -72,8 +92,13 @@
             /*---------Begin Helper Functions----------------*/
             function get_option( $option_id, $default = false )
             {
+                $current_lang = wpbooking_current_lang();
+                if ( $current_lang ) {
+                    $current_lang = $current_lang . '_';
+                }
                 /* get the saved options */
-                $options = get_option( 'wpbooking_' . $option_id );
+                $options = get_option( 'wpbooking_' . $current_lang . $option_id );
+                $options = maybe_unserialize($options);
                 /* look for the saved value */
                 if ( isset( $options ) && '' != $options ) {
                     return $options;
@@ -138,7 +163,10 @@
                         }
                         $custom_settings = $full_settings[ $is_tab ][ 'sections' ][ $is_section ][ 'fields' ];
 
-
+                        $current_lang = wpbooking_current_lang();
+                        if ( $current_lang ) {
+                            $current_lang = $current_lang . '_';
+                        }
                         foreach ( $custom_settings as $key => $value ) {
                             switch ( $value[ 'type' ] ) {
                                 case "multi-checkbox":
@@ -146,6 +174,7 @@
                                     foreach ( $custom_multi_checkbox as $key_multi => $value_multi ) {
                                         $key_request   = 'wpbooking_' . $value_multi[ 'id' ];
                                         $value_request = WPBooking_Input::request( $key_request );
+                                        $key_request   = 'wpbooking_' . $current_lang . $value_multi[ 'id' ];
                                         update_option( $key_request, $value_request );
                                     }
                                     break;
@@ -158,13 +187,14 @@
                                         $data = $value_request[ $id_list_item ];
                                     }
                                     unset( $data[ '__number_list__' ] );
-                                    $id_save = 'wpbooking_' . $value[ 'id' ];
+                                    $id_save = 'wpbooking_' . $current_lang . $value[ 'id' ];
                                     update_option( $id_save, $data );
                                     break;
                                 case "checkbox":
                                     if ( isset( $value[ 'id' ] ) ) {
                                         $key_request   = 'wpbooking_' . $value[ 'id' ];
                                         $value_request = WPBooking_Input::post( $key_request );
+                                        $key_request   = 'wpbooking_' . $current_lang . $value[ 'id' ];
                                         if ( !$value_request )
                                             delete_option( $key_request );
                                         else
@@ -175,6 +205,7 @@
                                     if ( isset( $value[ 'id' ] ) ) {
                                         $key_request   = 'wpbooking_' . $value[ 'id' ];
                                         $value_request = WPBooking_Input::post( $key_request );
+                                        $key_request   = 'wpbooking_' . $current_lang . $value[ 'id' ];
                                         update_option( $key_request, $value_request );
                                     }
                                     break;

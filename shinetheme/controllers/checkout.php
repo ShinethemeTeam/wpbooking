@@ -762,13 +762,13 @@
                                         $passengers = 0;
                                         switch ( $cart[ 'service_type' ] ) {
                                             case 'accommodation':
-                                                $passengers = (int)$cart[ 'persion' ];
+                                                $passengers = (int)$cart[ 'person' ];
                                                 break;
                                             case 'tour':
                                                 $passengers = (int)$cart[ 'adult_number' ] + (int)$cart[ 'children_number' ] + (int)$cart[ 'infant_number' ];
                                                 break;
                                             case 'car':
-                                                $passengers = (int)$cart[ 'persion' ];
+                                                $passengers = (int)$cart[ 'person' ];
                                                 break;
                                         }
                                         for ( $i = 1; $i <= $passengers; $i++ ) {
