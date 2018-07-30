@@ -2294,7 +2294,7 @@
                         FROM
                             {$wpdb->prefix}icl_translations AS t
                         WHERE
-                            t.trid = (
+                            t.trid IN (
                                 SELECT
                                     trid.trid
                                 FROM
@@ -2346,7 +2346,7 @@
                                 {$wpdb->prefix}icl_translations AS t
                             WHERE
                                 1 = 1
-                            AND t.trid = (
+                            AND t.trid IN (
                                 SELECT
                                     trid.trid
                                 FROM
