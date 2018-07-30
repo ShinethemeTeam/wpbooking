@@ -836,7 +836,12 @@
                     $is_validated = false;
                     wpbooking_set_message( esc_html__( 'Your date is incorrect.', 'wp-booking-management-system' ), 'error' );
                 }
-
+                $booking_before = absint( get_post_meta( $post_id, 'booking_before', true ) );
+                $diff = wpbooking_date_diff(strtotime( 'today' ), $start);
+                if($diff < $booking_before){
+                    $is_validated = false;
+                    wpbooking_set_message( sprintf(esc_html__( 'This tour is only accepted %s day(s) before departure', 'wp-booking-management-system' ), $booking_before), 'error' );
+                }
                 if ( $is_validated ) {
                     $calendar = new WPBooking_Model();
                     $calendar->table( $this->table_availability );
@@ -1423,6 +1428,13 @@
                                 'label' => esc_html__( "Term & condition", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                                 'desc'  => esc_html__( "Set terms and conditions for your property", "wpbooking" )
+                            ],
+                            [
+                                'label' => esc_html__( 'Book tour before', 'wpbooking' ),
+                                'type'  => 'number',
+                                'id'    => 'booking_before',
+                                'min'   => 0,
+                                'desc'  => esc_html__( 'The number of days allowed before departure (unit: day)', 'wpbooking' )
                             ],
                             [
                                 'label' => esc_html__( 'Terms & Conditions', 'wp-booking-management-system' ),
