@@ -60,7 +60,6 @@ if(!empty($service_id)){
     );
 }
 $services_query = new WP_Query($args);
-//var_dump($services_query->request);die;
 if($services_query->have_posts()){
     echo '<div class="wpbooking-loop-wrap wpbooking-list-service wpbooking-list-container"><div class="wpbooking-loop-items '.esc_attr($layout).'">';
         while($services_query->have_posts()) {
