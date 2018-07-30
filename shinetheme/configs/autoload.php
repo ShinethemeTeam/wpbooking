@@ -83,4 +83,4 @@
         'template-func'
     ];
 
-    $autoload[ 'encrypr_key' ] = 'wpbooking';
+    $autoload[ 'encrypt_key' ] = 'wpbooking';

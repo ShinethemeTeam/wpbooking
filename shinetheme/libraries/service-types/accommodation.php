@@ -311,12 +311,11 @@
                     $start = strtotime( WPBooking_Input::post( 'start', '' ) );
                     $end   = strtotime( WPBooking_Input::post( 'end', '' ) );
                     if ( $start > 0 && $end > 0 ) {
-                        $args    = [
+                        $args = [
                             'post_type'      => 'wpbooking_hotel_room',
                             'posts_per_page' => -1,
                             'post_parent'    => $post_id
                         ];
-                        $current = wpbooking_current_lang();
                         if ( wpbooking_is_wpml() ) {
                             global $sitepress;
                             $sitepress->switch_lang( wpbooking_default_lang(), true );
@@ -412,7 +411,7 @@
                             AND _order.check_out_timestamp <= {$end}
                         )
                     )
-                AND _order_room.room_id = {$post_id} AND _order.`status` NOT IN ('cancelled')
+                AND _order_room.room_id_origin = {$post_id} AND _order.`status` NOT IN ('cancel','cancelled', 'payment_failed', 'refunded')
                 GROUP BY _order.id";
 
                 $order_rs = $wpdb->get_results( $sql );
@@ -2210,100 +2209,167 @@
                     return [];
                 }
                 global $wpdb;
-                $hotel_id_origin = wpbooking_origin_id( $hotel_id, 'wpbooking_service' );
-                $extra_clause    = "OR {$wpdb->posts}.ID IN (
-                        SELECT
-                            post_id
+                if ( !wpbooking_is_wpml() ) {
+                    $sql = "
+                    SELECT
+                        {$wpdb->posts}.ID
+                    FROM
+                        {$wpdb->posts}
+                    WHERE
+                        1 = 1
+                    AND {$wpdb->posts}.post_type = 'wpbooking_hotel_room'
+                    AND {$wpdb->posts}.post_parent = {$hotel_id}
+                    AND (
+                         {$wpdb->posts}.ID IN (
+                            SELECT 
+                                room_id
+                            FROM
+                                (
+                                    SELECT
+                                        order_room.room_id,
+                                        count(order_room.id) AS total_booked,
+                                        SUM(order_room.number) as total_number,
+                                        {$wpdb->postmeta}.meta_value AS room_number
+                                    FROM
+                                        {$wpdb->prefix}wpbooking_order_hotel_room as order_room
+                                    INNER JOIN {$wpdb->prefix}wpbooking_order as _od ON _od.order_id = order_room.order_id
+                                    JOIN {$wpdb->postmeta} ON {$wpdb->postmeta}.post_id = order_room.room_id_origin
+                                    AND {$wpdb->postmeta}.meta_key = 'room_number'
+                                    WHERE
+                                        1 = 1
+                                    AND (
+                                        (
+                                            order_room.check_in_timestamp <= {$check_in}
+                                            AND order_room.check_out_timestamp >= {$check_in}
+                                        )
+                                        OR (
+                                            order_room.check_in_timestamp >= {$check_in}
+                                            AND order_room.check_in_timestamp <= {$check_out}
+                                        )
+                                    )
+                                    AND _od.`status` NOT IN ('cancel','cancelled', 'payment_failed', 'refunded')
+                                    GROUP BY
+                                        order_room.room_id_origin
+                                    HAVING
+                                        room_number - total_number < {$number_room}
+                                ) AS table_booked
+                        )
+                        OR {$wpdb->posts}.ID IN (
+                            SELECT
+                                post_id
+                            FROM
+                                (
+                                    SELECT
+                                        post_id
+                                    FROM
+                                        {$wpdb->prefix}wpbooking_availability
+                                    WHERE
+                                        1 = 1
+                                    AND (
+                                        `start` >= {$check_in}
+                                        AND
+                                        `end` <= {$check_out}
+                                        AND `status` = 'not_available'
+                                    )
+                                    GROUP BY
+                                        post_id
+                                )as table_availability
+                        )
+                    )";
+                }else{
+                    $lang = wpbooking_current_lang();
+                    $sql = "
+                    SELECT
+                        {$wpdb->posts}.ID
+                    FROM
+                        {$wpdb->posts}
+                    WHERE
+                        1 = 1
+                    AND {$wpdb->posts}.post_type = 'wpbooking_hotel_room'
+                    AND {$wpdb->posts}.post_parent = {$hotel_id}
+                    AND (
+                         {$wpdb->posts}.ID IN (
+                         SELECT
+                            t.element_id
                         FROM
-                            (
+                            {$wpdb->prefix}icl_translations AS t
+                        WHERE
+                            t.trid = (
                                 SELECT
-                                    post_id
+                                    trid.trid
                                 FROM
-                                    {$wpdb->prefix}wpbooking_availability
+                                    {$wpdb->prefix}icl_translations AS trid
+                                INNER JOIN (
+                                            SELECT
+                                                order_room.room_id,
+                                                count(order_room.id) AS total_booked,
+                                                SUM(order_room.number) AS total_number,
+                                                {$wpdb->prefix}postmeta.meta_value AS room_number
+                                            FROM
+                                                {$wpdb->prefix}wpbooking_order_hotel_room AS order_room
+                                            INNER JOIN {$wpdb->prefix}wpbooking_order AS _od ON _od.order_id = order_room.order_id
+                                            JOIN {$wpdb->prefix}postmeta ON {$wpdb->prefix}postmeta.post_id = order_room.room_id_origin
+                                            AND {$wpdb->prefix}postmeta.meta_key = 'room_number'
+                                            WHERE
+                                                1 = 1
+                                            AND (
+                                                (
+                                                    order_room.check_in_timestamp <= '{$check_in}'
+                                                    AND order_room.check_out_timestamp >= '{$check_out}'
+                                                )
+                                                OR (
+                                                    order_room.check_in_timestamp >= '{$check_in}'
+                                                    AND order_room.check_in_timestamp <= '{$check_out}'
+                                                )
+                                            )
+                                            AND _od.`status` NOT IN (
+                                                'cancel',
+                                                'cancelled',
+                                                'payment_failed',
+                                                'refunded'
+                                            )
+                                            GROUP BY
+                                                order_room.room_id_origin
+                                            HAVING
+                                                room_number - total_number < 1
+                                ) as avai on avai.room_id = trid.element_id
+                            )
+                        and t.language_code = '{$lang}'
+                        )
+                       OR {$wpdb->posts}.ID IN (
+                            SELECT
+                                table_availability.post_id
+                            FROM(
+                            SELECT
+                                t.element_id AS post_id
+                            FROM
+                                {$wpdb->prefix}icl_translations AS t
+                            WHERE
+                                1 = 1
+                            AND t.trid = (
+                                SELECT
+                                    trid.trid
+                                FROM
+                                    {$wpdb->prefix}icl_translations AS trid
+                                JOIN {$wpdb->prefix}wpbooking_availability AS avai ON (
+                                    avai.post_id = trid.element_id
+                                )
                                 WHERE
                                     1 = 1
                                 AND (
                                     `start` >= {$check_in}
-                                    AND
-                                    `end` <= {$check_out}
+                                    AND `end` <= {$check_out}
                                     AND `status` = 'not_available'
                                 )
                                 GROUP BY
-                                    post_id
-                            )as table_availability
-                    )";
-                if ( wpbooking_is_wpml() ) {
-                    $lang         = wpbooking_current_lang();
-                    $extra_clause = "OR {$wpdb->posts}.ID IN (
-                        SELECT
-                            table_availability.post_id
-                        FROM(
-                        SELECT
-                            translation.element_id as post_id
-                        FROM
-                            {$wpdb->prefix}wpbooking_availability AS avai
-                        INNER JOIN {$wpdb->prefix}icl_translations AS translation ON (
-                            translation.trid = avai.post_id
-                            AND translation.language_code = '{$lang}'
+                                    trid.element_id
+                            )
+                            AND t.language_code = '{$lang}'
+                                )as table_availability
                         )
-                        WHERE
-                            1 = 1
-                        AND (
-                            `start` >= {$check_in}
-                            AND `end` <= {$check_out}
-                            AND `status` = 'not_available'
-                        )
-                        GROUP BY
-                            translation.element_id
-                            )as table_availability
                     )";
                 }
-                $sql = "
-                SELECT
-                    {$wpdb->posts}.ID
-                FROM
-                    {$wpdb->posts}
-                WHERE
-                    1 = 1
-                AND {$wpdb->posts}.post_type = 'wpbooking_hotel_room'
-                AND {$wpdb->posts}.post_parent = {$hotel_id}
-                AND (
-                     {$wpdb->posts}.ID IN (
-                        SELECT 
-                            room_id
-                        FROM
-                            (
-                                SELECT
-                                    order_room.room_id,
-                                    count(order_room.id) AS total_booked,
-                                    SUM(order_room.number) as total_number,
-                                    {$wpdb->postmeta}.meta_value AS room_number
-                                FROM
-                                    {$wpdb->prefix}wpbooking_order_hotel_room as order_room
-                                INNER JOIN {$wpdb->prefix}wpbooking_order as _od ON _od.order_id = order_room.order_id
-                                JOIN {$wpdb->postmeta} ON {$wpdb->postmeta}.post_id = order_room.room_id_origin
-                                AND {$wpdb->postmeta}.meta_key = 'room_number'
-                                WHERE
-                                    1 = 1
-                                AND (
-                                    (
-                                        order_room.check_in_timestamp <= {$check_in}
-                                        AND order_room.check_out_timestamp >= {$check_in}
-                                    )
-                                    OR (
-                                        order_room.check_in_timestamp >= {$check_in}
-                                        AND order_room.check_in_timestamp <= {$check_out}
-                                    )
-                                )
-                                AND _od.`status` NOT IN ('cancelled', 'payment_failed', 'refunded')
-                                GROUP BY
-                                    order_room.room_id_origin
-                                HAVING
-                                    room_number - total_number < {$number_room}
-                            ) AS table_booked
-                    )
-                    {$extra_clause}
-                )";
+
                 if ( $check_out <= $check_in ) {
                     $sql = "
                         SELECT
@@ -3027,48 +3093,50 @@
                 $hotel_id = wp_get_post_parent_id( $room_id );
                 global $wpdb;
                 $sql = "
-            SELECT
-                {$wpdb->posts}.ID
-            FROM
-                {$wpdb->posts}
-            WHERE
-                1 = 1
-            AND {$wpdb->posts}.post_type = 'wpbooking_hotel_room'
-            AND {$wpdb->posts}.post_parent = {$hotel_id}
-            AND {$wpdb->posts}.ID = {$room_id}
-            AND (
-                 {$wpdb->posts}.ID IN (
-                    SELECT
-                        room_id 
-                    FROM
-                        (
-                            SELECT
-                                {$wpdb->prefix}wpbooking_order_hotel_room.room_id,
-                                count(id) AS total_booked,
-                                SUM({$wpdb->prefix}wpbooking_order_hotel_room.number) as total_number,
-                                {$wpdb->postmeta}.meta_value AS room_number
-                            FROM {$wpdb->prefix}wpbooking_order_hotel_room
-                            JOIN {$wpdb->postmeta} ON {$wpdb->postmeta}.post_id = {$wpdb->prefix}wpbooking_order_hotel_room.room_id_origin
-                            AND {$wpdb->postmeta}.meta_key = 'room_number'
-                            WHERE
-                                1 = 1
-                            AND (
-                                (
-                                    check_in_timestamp <= {$check_in}
-                                    AND check_out_timestamp >= {$check_in}
+                SELECT
+                    {$wpdb->posts}.ID
+                FROM
+                    {$wpdb->posts}
+                WHERE
+                    1 = 1
+                AND {$wpdb->posts}.post_type = 'wpbooking_hotel_room'
+                AND {$wpdb->posts}.post_parent = {$hotel_id}
+                AND {$wpdb->posts}.ID = {$room_id}
+                AND (
+                     {$wpdb->posts}.ID IN (
+                        SELECT
+                            room_id 
+                        FROM
+                            (
+                                SELECT
+                                    order_room.room_id,
+                                    count(order_room.id) AS total_booked,
+                                    SUM(order_room.number) as total_number,
+                                    {$wpdb->postmeta}.meta_value AS room_number
+                                FROM {$wpdb->prefix}wpbooking_order_hotel_room as order_room
+                                INNER JOIN {$wpdb->prefix}wpbooking_order as _od ON _od.order_id = order_room.order_id
+                                JOIN {$wpdb->postmeta} ON {$wpdb->postmeta}.post_id = order_room.room_id_origin
+                                AND {$wpdb->postmeta}.meta_key = 'room_number'
+                                WHERE 
+                                    1 = 1
+                                AND (
+                                    (
+                                        check_in_timestamp <= {$check_in}
+                                        AND check_out_timestamp >= {$check_in}
+                                    )
+                                    OR (
+                                        check_in_timestamp >= {$check_in}
+                                        AND check_in_timestamp <= {$check_out}
+                                    )
                                 )
-                                OR (
-                                    check_in_timestamp >= {$check_in}
-                                    AND check_in_timestamp <= {$check_out}
-                                )
-                            )
-                            GROUP BY
-                                {$wpdb->prefix}wpbooking_order_hotel_room.room_id
-                            HAVING
-                                room_number - total_number < {$number_room}
-                        ) AS table_booked
-                )
-            )";
+                                AND _od.`status` NOT IN ('cancel','cancelled', 'payment_failed', 'refunded')
+                                GROUP BY
+                                    order_room.room_id
+                                HAVING
+                                    room_number - total_number < {$number_room}
+                            ) AS table_booked
+                    )
+                )";
                 $r   = [];
                 $res = $wpdb->get_row( $sql, ARRAY_A );
                 if ( !is_wp_error( $res ) ) {

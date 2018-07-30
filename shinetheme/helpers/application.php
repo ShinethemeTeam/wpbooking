@@ -133,13 +133,13 @@
     if ( !function_exists( 'wpbooking_encrypt' ) ) {
         function wpbooking_encrypt( $string = '' )
         {
-            return md5( md5( WPBooking_Config::inst()->item( 'encrypr_key' ) ) . md5( $string ) );
+            return md5( md5( WPBooking_Config::inst()->item( 'encrypt_key' ) ) . md5( $string ) );
         }
     }
     if ( !function_exists( 'wpbooking_encrypt_compare' ) ) {
         function wpbooking_encrypt_compare( $string = '', $encrypt = '' )
         {
-            $string = md5( md5( WPBooking_Config::inst()->item( 'encrypr_key' ) ) . md5( $string ) );
+            $string = md5( md5( WPBooking_Config::inst()->item( 'encrypt_key' ) ) . md5( $string ) );
 
             if ( $string == $encrypt ) {
                 return true;
