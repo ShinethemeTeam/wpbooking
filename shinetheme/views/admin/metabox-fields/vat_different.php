@@ -13,7 +13,7 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
 <div class="form-table content_tax_vat wpbooking-settings <?php echo esc_html($class); ?>" <?php echo esc_html($data_class); ?>>
     <h4 class="field-title"> <?php echo esc_html($data['label']); ?> </h4>
     <div class="st-metabox-left">
-        <label for="<?php esc_html_e("Do you use V.A.T ?","wpbooking") ?>"><?php esc_html_e("Do you use V.A.T ?","wpbooking") ?></label>
+        <label for="<?php esc_html_e("Do you use V.A.T ?","wp-booking-management-system") ?>"><?php esc_html_e("Do you use V.A.T ?","wp-booking-management-system") ?></label>
     </div>
     <div class="st-metabox-right">
         <div class="st-metabox-content-wrapper">
@@ -29,7 +29,7 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
         <i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
     </div>
     <div class="st-metabox-left">
-        <label for="<?php esc_html_e("VAT amount","wpbooking") ?>"><?php esc_html_e("VAT amount","wpbooking") ?></label>
+        <label for="<?php esc_html_e("VAT amount","wp-booking-management-system") ?>"><?php esc_html_e("VAT amount","wp-booking-management-system") ?></label>
     </div>
     <div class="st-metabox-right">
         <div class="st-metabox-content-wrapper">
@@ -38,7 +38,7 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
                     <input type="text" name="vat_amount" value="<?php echo esc_attr(get_post_meta($post_id, 'vat_amount', TRUE)) ?>" min="0" placeholder="0" class="widefat form-control small">
                 </div>
                 <div class="tax_input_col_right">
-                    <label class="label_vat_unit" for="<?php esc_html_e("Unit","wpbooking") ?>"><?php  esc_html_e("Unit","wpbooking") ?></label>
+                    <label class="label_vat_unit" for="<?php esc_html_e("Unit","wp-booking-management-system") ?>"><?php  esc_html_e("Unit","wp-booking-management-system") ?></label>
                     <select class="form-control widefat small" name="vat_unit">
                         <option <?php selected("percent",get_post_meta($post_id, 'vat_unit', TRUE)) ?> value="percent"><?php esc_html_e("Percent (%)",'wp-booking-management-system') ?></option>
                         <option <?php selected("fixed",get_post_meta($post_id, 'vat_unit', TRUE)) ?> value="fixed"><?php esc_html_e("Fixed",'wp-booking-management-system') ?></option>

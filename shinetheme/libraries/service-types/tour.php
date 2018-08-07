@@ -724,7 +724,7 @@
                     ], get_permalink( $cart[ 'post_id' ] ) );
                     ?>
                     <small><a href="<?php echo esc_url( $url_change_date ) ?>"
-                              class="change-date"><?php esc_html_e( "Change Date", "wpbooking" ) ?></a></small>
+                              class="change-date"><?php esc_html_e( "Change Date", "wp-booking-management-system" ) ?></a></small>
                     <?php
                 }
             }
@@ -1367,7 +1367,7 @@
                             [
                                 'label' => esc_html__( "Pre-payment and cancellation policies", 'wp-booking-management-system' ),
                                 'type'  => 'title',
-                                'desc'  => esc_html__( "Pre-payment and cancellation policies", "wpbooking" )
+                                'desc'  => esc_html__( "Pre-payment and cancellation policies", "wp-booking-management-system" )
                             ],
                             [
                                 'label' => esc_html__( 'Select optional deposit ', 'wp-booking-management-system' ),
@@ -1378,14 +1378,14 @@
                                     'percent' => esc_html__( 'Deposit by percent', 'wp-booking-management-system' ),
                                     'amount'  => esc_html__( 'Deposit by amount', 'wp-booking-management-system' ),
                                 ],
-                                'desc'  => esc_html__( "You can select Disallow Deposit, Deposit by percent, Deposit by amount", "wpbooking" ),
+                                'desc'  => esc_html__( "You can select Disallow Deposit, Deposit by percent, Deposit by amount", "wp-booking-management-system" ),
                                 'class' => 'small'
                             ],
                             [
                                 'label' => esc_html__( 'Deposit payment amount', 'wp-booking-management-system' ),
                                 'id'    => 'deposit_payment_amount',
                                 'type'  => 'number',
-                                'desc'  => esc_html__( "Leave empty for disallow deposit payment", "wpbooking" ),
+                                'desc'  => esc_html__( "Leave empty for disallow deposit payment", "wp-booking-management-system" ),
                                 'class' => 'small',
                                 'min'   => 1
                             ],
@@ -1401,7 +1401,7 @@
                                     '7'              => esc_html__( '7 days', 'wp-booking-management-system' ),
                                     '14'             => esc_html__( '14 days', 'wp-booking-management-system' ),
                                 ],
-                                'desc'  => esc_html__( "Day of arrival ( 18: 00 ) , 1 day , 2 days, 3 days, 7 days, 14 days", "wpbooking" ),
+                                'desc'  => esc_html__( "Day of arrival ( 18: 00 ) , 1 day , 2 days, 3 days, 7 days, 14 days", "wp-booking-management-system" ),
                                 'class' => 'small'
                             ],
                             [ 'type' => 'close_section' ],
@@ -1409,7 +1409,7 @@
                             [
                                 'label' => esc_html__( "Tax", 'wp-booking-management-system' ),
                                 'type'  => 'title',
-                                'desc'  => esc_html__( "Set your local VAT, so guests know what is included in the price of their stay.", "wpbooking" )
+                                'desc'  => esc_html__( "Set your local VAT, so guests know what is included in the price of their stay.", "wp-booking-management-system" )
                             ],
                             [
                                 'label'  => esc_html__( 'VAT', 'wp-booking-management-system' ),
@@ -1427,7 +1427,7 @@
                             [
                                 'label' => esc_html__( "Term & condition", 'wp-booking-management-system' ),
                                 'type'  => 'title',
-                                'desc'  => esc_html__( "Set terms and conditions for your property", "wpbooking" )
+                                'desc'  => esc_html__( "Set terms and conditions for your property", "wp-booking-management-system" )
                             ],
                             [
                                 'label' => esc_html__( 'Book tour before', 'wpbooking' ),
@@ -1541,69 +1541,69 @@
                 $search_fields = apply_filters( 'wpbooking_search_field_' . $this->type_id, [
                     [
                         'name'    => 'field_type',
-                        'label'   => esc_html__( 'Field Type', "wpbooking" ),
+                        'label'   => esc_html__( 'Field Type', "wp-booking-management-system" ),
                         'type'    => "dropdown",
                         'options' => [
-                            ""            => esc_html__( "-- Select --", "wpbooking" ),
-                            "location_id" => esc_html__( "Destination", "wpbooking" ),
-                            "check_in"    => esc_html__( "From date", "wpbooking" ),
-                            "check_out"   => esc_html__( "To date", "wpbooking" ),
-                            "taxonomy"    => esc_html__( "Taxonomy", "wpbooking" ),
-                            "star_rating" => esc_html__( "Star Of Tour", "wpbooking" ),
-                            "price"       => esc_html__( "Price", "wpbooking" ),
+                            ""            => esc_html__( "-- Select --", "wp-booking-management-system" ),
+                            "location_id" => esc_html__( "Destination", "wp-booking-management-system" ),
+                            "check_in"    => esc_html__( "From date", "wp-booking-management-system" ),
+                            "check_out"   => esc_html__( "To date", "wp-booking-management-system" ),
+                            "taxonomy"    => esc_html__( "Taxonomy", "wp-booking-management-system" ),
+                            "star_rating" => esc_html__( "Star Of Tour", "wp-booking-management-system" ),
+                            "price"       => esc_html__( "Price", "wp-booking-management-system" ),
                         ]
                     ],
                     [
                         'name'  => 'title',
-                        'label' => esc_html__( 'Title', "wpbooking" ),
+                        'label' => esc_html__( 'Title', "wp-booking-management-system" ),
                         'type'  => "text",
                         'value' => ""
                     ],
                     [
                         'name'  => 'placeholder',
-                        'label' => esc_html__( 'Placeholder', "wpbooking" ),
-                        'desc'  => esc_html__( 'Placeholder', "wpbooking" ),
+                        'label' => esc_html__( 'Placeholder', "wp-booking-management-system" ),
+                        'desc'  => esc_html__( 'Placeholder', "wp-booking-management-system" ),
                         'type'  => 'text',
                     ],
                     [
                         'name'    => 'taxonomy',
-                        'label'   => esc_html__( '- Taxonomy', "wpbooking" ),
+                        'label'   => esc_html__( '- Taxonomy', "wp-booking-management-system" ),
                         'type'    => "dropdown",
                         'class'   => "hide",
                         'options' => $list_taxonomy
                     ],
                     [
                         'name'    => 'taxonomy_show',
-                        'label'   => esc_html__( '- Display Style', "wpbooking" ),
+                        'label'   => esc_html__( '- Display Style', "wp-booking-management-system" ),
                         'type'    => "dropdown",
                         'class'   => "hide",
                         'options' => [
-                            "dropdown"  => esc_html__( "Dropdown", "wpbooking" ),
-                            "check_box" => esc_html__( "Check Box", "wpbooking" ),
+                            "dropdown"  => esc_html__( "Dropdown", "wp-booking-management-system" ),
+                            "check_box" => esc_html__( "Check Box", "wp-booking-management-system" ),
                         ]
                     ],
                     [
                         'name'    => 'taxonomy_operator',
-                        'label'   => esc_html__( '- Operator', "wpbooking" ),
+                        'label'   => esc_html__( '- Operator', "wp-booking-management-system" ),
                         'type'    => "dropdown",
                         'class'   => "hide",
                         'options' => [
-                            "AND" => esc_html__( "And", "wpbooking" ),
-                            "OR"  => esc_html__( "Or", "wpbooking" ),
+                            "AND" => esc_html__( "And", "wp-booking-management-system" ),
+                            "OR"  => esc_html__( "Or", "wp-booking-management-system" ),
                         ]
                     ],
                     [
                         'name'    => 'required',
-                        'label'   => esc_html__( 'Required', "wpbooking" ),
+                        'label'   => esc_html__( 'Required', "wp-booking-management-system" ),
                         'type'    => "dropdown",
                         'options' => [
-                            "no"  => esc_html__( "No", "wpbooking" ),
-                            "yes" => esc_html__( "Yes", "wpbooking" ),
+                            "no"  => esc_html__( "No", "wp-booking-management-system" ),
+                            "yes" => esc_html__( "Yes", "wp-booking-management-system" ),
                         ]
                     ],
                     [
                         'name'  => 'in_more_filter',
-                        'label' => esc_html__( 'In Advance Search?', "wpbooking" ),
+                        'label' => esc_html__( 'In Advance Search?', "wp-booking-management-system" ),
                         'type'  => "checkbox",
                     ],
 

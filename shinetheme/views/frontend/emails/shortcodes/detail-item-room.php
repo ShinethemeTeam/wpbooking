@@ -40,22 +40,22 @@ if(!empty($order_data['rooms'])){
                     </div>
                     <div>
                         <?php if($max = $service_room->get_meta('max_guests')){ ?>
-                            <div class="sub-title"><?php esc_html_e("Max","wpbooking") ?> <?php echo esc_attr($max) ?> <?php esc_html_e("people","wpbooking") ?></div>
+                            <div class="sub-title"><?php esc_html_e("Max","wp-booking-management-system") ?> <?php echo esc_attr($max) ?> <?php esc_html_e("people","wp-booking-management-system") ?></div>
                         <?php } ?>
                     </div>
                     <br>
-                    <span class=btn_detail_checkout><?php esc_html_e("Details","wpbooking") ?></span>
+                    <span class=btn_detail_checkout><?php esc_html_e("Details","wp-booking-management-system") ?></span>
                     <div class=extra-service>
-                        <h4 class=color_black><?php esc_html_e("Price by Night","wpbooking") ?></h4>
+                        <h4 class=color_black><?php esc_html_e("Price by Night","wp-booking-management-system") ?></h4>
                         <div class=extra-item>
                             <table class=color_black>
                                 <thead>
                                 <tr>
                                     <th width=60%>
-                                        <?php esc_html_e("Night","wpbooking") ?>
+                                        <?php esc_html_e("Night","wp-booking-management-system") ?>
                                     </th>
                                     <th class=text-center>
-                                        <?php esc_html_e("Price","wpbooking") ?>
+                                        <?php esc_html_e("Price","wp-booking-management-system") ?>
                                     </th>
                                 </tr>
                                 </thead>
@@ -63,7 +63,7 @@ if(!empty($order_data['rooms'])){
                                     <?php $i=1; foreach( $v['raw_data'] as $k_list_date => $v_list_date){ ?>
                                         <tr>
                                             <td>
-                                                <?php esc_html_e("Night","wpbooking") ?> <?php echo esc_html($i) ?>
+                                                <?php esc_html_e("Night","wp-booking-management-system") ?> <?php echo esc_html($i) ?>
                                                 <br>
                                                 <span class="desc">(<?php echo date(get_option('date_format') , $k_list_date) ?>)</span>
                                             </td>

@@ -5,7 +5,7 @@
     $price_total  = $cart[ 'price' ] = $booking->get_cart_total();
     $tax_total    = 0;
 ?>
-<h5 class="checkout-form-title"><?php esc_html_e( "Cart Detail", "wpbooking" ) ?></h5>
+<h5 class="checkout-form-title"><?php esc_html_e( "Cart Detail", "wp-booking-management-system" ) ?></h5>
 <div class="review-cart-total">
     <div class="review-cart-item">
         <?php do_action( 'wpbooking_check_out_total_item_information_' . $service_type, $cart ) ?>

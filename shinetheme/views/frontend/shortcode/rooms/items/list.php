@@ -30,7 +30,7 @@ wp_enqueue_script('wpbooking-bootstrap');
                     <?php
                     $max_guests = get_post_meta(get_the_ID(),'max_guests',true);
                     if(!empty($max_guests)){ ?>
-                        <span> <?php echo esc_attr($max_guests); ?> <?php esc_html_e("GUESTS - ","wpbooking") ?> </span>
+                        <span> <?php echo esc_attr($max_guests); ?> <?php esc_html_e("GUESTS - ","wp-booking-management-system") ?> </span>
                     <?php } ?>
                     <div class="room_size">
                         <?php
@@ -70,13 +70,13 @@ wp_enqueue_script('wpbooking-bootstrap');
                     } ?>
                 </div>
                 <div class="room_type">
-                    <div class="item"><b><?php esc_html_e( "Bath rooms", "wpbooking" ) ?>
+                    <div class="item"><b><?php esc_html_e( "Bath rooms", "wp-booking-management-system" ) ?>
                             : </b><?php echo esc_attr( get_post_meta( get_the_ID(), 'bath_rooms', true ) ) ?> <?php esc_html_e( 'room(s)', 'wp-booking-management-system' ) ?>
                     </div>
-                    <div class="item"><b><?php esc_html_e( "Living rooms", "wpbooking" ) ?>
+                    <div class="item"><b><?php esc_html_e( "Living rooms", "wp-booking-management-system" ) ?>
                             : </b><?php echo esc_attr( get_post_meta( get_the_ID(), 'living_rooms', true ) ) ?> <?php esc_html_e( 'room(s)', 'wp-booking-management-system' ) ?>
                     </div>
-                    <div class="item"><b><?php esc_html_e( "Bed rooms", "wpbooking" ) ?>
+                    <div class="item"><b><?php esc_html_e( "Bed rooms", "wp-booking-management-system" ) ?>
                             : </b><?php echo esc_attr( get_post_meta( get_the_ID(), 'bed_rooms', true ) ) ?> <?php esc_html_e( 'room(s)', 'wp-booking-management-system' ) ?>
                     </div>
                 </div>

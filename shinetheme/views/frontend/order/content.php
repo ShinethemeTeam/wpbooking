@@ -65,7 +65,7 @@ do_action('wpbooking_before_order_content');
         $service_type=$order_data['service_type'];
         ?>
             <div class="title">
-                <?php esc_html_e("your booking information","wpbooking") ?>
+                <?php esc_html_e("your booking information","wp-booking-management-system") ?>
             </div>
             <div class="review-order-item">
                 <div class="review-order-item-info">

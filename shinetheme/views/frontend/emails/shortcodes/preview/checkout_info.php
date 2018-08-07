@@ -27,7 +27,7 @@ do_action('wpbooking_before_checkout_form_data_preview');
 		<p><?php esc_html_e('8888','wp-booking-management-system') ?></p>
 	</div>
     <div class="col-md-12">
-        <label><?php esc_html_e("Special request:","wpbooking") ?> </label>
+        <label><?php esc_html_e("Special request:","wp-booking-management-system") ?> </label>
         <p>ABC</p>
     </div>
 	<div class=col-12>

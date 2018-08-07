@@ -34,10 +34,10 @@
                                     'type'  => 'dropdown',
                                     'std'   => 'left',
                                     'value' => [
-                                        'left'             => esc_html__( '$99', "wpbooking" ),
-                                        'right'            => esc_html__( '99$', "wpbooking" ),
-                                        'left_with_space'  => esc_html__( '$ 99', "wpbooking" ),
-                                        'right_with_space' => esc_html__( '99 $', "wpbooking" ),
+                                        'left'             => esc_html__( '$99', "wp-booking-management-system" ),
+                                        'right'            => esc_html__( '99$', "wp-booking-management-system" ),
+                                        'left_with_space'  => esc_html__( '$ 99', "wp-booking-management-system" ),
+                                        'right_with_space' => esc_html__( '99 $', "wp-booking-management-system" ),
                                     ]
                                 ],
                                 [

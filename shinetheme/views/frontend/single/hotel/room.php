@@ -102,7 +102,7 @@
                         </div>
                         <div class="form-item w100">
                             <button type="button"
-                                    class="wb-button btn-do-search-room"><?php esc_html_e( "CHECK AVAILABILITY ", "wpbooking" ) ?></button>
+                                    class="wb-button btn-do-search-room"><?php esc_html_e( "CHECK AVAILABILITY ", "wp-booking-management-system" ) ?></button>
                         </div>
                     </div>
                 </div>

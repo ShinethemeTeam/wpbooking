@@ -6,7 +6,7 @@
             public function __construct()
             {
                 $widget_ops = [ 'classname' => '', 'description' => "[WPBooking] Search Form" ];
-                parent::__construct( __CLASS__, esc_html__( 'WPBooking Search Form', "wpbooking" ), $widget_ops );
+                parent::__construct( __CLASS__, esc_html__( 'WPBooking Search Form', "wp-booking-management-system" ), $widget_ops );
             }
 
             /**
@@ -122,7 +122,7 @@
                                     }
                                     if ( $v[ 'required' ] == 'yes' ) $class .= ' wb-required';
                                     $args        = [
-                                        'show_option_none'  => esc_html__( '-- Select --', "wpbooking" ),
+                                        'show_option_none'  => esc_html__( '-- Select --', "wp-booking-management-system" ),
                                         'option_none_value' => "",
                                         'hierarchical'      => 1,
                                         'name'              => 'location_id',
@@ -155,7 +155,7 @@
                                     $class = false;
                                     if ( $v[ 'required' ] == 'yes' ) $class .= ' wb-required';
                                     $args        = [
-                                        'show_option_none'  => esc_html__( '-- Select --', "wpbooking" ),
+                                        'show_option_none'  => esc_html__( '-- Select --', "wp-booking-management-system" ),
                                         'option_none_value' => "",
                                         'hierarchical'      => 1,
                                         'name'              => 'pickup',
@@ -188,7 +188,7 @@
                                     $class = false;
                                     if ( $v[ 'required' ] == 'yes' ) $class .= ' wb-required';
                                     $args        = [
-                                        'show_option_none'  => esc_html__( '-- Select --', "wpbooking" ),
+                                        'show_option_none'  => esc_html__( '-- Select --', "wp-booking-management-system" ),
                                         'option_none_value' => "",
                                         'hierarchical'      => 1,
                                         'name'              => 'dropoff',
@@ -228,7 +228,7 @@
                                     if ( $v[ 'required' ] == 'yes' ) $class = ' wb-required';
                                     if ( $v[ 'taxonomy_show' ] == 'dropdown' ) {
                                         $args        = [
-                                            'show_option_none'  => esc_html__( '-- Select --', "wpbooking" ),
+                                            'show_option_none'  => esc_html__( '-- Select --', "wp-booking-management-system" ),
                                             'option_none_value' => "",
                                             'hierarchical'      => 1,
                                             'name'              => $v[ 'field_type' ] . '[' . $v[ 'taxonomy' ] . ']',
@@ -548,12 +548,12 @@
                 $wpbooking_shortcode = '[wpbooking_search_form id="'.$this->number.'"]';
                 ?>
                 <p><label
-                            for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><strong><?php esc_html_e( 'Title:', "wpbooking" ); ?></strong>
+                            for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><strong><?php esc_html_e( 'Title:', "wp-booking-management-system" ); ?></strong>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
                                name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text"
                                value="<?php echo esc_attr( $title ); ?>"/></label></p>
 				   <p><label
-			for="<?php echo esc_attr( $this->get_field_id( 'wpbooking_search_form' ) ); ?>"><strong><?php esc_html_e( 'WPBooking Search Form Shortcode:', "wpbooking" ); ?></strong>
+			for="<?php echo esc_attr( $this->get_field_id( 'wpbooking_search_form' ) ); ?>"><strong><?php esc_html_e( 'WPBooking Search Form Shortcode:', "wp-booking-management-system" ); ?></strong>
 			<input readonly="readonly" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'wpbooking_search_form' ) ); ?>"
 				   name="<?php echo esc_attr( $this->get_field_name( 'wpbooking_search_form' ) ); ?>" type="text"
 				   value="<?php echo esc_attr( $wpbooking_shortcode ); ?>"/></label></p>
@@ -587,7 +587,7 @@
                         ?>
                         <div
                                 class="list_item_widget  div_content_<?php echo esc_attr( $key ) ?> <?php if ( $key != $service_type ) echo "hide"; ?>">
-                            <label><strong><?php esc_html_e( "Search Fields:", "wpbooking" ) ?></strong></label>
+                            <label><strong><?php esc_html_e( "Search Fields:", "wp-booking-management-system" ) ?></strong></label>
                             <div class="list-group content_list_search_form_widget">
 
                                 <?php
@@ -599,9 +599,9 @@
                                             <div class="list-group-item">
 
                                                 <div class="control">
-                                                    <a class="btn_edit_field_search_form"><?php esc_html_e( "Edit", "wpbooking" ) ?></a>
+                                                    <a class="btn_edit_field_search_form"><?php esc_html_e( "Edit", "wp-booking-management-system" ) ?></a>
                                                     |
-                                                    <a class="btn_remove_field_search_form"><?php esc_html_e( "Remove", "wpbooking" ) ?></a>
+                                                    <a class="btn_remove_field_search_form"><?php esc_html_e( "Remove", "wp-booking-management-system" ) ?></a>
                                                 </div>
                                                 <div class="control-hide hide">
                                                     <table class="form-table wpbooking-settings">
@@ -709,9 +709,9 @@
                         <div class="div_content_hide_<?php echo esc_attr( $key ) ?> hide">
                             <div class="list-group-item">
                                 <div class="control">
-                                    <a class="btn_edit_field_search_form"><?php esc_html_e( "Edit", "wpbooking" ) ?></a>
+                                    <a class="btn_edit_field_search_form"><?php esc_html_e( "Edit", "wp-booking-management-system" ) ?></a>
                                     |
-                                    <a class="btn_remove_field_search_form"><?php esc_html_e( "Remove", "wpbooking" ) ?></a>
+                                    <a class="btn_remove_field_search_form"><?php esc_html_e( "Remove", "wp-booking-management-system" ) ?></a>
                                 </div>
                                 <div class="control-hide">
                                     <table class="form-table wpbooking-settings">

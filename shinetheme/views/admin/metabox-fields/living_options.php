@@ -19,7 +19,7 @@ $name = isset( $data['custom_name'] ) ? esc_html( $data['custom_name'] ) : esc_h
 <div class="form-table wpbooking-settings living_options <?php echo esc_html( $class ); ?>" <?php echo esc_html( $data_class ); ?>>
     <div class="multi-living-option">
         <div class="multi-item-default">
-            <label class="multi-item-title"><?php echo esc_html_e("Living room #__number_living__","wpbooking") ?></label>
+            <label class="multi-item-title"><?php echo esc_html_e("Living room #__number_living__","wp-booking-management-system") ?></label>
             <div class="st-metabox-left">
                 <label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html_e('Number of sofa beds in the room','wp-booking-management-system'); ?></label>
             </div>

@@ -89,9 +89,9 @@ if(!empty($old_data['gallery']) and count( $tmp = explode(',', $old_data['galler
                     ?>
                 </div>
                 <div class="clearfix gallery-control">
-                    <button  id="" class="button-gallery-primary btn_upload_gallery_hotel mb10 mr_10" type="button" name=""><?php esc_html_e("Add Gallery","wpbooking")?></button>
+                    <button  id="" class="button-gallery-primary btn_upload_gallery_hotel mb10 mr_10" type="button" name=""><?php esc_html_e("Add Gallery","wp-booking-management-system")?></button>
 
-                    <button class="btn_remove_gallery_hotel button-gallery-primary mb10 <?php if(!$show_btn_remove) echo 'none' ?>" type="button" name=""><?php esc_html_e("Remove Gallery","wpbooking")?></button>
+                    <button class="btn_remove_gallery_hotel button-gallery-primary mb10 <?php if(!$show_btn_remove) echo 'none' ?>" type="button" name=""><?php esc_html_e("Remove Gallery","wp-booking-management-system")?></button>
                 </div>
             </div>
         </div>

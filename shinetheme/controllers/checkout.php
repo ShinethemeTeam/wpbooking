@@ -521,8 +521,8 @@
             {
                 $field_form = [
                     'user_first_name'      => [
-                        'title'       => esc_html__( "First Name", "wpbooking" ),
-                        'placeholder' => esc_html__( "First name", "wpbooking" ),
+                        'title'       => esc_html__( "First Name", "wp-booking-management-system" ),
+                        'placeholder' => esc_html__( "First name", "wp-booking-management-system" ),
                         'type'        => 'text',
                         'name'        => 'user_first_name',
                         'size'        => '6',
@@ -530,8 +530,8 @@
                         'rule'        => 'required|max_length[100]',
                     ],
                     'user_last_name'       => [
-                        'title'       => esc_html__( "Last Name", "wpbooking" ),
-                        'placeholder' => esc_html__( "Last name", "wpbooking" ),
+                        'title'       => esc_html__( "Last Name", "wp-booking-management-system" ),
+                        'placeholder' => esc_html__( "Last name", "wp-booking-management-system" ),
                         'type'        => 'text',
                         'name'        => 'user_last_name',
                         'size'        => '6',
@@ -539,9 +539,9 @@
                         'rule'        => 'required|max_length[100]',
                     ],
                     'user_email'           => [
-                        'title'       => esc_html__( "Email", "wpbooking" ),
-                        'placeholder' => esc_html__( "Email", "wpbooking" ),
-                        'desc'        => esc_html__( "Email for confirmation", "wpbooking" ),
+                        'title'       => esc_html__( "Email", "wp-booking-management-system" ),
+                        'placeholder' => esc_html__( "Email", "wp-booking-management-system" ),
+                        'desc'        => esc_html__( "Email for confirmation", "wp-booking-management-system" ),
                         'type'        => 'text',
                         'name'        => 'user_email',
                         'size'        => '12',
@@ -549,8 +549,8 @@
                         'rule'        => 'required|max_length[100]|valid_email',
                     ],
                     'user_phone'           => [
-                        'title'       => esc_html__( "Telephone", "wpbooking" ),
-                        'placeholder' => esc_html__( "Telephone", "wpbooking" ),
+                        'title'       => esc_html__( "Telephone", "wp-booking-management-system" ),
+                        'placeholder' => esc_html__( "Telephone", "wp-booking-management-system" ),
                         'type'        => 'text',
                         'name'        => 'user_phone',
                         'size'        => '12',
@@ -558,8 +558,8 @@
                         'rule'        => 'required|numeric|max_length[100]',
                     ],
                     'user_address'         => [
-                        'title'       => esc_html__( "Address", "wpbooking" ),
-                        'placeholder' => esc_html__( "Address", "wpbooking" ),
+                        'title'       => esc_html__( "Address", "wp-booking-management-system" ),
+                        'placeholder' => esc_html__( "Address", "wp-booking-management-system" ),
                         'type'        => 'text',
                         'name'        => 'user_address',
                         'size'        => '12',
@@ -567,8 +567,8 @@
                         'rule'        => 'required|max_length[100]',
                     ],
                     'user_postcode'        => [
-                        'title'       => esc_html__( "Postcode / ZIP", "wpbooking" ),
-                        'placeholder' => esc_html__( "Postcode / ZIP", "wpbooking" ),
+                        'title'       => esc_html__( "Postcode / ZIP", "wp-booking-management-system" ),
+                        'placeholder' => esc_html__( "Postcode / ZIP", "wp-booking-management-system" ),
                         'type'        => 'text',
                         'name'        => 'user_postcode',
                         'size'        => '6',
@@ -576,8 +576,8 @@
                         'rule'        => '',
                     ],
                     'user_apt_unit'        => [
-                        'title'       => esc_html__( "Apt/ Unit", "wpbooking" ),
-                        'placeholder' => esc_html__( "Apt/ Unit", "wpbooking" ),
+                        'title'       => esc_html__( "Apt/ Unit", "wp-booking-management-system" ),
+                        'placeholder' => esc_html__( "Apt/ Unit", "wp-booking-management-system" ),
                         'type'        => 'text',
                         'name'        => 'user_apt_unit',
                         'size'        => '6',
@@ -585,8 +585,8 @@
                         'rule'        => '',
                     ],
                     'passengers'           => [
-                        'title'       => esc_html__( "Passengers", "wpbooking" ),
-                        'placeholder' => esc_html__( "Passengers", "wpbooking" ),
+                        'title'       => esc_html__( "Passengers", "wp-booking-management-system" ),
+                        'placeholder' => esc_html__( "Passengers", "wp-booking-management-system" ),
                         'type'        => 'text',
                         'name'        => 'passengers',
                         'size'        => '12',
@@ -594,8 +594,8 @@
                         'rule'        => 'required',
                     ],
                     'user_special_request' => [
-                        'title'       => esc_html__( "Special Request", "wpbooking" ),
-                        'placeholder' => esc_html__( "Notes about your order, e.g. special notes for  delivery.", "wpbooking" ),
+                        'title'       => esc_html__( "Special Request", "wp-booking-management-system" ),
+                        'placeholder' => esc_html__( "Notes about your order, e.g. special notes for  delivery.", "wp-booking-management-system" ),
                         'type'        => 'textarea',
                         'name'        => 'user_special_request',
                         'size'        => '12',

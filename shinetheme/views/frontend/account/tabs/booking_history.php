@@ -34,7 +34,7 @@ $payment_status=WPBooking_Config::inst()->item('payment_status');
 					$status = WPBooking_Input::request('wpbooking_status');
 					?>
 					<select class="form-control"  name="wpbooking_status">
-						<option value=""><?php esc_html_e("Status","wpbooking") ?></option>
+						<option value=""><?php esc_html_e("Status","wp-booking-management-system") ?></option>
 						<?php
 						if(!empty($all_status)){
 							foreach($all_status as $k=>$v){
@@ -44,7 +44,7 @@ $payment_status=WPBooking_Config::inst()->item('payment_status');
 					</select>
 				</div>
 				<div class="col-md-3">
-					<button type="submit" class="wb-button"><?php esc_html_e("Filter","wpbooking") ?></button>
+					<button type="submit" class="wb-button"><?php esc_html_e("Filter","wp-booking-management-system") ?></button>
 				</div>
 			</div>
 		</div>

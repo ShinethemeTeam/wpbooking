@@ -1,1 +1,1 @@
-<?php esc_html_e("No Room","wpbooking");
+<?php esc_html_e("No Room","wp-booking-management-system");

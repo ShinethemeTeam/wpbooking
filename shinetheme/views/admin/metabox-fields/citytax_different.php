@@ -13,7 +13,7 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
 <div class="form-table content_tax_vat wpbooking-settings <?php echo esc_html($class); ?>" <?php echo esc_html($data_class); ?>>
     <h4 class="field-title"> <?php echo esc_html($data['label']); ?> </h4>
     <div class="st-metabox-left">
-        <label for="<?php  esc_html_e("Do you use City Tax ?","wpbooking") ?>"><?php  esc_html_e("Do you use City Tax ?","wp-booking-management-system") ?></label>
+        <label for="<?php  esc_html_e("Do you use City Tax ?","wp-booking-management-system") ?>"><?php  esc_html_e("Do you use City Tax ?","wp-booking-management-system") ?></label>
     </div>
     <div class="st-metabox-right">
         <div class="st-metabox-content-wrapper">
@@ -29,7 +29,7 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
         <i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
     </div>
     <div class="st-metabox-left">
-        <label for="<?php  esc_html_e("City Tax amount","wpbooking") ?>"><?php  esc_html_e("City Tax amount","wpbooking") ?></label>
+        <label for="<?php  esc_html_e("City Tax amount","wp-booking-management-system") ?>"><?php  esc_html_e("City Tax amount","wp-booking-management-system") ?></label>
     </div>
     <div class="st-metabox-right">
         <div class="st-metabox-content-wrapper">
@@ -38,7 +38,7 @@ $name = isset($data['custom_name']) ? esc_html($data['custom_name']) : esc_html(
                     <input type="text" name="citytax_amount" value="<?php echo esc_attr(get_post_meta($post_id, 'citytax_amount', TRUE)) ?>" class="widefat form-control small" placeholder="0">
                 </div>
                 <div class="tax_input_col_right">
-                    <label class="label_vat_unit" for="<?php esc_html_e("Unit","wpbooking") ?>"><?php  esc_html_e("Unit","wpbooking") ?></label>
+                    <label class="label_vat_unit" for="<?php esc_html_e("Unit","wp-booking-management-system") ?>"><?php  esc_html_e("Unit","wp-booking-management-system") ?></label>
                     <select class="form-control widefat small" name="citytax_unit">
                         <option <?php selected("stay",get_post_meta($post_id, 'citytax_unit', TRUE)) ?> value="stay"> <?php printf(esc_html__("%s /stay",'wp-booking-management-system'),WPBooking_Currency::get_current_currency('symbol'));?></option>
                         <option <?php selected("person_per_stay",get_post_meta($post_id, 'citytax_unit', TRUE)) ?> value="person_per_stay"> <?php printf(esc_html__("%s /person per stay",'wp-booking-management-system'),WPBooking_Currency::get_current_currency('symbol'));  ?></option>

@@ -203,7 +203,7 @@
             $number         = ceil( $max / $posts_per_page );
             $html           = ' <div class="wpbooking-pagination paged_room">';
             if ( $paged > 1 ) {
-                $html .= ' <a class="page-numbers" data-page="' . ( $paged - 1 ) . '">' . __( 'Previous', "wpbooking" ) . '</a> ';
+                $html .= ' <a class="page-numbers" data-page="' . ( $paged - 1 ) . '">' . __( 'Previous', "wp-booking-management-system" ) . '</a> ';
             }
             for ( $i = 1; $i <= $number; $i++ ) {
                 if ( $i == $paged ) {
@@ -213,7 +213,7 @@
                 }
             }
             if ( $paged < $i - 1 ) {
-                $html .= ' <a class="page-numbers" data-page="' . ( $paged + 1 ) . '">' . __( 'Next', "wpbooking" ) . '</a>';
+                $html .= ' <a class="page-numbers" data-page="' . ( $paged + 1 ) . '">' . __( 'Next', "wp-booking-management-system" ) . '</a>';
             }
             $html .= '</div>';
 

@@ -65,7 +65,7 @@ $data_current_user = get_userdata( $user_id );
 				$url=WPBooking_User::inst()->account_page_url().'tab/inbox/';
 				$contact_now_url=add_query_arg(array('user_id'=>$user_id),$url);
 				?>
-				<a href="<?php echo esc_html($contact_now_url) ?>" class="wb-btn wb-btn-default wb-btn-md"><?php esc_html_e("Contact","wpbooking") ?></a>
+				<a href="<?php echo esc_html($contact_now_url) ?>" class="wb-btn wb-btn-default wb-btn-md"><?php esc_html_e("Contact","wp-booking-management-system") ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -103,7 +103,7 @@ $data_current_user = get_userdata( $user_id );
 						<?php the_title() ?>
 					</div>
 					<div class="item_control">
-						<a href="<?php the_permalink() ?>" class="wb-btn wb-btn-blue"><?php esc_html_e("View","wpbooking") ?> </a>
+						<a href="<?php the_permalink() ?>" class="wb-btn wb-btn-blue"><?php esc_html_e("View","wp-booking-management-system") ?> </a>
 					</div>
 				</div>
 				<?php

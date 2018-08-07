@@ -42,7 +42,7 @@ $field .= '</div></div></div>';
 	<label for="<?php echo esc_html( $data['id'] ); ?>"><?php echo esc_html( $data['label'] ); ?></label>
 </div>
 <div class="st-metabox-right">
-    <label><input type="checkbox" class="btn_show_map" <?php if($is_show_map) echo 'checked'; ?> name="is_show_map" value="1"> <?php esc_html_e("Show Map","wpbooking") ?> </label>
+    <label><input type="checkbox" class="btn_show_map" <?php if($is_show_map) echo 'checked'; ?> name="is_show_map" value="1"> <?php esc_html_e("Show Map","wp-booking-management-system") ?> </label>
 	<div class="content-gmap <?php if(!$is_show_map) echo 'nonex'; ?>">
         <br>
         <?php echo do_shortcode($field); ?>

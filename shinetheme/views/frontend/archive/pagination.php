@@ -21,8 +21,8 @@ global $wp_query;
 		'total'    => $wp_query->max_num_pages,
 		'current'  => $paged,
 		'add_args' =>$query_args,
-		'prev_text' => esc_html__( 'Previous', "wpbooking" ),
-		'next_text' => esc_html__( 'Next', "wpbooking" ),
+		'prev_text' => esc_html__( 'Previous', "wp-booking-management-system" ),
+		'next_text' => esc_html__( 'Next', "wp-booking-management-system" ),
 	);
 	echo paginate_links( $args );
 	?>

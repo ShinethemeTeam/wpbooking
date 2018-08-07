@@ -38,10 +38,10 @@ if(!$allow_guest_checkout and !is_user_logged_in()){
                                 if(is_user_logged_in()){
                                     esc_html_e('Billing Information', 'wp-booking-management-system');
                                 }else{
-                                    esc_html_e("Already have an account?","wpbooking");
+                                    esc_html_e("Already have an account?","wp-booking-management-system");
                                     $url_check_out = get_permalink(wpbooking_get_option('checkout_page'));
                                 ?>
-                                     <a href="<?php echo esc_url(add_query_arg(array("redirect_to"=>$url_check_out),wp_login_url())); ?>" class="text-color"><?php esc_html_e('Login',"wpbooking") ?></a>
+                                     <a href="<?php echo esc_url(add_query_arg(array("redirect_to"=>$url_check_out),wp_login_url())); ?>" class="text-color"><?php esc_html_e('Login',"wp-booking-management-system") ?></a>
                                 <?php } ?>
                             </h5>
                             <input name="action" value="wpbooking_do_checkout" type="hidden">
@@ -65,7 +65,7 @@ if(!$allow_guest_checkout and !is_user_logged_in()){
                                 <?php
                                 $page_term_condition = wpbooking_get_option('term-page');
                                 $link = '<a target="_blank" class="term_condition" href="'.esc_url(get_permalink($page_term_condition)).'">'.esc_attr__("terms and conditions", 'wp-booking-management-system').'</a>';
-                                printf(esc_html__("I have read and accepted the %s","wpbooking"),$link);
+                                printf(esc_html__("I have read and accepted the %s","wp-booking-management-system"),$link);
                                 ?>
                             </label>
                         </div>
