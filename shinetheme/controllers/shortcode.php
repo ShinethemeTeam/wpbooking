@@ -7,6 +7,7 @@
              add_action('init',[$this,'register_shortcode_list_service']);
              add_action('init',[$this,'register_shortcode_form_search']);
              add_action('init',[$this,'register_shortcode_list_room']);
+             add_action('init',[$this,'register_shortcode_tab_search']);
          }
 
          function register_shortcode_list_service(){
@@ -55,6 +56,21 @@
              ),$atts);
              return wpbooking_load_view('shortcode/rooms/room',array(
                 'atts' => $atts
+             ));
+         }
+
+         /* tab search */
+         function register_shortcode_tab_search(){
+             add_shortcode('wpbooking_search_service',[$this,'_render_tab_form_search_service_shortcode']);
+         }
+         function _render_tab_form_search_service_shortcode($atts){
+
+             $atts = shortcode_atts(array(
+                 'id'      => '',
+             ),$atts);
+
+             return wpbooking_load_view('shortcode/tabs/tab',array(
+                 'atts' => $atts
              ));
          }
 

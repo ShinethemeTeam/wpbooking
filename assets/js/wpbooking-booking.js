@@ -2230,6 +2230,24 @@ jQuery(document).ready(function ($) {
             }
         }
     });
+    $('.wpbooking_form_search_tab').each(function () {
+        var thisE = $(this);
+        thisE.find('ul li a').click(function (e) {
+            e.preventDefault();
+            $(this).parent().addClass('active');
+            var attr = $(this).attr('href');
+            if($(this).parent().siblings().hasClass('active')){
+                $(this).parent().siblings().removeClass('active');
+            }
+            thisE.find('.tab-content .tab-pane').each(function () {
+                var tab_content = "#"+$(this).attr('id');
+                if(attr==tab_content){
+                    $(this).siblings().removeClass('in active');
+                    $(this).addClass('in active');
+                }
+            })
+        })
+    })
 });
 
 

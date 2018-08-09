@@ -8151,3 +8151,57 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
   font-size: 14px;
   margin-right: 6px;
 }
+/* wpbooking search tab */
+.wpbooking_form_search_tab ul li {
+  display: inline-block;
+  list-style: none;
+  position: relative;
+}
+.wpbooking_form_search_tab ul li:after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  z-index: 1;
+  background: #f0ad4e;
+  transition: all 0.4s;
+}
+.wpbooking_form_search_tab ul li a {
+  display: block;
+  padding: 3px 14px;
+  box-shadow: 1px 1px 1px #ccc;
+  border: 1px solid #f3f3f3;
+  transition: all 0.4s;
+  position: relative;
+  z-index: 2;
+}
+.wpbooking_form_search_tab ul li a:hover {
+  color: #fff;
+  border: 1px solid #f0ad4e;
+  box-shadow: 5px 3px 5px #ccc;
+}
+.wpbooking_form_search_tab ul li a:focus {
+  outline: none;
+}
+.wpbooking_form_search_tab ul li.active a {
+  color: #fff;
+  border: 1px solid #f0ad4e;
+  box-shadow: 5px 3px 5px #ccc;
+}
+.wpbooking_form_search_tab ul li.active:after {
+  background: #f0ad4e;
+  width: 100%;
+  transition: all 0.4s;
+}
+.wpbooking_form_search_tab ul li:hover:after {
+  background: #f0ad4e;
+  width: 100%;
+  transition: all 0.4s;
+}
+.wpbooking_form_search_tab .tab-content .tab-pane {
+  display: none;
+}
+.wpbooking_form_search_tab .tab-content .tab-pane.active {
+  display: block;
+}
