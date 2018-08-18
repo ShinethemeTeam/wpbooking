@@ -18,7 +18,7 @@
         $start_month = date( 'm' );
     }
 
-    $start_month  = sprintf( "%02d", $start_month );
+    $start_month  = sprintf( "%02d", $start_month ); 
     $start_date   = $start_month . '-01-' . date( 'Y' );
     $pricing_type = $service->get_meta( 'pricing_type' );
     $age_options  = $service->get_meta( 'age_options' );

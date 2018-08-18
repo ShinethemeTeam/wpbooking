@@ -3,7 +3,7 @@
     <?php wp_nonce_field('wpbooking_action','wpbooking_save_setup_demo') ?>
     <input type="hidden" name="is_tab" value="<?php echo esc_attr($is_tab) ?>">
     <div class="setup-content">
-        <h1 class="text-center"><?php esc_html_e("Payment Setup","wp-booking-management-system") ?></h1>
+        <h1 class="text-center"><?php echo esc_html__("Payment Setup","wp-booking-management-system") ?></h1>
         <div class="item_setup <?php echo esc_attr($is_tab) ?>">
             <table class="form-table wpbooking-settings ">
                 <tbody>
@@ -37,7 +37,7 @@
             </table>
         </div>
         <div class="control">
-            <button name="wpbooking_save_setup" value="true" class="button-primary button button-large"><?php esc_html_e("Finish","wp-booking-management-system") ?></button>
+            <button name="wpbooking_save_setup" value="true" class="button-primary button button-large"><?php echo esc_html__("Finish","wp-booking-management-system") ?></button>
         </div>
     </div>
 </form>

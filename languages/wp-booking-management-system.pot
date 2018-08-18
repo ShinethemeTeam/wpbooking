@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPBooking\n"
-"POT-Creation-Date: 2018-08-09 16:21+0700\n"
+"POT-Creation-Date: 2018-08-16 09:47+0700\n"
 "PO-Revision-Date: 2016-05-27 10:45+0700\n"
 "Last-Translator: \n"
 "Language-Team: WpBooking <contact@wpbooking.org>\n"
@@ -1201,6 +1201,7 @@ msgstr ""
 
 #: shinetheme/controllers/email.php:45
 #: shinetheme/libraries/shortcodes/emails/booking_status.php:8
+#: shinetheme/views/frontend/emails/shortcodes/booking_status.php:3
 msgid "STATUS"
 msgstr ""
 
@@ -1562,7 +1563,7 @@ msgstr ""
 
 #: shinetheme/helpers/service.php:216
 #: shinetheme/views/admin/about/tab-extensions.php:118
-#: shinetheme/views/frontend/archive/pagination.php:25 wpbooking.php:312
+#: shinetheme/views/frontend/archive/pagination.php:25 wpbooking.php:300
 msgid "Next"
 msgstr ""
 
@@ -1652,8 +1653,8 @@ msgstr ""
 
 #: shinetheme/libraries/gateways/paypal.php:130
 #: shinetheme/libraries/gateways/paypal.php:204
-#: shinetheme/libraries/gateways/paypal.php:259 wpbooking.php:435
-#: wpbooking.php:436
+#: shinetheme/libraries/gateways/paypal.php:259 wpbooking.php:423
+#: wpbooking.php:424
 msgid "WPBooking"
 msgstr ""
 
@@ -2693,15 +2694,15 @@ msgstr ""
 msgid "Number of rooms you booked is not enough, please change your search."
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:2884 wpbooking.php:188
+#: shinetheme/libraries/service-types/accommodation.php:2884 wpbooking.php:176
 msgid "To see price details, please select check-in and check-out date."
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:2890 wpbooking.php:189
+#: shinetheme/libraries/service-types/accommodation.php:2890 wpbooking.php:177
 msgid "Please select check-in date."
 msgstr ""
 
-#: shinetheme/libraries/service-types/accommodation.php:2896 wpbooking.php:190
+#: shinetheme/libraries/service-types/accommodation.php:2896 wpbooking.php:178
 msgid "Please select check-out date."
 msgstr ""
 
@@ -3166,7 +3167,7 @@ msgstr ""
 msgid "Get this Extension"
 msgstr ""
 
-#: shinetheme/views/admin/about/tab-extensions.php:107 wpbooking.php:313
+#: shinetheme/views/admin/about/tab-extensions.php:107 wpbooking.php:301
 msgid "Prev"
 msgstr ""
 
@@ -4052,7 +4053,7 @@ msgid "Feet"
 msgstr ""
 
 #: shinetheme/views/admin/metabox-fields/repeat_dropdown.php:91
-#: wpbooking.php:307
+#: wpbooking.php:295
 msgid "delete"
 msgstr ""
 
@@ -5488,46 +5489,46 @@ msgstr ""
 msgid "Remember to hit Save button after adding or removing new search field"
 msgstr ""
 
-#: wpbooking.php:174
+#: wpbooking.php:162
 msgid "Please rate the criteria of this accommodation."
 msgstr ""
 
-#: wpbooking.php:185
+#: wpbooking.php:173
 msgid "Please select the number of adults "
 msgstr ""
 
-#: wpbooking.php:186
+#: wpbooking.php:174
 msgid "Please select the number of children "
 msgstr ""
 
-#: wpbooking.php:187
+#: wpbooking.php:175
 msgid "Please select the number of adults and children"
 msgstr ""
 
-#: wpbooking.php:306
+#: wpbooking.php:294
 msgid "Do you want to delete?"
 msgstr ""
 
-#: wpbooking.php:308
+#: wpbooking.php:296
 msgid "Do you want to delete all image?"
 msgstr ""
 
-#: wpbooking.php:309
+#: wpbooking.php:297
 msgid "room"
 msgstr ""
 
-#: wpbooking.php:310
+#: wpbooking.php:298
 msgid "rooms"
 msgstr ""
 
-#: wpbooking.php:311
+#: wpbooking.php:299
 msgid "You want to delete this image permanently?"
 msgstr ""
 
-#: wpbooking.php:314
+#: wpbooking.php:302
 msgid "Read More"
 msgstr ""
 
-#: wpbooking.php:315
+#: wpbooking.php:303
 msgid "Room Name:"
 msgstr ""

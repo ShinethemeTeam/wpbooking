@@ -39,7 +39,7 @@ $type_array=array(
 		<input type="hidden" name="report_type" value="<?php echo esc_attr($report_type) ?>">
 
 		<div class="select-service-type">
-			<h4><?php esc_html_e('Types of service:','wp-booking-management-system') ?></h4>
+			<h4><?php echo esc_html__('Types of service:','wp-booking-management-system') ?></h4>
 			<ul class="service_types">
                 <?php
                 $chked = '';
@@ -47,7 +47,7 @@ $type_array=array(
                     $chked = 'checked';
                 }
                 ?>
-				<li><label ><input type="checkbox" class="check_all_service_type" <?php echo esc_attr($chked); ?>> <?php esc_html_e('All','wp-booking-management-system') ?></label></li>
+				<li><label ><input type="checkbox" class="check_all_service_type" <?php echo esc_attr($chked); ?>> <?php echo esc_html__('All','wp-booking-management-system') ?></label></li>
 				<?php
 				if(!empty($service_types)){
 					foreach($service_types as $key=>$val){
@@ -68,7 +68,7 @@ $type_array=array(
 		</div>
 		<div class="filter-by-tabs">
 			<ul class="filter-by-lists">
-				<li><a ><?php esc_html_e('Filter by:','wp-booking-management-system') ?></a></li>
+				<li><a ><?php echo esc_html__('Filter by:','wp-booking-management-system') ?></a></li>
 				<li <?php if(array_key_exists($report_type,$type_array) or $report_type=='today') echo 'class="active"'; ?> >
 					<select  class="select-report-type" name="">
 						<?php foreach($type_array as $type_id=>$type){
@@ -79,13 +79,13 @@ $type_array=array(
 
 				<li <?php if($report_type=='date_range') echo "class='active'"; ?>>
 					<div class="filter-date">
-						<label ><?php esc_html_e('From','wp-booking-management-system')?> <input type="text" value="<?php echo ($report_type=='date_range')?WPBooking_Input::get('date_from'):false ?>" name="date_from" class="datepicker_start"> <i class="fa fa-calendar"></i></label>
+						<label ><?php echo esc_html__('From','wp-booking-management-system')?> <input type="text" value="<?php echo ($report_type=='date_range')?WPBooking_Input::get('date_from'):false ?>" name="date_from" class="datepicker_start"> <i class="fa fa-calendar"></i></label>
 					</div>
 					<div class="filter-date">
-						<label ><?php esc_html_e('To','wp-booking-management-system')?> <input type="text" name="date_to" value="<?php echo ($report_type=='date_range')?WPBooking_Input::get('date_to'):false ?>" class="datepicker_end"> <i class="fa fa-calendar"></i></label>
+						<label ><?php echo esc_html__('To','wp-booking-management-system')?> <input type="text" name="date_to" value="<?php echo ($report_type=='date_range')?WPBooking_Input::get('date_to'):false ?>" class="datepicker_end"> <i class="fa fa-calendar"></i></label>
 					</div>
 				</li>
-				<li class=""><a href="#" class="do-search" ><?php esc_html_e('Go','wp-booking-management-system') ?> <i class="fa fa-caret-right"></i></a></li>
+				<li class=""><a href="#" class="do-search" ><?php echo esc_html__('Go','wp-booking-management-system') ?> <i class="fa fa-caret-right"></i></a></li>
 			</ul>
 		</div>
 		<div class="report-content">
