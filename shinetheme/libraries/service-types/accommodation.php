@@ -1813,6 +1813,7 @@
                     '.wp-room-actions .room-count' => $this->_get_room_count_text( $hotel_id )
                 ];
                 $res[ 'updated_content' ] = apply_filters( 'wpbooking_hotel_room_form_updated_content', $updated_content, $room_id, $hotel_id );
+                do_action( 'wpbooking_after_delete_room_hotel', $hotel_id );
                 echo json_encode( $res );
                 wp_die();
             }
@@ -2086,7 +2087,7 @@
                     }
                 }
                 $sql = "
-            {$wpdb->posts}.ID IN (
+                    {$wpdb->posts}.ID IN (
                     (
                         SELECT
                             hotel_id
@@ -2110,8 +2111,76 @@
                 )
             ";
 
-
                 $injection->where( $sql, false, true );
+                if ( $check_in and $check_out ) {
+                    $check_in_timestamp  = strtotime( $check_in );
+                    $check_out_timestamp = strtotime( $check_out );
+
+                    $sql = "{$wpdb->posts}.ID NOT IN(
+                        SELECT
+                            hotel_id
+                        FROM
+                            (
+                                SELECT
+                                    hotel_id,
+                                    count(room_id) AS total_room,
+                                    total
+                                FROM
+                                    (
+                                        SELECT
+                                            _od_room.room_id_origin AS room_id,
+                                            _od_room.num_room AS num_room,
+                                            sum(_od_room.number) AS c_room,
+                                            _od_room.hotel_id_origin AS hotel_id,
+                                            _od_room.total_room AS total
+                                        FROM
+                                            wp_wpbooking_order_hotel_room AS _od_room
+                                        WHERE
+                                            1 = 1
+                                        AND (
+                                            (
+                                                CAST(
+                                                    _od_room.check_in_timestamp AS UNSIGNED
+                                                ) >= CAST({$check_in_timestamp} AS UNSIGNED)
+                                                AND CAST(
+                                                    _od_room.check_in_timestamp AS UNSIGNED
+                                                ) <= CAST({$check_out_timestamp} AS UNSIGNED)
+                                            )
+                                            OR (
+                                                CAST(
+                                                    _od_room.check_out_timestamp AS UNSIGNED
+                                                ) >= CAST({$check_in_timestamp} AS UNSIGNED)
+                                                AND (
+                                                    CAST(
+                                                        _od_room.check_out_timestamp AS UNSIGNED
+                                                    ) <= CAST({$check_out_timestamp} AS UNSIGNED)
+                                                )
+                                            )
+                                            OR (
+                                                CAST(
+                                                    _od_room.check_in_timestamp AS UNSIGNED
+                                                ) <= CAST({$check_in_timestamp} AS UNSIGNED)
+                                                AND CAST(
+                                                    _od_room.check_out_timestamp AS UNSIGNED
+                                                ) >= CAST({$check_out_timestamp} AS UNSIGNED)
+                                            )
+                                        )
+                                        AND _od_room.`status` = 'on_hold'
+                                        GROUP BY
+                                            _od_room.room_id_origin
+                                        HAVING
+                                            num_room - c_room <= 0
+                                    ) AS cal_avai
+                                GROUP BY
+                                    hotel_id
+                                HAVING
+                                    total - total_room <= 0
+                            ) AS _cal_avai
+                    )";
+
+                    $injection->where( $sql, false, true );
+                }
+
                 parent::_add_default_query_hook();
 
             }
@@ -3694,51 +3763,68 @@
                 $diff      = $cart[ 'check_out_timestamp' ] - $cart[ 'check_in_timestamp' ];
                 $date_diff = $diff / ( 60 * 60 * 24 );
 
-                $total_price = WPBooking_Checkout_Controller::inst()->get_cart_total( [ 'without_tax' => false ] );
-                $total_tax   = 0;
-                $tax_total   = 0;
+                $total_price               = WPBooking_Checkout_Controller::inst()->get_cart_total( [ 'include_extra' => true ] );
+                $total_price_without_extra = WPBooking_Checkout_Controller::inst()->get_cart_total( [ 'include_extra' => false ] );
+                $total_tax                 = 0;
+                $tax_total                 = 0;
 
                 if ( !empty( $cart[ 'tax' ] ) and !empty( $cart[ 'rooms' ] ) ) {
                     $number_room = 0;
                     foreach ( $cart[ 'rooms' ] as $room ) {
-                        $number_room += $room[ 'number' ];
+                        $number_room += (int)$room[ 'number' ];
                     }
-                    foreach ( $cart[ 'tax' ] as $key => $value ) {
-                        if ( $value[ 'excluded' ] != '' and !empty( $value[ 'amount' ] ) ) {
-                            $unit        = $value[ 'unit' ];
-                            $tax[ $key ] = $value;
-                            $price       = 0;
-                            switch ( $unit ) {
-                                case "fixed":
-                                case "stay":
-                                    $price = $value[ 'amount' ] * $number_room;
-                                    break;
-                                case "percent":
-                                    $price = $total_price * ( $value[ 'amount' ] / 100 );
-                                    break;
-                                case "night":
-                                    $price = $value[ 'amount' ] * $date_diff * $number_room;
-                                    break;
-                                case "person_per_stay":
-                                    if ( !empty( $cart[ 'person' ] ) ) {
-                                        $person = $cart[ 'person' ];
-                                        $price  = $person * $value[ 'amount' ] * $number_room;
-                                    }
-                                    break;
-                                case "person_per_night":
-                                    if ( !empty( $cart[ 'person' ] ) ) {
-                                        $person = $cart[ 'person' ];
-                                        $price  = ( $value[ 'amount' ] * $person ) * $date_diff * $number_room;
-                                    }
-                                    break;
-                                default:
-                            }
-                            if ( $value[ 'excluded' ] == 'yes_not_included' ) {
-                                $total_tax += $price;
-                            }
-                            $tax_total              += $price;
-                            $tax[ $key ][ 'price' ] = floatval( $price );
+                    $tax = $cart[ 'tax' ];
+                    if ( !empty( $tax[ 'vat' ] ) ) {
+                        $tax_vat = $tax[ 'vat' ];
+                        switch ( $tax_vat[ 'unit' ] ) {
+                            case "fixed":
+                                $price = $tax_vat[ 'amount' ] * $number_room;
+                                break;
+                            case "percent":
+                                $price = $total_price * ( $tax_vat[ 'amount' ] / 100 );
+                                break;
+                            default:
                         }
+                        if ( $tax_vat[ 'excluded' ] == 'yes_not_included' ) {
+                            $total_tax += $price;
+                        }
+
+                        $tax_total               += $price;
+                        $tax[ 'vat' ][ 'price' ] = floatval( $price );
+                    }
+
+                    if ( !empty( $tax[ 'citytax' ] ) ) {
+                        $citytax = $tax[ 'citytax' ];
+                        switch ( $citytax[ 'unit' ] ) {
+                            case "stay":
+                                $price = $citytax[ 'amount' ] * $number_room;
+                                break;
+                            case "percent":
+                                $price = $total_price_without_extra * $citytax[ 'amount' ] / 100;
+                                break;
+                            case "night":
+                                $price = $citytax[ 'amount' ] * $date_diff * $number_room;
+                                break;
+                            case "person_per_stay":
+                                if ( !empty( $cart[ 'person' ] ) ) {
+                                    $person = $cart[ 'person' ];
+                                    $price  = $person * $citytax[ 'amount' ] * $number_room;
+                                }
+                                break;
+                            case "person_per_night":
+                                if ( !empty( $cart[ 'person' ] ) ) {
+                                    $person = $cart[ 'person' ];
+                                    $price  = ( $citytax[ 'amount' ] * $person ) * $date_diff * $number_room;
+                                }
+                                break;
+                            default:
+                        }
+                        if ( $citytax[ 'excluded' ] == 'yes_not_included' ) {
+                            $total_tax += $price;
+                        }
+
+                        $tax_total                   += $price;
+                        $tax[ 'citytax' ][ 'price' ] = floatval( $price );
                     }
                 }
                 $tax[ 'total_price' ] = $total_tax;
