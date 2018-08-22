@@ -7172,6 +7172,7 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
   position: absolute !important;
   transform: translateX(-50%);
   white-space: nowrap;
+  z-index: 1;
 }
 .tooltip_desc:hover .tooltip_content {
   display: block;

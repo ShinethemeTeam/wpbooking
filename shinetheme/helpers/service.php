@@ -4,8 +4,14 @@
         {
             if ( !$post_id ) $post_id = get_the_ID();
 
-            $base_price   = get_post_meta( $post_id, 'price', true );
             $service_type = get_post_meta( $post_id, 'service_type', true );
+
+            if($service_type!='tour'){
+                $base_price   = get_post_meta( $post_id, 'price', true );
+
+            }else{
+                $base_price   = get_post_meta( $post_id, 'base_price', true );
+            }
 
             $base_price = apply_filters( 'wpbooking_service_base_price', $base_price, $post_id, $service_type );
             $base_price = apply_filters( 'wpbooking_service_base_price_' . $service_type, $base_price, $post_id, $service_type );
@@ -27,6 +33,7 @@
 
             $price_html = apply_filters( 'wpbooking_service_base_price_html', $price_html, $price, $post_id, $service_type );
             $price_html = apply_filters( 'wpbooking_service_base_price_html_' . $service_type, $price_html, $price, $post_id, $service_type );
+
 
             return $price_html;
         }

@@ -9,7 +9,7 @@
 
             function __construct()
             {
-                $this->table_version = '1.0.2.11';
+                $this->table_version = '1.2';
                 $this->table_name    = 'wpbooking_service';
                 $this->columns       = [
                     'id'                     => [
@@ -28,7 +28,8 @@
                     'property_available_for' => [ 'type' => 'varchar', 'length' => 50 ],
                     'max_guests'             => [ 'type' => "INT" ],
                     'location_id'            => [ 'type' => "INT" ],
-                    'pricing_type'           => [ 'type' => "varchar", 'length' => "100" ]
+                    'pricing_type'           => [ 'type' => "varchar", 'length' => "100" ],
+                    'base_price'             => [ 'type' => "FLOAT" ]
                 ];
                 parent::__construct();
             }

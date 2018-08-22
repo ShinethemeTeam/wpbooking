@@ -5,7 +5,7 @@ if(!function_exists('wpbooking_email_order_payment_gateway_func'))
 	{
 		$order_id=WPBooking()->get('order_id');
 		if(!$order_id){
-			return '<span class=bold>Paypal</span>';
+			return wpbooking_load_view('emails/shortcodes/order_payment_gateway');
 		}
 		$order=new WB_Order($order_id);
         return '<span class=bold>'.$order->get_payment_gateway().'</span>';

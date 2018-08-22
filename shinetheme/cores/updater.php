@@ -17,6 +17,9 @@
                 $this->need_update = [
                     'wpbooking_update_availability_tour',
                     'wpbooking_update_availability_car',
+                    'wpbooking_update_base_price_tour',
+                    'wpbooking_update_status_to_hotel',
+                    'wpbooking_update_num_total_room',
                 ];
                 if ( !empty( $need_update ) ) {
                     $this->need_update[] = $need_update;
@@ -96,6 +99,36 @@
                 }
 
                 return $return;
+            }
+
+            public function wpbooking_update_base_price_tour(){
+                global $wpdb;
+                $sql = "UPDATE {$wpdb->prefix}wpbooking_service SET base_price = price WHERE post_id = post_id";
+                $wpdb->query( $sql );
+            }
+
+            public function wpbooking_update_status_to_hotel(){
+                global $wpdb;
+                $sql = "
+                        UPDATE {$wpdb->prefix}wpbooking_order_hotel_room
+                        INNER JOIN {$wpdb->prefix}wpbooking_order ON {$wpdb->prefix}wpbooking_order_hotel_room.order_id = {$wpdb->prefix}wpbooking_order.order_id
+                        SET {$wpdb->prefix}wpbooking_order_hotel_room.status = {$wpdb->prefix}wpbooking_order.status
+                        WHERE
+                            {$wpdb->prefix}wpbooking_order.order_id = {$wpdb->prefix}wpbooking_order_hotel_room.order_id
+                      ";
+                $wpdb->query($sql);
+            }
+
+            public function wpbooking_update_num_total_room(){
+                global $wpdb;
+                $sql = "UPDATE {$wpdb->prefix}wpbooking_order_hotel_room AS od
+                        INNER JOIN {$wpdb->prefix}postmeta AS meta ON (
+                         meta.post_id = od.room_id_origin
+                        )
+                        SET od.num_room = meta.meta_value
+                        WHERE
+                         meta.meta_key = 'room_number' ";
+                $wpdb->query($sql);
             }
 
             public function wpbooking_update_availability_tour()

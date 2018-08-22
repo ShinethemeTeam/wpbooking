@@ -42,6 +42,17 @@
                 </div>
                 <div class="wpbooking-calendar-sidebar">
                     <div class="form-container calendar-room-form">
+                        <h4 class="form-title"><?php echo esc_html__( 'Base Price', 'wp-booking-management-system' ) ?></h4>
+                        <p class="form-desc"><?php echo esc_html__( 'Default price for Tour', 'wp-booking-management-system' ); ?></p>
+                        <div class="form-group wb-default-price">
+                            <div class="input-group">
+                                <span class="input-group-addon"><?php echo WPBooking_Currency::get_current_currency( 'title' ) . ' ' . WPBooking_Currency::get_current_currency( 'symbol' ) ?></span>
+                                <input type="number" class="form-control" min="0" id="base_price"
+                                       value="<?php echo esc_attr( $df_price ); ?>" name="base_price" placeholder="0">
+                            </div>
+                            <p></p>
+                        </div>
+
                         <h4 class="form-title"><?php echo esc_html__( 'Set price by arranged date', 'wp-booking-management-system' ) ?></h4>
                         <p class="form-desc"><?php echo esc_html__( 'You can book rooms for any purposes (like discount, high price, ...)', 'wp-booking-management-system' ); ?></p>
                         <div class="calendar-room-form-item full-width">

@@ -152,7 +152,7 @@
                  * @author quandq
                  *
                  */
-                add_filter( 'wpbooking_get_cart_total_' . $this->type_id, [ $this, '_get_cart_total_price_hotel_room' ], 10, 3 );
+                add_filter( 'wpbooking_get_cart_total_' . $this->type_id, [ $this, '_get_cart_total_price_hotel_room' ], 10, 4 );
 
 
                 /**
@@ -170,7 +170,7 @@
                  * @since  1.0
                  * @author quandq
                  */
-                add_action( 'wpbooking_get_cart_tax_price_' . $this->type_id, [ $this, '_change_tax_room_checkout' ], 10, 3 );
+                add_action( 'wpbooking_get_cart_tax_price_' . $this->type_id, [ $this, '_change_tax_room_checkout' ], 10, 2 );
 
                 /**
                  * Add info Room Order Detail
@@ -250,7 +250,7 @@
                  * @since  1.3
                  * @author quandq
                  */
-                add_action( 'wpbooking_after_save_room_hotel', [ $this, '_update_min_price_hotel' ] );
+                add_action( 'wpbooking_after_save_room_hotel', [ $this, '_update_min_price_hotel' ],10,2 );
                 add_action( 'save_post', [ $this, '_update_min_price_hotel' ] );
                 add_action( 'wpbooking_save_metabox_section', [ $this, '_update_min_price_hotel' ] );
 
@@ -281,7 +281,6 @@
                 add_action( 'wpbooking_review_before_address', [ $this, 'before_address_checkout' ] );
 
                 add_filter( 'wpbooking_table_availability', [ $this, '__set_availability_table' ] );
-
             }
 
             public function __set_availability_table( $table )
@@ -589,9 +588,9 @@
                 ?>
 
                 <div class="item-form-to">
-                    <span><?php echo esc_html__( "From:", "wp-booking-management-system" ) ?> </span> <?php echo date( get_option( 'date_format' ), $order_data[ 'check_in_timestamp' ] ) ?>
+                    <span><?php esc_html_e( "From:", "wp-booking-management-system" ) ?> </span> <?php echo date( get_option( 'date_format' ), $order_data[ 'check_in_timestamp' ] ) ?>
                     &nbsp
-                    <span><?php echo esc_html__( "To:", "wp-booking-management-system" ) ?> </span><?php echo date( get_option( 'date_format' ), $order_data[ 'check_out_timestamp' ] ) ?>
+                    <span><?php esc_html_e( "To:", "wp-booking-management-system" ) ?> </span><?php echo date( get_option( 'date_format' ), $order_data[ 'check_out_timestamp' ] ) ?>
                     &nbsp
                     <br>
                     <?php
@@ -622,9 +621,9 @@
                 ?>
 
                 <div class="review-order-item-form-to">
-                    <span><?php echo esc_html__( "From:", "wp-booking-management-system" ) ?> </span> <?php echo date_i18n( get_option( 'date_format' ), $cart[ 'check_in_timestamp' ] ) ?>
+                    <span><?php esc_html_e( "From:", "wp-booking-management-system" ) ?> </span> <?php echo date_i18n( get_option( 'date_format' ), $cart[ 'check_in_timestamp' ] ) ?>
                     &nbsp
-                    <span><?php echo esc_html__( "To:", "wp-booking-management-system" ) ?> </span><?php echo date_i18n( get_option( 'date_format' ), $cart[ 'check_out_timestamp' ] ) ?>
+                    <span><?php esc_html_e( "To:", "wp-booking-management-system" ) ?> </span><?php echo date_i18n( get_option( 'date_format' ), $cart[ 'check_out_timestamp' ] ) ?>
                     &nbsp
                     <?php
                         $diff = $cart[ 'check_out_timestamp' ] - $cart[ 'check_in_timestamp' ];
@@ -648,7 +647,7 @@
                         if ( !isset( $cart[ 'is_cart_page' ] ) or $cart[ 'is_cart_page' ] ) {
                             ?>
                             <small><a
-                                        href="<?php echo esc_url( $url_change_date ) ?>"><?php echo esc_html__( "Change Date", "wp-booking-management-system" ) ?></a>
+                                        href="<?php echo esc_url( $url_change_date ) ?>"><?php esc_html_e( "Change Date", "wp-booking-management-system" ) ?></a>
                             </small>
                         <?php } ?>
                 </div>
@@ -688,9 +687,9 @@
                 ?>
                 <h4 class=color_black>
                     <span
-                            class=bold><?php echo esc_html__( "From:", "wp-booking-management-system" ) ?> </span> <?php echo date_i18n( get_option( 'date_format' ), $order_data[ 'check_in_timestamp' ] ) ?>
+                            class=bold><?php esc_html_e( "From:", "wp-booking-management-system" ) ?> </span> <?php echo date_i18n( get_option( 'date_format' ), $order_data[ 'check_in_timestamp' ] ) ?>
                     <span
-                            class=bold><?php echo esc_html__( "To:", "wp-booking-management-system" ) ?> </span><?php echo date_i18n( get_option( 'date_format' ), $order_data[ 'check_out_timestamp' ] ) ?>
+                            class=bold><?php esc_html_e( "To:", "wp-booking-management-system" ) ?> </span><?php echo date_i18n( get_option( 'date_format' ), $order_data[ 'check_out_timestamp' ] ) ?>
                     <?php
                         $diff = $order_data[ 'check_out_timestamp' ] - $order_data[ 'check_in_timestamp' ];
                         $diff = $diff / ( 60 * 60 * 24 );
@@ -1577,13 +1576,13 @@
                                     <div class="room-actions">
                                         <a href="#" data-room_id="<?php the_ID() ?>" class="room-edit tooltip_desc"><i
                                                     class="fa fa-pencil-square-o"></i> <span
-                                                    class="tooltip_content"><?php echo esc_html__( 'Edit', 'wp-booking-management-system' ) ?></span></a>
+                                                    class="tooltip_content"><?php esc_html_e( 'Edit', 'wp-booking-management-system' ) ?></span></a>
                                         <?php $del_security_post = wp_create_nonce( 'del_security_post_' . get_the_ID() ); ?>
                                         <a href="javascript:void(0)" data-room_id="<?php the_ID(); ?>"
                                            data-del-security="<?php echo esc_attr( $del_security_post ); ?>"
                                            data-confirm="<?php echo esc_html__( 'Do you want delete this room?', 'wp-booking-management-system' ); ?>"
                                            class="room-delete tooltip_desc"><i class="fa fa-trash"></i><span
-                                                    class="tooltip_content"><?php echo esc_html__( 'Delete', 'wp-booking-management-system' ) ?></span></a>
+                                                    class="tooltip_content"><?php esc_html_e( 'Delete', 'wp-booking-management-system' ) ?></span></a>
                                     </div>
                                 </div>
                             </div>
@@ -1780,7 +1779,7 @@
 
                         $res[ 'status' ] = 1;
 
-                        do_action( 'wpbooking_after_save_room_hotel', $hotel_id );
+                        do_action( 'wpbooking_after_save_room_hotel', $hotel_id,$room_id );
                     }
                 }
                 echo json_encode( $res );
@@ -1813,7 +1812,9 @@
                     '.wp-room-actions .room-count' => $this->_get_room_count_text( $hotel_id )
                 ];
                 $res[ 'updated_content' ] = apply_filters( 'wpbooking_hotel_room_form_updated_content', $updated_content, $room_id, $hotel_id );
-                do_action( 'wpbooking_after_delete_room_hotel', $hotel_id );
+
+                WPBooking_Order_Hotel_Order_Model::inst()->update_room_total_num($hotel_id,$room_id);
+
                 echo json_encode( $res );
                 wp_die();
             }
@@ -2087,7 +2088,7 @@
                     }
                 }
                 $sql = "
-                    {$wpdb->posts}.ID IN (
+            {$wpdb->posts}.ID IN (
                     (
                         SELECT
                             hotel_id
@@ -2111,76 +2112,8 @@
                 )
             ";
 
+
                 $injection->where( $sql, false, true );
-                if ( $check_in and $check_out ) {
-                    $check_in_timestamp  = strtotime( $check_in );
-                    $check_out_timestamp = strtotime( $check_out );
-
-                    $sql = "{$wpdb->posts}.ID NOT IN(
-                        SELECT
-                            hotel_id
-                        FROM
-                            (
-                                SELECT
-                                    hotel_id,
-                                    count(room_id) AS total_room,
-                                    total
-                                FROM
-                                    (
-                                        SELECT
-                                            _od_room.room_id_origin AS room_id,
-                                            _od_room.num_room AS num_room,
-                                            sum(_od_room.number) AS c_room,
-                                            _od_room.hotel_id_origin AS hotel_id,
-                                            _od_room.total_room AS total
-                                        FROM
-                                            wp_wpbooking_order_hotel_room AS _od_room
-                                        WHERE
-                                            1 = 1
-                                        AND (
-                                            (
-                                                CAST(
-                                                    _od_room.check_in_timestamp AS UNSIGNED
-                                                ) >= CAST({$check_in_timestamp} AS UNSIGNED)
-                                                AND CAST(
-                                                    _od_room.check_in_timestamp AS UNSIGNED
-                                                ) <= CAST({$check_out_timestamp} AS UNSIGNED)
-                                            )
-                                            OR (
-                                                CAST(
-                                                    _od_room.check_out_timestamp AS UNSIGNED
-                                                ) >= CAST({$check_in_timestamp} AS UNSIGNED)
-                                                AND (
-                                                    CAST(
-                                                        _od_room.check_out_timestamp AS UNSIGNED
-                                                    ) <= CAST({$check_out_timestamp} AS UNSIGNED)
-                                                )
-                                            )
-                                            OR (
-                                                CAST(
-                                                    _od_room.check_in_timestamp AS UNSIGNED
-                                                ) <= CAST({$check_in_timestamp} AS UNSIGNED)
-                                                AND CAST(
-                                                    _od_room.check_out_timestamp AS UNSIGNED
-                                                ) >= CAST({$check_out_timestamp} AS UNSIGNED)
-                                            )
-                                        )
-                                        AND _od_room.`status` = 'on_hold'
-                                        GROUP BY
-                                            _od_room.room_id_origin
-                                        HAVING
-                                            num_room - c_room <= 0
-                                    ) AS cal_avai
-                                GROUP BY
-                                    hotel_id
-                                HAVING
-                                    total - total_room <= 0
-                            ) AS _cal_avai
-                    )";
-
-                    $injection->where( $sql, false, true );
-                }
-
                 parent::_add_default_query_hook();
 
             }
@@ -2346,10 +2279,10 @@
                                 )as table_availability
                         )
                     )";
-                } else {
-                    $lang     = wpbooking_current_lang();
-                    $hotel_id = wpbooking_post_translated( $hotel_id, 'wpbooking_service', $lang );
-                    $sql      = "
+                }else{
+                    $lang = wpbooking_current_lang();
+                    $hotel_id = wpbooking_post_translated($hotel_id, 'wpbooking_service', $lang);
+                    $sql = "
                     SELECT
                         {$wpdb->posts}.ID
                     FROM
@@ -2661,7 +2594,6 @@
             public function _change_base_price( $base_price, $hotel_id, $service_type )
             {
                 $base_price = WPBooking_Meta_Model::inst()->get_price_accommodation( $hotel_id );
-
                 return $base_price;
             }
 
@@ -3365,6 +3297,12 @@
              *
              * @param $order_data
              */
+
+            /**
+             * Load file emails/shortcodes/detail-item-room to theme
+             * @author lncj
+             *
+             */
             function _add_information_email_detail_item( $order_data )
             {
                 $order                 = WPBooking_Order_Hotel_Order_Model::inst();
@@ -3677,11 +3615,11 @@
              *
              * @return int
              */
-            function _get_cart_total_price_hotel_room( $price, $cart, $args )
+            function _get_cart_total_price_hotel_room( $price, $cart )
             {
                 if ( !empty( $cart[ 'rooms' ] ) ) {
                     foreach ( $cart[ 'rooms' ] as $room_id => $room ) {
-                        $price += $this->_get_total_price_room_in_cart( $cart, $room_id, $args[ 'include_extra' ] );
+                        $price += $this->_get_total_price_room_in_cart( $cart, $room_id );
                     }
                 }
 
@@ -3756,75 +3694,58 @@
              *
              * @return mixed
              */
-            function _change_tax_room_checkout( $tax, $cart, $price_with_tax )
+            function _change_tax_room_checkout( $tax, $cart )
             {
 
                 $tax       = [];
                 $diff      = $cart[ 'check_out_timestamp' ] - $cart[ 'check_in_timestamp' ];
                 $date_diff = $diff / ( 60 * 60 * 24 );
 
-                $total_price               = WPBooking_Checkout_Controller::inst()->get_cart_total( [ 'include_extra' => true ] );
-                $total_price_without_extra = WPBooking_Checkout_Controller::inst()->get_cart_total( [ 'include_extra' => false ] );
-                $total_tax                 = 0;
-                $tax_total                 = 0;
+                $total_price = WPBooking_Checkout_Controller::inst()->get_cart_total( [ 'without_tax' => false ] );
+                $total_tax   = 0;
+                $tax_total   = 0;
 
                 if ( !empty( $cart[ 'tax' ] ) and !empty( $cart[ 'rooms' ] ) ) {
                     $number_room = 0;
                     foreach ( $cart[ 'rooms' ] as $room ) {
-                        $number_room += (int)$room[ 'number' ];
+                        $number_room += $room[ 'number' ];
                     }
-                    $tax = $cart[ 'tax' ];
-                    if ( !empty( $tax[ 'vat' ] ) ) {
-                        $tax_vat = $tax[ 'vat' ];
-                        switch ( $tax_vat[ 'unit' ] ) {
-                            case "fixed":
-                                $price = $tax_vat[ 'amount' ] * $number_room;
-                                break;
-                            case "percent":
-                                $price = $total_price * ( $tax_vat[ 'amount' ] / 100 );
-                                break;
-                            default:
+                    foreach ( $cart[ 'tax' ] as $key => $value ) {
+                        if ( $value[ 'excluded' ] != '' and !empty( $value[ 'amount' ] ) ) {
+                            $unit        = $value[ 'unit' ];
+                            $tax[ $key ] = $value;
+                            $price       = 0;
+                            switch ( $unit ) {
+                                case "fixed":
+                                case "stay":
+                                    $price = $value[ 'amount' ] * $number_room;
+                                    break;
+                                case "percent":
+                                    $price = $total_price * ( $value[ 'amount' ] / 100 );
+                                    break;
+                                case "night":
+                                    $price = $value[ 'amount' ] * $date_diff * $number_room;
+                                    break;
+                                case "person_per_stay":
+                                    if ( !empty( $cart[ 'person' ] ) ) {
+                                        $person = $cart[ 'person' ];
+                                        $price  = $person * $value[ 'amount' ] * $number_room;
+                                    }
+                                    break;
+                                case "person_per_night":
+                                    if ( !empty( $cart[ 'person' ] ) ) {
+                                        $person = $cart[ 'person' ];
+                                        $price  = ( $value[ 'amount' ] * $person ) * $date_diff * $number_room;
+                                    }
+                                    break;
+                                default:
+                            }
+                            if ( $value[ 'excluded' ] == 'yes_not_included' ) {
+                                $total_tax += $price;
+                            }
+                            $tax_total              += $price;
+                            $tax[ $key ][ 'price' ] = floatval( $price );
                         }
-                        if ( $tax_vat[ 'excluded' ] == 'yes_not_included' ) {
-                            $total_tax += $price;
-                        }
-
-                        $tax_total               += $price;
-                        $tax[ 'vat' ][ 'price' ] = floatval( $price );
-                    }
-
-                    if ( !empty( $tax[ 'citytax' ] ) ) {
-                        $citytax = $tax[ 'citytax' ];
-                        switch ( $citytax[ 'unit' ] ) {
-                            case "stay":
-                                $price = $citytax[ 'amount' ] * $number_room;
-                                break;
-                            case "percent":
-                                $price = $total_price_without_extra * $citytax[ 'amount' ] / 100;
-                                break;
-                            case "night":
-                                $price = $citytax[ 'amount' ] * $date_diff * $number_room;
-                                break;
-                            case "person_per_stay":
-                                if ( !empty( $cart[ 'person' ] ) ) {
-                                    $person = $cart[ 'person' ];
-                                    $price  = $person * $citytax[ 'amount' ] * $number_room;
-                                }
-                                break;
-                            case "person_per_night":
-                                if ( !empty( $cart[ 'person' ] ) ) {
-                                    $person = $cart[ 'person' ];
-                                    $price  = ( $citytax[ 'amount' ] * $person ) * $date_diff * $number_room;
-                                }
-                                break;
-                            default:
-                        }
-                        if ( $citytax[ 'excluded' ] == 'yes_not_included' ) {
-                            $total_tax += $price;
-                        }
-
-                        $tax_total                   += $price;
-                        $tax[ 'citytax' ][ 'price' ] = floatval( $price );
                     }
                 }
                 $tax[ 'total_price' ] = $total_tax;
@@ -3844,14 +3765,16 @@
              *
              * @return bool
              */
-            function _update_min_price_hotel( $hotel_id )
+            function _update_min_price_hotel( $hotel_id,$room_id )
             {
+
                 if ( get_post_type( $hotel_id ) != 'wpbooking_service' ) return false;
                 $service_type = get_post_meta( $hotel_id, 'service_type', true );
                 if ( $service_type != $this->type_id ) return false;
                 $min_price = WPBooking_Meta_Model::inst()->get_price_accommodation( $hotel_id );
                 update_post_meta( $hotel_id, 'price', $min_price );
                 WPBooking_Service_Model::inst()->save_extra( $hotel_id );
+                WPBooking_Order_Hotel_Order_Model::inst()->update_room_total_num($hotel_id,$room_id);
             }
 
             /**

@@ -5,7 +5,7 @@ if(!function_exists('wpbooking_email_order_id_func'))
 	{
 		$order_id=WPBooking()->get('order_id');
 		if(!$order_id){
-			return '#1010';
+            return wpbooking_load_view('emails/shortcodes/order_id');
 		}
 		return '#'.$order_id;
 	}

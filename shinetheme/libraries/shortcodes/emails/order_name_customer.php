@@ -8,7 +8,7 @@ if(!function_exists('wpbooking_email_name_customer_func'))
         $l_name=get_post_meta($order_id,'wpbooking_user_last_name',true);
         $full = $f_name.' '.$l_name;
 		if(empty($full)){
-			return 'Jonathan & Leo';
+            return wpbooking_load_view('emails/shortcodes/order_name_customer');
 		}
         return $full;
 	}

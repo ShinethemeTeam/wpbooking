@@ -21,11 +21,11 @@ if(!empty($data['condition'])){
     </th>
     <td>
         <input type="text" id="st_url_media" class="demo-url-image form-control min-width-500" value="<?php echo esc_html($data_value) ?>" name="<?php echo esc_html($name) ?>" placeholder="<?php echo esc_html($data['label']) ?>">
-        <button class="btn button btn_remove_demo_image button-secondary" type="button" name=""><?php echo esc_html__("Remove","wp-booking-management-system") ?></button>
+        <button class="btn button btn_remove_demo_image button-secondary" type="button" name=""><?php esc_html_e("Remove","wp-booking-management-system") ?></button>
         <br>
         <img src="<?php echo esc_url($data_value) ?>" id="demo_img" class="demo-image form-control settings-demo-image  <?php if(empty($data_value)) echo "none"; ?>" >
         <br>
-        <button id="btn_upload_media" class="btn button button-primary btn_upload_media" type="button" name=""><?php echo esc_html__("Upload","wp-booking-management-system") ?></button>
+        <button id="btn_upload_media" class="btn button button-primary btn_upload_media" type="button" name=""><?php esc_html_e("Upload","wp-booking-management-system") ?></button>
         <i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
     </td>
 </tr>

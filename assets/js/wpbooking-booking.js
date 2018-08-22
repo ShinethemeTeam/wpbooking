@@ -2230,6 +2230,9 @@ jQuery(document).ready(function ($) {
             }
         }
     });
+
+    /* search tab lncj */
+
     $('.wpbooking_form_search_tab').each(function () {
         var thisE = $(this);
         thisE.find('ul li a').click(function (e) {

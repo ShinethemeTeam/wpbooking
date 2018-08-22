@@ -8,7 +8,7 @@
 ?>
 <div class="wrap">
 	<div class="icon32 icon32-attributes" id="icon-woocommerce"><br/></div>
-	<h2><?php echo esc_html__( 'Taxonomies', 'wp-booking-management-system' ) ?></h2>
+	<h2><?php esc_html_e( 'Taxonomies', 'wp-booking-management-system' ) ?></h2>
 	<br class="clear" />
 	<?php echo wpbooking_get_admin_message() ?>
 	<div id="col-container">
@@ -18,9 +18,9 @@
 				<table class="widefat attributes-table wp-list-table ui-sortable <?php echo esc_attr($full); ?>">
 					<thead>
 					<tr>
-						<th scope="col"><?php echo esc_html__( 'Name', 'wp-booking-management-system' ) ?></th>
-						<th scope="col"><?php echo esc_html__( 'Slug', 'wp-booking-management-system' ) ?></th>
-						<th scope="col"><?php echo esc_html__( 'Service Type(s)', 'wp-booking-management-system' ) ?></th>
+						<th scope="col"><?php esc_html_e( 'Name', 'wp-booking-management-system' ) ?></th>
+						<th scope="col"><?php esc_html_e( 'Slug', 'wp-booking-management-system' ) ?></th>
+						<th scope="col"><?php esc_html_e( 'Service Type(s)', 'wp-booking-management-system' ) ?></th>
 					</tr>
 					</thead>
 					<tbody>
@@ -36,10 +36,10 @@
 								
 								<div class="row-actions">
 									<span class="edit">
-										<a href="<?php echo esc_url( add_query_arg(array('taxonomy_name'=> $tax,'action'=>'wpbooking_edit_taxonomy'),$page_url) ); ?>"><?php echo esc_html__( 'Edit', 'wp-booking-management-system' ); ?></a>
+										<a href="<?php echo esc_url( add_query_arg(array('taxonomy_name'=> $tax,'action'=>'wpbooking_edit_taxonomy'),$page_url) ); ?>"><?php esc_html_e( 'Edit', 'wp-booking-management-system' ); ?></a>
 										| </span>
 									<span class="delete">
-										<a class="delete" href="<?php echo  wp_nonce_url( add_query_arg(array('action'=>'wpbooking_delete_taxonomy','tax_name'=>$tax),$page_url) ) ; ?>"><?php echo esc_html__( 'Delete', 'wp-booking-management-system' ); ?>
+										<a class="delete" href="<?php echo  wp_nonce_url( add_query_arg(array('action'=>'wpbooking_delete_taxonomy','tax_name'=>$tax),$page_url) ) ; ?>"><?php esc_html_e( 'Delete', 'wp-booking-management-system' ); ?>
 										</a>
 									</span>
 								</div>
@@ -55,7 +55,7 @@
 							<?php
 						endforeach;
 					else :
-						?><tr><td colspan="6"><?php echo esc_html__( 'Currently, there are no custom taxonomies existing.', 'wp-booking-management-system' ) ?></td></tr><?php
+						?><tr><td colspan="6"><?php esc_html_e( 'Currently, there are no custom taxonomies existing.', 'wp-booking-management-system' ) ?></td></tr><?php
 					endif;
 					?>
 					</tbody>
@@ -65,23 +65,23 @@
 		<div id="col-left">
 			<div class="col-wrap">
 				<div class="form-wrap">
-					<h3><?php echo esc_html__( 'Add New Taxonomy', 'wp-booking-management-system' ) ?></h3>
-					<p><?php echo esc_html__( 'Taxonomies let you define unlimited extra information for Hotel, Car ..etc', 'wp-booking-management-system' ) ?></p>
+					<h3><?php esc_html_e( 'Add New Taxonomy', 'wp-booking-management-system' ) ?></h3>
+					<p><?php esc_html_e( 'Taxonomies let you define unlimited extra information for Hotel, Car ..etc', 'wp-booking-management-system' ) ?></p>
 					<form action="" method="post">
 						<div class="form-field">
-							<label for="taxonomy_label"><?php echo esc_html__( 'Name', 'wp-booking-management-system' ); ?></label>
+							<label for="taxonomy_label"><?php esc_html_e( 'Name', 'wp-booking-management-system' ); ?></label>
 							<input name="taxonomy_label" id="taxonomy_label" required type="text" value="" />
-							<p class="description"><?php echo esc_html__( 'Name for the attribute (shown on the front-end).', 'wp-booking-management-system' ); ?></p>
+							<p class="description"><?php esc_html_e( 'Name for the attribute (shown on the front-end).', 'wp-booking-management-system' ); ?></p>
 						</div>
 						
 						<div class="form-field">
-							<label for="taxonomy_slug"><?php echo esc_html__( 'Slug', 'wp-booking-management-system' ); ?></label>
+							<label for="taxonomy_slug"><?php esc_html_e( 'Slug', 'wp-booking-management-system' ); ?></label>
 							<input name="taxonomy_slug" id="taxonomy_slug" type="text" value="" maxlength="28" />
-							<p class="description"><?php echo esc_html__( 'Unique slug/reference for the attribute; must be shorter than 28 characters.', 'wp-booking-management-system' ); ?></p>
+							<p class="description"><?php esc_html_e( 'Unique slug/reference for the attribute; must be shorter than 28 characters.', 'wp-booking-management-system' ); ?></p>
 						</div>
 
 						<div class="form-field">
-							<label ><?php echo esc_html__( 'Service Type', 'wp-booking-management-system' ); ?></label>
+							<label ><?php esc_html_e( 'Service Type', 'wp-booking-management-system' ); ?></label>
 							<?php
 							$types=WPBooking_Service_Controller::inst()->get_service_types();
 							if(!empty($types))
@@ -91,11 +91,11 @@
 								}
 							}
 							?>
-							<p class="description"><?php echo esc_html__( 'Choose Types of Service that the Taxonomy supported', 'wp-booking-management-system' ); ?></p>
+							<p class="description"><?php esc_html_e( 'Choose Types of Service that the Taxonomy supported', 'wp-booking-management-system' ); ?></p>
 
 						</div>
 
-						<p class="submit"><input type="submit" name="wpbooking_create_taxonomy" id="submit" class="button" value="<?php echo esc_html__( 'Add Taxonomy', 'wp-booking-management-system' ); ?>"></p>
+						<p class="submit"><input type="submit" name="wpbooking_create_taxonomy" id="submit" class="button" value="<?php esc_html_e( 'Add Taxonomy', 'wp-booking-management-system' ); ?>"></p>
 						<?php wp_nonce_field( 'wpbooking_create_taxonomy' ); ?>
 					</form>
 				</div>
@@ -106,7 +106,7 @@
 		/* <![CDATA[ */
 		
 		jQuery('a.delete').click(function(){
-			var answer = confirm ("<?php echo esc_html__( 'Are you sure that you want to delete this attribute?', 'wp-booking-management-system' ); ?>");
+			var answer = confirm ("<?php esc_html_e( 'Are you sure that you want to delete this attribute?', 'wp-booking-management-system' ); ?>");
 			if (answer) return true;
 			return false;
 		});

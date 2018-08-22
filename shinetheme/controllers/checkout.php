@@ -115,7 +115,7 @@
 
                 $fields = $this->get_billing_form_fields();
                 // Validate Form Billing
-                $validator = new WPBooking_Form_Validator();
+                $validator  = new WPBooking_Form_Validator();
 
                 if ( !empty( $fields ) and $is_validate ) {
                     foreach ( $fields as $key => $value ) {
@@ -370,7 +370,7 @@
                 $res = apply_filters( 'wpbooking_ajax_add_to_cart', $res, $post_id, $is_validate );
                 $res = apply_filters( 'wpbooking_ajax_add_to_cart_' . $service_type, $res, $post_id, $is_validate );
 
-                do_action( 'wpbooking_ajax_after_add_to_cart', $service_type, $res, $post_id, $is_validate );
+                do_action( 'wpbooking_ajax_after_add_to_cart' );
 
                 echo json_encode( $res );
 
@@ -427,10 +427,6 @@
             function get_cart_total( $args = [], $cart = false )
             {
 
-                $default = [
-                    'include_extra' => true
-                ];
-                $args    = wp_parse_args( $args, $default );
 
                 if ( empty( $cart ) ) {
                     $cart = $this->get_cart();
@@ -655,8 +651,8 @@
                 }
                 $tax[ 'total_price' ] = $total_tax;
                 $tax[ 'tax_total' ]   = $tax_total;
-                $tax                  = apply_filters( 'wpbooking_get_cart_tax_price', $tax, $cart, $total_with_tax );
-                $tax                  = apply_filters( 'wpbooking_get_cart_tax_price_' . $service_type, $tax, $cart, $total_with_tax );
+                $tax                  = apply_filters( 'wpbooking_get_cart_tax_price', $tax, $cart );
+                $tax                  = apply_filters( 'wpbooking_get_cart_tax_price_' . $service_type, $tax, $cart );
 
                 return $tax;
             }

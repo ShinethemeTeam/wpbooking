@@ -105,28 +105,28 @@
 
 
                     <div class="calendar-help">
-                        <div class="help-label"><?php echo esc_html__( 'How to set Availability ?', 'wp-booking-management-system' ) ?></div>
-                        <h4><strong><?php echo esc_html__( 'Way 1:', 'wp-booking-management-system' ) ?></strong></h4>
+                        <div class="help-label"><?php esc_html_e( 'How to set Availability ?', 'wp-booking-management-system' ) ?></div>
+                        <h4><strong><?php esc_html_e( 'Way 1:', 'wp-booking-management-system' ) ?></strong></h4>
                         <ul class="list">
-                            <li>+ <?php echo esc_html__( 'To set availability on your calendar:', 'wp-booking-management-system' ) ?>
+                            <li>+ <?php esc_html_e( 'To set availability on your calendar:', 'wp-booking-management-system' ) ?>
                                 <ul>
                                     <li>
-                                        - <?php echo esc_html__( 'A right sight table, click to Start Date picker to set a start date', 'wp-booking-management-system' ) ?></li>
+                                        - <?php esc_html_e( 'A right sight table, click to Start Date picker to set a start date', 'wp-booking-management-system' ) ?></li>
                                     <li>
-                                        - <?php echo esc_html__( 'A right sight table, click to End Date picker to set a end date of the period you want to edit', 'wp-booking-management-system' ) ?></li>
+                                        - <?php esc_html_e( 'A right sight table, click to End Date picker to set a end date of the period you want to edit', 'wp-booking-management-system' ) ?></li>
                                 </ul>
                             </li>
                             <li>
-                                + <?php echo esc_html__( 'A right sight table, allowing you to set status and price for that period', 'wp-booking-management-system' ) ?></li>
+                                + <?php esc_html_e( 'A right sight table, allowing you to set status and price for that period', 'wp-booking-management-system' ) ?></li>
 
                         </ul>
-                        <h4><strong><?php echo esc_html__( 'Way 2:', 'wp-booking-management-system' ) ?></strong></h4>
+                        <h4><strong><?php esc_html_e( 'Way 2:', 'wp-booking-management-system' ) ?></strong></h4>
                         <ul class="list">
                             <li>
-                                + <?php echo esc_html__( 'Drag the mouse in the left calendar to get start date and end date', 'wp-booking-management-system' ) ?>
+                                + <?php esc_html_e( 'Drag the mouse in the left calendar to get start date and end date', 'wp-booking-management-system' ) ?>
                             </li>
                             <li>
-                                + <?php echo esc_html__( 'A right sight table, allowing you to set status and price for that period', 'wp-booking-management-system' ) ?></li>
+                                + <?php esc_html_e( 'A right sight table, allowing you to set status and price for that period', 'wp-booking-management-system' ) ?></li>
 
                         </ul>
                     </div>

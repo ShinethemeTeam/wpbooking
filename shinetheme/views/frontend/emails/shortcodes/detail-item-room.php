@@ -5,16 +5,16 @@ if(!empty($order_data['rooms'])){
     ?>
     <tr>
         <th width=50%>
-            <?php echo esc_html__('Rooms','wp-booking-management-system') ?>
+            <?php esc_html_e('Rooms','wp-booking-management-system') ?>
         </th>
         <th class=text-center>
-            <?php echo esc_html__('Price','wp-booking-management-system') ?> (<?php echo esc_attr(get_post_meta($order_id,'currency',true)) ?>)
+            <?php esc_html_e('Price','wp-booking-management-system') ?> (<?php echo esc_attr(get_post_meta($order_id,'currency',true)) ?>)
         </th>
         <th width=15% class=text-center>
-            <?php echo esc_html__('Number','wp-booking-management-system') ?>
+            <?php esc_html_e('Number','wp-booking-management-system') ?>
         </th>
         <th class=text-center>
-            <?php echo esc_html__('Total','wp-booking-management-system') ?>(<?php echo esc_attr(get_post_meta($order_id,'currency',true)) ?>)
+            <?php esc_html_e('Total','wp-booking-management-system') ?>(<?php echo esc_attr(get_post_meta($order_id,'currency',true)) ?>)
         </th>
     </tr>
     <tr>
@@ -40,22 +40,22 @@ if(!empty($order_data['rooms'])){
                     </div>
                     <div>
                         <?php if($max = $service_room->get_meta('max_guests')){ ?>
-                            <div class="sub-title"><?php echo esc_html__("Max","wp-booking-management-system") ?> <?php echo esc_attr($max) ?> <?php echo esc_html__("people","wp-booking-management-system") ?></div>
+                            <div class="sub-title"><?php esc_html_e("Max","wp-booking-management-system") ?> <?php echo esc_attr($max) ?> <?php esc_html_e("people","wp-booking-management-system") ?></div>
                         <?php } ?>
                     </div>
                     <br>
-                    <span class=btn_detail_checkout><?php echo esc_html__("Details","wp-booking-management-system") ?></span>
+                    <span class=btn_detail_checkout><?php esc_html_e("Details","wp-booking-management-system") ?></span>
                     <div class=extra-service>
-                        <h4 class=color_black><?php echo esc_html__("Price by Night","wp-booking-management-system") ?></h4>
+                        <h4 class=color_black><?php esc_html_e("Price by Night","wp-booking-management-system") ?></h4>
                         <div class=extra-item>
                             <table class=color_black>
                                 <thead>
                                 <tr>
                                     <th width=60%>
-                                        <?php echo esc_html__("Night","wp-booking-management-system") ?>
+                                        <?php esc_html_e("Night","wp-booking-management-system") ?>
                                     </th>
                                     <th class=text-center>
-                                        <?php echo esc_html__("Price","wp-booking-management-system") ?>
+                                        <?php esc_html_e("Price","wp-booking-management-system") ?>
                                     </th>
                                 </tr>
                                 </thead>
@@ -63,7 +63,7 @@ if(!empty($order_data['rooms'])){
                                     <?php $i=1; foreach( $v['raw_data'] as $k_list_date => $v_list_date){ ?>
                                         <tr>
                                             <td>
-                                                <?php echo esc_html__("Night","wp-booking-management-system") ?> <?php echo esc_html($i) ?>
+                                                <?php esc_html_e("Night","wp-booking-management-system") ?> <?php echo esc_html($i) ?>
                                                 <br>
                                                 <span class="desc">(<?php echo date(get_option('date_format') , $k_list_date) ?>)</span>
                                             </td>
@@ -89,10 +89,10 @@ if(!empty($order_data['rooms'])){
                                             <thead>
                                             <tr class=color_black>
                                                 <th width=60%>
-                                                    <?php echo esc_html__("Service name",'wp-booking-management-system') ?>
+                                                    <?php esc_html_e("Service name",'wp-booking-management-system') ?>
                                                 </th>
                                                 <th class=text-center>
-                                                    <?php echo esc_html__("Price",'wp-booking-management-system') ?>
+                                                    <?php esc_html_e("Price",'wp-booking-management-system') ?>
                                                 </th>
                                             </tr>
                                             </thead>

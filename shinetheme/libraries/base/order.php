@@ -468,6 +468,10 @@
              * @param null $format
              *
              * @return false|string
+             *
+             * @author lncj
+             * @since 1.9.6
+             * Hide number night and show duration of tour. check for tour and accommodation
              */
             function get_booking_date( $format = null )
             {
@@ -477,20 +481,40 @@
                     if ( !$format ) $format = get_option( 'date_format' );
                     $check_in  = $this->data[ 'check_in_timestamp' ];
                     $check_out = $this->data[ 'check_out_timestamp' ];
+
                     $start     = new DateTime( date( 'Y-m-d', $check_in ) );
                     if ( $check_out ) {
                         $end = new DateTime( date( 'Y-m-d', $check_out ) );
                     }
 
-                    if ( !empty( $start ) and !empty( $end ) ) {
-                        $full_time = date_i18n( $format, $check_in ) . '&nbsp; &rarr; &nbsp;' . date_i18n( $format, $check_out ) . ' <br>(' . sprintf( _n( '%s night', '%s nights', $start->diff( $end )->days, 'wp-booking-management-system' ), $start->diff( $end )->days ) . ')';
-                    }
+                    $service_type = $this->data['service_type'];
+                    $service_id = $this->data['post_id'];
 
-                    if ( !empty( $start ) and empty( $end ) ) {
+                    if($service_type!='tour'){
+                        if ( !empty( $start ) and !empty( $end ) ) {
+                            $full_time = date_i18n( $format, $check_in ) . '&nbsp; &rarr; &nbsp;' . date_i18n( $format, $check_out ) . ' <br>(' . sprintf( _n( '%s night', '%s nights', $start->diff( $end )->days, 'wp-booking-management-system' ), $start->diff( $end )->days ) . ')';
+                        }
 
-                        $full_time = date_i18n( $format, $check_in );
-                        if ( $duration = $this->get_meta( 'wb_duration' ) ) {
-                            $full_time .= '<br>(' . $duration . ')';
+                        if ( !empty( $start ) and empty( $end ) ) {
+
+                            $full_time = date_i18n( $format, $check_in );
+                            if ( $duration = $this->get_meta( 'wb_duration' ) ) {
+                                $full_time .= '<br>(' . $duration . ')';
+                            }
+                        }
+                    }else{
+                        $duration = get_post_meta($service_id,'duration',true);
+
+                        if ( !empty( $start ) and !empty( $end ) ) {
+                            $full_time = date_i18n( $format, $check_in ) . '&nbsp; &rarr; &nbsp;' . $duration;
+                        }
+
+                        if ( !empty( $start ) and empty( $end ) ) {
+
+                            $full_time = date_i18n( $format, $check_in );
+                            if ( $duration = $this->get_meta( 'wb_duration' ) ) {
+                                $full_time .= '<br>(' . $duration . ')';
+                            }
                         }
                     }
 

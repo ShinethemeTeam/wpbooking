@@ -4,7 +4,7 @@ $status=WPBooking_Config::inst()->item('order_status');
 $payment_status=WPBooking_Config::inst()->item('payment_status');
 ?>
 <div class="wrap">
-	<h1><?php echo esc_html__('All Bookings','wp-booking-management-system') ?></h1>
+	<h1><?php esc_html_e('All Bookings','wp-booking-management-system') ?></h1>
 	<?php echo wpbooking_get_admin_message() ?>
 	<ul class="subsubsub">
 		<?php

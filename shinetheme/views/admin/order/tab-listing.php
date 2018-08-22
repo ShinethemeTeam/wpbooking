@@ -44,22 +44,22 @@ $query=new WP_Query($args);
 	<div class="tablenav top">
 		<?php if(!WPBooking_Input::get('tab') or WPBooking_Input::get('tab')=='listing'){?>
 			<div class="alignleft actions bulkactions">
-				<label for="bulk-action-selector-top" class="screen-reader-text"><?php echo esc_html__('Select bulk action','wp-booking-management-system')?></label>
+				<label for="bulk-action-selector-top" class="screen-reader-text"><?php esc_html_e('Select bulk action','wp-booking-management-system')?></label>
 				<select name="action" id="wpbooking_bulk_edit_order">
-					<option value="" selected="selected" ><?php echo esc_html__('Bulk Actions','wp-booking-management-system') ?></option>
-					<option value="onhold_booking"><?php echo esc_html__('Mark as On-Hold','wp-booking-management-system')  ?></option>
-					<option value="complete_booking"><?php echo esc_html__('Mark as Completed','wp-booking-management-system') ?></option>
-					<option value="cancel_booking"><?php echo esc_html__('Mark as Cancelled','wp-booking-management-system')  ?></option>
-					<option value="refunded_booking"><?php echo esc_html__('Mark as Refunded','wp-booking-management-system')  ?></option>
-					<option value="cancel"><?php echo esc_html__('Move to Trash','wp-booking-management-system')  ?></option>
-					<option value="permanently_delete"><?php echo esc_html__('Permanently Delete','wp-booking-management-system')  ?></option>
+					<option value="" selected="selected" ><?php esc_html_e('Bulk Actions','wp-booking-management-system') ?></option>
+					<option value="onhold_booking"><?php esc_html_e('Mark as On-Hold','wp-booking-management-system')  ?></option>
+					<option value="complete_booking"><?php esc_html_e('Mark as Completed','wp-booking-management-system') ?></option>
+					<option value="cancel_booking"><?php esc_html_e('Mark as Cancelled','wp-booking-management-system')  ?></option>
+					<option value="refunded_booking"><?php esc_html_e('Mark as Refunded','wp-booking-management-system')  ?></option>
+					<option value="cancel"><?php esc_html_e('Move to Trash','wp-booking-management-system')  ?></option>
+					<option value="permanently_delete"><?php esc_html_e('Permanently Delete','wp-booking-management-system')  ?></option>
 				</select>
 				<input type="submit" id="wpbooking_apply_order" name="wpbooking_apply_changes" class="button action" value="Apply">
 			</div>
 		<?php } ?>
 		<div class="alignleft actions">
 			<select name="order_service_type" class="postform">
-                <option value=""><?php echo esc_html__('All Types of Service','wp-booking-management-system') ?></option>
+                <option value=""><?php esc_html_e('All Types of Service','wp-booking-management-system') ?></option>
                 <?php
                 $types = WPBooking_Service_Controller::inst()->get_service_types();
                 foreach($types as $k=>$v){
@@ -67,7 +67,7 @@ $query=new WP_Query($args);
                 } ?>
 			</select>
 			<select name="status" class="postform">
-                <option value=""><?php echo esc_html__('All Statuses','wp-booking-management-system') ?></option>
+                <option value=""><?php esc_html_e('All Statuses','wp-booking-management-system') ?></option>
                 <?php
                 $status = WPBooking_Config::inst()->item('order_status');
                 if(!empty($status) && is_array($status)) {
@@ -80,7 +80,7 @@ $query=new WP_Query($args);
             wpbooking_get_months_dropdown_html('wpbooking_order');
             ?>
             <select name="payment_method" class="postform">
-                <option value=""><?php echo esc_html__('All Methods of Payment','wp-booking-management-system') ?></option>
+                <option value=""><?php esc_html_e('All Methods of Payment','wp-booking-management-system') ?></option>
                 <?php
                 $getaway = WPBooking_Payment_Gateways::inst()->get_gateways();
 
@@ -90,15 +90,15 @@ $query=new WP_Query($args);
                     }
                 }?>
             </select>
-			<input type="submit" id="doaction" class="button action" value="<?php echo esc_html__('Filter','wp-booking-management-system') ?>">
+			<input type="submit" id="doaction" class="button action" value="<?php esc_html_e('Filter','wp-booking-management-system') ?>">
 		</div>
 		<!--			End .actions-->
 
 		<div class="tablenav-pages">
 			<p class="search-box">
-				<label class="screen-reader-text" for="post-search-input"><?php echo esc_html__('Search Order','wp-booking-management-system') ?></label>
+				<label class="screen-reader-text" for="post-search-input"><?php esc_html_e('Search Order','wp-booking-management-system') ?></label>
 				<input type="search" name="keyword" value="<?php echo esc_attr(WPBooking_Input::get('keyword')) ?>" placeholder="<?php echo esc_html__('ID','wp-booking-management-system') ?>">
-				<input type="submit" name="search_keyword" class="button" value="<?php echo esc_html__('Search Order','wp-booking-management-system') ?>"></p>
+				<input type="submit" name="search_keyword" class="button" value="<?php esc_html_e('Search Order','wp-booking-management-system') ?>"></p>
 		</div>
 	</div>
 	<!--		End top-->
@@ -110,14 +110,14 @@ $query=new WP_Query($args);
 					<input id="cb-select-all-1" type="checkbox">
 				</th>
 				<th class="manage-column column-id sortable">
-                    <p class="id"><?php echo esc_html__('ID','wp-booking-management-system') ?></p>
-                    <p class="status"><?php echo esc_html__('Status - Method of Payment','wp-booking-management-system') ?></p>
-                    <p class="customer"><?php echo esc_html__('Customer Information','wp-booking-management-system') ?></p>
+                    <p class="id"><?php esc_html_e('ID','wp-booking-management-system') ?></p>
+                    <p class="status"><?php esc_html_e('Status - Method of Payment','wp-booking-management-system') ?></p>
+                    <p class="customer"><?php esc_html_e('Customer Information','wp-booking-management-system') ?></p>
                 </th>
-				<th class="manage-column column-primary"> <span class="wb-left-label"><?php echo esc_html__('Booking Information','wp-booking-management-system') ?></span><span class="wb-right-label"><?php echo esc_html__('Total (Deposit/Remain) ','wp-booking-management-system').'('.WPBooking_Currency::get_current_currency('currency').')'?></span></th>
+				<th class="manage-column column-primary"> <span class="wb-left-label"><?php esc_html_e('Booking Information','wp-booking-management-system') ?></span><span class="wb-right-label"><?php echo esc_html__('Total (Deposit/Remain) ','wp-booking-management-system').'('.WPBooking_Currency::get_current_currency('currency').')'?></span></th>
 				<th class="wb-column-empty"></th>
-                <th class="manage-column column-customer asc"> <?php echo esc_html__('Booking Date','wp-booking-management-system') ?></th>
-				<th class="manage-column column-service asc"> <?php echo esc_html__('Service Type','wp-booking-management-system') ?></th>
+                <th class="manage-column column-customer asc"> <?php esc_html_e('Booking Date','wp-booking-management-system') ?></th>
+				<th class="manage-column column-service asc"> <?php esc_html_e('Service Type','wp-booking-management-system') ?></th>
 			</tr>
 			</thead>
 
@@ -133,6 +133,7 @@ $query=new WP_Query($args);
 					$service_type=$order->get_service_type();
                     $order_data = $order->get_order_data();
                     $room_data = $order->get_order_room_data();
+
 					?>
 					<tr>
 						<th class="manage-column column-cb check-column">
@@ -163,11 +164,11 @@ $query=new WP_Query($args);
                                 ?>
                             </div>
 							<div class="wb-row-actions none">
-								<span class="complete"><a href="<?php echo esc_url($url_complete)  ?>" title="<?php echo esc_html__('Complete this item','wp-booking-management-system')?>"><?php echo esc_html__('Complete','wp-booking-management-system')?></a> </span>
-								<span class="move_trash trash"><a href="<?php echo add_query_arg(array('action'=>'cancel','wpbooking_apply_changes'=>'1','wpbooking_order_item'=>array(get_the_ID()))) ?>" onclick="return confirm('<?php echo esc_html__('Do you want to move to trash?','wp-booking-management-system') ?>')" title="<?php echo esc_html__('Move to trash','wp-booking-management-system')?>"><?php echo esc_html__('Cancel','wp-booking-management-system')?></a> </span>
+								<span class="complete"><a href="<?php echo esc_url($url_complete)  ?>" title="<?php esc_html_e('Complete this item','wp-booking-management-system')?>"><?php esc_html_e('Complete','wp-booking-management-system')?></a> </span>
+								<span class="move_trash trash"><a href="<?php echo add_query_arg(array('action'=>'cancel','wpbooking_apply_changes'=>'1','wpbooking_order_item'=>array(get_the_ID()))) ?>" onclick="return confirm('<?php esc_html_e('Do you want to move to trash?','wp-booking-management-system') ?>')" title="<?php esc_html_e('Move to trash','wp-booking-management-system')?>"><?php esc_html_e('Cancel','wp-booking-management-system')?></a> </span>
 								<span class="resend_email">
-									<a href="<?php echo add_query_arg(array('wpbooking_resend_email'=>'true','order_id'=>get_the_ID())) ?>" title="<?php echo esc_html__('Resend Email to this item','wp-booking-management-system')?>">
-										<?php echo esc_html__('Resend Mail','wp-booking-management-system')?></a>
+									<a href="<?php echo add_query_arg(array('wpbooking_resend_email'=>'true','order_id'=>get_the_ID())) ?>" title="<?php esc_html_e('Resend Email to this item','wp-booking-management-system')?>">
+										<?php esc_html_e('Resend Mail','wp-booking-management-system')?></a>
 								</span>
                                 <?php
                                 do_action('wpbooking_after_list_button_action', get_the_ID());
@@ -215,7 +216,7 @@ $query=new WP_Query($args);
 			}else{
 				?>
 				<tr>
-					<td colspan="10"><?php echo esc_html__('Not Found Booking','wp-booking-management-system') ?></td>
+					<td colspan="10"><?php esc_html_e('Not Found Booking','wp-booking-management-system') ?></td>
 				</tr>
 				<?php
 			} ?>

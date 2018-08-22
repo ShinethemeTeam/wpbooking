@@ -86,7 +86,7 @@
                  * @since  1.0
                  * @author dungdt
                  */
-                add_filter( 'wpbooking_cart_item_params_' . $this->type_id, [ $this, '_change_cart_params' ], 10, 3 );
+                add_filter( 'wpbooking_cart_item_params_' . $this->type_id, [ $this, '_change_cart_params' ], 10, 2 );
 
 
                 /**
@@ -724,7 +724,7 @@
                     ], get_permalink( $cart[ 'post_id' ] ) );
                     ?>
                     <small><a href="<?php echo esc_url( $url_change_date ) ?>"
-                              class="change-date"><?php echo esc_html__( "Change Date", "wp-booking-management-system" ) ?></a></small>
+                              class="change-date"><?php esc_html_e( "Change Date", "wp-booking-management-system" ) ?></a></small>
                     <?php
                 }
             }
@@ -1073,33 +1073,6 @@
              */
             public function _edit_price( $price_html, $price, $post_id, $service_type )
             {
-                global $wpdb;
-                $calendar = new WPBooking_Model();
-                $calendar->table( $this->table_availability );
-                $pricing_type = get_post_meta( $post_id, 'pricing_type', true );
-
-                if ( $pricing_type == 'per_person' ) {
-                    $query = $calendar->select( '
-                    MIN(adult_price) AS min_price
-                ' )->where( [
-                        'post_id'  => $post_id,
-                        'status'   => 'available',
-                        'start >=' => strtotime( date( 'd-m-Y' ) )
-
-                    ] )->where( '(adult_price > 0)', false, true )->get( 1 )->row();
-                } else {
-                    $query = $calendar->select( 'MIN(calendar_price) as min_price' )->where( [
-                        'post_id'          => $post_id,
-                        'status'           => 'available',
-                        'calendar_price >' => 0,
-                        'start >='         => strtotime( date( 'd-m-Y' ) )
-
-                    ] )->get( 1 )->row();
-                }
-
-                if ( $query ) {
-                    $price = $query[ 'min_price' ];
-                }
 
                 $price_html = WPBooking_Currency::format_money( $price );
 
@@ -1121,41 +1094,9 @@
              */
             public function _edit_base_price( $price, $post_id, $service_type )
             {
-                global $wpdb;
-                $calendar = new WPBooking_Model();
-                $calendar->table( $this->table_availability );
+                $base_price = $price;
 
-                $pricing_type = get_post_meta( $post_id, 'pricing_type', true );
-
-                if ( $pricing_type == 'per_person' ) {
-                    $query = $calendar->select( '
-                CASE
-                WHEN MIN(adult_price) <= MIN(child_price)  THEN
-                    MIN(adult_price)
-                ELSE
-                    MIN(child_price)
-                END AS min_price
-                ' )->where( [
-                        'post_id'  => $post_id,
-                        'status'   => 'available',
-                        'start >=' => strtotime( date( 'd-m-Y' ) )
-
-                    ] )->where( '(child_price > 0 or adult_price > 0)', false, true )->get( 1 )->row();
-                } else {
-                    $query = $calendar->select( 'MIN(calendar_price) as min_price' )->where( [
-                        'post_id'          => $post_id,
-                        'status'           => 'available',
-                        'calendar_price >' => 0,
-                        'start >='         => strtotime( date( 'd-m-Y' ) )
-
-                    ] )->get( 1 )->row();
-                }
-
-                if ( $query ) {
-                    $price = $query[ 'min_price' ];
-                }
-
-                return $price;
+                return $base_price;
             }
 
             /**

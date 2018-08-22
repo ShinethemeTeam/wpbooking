@@ -66,7 +66,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
 					}
                     break;
             }
-            do_action('wpbooking_order_item_changed',$order_ids);
+            do_action('wpbooking_order_item_changed',$order_ids,$status);
         }
 
 		/**
