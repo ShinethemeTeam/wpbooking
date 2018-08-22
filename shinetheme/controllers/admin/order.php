@@ -250,7 +250,7 @@ if (!class_exists('WPBooking_Admin_Order')) {
 		{
 			?>
 			<div class="notice notice-success is-dismissible">
-				<p><?php esc_html_e('Email is resent successfully', 'wp-booking-management-system'); ?></p>
+				<p><?php echo esc_html__('Email is resent successfully', 'wp-booking-management-system'); ?></p>
 			</div>
 			<?php
 		}

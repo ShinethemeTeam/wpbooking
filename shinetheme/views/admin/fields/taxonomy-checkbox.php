@@ -50,7 +50,7 @@ if(!empty($data['condition'])){
 
         <div class="add-new-terms">
             <input type="text" class="term-name form-control" placeholder="<?php printf(esc_html__('%s name','wp-booking-management-system'),$tax->label) ?>">
-            <a href="#" onclick="return false" class="button button-primary wb-btn-add-term" data-name="<?php echo esc_attr($name) ?>" data-tax="<?php echo esc_attr($data['taxonomy'] ) ?>"><?php esc_html_e('Add New','wp-booking-management-system') ?> <i class="fa fa-spin  fa-spinner loading-icon"></i></a>
+            <a href="#" onclick="return false" class="button button-primary wb-btn-add-term" data-name="<?php echo esc_attr($name) ?>" data-tax="<?php echo esc_attr($data['taxonomy'] ) ?>"><?php echo esc_html__('Add New','wp-booking-management-system') ?> <i class="fa fa-spin  fa-spinner loading-icon"></i></a>
         </div>
         <?php } ?>
         <i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>

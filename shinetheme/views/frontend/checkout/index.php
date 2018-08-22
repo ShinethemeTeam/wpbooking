@@ -32,16 +32,16 @@ if(!$allow_guest_checkout and !is_user_logged_in()){
                 <div class="row">
                     <div class="col-md-7">
                         <div class="checkout-form-wrap">
-                            <h5 class="checkout-form-title"><?php esc_html_e('Billing Information', 'wp-booking-management-system') ?></h5>
+                            <h5 class="checkout-form-title"><?php echo esc_html__('Billing Information', 'wp-booking-management-system') ?></h5>
                             <h5 class="checkout-form-sub-title">
                                 <?php
                                 if(is_user_logged_in()){
-                                    esc_html_e('Billing Information', 'wp-booking-management-system');
+                                    echo esc_html__('Billing Information', 'wp-booking-management-system');
                                 }else{
-                                    esc_html_e("Already have an account?","wp-booking-management-system");
+                                    echo esc_html__("Already have an account?","wp-booking-management-system");
                                     $url_check_out = get_permalink(wpbooking_get_option('checkout_page'));
                                 ?>
-                                     <a href="<?php echo esc_url(add_query_arg(array("redirect_to"=>$url_check_out),wp_login_url())); ?>" class="text-color"><?php esc_html_e('Login',"wp-booking-management-system") ?></a>
+                                     <a href="<?php echo esc_url(add_query_arg(array("redirect_to"=>$url_check_out),wp_login_url())); ?>" class="text-color"><?php echo esc_html__('Login',"wp-booking-management-system") ?></a>
                                 <?php } ?>
                             </h5>
                             <input name="action" value="wpbooking_do_checkout" type="hidden">
@@ -52,7 +52,7 @@ if(!$allow_guest_checkout and !is_user_logged_in()){
                     </div>
                     <div class="col-md-5">
                         <?php echo wpbooking_load_view('checkout/cart-total-box') ?>
-                        <h5 class="checkout-form-title"><?php esc_html_e('Method of Payment', 'wp-booking-management-system') ?></h5>
+                        <h5 class="checkout-form-title"><?php echo esc_html__('Method of Payment', 'wp-booking-management-system') ?></h5>
                         <div class="wpbooking-gateways">
                             <?php echo wpbooking_load_view('checkout/gateways') ?>
                         </div>
@@ -70,7 +70,7 @@ if(!$allow_guest_checkout and !is_user_logged_in()){
                             </label>
                         </div>
                         <div class="checkout-submit-button">
-                            <button type="submit" class="wb-btn wb-btn-primary wb-btn-md submit-button" disabled><?php esc_html_e('CHECKOUT', 'wp-booking-management-system') ?></button>
+                            <button type="submit" class="wb-btn wb-btn-primary wb-btn-md submit-button" disabled><?php echo esc_html__('CHECKOUT', 'wp-booking-management-system') ?></button>
                         </div>
                     </div>
                 </div>

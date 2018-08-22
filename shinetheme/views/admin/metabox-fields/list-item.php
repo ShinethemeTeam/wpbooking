@@ -42,7 +42,7 @@
                                                 <div class="item-title"><?php echo esc_html( $convert_val[ 'title' ] ); ?></div>
 
                                                 <div class="button-control">
-                                                    <a title="<?php esc_html_e( 'Edit', 'wp-booking-management-system' ) ?>"
+                                                    <a title="<?php echo esc_html__( 'Edit', 'wp-booking-management-system' ) ?>"
                                                        class=" btn_list_item_edit" href="#">
                                                         <span class="fa fa-pencil"></span>
                                                     </a>

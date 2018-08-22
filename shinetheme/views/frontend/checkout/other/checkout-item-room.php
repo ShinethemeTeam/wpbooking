@@ -7,12 +7,12 @@
                 <thead>
                 <tr>
                     <td width="5%"></td>
-                    <td width="50%"><?php esc_html_e( 'Rooms', 'wp-booking-management-system' ) ?></td>
-                    <td class="text-center"><?php esc_html_e( 'Price', 'wp-booking-management-system' ) ?>
+                    <td width="50%"><?php echo esc_html__( 'Rooms', 'wp-booking-management-system' ) ?></td>
+                    <td class="text-center"><?php echo esc_html__( 'Price', 'wp-booking-management-system' ) ?>
                         (<?php echo WPBooking_Currency::get_current_currency( 'currency' ) ?>)
                     </td>
-                    <td class="text-center" width="15%"><?php esc_html_e( 'Number', 'wp-booking-management-system' ) ?></td>
-                    <td class="text-center"><?php esc_html_e( 'Total', 'wp-booking-management-system' ) ?>
+                    <td class="text-center" width="15%"><?php echo esc_html__( 'Number', 'wp-booking-management-system' ) ?></td>
+                    <td class="text-center"><?php echo esc_html__( 'Total', 'wp-booking-management-system' ) ?>
                         (<?php echo WPBooking_Currency::get_current_currency( 'currency' ) ?>)
                     </td>
                 </tr>
@@ -28,10 +28,10 @@
                         <tr class="room-<?php echo esc_attr( $k ) ?> ">
                             <td width="5%" class="text-center">
                                 <a class="delete-cart-item tooltip_desc"
-                                   onclick="return confirm('<?php esc_html_e( 'Do you want to delete it?', 'wp-booking-management-system' ) ?>')"
+                                   onclick="return confirm('<?php echo esc_html__( 'Do you want to delete it?', 'wp-booking-management-system' ) ?>')"
                                    href="<?php echo esc_url( add_query_arg( [ 'delete_item_hotel_room' => $k ], $booking->get_checkout_url() ) ) ?>">
                                     <i class="fa fa-trash-o"></i>
-                                    <span class="tooltip_content"><?php esc_html_e( "Remove this room", 'wp-booking-management-system' ) ?></span>
+                                    <span class="tooltip_content"><?php echo esc_html__( "Remove this room", 'wp-booking-management-system' ) ?></span>
                                 </a>
                             </td>
                             <td width="50%">
@@ -45,11 +45,11 @@
                                             <div class="room-info">
                                                 <div class="title"><?php echo esc_html( get_the_title( $k ) ) ?></div>
                                                 <?php if ( $max = $service_room->get_meta( 'max_guests' ) ) { ?>
-                                                    <div class="sub-title"><?php esc_html_e( "Max", "wp-booking-management-system" ) ?><?php echo esc_attr( $max ) ?><?php esc_html_e( "people", "wp-booking-management-system" ) ?></div>
+                                                    <div class="sub-title"><?php echo esc_html__( "Max", "wp-booking-management-system" ) ?><?php echo esc_attr( $max ) ?><?php echo esc_html__( "people", "wp-booking-management-system" ) ?></div>
                                                 <?php } ?>
                                                 <?php
                                                     if ( !empty( $v[ 'list_date_price' ] ) ) { ?>
-                                                        <span class="btn_detail_checkout"><?php esc_html_e( "Details", "wp-booking-management-system" ) ?>
+                                                        <span class="btn_detail_checkout"><?php echo esc_html__( "Details", "wp-booking-management-system" ) ?>
                                                             <i class="fa fa-caret-down" aria-hidden="true"></i>
 </span>
                                                     <?php } ?>
@@ -57,16 +57,16 @@
                                                     <?php
                                                         if ( !empty( $v[ 'list_date_price' ] ) ) { ?>
                                                             <div class="extra-service">
-                                                                <div class="title"><?php esc_html_e( "Price by Night", "wp-booking-management-system" ) ?></div>
+                                                                <div class="title"><?php echo esc_html__( "Price by Night", "wp-booking-management-system" ) ?></div>
                                                                 <div class="extra-item">
                                                                     <table>
                                                                         <thead>
                                                                         <tr>
                                                                             <th width="60%">
-                                                                                <?php esc_html_e( "Night", "wp-booking-management-system" ) ?>
+                                                                                <?php echo esc_html__( "Night", "wp-booking-management-system" ) ?>
                                                                             </th>
                                                                             <th class="text-center">
-                                                                                <?php esc_html_e( "Price", "wp-booking-management-system" ) ?>
+                                                                                <?php echo esc_html__( "Price", "wp-booking-management-system" ) ?>
                                                                             </th>
                                                                         </tr>
                                                                         </thead>
@@ -75,7 +75,7 @@
                                                                             foreach ( $v[ 'list_date_price' ] as $k_list_date => $v_list_date ) { ?>
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <?php esc_html_e( "Night", "wp-booking-management-system" ) ?> <?php echo esc_html( $i ) ?>
+                                                                                        <?php echo esc_html__( "Night", "wp-booking-management-system" ) ?> <?php echo esc_html( $i ) ?>
                                                                                         <br>
                                                                                         <span class="desc">(<?php echo date( get_option( 'date_format' ), $k_list_date ) ?>
                                                                                             )</span>
@@ -105,10 +105,10 @@
                                                                                 <thead>
                                                                                 <tr>
                                                                                     <th width="60%">
-                                                                                        <?php esc_html_e( "Service name", 'wp-booking-management-system' ) ?>
+                                                                                        <?php echo esc_html__( "Service name", 'wp-booking-management-system' ) ?>
                                                                                     </th>
                                                                                     <th class="text-center">
-                                                                                        <?php esc_html_e( "Price", 'wp-booking-management-system' ) ?>
+                                                                                        <?php echo esc_html__( "Price", 'wp-booking-management-system' ) ?>
                                                                                     </th>
                                                                                 </tr>
                                                                                 </thead>

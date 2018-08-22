@@ -38,10 +38,10 @@
                 ?>
                 <ul class="wb-tabs">
                     <li class="active"><a href="#photos"><i class="fa fa-camera"></i>
-                            &nbsp;<?php esc_html_e( 'Photos', 'wp-booking-management-system' ); ?></a></li>
+                            &nbsp;<?php echo esc_html__( 'Photos', 'wp-booking-management-system' ); ?></a></li>
                     <?php if ( !empty( $map_lat ) and !empty( $map_lng ) ) { ?>
                         <li><a href="#map"><i class="fa fa-map-marker"></i>
-                                &nbsp;<?php esc_html_e( 'On the map', 'wp-booking-management-system' ); ?></a></li>
+                                &nbsp;<?php echo esc_html__( 'On the map', 'wp-booking-management-system' ); ?></a></li>
                     <?php } ?>
                 </ul>
                 <div class="wp-tabs-content">
@@ -118,7 +118,7 @@
         </div>
     </div>
     <div class="service-content-section">
-        <h5 class="service-info-title"><?php esc_html_e( 'Description', 'wp-booking-management-system' ) ?></h5>
+        <h5 class="service-info-title"><?php echo esc_html__( 'Description', 'wp-booking-management-system' ) ?></h5>
         <div class="service-content-wrap" itemprop="description">
             <?php
                 if ( have_posts() ) {
@@ -135,7 +135,7 @@
         if ( !empty( $amenities ) ) {
             ?>
             <div class="service-content-section">
-                <h5 class="service-info-title"><?php esc_html_e( 'Amenities', 'wp-booking-management-system' ) ?></h5>
+                <h5 class="service-info-title"><?php echo esc_html__( 'Amenities', 'wp-booking-management-system' ) ?></h5>
                 <div class="service-content-wrap">
                     <ul class="wb-list-amenities">
                         <?php
@@ -155,7 +155,7 @@
         <?php } ?>
     <?php do_action( 'wpbooking_after_service_amenity' ) ?>
     <div class="service-content-section">
-        <h5 class="service-info-title"><?php esc_html_e( 'Accommodation Policies', 'wp-booking-management-system' ) ?></h5>
+        <h5 class="service-info-title"><?php echo esc_html__( 'Accommodation Policies', 'wp-booking-management-system' ) ?></h5>
 
         <div class="service-details">
             <?php
@@ -204,7 +204,7 @@
                 if ( !empty( $checkin_html ) || !empty( $checkout_html ) ) {
                     ?>
                     <div class="service-detail-item">
-                        <div class="service-detail-title"><?php esc_html_e( 'Time', 'wp-booking-management-system' ) ?></div>
+                        <div class="service-detail-title"><?php echo esc_html__( 'Time', 'wp-booking-management-system' ) ?></div>
                         <div class="service-detail-content">
                             <?php echo( $time_html ) ?>
                         </div>
@@ -266,7 +266,7 @@
                     ?>
                     <div class="service-detail-item">
                         <div
-                                class="service-detail-title"><?php esc_html_e( 'Prepayment / Cancellation', 'wp-booking-management-system' ) ?></div>
+                                class="service-detail-title"><?php echo esc_html__( 'Prepayment / Cancellation', 'wp-booking-management-system' ) ?></div>
                         <div class="service-detail-content">
                             <?php
                                 foreach ( $deposit_html as $value ) {
@@ -354,7 +354,7 @@
                     ?>
                     <div class="service-detail-item">
                         <div
-                                class="service-detail-title"><?php esc_html_e( 'Tax', 'wp-booking-management-system' ) ?></div>
+                                class="service-detail-title"><?php echo esc_html__( 'Tax', 'wp-booking-management-system' ) ?></div>
                         <div class="service-detail-content">
                             <?php foreach ( $tax_html as $value ) {
                                 echo ( $value ) . '<br>';
@@ -368,7 +368,7 @@
             <?php
                 if ( $terms_conditions = get_post_meta( $hotel_id, 'terms_conditions', true ) ) { ?>
                     <div class="service-detail-item">
-                        <div class="service-detail-title"><?php esc_html_e( 'Term & Condition', 'wp-booking-management-system' ) ?></div>
+                        <div class="service-detail-title"><?php echo esc_html__( 'Term & Condition', 'wp-booking-management-system' ) ?></div>
                         <div class="service-detail-content">
                             <?php echo( $terms_conditions ); ?>
                         </div>
@@ -392,7 +392,7 @@
                 if ( !empty( $card ) ) {
                     ?>
                     <div class="service-detail-item">
-                        <div class="service-detail-title"><?php esc_html_e( 'Accepted Cards', 'wp-booking-management-system' ) ?></div>
+                        <div class="service-detail-title"><?php echo esc_html__( 'Accepted Cards', 'wp-booking-management-system' ) ?></div>
                         <div class="service-detail-content">
                             <ul class="wb-list-card-acd">
                                 <?php foreach ( $card as $key => $val ) {

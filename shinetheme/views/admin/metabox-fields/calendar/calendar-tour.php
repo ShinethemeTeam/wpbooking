@@ -89,9 +89,9 @@
                                data-condition="pricing_type:is(per_unit)" cellpadding="0" cellspacing="0">
                             <thead>
                             <tr>
-                                <th><?php esc_html_e( 'Min Travelers', 'wp-booking-management-system' ) ?></th>
-                                <th><?php esc_html_e( 'Max Travelers', 'wp-booking-management-system' ) ?></th>
-                                <th><?php esc_html_e( 'Price', 'wp-booking-management-system' ) ?></th>
+                                <th><?php echo esc_html__( 'Min Travelers', 'wp-booking-management-system' ) ?></th>
+                                <th><?php echo esc_html__( 'Max Travelers', 'wp-booking-management-system' ) ?></th>
+                                <th><?php echo esc_html__( 'Price', 'wp-booking-management-system' ) ?></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -118,14 +118,14 @@
                                data-condition="pricing_type:is(per_person)" cellpadding="0" cellspacing="0">
                             <thead>
                             <tr>
-                                <th><?php esc_html_e( 'Age band', 'wp-booking-management-system' ) ?></th>
-                                <th><?php esc_html_e( 'Min Travelers', 'wp-booking-management-system' ) ?></th>
-                                <th><?php esc_html_e( 'Price', 'wp-booking-management-system' ) ?></th>
+                                <th><?php echo esc_html__( 'Age band', 'wp-booking-management-system' ) ?></th>
+                                <th><?php echo esc_html__( 'Min Travelers', 'wp-booking-management-system' ) ?></th>
+                                <th><?php echo esc_html__( 'Price', 'wp-booking-management-system' ) ?></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr class="wpbooking-condition" data-condition="onoff_people__:not_in(adult)">
-                                <td><?php esc_html_e( 'Adult', 'wp-booking-management-system' ) ?></td>
+                                <td><?php echo esc_html__( 'Adult', 'wp-booking-management-system' ) ?></td>
                                 <td>
                                     <input type="number" name="calendar_adult_minimum" min="0" class="number-select"
                                            value="" placeholder="0">
@@ -140,7 +140,7 @@
                                 </td>
                             </tr>
                             <tr class="wpbooking-condition" data-condition="onoff_people__:not_in(child)">
-                                <td><?php esc_html_e( 'Child', 'wp-booking-management-system' ) ?></td>
+                                <td><?php echo esc_html__( 'Child', 'wp-booking-management-system' ) ?></td>
                                 <td>
                                     <input type="number" name="calendar_child_minimum" min="0" class="number-select"
                                            value="" placeholder="0">
@@ -155,7 +155,7 @@
                                 </td>
                             </tr>
                             <tr class="wpbooking-condition" data-condition="onoff_people__:not_in(infant)">
-                                <td><?php esc_html_e( 'Infant', 'wp-booking-management-system' ) ?></td>
+                                <td><?php echo esc_html__( 'Infant', 'wp-booking-management-system' ) ?></td>
                                 <td>
                                     <input type="number" name="calendar_infant_minimum" min="0" class="number-select"
                                            value="" placeholder="0">
@@ -193,28 +193,28 @@
 
 
                     <div class="calendar-help">
-                        <div class="help-label"><?php esc_html_e( 'How to set Availability ?', 'wp-booking-management-system' ) ?></div>
-                        <h4><strong><?php esc_html_e( 'Way 1:', 'wp-booking-management-system' ) ?></strong></h4>
+                        <div class="help-label"><?php echo esc_html__( 'How to set Availability ?', 'wp-booking-management-system' ) ?></div>
+                        <h4><strong><?php echo esc_html__( 'Way 1:', 'wp-booking-management-system' ) ?></strong></h4>
                         <ul class="list">
-                            <li>+ <?php esc_html_e( 'To set availability on your calendar:', 'wp-booking-management-system' ) ?>
+                            <li>+ <?php echo esc_html__( 'To set availability on your calendar:', 'wp-booking-management-system' ) ?>
                                 <ul>
                                     <li>
-                                        - <?php esc_html_e( 'At the  right side of table, click to Start Date picker to set a start date', 'wp-booking-management-system' ) ?></li>
+                                        - <?php echo esc_html__( 'At the  right side of table, click to Start Date picker to set a start date', 'wp-booking-management-system' ) ?></li>
                                     <li>
-                                        - <?php esc_html_e( 'At the  right side of, click to End Date picker to set a end date of the period you want to edit', 'wp-booking-management-system' ) ?></li>
+                                        - <?php echo esc_html__( 'At the  right side of, click to End Date picker to set a end date of the period you want to edit', 'wp-booking-management-system' ) ?></li>
                                 </ul>
                             </li>
                             <li>
-                                + <?php esc_html_e( 'At the  right side of, allow you to set status and price for that period', 'wp-booking-management-system' ) ?></li>
+                                + <?php echo esc_html__( 'At the  right side of, allow you to set status and price for that period', 'wp-booking-management-system' ) ?></li>
 
                         </ul>
-                        <h4><strong><?php esc_html_e( 'Way 2:', 'wp-booking-management-system' ) ?></strong></h4>
+                        <h4><strong><?php echo esc_html__( 'Way 2:', 'wp-booking-management-system' ) ?></strong></h4>
                         <ul class="list">
                             <li>
-                                + <?php esc_html_e( 'Drag the mouse in the left calendar to get start date and end date', 'wp-booking-management-system' ) ?>
+                                + <?php echo esc_html__( 'Drag the mouse in the left calendar to get start date and end date', 'wp-booking-management-system' ) ?>
                             </li>
                             <li>
-                                + <?php esc_html_e( 'A right sight table, allowing you to set status and price for that period', 'wp-booking-management-system' ) ?></li>
+                                + <?php echo esc_html__( 'A right sight table, allowing you to set status and price for that period', 'wp-booking-management-system' ) ?></li>
 
                         </ul>
                     </div>

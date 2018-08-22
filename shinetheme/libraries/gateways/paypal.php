@@ -140,8 +140,8 @@
 
                             ?>
                             <a class="wb-btn wb-btn-blue wb-btn-md"
-                               href="<?php echo esc_url( $response->getRedirectUrl() ) ?>"><?php esc_html_e( 'Pay Now', 'wp-booking-management-system' ) ?></a>
-                            <p class="mgt-10"><?php esc_html_e( 'You will be redirected to PayPal.com to complete the payment', 'wp-booking-management-system' ) ?></p>
+                               href="<?php echo esc_url( $response->getRedirectUrl() ) ?>"><?php echo esc_html__( 'Pay Now', 'wp-booking-management-system' ) ?></a>
+                            <p class="mgt-10"><?php echo esc_html__( 'You will be redirected to PayPal.com to complete the payment', 'wp-booking-management-system' ) ?></p>
                             <?php
                         } else {
                             wpbooking_set_message( esc_html__( 'Paypal Error:', 'wp-booking-management-system' ) . ' ' . $response->getMessage(), 'error' );

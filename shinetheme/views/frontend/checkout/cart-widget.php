@@ -34,7 +34,7 @@ $cart=$booking->get_cart();
 						<?php do_action('wpbooking_review_order_item_information',$value) ?>
 						<?php do_action('wpbooking_review_order_item_information_'.$service_type,$value) ?>
 					</div>
-					<a class="delete-cart-item" onclick="return confirm('<?php esc_html_e('Do you want to delete it?','wp-booking-management-system') ?>')" href="<?php echo esc_url(add_query_arg(array('delete_cart_item'=>$key),$booking->get_checkout_url())) ?>">
+					<a class="delete-cart-item" onclick="return confirm('<?php echo esc_html__('Do you want to delete it?','wp-booking-management-system') ?>')" href="<?php echo esc_url(add_query_arg(array('delete_cart_item'=>$key),$booking->get_checkout_url())) ?>">
 						<i class="fa fa-times"></i>
 					</a>
 				</div>
@@ -49,12 +49,12 @@ $cart=$booking->get_cart();
 		</div>
 		<?php if(!empty($cart)){ ?>
 			<p class="cart-total">
-				<span><?php esc_html_e('Cart Total:','wp-booking-management-system') ?></span>
+				<span><?php echo esc_html__('Cart Total:','wp-booking-management-system') ?></span>
 				<span class="total-amount"><?php echo WPBooking_Currency::format_money(WPBooking_Order::inst()->get_cart_total(array('without_deposit'=>true))) ?></span>
 			</p>
 			<p class="cart-actions">
-				<a href="<?php echo esc_url($booking->get_cart_url()) ?>" class="wb-btn wb-btn-default"><?php esc_html_e('Cart','wp-booking-management-system')?></a>
-				<a href="<?php echo esc_url($booking->get_checkout_url()) ?>" class="wb-btn wb-btn-blue wb-to-checkout"><?php esc_html_e('Check Out','wp-booking-management-system')?></a>
+				<a href="<?php echo esc_url($booking->get_cart_url()) ?>" class="wb-btn wb-btn-default"><?php echo esc_html__('Cart','wp-booking-management-system')?></a>
+				<a href="<?php echo esc_url($booking->get_checkout_url()) ?>" class="wb-btn wb-btn-blue wb-to-checkout"><?php echo esc_html__('Check Out','wp-booking-management-system')?></a>
 			</p>
 		<?php } ?>
 	</div>

@@ -18,7 +18,7 @@
                 <input name="hotel_id" value="<?php the_ID() ?>" type="hidden">
                 <input name="wpbooking_paged" class="wpbooking_paged" value="1" type="hidden">
                 <div class="search-room-form">
-                    <h5 class="service-info-title"><?php esc_html_e( 'Check availability', 'wp-booking-management-system' ) ?></h5>
+                    <h5 class="service-info-title"><?php echo esc_html__( 'Check availability', 'wp-booking-management-system' ) ?></h5>
                     <div class="form-search">
                         <?php
                             $check_in = WPBooking_Input::request( 'checkin_y' ) . "-" . WPBooking_Input::request( 'checkin_m' ) . "-" . WPBooking_Input::request( 'checkin_d' );
@@ -36,7 +36,7 @@
 
                         ?>
                         <div class="form-item w20 form-item-icon">
-                            <label><?php esc_html_e( 'Check In', 'wp-booking-management-system' ) ?><i class="fa fa-calendar"></i>
+                            <label><?php echo esc_html__( 'Check In', 'wp-booking-management-system' ) ?><i class="fa fa-calendar"></i>
                                 <input class="checkin_d" name="checkin_d"
                                        value="<?php echo esc_html( WPBooking_Input::request( 'checkin_d' ) ) ?>"
                                        type="hidden">
@@ -48,13 +48,13 @@
                                        type="hidden">
                                 <input type="text" readonly class="form-control wpbooking-search-start"
                                        value="<?php echo do_shortcode( $check_in ) ?>" name="check_in"
-                                       placeholder="<?php esc_html_e( 'Check In', 'wp-booking-management-system' ) ?>">
+                                       placeholder="<?php echo esc_html__( 'Check In', 'wp-booking-management-system' ) ?>">
                             </label>
                             <input class="wpbooking-check-in-out" type="text" name="check_in_out"
                                    value="<?php echo esc_html( WPBooking_Input::request( 'check_in_out', $check_in_out ) ); ?>">
                         </div>
                         <div class="form-item w20 form-item-icon">
-                            <label><?php esc_html_e( 'Check Out', 'wp-booking-management-system' ) ?>
+                            <label><?php echo esc_html__( 'Check Out', 'wp-booking-management-system' ) ?>
                                 <input class="checkout_d" name="checkout_d"
                                        value="<?php echo esc_html( WPBooking_Input::request( 'checkout_d' ) ) ?>"
                                        type="hidden">
@@ -66,12 +66,12 @@
                                        type="hidden">
                                 <input type="text" readonly class="form-control wpbooking-search-end"
                                        value="<?php echo do_shortcode( $check_out ) ?>" name="check_out"
-                                       placeholder="<?php esc_html_e( 'Check Out', 'wp-booking-management-system' ) ?>">
+                                       placeholder="<?php echo esc_html__( 'Check Out', 'wp-booking-management-system' ) ?>">
                                 <i class="fa fa-calendar"></i>
                             </label>
                         </div>
                         <div class="form-item w20">
-                            <label><?php esc_html_e( 'Rooms', 'wp-booking-management-system' ) ?></label>
+                            <label><?php echo esc_html__( 'Rooms', 'wp-booking-management-system' ) ?></label>
                             <select name="room_number" class="form-control">
                                 <?php
                                     for ( $i = 1; $i <= 20; $i++ ) {
@@ -81,7 +81,7 @@
                             </select>
                         </div>
                         <div class="form-item w20">
-                            <label><?php esc_html_e( 'Adults', 'wp-booking-management-system' ) ?></label>
+                            <label><?php echo esc_html__( 'Adults', 'wp-booking-management-system' ) ?></label>
                             <select name="adults" class="form-control">
                                 <?php
                                     for ( $i = 1; $i <= 20; $i++ ) {
@@ -91,7 +91,7 @@
                             </select>
                         </div>
                         <div class="form-item w20">
-                            <label><?php esc_html_e( 'Children', 'wp-booking-management-system' ) ?></label>
+                            <label><?php echo esc_html__( 'Children', 'wp-booking-management-system' ) ?></label>
                             <select name="children" class="form-control">
                                 <?php
                                     for ( $i = 0; $i <= 20; $i++ ) {
@@ -102,7 +102,7 @@
                         </div>
                         <div class="form-item w100">
                             <button type="button"
-                                    class="wb-button btn-do-search-room"><?php esc_html_e( "CHECK AVAILABILITY ", "wp-booking-management-system" ) ?></button>
+                                    class="wb-button btn-do-search-room"><?php echo esc_html__( "CHECK AVAILABILITY ", "wp-booking-management-system" ) ?></button>
                         </div>
                     </div>
                 </div>
@@ -167,11 +167,11 @@
                 <div class="content-info">
                     <div class="content-price">
                         <div class="number"><span
-                                    class="info_number">0</span> <?php esc_html_e( 'room(s) selected', 'wp-booking-management-system' ) ?>
+                                    class="info_number">0</span> <?php echo esc_html__( 'room(s) selected', 'wp-booking-management-system' ) ?>
                         </div>
                         <div class="price"><span class="info_price">0</span></div>
                         <button type="button"
-                                class="wb-button submit-button"><?php esc_html_e( "BOOK NOW", 'wp-booking-management-system' ) ?></button>
+                                class="wb-button submit-button"><?php echo esc_html__( "BOOK NOW", 'wp-booking-management-system' ) ?></button>
                     </div>
                 </div>
 

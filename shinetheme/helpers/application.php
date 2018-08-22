@@ -757,7 +757,7 @@
             $m = isset( $_GET[ 'm' ] ) ? (int)$_GET[ 'm' ] : 0;
             ?>
             <select name="m" id="filter-by-date">
-                <option<?php selected( $m, 0 ); ?> value=""><?php esc_html_e( 'All dates', 'wp-booking-management-system' ); ?></option>
+                <option<?php selected( $m, 0 ); ?> value=""><?php echo esc_html__( 'All dates', 'wp-booking-management-system' ); ?></option>
                 <?php
                     foreach ( $months as $arc_row ) {
                         if ( 0 == $arc_row->year )

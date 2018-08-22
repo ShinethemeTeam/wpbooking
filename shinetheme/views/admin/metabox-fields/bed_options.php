@@ -130,7 +130,7 @@ $field = '';
         <div class="clear"></div>
 
         <div class="st-metabox-left">
-            <label><?php esc_html_e('Enter the number of guests who can sleep here', 'wp-booking-management-system') ?></label>
+            <label><?php echo esc_html__('Enter the number of guests who can sleep here', 'wp-booking-management-system') ?></label>
         </div>
         <div class="st-metabox-right">
             <div class="st-metabox-content-wrapper">
@@ -145,14 +145,14 @@ $field = '';
         </div>
         <div class="clear"></div>
         <div class="st-metabox-left">
-            <label><?php esc_html_e('Private bath room', 'wp-booking-management-system') ?></label>
+            <label><?php echo esc_html__('Private bath room', 'wp-booking-management-system') ?></label>
         </div>
         <div class="st-metabox-right">
             <div class="st-metabox-content-wrapper">
                 <div class="form-group">
                     <label>
                         <input type="checkbox" name="<?php echo esc_attr($name) ?>_single_private_bathroom"
-                               value="1" <?php checked(get_post_meta($post_id, $name . '_single_private_bathroom', true),1) ?> > <?php esc_html_e('Yes', 'wp-booking-management-system') ?>
+                               value="1" <?php checked(get_post_meta($post_id, $name . '_single_private_bathroom', true),1) ?> > <?php echo esc_html__('Yes', 'wp-booking-management-system') ?>
                     </label>
                 </div>
             </div>
@@ -164,7 +164,7 @@ $field = '';
     ?>
     <div class="multi-bed-option">
         <div class="multi-item-default">
-            <label class="multi-item-title"><?php esc_html_e('Bed room #__number_room__', 'wp-booking-management-system') ?></label>
+            <label class="multi-item-title"><?php echo esc_html__('Bed room #__number_room__', 'wp-booking-management-system') ?></label>
             <div class="clear"></div>
             <div class="st-metabox-left">
                 <label for="<?php echo esc_html($data['id']); ?>"><?php echo esc_html($data['label']); ?></label>
@@ -264,7 +264,7 @@ $field = '';
             <div class="clear"></div>
 
             <div class="st-metabox-left">
-                <label><?php esc_html_e('Enter the number of guests who can sleep here', 'wp-booking-management-system') ?></label>
+                <label><?php echo esc_html__('Enter the number of guests who can sleep here', 'wp-booking-management-system') ?></label>
             </div>
             <div class="st-metabox-right">
                 <div class="st-metabox-content-wrapper">
@@ -280,14 +280,14 @@ $field = '';
             </div>
             <div class="clear"></div>
             <div class="st-metabox-left">
-                <label><?php esc_html_e('Private bath room', 'wp-booking-management-system') ?></label>
+                <label><?php echo esc_html__('Private bath room', 'wp-booking-management-system') ?></label>
             </div>
             <div class="st-metabox-right">
                 <div class="st-metabox-content-wrapper">
                     <div class="form-group">
                         <label>
                             <input type="checkbox" name="<?php echo esc_attr($name) ?>_multi_[__number_room__][private_bath]"
-                                   value="1" <?php checked($multi_meta['private_bath'],1) ?> > <?php esc_html_e('Yes', 'wp-booking-management-system') ?>
+                                   value="1" <?php checked($multi_meta['private_bath'],1) ?> > <?php echo esc_html__('Yes', 'wp-booking-management-system') ?>
                         </label>
                     </div>
                 </div>
@@ -418,7 +418,7 @@ $field = '';
                     <div class="clear"></div>
 
                     <div class="st-metabox-left">
-                        <label><?php esc_html_e('Enter the number of guests who can sleep here', 'wp-booking-management-system') ?></label>
+                        <label><?php echo esc_html__('Enter the number of guests who can sleep here', 'wp-booking-management-system') ?></label>
                     </div>
                     <div class="st-metabox-right">
                         <div class="st-metabox-content-wrapper">
@@ -434,14 +434,14 @@ $field = '';
                     </div>
                     <div class="clear"></div>
                     <div class="st-metabox-left">
-                        <label><?php esc_html_e('Private bath room', 'wp-booking-management-system') ?></label>
+                        <label><?php echo esc_html__('Private bath room', 'wp-booking-management-system') ?></label>
                     </div>
                     <div class="st-metabox-right">
                         <div class="st-metabox-content-wrapper">
                             <div class="form-group">
                                 <label>
                                     <input type="checkbox" name="<?php echo esc_attr($name) ?>_multi_[<?php echo esc_html($i) ?>][private_bath]"
-                                           value="1" <?php checked($data_multi_meta['private_bath'],1) ?> > <?php esc_html_e('Yes', 'wp-booking-management-system') ?>
+                                           value="1" <?php checked($data_multi_meta['private_bath'],1) ?> > <?php echo esc_html__('Yes', 'wp-booking-management-system') ?>
                                 </label>
                             </div>
                         </div>

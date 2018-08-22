@@ -54,7 +54,7 @@ if(!empty($form_fields)){
                             ?>
                             <div class="wpbooking-search-form-more-wrap">
                                 <a href="#" onclick="return false" class="btn btn-link wpbooking-show-more-fields"><span
-                                        class=""><?php esc_html_e( 'Advanced Search', 'wp-booking-management-system' ) ?> <i
+                                        class=""><?php echo esc_html__( 'Advanced Search', 'wp-booking-management-system' ) ?> <i
                                             class="fa fa-caret-down" aria-hidden="true"></i></span></a>
                                 <div class="wpbooking-search-form-more">
                                     <?php
@@ -67,7 +67,7 @@ if(!empty($form_fields)){
                         } ?>
                         <div class="search-button-wrap">
                             <button class="wb-button"
-                                    type="submit"><?php esc_html_e( "Search", 'wp-booking-management-system' ) ?></button>
+                                    type="submit"><?php echo esc_html__( "Search", 'wp-booking-management-system' ) ?></button>
                         </div>
                     </div>
                 </form>

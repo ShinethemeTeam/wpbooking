@@ -71,7 +71,7 @@ if(!$wp_query->have_posts()) return;
                 if(WPBooking_Input::get('service_type')){
 				?>
 				<select name="wb_sort_by" class="wpbooking-loop-sort-by">
-					<option value=""><?php esc_html_e('Sort by','wp-booking-management-system') ?></option>
+					<option value=""><?php echo esc_html__('Sort by','wp-booking-management-system') ?></option>
 					<?php if(!empty($sortby)){
 						foreach($sortby as $key=>$sort){
 							printf('<option value="%s" %s >%s</option>',$key,selected(WPBooking_Input::get('wb_sort_by'),$key,FALSE),$sort);

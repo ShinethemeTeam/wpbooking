@@ -41,7 +41,7 @@
                     <?php if ( $duplicated || ( $hotel_id == $hotel_translated ) ) { ?>
                         <div class="room-create top">
                             <a href="#" data-hotel-id="<?php echo esc_attr( $post_id ) ?> "
-                               class="create-room"><?php esc_html_e( 'Create New Room', 'wp-booking-management-system' ) ?></a>
+                               class="create-room"><?php echo esc_html__( 'Create New Room', 'wp-booking-management-system' ) ?></a>
                         </div>
                     <?php } ?>
                 </div>
@@ -79,13 +79,13 @@
                                     <div class="room-actions">
                                         <a href="#" data-room_id="<?php the_ID() ?>" class="room-edit tooltip_desc"><i
                                                     class="fa fa-pencil-square-o"></i> <span
-                                                    class="tooltip_content"><?php esc_html_e( 'Edit', 'wp-booking-management-system' ) ?></span></a>
+                                                    class="tooltip_content"><?php echo esc_html__( 'Edit', 'wp-booking-management-system' ) ?></span></a>
                                         <?php $del_security_post = wp_create_nonce( 'del_security_post_' . get_the_ID() ); ?>
                                         <a href="javascript:void(0)" data-room_id="<?php the_ID(); ?>"
                                            data-del-security="<?php echo esc_attr( $del_security_post ); ?>"
                                            data-confirm="<?php echo esc_html__( 'Do you want delete this room?', 'wp-booking-management-system' ); ?>"
                                            class="room-delete tooltip_desc"><i class="fa fa-trash"></i><span
-                                                    class="tooltip_content"><?php esc_html_e( 'Delete', 'wp-booking-management-system' ) ?></span></a>
+                                                    class="tooltip_content"><?php echo esc_html__( 'Delete', 'wp-booking-management-system' ) ?></span></a>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                 <div class="wp-room-actions">
                     <div class="room-create">
                         <a href="#" data-hotel-id="<?php echo esc_attr( $post_id ) ?> "
-                           class="create-room"><?php esc_html_e( 'Create New Room', 'wp-booking-management-system' ) ?></a>
+                           class="create-room"><?php echo esc_html__( 'Create New Room', 'wp-booking-management-system' ) ?></a>
                     </div>
                     <?php echo do_shortcode( WPBooking_Accommodation_Service_Type::inst()->_get_room_count_text( $post_id ) ); ?>
                 </div>
@@ -124,12 +124,12 @@
                     <?php if ( !$duplicated && ( $hotel_id == $hotel_translated ) ) { ?>
                         <span class="duplicate-post-wrapper">
                             <a href="#" data-post-id="<?php echo esc_attr( $hotel_id ) ?>"
-                               class="room-synchronization"><?php esc_html_e( 'Room synchronization', 'wp-booking-management-system' ) ?></a>
+                               class="room-synchronization"><?php echo esc_html__( 'Room synchronization', 'wp-booking-management-system' ) ?></a>
                     </span>
                     <?php } else { ?>
                         <span><?php echo esc_html__( 'There isn\'t room you listing', 'wp-booking-management-system' ); ?>
                             <a href="#" data-hotel-id="<?php echo esc_attr( $hotel_id ) ?>"
-                               class="create-room ml10"><?php esc_html_e( 'Create New Room', 'wp-booking-management-system' ) ?></a>
+                               class="create-room ml10"><?php echo esc_html__( 'Create New Room', 'wp-booking-management-system' ) ?></a>
                     </span>
                     <?php } ?>
                 </div>

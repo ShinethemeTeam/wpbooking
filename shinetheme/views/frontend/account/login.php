@@ -15,23 +15,23 @@ if(!empty(WPBooking()->get('error_code'))){
 <form action="" method="post" id="wpbooking-login-form" class="login-register-form">
 	<input type="hidden"  name="action" value="wpbooking_do_login">
 	<input type="hidden" name="url" value="<?php echo esc_url($full_url) ?>">
-	<h3 class="form-title"><?php esc_html_e('Login','wp-booking-management-system') ?></h3>
+	<h3 class="form-title"><?php echo esc_html__('Login','wp-booking-management-system') ?></h3>
 	<div class="form-group-wrap">
 		<div class="form-group">
-			<label for="input-login" class="control-label"><?php esc_html_e('Username or email address','wp-booking-management-system') ?> <span class="required">*</span></label>
+			<label for="input-login" class="control-label"><?php echo esc_html__('Username or email address','wp-booking-management-system') ?> <span class="required">*</span></label>
 			<input type="text" class="form-control <?php echo esc_attr($error_field['u']); ?>" required value="<?php echo esc_attr(WPBooking_Input::post('login')) ?>" name="login" id="input-login">
 		</div>
 		<div class="form-group">
-			<label for="input-password" class="control-label"><?php esc_html_e('Password','wp-booking-management-system') ?> <span class="required">*</span></label>
+			<label for="input-password" class="control-label"><?php echo esc_html__('Password','wp-booking-management-system') ?> <span class="required">*</span></label>
 			<input type="password" class="form-control <?php echo esc_attr($error_field['p']); ?>" required id="input-password" name="password">
 		</div>
 		<div class="form-group">
-			<button type="submit" class="wb-btn wb-btn-default"><?php esc_html_e('Login','wp-booking-management-system') ?></button>
+			<button type="submit" class="wb-btn wb-btn-default"><?php echo esc_html__('Login','wp-booking-management-system') ?></button>
 			<label class="remember-me">
-				<input type="checkbox" <?php checked(WPBooking_Input::post('remember'),1) ?> name="remember" value="1"><?php esc_html_e('Remember Me','wp-booking-management-system') ?>
+				<input type="checkbox" <?php checked(WPBooking_Input::post('remember'),1) ?> name="remember" value="1"><?php echo esc_html__('Remember Me','wp-booking-management-system') ?>
 			</label>
 		</div>
-		<a href="<?php echo esc_url(wp_lostpassword_url()); ?>" class="lost-password"><?php esc_html_e('Is your password lost?','wp-booking-management-system') ?></a>
+		<a href="<?php echo esc_url(wp_lostpassword_url()); ?>" class="lost-password"><?php echo esc_html__('Is your password lost?','wp-booking-management-system') ?></a>
         <?php
             if(wpbooking_is_any_register()){
             ?>

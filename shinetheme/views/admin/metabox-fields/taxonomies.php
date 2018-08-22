@@ -74,7 +74,7 @@ foreach ($taxs as $tax_id=>$tax){
 					<?php
 				}
 				?>
-				<a href="#" onclick="return false" class="button wb-btn-add-term" data-name="<?php echo esc_attr($name) ?>" data-tax="<?php echo esc_attr($tax_id) ?>"><?php esc_html_e('Add New','wp-booking-management-system') ?> <i class="fa fa-spin  fa-spinner loading-icon"></i></a>
+				<a href="#" onclick="return false" class="button wb-btn-add-term" data-name="<?php echo esc_attr($name) ?>" data-tax="<?php echo esc_attr($tax_id) ?>"><?php echo esc_html__('Add New','wp-booking-management-system') ?> <i class="fa fa-spin  fa-spinner loading-icon"></i></a>
 			</div>
 
 		</div>

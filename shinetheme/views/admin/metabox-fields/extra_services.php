@@ -66,7 +66,7 @@
                                                         <option <?php selected( $selected_type, 'per_night_people' ) ?>
                                                                 value="per_night_people"><?php echo esc_html__( 'per Night & per Person', 'wp-booking-management-system' ); ?></option>
                                                     </select>
-                                                    <span class="help_inline"><?php esc_html_e( 'Type', 'wp-booking-management-system' ) ?></span>
+                                                    <span class="help_inline"><?php echo esc_html__( 'Type', 'wp-booking-management-system' ) ?></span>
                                                 </div>
                                             <?php } ?>
                                         <div class="money-number">
@@ -85,15 +85,15 @@
                                                     echo '<option ' . selected( $selected_quantity, $i, false ) . ' value="' . esc_attr( $i ) . '">' . esc_html( $i ) . '</option>';
                                                 } ?>
                                             </select>
-                                            <span class="help_inline"><?php esc_html_e( 'Max quantity', 'wp-booking-management-system' ) ?></span>
+                                            <span class="help_inline"><?php echo esc_html__( 'Max quantity', 'wp-booking-management-system' ) ?></span>
                                         </div>
                                         <div class="require-options">
                                             <select name="<?php echo esc_attr( $data[ 'id' ] . '[' . esc_attr( $k ) . '][require]' ) ?>">
-                                                <option value="no"><?php esc_html_e( 'No', 'wp-booking-management-system' ) ?></option>
+                                                <option value="no"><?php echo esc_html__( 'No', 'wp-booking-management-system' ) ?></option>
                                                 <option <?php echo ( $is_required ) ? 'selected' : false; ?>
-                                                        value="yes"><?php esc_html_e( 'Yes', 'wp-booking-management-system' ) ?></option>
+                                                        value="yes"><?php echo esc_html__( 'Yes', 'wp-booking-management-system' ) ?></option>
                                             </select>
-                                            <span class="help_inline"><?php esc_html_e( 'Required', 'wp-booking-management-system' ) ?></span>
+                                            <span class="help_inline"><?php echo esc_html__( 'Required', 'wp-booking-management-system' ) ?></span>
                                         </div>
                                         <div class="service_desc">
 									<span class="service_desc metabox-help"><?php echo do_shortcode( $value[ 'description' ] ); ?>
@@ -124,35 +124,35 @@
                                 </div>
                                 <div class="max-quantity">
                                     <select name="" class="max-quantity-select">
-                                        <option value=""><?php esc_html_e( '-', 'wp-booking-management-system' ) ?></option>
+                                        <option value=""><?php echo esc_html__( '-', 'wp-booking-management-system' ) ?></option>
                                         <?php for ( $i = 1; $i <= 20; $i++ ) {
                                             echo '<option value="' . esc_attr( $i ) . '">' . esc_html( $i ) . '</option>';
                                         } ?>
                                     </select>
-                                    <span class="help_inline"><?php esc_html_e( 'Max quantity', 'wp-booking-management-system' ) ?></span>
+                                    <span class="help_inline"><?php echo esc_html__( 'Max quantity', 'wp-booking-management-system' ) ?></span>
                                 </div>
                                 <div class="require-options">
                                     <select name="">
-                                        <option value="no"><?php esc_html_e( 'No', 'wp-booking-management-system' ) ?></option>
-                                        <option value="yes"><?php esc_html_e( 'Yes', 'wp-booking-management-system' ) ?></option>
+                                        <option value="no"><?php echo esc_html__( 'No', 'wp-booking-management-system' ) ?></option>
+                                        <option value="yes"><?php echo esc_html__( 'Yes', 'wp-booking-management-system' ) ?></option>
                                     </select>
-                                    <span class="help_inline"><?php esc_html_e( 'Required', 'wp-booking-management-system' ) ?></span>
+                                    <span class="help_inline"><?php echo esc_html__( 'Required', 'wp-booking-management-system' ) ?></span>
                                 </div>
                             </div>
                         </div>
                         <input type="text" class="service-name "
-                               placeholder="<?php esc_html_e( 'Extra Service Name', 'wp-booking-management-system' ) ?>">
+                               placeholder="<?php echo esc_html__( 'Extra Service Name', 'wp-booking-management-system' ) ?>">
                         <input type="text" class="service-desc"
-                               placeholder="<?php esc_html_e( 'Description', 'wp-booking-management-system' ) ?>">
+                               placeholder="<?php echo esc_html__( 'Description', 'wp-booking-management-system' ) ?>">
                         <select class="max-quantity-sv">
-                            <option value=""><?php esc_html_e( 'Max Quantity', 'wp-booking-management-system' ) ?></option>
+                            <option value=""><?php echo esc_html__( 'Max Quantity', 'wp-booking-management-system' ) ?></option>
                             <?php for ( $i = 1; $i <= 20; $i++ ) {
                                 echo '<option value="' . esc_attr( $i ) . '">' . esc_html( $i ) . '</option>';
                             } ?>
                         </select>
                         <a href="#" onclick="return false" class="button wb-btn-add-extra-service"
                            data-id="<?php echo esc_attr( $data[ 'id' ] ) ?>" data-type
-                           ="<?php echo esc_attr( $type_id ) ?>"><?php esc_html_e( 'Add New', 'wp-booking-management-system' ) ?> <i
+                           ="<?php echo esc_attr( $type_id ) ?>"><?php echo esc_html__( 'Add New', 'wp-booking-management-system' ) ?> <i
                                     class="fa fa-spin  fa-spinner loading-icon"></i></a>
                     </div>
                 </div>

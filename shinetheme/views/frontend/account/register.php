@@ -16,11 +16,11 @@
 <form action="" method="post" id="wpbooking-register-form" class="login-register-form">
     <input type="hidden" name="action" value="wpbooking_do_register">
 
-    <h3 class="form-title"><?php esc_html_e( 'Register', 'wp-booking-management-system' ) ?></h3>
+    <h3 class="form-title"><?php echo esc_html__( 'Register', 'wp-booking-management-system' ) ?></h3>
     <div class="form-group-wrap">
         <div class="form-group">
             <label for="reg-login"
-                   class="control-label"><?php esc_html_e( 'Username', 'wp-booking-management-system' ) ?> <span
+                   class="control-label"><?php echo esc_html__( 'Username', 'wp-booking-management-system' ) ?> <span
                         class="required">*</span></label>
             <input type="text" required
                    class="form-control <?php echo( array_key_exists( 'rg-login', $error_field ) ? 'wb-error' : '' ) ?>"
@@ -29,7 +29,7 @@
         </div>
         <div class="form-group">
             <label for="input-email"
-                   class="control-label"><?php esc_html_e( 'Email', 'wp-booking-management-system' ) ?> <span
+                   class="control-label"><?php echo esc_html__( 'Email', 'wp-booking-management-system' ) ?> <span
                         class="required">*</span></label>
             <input type="text" required
                    class="form-control <?php echo( array_key_exists( 'rg-email', $error_field ) ? 'wb-error' : '' ) ?>"
@@ -38,7 +38,7 @@
         </div>
         <div class="form-group">
             <label for="input-password"
-                   class="control-label"><?php esc_html_e( 'Password', 'wp-booking-management-system' ) ?> <span
+                   class="control-label"><?php echo esc_html__( 'Password', 'wp-booking-management-system' ) ?> <span
                         class="required">*</span></label>
             <input type="password" required
                    class="form-control <?php echo( array_key_exists( 'rg-password', $error_field ) ? 'wb-error' : '' ) ?>"
@@ -47,7 +47,7 @@
         </div>
         <div class="form-group">
             <label for="input-repassword"
-                   class="control-label"><?php esc_html_e( 'Re-type Password', 'wp-booking-management-system' ) ?> <span
+                   class="control-label"><?php echo esc_html__( 'Re-type Password', 'wp-booking-management-system' ) ?> <span
                         class="required">*</span></label>
             <input type="password" required
                    class="form-control <?php echo( array_key_exists( 'rg-repassword', $error_field ) ? 'wb-error' : '' ) ?>"
@@ -67,7 +67,7 @@
             <?php endif;
         ?>
         <button type="submit"
-                class="wb-btn wb-btn-default wb-disabled"><?php esc_html_e( 'Register', 'wp-booking-management-system' ) ?></button>
+                class="wb-btn wb-btn-default wb-disabled"><?php echo esc_html__( 'Register', 'wp-booking-management-system' ) ?></button>
     </div>
     <?php
         if ( WPBooking_Input::post( 'action' ) == 'wpbooking_do_register' )

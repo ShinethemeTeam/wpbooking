@@ -588,9 +588,9 @@
                 ?>
 
                 <div class="item-form-to">
-                    <span><?php esc_html_e( "From:", "wp-booking-management-system" ) ?> </span> <?php echo date( get_option( 'date_format' ), $order_data[ 'check_in_timestamp' ] ) ?>
+                    <span><?php echo esc_html__( "From:", "wp-booking-management-system" ) ?> </span> <?php echo date( get_option( 'date_format' ), $order_data[ 'check_in_timestamp' ] ) ?>
                     &nbsp
-                    <span><?php esc_html_e( "To:", "wp-booking-management-system" ) ?> </span><?php echo date( get_option( 'date_format' ), $order_data[ 'check_out_timestamp' ] ) ?>
+                    <span><?php echo esc_html__( "To:", "wp-booking-management-system" ) ?> </span><?php echo date( get_option( 'date_format' ), $order_data[ 'check_out_timestamp' ] ) ?>
                     &nbsp
                     <br>
                     <?php
@@ -621,9 +621,9 @@
                 ?>
 
                 <div class="review-order-item-form-to">
-                    <span><?php esc_html_e( "From:", "wp-booking-management-system" ) ?> </span> <?php echo date_i18n( get_option( 'date_format' ), $cart[ 'check_in_timestamp' ] ) ?>
+                    <span><?php echo esc_html__( "From:", "wp-booking-management-system" ) ?> </span> <?php echo date_i18n( get_option( 'date_format' ), $cart[ 'check_in_timestamp' ] ) ?>
                     &nbsp
-                    <span><?php esc_html_e( "To:", "wp-booking-management-system" ) ?> </span><?php echo date_i18n( get_option( 'date_format' ), $cart[ 'check_out_timestamp' ] ) ?>
+                    <span><?php echo esc_html__( "To:", "wp-booking-management-system" ) ?> </span><?php echo date_i18n( get_option( 'date_format' ), $cart[ 'check_out_timestamp' ] ) ?>
                     &nbsp
                     <?php
                         $diff = $cart[ 'check_out_timestamp' ] - $cart[ 'check_in_timestamp' ];
@@ -647,7 +647,7 @@
                         if ( !isset( $cart[ 'is_cart_page' ] ) or $cart[ 'is_cart_page' ] ) {
                             ?>
                             <small><a
-                                        href="<?php echo esc_url( $url_change_date ) ?>"><?php esc_html_e( "Change Date", "wp-booking-management-system" ) ?></a>
+                                        href="<?php echo esc_url( $url_change_date ) ?>"><?php echo esc_html__( "Change Date", "wp-booking-management-system" ) ?></a>
                             </small>
                         <?php } ?>
                 </div>
@@ -687,9 +687,9 @@
                 ?>
                 <h4 class=color_black>
                     <span
-                            class=bold><?php esc_html_e( "From:", "wp-booking-management-system" ) ?> </span> <?php echo date_i18n( get_option( 'date_format' ), $order_data[ 'check_in_timestamp' ] ) ?>
+                            class=bold><?php echo esc_html__( "From:", "wp-booking-management-system" ) ?> </span> <?php echo date_i18n( get_option( 'date_format' ), $order_data[ 'check_in_timestamp' ] ) ?>
                     <span
-                            class=bold><?php esc_html_e( "To:", "wp-booking-management-system" ) ?> </span><?php echo date_i18n( get_option( 'date_format' ), $order_data[ 'check_out_timestamp' ] ) ?>
+                            class=bold><?php echo esc_html__( "To:", "wp-booking-management-system" ) ?> </span><?php echo date_i18n( get_option( 'date_format' ), $order_data[ 'check_out_timestamp' ] ) ?>
                     <?php
                         $diff = $order_data[ 'check_out_timestamp' ] - $order_data[ 'check_in_timestamp' ];
                         $diff = $diff / ( 60 * 60 * 24 );
@@ -1576,13 +1576,13 @@
                                     <div class="room-actions">
                                         <a href="#" data-room_id="<?php the_ID() ?>" class="room-edit tooltip_desc"><i
                                                     class="fa fa-pencil-square-o"></i> <span
-                                                    class="tooltip_content"><?php esc_html_e( 'Edit', 'wp-booking-management-system' ) ?></span></a>
+                                                    class="tooltip_content"><?php echo esc_html__( 'Edit', 'wp-booking-management-system' ) ?></span></a>
                                         <?php $del_security_post = wp_create_nonce( 'del_security_post_' . get_the_ID() ); ?>
                                         <a href="javascript:void(0)" data-room_id="<?php the_ID(); ?>"
                                            data-del-security="<?php echo esc_attr( $del_security_post ); ?>"
                                            data-confirm="<?php echo esc_html__( 'Do you want delete this room?', 'wp-booking-management-system' ); ?>"
                                            class="room-delete tooltip_desc"><i class="fa fa-trash"></i><span
-                                                    class="tooltip_content"><?php esc_html_e( 'Delete', 'wp-booking-management-system' ) ?></span></a>
+                                                    class="tooltip_content"><?php echo esc_html__( 'Delete', 'wp-booking-management-system' ) ?></span></a>
                                     </div>
                                 </div>
                             </div>

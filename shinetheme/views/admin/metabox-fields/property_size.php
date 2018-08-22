@@ -27,7 +27,7 @@ $field .= '</div></div>';
 	</div>
 	<div class="st-metabox-right">
 		<div class="st-metabox-content-wrapper">
-			<input type="text" class="form-control small" name="<?php echo esc_html__($name) ?>" id="<?php echo esc_html( $data['id'] ); ?>" value="<?php echo esc_attr($old_data) ?>" placeholder="<?php esc_html_e('Eg: 100','wp-booking-management-system') ?>">
+			<input type="text" class="form-control small" name="<?php echo esc_html__($name) ?>" id="<?php echo esc_html( $data['id'] ); ?>" value="<?php echo esc_attr($old_data) ?>" placeholder="<?php echo esc_html__('Eg: 100','wp-booking-management-system') ?>">
 			<select name="<?php echo esc_html($data['unit_id'])  ?>" id="<?php echo esc_html($data['unit_id'])  ?>" class="unit_type">
 				<?php $old=get_post_meta($post_id,$data['unit_id'],TRUE); ?>
 				<option value="meter" <?php selected('meter',$old) ?>><?php echo esc_html__('Meter','wp-booking-management-system') ?></option>

@@ -724,7 +724,7 @@
                     ], get_permalink( $cart[ 'post_id' ] ) );
                     ?>
                     <small><a href="<?php echo esc_url( $url_change_date ) ?>"
-                              class="change-date"><?php esc_html_e( "Change Date", "wp-booking-management-system" ) ?></a></small>
+                              class="change-date"><?php echo esc_html__( "Change Date", "wp-booking-management-system" ) ?></a></small>
                     <?php
                 }
             }

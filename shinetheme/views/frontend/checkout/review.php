@@ -2,7 +2,7 @@
 $booking=WPBooking_Checkout_Controller::inst();
 $cart=$booking->get_cart();
 ?>
-<h5 class="checkout-form-title"><?php esc_html_e('Your booking details','wp-booking-management-system')?></h5>
+<h5 class="checkout-form-title"><?php echo esc_html__('Your booking details','wp-booking-management-system')?></h5>
 	<?php
 	$post_id=$cart['post_id'];
 	$service=wpbooking_get_service($cart['post_id']);

@@ -19,7 +19,7 @@ $payment_status=WPBooking_Config::inst()->item('payment_status');
 						$wpbooking_service_type = WPBooking_Input::request('wpbooking_service_type');
 						?>
 						<select class="form-control" name="wpbooking_service_type">
-							<option value=""><?php esc_html_e("Service Type","wp-booking-management-system") ?></option>
+							<option value=""><?php echo esc_html__("Service Type","wp-booking-management-system") ?></option>
 							<?php if(!empty($list_service_type)){
 								foreach($list_service_type as $k=>$v){
 									echo "<option ".selected($k,$wpbooking_service_type,false)." value='{$k}'>{$v->get_info('label')}</option>";
@@ -34,7 +34,7 @@ $payment_status=WPBooking_Config::inst()->item('payment_status');
 					$status = WPBooking_Input::request('wpbooking_status');
 					?>
 					<select class="form-control"  name="wpbooking_status">
-						<option value=""><?php esc_html_e("Status","wp-booking-management-system") ?></option>
+						<option value=""><?php echo esc_html__("Status","wp-booking-management-system") ?></option>
 						<?php
 						if(!empty($all_status)){
 							foreach($all_status as $k=>$v){
@@ -44,7 +44,7 @@ $payment_status=WPBooking_Config::inst()->item('payment_status');
 					</select>
 				</div>
 				<div class="col-md-3">
-					<button type="submit" class="wb-button"><?php esc_html_e("Filter","wp-booking-management-system") ?></button>
+					<button type="submit" class="wb-button"><?php echo esc_html__("Filter","wp-booking-management-system") ?></button>
 				</div>
 			</div>
 		</div>

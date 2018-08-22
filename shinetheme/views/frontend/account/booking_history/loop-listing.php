@@ -24,17 +24,17 @@ $inject->clear();
 	<thead>
 	<tr>
 		<td class="" width="5%">
-			<span><?php esc_html_e('ID','wp-booking-management-system') ?></span>
+			<span><?php echo esc_html__('ID','wp-booking-management-system') ?></span>
 		</td>
 		<td width="40%">
-			<span class="left-10"><?php esc_html_e('SERVICE', 'wp-booking-management-system') ?></span>
+			<span class="left-10"><?php echo esc_html__('SERVICE', 'wp-booking-management-system') ?></span>
 		</td>
 		<td class="text-center" width="20%">
-			<span><?php esc_html_e('STATUS - PAYMENT', 'wp-booking-management-system') ?></span>
+			<span><?php echo esc_html__('STATUS - PAYMENT', 'wp-booking-management-system') ?></span>
 		</td>
 		<td width="23%" class="text-center">
-			<?php esc_html_e('TOTAL', 'wp-booking-management-system') ?><br>
-			<?php esc_html_e('(DEPOSIT / REMAIN)', 'wp-booking-management-system') ?><br>
+			<?php echo esc_html__('TOTAL', 'wp-booking-management-system') ?><br>
+			<?php echo esc_html__('(DEPOSIT / REMAIN)', 'wp-booking-management-system') ?><br>
 			(<?php echo WPBooking_Currency::get_current_currency('currency') ?>)
 		</td>
         <?php
@@ -66,7 +66,7 @@ $inject->clear();
 					<?php do_action('wpbooking_order_history_after_service_name_'.$service_type,$order_data) ?>
 					<div class="link-details">
 						<a href="<?php echo add_query_arg(array('wpbooking_detail'=>'true'), get_permalink(get_the_ID()) ) ?>" >
-                            <?php esc_html_e('Details','wp-booking-management-system') ?>
+                            <?php echo esc_html__('Details','wp-booking-management-system') ?>
 							<i class="fa fa-caret-down" aria-hidden="true"></i>
                         </a>
 					</div>
@@ -105,7 +105,7 @@ $inject->clear();
 	} else {
 		?>
 		<tr>
-			<td colspan="5"><?php esc_html_e('No Booking Found', 'wp-booking-management-system') ?></td>
+			<td colspan="5"><?php echo esc_html__('No Booking Found', 'wp-booking-management-system') ?></td>
 		</tr>
 		<?php
 	} ?>

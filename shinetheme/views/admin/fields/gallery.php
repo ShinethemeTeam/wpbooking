@@ -34,9 +34,9 @@ if(!empty($data['condition'])){
                     <?php } } ?>
                 <?php } ?>
         </div>
-        <button id="btn_upload_gallery" class="btn button button-primary btn_upload_gallery" type="button" name=""><?php esc_html_e("Add Gallery","wp-booking-management-system") ?></button>
+        <button id="btn_upload_gallery" class="btn button button-primary btn_upload_gallery" type="button" name=""><?php echo esc_html__("Add Gallery","wp-booking-management-system") ?></button>
         <?php   if(count($tmp = explode(',',$data_value) ) > 0){ ?>
-            <button class="btn button btn_remove_demo_gallery button-secondary" type="button" name=""><?php esc_html_e("Remove Gallery","wp-booking-management-system") ?></button>
+            <button class="btn button btn_remove_demo_gallery button-secondary" type="button" name=""><?php echo esc_html__("Remove Gallery","wp-booking-management-system") ?></button>
         <?php }?>
         <i class="wpbooking-desc"><?php echo do_shortcode($data['desc']) ?></i>
     </td>

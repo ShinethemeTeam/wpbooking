@@ -81,17 +81,17 @@
             {
                 ?>
                 <div class="form-field st-custom-location-map">
-                    <label for="map_lat_log"><?php echo esc_html__( 'Map Lat & Long', 'oceaus' ); ?></label>
+                    <label for="map_lat_log"><?php echo esc_html__( 'Map Lat & Long', 'wp-booking-management-system' ); ?></label>
                     <div class="st_location_map">
                         <input type="hidden" name="map_lat" id="map_lat" value="">
                         <input type="hidden" name="map_long" id="map_long" value="">
                         <input type="hidden" name="map_zoom" id="map_zoom" value="">
                         <input type="text" name="gmap-search" value=""
-                               placeholder="<?php echo esc_html__( 'Enter a address...', 'oceaus' ); ?>"
+                               placeholder="<?php echo esc_html__( 'Enter a address...', 'wp-booking-management-system' ); ?>"
                                class="gmap-search">
                         <div class="gmap-content"></div>
                     </div>
-                    <p><?php echo esc_html__( 'This is the location we will provide guests. Click to move the marker if you need to move it', 'oceaus' ); ?></p>
+                    <p><?php echo esc_html__( 'This is the location we will provide guests. Click to move the marker if you need to move it', 'wp-booking-management-system' ); ?></p>
                 </div>
                 <?php
             }
@@ -105,7 +105,7 @@
                 ?>
                 <tr class="form-field">
                     <th scope="row" valign="top">
-                        <label for="map_lat_log"><?php echo esc_html__( 'Map Lat & Long', 'oceaus' ); ?></label>
+                        <label for="map_lat_log"><?php echo esc_html__( 'Map Lat & Long', 'wp-booking-management-system' ); ?></label>
                     </th>
                     <td>
                         <div class="st_location_map">
@@ -116,11 +116,11 @@
                             <input type="hidden" name="map_zoom" id="map_zoom"
                                    value="<?php echo( !empty( $zoom ) ? esc_html( $zoom ) : '' ) ?>">
                             <input type="text" name="gmap-search" value=""
-                                   placeholder="<?php echo esc_html__( 'Enter a address...', 'oceaus' ); ?>"
+                                   placeholder="<?php echo esc_html__( 'Enter a address...', 'wp-booking-management-system' ); ?>"
                                    class="gmap-search">
                             <div class="gmap-content"></div>
                         </div>
-                        <p><?php echo esc_html__( 'This is the location we will provide guests. Click to move the marker if you need to move it', 'oceaus' ); ?></p>
+                        <p><?php echo esc_html__( 'This is the location we will provide guests. Click to move the marker if you need to move it', 'wp-booking-management-system' ); ?></p>
                     </td>
                 </tr>
 
@@ -130,7 +130,7 @@
                 ?>
                 <tr class="form-field">
                     <th scope="row" valign="top">
-                        <label><?php echo esc_html__( 'Location Featured Image', 'oceaus' ); ?></label>
+                        <label><?php echo esc_html__( 'Location Featured Image', 'wp-booking-management-system' ); ?></label>
                     </th>
                     <td>
                         <div class="upload-wrapper">
@@ -140,7 +140,7 @@
                                         ?>
                                         <div class="upload-item">
                                             <img src="<?php echo esc_url( $thumbnail_url ); ?>"
-                                                 alt="<?php echo esc_html__( 'Featured Thumb', 'oceaus' ) ?>"
+                                                 alt="<?php echo esc_html__( 'Featured Thumb', 'wp-booking-management-system' ) ?>"
                                                  class="frontend-image img-responsive">
                                         </div>
                                     <?php endif; ?>
@@ -149,11 +149,11 @@
                                    value="<?php echo esc_attr( $wpbooking_featured_image ); ?>">
                             <button type="button"
                                     class="upload-button <?php if ( empty( $thumbnail_url ) ) echo 'no_image'; ?>"
-                                    data-uploader_title="<?php esc_html_e( 'Select an image to upload', 'oceaus' ); ?>"
-                                    data-uploader_button_text="<?php esc_html_e( 'Use this image', 'oceaus' ); ?>"><?php echo esc_html__( 'Upload', 'oceaus' ); ?></button>
+                                    data-uploader_title="<?php echo esc_html__( 'Select an image to upload', 'wp-booking-management-system' ); ?>"
+                                    data-uploader_button_text="<?php echo esc_html__( 'Use this image', 'wp-booking-management-system' ); ?>"><?php echo esc_html__( 'Upload', 'wp-booking-management-system' ); ?></button>
                             <button type="button"
                                     class="delete-button <?php if ( empty( $thumbnail_url ) ) echo 'none'; ?>"
-                                    data-delete-title="<?php echo esc_html__( 'Do you want delete this image?', 'oceaus' ) ?>"><?php echo esc_html__( 'Delete', 'oceaus' ); ?></button>
+                                    data-delete-title="<?php echo esc_html__( 'Do you want delete this image?', 'wp-booking-management-system' ) ?>"><?php echo esc_html__( 'Delete', 'wp-booking-management-system' ); ?></button>
                         </div>
                     </td>
                 </tr>

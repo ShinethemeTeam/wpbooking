@@ -50,7 +50,7 @@ $data_current_user = get_userdata( $user_id );
 			<div class="text-info"><?php echo esc_html($profile_address) ?></div>
 		<?php } ?>
 
-		<div class="text-info"><?php esc_html_e("Member since",'wp-booking-management-system') ?> <?php echo date_i18n(' Y M',strtotime($data_current_user->data->user_registered)) ?></div>
+		<div class="text-info"><?php echo esc_html__("Member since",'wp-booking-management-system') ?> <?php echo date_i18n(' Y M',strtotime($data_current_user->data->user_registered)) ?></div>
 		<div class="quote">
 			<?php if(!empty($description = get_user_meta($user_id,'description',true))){ ?>
 				<div class="icon"> <i class="fa fa-quote-left"></i></div>
@@ -65,7 +65,7 @@ $data_current_user = get_userdata( $user_id );
 				$url=WPBooking_User::inst()->account_page_url().'tab/inbox/';
 				$contact_now_url=add_query_arg(array('user_id'=>$user_id),$url);
 				?>
-				<a href="<?php echo esc_html($contact_now_url) ?>" class="wb-btn wb-btn-default wb-btn-md"><?php esc_html_e("Contact","wp-booking-management-system") ?></a>
+				<a href="<?php echo esc_html($contact_now_url) ?>" class="wb-btn wb-btn-default wb-btn-md"><?php echo esc_html__("Contact","wp-booking-management-system") ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -85,7 +85,7 @@ $data_current_user = get_userdata( $user_id );
 	?>
 	<?php if(have_posts()): ?>
 		<h3 class="tab-page-title">
-			<?php esc_html_e("Listing",'wp-booking-management-system') ?>
+			<?php echo esc_html__("Listing",'wp-booking-management-system') ?>
 		</h3>
 		<div class="list-item">
 			<?php
@@ -103,7 +103,7 @@ $data_current_user = get_userdata( $user_id );
 						<?php the_title() ?>
 					</div>
 					<div class="item_control">
-						<a href="<?php the_permalink() ?>" class="wb-btn wb-btn-blue"><?php esc_html_e("View","wp-booking-management-system") ?> </a>
+						<a href="<?php the_permalink() ?>" class="wb-btn wb-btn-blue"><?php echo esc_html__("View","wp-booking-management-system") ?> </a>
 					</div>
 				</div>
 				<?php

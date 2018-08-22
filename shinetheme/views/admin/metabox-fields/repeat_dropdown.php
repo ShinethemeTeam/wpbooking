@@ -88,7 +88,7 @@ if (is_array($data['value']) && !empty($data['value'])) {
                                     }
                                     ?>
                                 </select>
-                                <span class="wb-repeat-dropdown-remove"><i class="fa fa-trash"></i> <?php esc_html_e('delete','wp-booking-management-system')?></span>
+                                <span class="wb-repeat-dropdown-remove"><i class="fa fa-trash"></i> <?php echo esc_html__('delete','wp-booking-management-system')?></span>
                             </div>
                             <?php
                         }
