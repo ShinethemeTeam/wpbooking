@@ -1,0 +1,41 @@
+<?php
+extract($atts);
+
+if(!empty($tag_id)){
+    $term = get_term( $tag_id, 'wb_hotel_room_type' );
+}
+
+$wpbooking_featured_image = get_tax_meta( $term->term_id, 'featured_image_room_type' );
+$thumbnail_url            = wp_get_attachment_image_url( $wpbooking_featured_image,'medium_large');
+switch($col){
+    case '3':
+        $col='4';
+        break;
+    case '4':
+        $col = '3';
+        break;
+    case '2':
+        $col = '6';
+        break;
+}
+$id_form = WPBooking_Input::get( 'wpbooking_search_form_archive' );
+$url_home =  get_home_url().'/wpbooking-archive';
+$taxonomy = [
+    'wb_hotel_room_type' => $tag_id
+];
+$link = add_query_arg(
+    array(
+        'wpbooking_action' => 'archive_filter',
+        'service_type'     => 'accommodation',
+        'taxonomy' => $taxonomy
+    ),$url_home
+);
+?>
+<div class="wpbooking-tour-type col-md-<?php echo esc_attr($col) ?>">
+    <div class="tour-type item">
+        <a href="<?php echo esc_url($link); ?>"> <img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php echo esc_html($term->name); ?>"></a>
+        <h4 class="title">
+            <a href="<?php echo esc_url($link); ?>"><?php echo esc_html($term->name); ?> (<?php echo esc_html($term->count) ?>)</a>
+        </h4>
+    </div>
+</div>
