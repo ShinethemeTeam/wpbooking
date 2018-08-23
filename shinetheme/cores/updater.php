@@ -106,51 +106,69 @@
             {
                 global $wpdb;
                 $sql = "UPDATE {$wpdb->prefix}wpbooking_service AS sv
-                    LEFT JOIN (
+                    INNER JOIN (
                         SELECT
-                            CASE
-                        WHEN pm.pricing_type = 'per_unit' THEN
-                            min(tour.price)
-                        ELSE
-                            min(tour.adult_price)
-                        END AS price,
+                            min(tour.price) AS price,
                         tour.post_id
                     FROM
                         {$wpdb->prefix}wpbooking_availability_tour AS tour
                     INNER JOIN {$wpdb->prefix}wpbooking_service AS pm ON (pm.post_id = tour.base_id)
                     WHERE
                         1 = 1
-                    AND (
-                        tour.adult_price > 0
-                        OR tour.price > 0
-                    )
+                        AND pm.pricing_type = 'per_unit'
+                    AND cast(tour.price as signed) > 0
                     GROUP BY
                         tour.base_id
                     ) AS avai ON sv.post_id = avai.post_id
                     SET sv.base_price = avai.price";
                 $wpdb->query( $sql );
 
-                $sql = "INSERT INTO wp_postmeta (post_id, meta_key, meta_value) SELECT
+                $sql = "UPDATE {$wpdb->prefix}wpbooking_service AS sv
+                    INNER JOIN (
+                        SELECT
+                            min(tour.adult_price) AS price,
+                        tour.post_id
+                    FROM
+                        {$wpdb->prefix}wpbooking_availability_tour AS tour
+                    INNER JOIN {$wpdb->prefix}wpbooking_service AS pm ON (pm.post_id = tour.base_id)
+                    WHERE
+                        1 = 1
+                        AND pm.pricing_type = 'per_person'
+                    AND cast(tour.adult_price as signed) > 0
+                    GROUP BY
+                        tour.base_id
+                    ) AS avai ON sv.post_id = avai.post_id
+                    SET sv.base_price = avai.price";
+                $wpdb->query( $sql );
+
+                $sql = "INSERT INTO {$wpdb->prefix}postmeta (post_id, meta_key, meta_value) SELECT
                     tour.post_id,
                     'base_price',
-                    CASE
-                WHEN pm.pricing_type = 'per_unit' THEN
-                    min(tour.price)
-                ELSE
-                    min(tour.adult_price)
-                END AS price
+                    min(tour.price) AS price
                 FROM
                     {$wpdb->prefix}wpbooking_availability_tour AS tour
                 INNER JOIN {$wpdb->prefix}wpbooking_service AS pm ON (pm.post_id = tour.base_id)
                 WHERE
                     1 = 1
-                AND (
-                    tour.adult_price > 0
-                    OR tour.price > 0
-                )
+                AND pm.pricing_type = 'per_unit'
+                    AND cast(tour.price as signed) > 0
                 GROUP BY
                     tour.base_id";
+                $wpdb->query( $sql );
 
+                $sql = "INSERT INTO {$wpdb->prefix}postmeta (post_id, meta_key, meta_value) SELECT
+                    tour.post_id,
+                    'base_price',
+                    min(tour.adult_price) AS price
+                FROM
+                    {$wpdb->prefix}wpbooking_availability_tour AS tour
+                INNER JOIN {$wpdb->prefix}wpbooking_service AS pm ON (pm.post_id = tour.base_id)
+                WHERE
+                    1 = 1
+                AND pm.pricing_type = 'per_person'
+                    AND cast(tour.adult_price as signed) > 0
+                GROUP BY
+                    tour.base_id";
                 $wpdb->query( $sql );
             }
 
