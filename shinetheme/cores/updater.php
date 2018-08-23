@@ -18,8 +18,9 @@
                     'wpbooking_update_availability_tour',
                     'wpbooking_update_availability_car',
                     'wpbooking_update_base_price_tour',
-                    'wpbooking_update_status_to_hotel',
+                    'wpbooking_update_status_order_hotel',
                     'wpbooking_update_num_total_room',
+                    'wpbooking_update_num_total_room_in_hotel',
                 ];
                 if ( !empty( $need_update ) ) {
                     $this->need_update[] = $need_update;
@@ -101,13 +102,60 @@
                 return $return;
             }
 
-            public function wpbooking_update_base_price_tour(){
+            public function wpbooking_update_base_price_tour()
+            {
                 global $wpdb;
-                $sql = "UPDATE {$wpdb->prefix}wpbooking_service SET base_price = price WHERE post_id = post_id";
+                $sql = "UPDATE {$wpdb->prefix}wpbooking_service AS sv
+                    LEFT JOIN (
+                        SELECT
+                            CASE
+                        WHEN pm.pricing_type = 'per_unit' THEN
+                            min(tour.price)
+                        ELSE
+                            min(tour.adult_price)
+                        END AS price,
+                        tour.post_id
+                    FROM
+                        {$wpdb->prefix}wpbooking_availability_tour AS tour
+                    INNER JOIN {$wpdb->prefix}wpbooking_service AS pm ON (pm.post_id = tour.base_id)
+                    WHERE
+                        1 = 1
+                    AND (
+                        tour.adult_price > 0
+                        OR tour.price > 0
+                    )
+                    GROUP BY
+                        tour.base_id
+                    ) AS avai ON sv.post_id = avai.post_id
+                    SET sv.base_price = avai.price";
+                $wpdb->query( $sql );
+
+                $sql = "INSERT INTO wp_postmeta (post_id, meta_key, meta_value) SELECT
+                    tour.post_id,
+                    'base_price',
+                    CASE
+                WHEN pm.pricing_type = 'per_unit' THEN
+                    min(tour.price)
+                ELSE
+                    min(tour.adult_price)
+                END AS price
+                FROM
+                    {$wpdb->prefix}wpbooking_availability_tour AS tour
+                INNER JOIN {$wpdb->prefix}wpbooking_service AS pm ON (pm.post_id = tour.base_id)
+                WHERE
+                    1 = 1
+                AND (
+                    tour.adult_price > 0
+                    OR tour.price > 0
+                )
+                GROUP BY
+                    tour.base_id";
+
                 $wpdb->query( $sql );
             }
 
-            public function wpbooking_update_status_to_hotel(){
+            public function wpbooking_update_status_order_hotel()
+            {
                 global $wpdb;
                 $sql = "
                         UPDATE {$wpdb->prefix}wpbooking_order_hotel_room
@@ -116,10 +164,11 @@
                         WHERE
                             {$wpdb->prefix}wpbooking_order.order_id = {$wpdb->prefix}wpbooking_order_hotel_room.order_id
                       ";
-                $wpdb->query($sql);
+                $wpdb->query( $sql );
             }
 
-            public function wpbooking_update_num_total_room(){
+            public function wpbooking_update_num_total_room()
+            {
                 global $wpdb;
                 $sql = "UPDATE {$wpdb->prefix}wpbooking_order_hotel_room AS od
                         INNER JOIN {$wpdb->prefix}postmeta AS meta ON (
@@ -128,7 +177,31 @@
                         SET od.num_room = meta.meta_value
                         WHERE
                          meta.meta_key = 'room_number' ";
-                $wpdb->query($sql);
+                $wpdb->query( $sql );
+            }
+
+            public function wpbooking_update_num_total_room_in_hotel()
+            {
+                global $wpdb;
+                $sql = "UPDATE {$wpdb->prefix}wpbooking_order_hotel_room AS _od
+                INNER JOIN (
+                    SELECT
+                        count(ID) AS total_room,
+                        post_parent AS hotel_id
+                    FROM
+                        {$wpdb->prefix}posts AS post
+                    WHERE
+                        1 = 1
+                    AND post_type = 'wpbooking_hotel_room'
+                    AND post_status NOT IN ('draft', 'trash', 'revision')
+                    GROUP BY
+                        post_parent
+                ) AS hotel ON (
+                    hotel.hotel_id = _od.hotel_id_origin
+                )
+                SET _od.total_room = hotel.total_room";
+
+                $wpdb->query( $sql );
             }
 
             public function wpbooking_update_availability_tour()
