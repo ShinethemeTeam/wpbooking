@@ -8626,3 +8626,48 @@ body {
     }
   }
 }
+
+.tour-type.item{
+  &:after{
+    content:"";
+    display: block;
+    background: rgba(0, 0, 0, 0.45);
+    position: absolute;
+    top:0px;
+    left:0px;
+    bottom:0px;
+    width:100%;
+    z-index: 1;
+  }
+  .title{
+    margin: 0px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    width: 100%;
+    left: 0px;
+    text-align: center;
+    z-index: 2;
+    a{
+      box-shadow: none;
+      color: #fff;
+      text-transform: none;
+      font-weight: normal;
+    }
+  }
+}
+.tour-type.item{
+  overflow: hidden;
+  position: relative;
+  img{
+    transform: scale(1);
+    transition: all 0.4s;
+  }
+  &:hover{
+    img{
+      transform: scale(1.2);
+      transition: all 0.4s;
+    }
+  }
+}

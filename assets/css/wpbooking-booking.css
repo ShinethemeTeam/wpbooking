@@ -8206,3 +8206,43 @@ body.twentytwelve .wpbooking-single-content .wb-reviews-section .comment-list > 
 .wpbooking_form_search_tab .tab-content .tab-pane.active {
   display: block;
 }
+.tour-type.item:after {
+  content: "";
+  display: block;
+  background: rgba(0, 0, 0, 0.45);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  z-index: 1;
+}
+.tour-type.item .title {
+  margin: 0px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  width: 100%;
+  left: 0px;
+  text-align: center;
+  z-index: 2;
+}
+.tour-type.item .title a {
+  box-shadow: none;
+  color: #fff;
+  text-transform: none;
+  font-weight: normal;
+}
+.tour-type.item {
+  overflow: hidden;
+  position: relative;
+}
+.tour-type.item img {
+  transform: scale(1);
+  transition: all 0.4s;
+}
+.tour-type.item:hover img {
+  transform: scale(1.2);
+  transition: all 0.4s;
+}

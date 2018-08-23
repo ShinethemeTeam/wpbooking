@@ -3790,6 +3790,8 @@
             {
                 $order     = new WB_Order( $order_id );
                 $room_data = $order->get_order_room_data();
+                echo '<li>' . esc_html__( 'Adults: ', 'wp-booking-management-system' ) . ' '.esc_html($order_data['adult_number']).'</li>';
+                echo '<li>' . esc_html__( 'Children: ', 'wp-booking-management-system' ) . ' '.esc_html($order_data['children_number']).'</li><br>';
                 echo '<li>' . esc_html__( 'Rooms: ', 'wp-booking-management-system' ) . '</li>';
                 foreach ( $room_data as $key => $value ) {
                     $extra_fees = unserialize( $value[ 'extra_fees' ] );

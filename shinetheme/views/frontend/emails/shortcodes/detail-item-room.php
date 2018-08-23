@@ -2,6 +2,7 @@
 if(!empty($order_data['rooms'])){
     $booking=WPBooking_Checkout_Controller::inst();
     $order_id = $order_data['order_id'];
+    $cart=$booking->get_cart();
     ?>
     <tr>
         <th width=50%>
@@ -39,9 +40,21 @@ if(!empty($order_data['rooms'])){
                         <h3> <?php echo esc_html(get_the_title($room_id)) ?> </h3>
                     </div>
                     <div>
-                        <?php if($max = $service_room->get_meta('max_guests')){ ?>
-                            <div class="sub-title"><?php echo esc_html__("Max","wp-booking-management-system") ?> <?php echo esc_attr($max) ?> <?php echo esc_html__("people","wp-booking-management-system") ?></div>
-                        <?php } ?>
+                        <?php /*if($max = $service_room->get_meta('max_guests')){ */?><!--
+                            <div class="sub-title"><?php /*echo esc_html__("Max","wp-booking-management-system") */?> <?php /*echo esc_attr($max) */?> <?php /*echo esc_html__("people","wp-booking-management-system") */?></div>
+                        --><?php /*} */?>
+                        <div class="sub-title">
+                            <?php if(!empty($cart['adult_number'])){?>
+                                <span>
+                                    <?php echo esc_html__('Adults:','wp-booking-management-system').' '.esc_html($cart['adult_number']); ?>
+                                </span><br>
+                            <?php } ?>
+                            <?php if(!empty($cart['children_number'])){?>
+                                <span>
+                                    <?php echo esc_html__('Children:','wp-booking-management-system').' '.esc_html($cart['children_number']); ?>
+                                </span>
+                            <?php } ?>
+                        </div>
                     </div>
                     <br>
                     <span class=btn_detail_checkout><?php echo esc_html__("Details","wp-booking-management-system") ?></span>

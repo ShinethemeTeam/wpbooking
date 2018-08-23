@@ -8,6 +8,7 @@
              add_action('init',[$this,'register_shortcode_form_search']);
              add_action('init',[$this,'register_shortcode_list_room']);
              add_action('init',[$this,'register_shortcode_tab_search']);
+             add_action('init',[$this,'register_shortcode_tour_type']);
          }
 
          function register_shortcode_list_service(){
@@ -71,6 +72,20 @@
 
              return wpbooking_load_view('shortcode/tabs/tab',array(
                  'atts' => $atts
+             ));
+         }
+
+
+         function register_shortcode_tour_type(){
+             add_shortcode('wpbooking_tour_type',[$this,'_render_tour_type_shortcode']);
+         }
+         function _render_tour_type_shortcode($atts){
+             $atts = shortcode_atts(array(
+                 'tag_id' => '',
+                 'col' => '',
+             ),$atts);
+             return wpbooking_load_view('shortcode/tour-type/tour-type',array(
+                 'atts' => $atts,
              ));
          }
 
