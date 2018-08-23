@@ -9,6 +9,7 @@
              add_action('init',[$this,'register_shortcode_list_room']);
              add_action('init',[$this,'register_shortcode_tab_search']);
              add_action('init',[$this,'register_shortcode_tour_type']);
+             add_action('init',[$this,'register_shortcode_room_type']);
          }
 
          function register_shortcode_list_service(){
@@ -88,6 +89,20 @@
                  'atts' => $atts,
              ));
          }
+
+         function register_shortcode_room_type(){
+             add_shortcode('wpbooking_room_type',[$this,'_render_room_type_shortcode']);
+         }
+         function _render_room_type_shortcode($atts){
+             $atts = shortcode_atts(array(
+                 'tag_id' => '',
+                 'col' => '',
+             ),$atts);
+             return wpbooking_load_view('shortcode/room-type/room-type',array(
+                 'atts' => $atts,
+             ));
+         }
+
 
          static function inst(){
              if(!self::$_inst){

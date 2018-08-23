@@ -18,8 +18,9 @@ switch($col){
         $col = '6';
         break;
 }
-$id_form = WPBooking_Input::get( 'wpbooking_search_form_archive' );
-$url_home =  get_home_url().'/wpbooking-archive';
+
+$archive = wpbooking_get_option('archive-page');
+$archive_url =  get_permalink($archive);
 $taxonomy = [
     'wb_hotel_room_type' => $tag_id
 ];
@@ -28,7 +29,7 @@ $link = add_query_arg(
         'wpbooking_action' => 'archive_filter',
         'service_type'     => 'accommodation',
         'taxonomy' => $taxonomy
-    ),$url_home
+    ),$archive_url
 );
 ?>
 <div class="wpbooking-tour-type col-md-<?php echo esc_attr($col) ?>">

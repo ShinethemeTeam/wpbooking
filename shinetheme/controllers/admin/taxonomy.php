@@ -34,7 +34,15 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
             add_action( 'edited_wb_tour_type', [ $this, '_save_custom_fields_tour_type' ] );
             add_action( 'created_wb_tour_type', [ $this, '_save_custom_fields_tour_type' ], 10, 2 );
 
+            /* room type */
+            add_action( 'wb_hotel_room_type_edit_form_fields', [ $this, '_edit_custom_fields_room_type' ] );
+            add_action( 'wb_hotel_room_type_add_form_fields', [ $this, '_edit_custom_fields_room_type' ] );
+
+            add_action( 'edited_wb_hotel_room_type', [ $this, '_save_custom_fields_room_type' ] );
+            add_action( 'created_wb_hotel_room_type', [ $this, '_save_custom_fields_room_type' ], 10, 2 );
+
             add_shortcode( 'wb_tour_type', [ $this, 'add_tour_type_shortcode' ] );
+            add_shortcode( 'wb_hotel_room_type', [ $this, 'add_room_type_shortcode' ] );
 
             $attr_list = $this->get_taxonomies();
             $attr_list['wpbooking_amenity'] = array();
@@ -84,10 +92,45 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
 
         }
 
+
+        public function add_room_type_shortcode( $atts )
+        {
+            $atts = shortcode_atts( [
+                'tag_id' => '',
+                'image_size'  => 'thumbnail'
+            ], $atts, 'wb_hotel_room_type' );
+
+            extract( $atts );
+            $image_id = get_tax_meta( $room_type_id, 'featured_image_room_type', true );
+            $room_type = get_term( $room_type_id, 'wb_hotel_room_type' );
+            if ( strpos( $image_size, 'x' ) ) {
+                $image_size = explode( 'x', $image_size );
+            }
+            $image = wp_get_attachment_image_url( $image_id, $image_size );
+            wp_enqueue_script( 'wpbooking-simpleWeather' );
+
+            return '
+                    <div class="wpbooking-tour-type-item" data-address="' . esc_attr( $room_type->name ) . '" >
+                        <div class="wpbooking-tour-type-image">
+                            <img src="' . esc_url( $image ) . '" alt="' . esc_attr( $room_type->name ) . '" class="img-responsive">
+                        </div>
+                        <h4 class="wpbooking-tour-type-temp"></h4>
+                        <h2 class="wpbooking-tour-type-title"><a href="'.get_term_link($room_type).'" target="_blank">' . esc_html( $room_type->name ) . '</a></h2>
+                    </div>
+                ';
+
+        }
+
         function _save_custom_fields_tour_type( $tour_type_id )
         {
             $featured_image = WPBooking_Input::post( 'featured_image_tour_type' );
             update_tax_meta( $tour_type_id, 'featured_image_tour_type', $featured_image );
+        }
+
+        function _save_custom_fields_room_type( $tour_type_id )
+        {
+            $featured_image = WPBooking_Input::post( 'featured_image_room_type' );
+            update_tax_meta( $tour_type_id, 'featured_image_room_type', $featured_image );
         }
 
         function _edit_custom_fields_tour_type($term_object){
@@ -115,6 +158,45 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
                             <?php endif; ?>
                         </div>
                         <input type="hidden" class="save-image-id" name="featured_image_tour_type"
+                               value="<?php echo esc_attr( $wpbooking_featured_image ); ?>">
+                        <button type="button"
+                                class="upload-button <?php if ( empty( $thumbnail_url ) ) echo 'no_image'; ?>"
+                                data-uploader_title="<?php esc_html_e( 'Select an image to upload', 'wp-booking-management-system' ); ?>"
+                                data-uploader_button_text="<?php esc_html_e( 'Use this image', 'wp-booking-management-system' ); ?>"><?php echo esc_html__( 'Upload', 'wp-booking-management-system' ); ?></button>
+                        <button type="button"
+                                class="delete-button <?php if ( empty( $thumbnail_url ) ) echo 'none'; ?>"
+                                data-delete-title="<?php echo esc_html__( 'Do you want delete this image?', 'wp-booking-management-system' ) ?>"><?php echo esc_html__( 'Delete', 'wp-booking-management-system' ); ?></button>
+                    </div>
+                </td>
+            </tr>
+
+        <?php }
+
+        function _edit_custom_fields_room_type($term_object){
+
+            if ( empty( $term_object->term_id ) ) $room_type_id = 0; else $room_type_id = $term_object->term_id;
+
+            $wpbooking_featured_image = get_tax_meta( $room_type_id, 'featured_image_room_type' );
+            $thumbnail_url            = wp_get_attachment_url( $wpbooking_featured_image );
+            ?>
+            <tr class="form-field">
+                <th scope="row" valign="top">
+                    <label><?php echo esc_html__( 'Featured Image', 'wp-booking-management-system' ); ?></label>
+                </th>
+                <td>
+                    <div class="upload-wrapper">
+                        <div class="upload-items">
+                            <?php
+                            if ( !empty( $thumbnail_url ) ):
+                                ?>
+                                <div class="upload-item">
+                                    <img src="<?php echo esc_url( $thumbnail_url ); ?>"
+                                         alt="<?php echo esc_html__( 'Featured Thumb', 'wp-booking-management-system' ) ?>"
+                                         class="frontend-image img-responsive">
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <input type="hidden" class="save-image-id" name="featured_image_room_type"
                                value="<?php echo esc_attr( $wpbooking_featured_image ); ?>">
                         <button type="button"
                                 class="upload-button <?php if ( empty( $thumbnail_url ) ) echo 'no_image'; ?>"

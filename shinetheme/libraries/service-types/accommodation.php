@@ -1943,7 +1943,7 @@
                 // Taxonomy
                 $tax = $this->request( 'taxonomy' );
                 if ( !empty( $tax ) and is_array( $tax ) ) {
-                    $taxonomy_operator = $this->request( 'taxonomy_operator' );
+                    $taxonomy_operator = $this->request( 'taxonomy_operator', 'AND' );
                     $tax_query_child   = [];
                     foreach ( $tax as $key => $value ) {
                         if ( $value ) {
@@ -1964,6 +1964,7 @@
                             if ( !empty( $ids ) ) {
                                 $tax_query[] = [
                                     'taxonomy' => $key,
+                                    'field' => 'term_id',
                                     'terms'    => $ids,
                                     'operator' => $operator,
                                 ];
