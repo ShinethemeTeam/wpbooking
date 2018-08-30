@@ -251,8 +251,7 @@
                  * @author quandq
                  */
                 add_action( 'wpbooking_after_save_room_hotel', [ $this, '_update_min_price_hotel' ],10,2 );
-                add_action( 'save_post', [ $this, '_update_min_price_hotel' ] );
-                add_action( 'wpbooking_save_metabox_section', [ $this, '_update_min_price_hotel' ] );
+                add_action( 'save_post', [ $this, '_update_min_price_hotel' ] , 10, 2);
 
                 /**
                  * Get inventory data
@@ -2233,12 +2232,9 @@
                                         order_room.room_id,
                                         count(order_room.id) AS total_booked,
                                         SUM(order_room.number) as total_number,
-                                        {$wpdb->postmeta}.meta_value AS room_number
+                                        order_room.num_room AS room_number
                                     FROM
                                         {$wpdb->prefix}wpbooking_order_hotel_room as order_room
-                                    INNER JOIN {$wpdb->prefix}wpbooking_order as _od ON _od.order_id = order_room.order_id
-                                    JOIN {$wpdb->postmeta} ON {$wpdb->postmeta}.post_id = order_room.room_id_origin
-                                    AND {$wpdb->postmeta}.meta_key = 'room_number'
                                     WHERE
                                         1 = 1
                                     AND (
@@ -2251,7 +2247,7 @@
                                             AND order_room.check_in_timestamp <= {$check_out}
                                         )
                                     )
-                                    AND _od.`status` NOT IN ('cancel','cancelled', 'payment_failed', 'refunded')
+                                    AND order_room.`status` NOT IN ('cancel','cancelled', 'payment_failed', 'refunded')
                                     GROUP BY
                                         order_room.room_id_origin
                                     HAVING
@@ -2309,12 +2305,9 @@
                                                 order_room.room_id,
                                                 count(order_room.id) AS total_booked,
                                                 SUM(order_room.number) AS total_number,
-                                                {$wpdb->prefix}postmeta.meta_value AS room_number
+                                                order_room.num_room AS room_number
                                             FROM
                                                 {$wpdb->prefix}wpbooking_order_hotel_room AS order_room
-                                            INNER JOIN {$wpdb->prefix}wpbooking_order AS _od ON _od.order_id = order_room.order_id
-                                            JOIN {$wpdb->prefix}postmeta ON {$wpdb->prefix}postmeta.post_id = order_room.room_id_origin
-                                            AND {$wpdb->prefix}postmeta.meta_key = 'room_number'
                                             WHERE
                                                 1 = 1
                                             AND (
@@ -2327,7 +2320,7 @@
                                                     AND order_room.check_in_timestamp <= '{$check_out}'
                                                 )
                                             )
-                                            AND _od.`status` NOT IN (
+                                            AND order_room.`status` NOT IN (
                                                 'cancel',
                                                 'cancelled',
                                                 'payment_failed',
@@ -2462,7 +2455,7 @@
             }
 
             /**
-             * @param bool $defaultwpbooking_min_max_price_
+             * @param bool $default wpbooking_min_max_price_
              *
              * @return bool|mixed|void
              */
@@ -3116,24 +3109,21 @@
                                     order_room.room_id,
                                     count(order_room.id) AS total_booked,
                                     SUM(order_room.number) as total_number,
-                                    {$wpdb->postmeta}.meta_value AS room_number
+                                    order_room.num_room AS room_number
                                 FROM {$wpdb->prefix}wpbooking_order_hotel_room as order_room
-                                INNER JOIN {$wpdb->prefix}wpbooking_order as _od ON _od.order_id = order_room.order_id
-                                JOIN {$wpdb->postmeta} ON {$wpdb->postmeta}.post_id = order_room.room_id_origin
-                                AND {$wpdb->postmeta}.meta_key = 'room_number'
                                 WHERE 
                                     1 = 1
                                 AND (
                                     (
-                                        check_in_timestamp <= {$check_in}
-                                        AND check_out_timestamp >= {$check_in}
+                                        order_room.check_in_timestamp <= {$check_in}
+                                        AND order_room.check_out_timestamp >= {$check_in}
                                     )
                                     OR (
-                                        check_in_timestamp >= {$check_in}
-                                        AND check_in_timestamp <= {$check_out}
+                                        order_room.check_in_timestamp >= {$check_in}
+                                        AND order_room.check_in_timestamp <= {$check_out}
                                     )
                                 )
-                                AND _od.`status` NOT IN ('cancel','cancelled', 'payment_failed', 'refunded')
+                                AND order_room.`status` NOT IN ('cancel','cancelled', 'payment_failed', 'refunded')
                                 GROUP BY
                                     order_room.room_id
                                 HAVING

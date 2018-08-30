@@ -291,7 +291,7 @@
 
                     $status = 'completed';
 
-                    if ( !empty( $data[ 'deposit_price' ] ) and $data[ 'deposit_price' ] > 0 and $data[ 'deposit_price' ] != $data[ 'price' ] ) {
+                    if ( !empty( $data[ 'deposit_price' ] ) and $data[ 'deposit_price' ] > 0 and round($data[ 'deposit_price' ], 2) != round($data[ 'price' ], 2) ) {
                         $status = 'completed_a_part';
                     }
 

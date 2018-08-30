@@ -203,9 +203,10 @@
                             die;
                         }
                         $this->set_table( WPBooking_Input::post( 'table' ) );
-                        $base_id = (int)wpbooking_origin_id( $post_id, 'wpbooking_hotel_room' );
+                        $base_id = (int)wpbooking_origin_id( $post_id, get_post_type($post_id) );
+                        $max_people = WPBooking_Input::post( 'calendar_max_people', '' );
 
-                        $new_item = $this->_calendar_save_data( $post_id, $base_id, $check_in, $check_out, $price, $status, $group_day, $weekly, $monthly, $can_check_in, $can_check_out, $calendar_minimum, $calendar_maximum, $calendar_price, $calendar_adult_minimum, $calendar_adult_price, $calendar_child_minimum, $calendar_child_price, $calendar_infant_minimum, $calendar_infant_price );
+                        $new_item = $this->_calendar_save_data( $post_id, $base_id, $check_in, $check_out, $price, $status, $group_day, $weekly, $monthly, $can_check_in, $can_check_out, $calendar_minimum, $calendar_maximum, $calendar_price, $calendar_adult_minimum, $calendar_adult_price, $calendar_child_minimum, $calendar_child_price, $calendar_infant_minimum, $calendar_infant_price, $max_people );
                         do_action( 'wpbooking_after_add_availability', $post_id );
                         if ( $new_item > 0 ) {
                             echo json_encode( [
@@ -224,7 +225,7 @@
                 }
             }
 
-            public function _calendar_save_data( $post_id, $base_id, $check_in, $check_out, $price, $status, $group_day, $weekly, $monthly, $can_check_in, $can_check_out, $calendar_minimum, $calendar_maximum, $calendar_price, $calendar_adult_minimum, $calendar_adult_price, $calendar_child_minimum, $calendar_child_price, $calendar_infant_minimum, $calendar_infant_price )
+            public function _calendar_save_data( $post_id, $base_id, $check_in, $check_out, $price, $status, $group_day, $weekly, $monthly, $can_check_in, $can_check_out, $calendar_minimum, $calendar_maximum, $calendar_price, $calendar_adult_minimum, $calendar_adult_price, $calendar_child_minimum, $calendar_child_price, $calendar_infant_minimum, $calendar_infant_price, $max_people )
             {
                 /* Get all item between check in - out */
 
@@ -240,10 +241,10 @@
 
                 if ( isset( $split[ 'insert' ] ) && !empty( $split[ 'insert' ] ) ) {
                     foreach ( $split[ 'insert' ] as $item ) {
-                        $this->wpbooking_insert_availability( $item[ 'post_id' ], $item[ 'base_id' ], $item[ 'start' ], $item[ 'end' ], $item[ 'price' ], $item[ 'status' ], $item[ 'group_day' ], $weekly, $monthly, $can_check_in, $can_check_out, $item[ 'calendar_minimum' ], $item[ 'calendar_maximum' ], $item[ 'calendar_price' ], $item[ 'adult_minimum' ], $item[ 'adult_price' ], $item[ 'child_minimum' ], $item[ 'child_price' ], $item[ 'infant_minimum' ], $item[ 'infant_price' ] );
+                        $this->wpbooking_insert_availability( $item[ 'post_id' ], $item[ 'base_id' ], $item[ 'start' ], $item[ 'end' ], $item[ 'price' ], $item[ 'status' ], $item[ 'group_day' ], $weekly, $monthly, $can_check_in, $can_check_out, $item[ 'calendar_minimum' ], $item[ 'calendar_maximum' ], $item[ 'calendar_price' ], $item[ 'adult_minimum' ], $item[ 'adult_price' ], $item[ 'child_minimum' ], $item[ 'child_price' ], $item[ 'infant_minimum' ], $item[ 'infant_price' ] , $item['max_people']);
                     }
                 }
-                $new_item = $this->wpbooking_insert_availability( $post_id, $base_id, $check_in, $check_out, $price, $status, $group_day, $weekly, $monthly, $can_check_in, $can_check_out, $calendar_minimum, $calendar_maximum, $calendar_price, $calendar_adult_minimum, $calendar_adult_price, $calendar_child_minimum, $calendar_child_price, $calendar_infant_minimum, $calendar_infant_price );
+                $new_item = $this->wpbooking_insert_availability( $post_id, $base_id, $check_in, $check_out, $price, $status, $group_day, $weekly, $monthly, $can_check_in, $can_check_out, $calendar_minimum, $calendar_maximum, $calendar_price, $calendar_adult_minimum, $calendar_adult_price, $calendar_child_minimum, $calendar_child_price, $calendar_infant_minimum, $calendar_infant_price, $max_people );
 
                 return $new_item;
             }
@@ -312,6 +313,7 @@
                     $adult  = WPBooking_Input::post( 'adult_bulk', '' );
                     $child  = WPBooking_Input::post( 'child_bulk', '' );
                     $infant = WPBooking_Input::post( 'infant_bulk', '' );
+                    $max_people = WPBooking_Input::post( 'max_people_bulk', '' );
 
                     $status     = WPBooking_Input::post( 'status_bulk', 'available' );
                     $price_type = WPBooking_Input::post( 'price_type', '' );
@@ -460,6 +462,7 @@
                                     'adult_price'    => $adult,
                                     'child_price'    => $child,
                                     'infant_price'   => $infant,
+                                    'max_people'   => $max_people,
                                 ];
 
                                 $return = $this->insert_calendar_bulk( $data, $posts_per_page, $total, $current_page, $all_days, $post_id );
@@ -513,10 +516,8 @@
                     }
                     /*	.End */
 
-
-                    $this->wpbooking_insert_availability( $data[ 'post_id' ], $data[ 'base_id' ], $data[ 'start' ], $data[ 'end' ], $data[ 'price' ], $data[ 'status' ], $data[ 'group_day' ], false, false, false, false, false, false, $data[ 'price' ], false, $data[ 'adult_price' ], false, $data[ 'child_price' ], false, $data[ 'child_price' ] );
+                    $this->wpbooking_insert_availability( $data[ 'post_id' ], $data[ 'base_id' ], $data[ 'start' ], $data[ 'end' ], $data[ 'price' ], $data[ 'status' ], $data[ 'group_day' ], false, false, false, false, false, false, $data[ 'price' ], false, $data[ 'adult_price' ], false, $data[ 'child_price' ], false, $data[ 'child_price' ], $data['max_people'] );
                 }
-
 
                 $next_page = (int)$current_page + 1;
 
@@ -552,7 +553,7 @@
 
             }
 
-            public function wpbooking_insert_availability( $post_id = '', $base_id = '', $check_in = '', $check_out = '', $price = '', $status = '', $group_day = '', $weekly = false, $monthly = false, $can_check_in = 1, $can_check_out = 1, $calendar_minimum = '', $calendar_maximum = '', $calendar_price = '', $adult_minimum = '', $adult_price = '', $child_minimum = '', $child_price = '', $infant_minimum = '', $infant_price = '' )
+            public function wpbooking_insert_availability( $post_id = '', $base_id = '', $check_in = '', $check_out = '', $price = '', $status = '', $group_day = '', $weekly = false, $monthly = false, $can_check_in = 1, $can_check_out = 1, $calendar_minimum = '', $calendar_maximum = '', $calendar_price = '', $adult_minimum = '', $adult_price = '', $child_minimum = '', $child_price = '', $infant_minimum = '', $infant_price = '', $max_people = '' )
             {
                 global $wpdb;
                 $table = $wpdb->prefix . $this->table;
@@ -580,6 +581,7 @@
                             'child_price'      => $child_price,
                             'infant_minimum'   => $infant_minimum,
                             'infant_price'     => $infant_price,
+                            'max_people'     => $max_people,
                         ]
                     );
                 } else {
@@ -608,6 +610,7 @@
                                 'child_price'      => $child_price,
                                 'infant_minimum'   => $infant_minimum,
                                 'infant_price'     => $infant_price,
+                                'max_people'     => $max_people,
                             ]
                         );
                     }
@@ -654,6 +657,7 @@
                             'infant_minimum'   => $item[ 'infant_minimum' ],
                             'infant_price'     => $item[ 'infant_price' ],
                             'pricing_type'     => get_post_meta( $item[ 'post_id' ], 'pricing_type', true ),
+                            'max_people' => $item['max_people'],
                         ];
 
                         $return[] = $item_array;

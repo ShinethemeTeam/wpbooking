@@ -140,6 +140,30 @@
                         }
                     ?>
                 </ul>
+
+                <?php
+                    $discount_by_people = get_post_meta( $tour_id, 'discount_by_no_people', true );
+                    if ( !empty( $discount_by_people ) ) {
+                        ?>
+                        <table class="table mt20">
+                            <tr>
+                                <th><?php echo esc_html__( 'Range', 'wp-booking-management-system' ) ?></th>
+                                <th><?php echo esc_html__( 'Discount (%)', 'wp-booking-management-system' ); ?></th>
+                            </tr>
+                            <?php
+                                foreach ( $discount_by_people as $range ) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo esc_html( $range[ 'title' ] ); ?></td>
+                                        <td><?php echo (float)$range[ 'price' ]. '%'; ?></td>
+                                    </tr>
+                                    <?php
+                                }
+                            ?>
+                        </table>
+                        <?php
+                    }
+                ?>
             </div>
         </div>
         <div class="col-service-reviews-meta">

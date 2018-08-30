@@ -15,7 +15,7 @@
 
             public function __construct()
             {
-                $this->table_version = '1.0.6';
+                $this->table_version = '1.2';
                 $this->columns       = [
                     'id'               => [
                         'type'           => 'int',
@@ -41,6 +41,7 @@
                     'can_check_in'     => [ 'type' => 'int', 'length' => 4 ],
                     'can_check_out'    => [ 'type' => 'int', 'length' => 4 ],
                     'group_day'        => [ 'type' => 'varchar', 'length' => 255 ],
+                    'max_people'        => [ 'type' => 'int', 'length' => 5 ],
 
                 ];
 

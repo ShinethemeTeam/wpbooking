@@ -15,7 +15,7 @@
         {
             public function __construct()
             {
-                $this->table_version = '1.0.0';
+                $this->table_version = '1.3';
                 $this->table_name    = 'wpbooking_availability_tour';
                 $this->columns       = [
                     'id'               => [
@@ -42,10 +42,9 @@
                     'can_check_in'     => [ 'type' => 'int', 'length' => 4 ],
                     'can_check_out'    => [ 'type' => 'int', 'length' => 4 ],
                     'group_day'        => [ 'type' => 'varchar', 'length' => 255 ],
-
+                    'max_people'        => [ 'type' => 'int', 'length' => 5 ],
                 ];
                 parent::__construct();
-
             }
 
             public static function get_inst()

@@ -21,6 +21,7 @@
                     'wpbooking_update_status_order_hotel',
                     'wpbooking_update_num_total_room',
                     'wpbooking_update_num_total_room_in_hotel',
+                    'wpbooking_update_max_people_tour',
                 ];
                 if ( !empty( $need_update ) ) {
                     $this->need_update[] = $need_update;
@@ -176,12 +177,12 @@
             {
                 global $wpdb;
                 $sql = "
-                        UPDATE {$wpdb->prefix}wpbooking_order_hotel_room
-                        INNER JOIN {$wpdb->prefix}wpbooking_order ON {$wpdb->prefix}wpbooking_order_hotel_room.order_id = {$wpdb->prefix}wpbooking_order.order_id
-                        SET {$wpdb->prefix}wpbooking_order_hotel_room.status = {$wpdb->prefix}wpbooking_order.status
-                        WHERE
-                            {$wpdb->prefix}wpbooking_order.order_id = {$wpdb->prefix}wpbooking_order_hotel_room.order_id
-                      ";
+                    UPDATE {$wpdb->prefix}wpbooking_order_hotel_room
+                    INNER JOIN {$wpdb->prefix}wpbooking_order ON {$wpdb->prefix}wpbooking_order_hotel_room.order_id = {$wpdb->prefix}wpbooking_order.order_id
+                    SET {$wpdb->prefix}wpbooking_order_hotel_room.status = {$wpdb->prefix}wpbooking_order.status
+                    WHERE
+                        {$wpdb->prefix}wpbooking_order.order_id = {$wpdb->prefix}wpbooking_order_hotel_room.order_id
+                  ";
                 $wpdb->query( $sql );
             }
 
@@ -320,6 +321,21 @@
 
                 $wpdb->query( $sql );
 
+            }
+
+            public function wpbooking_update_max_people_tour(){
+                global $wpdb;
+                $sql = "UPDATE {$wpdb->prefix}wpbooking_availability_tour AS tour
+                    INNER JOIN {$wpdb->prefix}postmeta AS meta ON (
+                        tour.post_id = meta.post_id
+                        AND meta.meta_key = 'max_guests'
+                    )
+                    SET tour.min_people = meta.meta_value,
+                     tour.max_people = meta.meta_value
+                    WHERE
+                        1 = 1";
+
+                $wpdb->query($sql);
             }
 
             public static function get_inst()

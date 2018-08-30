@@ -79,6 +79,7 @@ jQuery(document).ready(function ($) {
                     },
                     dayClick        : function (element, source) {
                         if (source) {
+                            console.log(source);
                             var start = moment(source.start);
                             var end   = moment(source.start);
                             setCheckInOut(start.format('MM/DD/YYYY'), end.format('MM/DD/YYYY'), self.form_container);
@@ -121,7 +122,9 @@ jQuery(document).ready(function ($) {
                                 $('input[name=calendar_infant_minimum]').val('');
                                 $('input[name=calendar_infant_price]').val('');
                             }
-
+                            if(source.max_people != undefined){
+                                $('input[name=calendar_max_people]').val(source.max_people);
+                            }
                         }
                     },
                     onSelectionRange: function (start, end) {
@@ -246,6 +249,7 @@ jQuery(document).ready(function ($) {
                         'calendar_child_price'   : $('input[name=calendar_child_price]', parent).val(),
                         'calendar_infant_minimum': $('input[name=calendar_infant_minimum]', parent).val(),
                         'calendar_infant_price'  : $('input[name=calendar_infant_price]', parent).val(),
+                        'calendar_max_people'  : $('input[name=calendar_max_people]', parent).val()
                     };
 
                     if (flag_add) return false;
@@ -457,6 +461,7 @@ jQuery(document).ready(function ($) {
             'adult_bulk'  : $('input[name="adult-bulk"]', parent).val(),
             'child_bulk'  : $('input[name="child-bulk"]', parent).val(),
             'infant_bulk' : $('input[name="infant-bulk"]', parent).val(),
+            'max_people_bulk' : $('input[name="max_people_bulk"]', parent).val(),
             'status_bulk' : $('select[name="status-bulk"]', parent).val(),
             'post_type'   : $('input[name="type-bulk"]', parent).val(),
             'price_type'  : $('input[name="price-type"]', parent).val(),

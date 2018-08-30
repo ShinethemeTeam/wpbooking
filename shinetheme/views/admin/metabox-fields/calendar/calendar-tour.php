@@ -95,7 +95,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr >
+                            <tr>
                                 <td>
                                     <input type="number" name="calendar_minimum" min="1" class="number-select"
                                            value="1"></td>
@@ -169,6 +169,13 @@
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                                <td colspan="2"><?php echo esc_html__( 'Maximum people (optional)', 'wp-booking-management-system' ) ?></td>
+                                <td>
+                                    <input type="number" name="calendar_max_people" min="0" class="number-select"
+                                           value="" placeholder="0">
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                         <div class="clear"></div>
@@ -196,7 +203,8 @@
                         <div class="help-label"><?php echo esc_html__( 'How to set Availability ?', 'wp-booking-management-system' ) ?></div>
                         <h4><strong><?php echo esc_html__( 'Way 1:', 'wp-booking-management-system' ) ?></strong></h4>
                         <ul class="list">
-                            <li>+ <?php echo esc_html__( 'To set availability on your calendar:', 'wp-booking-management-system' ) ?>
+                            <li>
+                                + <?php echo esc_html__( 'To set availability on your calendar:', 'wp-booking-management-system' ) ?>
                                 <ul>
                                     <li>
                                         - <?php echo esc_html__( 'At the  right side of table, click to Start Date picker to set a start date', 'wp-booking-management-system' ) ?></li>
@@ -345,7 +353,7 @@
                                 </div>
                             </div>
                             <div class="clear"></div>
-                            <div class="form-content flex clearfix">
+                            <div class="form-content clearfix">
                                 <label
                                         class="mr10 wpbooking-condition"
                                         data-condition="pricing_type:is(per_person)"><span><strong><?php echo esc_html__( 'Adult', 'wp-booking-management-system' ); ?>
@@ -374,8 +382,16 @@
                                     <input type="text" value="" name="price-bulk" id="price-bulk"
                                            placeholder="<?php echo esc_html__( 'Price', 'wp-booking-management-system' ); ?>">
                                 </label>
+                                <br>
+                                <div class="mt10"></div>
+                                <label
+                                        class=" mr10"><span><strong><?php echo esc_html__( 'Maximum people', 'wp-booking-management-system' ); ?>
+                                            : </strong></span>
+                                    <input type="number" min="0" step="1" value="0" name="max_people_bulk" id="max-people-bulk">
+                                </label>
                                 <label class="">
-                                    <span><strong><?php echo esc_html__( 'Status', 'wp-booking-management-system' ); ?>: </strong></span>
+                                    <span><strong><?php echo esc_html__( 'Status', 'wp-booking-management-system' ); ?>
+                                            : </strong></span>
                                     <select name="status-bulk">
                                         <option
                                                 value="available"><?php echo esc_html__( 'Available', 'wp-booking-management-system' ) ?></option>
