@@ -169,6 +169,9 @@
                                     </div>
                                 </td>
                             </tr>
+                            </tbody>
+                        </table>
+                        <table class="calendar-room-price-table" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td colspan="2"><?php echo esc_html__( 'Maximum people (optional)', 'wp-booking-management-system' ) ?></td>
                                 <td>
@@ -176,7 +179,6 @@
                                            value="" placeholder="0">
                                 </td>
                             </tr>
-                            </tbody>
                         </table>
                         <div class="clear"></div>
                         <div class="clearfix mb10">

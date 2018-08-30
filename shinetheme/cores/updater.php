@@ -330,7 +330,7 @@
                         tour.post_id = meta.post_id
                         AND meta.meta_key = 'max_guests'
                     )
-                    SET tour.min_people = meta.meta_value,
+                    SET
                      tour.max_people = meta.meta_value
                     WHERE
                         1 = 1";

@@ -1695,7 +1695,7 @@
                 global $wpdb;
                 switch ( get_post_meta( $post_id, 'pricing_type', true ) ) {
                     case "per_unit":
-                        $from_query = $calendar->select( $wpdb->prefix . 'wpbooking_availability_tour.max_people as max_guests, wpbooking_availability_tour.id,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price' )
+                        $from_query = $calendar->select( $wpdb->prefix . "wpbooking_availability_tour.max_people as max_guests, {$wpdb->prefix}wpbooking_availability_tour.id,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price")
                             ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability_tour.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
                             ->where( [
                                 $wpdb->prefix . 'wpbooking_availability_tour.post_id' => $post_id,
