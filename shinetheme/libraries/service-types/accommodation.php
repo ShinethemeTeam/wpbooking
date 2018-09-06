@@ -1972,7 +1972,6 @@
                         }
                     }
 
-
                     if ( !empty( $tax_query_child ) )
                         $tax_query[] = $tax_query_child;
                 }
@@ -2088,32 +2087,100 @@
                     }
                 }
                 $sql = "
-            {$wpdb->posts}.ID IN (
-                    (
+                {$wpdb->posts}.ID IN (
+                        (
+                            SELECT
+                                hotel_id
+                            FROM
+                                (
+                                    SELECT
+                                        {$wpdb->posts}.ID AS room_id,
+                                        {$wpdb->posts}.post_parent AS hotel_id
+                                    FROM
+                                        {$wpdb->posts}
+                                    JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id
+                                    AND {$wpdb->postmeta}.meta_key = 'room_number'
+                                    WHERE
+                                        {$wpdb->posts}.post_type = 'wpbooking_hotel_room'
+                                    AND {$wpdb->postmeta}.meta_value > 0
+                                    AND {$wpdb->posts}.post_status = 'publish'
+                                    GROUP BY
+                                        hotel_id
+                                ) AS ID
+                        )
+                    )
+                ";
+
+                $injection->where( $sql, false, true );
+
+                if ( $check_in and $check_out ) {
+                    $check_in_timestamp  = strtotime( $check_in );
+                    $check_out_timestamp = strtotime( $check_out );
+
+                    $sql = "{$wpdb->posts}.ID NOT IN(
                         SELECT
                             hotel_id
                         FROM
                             (
                                 SELECT
-                                    {$wpdb->posts}.ID AS room_id,
-                                    {$wpdb->posts}.post_parent AS hotel_id
+                                    hotel_id,
+                                    count(room_id) AS total_room,
+                                    total
                                 FROM
-                                    {$wpdb->posts}
-                                JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id
-                                AND {$wpdb->postmeta}.meta_key = 'room_number'
-                                WHERE
-                                    {$wpdb->posts}.post_type = 'wpbooking_hotel_room'
-                                AND {$wpdb->postmeta}.meta_value > 0
-                                AND {$wpdb->posts}.post_status = 'publish'
+                                    (
+                                        SELECT
+                                            _od_room.room_id_origin AS room_id,
+                                            _od_room.num_room AS num_room,
+                                            sum(_od_room.number) AS c_room,
+                                            _od_room.hotel_id_origin AS hotel_id,
+                                            _od_room.total_room AS total
+                                        FROM
+                                            {$wpdb->prefix}wpbooking_order_hotel_room AS _od_room
+                                        WHERE
+                                            1 = 1
+                                        AND (
+                                            (
+                                                CAST(
+                                                    _od_room.check_in_timestamp AS UNSIGNED
+                                                ) >= CAST({$check_in_timestamp} AS UNSIGNED)
+                                                AND CAST(
+                                                    _od_room.check_in_timestamp AS UNSIGNED
+                                                ) <= CAST({$check_out_timestamp} AS UNSIGNED)
+                                            )
+                                            OR (
+                                                CAST(
+                                                    _od_room.check_out_timestamp AS UNSIGNED
+                                                ) >= CAST({$check_in_timestamp} AS UNSIGNED)
+                                                AND (
+                                                    CAST(
+                                                        _od_room.check_out_timestamp AS UNSIGNED
+                                                    ) <= CAST({$check_out_timestamp} AS UNSIGNED)
+                                                )
+                                            )
+                                            OR (
+                                                CAST(
+                                                    _od_room.check_in_timestamp AS UNSIGNED
+                                                ) <= CAST({$check_in_timestamp} AS UNSIGNED)
+                                                AND CAST(
+                                                    _od_room.check_out_timestamp AS UNSIGNED
+                                                ) >= CAST({$check_out_timestamp} AS UNSIGNED)
+                                            )
+                                        )
+                                        AND _od_room.`status` NOT IN ('cancel','cancelled', 'payment_failed', 'refunded')
+                                        GROUP BY
+                                            _od_room.room_id_origin
+                                        HAVING
+                                            num_room - c_room <= 0
+                                    ) AS cal_avai
                                 GROUP BY
                                     hotel_id
-                            ) AS ID
-                    )
-                )
-            ";
+                                HAVING
+                                    total - total_room <= 0
+                            ) AS _cal_avai
+                    )";
+                    $injection->where( $sql, false, true );
+                }
 
-
-                $injection->where( $sql, false, true );
                 parent::_add_default_query_hook();
 
             }

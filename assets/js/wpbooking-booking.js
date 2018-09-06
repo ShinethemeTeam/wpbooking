@@ -169,17 +169,17 @@ jQuery(document).ready(function ($) {
     // Checkout Form
     $('.wpbooking_checkout_form .submit-button').click(function () {
         var form = $(this).closest('form');
-        if($('input[name^="passengers"]', form).length){
+        if ($('input[name^="passengers"]', form).length) {
             var validate = true;
             $('input[name^="passengers"].required', form).removeClass('input-error');
-            $('input[name^="passengers"].required', form).each(function(){
+            $('input[name^="passengers"].required', form).each(function () {
                 var val = $(this).val();
-                if(val == ''){
+                if (val == '') {
                     $(this).addClass('input-error');
                     validate = false;
                 }
             });
-            if(!validate){
+            if (!validate) {
                 return false;
             }
         }
@@ -707,7 +707,7 @@ jQuery(document).ready(function ($) {
             var number = $(this).find('.option_number_room').val();
             var price  = $(this).find('.option_number_room').data('price-base');
             var diff   = parseFloat($('.more-extra', this).attr('data-diff'));
-            var person   = parseFloat($('.more-extra', this).attr('data-person'));
+            var person = parseFloat($('.more-extra', this).attr('data-person'));
             if (diff <= 0) {
                 diff = 1;
             }
@@ -730,17 +730,17 @@ jQuery(document).ready(function ($) {
                         var parent_extra = $(this).closest('tr');
                         var number_extra = parent_extra.find('.option_extra_quantity').val();
                         var price_extra  = parent_extra.find('.option_extra_quantity').data('price-extra');
-                        var price_type  = parent_extra.find('.option_extra_quantity').data('type-extra');
+                        var price_type   = parent_extra.find('.option_extra_quantity').data('type-extra');
                         if (!price_extra) {
                             price_extra = 0;
                         }
-                        if(price_type == 'per_night'){
+                        if (price_type == 'per_night') {
                             price_extra = parseFloat(price_extra) * number_extra * diff;
-                        }else if(price_type == 'per_night_people'){
-                            price_extra =parseFloat(price_extra) * number_extra * diff * person
-                        }else if(price_type == 'fixed_people'){
+                        } else if (price_type == 'per_night_people') {
+                            price_extra = parseFloat(price_extra) * number_extra * diff * person
+                        } else if (price_type == 'fixed_people') {
                             price_extra = parseFloat(price_extra) * number_extra * person;
-                        }else{
+                        } else {
                             price_extra = parseFloat(price_extra) * number_extra;
                         }
                         if (price_extra) {
@@ -2211,21 +2211,21 @@ jQuery(document).ready(function ($) {
     }
 
     $(".wpbooking-loop-items.slide").owlCarousel({
-        nav:true,
-        items:2,
-        navText : ['<i class="fa fa-angle-left" aria-hidden="true"></i>','<i class="fa fa-angle-right" aria-hidden="true"></i>'],
-        dot:true,
-        loop: true,
-        autoplay:true,
-        margin:15,
+        nav       : true,
+        items     : 2,
+        navText   : ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
+        dot       : true,
+        loop      : true,
+        autoplay  : true,
+        margin    : 15,
         responsive: {
-            0:{
+            0  : {
                 items: 1
             },
-            480:{
+            480: {
                 items: 2
             },
-            769:{
+            769: {
                 items: 2
             }
         }
@@ -2239,18 +2239,77 @@ jQuery(document).ready(function ($) {
             e.preventDefault();
             $(this).parent().addClass('active');
             var attr = $(this).attr('href');
-            if($(this).parent().siblings().hasClass('active')){
+            if ($(this).parent().siblings().hasClass('active')) {
                 $(this).parent().siblings().removeClass('active');
             }
             thisE.find('.tab-content .tab-pane').each(function () {
-                var tab_content = "#"+$(this).attr('id');
-                if(attr==tab_content){
+                var tab_content = "#" + $(this).attr('id');
+                if (attr == tab_content) {
                     $(this).siblings().removeClass('in active');
                     $(this).addClass('in active');
                 }
             })
         })
-    })
+    });
+
+    $('.wpbooking-check-all-container').each(function (e) {
+        var t        = $(this);
+        var checkall = $('.wpbooking-check-all', t);
+        var check    = t.find(checkall.data().target);
+        checkall.click(function () {
+            if ($(this).is(':checked')) {
+                check.each(function () {
+                    check.prop('checked', true);
+                });
+            } else {
+                check.prop('checked', false);
+            }
+        });
+    });
+
+    if ($('.wpbooking-check-all-container').length) {
+        $('.wpbooking-check-all-container').each(function () {
+            var parent = $(this);
+            var value = '';
+            var fetchTo = parent.data('fetch');
+            $('.wpbooking-check-all', parent).change(function (e) {
+                var t = $(this);
+                value = '';
+                $('.wpbooking-check', parent).each(function () {
+                    $(this).prop('checked', t.prop('checked'));
+                    if ($(this).is(':checked')) {
+                        value += $(this).val() + ',';
+                    }
+                });
+                if (value.length > 0) {
+                    value = value.substr(0, value.length - 1);
+                }
+                $(fetchTo).attr('value',value);
+            });
+            $('.wpbooking-check', parent).change(function () {
+                value = '';
+                $('.wpbooking-check', parent).each(function () {
+                    if ($(this).is(':checked')) {
+                        value += $(this).val() + ',';
+                    }
+                });
+                if (value.length > 0) {
+                    value = value.substr(0, value.length - 1);
+                }
+                $(fetchTo).attr('value',value);
+            });
+            $('.wpbooking-check', parent).each(function () {
+                if ($(this).is(':checked')) {
+                    value += $(this).val() + ',';
+                }
+            });
+            if (value.length > 0) {
+                value = value.substr(0, value.length - 1);
+            }
+            $(fetchTo).attr('value',value);
+        });
+
+    }
 });
 
 

@@ -70,6 +70,26 @@
                 if ( !is_admin() )
                     add_action( 'pre_get_posts', [ $this, '_change_post_status_query' ] );
 
+
+                add_filter( 'wpml_duplicate_generic_string', [ $this, 'set_location_wpml_duplicated' ], 10, 3 );
+            }
+
+            public function set_location_wpml_duplicated( $value_to_filter, $target_language, $meta_data )
+            {
+                $context = $meta_data[ 'context' ];
+                if ( $value_to_filter !== '' && $context ) {
+                    $meta      = [
+                        'location_id' => 'wpbooking_location',
+                        'tour_type'   => 'wb_tour_type',
+                    ];
+                    $attribute = $meta_data[ 'attribute' ];
+                    if ( $context == 'custom_field' && $attribute == 'value' && in_array( $meta_data[ 'key' ], array_keys( $meta ) ) ) {
+                        $value_to_filter = apply_filters( 'wpml_object_id', $value_to_filter, $meta[ $meta_data[ 'key' ] ], false, $target_language );
+                    }
+                }
+
+                return $value_to_filter;
+
             }
 
             /**
