@@ -500,6 +500,8 @@
     ?>
     <div class="service-content-section comment-section">
         <?php
+            wp_reset_postdata();
+            wp_reset_query();
             if ( comments_open( get_the_ID() ) || get_comments_number() ) :
                 comments_template();
             endif;

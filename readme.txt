@@ -4,8 +4,8 @@ Plugin URI: https://wpbooking.org
 Contributors: wpbooking, shinetheme
 Donate link: paypal.me/kientt
 Tags: travel booking, tour booking, booking system, hotel booking, reservation system
-Requires at least: 4.0
-Tested up to: 4.9
+Requires at least: 4.9.8
+Tested up to: 4.9.8
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

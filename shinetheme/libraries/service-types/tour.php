@@ -564,7 +564,6 @@
              */
             public function _change_cart_total( $price, $cart )
             {
-
                 $cart = wp_parse_args( $cart, [
                     'pricing_type'    => '',
                     'adult_number'    => '',
@@ -572,11 +571,17 @@
                     'infant_number'   => '',
                     'calendar'        => []
                 ] );
-
                 switch ( $cart[ 'pricing_type' ] ) {
                     case "per_unit":
                         if ( !empty( $cart[ 'calendar' ][ 'calendar_price' ] ) ) {
                             $price = $cart[ 'calendar' ][ 'calendar_price' ];
+                        }
+                        break;
+                    case "fixed_people":
+                        if ( !empty( $cart[ 'calendar' ][ 'calendar_price' ] ) ) {
+                            $price        = $cart[ 'calendar' ][ 'calendar_price' ];
+                            $total_people = (int)$cart[ 'adult_number' ] + (int)$cart[ 'children_number' ] + (int)$cart[ 'infant_number' ];
+                            $price        *= $total_people;
                         }
                         break;
                     case "per_person":
@@ -601,7 +606,7 @@
                         break;
                 }
                 $people = (int)$cart[ 'adult_number' ] + (int)$cart[ 'children_number' ] + (int)$cart[ 'infant_number' ];
-                $price = $this->get_discount_by_people($cart['post_id'], $price, $people);
+                $price  = $this->get_discount_by_people( $cart[ 'post_id' ], $price, $people );
                 if ( !empty( $cart[ 'extra_fees' ] ) ) {
                     foreach ( $cart[ 'extra_fees' ] as $k => $v ) {
                         if ( !empty( $v[ 'data' ] ) ) {
@@ -708,6 +713,7 @@
                 }
                 switch ( $cart[ 'pricing_type' ] ) {
                     case "per_unit":
+                    case "fixed_people":
                         if ( !empty( $cart[ 'adult_number' ] ) ) {
                             printf( '<div class="people-price-item"><span class="head-item">%s:</span> <span class="price-item">%d</span></div>', esc_html__( 'Adult(s)', 'wp-booking-management-system' ), $cart[ 'adult_number' ] );
                         }
@@ -883,6 +889,7 @@
                     global $wpdb;
                     switch ( $service->get_meta( 'pricing_type' ) ) {
                         case "per_unit":
+                        case "fixed_people":
                             $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability_tour.id,
 	' . $wpdb->prefix . 'wpbooking_availability_tour.max_people as max_guests,calendar_minimum,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price' )
                                 ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability_tour.post_id" )
@@ -900,8 +907,6 @@
                                 wpbooking_set_message( esc_html__( 'Sorry! This tour is not available at your selected time', 'wp-booking-management-system' ), 'error' );
                             } else {
                                 $total_people = $cart_params[ 'adult_number' ] + $cart_params[ 'children_number' ] + $cart_params[ 'infant_number' ];
-
-
                                 if ( empty( $total_people ) ) {
                                     $is_validated = false;
                                     wpbooking_set_message( esc_html__( 'This tour requires 1 person at least', 'wp-booking-management-system' ), 'error' );
@@ -931,8 +936,6 @@
                                         }
                                     }
                                 }
-
-
                             }
                             break;
 
@@ -1016,6 +1019,7 @@
 
                 switch ( $service->get_meta( 'pricing_type' ) ) {
                     case "per_unit":
+                    case "fixed_people":
                         $query = $calendar->select( $wpdb->prefix . 'wpbooking_availability_tour.id,
 	' . $wpdb->prefix . 'wpbooking_availability_tour.max_people as max_guests,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price' )
                             ->join( 'wpbooking_service', "wpbooking_service.post_id = wpbooking_availability_tour.post_id" )
@@ -1240,14 +1244,12 @@
                                 'title'   => esc_html__( 'Your address matters! ', 'wp-booking-management-system' ),
                                 'content' => esc_html__( 'Please make sure to enter your full address ', 'wp-booking-management-system' )
                             ],
-
                             [ 'type' => 'close_section' ],
                             [
                                 'type' => 'section_navigation',
                                 'prev' => false,
                                 'step' => 'first'
                             ],
-
                         ]
                     ],
                     'detail_tab'   => [
@@ -1263,8 +1265,9 @@
                                 'type'  => 'dropdown',
                                 'id'    => 'pricing_type',
                                 'value' => [
-                                    'per_person' => esc_html__( 'Per person', 'wp-booking-management-system' ),
-                                    'per_unit'   => esc_html__( 'Per unit', 'wp-booking-management-system' ),
+                                    'per_person'   => esc_html__( 'Per person', 'wp-booking-management-system' ),
+                                    'per_unit'     => esc_html__( 'Per unit', 'wp-booking-management-system' ),
+                                    'fixed_people' => esc_html__( 'Fixed by People', 'wp-booking-management-system' ),
                                 ],
                                 'class' => 'small'
                             ],
@@ -1695,7 +1698,7 @@
                 global $wpdb;
                 switch ( get_post_meta( $post_id, 'pricing_type', true ) ) {
                     case "per_unit":
-                        $from_query = $calendar->select( $wpdb->prefix . "wpbooking_availability_tour.max_people as max_guests, {$wpdb->prefix}wpbooking_availability_tour.id,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price")
+                        $from_query = $calendar->select( $wpdb->prefix . "wpbooking_availability_tour.max_people as max_guests, {$wpdb->prefix}wpbooking_availability_tour.id,calendar_maximum,SUM(adult_number + children_number + infant_number) AS total_people_booked,start,calendar_price" )
                             ->join( 'wpbooking_order', "wpbooking_order.post_id = wpbooking_availability_tour.post_id and check_in_timestamp=`start` and wpbooking_order. STATUS NOT IN ('cancelled','refunded','cancel','payment_failed')", 'left' )
                             ->where( [
                                 $wpdb->prefix . 'wpbooking_availability_tour.post_id' => $post_id,

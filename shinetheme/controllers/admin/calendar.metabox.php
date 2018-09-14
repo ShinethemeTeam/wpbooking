@@ -445,7 +445,6 @@
                                 }
                             }
 
-
                             if ( !empty( $all_days ) ) {
                                 $posts_per_page = 10;
                                 $total          = count( $all_days );
@@ -463,6 +462,7 @@
                                     'child_price'    => $child,
                                     'infant_price'   => $infant,
                                     'max_people'   => $max_people,
+                                    'table' => WPBooking_Input::post('table')
                                 ];
 
                                 $return = $this->insert_calendar_bulk( $data, $posts_per_page, $total, $current_page, $all_days, $post_id );
@@ -490,7 +490,7 @@
 
             public function insert_calendar_bulk( $data, $posts_per_page, $total, $current_page, $all_days, $post_id )
             {
-                $this->set_table(WPBooking_Input::post( 'table' ));
+                $this->set_table($data['table']);
                 global $wpdb;
 
                 $start = ( $current_page - 1 ) * $posts_per_page;
@@ -515,14 +515,12 @@
                         }
                     }
                     /*	.End */
-
                     $this->wpbooking_insert_availability( $data[ 'post_id' ], $data[ 'base_id' ], $data[ 'start' ], $data[ 'end' ], $data[ 'price' ], $data[ 'status' ], $data[ 'group_day' ], false, false, false, false, false, false, $data[ 'price' ], false, $data[ 'adult_price' ], false, $data[ 'child_price' ], false, $data[ 'child_price' ], $data['max_people'] );
                 }
 
                 $next_page = (int)$current_page + 1;
 
                 $progress        = ( $current_page / $total ) * 100;
-                $data[ 'table' ] = WPBooking_Input::post( 'table' );
                 $return          = [
                     'all_days'       => $all_days,
                     'current_page'   => $next_page,

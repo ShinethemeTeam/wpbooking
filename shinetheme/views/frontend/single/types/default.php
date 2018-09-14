@@ -411,10 +411,11 @@
 
     <div class="service-content-section comment-section">
         <?php
+            wp_reset_postdata();
+            wp_reset_query();
             if ( comments_open( $hotel_id ) || get_comments_number() ) :
                 comments_template();
             endif;
-            wp_reset_query();
         ?>
     </div>
 <?php echo wpbooking_load_view( 'single/related' ) ?>

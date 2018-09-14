@@ -84,9 +84,8 @@
                                         value="not_available"><?php echo esc_html__( 'Not Available', 'wp-booking-management-system' ); ?></option>
                             </select>
                         </div>
-
                         <table class="calendar-room-price-table wpbooking-condition"
-                               data-condition="pricing_type:is(per_unit)" cellpadding="0" cellspacing="0">
+                               data-condition="pricing_type:is(per_unit),pricing_type:is(fixed_people)" data-operator="or" cellpadding="0" cellspacing="0">
                             <thead>
                             <tr>
                                 <th><?php echo esc_html__( 'Min Travelers', 'wp-booking-management-system' ) ?></th>

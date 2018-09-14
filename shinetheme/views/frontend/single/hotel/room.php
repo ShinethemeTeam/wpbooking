@@ -34,20 +34,22 @@
                             }
                             $check_in_out = current_time( wpbooking_date_format() ) . '-' . date( wpbooking_date_format(), strtotime( '+1 day', current_time( 'timestamp' ) ) );
 
+                            $currentdate = current_time('timestamp');
+                            $nextdate = strtotime('+1 day', $currentdate);
                         ?>
                         <div class="form-item w20 form-item-icon">
                             <label><?php echo esc_html__( 'Check In', 'wp-booking-management-system' ) ?><i class="fa fa-calendar"></i>
                                 <input class="checkin_d" name="checkin_d"
-                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkin_d' ) ) ?>"
+                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkin_d', date('d', $currentdate) ) ) ?>"
                                        type="hidden">
                                 <input class="checkin_m" name="checkin_m"
-                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkin_m' ) ) ?>"
+                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkin_m', date('m', $currentdate) ) ) ?>"
                                        type="hidden">
                                 <input class="checkin_y" name="checkin_y"
-                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkin_y' ) ) ?>"
+                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkin_y', date('y', $currentdate) ) ) ?>"
                                        type="hidden">
                                 <input type="text" readonly class="form-control wpbooking-search-start"
-                                       value="<?php echo do_shortcode( $check_in ) ?>" name="check_in"
+                                       value="<?php echo esc_attr( $check_in ) ?>" name="check_in"
                                        placeholder="<?php echo esc_html__( 'Check In', 'wp-booking-management-system' ) ?>">
                             </label>
                             <input class="wpbooking-check-in-out" type="text" name="check_in_out"
@@ -56,13 +58,13 @@
                         <div class="form-item w20 form-item-icon">
                             <label><?php echo esc_html__( 'Check Out', 'wp-booking-management-system' ) ?>
                                 <input class="checkout_d" name="checkout_d"
-                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkout_d' ) ) ?>"
+                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkout_d', date('d', $nextdate) ) ) ?>"
                                        type="hidden">
                                 <input class="checkout_m" name="checkout_m"
-                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkout_m' ) ) ?>"
+                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkout_m', date('m', $nextdate) ) ) ?>"
                                        type="hidden">
                                 <input class="checkout_y" name="checkout_y"
-                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkout_y' ) ) ?>"
+                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkout_y', date('y', $nextdate) ) ) ?>"
                                        type="hidden">
                                 <input type="text" readonly class="form-control wpbooking-search-end"
                                        value="<?php echo do_shortcode( $check_out ) ?>" name="check_out"

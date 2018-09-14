@@ -51,7 +51,7 @@
                         class="calendar-bulk-edit wpbooking-inventory-goto pull-right"><?php echo esc_html__( 'Bulk Edit', 'wp-booking-management-system' ); ?></button>
             </div>
             <div class="gantt wpbooking-gantt wpbooking-inventory" data-id="<?php echo esc_attr( $post_id ); ?>"
-                 data-rooms="<?php echo esc_attr( json_encode( $rooms ) ); ?>"></div>
+                 data-rooms="<?php echo esc_attr( json_encode( $rooms ) ); ?>" data-table=""></div>
             <div class="wpbooking-inventory-color">
                 <div class="inventory-color-item">
                     <span class="available"></span> <?php echo esc_html__( 'Available', 'wp-booking-management-system' ); ?>
@@ -216,6 +216,7 @@
                             </select>
                         </label>
                         <input type="hidden" class="type-bulk" name="type-bulk" value="accommodation">
+                        <input name="table" value="wpbooking_availability" type="hidden">
                         <div class="clear"></div>
                     </div>
                     <div class="form-message"></div>

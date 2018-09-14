@@ -122,7 +122,7 @@ jQuery(document).ready(function ($) {
                                 $('input[name=calendar_infant_minimum]').val('');
                                 $('input[name=calendar_infant_price]').val('');
                             }
-                            if(source.max_people != undefined){
+                            if (source.max_people != undefined) {
                                 $('input[name=calendar_max_people]').val(source.max_people);
                             }
                         }
@@ -226,7 +226,12 @@ jQuery(document).ready(function ($) {
                     var parent        = $(this).parents('.calendar-room-form');
                     var can_check_in  = $('#calendar-can-check-in').attr('checked') == 'checked' ? 1 : 0;
                     var can_check_out = $('#calendar-can-check-out').attr('checked') == 'checked' ? 1 : 0;
-                    var data          = {
+
+                    var max_guest = parseInt($('#max_guests').val());
+                    if ($('input[name="calendar_max_people"]').length > 0 && $('input[name="calendar_max_people"]').val() != '') {
+                        max_guest = parseInt($('input[name="calendar_max_people"]').val());
+                    }
+                    var data = {
                         'check_in'               : $('#calendar-checkin', parent).val(),
                         'check_out'              : $('#calendar-checkout', parent).val(),
                         'price'                  : $('#calendar-price', parent).val(),
@@ -249,7 +254,7 @@ jQuery(document).ready(function ($) {
                         'calendar_child_price'   : $('input[name=calendar_child_price]', parent).val(),
                         'calendar_infant_minimum': $('input[name=calendar_infant_minimum]', parent).val(),
                         'calendar_infant_price'  : $('input[name=calendar_infant_price]', parent).val(),
-                        'calendar_max_people'  : $('input[name=calendar_max_people]', parent).val()
+                        'calendar_max_people'    : max_guest
                     };
 
                     if (flag_add) return false;
@@ -453,23 +458,23 @@ jQuery(document).ready(function ($) {
         });
 
         var data = {
-            'day-of-week' : day_of_week,
-            'day-of-month': day_of_month,
-            'months'      : months,
-            'years'       : years,
-            'price_bulk'  : $('input[name="price-bulk"]', parent).val(),
-            'adult_bulk'  : $('input[name="adult-bulk"]', parent).val(),
-            'child_bulk'  : $('input[name="child-bulk"]', parent).val(),
-            'infant_bulk' : $('input[name="infant-bulk"]', parent).val(),
-            'max_people_bulk' : $('input[name="max_people_bulk"]', parent).val(),
-            'status_bulk' : $('select[name="status-bulk"]', parent).val(),
-            'post_type'   : $('input[name="type-bulk"]', parent).val(),
-            'price_type'  : $('input[name="price-type"]', parent).val(),
-            'post_id'     : $('.post-bulk', parent).val(),
-            'post_encrypt': $('input[name="post-encrypt"]', parent).val(),
-            'table'       : $('input[name="table"]', parent).val(),
-            'action'      : 'wpbooking_calendar_bulk_edit',
-            'security'    : wpbooking_params.wpbooking_security
+            'day-of-week'    : day_of_week,
+            'day-of-month'   : day_of_month,
+            'months'         : months,
+            'years'          : years,
+            'price_bulk'     : $('input[name="price-bulk"]', parent).val(),
+            'adult_bulk'     : $('input[name="adult-bulk"]', parent).val(),
+            'child_bulk'     : $('input[name="child-bulk"]', parent).val(),
+            'infant_bulk'    : $('input[name="infant-bulk"]', parent).val(),
+            'max_people_bulk': $('input[name="max_people_bulk"]', parent).val(),
+            'status_bulk'    : $('select[name="status-bulk"]', parent).val(),
+            'post_type'      : $('input[name="type-bulk"]', parent).val(),
+            'price_type'     : $('input[name="price-type"]', parent).val(),
+            'post_id'        : $('.post-bulk', parent).val(),
+            'post_encrypt'   : $('input[name="post-encrypt"]', parent).val(),
+            'table'          : $('input[name="table"]', parent).val(),
+            'action'         : 'wpbooking_calendar_bulk_edit',
+            'security'       : wpbooking_params.wpbooking_security
         };
 
         $('.form-message', parent).html('').removeClass('error updated');
