@@ -70,18 +70,36 @@
                 global $wpdb;
                 $today = strtotime( 'today' );
                 if ( $start_date < $today ) $start_date = $today;
-                $res = $this
-                    ->select( [
-                        $wpdb->prefix . 'wpbooking_availability.*',
-                    ] )
-                    ->join( 'posts', 'posts.ID=wpbooking_availability.post_id' )
-                    ->where( [
-                        $wpdb->prefix . 'wpbooking_availability.post_id' => $post_id,
-                        'start>='                                        => $start_date,
-                        'end<='                                          => $end_date
-                    ] )
-                    ->groupby( $wpdb->prefix . 'wpbooking_availability.id' )
-                    ->orderby( 'start', 'asc' )->get()->result();
+                $sql = "SELECT * FROM {$wpdb->prefix}wpbooking_availability as avai INNER JOIN {$wpdb->posts} as post ON (avai.post_id = post.ID) WHERE 1=1 
+                AND avai.post_id = {$post_id} AND (
+                    (
+                        CAST(
+                           avai.`start` AS UNSIGNED
+                        ) >= CAST({$start_date} AS UNSIGNED)
+                        AND CAST(
+                           avai.`start` AS UNSIGNED
+                        ) <= CAST({$end_date} AS UNSIGNED)
+                    )
+                    OR (
+                        CAST(
+                            avai.`end` AS UNSIGNED
+                        ) >= CAST({$start_date} AS UNSIGNED)
+                        AND (
+                            CAST(
+                                avai.`end` AS UNSIGNED
+                            ) <= CAST({$end_date} AS UNSIGNED)
+                        )
+                    )
+                    OR (
+                        CAST(
+                           avai.`start` AS UNSIGNED
+                        ) <= CAST({$start_date} AS UNSIGNED)
+                        AND CAST(
+                            avai.`end` AS UNSIGNED
+                        ) >= CAST({$end_date} AS UNSIGNED)
+                    )
+                ) GROUP BY avai.id ORDER BY avai.`start` ASC";
+                $res = $wpdb->get_results($sql, ARRAY_A);
 
                 return $res;
             }

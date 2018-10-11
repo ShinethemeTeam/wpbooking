@@ -57,11 +57,11 @@
             if ( !empty( $passenger_information ) ) {
                 ?>
                 <div class="col-xs-12">
-                    <label><strong><?php echo esc_html__( 'Passengers Information', 'wpbooking' ); ?></strong></label>
+                    <label><strong><?php echo esc_html__( 'Passengers Information', 'wp-booking-management-system' ); ?></strong></label>
                     <table>
                         <tr>
-                            <th><?php echo esc_html__( 'Name', 'wpbooking' ); ?></th>
-                            <th><?php echo esc_html__( 'Ages', 'wpbooking' ); ?></th>
+                            <th><?php echo esc_html__( 'Name', 'wp-booking-management-system' ); ?></th>
+                            <th><?php echo esc_html__( 'Ages', 'wp-booking-management-system' ); ?></th>
                         </tr>
                         <?php
                             foreach ( $passenger_information[ 'name' ] as $key => $name ) {

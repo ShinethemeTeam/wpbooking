@@ -94,22 +94,27 @@ if(!class_exists('WPBooking_Loader')){
 		/**
 		 * @param $file
 		 */
-		function load_library($file){
-			if(is_array($file) and !empty($file)){
-				foreach($file as $f){
-					$this->load_library($f);
-				}
-			}
+        function load_library( $file )
+        {
+            if ( is_array( $file ) and !empty( $file ) ) {
+                foreach ( $file as $f ) {
+                    $this->load_library( $f );
+                }
+            }
 
-			if(is_string($file)){
-				$real_file=WPBooking()->get_dir('shinetheme/libraries/'.$file.'.php');
-				if(file_exists($real_file))
-				{
-					include_once $real_file;
+            if ( is_string( $file ) ) {
+                $real_file = WPBooking()->get_dir( 'shinetheme/libraries/' . $file . '.php' );
+                if ( file_exists( $real_file ) ) {
+                    $custom_file = locate_template( ['shinetheme/libraries/' . $file . '.php'] );
+                    if(file_exists($custom_file)){
+                        include_once $custom_file;
+                    }else{
+                        include_once $real_file;
+                    }
 
-				}
-			}
-		}
+                }
+            }
+        }
 		function load_helper($file){
 			if(is_array($file) and !empty($file)){
 				foreach($file as $f){

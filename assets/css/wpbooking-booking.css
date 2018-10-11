@@ -2449,6 +2449,10 @@ ul.wpbooking-all-gateways li {
   font-weight: bold;
   cursor: pointer;
 }
+.single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content .room-facilities .item {
+  display: inline-block;
+  margin-right: 10px;
+}
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content .room-info:before,
 .single-wpbooking_service .wpbooking-single-content .service-content-section .search-room-availablity .content-search-room .loop-room .room-content .room-info:after {
   display: table;

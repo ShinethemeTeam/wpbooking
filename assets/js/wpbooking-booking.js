@@ -93,7 +93,7 @@ jQuery(document).ready(function ($) {
         var searchbox      = $(this).closest('.form-search-room');
         var data_form_book = searchbox.find('input,select,textarea').serializeArray();
         for (var i = 0; i < data_form_book.length; i++) {
-            searchbox.closest('.search-room-availablity').find('.form_book_' + data_form_book[i].name).val(data_form_book[i].value);
+            $('.search-room-availablity').find('.form_book_' + data_form_book[i].name).val(data_form_book[i].value);
         }
     });
     // Order Form
@@ -622,9 +622,9 @@ jQuery(document).ready(function ($) {
         }
         searchbox.addClass('loading');
         searchbox.find('.btn-do-search-room').addClass('loading');
-        var content_list_room       = parent.find('.content-loop-room');
-        var content_search_room     = parent.find('.content-search-room');
-        var content_pagination_room = parent.find('.pagination-room');
+        var content_list_room       = $('body').find('.content-loop-room');
+        var content_search_room     = $('body').find('.content-search-room');
+        var content_pagination_room = $('body').find('.pagination-room');
         $.ajax({
             'type'    : 'post',
             'dataType': 'json',
@@ -664,13 +664,12 @@ jQuery(document).ready(function ($) {
                         content_list_room.html(data.data);
                         content_search_room.show();
                         content_search_room.find('.wpbooking_order_form').addClass('no_date');
-
                     } else {
                         content_list_room.html('');
                         content_search_room.hide();
                     }
                 }
-
+                searchbox.trigger('wpbooking_do_search_room');
                 $('.content-search-room .content-loop-room .loop-room .option_number_room').trigger('change');
             },
             error     : function (data) {

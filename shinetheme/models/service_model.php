@@ -71,6 +71,9 @@
                             }
                             break;
                     }
+                    if ( $k == 'number' && get_post_type( $post_id ) == 'wpbooking_hotel_room' ) {
+                        $data[ $k ] = get_post_meta( $post_id, 'room_number', true );
+                    }
                 }
 
                 $data = apply_filters( 'wpbooking_extra_fields_data', $data, $columns, $post_id );

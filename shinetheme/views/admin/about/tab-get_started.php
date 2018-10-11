@@ -35,7 +35,7 @@
                target="_blank"><?php echo esc_html__( 'Getting Started', 'wp-booking-management-system' ); ?></a> <?php echo esc_html__( 'or for developer', 'wp-booking-management-system' ); ?>
             <a href="http://shinetheme.com/demosd/documentation/wpbooking/?cat=8" target="_blank"><?php echo esc_html__( 'API & Hooks', 'wp-booking-management-system' ) ?></a>
         </p>
-        <p><?php echo esc_html__('Support System:', 'wpbooking'); ?> <a href="http://helpdesk.wpbooking.org/forums/forum/wp-booking-plugin/" target="_blank"><?php echo esc_html__('Give your tickets', 'wpbooking') ?></a></p>
+        <p><?php echo esc_html__('Support System:', 'wp-booking-management-system'); ?> <a href="http://helpdesk.wpbooking.org/forums/forum/wp-booking-plugin/" target="_blank"><?php echo esc_html__('Give your tickets', 'wpbooking') ?></a></p>
         <p><?php echo esc_html__( 'Including:', 'wp-booking-management-system' ); ?></p>
     </div>
     <?php

@@ -1,9 +1,9 @@
 <?php
     /**
      * Plugin Name: WPBooking
-     * Plugin URI: wpbooking
+     * Plugin URI: https://wpbooking.org
      * Description: WP Booking helps you to setup an hotel booking, tour booking , marketplace booking system like booking.com, viator.com ... quickly, friendly, pleasantly and easily.
-     * Version: 1.9.9
+     * Version: 2.0.0
      * Author: wpbooking
      * Author URI: https://wpbooking.org
      * Requires at least: 4.9.8
@@ -25,7 +25,7 @@
         {
             static $_inst = false;
 
-            private $_version = '1.9.9';
+            private $_version = '2.0.0';
 
             /**
              * Get and Access Global Variable

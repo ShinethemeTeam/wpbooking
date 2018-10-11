@@ -38,6 +38,7 @@
          function _render_search_form_shortcode($atts){
              $atts = shortcode_atts(array(
                  'id' => '',
+                 'services_in' => ''
              ),$atts);
              return wpbooking_load_view('shortcode/form-search/form-search',array(
                  'atts' => $atts,

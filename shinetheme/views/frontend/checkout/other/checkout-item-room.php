@@ -11,7 +11,8 @@
                     <td class="text-center"><?php echo esc_html__( 'Price', 'wp-booking-management-system' ) ?>
                         (<?php echo WPBooking_Currency::get_current_currency( 'currency' ) ?>)
                     </td>
-                    <td class="text-center" width="15%"><?php echo esc_html__( 'Number', 'wp-booking-management-system' ) ?></td>
+                    <td class="text-center"
+                        width="15%"><?php echo esc_html__( 'Number', 'wp-booking-management-system' ) ?></td>
                     <td class="text-center"><?php echo esc_html__( 'Total', 'wp-booking-management-system' ) ?>
                         (<?php echo WPBooking_Currency::get_current_currency( 'currency' ) ?>)
                     </td>
@@ -151,6 +152,12 @@
                                             <div class="room-info">
                                                 <div class="title price">
                                                     <?php echo WPBooking_Currency::format_money( $price_room ); ?>
+                                                    <?php
+                                                        $type = $v[ 'type' ];
+                                                        if ( $type == 'per_people' ) {
+                                                            ?>
+                                                            x <?php echo esc_attr( $cart[ 'person' ] ); ?>
+                                                        <?php } ?>
                                                 </div>
                                                 <div class="sub-title">
                                                     <?php

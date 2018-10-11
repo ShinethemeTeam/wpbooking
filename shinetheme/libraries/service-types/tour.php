@@ -1426,11 +1426,11 @@
                                 'desc'  => esc_html__( "Set terms and conditions for your property", "wp-booking-management-system" )
                             ],
                             [
-                                'label' => esc_html__( 'Book tour before', 'wpbooking' ),
+                                'label' => esc_html__( 'Book tour before', 'wp-booking-management-system' ),
                                 'type'  => 'number',
                                 'id'    => 'booking_before',
                                 'min'   => 0,
-                                'desc'  => esc_html__( 'The number of days allowed before departure (unit: day)', 'wpbooking' )
+                                'desc'  => esc_html__( 'The number of days allowed before departure (unit: day)', 'wp-booking-management-system' )
                             ],
                             [
                                 'label' => esc_html__( 'Terms & Conditions', 'wp-booking-management-system' ),
@@ -1546,6 +1546,7 @@
                             "check_out"   => esc_html__( "To date", "wp-booking-management-system" ),
                             "taxonomy"    => esc_html__( "Taxonomy", "wp-booking-management-system" ),
                             "star_rating" => esc_html__( "Star Of Tour", "wp-booking-management-system" ),
+                            "adult_child" => esc_html__( "Adult & Children", "wp-booking-management-system" ),
                             "price"       => esc_html__( "Price", "wp-booking-management-system" ),
                         ]
                     ],
@@ -1860,7 +1861,53 @@
                         $injection->where( "(avail.`start` >= {$from_date} AND avail.`start` <= {$end_date})", false, true );
                         $injection->where( 'avail.status', 'available' );
                         $injection->groupby( 'avail.post_id' );
-
+                        $total_guest = (int)WPBooking_Input::get( 'adult_s', 1 ) + (int)WPBooking_Input::get( 'child_s' );
+                        $sql         = "{$wpdb->posts}.ID IN( SELECT
+                            post_id
+                        FROM
+                            (
+                                SELECT
+                                    sv.post_id,
+                                    sv.max_guests,
+                                
+                                IF (
+                                    sum(_od.adult_number) IS NULL,
+                                    0,
+                                    sum(_od.adult_number)
+                                ) AS adult_number,
+                                
+                                IF (
+                                    sum(_od.children_number) IS NULL,
+                                    0,
+                                    sum(_od.children_number)
+                                ) AS children_number,
+                                
+                                IF (
+                                    sum(_od.infant_number) IS NULL,
+                                    0,
+                                    sum(_od.infant_number)
+                                ) infant_number
+                                FROM
+                                    {$wpdb->prefix}wpbooking_service AS sv
+                                LEFT JOIN {$wpdb->prefix}wpbooking_order AS _od ON (
+                                    _od.post_id = sv.post_id
+                                    AND _od.check_in_timestamp = {$from_date}
+                                    AND _od.`status` NOT IN (
+                                        'cancel',
+                                        'cancelled',
+                                        'payment_failed',
+                                        'refunded'
+                                    )
+                                )
+                                WHERE
+                                    1 = 1
+                                AND sv.service_type = 'tour'
+                                
+                                GROUP BY
+                                    sv.post_id
+                                having max_guests - (adult_number + children_number + infant_number) >= {$total_guest}
+                            ) AS _tour)";
+                        $injection->where( $sql, false, true );
                         // Order By
                         if ( $sortby = $this->request( 'wb_sort_by' ) ) {
                             switch ( $sortby ) {

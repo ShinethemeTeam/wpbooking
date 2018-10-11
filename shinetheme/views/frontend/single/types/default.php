@@ -363,8 +363,6 @@
                     </div>
                 <?php } ?>
 
-
-
             <?php
                 if ( $terms_conditions = get_post_meta( $hotel_id, 'terms_conditions', true ) ) { ?>
                     <div class="service-detail-item">

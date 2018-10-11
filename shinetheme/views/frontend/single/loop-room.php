@@ -11,9 +11,9 @@
     $check_out    = WPBooking_Input::request( 'checkout_y' ) . "-" . WPBooking_Input::request( 'checkout_m' ) . "-" . WPBooking_Input::request( 'checkout_d' );
     if ( $check_in == '--' ) $check_in = '';
     if ( $check_out == '--' ) $check_out = '';
-    $person = (int) WPBooking_Input::request('adults') + (int) WPBooking_Input::request('children');
-    $diff = strtotime( $check_out ) - strtotime( $check_in );
-    $diff = $diff / ( 60 * 60 * 24 );
+    $person = (int)WPBooking_Input::request( 'adults' ) + (int)WPBooking_Input::request( 'children' );
+    $diff   = strtotime( $check_out ) - strtotime( $check_in );
+    $diff   = $diff / ( 60 * 60 * 24 );
     if ( $diff < 0 ) $diff = 0;
 ?>
 <div class="loop-room post-<?php the_ID() ?>">
@@ -62,29 +62,28 @@
         <div class="room-facilities">
             <?php $facilities = get_post_meta( get_the_ID(), 'taxonomy_room', true ); ?>
             <?php if ( !empty( $facilities ) ) { ?>
-                <div class="facilities">
-                    <?php
-                        $html = '';
-                        foreach ( $facilities as $taxonomy => $term_ids ) {
-                            $rental_features = get_taxonomy( $taxonomy );
-                            if ( !empty( $term_ids ) and !empty( $rental_features->labels->name ) ) {
-                                echo '<div class="title">' . esc_html( $rental_features->labels->name ) . ': </div>';
-                                foreach ( $term_ids as $key => $value ) {
-                                    if ( $key <= 6 ) {
-                                        $term = get_term( $value, $taxonomy );
-                                        if ( !empty( $term->name ) ) {
-                                            $html .= $term->name . ", ";
-                                        }
-
-                                    }
-                                }
+                <?php
+                foreach ( $facilities as $taxonomy => $term_ids ) {
+                    $rental_features = get_taxonomy( $taxonomy );
+                    if ( !empty( $term_ids ) and !empty( $rental_features->labels->name ) ) {
+                        echo '<div class="title">' . esc_html( $rental_features->labels->name ) . '</div>';
+                        foreach ( $term_ids as $key => $value ) {
+                            $term = get_term( $value, $taxonomy );
+                            if ( !is_wp_error( $term ) and !empty( $term->name ) ) {
+                                ?>
+                                <div class="item col-33">
+                                    <?php
+                                        $icon = get_tax_meta( $term->term_id, 'wpbooking_icon' );
+                                    ?>
+                                    <i class="<?php echo wpbooking_handle_icon( $icon ); ?>"></i>
+                                    <?php echo esc_html( $term->name ) ?>
+                                </div>
+                                <?php
                             }
                         }
-                        $html = substr( $html, 0, -2 );
-                        echo do_shortcode( $html );
-                    ?>
-                </div>
-            <?php } ?>
+                    }
+                }
+            } ?>
         </div>
     </div>
     <?php if ( empty( $external_link ) ) { ?>
@@ -112,7 +111,9 @@
                     ?>
                     <div class="room-total-price">
                         <?php
-                            $price = WPBooking_Accommodation_Service_Type::inst()->_get_price_room_with_date( $room_origin, $check_in, $check_out );
+
+                            $guest = (int) WPBooking_Input::request('adults') + (int) WPBooking_Input::request('children');
+                            $price = WPBooking_Accommodation_Service_Type::inst()->_get_price_room_with_date( $room_origin, $check_in, $check_out, $guest );
                             $price = WPBooking_Accommodation_Service_Type::inst()->get_discount_by_day( $room_origin, $price, $diff );
                             echo WPBooking_Currency::format_money( $price );
                         ?>
@@ -153,7 +154,8 @@
         <?php
         $number_night = $diff;
         ?>
-        <div class="more-extra" data-diff="<?php echo esc_attr( $number_night ); ?>" data-person="<?php echo esc_attr($person); ?>">
+        <div class="more-extra" data-diff="<?php echo esc_attr( $number_night ); ?>"
+             data-person="<?php echo esc_attr( $person ); ?>">
             <?php if ( !empty( $list_extra ) ) {
                 ?>
                 <table>
@@ -191,7 +193,7 @@
                                 <select class="form-control option_extra_quantity"
                                         name="wpbooking_room[<?php the_ID() ?>][extra_service][<?php echo esc_attr( $k ) ?>][quantity]"
                                         data-price-extra="<?php echo esc_attr( $v[ 'money' ] ) ?>"
-                                        data-type-extra="<?php echo (isset($v['type']))? esc_attr($v['type']): ''; ?>">
+                                        data-type-extra="<?php echo ( isset( $v[ 'type' ] ) ) ? esc_attr( $v[ 'type' ] ) : ''; ?>">
                                     <?php
                                         $start = 0;
                                         if ( $v[ 'require' ] == 'yes' ) $start = 1;
@@ -200,7 +202,9 @@
                                         }
                                     ?>
                                 </select>
-                                <input type="hidden" name="wpbooking_room[<?php the_ID() ?>][extra_service][<?php echo esc_attr( $k ) ?>][type]" value="<?php echo (isset($v['type']))? esc_attr($v['type']): ''; ?>">
+                                <input type="hidden"
+                                       name="wpbooking_room[<?php the_ID() ?>][extra_service][<?php echo esc_attr( $k ) ?>][type]"
+                                       value="<?php echo ( isset( $v[ 'type' ] ) ) ? esc_attr( $v[ 'type' ] ) : ''; ?>">
                             </td>
                             <td class="text-center text-color">
                                 <?php echo WPBooking_Currency::format_money( $v[ 'money' ] ); ?>

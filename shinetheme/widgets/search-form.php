@@ -110,7 +110,7 @@
                     case "location_id":
                     case "location_suggestion":
                         ?>
-                        <div class="item-search">
+                        <div class="item-search item-search-location">
                             <label
                                     for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
 
@@ -122,7 +122,7 @@
                                     }
                                     if ( $v[ 'required' ] == 'yes' ) $class .= ' wb-required';
                                     $args        = [
-                                        'show_option_none'  => esc_html__( '-- Select --', "wp-booking-management-system" ),
+                                        'show_option_none'  => (!empty($v['placeholder']))? esc_html($v['placeholder']) :esc_html__( '-- Select --', "wp-booking-management-system" ),
                                         'option_none_value' => "",
                                         'hierarchical'      => 1,
                                         'name'              => 'location_id',
@@ -146,7 +146,7 @@
                         break;
                     case "pickup":
                         ?>
-                        <div class="item-search">
+                        <div class="item-search item-search-pickup">
                             <label
                                     for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
 
@@ -155,7 +155,7 @@
                                     $class = false;
                                     if ( $v[ 'required' ] == 'yes' ) $class .= ' wb-required';
                                     $args        = [
-                                        'show_option_none'  => esc_html__( '-- Select --', "wp-booking-management-system" ),
+                                        'show_option_none'  => (!empty($v['placeholder']))? esc_html($v['placeholder']) :esc_html__( '-- Select --', "wp-booking-management-system" ),
                                         'option_none_value' => "",
                                         'hierarchical'      => 1,
                                         'name'              => 'pickup',
@@ -179,7 +179,7 @@
                         break;
                     case "dropoff":
                         ?>
-                        <div class="item-search">
+                        <div class="item-search item-search-dropoff">
                             <label
                                     for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
 
@@ -188,7 +188,7 @@
                                     $class = false;
                                     if ( $v[ 'required' ] == 'yes' ) $class .= ' wb-required';
                                     $args        = [
-                                        'show_option_none'  => esc_html__( '-- Select --', "wp-booking-management-system" ),
+                                        'show_option_none'  => (!empty($v['placeholder']))? esc_html($v['placeholder']) :esc_html__( '-- Select --', "wp-booking-management-system" ),
                                         'option_none_value' => "",
                                         'hierarchical'      => 1,
                                         'name'              => 'dropoff',
@@ -218,7 +218,7 @@
                         if ( empty( $terms ) )
                             continue;
                         ?>
-                        <div class="item-search">
+                        <div class="item-search item-search-taxonomy">
                             <label
                                     for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
 
@@ -228,7 +228,7 @@
                                     if ( $v[ 'required' ] == 'yes' ) $class = ' wb-required';
                                     if ( $v[ 'taxonomy_show' ] == 'dropdown' ) {
                                         $args        = [
-                                            'show_option_none'  => esc_html__( '-- Select --', "wp-booking-management-system" ),
+                                            'show_option_none'  => (!empty($v['placeholder']))? esc_html($v['placeholder']) : esc_html__( '-- Select --', "wp-booking-management-system" ),
                                             'option_none_value' => "",
                                             'hierarchical'      => 1,
                                             'name'              => $v[ 'field_type' ] . '[' . $v[ 'taxonomy' ] . ']',
@@ -318,7 +318,7 @@
                     //Hotel star
                     case 'star_rating':
                         ?>
-                        <div class="item-search">
+                        <div class="item-search item-search-star">
                             <label
                                     for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label>
 
@@ -345,12 +345,12 @@
                                                             id="<?php echo "item_" . $key2 ?>"
                                                             value="<?php echo esc_html( $key2 ) ?>">
                                                     <span class="label_star"> <?php echo( $value2 ) ?></span>
-                                                <?php
-                                                /* #### */
-                                                    for($i=0;$i<$key2;$i++){
-                                                        echo '<span class="icon_star"><i class="fa fa-star"></i></span>';
-                                                    }
-                                                ?>
+                                                    <?php
+                                                        /* #### */
+                                                        for($i=0;$i<$key2;$i++){
+                                                            echo '<span class="icon_star"><i class="fa fa-star"></i></span>';
+                                                        }
+                                                    ?>
                                                 </label>
                                                 <?php
                                             }
@@ -379,6 +379,9 @@
                         }
                         $check_in_out = current_time( wpbooking_date_format() ) . '-' . date( wpbooking_date_format(), strtotime( '+1 day', current_time( 'timestamp' ) ) );
 
+                        $currentdate = current_time( 'timestamp' );
+                        $nextdate    = strtotime( '+1 day', $currentdate );
+
                         $id = $v[ 'field_type' ] . '_' . rand( 0, time() );
 
                         $title = $v[ 'title' ];
@@ -386,18 +389,21 @@
                         wp_enqueue_script( 'wpbooking-daterangepicker-js' );
                         wp_enqueue_style( 'wpbooking-daterangepicker' );
                         ?>
-                        <div class="date-group clearfix">
+                        <div class="item-search-checkin date-group clearfix">
                             <label class="title"
                                    for="<?php echo esc_attr( $id ) ?>"><?php echo esc_html( $title ); ?></label>
                             <div class="item-search datepicker-field">
                                 <div class="item-search-content">
                                     <label>
-                                        <input type="hidden" class="checkin_d" name="checkin_d"
-                                               value="<?php echo esc_attr( WPBooking_Input::get( 'checkin_d' ) ); ?>"/>
-                                        <input type="hidden" class="checkin_m" name="checkin_m"
-                                               value="<?php echo esc_attr( WPBooking_Input::get( 'checkin_m' ) ); ?>"/>
-                                        <input type="hidden" class="checkin_y" name="checkin_y"
-                                               value="<?php echo esc_attr( WPBooking_Input::get( 'checkin_y' ) ) ?>"/>
+                                        <input class="checkin_d" name="checkin_d"
+                                               value="<?php echo esc_html( WPBooking_Input::request( 'checkin_d', date( 'd', $currentdate ) ) ) ?>"
+                                               type="hidden">
+                                        <input class="checkin_m" name="checkin_m"
+                                               value="<?php echo esc_html( WPBooking_Input::request( 'checkin_m', date( 'm', $currentdate ) ) ) ?>"
+                                               type="hidden">
+                                        <input class="checkin_y" name="checkin_y"
+                                               value="<?php echo esc_html( WPBooking_Input::request( 'checkin_y', date( 'Y', $currentdate ) ) ) ?>"
+                                               type="hidden">
                                         <input
                                                 class="wpbooking-date-start <?php if ( $v[ 'required' ] == 'yes' ) echo 'wb-required' ?>"
                                                 readonly type="text" <?php echo esc_html( $required ) ?>
@@ -415,12 +421,15 @@
                             <div class="item-search datepicker-field">
                                 <div class="item-search-content">
                                     <label>
-                                        <input type="hidden" class="checkout_d" name="checkout_d"
-                                               value="<?php echo esc_attr( WPBooking_Input::get( 'checkout_d' ) ) ?>"/>
-                                        <input type="hidden" class="checkout_m" name="checkout_m"
-                                               value="<?php echo esc_attr( WPBooking_Input::get( 'checkout_m' ) ) ?>"/>
-                                        <input type="hidden" class="checkout_y" name="checkout_y"
-                                               value="<?php echo esc_attr( WPBooking_Input::get( 'checkout_y' ) ) ?>"/>
+                                        <input class="checkout_d" name="checkout_d"
+                                               value="<?php echo esc_html( WPBooking_Input::request( 'checkout_d', date('d', $nextdate) ) ) ?>"
+                                               type="hidden">
+                                        <input class="checkout_m" name="checkout_m"
+                                               value="<?php echo esc_html( WPBooking_Input::request( 'checkout_m', date('m', $nextdate) ) ) ?>"
+                                               type="hidden">
+                                        <input class="checkout_y" name="checkout_y"
+                                               value="<?php echo esc_html( WPBooking_Input::request( 'checkout_y', date('Y', $nextdate) ) ) ?>"
+                                               type="hidden">
                                         <input
                                                 class="wpbooking-date-end <?php if ( $v[ 'required' ] == 'yes' ) echo 'wb-required' ?>"
                                                 readonly type="text" <?php echo esc_html( $required ) ?>
@@ -436,7 +445,7 @@
                         break;
                     case 'adult_child':
                         ?>
-                        <div class="item-search item-adult-search">
+                        <div class="item-search item-search-adult item-adult-search">
                             <label for="adult_s"><?php echo esc_html__( 'Adult', 'wp-booking-management-system' ); ?></label>
                             <div class="item-search-content">
                                 <select id="adult_s" name="adult_s"
@@ -449,7 +458,7 @@
                             </div>
                             <div class="wb-collapse"></div>
                         </div>
-                        <div class="item-search item-child-search">
+                        <div class="item-search item-search-child item-child-search">
                             <label for="child_s"><?php echo esc_html__( 'Children', 'wp-booking-management-system' ); ?></label>
                             <div class="item-search-content">
                                 <select id="child_s" name="child_s"
@@ -475,7 +484,7 @@
                             'max' => false
                         ] );
                         ?>
-                        <div class="item-search search-price">
+                        <div class="item-search item-search-price search-price">
                             <?php if ( $v[ 'title' ] ) { ?><label
                                 for="<?php echo esc_html( $v[ 'field_type' ] ) ?>"><?php echo esc_html( $v[ 'title' ] ) ?></label> <?php } ?>
 
@@ -544,7 +553,7 @@
                     'field_search' => ""
                 ] );
                 extract( $instance );
-				 /* #### */
+                /* #### */
                 $wpbooking_shortcode = '[wpbooking_search_form id="'.$this->number.'"]';
                 ?>
                 <p><label
@@ -552,11 +561,11 @@
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
                                name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text"
                                value="<?php echo esc_attr( $title ); ?>"/></label></p>
-				   <p><label
-			for="<?php echo esc_attr( $this->get_field_id( 'wpbooking_search_form' ) ); ?>"><strong><?php echo esc_html__( 'WPBooking Search Form Shortcode:', "wp-booking-management-system" ); ?></strong>
-			<input readonly="readonly" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'wpbooking_search_form' ) ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'wpbooking_search_form' ) ); ?>" type="text"
-				   value="<?php echo esc_attr( $wpbooking_shortcode ); ?>"/></label></p>
+                <p><label
+                            for="<?php echo esc_attr( $this->get_field_id( 'wpbooking_search_form' ) ); ?>"><strong><?php echo esc_html__( 'WPBooking Search Form Shortcode:', "wp-booking-management-system" ); ?></strong>
+                        <input readonly="readonly" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'wpbooking_search_form' ) ); ?>"
+                               name="<?php echo esc_attr( $this->get_field_name( 'wpbooking_search_form' ) ); ?>" type="text"
+                               value="<?php echo esc_attr( $wpbooking_shortcode ); ?>"/></label></p>
                 <p>
                     <label
                             for="<?php echo esc_attr( $this->get_field_id( 'service_type' ) ); ?>"><strong><?php echo esc_html__( 'Types of service:', 'wp-booking-management-system' ); ?></strong>
@@ -775,12 +784,12 @@
                 ?>
                 <?php
             }
-		 static function inst(){
-			if(!self::$_inst){
-				self::$_inst = new self();
-			}
-			return self::$_inst;
-		}
+            static function inst(){
+                if(!self::$_inst){
+                    self::$_inst = new self();
+                }
+                return self::$_inst;
+            }
         }
 
         function wpbooking_widget_form_search()
@@ -789,5 +798,5 @@
         }
 
         add_action( 'widgets_init', 'wpbooking_widget_form_search' );
-		 WPBooking_Widget_Form_Search::inst();
+        WPBooking_Widget_Form_Search::inst();
     }

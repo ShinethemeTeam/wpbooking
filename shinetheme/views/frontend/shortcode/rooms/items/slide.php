@@ -68,7 +68,7 @@ wp_enqueue_script('wpbooking-bootstrap');
             <div class="facilities">
                 <?php $facilities = get_post_meta(get_the_ID(),'taxonomy_room',true); ?>
                 <?php  if(!empty($facilities)){ ?>
-                    <span class="title"><?php echo esc_html__('Room Facilities','wpbooking'); ?></span>
+                    <span class="title"><?php echo esc_html__('Room Facilities','wp-booking-management-system'); ?></span>
                     <?php
                     foreach($facilities as $taxonomy=>$term_ids){
                         $rental_features = get_taxonomy( $taxonomy );

@@ -46,7 +46,7 @@
                                        value="<?php echo esc_html( WPBooking_Input::request( 'checkin_m', date('m', $currentdate) ) ) ?>"
                                        type="hidden">
                                 <input class="checkin_y" name="checkin_y"
-                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkin_y', date('y', $currentdate) ) ) ?>"
+                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkin_y', date('Y', $currentdate) ) ) ?>"
                                        type="hidden">
                                 <input type="text" readonly class="form-control wpbooking-search-start"
                                        value="<?php echo esc_attr( $check_in ) ?>" name="check_in"
@@ -64,7 +64,7 @@
                                        value="<?php echo esc_html( WPBooking_Input::request( 'checkout_m', date('m', $nextdate) ) ) ?>"
                                        type="hidden">
                                 <input class="checkout_y" name="checkout_y"
-                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkout_y', date('y', $nextdate) ) ) ?>"
+                                       value="<?php echo esc_html( WPBooking_Input::request( 'checkout_y', date('Y', $nextdate) ) ) ?>"
                                        type="hidden">
                                 <input type="text" readonly class="form-control wpbooking-search-end"
                                        value="<?php echo do_shortcode( $check_out ) ?>" name="check_out"

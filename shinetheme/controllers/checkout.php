@@ -779,14 +779,14 @@
                                                     </label>
                                                     <div class="row">
                                                         <div class="col-xs-12 col-sm-9">
-                                                            <span><?php echo esc_html__( 'Name', 'wpbooking' ); ?><input
+                                                            <span><?php echo esc_html__( 'Name', 'wp-booking-management-system' ); ?><input
                                                                         type="text"
                                                                         class="form-control <?php if ( $data[ 'required' ] ) echo 'required'; ?>"
                                                                         name="passengers[name][]"
                                                                         value="" <?php if ( $data[ 'required' ] ) echo 'required'; ?>></span>
                                                         </div>
                                                         <div class="col-xs-12 col-sm-3">
-                                                            <span><?php echo esc_html__( 'Ages', 'wpbooking' ); ?><input
+                                                            <span><?php echo esc_html__( 'Ages', 'wp-booking-management-system' ); ?><input
                                                                         type="number" min="0"
                                                                         class="form-control <?php if ( $data[ 'required' ] ) echo 'required'; ?>"
                                                                         name="passengers[age][]"
