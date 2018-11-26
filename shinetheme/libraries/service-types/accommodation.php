@@ -280,6 +280,48 @@
                 add_action( 'wpbooking_review_before_address', [ $this, 'before_address_checkout' ] );
 
                 add_filter( 'wpbooking_table_availability', [ $this, '__set_availability_table' ] );
+                add_action( 'icl_make_duplicate', [ $this, 'duplicate_hotel_room' ], 10, 4 );
+            }
+
+            public function duplicate_hotel_room( $master_post_id, $lang, $post_array, $id )
+            {
+                $service_type = get_post_meta( $master_post_id, 'service_type', true );
+                if ( $service_type == 'accommodation' ) {
+                    global $sitepress;
+                    global $post;
+                    $old_post     = $post;
+                    $current_lang = wpbooking_current_lang();
+                    $sitepress->switch_lang( wpbooking_default_lang(), true );
+                    $query = new WP_Query( [
+                        'post_parent'    => $master_post_id,
+                        'posts_per_page' => 200,
+                        'post_type'      => 'wpbooking_hotel_room'
+                    ] );
+                    if ( $query->have_posts() ) {
+                        while ( $query->have_posts() ) {
+                            $query->the_post();
+                            $this->duplicate_room( get_the_ID(), $lang );
+                        }
+                    }
+                    wp_reset_postdata();
+                    $post = $old_post;
+
+                    $gallery = get_post_meta( $master_post_id, 'gallery', true );
+                    if ( $gallery ) {
+                        $room_data                = str_replace( '\"', '"', $gallery[ 'room_data' ] );
+                        $room_data                = json_decode( $room_data, true);
+                        $new_room_data            = [];
+                        $new_gallery[ 'gallery' ] = $gallery[ 'gallery' ];
+                        foreach ( $room_data as $k => $v ) {
+                            $room_id                   = wpbooking_post_translated( $k, 'wpbooking_hotel_room', $lang );
+                            $new_room_data[ $room_id ] = $v;
+                        }
+                        $new_gallery[ 'room_data' ] = json_encode( $new_room_data );
+                        update_post_meta( $id, 'gallery', $new_gallery );
+                    }
+                    $sitepress->switch_lang( $current_lang, true );
+                    update_post_meta( $id, 'wpbooking_duplicated', 'duplicated' );
+                }
             }
 
             public function get_price_type( $room_id )
@@ -1624,6 +1666,83 @@
                 die;
             }
 
+            private function duplicate_room( $post_id, $lang )
+            {
+                global $sitepress;
+                $translation_management = new TranslationManagement();
+                $sitepress->switch_lang( wpbooking_default_lang(), true );
+
+                $master_post    = get_post( $post_id );
+                $title          = $master_post->post_title;
+                $content        = $master_post->post_content;
+                $excerpt        = $master_post->post_excerpt;
+                $post_type      = $master_post->post_type;
+                $author         = get_current_user_id();
+                $status         = 'publish';
+                $featured_image = get_post_thumbnail_id( $post_id );
+                $args           = [
+                    'post_type'    => $post_type,
+                    'post_author'  => $author,
+                    'post_status'  => $status,
+                    'post_title'   => $title,
+                    'post_name'    => sanitize_title( $title ),
+                    'post_content' => $content,
+                    'post_excerpt' => $excerpt
+                ];
+                if ( $master_post->post_parent ) {
+                    $parent                = $sitepress->get_object_id( $master_post->post_parent, $master_post->post_type, false, trim( $lang ) );
+                    $args[ 'post_parent' ] = $parent;
+                }
+
+                $post_translated = wpbooking_post_translated( $post_id, $post_type, trim( $lang ) );
+                if ( $post_translated == $post_id ) {
+                    $create_post_helper = wpml_get_create_post_helper();
+
+                    $post_translated = $create_post_helper->insert_post( $args, $lang, true );
+
+                    $trid = $sitepress->get_element_trid( $post_id, 'post_' . $post_type );
+                    $sitepress->set_element_language_details( $post_translated, 'post_' . $post_type, $trid, trim( $lang ) );
+
+                    require_once WPML_PLUGIN_PATH . '/inc/cache.php';
+
+                    icl_cache_clear();
+
+                    if ( $sitepress->get_option( 'sync_post_taxonomies' ) ) {
+                        $this->duplicate_taxonomies( $post_id, trim( $lang ) );
+                    }
+                    update_post_meta( $post_translated, '_icl_lang_duplicate_of', $post_id );
+
+                    $status_helper = wpml_get_post_status_helper();
+                    $status_helper->set_status( $post_translated, ICL_TM_DUPLICATE );
+                    $status_helper->set_update_status( $post_translated, false );
+
+                    global $wpdb;
+                    $sql = "INSERT INTO {$wpdb->prefix}postmeta (
+                            post_id,
+                            meta_key,
+                            meta_value
+                        ) SELECT
+                            {$post_translated},
+                            meta_key,
+                            meta_value
+                        FROM
+                            {$wpdb->prefix}postmeta
+                        WHERE
+                            post_id = {$post_id}";
+                    $wpdb->query( $sql );
+                    $translation_management->reset_duplicate_flag( $post_translated );
+                    do_action( 'icl_make_duplicate', $post_id, trim( $lang ), $args, $post_translated );
+
+                    if ( $featured_image ) {
+                        update_post_meta( $post_translated, '_thumbnail_id', $featured_image );
+                    }
+
+                    $gallery = get_post_meta( $post_id, 'gallery_room', true );
+                    update_post_meta( $post_translated, 'gallery_room', $gallery );
+                }
+                wp_reset_query();
+            }
+
             private function duplicate_service( $post_id )
             {
                 global $sitepress;
@@ -1697,7 +1816,8 @@
                             update_post_meta( $post_translated, '_thumbnail_id', $featured_image );
                         }
 
-
+                        $gallery = get_post_meta( $post_id, 'gallery_room', true );
+                        update_post_meta( $post_translated, 'gallery_room', $gallery );
                     }
 
                 }
@@ -1891,15 +2011,7 @@
              */
             function ajax_search_room()
             {
-                if ( $this->post( 'room_search' ) ) {
-                    if ( !wp_verify_nonce( $this->post( 'room_search' ), 'room_search' ) ) {
-                        $result = [
-                            'status' => 0,
-                            'data'   => "",
-                        ];
-                        echo json_encode( $result );
-                        die;
-                    }
+                if ($this->post('room_search')) {
                     $result = [
                         'status' => 1,
                         'data'   => "",
@@ -2248,9 +2360,9 @@
                     $inject->where_not_in( 'ID', $ids_not_in );
                 }
 
-                $post_per_page = $this->request( 'wpbooking_post_per_page', 10 );
-                $page          = $this->request( 'wpbooking_paged' );
-                $arg           = [
+                $post_per_page         = $this->request( 'wpbooking_post_per_page', 10 );
+                $page                  = $this->request( 'wpbooking_paged' );
+                $arg                   = [
                     'post_type'      => 'wpbooking_hotel_room',
                     'posts_per_page' => $post_per_page,
                     'post_status'    => 'publish',
@@ -2311,7 +2423,6 @@
                     WHERE
                         1 = 1
                     AND {$wpdb->posts}.post_type = 'wpbooking_hotel_room'
-                    AND {$wpdb->posts}.post_parent = {$hotel_id}
                      AND {$wpdb->posts}.ID IN (
                         SELECT
                             post_id
@@ -2324,9 +2435,24 @@
                                 WHERE
                                     1 = 1
                                 AND (
-                                    `start` >= {$check_in}
-                                    AND
-                                    `end` <= {$check_out}
+                                     (
+                                        (
+                                            `start` <= {$check_in}
+                                            AND `end` >= {$check_in}
+                                        )
+                                        OR (
+                                            `start` <= {$check_out}
+                                            AND `end` >= {$check_out}
+                                        )
+                                        OR (
+                                            `start`<= {$check_in}
+                                            AND `end` >= {$check_out}
+                                        )
+                                        OR (
+                                            `start` >= {$check_in}
+                                            AND `end` <= {$check_out}
+                                        )
+                                    )
                                     AND `status` = 'not_available'
                                 )
                                 GROUP BY
@@ -2350,7 +2476,8 @@
                 $res = $wpdb->get_results( $sql, ARRAY_A );
                 if ( !is_wp_error( $res ) ) {
                     foreach ( $res as $key => $value ) {
-                        $r[] = $value[ 'ID' ];
+                        $room_id = wpbooking_post_translated( $value[ 'ID' ], 'wpbooking_hotel_room' );
+                        $r[] = $room_id;
                     }
                 }
                 if ( $guest ) {
@@ -2372,15 +2499,23 @@
                             FROM
                                 {$wpdb->prefix}wpbooking_service AS sv
                             LEFT JOIN {$wpdb->prefix}wpbooking_order_hotel_room AS _od ON (
-                                sv.post_id = _od.room_id_origin
+                                sv.post_id = _od.room_id
                                 AND (
                                     (
                                         _od.check_in_timestamp <= {$check_in}
                                         AND _od.check_out_timestamp >= {$check_in}
                                     )
                                     OR (
+                                        _od.check_in_timestamp <= {$check_out}
+                                        AND _od.check_out_timestamp >= {$check_out}
+                                    )
+                                    OR (
+                                        _od.check_in_timestamp <= {$check_in}
+                                        AND _od.check_out_timestamp >= {$check_out}
+                                    )
+                                    OR (
                                         _od.check_in_timestamp >= {$check_in}
-                                        AND _od.check_in_timestamp <= {$check_out}
+                                        AND _od.check_out_timestamp <= {$check_out}
                                     )
                                 )
                             )
@@ -2397,20 +2532,30 @@
                         $_r         = [];
                         $total_free = 0;
                         foreach ( $results as $key => $value ) {
-                            $total_free += (int)$value[ 'free_people' ];
-                            $_r[]       = $value[ 'room_id' ];
+                            $room_id = wpbooking_post_translated( $value[ 'room_id' ], 'wpbooking_hotel_room' );
+
+                            $_r[$room_id][] =  (int)$value[ 'free_people' ];
                         }
-                        if ( $total_free < $guest ) {
-                            $r = array_merge( $r, $_r );
-                            $r = array_unique( $r );
+                        if($_r){
+                            foreach($_r as $key => $value){
+                                $total_free = 0;
+                                if(!empty($value) && is_array($value)){
+                                    foreach($value as $_value){
+                                        $total_free += (int) $_value;
+                                    }
+                                }
+                                if($total_free < $guest){
+                                    array_push($r, $key);
+                                }
+                            }
                         }
+                        $r = array_unique( $r );
                     }
                     if ( $r ) {
-                        foreach ( $r as $key => $value ) {
-                            $r[ $key ] = wpbooking_post_translated( $value, 'wpbooking_hotel_room' );
-                        }
+
                         return $r;
                     }
+
                     return [];
                 }
 
@@ -3368,23 +3513,32 @@
                 $total_price = 0;
                 if ( !empty( $cart[ 'rooms' ][ $room_id ] ) ) {
                     $data_room  = $cart[ 'rooms' ][ $room_id ];
+                    $guest = (int) $cart['adult_number'] + (int) $cart['children_number'];
                     $service    = new WB_Service( $data_room[ 'room_id' ] );
                     $price_base = $service->get_meta( 'base_price' );
                     $check_in   = $cart[ 'check_in_timestamp' ];
                     $check_out  = $cart[ 'check_out_timestamp' ];
+                    $type                = $this->get_price_type( $room_id );
 
                     if ( !empty( $cart[ 'rooms' ][ $room_id ][ 'calendar_prices' ] ) ) {
                         $custom_calendar = $cart[ 'rooms' ][ $room_id ][ 'calendar_prices' ];
                     }
                     $groupday = self::getGroupDay( $check_in, $check_out );
-                    if ( is_array( $groupday ) && count( $groupday ) ) {
+                    if ( is_array( $groupday ) && count( $groupday )) {
                         foreach ( $groupday as $date ) {
                             $price_tmp = $price_base;
                             if ( !empty( $custom_calendar ) ) {
                                 foreach ( $custom_calendar as $date_calendar ) {
                                     if ( $date[ 0 ] >= $date_calendar[ 'start' ] && $date[ 0 ] <= $date_calendar[ 'end' ] ) {
-                                        $price_tmp = (float)$date_calendar[ 'price' ];
+                                        $price_tmp = $date_calendar[ 'price' ];
+                                        if ( $type == 'per_people' && $guest ) {
+                                            $price_tmp *= $guest;
+                                        }
                                     }
+                                }
+                            }else{
+                                if ( $type == 'per_people' && $guest ) {
+                                    $price_tmp *= $guest;
                                 }
                             }
                             $total_price += $price_tmp;
@@ -3413,7 +3567,7 @@
                 $extra_price = 0;
                 $price_room  = 0;
                 $number_room = 0;
-                $guest       = $cart[ 'person' ];
+                $guest = (int) $cart['adult_number'] + (int) $cart['children_number'];
                 if ( !empty( $cart[ 'rooms' ][ $room_id ] ) ) {
                     $data_room   = $cart[ 'rooms' ][ $room_id ];
                     $service     = new WB_Service( $data_room[ 'room_id' ] );
@@ -3427,7 +3581,7 @@
                     }
                     $type     = $data_room[ 'type' ];
                     $groupday = self::getGroupDay( $check_in, $check_out );
-                    if ( is_array( $groupday ) && count( $groupday )  && !empty($custom_calendar)) {
+                    if ( is_array( $groupday ) && count( $groupday )) {
                         foreach ( $groupday as $date ) {
                             $price_tmp = $price_base;
                             if ( !empty( $custom_calendar ) ) {
@@ -3439,13 +3593,12 @@
                                         }
                                     }
                                 }
+                            }else{
+                                if ( $type == 'per_people' && $guest ) {
+                                    $price_tmp *= $guest;
+                                }
                             }
                             $price_room += $price_tmp;
-                        }
-                    } else {
-                        $price_room = $price_base;
-                        if ( $type == 'per_people' ) {
-                            $price_room *= $guest;
                         }
                     }
                     $diff       = wpbooking_date_diff( $cart[ 'check_in_timestamp' ], $cart[ 'check_out_timestamp' ] );
@@ -3495,8 +3648,8 @@
                 $service         = new WB_Service( $room_id );
                 $price_base      = $service->get_meta( 'base_price' );
                 $custom_calendar = $calendar->get_prices( $room_id, $check_in_timestamp, $check_out_timestamp );
-                $groupday = self::getGroupDay( $check_in_timestamp, $check_out_timestamp );
-                if ( is_array( $groupday ) && count( $groupday ) && !empty($custom_calendar)) {
+                $groupday        = self::getGroupDay( $check_in_timestamp, $check_out_timestamp );
+                if ( is_array( $groupday ) && count( $groupday )) {
                     foreach ( $groupday as $date ) {
                         $price_tmp = $price_base;
                         if ( !empty( $custom_calendar ) ) {
@@ -3508,13 +3661,12 @@
                                     }
                                 }
                             }
-                            $price_room += $price_tmp;
+                        }else{
+                            if ( $type == 'per_people' && $guest ) {
+                                $price_tmp *= $guest;
+                            }
                         }
-                    }
-                } else {
-                    $price_room = $price_base;
-                    if ( $type == 'per_people' && $guest ) {
-                        $price_room *= $guest;
+                        $price_room += $price_tmp;
                     }
                 }
 
