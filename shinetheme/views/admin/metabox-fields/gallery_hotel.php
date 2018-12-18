@@ -38,7 +38,7 @@ $list_room = WPBooking_Accommodation_Service_Type::inst()->_get_room_by_hotel($p
 
 $list_room = json_encode($list_room);
 
-$tmp = '';
+$tmp = [];
 if(!empty($old_data['gallery'])) {
     $tmp = explode(',', $old_data['gallery']);
 }

@@ -2841,7 +2841,6 @@
                             $my_extra_services        = get_post_meta( $room_id, 'extra_services', true );
 
                             $number_night = wpbooking_date_diff( $cart_item[ 'check_in_timestamp' ], $cart_item[ 'check_out_timestamp' ] );
-
                             if ( !empty( $data_room[ 'extra_service' ] ) ) {
                                 $post_extras = $data_room[ 'extra_service' ];
                                 $person      = (int)$cart_item[ 'person' ];
@@ -2866,18 +2865,7 @@
                                     }
                                 }
                             }
-                            // Check require
-                            if ( !empty( $my_extra_services ) ) {
-                                foreach ( $my_extra_services as $key => $value ) {
-                                    if ( $value[ 'require' ] == 'yes' and empty( $extra_service[ $key ] ) ) {
-                                        $extra_service[ 'data' ][ $key ] = [
-                                            'title'    => $value[ 'is_selected' ],
-                                            'quantity' => 1,
-                                            'price'    => (float)$value[ 'money' ] * (int)$number_night,
-                                        ];
-                                    }
-                                }
-                            }
+
                             $cart_item[ 'rooms' ][ $room_id ] = [
                                 'room_id'    => $room_id,
                                 'number'     => $data_room[ 'number_room' ],

@@ -160,7 +160,7 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
                         <input type="hidden" class="save-image-id" name="featured_image_tour_type"
                                value="<?php echo esc_attr( $wpbooking_featured_image ); ?>">
                         <button type="button"
-                                class="upload-button <?php if ( empty( $thumbnail_url ) ) echo 'no_image'; ?>"
+                                class="upload-button <?php if ( empty( $thumbnail_url ) ) echo 'no_image'; ?> button"
                                 data-uploader_title="<?php esc_html_e( 'Select an image to upload', 'wp-booking-management-system' ); ?>"
                                 data-uploader_button_text="<?php esc_html_e( 'Use this image', 'wp-booking-management-system' ); ?>"><?php echo esc_html__( 'Upload', 'wp-booking-management-system' ); ?></button>
                         <button type="button"
@@ -199,11 +199,11 @@ if (!class_exists('WPBooking_Admin_Taxonomy_Controller')) {
                         <input type="hidden" class="save-image-id" name="featured_image_room_type"
                                value="<?php echo esc_attr( $wpbooking_featured_image ); ?>">
                         <button type="button"
-                                class="upload-button <?php if ( empty( $thumbnail_url ) ) echo 'no_image'; ?>"
+                                class="upload-button <?php if ( empty( $thumbnail_url ) ) echo 'no_image'; ?> button"
                                 data-uploader_title="<?php esc_html_e( 'Select an image to upload', 'wp-booking-management-system' ); ?>"
                                 data-uploader_button_text="<?php esc_html_e( 'Use this image', 'wp-booking-management-system' ); ?>"><?php echo esc_html__( 'Upload', 'wp-booking-management-system' ); ?></button>
                         <button type="button"
-                                class="delete-button <?php if ( empty( $thumbnail_url ) ) echo 'none'; ?>"
+                                class="delete-button <?php if ( empty( $thumbnail_url ) ) echo 'none'; ?> button"
                                 data-delete-title="<?php echo esc_html__( 'Do you want delete this image?', 'wp-booking-management-system' ) ?>"><?php echo esc_html__( 'Delete', 'wp-booking-management-system' ); ?></button>
                     </div>
                 </td>
