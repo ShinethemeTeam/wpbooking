@@ -6,6 +6,7 @@
      * Time: 04:40 CH
      */
     if ( isset( $atts ) ) {
+        $_atts = $atts;
         extract( $atts );
     }
     $services_in        = isset( $services_in ) ? $services_in : '';
@@ -76,7 +77,7 @@
                         </div>
                     </form>
 
-                    <?php do_action( 'wpbooking_after_shortcode_form_search', $form_fields, $service_type, $atts ) ?>
+                    <?php do_action( 'wpbooking_after_shortcode_form_search', $form_fields, $service_type, $_atts ) ?>
                 <?php }
             }
         }

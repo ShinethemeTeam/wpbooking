@@ -309,7 +309,7 @@
                     $gallery = get_post_meta( $master_post_id, 'gallery', true );
                     if ( $gallery ) {
                         $room_data                = str_replace( '\"', '"', $gallery[ 'room_data' ] );
-                        $room_data                = json_decode( $room_data, true);
+                        $room_data                = json_decode( $room_data, true );
                         $new_room_data            = [];
                         $new_gallery[ 'gallery' ] = $gallery[ 'gallery' ];
                         foreach ( $room_data as $k => $v ) {
@@ -1105,6 +1105,16 @@
                                 'label' => esc_html__( "Pre-payment and cancellation policies", 'wp-booking-management-system' ),
                                 'type'  => 'title',
                                 'desc'  => esc_html__( "Pre-payment and cancellation policies", "wp-booking-management-system" )
+                            ],
+                            [
+                                'label' => esc_html__( 'Allow Cancellation', 'wp-booking-management-system' ),
+                                'type'  => 'dropdown',
+                                'id' => 'allow_cancel',
+                                'value' => [
+                                    'off'        => esc_html__( 'Disable', 'wp-booking-management-system' ),
+                                    'on' => esc_html__( 'Enable', 'wp-booking-management-system' ),
+                                ],
+                                'class' => 'small'
                             ],
                             [
                                 'label' => esc_html__( 'Select optional deposit ', 'wp-booking-management-system' ),
@@ -2011,7 +2021,7 @@
              */
             function ajax_search_room()
             {
-                if ($this->post('room_search')) {
+                if ( $this->post( 'room_search' ) ) {
                     $result = [
                         'status' => 1,
                         'data'   => "",
@@ -2477,56 +2487,41 @@
                 if ( !is_wp_error( $res ) ) {
                     foreach ( $res as $key => $value ) {
                         $room_id = wpbooking_post_translated( $value[ 'ID' ], 'wpbooking_hotel_room' );
-                        $r[] = $room_id;
+                        $r[]     = $room_id;
                     }
                 }
                 if ( $guest ) {
-                    $sql     = "
-                    SELECT
-                        room_id,
-                        (number_room - room_booked) * max_guests AS free_people
-                    FROM
-                        (
-                            SELECT
-                                sv.post_id AS room_id,
-                                sv.max_guests AS max_guests,
-                                sv.number AS number_room,
-                            IF (
-                                sum(_od.total_room) > 0,
-                                sum(_od.total_room),
-                                0
-                            ) AS room_booked
-                            FROM
-                                {$wpdb->prefix}wpbooking_service AS sv
-                            LEFT JOIN {$wpdb->prefix}wpbooking_order_hotel_room AS _od ON (
-                                sv.post_id = _od.room_id
-                                AND (
-                                    (
-                                        _od.check_in_timestamp <= {$check_in}
-                                        AND _od.check_out_timestamp >= {$check_in}
-                                    )
-                                    OR (
-                                        _od.check_in_timestamp <= {$check_out}
-                                        AND _od.check_out_timestamp >= {$check_out}
-                                    )
-                                    OR (
-                                        _od.check_in_timestamp <= {$check_in}
-                                        AND _od.check_out_timestamp >= {$check_out}
-                                    )
-                                    OR (
-                                        _od.check_in_timestamp >= {$check_in}
-                                        AND _od.check_out_timestamp <= {$check_out}
-                                    )
+                    $sql     = "SELECT
+                            _od.room_id,
+                            SUM(_od.number) as total_number,
+                            _od.num_room AS room_number
+                        FROM
+                            {$wpdb->prefix}wpbooking_order_hotel_room as _od
+                        WHERE
+                            1 = 1
+                        AND (
+                                (
+                                    _od.check_in_timestamp <= {$check_in}
+                                    AND _od.check_out_timestamp >= {$check_in}
+                                )
+                                OR (
+                                    _od.check_in_timestamp <= {$check_out}
+                                    AND _od.check_out_timestamp >= {$check_out}
+                                )
+                                OR (
+                                    _od.check_in_timestamp <= {$check_in}
+                                    AND _od.check_out_timestamp >= {$check_out}
+                                )
+                                OR (
+                                    _od.check_in_timestamp >= {$check_in}
+                                    AND _od.check_out_timestamp <= {$check_out}
                                 )
                             )
-                            WHERE
-                                1 = 1
-                            AND sv.service_type = 'accommodation_room'
-                            GROUP BY
-                                sv.post_id
-                        ) AS room
-                    GROUP BY
-                        room_id";
+                            AND _od.`status` not in ('cancel','cancelled', 'payment_failed', 'refunded')
+                        GROUP BY
+                            _od.room_id_origin
+                        HAVING
+                            room_number - total_number < {$number_room}";
                     $results = $wpdb->get_results( $sql, ARRAY_A );
                     if ( $results ) {
                         $_r         = [];
@@ -2534,18 +2529,18 @@
                         foreach ( $results as $key => $value ) {
                             $room_id = wpbooking_post_translated( $value[ 'room_id' ], 'wpbooking_hotel_room' );
 
-                            $_r[$room_id][] =  (int)$value[ 'free_people' ];
+                            $_r[ $room_id ][] = (int)$value[ 'free_people' ];
                         }
-                        if($_r){
-                            foreach($_r as $key => $value){
+                        if ( $_r ) {
+                            foreach ( $_r as $key => $value ) {
                                 $total_free = 0;
-                                if(!empty($value) && is_array($value)){
-                                    foreach($value as $_value){
-                                        $total_free += (int) $_value;
+                                if ( !empty( $value ) && is_array( $value ) ) {
+                                    foreach ( $value as $_value ) {
+                                        $total_free += (int)$_value;
                                     }
                                 }
-                                if($total_free < $guest){
-                                    array_push($r, $key);
+                                if ( $total_free < $guest ) {
+                                    array_push( $r, $key );
                                 }
                             }
                         }
@@ -3501,18 +3496,18 @@
                 $total_price = 0;
                 if ( !empty( $cart[ 'rooms' ][ $room_id ] ) ) {
                     $data_room  = $cart[ 'rooms' ][ $room_id ];
-                    $guest = (int) $cart['adult_number'] + (int) $cart['children_number'];
+                    $guest      = (int)$cart[ 'adult_number' ] + (int)$cart[ 'children_number' ];
                     $service    = new WB_Service( $data_room[ 'room_id' ] );
                     $price_base = $service->get_meta( 'base_price' );
                     $check_in   = $cart[ 'check_in_timestamp' ];
                     $check_out  = $cart[ 'check_out_timestamp' ];
-                    $type                = $this->get_price_type( $room_id );
+                    $type       = $this->get_price_type( $room_id );
 
                     if ( !empty( $cart[ 'rooms' ][ $room_id ][ 'calendar_prices' ] ) ) {
                         $custom_calendar = $cart[ 'rooms' ][ $room_id ][ 'calendar_prices' ];
                     }
                     $groupday = self::getGroupDay( $check_in, $check_out );
-                    if ( is_array( $groupday ) && count( $groupday )) {
+                    if ( is_array( $groupday ) && count( $groupday ) ) {
                         foreach ( $groupday as $date ) {
                             $price_tmp = $price_base;
                             if ( !empty( $custom_calendar ) ) {
@@ -3524,7 +3519,7 @@
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if ( $type == 'per_people' && $guest ) {
                                     $price_tmp *= $guest;
                                 }
@@ -3555,7 +3550,7 @@
                 $extra_price = 0;
                 $price_room  = 0;
                 $number_room = 0;
-                $guest = (int) $cart['adult_number'] + (int) $cart['children_number'];
+                $guest       = (int)$cart[ 'adult_number' ] + (int)$cart[ 'children_number' ];
                 if ( !empty( $cart[ 'rooms' ][ $room_id ] ) ) {
                     $data_room   = $cart[ 'rooms' ][ $room_id ];
                     $service     = new WB_Service( $data_room[ 'room_id' ] );
@@ -3569,7 +3564,7 @@
                     }
                     $type     = $data_room[ 'type' ];
                     $groupday = self::getGroupDay( $check_in, $check_out );
-                    if ( is_array( $groupday ) && count( $groupday )) {
+                    if ( is_array( $groupday ) && count( $groupday ) ) {
                         foreach ( $groupday as $date ) {
                             $price_tmp = $price_base;
                             if ( !empty( $custom_calendar ) ) {
@@ -3581,7 +3576,7 @@
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if ( $type == 'per_people' && $guest ) {
                                     $price_tmp *= $guest;
                                 }
@@ -3637,7 +3632,7 @@
                 $price_base      = $service->get_meta( 'base_price' );
                 $custom_calendar = $calendar->get_prices( $room_id, $check_in_timestamp, $check_out_timestamp );
                 $groupday        = self::getGroupDay( $check_in_timestamp, $check_out_timestamp );
-                if ( is_array( $groupday ) && count( $groupday )) {
+                if ( is_array( $groupday ) && count( $groupday ) ) {
                     foreach ( $groupday as $date ) {
                         $price_tmp = $price_base;
                         if ( !empty( $custom_calendar ) ) {
@@ -3649,7 +3644,7 @@
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if ( $type == 'per_people' && $guest ) {
                                 $price_tmp *= $guest;
                             }

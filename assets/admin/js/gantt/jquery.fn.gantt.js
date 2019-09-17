@@ -44,6 +44,7 @@
             dateStart       : '',//=== custom by shinetheme
             dateEnd         : '',//=== custom by shinetheme,
             loader          : true,
+            stConvertUTC      : false,
             onItemClick     : function (data) {
                 return;
             },
@@ -500,12 +501,27 @@
                             });
                             $('.wb-btn-add-price', '.panel-price-wrapper').click(function (e) {
                                 e.preventDefault();
+
+                                var stStartConvert = core.clickStart;
+                                var stEndConvert = core.clickEnd;
+
+                                if(settings.stConvertUTC){
+                                    var dateOffset = 24*60*60*1000; //5 days
+                                    var stConvertStartDate = new Date();
+                                    stConvertStartDate.setTime(core.clickStart - dateOffset);
+                                    stStartConvert = stConvertStartDate.getTime();
+
+                                    var stConvertEndDate = new Date();
+                                    stConvertEndDate.setTime(core.clickStart - dateOffset);
+                                    stEndConvert = stConvertEndDate.getTime();
+                                }
+
                                 var data = {
                                     'price'  : $('.input-price', '.panel-price-wrapper').val(),
                                     'post_id': post_id,
                                     'status' : $('.input-status', '.panel-price-wrapper').val(),
-                                    'start'  : core.clickStart,
-                                    'end'    : core.clickEnd,
+                                    'start'  : stStartConvert,
+                                    'end'    : stEndConvert,
                                     'action' : 'add_price_inventory'
                                 };
                                 var t    = $(this);
@@ -620,10 +636,10 @@
                             if (rfy !== year) {
                                 yearArr.push(
                                     ('<div class="row header year" style="width: ' +
-                                    tools.getCellSize() * daysInYear +
-                                    'px;"><div class="fn-label">' +
-                                    year +
-                                    '</div></div>'));
+                                        tools.getCellSize() * daysInYear +
+                                        'px;"><div class="fn-label">' +
+                                        year +
+                                        '</div></div>'));
 
                                 year       = rfy;
                                 daysInYear = 0;
@@ -636,9 +652,9 @@
                             if (rm !== month) {
                                 monthArr.push(
                                     ('<div class="row header month" style="width: ' +
-                                    tools.getCellSize() * daysInMonth + 'px"><div class="fn-label">' +
-                                    settings.months[month] +
-                                    '</div></div>'));
+                                        tools.getCellSize() * daysInMonth + 'px"><div class="fn-label">' +
+                                        settings.months[month] +
+                                        '</div></div>'));
 
                                 month       = rm;
                                 daysInMonth = 0;
@@ -734,10 +750,10 @@
                             if (rday.getFullYear() !== year) {
                                 yearArr.push(
                                     ('<div class="row header year" style="width: ' +
-                                    tools.getCellSize() * daysInYear +
-                                    'px;"><div class="fn-label">' +
-                                    year +
-                                    '</div></div>'));
+                                        tools.getCellSize() * daysInYear +
+                                        'px;"><div class="fn-label">' +
+                                        year +
+                                        '</div></div>'));
                                 year       = rday.getFullYear();
                                 daysInYear = 0;
                             }
@@ -747,10 +763,10 @@
                             if (rday.getMonth() !== month) {
                                 monthArr.push(
                                     ('<div class="row header month" style="width:' +
-                                    tools.getCellSize() * daysInMonth +
-                                    'px;"><div class="fn-label">' +
-                                    settings.months[month] +
-                                    '</div></div>'));
+                                        tools.getCellSize() * daysInMonth +
+                                        'px;"><div class="fn-label">' +
+                                        settings.months[month] +
+                                        '</div></div>'));
                                 month       = rday.getMonth();
                                 daysInMonth = 0;
                             }
@@ -798,10 +814,10 @@
                             if (rday.getFullYear() !== year) {
                                 yearArr.push(
                                     ('<div class="row header year" style="width: ' +
-                                    tools.getCellSize() * daysInYear +
-                                    'px;"><div class="fn-label">' +
-                                    year +
-                                    '</div></div>'));
+                                        tools.getCellSize() * daysInYear +
+                                        'px;"><div class="fn-label">' +
+                                        year +
+                                        '</div></div>'));
                                 year       = rday.getFullYear();
                                 daysInYear = 0;
                             }
@@ -850,10 +866,10 @@
                             if (rday.getFullYear() !== year) {
                                 yearArr.push(
                                     ('<div class="row header year" style="width:' +
-                                    102 * daysInYear +
-                                    'px;"><div class="fn-label">' +
-                                    year +
-                                    '</div></div>'));
+                                        102 * daysInYear +
+                                        'px;"><div class="fn-label">' +
+                                        year +
+                                        '</div></div>'));
                                 year       = rday.getFullYear();
                                 daysInYear = 0;
                             }
@@ -864,10 +880,10 @@
                             if (rday.getMonth() !== month) {
                                 monthArr.push(
                                     ('<div class="row header month" style="width:' +
-                                    102 * daysInMonth +
-                                    'px;"><div class="fn-label">' +
-                                    settings.months[month] +
-                                    '</div></div>'));
+                                        102 * daysInMonth +
+                                        'px;"><div class="fn-label">' +
+                                        settings.months[month] +
+                                        '</div></div>'));
                                 month       = rday.getMonth();
                                 daysInMonth = 0;
                             }
@@ -1202,6 +1218,7 @@
                 $.each(element.data, function (i, entry) {
                     if (i >= element.pageNum * settings.itemsPerPage && i < (element.pageNum * settings.itemsPerPage + settings.itemsPerPage)) {
 
+                        var cTemp = 0;
                         $.each(entry.values, function (j, day) {
                             var _bar = null;
                             switch (settings.scale) {
@@ -1335,11 +1352,25 @@
 
                                 // **Days**
                                 default:
-                                    var dFrom = tools.genId(tools.dateDeserialize(day.from).getTime());
-                                    var dTo   = tools.genId(tools.dateDeserialize(day.to).getTime());
+
+                                    var dFrom = tools.genId(tools.dateDeserialize(day.from, false));
+                                    var dTo   = tools.genId(tools.dateDeserialize(day.to, false));
 
                                     var from  = $(element).find("#dh-" + dFrom);
                                     var cFrom = from.attr("offset");
+
+                                    if(j === 0 && typeof cFrom === 'undefined'){
+                                        cTemp = 102;
+                                        cFrom = 0;
+
+                                        var checkConvertUTC = tools.setConvertUTC(day.from);
+                                        console.log(checkConvertUTC);
+                                        if(checkConvertUTC) {
+                                            settings.stConvertUTC = true;
+                                        }
+                                    }else{
+                                        cFrom = parseInt(cFrom) + parseInt(cTemp);
+                                    }
 
                                     var dl = Math.floor(((dTo / 1000) - (dFrom / 1000)) / 86400) + 1;
                                     _bar   = core.createProgressBar(
@@ -1830,12 +1861,33 @@
             },
 
             // Deserialize a date from a string or integer
-            dateDeserialize: function (date) {
+            dateDeserialize: function (date, convert = true) {
                 if (typeof date === "string") {
                     date = date.replace(/\/Date\((.*)\)\//, "$1");
                     date = $.isNumeric(date) ? parseInt(date, 10) : $.trim(date);
                 }
-                return new Date(date);
+                if(!convert) {
+                    return date;
+                }else{
+                    return new Date(date);
+                }
+            },
+
+            setConvertUTC: function (date) {
+                if (typeof date === "string") {
+                    date = date.replace(/\/Date\((.*)\)\//, "$1");
+                    date = $.isNumeric(date) ? parseInt(date, 10) : $.trim(date);
+                }
+
+                var currentDateUTC = new Date().getUTCDate();
+                var thisDateUTC = new Date(date).getUTCDate();
+                var thisDateNormal = new Date(date).getDate()
+
+                if(currentDateUTC === thisDateUTC){
+                    return false;
+                }else{
+                    return true;
+                }
             },
 
             // Generate an id for a date

@@ -169,6 +169,11 @@ if (!class_exists('WPBooking_User')) {
                 } else {
                     // Login Success
                     // Redirect if url is exists
+                    $secure_cookie = is_ssl();
+                    wp_set_current_user($user->ID);
+                    wp_set_auth_cookie($user->ID, true, $secure_cookie);
+                    do_action('wp_login', $user->user_login, $user);
+
                     if ($redirect = WPBooking_Input::request('redirect_to')) {
                         wp_redirect($redirect);
                         die;

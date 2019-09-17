@@ -89,6 +89,7 @@
                 $room_id_origin                = wpbooking_origin_id( $room_id, get_post_type( $room_id ) );
                 $data_room[ 'room_id_origin' ] = $room_id_origin;
                 $data_room[ 'status' ]      = get_post_field( 'post_status', $order_id );
+                $data_room['num_room'] = get_post_meta($room_id, 'room_number', true);
 
                 if ( !$check_exists = $this->find_by( [ 'room_id' => $room_id, 'order_id' => $order_id ], false ) ) {
                     $this->insert( $data_room );

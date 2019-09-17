@@ -1354,6 +1354,17 @@
                         'label'  => esc_html__( '3. Policies & Checkout', 'wp-booking-management-system' ),
                         'fields' => [
                             [ 'type' => 'open_section' ],
+
+                            [
+                                'label' => esc_html__( 'Allow Cancellation', 'wp-booking-management-system' ),
+                                'type'  => 'dropdown',
+                                'id' => 'allow_cancel',
+                                'value' => [
+                                    'off'        => esc_html__( 'Disable', 'wp-booking-management-system' ),
+                                    'on' => esc_html__( 'Enable', 'wp-booking-management-system' ),
+                                ],
+                                'class' => 'small'
+                            ],
                             [
                                 'label' => esc_html__( 'External Link', 'wp-booking-management-system' ),
                                 'id'    => 'external_link',

@@ -378,7 +378,11 @@
 
                     }
                     if ( $key == 'allow_cancel' ) {
-                        $deposit_html[] = $val;
+                        if($meta == 'on'){
+                            $deposit_html[] = $val;
+                        }else{
+                            $deposit_html[] = esc_html__('Allowed Cancellation: No', 'wp-booking-management-system');
+                        }
                         continue;
                     }
                 }
